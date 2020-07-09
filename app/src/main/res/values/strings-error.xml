@@ -1,0 +1,6 @@
+<resources>
+    <string name="error_msg_1">요청결과가 존재하지 않습니다.\n잠시 후 다시 시도해 주십시오.</string>
+    <string name="error_msg_2">네트워크 상태가 불안정합니다.\n잠시 후 다시 시도해 주십시오.</string>
+    <string name="error_msg_3">데이터 처리 중 에러가 발생했습니다.\n잠시 후 다시 시도해 주십시오.</string>
+    <string name="error_msg_4">데이터 처리 중 예기치 못한 에러가 발생했습니다.\n잠시 후 다시 시도해 주십시오.</string>
+</resources>
