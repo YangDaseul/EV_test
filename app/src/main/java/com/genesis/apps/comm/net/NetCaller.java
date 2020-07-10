@@ -4,9 +4,10 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.DaggerExcutorServiceComponent;
-import com.genesis.apps.comm.ExecutorService;
-import com.genesis.apps.comm.ExecutorServiceModule;
+import com.genesis.apps.comm.net.model.BeanReqParm;
+import com.genesis.apps.comm.util.excutor.DaggerExcutorServiceComponent;
+import com.genesis.apps.comm.util.excutor.ExecutorService;
+import com.genesis.apps.comm.util.excutor.ExecutorServiceModule;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.gson.Gson;
@@ -22,29 +23,25 @@ public class NetCaller {
     private static String TAG_LOG = NetCaller.class.getSimpleName();
     private static final int CONNECTION_TIME_OUT = 10 * 1000;
     private static final int READ_TIME_OUT = 10 * 1000;
-    private NetResultCallback callback;
 
     @Inject
     public ExecutorService es;
 
-    public NetCaller(NetResultCallback callback){
-        this.callback = callback;
+    private void sendData(BeanReqParm beanReqParm) {
         es = DaggerExcutorServiceComponent.builder().executorServiceModule((new ExecutorServiceModule(TAG_LOG))).build().maker();
-    }
 
-    public void sendData(String data, String url, String type) {
         Futures.addCallback(es.getListeningExecutorService().submit(() -> {
             JsonObject jsonObject = null;
             try {
-                switch (type) {
+                switch (beanReqParm.getType()) {
                     case HttpRequest.METHOD_GET:
-                        jsonObject = getData(url);
+                        jsonObject = getData(beanReqParm.getUrl());
                         break;
                     case HttpRequest.METHOD_PUT:
-                        jsonObject = sendPut(url, data);
+                        jsonObject = sendPut(beanReqParm.getUrl(), beanReqParm.getData());
                         break;
                     case HttpRequest.METHOD_POST:
-                        jsonObject = send(url, data);
+                        jsonObject = send(beanReqParm.getUrl(), beanReqParm.getData());
                         break;
                     default:
                         break;
@@ -68,7 +65,7 @@ public class NetCaller {
             public void onSuccess(@NullableDecl NetResult result) {
                 switch (result.getCode()) {
                     case SUCCESS:
-                        callback.onSuccess(((JsonObject) result.getData()).toString());
+                        beanReqParm.getCallback().onSuccess(((JsonObject) result.getData()).toString());
                         break;
                     case ERR_EXCEPTION_DKC:
                     case ERR_EXCEPTION_HTTP:
@@ -77,7 +74,7 @@ public class NetCaller {
                     case ERR_ISSUE_SOURCE:
                     case ERR_DATA_INCORRECT:
                     default:
-                        callback.onFail(result);
+                        beanReqParm.getCallback().onFail(result);
                         break;
                 }
                 es.shutDownExcutor();
@@ -85,7 +82,7 @@ public class NetCaller {
 
             @Override
             public void onFailure(Throwable t) {
-                callback.onError(new NetResult(NetStatusCode.ERR_ISSUE_SOURCE, R.string.error_msg_4, t));
+                beanReqParm.getCallback().onError(new NetResult(NetStatusCode.ERR_ISSUE_SOURCE, R.string.error_msg_4, t));
                 es.shutDownExcutor();
             }
         }, es.getUiThreadExecutor());
@@ -119,13 +116,13 @@ public class NetCaller {
     }
 
 
-    public JsonObject getData(String url) throws Exception, HttpRequest.HttpRequestException{
+    private JsonObject getData(String url) throws Exception, HttpRequest.HttpRequestException{
         Log.d(TAG_LOG, "getData:"+url);
         HttpRequest request = getRequest(url);
         return request!=null&&request.ok() ? toJsonObject(request.code(), request.body()) : null;
     }
 
-    public JsonObject sendPut(String url, String data) throws Exception, HttpRequest.HttpRequestException {
+    private JsonObject sendPut(String url, String data) throws Exception, HttpRequest.HttpRequestException {
         HttpRequest request = getPutRequest(url);
         Log.v(TAG_LOG, "send request : " + request.toString());
 //        if (params != null) {
@@ -149,7 +146,7 @@ public class NetCaller {
 
 
 
-    public JsonObject send(String url, String data) throws Exception, HttpRequest.HttpRequestException {
+    private JsonObject send(String url, String data) throws Exception, HttpRequest.HttpRequestException {
         HttpRequest request = getPostRequest(url);
 
         Log.v(TAG_LOG, "send request : " + request.toString());

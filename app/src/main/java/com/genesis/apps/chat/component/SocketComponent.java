@@ -7,5 +7,5 @@ import dagger.Component;
 
 @Component(modules = {SocketModule.class})
 public interface SocketComponent {
-    void inject(ChartActivity socketIOHelper);
+    void inject(ChartActivity chartActivity);
 }

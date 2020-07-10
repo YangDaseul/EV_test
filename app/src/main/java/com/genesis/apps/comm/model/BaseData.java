@@ -1,4 +1,4 @@
-package com.genesis.apps.comm.data;
+package com.genesis.apps.comm.model;
 
 import java.io.Serializable;
 

@@ -26,5 +26,8 @@ public class MainActivity extends BaseActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+
     }
+
+
 }

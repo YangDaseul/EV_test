@@ -1,29 +1,31 @@
-package com.genesis.apps.chat.data;
+package com.genesis.apps.chat.model;
 
-import com.genesis.apps.comm.data.BaseData;
+import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class DataChatInfo extends BaseData {
+import lombok.Data;
+
+public @Data class BeanChatInfo extends BaseData {
     @Expose
     @SerializedName("code")
-    public int code;
+    private int code;
     @Expose
     @SerializedName("msg")
-    public String msg;
+    private String msg;
     @Expose
     @SerializedName("key")
-    public String key;
+    private String key;
     @Expose
     @SerializedName("nextWebbUrl")
-    public String nextWebbUrl;
+    private String nextWebbUrl;
     @Expose
     @SerializedName("chatUrl")
-    public String chatUrl;
+    private String chatUrl;
     @Expose
     @SerializedName("listUrl")
-    public int listUrl;
+    private int listUrl;
     @Expose
     @SerializedName("listJson")
-    public int listJson;
+    private int listJson;
 }

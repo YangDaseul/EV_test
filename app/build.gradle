@@ -32,6 +32,9 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.3.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
+    //preference
+    implementation "androidx.preference:preference:1.1.1"
+
     //json
     implementation 'com.google.code.gson:gson:2.8.5'
     //thread or eventbus
@@ -48,6 +51,9 @@ dependencies {
         exclude group: 'org.json', module: 'json'
     }
 
+    //lombok
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
 
 
     testImplementation 'junit:junit:4.12'
