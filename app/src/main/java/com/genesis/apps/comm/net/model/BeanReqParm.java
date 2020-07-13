@@ -4,7 +4,9 @@ import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.net.NetResultCallback;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper=false)
 public @Data
 class BeanReqParm extends BaseData {
     private String data;

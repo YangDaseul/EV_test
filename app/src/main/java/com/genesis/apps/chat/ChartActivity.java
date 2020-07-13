@@ -3,9 +3,7 @@ package com.genesis.apps.chat;
 import android.os.Bundle;
 
 import com.genesis.apps.R;
-import com.genesis.apps.chat.component.DaggerSocketComponent;
 import com.genesis.apps.chat.listener.SocketEventListener;
-import com.genesis.apps.chat.module.SocketModule;
 import com.genesis.apps.comm.ui.BaseActivity;
 
 import javax.inject.Inject;
@@ -13,13 +11,13 @@ import javax.inject.Inject;
 public class ChartActivity extends BaseActivity implements SocketEventListener {
 
     @Inject
-    SocketIOHelper socketIOHelper;
+    public SocketIOHelper socketIOHelper;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DaggerSocketComponent.builder().socketModule(new SocketModule(this)).build().inject(this);
+//        DaggerSocketComponent.builder().socketModule(new SocketModule(this)).build().inject(this);
 
         try{
             socketIOHelper.getSocket("");
@@ -30,7 +28,7 @@ public class ChartActivity extends BaseActivity implements SocketEventListener {
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         socketIOHelper.disConnect();
     }

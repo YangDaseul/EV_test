@@ -2,18 +2,18 @@ package com.genesis.apps;
 
 import android.os.Bundle;
 
-import com.genesis.apps.comm.ui.BaseActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.genesis.apps.comm.ui.BaseActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class MainActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);

@@ -2,11 +2,9 @@ package com.genesis.apps.chat;
 
 import com.genesis.apps.chat.listener.SocketEventListener;
 import com.genesis.apps.chat.listener.SocketListener;
-import com.genesis.apps.chat.qualifier.QualChatURL;
 
 import java.net.URISyntaxException;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.socket.client.IO;
@@ -31,8 +29,10 @@ public class SocketIOHelper {
     private SocketListener onMsgImg;
     private SocketListener onTimeout;
 
-    @Inject
-    public SocketIOHelper(SocketEventListener socketEventListener){
+    public SocketIOHelper(){
+    }
+
+    public void initSocketHelper(SocketEventListener socketEventListener){
         this.onConnect = new SocketListener(() -> socketEventListener.onConnect());
         this.onDisconnect = new SocketListener(() -> socketEventListener.onDisconnect());
         this.onConnectError = new SocketListener(() -> socketEventListener.onConnectError());
@@ -42,7 +42,7 @@ public class SocketIOHelper {
         this.onTimeout = new SocketListener(() -> socketEventListener.onTimeout());
     }
 
-    public void getSocket(@QualChatURL String url) throws Exception {
+    public void getSocket(String url) throws Exception {
         try {
             this.url = url;
             IO.Options options = new IO.Options();

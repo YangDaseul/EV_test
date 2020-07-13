@@ -5,9 +5,7 @@ import android.util.Log;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.net.model.BeanReqParm;
-import com.genesis.apps.comm.util.excutor.DaggerExcutorServiceComponent;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
-import com.genesis.apps.comm.util.excutor.ExecutorServiceModule;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.gson.Gson;
@@ -17,18 +15,13 @@ import com.google.gson.JsonObject;
 
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 
-import javax.inject.Inject;
-
 public class NetCaller {
     private static String TAG_LOG = NetCaller.class.getSimpleName();
     private static final int CONNECTION_TIME_OUT = 10 * 1000;
     private static final int READ_TIME_OUT = 10 * 1000;
 
-    @Inject
-    public ExecutorService es;
-
-    private void sendData(BeanReqParm beanReqParm) {
-        es = DaggerExcutorServiceComponent.builder().executorServiceModule((new ExecutorServiceModule(TAG_LOG))).build().maker();
+    private void sendData(BeanReqParm beanReqParm, ExecutorService es) {
+//        es = DaggerExcutorServiceComponent.builder().executorServiceModule((new ExecutorServiceModule(TAG_LOG))).build().maker();
 
         Futures.addCallback(es.getListeningExecutorService().submit(() -> {
             JsonObject jsonObject = null;

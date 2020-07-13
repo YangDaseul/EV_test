@@ -1,27 +1,26 @@
 package com.genesis.apps.comm.ui.module;
 
-import android.app.Application;
-import android.content.SharedPreferences;
+import android.app.Activity;
 
-import androidx.preference.PreferenceManager;
-
-import com.genesis.apps.comm.scopes.ActivityScope;
-
-import javax.inject.Singleton;
+import com.genesis.apps.chat.SocketIOHelper;
+import com.genesis.apps.comm.util.excutor.ExecutorService;
 
 import dagger.Module;
 import dagger.Provides;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.components.ActivityComponent;
 
 @Module
+@InstallIn(ActivityComponent.class)
 public class ActivityModule {
-    private Application application;
 
-    public ActivityModule(Application application){
-        this.application = application;
-    }
     @Provides
-    @ActivityScope
-    SharedPreferences provideSharedPref(){
-        return PreferenceManager.getDefaultSharedPreferences(application);
+    public SocketIOHelper getChatSocket() {
+        return new SocketIOHelper();
+    }
+
+    @Provides
+    public ExecutorService getExcutorService(Activity context) {
+        return new ExecutorService(context.getClass().getSimpleName());
     }
 }

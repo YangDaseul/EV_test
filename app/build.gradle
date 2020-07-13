@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion 29
@@ -9,6 +10,13 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+//        //hilt compile error
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                arguments += ["foo" : "bar"]
+//            }
+//        }
     }
     buildTypes {
         release {
@@ -45,6 +53,19 @@ dependencies {
     implementation 'com.google.dagger:dagger-android-support:2.28.1'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.28.1'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.28.1'
+
+    //hilt
+    implementation 'com.google.dagger:hilt-android:2.28.1-alpha'
+    annotationProcessor 'com.google.dagger:hilt-android-compiler:2.28.1-alpha'
+    // hilt For instrumentation tests
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.28.1-alpha'
+    androidTestAnnotationProcessor 'com.google.dagger:hilt-android-compiler:2.28.1-alpha'
+    // hilt For local unit tests
+    testImplementation 'com.google.dagger:hilt-android-testing:2.28.1-alpha'
+    testAnnotationProcessor 'com.google.dagger:hilt-android-compiler:2.28.1-alpha'
+
+
+
 
     //socket.io chat\
     implementation ('io.socket:socket.io-client:1.0.0') {
