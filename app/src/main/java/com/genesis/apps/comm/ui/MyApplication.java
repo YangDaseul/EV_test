@@ -1,13 +1,8 @@
 package com.genesis.apps.comm.ui;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.util.Log;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import javax.inject.Inject;
 
@@ -28,5 +23,4 @@ public class MyApplication extends Application {
     public SharedPreferences getSharedPreferences() {
         return sharedPreferences;
     }
-
 }

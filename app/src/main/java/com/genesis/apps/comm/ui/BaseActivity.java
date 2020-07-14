@@ -5,10 +5,17 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.genesis.apps.comm.util.excutor.ExecutorService;
+
+import javax.inject.Inject;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class BaseActivity extends AppCompatActivity {
+
+    @Inject
+    public ExecutorService executorService;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

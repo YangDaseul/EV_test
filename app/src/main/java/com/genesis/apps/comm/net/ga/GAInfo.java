@@ -1,7 +1,7 @@
 package com.genesis.apps.comm.net.ga;
 
 public interface GAInfo {
-
+    int SERVER_TYPE = 0;
     int CONNECTION_TIME_OUT = 10 * 1000;
     int READ_TIME_OUT = 10 * 1000;
     String GRANT_TYPE_AUTHORIZATION_CODE = "authorization_code";
@@ -12,8 +12,7 @@ public interface GAInfo {
     String HTTP_HEADER_VALUE = "Bearer ";
     String TAG_MSG_BODY = "recv body [%s]";
     String TAG_MSG_LOGININFO = "loadLoginInfo() loginInfo";
-    
-    String[][] ServerInfos = {
+    String[][] SERVER_INFOS = {
             //00   업체구분
             //01 , ccSP URL, CallBack URL, Client ID, Client Secret
             //05 , GA URL, CallBack URL, redirect URL
@@ -29,14 +28,20 @@ public interface GAInfo {
             "/G/"
             , "https://prd-kr-ccapi.genesis.com:8081", "/api/authorize/ccsp/redirect", "37c04bd3-2929-49b2-a555-0c174085760e", "a3D0iTYUqxpK6qJhE0tVDFrWXJd2NFeJEeygrq7zzYyh5K1s"
             , "https://accounts.genesis.com", "/api/cmmn/message", "/api/test/redirect.do"
-            }
+    }
             // 2: 제네시스 개발계 접속 (ccSP:개발, DKC:개발, GA:개발)
             , {
             "/G/"
             , "http://genesis.connected-car.io", "/api/authorize/ccsp/redirect", "37c04bd3-2929-49b2-a555-0c174085760e", "secret"
             , "https://d-accounts.genesis.com", "/api/cmmn/message", "/api/test/redirect.do"
-        }
+    }
     };
 
+    String CCSP_URL = SERVER_INFOS[SERVER_TYPE][1];
+    String CCSP_CLIENT_ID = SERVER_INFOS[SERVER_TYPE][3];
+    String CCSP_SECRET = SERVER_INFOS[SERVER_TYPE][4];
+    String GA_URL = SERVER_INFOS[SERVER_TYPE][5];
+    String GA_CALLBACK_URL = SERVER_INFOS[SERVER_TYPE][5] + SERVER_INFOS[SERVER_TYPE][6];
+    String GA_REDIRECT_URL = SERVER_INFOS[SERVER_TYPE][5] + SERVER_INFOS[SERVER_TYPE][7];
 
 }

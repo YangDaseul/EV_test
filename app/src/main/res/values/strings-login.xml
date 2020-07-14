@@ -1,0 +1,10 @@
+<resources>
+    <string name="login_word_1">제네시스 어카운트</string>
+    <string name="login_word_2">로그인</string>
+    <string name="login_word_3">회원가입</string>
+
+    <string name="login_msg_1">로그인이 필요합니다.</string>
+    <string name="login_msg_2">아이디를 잊어버리셨나요?</string>
+    <string name="login_msg_3">제네시스닷컴, 제네시스 커넥티드 서비스(홈투카)에서 사용하시던 이메일/비밀번호 그대로 로그인 하세요.</string>
+    <string name="login_msg_4">아직 회원이 아니신가요?</string>
+</resources>
