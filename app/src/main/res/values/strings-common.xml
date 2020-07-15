@@ -1,0 +1,5 @@
+<resources>
+    <string name="comm_word_1">확인</string>
+    <string name="comm_word_2">취소</string>
+    <string name="comm_word_3">알림</string>
+</resources>

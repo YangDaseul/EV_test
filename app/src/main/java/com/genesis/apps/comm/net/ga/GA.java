@@ -1,7 +1,6 @@
 package com.genesis.apps.comm.net.ga;
 
 import android.app.Activity;
-import android.content.Context;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -10,6 +9,7 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.net.HttpRequest;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetException;
+import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.util.QueryString;
 import com.google.gson.JsonObject;
 
@@ -19,6 +19,9 @@ import java.util.Random;
 
 import javax.inject.Inject;
 
+import static com.genesis.apps.comm.net.NetStatusCode.ERR_EXCEPTION_GA;
+import static com.genesis.apps.comm.net.NetStatusCode.ERR_EXCEPTION_UNKNOWN;
+import static com.genesis.apps.comm.net.NetStatusCode.SUCCESS;
 import static com.genesis.apps.comm.net.ga.GAInfo.CCSP_CLIENT_ID;
 import static com.genesis.apps.comm.net.ga.GAInfo.CCSP_SECRET;
 import static com.genesis.apps.comm.net.ga.GAInfo.GA_CALLBACK_URL;
@@ -35,7 +38,11 @@ public class GA {
         this.netCaller = netCaller;
     }
 
-    private String getEnrollUrl(Context context) {
+    public String getCsrf(){
+        return csrf;
+    }
+
+    public String getEnrollUrl() {
         csrf = getRandomString(10);
         Log.d("GA", "csrf string : " + csrf);
 
@@ -49,7 +56,7 @@ public class GA {
         return GA_URL + "/auth.do" + q.getQuery();
     }
 
-    private String getLoginUrl(Context context) {
+    public String getLoginUrl() {
         csrf = getRandomString(10);
         QueryString q = new QueryString();
         q.add("clientId", CCSP_CLIENT_ID);
@@ -226,103 +233,28 @@ public class GA {
         return false;
     }
 
-//    // 0 : 정상 / 다음 액션 처리.., 1 : 여기서 팝업처리 / webview에서는 암껏도 안함., -1 : 비정상 / 네트워크 팝업 띄우고 화면 닫기
-//    public int checkEnroll(Activity activity, String tokenCode, String scope) {
-//        if(activity == null) return -1;
-//
-//
-//        try {
-//            JsonObject data = getRefreshToken(activity, tokenCode);
-//            if (data != null) {
-//                String code = netCaller.getJson(data, "code");
-//                if("0000".equals(code) && data.has("access_token") && data.has("refresh_token") && data.has("expires_in")) {
-//                    GlobalDataDao dao =   DatabaseHolder.getInstance().getDatabase().globalDataDao();
-//                    switch (checkServiceRegistered(activity,scope,dao)){
-//                        case GA.CHECK_SERVICE_RESULT_LOGININFO:
-//                            // 이전에 로그인 한 사용자와 현재 로그인한 사용자가 다른 경우
-//                            CCSP.getInstance().clearLoginInfo(activity);
-//                            MyUtils.modalOneButtonDialog(activity, activity.getString(R.string.login_2), ((BaseActivity) activity)::finishAndRemoveTaskCompat);
-//                            return 1;
-//                        case GA.CHECK_SERVICE_RESULT_SUCCESS:
-//                            boolean isDeviceLock = isDeviceLocked(activity);
-//                            boolean isUserLocked = isUserLocked(activity);
-//
-//                            Runnable goPinAuthRunnable = () -> activity.startActivityForResult(new Intent(activity, PinAuthActivity.class), RequestCodes.REQUEST_CODE_PIN);
-//                            Runnable goLogoutRunnable = () -> {
-//                                CCSP.getInstance().clearLoginInfo(activity);
-//                                if(activity instanceof GWebviewCommonActivity) {
-//                                    ((GWebviewCommonActivity)activity).reload();
-//                                    ((GWebviewCommonActivity)activity).setClearHistory(true);
-//                                }
-//                                else {
-//                                    ((BaseActivity) activity).finishAndRemoveTaskCompat();
-//                                }
-//                            };
-//
-//                            if (!isDeviceLock && !isUserLocked) {
-//                                // 일시정지하지 않음. 일반 케이스
-//                                String certified = DKC.IS_FIRST_AUTH_PATH ? "Y" : dao.get(GlobalData.GLOBAL_SMS_CERTIFIED);
-//                                if(!"Y".equalsIgnoreCase(certified)) {
-//                                    MyUtils.oneButtonDialog(activity, activity.getString(R.string.alert_init_app_first_run), () -> goAuth(activity, "INIT"));
-//                                    return 1;
-//                                }
-//                                else {
-//                                    Log.v("parktest","111 custNumberCCSP:"+CCSP.getInstance().getLoginInfo(activity).getProfile().getCustomerNumber() + "  custNumberDB:"+dao.get(GlobalData.GLOBAL_CUSTOMER_NUMBER));
-//                                    // 로그인 한 사용자 정보 갱신
-//                                    dao.insert(new GlobalData(GlobalData.GLOBAL_CUSTOMER_NUMBER, CCSP.getInstance().getLoginInfo(activity).getProfile().getCustomerNumber()));
-//                                    return 0;
-//                                }
-//                            } else  if (isDeviceLock && !isUserLocked) {
-//                                // 일시정지된 사용자의 단말을 사용하려고 하는 케이스
-//                                CCSP.getInstance().clearLoginInfo(activity);
-//                                MyUtils.modalOneButtonDialog(activity, activity.getString(R.string.login_3), ((BaseActivity) activity)::finishAndRemoveTaskCompat);
-//                                return 1;
-//                            } else  if (!isDeviceLock) { // && isUserLocked) {
-//                                // 일시정지된 사용자가 변경된 기기로 로그인 (lock 해제 시도)
-//                                MyUtils.modalTwoButtonDialog(activity, R.string.service_stop_cancel_title, R.string.service_stop_cancel_message
-//                                        , goPinAuthRunnable
-//                                        , goLogoutRunnable);
-//                                return 1;
-//                            } else {
-//                                // 일시정지된 사용자, 단말 (lock 해제 시도)
-//                                MyUtils.modalTwoButtonDialog(activity, R.string.service_stop_cancel_title, R.string.service_stop_cancel_message
-//                                        , goPinAuthRunnable
-//                                        , goLogoutRunnable);
-//                                return 1;
-//                            }
-//                        case GA.CHECK_SERVICE_RESULT_FAIL:
-//                            if ("url.signup".equalsIgnoreCase(scope)) {
-//                                serviceEnroll(activity, tokenCode, "");
-//                            } else if ("url.login".equalsIgnoreCase(scope)) {
-//                                // 로그인 후 서비스 가입이 되어 있지 않는 사용자인 경우 본인 인증 후 가입 하도록 수정 처리.
-//                                MyUtils.twoButtonDialog(activity, activity.getString(R.string.enroll_service_enroll_confirm), () -> goAuth(activity, tokenCode), activity::finish);
-//
-////                                if(data.has("data") && data.get("data") != null && !data.get("data").isJsonNull()) {
-////                                    data = data.getAsJsonObject("data");
-////                                    String authType = DKC.getJson(data, "authType");
-////                                    if("P".equals(authType)) {
-////                                        //iPin 본인 인증인 경우 nice 본인 인증으로 이동 필요.
-////                                        MyUtils.twoButtonDialog(activity, activity.getString(R.string.enroll_service_enroll_confirm), () -> goAuth(activity, tokenCode), activity::finish);
-////                                        return 1;
-////                                    }
-////                                }
-////                                MyUtils.twoButtonDialog(activity, activity.getString(R.string.enroll_service_enroll_confirm), () -> serviceEnroll(activity, tokenCode, ""), activity::finish);
-//                            }
-//                            return 1;
-//                    }
-//                }
-//                else {
-//                    String msg = DKC.getJson(data, "message");
-//                    if(TextUtils.isEmpty(msg)) msg = activity.getString(R.string.instability_network);
-//                    MyUtils.oneButtonDialog(activity, msg, activity::finish);
-//                    return 1;
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return -1;
-//    }
+    public NetResult checkEnroll(String tokenCode, String scope) {
+
+        try {
+            JsonObject data = getRefreshToken(tokenCode);
+            if (data != null) {
+                String code = netCaller.getJson(data, "code");
+                if("0000".equals(code) && data.has("access_token") && data.has("refresh_token") && data.has("expires_in")) {
+                    return new NetResult(SUCCESS,0, data);
+                }else {
+                    String msg = netCaller.getJson(data, "message");
+                    if(TextUtils.isEmpty(msg))
+                        return new NetResult(ERR_EXCEPTION_UNKNOWN,R.string.error_msg_5, null);
+                    else
+                        return new NetResult(ERR_EXCEPTION_GA,R.string.error_msg_5, msg);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new NetResult(ERR_EXCEPTION_UNKNOWN,R.string.error_msg_5, null);
+    }
 
 //    private boolean isUserLocked(Context context) {
 //        JsonObject intro = null;
@@ -447,11 +379,11 @@ public class GA {
     public String getTokenCode() {
         return ccsp.getLoginInfo() == null ? "" : ccsp.getLoginInfo().getTokenCode();
     }
-    public String getAccessToken(Context context) {
+    public String getAccessToken() {
         return ccsp.getLoginInfo() == null ? "" : ccsp.getLoginInfo().getAccessToken();
     }
 
-    public String getCustomerNumber(Context context) {
+    public String getCustomerNumber() {
         if(ccsp.getLoginInfo() == null||ccsp.getLoginInfo().getProfile()==null)
             return "";
         else

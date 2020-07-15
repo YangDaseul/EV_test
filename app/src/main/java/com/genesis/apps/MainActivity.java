@@ -1,17 +1,16 @@
 package com.genesis.apps;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.genesis.apps.comm.ui.BaseActivity;
+import com.genesis.apps.comm.model.RequestCodes;
 import com.genesis.apps.databinding.ActivityMainBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends BaseActivity {
 
@@ -31,6 +30,8 @@ public class MainActivity extends BaseActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(activityMainBinding.navView, navController);
+
+        activityMainBinding.button.setOnClickListener(view -> startActivitySingleTop(new Intent(MainActivity.this, EntranceActivity.class),RequestCodes.REQ_CODE_DEFAULT.getCode()));
     }
 
 

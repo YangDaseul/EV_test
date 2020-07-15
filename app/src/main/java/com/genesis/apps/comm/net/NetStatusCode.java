@@ -16,7 +16,8 @@ public enum NetStatusCode {
     ERR_DATA_NULL(-4, "DATA NULL"),
     ERR_ISSUE_SOURCE(-5, "SOURCE PROBLEM"),
     ERR_DATA_INCORRECT(-6, "DATA INCORRECT"),
-    ERR_DATA_FAIL(-7, "DATA PROCEED FAIL");
+    ERR_DATA_FAIL(-7, "DATA PROCEED FAIL"),
+    ERR_EXCEPTION_GA(-8, "GENESIS ACCOUNT ERROR");
 
     private int code;
     private String description;
