@@ -1,4 +1,4 @@
-package com.genesis.apps;
+package com.genesis.apps.comm.ui;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -10,6 +10,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.net.ga.GA;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 
 import javax.inject.Inject;
@@ -20,14 +21,20 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class BaseActivity extends AppCompatActivity {
 
     @Inject
+    public GA ga;
+    @Inject
     public ExecutorService executorService;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        executorService.shutDownExcutor();
     }
 
     public final void showProgressDialog(final boolean show, final View view) {

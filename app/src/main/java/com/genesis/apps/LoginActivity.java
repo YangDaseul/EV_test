@@ -1,7 +1,6 @@
 package com.genesis.apps;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,13 +8,10 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.genesis.apps.comm.net.NetResult;
-import com.genesis.apps.comm.net.ga.GA;
 import com.genesis.apps.comm.ui.WebviewActivity;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.concurrent.ExecutionException;
-
-import javax.inject.Inject;
 
 import static com.genesis.apps.comm.net.ga.GAInfo.GA_CALLBACK_URL;
 
@@ -23,14 +19,18 @@ public class LoginActivity extends WebviewActivity {
     private final String TAG = getClass().getSimpleName();
     private boolean isLogin=false;
     private String tokenCode;
-    @Inject
-    public GA ga;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getPageType();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        executorService.shutDownExcutor();
     }
 
     private void getPageType() {

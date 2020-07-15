@@ -9,7 +9,6 @@ import android.webkit.WebView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.genesis.apps.BaseActivity;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.hybrid.core.WebViewFragment;
@@ -26,6 +25,7 @@ public class WebviewActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityWebviewBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_webview, null, false);
+        setContentView(activityWebviewBinding.getRoot());
         setResult(RESULT_CANCELED);
         Intent intent = getIntent();
         if(intent == null || TextUtils.isEmpty(intent.getStringExtra("url"))) {
@@ -57,7 +57,6 @@ public class WebviewActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        executorService.shutDownExcutor();
     }
 
     private void initWebview(String url) {
