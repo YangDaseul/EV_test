@@ -36,8 +36,13 @@
             android:screenOrientation="portrait"
             android:exported="false" />
 
+        <activity
+            android:name=".ui.activity.PushDummyActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
         <service
-            android:name=".FirebaseMessagingService">
+            android:name=".fcm.FirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
