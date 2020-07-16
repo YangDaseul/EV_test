@@ -1,4 +1,4 @@
-package com.genesis.apps.comm.ui;
+package com.genesis.apps.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,12 +17,12 @@ import com.genesis.apps.databinding.ActivityWebviewBinding;
 public class WebviewActivity extends BaseActivity {
     private final String TAG = getClass().getSimpleName();
     private ActivityWebviewBinding activityWebviewBinding;
-    private MyWebViewFrament fragment;
-    private String url = ""; //초기 접속 URL
+    public MyWebViewFrament fragment;
+    public String url = ""; //초기 접속 URL
     private boolean isClearHistory=false;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityWebviewBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_webview, null, false);
         setContentView(activityWebviewBinding.getRoot());
@@ -94,8 +94,9 @@ public class WebviewActivity extends BaseActivity {
             if(clearWindowOpens()) {
                 return true;
             }else {
-                return false;
+                return back(fragment.getUrl());
             }
+
         }
 
         @Override
@@ -104,6 +105,11 @@ public class WebviewActivity extends BaseActivity {
             //
         }
     };
+
+    public boolean back(String currentUrl) {
+
+        return false;
+    }
 
     private boolean clearWindowOpens() {
         Log.d(TAG, "clearWindowOpens:" + url);

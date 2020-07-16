@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.core.WebViewFragment;
-import com.genesis.apps.comm.ui.BaseActivity;
+import com.genesis.apps.ui.activity.BaseActivity;
 
 
 /**

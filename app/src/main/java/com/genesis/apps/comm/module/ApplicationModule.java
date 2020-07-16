@@ -1,13 +1,12 @@
-package com.genesis.apps.comm.ui.module;
+package com.genesis.apps.comm.module;
 
 import android.app.Application;
-import android.content.SharedPreferences;
-
-import androidx.preference.PreferenceManager;
 
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.ga.CCSP;
 import com.genesis.apps.comm.net.ga.GA;
+import com.genesis.apps.room.DatabaseHolder;
+import com.genesis.apps.comm.util.PreferenceUtil;
 
 import javax.inject.Singleton;
 
@@ -22,8 +21,16 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    public SharedPreferences provideSharedPref(Application application){
-        return PreferenceManager.getDefaultSharedPreferences(application);
+    public DatabaseHolder provideDatabaseHolder(Application application){
+        DatabaseHolder databaseHolder = new DatabaseHolder();
+        databaseHolder.openDatabase(application);
+        return databaseHolder;
+    }
+
+    @Provides
+    @Singleton
+    public PreferenceUtil provideSharedPref(Application application){
+        return new PreferenceUtil(application);
     }
 
     @Provides

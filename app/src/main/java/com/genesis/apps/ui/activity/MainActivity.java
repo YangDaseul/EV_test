@@ -1,16 +1,12 @@
-package com.genesis.apps;
+package com.genesis.apps.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
+import com.genesis.apps.R;
 import com.genesis.apps.comm.model.RequestCodes;
-import com.genesis.apps.comm.ui.BaseActivity;
 import com.genesis.apps.databinding.ActivityMainBinding;
 
 public class MainActivity extends BaseActivity {
@@ -18,7 +14,7 @@ public class MainActivity extends BaseActivity {
     ActivityMainBinding activityMainBinding;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 

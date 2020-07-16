@@ -9,17 +9,16 @@
         android:layout_height="match_parent"
         android:paddingTop="?attr/actionBarSize">
 
-        <Button
-            android:id="@+id/button"
+
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button"
+            android:text="intro"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            tools:layout_editor_absoluteX="89dp"
-            tools:layout_editor_absoluteY="145dp" />
-
+            app:layout_constraintHorizontal_bias="0.5"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.genesis.apps.R;
 import com.genesis.apps.chat.listener.SocketEventListener;
-import com.genesis.apps.comm.ui.BaseActivity;
+import com.genesis.apps.ui.activity.BaseActivity;
 
 import javax.inject.Inject;
 

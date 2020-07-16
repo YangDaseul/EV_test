@@ -1,4 +1,4 @@
-package com.genesis.apps.comm.ui.module;
+package com.genesis.apps.comm.module;
 
 import android.app.Activity;
 

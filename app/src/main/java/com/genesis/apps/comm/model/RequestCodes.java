@@ -8,11 +8,11 @@ public enum RequestCodes {
     REQ_CODE_JOIN(1002,"회원 가입 결과"),
     REQ_CODE_DEFAULT(0,"기본");
 
-    private int cdoe;
+    private int code;
     private String description;
 
-    RequestCodes(int cdoe, String description){
-        this.cdoe = cdoe;
+    RequestCodes(int code, String description){
+        this.code = code;
         this.description = description;
     }
 
@@ -21,11 +21,11 @@ public enum RequestCodes {
     }
 
     public int getCode() {
-        return cdoe;
+        return code;
     }
 
-    public void setCdoe(int cdoe) {
-        this.cdoe = cdoe;
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public String getDescription() {
