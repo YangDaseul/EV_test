@@ -18,7 +18,11 @@ public class IntroActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         activityIntroBinding = DataBindingUtil.setContentView(this, R.layout.activity_intro);
         new Handler().postDelayed(() -> {
-            startActivitySingleTop(new Intent(IntroActivity.this, MainActivity.class),0);
+            if(isPushData()){
+                startActivity(moveToPush(MainActivity.class));
+            }else{
+                startActivitySingleTop(new Intent(IntroActivity.this, MainActivity.class),0);
+            }
             finish();
         }, 2000);
     }

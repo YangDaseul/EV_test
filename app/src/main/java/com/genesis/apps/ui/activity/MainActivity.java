@@ -31,5 +31,10 @@ public class MainActivity extends BaseActivity {
         activityMainBinding.button.setOnClickListener(view -> startActivitySingleTop(new Intent(MainActivity.this, EntranceActivity.class),RequestCodes.REQ_CODE_DEFAULT.getCode()));
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        checkPushCode();
+    }
 
 }

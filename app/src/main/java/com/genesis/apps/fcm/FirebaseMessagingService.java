@@ -7,13 +7,15 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
-import androidx.core.app.NotificationCompat;
-
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.KeyNames;
+import com.genesis.apps.ui.activity.PushDummyActivity;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
+import androidx.core.app.NotificationCompat;
+
+import static com.genesis.apps.comm.model.KeyNames.PUSH_CODE;
 import static com.genesis.apps.fcm.PushCode.findCode;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
@@ -30,16 +32,13 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-            JsonObject json = new Gson().fromJson(remoteMessage.getData().toString(), JsonObject.class);
+//            JsonObject json = new Gson().fromJson(remoteMessage.getData().toString(), JsonObject.class);
+//            PushVO pushVO = new Gson().fromJson(json, PushVO.class);
+            PushVO pushVO = new Gson().fromJson(remoteMessage.getData().toString(), PushVO.class);
 
 
-            String id = json.get("id").getAsString();
-            String category = json.get("cat").getAsString();
 
-            JsonObject messageObject = json.get("msg") == null ? null : json.get("msg").getAsJsonObject();
-            JsonObject dataObject = json.get("data") == null ? null : json.get("data").getAsJsonObject();
-
-            switch (findCode(category)) {
+            switch (findCode(pushVO.getCat())) {
                 case CAT_00:
                 case CAT_01:
                 case CAT_02:
@@ -62,34 +61,30 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                 case CAT_0X:
                 case CAT_0K:
                 default:
-                    if (messageObject != null) {
-                        notifyMessage(messageObject,findCode(category));
+                    if (pushVO!= null) {
+                        notifyMessage(pushVO,findCode(pushVO.getCat()));
                     } else {
                         // 메시지 없음... 오류
-                        Log.e(TAG, "category is " + category + " but message object is null!");
+                        Log.e(TAG, "category is " + pushVO.getCat() + " but message object is null!");
                     }
                     break;
             }
         }
     }
 
-    private void notifyMessage(JsonObject messageObject, PushCode code) {
+    private void notifyMessage(PushVO pushVO, PushCode code) {
         Log.d(TAG, "push test2: " +code);
-        if (messageObject != null) {
-            String head = messageObject.get("head").getAsString();
-            String body = messageObject.get("body").getAsString();
-
-//            Intent intent = new Intent(this, IntroActivity.class);
-//            PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        if (pushVO.getMsg() != null) {
+            String head = pushVO.getMsg().getHead();
+            String body = pushVO.getMsg().getBody();
 
             Intent intent = new Intent(this, PushDummyActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                     | Intent.FLAG_ACTIVITY_CLEAR_TOP
                     | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            intent.putExtra("code", code);
+            intent.putExtra(PUSH_CODE, code);
+            intent.putExtra(KeyNames.NOTIFICATION_ID, NOTIFICATION_ID);
             PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-
 
             NotificationCompat.Builder mBuilder = null;
             NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);

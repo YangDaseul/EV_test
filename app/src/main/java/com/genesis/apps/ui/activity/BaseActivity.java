@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.activity;
 
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,15 +12,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
+import com.genesis.apps.fcm.PushCode;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
+import static com.genesis.apps.comm.model.KeyNames.NOTIFICATION_ID;
+import static com.genesis.apps.comm.model.KeyNames.PUSH_CODE;
+
 @AndroidEntryPoint
 public class BaseActivity extends AppCompatActivity {
     @Inject
     public ExecutorService executorService;
+
+    //About PUSH
+    public PushCode pushCode;
+    public int notificationId;
+    public Intent intent = null;
+    public boolean isExcuteApp = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,4 +81,57 @@ public class BaseActivity extends AppCompatActivity {
         builder.create();
         builder.show();
     }
+
+
+
+
+    public Intent moveToPush(Class className){
+        intent = new Intent(this, className).putExtra(PUSH_CODE, pushCode).putExtra(NOTIFICATION_ID, notificationId);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        return intent;
+    }
+
+
+    public boolean isPushData() {
+        boolean isPush=false;
+        try {
+            pushCode = (PushCode) getIntent().getSerializableExtra(PUSH_CODE);
+            notificationId = getIntent().getIntExtra(NOTIFICATION_ID, 0);
+            if(pushCode!=PushCode.CAT_DEFAULT) isPush=true;
+        }catch (Exception e){
+            pushCode = PushCode.CAT_DEFAULT;
+        }
+        return isPush;
+    }
+
+    public void checkPushCode() {
+        if(isPushData()) {
+            switch (pushCode) {
+                case CAT_50:
+                    //TODO EXCUTE ACTIVITY
+                    break;
+                case CAT_G1:
+                    //TODO EXCUTE ACTIVITY
+                    break;
+                case CAT_40:
+                case CAT_41:
+                case CAT_42:
+                case CAT_43:
+                    //TODO EXCUTE ACTIVITY
+                    break;
+                default:
+                    //TODO EXCUTE ACTIVITY
+                    break;
+            }
+
+            if (intent != null) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            }
+            this.getIntent().removeExtra(PUSH_CODE);
+            this.getIntent().removeExtra(NOTIFICATION_ID);
+            ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancel(notificationId);
+        }
+    }
+
 }

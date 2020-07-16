@@ -17,8 +17,27 @@ public @Data class PushVO extends BaseData {
     private String cat;
     @Expose
     @SerializedName("msg")
-    private String msg;
+    private Msg msg;
     @Expose
     @SerializedName("data")
-    private String data;
+    private PushData data;
+
+
+    public @Data class Msg extends BaseData {
+        @Expose
+        @SerializedName("head")
+        private String head;
+        @Expose
+        @SerializedName("body")
+        private String body;
+    }
+
+    public @Data class PushData extends BaseData {
+        @Expose
+        @SerializedName("data1")
+        private String data1;
+        @Expose
+        @SerializedName("data2")
+        private String data2;
+    }
 }
