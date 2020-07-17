@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.WebView;
 
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.genesis.apps.R;
@@ -14,9 +13,8 @@ import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.hybrid.core.WebViewFragment;
 import com.genesis.apps.databinding.ActivityWebviewBinding;
 
-public class WebviewActivity extends BaseActivity {
+public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
     private final String TAG = getClass().getSimpleName();
-    private ActivityWebviewBinding activityWebviewBinding;
     public MyWebViewFrament fragment;
     public String url = ""; //초기 접속 URL
     private boolean isClearHistory=false;
@@ -24,8 +22,9 @@ public class WebviewActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityWebviewBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_webview, null, false);
-        setContentView(activityWebviewBinding.getRoot());
+//        activityWebviewBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_webview, null, false);
+//        setContentView(activityWebviewBinding.getRoot());
+        setContentView(R.layout.activity_webview);
         setResult(RESULT_CANCELED);
         Intent intent = getIntent();
         if(intent == null || TextUtils.isEmpty(intent.getStringExtra("url"))) {

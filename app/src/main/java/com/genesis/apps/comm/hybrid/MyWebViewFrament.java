@@ -14,10 +14,12 @@ import android.webkit.WebView;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ViewDataBinding;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.core.WebViewFragment;
 import com.genesis.apps.ui.activity.BaseActivity;
+import com.genesis.apps.ui.activity.SubActivity;
 
 
 /**
@@ -122,7 +124,7 @@ public class MyWebViewFrament extends WebViewFragment {
         Log.v(LOG_TAG, "showProgress [" + show + "]");
         if(getActivity() == null) return;
 
-        ((BaseActivity) getActivity()).showProgressDialog(show);
+        ((SubActivity<ViewDataBinding>) getActivity()).showProgressDialog(show);
     }
 
     @Override

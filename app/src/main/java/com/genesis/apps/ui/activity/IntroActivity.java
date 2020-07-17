@@ -9,14 +9,12 @@ import androidx.databinding.DataBindingUtil;
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.ActivityIntroBinding;
 
-public class IntroActivity extends BaseActivity {
-
-    private ActivityIntroBinding activityIntroBinding;
+public class IntroActivity extends SubActivity<ActivityIntroBinding> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityIntroBinding = DataBindingUtil.setContentView(this, R.layout.activity_intro);
+        setContentView(R.layout.activity_intro);
         new Handler().postDelayed(() -> {
             if(isPushData()){
                 startActivity(moveToPush(MainActivity.class));

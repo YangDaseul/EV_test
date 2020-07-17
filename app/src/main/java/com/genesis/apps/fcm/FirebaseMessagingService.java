@@ -7,13 +7,14 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
+import androidx.core.app.NotificationCompat;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.KeyNames;
 import com.genesis.apps.ui.activity.PushDummyActivity;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
-
-import androidx.core.app.NotificationCompat;
 
 import static com.genesis.apps.comm.model.KeyNames.PUSH_CODE;
 import static com.genesis.apps.fcm.PushCode.findCode;
@@ -115,6 +116,26 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         } else {
             // 메시지 없음...
         }
+    }
+
+
+    public static void getToken(FcmListener listener) {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(task -> {
+            String token = null;
+            try {
+                if (task.isSuccessful()) {
+                    token = task.getResult().getToken();
+                } else {
+                    Log.w(TAG, "getInstanceId failed", task.getException());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (listener != null) {
+                    listener.onToken(token);
+                }
+            }
+        });
     }
 
 //    public static void notifyMessageGpsTest(Context context, CodeCategory category) {

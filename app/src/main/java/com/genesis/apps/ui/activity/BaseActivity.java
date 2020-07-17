@@ -4,9 +4,7 @@ import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,20 +21,14 @@ import static com.genesis.apps.comm.model.KeyNames.PUSH_CODE;
 
 @AndroidEntryPoint
 public class BaseActivity extends AppCompatActivity {
+
     @Inject
-    public ExecutorService executorService;
+    ExecutorService executorService;
 
     //About PUSH
     public PushCode pushCode;
     public int notificationId;
     public Intent intent = null;
-    public boolean isExcuteApp = false;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     protected void onDestroy() {
@@ -44,23 +36,6 @@ public class BaseActivity extends AppCompatActivity {
         executorService.shutDownExcutor();
     }
 
-    public final void showProgressDialog(final boolean show, final View view) {
-        try {
-            if (view != null)
-                runOnUiThread(() -> view.setVisibility(show ? View.VISIBLE : View.GONE));
-        } catch (Exception ignore) {
-
-        }
-    }
-
-    public final void showProgressDialog(final boolean show) {
-        try {
-            if (findViewById(R.id.l_progress) != null)
-                runOnUiThread(() -> findViewById(R.id.l_progress).setVisibility(show ? View.VISIBLE : View.GONE));
-        } catch (Exception e) {
-
-        }
-    }
 
     public void startActivitySingleTop(Intent intent, int flag) {
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -82,9 +57,6 @@ public class BaseActivity extends AppCompatActivity {
         builder.show();
     }
 
-
-
-
     public Intent moveToPush(Class className){
         intent = new Intent(this, className).putExtra(PUSH_CODE, pushCode).putExtra(NOTIFICATION_ID, notificationId);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -97,7 +69,7 @@ public class BaseActivity extends AppCompatActivity {
         try {
             pushCode = (PushCode) getIntent().getSerializableExtra(PUSH_CODE);
             notificationId = getIntent().getIntExtra(NOTIFICATION_ID, 0);
-            if(pushCode!=PushCode.CAT_DEFAULT) isPush=true;
+            if(pushCode!=null&&pushCode!=PushCode.CAT_DEFAULT) isPush=true;
         }catch (Exception e){
             pushCode = PushCode.CAT_DEFAULT;
         }
