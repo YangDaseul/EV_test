@@ -1,6 +1,5 @@
 package com.genesis.apps.comm.net;
 
-import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -31,8 +30,6 @@ public class NetCaller {
     private static final int READ_TIME_OUT = 10 * 1000;
 
     private void sendData(BeanReqParm beanReqParm, ExecutorService es) {
-//        es = DaggerExcutorServiceComponent.builder().executorServiceModule((new ExecutorServiceModule(TAG_LOG))).build().maker();
-
         Futures.addCallback(es.getListeningExecutorService().submit(() -> {
             JsonObject jsonObject = null;
             try {
