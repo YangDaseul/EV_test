@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.net.HttpRequest;
+import com.genesis.apps.comm.net.HttpRequestUtil;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetException;
 import com.genesis.apps.comm.net.NetResult;
@@ -31,11 +32,11 @@ import static com.genesis.apps.comm.net.ga.GAInfo.GA_URL;
 public class GA {
     private String csrf;
     private CCSP ccsp;
-    private NetCaller netCaller;
+    private HttpRequestUtil httpRequestUtil;
     @Inject
-    public GA(CCSP ccsp, NetCaller netCaller) {
+    public GA(CCSP ccsp, HttpRequestUtil httpRequestUtil) {
         this.ccsp = ccsp;
-        this.netCaller = netCaller;
+        this.httpRequestUtil = httpRequestUtil;
     }
 
     public String getCsrf(){
@@ -97,22 +98,22 @@ public class GA {
 
         String url = GA_URL + "/api/account/ccsp/user/signout?url=" + GA_REDIRECT_URL;
 
-        HttpRequest request = netCaller.getRequest(url);
+        HttpRequest request = httpRequestUtil.getRequest(url);
         request.accept(HttpRequest.CONTENT_TYPE_JSON);
         request.header("clientId", CCSP_CLIENT_ID);
         request.header("clientSecret", CCSP_SECRET);
         request.header("access_token", accessToken);
 
         try {
-            JsonObject data = netCaller.getData(request);
+            JsonObject data = httpRequestUtil.getData(request);
             if(data != null) {
                 boolean success = data.get("success").getAsBoolean();
                 if(success) {
                     data = data.getAsJsonObject("data");
-                    msg = netCaller.getJson(data, "location");
+                    msg = httpRequestUtil.getJson(data, "location");
                 }
                 else {
-                    msg = netCaller.getJson(data, "message");
+                    msg = httpRequestUtil.getJson(data, "message");
                 }
             }
         } catch (Exception e) {
@@ -134,12 +135,12 @@ public class GA {
         params.put("refresh_token", ccsp.getLoginInfo().getRefreshToken());
         params.put("redirect_uri", GA_CALLBACK_URL);
 
-        HttpRequest request = netCaller.getPostRequest(url)
+        HttpRequest request = httpRequestUtil.getPostRequest(url)
                 .header("Authorization", "Basic " + Base64.encodeToString((CCSP_CLIENT_ID + ":" + CCSP_SECRET).getBytes(), Base64.NO_WRAP));
 
 
         String accessToken = "";
-        JsonObject ret = netCaller.form(request, params);
+        JsonObject ret = httpRequestUtil.form(request, params);
         if(ret != null) {
             boolean success = ret.get("success").getAsBoolean();
             if(success) {
@@ -159,23 +160,23 @@ public class GA {
         params.put("grant_type", "authorization_code");
         params.put("redirect_uri", GA_CALLBACK_URL);
 
-        HttpRequest request = netCaller.getPostRequest(url);
+        HttpRequest request = httpRequestUtil.getPostRequest(url);
         request.contentType(HttpRequest.CONTENT_TYPE_FORM, HttpRequest.CHARSET_UTF8);
         request.accept(HttpRequest.CONTENT_TYPE_JSON);
         request.basic(CCSP_CLIENT_ID, CCSP_SECRET);
 
         JsonObject data = null;
         try {
-            data = netCaller.form(request, params);
+            data = httpRequestUtil.form(request, params);
             if (data != null) {
-                String code = netCaller.getJson(data, "code");
+                String code = httpRequestUtil.getJson(data, "code");
                 if("0000".equals(code) && data.has("access_token") && data.has("refresh_token") && data.has("expires_in")) {
-                    String accessToken = netCaller.getJson(data, "access_token");
-                    String refreshToken = netCaller.getJson(data, "refresh_token");
+                    String accessToken = httpRequestUtil.getJson(data, "access_token");
+                    String refreshToken = httpRequestUtil.getJson(data, "refresh_token");
                     int expiresIn = data.get("expires_in").getAsInt();
                     long currentTime = System.currentTimeMillis();
                     JsonObject data2 = data.getAsJsonObject("data");
-                    LoginInfoDTO loginInfo = new LoginInfoDTO(accessToken, refreshToken, currentTime + (expiresIn * 1000), null, currentTime + 31557600000L, netCaller.getJson(data2, "tokenCode"));
+                    LoginInfoDTO loginInfo = new LoginInfoDTO(accessToken, refreshToken, currentTime + (expiresIn * 1000), null, currentTime + 31557600000L, httpRequestUtil.getJson(data2, "tokenCode"));
                     if(!getProfile(accessToken, loginInfo)) {
                         data = null;
                         ccsp.clearLoginInfo();
@@ -196,27 +197,27 @@ public class GA {
 
         String url = GA_URL + "/api/account/ccsp/user/profile";
 
-        HttpRequest request = netCaller.getRequest(url);
+        HttpRequest request = httpRequestUtil.getRequest(url);
         request.accept(HttpRequest.CONTENT_TYPE_JSON);
         request.header("clientId", CCSP_CLIENT_ID);
         request.header("clientSecret", CCSP_SECRET);
         request.header("access_token", accessToken);
 
         try {
-            JsonObject data = netCaller.getData(request);
+            JsonObject data = httpRequestUtil.getData(request);
             if(data != null) {
                 boolean success = data.get("success").getAsBoolean();
                 if(success) {
                     data = data.getAsJsonObject("data");
 //                    Log.v("parkTest","getRefreshToken:saveid server:"+DKC.getJson(data, "id"));
                     loginInfoDTO.setProfile(new UserProfileVO(
-                            netCaller.getJson(data, "id"),
-                            netCaller.getJson(data, "email"),
-                            netCaller.getJson(data, "name"),
-                            netCaller.getJson(data, "mobileNum"),
-                            netCaller.getJson(data, "birthdate"),
+                            httpRequestUtil.getJson(data, "id"),
+                            httpRequestUtil.getJson(data, "email"),
+                            httpRequestUtil.getJson(data, "name"),
+                            httpRequestUtil.getJson(data, "mobileNum"),
+                            httpRequestUtil.getJson(data, "birthdate"),
                             data.get("status").getAsInt(),
-                            netCaller.getJson(data, "lang"),
+                            httpRequestUtil.getJson(data, "lang"),
                             data.get("social").getAsBoolean(),
                             "",
                             ""
@@ -238,11 +239,11 @@ public class GA {
         try {
             JsonObject data = getRefreshToken(tokenCode);
             if (data != null) {
-                String code = netCaller.getJson(data, "code");
+                String code = httpRequestUtil.getJson(data, "code");
                 if("0000".equals(code) && data.has("access_token") && data.has("refresh_token") && data.has("expires_in")) {
                     return new NetResult(SUCCESS,0, data);
                 }else {
-                    String msg = netCaller.getJson(data, "message");
+                    String msg = httpRequestUtil.getJson(data, "message");
                     if(TextUtils.isEmpty(msg))
                         return new NetResult(ERR_EXCEPTION_UNKNOWN,R.string.error_msg_5, null);
                     else

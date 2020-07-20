@@ -1,10 +1,13 @@
 package com.genesis.apps.comm.module;
 
+import android.app.Activity;
 import android.app.Application;
 
+import com.genesis.apps.comm.net.HttpRequestUtil;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.ga.CCSP;
 import com.genesis.apps.comm.net.ga.GA;
+import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.room.DatabaseHolder;
 import com.genesis.apps.comm.util.PreferenceUtil;
 
@@ -35,21 +38,29 @@ public class ApplicationModule {
     }
 
     @Provides
-    @Singleton
-    public NetCaller getNetCaller() {
-        return new NetCaller();
-    }
-
-
-    @Provides
-    @Singleton
-    public CCSP getCCSP(NetCaller netCaller, Application application){
-        return new CCSP(netCaller, application);
+    public ExecutorService getExcutorService(Application application) {
+        return new ExecutorService(application.getClass().getSimpleName());
     }
 
     @Provides
+    public HttpRequestUtil getHttpRequestUtil() {
+        return new HttpRequestUtil();
+    }
+
+    @Provides
+    public NetCaller getNetCaller(ExecutorService es,HttpRequestUtil httpRequestUtil) {
+        return new NetCaller(es,httpRequestUtil);
+    }
+
+    @Provides
     @Singleton
-    public GA getGA(CCSP ccsp, NetCaller netCaller){
-        return new GA(ccsp, netCaller);
+    public CCSP getCCSP(HttpRequestUtil httpRequestUtil, Application application){
+        return new CCSP(httpRequestUtil, application);
+    }
+
+    @Provides
+    @Singleton
+    public GA getGA(CCSP ccsp, HttpRequestUtil httpRequestUtil){
+        return new GA(ccsp, httpRequestUtil);
     }
 }

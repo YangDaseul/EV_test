@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.genesis.apps.comm.net.HttpRequest;
+import com.genesis.apps.comm.net.HttpRequestUtil;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetException;
 import com.google.gson.JsonObject;
@@ -26,14 +27,14 @@ import static com.genesis.apps.comm.net.ga.GAInfo.TAG_MSG_LOGININFO;
 
 public class CCSP {
     private static final String TAG = CCSP.class.getSimpleName();
-    private NetCaller netCaller;
+    private HttpRequestUtil httpRequestUtil;
     private LoginInfoDTO loginInfoDTO;
     private Context context;
     private int retryCount = 0;
 
     @Inject
-    public CCSP(NetCaller netCaller, Context context){
-        this.netCaller = netCaller;
+    public CCSP(HttpRequestUtil httpRequestUtil, Context context){
+        this.httpRequestUtil = httpRequestUtil;
         this.context = context;
     }
 
@@ -86,11 +87,11 @@ public class CCSP {
         params.put("pin", pin);
         params.put("deviceId", "");
 
-        HttpRequest request = netCaller.getPutRequest(url);
+        HttpRequest request = httpRequestUtil.getPutRequest(url);
         request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + loginInfoDTO.getAccessToken());
         request.contentType(HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8);
 
-        return netCaller.send(request, params);
+        return httpRequestUtil.send(request, params);
     }
 
     public void changePin(String currentPin, String changedPin) throws NetException {
@@ -103,22 +104,22 @@ public class CCSP {
         Map<String, Object> params = new HashMap<>();
         params.put("pin", pinParams);
 
-        HttpRequest request = netCaller.getPutRequest(url);
+        HttpRequest request = httpRequestUtil.getPutRequest(url);
         request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + loginInfoDTO.getAccessToken());
         request.contentType(HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8);
 
-        netCaller.send(request, params);
+        httpRequestUtil.send(request, params);
     }
 
     public void resetPin() throws NetException {
         String url = CCSP_URL + "/api/v1/user/profile/pin";
 
-        HttpRequest request = netCaller.getDeleteRequest(url);
+        HttpRequest request = httpRequestUtil.getDeleteRequest(url);
         request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + loginInfoDTO.getAccessToken());
         request.contentType(HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8);
 
         try {
-            netCaller.getData(request);
+            httpRequestUtil.getData(request);
         }catch (NetException e) {
             throw e;
         }
@@ -130,13 +131,13 @@ public class CCSP {
 
     public JsonObject postDataWithToken(String url, Map<String, Object> params, String token) throws NetException {
 //        token = loginInfo.getAccessToken();
-        HttpRequest request = netCaller.getPostRequest(url);
+        HttpRequest request = httpRequestUtil.getPostRequest(url);
         request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + token);
         Log.d(TAG, "Authorization:Bearer " + token);
         JsonObject ret = null;
 
         try {
-            ret = netCaller.send(request, params);
+            ret = httpRequestUtil.send(request, params);
             retryCount = 0;
         } catch (NetException e) {
             int status = e.getStatusCode();

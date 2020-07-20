@@ -1,5 +1,6 @@
 package com.genesis.apps.comm.model.weather;
 
+import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.net.NetResultCallback;
@@ -11,27 +12,26 @@ import javax.inject.Inject;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import static com.genesis.apps.comm.net.HttpRequest.METHOD_POST;
+public class ViewModelRepository<Q extends BaseData, S extends BaseData> {
 
-public class WeatherRepository{
+    public NetCaller netCaller;
+    public Class<S> resClassName;
 
-    private NetCaller netCaller;
-
-    @Inject
-    public WeatherRepository(NetCaller netCaller){
+    public ViewModelRepository(NetCaller netCaller){
         this.netCaller = netCaller;
     }
 
-    public LiveData<WeatherPointResVO> getWeatherPoint(WeatherPointReqVO reqData){
-        final MutableLiveData<WeatherPointResVO> data=new MutableLiveData<>();
+    public LiveData<S> getWeatherPoint(Q reqData, String url, String type){
+        final MutableLiveData<S> data=new MutableLiveData<>();
+
         BeanReqParm beanReqParm = new BeanReqParm();
         beanReqParm.setData(new Gson().toJson(reqData));
-        beanReqParm.setUrl("");
-        beanReqParm.setType(METHOD_POST);
+        beanReqParm.setUrl(url);
+        beanReqParm.setType(type);
         beanReqParm.setCallback(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
-                data.setValue(new Gson().fromJson(object, WeatherPointResVO.class));
+                data.setValue(new Gson().fromJson(object, resClassName));
             }
 
             @Override
