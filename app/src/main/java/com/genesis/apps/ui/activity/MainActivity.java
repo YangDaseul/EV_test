@@ -14,6 +14,7 @@ import me.relex.circleindicator.CircleIndicator3;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.RequestCodes;
+import com.genesis.apps.comm.model.weather.WeatherPointViewModel;
 import com.genesis.apps.databinding.ActivityMainBinding;
 import com.genesis.apps.ui.fragment.main.MyAdapter;
 
@@ -27,7 +28,6 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ui.button.setOnClickListener(view -> startActivitySingleTop(new Intent(MainActivity.this, EntranceActivity.class),RequestCodes.REQ_CODE_DEFAULT.getCode()));
-
 
         //ViewPager2
         //Adapter

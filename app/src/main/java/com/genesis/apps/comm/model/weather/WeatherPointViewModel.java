@@ -7,25 +7,27 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
+import com.genesis.apps.comm.net.NetUIResponse;
+
 public class WeatherPointViewModel extends ViewModel {
-    private final WeatherRepository repository;
+    private final WeatherRepository2 repository;
     private final SavedStateHandle savedStateHandle;
-    private LiveData<WeatherPointResVO> liveData;
+    private LiveData<NetUIResponse<WeatherPointResVO>> weatherPointResVOLiveData;
 
     @ViewModelInject
     WeatherPointViewModel(
-            WeatherRepository repository,
+            WeatherRepository2 repository,
             @Assisted SavedStateHandle savedStateHandle)
     {
         this.repository = repository;
         this.savedStateHandle = savedStateHandle;
     }
 
-    public void init(WeatherPointReqVO reqData){
-        liveData = repository.getWeatherPoint(reqData);
+    public void reqData(WeatherPointReqVO reqData, String url, String type){
+            weatherPointResVOLiveData = repository.reqData(reqData, url, type);
     }
 
-    public LiveData<WeatherPointResVO> getLiveData() {
-        return liveData;
+    public LiveData<NetUIResponse<WeatherPointResVO>> getWeatherPoint() {
+        return weatherPointResVOLiveData;
     }
 }
