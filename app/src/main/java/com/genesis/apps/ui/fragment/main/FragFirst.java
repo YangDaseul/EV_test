@@ -44,7 +44,7 @@ public class FragFirst extends SubFragment<Frame1pBinding> {
         final Observer<NetUIResponse<ExampleResVO>> observer = new Observer<NetUIResponse<ExampleResVO>>() {
             @Override
             public void onChanged(NetUIResponse<ExampleResVO> data) {
-                Log.v("testLiveData","DATA:" + data.data);
+                Log.v("testLiveData","DATA:" + data.data.getValue());
             }
         };
         exampleViewModel.getResVo().observe(getActivity(), observer);

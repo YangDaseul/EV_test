@@ -1,5 +1,8 @@
 package com.genesis.apps.comm.model.weather;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
@@ -9,15 +12,8 @@ import com.genesis.apps.comm.net.model.BeanReqParm;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
-
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
-import java.lang.reflect.Type;
-
 public class ViewModelRepository<Q extends BaseData, S extends BaseData> {
     private final TypeToken<S> typeToken = new TypeToken<S>(getClass()){};
-    private final Type type2 = typeToken.getType();
     public NetCaller netCaller;
 
     public ViewModelRepository(NetCaller netCaller){
@@ -34,7 +30,7 @@ public class ViewModelRepository<Q extends BaseData, S extends BaseData> {
         beanReqParm.setCallback(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
-                S receiveData =  new Gson().fromJson(object, type2);
+                S receiveData =  new Gson().fromJson(object, typeToken.getType());
                 data.setValue(NetUIResponse.success(receiveData));
 
 //                        data.setValue(new Gson().fromJson(object, resClassName));
@@ -66,7 +62,7 @@ public class ViewModelRepository<Q extends BaseData, S extends BaseData> {
             @Override
             public void onSuccess(String object) {
 
-                S receiveData =  new Gson().fromJson(object,  type2);
+                S receiveData =  new Gson().fromJson(object,  typeToken.getType());
                 data.setValue(NetUIResponse.success(receiveData));
 //                        data.setValue(new Gson().fromJson(object, resClassName));
             }

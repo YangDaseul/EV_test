@@ -1,22 +1,17 @@
 package com.genesis.apps.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
-import me.relex.circleindicator.CircleIndicator3;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.RequestCodes;
-import com.genesis.apps.comm.model.weather.WeatherPointViewModel;
 import com.genesis.apps.databinding.ActivityMainBinding;
 import com.genesis.apps.ui.fragment.main.MyAdapter;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends SubActivity<ActivityMainBinding> {
     private FragmentStateAdapter pagerAdapter;
@@ -27,7 +22,7 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ui.button.setOnClickListener(view -> startActivitySingleTop(new Intent(MainActivity.this, EntranceActivity.class),RequestCodes.REQ_CODE_DEFAULT.getCode()));
+//        ui.button.setOnClickListener(view -> startActivitySingleTop(new Intent(MainActivity.this, EntranceActivity.class),RequestCodes.REQ_CODE_DEFAULT.getCode()));
 
         //ViewPager2
         //Adapter
@@ -36,6 +31,11 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
         //Indicator
         ui.indicator.setViewPager(ui.viewpager);
         ui.indicator.createIndicators(num_page,0);
+
+        new TabLayoutMediator(ui.tabs, ui.viewpager, (tab, position) -> tab.setText("Tab " + (position + 1))).attach();
+
+
+
         //ViewPager Setting
         ui.viewpager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         ui.viewpager.setCurrentItem(0);
