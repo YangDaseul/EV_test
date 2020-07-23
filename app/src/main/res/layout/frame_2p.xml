@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+<data>
+    <variable
+        name="vm" type="com.genesis.apps.comm.model.ExampleViewModel" />
+</data>
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -28,7 +33,7 @@
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:text="Hello This is Page 2"/>
+            android:text="@{`test value:`+ (String.valueOf(vm.resVo.data.getValue))}"/>
 
     </RelativeLayout>
 

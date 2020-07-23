@@ -41,6 +41,7 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
         ui.viewpager.setCurrentItem(0);
         ui.viewpager.setOffscreenPageLimit(3);
 
+
         ui.viewpager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

@@ -24,6 +24,11 @@ public class FragThird extends SubFragment<Frame3pBinding> {
     }
 
     @Override
+    public void onRefresh() {
+
+    }
+
+    @Override
     public boolean onBackPressed() {
         return false;
     }

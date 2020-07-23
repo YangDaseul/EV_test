@@ -26,23 +26,17 @@ public abstract class SubFragment<T extends ViewDataBinding> extends BaseFragmen
         super.onActivityCreated(savedInstanceState);
     }
 
-    public boolean isRefresh = false;
-
     @Override
     public void onResume() {
         super.onResume();
-        if (isRefresh) {
             // 갱신 처리
             onRefresh();
-        }
     }
 
     /**
      * 갱신 처리 - 해당 프레그먼트에서 상속받아서 처리
      */
-    public void onRefresh() {
-        isRefresh = false;
-    }
+    public abstract void onRefresh();
 
     public abstract boolean onBackPressed();
 

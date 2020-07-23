@@ -38,7 +38,6 @@ public class FragFirst extends SubFragment<Frame1pBinding> {
 
         ExampleReqVO exampleReqVO = new ExampleReqVO();
         exampleReqVO.setRequestID("park");
-        exampleReqVO.setValue(1);
         exampleViewModel.reqData(exampleReqVO,"","");
 
         final Observer<NetUIResponse<ExampleResVO>> observer = new Observer<NetUIResponse<ExampleResVO>>() {
@@ -73,5 +72,11 @@ public class FragFirst extends SubFragment<Frame1pBinding> {
     @Override
     public boolean onBackPressed() {
         return false;
+    }
+
+
+    @Override
+    public void onRefresh() {
+
     }
 }

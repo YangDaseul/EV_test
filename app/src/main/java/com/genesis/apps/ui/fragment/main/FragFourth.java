@@ -24,6 +24,11 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
     }
 
     @Override
+    public void onRefresh() {
+
+    }
+
+    @Override
     public boolean onBackPressed() {
         return false;
     }
