@@ -22,7 +22,6 @@ public @Data class PushVO extends BaseData {
     @SerializedName("data")
     private PushData data;
 
-
     public @Data class Msg extends BaseData {
         @Expose
         @SerializedName("head")
@@ -39,5 +38,11 @@ public @Data class PushVO extends BaseData {
         @Expose
         @SerializedName("data2")
         private String data2;
+        @Expose
+        @SerializedName("img1")
+        private String img1;
+        @Expose
+        @SerializedName("img2")
+        private String img2;
     }
 }

@@ -33,7 +33,7 @@
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:text="@{`test value:`+ (String.valueOf(vm.resVo.data.getValue))}"/>
+            android:text="@{`test value:`+ (vm.resVo.data ?? `-123`)}"/>
 
     </RelativeLayout>
 
