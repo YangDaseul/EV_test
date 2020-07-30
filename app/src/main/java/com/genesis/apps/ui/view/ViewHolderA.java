@@ -3,12 +3,10 @@ package com.genesis.apps.ui.view;
 import android.view.View;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.ExampleResVO;
 import com.genesis.apps.databinding.ItemTestBinding;
 
-/**
- * Created by tonyjs on 16. 4. 9..
- */
-public class ViewHolderA extends BaseViewHolder<Item,ItemTestBinding> {
+public class ViewHolderA extends BaseViewHolder<ExampleResVO,ItemTestBinding> {
     public ViewHolderA(View itemView) {
         super(itemView);
     }
@@ -19,8 +17,9 @@ public class ViewHolderA extends BaseViewHolder<Item,ItemTestBinding> {
     }
 
     @Override
-    public void onBindView(Item item) {
-        getBinding().nameTextView.setText(item.getName());
+    public void onBindView(BaseRecyclerViewAdapter.Row<ExampleResVO> item) {
+        getBinding().nameTextView.setText(item.getItem().getValue());
     }
+
 }
 

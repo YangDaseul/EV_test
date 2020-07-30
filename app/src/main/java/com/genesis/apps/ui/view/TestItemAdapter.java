@@ -4,9 +4,6 @@ import android.view.ViewGroup;
 
 import com.genesis.apps.R;
 
-/**
- * Created by tonyjs on 16. 4. 9..
- */
 public class TestItemAdapter extends BaseRecyclerViewAdapter {
 
     public static final int VIEW_TYPE_A = 0;

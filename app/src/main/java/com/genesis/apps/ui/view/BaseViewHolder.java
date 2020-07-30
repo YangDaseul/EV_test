@@ -16,7 +16,7 @@ public abstract class BaseViewHolder<D,B> extends RecyclerView.ViewHolder{
 
     public abstract int getLayout();
 
-    public abstract void onBindView(D item);
+    public abstract void onBindView(BaseRecyclerViewAdapter.Row<D> item);
 
     public B getBinding() {
         return binding;

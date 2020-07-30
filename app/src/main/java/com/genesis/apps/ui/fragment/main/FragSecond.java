@@ -33,7 +33,7 @@ public class FragSecond extends SubFragment<Frame2pBinding> {
         super.onActivityCreated(savedInstanceState);
 
         if(exampleViewModel==null) {
-            exampleViewModel = new ViewModelProvider(this).get(ExampleViewModel.class);
+            exampleViewModel = new ViewModelProvider(getActivity()).get(ExampleViewModel.class);
             me.setLifecycleOwner(this);
             me.setVm(exampleViewModel);
         }
@@ -50,6 +50,7 @@ public class FragSecond extends SubFragment<Frame2pBinding> {
 
     @Override
     public void onRefresh() {
+        Log.v("","");
     }
 
     @Override

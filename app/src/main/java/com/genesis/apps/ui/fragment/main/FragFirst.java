@@ -33,13 +33,13 @@ public class FragFirst extends SubFragment<Frame1pBinding> {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        exampleViewModel = new ViewModelProvider(getActivity()).get(ExampleViewModel.class);
-//
-//
-//        ExampleReqVO exampleReqVO = new ExampleReqVO();
-//        exampleReqVO.setRequestID("park");
-//        exampleViewModel.reqData(exampleReqVO,"","");
-//
+        exampleViewModel = new ViewModelProvider(getActivity()).get(ExampleViewModel.class);
+
+
+        ExampleReqVO exampleReqVO = new ExampleReqVO();
+        exampleReqVO.setRequestID("park");
+        exampleViewModel.reqData(exampleReqVO,"","");
+
 //        final Observer<NetUIResponse<ExampleResVO>> observer = new Observer<NetUIResponse<ExampleResVO>>() {
 //            @Override
 //            public void onChanged(NetUIResponse<ExampleResVO> data) {
@@ -47,13 +47,13 @@ public class FragFirst extends SubFragment<Frame1pBinding> {
 //            }
 //        };
 //        exampleViewModel.getResVo().observe(getActivity(), observer);
-//
-//        me.tvName1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                exampleViewModel.setAdd();
-//            }
-//        });
+
+        me.tvName1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                exampleViewModel.setAdd();
+            }
+        });
 
 
 //        weatherPointViewModel = new ViewModelProvider(getActivity()).get(WeatherPointViewModel.class);
