@@ -4,6 +4,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -15,7 +17,7 @@
                 android:id="@+id/imgBanner1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#ffcccc"
+                android:background="#00000000"
                 android:contentDescription="@string/app_name" />
 
             <TextView
@@ -31,5 +33,10 @@
                 android:textStyle="bold" />
 
         </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/gif_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </FrameLayout>
 </layout>

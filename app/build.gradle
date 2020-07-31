@@ -74,6 +74,9 @@ dependencies {
     testImplementation 'com.google.dagger:hilt-android-testing:2.28.1-alpha'
     testAnnotationProcessor 'com.google.dagger:hilt-android-compiler:2.28.1-alpha'
 
+    implementation "com.google.android.exoplayer:exoplayer-core:2.11.7"
+    implementation "com.google.android.exoplayer:exoplayer-ui:2.11.7"
+
     //socket.io chat
     implementation ('io.socket:socket.io-client:1.0.0') {
         exclude group: 'org.json', module: 'json'
@@ -101,6 +104,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:20.2.3'
     implementation 'com.google.firebase:firebase-crashlytics:17.1.1'
     implementation 'com.google.firebase:firebase-crashlytics-ktx:17.1.1'
+
+
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

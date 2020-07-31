@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.ExampleReqVO;
 import com.genesis.apps.comm.model.ExampleResVO;
@@ -77,6 +80,9 @@ public class FragFirst extends SubFragment<Frame1pBinding> {
 
     @Override
     public void onRefresh() {
+        Glide.with(this).load(R.drawable.snow).into(me.gifImage);
+
+
 
     }
 }

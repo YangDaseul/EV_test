@@ -1,9 +1,12 @@
 package com.genesis.apps.ui.activity;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
@@ -11,12 +14,33 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.ActivityMainBinding;
 import com.genesis.apps.ui.fragment.main.MyAdapter;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.extractor.ogg.OggExtractor;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.LoopingMediaSource;
+import com.google.android.exoplayer2.source.MediaPeriod;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.MediaSourceEventListener;
+import com.google.android.exoplayer2.source.ProgressiveMediaSource;
+import com.google.android.exoplayer2.upstream.Allocator;
+import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DataSpec;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.upstream.RawResourceDataSource;
+import com.google.android.exoplayer2.upstream.TransferListener;
+import com.google.android.exoplayer2.util.Util;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.io.IOException;
+
+import static com.google.android.exoplayer2.Player.REPEAT_MODE_ALL;
+import static com.google.android.exoplayer2.ui.AspectRatioFrameLayout.RESIZE_MODE_FILL;
+import static com.google.android.exoplayer2.ui.AspectRatioFrameLayout.RESIZE_MODE_FIXED_HEIGHT;
 
 public class MainActivity extends SubActivity<ActivityMainBinding> {
     private FragmentStateAdapter pagerAdapter;
     private int num_page = 4;
-
+    private SimpleExoPlayer simpleExoPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +57,6 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
         ui.indicator.createIndicators(num_page,0);
 
         new TabLayoutMediator(ui.tabs, ui.viewpager, (tab, position) -> tab.setText("Tab " + (position + 1))).attach();
-
-
 
         //ViewPager Setting
         ui.viewpager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
@@ -78,6 +100,11 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
                 }
             }
         });
+        try {
+            setVideo();
+        }catch (Exception e){
+
+        }
     }
 
     @Override
@@ -85,5 +112,50 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
         super.onResume();
         checkPushCode();
     }
+
+    private void setVideo() throws RawResourceDataSource.RawResourceDataSourceException {
+//            String path = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+
+        DataSpec dataSpec = new DataSpec(RawResourceDataSource.buildRawResourceUri(R.raw.sky));
+        final RawResourceDataSource rawResourceDataSource = new RawResourceDataSource(this);
+        rawResourceDataSource.open(dataSpec);
+        DataSource.Factory factory = new DataSource.Factory() {
+            @Override
+            public DataSource createDataSource() {
+                return rawResourceDataSource;
+            }
+        };
+
+        MediaSource audioSource = new ProgressiveMediaSource.Factory(factory).createMediaSource(rawResourceDataSource.getUri());
+        LoopingMediaSource mediaSource = new LoopingMediaSource(audioSource);
+
+
+//            String path = "android_asset://sky.mp4";
+//            DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(this, Util.getUserAgent(this, getString(R.string.app_name)));
+//            MediaSource mediaSource = new ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.parse(path));
+
+
+            simpleExoPlayer = new SimpleExoPlayer.Builder(this).build();
+            simpleExoPlayer.setPlayWhenReady(true);
+            simpleExoPlayer.setVolume(0);
+            simpleExoPlayer.setRepeatMode(REPEAT_MODE_ALL);
+            simpleExoPlayer.setSeekParameters(null);
+            ui.exoPlayerView.setPlayer(simpleExoPlayer);
+            simpleExoPlayer.prepare(mediaSource);
+            ui.exoPlayerView.setResizeMode(RESIZE_MODE_FIXED_HEIGHT);
+            ui.exoPlayerView.setUseController(false);
+
+//        ui.vVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.rain));
+//        ui.vVideo.setVideoURI(Uri.parse(path));
+//        ui.vVideo.requestFocus();
+//        ui.vVideo.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//            @Override
+//            public void onPrepared(MediaPlayer mediaPlayer) {
+//                mediaPlayer.setLooping(true);
+//                ui.vVideo.start();
+//            }
+//        });
+    }
+
 
 }
