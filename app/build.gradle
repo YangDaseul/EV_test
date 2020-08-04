@@ -38,6 +38,12 @@ android {
     }
 }
 
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -52,9 +58,11 @@ dependencies {
     implementation "androidx.preference:preference:1.1.1"
 
     //json
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+
     //thread or eventbus
-    implementation 'com.google.guava:guava:25.0-android'
+    implementation 'com.google.guava:guava:29.0-android'
 
     //dagger2
     implementation 'com.google.dagger:dagger-android:2.28.1'
@@ -92,7 +100,6 @@ dependencies {
     implementation 'com.madgag.spongycastle:pkix:1.54.0.0'
     implementation 'com.madgag.spongycastle:pg:1.54.0.0'
     implementation 'com.madgag.spongycastle:pg:1.54.0.0'
-
     //room database
     implementation 'android.arch.persistence.room:runtime:1.1.1'
     annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
@@ -105,10 +112,30 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics:17.1.1'
     implementation 'com.google.firebase:firebase-crashlytics-ktx:17.1.1'
 
-
+    //glide + webp
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.zlc.glide:webpdecoder:1.5.4.9.0'
+
+
+    //barcode
+    implementation 'com.google.zxing:core:3.4.0'
+
+    //play map sdk
+    implementation 'com.facebook.soloader:soloader:0.9.0'
+    implementation name: 'PlayMapSDK_1.0', ext: 'aar'
+
+//    implementation (name: 'PlayMapSDK_1.0', ext: 'aar'){
+//        configurations{
+//            compile.exclude module: 'gson'
+//            compile.exclude module: 'okhttp'
+//            compile.exclude module: 'okio'
+//            compile.exclude module: 'logging-interceptor'
+//        }
+//    }
+
+    //lottie
+    implementation 'com.airbnb.android:lottie:3.4.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

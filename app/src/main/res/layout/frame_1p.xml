@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -32,11 +33,43 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
+
+            <ImageView
+                android:id="@+id/iv_car"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="60dp"
+                android:src="@drawable/car"/>
+
+<!--            <com.airbnb.lottie.LottieAnimationView-->
+<!--                android:id="@+id/lottieView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="400dp"-->
+<!--                android:layout_alignParentBottom="true"-->
+<!--                app:lottie_rawRes="@raw/snowfall"-->
+<!--                app:lottie_autoPlay="true"-->
+<!--                app:lottie_loop="true" />-->
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:lottie_rawRes="@raw/snowfall2"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true" />
+
         </RelativeLayout>
 
         <ImageView
             android:id="@+id/gif_image"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+
     </FrameLayout>
 </layout>

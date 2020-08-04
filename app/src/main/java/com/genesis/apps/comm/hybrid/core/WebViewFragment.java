@@ -408,11 +408,11 @@ public abstract class WebViewFragment extends Fragment {
 
 		@Override
 		public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-			if ("dev".equalsIgnoreCase(BuildConfig.FLAVOR)) {
-				return super.onConsoleMessage(consoleMessage);
-			} else {
+//			if ("dev".equalsIgnoreCase(BuildConfig.FLAVOR)) {
+//				return super.onConsoleMessage(consoleMessage);
+//			} else {
 				return true;
-			}
+//			}
 		}
 
 		@Override

@@ -92,9 +92,12 @@ public class FragFirst extends SubFragment<Frame1pBinding> {
     public void onRefresh() {
 //        Glide.with(this).load(R.drawable.snow).diskCacheStrategy(DiskCacheStrategy.RESOURCE).into(me.gifImage);
 //.optionalTransform(WebpDrawable.class, new WebpDrawableTransformation(circleCrop))
-        Glide.with(this).load(setupSampleFile()).transition(DrawableTransitionOptions.with(new DrawableAlwaysCrossFadeFactory())) .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).   into(me.gifImage);
+//        Glide.with(this).load(setupSampleFile()).transition(DrawableTransitionOptions.with(new DrawableAlwaysCrossFadeFactory())) .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).   into(me.gifImage);
 
 //        Glide.with(this).load(setupSampleFile()).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.RESOURCE)).into(me.gifImage);
+
+//        me.lottieView.playAnimation();
+//        me.lottieView.loop(true);
     }
 
 
@@ -111,7 +114,7 @@ public class FragFirst extends SubFragment<Frame1pBinding> {
 
     private String setupSampleFile() {
         AssetManager assetManager = getActivity().getAssets();
-        String srcFile = "sample1.webp";
+        String srcFile = "snow.webp";
         String destFile = getActivity().getFilesDir().getAbsolutePath() + File.separator + srcFile;
         copyFile(assetManager, srcFile, destFile);
         return destFile;

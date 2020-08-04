@@ -1,22 +1,17 @@
 package com.genesis.apps.ui.fragment.main;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.ExampleReqVO;
-import com.genesis.apps.comm.model.ExampleResVO;
 import com.genesis.apps.comm.model.ExampleViewModel;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.databinding.Frame2pBinding;
 import com.genesis.apps.ui.fragment.SubFragment;
-
-import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 
 public class FragSecond extends SubFragment<Frame2pBinding> {
@@ -50,7 +45,9 @@ public class FragSecond extends SubFragment<Frame2pBinding> {
 
     @Override
     public void onRefresh() {
-        Log.v("","");
+//        PlayMapRestApi mapRestApi = new PlayMapRestApi(getActivity());
+//        mapRestApi.setPlayMapApiKey("SE1DOkdlbmVTVEc=");
+
     }
 
     @Override

@@ -113,6 +113,23 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
         checkPushCode();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        releaseVideo();
+    }
+
+    private void releaseVideo(){
+        if(simpleExoPlayer!=null){
+            ui.exoPlayerView.getOverlayFrameLayout().removeAllViews();
+            ui.exoPlayerView.setPlayer(null);
+            simpleExoPlayer.release();
+            simpleExoPlayer=null;
+        }
+    }
+
+
     private void setVideo() throws RawResourceDataSource.RawResourceDataSourceException {
 //            String path = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
