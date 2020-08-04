@@ -12,6 +12,7 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.ExampleViewModel;
 import com.genesis.apps.databinding.Frame2pBinding;
 import com.genesis.apps.ui.fragment.SubFragment;
+import com.hmns.playmap.network.PlayMapRestApi;
 
 
 public class FragSecond extends SubFragment<Frame2pBinding> {
@@ -45,8 +46,8 @@ public class FragSecond extends SubFragment<Frame2pBinding> {
 
     @Override
     public void onRefresh() {
-//        PlayMapRestApi mapRestApi = new PlayMapRestApi(getActivity());
-//        mapRestApi.setPlayMapApiKey("SE1DOkdlbmVTVEc=");
+        PlayMapRestApi mapRestApi = new PlayMapRestApi(getActivity());
+        mapRestApi.setPlayMapApiKey("SE1DOkdlbmVTVEc=");
 
     }
 

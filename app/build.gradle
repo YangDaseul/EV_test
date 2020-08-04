@@ -44,6 +44,13 @@ repositories {
     }
 }
 
+//configurations.all{
+//    resolutionStrategy{
+//        forcedModules = ['com.google.code.gson:gson:2.8.6']
+//    }
+//}
+
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -57,7 +64,7 @@ dependencies {
     //preference
     implementation "androidx.preference:preference:1.1.1"
 
-    //json
+//    //json
     implementation 'com.google.code.gson:gson:2.8.6'
 
 
