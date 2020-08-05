@@ -10,6 +10,7 @@ import com.genesis.apps.comm.net.ga.GA;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.room.DatabaseHolder;
 import com.genesis.apps.comm.util.PreferenceUtil;
+import com.hmns.playmap.network.PlayMapRestApi;
 
 import javax.inject.Singleton;
 
@@ -63,4 +64,13 @@ public class ApplicationModule {
     public GA getGA(CCSP ccsp, HttpRequestUtil httpRequestUtil){
         return new GA(ccsp, httpRequestUtil);
     }
+
+    @Provides
+    @Singleton
+    public PlayMapRestApi providePlayMapRestApi(Application application){
+        PlayMapRestApi playMapRestApi = new PlayMapRestApi(application);
+        playMapRestApi.setPlayMapApiKey("");
+        return playMapRestApi;
+    }
+
 }

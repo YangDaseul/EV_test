@@ -24,11 +24,4 @@ public class ActivityModule {
     public BaseActivity getBaseActivity(Activity activity){
         return (BaseActivity)activity;
     }
-
-    @Provides
-    public PlayMapRestApi providePlayMapRestApi(Activity activity){
-        PlayMapRestApi playMapRestApi = new PlayMapRestApi(activity);
-        playMapRestApi.setPlayMapApiKey("");
-        return playMapRestApi;
-    }
 }

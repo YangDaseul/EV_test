@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.genesis.apps.comm.net.HttpRequest;
 import com.genesis.apps.comm.net.HttpRequestUtil;
-import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetException;
 import com.google.gson.JsonObject;
 

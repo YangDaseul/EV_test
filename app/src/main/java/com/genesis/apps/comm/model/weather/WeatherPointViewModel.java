@@ -3,20 +3,19 @@ package com.genesis.apps.comm.model.weather;
 import androidx.hilt.Assisted;
 import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 import com.genesis.apps.comm.net.NetUIResponse;
 
 public class WeatherPointViewModel extends ViewModel {
-    private final WeatherRepository2 repository;
+    private final WeatherRepository2Net repository;
     private final SavedStateHandle savedStateHandle;
     private LiveData<NetUIResponse<WeatherPointResVO>> weatherPointResVOLiveData;
 
     @ViewModelInject
     WeatherPointViewModel(
-            WeatherRepository2 repository,
+            WeatherRepository2Net repository,
             @Assisted SavedStateHandle savedStateHandle)
     {
         this.repository = repository;

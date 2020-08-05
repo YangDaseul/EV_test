@@ -1,4 +1,4 @@
-package com.genesis.apps.comm.model.weather;
+package com.genesis.apps.comm.net;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -12,11 +12,11 @@ import com.genesis.apps.comm.net.model.BeanReqParm;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
-public class ViewModelRepository<Q extends BaseData, S extends BaseData> {
+public class NetViewModelRepository<Q extends BaseData, S extends BaseData> {
     private final TypeToken<S> typeToken = new TypeToken<S>(getClass()){};
     public NetCaller netCaller;
 
-    public ViewModelRepository(NetCaller netCaller){
+    public NetViewModelRepository(NetCaller netCaller){
         this.netCaller = netCaller;
     }
     public LiveData<NetUIResponse<S>> reqData(Q reqData, String url, String type){

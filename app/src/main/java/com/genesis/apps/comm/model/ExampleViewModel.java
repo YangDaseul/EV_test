@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class ExampleViewModel extends ViewModel {
 
-    private final ExampleRepository repository;
+    private final ExampleRepositoryNet repository;
     private final SavedStateHandle savedStateHandle;
 
 //    private final MutableLiveData<NetUIResponse<ExampleResVO>> exampleResVo = new MutableLiveData<>();
@@ -27,7 +27,7 @@ public class ExampleViewModel extends ViewModel {
 
     @ViewModelInject
     ExampleViewModel(
-            ExampleRepository repository,
+            ExampleRepositoryNet repository,
             @Assisted SavedStateHandle savedStateHandle)
     {
         this.repository = repository;
