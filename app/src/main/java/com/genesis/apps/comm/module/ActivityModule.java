@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.genesis.apps.chat.SocketIOHelper;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.ui.activity.BaseActivity;
+import com.hmns.playmap.network.PlayMapRestApi;
 
 import dagger.Module;
 import dagger.Provides;
@@ -22,5 +23,12 @@ public class ActivityModule {
     @Provides
     public BaseActivity getBaseActivity(Activity activity){
         return (BaseActivity)activity;
+    }
+
+    @Provides
+    public PlayMapRestApi providePlayMapRestApi(Activity activity){
+        PlayMapRestApi playMapRestApi = new PlayMapRestApi(activity);
+        playMapRestApi.setPlayMapApiKey("");
+        return playMapRestApi;
     }
 }
