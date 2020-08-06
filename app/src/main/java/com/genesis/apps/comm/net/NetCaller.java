@@ -3,13 +3,19 @@ package com.genesis.apps.comm.net;
 import android.text.TextUtils;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.weather.WeatherPointResVO;
 import com.genesis.apps.comm.net.model.BeanReqParm;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
+import com.google.common.reflect.TypeToken;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
+import org.json.JSONObject;
+
+import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 
@@ -18,17 +24,15 @@ public class NetCaller {
     private static final int CONNECTION_TIME_OUT = 10 * 1000;
     private static final int READ_TIME_OUT = 10 * 1000;
 
-
-    private ExecutorService es;
     private HttpRequestUtil httpRequestUtil;
     @Inject
-    public NetCaller(ExecutorService es, HttpRequestUtil httpRequestUtil){
-        this.es = es;
+    public NetCaller(HttpRequestUtil httpRequestUtil){
         this.httpRequestUtil = httpRequestUtil;
     }
 
 
     public void sendData(BeanReqParm beanReqParm) {
+        ExecutorService es = new ExecutorService("");
         Futures.addCallback(es.getListeningExecutorService().submit(() -> {
             JsonObject jsonObject = null;
             try {
@@ -87,32 +91,54 @@ public class NetCaller {
         }, es.getUiThreadExecutor());
     }
 
-//    public HttpRequest getPostRequest(String url) {
-//        return HttpRequest.post(url)
-//                .readTimeout(READ_TIME_OUT)
-//                .connectTimeout(CONNECTION_TIME_OUT)
-//                .acceptGzipEncoding()
-//                .uncompress(true)
-//                .followRedirects(true);
-//    }
 
-//    public HttpRequest getRequest(String url) {
-//        return HttpRequest.get(url)
-//                .readTimeout(READ_TIME_OUT)
-//                .connectTimeout(CONNECTION_TIME_OUT)
-//                .acceptGzipEncoding()
-//                .uncompress(true)
-//                .followRedirects(true);
-//    }
 
-//    public HttpRequest getPutRequest(String url) {
-//        return HttpRequest.put(url)
-//                .readTimeout(READ_TIME_OUT)
-//                .connectTimeout(CONNECTION_TIME_OUT)
-//                .acceptGzipEncoding()
-//                .uncompress(true)
-//                .followRedirects(true);
-//    }
+    public <RESPONSE,FORMAT> void reqDataFromAnonymous(Callable<RESPONSE> callable, NetCallback callback) {
+        ExecutorService es = new ExecutorService("");
+        Futures.addCallback(es.getListeningExecutorService().submit(() -> {
+            RESPONSE reponseData = null;
+            try {
+                reponseData = callable.call();
 
+                if (reponseData != null && !TextUtils.isEmpty(reponseData.toString())) {
+                    return new NetResult(NetStatusCode.SUCCESS, 0, reponseData);
+                } else {
+                    return new NetResult(NetStatusCode.ERR_DATA_NULL, R.string.error_msg_1, null);
+                }
+            } catch (HttpRequest.HttpRequestException e) {
+                e.printStackTrace();
+                return new NetResult(NetStatusCode.ERR_EXCEPTION_HTTP, R.string.error_msg_2, null);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+                return new NetResult(NetStatusCode.ERR_EXCEPTION_UNKNOWN, R.string.error_msg_3, null);
+            }
+
+        }), new FutureCallback<NetResult>() {
+            @Override
+            public void onSuccess(@NullableDecl NetResult result) {
+                switch (result.getCode()) {
+                    case SUCCESS:
+                        callback.onSuccess(result.getData());
+                        break;
+                    case ERR_EXCEPTION_DKC:
+                    case ERR_EXCEPTION_HTTP:
+                    case ERR_EXCEPTION_UNKNOWN:
+                    case ERR_DATA_NULL:
+                    case ERR_ISSUE_SOURCE:
+                    case ERR_DATA_INCORRECT:
+                    default:
+                        callback.onFail(result);
+                        break;
+                }
+                es.shutDownExcutor();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                callback.onError(new NetResult(NetStatusCode.ERR_ISSUE_SOURCE, R.string.error_msg_4, t));
+                es.shutDownExcutor();
+            }
+        }, es.getUiThreadExecutor());
+    }
 
 }

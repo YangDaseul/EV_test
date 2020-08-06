@@ -3,8 +3,6 @@ package com.genesis.apps.comm.model.map;
 import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.hmns.playmap.PlayMapPoint;
-import com.hmns.playmap.network.PlayMapRestApi;
 
 import java.util.ArrayList;
 
@@ -12,51 +10,123 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * @brief 경로 탐색
- * @see #routeOption  탐색 옵션
- * (0: 최소시간, 1:(미정의) 2: 최단, 3:추천)
- * @see #feeOption  요금
- * (0: 모든도로, 1: 무료도로)
- * @see #roadOption  우선도로
- * (0: 모든도로, 1: 고속도로우선 2: 고속도로회피 3: 자동차전용도로회피)
- * @see #coordType 좌표계타입
- * (1: Bessel, 2: WGS84)
- * @see #carType 단말 차종
- * (0=미선택(기본값), 1=승용차/소형합차, 2= 중형승합차, 3= 대형승합차, 4= 대형화물차, 5= 특수화물차, 6=경차)
- * @see #startPoint 출발지 좌표
- * @see #viaPoint 경유지 좌표 리스트 (최대 3개)
- * @see #goalPoint 목적지 좌표
- * @see #findPathDataListener 경로탐색 결과에 대한 인터페이스 호출
+ * @brief 경로 탐색 응답 데이터
+
  */
-@EqualsAndHashCode(callSuper=false)
-public @Data class FindPathResVO extends BaseData {
+@EqualsAndHashCode(callSuper = false)
+public @Data
+class FindPathResVO extends BaseData {
 
     @Expose
-    @SerializedName("RouteOption")
-    private String routeOption;
+    @SerializedName("PosList")
+    private ArrayList<PosList> PosList;
     @Expose
-    @SerializedName("FeeOption")
-    private String feeOption;
+    @SerializedName("RgData")
+    private ArrayList<RgData> RgDataList;
     @Expose
-    @SerializedName("RoadOption")
-    private String roadOption;
+    @SerializedName("RpOpt")
+    private RpOpt RpOpt;
     @Expose
-    @SerializedName("coordType")
-    private String coordType;
+    @SerializedName("Summary")
+    private Summary Summary;
     @Expose
-    @SerializedName("carType")
-    private String carType;
-    @Expose
-    @SerializedName("startPoint")
-    private PlayMapPoint startPoint;
-    @Expose
-    @SerializedName("viaPoint")
-    private ArrayList viaPoint;
-    @Expose
-    @SerializedName("goalPoint")
-    private PlayMapPoint goalPoint;
-    @Expose
-    @SerializedName("findPathDataListener")
-    private PlayMapRestApi.FindPathDataListenerCallback findPathDataListener;
+    @SerializedName("TraInfo")
+    private ArrayList<TraInfo> TraInfoList;
 
+
+    public @Data
+    class PosList extends BaseData {
+        @Expose
+        @SerializedName("X")
+        private float X;
+        @Expose
+        @SerializedName("Y")
+        private float Y;
+        @Expose
+        @SerializedName("index")
+        private int index;
+    }
+
+    public @Data
+    class RgData extends BaseData {
+        @Expose
+        @SerializedName("EndIdx")
+        private int EndIdx;
+        @Expose
+        @SerializedName("PreTurn")
+        private int PreTurn;
+        @Expose
+        @SerializedName("RgDistance")
+        private int RgDistance;
+        @Expose
+        @SerializedName("RgTime")
+        private int RgTime;
+        @Expose
+        @SerializedName("Speed")
+        private int Speed;
+        @Expose
+        @SerializedName("StartIndex")
+        private int StartIndex;
+        @Expose
+        @SerializedName("TurnCODE")
+        private int TurnCODE;
+        @Expose
+        @SerializedName("TurnName")
+        private ArrayList<TurnName> TurnName;
+    }
+
+    public @Data
+    class TurnName extends BaseData {
+        @Expose
+        @SerializedName("Category")
+        private int Category;
+        @Expose
+        @SerializedName("Name")
+        private String Name;
+    }
+
+    public @Data
+    class RpOpt extends BaseData {
+        @Expose
+        @SerializedName("FeeOption")
+        private int FeeOption;
+        @Expose
+        @SerializedName("RoadOption")
+        private int RoadOption;
+        @Expose
+        @SerializedName("RouteOption")
+        private int RouteOption;
+    }
+
+    public @Data
+    class Summary extends BaseData {
+        @Expose
+        @SerializedName("TotalDistance")
+        private int TotalDistance;
+        @Expose
+        @SerializedName("TotalFee")
+        private int TotalFee;
+        @Expose
+        @SerializedName("TotalTime")
+        private int TotalTime;
+    }
+
+    public @Data
+    class TraInfo extends BaseData {
+        @Expose
+        @SerializedName("EndIndex")
+        private int EndIndex;
+        @Expose
+        @SerializedName("RoadType")
+        private int RoadType;
+        @Expose
+        @SerializedName("Speed")
+        private int Speed;
+        @Expose
+        @SerializedName("StartIndex")
+        private int StartIndex;
+        @Expose
+        @SerializedName("TraLinkID")
+        private int TraLinkID;
+    }
 }

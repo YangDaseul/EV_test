@@ -49,8 +49,8 @@ public class ApplicationModule {
     }
 
     @Provides
-    public NetCaller getNetCaller(ExecutorService es,HttpRequestUtil httpRequestUtil) {
-        return new NetCaller(es,httpRequestUtil);
+    public NetCaller getNetCaller(HttpRequestUtil httpRequestUtil) {
+        return new NetCaller(httpRequestUtil);
     }
 
     @Provides
@@ -69,7 +69,7 @@ public class ApplicationModule {
     @Singleton
     public PlayMapRestApi providePlayMapRestApi(Application application){
         PlayMapRestApi playMapRestApi = new PlayMapRestApi(application);
-        playMapRestApi.setPlayMapApiKey("");
+        playMapRestApi.setPlayMapApiKey("SE1DOkdlbmVTVEc=");
         return playMapRestApi;
     }
 

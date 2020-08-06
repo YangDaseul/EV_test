@@ -3,40 +3,40 @@ package com.genesis.apps.ui.fragment.main;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.integration.webp.decoder.WebpDrawable;
-import com.bumptech.glide.integration.webp.decoder.WebpDrawableTransformation;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.transition.DrawableCrossFadeTransition;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.request.transition.TransitionFactory;
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.ExampleReqVO;
-import com.genesis.apps.comm.model.ExampleViewModel;
+import com.genesis.apps.comm.model.map.AroundPOIReqVO;
+import com.genesis.apps.comm.model.map.MapViewModel;
+import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.databinding.Frame1pBinding;
 import com.genesis.apps.ui.fragment.SubFragment;
+import com.hmns.playmap.extension.PlayMapPoiItem;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Objects;
-
-import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.ListAdapter;
+import java.util.ArrayList;
 
 public class FragFirst extends SubFragment<Frame1pBinding> {
-    private ExampleViewModel exampleViewModel;
-
+//    private ExampleViewModel exampleViewModel;
 //    private WeatherPointViewModel weatherPointViewModel;
+
+    private MapViewModel mapViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -44,30 +44,57 @@ public class FragFirst extends SubFragment<Frame1pBinding> {
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        exampleViewModel = new ViewModelProvider(getActivity()).get(ExampleViewModel.class);
 
 
-        ExampleReqVO exampleReqVO = new ExampleReqVO();
-        exampleReqVO.setRequestID("park");
-        exampleViewModel.reqData(exampleReqVO,"","");
 
-//        final Observer<NetUIResponse<ExampleResVO>> observer = new Observer<NetUIResponse<ExampleResVO>>() {
-//            @Override
-//            public void onChanged(NetUIResponse<ExampleResVO> data) {
-//                Log.v("testLiveData","DATA:" + data.data.getValue());
-//            }
-//        };
-//        exampleViewModel.getResVo().observe(getActivity(), observer);
-
+        mapViewModel = new ViewModelProvider(this).get(MapViewModel.class);
+        me.setLifecycleOwner(getViewLifecycleOwner());
         me.tvName1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                exampleViewModel.setAdd();
+//                mapViewModel.reqPlayMapPoiItemList(new AroundPOIReqVO("주유소",37.56719394162535,126.97875114212447,1000,1,1,0,20));
+                mapViewModel.reqTestCount();
             }
         });
 
+
+        getViewLifecycleOwnerLiveData().observe(getViewLifecycleOwner(), new Observer<LifecycleOwner>() {
+            @Override
+            public void onChanged(LifecycleOwner lifecycleOwner) {
+
+            }
+        });
+
+
+        mapViewModel.getPlayMapPoiItemList().observe(getActivity(), new Observer<NetUIResponse<ArrayList<PlayMapPoiItem>>>() {
+            @Override
+            public void onChanged(NetUIResponse<ArrayList<PlayMapPoiItem>> arrayListNetUIResponse) {
+                Log.v("test", "test1:" + arrayListNetUIResponse);
+
+            }
+        });
+
+        mapViewModel.getTestCount().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                Log.v("test", "First:" + integer);
+            }
+        });
+
+
+//        exampleViewModel = new ViewModelProvider(getActivity()).get(ExampleViewModel.class);
+//
+//
+//        ExampleReqVO exampleReqVO = new ExampleReqVO();
+//        exampleReqVO.setRequestID("park");
+//        exampleViewModel.reqData(exampleReqVO,"","");
 
 //        weatherPointViewModel = new ViewModelProvider(getActivity()).get(WeatherPointViewModel.class);
 //        weatherPointViewModel.reqData();
@@ -137,13 +164,6 @@ public class FragFirst extends SubFragment<Frame1pBinding> {
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
-
 
 
 }

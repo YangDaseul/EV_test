@@ -53,7 +53,6 @@ public class NetViewModelRepository<Q extends BaseData, S extends BaseData> {
 
     public MutableLiveData<NetUIResponse<S>> reqDataTest(Q reqData, String url, String type){
         final MutableLiveData<NetUIResponse<S>> data=new MutableLiveData<>();
-
         BeanReqParm beanReqParm = new BeanReqParm();
         beanReqParm.setData(new Gson().toJson(reqData));
         beanReqParm.setUrl(url);

@@ -45,7 +45,6 @@ public class LoginActivity extends WebviewActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        executorService.shutDownExcutor();
     }
 
     private void getPageType() {
