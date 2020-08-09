@@ -25,6 +25,7 @@ public class MapRepository {
     final MutableLiveData<NetUIResponse<FindPathResVO>> findPathResVo = new MutableLiveData<>();
     final MutableLiveData<NetUIResponse<ArrayList<PlayMapPoiItem>>> playMapPoiItemList = new MutableLiveData<>();
     final MutableLiveData<NetUIResponse<PlayMapGeoItem>> playMapGeoItem = new MutableLiveData<>();
+    final MutableLiveData<NetUIResponse<ArrayList<PlayMapGeoItem>>> playMapGeoItemList = new MutableLiveData<>();
 
     final MutableLiveData<Integer> testCount = new MutableLiveData<>(1);
     @Inject
@@ -107,5 +108,30 @@ public class MapRepository {
                 });
 
         return playMapGeoItem;
+    }
+
+
+
+
+    public MutableLiveData<NetUIResponse<ArrayList<PlayMapGeoItem>>> searchGeocoding (String keyword){
+        netCaller.reqDataFromAnonymous(
+                () -> playMapRestApi.searchGeocoding(keyword), new NetCallback() {
+                    @Override
+                    public void onSuccess(Object object) {
+                        playMapGeoItemList.setValue(NetUIResponse.success((ArrayList<PlayMapGeoItem>)object));
+                    }
+
+                    @Override
+                    public void onFail(NetResult e) {
+                        playMapGeoItemList.setValue(NetUIResponse.error(e.getMseeage(),null));
+                    }
+
+                    @Override
+                    public void onError(NetResult e) {
+                        playMapGeoItemList.setValue(NetUIResponse.error(R.string.error_msg_4,null));
+                    }
+                });
+
+        return playMapGeoItemList;
     }
 }

@@ -22,8 +22,9 @@ public class MapViewModel extends ViewModel {
 
     private MutableLiveData<NetUIResponse<FindPathResVO>> findPathResVo;
     private MutableLiveData<NetUIResponse<ArrayList<PlayMapPoiItem>>> playMapPoiItemList;
-
     private MutableLiveData<NetUIResponse<PlayMapGeoItem>> playMapGeoItem;
+
+    private MutableLiveData<NetUIResponse<ArrayList<PlayMapGeoItem>>> playMapGeoItemList;
 
 
 
@@ -40,6 +41,7 @@ public class MapViewModel extends ViewModel {
         playMapPoiItemList = repository.playMapPoiItemList;
         findPathResVo = repository.findPathResVo;
         playMapGeoItem = repository.playMapGeoItem;
+        playMapGeoItemList = repository.playMapGeoItemList;
 
         testCount = repository.testCount;
     }
@@ -68,8 +70,6 @@ public class MapViewModel extends ViewModel {
         return playMapGeoItem;
     }
 
-
-
     public void reqTestCount(){
         repository.addCount();
     }
@@ -77,4 +77,15 @@ public class MapViewModel extends ViewModel {
     public MutableLiveData<Integer> getTestCount() {
         return testCount;
     }
+
+
+
+    public void reqPlayMapGeoItemList(final String keyword){
+        playMapGeoItemList.setValue(repository.searchGeocoding(keyword).getValue());
+    }
+
+    public LiveData<NetUIResponse<ArrayList<PlayMapGeoItem>>> getPlayMapGeoItemList() {
+        return playMapGeoItemList;
+    }
+
 }

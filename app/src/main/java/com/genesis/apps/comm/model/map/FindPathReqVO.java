@@ -7,7 +7,6 @@ import com.hmns.playmap.PlayMapPoint;
 import com.hmns.playmap.network.PlayMapRestApi;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
