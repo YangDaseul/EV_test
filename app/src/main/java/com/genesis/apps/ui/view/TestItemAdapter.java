@@ -11,11 +11,17 @@ public class TestItemAdapter extends BaseRecyclerViewAdapter {
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == VIEW_TYPE_A) {
-            return new ViewHolderA(getView(parent, R.layout.item_test));
-        } else {
-            return new ViewHolderB(getView(parent, R.layout.item_test));
-        }
+//        if (viewType == VIEW_TYPE_A) {
+//            return new ViewHolderA(getView(parent, R.layout.item_test));
+//        } else {
+//            return new ViewHolderB(getView(parent, R.layout.item_test));
+//        }
+
+        return new ViewHolderC(getView(parent, R.layout.item_test));
     }
 
+    @Override
+    public void onBindViewHolder(BaseViewHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
+    }
 }

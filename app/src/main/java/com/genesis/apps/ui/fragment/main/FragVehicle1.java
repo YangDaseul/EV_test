@@ -3,35 +3,40 @@ package com.genesis.apps.ui.fragment.main;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.viewpager2.widget.ViewPager2;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.request.transition.DrawableCrossFadeTransition;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.request.transition.TransitionFactory;
 import com.genesis.apps.R;
-import com.genesis.apps.databinding.Frame1pBinding;
+import com.genesis.apps.comm.model.map.MapViewModel;
+import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.databinding.FragVehicle1Binding;
 import com.genesis.apps.ui.fragment.SubFragment;
+import com.hmns.playmap.extension.PlayMapPoiItem;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
-public class FragFirst extends SubFragment<Frame1pBinding> {
-//    private ExampleViewModel exampleViewModel;
-//    private WeatherPointViewModel weatherPointViewModel;
-//    private MapViewModel mapViewModel;
+public class FragVehicle1 extends SubFragment<FragVehicle1Binding> {
+    private MapViewModel mapViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return super.setContentView(inflater, R.layout.frame_1p);
+        return super.setContentView(inflater, R.layout.frag_vehicle_1);
     }
 
     @Override
@@ -43,67 +48,39 @@ public class FragFirst extends SubFragment<Frame1pBinding> {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        me.vpVehicle.setAdapter(new VehicleViewpagerAdapter(getActivity(), 2));
-        //ViewPager Setting
-        me.vpVehicle.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
-        me.vpVehicle.setCurrentItem(0);
-        me.vpVehicle.setOffscreenPageLimit(2);
-
-        me.vpVehicle.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        mapViewModel = new ViewModelProvider(getActivity()).get(MapViewModel.class);
+        me.setLifecycleOwner(getViewLifecycleOwner());
+        me.tvName1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                if (positionOffsetPixels == 0) {
-                    me.vpVehicle.setCurrentItem(position);
-                }
+            public void onClick(View view) {
+//                mapViewModel.reqPlayMapPoiItemList(new AroundPOIReqVO("주유소",37.56719394162535,126.97875114212447,1000,1,1,0,20));
+                mapViewModel.reqTestCount();
             }
-
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-//                ui.indicator.animatePageSelected(position%num_page);
-            }
-
         });
 
 
+        getViewLifecycleOwnerLiveData().observe(getViewLifecycleOwner(), new Observer<LifecycleOwner>() {
+            @Override
+            public void onChanged(LifecycleOwner lifecycleOwner) {
+
+            }
+        });
 
 
+        mapViewModel.getPlayMapPoiItemList().observe(getActivity(), new Observer<NetUIResponse<ArrayList<PlayMapPoiItem>>>() {
+            @Override
+            public void onChanged(NetUIResponse<ArrayList<PlayMapPoiItem>> arrayListNetUIResponse) {
+                Log.v("test", "test1:" + arrayListNetUIResponse);
 
+            }
+        });
 
-//        mapViewModel = new ViewModelProvider(this).get(MapViewModel.class);
-//        me.setLifecycleOwner(getViewLifecycleOwner());
-//        me.tvName1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                mapViewModel.reqPlayMapPoiItemList(new AroundPOIReqVO("주유소",37.56719394162535,126.97875114212447,1000,1,1,0,20));
-//                mapViewModel.reqTestCount();
-//            }
-//        });
-//
-//
-//        getViewLifecycleOwnerLiveData().observe(getViewLifecycleOwner(), new Observer<LifecycleOwner>() {
-//            @Override
-//            public void onChanged(LifecycleOwner lifecycleOwner) {
-//
-//            }
-//        });
-//
-//
-//        mapViewModel.getPlayMapPoiItemList().observe(getActivity(), new Observer<NetUIResponse<ArrayList<PlayMapPoiItem>>>() {
-//            @Override
-//            public void onChanged(NetUIResponse<ArrayList<PlayMapPoiItem>> arrayListNetUIResponse) {
-//                Log.v("test", "test1:" + arrayListNetUIResponse);
-//
-//            }
-//        });
-//
-//        mapViewModel.getTestCount().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-//            @Override
-//            public void onChanged(Integer integer) {
-//                Log.v("test", "First:" + integer);
-//            }
-//        });
+        mapViewModel.getTestCount().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                Log.v("test", "First:" + integer);
+            }
+        });
 
 
     }

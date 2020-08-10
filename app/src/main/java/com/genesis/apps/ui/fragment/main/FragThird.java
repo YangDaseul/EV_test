@@ -36,11 +36,11 @@ public class FragThird extends SubFragment<Frame3pBinding> {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if(exampleViewModel==null) {
-            exampleViewModel = new ViewModelProvider(getActivity()).get(ExampleViewModel.class);
-            me.setLifecycleOwner(this);
-            me.setViewModel(exampleViewModel);
-        }
+//        if(exampleViewModel==null) {
+//            exampleViewModel = new ViewModelProvider(getActivity()).get(ExampleViewModel.class);
+//            me.setLifecycleOwner(this);
+//            me.setViewModel(exampleViewModel);
+//        }
 
 
 //        me.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -61,15 +61,15 @@ public class FragThird extends SubFragment<Frame3pBinding> {
 
     @BindingAdapter("items")
     public static void setItems(RecyclerView recyclerView, ArrayList<ExampleResVO> datas) {
-        TestItemAdapter adapter;
-        if (recyclerView.getAdapter() == null) {
-            adapter = new TestItemAdapter();
-            recyclerView.setAdapter(adapter);
-        } else {
-            adapter = (TestItemAdapter)recyclerView.getAdapter();
-        }
-        if(datas!=null)
-            adapter.updateItems(adapter.makeItems(datas,0));
+//        TestItemAdapter adapter;
+//        if (recyclerView.getAdapter() == null) {
+//            adapter = new TestItemAdapter();
+//            recyclerView.setAdapter(adapter);
+//        } else {
+//            adapter = (TestItemAdapter)recyclerView.getAdapter();
+//        }
+//        if(datas!=null)
+//            adapter.updateItems(adapter.makeItems(datas,0));
     }
 
 

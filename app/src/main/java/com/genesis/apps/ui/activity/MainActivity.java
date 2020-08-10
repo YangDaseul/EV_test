@@ -1,40 +1,26 @@
 package com.genesis.apps.ui.activity;
 
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.ActivityMainBinding;
-import com.genesis.apps.ui.fragment.main.MyAdapter;
+import com.genesis.apps.ui.fragment.main.MainViewpagerAdapter;
 import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.extractor.ogg.OggExtractor;
-import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
-import com.google.android.exoplayer2.source.MediaPeriod;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.MediaSourceEventListener;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
-import com.google.android.exoplayer2.upstream.Allocator;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DataSpec;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.RawResourceDataSource;
-import com.google.android.exoplayer2.upstream.TransferListener;
-import com.google.android.exoplayer2.util.Util;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import java.io.IOException;
-
 import static com.google.android.exoplayer2.Player.REPEAT_MODE_ALL;
-import static com.google.android.exoplayer2.ui.AspectRatioFrameLayout.RESIZE_MODE_FILL;
 import static com.google.android.exoplayer2.ui.AspectRatioFrameLayout.RESIZE_MODE_FIXED_HEIGHT;
 
 public class MainActivity extends SubActivity<ActivityMainBinding> {
@@ -50,7 +36,7 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
 
         //ViewPager2
         //Adapter
-        pagerAdapter = new MyAdapter(this, num_page);
+        pagerAdapter = new MainViewpagerAdapter(this, num_page);
         ui.viewpager.setAdapter(pagerAdapter);
         //Indicator
         ui.indicator.setViewPager(ui.viewpager);
