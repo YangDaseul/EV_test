@@ -15,6 +15,8 @@ import com.genesis.apps.databinding.FragVehicle2Binding;
 import com.genesis.apps.ui.fragment.SubFragment;
 import com.genesis.apps.ui.view.AnimalAdapter;
 import com.genesis.apps.ui.view.Animals;
+import com.genesis.apps.ui.view.BaseRecyclerViewAdapter;
+import com.genesis.apps.ui.view.TestItemAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +24,11 @@ import java.util.List;
 public class FragVehicle2 extends SubFragment<FragVehicle2Binding> {
     private MapViewModel mapViewModel;
 
-    AnimalAdapter mAnimalAdapter;
-    private List<Animals> mAnimalsList;
+    TestItemAdapter testItemAdapter;
+
+
+//    AnimalAdapter mAnimalAdapter;
+//    private List<Animals> mAnimalsList;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return super.setContentView(inflater, R.layout.frag_vehicle_2);
@@ -54,15 +59,22 @@ public class FragVehicle2 extends SubFragment<FragVehicle2Binding> {
 
 
     private void addAnimalsToList() {
-        mAnimalsList = new ArrayList<>();
+//        mAnimalsList = new ArrayList<>();
+//
+//        for(int i=0; i<30; i++){
+//            mAnimalsList.add(new Animals(i, "Cat"+i));
+//        }
+//
+//        mAnimalAdapter = new AnimalAdapter(mAnimalsList, null);
+//        me.firstRv.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        me.firstRv.setAdapter(mAnimalAdapter);
 
-        for(int i=0; i<30; i++){
-            mAnimalsList.add(new Animals(i, "Cat"+i));
+        testItemAdapter = new TestItemAdapter();
+        for (int i = 0; i < 30; i++) {
+            testItemAdapter.addRow(BaseRecyclerViewAdapter.Row.create("value:"+i,0));
         }
-
-        mAnimalAdapter = new AnimalAdapter(mAnimalsList, null);
         me.firstRv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        me.firstRv.setAdapter(mAnimalAdapter);
+        me.firstRv.setAdapter(testItemAdapter);
     }
 
 }
