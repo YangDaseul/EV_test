@@ -2,6 +2,7 @@ package com.genesis.apps.ui.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
@@ -15,6 +16,7 @@ import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
+import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DataSpec;
 import com.google.android.exoplayer2.upstream.RawResourceDataSource;
@@ -32,6 +34,7 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 //        ui.button.setOnClickListener(view -> startActivitySingleTop(new Intent(MainActivity.this, EntranceActivity.class),RequestCodes.REQ_CODE_DEFAULT.getCode()));
 
         //ViewPager2
@@ -119,7 +122,7 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
     private void setVideo() throws RawResourceDataSource.RawResourceDataSourceException {
 //            String path = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
-        DataSpec dataSpec = new DataSpec(RawResourceDataSource.buildRawResourceUri(R.raw.sky));
+        DataSpec dataSpec = new DataSpec(RawResourceDataSource.buildRawResourceUri(R.raw.rain_mob));
         final RawResourceDataSource rawResourceDataSource = new RawResourceDataSource(this);
         rawResourceDataSource.open(dataSpec);
         DataSource.Factory factory = new DataSource.Factory() {
@@ -145,7 +148,7 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
             simpleExoPlayer.setSeekParameters(null);
             ui.exoPlayerView.setPlayer(simpleExoPlayer);
             simpleExoPlayer.prepare(mediaSource);
-            ui.exoPlayerView.setResizeMode(RESIZE_MODE_FIXED_HEIGHT);
+            ui.exoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
             ui.exoPlayerView.setUseController(false);
 
 //        ui.vVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.rain));

@@ -14,7 +14,11 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.transition.DrawableCrossFadeTransition;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.request.transition.TransitionFactory;
@@ -50,13 +54,13 @@ public class FragVehicle1 extends SubFragment<FragVehicle1Binding> {
 
         mapViewModel = new ViewModelProvider(getActivity()).get(MapViewModel.class);
         me.setLifecycleOwner(getViewLifecycleOwner());
-        me.tvName1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                mapViewModel.reqPlayMapPoiItemList(new AroundPOIReqVO("주유소",37.56719394162535,126.97875114212447,1000,1,1,0,20));
-                mapViewModel.reqTestCount();
-            }
-        });
+//        me.tvName1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                mapViewModel.reqPlayMapPoiItemList(new AroundPOIReqVO("주유소",37.56719394162535,126.97875114212447,1000,1,1,0,20));
+//                mapViewModel.reqTestCount();
+//            }
+//        });
 
 
         getViewLifecycleOwnerLiveData().observe(getViewLifecycleOwner(), new Observer<LifecycleOwner>() {
@@ -117,7 +121,7 @@ public class FragVehicle1 extends SubFragment<FragVehicle1Binding> {
 
     private String setupSampleFile() {
         AssetManager assetManager = getActivity().getAssets();
-        String srcFile = "snow.webp";
+        String srcFile = "rainfall_s.webp";
         String destFile = getActivity().getFilesDir().getAbsolutePath() + File.separator + srcFile;
         copyFile(assetManager, srcFile, destFile);
         return destFile;

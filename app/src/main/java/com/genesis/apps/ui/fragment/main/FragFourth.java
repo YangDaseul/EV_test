@@ -10,6 +10,7 @@ import com.genesis.apps.databinding.Frame4pBinding;
 import com.genesis.apps.ui.fragment.SubFragment;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.ListAdapter;
 
 
 public class FragFourth extends SubFragment<Frame4pBinding> {

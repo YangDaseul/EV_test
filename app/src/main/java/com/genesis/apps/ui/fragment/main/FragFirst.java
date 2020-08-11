@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
+import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.load.DataSource;
@@ -67,7 +69,28 @@ public class FragFirst extends SubFragment<Frame1pBinding> {
         });
 
 
+        final float pageMargin= getResources().getDimensionPixelOffset(R.dimen.pageMargin);
+        final float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset);
 
+
+//        me.vpVehicle.setPageTransformer(new MarginPageTransformer(0));
+//        me.vpVehicle.setPadding(0,0,0,0);
+
+//        me.vpVehicle.setPageTransformer(new ViewPager2.PageTransformer() {
+//            @Override
+//            public void transformPage(@NonNull View page, float position) {
+//                float myOffset = position * -(2 * pageOffset + pageMargin);
+//                if (me.vpVehicle.getOrientation() == ViewPager2.ORIENTATION_VERTICAL) {
+//                    if (ViewCompat.getLayoutDirection(me.vpVehicle) == ViewCompat.LAYOUT_DIRECTION_LTR) {
+//                        page.setTranslationX(-myOffset);
+//                    } else {
+//                        page.setTranslationX(myOffset);
+//                    }
+//                } else {
+//                    page.setTranslationY(myOffset);
+//                }
+//            }
+//        });
 
 
 
