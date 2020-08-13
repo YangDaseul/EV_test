@@ -14,18 +14,14 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.transition.DrawableCrossFadeTransition;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.request.transition.TransitionFactory;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.map.MapViewModel;
 import com.genesis.apps.comm.net.NetUIResponse;
-import com.genesis.apps.databinding.FragVehicle1Binding;
+import com.genesis.apps.databinding.FragVehicleTestBinding;
 import com.genesis.apps.ui.fragment.SubFragment;
 import com.hmns.playmap.extension.PlayMapPoiItem;
 
@@ -35,12 +31,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class FragVehicle1 extends SubFragment<FragVehicle1Binding> {
+public class FragVehicle1 extends SubFragment<FragVehicleTestBinding> {
     private MapViewModel mapViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return super.setContentView(inflater, R.layout.frag_vehicle_1);
+        return super.setContentView(inflater, R.layout.frag_vehicle_test);
     }
 
     @Override
