@@ -35,6 +35,11 @@
             android:exported="false" />
 
         <activity
+            android:name=".ui.activity.WebviewActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+        <activity
             android:name=".ui.activity.EntranceActivity"
             android:screenOrientation="portrait"
             android:exported="false" />

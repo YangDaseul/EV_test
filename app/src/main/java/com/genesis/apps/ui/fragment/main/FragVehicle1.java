@@ -21,7 +21,7 @@ import com.bumptech.glide.request.transition.TransitionFactory;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.map.MapViewModel;
 import com.genesis.apps.comm.net.NetUIResponse;
-import com.genesis.apps.databinding.FragVehicleTestBinding;
+import com.genesis.apps.databinding.FragVehicleTest1Binding;
 import com.genesis.apps.ui.fragment.SubFragment;
 import com.hmns.playmap.extension.PlayMapPoiItem;
 
@@ -31,12 +31,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class FragVehicle1 extends SubFragment<FragVehicleTestBinding> {
+public class FragVehicle1 extends SubFragment<FragVehicleTest1Binding> {
     private MapViewModel mapViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return super.setContentView(inflater, R.layout.frag_vehicle_test);
+        return super.setContentView(inflater, R.layout.frag_vehicle_test_1);
     }
 
     @Override
