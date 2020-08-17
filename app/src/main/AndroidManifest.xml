@@ -54,6 +54,24 @@
             android:screenOrientation="portrait"
             android:exported="false" />
 
+        <activity
+            android:name=".comm.util.graph.AnotherBarActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".comm.util.graph.PieChartActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".comm.util.graph.StackedBarActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.GAWebActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/> <!-- optional (needed if default theme has no action bar) -->
 

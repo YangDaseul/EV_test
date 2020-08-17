@@ -5,34 +5,130 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/pageMarginAndOffset"
-            android:layout_marginRight="@dimen/pageMarginAndOffset"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imgBanner4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#999999"
-                android:contentDescription="@string/app_name" />
-
             <TextView
-                android:id="@+id/tvName4"
+                android:id="@+id/btn_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Hello This is Page 4"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
+                android:text="bottom dialog"
+                android:textColor="@color/x_000000"
+                android:textSize="11sp"/>
 
 
+            <TextView
+                android:id="@+id/btn_genesis_membership"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="genesis-membership"
+                android:textColor="@color/x_000000"
+                android:textSize="11sp"/>
+
+
+            <TextView
+                android:id="@+id/btn_calender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="calender"
+                android:textColor="@color/x_000000"
+                android:textSize="11sp"/>
+
+
+            <TextView
+                android:id="@+id/btn_graph_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="bar chart"
+                android:textColor="@color/x_000000"
+                android:textSize="11sp"/>
+
+            <TextView
+                android:id="@+id/btn_graph_stackedbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="stacked bar chart"
+                android:textColor="@color/x_000000"
+                android:textSize="11sp"/>
+
+            <TextView
+                android:id="@+id/btn_graph_pie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="pie chart"
+                android:textColor="@color/x_000000"
+                android:textSize="11sp"/>
+
+
+            <TextView
+                android:id="@+id/btn_ga_purchase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="구매상담신청"
+                android:textColor="@color/x_000000"
+                android:textSize="11sp"/>
+            <TextView
+                android:id="@+id/btn_ga_drive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="시승신청"
+                android:textColor="@color/x_000000"
+                android:textSize="11sp"/>
+            <TextView
+                android:id="@+id/btn_ga_similar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="유사차량"
+                android:textColor="@color/x_000000"
+                android:textSize="11sp"/>
+
+            <TextView
+                android:id="@+id/btn_bto_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="BTO MAIN"
+                android:textColor="@color/x_000000"
+                android:textSize="11sp"/>
+
+
+        </LinearLayout>
+
+        </ScrollView>
     </FrameLayout>
 </layout>
