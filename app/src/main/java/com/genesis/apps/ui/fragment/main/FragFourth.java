@@ -1,27 +1,21 @@
 package com.genesis.apps.ui.fragment.main;
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.TypedValue;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.RequestCodes;
 import com.genesis.apps.databinding.Frame4pBinding;
-import com.genesis.apps.ui.activity.LoginActivity;
-import com.genesis.apps.ui.activity.WebviewActivity;
+import com.genesis.apps.ui.dialog.TestDialog;
 import com.genesis.apps.ui.fragment.SubFragment;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.theartofdev.edmodo.cropper.CropImage;
 
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.ListAdapter;
-
-import static android.app.Activity.RESULT_OK;
 
 
 public class FragFourth extends SubFragment<Frame4pBinding> {
@@ -37,9 +31,27 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         me.tvName4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                baseActivity.startActivitySingleTop(new Intent(getActivity(), WebviewActivity.class).putExtra("url","https://www.genesis.com/kr/ko/genesis-membership/life-service.html"), RequestCodes.REQ_CODE_LOGIN.getCode());
+//                baseActivity.startActivitySingleTop(new Intent(getActivity(), WebviewActivity.class).putExtra("url","https://www.genesis.com/kr/ko/genesis-membership/life-service.html"), RequestCodes.REQ_CODE_LOGIN.getCode());
+
+                TestDialog testDialog = new TestDialog(getContext(), R.style.BottomSheetDialogTheme);
+                testDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialogInterface) {
+                        testDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
+//                        new Handler().postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                testDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
+////                                BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
+//                            }
+//                        },2000);
+                    }
+                });
+                testDialog.show();;
             }
         });
+
+
     }
 
     @Override

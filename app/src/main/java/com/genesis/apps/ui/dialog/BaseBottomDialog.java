@@ -8,14 +8,14 @@ import androidx.databinding.ViewDataBinding;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-public class BottomDialog<T extends ViewDataBinding> extends BottomSheetDialog {
+public class BaseBottomDialog<T extends ViewDataBinding> extends BottomSheetDialog {
     T ui;
 
-    public BottomDialog(@NonNull Context context) {
+    public BaseBottomDialog(@NonNull Context context) {
         super(context);
     }
 
-    public BottomDialog(@NonNull Context context, int theme) {
+    public BaseBottomDialog(@NonNull Context context, int theme) {
         super(context, theme);
     }
 
