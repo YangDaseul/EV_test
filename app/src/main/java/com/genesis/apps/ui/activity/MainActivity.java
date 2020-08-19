@@ -1,16 +1,21 @@
 package com.genesis.apps.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.RequestCodes;
 import com.genesis.apps.databinding.ActivityMainBinding;
+import com.genesis.apps.ui.fragment.main.FragFourth;
 import com.genesis.apps.ui.fragment.main.MainViewpagerAdapter;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
@@ -166,4 +171,17 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode() && resultCode == RESULT_OK) {
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if (fragment instanceof FragFourth) {
+                    fragment.onActivityResult(requestCode, resultCode, data);
+                    return;
+                }
+            }
+        }
+
+    }
 }

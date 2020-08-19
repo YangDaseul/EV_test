@@ -116,11 +116,25 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/button"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="확인" />
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="취소" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="확인" />
+        </LinearLayout>
+
     </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

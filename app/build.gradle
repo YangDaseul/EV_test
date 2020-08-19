@@ -152,13 +152,14 @@ dependencies {
     //image crop
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
 
-
     //calendar
     implementation 'com.appeaser.sublimepickerlibrary:sublimepickerlibrary:2.1.2'
 
     //graph
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
+    //multi permission library
+    implementation 'com.karumi:dexter:6.1.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

@@ -127,13 +127,26 @@
                 android:textColor="@color/x_000000"
                 android:textSize="11sp"/>
 
+            <TextView
+                android:id="@+id/btn_record"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="RECORD"
+                android:textColor="@color/x_000000"
+                android:textSize="14sp"/>
+
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/l_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:counterEnabled="true"
                 app:counterMaxLength="10"
-                app:errorEnabled="true">
+                app:endIconMode="clear_text"
+                app:endIconDrawable="@drawable/g_button_pin_delete">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -156,10 +169,8 @@
                     android:hint="input id2"/>
 
             </com.google.android.material.textfield.TextInputLayout>
-
-
-
         </LinearLayout>
+
 
         </ScrollView>
     </FrameLayout>

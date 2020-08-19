@@ -10,7 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class BaseBottomDialog<T extends ViewDataBinding> extends BottomSheetDialog {
     T ui;
-
+    public Runnable yes, no;
     public BaseBottomDialog(@NonNull Context context) {
         super(context);
     }
@@ -23,10 +23,16 @@ public class BaseBottomDialog<T extends ViewDataBinding> extends BottomSheetDial
     public void setContentView(int layoutResId) {
         ui = inflate(layoutResId);
         super.setContentView(ui.getRoot());
+        setCanceledOnTouchOutside(false);
     }
 
     private <T extends ViewDataBinding> T inflate(int layoutResId) {
         return DataBindingUtil.inflate(getLayoutInflater(), layoutResId, null, false);
+    }
+
+    public void setButtonAction(Runnable yes, Runnable no){
+        this.yes = yes;
+        this.no = no;
     }
 
 }

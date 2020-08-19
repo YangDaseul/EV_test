@@ -15,6 +15,7 @@ import com.appeaser.sublimepickerlibrary.recurrencepicker.SublimeRecurrencePicke
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.RequestCodes;
 import com.genesis.apps.comm.util.CalenderUtil;
+import com.genesis.apps.comm.util.ScreenCaptureUtil;
 import com.genesis.apps.comm.util.graph.AnotherBarActivity;
 import com.genesis.apps.comm.util.graph.PieChartActivity;
 import com.genesis.apps.comm.util.graph.StackedBarActivity;
@@ -27,8 +28,18 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import androidx.annotation.Nullable;
 
+import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+import static android.app.Activity.RESULT_OK;
+
+@AndroidEntryPoint
 public class FragFourth extends SubFragment<Frame4pBinding> {
+    @Inject
+    public ScreenCaptureUtil screenCaptureUtil;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return super.setContentView(inflater, R.layout.frame_4p);
@@ -85,7 +96,29 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         me.btnGaSimilar.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra("url",GAWebActivity.URL_SIMILAR_STOCKS), 0));
         me.btnGenesisMembership.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra("url",GAWebActivity.URL_MEMBERSHIP), 0));
         me.btnBtoMain.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra("url",GAWebActivity.URL_BTO_MAIN), 0));
+        me.btnRecord.setOnClickListener(view -> screenCaptureUtil.toggleRecord(()->{me.btnRecord.setText("recoding.....");}, ()->{me.btnRecord.setText("start record");}));
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        screenCaptureUtil.stopRecord();
+    }
+
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode() && resultCode == RESULT_OK) {
+            screenCaptureUtil.screenRecorder(resultCode, data);
+            return;
+        }else{
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+
+    }
+
 
     @Override
     public void onRefresh() {
@@ -97,11 +130,6 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         return false;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-    }
 
     SelectedDate mSelectedDate;
     int mHour, mMinute;
