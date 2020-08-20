@@ -28,6 +28,7 @@ public class BaseActivity extends AppCompatActivity {
     //About PUSH
     public PushCode pushCode;
     public int notificationId;
+    public boolean isForeground=false;
     public Intent intent = null;
 
     @Override

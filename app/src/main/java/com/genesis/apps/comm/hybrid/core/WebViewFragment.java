@@ -161,6 +161,15 @@ public abstract class WebViewFragment extends Fragment {
 		});
 	}
 
+	public void loadUrl(final String url, final WebView view) {
+		Log.v(TAG, "loadUrl() url[" + url + "]");
+		this.getActivity().runOnUiThread(() -> {
+			if (view != null) {
+				view.loadUrl(url);
+			}
+		});
+	}
+
 	public void clearHistory() {
 		this.getActivity().runOnUiThread(() -> {
 			if (webView != null) {
@@ -501,6 +510,11 @@ public abstract class WebViewFragment extends Fragment {
                                                           String url) {
 			WebResourceResponse ret = super.shouldInterceptRequest(view, url);
 			Log.d(LOG_TAG, "shouldInterceptRequest url[" + url + "]");
+
+			if(url.contains("https://www.genesis.com/bin/kr/api/v1/shortCodeGetter")){
+				loadUrl("javascript:$('.button-2KBLE1x').hide()", webView);
+			}
+
 			return ret;
 		}
 

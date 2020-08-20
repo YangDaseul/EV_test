@@ -1,19 +1,15 @@
 package com.genesis.apps.ui.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-
-import androidx.databinding.DataBindingUtil;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.RequestCodes;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.databinding.ActivityIntroBinding;
-import com.genesis.apps.ui.service.ForegroundService;
+import com.genesis.apps.ui.service.ScreenRecorderService;
 
 public class IntroActivity extends SubActivity<ActivityIntroBinding> {
 
@@ -21,19 +17,19 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-        setForegroundService();
+//        setForegroundService();
         init();
     }
 
-    private void setForegroundService() {
-        Intent intent = new Intent(this, ForegroundService.class);
-        if (Build.VERSION.SDK_INT >= 26) {
-            startForegroundService(intent);
-        }
-        else {
-            startService(intent);
-        }
-    }
+//    private void setForegroundService() {
+//        Intent intent = new Intent(this, ScreenRecorderService.class);
+//        if (Build.VERSION.SDK_INT >= 26) {
+//            startForegroundService(intent);
+//        }
+//        else {
+//            startService(intent);
+//        }
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

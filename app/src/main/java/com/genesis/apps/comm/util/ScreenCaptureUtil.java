@@ -1,6 +1,6 @@
 package com.genesis.apps.comm.util;
 
-import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -8,13 +8,10 @@ import android.hardware.display.DisplayManager;
 import android.media.MediaRecorder;
 import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
-import android.net.Uri;
 import android.os.Environment;
 import android.util.DisplayMetrics;
 
 import androidx.annotation.Nullable;
-
-import com.genesis.apps.comm.model.RequestCodes;
 
 import java.io.IOException;
 
@@ -23,18 +20,19 @@ import javax.inject.Inject;
 import static android.content.Context.MEDIA_PROJECTION_SERVICE;
 
 public class ScreenCaptureUtil {
-    private static final String videoFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/MediaProjection.mp4";
+    public static final String videoFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/MediaProjection.mp4";
     private MediaProjection mediaProjection;
-    private Activity activity;
+//    private Activity activity;
+    private Application context;
 
     @Inject
-    public ScreenCaptureUtil(Activity activity){
-        this.activity = activity;
+    public ScreenCaptureUtil(Application context){
+        this.context = context;
     }
 
     public void screenRecorder(int resultCode, @Nullable Intent data) {
         final MediaRecorder screenRecorder = createRecorder();
-        MediaProjectionManager mediaProjectionManager = (MediaProjectionManager) activity.getSystemService(MEDIA_PROJECTION_SERVICE);
+        MediaProjectionManager mediaProjectionManager = (MediaProjectionManager) context.getSystemService(MEDIA_PROJECTION_SERVICE);
         mediaProjection = mediaProjectionManager.getMediaProjection(resultCode, data);
         MediaProjection.Callback callback = new MediaProjection.Callback() {
             @Override
@@ -81,35 +79,39 @@ public class ScreenCaptureUtil {
         return mediaRecorder;
     }
 
-
-    private void startRecord() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            MediaProjectionManager mediaProjectionManager = (MediaProjectionManager) activity.getSystemService(MEDIA_PROJECTION_SERVICE);
-            activity.startActivityForResult(mediaProjectionManager.createScreenCaptureIntent(), RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode());
-        }
-    }
+//    private void startRecord() {
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+//            MediaProjectionManager mediaProjectionManager = (MediaProjectionManager) activity.getSystemService(MEDIA_PROJECTION_SERVICE);
+//            activity.startActivityForResult(mediaProjectionManager.createScreenCaptureIntent(), RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode());
+//        }
+//    }
 
     public void stopRecord() {
         if(mediaProjection!=null) mediaProjection.stop();
     }
 
-    private void requestShare(){
-        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-        Uri screenshotUri = Uri.parse(videoFile);    // android image path
-        sharingIntent.setType("video/*");
-        sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
-        activity.startActivity(Intent.createChooser(sharingIntent, "Share image using")); // 변경가능
-    }
+//    private void requestShare(){
+//        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+//        Uri screenshotUri = Uri.parse(videoFile);    // android image path
+//        sharingIntent.setType("video/*");
+//        sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+//        activity.startActivity(Intent.createChooser(sharingIntent, "Share image using")); // 변경가능
+//    }
 
-    public void toggleRecord(Runnable start, Runnable stop){
-        if(mediaProjection!=null){
-            stopRecord();
-            requestShare();
-            stop.run();
-        }else{
-            startRecord();
-            start.run();
-        }
-    }
+//    public void toggleRecord(Runnable start, Runnable stop){
+//        if(mediaProjection!=null){
+//            stopRecord();
+//            requestShare();
+//            stop.run();
+//        }else{
+//            startRecord();
+//            start.run();
+//        }
+//    }
+
+
+
+
+
 
 }

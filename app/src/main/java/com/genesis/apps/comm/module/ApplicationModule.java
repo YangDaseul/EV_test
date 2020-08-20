@@ -2,11 +2,13 @@ package com.genesis.apps.comm.module;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 
 import com.genesis.apps.comm.net.HttpRequestUtil;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.ga.CCSP;
 import com.genesis.apps.comm.net.ga.GA;
+import com.genesis.apps.comm.util.ScreenCaptureUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.room.DatabaseHolder;
 import com.genesis.apps.comm.util.PreferenceUtil;
@@ -71,6 +73,11 @@ public class ApplicationModule {
         PlayMapRestApi playMapRestApi = new PlayMapRestApi(application);
         playMapRestApi.setPlayMapApiKey("SE1DOkdlbmVTVEc=");
         return playMapRestApi;
+    }
+
+    @Provides
+    public ScreenCaptureUtil getScreenCaptureUtil(Application context){
+        return new ScreenCaptureUtil(context);
     }
 
 }

@@ -28,10 +28,10 @@ public class ActivityModule {
         return (BaseActivity)activity;
     }
 
-    @Provides
-    public ScreenCaptureUtil getScreenCaptureUtil(Activity activity){
-        return new ScreenCaptureUtil(activity);
-    }
+//    @Provides
+//    public ScreenCaptureUtil getScreenCaptureUtil(Activity activity){
+//        return new ScreenCaptureUtil(activity);
+//    }
 
     @Provides
     public TwoButtonDialog getTwoButtonDialog(Activity activity){
