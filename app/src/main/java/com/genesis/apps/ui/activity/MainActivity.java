@@ -174,7 +174,9 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode() && resultCode == RESULT_OK) {
+        if ( (requestCode == RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode() && resultCode == RESULT_OK)
+                ||(requestCode == RequestCodes.REQ_CODE_PLAY_VIDEO.getCode())
+        ) {
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                 if (fragment instanceof FragFourth) {
                     fragment.onActivityResult(requestCode, resultCode, data);

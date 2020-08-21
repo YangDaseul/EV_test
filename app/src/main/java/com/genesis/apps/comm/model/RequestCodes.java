@@ -8,6 +8,7 @@ public enum RequestCodes {
     REQ_CODE_JOIN(1002,"회원 가입 결과"),
     REQ_CODE_PERMISSIONS_CAPTURE(100,"화면 녹화 권한"),
     REQ_CODE_PERMISSIONS_MEDIAPROJECTION(101,"화면 녹화"),
+    REQ_CODE_PLAY_VIDEO(102,"녹화 영상 재생"),
 
     REQ_CODE_PERMISSIONS(3,"퍼미션 획득"),
     REQ_CODE_DEFAULT(0,"기본");

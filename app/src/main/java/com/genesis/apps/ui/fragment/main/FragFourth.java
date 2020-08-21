@@ -25,6 +25,7 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.RequestCodes;
 import com.genesis.apps.comm.util.CalenderUtil;
 import com.genesis.apps.comm.util.ScreenCaptureUtil;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.graph.AnotherBarActivity;
 import com.genesis.apps.comm.util.graph.PieChartActivity;
 import com.genesis.apps.comm.util.graph.StackedBarActivity;
@@ -67,13 +68,6 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
                 @Override
                 public void onShow(DialogInterface dialogInterface) {
                     testDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
-//                        new Handler().postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                testDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
-////                                BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
-//                            }
-//                        },2000);
                 }
             });
             testDialog.show();;
@@ -110,6 +104,24 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
 //        me.btnRecord.setOnClickListener(view -> screenCaptureUtil.toggleRecord(()->{me.btnRecord.setText("recoding.....");}, ()->{me.btnRecord.setText("start record");}));
 
         me.btnRecord.setOnClickListener(view -> checkRecordPermission());
+        me.btnSnackbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SnackBarUtil.show(getActivity(), "testing snackbar jaja");
+            }
+        });
+
+        me.btnSnackbar2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SnackBarUtil.show(getActivity(), "testing snackbar jaja", "snackbar", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        SnackBarUtil.show(getContext(), "testing snackbar jaja");
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -124,6 +136,8 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         if (requestCode == RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode() && resultCode == RESULT_OK) {
             doRecordService(resultCode, data);
             return;
+        }else if (requestCode == RequestCodes.REQ_CODE_PLAY_VIDEO.getCode()){
+            requestShare();
         }else{
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -191,7 +205,7 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
 
     private void updateRecording(final boolean isRecording) {
         if(!isRecording){
-            requestShare();
+            playRecordVideo();
         }
     }
 
@@ -201,6 +215,12 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         sharingIntent.setType("video/*");
         sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
         startActivity(Intent.createChooser(sharingIntent, "Share image using")); // 변경가능
+    }
+
+    private void playRecordVideo(){
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.parse(ScreenCaptureUtil.videoFile), "video/mp4");
+        startActivityForResult(intent,RequestCodes.REQ_CODE_PLAY_VIDEO.getCode() );
     }
 
     private void unRegReceiver() {

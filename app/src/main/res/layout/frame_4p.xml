@@ -139,6 +139,30 @@
                 android:textSize="14sp"/>
 
 
+            <TextView
+                android:id="@+id/btn_snackbar"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="snackbar normal"
+                android:textColor="@color/x_000000"
+                android:textSize="14sp"/>
+
+
+            <TextView
+                android:id="@+id/btn_snackbar2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="snackbar onclick toast"
+                android:textColor="@color/x_000000"
+                android:textSize="14sp"/>
+
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/l_edit"
                 android:layout_width="match_parent"
