@@ -109,29 +109,20 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         me.btnBtoMain.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra("url",GAWebActivity.URL_BTO_MAIN), 0));
 //        me.btnRecord.setOnClickListener(view -> screenCaptureUtil.toggleRecord(()->{me.btnRecord.setText("recoding.....");}, ()->{me.btnRecord.setText("start record");}));
 
-        me.btnRecord.setOnClickListener(view -> startRecord());
+        me.btnRecord.setOnClickListener(view -> checkRecordPermission());
     }
 
     @Override
     public void onPause() {
         super.onPause();
 //        screenCaptureUtil.stopRecord();
-
-        if(mReceiver!=null) {
-            final IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(ScreenRecorderService.ACTION_QUERY_STATUS_RESULT);
-            getActivity().unregisterReceiver(mReceiver);
-        }
+        unRegReceiver();
     }
-
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode() && resultCode == RESULT_OK) {
-//            screenCaptureUtil.screenRecorder(resultCode, data);
-            startScreenRecorder(resultCode, data);
+            doRecordService(resultCode, data);
             return;
         }else{
             super.onActivityResult(requestCode, resultCode, data);
@@ -190,21 +181,18 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
             final String action = intent.getAction();
             if (ScreenRecorderService.ACTION_QUERY_STATUS_RESULT.equals(action)) {
                 final boolean isRecording = intent.getBooleanExtra(ScreenRecorderService.EXTRA_QUERY_RESULT_RECORDING, false);
-                final boolean isPausing = intent.getBooleanExtra(ScreenRecorderService.EXTRA_QUERY_RESULT_PAUSING, false);
                 final FragFourth parent = mWeakParent.get();
                 if (parent != null) {
-                    parent.updateRecording(isRecording, isPausing);
+                    parent.updateRecording(isRecording);
                 }
             }
         }
     }
 
-    private void updateRecording(final boolean isRecording, final boolean isPausing) {
-
+    private void updateRecording(final boolean isRecording) {
         if(!isRecording){
             requestShare();
         }
-
     }
 
     private void requestShare(){
@@ -215,54 +203,57 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         startActivity(Intent.createChooser(sharingIntent, "Share image using")); // 변경가능
     }
 
-    private void regReceiver(){
-            mReceiver = new MyBroadcastReceiver(this);
+    private void unRegReceiver() {
+        if(mReceiver!=null) {
             final IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(ScreenRecorderService.ACTION_QUERY_STATUS_RESULT);
-            getActivity().registerReceiver(mReceiver, intentFilter);
+            getActivity().unregisterReceiver(mReceiver);
+        }
     }
 
-    private void startScreenRecorder(final int resultCode, final Intent data) {
+    private void regReceiver(){
+        mReceiver = new MyBroadcastReceiver(this);
+        final IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ScreenRecorderService.ACTION_QUERY_STATUS_RESULT);
+        getActivity().registerReceiver(mReceiver, intentFilter);
+    }
+
+    private void setRejectClick(View view){
+        if(view.getVisibility()==View.VISIBLE){
+            ((MainActivity)getActivity()).getViewPager().setUserInputEnabled(true);
+            view.setVisibility(View.GONE);
+        }else{
+            ((MainActivity)getActivity()).getViewPager().setUserInputEnabled(false);
+            view.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+    private void doRecordService(final int resultCode, final Intent data) {
+        setRejectClick(me.vClickReject);
+        startRecordService(resultCode, data);
+        doFullScreen();
+        new Handler().postDelayed(() -> {
+            stopRecordService();
+            setRejectClick(me.vClickReject);
+        }, 3000);
+    }
+
+    private void startRecordService(final int resultCode, final Intent data){
         final Intent intent = new Intent(getActivity(), ScreenRecorderService.class);
         intent.setAction(ScreenRecorderService.ACTION_START);
         intent.putExtra(ScreenRecorderService.EXTRA_RESULT_CODE, resultCode);
         intent.putExtras(data);
-        if (Build.VERSION.SDK_INT >= 26) {
-            getActivity().startForegroundService(intent);
-        }
-        else {
-            getActivity().startService(intent);
-        }
-        doFullScreen();
-
-        new Handler().postDelayed(() -> {
-            stopRecordService();
-        }, 5000);
+        startForegroundService(intent);
     }
 
     private void stopRecordService(){
         final Intent intent = new Intent(getActivity(), ScreenRecorderService.class);
         intent.setAction(ScreenRecorderService.ACTION_STOP);
-        if (Build.VERSION.SDK_INT >= 26) {
-            getActivity().startForegroundService(intent);
-        }
-        else {
-            getActivity().startService(intent);
-        }
+        startForegroundService(intent);
     }
 
-    private void doFullScreen() {
-        View decorView = getActivity().getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_IMMERSIVE|
-                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE|
-                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION|
-                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|
-                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|
-                        View.SYSTEM_UI_FLAG_FULLSCREEN);
-    }
-
-    private void startRecord() {
+    private void checkRecordPermission() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             MediaProjectionManager mediaProjectionManager = (MediaProjectionManager) getActivity().getSystemService(MEDIA_PROJECTION_SERVICE);
             getActivity().startActivityForResult(mediaProjectionManager.createScreenCaptureIntent(), RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode());

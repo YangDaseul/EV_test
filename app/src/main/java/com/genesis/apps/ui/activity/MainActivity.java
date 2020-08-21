@@ -32,7 +32,7 @@ import static com.google.android.exoplayer2.Player.REPEAT_MODE_ALL;
 import static com.google.android.exoplayer2.ui.AspectRatioFrameLayout.RESIZE_MODE_FIXED_HEIGHT;
 
 public class MainActivity extends SubActivity<ActivityMainBinding> {
-    private FragmentStateAdapter pagerAdapter;
+    public FragmentStateAdapter pagerAdapter;
     private int num_page = 4;
     private SimpleExoPlayer simpleExoPlayer;
 
@@ -183,5 +183,9 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
             }
         }
 
+    }
+
+    public ViewPager2 getViewPager(){
+        return ui.viewpager;
     }
 }
