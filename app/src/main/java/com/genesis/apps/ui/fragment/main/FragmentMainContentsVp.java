@@ -1,0 +1,60 @@
+package com.genesis.apps.ui.fragment.main;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.genesis.apps.R;
+import com.genesis.apps.comm.model.main.contents.ContentsResVO;
+import com.genesis.apps.comm.model.map.MapViewModel;
+import com.genesis.apps.databinding.FragVehicle2Binding;
+import com.genesis.apps.databinding.FragmentMainContentsVpBinding;
+import com.genesis.apps.ui.fragment.SubFragment;
+import com.genesis.apps.ui.view.BaseRecyclerViewAdapter;
+import com.genesis.apps.ui.view.TestItemAdapter;
+
+public class FragmentMainContentsVp extends SubFragment<FragmentMainContentsVpBinding> {
+
+    private ContentsResVO contentsResVO;
+
+    public FragmentMainContentsVp(ContentsResVO contentsResVO){
+        this.contentsResVO = contentsResVO;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        return super.setContentView(inflater, R.layout.fragment_main_contents_vp);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        me.tvCategory.setText(contentsResVO.getCategory());
+        me.tvDescription.setText(contentsResVO.getContents());
+        me.tvTitle.setText(contentsResVO.getTitle());
+     }
+
+    @Override
+    public boolean onBackPressed() {
+        return false;
+    }
+
+
+    @Override
+    public void onRefresh() {
+
+    }
+
+
+
+}
