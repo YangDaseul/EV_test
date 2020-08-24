@@ -61,6 +61,23 @@ public class TestUserAdapter extends ListAdapter<Link, TestUserAdapter.MyViewHol
                                 v -> myItemClickListener.onClick(link));
 
                 }
-
         }
+
+
+        public static final DiffUtil.ItemCallback<Link> DIFF_CALLBACK =
+                new DiffUtil.ItemCallback<Link>() {
+                        @Override
+                        public boolean areItemsTheSame(
+                                @NonNull Link oldUser, @NonNull Link newUser) {
+                                // User properties may have changed if reloaded from the DB, but ID is fixed
+                                return oldUser.getUrl().equals(newUser.getUrl());
+                        }
+                        @Override
+                        public boolean areContentsTheSame(
+                                @NonNull Link oldUser, @NonNull Link newUser) {
+                                // NOTE: if you use equals, your object must properly override Object#equals()
+                                // Incorrectly returning false here will result in too many animations.
+                                return oldUser.equals(newUser);
+                        }
+                };
 }

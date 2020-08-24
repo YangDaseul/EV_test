@@ -6,13 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.ExampleViewModel;
 import com.genesis.apps.comm.model.map.MapViewModel;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.databinding.Frame2pBinding;
@@ -22,11 +16,15 @@ import com.genesis.apps.ui.view.listview.LinkDiffCallback;
 import com.genesis.apps.ui.view.listview.MyItemClickListener;
 import com.genesis.apps.ui.view.listview.MyViewModel;
 import com.genesis.apps.ui.view.listview.TestUserAdapter;
-import com.google.android.material.snackbar.Snackbar;
-import com.hmns.playmap.network.PlayMapRestApi;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 
 public class FragSecond extends SubFragment<Frame2pBinding> {
@@ -58,12 +56,14 @@ public class FragSecond extends SubFragment<Frame2pBinding> {
             @Override
             public void onClick(Link link) {
                 SnackBarUtil.show(getActivity(),"test");
+                myViewModel.addUsersList(getListData2());
+
             }
         });
         myViewModel.usersList.observe(getViewLifecycleOwner(), new Observer<List<Link>>() {
             @Override
             public void onChanged(List<Link> links) {
-             testUserAdapter.submitList(links);
+             testUserAdapter.submitList(links!=null ? new ArrayList<>(links) : null);
             }
         });
         me.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -85,6 +85,7 @@ public class FragSecond extends SubFragment<Frame2pBinding> {
     private List<Link> getListData(){
         List<Link> links = new LinkedList<Link>();
 
+
         Link link = new Link();
         link.setIcon(R.drawable.ic_link);
         link.setTitle("HMKCODE BLOG");
@@ -96,6 +97,39 @@ public class FragSecond extends SubFragment<Frame2pBinding> {
         link.setIcon(R.drawable.ic_dashboard_black_24dp);
         link.setTitle("@HMKCODE");
         link.setUrl("twitter.com/hmkcode");
+
+        links.add(link);
+
+        link = new Link();
+        link.setIcon(R.drawable.ic_home_black_24dp);
+        link.setTitle("HMKCODE");
+        link.setUrl("github.com/hmkcode");
+
+        links.add(link);
+        return links;
+    }
+
+    private List<Link> getListData2(){
+        List<Link> links = new LinkedList<Link>();
+
+        Link link = new Link();
+        link.setIcon(R.drawable.ic_link);
+        link.setTitle("HMKCODE BLOG");
+        link.setUrl("hmkcode.com");
+
+        links.add(link);
+
+        link = new Link();
+        link.setIcon(R.drawable.ic_dashboard_black_24dp);
+        link.setTitle("@HMKCODE");
+        link.setUrl("twitter.com/hmkcode");
+
+        links.add(link);
+
+        link = new Link();
+        link.setIcon(R.drawable.ic_home_black_24dp);
+        link.setTitle("HMKCODE");
+        link.setUrl("github.com/hmkcode");
 
         links.add(link);
 

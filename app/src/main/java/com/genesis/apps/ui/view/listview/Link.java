@@ -1,46 +1,20 @@
 package com.genesis.apps.ui.view.listview;
 
-public class Link {
+import com.genesis.apps.comm.model.BaseData;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode(callSuper=false)
+@AllArgsConstructor
+public @Data class Link extends BaseData {
+
+    public Link(){
+
+    }
 
     private int icon;
     private String title;
     private String url;
-
-    public int getIcon() {
-        return icon;
-    }
-
-    public void setIcon(int icon) {
-        this.icon = icon;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return this.getUrl().equals(((Link)obj).getUrl());
-    }
-
-    @Override
-    public String toString() {
-        return "Link{" +
-                "icon=" + icon +
-                ", title='" + title + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

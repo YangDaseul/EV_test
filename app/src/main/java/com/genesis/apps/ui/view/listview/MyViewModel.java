@@ -28,4 +28,10 @@ public class MyViewModel extends ViewModel {
     public void setUsersList(List<Link> userList) {
         this.usersList.setValue(userList);
     }
+
+    public void addUsersList(List<Link> userList) {
+//        this.usersList.getValue().addAll(userList);
+//        this.usersList.setValue(this.usersList.getValue());
+        this.usersList.setValue(userList);
+    }
 }
