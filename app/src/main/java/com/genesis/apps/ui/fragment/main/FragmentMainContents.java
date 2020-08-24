@@ -5,16 +5,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
-import androidx.viewpager2.widget.ViewPager2;
-
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.main.contents.ContentsResVO;
+import com.genesis.apps.comm.model.main.contents.ContentsViewModel;
 import com.genesis.apps.databinding.FragmentMainContentsBinding;
 import com.genesis.apps.ui.fragment.SubFragment;
 
+import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
+
 public class FragmentMainContents extends SubFragment<FragmentMainContentsBinding> {
+
+    private ContentsViewModel contentsViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -30,9 +37,14 @@ public class FragmentMainContents extends SubFragment<FragmentMainContentsBindin
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        me.vp여기를 임의데이터 생성 후 추가 한 뒤 해당 프래그먼트를 메인에서 불러와야함
+        contentsViewModel = new ViewModelProvider(this).get(ContentsViewModel.class);
+        me.setLifecycleOwner(getViewLifecycleOwner());
+        contentsViewModel.getContentsList().observe(getViewLifecycleOwner(), arrayListNetUIResponse -> initViewPager(arrayListNetUIResponse.data));
+        contentsViewModel.reqTestData();
+    }
 
-        me.vp.setAdapter(new ContentsViewpagerAdapter(getActivity(), 2,null));
+    private void initViewPager(ArrayList<ContentsResVO> arrayListNetUIResponse){
+        me.vp.setAdapter(new ContentsViewpagerAdapter(getActivity(), arrayListNetUIResponse.size(),arrayListNetUIResponse));
         //ViewPager Setting
         me.vp.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
         me.vp.setCurrentItem(0);
@@ -53,8 +65,6 @@ public class FragmentMainContents extends SubFragment<FragmentMainContentsBindin
             }
 
         });
-
-
 
         final float pageMargin= getResources().getDimensionPixelOffset(R.dimen.vpMargin);
 
@@ -99,7 +109,6 @@ public class FragmentMainContents extends SubFragment<FragmentMainContentsBindin
                 view.setAlpha(0);
             }
         });
-
 
     }
 

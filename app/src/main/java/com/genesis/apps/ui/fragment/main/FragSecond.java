@@ -73,7 +73,6 @@ public class FragSecond extends SubFragment<Frame2pBinding> {
 
     @Override
     public void onRefresh() {
-
     }
 
     @Override

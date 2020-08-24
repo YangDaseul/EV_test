@@ -604,7 +604,15 @@ public abstract class WebViewFragment extends Fragment {
 					Log.e(LOG_TAG, "", e);
 				}
 				return true;
-			} else {
+			} else if (url.startsWith("sms:")){
+				try{
+					Intent intent = new Intent(Intent.ACTION_SENDTO,Uri.parse(url));
+					startActivity(intent);
+				}catch (Exception ignore){
+
+				}
+				return true;
+			}else {
 				return WebViewFragment.this.shouldOverrideUrlLoading(view, url);
 			}
 		}

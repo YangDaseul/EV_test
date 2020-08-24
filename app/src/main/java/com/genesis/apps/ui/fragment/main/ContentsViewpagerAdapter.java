@@ -25,7 +25,12 @@ public class ContentsViewpagerAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         int index = getRealPosition(position);
-        return new FragmentMainContentsVp(contentsResVOList.get(index));
+
+        if(contentsResVOList==null||contentsResVOList.size()<index){
+            return new FragThird(); //TODO DATA가 없을 때 표현해야할 레이아웃  정의 필요
+        }else {
+            return new FragmentMainContentsVp(contentsResVOList.get(index));
+        }
     }
 
 

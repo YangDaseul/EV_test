@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.bumptech.glide.Glide;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.main.contents.ContentsResVO;
 import com.genesis.apps.comm.model.map.MapViewModel;
@@ -39,6 +40,13 @@ public class FragmentMainContentsVp extends SubFragment<FragmentMainContentsVpBi
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        Glide.with(this)
+                .load(contentsResVO.getImgUrl())
+                .override(200,600) // ex) override(600, 200)
+                .error(R.color.x_d4d4d4)
+                .into(me.ivImage);
+
         me.tvCategory.setText(contentsResVO.getCategory());
         me.tvDescription.setText(contentsResVO.getContents());
         me.tvTitle.setText(contentsResVO.getTitle());

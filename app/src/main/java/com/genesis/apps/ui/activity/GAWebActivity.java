@@ -2,6 +2,13 @@ package com.genesis.apps.ui.activity;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
+
+import com.genesis.apps.comm.util.SnackBarUtil;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -23,6 +30,41 @@ public class GAWebActivity extends WebviewActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        ui.lEdit.setEndIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goUrl();
+            }
+        });
+
+        ui.edit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                switch (actionId) {
+                    case EditorInfo.IME_ACTION_UNSPECIFIED:
+                        goUrl();
+                        break;
+                    default:
+                        // 기본 엔터키 동작
+                        return false;
+                }
+                return true;
+            }
+        });
+
+    }
+
+    private void goUrl(){
+        String url = ui.edit.getText().toString().trim();
+        if(TextUtils.isEmpty(url)){
+            SnackBarUtil.show(GAWebActivity.this, "주소를 입력해주세요.");
+        }else{
+            if(!url.contains("http://")){
+                url = "http://"+url;
+            }
+            fragment.loadUrl(url);
+        }
     }
 
     @Override
@@ -34,10 +76,12 @@ public class GAWebActivity extends WebviewActivity {
     @Override
     public boolean parseURL(String url) {
         final Uri uri = Uri.parse(url);
-        if(url.equalsIgnoreCase("https://www.genesis.com/kr/ko")||url.equalsIgnoreCase("https://www.genesis.com/kr/ko/genesis-membership.html")){
+        if (url.equalsIgnoreCase("https://www.genesis.com/kr/ko")
+                || url.equalsIgnoreCase("https://www.genesis.com/kr/ko/genesis-membership.html")
+                || url.startsWith("genesis_apps://close")) {
             finish();
             return true;
-        } else{
+        } else {
             return false;
         }
     }

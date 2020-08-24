@@ -33,7 +33,7 @@ import static com.google.android.exoplayer2.ui.AspectRatioFrameLayout.RESIZE_MOD
 
 public class MainActivity extends SubActivity<ActivityMainBinding> {
     public FragmentStateAdapter pagerAdapter;
-    private int num_page = 4;
+    private int num_page = 5;
     private SimpleExoPlayer simpleExoPlayer;
 
     @Override
@@ -57,7 +57,7 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
         //ViewPager Setting
         ui.viewpager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         ui.viewpager.setCurrentItem(0);
-        ui.viewpager.setOffscreenPageLimit(3);
+        ui.viewpager.setOffscreenPageLimit(4);
 
 
         ui.viewpager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {

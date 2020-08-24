@@ -23,7 +23,8 @@ public class MainViewpagerAdapter extends FragmentStateAdapter {
         if(index==0) return new FragFirst();
         else if(index==1) return new FragSecond();
         else if(index==2) return new FragThird();
-        else return new FragFourth();
+        else if(index==3) return new FragFourth();
+        else return new FragmentMainContents();
 
     }
 
