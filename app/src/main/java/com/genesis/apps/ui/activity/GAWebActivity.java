@@ -78,7 +78,7 @@ public class GAWebActivity extends WebviewActivity {
         final Uri uri = Uri.parse(url);
         if (url.equalsIgnoreCase("https://www.genesis.com/kr/ko")
                 || url.equalsIgnoreCase("https://www.genesis.com/kr/ko/genesis-membership.html")
-                || url.startsWith("genesis_apps://close")) {
+                || url.startsWith("genesisapps://close")) {
             finish();
             return true;
         } else {

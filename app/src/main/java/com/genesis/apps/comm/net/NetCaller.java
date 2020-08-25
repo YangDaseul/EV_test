@@ -141,4 +141,70 @@ public class NetCaller {
         }, es.getUiThreadExecutor());
     }
 
+
+
+
+
+
+
+    public void reqData(BeanReqParm beanReqParm) {
+        ExecutorService es = new ExecutorService("");
+        Futures.addCallback(es.getListeningExecutorService().submit(() -> {
+            JsonObject jsonObject = null;
+            try {
+                switch (beanReqParm.getType()) {
+                    case HttpRequest.METHOD_GET:
+                        jsonObject = httpRequestUtil.getData(beanReqParm.getUrl());
+                        break;
+                    case HttpRequest.METHOD_PUT:
+                        jsonObject = httpRequestUtil.sendPut(beanReqParm.getUrl(), beanReqParm.getData());
+                        break;
+                    case HttpRequest.METHOD_POST:
+                        jsonObject = httpRequestUtil.send(beanReqParm.getUrl(), beanReqParm.getData());
+                        break;
+                    default:
+                        break;
+                }
+
+                if (jsonObject != null && !TextUtils.isEmpty(jsonObject.toString())) {
+                    return new NetResult(NetStatusCode.SUCCESS, 0, jsonObject);
+                } else {
+                    return new NetResult(NetStatusCode.ERR_DATA_NULL, R.string.error_msg_1, null);
+                }
+            } catch (HttpRequest.HttpRequestException e) {
+                e.printStackTrace();
+                return new NetResult(NetStatusCode.ERR_EXCEPTION_HTTP, R.string.error_msg_2, null);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+                return new NetResult(NetStatusCode.ERR_EXCEPTION_UNKNOWN, R.string.error_msg_3, null);
+            }
+
+        }), new FutureCallback<NetResult>() {
+            @Override
+            public void onSuccess(@NullableDecl NetResult result) {
+                switch (result.getCode()) {
+                    case SUCCESS:
+                        beanReqParm.getCallback().onSuccess(((JsonObject) result.getData()).toString());
+                        break;
+                    case ERR_EXCEPTION_DKC:
+                    case ERR_EXCEPTION_HTTP:
+                    case ERR_EXCEPTION_UNKNOWN:
+                    case ERR_DATA_NULL:
+                    case ERR_ISSUE_SOURCE:
+                    case ERR_DATA_INCORRECT:
+                    default:
+                        beanReqParm.getCallback().onFail(result);
+                        break;
+                }
+                es.shutDownExcutor();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                beanReqParm.getCallback().onError(new NetResult(NetStatusCode.ERR_ISSUE_SOURCE, R.string.error_msg_4, t));
+                es.shutDownExcutor();
+            }
+        }, es.getUiThreadExecutor());
+    }
+
 }

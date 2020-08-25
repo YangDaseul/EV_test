@@ -14,6 +14,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.RequestCodes;
+import com.genesis.apps.comm.model.gra.CMN_0001;
 import com.genesis.apps.databinding.ActivityMainBinding;
 import com.genesis.apps.ui.fragment.main.FragFourth;
 import com.genesis.apps.ui.fragment.main.MainViewpagerAdapter;
@@ -26,6 +27,7 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DataSpec;
 import com.google.android.exoplayer2.upstream.RawResourceDataSource;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.gson.Gson;
 import com.theartofdev.edmodo.cropper.CropImageActivity;
 
 import static com.google.android.exoplayer2.Player.REPEAT_MODE_ALL;
@@ -42,6 +44,36 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 //        ui.button.setOnClickListener(view -> startActivitySingleTop(new Intent(MainActivity.this, EntranceActivity.class),RequestCodes.REQ_CODE_DEFAULT.getCode()));
+
+//        String test="{\n" +
+//                "  \"rtCd\": \"0000\",\n" +
+//                "  \"rtMsg\": \"Success\",\n" +
+//                "  \"appVer\": \"01.03\",\n" +
+//                "  \"appUpdType\": \"M\",\n" +
+//                "  \"contVer\": \"01.00\",\n" +
+//                "  \"notiList\": [\n" +
+//                "    {\n" +
+//                "      \"notiType\": \"EMGR\",\n" +
+//                "      \"notiSeq\": \"11\",\n" +
+//                "      \"notiTitle\": \"긴급공지1\",\n" +
+//                "      \"notiCont\": \"긴급공지내용1\"\n" +
+//                "    },\n" +
+//                "    {\n" +
+//                "      \"notiType\": \"NOTI\",\n" +
+//                "      \"notiSeq\": \"10\",\n" +
+//                "      \"notiTitle\": \"일반공지1\",\n" +
+//                "      \"notiCont\": \"일반공지내용1\"\n" +
+//                "    },\n" +
+//                "    {\n" +
+//                "      \"notiType\": \"ANNC\",\n" +
+//                "      \"notiSeq\": \"9\",\n" +
+//                "      \"notiTitle\": \"필독공지1\",\n" +
+//                "      \"notiCont\": \"필독공지내용1\"\n" +
+//                "    }\n" +
+//                "  ]\n" +
+//                "}";
+//        CMN_0001.Response data = new Gson().fromJson(test, CMN_0001.Response.class);
+
 
 
         //ViewPager2
