@@ -2,8 +2,11 @@ package com.genesis.apps.comm.model.gra;
 
 import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.vo.CarVO;
+import com.genesis.apps.comm.model.vo.PartVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -43,15 +46,7 @@ public class LGN_0002 extends BaseData {
      * @see #lastDrivDist 최근 주행거리(KM)
      * @see #canDrivDist 주행 가능거리(KM)
      *
-     * @see #partCd 소모품 코드
-     * HSW 시스템 정의 코드
-     * @see #partNm 소모품 명
-     * HSW 시스템 정의 코드
-     * @see #nextExchgDrivDist 다음 교환시점 주행거리(KM)
-     * @see #exchgDrivDist 교환시점 주행거리(KM)
-     * @see #alertYn 경고 여부
-     * 경고 여부, 교환 시점 경고 여부 ?
-     * 경고 : Y, 정상 : N
+     * @see #partList 소모품 정보 리스트
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -69,19 +64,7 @@ public class LGN_0002 extends BaseData {
         @SerializedName("canDrivDist")
         private String canDrivDist;
         @Expose
-        @SerializedName("partCd")
-        private String partCd;
-        @Expose
-        @SerializedName("partNm")
-        private String partNm;
-        @Expose
-        @SerializedName("nextExchgDrivDist")
-        private String nextExchgDrivDist;
-        @Expose
-        @SerializedName("exchgDrivDist")
-        private String exchgDrivDist;
-        @Expose
-        @SerializedName("alertYn")
-        private String alertYn;
+        @SerializedName("partList")
+        private List<PartVO> partList;
     }
 }

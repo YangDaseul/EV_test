@@ -14,10 +14,12 @@ import lombok.EqualsAndHashCode;
  * @see #vrn 차량번호
  * @see #carGbNm 차종명
  * @see #drivDist 주행거리
+ * 정비 차량 주행거리 (단위 km)
  * @see #mainNetNm 정비망명
  * @see #mainNetAddr 정비망주소
  * @see #mainPhone 정비망전화번호
  * @see #arrivDt 입고일자
+ * 정비 입고일자 (형식 YYYY-MM-DD)
  * @see #mainHist 점검내역
  */
 @EqualsAndHashCode(callSuper = false)

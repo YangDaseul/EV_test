@@ -39,15 +39,17 @@ public class LGN_0003 extends BaseData {
     /**
      * @author hjpark
      * @brief LGN_0003 응답 항목
-     * @see #vrn 차량번호
+     * @see #mainNo 접수번호
+     * HSW 시스템 정의
      * @see #mainDt 정비일자
      * (형식 YYYY-MM-DD)
      * @see #mainNetNm 정비망명
-     * @see #mainWorkHist 점검내역
+     * @see #mainStatsNm 정비상태명
+     * HSW 시스템 정의
      * @see #mainStatsCd 정비상태코드
      * HSW 시스템 정의
      * @see #mainHistList 정비이력정보
-     * 리스트 정보
+     * 리스트 정보 (최대 최근3개)
      * @see #butlNm 버틀러 성명
      * @see #butlSpotNm 버틀러 지점명
      * @see #butlSubsDt 버틀러 신칭일
@@ -61,8 +63,8 @@ public class LGN_0003 extends BaseData {
     public @Data
     class Response extends BaseResponse{
         @Expose
-        @SerializedName("vrn")
-        private String vrn;
+        @SerializedName("mainNo")
+        private String mainNo;
         @Expose
         @SerializedName("mainDt")
         private String mainDt;
@@ -70,8 +72,8 @@ public class LGN_0003 extends BaseData {
         @SerializedName("mainNetNm")
         private String mainNetNm;
         @Expose
-        @SerializedName("mainWorkHist")
-        private String mainWorkHist;
+        @SerializedName("mainStatsNm")
+        private String mainStatsNm;
         @Expose
         @SerializedName("mainStatsCd")
         private String mainStatsCd;

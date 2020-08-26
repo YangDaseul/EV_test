@@ -3,7 +3,9 @@ package com.genesis.apps.comm.net;
 import android.text.TextUtils;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.gra.APIInfo;
 import com.genesis.apps.comm.model.weather.WeatherPointResVO;
+import com.genesis.apps.comm.net.ga.GAInfo;
 import com.genesis.apps.comm.net.model.BeanReqParm;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.google.common.reflect.TypeToken;
@@ -142,25 +144,32 @@ public class NetCaller {
     }
 
 
-
-
-
-
-
-    public void reqData(BeanReqParm beanReqParm) {
+    /**
+     * @brief GRA API Request
+     * GRA에 데이터 요청 시 사용되며
+     * 데이터 결과는 JsonObject를 String으로 변환해서 callback에 전달
+     *
+     *
+     * @param callback network result callback
+     * @param apiInfo request API Infomation
+     * @param reqVO request data
+     * @param <REQ> request data format
+     */
+    public <REQ>void reqDataToGRA(NetResultCallback callback, APIInfo apiInfo, REQ reqVO) {
         ExecutorService es = new ExecutorService("");
         Futures.addCallback(es.getListeningExecutorService().submit(() -> {
             JsonObject jsonObject = null;
             try {
-                switch (beanReqParm.getType()) {
+                String serverUrl = GAInfo.CCSP_URL+apiInfo.getURI();
+                switch (apiInfo.getReqType()) {
                     case HttpRequest.METHOD_GET:
-                        jsonObject = httpRequestUtil.getData(beanReqParm.getUrl());
+                        jsonObject = httpRequestUtil.getData(serverUrl);
                         break;
                     case HttpRequest.METHOD_PUT:
-                        jsonObject = httpRequestUtil.sendPut(beanReqParm.getUrl(), beanReqParm.getData());
+                        jsonObject = httpRequestUtil.sendPut(serverUrl, new Gson().toJson(reqVO));
                         break;
                     case HttpRequest.METHOD_POST:
-                        jsonObject = httpRequestUtil.send(beanReqParm.getUrl(), beanReqParm.getData());
+                        jsonObject = httpRequestUtil.send(serverUrl, new Gson().toJson(reqVO));
                         break;
                     default:
                         break;
@@ -184,7 +193,7 @@ public class NetCaller {
             public void onSuccess(@NullableDecl NetResult result) {
                 switch (result.getCode()) {
                     case SUCCESS:
-                        beanReqParm.getCallback().onSuccess(((JsonObject) result.getData()).toString());
+                        callback.onSuccess(((JsonObject) result.getData()).toString());
                         break;
                     case ERR_EXCEPTION_DKC:
                     case ERR_EXCEPTION_HTTP:
@@ -193,7 +202,7 @@ public class NetCaller {
                     case ERR_ISSUE_SOURCE:
                     case ERR_DATA_INCORRECT:
                     default:
-                        beanReqParm.getCallback().onFail(result);
+                        callback.onFail(result);
                         break;
                 }
                 es.shutDownExcutor();
@@ -201,7 +210,7 @@ public class NetCaller {
 
             @Override
             public void onFailure(Throwable t) {
-                beanReqParm.getCallback().onError(new NetResult(NetStatusCode.ERR_ISSUE_SOURCE, R.string.error_msg_4, t));
+                callback.onError(new NetResult(NetStatusCode.ERR_ISSUE_SOURCE, R.string.error_msg_4, t));
                 es.shutDownExcutor();
             }
         }, es.getUiThreadExecutor());

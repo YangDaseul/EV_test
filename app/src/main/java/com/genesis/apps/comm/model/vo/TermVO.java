@@ -1,5 +1,6 @@
 package com.genesis.apps.comm.model.vo;
 
+import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -24,7 +25,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
-class TermVO {
+class TermVO extends BaseData {
     @Expose
     @SerializedName("termVer")
     private String termVer;

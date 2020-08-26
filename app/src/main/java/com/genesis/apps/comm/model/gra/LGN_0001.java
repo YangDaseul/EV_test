@@ -70,7 +70,10 @@ public class LGN_0001 extends BaseData {
      * @see #pushIdChgYn PushID 변경확인
      * Y:  기등록된 PushID가 있는 경우 변경여부를 확인 요청
      * N:  기등록된 PushID를 사용함 (등록된 Push ID와 동일)
-     *
+     * @see #custMgmtNo 고객관리번호
+     * CRM 발급한 고객관리번호
+     * @see #custNm 성명
+     * 제네시스앱에 가입한 고객의 성명
      * @see #carVO 차량정보
      */
     @EqualsAndHashCode(callSuper = true)
@@ -85,6 +88,14 @@ public class LGN_0001 extends BaseData {
         @Expose
         @SerializedName("pushIdChgYn")
         private String pushIdChgYn;
+        //TODO 고객관리번호와 성명이 차량을 따라가야하느지 확인 필요  2020-08-26 인터페이스 상으로는 차량정보에 포함됨..
+        @Expose
+        @SerializedName("custMgmtNo")
+        private String custMgmtNo;
+        @Expose
+        @SerializedName("custNm")
+        private String custNm;
+
         @Expose
         @SerializedName("carVO")
         private CarVO carVO;
