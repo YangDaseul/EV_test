@@ -16,6 +16,18 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/btn_visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="btn visible"
+                android:textColor="@color/x_000000"
+                android:textSize="11sp"/>
+
+
+            <TextView
                 android:id="@+id/btn_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

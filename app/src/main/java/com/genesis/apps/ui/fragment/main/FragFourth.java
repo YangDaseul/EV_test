@@ -30,6 +30,7 @@ import com.genesis.apps.comm.util.graph.AnotherBarActivity;
 import com.genesis.apps.comm.util.graph.PieChartActivity;
 import com.genesis.apps.comm.util.graph.StackedBarActivity;
 import com.genesis.apps.databinding.Frame4pBinding;
+import com.genesis.apps.ui.activity.ConstraintSetActivity;
 import com.genesis.apps.ui.activity.GAWebActivity;
 import com.genesis.apps.ui.activity.IntroActivity;
 import com.genesis.apps.ui.activity.MainActivity;
@@ -74,7 +75,7 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         });
 
 
-
+        me.btnVisible.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), ConstraintSetActivity.class), 0));
 
         me.btnCalender.setOnClickListener(view -> {
             CalenderUtil pickerFrag = new CalenderUtil();
