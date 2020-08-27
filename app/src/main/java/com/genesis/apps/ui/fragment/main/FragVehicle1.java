@@ -19,6 +19,8 @@ import com.bumptech.glide.request.transition.DrawableCrossFadeTransition;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.request.transition.TransitionFactory;
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.gra.LGN_0001;
+import com.genesis.apps.comm.model.gra.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.model.map.MapViewModel;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.databinding.FragVehicleTest1Binding;
@@ -33,6 +35,7 @@ import java.util.ArrayList;
 
 public class FragVehicle1 extends SubFragment<FragVehicleTest1Binding> {
     private MapViewModel mapViewModel;
+    private LGNViewModel lgnViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -47,6 +50,12 @@ public class FragVehicle1 extends SubFragment<FragVehicleTest1Binding> {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+
+//        lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
+//
+//        lgnViewModel.reqLGN0001(new LGN_0001.Request("11", "123", "11", "12314123", "!2312321"));
+
 
         mapViewModel = new ViewModelProvider(getActivity()).get(MapViewModel.class);
         me.setLifecycleOwner(getViewLifecycleOwner());

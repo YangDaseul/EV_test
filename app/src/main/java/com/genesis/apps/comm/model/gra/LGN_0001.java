@@ -30,6 +30,7 @@ public class LGN_0001 extends BaseData {
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
+    static
     class Request extends BaseRequest{
         @Expose
         @SerializedName("appVer")

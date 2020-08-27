@@ -1,9 +1,22 @@
 package com.genesis.apps.comm.model.gra;
 
+import android.app.Application;
+import android.text.TextUtils;
+
+import com.genesis.apps.comm.MyApplication;
 import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.comm.model.vo.DeviceDTO;
+import com.genesis.apps.comm.model.vo.UserVO;
+import com.genesis.apps.comm.net.ga.CCSP;
+import com.genesis.apps.comm.util.DeviceUtil;
+import com.genesis.apps.room.DatabaseHolder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import dagger.hilt.EntryPoint;
+import dagger.hilt.EntryPoints;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.components.ApplicationComponent;
 import lombok.Data;
 
 /**
@@ -53,13 +66,31 @@ class BaseRequest extends BaseData {
     @SerializedName("custGbCd")
     private String custGbCd;
 
+
+    @EntryPoint
+    @InstallIn(ApplicationComponent.class)
+    interface CompInterface {
+        DeviceDTO getDeviceDTO();
+        DatabaseHolder getDB();
+    }
+
     public void setData(String ifCd){
+        CompInterface compInterface = EntryPoints.get(MyApplication.getInstance(), CompInterface.class);
+        UserVO userVO = compInterface.getDB().getDatabase().userDao().select();
+        if(userVO==null|| TextUtils.isEmpty(userVO.getCustNo()) || TextUtils.isEmpty(userVO.getCustGbCd())){
+            userVO = (userVO == null ? new UserVO() : userVO);
+            userVO.setCustNm("0000");
+            userVO.setCustGbCd("0000");
+        }
+
         this.ifCd = ifCd;
-        this.custNo = "";
-        this.appGbCd = "";
-        this.mdn = "";
-        this.pushId = "";
-        this.deviceId = "";
-        this.custGbCd = "";
+        this.appGbCd = "GRA";
+
+        this.custNo = userVO.getCustNo();
+        this.custGbCd = userVO.getCustGbCd();
+
+        this.mdn = compInterface.getDeviceDTO().getMdn();
+        this.pushId = compInterface.getDeviceDTO().getPushId();
+        this.deviceId = compInterface.getDeviceDTO().getDeviceId();
     }
 }

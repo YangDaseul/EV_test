@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
+import com.genesis.apps.comm.model.vo.DeviceDTO;
 import com.genesis.apps.comm.net.HttpRequestUtil;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.ga.CCSP;
@@ -80,4 +81,9 @@ public class ApplicationModule {
         return new ScreenCaptureUtil(context);
     }
 
+    @Provides
+    @Singleton
+    public DeviceDTO provideDeviceInfo(Application application){
+        return new DeviceDTO((application));
+    }
 }

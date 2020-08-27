@@ -1,17 +1,29 @@
 package com.genesis.apps.ui.activity;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.RequestCodes;
+import com.genesis.apps.comm.model.vo.DeviceDTO;
+import com.genesis.apps.comm.model.vo.UserVO;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.databinding.ActivityIntroBinding;
-import com.genesis.apps.ui.service.ScreenRecorderService;
+import com.genesis.apps.room.DatabaseHolder;
+import com.google.gson.Gson;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class IntroActivity extends SubActivity<ActivityIntroBinding> {
+
+    @Inject
+    public DeviceDTO deviceDTO;
+    @Inject
+    public DatabaseHolder databaseHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +58,54 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
 
     private void init(){
         if(isPermissions()){
+            deviceDTO.initData();
+//            String test = "{\n" +
+//                    "  \"rsltCd\": \"0000\",\n" +
+//                    "  \"rsltMsg\": \"성공\",\n" +
+//                    "  \"pushIdChgYn\": \"0000\",\n" +
+//                    "  \"carGbCd\": \"0000\",\n" +
+//                    "  \"custMgmtNo\": \"0000\",\n" +
+//                    "  \"custNm\": \"0000\",\n" +
+//                    "  \"celphNo\": \"0000\",\n" +
+//                    "  \"vin\": \"JK1234~\",\n" +
+//                    "  \"vrn\": \"0000\",\n" +
+//                    "  \"carMdelNm\": \"G70\",\n" +
+//                    "  \"carCdNm\": \"2WD 엘리트\",\n" +
+//                    "  \"exteriaColr\": \"블레이징 레드\",\n" +
+//                    "  \"interiaColor\": \"브라운 투톤\",\n" +
+//                    "  \"contractNo\": \"CJK1234~\"\n" +
+//                    "}";
+//
+//            UserVO user = new Gson().fromJson(test, UserVO.class);
+//
+//            databaseHolder.getDatabase().userDao().insert(user);
+//            UserVO user2 = databaseHolder.getDatabase().userDao().select();
+//
+//
+//
+//
+//
+//            String test2 = "{\n" +
+//                    "  \"rsltCd\": \"0000\",\n" +
+//                    "  \"rsltMsg\": \"성공\",\n" +
+//                    "  \"pushIdChgYn\": \"0000\",\n" +
+//                    "  \"carGbCd\": \"park\",\n" +
+//                    "  \"custMgmtNo\": \"park\",\n" +
+//                    "  \"custNm\": \"park\",\n" +
+//                    "  \"celphNo\": \"0000\",\n" +
+//                    "  \"vin\": \"JK1234~\",\n" +
+//                    "  \"vrn\": \"0000\",\n" +
+//                    "  \"carMdelNm\": \"G70\",\n" +
+//                    "  \"carCdNm\": \"2WD 엘리트\",\n" +
+//                    "  \"exteriaColr\": \"블레이징 레드\",\n" +
+//                    "  \"interiaColor\": \"브라운 투톤\",\n" +
+//                    "  \"contractNo\": \"CJK1234~\"\n" +
+//                    "}";
+//
+//            UserVO user3 = new Gson().fromJson(test2, UserVO.class);
+//            databaseHolder.getDatabase().userDao().insert(user3);
+//            UserVO user4 = databaseHolder.getDatabase().userDao().select();
+
             new Handler().postDelayed(() -> {
                 if(isPushData()){
                     startActivity(moveToPush(MainActivity.class));

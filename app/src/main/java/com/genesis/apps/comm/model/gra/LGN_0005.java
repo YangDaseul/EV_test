@@ -48,10 +48,15 @@ public class LGN_0005 extends BaseData {
      * @see #ny 격자Y
      * 위도 격자
      * @see #t1h 기온
+     * 기온(T1H) :  ℃
      * @see #sky 하늘상태
+     * 하늘상태(SKY) : 맑음(1), 구름많음(3), 흐림(4)
      * @see #reh 습도
+     * 습도(REH) : 습도 %
      * @see #pty 강수형태
+     * 강수형태(PTY) : 없음(0), 비(1), 비/눈(2), 눈(3), 소나기(4), 빗방울(5), 빗방울/눈날림(6), 눈날림(7)
      * @see #lgt 낙뢰
+     * 낙뢰(LGT) : 확률없음(0), 낮음(1), 보통(2), 높음(3)
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -67,18 +72,18 @@ public class LGN_0005 extends BaseData {
         private String ny;
         @Expose
         @SerializedName("t1h")
-        private T1H t1h;
+        private String t1h;
         @Expose
         @SerializedName("sky")
-        private T1H sky;
+        private String sky;
         @Expose
         @SerializedName("reh")
-        private T1H reh;
+        private String reh;
         @Expose
         @SerializedName("pty")
-        private T1H pty;
+        private String pty;
         @Expose
         @SerializedName("lgt")
-        private T1H lgt;
+        private String lgt;
     }
 }

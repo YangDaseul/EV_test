@@ -12,8 +12,6 @@ import android.text.TextUtils;
 import com.genesis.apps.BuildConfig;
 
 public class DeviceUtil {
-
-
     /*
      * Application Version name
      * */
@@ -45,7 +43,6 @@ public class DeviceUtil {
         return getApplicationId();
     }
 
-
     /*
      *
      * Application build type
@@ -63,12 +60,11 @@ public class DeviceUtil {
     }
 
     /**
-     *
-     * @brief get android id
      * @param context
      * @return
+     * @brief get android id
      */
-    public static String getDeviceId(Application context){
+    public static String getDeviceId(Application context) {
         return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID).toUpperCase();
     }
 
@@ -78,6 +74,7 @@ public class DeviceUtil {
     public static String getModel() {
         return android.os.Build.MODEL;
     }
+
     /**
      * Android 버전 정보
      *
@@ -88,7 +85,7 @@ public class DeviceUtil {
     }
 
 
-    public static String parserPhoneNumber(Application context) {
+    public static String getPhoneNumber(Application context) {
         if ((context.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED
                 && context.checkCallingOrSelfPermission(Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED)
                 || (Build.VERSION_CODES.O <= Build.VERSION.SDK_INT && context.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED)) {
@@ -118,7 +115,7 @@ public class DeviceUtil {
         return parserd.replace("-", "");
     }
 
-//    /*
+    //    /*
 //     * device device id
 //     * */
 //    public static String getDeviceId() {
