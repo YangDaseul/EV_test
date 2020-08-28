@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.activity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -79,7 +80,13 @@ public class GAWebActivity extends WebviewActivity {
         if (url.equalsIgnoreCase("https://www.genesis.com/kr/ko")
                 || url.equalsIgnoreCase("https://www.genesis.com/kr/ko/genesis-membership.html")
                 || url.startsWith("genesisapps://close")) {
+            //TODO 테스트 필요 0001
             finish();
+            return true;
+        } else if (url.startsWith("genesisapps://open")) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(uri);
+            startActivity(intent); //TODO 테스트 필요 0002
             return true;
         } else {
             return false;
