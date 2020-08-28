@@ -91,6 +91,7 @@
 
         <activity
             android:name=".ui.activity.ConstraintSetActivity"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
             android:exported="false" />
 

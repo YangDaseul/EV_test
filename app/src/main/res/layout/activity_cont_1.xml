@@ -3,10 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <LinearLayout
+        android:id="@+id/container2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/l_edit4"
@@ -26,6 +33,7 @@
                 android:id="@+id/edit4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
                 android:imeOptions="actionDone"
                 android:hint="input id4" />
 
@@ -50,6 +58,7 @@
                 android:id="@+id/edit3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
                 android:imeOptions="actionDone"
                 android:hint="input id3" />
 
@@ -74,6 +83,7 @@
                 android:id="@+id/edit2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
                 android:imeOptions="actionDone"
                 android:hint="input id2" />
 
@@ -97,13 +107,24 @@
                 android:id="@+id/edit1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeActionLabel="test"
-                android:imeActionId="100"
+                android:inputType="text"
+                android:imeOptions="actionDone"
                 android:hint="input id" />
             <requestFocus/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:text="다음"/>
+
+    </LinearLayout>
 </layout>
