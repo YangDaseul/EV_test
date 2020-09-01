@@ -17,6 +17,7 @@ public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
     private final String TAG = getClass().getSimpleName();
     public MyWebViewFrament fragment;
     public String url = ""; //초기 접속 URL
+    public String fn=""; //javascript 함수
     private boolean isClearHistory=false;
 
     @Override
@@ -90,7 +91,7 @@ public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
         }
         @Override
         public boolean onBackPressed() {
-            if(clearWindowOpens()) {
+            if(clearWindowOpens2()) {
                 return true;
             }else {
                 return back(fragment.getUrl());
@@ -110,7 +111,7 @@ public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
         return false;
     }
 
-    private boolean clearWindowOpens() {
+    public boolean clearWindowOpens() {
         Log.d(TAG, "clearWindowOpens:" + url);
         if(!fragment.openWindows.isEmpty()) {
             try {
@@ -126,6 +127,62 @@ public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
         }
         return false;
     }
+
+
+    public boolean clearWindowOpens2() {
+
+        if(!TextUtils.isEmpty(fn)){
+            if(fragment.openWindows.size()>0){
+                fragment.openWindows.get(0).loadUrl("javascript:"+fn);
+            }else{
+                fragment.loadUrl("javascript:"+fn);
+            }
+//            fn="";
+            return true;
+        }else if(!fragment.openWindows.isEmpty()) {
+            try {
+                for (WebView webView : fragment.openWindows) {
+                    webView.clearHistory();
+                    fragment.getWebViewContainer().removeView(webView);
+                    fragment.onCloseWindow(webView);
+//                    if(webView.canGoBack()){
+//                        webView.goBack();
+//                    }else {
+//                        webView.clearHistory();
+//                        fragment.getWebViewContainer().removeView(webView);
+//                        fragment.onCloseWindow(webView);
+//                    }
+                }
+                fragment.openWindows.clear();
+                return true;
+            } catch (Exception ignore) {
+            }
+        }
+        return false;
+    }
+
+
+    public boolean clearWindowOpens3() {
+
+       if(!fragment.openWindows.isEmpty()) {
+            try {
+                for (WebView webView : fragment.openWindows) {
+                    if(webView.canGoBack()){
+                        webView.goBack();
+                    }else {
+                        webView.clearHistory();
+                        fragment.getWebViewContainer().removeView(webView);
+                        fragment.onCloseWindow(webView);
+                        fragment.openWindows.clear();
+                    }
+                }
+                return true;
+            } catch (Exception ignore) {
+            }
+        }
+        return false;
+    }
+
 
     public void setClearHistory(boolean clearHistory) {
         isClearHistory = clearHistory;

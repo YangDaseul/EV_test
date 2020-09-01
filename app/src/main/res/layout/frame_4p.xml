@@ -11,6 +11,7 @@
             android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -171,6 +172,17 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="snackbar onclick toast"
+                android:textColor="@color/x_000000"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/btn_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="card view"
                 android:textColor="@color/x_000000"
                 android:textSize="14sp"/>
 

@@ -1,5 +1,6 @@
 package com.genesis.apps.comm.util;
 
+import android.net.Uri;
 import android.text.TextUtils;
 
 import java.io.UnsupportedEncodingException;
@@ -43,5 +44,42 @@ public class QueryString {
 
     public String toString() {
         return getQuery();
+    }
+
+
+    public static Uri encode(String value){
+        Uri retv=null;
+        String startWith="";
+        try {
+            if(value.startsWith("http://")){
+                startWith="http://";
+                value = value.replace(startWith,"");
+            }else if(value.startsWith("https://")){
+                startWith="https://";
+                value = value.replace(startWith,"");
+            }
+            retv = Uri.parse(startWith + URLEncoder.encode(value, "UTF-8"));
+        }catch (Exception e){
+
+        }
+        return retv;
+    }
+
+    public static String encodeString(String value){
+        String retv="";
+        String startWith="";
+        try {
+            if(value.startsWith("http://")){
+                startWith="http://";
+                value = value.replace(startWith,"");
+            }else if(value.startsWith("https://")){
+                startWith="https://";
+                value = value.replace(startWith,"");
+            }
+            retv = startWith + URLEncoder.encode(value, "UTF-8");
+        }catch (Exception e){
+
+        }
+        return retv;
     }
 }

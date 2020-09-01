@@ -1,4 +1,4 @@
-package com.genesis.apps.ui.view.listview;
+package com.genesis.apps.ui.activity.test;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,19 +6,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.genesis.apps.R;
+import com.genesis.apps.ui.view.listview.Link;
+import com.genesis.apps.ui.view.listview.MyItemClickListener;
+
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.genesis.apps.R;
 
-
-public class TestUserAdapter extends ListAdapter<Link, TestUserAdapter.MyViewHolder> {
+public class TestCardViewAdapter extends ListAdapter<Link, TestCardViewAdapter.MyViewHolder> {
 
         MyItemClickListener myItemClickListener;
-        public TestUserAdapter(@NonNull DiffUtil.ItemCallback diffCallback,
-                             MyItemClickListener myItemClickListener) {
+        public TestCardViewAdapter(@NonNull DiffUtil.ItemCallback diffCallback,
+                                   MyItemClickListener myItemClickListener) {
                 super(diffCallback);
                 this.myItemClickListener = myItemClickListener;
         }
@@ -26,8 +29,7 @@ public class TestUserAdapter extends ListAdapter<Link, TestUserAdapter.MyViewHol
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View itemLayoutView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_layout, null);
+                View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.square_view, parent,false);
 
                 return new MyViewHolder(itemLayoutView);
         }
@@ -40,24 +42,16 @@ public class TestUserAdapter extends ListAdapter<Link, TestUserAdapter.MyViewHol
         // inner class
         public class MyViewHolder extends RecyclerView.ViewHolder {
 
-                private View itemLayoutView;
-                private TextView itemTitle;
-                private TextView itemUrl;
-                private ImageView itemIcon;
+                private ImageView image;
 
                 public MyViewHolder(View itemLayoutView) {
                         super(itemLayoutView);
-                        this.itemLayoutView = itemLayoutView;
-                        this.itemTitle = itemLayoutView.findViewById(R.id.item_title);
-                        this.itemUrl = itemLayoutView.findViewById(R.id.item_url);
-                        this.itemIcon = itemLayoutView.findViewById(R.id.item_icon);
+                        this.image = itemLayoutView.findViewById(R.id.image);
                 }
                 public void bind(Link link){
-                        this.itemIcon.setImageResource(link.getIcon());
-                        this.itemTitle.setText(link.getTitle());
-                        this.itemUrl.setText(link.getUrl());
 
-                        this.itemLayoutView.setOnClickListener(
+                        this.image.setImageResource(link.getIcon());
+                        this.image.setOnClickListener(
                                 v -> myItemClickListener.onClick(link));
 
                 }

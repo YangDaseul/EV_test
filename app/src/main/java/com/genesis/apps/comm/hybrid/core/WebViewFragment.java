@@ -11,24 +11,35 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
+import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.ConsoleMessage;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.RelativeLayout;
 
+import androidx.annotation.RequiresApi;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import com.genesis.apps.BuildConfig;
+import com.genesis.apps.comm.model.RequestCodes;
+import com.genesis.apps.comm.util.QueryString;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +47,9 @@ import java.util.Map;
 import java.util.Objects;
 
 public abstract class WebViewFragment extends Fragment {
+	public ValueCallback<Uri[]> filePathCallbackLollipop;
+	public Uri cameraImageUri = null;
+
 	private static final String TAG = "WebViewFragment";
 
 	public static final String EXTRA_MAIN_URL = "mainUrl";
@@ -287,6 +301,55 @@ public abstract class WebViewFragment extends Fragment {
 		return newWebView;
 	}
 
+
+	public void createChildWebView(String url) {
+		MyWebView newWebView = createNewWebView();
+		newWebViewSetting(newWebView);
+		enableCookies(newWebView);
+		newWebView.setWebViewClient(webViewClient);
+//		newWebView.setWebViewClient(new MyWebViewClient(context){
+//			@Override
+//			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//				final Uri uri = Uri.parse(url);
+//				if (url.startsWith("genesisapps://sendAction")) {
+//					loadUrl(QueryString.encodeString(uri.getQueryParameter("fn")));
+//					return true;
+//				}
+//				return super.shouldOverrideUrlLoading(view, url);
+//			}
+//		});
+		newWebView.setWebChromeClient(new MyWebChromeClient() {
+			@Override
+			public void onCloseWindow(WebView window) {
+				WebViewFragment.this.onCloseWindow(window);
+			}
+		});
+		getWebViewContainer().addView(newWebView, new ViewGroup.LayoutParams(
+				ViewGroup.LayoutParams.MATCH_PARENT,
+				ViewGroup.LayoutParams.MATCH_PARENT));
+
+		newWebView.loadUrl(url);
+	}
+
+	public void createChildWebView() {
+		MyWebView newWebView = createNewWebView();
+		newWebViewSetting(newWebView);
+		enableCookies(newWebView);
+
+		newWebView.setWebViewClient(webViewClient);
+		newWebView.setWebChromeClient(new MyWebChromeClient() {
+			@Override
+			public void onCloseWindow(WebView window) {
+				WebViewFragment.this.onCloseWindow(window);
+			}
+		});
+		getWebViewContainer().addView(newWebView, new ViewGroup.LayoutParams(
+				ViewGroup.LayoutParams.MATCH_PARENT,
+				ViewGroup.LayoutParams.MATCH_PARENT));
+
+	}
+
+
 	/**
 	 * 웹뷰 설정
 	 */
@@ -369,7 +432,6 @@ public abstract class WebViewFragment extends Fragment {
 		Log.v(TAG, "userAgentString[" + userAgentString + "]");
 		Level16Apis.enableUniversalAccess(settings);
 
-
 		String pathToCache = requireActivity().getApplicationContext()
 				.getDir("database", Context.MODE_PRIVATE).getPath();
 		settings.setAppCachePath(pathToCache);
@@ -430,6 +492,7 @@ public abstract class WebViewFragment extends Fragment {
 			MyWebView newWebView = createNewWebView();
 			newWebViewSetting(newWebView);
 			enableCookies(newWebView);
+
 			newWebView.setWebViewClient(webViewClient);
 			newWebView.setWebChromeClient(new MyWebChromeClient() {
 				@Override
@@ -438,6 +501,9 @@ public abstract class WebViewFragment extends Fragment {
 					WebViewFragment.this.onCloseWindow(window);
 				}
 			});
+
+
+
 			getWebViewContainer().addView(newWebView, new ViewGroup.LayoutParams(
 					ViewGroup.LayoutParams.MATCH_PARENT,
 					ViewGroup.LayoutParams.MATCH_PARENT));
@@ -483,6 +549,33 @@ public abstract class WebViewFragment extends Fragment {
 
 			return WebViewFragment.this.onJsAlert(view, url, message, result);
 		}
+
+
+		/**
+		 * @param webView
+		 * @param filePathCallback
+		 * @param fileChooserParams
+		 * @return
+		 */
+		// For Android 5.0+ 카메라 - input type="file" 태그를 선택했을 때 반응
+		@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+		public boolean onShowFileChooser(
+				WebView webView, ValueCallback<Uri[]> filePathCallback,
+				FileChooserParams fileChooserParams) {
+			Log.d("MainActivity", "5.0+");
+
+			// Callback 초기화 (중요!)
+			if (filePathCallbackLollipop != null) {
+				filePathCallbackLollipop.onReceiveValue(null);
+				filePathCallbackLollipop = null;
+			}
+			filePathCallbackLollipop = filePathCallback;
+
+			boolean isCapture = fileChooserParams.isCaptureEnabled();
+			runCamera(isCapture);
+			return true;
+		}
+
 	}
 
 	/**
@@ -632,6 +725,54 @@ public abstract class WebViewFragment extends Fragment {
 	private static class Level16Apis {
 		static void enableUniversalAccess(WebSettings settings) {
 			settings.setAllowUniversalAccessFromFileURLs(true);
+		}
+	}
+
+
+	/**
+	 * @param _isCapture
+	 */
+	// 카메라 기능 구현
+	private void runCamera(boolean _isCapture) {
+
+		if (!_isCapture) {// 갤러리 띄운다.
+			Intent pickIntent = new Intent(Intent.ACTION_PICK);
+			pickIntent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+			pickIntent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+			String pickTitle = "사진 가져올 방법을 선택하세요.";
+			Intent chooserIntent = Intent.createChooser(pickIntent, pickTitle);
+
+			getActivity().startActivityForResult(chooserIntent, RequestCodes.REQ_CODE_FILECHOOSER.getCode());
+			return;
+		}
+
+		Intent intentCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		//intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+		File path = getActivity().getFilesDir();
+		File file = new File(path, "fokCamera.png");
+		// File 객체의 URI 를 얻는다.
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+			cameraImageUri = FileProvider.getUriForFile(getActivity(), getActivity().getApplication().getPackageName() + ".provider", file);
+		} else {
+			cameraImageUri=Uri.fromFile(file);
+		}
+		intentCamera.putExtra(MediaStore.EXTRA_OUTPUT, cameraImageUri);
+
+		if (!_isCapture) { // 선택팝업 카메라, 갤러리 둘다 띄우고 싶을 때..
+			Intent pickIntent = new Intent(Intent.ACTION_PICK);
+			pickIntent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+			pickIntent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+			String pickTitle = "사진 가져올 방법을 선택하세요.";
+			Intent chooserIntent = Intent.createChooser(pickIntent, pickTitle);
+
+			// 카메라 intent 포함시키기..
+			chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Parcelable[]{intentCamera});
+			getActivity().startActivityForResult(chooserIntent, RequestCodes.REQ_CODE_FILECHOOSER.getCode());
+		} else {// 바로 카메라 실행..
+			getActivity().startActivityForResult(intentCamera, RequestCodes.REQ_CODE_FILECHOOSER.getCode());
 		}
 	}
 

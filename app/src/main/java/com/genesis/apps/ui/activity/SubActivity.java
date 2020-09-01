@@ -1,25 +1,22 @@
 package com.genesis.apps.ui.activity;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.databinding.ActivityBaseBinding;
-
-import javax.inject.Inject;
-
-import dagger.hilt.android.AndroidEntryPoint;
 
 
 public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivity {
 
-    ActivityBaseBinding base;
-    T ui;
+    public ActivityBaseBinding base;
+    public T ui;
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,11 +37,32 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         return DataBindingUtil.inflate(getLayoutInflater(), layoutResId, null, false);
     }
 
+//    public final void showProgressDialog(final boolean show) {
+//        try {
+//            if (base.lProgress != null)
+//                runOnUiThread(() -> base.lProgress.lProgress.setVisibility(show ? View.VISIBLE : View.GONE));
+//        } catch (Exception e) {
+//
+//        }
+//    }
+
     public final void showProgressDialog(final boolean show) {
+        if(progressDialog==null) progressDialog = new ProgressDialog(SubActivity.this, AlertDialog.BUTTON_POSITIVE);
+
         try {
-            if (base.lProgress != null)
-                runOnUiThread(() -> base.lProgress.lProgress.setVisibility(show ? View.VISIBLE : View.GONE));
-        } catch (Exception e) {
+            runOnUiThread(() -> {
+                if (show) {
+                    progressDialog.setTitle("");
+                    progressDialog.setMessage("Loading");
+                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    progressDialog.setCancelable(true);
+                    progressDialog.setCanceledOnTouchOutside(false);
+                    progressDialog.show();
+                } else {
+                    progressDialog.hide();
+                }
+            });
+        }catch (Exception ignore){
 
         }
     }

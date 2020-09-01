@@ -1,6 +1,5 @@
 package com.genesis.apps.ui.fragment.main;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,7 +7,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.projection.MediaProjectionManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Pair;
@@ -30,9 +28,9 @@ import com.genesis.apps.comm.util.graph.AnotherBarActivity;
 import com.genesis.apps.comm.util.graph.PieChartActivity;
 import com.genesis.apps.comm.util.graph.StackedBarActivity;
 import com.genesis.apps.databinding.Frame4pBinding;
+import com.genesis.apps.ui.activity.CardViewActivity;
 import com.genesis.apps.ui.activity.ConstraintSetActivity;
 import com.genesis.apps.ui.activity.GAWebActivity;
-import com.genesis.apps.ui.activity.IntroActivity;
 import com.genesis.apps.ui.activity.MainActivity;
 import com.genesis.apps.ui.dialog.TestDialog;
 import com.genesis.apps.ui.fragment.SubFragment;
@@ -121,6 +119,14 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
                         SnackBarUtil.show(getContext(), "testing snackbar jaja");
                     }
                 });
+            }
+        });
+
+
+        me.btnCardview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                baseActivity.startActivitySingleTop(new Intent(getActivity(), CardViewActivity.class), 0);
             }
         });
     }
@@ -243,9 +249,11 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         if(view.getVisibility()==View.VISIBLE){
             ((MainActivity)getActivity()).getViewPager().setUserInputEnabled(true);
             view.setVisibility(View.GONE);
+            setLayoutVisibility(View.VISIBLE);
         }else{
             ((MainActivity)getActivity()).getViewPager().setUserInputEnabled(false);
             view.setVisibility(View.VISIBLE);
+            setLayoutVisibility(View.GONE);
         }
     }
 
@@ -256,8 +264,14 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         doFullScreen();
         new Handler().postDelayed(() -> {
             stopRecordService();
-            setRejectClick(me.vClickReject);
+            new Handler().postDelayed(() -> {
+                setRejectClick(me.vClickReject);
+            }, 1000);
         }, 3000);
+    }
+
+    private void setLayoutVisibility(int visibility) {
+        me.layout.setVisibility(visibility);
     }
 
     private void startRecordService(final int resultCode, final Intent data){

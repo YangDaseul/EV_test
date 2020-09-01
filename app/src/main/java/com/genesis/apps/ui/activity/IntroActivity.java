@@ -107,6 +107,8 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
 //            UserVO user4 = databaseHolder.getDatabase().userDao().select();
 
             new Handler().postDelayed(() -> {
+//                startActivitySingleTop(new Intent(IntroActivity.this, GAWebActivity.class).putExtra("url",GAWebActivity.URL_BTO_MAIN), 0);
+
                 if(isPushData()){
                     startActivity(moveToPush(MainActivity.class));
                 }else{

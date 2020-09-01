@@ -35,4 +35,17 @@ class NotiVO extends BaseData {
     @Expose
     @SerializedName("notiCont")
     private String notiCont;
+
+
+    //TODO 2020-09-01 PARK 노티리스트 관련 전문이 나오지 않아 임의로 추가 추후 반드시 수정 필요
+    @Expose
+    @SerializedName("notDt")
+    private String notDt;
+    @Expose
+    @SerializedName("imgUrl")
+    private String imgUrl;
+    //TODO UI용 IGNORE 필요
+    @Expose
+    @SerializedName("isOpen")
+    private boolean isOpen;
 }

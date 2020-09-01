@@ -18,6 +18,8 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+
 
 
 
@@ -95,6 +97,17 @@
             android:screenOrientation="portrait"
             android:exported="false" />
 
+        <activity
+            android:name=".ui.activity.test.VerticalOverlapExampleActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@style/CardViewTheme"/>
+
+        <activity
+            android:name=".ui.activity.CardViewActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@style/CardViewTheme"/>
 
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/> <!-- optional (needed if default theme has no action bar) -->
