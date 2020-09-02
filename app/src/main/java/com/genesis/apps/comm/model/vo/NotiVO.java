@@ -41,9 +41,6 @@ class NotiVO extends BaseData {
     @Expose
     @SerializedName("notDt")
     private String notDt;
-    @Expose
-    @SerializedName("imgUrl")
-    private String imgUrl;
     //TODO UI용 IGNORE 필요
     @Expose
     @SerializedName("isOpen")

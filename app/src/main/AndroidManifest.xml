@@ -109,6 +109,12 @@
             android:exported="false"
             android:theme="@style/CardViewTheme"/>
 
+        <activity
+            android:name=".ui.activity.NotiActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+
+
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/> <!-- optional (needed if default theme has no action bar) -->
 

@@ -59,22 +59,12 @@ public class FragVehicle2 extends SubFragment<FragVehicle2Binding> {
 
 
     private void addAnimalsToList() {
-//        mAnimalsList = new ArrayList<>();
-//
-//        for(int i=0; i<30; i++){
-//            mAnimalsList.add(new Animals(i, "Cat"+i));
+//        testItemAdapter = new TestItemAdapter();
+//        for (int i = 0; i < 30; i++) {
+//            testItemAdapter.addRow(BaseRecyclerViewAdapter.Row.create("value:"+i,0));
 //        }
-//
-//        mAnimalAdapter = new AnimalAdapter(mAnimalsList, null);
 //        me.firstRv.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        me.firstRv.setAdapter(mAnimalAdapter);
-
-        testItemAdapter = new TestItemAdapter();
-        for (int i = 0; i < 30; i++) {
-            testItemAdapter.addRow(BaseRecyclerViewAdapter.Row.create("value:"+i,0));
-        }
-        me.firstRv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        me.firstRv.setAdapter(testItemAdapter);
+//        me.firstRv.setAdapter(testItemAdapter);
     }
 
 }

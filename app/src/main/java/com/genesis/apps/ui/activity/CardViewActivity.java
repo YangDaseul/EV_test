@@ -1,8 +1,8 @@
 package com.genesis.apps.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
+
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.util.VibratorUtil;
@@ -13,8 +13,6 @@ import com.genesis.apps.ui.view.listview.LinkDiffCallback;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import androidx.viewpager2.widget.ViewPager2;
 
 public class CardViewActivity extends SubActivity<ActivityVerticalOverlapExampleBinding> {
 

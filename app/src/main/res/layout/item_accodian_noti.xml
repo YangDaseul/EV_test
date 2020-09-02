@@ -61,8 +61,8 @@
 
             <ImageView
                 android:id="@+id/iv_arrow"
-                android:layout_width="11.4dp"
-                android:layout_height="7dp"
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -70,45 +70,22 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
-            android:id="@+id/l_contents"
-            android:layout_width="0dp"
+
+        <TextView
+            android:id="@+id/tv_contents"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="20dp"
-            android:paddingTop="20dp"
-            android:paddingRight="20dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="5sp"
+            android:textColor="@color/x_141414"
+            android:textSize="13sp"
+            android:padding="20dp"
             android:visibility="gone"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/l_title"
-            tools:visibility="visible">
+            tools:text="공지사항 상세 내용 입니다. 공지사항 상세 내용 입니다. 공지사항 상세 내용 입니다. 공지사항 상세 내용 입니다. 공지사항 상세 내용 입니다. 공지사항 상세 내용 입니다. 공지사항 상세 내용 입니다. 공지사항 상세 내용 입니다."
+            tools:visibility="visible"/>
 
-
-            <ImageView
-                android:id="@+id/iv_contents"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:background="color/x_e2e2e2"
-                android:scaleType="centerCrop"
-                tools:src="@drawable/building2" />
-
-
-            <TextView
-                android:id="@+id/tv_contents"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:fontFamily="@font/regular_genesissanstextglobal"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="5sp"
-                android:textColor="@color/x_141414"
-                android:textSize="13sp"
-                tools:text="공지사항 상세 내용 입니다. 공지사항 상세 내용 입니다. 공지사항 상세 내용 입니다. 공지사항 상세 내용 입니다. 공지사항 상세 내용 입니다. 공지사항 상세 내용 입니다. 공지사항 상세 내용 입니다. 공지사항 상세 내용 입니다." />
-
-
-        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

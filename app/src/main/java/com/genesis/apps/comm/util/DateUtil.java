@@ -96,16 +96,10 @@ public class DateUtil {
         return date;
     }
 
-    public static long getDiffDays(String strDate, String format){
-
+    public static long getDiffMillis(String strDate, String format){
         Date baseDate = getDefaultDateFormat(strDate, format);
-        long diffDay = System.currentTimeMillis() - baseDate.getTime();
-
-        if(diffDay>0){
-            diffDay /= (1000 * 060 * 24);
-        }
-
-        return diffDay;
+        long diffMillis = System.currentTimeMillis() - baseDate.getTime();
+        return diffMillis;
     }
 
 

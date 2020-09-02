@@ -7,11 +7,9 @@ import android.os.Handler;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.RequestCodes;
 import com.genesis.apps.comm.model.vo.DeviceDTO;
-import com.genesis.apps.comm.model.vo.UserVO;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.databinding.ActivityIntroBinding;
 import com.genesis.apps.room.DatabaseHolder;
-import com.google.gson.Gson;
 
 import javax.inject.Inject;
 

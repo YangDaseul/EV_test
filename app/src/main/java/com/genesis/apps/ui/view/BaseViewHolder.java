@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.view;
 
 import android.content.Context;
+import android.util.SparseBooleanArray;
 import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
@@ -16,9 +17,11 @@ public abstract class BaseViewHolder<D,B> extends RecyclerView.ViewHolder{
         setContext(itemView.getContext());
     }
 
-    public abstract int getLayout();
+//    public abstract int getLayout();
 
-    public abstract void onBindView(BaseRecyclerViewAdapter.Row<D> item);
+    public abstract void onBindView(D item);
+    public abstract void onBindView(D item, int pos);
+    public abstract void onBindView(D item, int pos, SparseBooleanArray selectedItems);
 
     public B getBinding() {
         return binding;
