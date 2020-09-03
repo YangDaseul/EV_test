@@ -42,7 +42,4 @@ class NotiVO extends BaseData {
     @SerializedName("notDt")
     private String notDt;
     //TODO UI용 IGNORE 필요
-    @Expose
-    @SerializedName("isOpen")
-    private boolean isOpen;
 }

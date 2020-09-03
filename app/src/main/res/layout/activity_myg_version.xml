@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/l_title"
+            layout="@layout/layout_titlebar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/box_app_icon"
+            app:layout_constraintBottom_toTopOf="@+id/tv_msg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:lineSpacingExtra="0sp"
+            android:textColor="@color/x_000000"
+            android:textSize="16sp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/msg_version_1" />
+
+        <LinearLayout
+            android:id="@+id/l_current_version"
+            android:layout_width="158dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:background="@color/x_f4f4f4"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/l_new_version"
+            app:layout_constraintTop_toBottomOf="@+id/tv_msg">
+
+            <TextView
+                android:id="@+id/tv_current_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:gravity="center"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="5sp"
+                android:text="@string/word_version_1"
+                android:textColor="@color/x_525252"
+                android:textSize="13sp" />
+
+
+            <TextView
+                android:id="@+id/tv_current_version"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:gravity="center"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="1sp"
+                android:textColor="@color/x_141414"
+                android:textSize="15sp"
+                tools:text="0.0.1" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/l_new_version"
+            android:layout_width="158dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="4dp"
+            android:background="@color/x_f4f4f4"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toRightOf="@+id/l_current_version"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/l_current_version">
+
+            <TextView
+                android:id="@+id/tv_new_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:gravity="center"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="5sp"
+                android:text="@string/word_version_2"
+                android:textColor="@color/x_525252"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_new_version"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:gravity="center"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="1sp"
+                android:textColor="@color/x_141414"
+                android:textSize="15sp"
+                tools:text="0.0.1" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_update"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="30dp"
+            android:background="@color/x_141414"
+            android:gravity="center"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:lineSpacingExtra="6sp"
+            android:textColor="@color/x_ffffff"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:text="@string/word_version_3" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

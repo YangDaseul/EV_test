@@ -26,9 +26,6 @@ public abstract class BaseRecyclerViewAdapter2<D extends BaseData> extends Recyc
         return items;
     }
 
-//    public D getItem(int position) {
-//        return items.get(position);
-//    }
     @SuppressWarnings("unchecked")
     public <D> D getItem(int position) {
         return (D) items.get(position);

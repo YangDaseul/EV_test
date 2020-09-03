@@ -110,7 +110,7 @@
             android:theme="@style/CardViewTheme"/>
 
         <activity
-            android:name=".ui.activity.NotiActivity"
+            android:name=".ui.activity.MyGNotiActivity"
             android:screenOrientation="portrait"
             android:exported="false"/>
 

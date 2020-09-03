@@ -62,13 +62,13 @@ class NotiViewModel extends ViewModel {
         notiVOList.setValue(list);
     }
 
-    public void updateNotiVO(NotiVO data, int position){
-        for(int i=0; i<notiVOList.getValue().size(); i++){
-            if(i==position){
-                notiVOList.getValue().get(i).setOpen(data.isOpen() ? false : true);
-                notiVOList.setValue(notiVOList.getValue());
-                break;
-            }
-        }
-    }
+//    public void updateNotiVO(NotiVO data, int position){
+//        for(int i=0; i<notiVOList.getValue().size(); i++){
+//            if(i==position){
+//                notiVOList.getValue().get(i).setOpen(data.isOpen() ? false : true);
+//                notiVOList.setValue(notiVOList.getValue());
+//                break;
+//            }
+//        }
+//    }
 }
