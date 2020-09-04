@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class PackageUtil {
     private static final String LOG_TAG = "PackageUtil";
@@ -101,5 +103,59 @@ public class PackageUtil {
         PackageManager pm = context.getPackageManager();
         int hasPerm = pm.checkPermission(permission, context.getPackageName());
         return hasPerm == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public static int versionCompare(String str1, String str2) {
+        int retv=0;
+
+        try (Scanner s1 = new Scanner(str1);
+             Scanner s2 = new Scanner(str2);) {
+            s1.useDelimiter("\\.");
+            s2.useDelimiter("\\.");
+
+            while (s1.hasNextInt() && s2.hasNextInt()) {
+                int v1 = s1.nextInt();
+                int v2 = s2.nextInt();
+                if (v1 < v2) {
+                    return -1;
+                } else if (v1 > v2) {
+                    return 1;
+                }
+            }
+
+            if (s1.hasNextInt() && s1.nextInt() != 0)
+                return 1; //str1 has an additional lower-level version number
+            if (s2.hasNextInt() && s2.nextInt() != 0)
+                return -1; //str2 has an additional lower-level version
+
+            return 0;
+        }catch (Exception e){
+            // end of try-with-resources
+        }finally {
+            return -2;
+        }
+    }
+
+    /**
+     * 마켓으로 이동
+     */
+    public static void goMarket(Context context, String packageName) {
+        try {
+            String urlString = "market://details?id=" + packageName;
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlString));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            context.startActivity(intent);
+        } catch (Exception e1) {
+            try {
+                String urlString = "https://play.google.com/store/apps/details?id=" + packageName;
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlString));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                context.startActivity(intent);
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
     }
 }

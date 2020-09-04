@@ -52,20 +52,8 @@ public class FragVehicle1 extends SubFragment<FragVehicleTest1Binding> {
         super.onActivityCreated(savedInstanceState);
 
 
-//        lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
-//
-//        lgnViewModel.reqLGN0001(new LGN_0001.Request("11", "123", "11", "12314123", "!2312321"));
-
-
         mapViewModel = new ViewModelProvider(getActivity()).get(MapViewModel.class);
         me.setLifecycleOwner(getViewLifecycleOwner());
-//        me.tvName1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                mapViewModel.reqPlayMapPoiItemList(new AroundPOIReqVO("주유소",37.56719394162535,126.97875114212447,1000,1,1,0,20));
-//                mapViewModel.reqTestCount();
-//            }
-//        });
 
 
         getViewLifecycleOwnerLiveData().observe(getViewLifecycleOwner(), new Observer<LifecycleOwner>() {

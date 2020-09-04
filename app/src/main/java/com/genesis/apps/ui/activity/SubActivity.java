@@ -2,6 +2,7 @@ package com.genesis.apps.ui.activity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.ViewGroup;
 
@@ -59,11 +60,12 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
                     progressDialog.setCanceledOnTouchOutside(false);
                     progressDialog.show();
                 } else {
-                    progressDialog.hide();
+                    progressDialog.dismiss();
+                    progressDialog = null;
                 }
             });
         }catch (Exception ignore){
-
+            ignore.printStackTrace();
         }
     }
 
