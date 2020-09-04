@@ -19,6 +19,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TestCardViewAdapter extends ListAdapter<Link, TestCardViewAdapter.MyViewHolder> {
 
+        public static final int TYPE_CARD = 0;
+        public static final int TYPE_LINE = 1;
+        private int VIEW_TYPE = TYPE_CARD;
+
+        public int getVIEW_TYPE() {
+                return VIEW_TYPE;
+        }
+
+        public void setVIEW_TYPE(int VIEW_TYPE) {
+                this.VIEW_TYPE = VIEW_TYPE;
+        }
+
+
+
+
+
         MyItemClickListener myItemClickListener;
         public TestCardViewAdapter(@NonNull DiffUtil.ItemCallback diffCallback,
                                    MyItemClickListener myItemClickListener) {
@@ -29,8 +45,11 @@ public class TestCardViewAdapter extends ListAdapter<Link, TestCardViewAdapter.M
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.square_view, parent,false);
+                int layout = R.layout.square_view;
+                if(VIEW_TYPE==TYPE_LINE)
+                        layout = R.layout.square_view_line;
 
+                View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(layout, parent,false);
                 return new MyViewHolder(itemLayoutView);
         }
 
@@ -38,6 +57,7 @@ public class TestCardViewAdapter extends ListAdapter<Link, TestCardViewAdapter.M
         public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
                 myViewHolder.bind(getItem(position));
         }
+
 
         // inner class
         public class MyViewHolder extends RecyclerView.ViewHolder {

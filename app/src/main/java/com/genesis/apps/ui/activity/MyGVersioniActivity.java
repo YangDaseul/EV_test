@@ -12,6 +12,7 @@ import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.databinding.ActivityMygVersionBinding;
+import com.genesis.apps.ui.view.listener.OnSingleClickListener;
 
 public class MyGVersioniActivity extends SubActivity<ActivityMygVersionBinding> {
 
@@ -22,14 +23,6 @@ public class MyGVersioniActivity extends SubActivity<ActivityMygVersionBinding> 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myg_version);
         ui.lTitle.title.setText(R.string.title_version);
-
-        ui.tvUpdate2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PackageUtil.goMarket(MyGVersioniActivity.this, getPackageName());
-            }
-        });
-
         ui.setLifecycleOwner(this);
         mypViewModel= new ViewModelProvider(this).get(MYPViewModel.class);
         mypViewModel.getRES_MYP_8004().observe(this, responseNetUIResponse -> {
@@ -58,14 +51,20 @@ public class MyGVersioniActivity extends SubActivity<ActivityMygVersionBinding> 
 
     }
 
-    private void setView(String currentVersion, String newViersion){
-        if (PackageUtil.versionCompare(currentVersion,newViersion)<0) {
+    private void setView(String currentVersion, String newVersion){
+        if (PackageUtil.versionCompare(currentVersion,newVersion)<0) {
             //업데이트필요한경우
             ui.tvMsg.setText(R.string.msg_version_2);
             ui.lNewVersion.setBackgroundResource(R.drawable.bg_ffffff_stroke_cd9a81);
             ui.tvNewTitle.setTextColor(getColor(R.color.x_cd9a81));
             ui.tvNewVersion.setTextColor(getColor(R.color.x_cd9a81));
             ui.tvUpdate2.setVisibility(View.VISIBLE);
+            ui.tvUpdate2.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    PackageUtil.goMarket(MyGVersioniActivity.this, getPackageName());
+                }
+            });
         }else{
             //최신버전일경우
             ui.tvMsg.setText(R.string.msg_version_1);
@@ -75,7 +74,7 @@ public class MyGVersioniActivity extends SubActivity<ActivityMygVersionBinding> 
             ui.tvUpdate2.setVisibility(View.GONE);
         }
         ui.tvCurrentVersion.setText(currentVersion);
-        ui.tvNewVersion.setText(newViersion);
+        ui.tvNewVersion.setText(newVersion);
     }
 
     @Override
