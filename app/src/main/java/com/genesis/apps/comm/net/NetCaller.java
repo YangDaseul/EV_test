@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.gra.APIInfo;
 import com.genesis.apps.comm.model.weather.WeatherPointResVO;
+import com.genesis.apps.comm.net.ga.GA;
 import com.genesis.apps.comm.net.ga.GAInfo;
 import com.genesis.apps.comm.net.model.BeanReqParm;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
@@ -17,6 +18,9 @@ import com.google.gson.JsonObject;
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
@@ -27,9 +31,11 @@ public class NetCaller {
     private static final int READ_TIME_OUT = 10 * 1000;
 
     private HttpRequestUtil httpRequestUtil;
+    private GA ga;
     @Inject
-    public NetCaller(HttpRequestUtil httpRequestUtil){
+    public NetCaller(HttpRequestUtil httpRequestUtil, GA ga){
         this.httpRequestUtil = httpRequestUtil;
+        this.ga = ga;
     }
 
 
@@ -169,7 +175,7 @@ public class NetCaller {
                         jsonObject = httpRequestUtil.sendPut(serverUrl, new Gson().toJson(reqVO));
                         break;
                     case HttpRequest.METHOD_POST:
-                        jsonObject = httpRequestUtil.send(serverUrl, new Gson().toJson(reqVO));
+                       jsonObject = httpRequestUtil.send(serverUrl, new Gson().toJson(reqVO));
                         break;
                     default:
                         break;
@@ -216,4 +222,57 @@ public class NetCaller {
         }, es.getUiThreadExecutor());
     }
 
+
+
+
+    public <REQ>void sendFileToGRA(NetResultCallback callback, APIInfo apiInfo, REQ reqVO, File file, String name) {
+        ExecutorService es = new ExecutorService("");
+        Futures.addCallback(es.getListeningExecutorService().submit(() -> {
+            JsonObject jsonObject = null;
+            try {
+                String serverUrl = GAInfo.CCSP_URL+apiInfo.getURI();
+                Type type = new TypeToken<HashMap<String, String>>() { }.getType();
+                HashMap<String, String> params = new Gson().fromJson(new Gson().toJson(reqVO), type);
+                jsonObject = httpRequestUtil.upload(ga.getAccessToken(), serverUrl, params, name, file.getName(), file);
+
+                if (jsonObject != null && !TextUtils.isEmpty(jsonObject.toString())) {
+                    return new NetResult(NetStatusCode.SUCCESS, 0, jsonObject);
+                } else {
+                    return new NetResult(NetStatusCode.ERR_DATA_NULL, R.string.error_msg_1, null);
+                }
+            } catch (HttpRequest.HttpRequestException e) {
+                e.printStackTrace();
+                return new NetResult(NetStatusCode.ERR_EXCEPTION_HTTP, R.string.error_msg_2, null);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+                return new NetResult(NetStatusCode.ERR_EXCEPTION_UNKNOWN, R.string.error_msg_3, null);
+            }
+
+        }), new FutureCallback<NetResult>() {
+            @Override
+            public void onSuccess(@NullableDecl NetResult result) {
+                switch (result.getCode()) {
+                    case SUCCESS:
+                        callback.onSuccess(((JsonObject) result.getData()).toString());
+                        break;
+                    case ERR_EXCEPTION_DKC:
+                    case ERR_EXCEPTION_HTTP:
+                    case ERR_EXCEPTION_UNKNOWN:
+                    case ERR_DATA_NULL:
+                    case ERR_ISSUE_SOURCE:
+                    case ERR_DATA_INCORRECT:
+                    default:
+                        callback.onFail(result);
+                        break;
+                }
+                es.shutDownExcutor();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                callback.onError(new NetResult(NetStatusCode.ERR_ISSUE_SOURCE, R.string.error_msg_4, t));
+                es.shutDownExcutor();
+            }
+        }, es.getUiThreadExecutor());
+    }
 }

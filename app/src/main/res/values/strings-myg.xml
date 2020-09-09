@@ -8,6 +8,7 @@
     <string name="title_terms_3">개인정보 수집/이용</string>
     <string name="title_terms_4">광고성 정보 수신 동의</string>
     <string name="title_terms_5">제네시스 멤버십 가입 약관</string>
+    <string name="title_terms_6">오픈소스 라이선스</string>
 
 
 
@@ -48,6 +49,9 @@
     <string name="word_membership_2">최초 카드 비밀번호 안내</string>
     <string name="word_membership_3">고객센터 전화 걸기</string>
     <string name="word_membership_4">080-600-6000</string>
+    <string name="word_membership_5">소멸 예정 포인트</string>
+    <string name="word_membership_6">6개월 이내</string>
+    <string name="word_membership_7"></string>
 
     <string name="msg_membership_1">카드를 신청하신 후 1개월이 지나도록 카드가 도착하지 않았다면, 다시 재발급 신청을 하시기 바랍니다.</string>
     <string name="msg_membership_2">여러 장의 카드를 보유하고 계셔도 포인트는 통합 관리 되며, 재발급 시 기존 카드는 소멸됩니다.</string>
@@ -59,4 +63,5 @@
     <string name="msg_membership_8">블루멤버스 회원님의 주민번호 뒤 4자리</string>
     <string name="msg_membership_9">안전한 사용을 위하여 카드 수령 후 반드시 비밀번호를 변경해 주시기 바랍니다.</string>
     <string name="msg_membership_10">재발급 카드의 경우 기존 비밀번호가 그대로 유지됩니다.</string>
+    <string name="msg_membership_11">소멸 예정 포인트가 없습니다.</string>
 </resources>

@@ -252,7 +252,9 @@ public class HttpRequest {
 
     private static final String BOUNDARY = "00content0boundary00";
 
-    private static final String CONTENT_TYPE_MULTIPART = "multipart/form-data; boundary="
+    public static final String CONTENT_TYPE_MULTIPART2 = "multipart/form-data";
+
+    private static final String CONTENT_TYPE_MULTIPART = CONTENT_TYPE_MULTIPART2+"; boundary="
             + BOUNDARY;
 
     private static final String CRLF = "\r\n";

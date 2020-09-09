@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/x_ffffff">
+
+        <include
+            android:id="@+id/l_title"
+            layout="@layout/layout_titlebar_depth3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_title_disappear_point"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="-4sp"
+            android:text="@string/word_membership_5"
+            android:textColor="@color/x_000000"
+            android:textSize="20sp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_title" />
+
+        <TextView
+            android:id="@+id/tv_sub_msg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="6sp"
+            android:text="@string/word_membership_6"
+            android:textColor="@color/x_525252"
+            android:textSize="14sp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="@+id/tv_title_disappear_point"
+            app:layout_constraintStart_toStartOf="@+id/tv_title_disappear_point"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_disappear_point" />
+
+
+        <TextView
+            android:id="@+id/tv_extnc_pont_6mm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="-14sp"
+            android:textColor="@color/x_cd9a81"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_title_disappear_point"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sub_msg"
+            tools:text="4,800" />
+
+        <TextView
+            android:id="@+id/tv_extnc_pont_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:fontFamily="@font/bold_genesissanstextglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="-8sp"
+            android:text="P"
+            android:textColor="@color/x_cd9a81"
+            android:textSize="24sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_extnc_pont_6mm"
+            app:layout_constraintStart_toEndOf="@+id/tv_extnc_pont_6mm" />
+
+
+        <TextView
+            android:id="@+id/tv_empty"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="2sp"
+            android:textColor="@color/x_141414"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:background="@color/x_f4f4f4"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_extnc_pont_6mm"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="@string/msg_membership_11"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toTopOf="@+id/tv_empty"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_empty"
+            app:layout_constraintStart_toStartOf="@+id/tv_empty"
+            app:layout_constraintEnd_toEndOf="@+id/tv_empty"
+            tools:listitem="@layout/item_membership_disappear_point"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
