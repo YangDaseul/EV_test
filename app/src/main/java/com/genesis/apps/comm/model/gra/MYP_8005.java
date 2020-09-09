@@ -19,9 +19,7 @@ public class MYP_8005 extends BaseData {
     /**
      * @author hjpark
      * @brief MYP_8005 요청 항목
-     * @see #lastNotiNo 마지막 일련번호
-     * 공지사항 조회 요청한 마지막 일련번호
-     * 0 값이면 1page, 즉 최근목록 요청 의미
+     * @see #pageNo 페이지번호
      * @see #searchCnt 조회 요청 개수
      */
     @EqualsAndHashCode(callSuper = true)
@@ -29,14 +27,14 @@ public class MYP_8005 extends BaseData {
     static
     class Request extends BaseRequest{
         @Expose
-        @SerializedName("lastNotiNo")
-        private String lastNotiNo;
+        @SerializedName("pageNo")
+        private String pageNo;
         @Expose
         @SerializedName("searchCnt")
         private String searchCnt;
 
-        public Request(String lastNotiNo, String searchCnt){
-            this.lastNotiNo = lastNotiNo;
+        public Request(String pageNo, String searchCnt){
+            this.pageNo = pageNo;
             this.searchCnt = searchCnt;
             setData(APIInfo.GRA_MYP_8005.getIfCd());
         }

@@ -231,7 +231,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="15dp"
                         android:scaleType="fitCenter"
-                        tools:src="@drawable/btn_open" />
+                        tools:src="@drawable/btn_accodian_open" />
 
 
                     <TextView
