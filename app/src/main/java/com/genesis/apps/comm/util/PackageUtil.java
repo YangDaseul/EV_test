@@ -117,22 +117,31 @@ public class PackageUtil {
                 int v1 = s1.nextInt();
                 int v2 = s2.nextInt();
                 if (v1 < v2) {
-                    return -1;
+                    retv=-1;
+                    return retv;
                 } else if (v1 > v2) {
-                    return 1;
+                    retv=1;
+                    return retv;
                 }
             }
 
-            if (s1.hasNextInt() && s1.nextInt() != 0)
-                return 1; //str1 has an additional lower-level version number
-            if (s2.hasNextInt() && s2.nextInt() != 0)
-                return -1; //str2 has an additional lower-level version
+            if (s1.hasNextInt() && s1.nextInt() != 0) {
+                retv = 1;//str1 has an additional lower-level version number
+                return retv;
+            }
+            if (s2.hasNextInt() && s2.nextInt() != 0) {
+                retv = -1;//str1 has an additional lower-level version number
+                return retv;
+            }
 
-            return 0;
+            retv=0;
+            return retv;
         }catch (Exception e){
+            e.printStackTrace();
+            retv=-2;
             // end of try-with-resources
         }finally {
-            return -2;
+            return retv;
         }
     }
 

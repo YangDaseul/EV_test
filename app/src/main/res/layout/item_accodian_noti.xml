@@ -79,7 +79,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_title"
-                tools:src="@drawable/btn_open" />
+                tools:src="@drawable/btn_accodian_open" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

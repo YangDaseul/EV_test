@@ -14,7 +14,6 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.RequestCodes;
-import com.genesis.apps.comm.model.gra.CMN_0001;
 import com.genesis.apps.databinding.ActivityMainBinding;
 import com.genesis.apps.ui.fragment.main.FragFourth;
 import com.genesis.apps.ui.fragment.main.MainViewpagerAdapter;
@@ -27,11 +26,8 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DataSpec;
 import com.google.android.exoplayer2.upstream.RawResourceDataSource;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.google.gson.Gson;
-import com.theartofdev.edmodo.cropper.CropImageActivity;
 
 import static com.google.android.exoplayer2.Player.REPEAT_MODE_ALL;
-import static com.google.android.exoplayer2.ui.AspectRatioFrameLayout.RESIZE_MODE_FIXED_HEIGHT;
 
 public class MainActivity extends SubActivity<ActivityMainBinding> {
     public FragmentStateAdapter pagerAdapter;
@@ -43,6 +39,8 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
+
 //        ui.button.setOnClickListener(view -> startActivitySingleTop(new Intent(MainActivity.this, EntranceActivity.class),RequestCodes.REQ_CODE_DEFAULT.getCode()));
 
 //        String test="{\n" +
@@ -74,8 +72,17 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
 //                "}";
 //        CMN_0001.Response data = new Gson().fromJson(test, CMN_0001.Response.class);
 
-
-
+//        GNS_1012.Response testdata1 = new GNS_1012.Response();
+//        GNS_1012.Response2 testdata2 = new GNS_1012.Response2();
+//        testdata1.setAprvDtm("1");
+//        testdata1.setAsnCd("12");
+//
+//        SubcribeCarVO2 tmpdata = new SubcribeCarVO2("2","2","2","2","2","2","2","2","2","2","2","2","2","2","2","2","2","2");
+//        testdata2.setVo(tmpdata);
+//        new Gson().toJson(testdata1);
+//        new Gson().toJson(testdata2);
+//        new Gson().fromJ
+//        new Gson().fromJson("{\"aprvDtm\":\"2\",\"aprvStusCd\":\"2\",\"asnCd\":\"2\",\"asnNm\":\"2\",\"attachFilName\":\"2\",\"cnttUrl\":\"2\",\"crdRcvAdr\":\"2\",\"crdRcvDtlAdr\":\"2\",\"crdRcvScnCd\":\"2\",\"crdRcvZip\":\"2\",\"csmrScnCd\":\"2\",\"pbzAdr\":\"2\",\"rentPeriod\":\"2\",\"repTn\":\"2\",\"rtnRsnMsg\":\"2\",\"seqNo\":\"2\",\"subspDtm\":\"2\",\"vin\":\"2\"}", SubcribeCarVO2.class)
         //ViewPager2
         //Adapter
         pagerAdapter = new MainViewpagerAdapter(this, num_page);

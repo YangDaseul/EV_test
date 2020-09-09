@@ -79,11 +79,11 @@ public class NotiAccodianRecyclerAdapter extends BaseRecyclerViewAdapter2<NotiVO
                         getBinding().tvTitle.setText(item.getNotiTitle());
                         getBinding().tvTitle.setMaxLines(selectedItems.get(pos) ? Integer.MAX_VALUE : 1);
                         getBinding().tvTitle.setEllipsize(selectedItems.get(pos) ? null : TextUtils.TruncateAt.END);
-                        getBinding().tvDate.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(item.getNotDt(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot));
+                        getBinding().tvDate.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(item.getTrmsSrtDtm(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot));
                         getBinding().tvContents.setVisibility(selectedItems.get(pos) ? View.VISIBLE : View.GONE);
                         getBinding().tvContents.setText(item.getNotiCont());
                         getBinding().ivArrow.setBackgroundResource(selectedItems.get(pos) ? R.drawable.g_list_icon_close : R.drawable.g_list_icon_open);
-                        getBinding().ivBadge.setVisibility(DateUtil.getDiffMillis(item.getNotDt(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss) > DateUtils.WEEK_IN_MILLIS ? View.GONE : View.VISIBLE);
+                        getBinding().ivBadge.setVisibility(DateUtil.getDiffMillis(item.getTrmsSrtDtm(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss) > DateUtils.WEEK_IN_MILLIS ? View.GONE : View.VISIBLE);
                         changeVisibility(selectedItems.get(pos),pos);
                 }
 

@@ -14,15 +14,8 @@ public class MyGGAActivity extends SubActivity<ActivityMygVersionBinding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myg_ga);
-        ui.lTitle.title.setText(R.string.title_version);
-
-
-        String newVersion="0.0.1";
-        String currentVersion= PackageUtil.getApplicationVersionName(this, getPackageName());
-        if (TextUtils.isEmpty(currentVersion)) {
-            currentVersion = "";
-        }
-
+        ui.lTitle.title.setText(R.string.title_ga);
+        //TODO 처리 필요
 
 
 //        ui.ivIcon.setImageResource(R.mipmap.ic_launcher);

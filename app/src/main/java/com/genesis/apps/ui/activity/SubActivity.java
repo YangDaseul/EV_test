@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
@@ -11,6 +12,7 @@ import androidx.databinding.ViewDataBinding;
 
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.ActivityBaseBinding;
+import com.genesis.apps.ui.view.listener.OnSingleClickListener;
 
 
 public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivity {
@@ -22,6 +24,7 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(base==null) base = (ActivityBaseBinding) inflate(R.layout.activity_base);
+
     }
 
     @Override
@@ -32,6 +35,17 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         }
         base.lContents.addView(ui.getRoot(), new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         super.setContentView(base.getRoot());
+
+        try{
+            findViewById(R.id.back).setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    onBackButton();
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private <T extends ViewDataBinding> T inflate(int layoutResId) {
@@ -67,6 +81,10 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         }catch (Exception ignore){
             ignore.printStackTrace();
         }
+    }
+
+    public void onBackButton(){
+        finish();
     }
 
 }

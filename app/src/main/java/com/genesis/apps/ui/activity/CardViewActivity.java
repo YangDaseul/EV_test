@@ -3,23 +3,22 @@ package com.genesis.apps.ui.activity;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.viewpager2.widget.ViewPager2;
-
 import com.genesis.apps.R;
-import com.genesis.apps.comm.util.VibratorUtil;
 import com.genesis.apps.databinding.ActivityVerticalOverlapExampleBinding;
-import com.genesis.apps.ui.activity.test.TestCardViewAdapter;
-import com.genesis.apps.ui.view.listener.OnSingleClickListener;
+import com.genesis.apps.ui.activity.test.CardViewAadapter;
+import com.genesis.apps.ui.activity.test.ItemMoveCallback;
 import com.genesis.apps.ui.view.listview.Link;
-import com.genesis.apps.ui.view.listview.LinkDiffCallback;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.viewpager2.widget.ViewPager2;
+
 public class CardViewActivity extends SubActivity<ActivityVerticalOverlapExampleBinding> {
 
-    private TestCardViewAdapter testCardViewAdapter;
+    private CardViewAadapter testCardViewAdapter;
     private final int offsetPageLimit=3;
     private boolean animationStartNeeded = true;
     @Override
@@ -29,8 +28,8 @@ public class CardViewActivity extends SubActivity<ActivityVerticalOverlapExample
 
         ui.viewPager.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
         ui.viewPager.setOffscreenPageLimit(offsetPageLimit);
-        testCardViewAdapter = new TestCardViewAdapter(new LinkDiffCallback(), null);
-        testCardViewAdapter.submitList(getListData());
+        testCardViewAdapter = new CardViewAadapter();
+        testCardViewAdapter.addRows(getListData());
         ui.viewPager.setAdapter(testCardViewAdapter);
 
         ui.pagerContainer.setOverlapSlider(0f,0f,0.2f,0f);
@@ -63,26 +62,34 @@ public class CardViewActivity extends SubActivity<ActivityVerticalOverlapExample
             @Override
             public void onClick(View view) {
                 if(testCardViewAdapter!=null){
-                    switch (testCardViewAdapter.getVIEW_TYPE()) {
-                        case TestCardViewAdapter.TYPE_CARD:
-                            testCardViewAdapter = new TestCardViewAdapter(new LinkDiffCallback(), null);
-                            testCardViewAdapter.setVIEW_TYPE(TestCardViewAdapter.TYPE_LINE);
+                    switch (testCardViewAdapter.getViewType()) {
+                        case CardViewAadapter.TYPE_CARD:
+                            testCardViewAdapter = new CardViewAadapter();
+                            testCardViewAdapter.setViewType(CardViewAadapter.TYPE_LINE);
+
+
+                            ItemTouchHelper.Callback callback = new ItemMoveCallback(testCardViewAdapter);
+                            ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+                            touchHelper.attachToRecyclerView(ui.recyclerView);
+
+
                             ui.pagerContainer.setVisibility(View.GONE);
                             ui.recyclerView.setLayoutManager(new LinearLayoutManager(CardViewActivity.this));
                             ui.recyclerView.setVisibility(View.VISIBLE);
                             ui.recyclerView.setAdapter(testCardViewAdapter);
 
                             break;
-                        case TestCardViewAdapter.TYPE_LINE:
-                            testCardViewAdapter = new TestCardViewAdapter(new LinkDiffCallback(), null);
-                            testCardViewAdapter.setVIEW_TYPE(TestCardViewAdapter.TYPE_CARD);
+                        case CardViewAadapter.TYPE_LINE:
+                            testCardViewAdapter = new CardViewAadapter();
+                            testCardViewAdapter.setViewType(CardViewAadapter.TYPE_CARD);
                             ui.pagerContainer.setVisibility(View.VISIBLE);
                             ui.recyclerView.setVisibility(View.GONE);
                             ui.viewPager.setAdapter(testCardViewAdapter);
                             break;
                     }
 
-                    testCardViewAdapter.submitList(getListData());
+                    testCardViewAdapter.setRows(getListData());
+                    testCardViewAdapter.notifyDataSetChanged();
                 }
             }
         });
