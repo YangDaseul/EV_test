@@ -23,7 +23,7 @@ public class CMN_0003 extends BaseData {
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
-    class Request extends BaseRequest{
+    static class Request extends BaseRequest{
         public Request(){
             setData(APIInfo.GRA_CMN_0003.getIfCd());
         }
@@ -39,7 +39,7 @@ public class CMN_0003 extends BaseData {
     class Response extends BaseResponse{
         @Expose
         @SerializedName("termList")
-        private List<TermVO> termList;
+        private List<TermVO> termList; //0003에서는 termCont는 없음 0004에서 get 가능
     }
 
 }

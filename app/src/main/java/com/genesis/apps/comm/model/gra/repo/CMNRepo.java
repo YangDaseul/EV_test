@@ -7,11 +7,13 @@ import com.genesis.apps.comm.model.gra.APIInfo;
 import com.genesis.apps.comm.model.gra.CMN_0001;
 import com.genesis.apps.comm.model.gra.CMN_0002;
 import com.genesis.apps.comm.model.gra.CMN_0003;
+import com.genesis.apps.comm.model.gra.CMN_0004;
 import com.genesis.apps.comm.model.gra.LGN_0001;
 import com.genesis.apps.comm.model.gra.LGN_0002;
 import com.genesis.apps.comm.model.gra.LGN_0003;
 import com.genesis.apps.comm.model.gra.LGN_0004;
 import com.genesis.apps.comm.model.gra.LGN_0005;
+import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.net.NetResultCallback;
@@ -27,6 +29,7 @@ public class CMNRepo {
     public final MutableLiveData<NetUIResponse<CMN_0001.Response>> RES_CMN_0001 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<CMN_0002.Response>> RES_CMN_0002 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<CMN_0003.Response>> RES_CMN_0003 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<CMN_0004.Response>> RES_CMN_0004 = new MutableLiveData<>();
 
     @Inject
     public CMNRepo(NetCaller netCaller) {
@@ -100,6 +103,32 @@ public class CMNRepo {
         }, APIInfo.GRA_CMN_0003, reqData);
 
         return RES_CMN_0003;
+    }
+
+
+    public MutableLiveData<NetUIResponse<CMN_0004.Response>> REQ_CMN_0004(final CMN_0004.Request reqData) {
+
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                CMN_0004.Response response = new Gson().fromJson(object, CMN_0004.Response.class); //결과코드 및 결과메시지 저장
+                response.setTermVO(new Gson().fromJson(object, TermVO.class)); //term데이터 저장
+                RES_CMN_0004.setValue(NetUIResponse.success(response));
+//                RES_CMN_0004.setValue(NetUIResponse.success(new Gson().fromJson(object, CMN_0004.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_CMN_0004.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_CMN_0004.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_CMN_0004, reqData);
+
+        return RES_CMN_0004;
     }
 
 }

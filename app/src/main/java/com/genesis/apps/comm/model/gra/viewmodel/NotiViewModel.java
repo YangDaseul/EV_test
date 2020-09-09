@@ -2,21 +2,12 @@ package com.genesis.apps.comm.model.gra.viewmodel;
 
 import androidx.hilt.Assisted;
 import androidx.hilt.lifecycle.ViewModelInject;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-import com.genesis.apps.comm.model.gra.LGN_0001;
-import com.genesis.apps.comm.model.gra.LGN_0002;
-import com.genesis.apps.comm.model.gra.LGN_0003;
-import com.genesis.apps.comm.model.gra.LGN_0004;
-import com.genesis.apps.comm.model.gra.LGN_0005;
 import com.genesis.apps.comm.model.gra.repo.LGNRepo;
-import com.genesis.apps.comm.model.vo.CarVO;
 import com.genesis.apps.comm.model.vo.NotiVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 
 import java.util.List;
 
@@ -34,7 +25,7 @@ class NotiViewModel extends ViewModel {
 //    private MutableLiveData<NetUIResponse<LGN_0004.Response>> RES_LGN_0004;
 //    private MutableLiveData<NetUIResponse<LGN_0005.Response>> RES_LGN_0005;
 //
-//    public final LiveData<CarVO> carVO = Transformations.map(RES_LGN_0001, input -> input.data.getCarVO());
+//    public final LiveData<VehicleVO> carVO = Transformations.map(RES_LGN_0001, input -> input.data.getCarVO());
 
     private MutableLiveData<List<NotiVO>> notiVOList = new MutableLiveData<>();
 

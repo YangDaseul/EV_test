@@ -65,6 +65,9 @@ class BaseRequest extends BaseData {
     @Expose
     @SerializedName("custGbCd")
     private String custGbCd;
+    @Expose
+    @SerializedName("menuID")
+    private String menuID;
 
 
     @EntryPoint
@@ -92,5 +95,6 @@ class BaseRequest extends BaseData {
         this.mdn = compInterface.getDeviceDTO().getMdn();
         this.pushId = compInterface.getDeviceDTO().getPushId();
         this.deviceId = compInterface.getDeviceDTO().getDeviceId();
+        //TODO menuID 추가 필요.. ?
     }
 }

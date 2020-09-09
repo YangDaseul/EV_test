@@ -1,14 +1,12 @@
 package com.genesis.apps.comm.model.gra;
 
 import com.genesis.apps.comm.model.BaseData;
-import com.genesis.apps.comm.model.vo.CarVO;
 import com.genesis.apps.comm.model.vo.PartVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -26,7 +24,7 @@ public class LGN_0002 extends BaseData {
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
-    class Request extends BaseRequest {
+    static class Request extends BaseRequest {
         @Expose
         @SerializedName("vin")
         private String vin;
@@ -40,7 +38,21 @@ public class LGN_0002 extends BaseData {
     /**
      * @brief LGN_0001 응답 항목
      * @author hjpark
-     * @see #carVO 차량 정보
+     *
+     *
+     * @see #carGbCd 차량구분코드
+     * 차량구분코드 (주차량/계약차량/디폴트차량)
+     * 주차량: 0001, 계약차량: 0002, 디폴트차량: 0000
+     * @see #vin 차대번호
+     * @see #vrn 차량번호
+     * @see #mdlNm 차량모델명
+     * @see #mdlCd 차량모델코드명
+     * @see #saleMdlCd 판매모델코드
+     * @see #saleMdlNm 판매모델명
+     * @see #xrclCtyNo 차량외장컬러상품번호
+     * @see #ieclCtyNo 차량내장컬러상품번호
+     * @see #ctrctNo 계약번호
+     * @see #vhclImgUri 차량이미지URI
      *
      * @see #totalDrivDist 총 주행거리(KM)
      * @see #lastDrivDist 최근 주행거리(KM)
@@ -51,9 +63,41 @@ public class LGN_0002 extends BaseData {
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse {
+
         @Expose
-        @SerializedName("carVO")
-        private CarVO carVO;
+        @SerializedName("carGbCd")
+        private String carGbCd;
+        @Expose
+        @SerializedName("vin")
+        private String vin;
+        @Expose
+        @SerializedName("vrn")
+        private String vrn;
+        @Expose
+        @SerializedName("mdlNm")
+        private String mdlNm;
+        @Expose
+        @SerializedName("mdlCd")
+        private String mdlCd;
+        @Expose
+        @SerializedName("saleMdlCd")
+        private String saleMdlCd;
+        @Expose
+        @SerializedName("saleMdlNm")
+        private String saleMdlNm;
+        @Expose
+        @SerializedName("xrclCtyNo")
+        private String xrclCtyNo;
+        @Expose
+        @SerializedName("ieclCtyNo")
+        private String ieclCtyNo;
+        @Expose
+        @SerializedName("ctrctNo")
+        private String ctrctNo;
+        @Expose
+        @SerializedName("vhclImgUri")
+        private String vhclImgUri;
+
         @Expose
         @SerializedName("totalDrivDist")
         private String totalDrivDist;

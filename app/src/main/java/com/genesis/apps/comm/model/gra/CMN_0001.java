@@ -13,33 +13,34 @@ import lombok.EqualsAndHashCode;
 
 
 /**
+ * @author hjpark
  * @file GRA_CMN_0001
  * @Brief 앱 실행시 인트로 과정에서 필요한 정보를 제공한다.
- * @author hjpark
  */
 public class CMN_0001 extends BaseData {
     /**
-     * @brief CMN_0001의 요청 항목
      * @author hjpark
+     * @brief CMN_0001의 요청 항목
      * @see #appVer 현재앱버전
      * 앱의 현재 버전정보가 있을 경우 필수.
      * (강제 업데이트 여부 체크에 사용)
      */
     @EqualsAndHashCode(callSuper = true)
-    public @Data class Request extends BaseRequest{
+    public @Data
+    static class Request extends BaseRequest {
         @Expose
         @SerializedName("appVer")
         private String appVer;
 
-        public Request(String appVer){
+        public Request(String appVer) {
             this.appVer = appVer;
             setData(APIInfo.GRA_CMN_0001.getIfCd());
         }
     }
 
     /**
-     * @brief CMN_0001의 응답 항목
      * @author hjpark
+     * @brief CMN_0001의 응답 항목
      * @see #appVer 앱 버전
      * 앱의 최신 버전
      * @see #appUpdType 앱 업데이트구분
@@ -50,7 +51,7 @@ public class CMN_0001 extends BaseData {
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
-    class Response extends BaseResponse{
+    class Response extends BaseResponse {
         @Expose
         @SerializedName("appVer")
         private String appVer;

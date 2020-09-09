@@ -22,7 +22,7 @@ public class MYP_0005 extends BaseData {
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
-    class Request extends BaseRequest{
+    static class Request extends BaseRequest{
         @Expose
         @SerializedName("authUuid")
         private String authUuid;

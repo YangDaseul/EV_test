@@ -18,11 +18,16 @@ import lombok.EqualsAndHashCode;
  * @see #notiSeq 일련번호
  * @see #notiTitle 제목
  * @see #notiCont 내용
+ *
+ * @see #trmsSrtDtm 공지게시일시
+ * YYYYMMDDHH24MISS
+ *
  */
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
 class NotiVO extends BaseData {
+    //TODO 공지제목, 일련번호 등 키 명을 통일 요청함 MYP-8005, CMN-0001 충돌
     @Expose
     @SerializedName("notiType")
     private String notiType;
@@ -37,9 +42,8 @@ class NotiVO extends BaseData {
     private String notiCont;
 
 
-    //TODO 2020-09-01 PARK 노티리스트 관련 전문이 나오지 않아 임의로 추가 추후 반드시 수정 필요
     @Expose
-    @SerializedName("notDt")
-    private String notDt;
+    @SerializedName("trmsSrtDtm")
+    private String trmsSrtDtm;
     //TODO UI용 IGNORE 필요
 }

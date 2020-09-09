@@ -17,10 +17,23 @@ import lombok.EqualsAndHashCode;
  * @see #notDt 알림일시
  * @see #title 제목
  * @see #contents 내용
- * @see #linkUrl 링크 URL
- * @see #imgUrl 이미지 URL
  * @see #readYn 읽기확인 여부
  * 확인상태 : Y, 미확인상태 : N
+ * @see #msgLnkCd 메시지링크코드
+ * I : 대표앱 링크  O:외부링크
+ * @see #msgLnkUri 메시지링크URI
+ * 메시지 타이틀의 우측 링크 URI
+ * @see #dtlLnkCd 자세히링크코드
+ * I : 대표앱 링크  O:외부링크
+ * @see #dtlLnkUri 자세히링크URI
+ * 메시지 Body의 하단 링크 URI
+ * @see #imgFilUri1 이미지파일Uri1
+ * 이미지 파일 uri
+ * @see #imgFilUri2 이미지파일Uri2
+ * 이미지 파일 uri
+ * @see #imgFilUri3 이미지파일Uri3
+ * 이미지 파일 uri
+ *
  */
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
@@ -45,12 +58,28 @@ class NotiInfoVO extends BaseData {
     @SerializedName("contents")
     private String contents;
     @Expose
-    @SerializedName("linkUrl")
-    private String linkUrl;
-    @Expose
-    @SerializedName("imgUrl")
-    private String imgUrl;
-    @Expose
     @SerializedName("readYn")
     private String readYn;
+
+    @Expose
+    @SerializedName("msgLnkCd")
+    private String msgLnkCd;
+    @Expose
+    @SerializedName("msgLnkUri")
+    private String msgLnkUri;
+    @Expose
+    @SerializedName("dtlLnkCd")
+    private String dtlLnkCd;
+    @Expose
+    @SerializedName("dtlLnkUri")
+    private String dtlLnkUri;
+    @Expose
+    @SerializedName("imgFilUri1")
+    private String imgFilUri1;
+    @Expose
+    @SerializedName("imgFilUri2")
+    private String imgFilUri2;
+    @Expose
+    @SerializedName("imgFilUri3")
+    private String imgFilUri3;
 }

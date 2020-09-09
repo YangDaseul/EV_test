@@ -14,8 +14,10 @@ import com.genesis.apps.comm.model.gra.LGN_0003;
 import com.genesis.apps.comm.model.gra.LGN_0004;
 import com.genesis.apps.comm.model.gra.LGN_0005;
 import com.genesis.apps.comm.model.gra.repo.LGNRepo;
-import com.genesis.apps.comm.model.vo.CarVO;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+
+import java.util.List;
 
 import lombok.Data;
 
@@ -31,13 +33,13 @@ class LGNViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<LGN_0004.Response>> RES_LGN_0004;
     private MutableLiveData<NetUIResponse<LGN_0005.Response>> RES_LGN_0005;
 
-    public final LiveData<CarVO> carVO = Transformations.map(RES_LGN_0001, input -> input.data.getCarVO());
+    public final LiveData<List<VehicleVO>> carVO = Transformations.map(RES_LGN_0001, input -> input.data.getOwnVhclList());
 
 
-//    public final LiveData<CarVO> carVO =
-//            Transformations.switchMap(RES_LGN_0001, new Function<NetUIResponse<LGN_0001.Response>, LiveData<CarVO>>() {
+//    public final LiveData<VehicleVO> carVO =
+//            Transformations.switchMap(RES_LGN_0001, new Function<NetUIResponse<LGN_0001.Response>, LiveData<VehicleVO>>() {
 //                @Override
-//                public LiveData<CarVO> apply(NetUIResponse<LGN_0001.Response> input) {
+//                public LiveData<VehicleVO> apply(NetUIResponse<LGN_0001.Response> input) {
 //                    return input.data.getCarVO(); repo에서 getcarvo로 가저올수있는.. 다른걸 요청 가능
 //                }
 //            });

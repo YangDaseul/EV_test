@@ -23,7 +23,7 @@ public class LGN_0004 extends BaseData {
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
-    class Request extends BaseRequest{
+    static class Request extends BaseRequest{
         @Expose
         @SerializedName("termOSGbCd")
         private String termOSGbCd;

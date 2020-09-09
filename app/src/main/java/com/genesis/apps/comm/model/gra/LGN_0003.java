@@ -1,14 +1,12 @@
 package com.genesis.apps.comm.model.gra;
 
 import com.genesis.apps.comm.model.BaseData;
-import com.genesis.apps.comm.model.vo.CarVO;
 import com.genesis.apps.comm.model.vo.MainHistVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -25,7 +23,7 @@ public class LGN_0003 extends BaseData {
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
-    class Request extends BaseRequest{
+    static class Request extends BaseRequest{
         @Expose
         @SerializedName("vin")
         private String vin;

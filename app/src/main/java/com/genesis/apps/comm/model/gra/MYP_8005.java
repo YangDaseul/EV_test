@@ -1,0 +1,57 @@
+package com.genesis.apps.comm.model.gra;
+
+import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.comm.model.vo.NotiInfoVO;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+/**
+ * @author hjpark
+ * @file GRA_MYP_8005
+ * @Brief 알림센터 알림목록 요청
+ */
+public class MYP_8005 extends BaseData {
+    /**
+     * @author hjpark
+     * @brief MYP_8005 요청 항목
+     * @see #lastNotiNo 마지막 일련번호
+     * 공지사항 조회 요청한 마지막 일련번호
+     * 0 값이면 1page, 즉 최근목록 요청 의미
+     * @see #searchCnt 조회 요청 개수
+     */
+    @EqualsAndHashCode(callSuper = true)
+    public @Data
+    static
+    class Request extends BaseRequest{
+        @Expose
+        @SerializedName("lastNotiNo")
+        private String lastNotiNo;
+        @Expose
+        @SerializedName("searchCnt")
+        private String searchCnt;
+
+        public Request(String lastNotiNo, String searchCnt){
+            this.lastNotiNo = lastNotiNo;
+            this.searchCnt = searchCnt;
+            setData(APIInfo.GRA_MYP_8005.getIfCd());
+        }
+    }
+
+    /**
+     * @author hjpark
+     * @brief MYP_8005 응답 항목
+     * @see #notiList 공지리스트
+     */
+    @EqualsAndHashCode(callSuper = true)
+    public @Data
+    class Response extends BaseResponse{
+        @Expose
+        @SerializedName("notiList")
+        private List<NotiInfoVO> notiList;
+    }
+}

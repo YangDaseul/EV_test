@@ -20,7 +20,7 @@ public class MYP_1003 extends BaseData {
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
-    class Request extends BaseRequest{
+    static class Request extends BaseRequest{
 
         public Request(){
             setData(APIInfo.GRA_MYP_1003.getIfCd());

@@ -1,11 +1,12 @@
 package com.genesis.apps.comm.model.gra;
 
 import com.genesis.apps.comm.model.BaseData;
-import com.genesis.apps.comm.model.vo.CarVO;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import lombok.AllArgsConstructor;
+import java.util.List;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -75,7 +76,15 @@ public class LGN_0001 extends BaseData {
      * CRM 발급한 고객관리번호
      * @see #custNm 성명
      * 제네시스앱에 가입한 고객의 성명
-     * @see #carVO 차량정보
+     * @see #celphNo 핸드폰번호
+     * 제네시스앱 가입시 등록된 전화번호
+     * @see #sex 성별
+     * 여성 남성
+     * @see #ageCd 연령대
+     * 18-24세 25-34세 35-44세 45-54세 55-64세 65세이상
+     * @see #ownVhclList 소유 차량 정보
+     * @see #ctrctVhclList 계약 차량 정보
+     * @see #dftVhclInfo 기본 차량 정보
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -89,7 +98,8 @@ public class LGN_0001 extends BaseData {
         @Expose
         @SerializedName("pushIdChgYn")
         private String pushIdChgYn;
-        //TODO 고객관리번호와 성명이 차량을 따라가야하느지 확인 필요  2020-08-26 인터페이스 상으로는 차량정보에 포함됨..
+
+
         @Expose
         @SerializedName("custMgmtNo")
         private String custMgmtNo;
@@ -98,7 +108,23 @@ public class LGN_0001 extends BaseData {
         private String custNm;
 
         @Expose
-        @SerializedName("carVO")
-        private CarVO carVO;
+        @SerializedName("celphNo")
+        private String celphNo;
+        @Expose
+        @SerializedName("sex")
+        private String sex;
+        @Expose
+        @SerializedName("ageCd")
+        private String ageCd;
+
+        @Expose
+        @SerializedName("ownVhclList")
+        private List<VehicleVO> ownVhclList;
+        @Expose
+        @SerializedName("ctrctVhclList")
+        private List<VehicleVO> ctrctVhclList;
+        @Expose
+        @SerializedName("dftVhclInfo")
+        private List<VehicleVO> dftVhclInfo;
     }
 }
