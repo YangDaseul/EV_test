@@ -1,23 +1,20 @@
 package com.genesis.apps.comm.module;
 
-import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
 
 import com.genesis.apps.comm.model.vo.DeviceDTO;
 import com.genesis.apps.comm.net.HttpRequestUtil;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.ga.CCSP;
 import com.genesis.apps.comm.net.ga.GA;
+import com.genesis.apps.comm.util.PreferenceUtil;
 import com.genesis.apps.comm.util.ScreenCaptureUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.room.DatabaseHolder;
-import com.genesis.apps.comm.util.PreferenceUtil;
 import com.hmns.playmap.network.PlayMapRestApi;
 
 import javax.inject.Singleton;
 
-import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
@@ -52,8 +49,8 @@ public class ApplicationModule {
     }
 
     @Provides
-    public NetCaller getNetCaller(HttpRequestUtil httpRequestUtil) {
-        return new NetCaller(httpRequestUtil);
+    public NetCaller getNetCaller(HttpRequestUtil httpRequestUtil, GA ga) {
+        return new NetCaller(httpRequestUtil,ga);
     }
 
     @Provides

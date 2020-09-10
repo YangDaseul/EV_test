@@ -3,24 +3,15 @@ package com.genesis.apps.comm.net;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.genesis.apps.R;
-import com.genesis.apps.comm.net.model.BeanReqParm;
-import com.genesis.apps.comm.util.excutor.ExecutorService;
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import org.checkerframework.checker.nullness.compatqual.NullableDecl;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.inject.Inject;
 
 import static com.genesis.apps.comm.net.ga.GAInfo.HTTP_HEADER_NAME;
 import static com.genesis.apps.comm.net.ga.GAInfo.HTTP_HEADER_VALUE;
@@ -124,11 +115,23 @@ public class HttpRequestUtil {
 
         Log.v(TAG_LOG, "send request : " + request.toString());
 
-//        if (params != null) {
-//            Gson gson = new Gson();
-//            jsonStr = gson.toJson(params);
-//            Log.v(TAG_LOG, "send Params [" + jsonStr + "]");
-//        }
+        Log.v(TAG_LOG, "send Params [" + data + "]");
+
+        request.contentType(HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8);
+        request.send(data);
+
+        int statusCode = request.code();
+        Log.v(TAG_LOG, "send statusCode [" + statusCode + "]");
+
+        String body = request.body();
+        Log.v(TAG_LOG, "send body [" + body + "]");
+
+        return toJsonObject(statusCode, body);
+    }
+
+    public JsonObject send(HttpRequest request, String data) throws NetException {
+        Log.v(TAG_LOG, "send request : " + request.toString());
+
         Log.v(TAG_LOG, "send Params [" + data + "]");
 
         request.contentType(HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8);

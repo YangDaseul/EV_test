@@ -4,24 +4,20 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.webkit.WebView;
 
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.hybrid.core.WebViewFragment;
 import com.genesis.apps.comm.model.gra.MYP_8001;
-import com.genesis.apps.comm.model.gra.MYP_8002;
 import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.TermVO;
-import com.genesis.apps.comm.net.NetUIResponse;
-import com.genesis.apps.databinding.ActivityMygVersionBinding;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 /**
  * 앱 이용약관 : 1000

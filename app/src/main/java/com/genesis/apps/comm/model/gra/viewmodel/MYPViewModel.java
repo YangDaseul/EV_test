@@ -7,8 +7,6 @@ import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 import com.genesis.apps.comm.model.gra.MYP_8001;
-import com.genesis.apps.comm.model.gra.MYP_8002;
-import com.genesis.apps.comm.model.gra.MYP_8003;
 import com.genesis.apps.comm.model.gra.MYP_8004;
 import com.genesis.apps.comm.model.gra.repo.MYPRepo;
 import com.genesis.apps.comm.net.NetUIResponse;

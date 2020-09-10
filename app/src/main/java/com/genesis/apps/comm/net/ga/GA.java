@@ -8,7 +8,6 @@ import android.util.Log;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.net.HttpRequest;
 import com.genesis.apps.comm.net.HttpRequestUtil;
-import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetException;
 import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.util.QueryString;
@@ -28,11 +27,15 @@ import static com.genesis.apps.comm.net.ga.GAInfo.CCSP_SECRET;
 import static com.genesis.apps.comm.net.ga.GAInfo.GA_CALLBACK_URL;
 import static com.genesis.apps.comm.net.ga.GAInfo.GA_REDIRECT_URL;
 import static com.genesis.apps.comm.net.ga.GAInfo.GA_URL;
+import static com.genesis.apps.comm.net.ga.GAInfo.HTTP_HEADER_NAME;
+import static com.genesis.apps.comm.net.ga.GAInfo.HTTP_HEADER_VALUE;
 
 public class GA {
+    private static final String TAG=GA.class.getSimpleName();
     private String csrf;
     private CCSP ccsp;
     private HttpRequestUtil httpRequestUtil;
+    private int retryCount=0;
     @Inject
     public GA(CCSP ccsp, HttpRequestUtil httpRequestUtil) {
         this.ccsp = ccsp;
@@ -415,4 +418,99 @@ public class GA {
         }
         return buffer.toString();
     }
+
+
+    public JsonObject postDataWithAccessToken(String url, String data) throws NetException {
+        return postDataWithToken(url, data, getAccessToken());
+    }
+
+    public JsonObject postDataWithToken(String url, String data, String token) throws NetException {
+        HttpRequest request = httpRequestUtil.getPostRequest(url);
+        request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + token);
+        Log.d(TAG, "Authorization:Bearer " + token);
+        JsonObject ret = null;
+
+        try {
+            ret = httpRequestUtil.send(request, data);
+            retryCount = 0;
+        } catch (NetException e) {
+            int status = e.getStatusCode();
+            String body = e.getBody();
+            JsonObject json = e.getJson();
+            if (status == 403 || status == 401) {
+                Log.d(TAG, "accessToekn expired.");
+                // access toekn, refresh token 만료시 정확히 어떤 값이 리턴되는지 확인 필요
+                if (retryCount!=0)  retryCount = 0;
+                else  e = null;
+
+                retryCount++;
+                try {
+                    updateAccessToken();
+//                    CCSP.GAInterface gaInterface = EntryPoints.get(this, CCSP.GAInterface.class);
+//                    gaInterface.getGA().updateAccessToken();
+                } catch (NetException e2) {
+                    e = e2;
+                }
+
+                if(e != null) {
+                    throw e;
+                }
+                return postDataWithAccessToken(url, data);
+            }
+        }
+
+        return ret;
+    }
+
+
+
+
+
+
+//    public JsonObject postDataWithAccessToken(String url, Map<String, Object> params) throws NetException {
+//        return postDataWithToken(url, params, loginInfoDTO.getAccessToken());
+//    }
+//
+//    public JsonObject postDataWithToken(String url, Map<String, Object> params, String token) throws NetException {
+////        token = loginInfo.getAccessToken();
+//        HttpRequest request = httpRequestUtil.getPostRequest(url);
+//        request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + token);
+//        Log.d(TAG, "Authorization:Bearer " + token);
+//        JsonObject ret = null;
+//
+//        try {
+//            ret = httpRequestUtil.send(request, params);
+//            retryCount = 0;
+//        } catch (NetException e) {
+//            int status = e.getStatusCode();
+//            String body = e.getBody();
+//            JsonObject json = e.getJson();
+//            if (status == 403 || status == 401) {
+//                Log.d(TAG, "accessToekn expired.");
+//                // access toekn, refresh token 만료시 정확히 어떤 값이 리턴되는지 확인 필요
+//                if (retryCount!=0)  retryCount = 0;
+//                else  e = null;
+//
+//                retryCount++;
+//                try {
+//                    CCSP.GAInterface gaInterface = EntryPoints.get(this, CCSP.GAInterface.class);
+//                    gaInterface.getGA().updateAccessToken();
+//                } catch (NetException e2) {
+//                    e = e2;
+//                }
+//
+//                if(e != null) {
+//                    throw e;
+//                }
+//                return postDataWithAccessToken(url, params);
+//            }
+//        }
+//
+//        return ret;
+//    }
+
+
+
+
+
 }

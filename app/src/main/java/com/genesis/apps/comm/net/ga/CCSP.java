@@ -15,7 +15,6 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import dagger.hilt.EntryPoint;
-import dagger.hilt.EntryPoints;
 import dagger.hilt.InstallIn;
 import dagger.hilt.android.components.ApplicationComponent;
 
@@ -29,7 +28,6 @@ public class CCSP {
     private HttpRequestUtil httpRequestUtil;
     private LoginInfoDTO loginInfoDTO;
     private Context context;
-    private int retryCount = 0;
 
     @Inject
     public CCSP(HttpRequestUtil httpRequestUtil, Context context){
@@ -122,48 +120,6 @@ public class CCSP {
         }catch (NetException e) {
             throw e;
         }
-    }
-
-    public JsonObject postDataWithAccessToken(String url, Map<String, Object> params) throws NetException {
-        return postDataWithToken(url, params, loginInfoDTO.getAccessToken());
-    }
-
-    public JsonObject postDataWithToken(String url, Map<String, Object> params, String token) throws NetException {
-//        token = loginInfo.getAccessToken();
-        HttpRequest request = httpRequestUtil.getPostRequest(url);
-        request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + token);
-        Log.d(TAG, "Authorization:Bearer " + token);
-        JsonObject ret = null;
-
-        try {
-            ret = httpRequestUtil.send(request, params);
-            retryCount = 0;
-        } catch (NetException e) {
-            int status = e.getStatusCode();
-            String body = e.getBody();
-            JsonObject json = e.getJson();
-            if (status == 403 || status == 401) {
-                Log.d(TAG, "accessToekn expired.");
-                // access toekn, refresh token 만료시 정확히 어떤 값이 리턴되는지 확인 필요
-                if (retryCount!=0)  retryCount = 0;
-                else  e = null;
-
-                retryCount++;
-                try {
-                    GAInterface gaInterface = EntryPoints.get(this, GAInterface.class);
-                    gaInterface.getGA().updateAccessToken();
-                } catch (NetException e2) {
-                    e = e2;
-                }
-
-                if(e != null) {
-                    throw e;
-                }
-                return postDataWithAccessToken(url, params);
-            }
-        }
-
-        return ret;
     }
 
     public void setCustomerNumber(String customerNumber) {

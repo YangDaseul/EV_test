@@ -4,6 +4,8 @@ import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.File;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -17,10 +19,9 @@ public class GNS_1008 extends BaseData {
     /**
      * @brief GNS_1008 요청 항목
      * @see #vin 차대번호
-     * @see #imgFilNm 이미지파일명
-     * 계약서 이미지 파일명
-     * @see #imgFil 이미지파일
-     * 계약서 이미지 파일(hex string 변환)
+     * @see #imgFilNm 계약서 이미지 파일명
+     *
+     * imgFil 이미지파일 -> 멀티파트폼포맷으로 바이너리
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -33,14 +34,14 @@ public class GNS_1008 extends BaseData {
         @Expose
         @SerializedName("imgFilNm")
         private String imgFilNm;
-        @Expose
-        @SerializedName("imgFil")
-        private String imgFil;
 
-        public Request(String vin, String imgFilNm, String imgFil){
+        private File file;
+        private String imageKeyName="imgFil";
+
+        public Request(String vin, String imgFilNm, File file){
             this.vin = vin;
             this.imgFilNm = imgFilNm;
-            this.imgFil = imgFil;
+            this.file = file;
             setData(APIInfo.GRA_GNS_1008.getIfCd());
         }
     }

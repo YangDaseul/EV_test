@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.gra.APIInfo;
-import com.genesis.apps.comm.model.gra.CMN_0004;
 import com.genesis.apps.comm.model.gra.MYP_0001;
 import com.genesis.apps.comm.model.gra.MYP_0004;
 import com.genesis.apps.comm.model.gra.MYP_0005;
@@ -18,8 +17,6 @@ import com.genesis.apps.comm.model.gra.MYP_2004;
 import com.genesis.apps.comm.model.gra.MYP_2005;
 import com.genesis.apps.comm.model.gra.MYP_2006;
 import com.genesis.apps.comm.model.gra.MYP_8001;
-import com.genesis.apps.comm.model.gra.MYP_8002;
-import com.genesis.apps.comm.model.gra.MYP_8003;
 import com.genesis.apps.comm.model.gra.MYP_8004;
 import com.genesis.apps.comm.model.gra.MYP_8005;
 import com.genesis.apps.comm.model.vo.TermVO;

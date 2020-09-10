@@ -4,7 +4,6 @@ import android.text.TextUtils;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.gra.APIInfo;
-import com.genesis.apps.comm.model.weather.WeatherPointResVO;
 import com.genesis.apps.comm.net.ga.GA;
 import com.genesis.apps.comm.net.ga.GAInfo;
 import com.genesis.apps.comm.net.model.BeanReqParm;
@@ -13,10 +12,10 @@ import com.google.common.reflect.TypeToken;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.lang.reflect.Type;
@@ -175,7 +174,8 @@ public class NetCaller {
                         jsonObject = httpRequestUtil.sendPut(serverUrl, new Gson().toJson(reqVO));
                         break;
                     case HttpRequest.METHOD_POST:
-                       jsonObject = httpRequestUtil.send(serverUrl, new Gson().toJson(reqVO));
+                        jsonObject = ga.postDataWithAccessToken(serverUrl, new Gson().toJson(reqVO));
+//                       jsonObject = httpRequestUtil.send(serverUrl, new Gson().toJson(reqVO));
                         break;
                     default:
                         break;
@@ -232,7 +232,8 @@ public class NetCaller {
             try {
                 String serverUrl = GAInfo.CCSP_URL+apiInfo.getURI();
                 Type type = new TypeToken<HashMap<String, String>>() { }.getType();
-                HashMap<String, String> params = new Gson().fromJson(new Gson().toJson(reqVO), type);
+                Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create(); //expose처리되어 있는 필드에 대해서만 파싱 진행
+                HashMap<String, String> params = new Gson().fromJson(gson.toJson(reqVO), type);
                 jsonObject = httpRequestUtil.upload(ga.getAccessToken(), serverUrl, params, name, file.getName(), file);
 
                 if (jsonObject != null && !TextUtils.isEmpty(jsonObject.toString())) {
