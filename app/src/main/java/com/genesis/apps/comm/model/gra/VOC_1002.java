@@ -63,8 +63,8 @@ public class VOC_1002 extends BaseData {
         @SerializedName("crnVehlCd")
         private String crnVehlCd;
         @Expose
-        @SerializedName("좻씅")
-        private String 좻씅;
+        @SerializedName("whotYmd")
+        private String whotYmd;
         @Expose
         @SerializedName("trvgDist")
         private String trvgDist;
@@ -145,9 +145,6 @@ public class VOC_1002 extends BaseData {
         @Expose
         @SerializedName("wkPeriod")
         private String wkPeriod;
-        @Expose
-        @SerializedName("wkCntFth1") //todo 임시로 1붙임
-        private String wkCntFth1;
         @Expose
         @SerializedName("prnInfoAgreeFlg")
         private String prnInfoAgreeFlg;

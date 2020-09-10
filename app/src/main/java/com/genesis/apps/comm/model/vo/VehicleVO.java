@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
  *
  * @see #vin 차대번호
  * 디폴트 차량인 경우 0000
- * @see #vrn 차량번호
+ * @see #carRgstNo 차량번호
  * @see #mdlCd 차량모델코드
  * ex) JX
  * @see #mdlNm 차량 모델 명
@@ -54,8 +54,8 @@ class VehicleVO extends BaseData {
     @SerializedName("vin")
     private String vin;
     @Expose
-    @SerializedName("vrn")//
-    private String vrn;
+    @SerializedName("carRgstNo")//
+    private String carRgstNo;
     @Expose
     @SerializedName("mdlCd")
     private String mdlCd;

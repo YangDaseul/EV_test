@@ -1,7 +1,7 @@
 package com.genesis.apps.comm.model.gra;
 
 import com.genesis.apps.comm.model.BaseData;
-import com.genesis.apps.comm.model.vo.NotiInfoVO;
+import com.genesis.apps.comm.model.vo.NotiVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -50,6 +50,6 @@ public class MYP_8005 extends BaseData {
     class Response extends BaseResponse{
         @Expose
         @SerializedName("notiList")
-        private List<NotiInfoVO> notiList;
+        private List<NotiVO> notiList;
     }
 }

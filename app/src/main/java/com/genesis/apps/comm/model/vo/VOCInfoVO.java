@@ -27,9 +27,10 @@ import lombok.EqualsAndHashCode;
  * @see #realDgtTn 연락처3
  * '1234'
  * @see #recvDt 인도날짜
+ * YYYYMMDD
  * @see #carNm 차명
  * @see #crnVehlCd 차종코드
- * @see #좻씅 출고일자
+ * @see #whotYmd 출고일자
  * @see #trvgDist 주행거리
  * @see #carNo 차량등록번호
  * @see #vin 차대번호
@@ -57,9 +58,8 @@ import lombok.EqualsAndHashCode;
  * @see #wk3Caus 하자내용증상(3회차)
  * @see #wk3Dtl 수리내용(3회차)
  *
- * @see #wkCntFth 수리시도회수4회이상여부
+ * @see #wkCntFth 수리시도회수4회이상여부 (4회 이상일 경우만 입력)
  * @see #wkPeriod 누적수리기간
- * @see #wkCntFth1 수리 시도 횟수 (4회 이상일 경우만 입력)
  * @see #prnInfoAgreeFlg 개인정보 취급 동의
  *
  * //voc-1003에서만 사용
@@ -110,8 +110,8 @@ class VOCInfoVO extends BaseData {
     @SerializedName("crnVehlCd")
     private String crnVehlCd;
     @Expose
-    @SerializedName("좻씅")
-    private String 좻씅;
+    @SerializedName("whotYmd")
+    private String whotYmd;
     @Expose
     @SerializedName("trvgDist")
     private String trvgDist;
@@ -194,9 +194,6 @@ class VOCInfoVO extends BaseData {
     @Expose
     @SerializedName("wkPeriod")
     private String wkPeriod;
-    @Expose
-    @SerializedName("wkCntFth1") //todo 임시로 1붙임
-    private String wkCntFth1;
     @Expose
     @SerializedName("prnInfoAgreeFlg")
     private String prnInfoAgreeFlg;

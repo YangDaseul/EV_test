@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 /**
  * @author hjpark
  * @Brief 차량 정보
- * @see #vrn 차량번호
+ * @see #carRgstNo 차량번호
  * @see #carGbNm 차종명
  * @see #drivDist 주행거리
  * 정비 차량 주행거리 (단위 km)
@@ -27,8 +27,8 @@ import lombok.EqualsAndHashCode;
 public @Data
 class MainHistVO extends BaseData {
     @Expose
-    @SerializedName("vrn")
-    private String vrn;
+    @SerializedName("carRgstNo")
+    private String carRgstNo;
     @Expose
     @SerializedName("carGbNm")
     private String carGbNm;

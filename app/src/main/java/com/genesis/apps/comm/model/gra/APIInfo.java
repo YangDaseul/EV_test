@@ -49,6 +49,8 @@ public enum APIInfo {
     GRA_OIL_0002("MyG+ 정유사 연동요청", "OIL-0002", HttpRequest.METHOD_POST, "/graapi/myg/oilCompLinkConn.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_OIL_0003("MyG+ 정유사 연동해제", "OIL-0003", HttpRequest.METHOD_POST, "/graapi/myg/oilCompLinkClose.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_OIL_0004("MyG+ 정유사 약관 상세", "OIL-0004", HttpRequest.METHOD_POST, "/graapi/myg/oilCompTermsDetail.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_OIL_0005("MyG+ 정유사  재연동요청", "OIL-0005", HttpRequest.METHOD_POST, "/graapi/myg/oilCompLinkReconn.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+
 
     GRA_BAR_1001("바코드 (카드리스트)", "BAR-1001", HttpRequest.METHOD_POST, "/graapi/bar/barList.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 

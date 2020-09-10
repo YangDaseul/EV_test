@@ -44,7 +44,7 @@ public class LGN_0002 extends BaseData {
      * 차량구분코드 (주차량/계약차량/디폴트차량)
      * 주차량: 0001, 계약차량: 0002, 디폴트차량: 0000
      * @see #vin 차대번호
-     * @see #vrn 차량번호
+     * @see #carRgstNo 차량번호
      * @see #mdlNm 차량모델명
      * @see #mdlCd 차량모델코드명
      * @see #saleMdlCd 판매모델코드
@@ -63,7 +63,7 @@ public class LGN_0002 extends BaseData {
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse {
-
+        //TODO VehicleVO 쓸것
         @Expose
         @SerializedName("carGbCd")
         private String carGbCd;
@@ -71,8 +71,8 @@ public class LGN_0002 extends BaseData {
         @SerializedName("vin")
         private String vin;
         @Expose
-        @SerializedName("vrn")
-        private String vrn;
+        @SerializedName("carRgstNo")
+        private String carRgstNo;
         @Expose
         @SerializedName("mdlNm")
         private String mdlNm;

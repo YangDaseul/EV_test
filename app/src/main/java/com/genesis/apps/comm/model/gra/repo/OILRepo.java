@@ -7,6 +7,7 @@ import com.genesis.apps.comm.model.gra.OIL_0001;
 import com.genesis.apps.comm.model.gra.OIL_0002;
 import com.genesis.apps.comm.model.gra.OIL_0003;
 import com.genesis.apps.comm.model.gra.OIL_0004;
+import com.genesis.apps.comm.model.gra.OIL_0005;
 import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
@@ -26,6 +27,7 @@ public class OILRepo {
     public final MutableLiveData<NetUIResponse<OIL_0002.Response>> RES_OIL_0002 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<OIL_0003.Response>> RES_OIL_0003 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<OIL_0004.Response>> RES_OIL_0004 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<OIL_0005.Response>> RES_OIL_0005 = new MutableLiveData<>();
 
     @Inject
     public OILRepo(NetCaller netCaller) {
@@ -128,5 +130,27 @@ public class OILRepo {
         return RES_OIL_0004;
     }
 
+
+    public MutableLiveData<NetUIResponse<OIL_0005.Response>> REQ_OIL_0005(final OIL_0005.Request reqData) {
+
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_OIL_0005.setValue(NetUIResponse.success(new Gson().fromJson(object, OIL_0005.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_OIL_0005.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_OIL_0005.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_OIL_0005, reqData);
+
+        return RES_OIL_0005;
+    }
 
 }

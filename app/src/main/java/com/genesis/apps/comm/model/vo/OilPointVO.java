@@ -18,7 +18,7 @@ import lombok.EqualsAndHashCode;
  * SKNO : SK 이노베이션
  * @see #oilRfnNm 정유사명
  * @see #rgstYn 가입여부
- * Y: 가입(연동) N:미가입(연동해제)
+ * Y: 가입(연동) N:미가입(연동해제)  R:미가입(이전에 연동이력이 있는 경우)
  * @see #cardNo 카드번호
  * @see #pont 포인트
  * 앱에서 접속 가능한 URL
