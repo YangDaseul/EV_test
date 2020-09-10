@@ -21,6 +21,8 @@ public class NotiAccodianRecyclerAdapter extends BaseRecyclerViewAdapter2<NotiVO
 
         // Item의 클릭 상태를 저장할 array 객체
         private SparseBooleanArray selectedItems = new SparseBooleanArray();
+        private int pageNo=0;
+
 
         public NotiAccodianRecyclerAdapter() {
         }
@@ -54,6 +56,14 @@ public class NotiAccodianRecyclerAdapter extends BaseRecyclerViewAdapter2<NotiVO
 
         }
 
+        public int getPageNo() {
+                return pageNo;
+        }
+
+        public void setPageNo(int pageNo) {
+                this.pageNo = pageNo;
+        }
+
 //        public interface AutoScroll{
 //                void updateScroll(final int position);
 //        }
@@ -76,7 +86,7 @@ public class NotiAccodianRecyclerAdapter extends BaseRecyclerViewAdapter2<NotiVO
 
                 @Override
                 public void onBindView(NotiVO item, int pos, SparseBooleanArray selectedItems) {
-                        getBinding().tvTitle.setText(item.getNotiTitle());
+                        getBinding().tvTitle.setText(item.getNotiTtl());
                         getBinding().tvTitle.setMaxLines(selectedItems.get(pos) ? Integer.MAX_VALUE : 1);
                         getBinding().tvTitle.setEllipsize(selectedItems.get(pos) ? null : TextUtils.TruncateAt.END);
                         getBinding().tvDate.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(item.getTrmsSrtDtm(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot));

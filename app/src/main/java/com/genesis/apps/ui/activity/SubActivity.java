@@ -3,9 +3,11 @@ package com.genesis.apps.ui.activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
@@ -52,36 +54,46 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         return DataBindingUtil.inflate(getLayoutInflater(), layoutResId, null, false);
     }
 
-//    public final void showProgressDialog(final boolean show) {
-//        try {
-//            if (base.lProgress != null)
-//                runOnUiThread(() -> base.lProgress.lProgress.setVisibility(show ? View.VISIBLE : View.GONE));
-//        } catch (Exception e) {
-//
-//        }
-//    }
-
     public final void showProgressDialog(final boolean show) {
-        if(progressDialog==null) progressDialog = new ProgressDialog(SubActivity.this, AlertDialog.BUTTON_POSITIVE);
-
         try {
-            runOnUiThread(() -> {
-                if (show) {
-                    progressDialog.setTitle("");
-                    progressDialog.setMessage("Loading");
-                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                    progressDialog.setCancelable(true);
-                    progressDialog.setCanceledOnTouchOutside(false);
-                    progressDialog.show();
-                } else {
-                    progressDialog.dismiss();
-                    progressDialog = null;
-                }
-            });
-        }catch (Exception ignore){
-            ignore.printStackTrace();
+            if (base.lProgress != null) {
+                runOnUiThread(() -> {
+                    base.lProgress.lProgress.setVisibility(show ? View.VISIBLE : View.GONE);
+                    AnimationDrawable animationDrawable = (AnimationDrawable) base.lProgress.ivProgress.getDrawable();
+                    if (show) {
+                        if (!animationDrawable.isRunning()) animationDrawable.start();
+                    } else {
+                        animationDrawable.stop();
+                    }
+                });
+            }
+//                runOnUiThread(() -> base.lProgress.lProgress.setVisibility(show ? View.VISIBLE : View.GONE));
+        } catch (Exception e) {
+
         }
     }
+
+//    public final void showProgressDialog(final boolean show) {
+//        if(progressDialog==null) progressDialog = new ProgressDialog(SubActivity.this, AlertDialog.BUTTON_POSITIVE);
+//
+//        try {
+//            runOnUiThread(() -> {
+//                if (show) {
+//                    progressDialog.setTitle("");
+//                    progressDialog.setMessage("Loading");
+//                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//                    progressDialog.setCancelable(true);
+//                    progressDialog.setCanceledOnTouchOutside(false);
+//                    progressDialog.show();
+//                } else {
+//                    progressDialog.dismiss();
+//                    progressDialog = null;
+//                }
+//            });
+//        }catch (Exception ignore){
+//            ignore.printStackTrace();
+//        }
+//    }
 
     public void onBackButton(){
         finish();

@@ -1,9 +1,16 @@
 package com.genesis.apps.ui.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.gra.viewmodel.NotiViewModel;
+import com.genesis.apps.comm.model.gra.MYP_8005;
+import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.NotiVO;
 import com.genesis.apps.databinding.ActivityNotiListBinding;
 import com.genesis.apps.ui.view.viewholder.NotiAccodianRecyclerAdapter;
@@ -11,12 +18,13 @@ import com.genesis.apps.ui.view.viewholder.NotiAccodianRecyclerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
+/**
+ * @author hjpark
+ * @brief 공지사항
+ */
 public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
-
-    private NotiViewModel notiViewModel;
+    private final String TAG = MyGNotiActivity.class.getSimpleName();
+    private MYPViewModel mypViewModel;
     private NotiAccodianRecyclerAdapter adapter;
 
     @Override
@@ -27,20 +35,74 @@ public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
         ui.setLifecycleOwner(this);
 
 
-        notiViewModel = new ViewModelProvider(this).get(NotiViewModel.class);
-        notiViewModel.getNotiVOList().observe(this, data -> {
-            adapter.setRows(data);
-            adapter.notifyDataSetChanged();
+        mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
+        mypViewModel.getRES_MYP_8005().observe(this, responseNetUIResponse -> {
+
+            switch (responseNetUIResponse.status){
+                case SUCCESS:
+                     showProgressDialog(false);
+                    //추가할 아이템이 있을 경우만 adaper 갱신
+                    if(responseNetUIResponse.data!=null&&responseNetUIResponse.data.getNotiList()!=null&&responseNetUIResponse.data.getNotiList().size()>0){
+                        int itemSizeBefore = adapter.getItemCount();
+                        if (adapter.getPageNo() == 0) {
+                            adapter.setRows(responseNetUIResponse.data.getNotiList());
+//                            adapter.setRows(getListData());
+                        } else {
+                            adapter.addRows(responseNetUIResponse.data.getNotiList());
+//                          adapter.addRows(getListData());
+//                          Log.e(TAG, "itemSizeBefore:"+itemSizeBefore +"   currentSize:"+adapter.getItemCount());
+                        }
+                        adapter.setPageNo(adapter.getPageNo() + 1);
+//                      adapter.notifyDataSetChanged();
+                        adapter.notifyItemRangeInserted(itemSizeBefore, adapter.getItemCount());
+                    }
+                    break;
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                default:
+                    showProgressDialog(false);
+                    break;
+            }
+
+//                int itemSizeBefore = adapter.getItemCount();
+//                if(adapter.getPageNo()==0) {
+////                    adapter.setRows(responseNetUIResponse.data.getNotiList());
+//                    adapter.setRows(getListData());
+//                }else{
+////                    adapter.addRows(responseNetUIResponse.data.getNotiList());
+//                    adapter.addRows(getListData());
+////                    Log.e(TAG, "itemSizeBefore:"+itemSizeBefore +"   currentSize:"+adapter.getItemCount());
+//                }
+//                adapter.setPageNo(adapter.getPageNo()+1);
+////                adapter.notifyDataSetChanged();
+//                adapter.notifyItemRangeInserted(itemSizeBefore, adapter.getItemCount());
         });
+
 
         adapter = new NotiAccodianRecyclerAdapter();
 //        ((SimpleItemAnimator) ui.rvNoti.getItemAnimator()).setSupportsChangeAnimations(true);
         ui.rvNoti.setLayoutManager(new LinearLayoutManager(this));
-//        ui.rvNoti.setHasFixedSize(true);
         ui.rvNoti.setHasFixedSize(true);
         ui.rvNoti.setAdapter(adapter);
 
-        notiViewModel.reqNotiVoList(getListData());
+        ui.rvNoti.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (!ui.rvNoti.canScrollVertically(-1)) {
+                    //top
+                } else if (!ui.rvNoti.canScrollVertically(1)) {
+                    //end
+                    mypViewModel.reqMYP8005(new MYP_8005.Request((adapter.getPageNo()+1)+"","20"));
+                } else {
+                    //idle
+                }
+
+            }
+        });
+
+        mypViewModel.reqMYP8005(new MYP_8005.Request("1","20"));
     }
 
     private List<NotiVO> getListData(){

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.genesis.apps.comm.model.gra.MYP_8001;
 import com.genesis.apps.comm.model.gra.MYP_8004;
+import com.genesis.apps.comm.model.gra.MYP_8005;
 import com.genesis.apps.comm.model.gra.repo.MYPRepo;
 import com.genesis.apps.comm.net.NetUIResponse;
 
@@ -21,6 +22,7 @@ class MYPViewModel extends ViewModel {
 
     private MutableLiveData<NetUIResponse<MYP_8001.Response>> RES_MYP_8001;
     private MutableLiveData<NetUIResponse<MYP_8004.Response>> RES_MYP_8004;
+    private MutableLiveData<NetUIResponse<MYP_8005.Response>> RES_MYP_8005;
 
 //    public final LiveData<VehicleVO> carVO = Transformations.map(RES_LGN_0001, input -> input.data.getCarVO());
 //    public final LiveData<VehicleVO> carVO =
@@ -41,6 +43,7 @@ class MYPViewModel extends ViewModel {
 
         RES_MYP_8001 = repository.RES_MYP_8001;
         RES_MYP_8004 = repository.RES_MYP_8004;
+        RES_MYP_8005 = repository.RES_MYP_8005;
     }
 
     public void reqMYP8001(final MYP_8001.Request reqData){
@@ -49,6 +52,10 @@ class MYPViewModel extends ViewModel {
 
     public void reqMYP8004(final MYP_8004.Request reqData){
         RES_MYP_8004.setValue(repository.REQ_MYP_8004(reqData).getValue());
+    }
+
+    public void reqMYP8005(final MYP_8005.Request reqData){
+        RES_MYP_8005.setValue(repository.REQ_MYP_8005(reqData).getValue());
     }
 
 }
