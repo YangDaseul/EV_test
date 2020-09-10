@@ -14,10 +14,10 @@
 //
 //import com.genesis.apps.R;
 //import com.genesis.apps.comm.model.vo.NotiVO;
-//import com.genesis.apps.ui.view.BaseViewHolder;
+//import com.genesis.apps.ui.view.viewholder.BaseViewHolder;
 //import com.genesis.apps.ui.view.ViewHolderC;
-//import com.genesis.apps.ui.view.listview.Link;
-//import com.genesis.apps.ui.view.listview.MyItemClickListener;
+//import com.genesis.apps.ui.view.listview.test.Link;
+//import com.genesis.apps.ui.view.listview.test.MyItemClickListener;
 //
 //
 //public class NotiAccodianListAdapter extends ListAdapter<NotiVO, BaseViewHolder> {

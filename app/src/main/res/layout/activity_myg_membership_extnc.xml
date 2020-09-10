@@ -102,6 +102,7 @@
             tools:text="@string/msg_membership_11"/>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="20dp"
@@ -110,7 +111,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/tv_empty"
             app:layout_constraintStart_toStartOf="@+id/tv_empty"
             app:layout_constraintEnd_toEndOf="@+id/tv_empty"
-            tools:listitem="@layout/item_membership_disappear_point"/>
+            tools:listitem="@layout/item_extnc_plan_pont"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

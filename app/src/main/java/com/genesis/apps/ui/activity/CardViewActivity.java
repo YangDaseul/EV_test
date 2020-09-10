@@ -7,7 +7,7 @@ import com.genesis.apps.R;
 import com.genesis.apps.databinding.ActivityVerticalOverlapExampleBinding;
 import com.genesis.apps.ui.activity.test.CardViewAadapter;
 import com.genesis.apps.ui.activity.test.ItemMoveCallback;
-import com.genesis.apps.ui.view.listview.Link;
+import com.genesis.apps.ui.view.listview.test.Link;
 
 import java.util.LinkedList;
 import java.util.List;

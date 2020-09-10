@@ -1,8 +1,10 @@
-package com.genesis.apps.ui.view;
+package com.genesis.apps.ui.view.listview.test;
 
 import android.view.ViewGroup;
 
 import com.genesis.apps.R;
+import com.genesis.apps.ui.view.viewholder.BaseViewHolder;
+import com.genesis.apps.ui.view.viewholder.test.ViewHolderC;
 
 public class TestItemAdapter extends BaseRecyclerViewAdapter {
 

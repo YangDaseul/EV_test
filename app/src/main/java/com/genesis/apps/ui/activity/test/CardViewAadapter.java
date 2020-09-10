@@ -9,9 +9,9 @@ import android.widget.ImageView;
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.SquareViewBinding;
 import com.genesis.apps.databinding.SquareViewLineBinding;
-import com.genesis.apps.ui.view.BaseRecyclerViewAdapter2;
-import com.genesis.apps.ui.view.BaseViewHolder;
-import com.genesis.apps.ui.view.listview.Link;
+import com.genesis.apps.ui.view.listview.BaseRecyclerViewAdapter2;
+import com.genesis.apps.ui.view.viewholder.BaseViewHolder;
+import com.genesis.apps.ui.view.listview.test.Link;
 
 import java.util.Collections;
 

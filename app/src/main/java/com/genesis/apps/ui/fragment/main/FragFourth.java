@@ -32,6 +32,7 @@ import com.genesis.apps.ui.activity.CardViewActivity;
 import com.genesis.apps.ui.activity.ConstraintSetActivity;
 import com.genesis.apps.ui.activity.GAWebActivity;
 import com.genesis.apps.ui.activity.MainActivity;
+import com.genesis.apps.ui.activity.MyGMembershipExtncActivity;
 import com.genesis.apps.ui.activity.MyGMembershipInfoActivity;
 import com.genesis.apps.ui.activity.MyGNotiActivity;
 import com.genesis.apps.ui.activity.MyGVersioniActivity;
@@ -129,7 +130,7 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         me.btnCardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                baseActivity.startActivitySingleTop(new Intent(getActivity(), MyGNotiActivity.class), 0);
+                baseActivity.startActivitySingleTop(new Intent(getActivity(), MyGMembershipExtncActivity.class), 0);
             }
         });
     }

@@ -1,4 +1,4 @@
-package com.genesis.apps.ui.view.listview;
+package com.genesis.apps.ui.view.listview.test;
 
 import android.view.LayoutInflater;
 import android.view.View;

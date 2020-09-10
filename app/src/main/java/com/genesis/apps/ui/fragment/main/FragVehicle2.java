@@ -7,19 +7,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.map.MapViewModel;
 import com.genesis.apps.databinding.FragVehicle2Binding;
 import com.genesis.apps.ui.fragment.SubFragment;
-import com.genesis.apps.ui.view.AnimalAdapter;
-import com.genesis.apps.ui.view.Animals;
-import com.genesis.apps.ui.view.BaseRecyclerViewAdapter;
-import com.genesis.apps.ui.view.TestItemAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.genesis.apps.ui.view.listview.test.TestItemAdapter;
 
 public class FragVehicle2 extends SubFragment<FragVehicle2Binding> {
     private MapViewModel mapViewModel;

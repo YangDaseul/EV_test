@@ -1,7 +1,6 @@
 package com.genesis.apps.ui.activity;
 
 import android.os.Bundle;
-import android.os.Handler;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
@@ -13,7 +12,7 @@ import com.genesis.apps.comm.model.gra.MYP_8005;
 import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.NotiVO;
 import com.genesis.apps.databinding.ActivityNotiListBinding;
-import com.genesis.apps.ui.view.viewholder.NotiAccodianRecyclerAdapter;
+import com.genesis.apps.ui.view.listview.NotiAccodianRecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

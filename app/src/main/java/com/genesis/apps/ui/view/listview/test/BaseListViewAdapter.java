@@ -1,4 +1,4 @@
-package com.genesis.apps.ui.view;
+package com.genesis.apps.ui.view.listview.test;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,13 +7,15 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.genesis.apps.ui.view.viewholder.BaseViewHolder;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public abstract class BaseListViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private List<Row<?>> items = new ArrayList<>();
 
@@ -27,12 +29,6 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<BaseV
     public <D> D getItem(int position) {
         return (D) items.get(position);
     }
-
-    public <D> D getItem2(int position) {
-        return (D) items.get(position).item;
-    }
-
-
 
     public void addRow(Row<?> row) {
         this.items.add(row);
@@ -96,22 +92,18 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<BaseV
         public static <D> Row<D> create(D item, int itemViewType) {
             return new Row<>(item, itemViewType);
         }
-
-//        public D getItem(){
-//            return item;
-//        }
     }
 
-//    public void updateItems(ArrayList<Row<?>> items) {
-//        new Thread(() -> {
-//            RecyclerDiffCallback<?> callback = new RecyclerDiffCallback(getItems(), new ArrayList(items), null);
-//            DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
-//
-//            getItems().clear();
-//            getItems().addAll(items);
-//            result.dispatchUpdatesTo(BaseRecyclerViewAdapter.this);
-//        }).start();
-//    }
+    public void updateItems(ArrayList<Row<?>> items) {
+        new Thread(() -> {
+            RecyclerDiffCallback<?> callback = new RecyclerDiffCallback(getItems(), items, null);
+            DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
+
+            getItems().clear();
+            getItems().addAll(items);
+            result.dispatchUpdatesTo(BaseListViewAdapter.this);
+        }).start();
+    }
 
     public ArrayList<Row<?>> makeItems(Object data, int itemViewType){
         ArrayList<Row<?>> items = new ArrayList<>();
@@ -122,7 +114,7 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<BaseV
     public ArrayList<Row<?>> makeItems(List<?> data, int itemViewType){
         ArrayList<Row<?>> items = new ArrayList<>();
         for(int i=0; i<data.size();i++){
-            items.add(Row.create(data.get(i),itemViewType));
+            items.add(Row.create(data,itemViewType));
         }
         return items;
     }

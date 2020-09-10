@@ -24,6 +24,7 @@ import lombok.EqualsAndHashCode;
  *
  * //아래는 myp2006에서만 사용
  * @see #extncPlanDt 소멸예정일자
+ * YYYYMMDD
  * @see #extncPlanPont 소멸예정포인트
  */
 @EqualsAndHashCode(callSuper = false)

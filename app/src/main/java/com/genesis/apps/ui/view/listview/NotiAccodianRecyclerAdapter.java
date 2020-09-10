@@ -1,4 +1,4 @@
-package com.genesis.apps.ui.view.viewholder;
+package com.genesis.apps.ui.view.listview;
 
 import android.animation.ValueAnimator;
 import android.text.TextUtils;
@@ -7,14 +7,12 @@ import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.NotiVO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.databinding.ItemAccodianNotiBinding;
-import com.genesis.apps.ui.view.BaseRecyclerViewAdapter2;
-import com.genesis.apps.ui.view.BaseViewHolder;
+import com.genesis.apps.ui.view.viewholder.BaseViewHolder;
 
 
 public class NotiAccodianRecyclerAdapter extends BaseRecyclerViewAdapter2<NotiVO> {

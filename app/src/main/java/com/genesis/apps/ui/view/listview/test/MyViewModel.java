@@ -1,13 +1,10 @@
-package com.genesis.apps.ui.view.listview;
+package com.genesis.apps.ui.view.listview.test;
 
 import androidx.hilt.Assisted;
 import androidx.hilt.lifecycle.ViewModelInject;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
-
-import com.genesis.apps.comm.model.map.MapRepository;
 
 import java.util.List;
 

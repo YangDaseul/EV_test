@@ -7,17 +7,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.main.contents.ContentsResVO;
-import com.genesis.apps.comm.model.map.MapViewModel;
-import com.genesis.apps.databinding.FragVehicle2Binding;
 import com.genesis.apps.databinding.FragmentMainContentsVpBinding;
 import com.genesis.apps.ui.fragment.SubFragment;
-import com.genesis.apps.ui.view.BaseRecyclerViewAdapter;
-import com.genesis.apps.ui.view.TestItemAdapter;
 
 public class FragmentMainContentsVp extends SubFragment<FragmentMainContentsVpBinding> {
 

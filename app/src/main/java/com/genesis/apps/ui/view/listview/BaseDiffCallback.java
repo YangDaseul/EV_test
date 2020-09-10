@@ -1,4 +1,4 @@
-package com.genesis.apps.ui.view.viewholder;
+package com.genesis.apps.ui.view.listview;
 
 import androidx.recyclerview.widget.DiffUtil;
 

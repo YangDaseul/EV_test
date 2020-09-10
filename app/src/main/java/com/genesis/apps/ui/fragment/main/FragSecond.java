@@ -11,11 +11,11 @@ import com.genesis.apps.comm.model.map.MapViewModel;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.databinding.Frame2pBinding;
 import com.genesis.apps.ui.fragment.SubFragment;
-import com.genesis.apps.ui.view.listview.Link;
-import com.genesis.apps.ui.view.listview.LinkDiffCallback;
-import com.genesis.apps.ui.view.listview.MyItemClickListener;
-import com.genesis.apps.ui.view.listview.MyViewModel;
-import com.genesis.apps.ui.view.listview.TestUserAdapter;
+import com.genesis.apps.ui.view.listview.test.Link;
+import com.genesis.apps.ui.view.listview.test.LinkDiffCallback;
+import com.genesis.apps.ui.view.listview.test.MyItemClickListener;
+import com.genesis.apps.ui.view.listview.test.MyViewModel;
+import com.genesis.apps.ui.view.listview.test.TestUserAdapter;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

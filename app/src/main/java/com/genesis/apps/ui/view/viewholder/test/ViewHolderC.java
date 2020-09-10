@@ -1,11 +1,10 @@
-package com.genesis.apps.ui.view;
+package com.genesis.apps.ui.view.viewholder.test;
 
 import android.util.SparseBooleanArray;
 import android.view.View;
 
-import com.genesis.apps.R;
-import com.genesis.apps.comm.model.ExampleResVO;
 import com.genesis.apps.databinding.ItemTestBinding;
+import com.genesis.apps.ui.view.viewholder.BaseViewHolder;
 
 public class ViewHolderC extends BaseViewHolder<String,ItemTestBinding> {
     public ViewHolderC(View itemView) {

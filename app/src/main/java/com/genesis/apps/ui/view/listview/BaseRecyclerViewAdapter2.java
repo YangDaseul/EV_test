@@ -1,4 +1,4 @@
-package com.genesis.apps.ui.view;
+package com.genesis.apps.ui.view.listview;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.ui.view.viewholder.BaseViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,19 +7,14 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.BindingAdapter;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.ExampleResVO;
 import com.genesis.apps.comm.model.ExampleViewModel;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.databinding.Frame3pBinding;
 import com.genesis.apps.ui.fragment.SubFragment;
-import com.genesis.apps.ui.view.TestItemAdapter;
+import com.genesis.apps.ui.view.listview.test.TestItemAdapter;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.genesis.apps.ui.view;
+package com.genesis.apps.ui.view.viewholder;
 
 import android.content.Context;
 import android.util.SparseBooleanArray;
