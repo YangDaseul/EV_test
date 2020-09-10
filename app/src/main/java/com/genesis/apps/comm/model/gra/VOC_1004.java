@@ -37,6 +37,6 @@ public class VOC_1004 extends BaseData {
     class Response extends BaseResponse{
         @Expose
         @SerializedName("dfctList")
-        private List<TermVO> dfctList;
+        private List<TermVO> dfctList; //termCont는 1005에서 요청
     }
 }

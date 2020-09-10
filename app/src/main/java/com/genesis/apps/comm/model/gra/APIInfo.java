@@ -81,6 +81,7 @@ public enum APIInfo {
     GRA_VOC_1002("Genesis + 하자재발 신청", "VOC-1002", HttpRequest.METHOD_POST, "/graapi/voc/defectRegistration.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_VOC_1003("Genesis + 하자재발 내역(목록)", "VOC-1003", HttpRequest.METHOD_POST, "/graapi/voc/defectStatus.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_VOC_1004("Genesis + 하자재발 약관조회", "VOC-1004", HttpRequest.METHOD_POST, "/graapi/voc/termSearch.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_VOC_1005("Genesis + 하자재발 약관상세", "VOC-1005", HttpRequest.METHOD_POST, "/graapi/voc/termDetail.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     GRA_WRT_1001("Genesis +보증수리안내", "WRT_1001", HttpRequest.METHOD_POST, "/graapi/wrt/guide.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 

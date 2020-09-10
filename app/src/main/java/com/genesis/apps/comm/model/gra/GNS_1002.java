@@ -19,7 +19,7 @@ public class GNS_1002 extends BaseData {
     /**
      * @brief GNS_1002 요청 항목
      * @see #vin 차대번호
-     * @see #vrn 차량번호
+     * @see #carRgstNo 차량번호
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -29,12 +29,12 @@ public class GNS_1002 extends BaseData {
         @SerializedName("vin")
         private String vin;
         @Expose
-        @SerializedName("vrn")
-        private String vrn;
+        @SerializedName("carRgstNo")
+        private String carRgstNo;
         
-        public Request(String vin, String vrn){
+        public Request(String vin, String carRgstNo){
             this.vin = vin;
-            this.vrn = vrn;
+            this.carRgstNo = carRgstNo;
             setData(APIInfo.GRA_GNS_1002.getIfCd());
         }
     }
