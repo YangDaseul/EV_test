@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.appeaser.sublimepickerlibrary.datepicker.SelectedDate;
@@ -67,12 +68,26 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         me.btnBottom.setOnClickListener(view -> {
 
             TestDialog testDialog = new TestDialog(getContext(), R.style.BottomSheetDialogTheme);
-            testDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                @Override
-                public void onShow(DialogInterface dialogInterface) {
-                    testDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
-                }
-            });
+//            testDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                @Override
+//                public void onShow(DialogInterface dialogInterface) {
+//                    testDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
+//                }
+//            });
+//            testDialog.getBehavior().addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+//                @Override
+//                public void onStateChanged(@NonNull View bottomSheet, int newState) {
+//                    if (newState == BottomSheetBehavior.STATE_DRAGGING)
+//                        testDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
+//                }
+//
+//                @Override
+//                public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+//
+//                }
+//            });
+
+
             testDialog.show();;
         });
 

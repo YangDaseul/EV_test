@@ -1,16 +1,21 @@
 package com.genesis.apps.ui.dialog;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.view.KeyEvent;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class BaseBottomDialog<T extends ViewDataBinding> extends BottomSheetDialog {
     T ui;
     public Runnable yes, no;
+    private boolean isAllowOutTouch=false;
     public BaseBottomDialog(@NonNull Context context) {
         super(context);
     }
@@ -23,7 +28,23 @@ public class BaseBottomDialog<T extends ViewDataBinding> extends BottomSheetDial
     public void setContentView(int layoutResId) {
         ui = inflate(layoutResId);
         super.setContentView(ui.getRoot());
-        setCanceledOnTouchOutside(false);
+
+        //아래 적용된 두가지 정책은 하단 팝업에 대한 기획 정책
+        //1. bottomSheetDialog를 드래그에서 내리지 않도록 수정
+        getBehavior().addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_DRAGGING)
+                    getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+        //2. bottomSheetDialog에서 editbox가 있어서 키보드 활성화 시 화면을 완전하게 올리도록 수정 (해당 부분을 추가하지 않으면 뷰가 잘림)
+        setOnShowListener(dialogInterface -> getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED));
     }
 
     private <T extends ViewDataBinding> T inflate(int layoutResId) {
@@ -35,4 +56,30 @@ public class BaseBottomDialog<T extends ViewDataBinding> extends BottomSheetDial
         this.no = no;
     }
 
+
+    public boolean isAllowOutTouch() {
+        return isAllowOutTouch;
+    }
+
+    public void setAllowOutTouch(boolean allowOutTouch) {
+        isAllowOutTouch = allowOutTouch;
+        setCanceledOnTouchOutside(isAllowOutTouch);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if(!isAllowOutTouch()) {
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                backAction();
+            }
+            return false;
+        }else{
+            super.onKeyDown(keyCode,event);
+            return true;
+        }
+    }
+
+    public void backAction(){
+
+    }
 }
