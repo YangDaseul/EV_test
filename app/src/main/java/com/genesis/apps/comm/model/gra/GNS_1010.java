@@ -30,9 +30,9 @@ public class GNS_1010 extends BaseData {
         @SerializedName("vin")
         private String vin;
 
-        public Request(String vin){
+        public Request(String menuId, String vin){
             this.vin = vin;
-            setData(APIInfo.GRA_GNS_1010.getIfCd());
+            setData(APIInfo.GRA_GNS_1010.getIfCd(), menuId);
         }
     }
 

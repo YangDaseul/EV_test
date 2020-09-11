@@ -49,13 +49,13 @@ public class LGN_0001 extends BaseData {
         @SerializedName("vin")
         private String vin;
 
-        public Request(String appVer, String etrmOsDivCd, String etrmOsVer, String etrmMdlNm, String vin){
+        public Request(String menuId, String appVer, String etrmOsDivCd, String etrmOsVer, String etrmMdlNm, String vin){
             this.appVer = appVer;
             this.etrmOsDivCd = etrmOsDivCd;
             this.etrmOsVer = etrmOsVer;
             this.etrmMdlNm = etrmMdlNm;
             this.vin = vin;
-            setData(APIInfo.GRA_LGN_0001.getIfCd());
+            setData(APIInfo.GRA_LGN_0001.getIfCd(), menuId);
         }
 
     }

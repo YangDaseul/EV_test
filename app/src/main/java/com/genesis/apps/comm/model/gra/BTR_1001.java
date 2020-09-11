@@ -1,7 +1,8 @@
 package com.genesis.apps.comm.model.gra;
 
 import com.genesis.apps.comm.model.BaseData;
-import com.genesis.apps.comm.model.vo.NotiInfoVO;
+import com.genesis.apps.comm.model.vo.BtrVO;
+import com.genesis.apps.comm.model.vo.WarrantyVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -12,36 +13,36 @@ import lombok.EqualsAndHashCode;
 
 /**
  * @author hjpark
- * @file GRA_NOT_0002
- * @Brief 알림센터 알림내용 읽기
+ * @file GRA_BTR_1001
+ * @Brief Genesis + 버틀러 조회
  */
-public class NOT_0002 extends BaseData {
+public class BTR_1001 extends BaseData {
+
     /**
-     * @author hjpark
-     * @brief NOT_0002 요청 항목
-     * @see #notiNo 알림일련번호
+     * @brief BTR_1001 요청 항목
+     * @see #vin 차대번호
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     static
     class Request extends BaseRequest{
-        @Expose
-        @SerializedName("notiNo")
-        private String notiNo;
 
-        public Request(String menuId, String notiNo){
-            this.notiNo = notiNo;
-            setData(APIInfo.GRA_NOT_0002.getIfCd(), menuId);
+        @Expose
+        @SerializedName("vin")
+        private String vin;
+
+        public Request(String menuId, String vin){
+            this.vin = vin;
+            setData(APIInfo.GRA_BTR_1001.getIfCd(), menuId);
         }
     }
 
     /**
-     * @author hjpark
-     * @brief NOT_0002 응답 항목
+     * @brief BTR_1001 응답 항목
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse{
-
+        private BtrVO btrVO;
     }
 }

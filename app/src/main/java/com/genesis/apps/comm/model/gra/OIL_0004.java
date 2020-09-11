@@ -44,11 +44,11 @@ public class OIL_0004 extends BaseData {
         @SerializedName("termCd")
         private String termCd;
 
-        public Request(String oilRfnCd, String termVer, String termCd){
+        public Request(String menuId, String oilRfnCd, String termVer, String termCd){
             this.termVer = termVer;
             this.termCd = termCd;
             this.oilRfnCd = oilRfnCd;
-            setData(APIInfo.GRA_OIL_0004.getIfCd());
+            setData(APIInfo.GRA_OIL_0004.getIfCd(), menuId);
         }
     }
 

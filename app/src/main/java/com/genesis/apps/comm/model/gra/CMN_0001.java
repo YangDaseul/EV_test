@@ -32,9 +32,9 @@ public class CMN_0001 extends BaseData {
         @SerializedName("appVer")
         private String appVer;
 
-        public Request(String appVer) {
+        public Request(String menuId, String appVer) {
             this.appVer = appVer;
-            setData(APIInfo.GRA_CMN_0001.getIfCd());
+            setData(APIInfo.GRA_CMN_0001.getIfCd(),menuId);
         }
     }
 

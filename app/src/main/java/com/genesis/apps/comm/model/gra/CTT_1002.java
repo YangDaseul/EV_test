@@ -33,10 +33,10 @@ public class CTT_1002 extends BaseData {
         @SerializedName("starCnt")
         private String starCnt;
 
-        public Request(String listSeqNo, String starCnt){
+        public Request(String menuId, String listSeqNo, String starCnt){
             this.listSeqNo = listSeqNo;
             this.starCnt = starCnt;
-            setData(APIInfo.GRA_CTT_1002.getIfCd());
+            setData(APIInfo.GRA_CTT_1002.getIfCd(),menuId);
         }
     }
 

@@ -38,10 +38,10 @@ public class NOT_0001 extends BaseData {
         @SerializedName("searchCnt")
         private String searchCnt;
 
-        public Request(String pageNo, String searchCnt){
+        public Request(String menuId, String pageNo, String searchCnt){
             this.pageNo = pageNo;
             this.searchCnt = searchCnt;
-            setData(APIInfo.GRA_NOT_0001.getIfCd());
+            setData(APIInfo.GRA_NOT_0001.getIfCd(), menuId);
         }
     }
 

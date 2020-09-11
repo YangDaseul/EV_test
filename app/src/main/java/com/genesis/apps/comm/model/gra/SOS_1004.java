@@ -27,9 +27,9 @@ public class SOS_1004 extends BaseData {
         @SerializedName("tmpAcptNo")
         private String tmpAcptNo;
 
-        public Request(String tmpAcptNo){
+        public Request(String menuId, String tmpAcptNo){
             this.tmpAcptNo = tmpAcptNo;
-            setData(APIInfo.GRA_SOS_1004.getIfCd());
+            setData(APIInfo.GRA_SOS_1004.getIfCd(), menuId);
         }
     }
 

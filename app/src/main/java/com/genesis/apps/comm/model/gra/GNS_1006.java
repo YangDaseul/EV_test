@@ -90,7 +90,7 @@ public class GNS_1006 extends BaseData {
         @SerializedName("empCertiImgYn")
         private String empCertiImgYn;
 
-        public Request(String vin, String csmrScnCd, String rentPeriod, String crdRcvScnCd, String crdRcvZip, String crdRcvAdr, String crdRcvDtlAdr, String cnttImgYn, String empCertiImgYn){
+        public Request(String menuId, String vin, String csmrScnCd, String rentPeriod, String crdRcvScnCd, String crdRcvZip, String crdRcvAdr, String crdRcvDtlAdr, String cnttImgYn, String empCertiImgYn){
             this.vin = vin;
             this.csmrScnCd = csmrScnCd;
             this.rentPeriod = rentPeriod;
@@ -100,7 +100,7 @@ public class GNS_1006 extends BaseData {
             this.crdRcvDtlAdr = crdRcvDtlAdr;
             this.cnttImgYn = cnttImgYn;
             this.empCertiImgYn = empCertiImgYn;
-            setData(APIInfo.GRA_GNS_1006.getIfCd());
+            setData(APIInfo.GRA_GNS_1006.getIfCd(), menuId);
         }
     }
 

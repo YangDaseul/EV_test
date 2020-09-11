@@ -20,8 +20,8 @@ public class SOS_1003 extends BaseData {
     public @Data
     static
     class Request extends BaseRequest{
-        public Request(){
-            setData(APIInfo.GRA_SOS_1003.getIfCd());
+        public Request(String menuId){
+            setData(APIInfo.GRA_SOS_1003.getIfCd(), menuId);
         }
     }
 

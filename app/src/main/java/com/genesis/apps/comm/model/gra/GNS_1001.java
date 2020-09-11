@@ -23,8 +23,8 @@ public class GNS_1001 extends BaseData {
     public @Data
     static
     class Request extends BaseRequest{
-        public Request(){
-            setData(APIInfo.GRA_GNS_1001.getIfCd());
+        public Request(String menuId){
+            setData(APIInfo.GRA_GNS_1001.getIfCd(), menuId);
         }
     }
 

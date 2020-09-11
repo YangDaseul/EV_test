@@ -34,10 +34,10 @@ public class MYP_2005 extends BaseData {
         private String newPwd;
 
 
-        public Request(String currPwd, String newPwd){
+        public Request(String menuId, String currPwd, String newPwd){
             this.currPwd = currPwd;
             this.newPwd = newPwd;
-            setData(APIInfo.GRA_MYP_2005.getIfCd());
+            setData(APIInfo.GRA_MYP_2005.getIfCd(), menuId);
         }
     }
 

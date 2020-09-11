@@ -29,9 +29,9 @@ public class LGN_0002 extends BaseData {
         @SerializedName("vin")
         private String vin;
 
-        public Request(String vin){
+        public Request(String menuId, String vin){
             this.vin = vin;
-            setData(APIInfo.GRA_LGN_0002.getIfCd());
+            setData(APIInfo.GRA_LGN_0002.getIfCd(), menuId);
         }
     }
 

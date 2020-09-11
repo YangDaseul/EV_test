@@ -22,8 +22,8 @@ public class CMN_0002 extends BaseData {
     @EqualsAndHashCode(callSuper = true)
     public @Data
     static class Request extends BaseRequest {
-        public Request(){
-            setData(APIInfo.GRA_CMN_0002.getIfCd());
+        public Request(String menuId){
+            setData(APIInfo.GRA_CMN_0002.getIfCd(), menuId);
         }
 
     }

@@ -33,9 +33,9 @@ public class MYP_8001 extends BaseData {
         @SerializedName("termCd")
         private String termCd;
 
-        public Request(String termCd){
+        public Request(String menuId, String termCd){
             this.termCd = termCd;
-            setData(APIInfo.GRA_MYP_8001.getIfCd());
+            setData(APIInfo.GRA_MYP_8001.getIfCd(), menuId);
         }
     }
 

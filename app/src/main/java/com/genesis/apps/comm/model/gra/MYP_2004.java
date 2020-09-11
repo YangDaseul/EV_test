@@ -22,8 +22,8 @@ public class MYP_2004 extends BaseData {
     static
     class Request extends BaseRequest{
 
-        public Request(){
-            setData(APIInfo.GRA_MYP_2004.getIfCd());
+        public Request(String menuId){
+            setData(APIInfo.GRA_MYP_2004.getIfCd(), menuId);
         }
     }
 

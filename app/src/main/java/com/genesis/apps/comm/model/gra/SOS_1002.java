@@ -74,7 +74,7 @@ public class SOS_1002 extends BaseData {
         @SerializedName("memo")
         private String memo;
 
-        public Request(String vin, String vrn, String mdlCd, String fltCd, String areaClsCd, String addr, String addrX, String addrY, String celphNo, String memo){
+        public Request(String menuId, String vin, String vrn, String mdlCd, String fltCd, String areaClsCd, String addr, String addrX, String addrY, String celphNo, String memo){
             this.vin = vin;
 
             this.vrn = vrn;
@@ -86,7 +86,7 @@ public class SOS_1002 extends BaseData {
             this.addrY = addrY;
             this.celphNo = celphNo;
             this.memo = memo;
-            setData(APIInfo.GRA_SOS_1002.getIfCd());
+            setData(APIInfo.GRA_SOS_1002.getIfCd(), menuId);
         }
     }
 

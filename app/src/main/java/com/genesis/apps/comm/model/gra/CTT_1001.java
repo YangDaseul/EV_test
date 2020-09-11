@@ -43,12 +43,12 @@ public class CTT_1001 extends BaseData {
         @SerializedName("searchCnt")
         private String searchCnt;
 
-        public Request(String catCd, String keywd, String pageNo, String searchCnt){
+        public Request(String menuId, String catCd, String keywd, String pageNo, String searchCnt){
             this.catCd = catCd;
             this.keywd = keywd;
             this.pageNo = pageNo;
             this.searchCnt = searchCnt;
-            setData(APIInfo.GRA_CTT_1001.getIfCd());
+            setData(APIInfo.GRA_CTT_1001.getIfCd(),menuId);
         }
     }
 

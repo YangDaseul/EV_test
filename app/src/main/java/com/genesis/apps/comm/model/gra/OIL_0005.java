@@ -31,9 +31,9 @@ public class OIL_0005 extends BaseData {
         @SerializedName("oilRfnCd")
         private String oilRfnCd;
 
-        public Request(String oilRfnCd){
+        public Request(String menuId, String oilRfnCd){
             this.oilRfnCd = oilRfnCd;
-            setData(APIInfo.GRA_OIL_0005.getIfCd());
+            setData(APIInfo.GRA_OIL_0005.getIfCd(), menuId);
         }
     }
 

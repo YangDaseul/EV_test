@@ -27,9 +27,9 @@ public class MYP_0005 extends BaseData {
         @SerializedName("authUuid")
         private String authUuid;
 
-        public Request(String authUuid){
+        public Request(String menuId, String authUuid){
             this.authUuid = authUuid;
-            setData(APIInfo.GRA_MYP_0005.getIfCd());
+            setData(APIInfo.GRA_MYP_0005.getIfCd(), menuId);
         }
     }
 

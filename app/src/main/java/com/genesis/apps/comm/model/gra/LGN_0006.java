@@ -21,8 +21,8 @@ public class LGN_0006 extends BaseData {
     public @Data
     static
     class Request extends BaseRequest{
-        public Request(){
-            setData(APIInfo.GRA_LGN_0006.getIfCd());
+        public Request(String menuId){
+            setData(APIInfo.GRA_LGN_0006.getIfCd(), menuId);
         }
     }
 

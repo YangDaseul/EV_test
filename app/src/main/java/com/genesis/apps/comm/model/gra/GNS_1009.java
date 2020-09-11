@@ -38,11 +38,11 @@ public class GNS_1009 extends BaseData {
         private File file;
         private String imageKeyName="imgFil";
 
-        public Request(String vin, String imgFilNm, File file){
+        public Request(String menuId, String vin, String imgFilNm, File file){
             this.vin = vin;
             this.imgFilNm = imgFilNm;
             this.file = file;
-            setData(APIInfo.GRA_GNS_1009.getIfCd());
+            setData(APIInfo.GRA_GNS_1009.getIfCd(),menuId);
         }
     }
 

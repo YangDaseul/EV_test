@@ -27,9 +27,9 @@ public class MYP_1005 extends BaseData {
         @Expose
         @SerializedName("vin")
         private String vin;
-        public Request(String vin){
+        public Request(String menuId, String vin){
             this.vin = vin;
-            setData(APIInfo.GRA_MYP_1005.getIfCd());
+            setData(APIInfo.GRA_MYP_1005.getIfCd(), menuId);
         }
     }
 

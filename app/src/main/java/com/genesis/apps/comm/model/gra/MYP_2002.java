@@ -48,13 +48,13 @@ public class MYP_2002 extends BaseData {
         private String searchCnt;
 
 
-        public Request(String mbrshMbrMgmtNo, String transSrtDt, String transEndDt, String pageNo, String searchCnt){
+        public Request(String menuId, String mbrshMbrMgmtNo, String transSrtDt, String transEndDt, String pageNo, String searchCnt){
             this.mbrshMbrMgmtNo = mbrshMbrMgmtNo;
             this.transSrtDt = transSrtDt;
             this.transEndDt = transEndDt;
             this.pageNo = pageNo;
             this.searchCnt = searchCnt;
-            setData(APIInfo.GRA_MYP_2002.getIfCd());
+            setData(APIInfo.GRA_MYP_2002.getIfCd(), menuId);
         }
     }
 

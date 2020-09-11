@@ -36,10 +36,10 @@ public class VOC_1005 extends BaseData {
         @SerializedName("termVer")
         private String termVer;
 
-        public Request(String termCd, String termVer){
+        public Request(String menuId, String termCd, String termVer){
             this.termCd = termCd;
             this.termVer = termVer;
-            setData(APIInfo.GRA_VOC_1005.getIfCd());
+            setData(APIInfo.GRA_VOC_1005.getIfCd(), menuId);
         }
     }
 

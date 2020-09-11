@@ -1,9 +1,11 @@
 package com.genesis.apps.ui.activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.util.VibratorUtil;
 import com.genesis.apps.databinding.ActivityVerticalOverlapExampleBinding;
 import com.genesis.apps.ui.activity.test.CardViewAadapter;
 import com.genesis.apps.ui.activity.test.ItemMoveCallback;
@@ -12,6 +14,7 @@ import com.genesis.apps.ui.view.listview.test.Link;
 import java.util.LinkedList;
 import java.util.List;
 
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager2.widget.ViewPager2;
@@ -33,26 +36,33 @@ public class CardViewActivity extends SubActivity<ActivityVerticalOverlapExample
         ui.viewPager.setAdapter(testCardViewAdapter);
 
         ui.pagerContainer.setOverlapSlider(0f,0f,0.2f,0f);
-//        ui.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-//            @Override
-//            public void onPageScrollStateChanged(int state) {
-//
-//
-//                switch (state) {
-//                    case ViewPager2.SCROLL_STATE_IDLE:
-//                        animationStartNeeded = true;
-//                        VibratorUtil.doVibratorLong(getApplication());
-//                        break;
-//                    default:
-//                        if(animationStartNeeded){
-//                            animationStartNeeded=false;
-//                        }
-//                        break;
-//                }
-//
-//                super.onPageScrollStateChanged(state);
-//            }
-//        });
+        ui.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                VibratorUtil.doVibrator(getApplication());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+
+                switch (state) {
+                    case ViewPager2.SCROLL_STATE_IDLE:
+                        animationStartNeeded = true;
+                        break;
+                    default:
+                        if(animationStartNeeded){
+                            animationStartNeeded=false;
+                        }
+                        break;
+                }
+
+                super.onPageScrollStateChanged(state);
+            }
+        });
 
 //        new Handler().postDelayed(() -> {
 //            testCardViewAdapter.submitList(getListData());

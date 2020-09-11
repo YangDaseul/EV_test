@@ -24,8 +24,8 @@ public class BAR_1001 extends BaseData {
     public @Data
     static
     class Request extends BaseRequest{
-        public Request(){
-            setData(APIInfo.GRA_BAR_1001.getIfCd());
+        public Request(String menuId){
+            setData(APIInfo.GRA_BAR_1001.getIfCd(), menuId);
         }
     }
 

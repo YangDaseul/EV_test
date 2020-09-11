@@ -77,9 +77,9 @@ public class OIL_0002 extends BaseData {
         private String agreeTel;
 
 
-        public Request(String oilRfnCd){
+        public Request(String menuId, String oilRfnCd){
             this.oilRfnCd = oilRfnCd;
-            setData(APIInfo.GRA_OIL_0002.getIfCd());
+            setData(APIInfo.GRA_OIL_0002.getIfCd(), menuId);
         }
     }
 

@@ -149,9 +149,9 @@ public class VOC_1002 extends BaseData {
         @SerializedName("prnInfoAgreeFlg")
         private String prnInfoAgreeFlg;
 
-        public Request(){
+        public Request(String menuId){
             //TODO 생성자가 없는 대신.. 직접 생성해서 데이터 넣을 것
-            setData(APIInfo.GRA_VOC_1002.getIfCd());
+            setData(APIInfo.GRA_VOC_1002.getIfCd(), menuId);
         }
     }
 

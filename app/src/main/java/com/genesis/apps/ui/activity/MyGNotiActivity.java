@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.MYP_8005;
 import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.NotiVO;
@@ -93,7 +94,7 @@ public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
                     //top
                 } else if (!ui.rvNoti.canScrollVertically(1)) {
                     //end
-                    mypViewModel.reqMYP8005(new MYP_8005.Request((adapter.getPageNo()+1)+"","20"));
+                    mypViewModel.reqMYP8005(new MYP_8005.Request(APPIAInfo.MG_NOTICE01.getId(),(adapter.getPageNo()+1)+"","20"));
                 } else {
                     //idle
                 }
@@ -101,7 +102,7 @@ public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
             }
         });
 
-        mypViewModel.reqMYP8005(new MYP_8005.Request("1","20"));
+        mypViewModel.reqMYP8005(new MYP_8005.Request(APPIAInfo.MG_NOTICE01.getId(), "1","20"));
     }
 
     private List<NotiVO> getListData(){

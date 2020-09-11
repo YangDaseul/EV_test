@@ -77,7 +77,7 @@ class BaseRequest extends BaseData {
         DatabaseHolder getDB();
     }
 
-    public void setData(String ifCd){
+    public void setData(String ifCd, String menuID){
         CompInterface compInterface = EntryPoints.get(MyApplication.getInstance(), CompInterface.class);
         UserVO userVO = compInterface.getDB().getDatabase().userDao().select();
         if(userVO==null|| TextUtils.isEmpty(userVO.getCustNo()) || TextUtils.isEmpty(userVO.getCustGbCd())){
@@ -87,6 +87,7 @@ class BaseRequest extends BaseData {
         }
 
         this.ifCd = ifCd;
+        this.menuID = menuID;
         this.appGbCd = "GRA";
 
         this.custNo = userVO.getCustNo();

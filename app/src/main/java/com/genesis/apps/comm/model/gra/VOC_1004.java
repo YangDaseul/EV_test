@@ -24,8 +24,8 @@ public class VOC_1004 extends BaseData {
     public @Data
     static
     class Request extends BaseRequest{
-        public Request(){
-            setData(APIInfo.GRA_VOC_1004.getIfCd());
+        public Request(String menuId){
+            setData(APIInfo.GRA_VOC_1004.getIfCd(), menuId);
         }
     }
 

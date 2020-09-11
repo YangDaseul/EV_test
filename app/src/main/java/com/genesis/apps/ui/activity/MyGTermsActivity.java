@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.hybrid.core.WebViewFragment;
+import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.MYP_8001;
 import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.TermVO;
@@ -43,13 +44,15 @@ public class MyGTermsActivity extends WebviewActivity {
         ui.setLifecycleOwner(this);
         mypViewModel= new ViewModelProvider(this).get(MYPViewModel.class);
         termsCd = getIntent().getStringExtra(TERMS_CODE);
-
+        String menuId="";
         switch (termsCd){
             case TERMS_1000:
                 titleId = R.string.title_terms_1;
+                menuId = APPIAInfo.MG_MENU01.getId();
                 break;
             case TERMS_2000:
                 titleId = R.string.title_terms_2;
+                menuId = APPIAInfo.MG_MENU02.getId();
                 break;
             case TERMS_3000:
                 titleId = R.string.title_terms_3;
@@ -83,7 +86,7 @@ public class MyGTermsActivity extends WebviewActivity {
                 }
             });
             //TODO LOADING에 대한 처리 해야함
-            mypViewModel.reqMYP8001(new MYP_8001.Request(termsCd));
+            mypViewModel.reqMYP8001(new MYP_8001.Request(menuId, termsCd));
         }else{
             loadTerms(new TermVO("",TERMS_6000,getString(R.string.title_terms_6),getStringFromAssetsFile(),""));
         }

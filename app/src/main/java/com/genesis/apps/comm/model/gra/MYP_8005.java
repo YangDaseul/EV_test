@@ -33,10 +33,10 @@ public class MYP_8005 extends BaseData {
         @SerializedName("searchCnt")
         private String searchCnt;
 
-        public Request(String pageNo, String searchCnt){
+        public Request(String menuId, String pageNo, String searchCnt){
             this.pageNo = pageNo;
             this.searchCnt = searchCnt;
-            setData(APIInfo.GRA_MYP_8005.getIfCd());
+            setData(APIInfo.GRA_MYP_8005.getIfCd(), menuId);
         }
     }
 

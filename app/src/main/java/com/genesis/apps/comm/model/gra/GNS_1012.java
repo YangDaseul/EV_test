@@ -32,10 +32,10 @@ public class GNS_1012 extends BaseData {
         @SerializedName("seqNo")
         private String seqNo;
 
-        public Request(String vin, String seqNo){
+        public Request(String menuId, String vin, String seqNo){
             this.vin = vin;
             this.seqNo = seqNo;
-            setData(APIInfo.GRA_GNS_1012.getIfCd());
+            setData(APIInfo.GRA_GNS_1012.getIfCd(),menuId);
         }
     }
 

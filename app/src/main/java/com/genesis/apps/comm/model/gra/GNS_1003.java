@@ -36,10 +36,10 @@ public class GNS_1003 extends BaseData {
         @SerializedName("delRsnCd")
         private String delRsnCd;
 
-        public Request(String vin, String delRsnCd){
+        public Request(String menuId, String vin, String delRsnCd){
             this.vin = vin;
             this.delRsnCd = delRsnCd;
-            setData(APIInfo.GRA_GNS_1003.getIfCd());
+            setData(APIInfo.GRA_GNS_1003.getIfCd(),menuId);
         }
     }
 

@@ -27,9 +27,9 @@ public class LGN_0004 extends BaseData {
         @Expose
         @SerializedName("termOSGbCd")
         private String termOSGbCd;
-        public Request(String termOSGbCd){
+        public Request(String menuId, String termOSGbCd){
             this.termOSGbCd = termOSGbCd;
-            setData(APIInfo.GRA_LGN_0004.getIfCd());
+            setData(APIInfo.GRA_LGN_0004.getIfCd(), menuId);
         }
     }
 

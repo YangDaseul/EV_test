@@ -27,9 +27,9 @@ public class GNS_1004 extends BaseData {
         @SerializedName("vin")
         private String vin;
 
-        public Request(String vin){
+        public Request(String menuId, String vin){
             this.vin = vin;
-            setData(APIInfo.GRA_GNS_1004.getIfCd());
+            setData(APIInfo.GRA_GNS_1004.getIfCd(), menuId);
         }
     }
 

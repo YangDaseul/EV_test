@@ -30,9 +30,9 @@ public class CTT_1004 extends BaseData {
         @SerializedName("listSeqNo")
         private String listSeqNo;
 
-        public Request(String listSeqNo){
+        public Request(String menuId, String listSeqNo){
             this.listSeqNo = listSeqNo;
-            setData(APIInfo.GRA_CTT_1004.getIfCd());
+            setData(APIInfo.GRA_CTT_1004.getIfCd(),menuId);
         }
     }
 

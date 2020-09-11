@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.MYP_8004;
 import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.util.PackageUtil;
@@ -49,6 +50,7 @@ public class MyGVersioniActivity extends SubActivity<ActivityMygVersionBinding> 
             }
         });
 
+        mypViewModel.reqMYP8004(new MYP_8004.Request(APPIAInfo.MG_VERSION01.getId()));
     }
 
     private void setView(String currentVersion, String newVersion){
@@ -80,6 +82,5 @@ public class MyGVersioniActivity extends SubActivity<ActivityMygVersionBinding> 
     @Override
     protected void onResume() {
         super.onResume();
-        mypViewModel.reqMYP8004(new MYP_8004.Request());
     }
 }

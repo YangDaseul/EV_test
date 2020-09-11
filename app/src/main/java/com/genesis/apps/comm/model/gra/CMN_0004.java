@@ -37,10 +37,10 @@ public class CMN_0004 extends BaseData {
         @Expose
         @SerializedName("termCd")
         private String termCd;
-        public Request(String termVer, String termCd){
+        public Request(String menuId, String termVer, String termCd){
             this.termVer = termVer;
             this.termCd =termCd;
-            setData(APIInfo.GRA_CMN_0004.getIfCd());
+            setData(APIInfo.GRA_CMN_0004.getIfCd(),menuId);
         }
     }
 

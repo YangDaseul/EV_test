@@ -83,11 +83,17 @@ public enum APIInfo {
     GRA_VOC_1004("Genesis + 하자재발 약관조회", "VOC-1004", HttpRequest.METHOD_POST, "/graapi/voc/termSearch.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_VOC_1005("Genesis + 하자재발 약관상세", "VOC-1005", HttpRequest.METHOD_POST, "/graapi/voc/termDetail.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
-    GRA_WRT_1001("Genesis +보증수리안내", "WRT_1001", HttpRequest.METHOD_POST, "/graapi/wrt/guide.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_WRT_1001("Genesis +보증수리안내", "WRT-1001", HttpRequest.METHOD_POST, "/graapi/wrt/guide.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
-    GRA_CTT_1001("contents + 컨텐츠조회", "CTT_1001", HttpRequest.METHOD_POST, "/graapi/ctt/contentsLookup.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_CTT_1002("contents + 컨텐츠평가", "CTT_1002", HttpRequest.METHOD_POST, "/graapi/ctt/contentsEvaluation.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_CTT_1004("contents + 컨텐츠 상세", "CTT_1004", HttpRequest.METHOD_POST, "/graapi/ctt/contentsDetail.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8);
+    GRA_CTT_1001("contents + 컨텐츠조회", "CTT-1001", HttpRequest.METHOD_POST, "/graapi/ctt/contentsLookup.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_CTT_1002("contents + 컨텐츠평가", "CTT-1002", HttpRequest.METHOD_POST, "/graapi/ctt/contentsEvaluation.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_CTT_1004("contents + 컨텐츠 상세", "CTT-1004", HttpRequest.METHOD_POST, "/graapi/ctt/contentsDetail.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+
+    GRA_BTR_1001("Genesis + 버틀러 조회", "BTR-1001", HttpRequest.METHOD_POST, "/graapi/btr/btlrInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_BTR_1008("Genesis + 블루핸즈 검색요청", "BTR-1008", HttpRequest.METHOD_POST, "/graapi/btr/blehdList.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_BTR_1009("Genesis + 블루핸즈 변경/신청 요청", "BTR-1009", HttpRequest.METHOD_POST, "/graapi/btr/blehdUpdt.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_BTR_1010("Genesis + 버틀러 안내조회", "BTR-1010", HttpRequest.METHOD_POST, "/graapi/btr//btlrGuide.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8);
+
 
     private String description;
     private String ifCd;

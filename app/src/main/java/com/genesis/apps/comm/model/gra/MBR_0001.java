@@ -38,12 +38,12 @@ public class MBR_0001 extends BaseData {
         @SerializedName("terms")
         private List<Term> terms;
 
-        public Request(String tokenCode, String authUuid, List<Term> terms){
+        public Request(String menuId, String tokenCode, String authUuid, List<Term> terms){
             this.tokenCode = tokenCode;
             this.authUuid = authUuid;
             this.terms = terms;
 
-            setData(APIInfo.GRA_MBR_0001.getIfCd());
+            setData(APIInfo.GRA_MBR_0001.getIfCd(), menuId);
         }
 
         /**

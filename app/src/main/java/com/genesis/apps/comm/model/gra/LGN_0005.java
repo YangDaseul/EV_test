@@ -31,10 +31,10 @@ public class LGN_0005 extends BaseData {
         @Expose
         @SerializedName("ny")
         private String ny;
-        public Request(String nx, String ny){
+        public Request(String menuId, String nx, String ny){
             this.nx = nx;
             this.ny = ny;
-            setData(APIInfo.GRA_LGN_0005.getIfCd());
+            setData(APIInfo.GRA_LGN_0005.getIfCd(), menuId);
         }
     }
 
@@ -57,6 +57,9 @@ public class LGN_0005 extends BaseData {
      * 강수형태(PTY) : 없음(0), 비(1), 비/눈(2), 눈(3), 소나기(4), 빗방울(5), 빗방울/눈날림(6), 눈날림(7)
      * @see #lgt 낙뢰
      * 낙뢰(LGT) : 확률없음(0), 낮음(1), 보통(2), 높음(3)
+     * @see #dayCd 낮밤코드
+     * 1: 낮 2:밤
+     *
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -85,5 +88,8 @@ public class LGN_0005 extends BaseData {
         @Expose
         @SerializedName("lgt")
         private String lgt;
+        @Expose
+        @SerializedName("dayCd")
+        private String dayCd;
     }
 }

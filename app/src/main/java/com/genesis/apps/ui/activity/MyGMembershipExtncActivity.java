@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.MYP_2006;
 import com.genesis.apps.comm.model.gra.MYP_8005;
 import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
@@ -76,7 +77,7 @@ public class MyGMembershipExtncActivity extends SubActivity<ActivityMygMembershi
         ui.rv.setHasFixedSize(true);
         ui.rv.setAdapter(adapter);
 
-        mypViewModel.reqMYP2006(new MYP_2006.Request());
+        mypViewModel.reqMYP2006(new MYP_2006.Request(APPIAInfo.MG_MEMBER01_P01.getId()));
     }
 
     private void setEmptyView(int itemCount){

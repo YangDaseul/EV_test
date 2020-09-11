@@ -31,9 +31,9 @@ public class WRT_1001 extends BaseData {
         @SerializedName("vin")
         private String vin;
 
-        public Request(String vin){
+        public Request(String menuId, String vin){
             this.vin = vin;
-            setData(APIInfo.GRA_WRT_1001.getIfCd());
+            setData(APIInfo.GRA_WRT_1001.getIfCd(), menuId);
         }
     }
 
