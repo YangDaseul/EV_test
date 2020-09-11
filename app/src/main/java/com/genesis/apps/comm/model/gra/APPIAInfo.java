@@ -1,17 +1,14 @@
 package com.genesis.apps.comm.model.gra;
 
-import com.genesis.apps.comm.net.HttpRequest;
-
 public enum APPIAInfo {
     INT01("INT01", "page", "Native", "스플래시"),
-    INT01_2("INT01_2", "page", "Native", "접근 권한 알림"), //TODO 로그인/회원가입과 IA 아이디가 같음..
+    INT02("INT02", "page", "Native", "접근 권한 알림"), //TODO 로그인/회원가입과 IA 아이디가 같음..
     INT02_P01("INT02_P01", "page", "Native", "접근권한 설정 팝업"),
     INT03("INT03", "page", "Native", "서비스 가입"),
     INT03_01("INT03_01", "page", "WebVeiw", "제네시스 앱 이용약관"),
     INT03_P01("INT03_P01", "popup", "Native", "서비스 가입 실패 팝업"),
     POP01("POP01", "popup", "Native", "업데이트 팝업"),
     POP02("POP02", "popup", "Native", "네트워크 불안정 팝업"),
-    INT02("INT02", "page", "Native", "로그인/회원가입"),
     ALRM01("ALRM01", "page", "Native", "알림 센터"),
     ALRM01_01("ALRM01_01", "page", "WebVeiw", "알림 상세"),
     ALRM01_SRCH01("ALRM01_SRCH01", "page", "Native", "알림 검색"),
