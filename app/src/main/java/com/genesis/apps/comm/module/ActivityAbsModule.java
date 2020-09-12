@@ -4,7 +4,7 @@
 //
 //import com.genesis.apps.chat.SocketIOHelper;
 //import com.genesis.apps.comm.util.excutor.ExecutorService;
-//import com.genesis.apps.ui.activity.BaseActivity;
+//import com.genesis.apps.ui.common.activity.BaseActivity;
 //
 //import dagger.Binds;
 //import dagger.Module;

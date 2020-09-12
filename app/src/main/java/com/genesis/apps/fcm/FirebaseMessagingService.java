@@ -11,7 +11,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.KeyNames;
-import com.genesis.apps.ui.activity.PushDummyActivity;
+import com.genesis.apps.ui.common.activity.PushDummyActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;

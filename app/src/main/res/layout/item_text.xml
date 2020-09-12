@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+            <TextView
+                android:id="@+id/tv"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:lineSpacingExtra="1sp"
+                android:textColor="@color/x_000000"
+                android:textSize="15sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:gravity="center_vertical|left"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="배출 가스 관련 부품 보증 기간" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

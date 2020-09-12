@@ -4,11 +4,8 @@ import android.app.Activity;
 
 import com.genesis.apps.R;
 import com.genesis.apps.chat.SocketIOHelper;
-import com.genesis.apps.comm.util.ScreenCaptureUtil;
-import com.genesis.apps.comm.util.excutor.ExecutorService;
-import com.genesis.apps.ui.activity.BaseActivity;
-import com.genesis.apps.ui.dialog.TwoButtonDialog;
-import com.hmns.playmap.network.PlayMapRestApi;
+import com.genesis.apps.ui.common.activity.BaseActivity;
+import com.genesis.apps.ui.common.dialog.TwoButtonDialog;
 
 import dagger.Module;
 import dagger.Provides;

@@ -18,8 +18,7 @@ import androidx.databinding.ViewDataBinding;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.core.WebViewFragment;
-import com.genesis.apps.ui.activity.BaseActivity;
-import com.genesis.apps.ui.activity.SubActivity;
+import com.genesis.apps.ui.common.activity.SubActivity;
 
 
 /**
