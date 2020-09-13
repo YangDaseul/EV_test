@@ -21,7 +21,6 @@ public class EntranceActivity extends SubActivity<ActivityEntranceBinding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entrance);
-        ui.setActivity(this);
     }
 
     public void moveToLogin(){

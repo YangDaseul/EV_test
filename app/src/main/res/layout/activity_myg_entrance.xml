@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/l_title"
+            layout="@layout/layout_titlebar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/bold_genesissanstextglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="-11sp"
+            android:text="@string/title_ga"
+            android:textColor="@color/x_000000"
+            android:textSize="27sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_title"/>
+
+
+        <TextView
+            android:id="@+id/tv_msg_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="8sp"
+            android:text="@string/msg_entrance_1"
+            android:textColor="@color/x_525252"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_title"
+            app:layout_constraintEnd_toEndOf="@+id/tv_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
+
+
+        <TextView
+            android:id="@+id/btn_find"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            android:background="@drawable/bg_ffffff_underline_6f6f6f"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:lineSpacingExtra="5sp"
+            android:text="@string/msg_entrance_2"
+            android:textColor="@color/x_141414"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/btn_join"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/bg_ffffff_stroke_141414"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:lineSpacingExtra="6sp"
+            android:gravity="center"
+            android:text="@string/word_entrance_2"
+            android:textColor="@color/x_141414"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_title"
+            app:layout_constraintEnd_toEndOf="@+id/tv_title"
+            app:layout_constraintBottom_toTopOf="@+id/btn_find" />
+
+
+        <TextView
+            android:id="@+id/btn_login"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/x_141414"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:lineSpacingExtra="6sp"
+            android:gravity="center"
+            android:text="@string/word_entrance_1"
+            android:textColor="@color/x_ffffff"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_title"
+            app:layout_constraintEnd_toEndOf="@+id/tv_title"
+            app:layout_constraintBottom_toTopOf="@+id/btn_join" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

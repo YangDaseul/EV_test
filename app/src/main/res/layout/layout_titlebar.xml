@@ -12,6 +12,7 @@
             android:id="@+id/back"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginLeft="5dp"
             android:scaleType="centerInside"
             android:src="@drawable/btn_back"
             app:layout_constraintTop_toTopOf="parent"

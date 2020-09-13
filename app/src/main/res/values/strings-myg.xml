@@ -2,6 +2,7 @@
     <string name="title_noti">공지사항</string>
     <string name="title_version">버전 정보</string>
     <string name="title_ga">제네시스 어카운트</string>
+    <string name="title_home">MY G</string>
 
     <string name="title_terms_1">이용약관</string>
     <string name="title_terms_2">개인정보처리방침</string>
@@ -13,13 +14,39 @@
 
 
 
+    <string name="word_home_0">Hello.</string>
+    <string name="word_home_1">내 정보 보기</string>
+    <string name="word_home_2">MEMBERSHIP</string>
+    <string name="word_home_3">사용 가능 포인트</string>
+    <string name="word_home_4">MOBILITY CARE</string>
+    <string name="word_home_5">PRIVILEGE</string>
+    <string name="word_home_6">신청하기</string>
+    <string name="word_home_7">주유 포인트 연동</string>
+    <string name="word_home_8">연동하기</string>
+    <string name="word_home_9">데이터 연동</string>
+    <string name="word_home_10">마카롱</string>
+    <string name="word_home_11">오원</string>
+    <string name="word_home_12">와이퍼</string>
+    <string name="word_home_13">해제하기</string>
+    <string name="word_home_14">080-700-6000</string>
+    <string name="word_home_15">전화 상담</string>
+    <string name="word_home_16">CONNECTED</string>
+    <string name="word_home_17">Digital Key</string>
+    <string name="word_home_18">G-Carpay</string>
+    <string name="word_home_19">Built in CAM</string>
+    <string name="word_home_20">차량목록</string>
+    <string name="word_home_21">혜택</string>
+    <string name="word_home_22">현황</string>
+
+    <string name="msg_home_1">제네시스 고객센터 입니다.</string>
+    <string name="msg_home_2">보증 기간 동안 더 이상의 불편함 없이 가장 필요한 서비스를 가장 편리한 방식으로 이용하실 수 있습니다.</string>
+    <string name="msg_home_3">평일 09:00-19:00\n일요일 09:00-16:00ㆍ토/공휴일 09:00-17:00\n긴급출동 서비스(24시간)</string>
 
     <string name="word_version_1">현재 버전</string>
     <string name="word_version_2">최신 버전</string>
     <string name="word_version_3">업데이트</string>
     <string name="msg_version_1">최신 버전입니다.</string>
     <string name="msg_version_2">업데이트가 필요합니다.</string>
-
 
     <string name="word_ga_1">%s 님</string>
     <string name="word_ga_2">휴대폰</string>
@@ -35,8 +62,6 @@
     <string name="word_ga_12">전화</string>
     <string name="word_ga_13">제네시스 어카운트 탈퇴</string>
     <string name="word_ga_14">탈퇴</string>
-
-
     <string name="msg_ga_1">제네시스 어카운트를 탈퇴하시면 최초 등록한 통합계정(이메일 ID)가 삭제됩니다.</string>
     <string name="msg_ga_2">다시 제네시스 어카운트 서비스를 이용하시려면, 신규 회원 가입이 필요합니다.</string>
     <string name="msg_ga_3">1. 수집·이용 목적 : 신규 상품 서비스 안내, 이벤트 및 행사 안내, 최신 기업 정보 안내, 고객별 통계 분석, 시장조사 등을 합니다.
@@ -52,7 +77,6 @@
     <string name="word_membership_5">소멸 예정 포인트</string>
     <string name="word_membership_6">6개월 이내</string>
     <string name="word_membership_7"></string>
-
     <string name="msg_membership_1">카드를 신청하신 후 1개월이 지나도록 카드가 도착하지 않았다면, 다시 재발급 신청을 하시기 바랍니다.</string>
     <string name="msg_membership_2">여러 장의 카드를 보유하고 계셔도 포인트는 통합 관리 되며, 재발급 시 기존 카드는 소멸됩니다.</string>
     <string name="msg_membership_3">블루멤버스 일반카드 발급 관련 자세한 문의는 현대자동차 고객센터(080-600-6000)로 문의 바랍니다.</string>
@@ -64,4 +88,9 @@
     <string name="msg_membership_9">안전한 사용을 위하여 카드 수령 후 반드시 비밀번호를 변경해 주시기 바랍니다.</string>
     <string name="msg_membership_10">재발급 카드의 경우 기존 비밀번호가 그대로 유지됩니다.</string>
     <string name="msg_membership_11">소멸 예정 포인트가 없습니다.</string>
+
+    <string name="word_entrance_1">로그인</string>
+    <string name="word_entrance_2">회원가입</string>
+    <string name="msg_entrance_1">로그인이 필요합니다.\n아직 회원이 아니시면 회원가입을 해주세요.</string>
+    <string name="msg_entrance_2">아이디를 잊어버리셨나요?</string>
 </resources>
