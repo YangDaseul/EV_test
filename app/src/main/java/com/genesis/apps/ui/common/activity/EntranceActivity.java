@@ -2,6 +2,7 @@ package com.genesis.apps.ui.common.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.RequestCodes;
@@ -21,6 +22,11 @@ public class EntranceActivity extends SubActivity<ActivityEntranceBinding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entrance);
+    }
+
+    @Override
+    public void onSingleClick(View v) {
+
     }
 
     public void moveToLogin(){

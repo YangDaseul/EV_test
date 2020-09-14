@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.myg;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
@@ -104,6 +105,11 @@ public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
         });
 
         mypViewModel.reqMYP8005(new MYP_8005.Request(APPIAInfo.MG_NOTICE01.getId(), "1","20"));
+    }
+
+    @Override
+    public void onSingleClick(View v) {
+
     }
 
     private List<NotiVO> getListData(){

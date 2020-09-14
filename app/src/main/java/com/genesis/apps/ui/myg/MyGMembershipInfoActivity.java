@@ -28,4 +28,9 @@ public class MyGMembershipInfoActivity extends SubActivity<ActivityMygMembership
         });
         //TODO 처리 필요
     }
+
+    @Override
+    public void onSingleClick(View v) {
+
+    }
 }

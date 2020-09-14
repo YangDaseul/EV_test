@@ -105,6 +105,11 @@ public class CardViewActivity extends SubActivity<ActivityVerticalOverlapExample
         });
     }
 
+    @Override
+    public void onSingleClick(View v) {
+
+    }
+
     private List<Link> getListData(){
         List<Link> links = new LinkedList<Link>();
 

@@ -143,6 +143,11 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
     }
 
     @Override
+    public void onSingleClick(View v) {
+
+    }
+
+    @Override
     public void onResume(){
         super.onResume();
         checkPushCode();

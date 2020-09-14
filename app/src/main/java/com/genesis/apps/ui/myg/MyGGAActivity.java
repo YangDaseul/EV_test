@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.myg;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.ActivityMygVersionBinding;
@@ -34,6 +35,11 @@ public class MyGGAActivity extends SubActivity<ActivityMygVersionBinding> {
 //        ui.tvNewTitle.setTextColor(getColor(R.color.x_cd9a81));
 //        ui.tvNewVersion.setTextColor(getColor(R.color.x_cd9a81));
 //        ui.tvUpdate.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onSingleClick(View v) {
+
     }
 
 }

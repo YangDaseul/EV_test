@@ -167,4 +167,14 @@ public class PackageUtil {
             }
         }
     }
+
+    /**
+     * @brief 앱 설치 유무 확인
+     * @param packageName 앱 패키지 명
+     * @return true : 설치됨 / false : 설치되지 않음
+     */
+    public static boolean isInstallApp(Context context, String packageName){
+        return context.getPackageManager().getLaunchIntentForPackage(packageName) != null;
+    }
+
 }

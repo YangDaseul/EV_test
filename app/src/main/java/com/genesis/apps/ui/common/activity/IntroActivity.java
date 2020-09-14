@@ -3,6 +3,7 @@ package com.genesis.apps.ui.common.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.RequestCodes;
@@ -29,6 +30,11 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
         setContentView(R.layout.activity_intro);
 //        setForegroundService();
         init();
+    }
+
+    @Override
+    public void onSingleClick(View v) {
+
     }
 
 //    private void setForegroundService() {

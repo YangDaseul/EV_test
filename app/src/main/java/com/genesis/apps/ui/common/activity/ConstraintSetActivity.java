@@ -34,6 +34,11 @@ public class ConstraintSetActivity extends SubActivity<ActivityCont1Binding> {
     }
 
     @Override
+    public void onSingleClick(View v) {
+
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
     }

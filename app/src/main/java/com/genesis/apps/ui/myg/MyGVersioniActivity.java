@@ -53,6 +53,11 @@ public class MyGVersioniActivity extends SubActivity<ActivityMygVersionBinding> 
         mypViewModel.reqMYP8004(new MYP_8004.Request(APPIAInfo.MG_VERSION01.getId()));
     }
 
+    @Override
+    public void onSingleClick(View v) {
+
+    }
+
     private void setView(String currentVersion, String newVersion){
         if (PackageUtil.versionCompare(currentVersion,newVersion)<0) {
             //업데이트필요한경우

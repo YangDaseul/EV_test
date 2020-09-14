@@ -54,4 +54,8 @@
     <string name="scrollViewStart">START OF SCROLLVIEW</string>
     <string name="scrollViewEnd">END OF SCROLLVIEW</string>
 
+    <string name="package_name_connected">com.obigo.genesis</string>
+    <string name="package_name_digitalkey">com.genesis.digitalcarkey</string>
+    <string name="package_name_carpay">com.genesis.icp</string>
+    <string name="package_name_cam">com.genesis.builtincam.kr</string>
 </resources>

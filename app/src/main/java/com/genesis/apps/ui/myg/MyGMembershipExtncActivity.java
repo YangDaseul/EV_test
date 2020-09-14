@@ -74,6 +74,11 @@ public class MyGMembershipExtncActivity extends SubActivity<ActivityMygMembershi
         mypViewModel.reqMYP2006(new MYP_2006.Request(APPIAInfo.MG_MEMBER01_P01.getId()));
     }
 
+    @Override
+    public void onSingleClick(View v) {
+
+    }
+
     private void setEmptyView(int itemCount){
         if(itemCount>0){
             ui.rv.setVisibility(View.VISIBLE);

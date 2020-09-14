@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebView;
 
 import androidx.fragment.app.FragmentTransaction;
@@ -34,6 +35,11 @@ public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
         }
         url = intent.getStringExtra("url");
         initWebview(url);
+    }
+
+    @Override
+    public void onSingleClick(View v) {
+
     }
 //    public void reload() {
 //        Log.d(TAG, "reload:" + url);

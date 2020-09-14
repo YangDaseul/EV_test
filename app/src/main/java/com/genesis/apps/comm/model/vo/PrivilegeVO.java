@@ -31,9 +31,14 @@ class PrivilegeVO extends BaseData {
     @Expose
     @SerializedName("vin")
     private String vin;
+
     @Expose
     @SerializedName("joinPsblCd")
     private String joinPsblCd;
+    public static final String JOIN_CODE_APPLY_POSSIBLE="0";
+    public static final String JOIN_CODE_APPLYED="1";
+    public static final String JOIN_CODE_UNABLE_APPLY="9";
+
     @Expose
     @SerializedName("stusCd")
     private String stusCd;

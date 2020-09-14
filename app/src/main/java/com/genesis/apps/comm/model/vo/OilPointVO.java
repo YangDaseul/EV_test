@@ -32,12 +32,22 @@ class OilPointVO extends BaseData {
     @Expose
     @SerializedName("oilRfnCd")
     private String oilRfnCd;
+    public static final String OIL_CODE_HDOL="HDOL";
+    public static final String OIL_CODE_GSCT="GSCT";
+    public static final String OIL_CODE_SOIL="SOIL";
+    public static final String OIL_CODE_SKNO="SKNO";
+
     @Expose
     @SerializedName("oilRfnNm")
     private String oilRfnNm;
     @Expose
     @SerializedName("rgstYn")
     private String rgstYn;
+    public static final String OIL_JOIN_CODE_Y="Y";
+    public static final String OIL_JOIN_CODE_N="N";
+    public static final String OIL_JOIN_CODE_R="R";
+
+
     @Expose
     @SerializedName("cardNo")
     private String cardNo;
