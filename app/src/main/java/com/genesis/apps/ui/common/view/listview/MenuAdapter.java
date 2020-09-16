@@ -57,10 +57,8 @@ public class MenuAdapter extends BaseRecyclerViewAdapter2<MenuVO> {
         public void onBindView(MenuVO item, int pos) {
             getBinding().tvName.setText(item.getName());
             getBinding().btnDel.setVisibility(isRecently ? View.VISIBLE : View.GONE);
-            getBinding().btnDel.setOnClickListener(view -> {
-                if(onItemClickListener!=null)
-                    onItemClickListener.onClick(view,pos);
-            });
+            getBinding().btnDel.setOnClickListener(view -> onItemClickListener.onClick(view,pos));
+            getBinding().lWhole.setOnClickListener(view -> onItemClickListener.onClick(view,pos));
         }
 
         @Override

@@ -1,94 +1,57 @@
 package com.genesis.apps.comm.model.main.myg;
 
+import com.genesis.apps.comm.model.vo.MenuVO;
+import com.genesis.apps.comm.net.NetUIResponse;
+
+import java.util.List;
+
 import androidx.hilt.Assisted;
 import androidx.hilt.lifecycle.ViewModelInject;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
+import lombok.Data;
 
-import com.genesis.apps.comm.model.map.AroundPOIReqVO;
-import com.genesis.apps.comm.model.map.FindPathReqVO;
-import com.genesis.apps.comm.model.map.FindPathResVO;
-import com.genesis.apps.comm.model.map.MapRepository;
-import com.genesis.apps.comm.model.map.ReverseGeocodingReqVO;
-import com.genesis.apps.comm.net.NetUIResponse;
-import com.hmns.playmap.extension.PlayMapGeoItem;
-import com.hmns.playmap.extension.PlayMapPoiItem;
+import static com.genesis.apps.comm.model.main.myg.MenuRepository.ACTION_GET_MENU_ALL;
 
-import java.util.ArrayList;
+public @Data
+class MenuViewModel extends ViewModel {
 
-public class MenuViewModel extends ViewModel {
-
-    private final MapRepository repository;
+    private final MenuRepository repository;
     private final SavedStateHandle savedStateHandle;
 
-    private MutableLiveData<NetUIResponse<FindPathResVO>> findPathResVo;
-    private MutableLiveData<NetUIResponse<ArrayList<PlayMapPoiItem>>> playMapPoiItemList;
-    private MutableLiveData<NetUIResponse<PlayMapGeoItem>> playMapGeoItem;
+    private MutableLiveData<NetUIResponse<List<MenuVO>>> menuList;
+    private MutableLiveData<NetUIResponse<List<MenuVO>>> recentlyMenuList;
+    private MutableLiveData<NetUIResponse<List<MenuVO>>> keywordMenuList;
 
-    private MutableLiveData<NetUIResponse<ArrayList<PlayMapGeoItem>>> playMapGeoItemList;
+//    public final LiveData<VehicleVO> carVO = Transformations.map(RES_LGN_0001, input -> input.data.getCarVO());
+//    public final LiveData<VehicleVO> carVO =
+//            Transformations.switchMap(RES_LGN_0001, new Function<NetUIResponse<LGN_0001.Response>, LiveData<VehicleVO>>() {
+//                @Override
+//                public LiveData<VehicleVO> apply(NetUIResponse<LGN_0001.Response> input) {
+//                    return input.data.getCarVO(); repo에서 getcarvo로 가저올수있는.. 다른걸 요청 가능
+//                }
+//            });
 
-
-
-    private MutableLiveData<Integer> testCount;
-//    public final LiveData<ArrayList<ExampleResVO>> datas = Transformations.map(exampleResVo, exampleResVo->parsingOnlyData(exampleResVo));
     @ViewModelInject
     MenuViewModel(
-            MapRepository repository,
+            MenuRepository repository,
             @Assisted SavedStateHandle savedStateHandle)
     {
         this.repository = repository;
         this.savedStateHandle = savedStateHandle;
 
-        playMapPoiItemList = repository.playMapPoiItemList;
-        findPathResVo = repository.findPathResVo;
-        playMapGeoItem = repository.playMapGeoItem;
-        playMapGeoItemList = repository.playMapGeoItemList;
-
-        testCount = repository.testCount;
+        menuList = repository.menuList;
+        recentlyMenuList = repository.recentlyMenuList;
+        keywordMenuList = repository.keywordMenuList;
     }
-
-    public void reqFindPathResVo(final FindPathReqVO findPathReqVO){
-        findPathResVo.setValue(repository.findPathDataJson(findPathReqVO).getValue());
+    public void reqMenuList(){
+        menuList.setValue(repository.getMenuList().getValue());
     }
-
-    public LiveData<NetUIResponse<FindPathResVO>> getFindPathResVo() {
-        return findPathResVo;
+    public void reqRecentlyMenuList(int action, MenuVO menuVO){
+        recentlyMenuList.setValue(repository.getRecentlyMenuList(action,menuVO).getValue());
     }
-
-    public void reqPlayMapPoiItemList(final AroundPOIReqVO aroundPOIReqVO){
-        playMapPoiItemList.setValue(repository.aroundPOIserch(aroundPOIReqVO).getValue());
+    public void reqKeywordMenuList(MenuVO menuVO){
+        keywordMenuList.setValue(repository.getKeywordMenuList(menuVO).getValue());
     }
-
-    public LiveData<NetUIResponse<ArrayList<PlayMapPoiItem>>> getPlayMapPoiItemList() {
-        return playMapPoiItemList;
-    }
-
-    public void reqPlayMapGeoItem(final ReverseGeocodingReqVO reverseGeocodingReqVO){
-        playMapGeoItem.setValue(repository.reverseGeocoding(reverseGeocodingReqVO).getValue());
-    }
-
-    public LiveData<NetUIResponse<PlayMapGeoItem>> getPlayMapGeoItem() {
-        return playMapGeoItem;
-    }
-
-    public void reqTestCount(){
-        repository.addCount();
-    }
-
-    public MutableLiveData<Integer> getTestCount() {
-        return testCount;
-    }
-
-
-
-    public void reqPlayMapGeoItemList(final String keyword){
-        playMapGeoItemList.setValue(repository.searchGeocoding(keyword).getValue());
-    }
-
-    public LiveData<NetUIResponse<ArrayList<PlayMapGeoItem>>> getPlayMapGeoItemList() {
-        return playMapGeoItemList;
-    }
-
 }
