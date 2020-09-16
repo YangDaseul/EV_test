@@ -23,7 +23,7 @@ public class BTR_1008 extends BaseData {
      * @see #ny 단말 위도 좌표
      * @see #addr 위치주소1
      * 시도
-     * @see #addrDtll 위치주소2
+     * @see #addrDtl 위치주소2
      * 시/군
      * @see #firmScnCd 정비망업체속성코드
      * FIRM_SCN_CD = 1 또는 4 : 제네시스전담
@@ -46,8 +46,8 @@ public class BTR_1008 extends BaseData {
         @SerializedName("addr")
         private String addr;
         @Expose
-        @SerializedName("addrDtll")
-        private String addrDtll;
+        @SerializedName("addrDtl")
+        private String addrDtl;
         @Expose
         @SerializedName("firmScnCd")
         private String firmScnCd;
@@ -55,11 +55,11 @@ public class BTR_1008 extends BaseData {
         @SerializedName("acps1Cd")
         private String acps1Cd;
 
-        public Request(String menuId, String nx, String ny, String addr, String addrDtll, String firmScnCd, String acps1Cd){
+        public Request(String menuId, String nx, String ny, String addr, String addrDtl, String firmScnCd, String acps1Cd){
             this.nx = nx;
             this.ny = ny;
             this.addr = addr;
-            this.addrDtll = addrDtll;
+            this.addrDtl = addrDtl;
             this.firmScnCd = firmScnCd;
             this.acps1Cd = acps1Cd;
             setData(APIInfo.GRA_BTR_1008.getIfCd(), menuId);

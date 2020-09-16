@@ -34,8 +34,6 @@ import static com.genesis.apps.comm.util.PackageUtil.isInstallApp;
 
 public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
-
-
     private MYPViewModel mypViewModel;
 
     @Override

@@ -1,7 +1,7 @@
 package com.genesis.apps.comm.model.gra;
 
 import com.genesis.apps.comm.model.BaseData;
-import com.genesis.apps.comm.model.vo.QuickMenuVO;
+import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -11,34 +11,31 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * @file GRA_LGN_0006
- * @Brief 고객구분별 퀵메뉴
  * @author hjpark
+ * @file GRA_REQ_1004
+ * @Brief service + 정비예약 - 정비내용조회(업체미선택)
  */
-public class LGN_0006 extends BaseData {
+public class REQ_1004 extends BaseData {
     /**
-     * @brief LGN_0006의 요청 항목
-     * @author hjpark
+     * @brief REQ_1004 요청 항목
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     static
     class Request extends BaseRequest{
         public Request(String menuId){
-            setData(APIInfo.GRA_LGN_0006.getIfCd(), menuId);
+            setData(APIInfo.GRA_REQ_1004.getIfCd(), menuId);
         }
     }
-
     /**
-     * @brief LGN_0006의 응답 항목
-     * @author hjpark
-     * @see #qckMenuList 퀵메뉴리스트
+     * @brief REQ_1004 응답 항목
+     * @see #rparTypList 정비내용리스트
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse{
         @Expose
-        @SerializedName("qckMenuList")
-        private List<QuickMenuVO> qckMenuList;
+        @SerializedName("rparTypList")
+        private List<RepairTypeVO> rparTypList;
     }
 }

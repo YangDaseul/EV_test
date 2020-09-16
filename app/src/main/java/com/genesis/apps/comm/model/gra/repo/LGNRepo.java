@@ -10,6 +10,7 @@ import com.genesis.apps.comm.model.gra.LGN_0003;
 import com.genesis.apps.comm.model.gra.LGN_0004;
 import com.genesis.apps.comm.model.gra.LGN_0005;
 import com.genesis.apps.comm.model.gra.LGN_0006;
+import com.genesis.apps.comm.model.gra.LGN_0007;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.net.NetResultCallback;
@@ -28,6 +29,7 @@ public class LGNRepo {
     public final MutableLiveData<NetUIResponse<LGN_0004.Response>> RES_LGN_0004 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<LGN_0005.Response>> RES_LGN_0005 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<LGN_0006.Response>> RES_LGN_0006 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<LGN_0007.Response>> RES_LGN_0007 = new MutableLiveData<>();
 
     @Inject
     public LGNRepo(NetCaller netCaller){
@@ -160,6 +162,27 @@ public class LGNRepo {
         }, APIInfo.GRA_LGN_0006, reqData);
 
         return RES_LGN_0006;
+    }
+
+    public MutableLiveData<NetUIResponse<LGN_0007.Response>> REQ_LGN_0007(final LGN_0007.Request reqData){
+
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_LGN_0007.setValue(NetUIResponse.success(new Gson().fromJson(object, LGN_0007.Response.class)));
+                //TODO SINGLETON VO에 값 저장?
+            }
+            @Override
+            public void onFail(NetResult e) {
+                RES_LGN_0007.setValue(NetUIResponse.error(e.getMseeage(),null));
+            }
+            @Override
+            public void onError(NetResult e) {
+                RES_LGN_0007.setValue(NetUIResponse.error(R.string.error_msg_4,null));
+            }
+        }, APIInfo.GRA_LGN_0007, reqData);
+
+        return RES_LGN_0007;
     }
 
 

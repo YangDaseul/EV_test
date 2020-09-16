@@ -55,8 +55,8 @@ public class SOS_1006 extends BaseData {
         @SerializedName("addr")
         private String addr;
         @Expose
-        @SerializedName("vrn")
-        private String vrn;
+        @SerializedName("carRegNo")
+        private String carRegNo;
         @Expose
         @SerializedName("memo")
         private String memo;

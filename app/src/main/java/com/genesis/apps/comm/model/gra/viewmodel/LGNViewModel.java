@@ -13,6 +13,8 @@ import com.genesis.apps.comm.model.gra.LGN_0002;
 import com.genesis.apps.comm.model.gra.LGN_0003;
 import com.genesis.apps.comm.model.gra.LGN_0004;
 import com.genesis.apps.comm.model.gra.LGN_0005;
+import com.genesis.apps.comm.model.gra.LGN_0006;
+import com.genesis.apps.comm.model.gra.LGN_0007;
 import com.genesis.apps.comm.model.gra.repo.LGNRepo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
@@ -32,6 +34,9 @@ class LGNViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<LGN_0003.Response>> RES_LGN_0003;
     private MutableLiveData<NetUIResponse<LGN_0004.Response>> RES_LGN_0004;
     private MutableLiveData<NetUIResponse<LGN_0005.Response>> RES_LGN_0005;
+
+    private MutableLiveData<NetUIResponse<LGN_0006.Response>> RES_LGN_0006;
+    private MutableLiveData<NetUIResponse<LGN_0007.Response>> RES_LGN_0007;
 
     public final LiveData<List<VehicleVO>> carVO = Transformations.map(RES_LGN_0001, input -> input.data.getOwnVhclList());
 
@@ -57,6 +62,9 @@ class LGNViewModel extends ViewModel {
         RES_LGN_0003 = repository.RES_LGN_0003;
         RES_LGN_0004 = repository.RES_LGN_0004;
         RES_LGN_0005 = repository.RES_LGN_0005;
+
+        RES_LGN_0006 = repository.RES_LGN_0006;
+        RES_LGN_0007 = repository.RES_LGN_0007;
     }
 
     public void reqLGN0001(final LGN_0001.Request reqData){
@@ -77,5 +85,13 @@ class LGNViewModel extends ViewModel {
 
     public void reqLGN0005(final LGN_0005.Request reqData){
         RES_LGN_0005.setValue(repository.REQ_LGN_0005(reqData).getValue());
+    }
+
+    public void reqLGN0006(final LGN_0006.Request reqData){
+        RES_LGN_0006.setValue(repository.REQ_LGN_0006(reqData).getValue());
+    }
+
+    public void reqLGN0007(final LGN_0007.Request reqData){
+        RES_LGN_0007.setValue(repository.REQ_LGN_0007(reqData).getValue());
     }
 }

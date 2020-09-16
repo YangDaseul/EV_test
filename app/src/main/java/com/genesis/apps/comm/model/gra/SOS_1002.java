@@ -17,7 +17,7 @@ public class SOS_1002 extends BaseData {
      * @brief SOS_1002 요청 항목
      *
      * @see #vin 차대번호
-     * @see #vrn 차량번호
+     * @see #carRegNo 차량번호
      * @see #mdlCd 차종코드
      * @see #fltCd 고장구분코드
      *  '010101' : 시동불가
@@ -47,8 +47,8 @@ public class SOS_1002 extends BaseData {
         @SerializedName("vin")
         private String vin;
         @Expose
-        @SerializedName("vrn")
-        private String vrn;
+        @SerializedName("carRegNo")
+        private String carRegNo;
         @Expose
         @SerializedName("mdlCd")
         private String mdlCd;
@@ -74,10 +74,10 @@ public class SOS_1002 extends BaseData {
         @SerializedName("memo")
         private String memo;
 
-        public Request(String menuId, String vin, String vrn, String mdlCd, String fltCd, String areaClsCd, String addr, String addrX, String addrY, String celphNo, String memo){
+        public Request(String menuId, String vin, String carRegNo, String mdlCd, String fltCd, String areaClsCd, String addr, String addrX, String addrY, String celphNo, String memo){
             this.vin = vin;
 
-            this.vrn = vrn;
+            this.carRegNo = carRegNo;
             this.mdlCd = mdlCd;
             this.fltCd = fltCd;
             this.areaClsCd = areaClsCd;
@@ -103,8 +103,8 @@ public class SOS_1002 extends BaseData {
         @SerializedName("tmpAcptDtm")
         private String tmpAcptDtm;
         @Expose
-        @SerializedName("vrn")
-        private String vrn;
+        @SerializedName("carRegNo")
+        private String carRegNo;
         @Expose
         @SerializedName("areaClsCd")
         private String areaClsCd;

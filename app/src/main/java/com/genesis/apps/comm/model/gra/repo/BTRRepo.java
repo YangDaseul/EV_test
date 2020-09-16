@@ -8,6 +8,9 @@ import com.genesis.apps.comm.model.gra.BTR_1001;
 import com.genesis.apps.comm.model.gra.BTR_1008;
 import com.genesis.apps.comm.model.gra.BTR_1009;
 import com.genesis.apps.comm.model.gra.BTR_1010;
+import com.genesis.apps.comm.model.gra.BTR_1011;
+import com.genesis.apps.comm.model.gra.BTR_1012;
+import com.genesis.apps.comm.model.gra.BTR_1013;
 import com.genesis.apps.comm.model.gra.VOC_1005;
 import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.TermVO;
@@ -27,6 +30,9 @@ public class BTRRepo {
     public final MutableLiveData<NetUIResponse<BTR_1008.Response>> RES_BTR_1008 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<BTR_1009.Response>> RES_BTR_1009 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<BTR_1010.Response>> RES_BTR_1010 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<BTR_1011.Response>> RES_BTR_1011 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<BTR_1012.Response>> RES_BTR_1012 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<BTR_1013.Response>> RES_BTR_1013 = new MutableLiveData<>();
     
     @Inject
     public BTRRepo(NetCaller netCaller) {
@@ -132,6 +138,75 @@ public class BTRRepo {
         }, APIInfo.GRA_BTR_1010, reqData);
 
         return RES_BTR_1010;
+    }
+
+    public MutableLiveData<NetUIResponse<BTR_1011.Response>> REQ_BTR_1011(final BTR_1011.Request reqData) {
+        RES_BTR_1011.setValue(NetUIResponse.loading(null));
+
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_BTR_1011.setValue(NetUIResponse.success(new Gson().fromJson(object, BTR_1011.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_BTR_1011.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_BTR_1011.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_BTR_1011, reqData);
+
+        return RES_BTR_1011;
+    }
+
+    public MutableLiveData<NetUIResponse<BTR_1012.Response>> REQ_BTR_1012(final BTR_1012.Request reqData) {
+        RES_BTR_1012.setValue(NetUIResponse.loading(null));
+
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_BTR_1012.setValue(NetUIResponse.success(new Gson().fromJson(object, BTR_1012.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_BTR_1012.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_BTR_1012.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_BTR_1012, reqData);
+
+        return RES_BTR_1012;
+    }
+
+    public MutableLiveData<NetUIResponse<BTR_1013.Response>> REQ_BTR_1013(final BTR_1013.Request reqData) {
+        RES_BTR_1013.setValue(NetUIResponse.loading(null));
+
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_BTR_1013.setValue(NetUIResponse.success(new Gson().fromJson(object, BTR_1013.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_BTR_1013.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_BTR_1013.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_BTR_1013, reqData);
+
+        return RES_BTR_1013;
     }
 
 }

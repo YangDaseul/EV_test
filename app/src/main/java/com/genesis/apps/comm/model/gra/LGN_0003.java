@@ -37,14 +37,14 @@ public class LGN_0003 extends BaseData {
     /**
      * @author hjpark
      * @brief LGN_0003 응답 항목
-     * @see #mainNo 접수번호
+     * @see #acptNo 접수번호
      * HSW 시스템 정의
-     * @see #mainDt 정비일자
+     * @see #asnCd 정비일자
      * (형식 YYYY-MM-DD)
-     * @see #mainNetNm 정비망명
-     * @see #mainStatsNm 정비상태명
+     * @see #asnNm 정비망명
+     * @see #asnStatsNm 정비상태명
      * HSW 시스템 정의
-     * @see #mainStatsCd 정비상태코드
+     * @see #asnStatsCd 정비상태코드
      * HSW 시스템 정의
      * @see #mainHistList 정비이력정보
      * 리스트 정보 (최대 최근3개)
@@ -61,24 +61,24 @@ public class LGN_0003 extends BaseData {
     public @Data
     class Response extends BaseResponse{
         @Expose
-        @SerializedName("mainNo")
-        private String mainNo;
+        @SerializedName("acptNo")
+        private String acptNo;
         @Expose
-        @SerializedName("mainDt")
-        private String mainDt;
+        @SerializedName("asnCd")
+        private String asnCd;
         @Expose
-        @SerializedName("mainNetNm")
-        private String mainNetNm;
+        @SerializedName("asnNm")
+        private String asnNm;
         @Expose
-        @SerializedName("mainStatsNm")
-        private String mainStatsNm;
+        @SerializedName("asnStatsNm")
+        private String asnStatsNm;
         @Expose
-        @SerializedName("mainStatsCd")
-        private String mainStatsCd;
+        @SerializedName("asnStatsCd")
+        private String asnStatsCd;
 
         @Expose
-        @SerializedName("mainHistList")
-        private List<MainHistVO> mainHistList;
+        @SerializedName("asnHistList")
+        private List<MainHistVO> asnHistList;
 
         @Expose
         @SerializedName("butlNm")

@@ -30,7 +30,7 @@ import lombok.EqualsAndHashCode;
  *
  * @see #pgrsStusCd 진행상태코드
  * 진행상태 - (R:신청, -> W:접수,-> S:출동,-> E:완료, C:취소)
- * @see #vrn 차량등록번호
+ * @see #carRegNo 차량등록번호
  * @see #areaClsCd 지역구분코드
  * R - 일반 도로
  * H - 자동차 전용도로/고속도로
@@ -64,8 +64,8 @@ class SOSStateVO extends BaseData {
     @SerializedName("pgrsStusCd")
     private String pgrsStusCd;
     @Expose
-    @SerializedName("vrn")
-    private String vrn;
+    @SerializedName("carRegNo")
+    private String carRegNo;
     @Expose
     @SerializedName("areaClsCd")
     private String areaClsCd;

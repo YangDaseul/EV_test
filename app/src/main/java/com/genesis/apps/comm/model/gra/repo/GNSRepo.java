@@ -16,6 +16,9 @@ import com.genesis.apps.comm.model.gra.GNS_1009;
 import com.genesis.apps.comm.model.gra.GNS_1010;
 import com.genesis.apps.comm.model.gra.GNS_1011;
 import com.genesis.apps.comm.model.gra.GNS_1012;
+import com.genesis.apps.comm.model.gra.GNS_1013;
+import com.genesis.apps.comm.model.gra.GNS_1014;
+import com.genesis.apps.comm.model.gra.GNS_1015;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.net.NetResultCallback;
@@ -40,6 +43,10 @@ public class GNSRepo {
     public final MutableLiveData<NetUIResponse<GNS_1010.Response>> RES_GNS_1010 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<GNS_1011.Response>> RES_GNS_1011 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<GNS_1012.Response>> RES_GNS_1012 = new MutableLiveData<>();
+
+    public final MutableLiveData<NetUIResponse<GNS_1013.Response>> RES_GNS_1013 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<GNS_1014.Response>> RES_GNS_1014 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<GNS_1015.Response>> RES_GNS_1015 = new MutableLiveData<>();
 
     @Inject
     public GNSRepo(NetCaller netCaller) {
@@ -311,4 +318,69 @@ public class GNSRepo {
     }
 
 
+
+    public MutableLiveData<NetUIResponse<GNS_1013.Response>> REQ_GNS_1013(final GNS_1013.Request reqData) {
+
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_GNS_1013.setValue(NetUIResponse.success(new Gson().fromJson(object, GNS_1013.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_GNS_1013.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_GNS_1013.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_GNS_1013, reqData);
+
+        return RES_GNS_1013;
+    }
+    public MutableLiveData<NetUIResponse<GNS_1014.Response>> REQ_GNS_1014(final GNS_1014.Request reqData) {
+
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_GNS_1014.setValue(NetUIResponse.success(new Gson().fromJson(object, GNS_1014.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_GNS_1014.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_GNS_1014.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_GNS_1014, reqData);
+
+        return RES_GNS_1014;
+    }
+    public MutableLiveData<NetUIResponse<GNS_1015.Response>> REQ_GNS_1015(final GNS_1015.Request reqData) {
+
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_GNS_1015.setValue(NetUIResponse.success(new Gson().fromJson(object, GNS_1015.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_GNS_1015.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_GNS_1015.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_GNS_1015, reqData);
+
+        return RES_GNS_1015;
+    }
+    
 }

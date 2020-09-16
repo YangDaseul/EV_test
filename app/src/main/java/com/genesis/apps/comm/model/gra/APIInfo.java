@@ -17,6 +17,7 @@ public enum APIInfo {
     GRA_LGN_0004("PUSH ID 변경 요청", "LGN-0004", HttpRequest.METHOD_POST, "/graapi/lgn/updPushId.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_LGN_0005("로그인+날씨예보", "LGN-0005", HttpRequest.METHOD_POST, "/graapi/lgn/weatherInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_LGN_0006("로그인+퀵메뉴", "LGN-0006", HttpRequest.METHOD_POST, "/graapi/lgn/quickMenu.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_LGN_0007("로그인+ 토픽", "LGN-0007", HttpRequest.METHOD_POST, "/graapi/lgn/topic.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     GRA_MYP_0001("계정 정보 요청", "MYP-0001", HttpRequest.METHOD_POST, "/graapi/myp/acctInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_MYP_0004("마케팅 수신동의 변경 요청", "MYP-0004", HttpRequest.METHOD_POST, "/graapi/myp/mrktAgree.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
@@ -51,9 +52,7 @@ public enum APIInfo {
     GRA_OIL_0004("MyG+ 정유사 약관 상세", "OIL-0004", HttpRequest.METHOD_POST, "/graapi/myg/oilCompTermsDetail.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_OIL_0005("MyG+ 정유사  재연동요청", "OIL-0005", HttpRequest.METHOD_POST, "/graapi/myg/oilCompLinkReconn.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
-
     GRA_BAR_1001("바코드 (카드리스트)", "BAR-1001", HttpRequest.METHOD_POST, "/graapi/bar/barList.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-
 
     GRA_GNS_1001("My차고 + 차량목록조회", "GNS-1001", HttpRequest.METHOD_POST, "/graapi/gns/myVinSerach.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_GNS_1002("My차고 + 차량번호수정", "GNS-1002", HttpRequest.METHOD_POST, "/graapi/gns/myVinUpdate.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
@@ -68,6 +67,9 @@ public enum APIInfo {
     GRA_GNS_1011("My차고 + 렌트/리스 실운행자 확인", "GNS-1011", HttpRequest.METHOD_POST, "/graapi/gns/myRentOwnerConfirm.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_GNS_1012("My차고 + 렌트/리스 실운행자 상세", "GNS-1012", HttpRequest.METHOD_POST, "/graapi/gns/myRentOwnerDetail.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
+    GRA_GNS_1013("My차고 + 렌트/리스 수정하기", "GNS-1013", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),//todo 주소없음
+    GRA_GNS_1014("My차고 + 렌트/리스 신청취소", "GNS-1014", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_GNS_1015("My차고 + 렌트/리스 재등록", "GNS-1015", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     GRA_SOS_1001("Genesis + 긴급출동 접수현황 체크", "SOS-1001", HttpRequest.METHOD_POST, "/graapi/sos/receStatus.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_SOS_1002("Genesis + 긴급출동 신청", "SOS-1002", HttpRequest.METHOD_POST, "/graapi/sos/receReg.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
@@ -92,7 +94,42 @@ public enum APIInfo {
     GRA_BTR_1001("Genesis + 버틀러 조회", "BTR-1001", HttpRequest.METHOD_POST, "/graapi/btr/btlrInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_BTR_1008("Genesis + 블루핸즈 검색요청", "BTR-1008", HttpRequest.METHOD_POST, "/graapi/btr/blehdList.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_BTR_1009("Genesis + 블루핸즈 변경/신청 요청", "BTR-1009", HttpRequest.METHOD_POST, "/graapi/btr/blehdUpdt.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_BTR_1010("Genesis + 버틀러 안내조회", "BTR-1010", HttpRequest.METHOD_POST, "/graapi/btr//btlrGuide.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8);
+    GRA_BTR_1010("Genesis + 버틀러 안내조회", "BTR-1010", HttpRequest.METHOD_POST, "/graapi/btr//btlrGuide.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+
+    GRA_BTR_1011("Genesis + 버틀러 상담 문의/개설", "BTR-1011", HttpRequest.METHOD_POST, "/graapi/btr//graapi/btr/btlrQnaRgstr.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_BTR_1012("Genesis + 버틀러 상담 이력조회", "BTR-1012", HttpRequest.METHOD_POST, "/graapi/btr/btlrQnaInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_BTR_1013("Genesis + 버틀러 상담 답변읽기", "BTR-1013", HttpRequest.METHOD_POST, "/graapi/btr/btlrQnaRead.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+
+
+    GRA_CBK_1001("insight + 차계부 차량조회", "CBK-1001", HttpRequest.METHOD_POST, "/graapi/cbk/carbkSearch.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_CBK_1002("insight + 차계부 조회", "CBK-1002", HttpRequest.METHOD_POST, "/graapi/cbk/carbkInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_CBK_1005("insight + 최근누적거리요청", "CBK-1005", HttpRequest.METHOD_POST, "/graapi/cbk/accmMilgInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_CBK_1006("insight + 차계부 등록", "CBK-1006", HttpRequest.METHOD_POST, "/graapi/cbk/carbkRgstr.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_CBK_1007("insight + 차계부 삭제", "CBK-1007", HttpRequest.METHOD_POST, "/graapi/cbk/carbkDel.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_CBK_1008("insight + 차계부 수정", "CBK-1008", HttpRequest.METHOD_POST, "/graapi/cbk/carbkUpd.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+
+
+    GRA_REQ_1001("service + 서비스메인 - 정비상태", "REQ-1001", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_REQ_1002("service + 서비스메인 - 네트워크 찾기", "REQ-1002", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_REQ_1003("service + 서비스메인 - 정비내용조회(업체선택)", "REQ-1003", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_REQ_1004("service + 정비예약 - 정비내용조회(업체미선택)", "REQ-1004", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_REQ_1005("service + 정비예약 - 정비1단계", "REQ-1005", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_REQ_1007("service + 정비예약 - 오토케어 예약신청", "REQ-1007", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_REQ_1008("service + 정비예약 - 홈투홈 예약가능일", "REQ-1008", HttpRequest.METHOD_POST, "/graapi/req/availBookHome.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_REQ_1009("service + 정비예약 - 홈투홈 예약신청", "REQ-1009", HttpRequest.METHOD_POST, "/graapi/req/subsBookHome.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_REQ_1010("service + 정비예약 - 정비소 예약가능일", "REQ-1010", HttpRequest.METHOD_POST, "/graapi/req/availBookAsn.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_REQ_1011("service + 정비예약 - 정비소 정비만 조회", "REQ-1011", HttpRequest.METHOD_POST, "/graapi/req/searchAsnDept.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_REQ_1012("service + 정비예약 - 정비소 예약신청", "REQ-1012", HttpRequest.METHOD_POST, "/graapi/req/subsBookAsn.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_REQ_1013("service + 정비예약 현황", "REQ-1013", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_REQ_1014("service + 정비 이력", "REQ-1014", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+
+    GRA_PUB_1001("Home + 우편번호 조회", "PUB_1001", HttpRequest.METHOD_POST, "/graapi/pub/epost.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_PUB_1002("Home + 시도조회", "PUB_1002", HttpRequest.METHOD_POST, "/graapi/pub/sido.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_PUB_1003("Home + 구군조회", "PUB_1003", HttpRequest.METHOD_POST, "/graapi/pub/gugun.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+
+
+    GRA_STO_1001("Genesis + 유사재고차량", "STO_1001", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8)
+    ;
 
 
     private String description;

@@ -15,12 +15,12 @@ import lombok.EqualsAndHashCode;
  * @see #carGbNm 차종명
  * @see #drivDist 주행거리
  * 정비 차량 주행거리 (단위 km)
- * @see #mainNetNm 정비망명
- * @see #mainNetAddr 정비망주소
- * @see #mainPhone 정비망전화번호
+ * @see #asnNm 정비망명
+ * @see #asnAddr 정비망주소
+ * @see #repTn 정비망전화번호
  * @see #arrivDt 입고일자
  * 정비 입고일자 (형식 YYYY-MM-DD)
- * @see #mainHist 점검내역
+ * @see #asnHist 점검내역
  */
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
@@ -36,18 +36,18 @@ class MainHistVO extends BaseData {
     @SerializedName("drivDist")
     private String drivDist;
     @Expose
-    @SerializedName("mainNetNm")
-    private String mainNetNm;
+    @SerializedName("asnNm")
+    private String asnNm;
     @Expose
-    @SerializedName("mainNetAddr")
-    private String mainNetAddr;
+    @SerializedName("asnAddr")
+    private String asnAddr;
     @Expose
-    @SerializedName("mainPhone")
-    private String mainPhone;
+    @SerializedName("repTn")
+    private String repTn;
     @Expose
     @SerializedName("arrivDt")
     private String arrivDt;
     @Expose
-    @SerializedName("mainHist")
-    private String mainHist;
+    @SerializedName("asnHist")
+    private String asnHist;
 }

@@ -1,7 +1,7 @@
 package com.genesis.apps.comm.model.gra;
 
 import com.genesis.apps.comm.model.BaseData;
-import com.genesis.apps.comm.model.vo.QuickMenuVO;
+import com.genesis.apps.comm.model.vo.AddressGuVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -11,34 +11,32 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * @file GRA_LGN_0006
- * @Brief 고객구분별 퀵메뉴
  * @author hjpark
+ * @file GRA_PUB_1003
+ * @Brief Home + 시도조회
  */
-public class LGN_0006 extends BaseData {
+public class PUB_1003 extends BaseData {
     /**
-     * @brief LGN_0006의 요청 항목
-     * @author hjpark
+     * @brief PUB_1003 요청 항목
+     * @see #sidoCd 시도코드
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     static
     class Request extends BaseRequest{
+        @Expose
+        @SerializedName("sidoCd")
+        private String sidoCd;
+
         public Request(String menuId){
-            setData(APIInfo.GRA_LGN_0006.getIfCd(), menuId);
+            setData(APIInfo.GRA_PUB_1003.getIfCd(), menuId);
         }
     }
-
-    /**
-     * @brief LGN_0006의 응답 항목
-     * @author hjpark
-     * @see #qckMenuList 퀵메뉴리스트
-     */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse{
         @Expose
-        @SerializedName("qckMenuList")
-        private List<QuickMenuVO> qckMenuList;
+        @SerializedName("gugunList")
+        private List<AddressGuVO> gugunList;
     }
 }
