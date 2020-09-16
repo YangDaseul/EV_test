@@ -1,14 +1,11 @@
 package com.genesis.apps.comm.model.gra;
 
-import android.app.Application;
 import android.text.TextUtils;
 
 import com.genesis.apps.comm.MyApplication;
 import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.vo.DeviceDTO;
 import com.genesis.apps.comm.model.vo.UserVO;
-import com.genesis.apps.comm.net.ga.CCSP;
-import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.room.DatabaseHolder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

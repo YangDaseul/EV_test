@@ -7,6 +7,7 @@
         <import type="android.text.TextUtils" />
         <variable name="vm" type="com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel"/>
         <variable name="view" type="com.genesis.apps.ui.myg.view.OilView"/>
+        <variable name="listener" type="com.genesis.apps.ui.common.view.listener.OnItemClickListener"/>
     </data>
 
 
@@ -75,7 +76,7 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/btn_barcode"
                 android:visibility="gone"
-                android:onClick="@{(view)->view.onClickListener.onClick(view)}"
+                android:onClick="@{(view)->listener.onClick(view)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -110,7 +111,7 @@
                 android:paddingBottom="3dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/regular_genesissanstextglobal"
-                android:onClick="@{(view)->view.onClickListener.onClick(view)}"
+                android:onClick="@{(view)->listener.onClick(view)}"
                 android:gravity="center"
                 android:lineSpacingExtra="6sp"
                 android:textColor="@color/x_ffffff"
@@ -155,7 +156,7 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/btn_barcode"
                 android:visibility="gone"
-                android:onClick="@{(view)->view.onClickListener.onClick(view)}"
+                android:onClick="@{(view)->listener.onClick(view)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -196,7 +197,7 @@
                 android:textSize="11sp"
                 android:text="@string/word_home_8"
                 android:background="@drawable/bg_trans_sroke_under_6f6f6f"
-                android:onClick="@{(view)->view.onClickListener.onClick(view)}"
+                android:onClick="@{(view)->listener.onClick(view)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -236,7 +237,7 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/btn_barcode"
                 android:visibility="gone"
-                android:onClick="@{(view)->view.onClickListener.onClick(view)}"
+                android:onClick="@{(view)->listener.onClick(view)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -277,7 +278,7 @@
                 android:textSize="11sp"
                 android:text="@string/word_home_8"
                 android:background="@drawable/bg_trans_sroke_under_6f6f6f"
-                android:onClick="@{(view)->view.onClickListener.onClick(view)}"
+                android:onClick="@{(view)->listener.onClick(view)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -316,7 +317,7 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/btn_barcode"
                 android:visibility="gone"
-                android:onClick="@{(view)->view.onClickListener.onClick(view)}"
+                android:onClick="@{(view)->listener.onClick(view)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -359,7 +360,7 @@
                 android:textSize="11sp"
                 android:text="@string/word_home_8"
                 android:background="@drawable/bg_trans_sroke_under_6f6f6f"
-                android:onClick="@{(view)->view.onClickListener.onClick(view)}"
+                android:onClick="@{(view)->listener.onClick(view)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

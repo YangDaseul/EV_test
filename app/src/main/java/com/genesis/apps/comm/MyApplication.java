@@ -2,10 +2,6 @@ package com.genesis.apps.comm;
 
 import android.app.Application;
 
-import com.genesis.apps.room.DatabaseHolder;
-
-import javax.inject.Inject;
-
 import dagger.hilt.android.HiltAndroidApp;
 
 @HiltAndroidApp

@@ -10,6 +10,7 @@ import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ViewOilBinding;
+import com.genesis.apps.ui.common.view.listener.OnItemClickListener;
 
 import java.util.List;
 import java.util.Locale;
@@ -18,8 +19,8 @@ public class OilView {
 
     private ViewOilBinding ui;
     private Context context;
-    public onClickListener onClickListener;
-    public OilView(ViewOilBinding ui, onClickListener onClickListener ){
+    public OnItemClickListener onClickListener;
+    public OilView(ViewOilBinding ui, OnItemClickListener onClickListener ){
         this.ui = ui;
         this.context = ui.getRoot().getContext();
         this.onClickListener = onClickListener;
@@ -99,11 +100,5 @@ public class OilView {
             }
         }
     }
-
-
-    public interface onClickListener {
-        void onClick(View v);
-    }
-
 
 }

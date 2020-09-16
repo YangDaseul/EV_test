@@ -35,6 +35,7 @@ import com.genesis.apps.ui.common.dialog.BottomListDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.service.ScreenRecorderService;
 import com.genesis.apps.ui.myg.MyGHomeActivity;
+import com.genesis.apps.ui.myg.MyGMenuActivity;
 
 import java.lang.ref.WeakReference;
 
@@ -139,7 +140,7 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         me.btnCardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                baseActivity.startActivitySingleTop(new Intent(getActivity(), MyGHomeActivity.class), 0);
+                baseActivity.startActivitySingleTop(new Intent(getActivity(), MyGMenuActivity.class), 0);
             }
         });
     }
