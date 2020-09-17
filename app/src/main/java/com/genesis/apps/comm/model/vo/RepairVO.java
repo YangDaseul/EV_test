@@ -20,8 +20,8 @@ import lombok.EqualsAndHashCode;
  * 종합 : ACPS1_CD = C, 전문 : ACPS1_CD = D
  * @see #firmScnCd 정비망업체속성코드
  * FIRM_SCN_CD = 1 또는 4 : 제네시스전담
- * @see #mapXcoo 지도X좌표
- * @see #mapYcoo 지도Y좌표
+ * @see #mapXcooNm 지도X좌표
+ * @see #mapYcooNm 지도Y좌표
  * @see #dist 거리(km)
  **/
 @EqualsAndHashCode(callSuper = false)
@@ -48,11 +48,11 @@ class RepairVO extends BaseData {
     @SerializedName("firmScnCd")
     private String firmScnCd;
     @Expose
-    @SerializedName("mapXcoo")
-    private String mapXcoo;
+    @SerializedName("mapXcooNm")
+    private String mapXcooNm;
     @Expose
-    @SerializedName("mapYcoo")
-    private String mapYcoo;
+    @SerializedName("mapYcooNm")
+    private String mapYcooNm;
     @Expose
     @SerializedName("dist")
     private String dist;

@@ -140,7 +140,7 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         me.btnCardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                baseActivity.startActivitySingleTop(new Intent(getActivity(), MyGMenuActivity.class), 0);
+                baseActivity.startActivitySingleTop(new Intent(getActivity(), MyGHomeActivity.class), 0);
             }
         });
     }

@@ -22,8 +22,10 @@ public class REQ_1002 extends BaseData {
      * @see #mdlCd 모델코드
      * @see #nx 단말 경도 좌표
      * @see #ny 단말 위도 좌표
-     * @see #addr 주소(시/구)
-     * 서울특별시 금천구
+     * @see #addr 주소(시)
+     * 서울특별시
+     * @see #addrDtl 주소(구)
+     * 금천구
      * @see #fillerCd 필터코드
      * A: 제네시스전담, B: 일반블루핸즈, C:종합, D:전문
      * @see #rparTypCd 정비내용코드
@@ -49,6 +51,9 @@ public class REQ_1002 extends BaseData {
         @Expose
         @SerializedName("addr")
         private String addr;
+        @Expose
+        @SerializedName("addrDtl")
+        private String addrDtl;
         @Expose
         @SerializedName("fillerCd")
         private String fillerCd;

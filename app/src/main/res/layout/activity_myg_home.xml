@@ -112,19 +112,43 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:paddingTop="50dp"
+                    android:paddingTop="30dp"
                     android:paddingBottom="30dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-                    android:background="@drawable/bg_f4f4f4_top_round_20_shadow_33000000"
+                    android:background="@color/x_f4f4f4"
                     app:layout_constraintTop_toBottomOf="@+id/tv_mail"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent">
+
+
+                    <TextView
+                        android:id="@+id/btn_search"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:background="@drawable/bg_ffffff_stroke_dadde3"
+                        android:fontFamily="@font/regular_genesissansheadglobal"
+                        android:drawableLeft="@drawable/btn_search"
+                        android:drawablePadding="8dp"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="6sp"
+                        android:text="@string/mg00_msg_1"
+                        android:textColor="@color/x_aaabaf"
+                        android:textSize="15sp"
+                        android:gravity="left|center_vertical"
+                        android:onClick="@{(view)->activity.onClickEvent(view)}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
 
                     <TextView
                         android:id="@+id/tv_title_membership"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
                         android:fontFamily="@font/regular_genesissansheadglobal"
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="0sp"
@@ -133,7 +157,7 @@
                         android:textSize="16sp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toBottomOf="@+id/btn_search"/>
 
 
 

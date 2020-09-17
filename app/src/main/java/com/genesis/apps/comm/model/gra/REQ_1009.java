@@ -31,8 +31,8 @@ public class REQ_1009 extends BaseData {
         @SerializedName("vin")
         private String vin;
         @Expose
-        @SerializedName("vrn")
-        private String vrn;
+        @SerializedName("carRgstNo")
+        private String carRgstNo;
         @Expose
         @SerializedName("mdlCd")
         private String mdlCd;

@@ -57,9 +57,6 @@ public class REQ_1013 extends BaseData {
         @SerializedName("hthRsvtStat")
         private RepairReserveVO hthRsvtStat;
         @Expose
-        @SerializedName("arptRsvtStat")
-        private RepairReserveVO arptRsvtStat;
-        @Expose
         @SerializedName("rpshRsvtStat")
         private RepairReserveVO rpshRsvtStat;
     }

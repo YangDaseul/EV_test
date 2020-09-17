@@ -33,8 +33,8 @@ public class REQ_1007 extends BaseData {
         @SerializedName("vin")
         private String vin;
         @Expose
-        @SerializedName("vrn")
-        private String vrn;
+        @SerializedName("carRgstNo")
+        private String carRgstNo;
         @Expose
         @SerializedName("mdlCd")
         private String mdlCd;
@@ -51,11 +51,11 @@ public class REQ_1007 extends BaseData {
         @SerializedName("hpNo")
         private String hpNo;
         @Expose
-        @SerializedName("pkckZip")
-        private String pkckZip;
+        @SerializedName("pckpZip")
+        private String pckpZip;
         @Expose
-        @SerializedName("pkckAddr")
-        private String pkckAddr;
+        @SerializedName("pckpAddr")
+        private String pckpAddr;
         @Expose
         @SerializedName("dlvryZip")
         private String dlvryZip;

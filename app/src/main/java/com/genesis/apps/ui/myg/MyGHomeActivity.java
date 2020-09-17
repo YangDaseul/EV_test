@@ -48,7 +48,6 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         ui.setActivity(this);
         ui.setView(oilView);
 
-
         observerData();
         setIvEffect();
     }
@@ -236,6 +235,9 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         Log.v("test duplicate","id:"+v.getId());
         if (v != null) {
             switch (v.getId()) {
+                case R.id.btn_search:
+                    startActivitySingleTop(new Intent(this, MyGMenuActivity.class), 0);
+                    break;
                 case R.id.btn_my_info: //내정보보기
 
                     break;

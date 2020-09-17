@@ -49,6 +49,9 @@ public class REQ_1012 extends BaseData {
         @SerializedName("hpNo")
         private String hpNo;
         @Expose
+        @SerializedName("acps1Cd")
+        private String acps1Cd;
+        @Expose
         @SerializedName("rqrm")
         private String rqrm;
 

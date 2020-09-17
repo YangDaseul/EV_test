@@ -11,11 +11,12 @@ import lombok.EqualsAndHashCode;
 /**
  * @author hjpark
  * @brief 정비 예약 정보
+ * @see #rparRsvtSeqNo  정비예약일련번호
  * @see #rsvtTypCd  예약유형코드
  * AUTO:오토케어, ARPT:에어포트 HTOH:홈투홈 RPSH:정비소
  * @see #rparTypCd    정비내용코드
  * @see #vin        차대번호
- * @see #vrn        차량번호
+ * @see #carRgstNo        차량번호
  * @see #mdlCd        차량모델코드
  * @see #mdlNm        차량모델명
  * @see #rsvtHopeDt    예약희망일자
@@ -23,8 +24,8 @@ import lombok.EqualsAndHashCode;
  * @see #autoAmpmCd    오전오후구분코드
  * A : 오전 P:오후
  * @see #hpNo        입력한 휴대전화번호
- * @see #pkckZip    픽업우편번호
- * @see #pkckAddr    픽업주소
+ * @see #pckpZip    픽업우편번호
+ * @see #pckpAddr    픽업주소
  * @see #dlvryZip    딜리버리우편번호
  * @see #dlvryAddr    딜리버리주소
  * @see #autoSvc1    엔진오일항목여부
@@ -37,6 +38,10 @@ import lombok.EqualsAndHashCode;
  * Y: 선택 N:미선택
  * @see #rqrm        요구사항
  *
+ *
+ * @See #acps1Cd1Cd 지정정비공장구분코드
+ * 일반블루핸즈 : ACPS1_CD = C 또는 D
+ * 종합 : ACPS1_CD = C, 전문 : ACPS1_CD = D
  *
  *
  *
@@ -52,7 +57,9 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 public @Data
 class RepairReserveVO extends BaseData {
-
+    @Expose
+    @SerializedName("rparRsvtSeqNo")
+    private String rparRsvtSeqNo;
     @Expose
     @SerializedName("rsvtTypCd")
     private String rsvtTypCd;
@@ -63,8 +70,8 @@ class RepairReserveVO extends BaseData {
     @SerializedName("vin")
     private String vin;
     @Expose
-    @SerializedName("vrn")
-    private String vrn;
+    @SerializedName("carRgstNo")
+    private String carRgstNo;
     @Expose
     @SerializedName("mdlCd")
     private String mdlCd;
@@ -82,11 +89,11 @@ class RepairReserveVO extends BaseData {
     private String hpNo;
 
     @Expose
-    @SerializedName("pkckZip")
-    private String pkckZip;
+    @SerializedName("pckpZip")
+    private String pckpZip;
     @Expose
-    @SerializedName("pkckAddr")
-    private String pkckAddr;
+    @SerializedName("pckpAddr")
+    private String pckpAddr;
     @Expose
     @SerializedName("dlvryZip")
     private String dlvryZip;
@@ -123,6 +130,9 @@ class RepairReserveVO extends BaseData {
 
 
     //1012 정비소 예약신청에서만 사용
+    @Expose
+    @SerializedName("acps1Cd")
+    private String acps1Cd;
     @Expose
     @SerializedName("asnCd")
     private String asnCd;
