@@ -271,8 +271,17 @@ public enum APPIAInfo {
             MenuVO menuVO = new MenuVO();
             menuVO.setCode(menu.getId());
             menuVO.setName(menu.getDescription());
+            menuVO.setActivity(menu.getActivity());
             list.add(menuVO);
         }
         return list;
+    }
+
+    public Class getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Class activity) {
+        this.activity = activity;
     }
 }

@@ -46,12 +46,13 @@ class MenuViewModel extends ViewModel {
         keywordMenuList = repository.keywordMenuList;
     }
     public void reqMenuList(){
-        menuList.setValue(repository.getMenuList().getValue());
+//        menuList.setValue(repository.getMenuList().getValue());
+        repository.getMenuList();
     }
     public void reqRecentlyMenuList(int action, MenuVO menuVO){
-        recentlyMenuList.setValue(repository.getRecentlyMenuList(action,menuVO).getValue());
+        repository.getRecentlyMenuList(action,menuVO);
     }
     public void reqKeywordMenuList(MenuVO menuVO){
-        keywordMenuList.setValue(repository.getKeywordMenuList(menuVO).getValue());
+        repository.getKeywordMenuList(menuVO).getValue();
     }
 }

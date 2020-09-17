@@ -46,7 +46,7 @@ public abstract class BaseRecyclerViewAdapter2<D extends BaseData> extends Recyc
 
     public void setRows(List<D> mRows) {
         clear();
-        this.items.addAll(mRows);
+        if(mRows!=null) this.items.addAll(mRows);
     }
 
     public void remove(int pos) {

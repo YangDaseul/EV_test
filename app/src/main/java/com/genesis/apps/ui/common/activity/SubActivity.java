@@ -98,7 +98,7 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
     }
 
 
-    private static final long MIN_CLICK_INTERVAL=1000;
+    private final long MIN_CLICK_INTERVAL=1000;
     private long mLastClickTime;
     public abstract void onSingleClick(View v);
 

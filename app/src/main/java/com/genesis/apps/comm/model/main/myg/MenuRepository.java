@@ -41,7 +41,6 @@ public class MenuRepository {
     public static final int ACTION_ADD_MENU=0;
     public static final int ACTION_REMOVE_MENU=1;
     public static final int ACTION_GET_MENU_ALL=2;
-    public static final int ACTION_GET_MENU_KEYWORD=3;
 
     private DatabaseHolder databaseHolder;
 
@@ -54,14 +53,26 @@ public class MenuRepository {
         this.databaseHolder = databaseHolder;
     }
 
+    /**
+     * @brief 전체 메뉴 리스트
+     * 전체 메뉴를 정의된 enum에서 로드
+     * @return
+     */
     public MutableLiveData<NetUIResponse<List<MenuVO>>> getMenuList(){
         menuList.setValue(NetUIResponse.success(APPIAInfo.getQuickMenus()));
         return menuList;
     }
 
+
+    /**
+     * @brief 최근검색어 리스트
+     * 최근검색어 리스트를 select, insert, delete 시 사용
+     * @param action
+     * @param menuVO
+     * @return
+     */
     public MutableLiveData<NetUIResponse<List<MenuVO>>> getRecentlyMenuList(int action, MenuVO menuVO){
         ExecutorService es = new ExecutorService("");
-        recentlyMenuList.setValue(NetUIResponse.loading(null));
         Futures.addCallback(es.getListeningExecutorService().submit(() -> {
             List<MenuVO> list = null;
             try {
@@ -91,7 +102,8 @@ public class MenuRepository {
                 if(result==null){
                     recentlyMenuList.setValue(NetUIResponse.error(0,null));
                 }else{
-                    recentlyMenuList.setValue(NetUIResponse.success(result));
+                    if(action!=ACTION_ADD_MENU) //최근검색어를 ADD하는 경우에는 DATA를 SET하지 않음 (최근검색어를 OBSERVE 할 필요 없음)
+                        recentlyMenuList.setValue(NetUIResponse.success(result));
                 }
                 es.shutDownExcutor();
             }
@@ -107,9 +119,14 @@ public class MenuRepository {
     }
 
 
+    /**
+     * @brief 검색 결과
+     * 전체메뉴를 대상으로 키워드에 해당하는 리스트를 추출시 사용
+     * @param menuVO
+     * @return
+     */
     public MutableLiveData<NetUIResponse<List<MenuVO>>> getKeywordMenuList(MenuVO menuVO){
         ExecutorService es = new ExecutorService("");
-        keywordMenuList.setValue(NetUIResponse.loading(null));
         Futures.addCallback(es.getListeningExecutorService().submit(() -> {
             List<MenuVO> list = null;
             try {
@@ -221,6 +238,7 @@ public class MenuRepository {
     public boolean addRecentlyMenu(MenuVO menuVO){
         boolean isAdd = false;
         try{
+            databaseHolder.getDatabase().menuDao().deleteName(menuVO.getName());
             databaseHolder.getDatabase().menuDao().insert(menuVO);
             databaseHolder.getDatabase().menuDao().deleteAuto();
             isAdd=true;

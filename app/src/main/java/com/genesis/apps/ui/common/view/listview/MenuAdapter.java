@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.MenuVO;
 import com.genesis.apps.databinding.ItemMenuBinding;
+import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
+import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
 
@@ -55,10 +57,22 @@ public class MenuAdapter extends BaseRecyclerViewAdapter2<MenuVO> {
 
         @Override
         public void onBindView(MenuVO item, int pos) {
+            ViewPressEffectHelper.attach(getBinding().btnDel);
             getBinding().tvName.setText(item.getName());
             getBinding().btnDel.setVisibility(isRecently ? View.VISIBLE : View.GONE);
-            getBinding().btnDel.setOnClickListener(view -> onItemClickListener.onClick(view,pos));
-            getBinding().lWhole.setOnClickListener(view -> onItemClickListener.onClick(view,pos));
+            getBinding().btnDel.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    onItemClickListener.onClick(v,pos);
+                }
+            });
+
+            getBinding().lWhole.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    onItemClickListener.onClick(v,pos);
+                }
+            });
         }
 
         @Override
@@ -71,5 +85,4 @@ public class MenuAdapter extends BaseRecyclerViewAdapter2<MenuVO> {
     public interface OnPositionClickListener {
         void onClick(View v, int position);
     }
-
 }
