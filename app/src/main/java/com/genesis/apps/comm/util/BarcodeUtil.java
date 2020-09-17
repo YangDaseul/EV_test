@@ -18,7 +18,7 @@ public class BarcodeUtil {
     // 바코드 색상
     private static final int BLACK = 0xFF000000;
 
-    private Bitmap encodeAsBitmap(String contents, BarcodeFormat format, int img_width, int img_height) throws WriterException {
+    public Bitmap encodeAsBitmap(String contents, BarcodeFormat format, int img_width, int img_height) throws WriterException {
         String contentsToEncode = contents;
         if (contentsToEncode == null) {
             return null;
@@ -30,7 +30,6 @@ public class BarcodeUtil {
             hints.put(EncodeHintType.CHARACTER_SET, encoding);
         }
         MultiFormatWriter writer = new MultiFormatWriter();
-
         BitMatrix result;
         try {
             result = writer.encode(contentsToEncode, format, img_width, img_height, hints);
