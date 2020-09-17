@@ -98,4 +98,18 @@
     <string name="mg00_word_3">검색 결과</string>
     <string name="mg00_msg_1">메뉴, 기능, 혜택을 검색해 주세요.</string>
     <string name="mg00_msg_2">내역이 없습니다.</string>
+
+
+    <string name="mg_prvi01_word_1">프리빌리지 신청</string>
+    <string name="mg_prvi01_word_2">보유 차량</string>
+    <string name="mg_prvi01_word_3">차대번호</string>
+    <string name="mg_prvi01_word_4">혜택</string>
+    <string name="mg_prvi01_word_5">현황</string>
+
+    <string name="mg_con01_word_1">주유 포인트</string>
+    <string name="mg_con01_word_2">포인트 연동 해제</string>
+    <string name="mg_con01_word_3">포인트 내역 확인</string>
+    <string name="mg_con01_msg_1">포인트 사용 내역은 해당 APP을 통해 확인 가능합니다.</string>
+
+
 </resources>
