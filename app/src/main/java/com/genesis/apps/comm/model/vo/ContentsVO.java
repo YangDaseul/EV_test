@@ -13,8 +13,11 @@ import lombok.EqualsAndHashCode;
  * @author hjpark
  * @see #listSeqNo 목록일련번호
  * @see #catCd 카테고리코드
- * @see #ttl 제목
+ * 1000 : 이벤트카테고리  그외 0000 (기획 정의 요청 필요)
+ *  - 이벤트인 경우 화면에 "이벤트"버튼 활성화
  * @see #ttImgUri 제목이미지uri
+ * @see #dtlViewCd 상세뷰코드
+ * 1000: 통이미지  2000: 이미지+텍스트  3000: HTML
  *
  */
 @EqualsAndHashCode(callSuper = false)
@@ -28,9 +31,9 @@ class ContentsVO extends BaseData {
     @SerializedName("catCd")
     private String catCd;
     @Expose
-    @SerializedName("ttl")
-    private String ttl;
-    @Expose
     @SerializedName("ttImgUri")
     private String ttImgUri;
+    @Expose
+    @SerializedName("dtlViewCd")
+    private String dtlViewCd;
 }

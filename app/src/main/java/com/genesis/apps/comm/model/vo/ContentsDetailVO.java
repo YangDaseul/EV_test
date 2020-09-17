@@ -12,8 +12,6 @@ import lombok.EqualsAndHashCode;
  * @brief 컨텐츠목록정보
  * @author hjpark
  * @see #dtlSeqNo 상세일련번호
- * @see #ctntsTypCd 컨텐츠유형코드
- * 1000: 이미지  2000: 이미지+텍스트  3000: HTML
  * @see #htmlFilUri HMTL파일URI
  * HTML인 경우
  * - HTML 링크 : 상대경로
@@ -41,9 +39,6 @@ class ContentsDetailVO extends BaseData {
     @Expose
     @SerializedName("dtlSeqNo")
     private String dtlSeqNo;
-    @Expose
-    @SerializedName("ctntsTypCd")
-    private String ctntsTypCd;
     @Expose
     @SerializedName("htmlFilUri")
     private String htmlFilUri;

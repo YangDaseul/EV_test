@@ -52,6 +52,15 @@ public class CTT_1004 extends BaseData {
      * N: 평가 없는 컨텐츠
      * @see #evalQst 평가질문서
      * 평가시 질의문
+     *
+     * @see #lnkUseYn 링크사용여부
+     * Y: 사용 N: 미사용
+     * @see #lnkNm 링크명
+     * 링크버튼명
+     * @see #lnkTypCd 링크유형코드
+     * I : 대표앱 링크  O:외부링크
+     * @see #lnkUri 링크URI
+     * 이미지 클릭시의 이동 URI (IMG_LNK_CD='O' 외부 링크
      * @see #dtlList 상세리스트
      */
     @EqualsAndHashCode(callSuper = true)
@@ -80,6 +89,20 @@ public class CTT_1004 extends BaseData {
         @Expose
         @SerializedName("evalQst")
         private String evalQst;
+
+        @Expose
+        @SerializedName("lnkUseYn")
+        private String lnkUseYn;
+        @Expose
+        @SerializedName("lnkNm")
+        private String lnkNm;
+        @Expose
+        @SerializedName("lnkTypCd")
+        private String lnkTypCd;
+        @Expose
+        @SerializedName("lnkUri")
+        private String lnkUri;
+
         @Expose
         @SerializedName("dtlList")
         private List<ContentsDetailVO> dtlList;

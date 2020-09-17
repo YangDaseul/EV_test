@@ -21,6 +21,10 @@ public class CTT_1002 extends BaseData {
      * @brief CTT_1002 요청 항목
      * @see #listSeqNo 목록일련번호
      * @see #starCnt 별수
+     * @see #mdlNm 차량모델명
+     * 로그인 후의 주차량
+     * @see #vin 차대번호
+     * 로그인 후의 주차량
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -32,10 +36,19 @@ public class CTT_1002 extends BaseData {
         @Expose
         @SerializedName("starCnt")
         private String starCnt;
+        @Expose
+        @SerializedName("mdlNm")
+        private String mdlNm;
+        @Expose
+        @SerializedName("vin")
+        private String vin;
 
-        public Request(String menuId, String listSeqNo, String starCnt){
+
+        public Request(String menuId, String listSeqNo, String starCnt, String mdlNm, String vin){
             this.listSeqNo = listSeqNo;
             this.starCnt = starCnt;
+            this.mdlNm = mdlNm;
+            this.vin = vin;
             setData(APIInfo.GRA_CTT_1002.getIfCd(),menuId);
         }
     }
