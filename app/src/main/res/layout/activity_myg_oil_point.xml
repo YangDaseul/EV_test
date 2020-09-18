@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="view"
             type="com.genesis.apps.ui.myg.view.OilView" />
@@ -63,7 +62,7 @@
                     android:visibility="visible"
                     app:layout_constraintStart_toStartOf="@+id/iv_ci"
                     app:layout_constraintTop_toBottomOf="@+id/iv_ci"
-                    tools:text="32.450" />
+                    tools:text="32,450" />
 
 
                 <TextView
@@ -88,10 +87,10 @@
                     android:padding="7dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/btn_repeat"
-                    app:layout_constraintVertical_bias=".5"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_point"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_point" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_point"
+                    app:layout_constraintVertical_bias=".5" />
 
 
                 <ImageView

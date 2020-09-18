@@ -15,6 +15,29 @@ import java.util.Scanner;
 public class PackageUtil {
     private static final String LOG_TAG = "PackageUtil";
 
+
+    /**
+     * @brief 패키지명에 해당하는 앱 실행
+     * @param pakageName 앱 패키지 명
+     */
+    public static void runApp(Context context, String pakageName) {
+        if(isInstallApp(context, pakageName)) {
+            Intent intent = context.getPackageManager().getLaunchIntentForPackage(pakageName);
+            if(intent != null) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        }
+        else {
+            try {
+                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + pakageName)));
+            } catch (android.content.ActivityNotFoundException anfe) {
+                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + pakageName)));
+            }
+        }
+    }
+
+
     /**
      * app 버전 코드 조회
      *

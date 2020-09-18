@@ -103,10 +103,6 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     break;
             }
         });
-
-
-
-
     }
 
 
@@ -314,34 +310,12 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                 case R.id.l_app_digitalkey://디지털 키 아이콘
                 case R.id.l_app_carpay://카페이 아이콘
                 case R.id.l_app_cam://빌트인캠 아이콘
-                    runApp(v.getTag().toString());
+                    PackageUtil.runApp(this, v.getTag().toString());
                     break;
 
             }
         }
 
-    }
-
-
-    /**
-     * @brief 패키지명에 해당하는 앱 실행
-     * @param pakageName 앱 패키지 명
-     */
-    private void runApp(String pakageName) {
-        if(isInstallApp(this, pakageName)) {
-            Intent intent = getPackageManager().getLaunchIntentForPackage(pakageName);
-            if(intent != null) {
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
-        }
-        else {
-            try {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + pakageName)));
-            } catch (android.content.ActivityNotFoundException anfe) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + pakageName)));
-            }
-        }
     }
 
 }

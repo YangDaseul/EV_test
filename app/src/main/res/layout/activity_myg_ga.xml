@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="view"
+            type="com.genesis.apps.ui.myg.view.OilView" />
+    </data>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
@@ -14,7 +21,8 @@
             layout="@layout/layout_titlebar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:value="@{@string/title_ga}"/>
 
         <ScrollView
             android:layout_width="0dp"

@@ -67,24 +67,24 @@ public class MyGMenuActivity extends SubActivity<ActivityMygMenuBinding> {
 
         adapter = new MenuAdapter((v, position) -> {
 
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.btn_del:
                     //최근 검색어 삭제버튼 클릭 시
                     menuViewModel.reqRecentlyMenuList(MenuRepository.ACTION_REMOVE_MENU, adapter.getItem(position));
                     break;
                 default:
-                    if(adapter.isRecently()) {
+                    if (adapter.isRecently()) {
                         //최근 검색어 리스트 항목 클릭 시 editbox에 자동으로 타이핑해줌
                         menuViewModel.reqRecentlyMenuList(MenuRepository.ACTION_ADD_MENU, adapter.getItem(position)); //이미 리스트가 있지만 최상단으로 올려주는 효과
-                        String name=((MenuVO)adapter.getItem(position)).getName();
+                        String name = ((MenuVO) adapter.getItem(position)).getName();
                         ui.etSearch.setText(name);
                         ui.etSearch.setSelection(name.length());
-                    }else{
+                    } else {
                         menuViewModel.reqRecentlyMenuList(MenuRepository.ACTION_ADD_MENU, adapter.getItem(position)); //키워드 저장
-                        if(((MenuVO)adapter.getItem(position)).getActivity()==null){
-                            SnackBarUtil.show(this,"페이지가 존재하지 않습니다.");
-                        }else{
-                            startActivitySingleTop(new Intent(this, ((MenuVO)adapter.getItem(position)).getActivity()),0);
+                        if (((MenuVO) adapter.getItem(position)).getActivity() == null) {
+                            SnackBarUtil.show(this, "페이지가 존재하지 않습니다.");
+                        } else {
+                            startActivitySingleTop(new Intent(this, ((MenuVO) adapter.getItem(position)).getActivity()), 0);
                             finish();
                         }
                     }
@@ -98,70 +98,43 @@ public class MyGMenuActivity extends SubActivity<ActivityMygMenuBinding> {
         ui.etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                 reqListData(s.toString());
-//
-//
-//                MenuVO menuVO = new MenuVO();
-//                menuVO.setName(s.toString());
-//
-//                if(TextUtils.isEmpty(s.toString())){
-//                    menuViewModel.reqRecentlyMenuList(MenuRepository.ACTION_GET_MENU_ALL, null); //최근 검색어
-//                    ui.etSearch.setBackgroundResource(R.drawable.bg_ffffff_stroke_dadde3);
-//                }else{
-//                    menuViewModel.reqKeywordMenuList(menuVO); //검색결과
-//                    ui.etSearch.setBackgroundResource(R.drawable.bg_ffffff_stroke_141414);
-//                }
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
 
 
         ui.etSearch.setOnFocusChangeListener((view, hasFocus) -> {
 
-            if(hasFocus) {
+            if (hasFocus) {
                 reqListData(ui.etSearch.getText().toString());
-//
-//                if(TextUtils.isEmpty(ui.etSearch.getText().toString()))
-//                    menuViewModel.reqRecentlyMenuList(MenuRepository.ACTION_GET_MENU_ALL, null); //최근검색어 요청
-//                else
-
-            }else{
+            } else {
                 SoftKeyboardUtil.hideKeyboard(MyGMenuActivity.this);
-                Log.v("hasFocus","hasFocus2:"+hasFocus);
             }
 
         });
 
         //키보드에서 search 버튼 클릭할 경우 정의 스토리보드에 정의되어있지 않아 삭선처리
 //        ui.etSearch.setOnEditorActionListener(editorActionListener);
-
         menuViewModel.reqMenuList(); //전체 리스트 요청
     }
 
     @Override
     public void onSingleClick(View v) {
 
-        switch (v.getId()){
-
-
-        }
-
     }
 
-    private void setListView(List<MenuVO> list){
-        if(list==null||list.size()<1){
+    private void setListView(List<MenuVO> list) {
+        if (list == null || list.size() < 1) {
             ui.tvEmpty.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             ui.tvEmpty.setVisibility(View.GONE);
         }
         adapter.setRows(list);
@@ -169,11 +142,11 @@ public class MyGMenuActivity extends SubActivity<ActivityMygMenuBinding> {
     }
 
 
-    private void reqListData(String keyword){
-        if(TextUtils.isEmpty(keyword)){
+    private void reqListData(String keyword) {
+        if (TextUtils.isEmpty(keyword)) {
             menuViewModel.reqRecentlyMenuList(MenuRepository.ACTION_GET_MENU_ALL, null); //최근 검색어
             ui.etSearch.setBackgroundResource(R.drawable.bg_ffffff_stroke_dadde3);
-        }else{
+        } else {
             MenuVO menuVO = new MenuVO();
             menuVO.setName(keyword);
             menuViewModel.reqKeywordMenuList(menuVO); //검색결과
