@@ -68,7 +68,7 @@ public enum APIInfo {
     GRA_GNS_1012("My차고 + 렌트/리스 실운행자 상세", "GNS-1012", HttpRequest.METHOD_POST, "/graapi/gns/myRentOwnerDetail.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     GRA_GNS_1013("My차고 + 렌트/리스 수정하기", "GNS-1013", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),//todo 주소없음
-    GRA_GNS_1014("My차고 + 렌트/리스 신청취소", "GNS-1014", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_GNS_1014("My차고 + 렌트/리스 신청취소", "GNS-1014", HttpRequest.METHOD_POST, "/graapi/req/rparHist.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_GNS_1015("My차고 + 렌트/리스 재등록", "GNS-1015", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     GRA_SOS_1001("Genesis + 긴급출동 접수현황 체크", "SOS-1001", HttpRequest.METHOD_POST, "/graapi/sos/receStatus.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),

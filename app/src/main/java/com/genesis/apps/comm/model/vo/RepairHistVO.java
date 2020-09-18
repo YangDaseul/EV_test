@@ -11,45 +11,30 @@ import lombok.EqualsAndHashCode;
 /**
  * @brief 정비소 정보
  * @author hjpark
- * @see #rsvtHopeDt 예약희망일자
- * YYYYMMDD
+ * @see #wrhsDtm 입고일자
+ * yyyyMMdd
+ * @see #asnCd 업체코드
  * @see #asnNm 업체명
- * @see #raprWorkNm 작업내역
+ * @see #rparWorkNm 작업내역
  * @see #milg 주행거리
- * @see #pkckExtapChkUri 픽업외관체크URI
- * @see #dlvryExtapChkUri 딜리버리외관체크URI
- * @see #repnTn 대표전화번호
- * @see #rsvtHopeTm rsvtHopeTm
- * HH24MI
  **/
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
 class RepairHistVO extends BaseData {
-
     @Expose
-    @SerializedName("rsvtHopeDt")
-    private String rsvtHopeDt;
+    @SerializedName("wrhsDtm")
+    private String wrhsDtm;
+    @Expose
+    @SerializedName("asnCd")
+    private String asnCd;
     @Expose
     @SerializedName("asnNm")
     private String asnNm;
     @Expose
-    @SerializedName("raprWorkNm")
-    private String raprWorkNm;
+    @SerializedName("rparWorkNm")
+    private String rparWorkNm;
     @Expose
     @SerializedName("milg")
     private String milg;
-    @Expose
-    @SerializedName("pkckExtapChkUri")
-    private String pkckExtapChkUri;
-    @Expose
-    @SerializedName("dlvryExtapChkUri")
-    private String dlvryExtapChkUri;
-    @Expose
-    @SerializedName("repnTn")
-    private String repnTn;
-    @Expose
-    @SerializedName("rsvtHopeTm")
-    private String rsvtHopeTm;
-
 }

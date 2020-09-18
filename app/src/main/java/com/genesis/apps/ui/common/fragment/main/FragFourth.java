@@ -12,6 +12,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -20,6 +21,7 @@ import com.appeaser.sublimepickerlibrary.helpers.SublimeOptions;
 import com.appeaser.sublimepickerlibrary.recurrencepicker.SublimeRecurrencePicker;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.RequestCodes;
+import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.util.CalenderUtil;
 import com.genesis.apps.comm.util.ScreenCaptureUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -36,10 +38,14 @@ import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.service.ScreenRecorderService;
 import com.genesis.apps.ui.myg.MyGHomeActivity;
 import com.genesis.apps.ui.myg.MyGMenuActivity;
+import com.genesis.apps.ui.myg.MyGOilPointActivity;
+import com.google.android.material.snackbar.Snackbar;
+import com.kishandonga.csbx.CustomSnackbar;
 
 import java.lang.ref.WeakReference;
 
 import dagger.hilt.android.AndroidEntryPoint;
+import kotlin.Unit;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MEDIA_PROJECTION_SERVICE;
@@ -120,7 +126,7 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         me.btnSnackbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SnackBarUtil.show(getActivity(), "testing snackbar jaja");
+                SnackBarUtil.show(getActivity(), "testing snackbar jajatesting snackbar jajatesting snackbar jajatesting snackbar jajatesting snackbar jajatesting snackbar jajatesting snackbar jajatesting snackbar jajatesting snackbar jajatesting snackbar jajatesting snackbar jajatesting snackbar jajatesting snackbar jajatesting snackbar jaja");
             }
         });
 
@@ -140,7 +146,8 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         me.btnCardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                baseActivity.startActivitySingleTop(new Intent(getActivity(), MyGHomeActivity.class), 0);
+//                baseActivity.startActivitySingleTop(new Intent(getActivity(), MyGHomeActivity.class), 0);
+                baseActivity.startActivitySingleTop(new Intent(getActivity(), MyGOilPointActivity.class).putExtra(MyGOilPointActivity.KEY_OIL_CODE, OilPointVO.OIL_CODE_GSCT), RequestCodes.REQ_CODE_ACTIVITY.getCode());
             }
         });
     }

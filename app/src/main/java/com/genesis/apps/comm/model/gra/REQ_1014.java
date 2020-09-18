@@ -44,21 +44,6 @@ public class REQ_1014 extends BaseData {
     class Response extends BaseResponse{
         @Expose
         @SerializedName("rsvtStatList")
-        private List<ReserveHistList> rsvtStatList;
-    }
-
-
-    @EqualsAndHashCode(callSuper = false)
-    public @Data
-    class ReserveHistList extends BaseData{
-        @Expose
-        @SerializedName("autoRsvtStat")
-        private RepairHistVO autoRsvtStat;
-        @Expose
-        @SerializedName("hthRsvtStat")
-        private RepairHistVO hthRsvtStat;
-        @Expose
-        @SerializedName("rpshRsvtStat")
-        private RepairHistVO rpshRsvtStat;
+        private List<RepairHistVO> rsvtStatList;
     }
 }

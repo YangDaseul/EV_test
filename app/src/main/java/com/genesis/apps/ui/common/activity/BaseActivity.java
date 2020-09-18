@@ -6,9 +6,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.RequestCodes;
+import com.genesis.apps.comm.model.ResultCodes;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.fcm.PushCode;
 
@@ -105,5 +109,20 @@ public class BaseActivity extends AppCompatActivity {
             this.getIntent().removeExtra(NOTIFICATION_ID);
             ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancel(notificationId);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==RequestCodes.REQ_CODE_ACTIVITY.getCode()&&
+                (resultCode==ResultCodes.RES_CODE_NETWORK.getCode()||
+                        resultCode==ResultCodes.REQ_CODE_EMPTY_INTENT.getCode())){
+            SnackBarUtil.show(this, data.getStringExtra("msg"));
+        }
+    }
+
+    public void exitPage(String msg, int resultCode){
+        setResult(resultCode, new Intent().putExtra("msg",msg));
+        finish();
     }
 }
