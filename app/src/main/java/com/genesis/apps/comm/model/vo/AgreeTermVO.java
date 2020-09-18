@@ -11,37 +11,37 @@ import lombok.EqualsAndHashCode;
 /**
  * @brief 약관정보
  * @author hjpark
- * @see #termVer 결과코드
- * @see #termCd 약관구분코드
+ * @see #termCode 약관구분코드
  * 앱 이용약관 : 1000
  * 개인정보처리방침 : 2000
  * 개인정보 수집/이용 : 3000
  * 광고성 정보 수신동의 : 4000
  * 제네시스 멤버십 가입 약관  : 5000
- * @see #termNm 약관명
- * @see #termCont 약관내용
- * html 형식에 문자열
- * @see #termEsnAgmtYn 약관필수동의여부
- * Y:필수동의약관 N:선택동의약관
+ * @see #agreeYn 동의
+ * Y : 동의, 그외 : N
+ * @see #termName 동의약관명
+ * @see #agreeDate 동의일자
+ * YYYYMMDDHH24MMSS
+ * @see #agreeMeans 동의수단
  */
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
-class TermVO extends BaseData {
+class AgreeTermVO extends BaseData {
     @Expose
-    @SerializedName("termVer")
-    private String termVer;
+    @SerializedName("termCode")
+    private String termCode;
     @Expose
-    @SerializedName("termCd")
-    private String termCd;
+    @SerializedName("agreeYn")
+    private String agreeYn;
     @Expose
-    @SerializedName("termNm")
-    private String termNm;
+    @SerializedName("termName")
+    private String termName;
     @Expose
-    @SerializedName("termCont")
-    private String termCont;
+    @SerializedName("agreeDate")
+    private String agreeDate;
     @Expose
-    @SerializedName("termEsnAgmtYn")
-    private String termEsnAgmtYn;
+    @SerializedName("agreeMeans")
+    private AgreeMeansVO agreeMeans;
 
 }

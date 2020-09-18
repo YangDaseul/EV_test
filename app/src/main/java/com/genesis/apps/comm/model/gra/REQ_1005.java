@@ -22,8 +22,7 @@ public class REQ_1005 extends BaseData {
      * @see #carRgstNo 차량번호
      * 차량번호가 없는 경우 정비예약 중복확인 불가할 수 있음
      * @see #rparTypCd 정비내용코드
-     * 부품계통코드 --> 코드값 문의 필요
-     * null 값이 아니면 부품계통 정비가 가능한 정비소 찾기
+     * AC:냉난방부품, EG:엔진주요부품, PT:동력전달주요부품, BA:일반부품, CS:소모성부품, GT:기타
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data

@@ -25,8 +25,9 @@ public class REQ_1003 extends BaseData {
      * @see #acps1Cd 지정정비공장구분코드
      * 일반블루핸즈 : ACPS1_CD = C 또는 D
      * 종합 : ACPS1_CD = C, 전문 : ACPS1_CD = D
+     * 서비스센터 : 2
      * @see #firmScnCd 정비망업체속성코드
-     * FIRM_SCN_CD = 1 또는 4 : 제네시스전담
+     * Y: 제네시스전담인경우.  N: 그외
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -59,11 +60,17 @@ public class REQ_1003 extends BaseData {
     }
     /**
      * @brief REQ_1003 응답 항목
+     * @see #prctYn 예약가능여부
+     * Y:예약가능 N:예약불가
      * @see #rparTypList 정비내용리스트
+     * 예약이 가능할 경우 필수.
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse{
+        @Expose
+        @SerializedName("prctYn")
+        private String prctYn;
         @Expose
         @SerializedName("rparTypList")
         private List<RepairTypeVO> rparTypList;

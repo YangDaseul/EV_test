@@ -46,7 +46,7 @@ public class LGN_0003 extends BaseData {
      * HSW 시스템 정의
      * @see #asnStatsCd 정비상태코드
      * HSW 시스템 정의
-     * @see #mainHistList 정비이력정보
+     * @see #asnHistList 정비이력정보
      * 리스트 정보 (최대 최근3개)
      * @see #butlNm 버틀러 성명
      * @see #butlSpotNm 버틀러 지점명

@@ -18,6 +18,7 @@ import lombok.EqualsAndHashCode;
  * @see #acps1Cd 지정정비공장구분코드
  * 일반블루핸즈 : ACPS1_CD = C 또는 D
  * 종합 : ACPS1_CD = C, 전문 : ACPS1_CD = D
+ * 서비스센터 : 2
  * @see #firmScnCd 정비망업체속성코드
  * FIRM_SCN_CD = 1 또는 4 : 제네시스전담
  * @see #mapXcooNm 지도X좌표

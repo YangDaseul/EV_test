@@ -45,5 +45,4 @@ class NotiVO extends BaseData {
     @Expose
     @SerializedName("trmsSrtDtm")
     private String trmsSrtDtm;
-    //TODO UI용 IGNORE 필요
 }

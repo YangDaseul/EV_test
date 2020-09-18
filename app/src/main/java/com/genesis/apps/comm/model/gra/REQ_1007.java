@@ -57,12 +57,6 @@ public class REQ_1007 extends BaseData {
         @SerializedName("pckpAddr")
         private String pckpAddr;
         @Expose
-        @SerializedName("dlvryZip")
-        private String dlvryZip;
-        @Expose
-        @SerializedName("dlvryAddr")
-        private String dlvryAddr;
-        @Expose
         @SerializedName("autoSvc1")
         private String autoSvc1;
         @Expose

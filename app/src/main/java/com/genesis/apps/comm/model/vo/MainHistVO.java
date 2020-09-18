@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  * @see #drivDist 주행거리
  * 정비 차량 주행거리 (단위 km)
  * @see #asnNm 정비망명
- * @see #asnAddr 정비망주소
+ * @see #pbzAdr 정비망주소
  * @see #repTn 정비망전화번호
  * @see #arrivDt 입고일자
  * 정비 입고일자 (형식 YYYY-MM-DD)
@@ -39,8 +39,8 @@ class MainHistVO extends BaseData {
     @SerializedName("asnNm")
     private String asnNm;
     @Expose
-    @SerializedName("asnAddr")
-    private String asnAddr;
+    @SerializedName("pbzAdr")
+    private String pbzAdr;
     @Expose
     @SerializedName("repTn")
     private String repTn;

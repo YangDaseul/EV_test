@@ -37,6 +37,7 @@ public class REQ_1001 extends BaseData {
     /**
      * @brief REQ_1001 응답 항목
      * @see #rsvtStusCd 정비상태코드
+     * 정비예약을 하지 않아 정비상태값이 없을 경우 "0000
      * 예약상태코드	홈투홈	에어포트	오토케어	정비소
      * 예약신청	    1100	2100	3100	4100
      * 예약완료	    1200	2200	3200	4200
@@ -50,8 +51,12 @@ public class REQ_1001 extends BaseData {
      * 딜리버리중	6400	7400	8400
      * 딜리버리완료	6500	7500	8500
      * 예약취소	    6800	7800	8800	9800
+     * @see #pgrsStusCd rsvtTypCd
+     * 정비상태코드가 "0000" 이 아닐 경우.
+     * AUTO:오토케어, ARPT:에어포트 HTOH:홈투홈 RPSH:정비소
      * @see #pgrsStusCd 긴급출동상태코드
      * 진행상태 - (R:신청, -> W:접수,-> S:출동,-> E:완료, C:취소)
+     * 긴급출동 신청건이 없을경우 "0000"
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -59,6 +64,9 @@ public class REQ_1001 extends BaseData {
         @Expose
         @SerializedName("rsvtStusCd")
         private String rsvtStusCd;
+        @Expose
+        @SerializedName("rsvtTypCd")
+        private String rsvtTypCd;
         @Expose
         @SerializedName("pgrsStusCd")
         private String pgrsStusCd;

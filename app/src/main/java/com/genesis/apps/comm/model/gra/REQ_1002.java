@@ -27,10 +27,12 @@ public class REQ_1002 extends BaseData {
      * @see #addrDtl 주소(구)
      * 금천구
      * @see #fillerCd 필터코드
-     * A: 제네시스전담, B: 일반블루핸즈, C:종합, D:전문
+     * A: 제네시스전담, C:종합, D:전문, S:특수장비 P:일반블루핸즈
+     * 필터가 여러 개일 경우 코드값을 더해서 요청
+     * 예) 전담+종합+전문 인 경우.  "ACD"
      * @see #rparTypCd 정비내용코드
-     * 부품계통코드 --> 코드값 문의 필요
      * null 값이 아니면 부품계통 정비가 가능한 정비소 찾기
+     * AC:냉난방부품, EG:엔진주요부품, PT:동력전달주요부품, BA:일반부품, CS:소모성부품, GT:기타
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
