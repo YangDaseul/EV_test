@@ -13,7 +13,7 @@ import android.view.View;
 
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.ActivityPermissionsBinding;
-import com.genesis.apps.ui.common.dialog.TwoButtonDialog;
+import com.genesis.apps.ui.common.dialog.bottom.TwoButtonDialog;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;

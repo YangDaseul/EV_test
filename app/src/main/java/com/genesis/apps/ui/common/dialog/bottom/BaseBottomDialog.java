@@ -1,4 +1,4 @@
-package com.genesis.apps.ui.common.dialog;
+package com.genesis.apps.ui.common.dialog.bottom;
 
 import android.content.Context;
 import android.view.KeyEvent;

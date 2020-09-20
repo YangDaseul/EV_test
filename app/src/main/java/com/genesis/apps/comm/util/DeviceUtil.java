@@ -1,6 +1,7 @@
 package com.genesis.apps.comm.util;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -8,6 +9,7 @@ import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 
 import com.genesis.apps.BuildConfig;
 
@@ -160,8 +162,44 @@ public class DeviceUtil {
 
 
 
-    /*
-     * device version device fingerprint
-     * */
+    /**
+     * 단말기 높이 넓이<br/>
+     * pixel 단위<br/>
+     *
+     * @param context
+     * @return
+     */
+    public static int getDeviceWidth(Context context) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) context).getWindowManager().getDefaultDisplay()
+                .getMetrics(displayMetrics);
+        return displayMetrics.widthPixels;
+    }
+
+    /**
+     * DP 단위를 Pixel 단위로 변환
+     *
+     * @param context
+     * @param dpi
+     * @return
+     */
+    public static float dip2Pixel(Context context, float dpi) {
+        float density = context.getResources().getDisplayMetrics().densityDpi;
+        float pixel = dpi * (density / (float) DisplayMetrics.DENSITY_DEFAULT);
+        return pixel;
+    }
+
+    /**
+     * Pixel 단위를 DP 단위로 변환
+     *
+     * @param context
+     * @param pixel
+     * @return
+     */
+    public static float pixel2Dip(Context context, float pixel) {
+        float density = context.getResources().getDisplayMetrics().densityDpi;
+        float dpi = pixel / (density / (float) DisplayMetrics.DENSITY_DEFAULT);
+        return dpi;
+    }
 
 }

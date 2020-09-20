@@ -48,7 +48,7 @@
     <string name="msg_version_2">업데이트가 필요합니다.</string>
 
     <string name="word_ga_1">%s 님</string>
-    <string name="word_ga_2">휴대폰</string>
+    <string name="word_ga_2">휴대폰번호</string>
     <string name="word_ga_3">생년월일</string>
     <string name="word_ga_4">변경</string>
     <string name="word_ga_5">마케팅 수신 동의</string>
@@ -111,5 +111,8 @@
     <string name="mg_con01_word_3">포인트 내역 확인</string>
     <string name="mg_con01_msg_1">포인트 사용 내역은 해당 APP을 통해 확인 가능합니다.</string>
 
-
+    <string name="mg_con02_1">포인트 연동</string>
+    <string name="mg_con02_2">SK에너지\n간편한 포인트 적립</string>
+    <string name="mg_con02_3">바코드로 포인트 적립이 가능하며\n포인트 적립 시,\n주유 내역이 자동입력 됩니다.</string>
+    <string name="mg_con02_4">연동하기</string>
 </resources>

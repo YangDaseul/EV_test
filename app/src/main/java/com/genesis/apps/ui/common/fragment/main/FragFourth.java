@@ -27,15 +27,14 @@ import com.genesis.apps.comm.util.graph.AnotherBarActivity;
 import com.genesis.apps.comm.util.graph.PieChartActivity;
 import com.genesis.apps.comm.util.graph.StackedBarActivity;
 import com.genesis.apps.databinding.Frame4pBinding;
-import com.genesis.apps.ui.common.activity.CardViewActivity;
 import com.genesis.apps.ui.common.activity.ConstraintSetActivity;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.MainActivity;
-import com.genesis.apps.ui.common.dialog.BottomListDialog;
+import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.service.ScreenRecorderService;
+import com.genesis.apps.ui.myg.MyGGAActivity;
 import com.genesis.apps.ui.myg.MyGHomeActivity;
-import com.genesis.apps.ui.myg.MyGMenuActivity;
 
 import java.lang.ref.WeakReference;
 
@@ -140,7 +139,7 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         me.btnCardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                baseActivity.startActivitySingleTop(new Intent(getActivity(), MyGHomeActivity.class), 0);
+                baseActivity.startActivitySingleTop(new Intent(getActivity(), MyGGAActivity.class), 0);
             }
         });
     }

@@ -86,7 +86,7 @@ class MYPViewModel extends ViewModel {
     }
 
     public void reqMYP0001(final MYP_0001.Request reqData){
-        RES_MYP_0001.setValue(repository.REQ_MYP_0001(reqData).getValue());
+        repository.REQ_MYP_0001(reqData);
     }
 
     public void reqMYP1003(final MYP_1003.Request reqData){

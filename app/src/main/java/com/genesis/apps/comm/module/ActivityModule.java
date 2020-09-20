@@ -5,7 +5,7 @@ import android.app.Activity;
 import com.genesis.apps.R;
 import com.genesis.apps.chat.SocketIOHelper;
 import com.genesis.apps.ui.common.activity.BaseActivity;
-import com.genesis.apps.ui.common.dialog.TwoButtonDialog;
+import com.genesis.apps.ui.common.dialog.bottom.TwoButtonDialog;
 
 import dagger.Module;
 import dagger.Provides;
