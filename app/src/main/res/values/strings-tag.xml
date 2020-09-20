@@ -1,0 +1,6 @@
+<resources>
+    <string name="oil_ho">HDOL</string>
+    <string name="oil_gs">GSCT</string>
+    <string name="oil_soil">SOIL</string>
+    <string name="oil_sk">SKNO</string>
+</resources>

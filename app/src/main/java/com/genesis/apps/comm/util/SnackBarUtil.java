@@ -2,17 +2,46 @@ package com.genesis.apps.comm.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.genesis.apps.R;
 import com.google.android.material.snackbar.Snackbar;
+import com.kishandonga.csbx.CustomSnackbar;
 
 public class SnackBarUtil {
 
-    public static void show(Activity activity, String snackBarMsg) {
-        if (activity != null) {
-            Snackbar.make(activity.getWindow().getDecorView().findViewById(android.R.id.content), validateString(snackBarMsg), Snackbar.LENGTH_LONG).show();
+//    public static void show(Activity activity, String snackBarMsg) {
+//        if (activity != null) {
+//            Snackbar.make(activity.getWindow().getDecorView().findViewById(android.R.id.content), validateString(snackBarMsg), Snackbar.LENGTH_LONG).show();
+//
+//        }
+//    }
 
+    public static void show(Activity activity, String msg) {
+        if (activity != null) {
+            final CustomSnackbar sb = new CustomSnackbar(activity);
+            sb.customView(R.layout.snackbar_msg);
+            sb.duration(Snackbar.LENGTH_LONG);
+            ((TextView)sb.getView().findViewById(R.id.tv_msg)).setText(msg);
+            sb.show();
+
+
+            //                sb.withCustomView(new Function1<View, Unit>() {
+//                    @Override
+//                    public Unit invoke(View view) {
+//                        view.findViewById(R.id.btnUndo).setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                sb.dismiss();
+//                            }
+//                        });
+//                        return null;
+//                    }
+//                });
         }
     }
 
@@ -55,7 +84,6 @@ public class SnackBarUtil {
             Snackbar snackbar = Snackbar.make(view, validateString(snackBarMsg), Snackbar.LENGTH_LONG);
             View snackbarView = snackbar.getView();
 
-
           /*  // styling for rest of text
             TextView textView = snackbarView.findViewById(android.support.design.R.id.snackbar_text);
             textView.setTextColor(colorOfMessage);
@@ -66,7 +94,6 @@ public class SnackBarUtil {
             // styling for background of snackbar
 
             snackbarView.setBackgroundColor(viewBgColor);
-
 
             //styling for action of text
             snackbar.setActionTextColor(actionTextColor);
@@ -82,6 +109,27 @@ public class SnackBarUtil {
         }
         return msg;
     }
+
+
+
+//    public static Snackbar makeText(Context context, String message, int duration) {
+//        Activity activity = (Activity) context;
+//        View layout;
+//        Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, duration);
+//        layout = snackbar.getView();
+//        //setting background color
+//        layout.setBackgroundColor(context.getResources().getColor(R.color.orange));
+//        android.widget.TextView text = (android.widget.TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
+//        //setting font color
+//        text.setTextColor(context.getResources().getColor(R.color.white));
+//        Typeface font = null;
+//        //Setting font
+//        font = Typeface.createFromAsset(context.getAssets(), "DroidSansFallbackanmol256.ttf");
+//        text.setTypeface(font);
+//        return snackbar;
+//
+//    }
+
 
 //
 //    /************************************ ShowSnackbar with message, KeepItDisplayedOnScreen for few seconds*****************************/

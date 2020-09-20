@@ -24,24 +24,38 @@ public class OilView {
         this.ui = ui;
         this.context = ui.getRoot().getContext();
         this.onClickListener = onClickListener;
+        setOilLayout(null);
     }
 
     public void setOilLayout(MYP_1006.Response data) {
 
-        if(data.getOilRfnPontList()==null||data.getOilRfnPontList().size()<1){
-            ui.btnBarcodeGs.setVisibility(View.GONE);
-            ui.tvPointGs.setVisibility(View.GONE);
-            ui.btnBarcodeHo.setVisibility(View.GONE);
-            ui.tvPointHo.setVisibility(View.GONE);
-            ui.btnBarcodeSk.setVisibility(View.GONE);
-            ui.tvPointSk.setVisibility(View.GONE);
-            ui.btnBarcodeSoil.setVisibility(View.GONE);
-            ui.tvPointSoil.setVisibility(View.GONE);
+        if(data==null||data.getOilRfnPontList()==null||data.getOilRfnPontList().size()<1){
+//            ui.btnBarcodeGs.setVisibility(View.GONE);
+//            ui.tvPointGs.setVisibility(View.GONE);
+//            ui.btnBarcodeHo.setVisibility(View.GONE);
+//            ui.tvPointHo.setVisibility(View.GONE);
+//            ui.btnBarcodeSk.setVisibility(View.GONE);
+//            ui.tvPointSk.setVisibility(View.GONE);
+//            ui.btnBarcodeSoil.setVisibility(View.GONE);
+//            ui.tvPointSoil.setVisibility(View.GONE);
+//
+//            ui.tvIntegrationGs.setVisibility(View.VISIBLE);
+//            ui.tvIntegrationHo.setVisibility(View.VISIBLE);
+//            ui.tvIntegrationSk.setVisibility(View.VISIBLE);
+//            ui.tvIntegrationSoil.setVisibility(View.VISIBLE);
+            ui.btnBarcodeGs.setVisibility(View.VISIBLE);
+            ui.tvPointGs.setVisibility(View.VISIBLE);
+            ui.btnBarcodeHo.setVisibility(View.VISIBLE);
+            ui.tvPointHo.setVisibility(View.VISIBLE);
+            ui.btnBarcodeSk.setVisibility(View.VISIBLE);
+            ui.tvPointSk.setVisibility(View.VISIBLE);
+            ui.btnBarcodeSoil.setVisibility(View.VISIBLE);
+            ui.tvPointSoil.setVisibility(View.VISIBLE);
 
-            ui.tvIntegrationGs.setVisibility(View.VISIBLE);
-            ui.tvIntegrationHo.setVisibility(View.VISIBLE);
-            ui.tvIntegrationSk.setVisibility(View.VISIBLE);
-            ui.tvIntegrationSoil.setVisibility(View.VISIBLE);
+            ui.tvIntegrationGs.setVisibility(View.GONE);
+            ui.tvIntegrationHo.setVisibility(View.GONE);
+            ui.tvIntegrationSk.setVisibility(View.GONE);
+            ui.tvIntegrationSoil.setVisibility(View.GONE);
         }else{
             for(int i=0; i<data.getOilRfnPontList().size(); i++){
                 switch (data.getOilRfnPontList().get(i).getOilRfnCd()){
