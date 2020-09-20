@@ -2,6 +2,7 @@ package com.genesis.apps.ui.myg;
 
 import android.animation.ValueAnimator;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,10 +16,14 @@ import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.MYP_0001;
 import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.DateUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ActivityMygGaBinding;
 import com.genesis.apps.databinding.ActivityMygVersionBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.google.gson.Gson;
+
+import java.util.Locale;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -57,6 +62,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
                     ui.cbPhone.setChecked(sample.getMrktCd().substring(3,4).equalsIgnoreCase("1") ? true : false);
                     ui.cbAll.setChecked(ui.cbEmail.isChecked()&&ui.cbSms.isChecked()&&ui.cbPhone.isChecked());
                 }
+
 
                 switch (result.status){
                     case SUCCESS:

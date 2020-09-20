@@ -4,8 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.genesis.apps.comm.util.DateUtil"/>
         <import type="android.view.View"/>
         <import type="android.text.TextUtils" />
+        <import type="android.telephony.PhoneNumberUtils"/>
+        <import type="java.util.Locale"/>
         <variable
             name="activity"
             type="com.genesis.apps.ui.myg.MyGGAActivity" />
@@ -116,7 +119,7 @@
                     android:lineSpacingExtra="3sp"
                     android:textColor="@color/x_000000"
                     android:textSize="16sp"
-                    android:text="@{data.getCelphNo() ?? ``}"
+                    android:text="@{PhoneNumberUtils.formatNumber( (data.getCelphNo() ?? ``), Locale.getDefault().getCountry())}"
                     app:layout_constraintBaseline_toBaselineOf="@+id/btn_change_phone"
                     app:layout_constraintEnd_toStartOf="@+id/btn_change_phone"
                     app:layout_constraintStart_toEndOf="@+id/tv_title_phone"
@@ -169,7 +172,7 @@
                     android:lineSpacingExtra="3sp"
                     android:textColor="@color/x_000000"
                     android:textSize="16sp"
-                    android:text="@{data.getBrtdy() ?? ``}"
+                    android:text="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.getBrtdy()??``),DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)}"
                     app:layout_constraintStart_toStartOf="@+id/tv_phone"
                     app:layout_constraintTop_toBottomOf="@+id/tv_phone"
                     tools:text="1970.03.03" />
