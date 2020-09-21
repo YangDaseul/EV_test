@@ -52,8 +52,16 @@ public class LGN_0003 extends BaseData {
      * @see #butlSpotNm 버틀러 지점명
      * @see #butlSubsDt 버틀러 신칭일
      * (형식 YYYY-MM-DD)
+     *
+     * @see #butlSubsCd 버틀러 신청코드
+     * 1000: 신규신청 : 버틀러가 없는 경우
+     * 2000: 전담버틀러 : 현재의 버틀러
+     * 3000: 변경신청중 : 버틀러를 변경신청했지만 지정이 안된 경우
+     *
      * @see #virtRecptNo 가접수번호
      * 긴급출동 신청 가점수번호
+     *
+     * @see #grteeAnn 보증수리안내
      * @see #newNotiCnt 새 알림목록 개수
      * 읽지 않은 새 알림목로 개수
      */
@@ -89,10 +97,17 @@ public class LGN_0003 extends BaseData {
         @Expose
         @SerializedName("butlSubsDt")
         private String butlSubsDt;
+        @Expose
+        @SerializedName("butlSubsCd")
+        private String butlSubsCd;
 
         @Expose
         @SerializedName("virtRecptNo")
         private String virtRecptNo;
+
+        @Expose
+        @SerializedName("grteeAnn")
+        private String grteeAnn;
 
         @Expose
         @SerializedName("newNotiCnt")

@@ -25,6 +25,10 @@ import lombok.EqualsAndHashCode;
  * Y: 전담 버틀러 변경 신청 중 경우
  * N, C: 전담 버틀러 있는 경우
  *
+ * @see #cnsltBdgYn 상담뱃지여부
+ * Y: 상담이력뱃지표시 N:뱃지표시 안함
+ *
+ *
  * @see #dist 거리(km) btr-1008에서만 취급급 */
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
@@ -63,6 +67,9 @@ class BtrVO extends BaseData {
     @Expose
     @SerializedName("bltrChgYn")
     private String bltrChgYn;
+    @Expose
+    @SerializedName("cnsltBdgYn")
+    private String cnsltBdgYn;
 
 
     //btr-1008에서만 데이터 있음

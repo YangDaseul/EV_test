@@ -21,7 +21,6 @@ public class REQ_1015 extends BaseData {
      * @see #rparRsvtSeqNo 정비예약일련번호
      * @see #rsvtCnclCd 예약취소코드
      * 1:예약변경, 2:타업체입고, 3:입고불가 4:대기과다 5:기타
-     * 6: 예약일전 입고수리
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data

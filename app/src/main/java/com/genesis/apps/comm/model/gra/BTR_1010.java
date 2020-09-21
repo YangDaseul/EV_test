@@ -17,12 +17,20 @@ public class BTR_1010 extends BaseData {
 
     /**
      * @brief BTR_1010 요청 항목
+     * @see #annMgmtCd
+     * (차량모델명)
+     * BTR-G70, BTR-G80, BTR-G90, BTR-GV80, BTR-EQ900, BTR-ALLNEWG80
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     static
     class Request extends BaseRequest{
-        public Request(String menuId){
+        @Expose
+        @SerializedName("annMgmtCd")
+        private String annMgmtCd;
+
+        public Request(String menuId, String annMgmtCd){
+            this.annMgmtCd = annMgmtCd;
             setData(APIInfo.GRA_BTR_1010.getIfCd(),menuId);
         }
     }
