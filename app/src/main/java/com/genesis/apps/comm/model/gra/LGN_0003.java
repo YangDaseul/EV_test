@@ -48,10 +48,6 @@ public class LGN_0003 extends BaseData {
      * HSW 시스템 정의
      * @see #asnHistList 정비이력정보
      * 리스트 정보 (최대 최근3개)
-     * @see #butlNm 버틀러 성명
-     * @see #butlSpotNm 버틀러 지점명
-     * @see #butlSubsDt 버틀러 신칭일
-     * (형식 YYYY-MM-DD)
      *
      * @see #butlSubsCd 버틀러 신청코드
      * 1000: 신규신청 : 버틀러가 없는 경우
@@ -61,7 +57,6 @@ public class LGN_0003 extends BaseData {
      * @see #virtRecptNo 가접수번호
      * 긴급출동 신청 가점수번호
      *
-     * @see #grteeAnn 보증수리안내
      * @see #newNotiCnt 새 알림목록 개수
      * 읽지 않은 새 알림목로 개수
      */
@@ -89,25 +84,12 @@ public class LGN_0003 extends BaseData {
         private List<MainHistVO> asnHistList;
 
         @Expose
-        @SerializedName("butlNm")
-        private String butlNm;
-        @Expose
-        @SerializedName("butlSpotNm")
-        private String butlSpotNm;
-        @Expose
-        @SerializedName("butlSubsDt")
-        private String butlSubsDt;
-        @Expose
         @SerializedName("butlSubsCd")
         private String butlSubsCd;
 
         @Expose
         @SerializedName("virtRecptNo")
         private String virtRecptNo;
-
-        @Expose
-        @SerializedName("grteeAnn")
-        private String grteeAnn;
 
         @Expose
         @SerializedName("newNotiCnt")
