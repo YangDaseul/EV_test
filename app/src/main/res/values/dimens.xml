@@ -7,4 +7,5 @@
     <dimen name="offset">0dp</dimen>
     <dimen name="pageMarginAndOffset">0dp</dimen>
     <dimen name="frameSize">320dp</dimen>
+    <dimen name="offset2">30dp</dimen>
 </resources>

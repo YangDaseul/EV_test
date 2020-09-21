@@ -4,15 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <variable
-            name="view"
-            type="com.genesis.apps.ui.myg.view.OilView" />
-
         <variable
             name="data"
             type="com.genesis.apps.comm.model.gra.MYP_2001.Response" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,7 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:value="@{@string/mg_con01_word_1}" />
+            app:value="@{@string/mg_member01_1}" />
 
         <ScrollView
             android:id="@+id/scroll"

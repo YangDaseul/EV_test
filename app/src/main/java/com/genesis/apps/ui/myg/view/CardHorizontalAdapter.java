@@ -49,12 +49,12 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
         public void onBindView(CardVO item, int pos) {
 
             getBinding().tvCardName.setText(item.getCardNm() + " " + item.getCardClsNm());
-            getBinding().tvCardNo2.setText(item.getCardNo()); 카드번호 암호화?
-            getBinding().tvCardNo.setText(item.getCardNo()); 카드번호 암호화?
-            getBinding().tvCardDate.setText(item.getCardIsncSubspDt()); 데이트 포맷정의
-            getBinding().ivBarcode.setImageBitmap(null); 바코드 생성 테스트
+            getBinding().tvCardNo2.setText(item.getCardNo()); //카드번호 암호화?
+            getBinding().tvCardNo.setText(item.getCardNo()); //카드번호 암호화?
+            getBinding().tvCardDate.setText(item.getCardIsncSubspDt()); //데이트 포맷정의
+            getBinding().ivBarcode.setImageBitmap(null); //바코드 생성 테스트
 
-            getBinding().ivFavorite.set 즐겨찾기 로컬 구현?
+            //getBinding().ivFavorite.set 즐겨찾기 로컬 구현?
 
         }
 
