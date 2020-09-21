@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.OilCodes;
 import com.genesis.apps.comm.model.RequestCodes;
 import com.genesis.apps.comm.model.gra.MYP_0001;
 import com.genesis.apps.comm.model.gra.MYP_1003;
@@ -264,16 +265,16 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     oilView.reqIntegrateOil(mypViewModel.getRES_MYP_1006().getValue().data.getOilRfnPontList(),OilPointVO.OIL_CODE_SOIL);
                     break;
                 case R.id.btn_barcode_gs: //GS 바코드, 포인트 화면 이동
-                    startActivitySingleTop(new Intent(this, MyGOilPointActivity.class).putExtra(MyGOilPointActivity.KEY_OIL_CODE, OilPointVO.OIL_CODE_GSCT), RequestCodes.REQ_CODE_ACTIVITY.getCode());
+                    startActivitySingleTop(new Intent(this, MyGOilPointActivity.class).putExtra(OilCodes.KEY_OIL_CODE, OilPointVO.OIL_CODE_GSCT), RequestCodes.REQ_CODE_ACTIVITY.getCode());
                     break;
                 case R.id.btn_barcode_ho: //hyundai oilbank 바코드, 포인트 화면 이동
-                    startActivitySingleTop(new Intent(this, MyGOilPointActivity.class).putExtra(MyGOilPointActivity.KEY_OIL_CODE, OilPointVO.OIL_CODE_HDOL), RequestCodes.REQ_CODE_ACTIVITY.getCode());
+                    startActivitySingleTop(new Intent(this, MyGOilPointActivity.class).putExtra(OilCodes.KEY_OIL_CODE, OilPointVO.OIL_CODE_HDOL), RequestCodes.REQ_CODE_ACTIVITY.getCode());
                     break;
                 case R.id.btn_barcode_sk: //sk 에너지 바코드, 포인트 화면 이동
-                    startActivitySingleTop(new Intent(this, MyGOilPointActivity.class).putExtra(MyGOilPointActivity.KEY_OIL_CODE, OilPointVO.OIL_CODE_SKNO), RequestCodes.REQ_CODE_ACTIVITY.getCode());
+                    startActivitySingleTop(new Intent(this, MyGOilPointActivity.class).putExtra(OilCodes.KEY_OIL_CODE, OilPointVO.OIL_CODE_SKNO), RequestCodes.REQ_CODE_ACTIVITY.getCode());
                     break;
                 case R.id.btn_barcode_soil: //S-OIL 바코드, 포인트 화면 이동
-                    startActivitySingleTop(new Intent(this, MyGOilPointActivity.class).putExtra(MyGOilPointActivity.KEY_OIL_CODE, OilPointVO.OIL_CODE_SOIL), RequestCodes.REQ_CODE_ACTIVITY.getCode());
+                    startActivitySingleTop(new Intent(this, MyGOilPointActivity.class).putExtra(OilCodes.KEY_OIL_CODE, OilPointVO.OIL_CODE_SOIL), RequestCodes.REQ_CODE_ACTIVITY.getCode());
                     break;
                 case R.id.btn_integration_michael: //마이클 연동하기
                     //TODO 정책 결정 안됨

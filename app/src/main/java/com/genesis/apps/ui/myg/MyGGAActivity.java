@@ -60,20 +60,11 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
                     ui.cbSms.setChecked(sample.getMrktCd().substring(0,1).equalsIgnoreCase("1") ? true : false);
                     ui.cbEmail.setChecked(sample.getMrktCd().substring(1,2).equalsIgnoreCase("1") ? true : false);
                     ui.cbPhone.setChecked(sample.getMrktCd().substring(3,4).equalsIgnoreCase("1") ? true : false);
-                    ui.cbAll.setChecked(ui.cbEmail.isChecked()&&ui.cbSms.isChecked()&&ui.cbPhone.isChecked());
                 }
 
 
                 switch (result.status){
                     case SUCCESS:
-//                        if(result.data!=null) {
-//                            ui.setData(result.data);
-//                            ui.cbAd.setChecked(result.data.getMrktYn().equalsIgnoreCase("Y") ? true : false);
-//                            ui.cbSms.setChecked(result.data.getMrktCd().substring(0,1).equalsIgnoreCase("1") ? true : false);
-//                            ui.cbEmail.setChecked(result.data.getMrktCd().substring(1,2).equalsIgnoreCase("1") ? true : false);
-//                            ui.cbPhone.setChecked(result.data.getMrktCd().substring(3,4).equalsIgnoreCase("1") ? true : false);
-//                            ui.cbAll.setChecked(ui.cbEmail.isChecked()&&ui.cbSms.isChecked()&&ui.cbPhone.isChecked());
-//                        }
                         break;
                     case LOADING:
 
@@ -92,7 +83,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
         ui.cbEmail.setOnCheckedChangeListener(listener);
         ui.cbPhone.setOnCheckedChangeListener(listener);
         ui.cbSms.setOnCheckedChangeListener(listener);
-        ui.cbAll.setOnCheckedChangeListener(listenerAll);
+        ui.cbAd.setOnCheckedChangeListener(listenerAll);
         ui.vBlock.setOnTouchListener((view, motionEvent) -> true);
     }
 
@@ -123,7 +114,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
 
     CompoundButton.OnCheckedChangeListener listener = (compoundButton, b) -> {
         if(compoundButton.isPressed()) {
-            ui.cbAll.setChecked(ui.cbEmail.isChecked()&&ui.cbPhone.isChecked()&&ui.cbSms.isChecked());
+            ui.cbAd.setChecked(ui.cbEmail.isChecked()|ui.cbPhone.isChecked()|ui.cbSms.isChecked());
         }
     };
 
@@ -133,6 +124,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
             ui.cbPhone.setChecked(b);
             ui.cbSms.setChecked(b);
         }
+        ui.vBlock.setVisibility(b ? View.GONE : View.VISIBLE);
     };
 
     /**

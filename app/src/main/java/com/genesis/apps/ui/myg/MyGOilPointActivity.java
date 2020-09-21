@@ -13,6 +13,7 @@ import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.OilCodes;
 import com.genesis.apps.comm.model.ResultCodes;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.MYP_1006;
@@ -28,7 +29,6 @@ import com.genesis.apps.ui.myg.view.OilView;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_GSCT;
@@ -40,61 +40,8 @@ import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_JOIN_CODE_Y;
 public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding> {
     private MYPViewModel mypViewModel;
     private OilView oilView;
-    public static final String KEY_OIL_CODE="oilRfnCd";
     private String oilRfnCd;
-    private ConstraintSet[] constraintSets = new ConstraintSet[OilInfo.values().length];
-    enum OilInfo {
-        GSCT(OIL_CODE_GSCT,0, "kr.co.gscaltex.gsnpoint" ,R.layout.view_oil_1_1),
-        HDOL(OIL_CODE_HDOL,0, "com.hyundaioilbank.android",R.layout.view_oil_1_2),
-        SKNO(OIL_CODE_SKNO,0, "com.ske.phone.epay",R.layout.view_oil_1_3),
-        SOIL(OIL_CODE_SOIL,0, "com.soilbonus.goodoilfamily",R.layout.view_oil_1_4);
-        private String code;
-        private int src;
-        private String schema;
-        private int layout;
-        OilInfo(String code, int src, String schema, int layout){
-            this.code = code;
-            this.src = src;
-            this.schema = schema;
-            this.layout = layout;
-        }
-        public static OilInfo findCode(String code){
-            return Arrays.asList(OilInfo.values()).stream().filter(data->data.getCode().equalsIgnoreCase(code)).findAny().orElse(GSCT);
-        }
-
-        public int getSrc() {
-            return src;
-        }
-
-        public void setSrc(int src) {
-            this.src = src;
-        }
-
-        public String getCode() {
-            return code;
-        }
-
-        public void setCode(String code) {
-            this.code = code;
-        }
-
-        public String getSchema() {
-            return schema;
-        }
-
-        public void setSchema(String schema) {
-            this.schema = schema;
-        }
-
-        public int getLayout() {
-            return layout;
-        }
-
-        public void setLayout(int layout) {
-            this.layout = layout;
-        }
-    }
-
+    private ConstraintSet[] constraintSets = new ConstraintSet[OilCodes.values().length];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,10 +57,10 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
     }
 
     private void initConstraintSets() {
-        for (int i = 0; i < OilInfo.values().length; i++) {
+        for (int i = 0; i < OilCodes.values().length; i++) {
             constraintSets[i] = new ConstraintSet();
 
-                constraintSets[i].clone(this, OilInfo.values()[i].getLayout());
+                constraintSets[i].clone(this, OilCodes.values()[i].getLayout());
         }
     }
 
@@ -128,7 +75,7 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
 
     private void getOilCode(){
         try {
-            oilRfnCd = getIntent().getStringExtra(KEY_OIL_CODE);
+            oilRfnCd = getIntent().getStringExtra(OilCodes.KEY_OIL_CODE);
             if(TextUtils.isEmpty(oilRfnCd)){
                 exitPage("정유소 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }
@@ -142,7 +89,7 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
         initOilInfo(list);
         for(OilPointVO pointVO : list){
             if(pointVO.getOilRfnCd().equalsIgnoreCase(oilRfnCd)){
-                ui.ivCi.setImageResource(OilInfo.findCode(oilRfnCd).getSrc());
+                ui.ivCi.setImageResource(OilCodes.findCode(oilRfnCd).getSmallSrc());
                 ui.tvPoint.setText(StringUtil.getDigitGrouping(TextUtils.isEmpty(pointVO.getPont()) ? 0 : Integer.parseInt(pointVO.getPont())));
                 ui.tvCardNo.setText(pointVO.getCardNo());
                 setBarcode(pointVO.getCardNo());
@@ -178,7 +125,7 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    doTransition(OilInfo.findCode(oilRfnCd).ordinal());
+                    doTransition(OilCodes.findCode(oilRfnCd).ordinal());
                     oilView.setOilLayout(responseNetUI.data);
                     setOilDetailView(responseNetUI.data.getOilRfnPontList());
                     showProgressDialog(false);
@@ -227,7 +174,7 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
                 mypViewModel.reqOIL0003(new OIL_0003.Request(APPIAInfo.MG_CON01.getId(), oilRfnCd)); //연동해제 요청
                 break;
             case R.id.btn_check_point:
-                PackageUtil.runApp(this, OilInfo.findCode(oilRfnCd).getSchema());
+                PackageUtil.runApp(this, OilCodes.findCode(oilRfnCd).getSchema());
                 break;
             case R.id.btn_refresh:
                 mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG_CON01.getId()));
@@ -237,7 +184,7 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
             case R.id.btn_barcode_sk:
             case R.id.btn_barcode_gs:
                 oilRfnCd = v.getTag().toString();
-                doTransition(OilInfo.findCode(oilRfnCd).ordinal());
+                doTransition(OilCodes.findCode(oilRfnCd).ordinal());
                 break;
 
 //            case R.id.btn_barcode_soil:

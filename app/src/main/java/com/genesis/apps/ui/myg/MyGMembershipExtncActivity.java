@@ -28,7 +28,6 @@ public class MyGMembershipExtncActivity extends SubActivity<ActivityMygMembershi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myg_membership_extnc);
-        ui.lTitle.title.setVisibility(View.INVISIBLE);
         ui.setLifecycleOwner(this);
 
         mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);

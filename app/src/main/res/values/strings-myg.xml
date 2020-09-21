@@ -112,7 +112,28 @@
     <string name="mg_con01_msg_1">포인트 사용 내역은 해당 APP을 통해 확인 가능합니다.</string>
 
     <string name="mg_con02_1">포인트 연동</string>
-    <string name="mg_con02_2">SK에너지\n간편한 포인트 적립</string>
+    <string name="mg_con02_2">간편한 포인트 적립</string>
     <string name="mg_con02_3">바코드로 포인트 적립이 가능하며\n포인트 적립 시,\n주유 내역이 자동입력 됩니다.</string>
     <string name="mg_con02_4">연동하기</string>
+
+
+    <string name="mg_member01_1">멤버십</string>
+    <string name="mg_member01_2">가 %s에 소멸될 예정입니다.</string>
+    <string name="mg_member01_3">%sP</string>
+    <string name="mg_member01_4">사용내역</string>
+    <string name="mg_member01_5">사용처 안내</string>
+    <string name="mg_member01_6">적립예정</string>
+    <string name="mg_member01_7">소멸예정 (6개월 이내)</string>
+    <string name="mg_member01_8">보유 포인트는 가맹점에서 사용 가능합니다.</string>
+    <string name="mg_member01_9">보유 카드</string>
+    <string name="mg_member01_10">비밀번호 변경</string>
+    <string name="mg_member01_11">을 선택하여 대표 카드를 설정하세요</string>
+    <string name="mg_member01_12">블루멤버스 비신용카드</string>
+    <string name="mg_member01_13"></string>
+    <string name="mg_member01_14"></string>
+    <string name="mg_member01_15"></string>
+    <string name="mg_member01_16"></string>
+    <string name="mg_member01_17"></string>
+
+
 </resources>

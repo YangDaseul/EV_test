@@ -326,19 +326,19 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <CheckBox
-                        android:id="@+id/cb_all"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:button="@null"
-                        android:drawableStart="@drawable/checkbox_selector"
-                        android:drawablePadding="8dp"
-                        android:text="@string/word_ga_9"
-                        android:textSize="15sp"
-                        android:fontFamily="@font/light_genesissansheadglobal"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_title_ad_receive" />
+<!--                    <CheckBox-->
+<!--                        android:id="@+id/cb_all"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="15dp"-->
+<!--                        android:button="@null"-->
+<!--                        android:drawableStart="@drawable/checkbox_selector"-->
+<!--                        android:drawablePadding="8dp"-->
+<!--                        android:text="@string/word_ga_9"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:fontFamily="@font/light_genesissansheadglobal"-->
+<!--                        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/tv_title_ad_receive" />-->
 
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -352,7 +352,7 @@
                         android:paddingBottom="20dp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/cb_all">
+                        app:layout_constraintTop_toBottomOf="@+id/tv_title_ad_receive">
 
                         <CheckBox
                             android:id="@+id/cb_email"
@@ -416,7 +416,7 @@
                     android:layout_margin="1dp"
                     android:background="#80ffffff"
                     android:focusableInTouchMode="true"
-                    android:visibility="@{cbAd.checked ? View.GONE : View.VISIBLE}"
+                    android:visibility="visible"
                     tools:visibility="visible"
                     app:layout_constraintTop_toTopOf="@+id/l_ad_receive"
                     app:layout_constraintLeft_toLeftOf="@+id/l_ad_receive"

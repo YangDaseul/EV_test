@@ -17,20 +17,16 @@ public class MyGMembershipInfoActivity extends SubActivity<ActivityMygMembership
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myg_membership_info);
-        ui.lTitle.title.setVisibility(View.INVISIBLE);
 
-        ui.btnCall.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL+ui.btnCall.getTag().toString()));
-                startActivity(intent);
-            }
-        });
-        //TODO 처리 필요
     }
 
     @Override
     public void onSingleClick(View v) {
-
+        switch (v.getId()){
+            case R.id.btn_call:
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL+ui.btnCall.getTag().toString()));
+                startActivity(intent);
+                break;
+        }
     }
 }
