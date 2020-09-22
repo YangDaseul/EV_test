@@ -3,24 +3,20 @@ package com.genesis.apps.ui.myg;
 import android.os.Bundle;
 import android.view.View;
 
-import com.genesis.apps.R;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.MYP_0001;
-import com.genesis.apps.comm.model.gra.MYP_2001;
-import com.genesis.apps.comm.model.gra.MYP_2006;
-import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
-import com.genesis.apps.comm.net.NetUIResponse;
-import com.genesis.apps.databinding.ActivityMygMembershipBinding;
-import com.genesis.apps.databinding.ActivityMygMembershipInfoBinding;
-import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.myg.view.CardHorizontalAdapter;
-import com.google.gson.Gson;
-
 import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
+
+import com.genesis.apps.R;
+import com.genesis.apps.comm.model.gra.APPIAInfo;
+import com.genesis.apps.comm.model.gra.MYP_2001;
+import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
+import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.databinding.ActivityMygMembershipBinding;
+import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.myg.view.CardHorizontalAdapter;
+import com.google.gson.Gson;
 
 public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBinding> {
 
@@ -33,9 +29,40 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
         mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
         ui.setLifecycleOwner(this);
 
-        mypViewModel.getRES_MYP_2006().observe(this, new Observer<NetUIResponse<MYP_2006.Response>>() {
+
+
+        adapter = new CardHorizontalAdapter(this);
+        ui.viewpager.setAdapter(adapter);
+        ui.viewpager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+        ui.viewpager.setCurrentItem(0);
+
+        final float pageMargin= getResources().getDimensionPixelOffset(R.dimen.offset2);
+        final float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset2);
+
+        ui.viewpager.setPageTransformer(new ViewPager2.PageTransformer() {
             @Override
-            public void onChanged(NetUIResponse<MYP_2006.Response> result) {
+            public void transformPage(@NonNull View page, float position) {
+                float myOffset = position * -(2 * pageOffset + pageMargin);
+                if (position < -1) {
+                    page.setTranslationX(-myOffset);
+                } else if (position <= 1) {
+                    float scaleFactor = Math.max(0.8f, 1 - Math.abs(position - 0.14285715f));
+                    page.setTranslationX(myOffset);
+                    page.setScaleY(scaleFactor);
+                    page.setAlpha(scaleFactor);
+                } else {
+                    page.setAlpha(0f);
+                    page.setTranslationX(myOffset);
+                }
+
+            }
+        });
+
+
+
+        mypViewModel.getRES_MYP_2001().observe(this, new Observer<NetUIResponse<MYP_2001.Response>>() {
+            @Override
+            public void onChanged(NetUIResponse<MYP_2001.Response> result) {
 
                 String test ="{\n" +
                         "  \"rsltCd\": \"0000\",\n" +
@@ -58,7 +85,7 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
                         "      \"cardIsncSubspDt\": \"20200901\"\n" +
                         "    },\n" +
                         "    {\n" +
-                        "      \"cardNo\": \"1234567890123456\",\n" +
+                        "      \"cardNo\": \"2222222220123456\",\n" +
                         "      \"cardNm\": \"블루멤버스\",\n" +
                         "      \"cardStusNm\": \"정상\",\n" +
                         "      \"cardClsNm\": \"신용카드\",\n" +
@@ -66,7 +93,7 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
                         "      \"cardIsncSubspDt\": \"20200902\"\n" +
                         "    },\n" +
                         "    {\n" +
-                        "      \"cardNo\": \"1234567890123456\",\n" +
+                        "      \"cardNo\": \"3333333330123456\",\n" +
                         "      \"cardNm\": \"블루멤버스\",\n" +
                         "      \"cardStusNm\": \"정상\",\n" +
                         "      \"cardClsNm\": \"신용카드\",\n" +
@@ -77,35 +104,11 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
                         "}";
                 MYP_2001.Response sample = new Gson().fromJson(test, MYP_2001.Response.class);
                 ui.setData(sample);
-
-                adapter = new CardHorizontalAdapter();
+                ui.viewpager.setOffscreenPageLimit(sample.getBlueMbrCrdList().size());
                 adapter.setRows(sample.getBlueMbrCrdList());
-                ui.viewpager.setAdapter(adapter);
-                ui.viewpager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-                ui.viewpager.setCurrentItem(0);
-
-                final float pageMargin= getResources().getDimensionPixelOffset(R.dimen.offset2);
-                final float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset2);
-
-                ui.viewpager.setPageTransformer(new ViewPager2.PageTransformer() {
-                    @Override
-                    public void transformPage(@NonNull View page, float position) {
-                        float myOffset = position * -(2 * pageOffset + pageMargin);
-                        if (position < -1) {
-                            page.setTranslationX(-myOffset);
-                        } else if (position <= 1) {
-                            float scaleFactor = Math.max(0.7f, 1 - Math.abs(position - 0.14285715f));
-                            page.setTranslationX(myOffset);
-                            page.setScaleY(scaleFactor);
-                            page.setAlpha(scaleFactor);
-                        } else {
-                            page.setAlpha(0f);
-                            page.setTranslationX(myOffset);
-                        }
-
-                    }
-                });
-
+                adapter.applyFilter();
+                adapter.addCard();
+                adapter.notifyDataSetChanged();
             }
         });
 

@@ -240,7 +240,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
                     break;
                 case R.id.l_point: //블루멤버스 사용 가능 포인트
-
+                    startActivitySingleTop(new Intent(this, MyGMembershipActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode());
                     break;
                 case R.id.l_mobility_care: //혜택 쿠폰
                     break;

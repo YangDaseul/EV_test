@@ -54,6 +54,13 @@ class CardVO extends BaseData {
     @Expose
     @SerializedName("cardStusNm")
     private String cardStusNm;
+    public static final String CARD_STATUS_10="정상";
+    public static final String CARD_STATUS_20="정지";
+    public static final String CARD_STATUS_30="소멸";
+    public static final String CARD_STATUS_0="발급중";
+    public static final String CARD_STATUS_99="추가"; //APP NATIVE에서만 사용하는 코드
+
+
     @Expose
     @SerializedName("cardClsNm")
     private String cardClsNm;
@@ -63,4 +70,6 @@ class CardVO extends BaseData {
     @Expose
     @SerializedName("cardIsncSubspDt")
     private String cardIsncSubspDt;
+
+    private boolean isFavorite;
 }
