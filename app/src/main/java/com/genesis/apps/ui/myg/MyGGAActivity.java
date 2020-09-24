@@ -88,7 +88,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
     }
 
     @Override
-    public void onSingleClick(View v) {
+    public void onClickCommon(View v) {
         switch (v.getId()){
             case R.id.iv_arrow:
                 if(ui.tvAdInfo.getVisibility()==View.VISIBLE){

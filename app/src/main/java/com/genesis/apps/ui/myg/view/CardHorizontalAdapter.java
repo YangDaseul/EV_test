@@ -2,17 +2,19 @@ package com.genesis.apps.ui.myg.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.ImageView;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.comm.util.BarcodeUtil;
+import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.DeviceUtil;
+import com.genesis.apps.comm.util.StringRe2j;
 import com.genesis.apps.databinding.ItemCardBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
@@ -26,10 +28,10 @@ import static com.genesis.apps.comm.model.vo.CardVO.CARD_STATUS_30;
 
 public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
 
-    private Context context;
+    private static OnSingleClickListener onSingleClickListener;
 
-    public CardHorizontalAdapter(Context context) {
-        this.context = context;
+    public CardHorizontalAdapter(OnSingleClickListener onSingleClickListener) {
+        this.onSingleClickListener = onSingleClickListener;
     }
 
     @Override
@@ -72,8 +74,10 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
             getBinding().lWhole.setOnClickListener(null);
             getBinding().tvStatus.setVisibility(View.GONE);
             getBinding().lWhole.setElevation(3);
+            getBinding().lWhole.setTag(R.id.item_position, pos);
+            getBinding().ivFavorite.setTag(R.id.item_position, pos);
             getBinding().lWhole.setBackgroundResource(R.drawable.bg_ffffff_round_10);
-            switch (item.getCardStusNm()){
+            switch (item.getCardStusNm()) {
                 case CardVO.CARD_STATUS_99://추가
                     getBinding().tvCardName.setVisibility(View.INVISIBLE);
                     getBinding().tvCardNo2.setVisibility(View.INVISIBLE);
@@ -87,19 +91,15 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
                     getBinding().tvAdd.setVisibility(View.VISIBLE);
                     getBinding().lWhole.setElevation(0);
                     getBinding().lWhole.setBackgroundColor(getContext().getColor(R.color.x_00000000));
-                    getBinding().lWhole.setOnClickListener(new OnSingleClickListener() {
-                        @Override
-                        public void onSingleClick(View v) {
-                            //TODO 카드 추가 클릭 시 정의
-                        }
-                    });
+                    getBinding().lWhole.setOnClickListener(onSingleClickListener);
                     return;
                 case CardVO.CARD_STATUS_10://정상
                     getBinding().ivFavorite.setBackgroundResource(item.isFavorite() ? R.drawable.ic_star_l_s : R.drawable.ic_star_l_b2);
+                    getBinding().ivFavorite.setOnClickListener(onSingleClickListener);
                     break;
                 case CardVO.CARD_STATUS_0://발급중
                     getBinding().tvStatus.setVisibility(View.VISIBLE);
-                    getBinding().ivFavorite.setVisibility(View.GONE);
+                    getBinding().ivFavorite.setVisibility(View.INVISIBLE);
                     break;
 
                 case CARD_STATUS_20://정지 처리안함
@@ -110,25 +110,29 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
 
 
             getBinding().tvCardName.setText(item.getCardNm() + " " + item.getCardClsNm());
-            getBinding().tvCardDate.setText(item.getCardIsncSubspDt()); //데이트 포맷정의
+            getBinding().tvCardDate.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(item.getCardIsncSubspDt(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)); //데이트 포맷정의
 
-            getBinding().tvCardNo2.setText(item.getCardNo()); //카드번호 암호화?
-            getBinding().tvCardNo.setText(item.getCardNo()); //카드번호 암호화?
-            getBinding().ivBarcode.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    try {
-                        getBinding().ivBarcode.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                        Bitmap bitmap = new BarcodeUtil().encodeAsBitmap(item.getCardNo().replace("-","") , BarcodeFormat.CODE_128 , (int)DeviceUtil.dip2Pixel(getContext(), (float)getBinding().ivBarcode.getWidth()) , (int)DeviceUtil.dip2Pixel(getContext(), (float)getBinding().ivBarcode.getHeight()));
-                        Log.v("barcodetest","pos:"+pos +"       width:"+(int)DeviceUtil.dip2Pixel(getContext(), (float)getBinding().ivCard.getWidth()) + "    height:"+ (int)DeviceUtil.dip2Pixel(getContext(), (float)getBinding().ivCard.getHeight()) +   "   mwight:"+getBinding().ivCard.getMeasuredWidth());
-                        getBinding().ivBarcode.setImageBitmap(bitmap);
-                    } catch (WriterException e) {
-                        e.printStackTrace();
+            if (!TextUtils.isEmpty(item.getCardNo())) {
+                getBinding().tvCardNo2.setText(StringRe2j.replaceAll(item.getCardNo(), getContext().getString(R.string.card_original), getContext().getString(R.string.card_mask)));
+                getBinding().tvCardNo.setText(StringRe2j.replaceAll(item.getCardNo(), getContext().getString(R.string.card_original), getContext().getString(R.string.card_mask)));
+                getBinding().ivBarcode.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        try {
+                            getBinding().ivBarcode.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                            Bitmap bitmap = new BarcodeUtil().encodeAsBitmap(item.getCardNo().replace("-", ""), BarcodeFormat.CODE_128, (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivBarcode.getWidth()), (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivBarcode.getHeight()));
+                            Log.v("barcodetest", "pos:" + pos + "       width:" + (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivCard.getWidth()) + "    height:" + (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivCard.getHeight()) + "   mwight:" + getBinding().ivCard.getMeasuredWidth());
+                            getBinding().ivBarcode.setImageBitmap(bitmap);
+                        } catch (WriterException e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
-            });
-
-
+                });
+            } else {
+                getBinding().tvCardNo2.setVisibility(View.INVISIBLE);
+                getBinding().tvCardNo.setVisibility(View.INVISIBLE);
+                getBinding().ivBarcode.setVisibility(View.INVISIBLE);
+            }
 
         }
 
@@ -140,17 +144,18 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
     }
 
     //소멸 및 정지상태 아이템은 제거
-    public void applyFilter(){
-        for(int i=0; i<getItems().size(); i++){
+    public void applyFilter() {
+        for (int i = 0; i < getItems().size(); i++) {
             if (getItems().get(i).getCardStusNm().equalsIgnoreCase(CARD_STATUS_20)
                     || getItems().get(i).getCardStusNm().equalsIgnoreCase(CARD_STATUS_30)) {
                 remove(i);
             }
         }
     }
+
     //카드 추가 레이아웃 생성
-    public void addCard(){
-        CardVO cardVO = new CardVO("","","",CardVO.CARD_STATUS_99,"","","",false);
+    public void addCard() {
+        CardVO cardVO = new CardVO("", "", "", CardVO.CARD_STATUS_99, "", "", "", false);
         addRow(cardVO);
     }
 

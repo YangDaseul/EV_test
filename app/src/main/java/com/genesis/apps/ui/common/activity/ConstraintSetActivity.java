@@ -34,7 +34,7 @@ public class ConstraintSetActivity extends SubActivity<ActivityCont1Binding> {
     }
 
     @Override
-    public void onSingleClick(View v) {
+    public void onClickCommon(View v) {
 
     }
 

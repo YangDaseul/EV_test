@@ -44,8 +44,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myg_home);
         mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
-        oilView = new OilView(ui.lOil, v -> onClickEvent(v));
-        ui.lTitle.title.setText(R.string.title_home);
+        oilView = new OilView(ui.lOil, v -> onSingleClickListener.onClick(v));
         ui.setLifecycleOwner(this);
         ui.setActivity(this);
         ui.setView(oilView);
@@ -229,7 +228,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     }
 
     @Override
-    public void onSingleClick(final View v) {
+    public void onClickCommon(final View v) {
         Log.v("test duplicate","id:"+v.getId());
         if (v != null) {
             switch (v.getId()) {

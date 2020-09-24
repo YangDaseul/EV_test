@@ -55,6 +55,7 @@ public class DateUtil {
     public static final String DATE_FORMAT_ddMMyyyy = "ddMMyyyy"; // 31121989
     public static final String DATE_FORMAT_dd_MM_yyyy = "dd-MM-yyyy"; // 31121989
     public static final String DATE_FORMAT_yyyyMMddHHmmss = "yyyyMMddHHmmss"; // 31121989
+    public static final String DATE_FORMAT_mmdd = "MM월 dd일"; // 31121989
 
 
     // date time

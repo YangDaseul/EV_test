@@ -74,7 +74,7 @@ public class MyGMembershipExtncActivity extends SubActivity<ActivityMygMembershi
     }
 
     @Override
-    public void onSingleClick(View v) {
+    public void onClickCommon(View v) {
 
     }
 

@@ -41,7 +41,7 @@ public class MyGOilIntegrationActivity extends SubActivity<ActivityMygOilIntegra
     }
 
     @Override
-    public void onSingleClick(View v) {
+    public void onClickCommon(View v) {
         switch (v.getId()){
             case R.id.btn_integration:
                 //TODO 약관동의 페이지로 이동 및 데이터 실패에 대한 스낵바 정의를 여기서 해줘야함.

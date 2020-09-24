@@ -108,7 +108,7 @@ public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
     }
 
     @Override
-    public void onSingleClick(View v) {
+    public void onClickCommon(View v) {
 
     }
 

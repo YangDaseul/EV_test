@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.genesis.apps.comm.util.DateUtil"/>
+        <import type="com.genesis.apps.comm.util.StringUtil"/>
         <variable
             name="data"
             type="com.genesis.apps.comm.model.gra.MYP_2001.Response" />
@@ -48,6 +50,7 @@
                     android:textColor="@color/x_cd9a81"
                     android:textSize="34sp"
                     android:visibility="visible"
+                    android:text="@{StringUtil.getDigitGroupingString(data.bludMbrPoint??`0`)}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="32,450" />
@@ -76,10 +79,10 @@
                     android:gravity="center_vertical|left"
                     android:textColor="@color/x_525252"
                     android:textSize="16sp"
+                    android:text="@{String.format(@string/mg_member01_3, StringUtil.getDigitGroupingString(data.extncPont??`0`))}"
                     app:layout_constraintStart_toStartOf="@+id/tv_point"
                     app:layout_constraintTop_toBottomOf="@+id/tv_point"
                     tools:text="1,600P" />
-
                 <TextView
                     android:id="@+id/tv_extnc_pont_date"
                     android:layout_width="0dp"
@@ -90,7 +93,7 @@
                     android:gravity="center_vertical|left"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="8sp"
-                    android:text="@{String.format(@string/mg_member01_2, (data.getExtncDtm() ?? ``))}"
+                    android:text="@{String.format(@string/mg_member01_2, ((DateUtil.getDate(DateUtil.getDefaultDateFormat(data.extncDtm,DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_mmdd)) ?? ``))}"
                     android:textColor="@color/x_525252"
                     android:textSize="16sp"
                     app:layout_constrainedWidth="true"
@@ -194,6 +197,7 @@
                         android:letterSpacing="-0.01"
                         android:textColor="@color/x_000000"
                         android:textSize="16sp"
+                        android:text="@{StringUtil.getDigitGroupingString(data.savgPlanPont??`0`)}"
                         app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_save_point"
                         app:layout_constraintEnd_toStartOf="@+id/tv_save_unit"
                         tools:text="30,000" />
@@ -237,6 +241,7 @@
                         android:letterSpacing="-0.01"
                         android:textColor="@color/x_000000"
                         android:textSize="16sp"
+                        android:text="@{StringUtil.getDigitGroupingString(data.extncPont6mm??`0`)}"
                         app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_extnc_point"
                         app:layout_constraintEnd_toStartOf="@+id/tv_save_unit"
                         tools:text="30,000" />
@@ -257,7 +262,7 @@
                         android:paddingBottom="22dp"
                         android:text="@string/mg_member01_8"
                         android:textColor="@color/x_525252"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_title_extnc_point" />
@@ -298,6 +303,7 @@
                         android:lineSpacingExtra="-2sp"
                         android:textColor="@color/x_cd9a81"
                         android:textSize="18sp"
+                        android:text="@{data.blueMbrCrdCnt??`0`}"
                         app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_card"
                         app:layout_constraintStart_toEndOf="@+id/tv_title_card"
                         tools:text="3"/>

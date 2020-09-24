@@ -401,7 +401,7 @@
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="6sp"
-                    android:onClick="@{(view)->activity.onClickEvent(view)}"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     android:paddingLeft="10dp"
                     android:paddingTop="6dp"
                     android:paddingRight="10dp"

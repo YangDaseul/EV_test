@@ -20,6 +20,13 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
     public ActivityBaseBinding base;
     public T ui;
     private ProgressDialog progressDialog;
+    public OnSingleClickListener onSingleClickListener = new OnSingleClickListener() {
+        @Override
+        public void onSingleClick(View v) {
+            onClickCommon(v);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,24 +103,5 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
     public void onBackButton(){
         finish();
     }
-
-
-    private final long MIN_CLICK_INTERVAL=1000;
-    private long mLastClickTime;
-    public abstract void onSingleClick(View v);
-
-    public void onClickEvent(View v) {
-        long currentClickTime= SystemClock.uptimeMillis();
-        long elapsedTime=currentClickTime-mLastClickTime;
-        mLastClickTime=currentClickTime;
-
-        // 중복 클릭인 경우
-        if(elapsedTime<=MIN_CLICK_INTERVAL){
-            return;
-        }
-
-        // 중복 클릭아 아니라면 추상함수 호출
-        onSingleClick(v);
-    }
-
+    public abstract void onClickCommon(View v);
 }

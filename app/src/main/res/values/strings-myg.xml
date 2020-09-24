@@ -131,9 +131,22 @@
     <string name="mg_member01_12">블루멤버스 비신용카드</string>
     <string name="mg_member01_13">멤버십 카드 신청</string>
     <string name="mg_member01_14">발급 중</string>
-    <string name="mg_member01_15"></string>
-    <string name="mg_member01_16"></string>
-    <string name="mg_member01_17"></string>
+
+    <string name="mg_member04_1">포인트 사용 내역</string>
+    <string name="mg_member04_2">적립 포인트</string>
+    <string name="mg_member04_3">사용 포인트</string>
+    <string name="mg_member04_4">P&#160;&#160;적립</string>
+    <string name="mg_member04_5">P&#160;&#160;잔여</string>
+    <string name="mg_member04_6">P&#160;&#160;사용</string>
+    <string name="mg_member04_7">P&#160;&#160;취소</string>
+    <string name="mg_member04_8">오늘</string>
+    <string name="mg_member04_9">7일</string>
+    <string name="mg_member04_10">1개월</string>
+    <string name="mg_member04_11">6개월</string>
+    <string name="mg_member04_12">조회</string>
+    <string name="mg_member04_13">포인트 사용 내역이 없습니다.</string>
+
+
 
 
 </resources>

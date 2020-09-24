@@ -38,7 +38,7 @@ public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
     }
 
     @Override
-    public void onSingleClick(View v) {
+    public void onClickCommon(View v) {
 
     }
 //    public void reload() {

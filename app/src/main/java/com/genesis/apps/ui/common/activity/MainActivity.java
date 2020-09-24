@@ -143,7 +143,7 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
     }
 
     @Override
-    public void onSingleClick(View v) {
+    public void onClickCommon(View v) {
 
     }
 

@@ -50,7 +50,7 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
         initConstraintSets();
         getOilCode();
         mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
-        oilView = new OilView(ui.lOil, v -> onClickEvent(v));
+        oilView = new OilView(ui.lOil, v -> onSingleClickListener.onClick(v));
         ui.setLifecycleOwner(this);
         ui.setView(oilView);
         observerData();
@@ -155,7 +155,7 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
     }
 
     @Override
-    public void onSingleClick(View v) {
+    public void onClickCommon(View v) {
 
         switch (v.getId()){
             case R.id.tv_integration_gs: //gs칼텍스 연동하기

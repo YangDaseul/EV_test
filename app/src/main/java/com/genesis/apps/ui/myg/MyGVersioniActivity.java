@@ -54,7 +54,7 @@ public class MyGVersioniActivity extends SubActivity<ActivityMygVersionBinding> 
     }
 
     @Override
-    public void onSingleClick(View v) {
+    public void onClickCommon(View v) {
 
     }
 

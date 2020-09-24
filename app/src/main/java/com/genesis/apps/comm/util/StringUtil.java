@@ -18,6 +18,10 @@ public class StringUtil {
         return NumberFormat.getInstance(Locale.getDefault()).format(value);
     }
 
+    public static String getDigitGroupingString(String value) {
+        return NumberFormat.getInstance(Locale.getDefault()).format(Integer.parseInt(value));
+    }
+
     /**
      * @brief 폰번호 포맷 변경
      * 폰번호가 +82로 시작되거나 대쉬가 있는 경우 아래 포맷으로 변경

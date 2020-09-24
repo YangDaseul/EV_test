@@ -33,7 +33,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
     }
 
     @Override
-    public void onSingleClick(View v) {
+    public void onClickCommon(View v) {
 
     }
 

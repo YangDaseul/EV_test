@@ -22,7 +22,11 @@ import com.genesis.apps.comm.model.gra.OIL_0004;
 import com.genesis.apps.comm.model.gra.OIL_0005;
 import com.genesis.apps.comm.model.gra.repo.MYPRepo;
 import com.genesis.apps.comm.model.gra.repo.OILRepo;
+import com.genesis.apps.comm.model.main.myg.CardRepository;
+import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+
+import java.util.List;
 
 import lombok.Data;
 
@@ -31,6 +35,7 @@ class MYPViewModel extends ViewModel {
 
     private final MYPRepo repository;
     private final OILRepo oIlRepository;
+    private final CardRepository cardRepository;
     private final SavedStateHandle savedStateHandle;
 
     private MutableLiveData<NetUIResponse<MYP_0001.Response>> RES_MYP_0001;
@@ -62,10 +67,14 @@ class MYPViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<OIL_0004.Response>> RES_OIL_0004;
     private MutableLiveData<NetUIResponse<OIL_0005.Response>> RES_OIL_0005;
 
+
+    private MutableLiveData<NetUIResponse<List<CardVO>>> cardVoList;
+
     @ViewModelInject
     MYPViewModel(
             MYPRepo repository,
             OILRepo oIlRepository,
+            CardRepository cardRepository,
             @Assisted SavedStateHandle savedStateHandle)
     {
         this.savedStateHandle = savedStateHandle;
@@ -87,6 +96,11 @@ class MYPViewModel extends ViewModel {
         RES_OIL_0003 = oIlRepository.RES_OIL_0003;
         RES_OIL_0004 = oIlRepository.RES_OIL_0004;
         RES_OIL_0005 = oIlRepository.RES_OIL_0005;
+
+
+        this.cardRepository = cardRepository;
+        cardVoList = cardRepository.cardVoList;
+
     }
 
     public void reqMYP0001(final MYP_0001.Request reqData){
@@ -141,6 +155,15 @@ class MYPViewModel extends ViewModel {
     }
     public void reqOIL0005(final OIL_0005.Request reqData){
         oIlRepository.REQ_OIL_0005(reqData);
+    }
+
+    public void reqNewCardList(final List<CardVO> cardVOList){
+        cardRepository.getNewCardList(cardVOList);
+    }
+
+    public void reqChangeFavoriteCard(String cardNo, final List<CardVO> cardVOList){
+        if(cardRepository.updateCard(cardNo))
+            cardRepository.getNewCardList(cardVOList);
     }
 
 }

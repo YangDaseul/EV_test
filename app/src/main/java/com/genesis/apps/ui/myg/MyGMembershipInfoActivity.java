@@ -21,7 +21,7 @@ public class MyGMembershipInfoActivity extends SubActivity<ActivityMygMembership
     }
 
     @Override
-    public void onSingleClick(View v) {
+    public void onClickCommon(View v) {
         switch (v.getId()){
             case R.id.btn_call:
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL+ui.btnCall.getTag().toString()));
