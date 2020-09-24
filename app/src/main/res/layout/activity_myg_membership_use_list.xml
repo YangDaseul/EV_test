@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.myg.MyGMembershipUseListActivity" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_whole"
@@ -192,7 +197,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/selector_date"
-                android:button="null"
+                android:button="@null"
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:gravity="center"
                 android:letterSpacing="-0.03"
@@ -204,6 +209,7 @@
                 android:text="@string/mg_member04_8"
                 android:textColor="@color/x_000000"
                 android:textSize="15sp"
+                android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                 tools:checked="true" />
 
 
@@ -214,7 +220,7 @@
                 android:layout_marginLeft="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/selector_date"
-                android:button="null"
+                android:button="@null"
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:gravity="center"
                 android:letterSpacing="-0.03"
@@ -225,7 +231,8 @@
                 android:paddingBottom="15dp"
                 android:text="@string/mg_member04_9"
                 android:textColor="@color/x_000000"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"/>
 
 
             <RadioButton
@@ -235,7 +242,7 @@
                 android:layout_marginLeft="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/selector_date"
-                android:button="null"
+                android:button="@null"
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:gravity="center"
                 android:letterSpacing="-0.03"
@@ -246,7 +253,8 @@
                 android:paddingBottom="15dp"
                 android:text="@string/mg_member04_10"
                 android:textColor="@color/x_000000"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"/>
 
 
             <RadioButton
@@ -256,7 +264,7 @@
                 android:layout_marginLeft="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/selector_date"
-                android:button="null"
+                android:button="@null"
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:gravity="center"
                 android:letterSpacing="-0.03"
@@ -267,7 +275,8 @@
                 android:paddingBottom="15dp"
                 android:text="@string/mg_member04_11"
                 android:textColor="@color/x_000000"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"/>
         </RadioGroup>
 
 
@@ -335,7 +344,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_start_date"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

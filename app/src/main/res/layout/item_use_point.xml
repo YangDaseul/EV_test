@@ -98,9 +98,9 @@
             android:letterSpacing="-0.01"
             android:textColor="@color/x_525252"
             android:textSize="14sp"
+            android:text="@string/mg_member04_5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBaseline_toBaselineOf="@+id/tv_date"
-            tools:text="@string/mg_member04_6"/>
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_date"/>
 
 
 

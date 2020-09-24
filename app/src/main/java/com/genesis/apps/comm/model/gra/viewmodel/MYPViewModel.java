@@ -11,6 +11,7 @@ import com.genesis.apps.comm.model.gra.MYP_1003;
 import com.genesis.apps.comm.model.gra.MYP_1005;
 import com.genesis.apps.comm.model.gra.MYP_1006;
 import com.genesis.apps.comm.model.gra.MYP_2001;
+import com.genesis.apps.comm.model.gra.MYP_2002;
 import com.genesis.apps.comm.model.gra.MYP_2006;
 import com.genesis.apps.comm.model.gra.MYP_8001;
 import com.genesis.apps.comm.model.gra.MYP_8004;
@@ -49,6 +50,7 @@ class MYPViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<MYP_8005.Response>> RES_MYP_8005;
 
     private MutableLiveData<NetUIResponse<MYP_2001.Response>> RES_MYP_2001;
+    private MutableLiveData<NetUIResponse<MYP_2002.Response>> RES_MYP_2002;
     
     private MutableLiveData<NetUIResponse<MYP_2006.Response>> RES_MYP_2006;
 
@@ -88,6 +90,7 @@ class MYPViewModel extends ViewModel {
         RES_MYP_8004 = repository.RES_MYP_8004;
         RES_MYP_8005 = repository.RES_MYP_8005;
         RES_MYP_2001 = repository.RES_MYP_2001;
+        RES_MYP_2002 = repository.RES_MYP_2002;
         RES_MYP_2006 = repository.RES_MYP_2006;
 
         this.oIlRepository = oIlRepository;
@@ -134,6 +137,9 @@ class MYPViewModel extends ViewModel {
 
     public void reqMYP2001(final MYP_2001.Request reqData){
         repository.REQ_MYP_2001(reqData);
+    }
+    public void reqMYP2002(final MYP_2002.Request reqData){
+        repository.REQ_MYP_2002(reqData);
     }
     
     public void reqMYP2006(final MYP_2006.Request reqData){

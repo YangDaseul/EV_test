@@ -1,11 +1,13 @@
 package com.genesis.apps.ui.myg;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.RequestCodes;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.MYP_2001;
 import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
@@ -28,7 +30,7 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
         setContentView(R.layout.activity_myg_membership);
         mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
         ui.setLifecycleOwner(this);
-
+        ui.setActivity(this);
 
 
         adapter = new CardHorizontalAdapter(onSingleClickListener);
@@ -142,7 +144,9 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
                 }
 
                 break;
-
+            case R.id.btn_use_list://TODO 멤버십고유번호는 임시로
+                startActivitySingleTop(new Intent(this, MyGMembershipUseListActivity.class).putExtra("mbrshMbrMgmtNo", "1"), RequestCodes.REQ_CODE_ACTIVITY.getCode());
+                break;
         }
 
     }

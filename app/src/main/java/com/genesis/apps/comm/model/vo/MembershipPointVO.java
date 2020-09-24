@@ -43,6 +43,11 @@ class MembershipPointVO extends BaseData {
     @Expose
     @SerializedName("transTypNm")
     private String transTypNm;
+    public static final String TYPE_TRANS_SAVE ="적립";
+    public static final String TYPE_TRANS_USE ="사용";
+    public static final String TYPE_TRANS_CANCEL ="취소";
+
+
     @Expose
     @SerializedName("useMlg")
     private String useMlg;
