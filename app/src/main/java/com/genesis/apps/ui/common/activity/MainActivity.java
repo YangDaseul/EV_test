@@ -15,6 +15,9 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.RequestCodes;
 import com.genesis.apps.databinding.ActivityMainBinding;
+import com.genesis.apps.fcm.FirebaseMessagingService;
+import com.genesis.apps.fcm.PushCode;
+import com.genesis.apps.fcm.PushVO;
 import com.genesis.apps.ui.common.fragment.main.FragFourth;
 import com.genesis.apps.ui.common.fragment.main.MainViewpagerAdapter;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -151,6 +154,8 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
     public void onResume(){
         super.onResume();
         checkPushCode();
+
+        FirebaseMessagingService.notifyMessageTest(this, new PushVO(), PushCode.CAT_0E);
     }
 
     @Override

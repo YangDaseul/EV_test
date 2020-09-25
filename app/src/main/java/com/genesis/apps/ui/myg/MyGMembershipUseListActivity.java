@@ -44,6 +44,7 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
     private String mbrshMbrMgmtNo;
     private Calendar startDate = Calendar.getInstance(Locale.getDefault());
     private Calendar endDate = Calendar.getInstance(Locale.getDefault());
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +60,7 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
 
         mypViewModel.getRES_MYP_2002().observe(this, result -> {
 
-            String test ="{\n" +
+            String test = "{\n" +
                     "  \"rsltCd\": \"0000\",\n" +
                     "  \"rsltMsg\": \"성공\",\n" +
                     "  \"blueMbrYn\": \"Y\",\n" +
@@ -102,7 +103,7 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
                     "}";
             MYP_2002.Response sample = new Gson().fromJson(test, MYP_2002.Response.class);
 
-            if(sample!=null&&sample.getTransList()!=null&&sample.getTransList().size()>0){
+            if (sample != null && sample.getTransList() != null && sample.getTransList().size() > 0) {
                 int itemSizeBefore = adapter.getItemCount();
                 if (adapter.getPageNo() == 0) {
                     adapter.setRows(sample.getTransList());
@@ -127,23 +128,23 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
                     //top
                 } else if (!ui.rv.canScrollVertically(1)) {
                     //end
-                    mypViewModel.reqMYP2002(new MYP_2002.Request(APPIAInfo.MG_MEMBER04.getId(), mbrshMbrMgmtNo,"","",adapter.getPageNo()+1+"","20"));
+                    mypViewModel.reqMYP2002(new MYP_2002.Request(APPIAInfo.MG_MEMBER04.getId(), mbrshMbrMgmtNo, "", "", adapter.getPageNo() + 1 + "", "20"));
                 } else {
                     //idle
                 }
 
             }
         });
-        mypViewModel.reqMYP2002(new MYP_2002.Request(APPIAInfo.MG_MEMBER04.getId(), mbrshMbrMgmtNo, DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd) ,DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd),"1","20"));
+        mypViewModel.reqMYP2002(new MYP_2002.Request(APPIAInfo.MG_MEMBER04.getId(), mbrshMbrMgmtNo, DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), "1", "20"));
     }
 
-    private void getMemberNo(){
+    private void getMemberNo() {
         try {
             mbrshMbrMgmtNo = getIntent().getStringExtra("mbrshMbrMgmtNo");
-            if(TextUtils.isEmpty(mbrshMbrMgmtNo)){
+            if (TextUtils.isEmpty(mbrshMbrMgmtNo)) {
                 exitPage("블루멤버스 회원번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             exitPage("블루멤버스 회원번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
         }
@@ -151,15 +152,15 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
 
     @Override
     public void onClickCommon(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_query:
-                mypViewModel.reqMYP2002(new MYP_2002.Request(APPIAInfo.MG_MEMBER04.getId(), mbrshMbrMgmtNo, DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd) ,DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd),"1","20"));
+                mypViewModel.reqMYP2002(new MYP_2002.Request(APPIAInfo.MG_MEMBER04.getId(), mbrshMbrMgmtNo, DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), "1", "20"));
                 break;
             case R.id.btn_start_date:
-                openDatePicker(startDateCallback,-1L, endDate==null ? CalenderUtil.getDateMils(0) : endDate.getTimeInMillis(), startDate);
+                openDatePicker(startDateCallback, -1L, endDate == null ? CalenderUtil.getDateMils(0) : endDate.getTimeInMillis(), startDate);
                 break;
             case R.id.btn_end_date:
-                openDatePicker(endDateCallback,startDate!=null ?  startDate.getTimeInMillis() : -1L, CalenderUtil.getDateMils(0), endDate != null ? endDate : startDate);
+                openDatePicker(endDateCallback, startDate != null ? startDate.getTimeInMillis() : -1L, CalenderUtil.getDateMils(0), endDate != null ? endDate : startDate);
                 break;
         }
     }
@@ -176,14 +177,14 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
                                             SublimeRecurrencePicker.RecurrenceOption recurrenceOption,
                                             String recurrenceRule) {
 
-            selectedDate.getFirstDate().set( Calendar.HOUR_OF_DAY, 0 );
-            selectedDate.getFirstDate().set( Calendar.MINUTE, 0 );
-            selectedDate.getFirstDate().set( Calendar.SECOND, 0 );
-            selectedDate.getFirstDate().set( Calendar.MILLISECOND, 0 );
+            selectedDate.getFirstDate().set(Calendar.HOUR_OF_DAY, 0);
+            selectedDate.getFirstDate().set(Calendar.MINUTE, 0);
+            selectedDate.getFirstDate().set(Calendar.SECOND, 0);
+            selectedDate.getFirstDate().set(Calendar.MILLISECOND, 0);
 
-            if(endDate!=null&& selectedDate.getFirstDate().compareTo(endDate)==1){
-                SnackBarUtil.show(MyGMembershipUseListActivity.this,"시작일은 종료일보다 클 수 없습니다.\n확인 후 다시 시도해 주십시오.");
-            }else{
+            if (endDate != null && selectedDate.getFirstDate().compareTo(endDate) == 1) {
+                SnackBarUtil.show(MyGMembershipUseListActivity.this, "시작일은 종료일보다 클 수 없습니다.\n확인 후 다시 시도해 주십시오.");
+            } else {
                 startDate = selectedDate.getFirstDate();
                 setDate();
             }
@@ -197,31 +198,32 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
         public void onCancelled() {
 
         }
+
         @Override
         public void onDateTimeRecurrenceSet(SelectedDate selectedDate,
                                             int hourOfDay, int minute,
                                             SublimeRecurrencePicker.RecurrenceOption recurrenceOption,
                                             String recurrenceRule) {
 
-            selectedDate.getFirstDate().set( Calendar.HOUR_OF_DAY, 0 );
-            selectedDate.getFirstDate().set( Calendar.MINUTE, 0 );
-            selectedDate.getFirstDate().set( Calendar.SECOND, 0 );
-            selectedDate.getFirstDate().set( Calendar.MILLISECOND, 0 );
+            selectedDate.getFirstDate().set(Calendar.HOUR_OF_DAY, 0);
+            selectedDate.getFirstDate().set(Calendar.MINUTE, 0);
+            selectedDate.getFirstDate().set(Calendar.SECOND, 0);
+            selectedDate.getFirstDate().set(Calendar.MILLISECOND, 0);
 
-            if(startDate!=null && startDate.compareTo(selectedDate.getFirstDate())==1){
-                SnackBarUtil.show(MyGMembershipUseListActivity.this,"종료일은 시작일보다 작을 수 없습니다.\n확인 후 다시 시도해 주십시오.");
-            }else{
+            if (startDate != null && startDate.compareTo(selectedDate.getFirstDate()) == 1) {
+                SnackBarUtil.show(MyGMembershipUseListActivity.this, "종료일은 시작일보다 작을 수 없습니다.\n확인 후 다시 시도해 주십시오.");
+            } else {
                 endDate = selectedDate.getStartDate();
                 setDate();
             }
         }
     };
 
-    private void openDatePicker(CalenderUtil.Callback callback, long startLimit, long endLimit, Calendar baseDate){
+    private void openDatePicker(CalenderUtil.Callback callback, long startLimit, long endLimit, Calendar baseDate) {
         CalenderUtil pickerFrag = new CalenderUtil();
         pickerFrag.setCallback(callback);
         // Options
-        Pair<Boolean, SublimeOptions> optionsPair = pickerFrag.getOptions(SublimeOptions.ACTIVATE_DATE_PICKER,false, startLimit, endLimit, baseDate);
+        Pair<Boolean, SublimeOptions> optionsPair = pickerFrag.getOptions(SublimeOptions.ACTIVATE_DATE_PICKER, false, startLimit, endLimit, baseDate);
         // Valid options
         Bundle bundle = new Bundle();
         bundle.putParcelable("SUBLIME_OPTIONS", optionsPair.second);
@@ -230,13 +232,15 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
         pickerFrag.show(getSupportFragmentManager(), "SUBLIME_PICKER");
     }
 
-    private void setDate(){
-        if(startDate!=null) ui.btnStartDate.setText(DateUtil.getDate(startDate.getTime() , DateUtil.DATE_FORMAT_yyyy_mm_dd_dot));
+    private void setDate() {
+        if (startDate != null)
+            ui.btnStartDate.setText(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot));
 
-        if(endDate!=null) ui.btnEndDate.setText(DateUtil.getDate(endDate.getTime() , DateUtil.DATE_FORMAT_yyyy_mm_dd_dot));
+        if (endDate != null)
+            ui.btnEndDate.setText(DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot));
     }
 
-    public void setDateAuto(View view){
+    public void setDateAuto(View view) {
         startDate = Calendar.getInstance(Locale.getDefault());
         startDate.set(Calendar.HOUR_OF_DAY, 0);
         startDate.set(Calendar.MINUTE, 0);
@@ -249,14 +253,14 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
         endDate.set(Calendar.SECOND, 0);
         endDate.set(Calendar.MILLISECOND, 0);
 
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.r_1:
                 break;
             case R.id.r_7:
                 startDate.add(Calendar.WEEK_OF_MONTH, -1);
                 break;
             case R.id.r_30:
-                startDate.add(Calendar.MONTH,-1);
+                startDate.add(Calendar.MONTH, -1);
                 break;
             case R.id.r_180:
                 startDate.add(Calendar.MONTH, -6);

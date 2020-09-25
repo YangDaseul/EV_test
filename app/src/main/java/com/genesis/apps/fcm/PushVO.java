@@ -10,39 +10,51 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=false)
 public @Data class PushVO extends BaseData {
     @Expose
-    @SerializedName("id")
-    private int id;
+    @SerializedName("token")
+    private String token;
     @Expose
-    @SerializedName("cat")
-    private String cat;
-    @Expose
-    @SerializedName("msg")
-    private Msg msg;
+    @SerializedName("notification")
+    private Notification notification;
     @Expose
     @SerializedName("data")
     private PushData data;
 
-    public @Data class Msg extends BaseData {
+    public @Data static class Notification extends BaseData {
         @Expose
-        @SerializedName("head")
-        private String head;
+        @SerializedName("title")
+        private String title;
         @Expose
         @SerializedName("body")
         private String body;
+        @Expose
+        @SerializedName("badge")
+        private String badge;
     }
 
-    public @Data class PushData extends BaseData {
+    public @Data static class PushData extends BaseData {
         @Expose
-        @SerializedName("data1")
-        private String data1;
+        @SerializedName("msgLnkCd")
+        private String msgLnkCd;
         @Expose
-        @SerializedName("data2")
-        private String data2;
+        @SerializedName("msgLnkUri")
+        private String msgLnkUri;
         @Expose
-        @SerializedName("img1")
-        private String img1;
+        @SerializedName("dtlLnkCd")
+        private String dtlLnkCd;
         @Expose
-        @SerializedName("img2")
-        private String img2;
+        @SerializedName("dtlLnkUri")
+        private String dtlLnkUri;
+        @Expose
+        @SerializedName("imgIncsYn")
+        private String imgIncsYn;
+        @Expose
+        @SerializedName("imgFilUri1")
+        private String imgFilUri1;
+        @Expose
+        @SerializedName("imgFilUri2")
+        private String imgFilUri2;
+        @Expose
+        @SerializedName("imgFilUri3")
+        private String imgFilUri3;
     }
 }

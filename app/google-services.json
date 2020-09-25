@@ -1,42 +1,35 @@
 {
   "project_info": {
-    "project_number": "605220733075",
-    "firebase_url": "https://integrated-genesis.firebaseio.com",
-    "project_id": "integrated-genesis",
-    "storage_bucket": "integrated-genesis.appspot.com"
+    "project_number": "1017397868600",
+    "firebase_url": "https://genesis-app-b8f99.firebaseio.com",
+    "project_id": "genesis-app-b8f99",
+    "storage_bucket": "genesis-app-b8f99.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:605220733075:android:d6d612b40a8393e4f1cd66",
+        "mobilesdk_app_id": "1:1017397868600:android:44761ce7c4fedb4fed8ecd",
         "android_client_info": {
           "package_name": "com.genesis.apps"
         }
       },
       "oauth_client": [
         {
-          "client_id": "605220733075-52rhfkg9dpg57q68l1j6ukhrt392h30a.apps.googleusercontent.com",
+          "client_id": "1017397868600-3f1arffej789b018rbp8jt5ch0617ajd.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAFHzjJBuq877fhgNNaDRewlpE30zCHs6U"
+          "current_key": "AIzaSyD0sAge_31mV_RkX6ssQljPmXK8v9U05mo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "605220733075-52rhfkg9dpg57q68l1j6ukhrt392h30a.apps.googleusercontent.com",
+              "client_id": "1017397868600-3f1arffej789b018rbp8jt5ch0617ajd.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "605220733075-lfnhubugmsq2rq1gk9tj56s655sgh8l1.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.genesis.apps"
-              }
             }
           ]
         }
