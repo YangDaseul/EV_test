@@ -30,6 +30,8 @@ import com.appeaser.sublimepickerlibrary.recurrencepicker.SublimeRecurrencePicke
 import com.genesis.apps.R;
 
 import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -80,7 +82,7 @@ public class CalenderUtil extends DialogFragment {
         // Initialize formatters
         mDateFormatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
         mTimeFormatter = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault());
-        mTimeFormatter.setTimeZone(TimeZone.getTimeZone("GMT+0"));
+        mTimeFormatter.setTimeZone(TimeZone.getTimeZone("GMT+9"));
     }
 
     // Set activity callback
@@ -129,7 +131,7 @@ public class CalenderUtil extends DialogFragment {
     }
 
 
-    public Pair<Boolean, SublimeOptions> getOptions(int type,boolean isRange) {
+    public Pair<Boolean, SublimeOptions> getOptions(int type,boolean isRange, long limitStartDate, long limitEndDate, Calendar baseDate) {
         SublimeOptions options = new SublimeOptions();
         int displayOptions = 0;
         displayOptions |= type;
@@ -149,6 +151,11 @@ public class CalenderUtil extends DialogFragment {
         // Enable/disable the date range selection feature
         options.setCanPickDateRange(isRange);
 
+        options.setDateRange(limitStartDate, limitEndDate);
+
+        options.setAnimateLayoutChanges(true);
+        if(baseDate!=null)
+            options.setDateParams(baseDate);
         // Example for setting date range:
         // Note that you can pass a date range as the initial date params
         // even if you have date-range selection disabled. In this case,
@@ -164,6 +171,19 @@ public class CalenderUtil extends DialogFragment {
 
         // If 'displayOptions' is zero, the chosen options are not valid
         return new Pair<>(displayOptions != 0 ? Boolean.TRUE : Boolean.FALSE, options);
+    }
+
+
+    public static long getDateMils(int day){
+        long mils=-1L;
+
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        if(day!=0){
+            calendar.add(Calendar.DAY_OF_MONTH, day);
+        }
+        mils = calendar.getTimeInMillis();
+
+        return mils;
     }
 
 }

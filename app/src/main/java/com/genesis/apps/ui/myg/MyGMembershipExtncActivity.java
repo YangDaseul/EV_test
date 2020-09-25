@@ -14,7 +14,7 @@ import com.genesis.apps.comm.model.vo.MembershipPointVO;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ActivityMygMembershipExtncBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.common.view.listview.ExtncPlanPontAdapter;
+import com.genesis.apps.ui.myg.view.ExtncPlanPontAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

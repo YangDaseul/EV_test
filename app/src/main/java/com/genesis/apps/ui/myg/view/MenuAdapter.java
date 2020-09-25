@@ -1,4 +1,4 @@
-package com.genesis.apps.ui.common.view.listview;
+package com.genesis.apps.ui.myg.view;
 
 import android.util.SparseBooleanArray;
 import android.view.View;
@@ -9,6 +9,7 @@ import com.genesis.apps.comm.model.vo.MenuVO;
 import com.genesis.apps.databinding.ItemMenuBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
+import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
 

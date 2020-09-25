@@ -1,6 +1,5 @@
 package com.genesis.apps.ui.myg.view;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Log;

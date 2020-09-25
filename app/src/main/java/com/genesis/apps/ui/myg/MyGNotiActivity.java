@@ -15,7 +15,7 @@ import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.NotiVO;
 import com.genesis.apps.databinding.ActivityNotiListBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.common.view.listview.NotiAccodianRecyclerAdapter;
+import com.genesis.apps.ui.myg.view.NotiAccodianRecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

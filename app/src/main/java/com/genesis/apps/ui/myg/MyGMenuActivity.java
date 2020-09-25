@@ -5,37 +5,22 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.TextView;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.main.myg.MenuRepository;
 import com.genesis.apps.comm.model.main.myg.MenuViewModel;
 import com.genesis.apps.comm.model.vo.MenuVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.databinding.ActivityMygMenuBinding;
-import com.genesis.apps.room.DatabaseHolder;
-import com.genesis.apps.ui.common.activity.IntroActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.common.view.listview.ExtncPlanPontAdapter;
-import com.genesis.apps.ui.common.view.listview.MenuAdapter;
+import com.genesis.apps.ui.myg.view.MenuAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
 
 public class MyGMenuActivity extends SubActivity<ActivityMygMenuBinding> {
 

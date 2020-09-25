@@ -209,7 +209,7 @@
                 android:text="@string/mg_member04_8"
                 android:textColor="@color/x_000000"
                 android:textSize="15sp"
-                android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                android:onClick="@{(view)->activity.setDateAuto(view)}"
                 tools:checked="true" />
 
 
@@ -232,7 +232,7 @@
                 android:text="@string/mg_member04_9"
                 android:textColor="@color/x_000000"
                 android:textSize="15sp"
-                android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"/>
+                android:onClick="@{(view)->activity.setDateAuto(view)}"/>
 
 
             <RadioButton
@@ -254,7 +254,7 @@
                 android:text="@string/mg_member04_10"
                 android:textColor="@color/x_000000"
                 android:textSize="15sp"
-                android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"/>
+                android:onClick="@{(view)->activity.setDateAuto(view)}"/>
 
 
             <RadioButton
@@ -276,7 +276,7 @@
                 android:text="@string/mg_member04_11"
                 android:textColor="@color/x_000000"
                 android:textSize="15sp"
-                android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"/>
+                android:onClick="@{(view)->activity.setDateAuto(view)}"/>
         </RadioGroup>
 
 
@@ -291,7 +291,7 @@
             android:paddingRight="15dp"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
-            android:background="@color/x_f4f4f4"
+            android:background="@drawable/ripple_bg_f4f4f4"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:gravity="center_vertical|left"
             android:letterSpacing="-0.03"
@@ -299,6 +299,7 @@
             android:textColor="@color/x_525252"
             android:textSize="15sp"
             android:drawableRight="@drawable/ic_calendar"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             app:layout_constraintStart_toStartOf="@+id/r_group"
             app:layout_constraintEnd_toStartOf="@+id/btn_end_date"
             app:layout_constraintTop_toBottomOf="@+id/r_group"
@@ -314,7 +315,7 @@
             android:paddingRight="15dp"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
-            android:background="@color/x_f4f4f4"
+            android:background="@drawable/ripple_bg_f4f4f4"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:gravity="center_vertical|left"
             android:letterSpacing="-0.03"
@@ -322,6 +323,7 @@
             android:textColor="@color/x_525252"
             android:textSize="15sp"
             android:drawableRight="@drawable/ic_calendar"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             app:layout_constraintStart_toEndOf="@+id/btn_start_date"
             app:layout_constraintTop_toTopOf="@+id/btn_start_date"
             app:layout_constraintEnd_toEndOf="parent"

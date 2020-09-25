@@ -3,8 +3,12 @@ package com.genesis.apps.ui.myg;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Pair;
 import android.view.View;
 
+import com.appeaser.sublimepickerlibrary.datepicker.SelectedDate;
+import com.appeaser.sublimepickerlibrary.helpers.SublimeOptions;
+import com.appeaser.sublimepickerlibrary.recurrencepicker.SublimeRecurrencePicker;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.OilCodes;
 import com.genesis.apps.comm.model.ResultCodes;
@@ -14,6 +18,9 @@ import com.genesis.apps.comm.model.gra.MYP_2002;
 import com.genesis.apps.comm.model.gra.MYP_8005;
 import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.CardVO;
+import com.genesis.apps.comm.util.CalenderUtil;
+import com.genesis.apps.comm.util.DateUtil;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ActivityMygMembershipBinding;
 import com.genesis.apps.databinding.ActivityMygMembershipUseListBinding;
@@ -27,11 +34,16 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import java.util.Calendar;
+import java.util.Locale;
+
 public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembershipUseListBinding> {
 
     private MYPViewModel mypViewModel;
     private PointUseListAdapter adapter;
     private String mbrshMbrMgmtNo;
+    private Calendar startDate = Calendar.getInstance(Locale.getDefault());
+    private Calendar endDate = Calendar.getInstance(Locale.getDefault());
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,7 +134,7 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
 
             }
         });
-        mypViewModel.reqMYP2002(new MYP_2002.Request(APPIAInfo.MG_MEMBER04.getId(), mbrshMbrMgmtNo,"","","1","20"));
+        mypViewModel.reqMYP2002(new MYP_2002.Request(APPIAInfo.MG_MEMBER04.getId(), mbrshMbrMgmtNo, DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd) ,DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd),"1","20"));
     }
 
     private void getMemberNo(){
@@ -139,13 +151,118 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
 
     @Override
     public void onClickCommon(View v) {
-
         switch (v.getId()){
             case R.id.btn_query:
-
+                mypViewModel.reqMYP2002(new MYP_2002.Request(APPIAInfo.MG_MEMBER04.getId(), mbrshMbrMgmtNo, DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd) ,DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd),"1","20"));
                 break;
+            case R.id.btn_start_date:
+                openDatePicker(startDateCallback,-1L, endDate==null ? CalenderUtil.getDateMils(0) : endDate.getTimeInMillis(), startDate);
+                break;
+            case R.id.btn_end_date:
+                openDatePicker(endDateCallback,startDate!=null ?  startDate.getTimeInMillis() : -1L, CalenderUtil.getDateMils(0), endDate != null ? endDate : startDate);
+                break;
+        }
+    }
+
+    CalenderUtil.Callback startDateCallback = new CalenderUtil.Callback() {
+        @Override
+        public void onCancelled() {
+
+        }
+
+        @Override
+        public void onDateTimeRecurrenceSet(SelectedDate selectedDate,
+                                            int hourOfDay, int minute,
+                                            SublimeRecurrencePicker.RecurrenceOption recurrenceOption,
+                                            String recurrenceRule) {
+
+            selectedDate.getFirstDate().set( Calendar.HOUR_OF_DAY, 0 );
+            selectedDate.getFirstDate().set( Calendar.MINUTE, 0 );
+            selectedDate.getFirstDate().set( Calendar.SECOND, 0 );
+            selectedDate.getFirstDate().set( Calendar.MILLISECOND, 0 );
+
+            if(endDate!=null&& selectedDate.getFirstDate().compareTo(endDate)==1){
+                SnackBarUtil.show(MyGMembershipUseListActivity.this,"시작일은 종료일보다 클 수 없습니다.\n확인 후 다시 시도해 주십시오.");
+            }else{
+                startDate = selectedDate.getFirstDate();
+                setDate();
+            }
 
 
         }
+    };
+
+    CalenderUtil.Callback endDateCallback = new CalenderUtil.Callback() {
+        @Override
+        public void onCancelled() {
+
+        }
+        @Override
+        public void onDateTimeRecurrenceSet(SelectedDate selectedDate,
+                                            int hourOfDay, int minute,
+                                            SublimeRecurrencePicker.RecurrenceOption recurrenceOption,
+                                            String recurrenceRule) {
+
+            selectedDate.getFirstDate().set( Calendar.HOUR_OF_DAY, 0 );
+            selectedDate.getFirstDate().set( Calendar.MINUTE, 0 );
+            selectedDate.getFirstDate().set( Calendar.SECOND, 0 );
+            selectedDate.getFirstDate().set( Calendar.MILLISECOND, 0 );
+
+            if(startDate!=null && startDate.compareTo(selectedDate.getFirstDate())==1){
+                SnackBarUtil.show(MyGMembershipUseListActivity.this,"종료일은 시작일보다 작을 수 없습니다.\n확인 후 다시 시도해 주십시오.");
+            }else{
+                endDate = selectedDate.getStartDate();
+                setDate();
+            }
+        }
+    };
+
+    private void openDatePicker(CalenderUtil.Callback callback, long startLimit, long endLimit, Calendar baseDate){
+        CalenderUtil pickerFrag = new CalenderUtil();
+        pickerFrag.setCallback(callback);
+        // Options
+        Pair<Boolean, SublimeOptions> optionsPair = pickerFrag.getOptions(SublimeOptions.ACTIVATE_DATE_PICKER,false, startLimit, endLimit, baseDate);
+        // Valid options
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("SUBLIME_OPTIONS", optionsPair.second);
+        pickerFrag.setArguments(bundle);
+        pickerFrag.setStyle(CalenderUtil.STYLE_NO_TITLE, 0);
+        pickerFrag.show(getSupportFragmentManager(), "SUBLIME_PICKER");
+    }
+
+    private void setDate(){
+        if(startDate!=null) ui.btnStartDate.setText(DateUtil.getDate(startDate.getTime() , DateUtil.DATE_FORMAT_yyyy_mm_dd_dot));
+
+        if(endDate!=null) ui.btnEndDate.setText(DateUtil.getDate(endDate.getTime() , DateUtil.DATE_FORMAT_yyyy_mm_dd_dot));
+    }
+
+    public void setDateAuto(View view){
+        startDate = Calendar.getInstance(Locale.getDefault());
+        startDate.set(Calendar.HOUR_OF_DAY, 0);
+        startDate.set(Calendar.MINUTE, 0);
+        startDate.set(Calendar.SECOND, 0);
+        startDate.set(Calendar.MILLISECOND, 0);
+
+        endDate = Calendar.getInstance(Locale.getDefault());
+        endDate.set(Calendar.HOUR_OF_DAY, 0);
+        endDate.set(Calendar.MINUTE, 0);
+        endDate.set(Calendar.SECOND, 0);
+        endDate.set(Calendar.MILLISECOND, 0);
+
+        switch (view.getId()){
+            case R.id.r_1:
+                break;
+            case R.id.r_7:
+                startDate.add(Calendar.WEEK_OF_MONTH, -1);
+                break;
+            case R.id.r_30:
+                startDate.add(Calendar.MONTH,-1);
+                break;
+            case R.id.r_180:
+                startDate.add(Calendar.MONTH, -6);
+                break;
+        }
+
+        setDate();
     }
 }

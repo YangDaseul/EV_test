@@ -1,4 +1,4 @@
-package com.genesis.apps.ui.common.view.listview;
+package com.genesis.apps.ui.myg.view;
 
 import android.animation.ValueAnimator;
 import android.text.TextUtils;
@@ -12,6 +12,7 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.NotiVO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.databinding.ItemAccodianNotiBinding;
+import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
 

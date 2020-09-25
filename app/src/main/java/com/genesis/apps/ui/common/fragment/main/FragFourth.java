@@ -93,7 +93,7 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
             pickerFrag.setCallback(mFragmentCallback);
 
             // Options
-            Pair<Boolean, SublimeOptions> optionsPair = pickerFrag.getOptions(SublimeOptions.ACTIVATE_DATE_PICKER,true);
+            Pair<Boolean, SublimeOptions> optionsPair = pickerFrag.getOptions(SublimeOptions.ACTIVATE_DATE_PICKER,true,-1L, -1L, null);
             // Valid options
             Bundle bundle = new Bundle();
             bundle.putParcelable("SUBLIME_OPTIONS", optionsPair.second);

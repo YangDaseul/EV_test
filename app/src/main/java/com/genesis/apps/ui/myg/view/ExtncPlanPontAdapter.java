@@ -1,4 +1,4 @@
-package com.genesis.apps.ui.common.view.listview;
+package com.genesis.apps.ui.myg.view;
 
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -10,6 +10,7 @@ import com.genesis.apps.comm.model.vo.MembershipPointVO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ItemExtncPlanPontBinding;
+import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
 
