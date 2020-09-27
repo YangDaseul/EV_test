@@ -5,6 +5,9 @@ import android.content.Context;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.RequiresApi;
@@ -30,6 +33,16 @@ public class VibratorUtil {
         Vibrator vib = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
         long[] pattern = {1 , 600, 1};
         vib.vibrate(pattern,-1);
+    }
+
+
+    public static View makeMeShake(View view, int duration, int offset) {
+        Animation anim = new TranslateAnimation(-offset,offset,0,0);
+        anim.setDuration(duration);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setRepeatCount(5);
+        view.startAnimation(anim);
+        return view;
     }
 
 

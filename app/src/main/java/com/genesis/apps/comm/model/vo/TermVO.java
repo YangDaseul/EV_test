@@ -43,5 +43,7 @@ class TermVO extends BaseData {
     @Expose
     @SerializedName("termEsnAgmtYn")
     private String termEsnAgmtYn;
+    public static final String TERM_ESN_AGMT_Y="Y";
+    public static final String TERM_ESN_AGMT_N="N";
 
 }

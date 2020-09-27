@@ -156,6 +156,29 @@
                 app:layout_constraintStart_toEndOf="@+id/tv_point_use" />
 
 
+
+
+            <TextView
+                android:id="@+id/tv_empty"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="1dp"
+                android:background="@color/x_ffffff"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:gravity="center"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="2sp"
+                android:text="@string/mg_member04_13"
+                android:textColor="@color/x_000000"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:visibility="visible"/>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

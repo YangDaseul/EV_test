@@ -54,7 +54,7 @@
             app:layout_constraintEnd_toEndOf="@+id/tv_1"
             app:layout_constraintStart_toStartOf="@+id/tv_1"
             app:layout_constraintTop_toBottomOf="@+id/tv_1"
-            tools:text="@string/mg_con02_3" />
+            android:text="@string/mg_con02_3" />
 
 
         <ImageView
@@ -63,11 +63,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:scaleType="centerInside"
-            android:src="@drawable/img_connect_sk"
             app:layout_constraintBottom_toTopOf="@+id/btn_integration"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_2" />
+            app:layout_constraintTop_toTopOf="@+id/tv_2"
+            tools:src="@drawable/img_connect_sk"/>
 
 
         <TextView

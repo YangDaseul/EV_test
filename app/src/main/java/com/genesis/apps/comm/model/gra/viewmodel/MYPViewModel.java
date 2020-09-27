@@ -12,6 +12,7 @@ import com.genesis.apps.comm.model.gra.MYP_1005;
 import com.genesis.apps.comm.model.gra.MYP_1006;
 import com.genesis.apps.comm.model.gra.MYP_2001;
 import com.genesis.apps.comm.model.gra.MYP_2002;
+import com.genesis.apps.comm.model.gra.MYP_2005;
 import com.genesis.apps.comm.model.gra.MYP_2006;
 import com.genesis.apps.comm.model.gra.MYP_8001;
 import com.genesis.apps.comm.model.gra.MYP_8004;
@@ -51,6 +52,7 @@ class MYPViewModel extends ViewModel {
 
     private MutableLiveData<NetUIResponse<MYP_2001.Response>> RES_MYP_2001;
     private MutableLiveData<NetUIResponse<MYP_2002.Response>> RES_MYP_2002;
+    private MutableLiveData<NetUIResponse<MYP_2005.Response>> RES_MYP_2005;
     
     private MutableLiveData<NetUIResponse<MYP_2006.Response>> RES_MYP_2006;
 
@@ -91,6 +93,7 @@ class MYPViewModel extends ViewModel {
         RES_MYP_8005 = repository.RES_MYP_8005;
         RES_MYP_2001 = repository.RES_MYP_2001;
         RES_MYP_2002 = repository.RES_MYP_2002;
+        RES_MYP_2005 = repository.RES_MYP_2005;
         RES_MYP_2006 = repository.RES_MYP_2006;
 
         this.oIlRepository = oIlRepository;
@@ -111,11 +114,11 @@ class MYPViewModel extends ViewModel {
     }
 
     public void reqMYP1003(final MYP_1003.Request reqData){
-        RES_MYP_1003.setValue(repository.REQ_MYP_1003(reqData).getValue());
+        repository.REQ_MYP_1003(reqData);
     }
 
     public void reqMYP1005(final MYP_1005.Request reqData){
-        RES_MYP_1005.setValue(repository.REQ_MYP_1005(reqData).getValue());
+        repository.REQ_MYP_1005(reqData);
     }
 
     public void reqMYP1006(final MYP_1006.Request reqData){
@@ -124,15 +127,15 @@ class MYPViewModel extends ViewModel {
 
 
     public void reqMYP8001(final MYP_8001.Request reqData){
-        RES_MYP_8001.setValue(repository.REQ_MYP_8001(reqData).getValue());
+        repository.REQ_MYP_8001(reqData);
     }
 
     public void reqMYP8004(final MYP_8004.Request reqData){
-        RES_MYP_8004.setValue(repository.REQ_MYP_8004(reqData).getValue());
+        repository.REQ_MYP_8004(reqData);
     }
 
     public void reqMYP8005(final MYP_8005.Request reqData){
-        RES_MYP_8005.setValue(repository.REQ_MYP_8005(reqData).getValue());
+        repository.REQ_MYP_8005(reqData);
     }
 
     public void reqMYP2001(final MYP_2001.Request reqData){
@@ -141,9 +144,13 @@ class MYPViewModel extends ViewModel {
     public void reqMYP2002(final MYP_2002.Request reqData){
         repository.REQ_MYP_2002(reqData);
     }
-    
+
+    public void reqMYP2005(final MYP_2005.Request reqData){
+        repository.REQ_MYP_2005(reqData);
+    }
+
     public void reqMYP2006(final MYP_2006.Request reqData){
-        RES_MYP_2006.setValue(repository.REQ_MYP_2006(reqData).getValue());
+       repository.REQ_MYP_2006(reqData);
     }
 
 

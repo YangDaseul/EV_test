@@ -61,6 +61,7 @@
     <string name="word_ga_12">전화</string>
     <string name="word_ga_13">제네시스 어카운트 탈퇴</string>
     <string name="word_ga_14">탈퇴</string>
+    <string name="word_ga_15">우편</string>
     <string name="msg_ga_1">제네시스 어카운트를 탈퇴하시면 최초 등록한 통합계정(이메일 ID)가 삭제됩니다.</string>
     <string name="msg_ga_2">다시 제네시스 어카운트 서비스를 이용하시려면, 신규 회원 가입이 필요합니다.</string>
     <string name="msg_ga_3">1. 수집·이용 목적 : 신규 상품 서비스 안내, 이벤트 및 행사 안내, 최신 기업 정보 안내, 고객별 통계 분석, 시장조사 등을 합니다.
@@ -146,6 +147,33 @@
     <string name="mg_member04_12">조회</string>
     <string name="mg_member04_13">포인트 사용 내역이 없습니다.</string>
 
+    <string name="mg_member03_1">카드 비밀번호 변경</string>
+    <string name="mg_member03_2">기존 비밀번호를 입력해 주세요.</string>
+    <string name="mg_member03_3">기존 비밀번호가 일치하지 않습니다.\n다시 시도하여 주십시오.</string>
+    <string name="mg_member03_4">신규 비밀번호를 입력해 주세요.</string>
+    <string name="mg_member03_5">신규 비밀번호를 한번 더 입력해 주세요.</string>
+    <string name="mg_member03_6">신규 비밀번호가 일치하지 않습니다.\n다시 시도하여 주십시오.</string>
+    <string name="mg_member03_7">카드 비밀번호가 정상적으로 변경되었습니다.</string>
+    <string name="mg_member03_8">변경 중 오류가 발생했습니다.\n이용에 불편을 드려 죄송합니다.\n네트워크 연결 상태를 확인 후 다시 시도해 주십시오.</string>
+    <string name="mg_member03_9">웹사이트의 비밀번호(패스워드)와는 별개의 것입니다.</string>
+    <string name="mg_member03_10">블루멤버스 카드를 여러장 보유하더라도 카드 비밀번호는 1개로 관리됩니다.</string>
+    <string name="mg_member03_11">현대카드 m-블루멤버스의 경우 신용카드 비밀번호와는 별도로 관리됩니다.</string>
+    <string name="mg_member03_12">카드 비밀 번호는 4자리 숫자입니다.</string>
+
+
+    <string name="mg_con02_01_1">포인트 연동</string>
+    <string name="mg_con02_01_2">%s\n포인트 연동 동의 안내</string>
+    <string name="mg_con02_01_3">%s 멤버십 포인트와 연동됩니다.\n아래의 약관에 동의해 주세요.</string>
+    <string name="mg_con02_01_4">아래의 약관에 동의해 주세요.</string>
+    <string name="mg_con02_01_5">전체 약관에 동의합니다.</string>
+    <string name="mg_con02_01_6">%s 이용약관</string>
+    <string name="mg_con02_01_7">포인트와 관련된 이벤트 정보, 이벤트, 상품/서비스 안내 등의 정보 수신 방법 선택 (선택)</string>
+    <string name="mg_con02_01_8">전화</string>
+    <string name="mg_con02_01_9">메시지 서비스</string>
+    <string name="mg_con02_01_10">전자우편 (EM)</string>
+    <string name="mg_con02_01_11">우편메일 (DM)</string>
+    <string name="mg_con02_01_12">다음</string>
+    <string name="mg_con02_01_13"> (선택)</string>
 
 
 

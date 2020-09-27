@@ -6,14 +6,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.TextView;
-
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.OilCodes;
 import com.genesis.apps.comm.model.RequestCodes;
+import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.MYP_0001;
 import com.genesis.apps.comm.model.gra.MYP_1003;
 import com.genesis.apps.comm.model.gra.MYP_1005;
@@ -21,19 +18,17 @@ import com.genesis.apps.comm.model.gra.MYP_1006;
 import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.model.vo.PrivilegeVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ActivityMygHomeBinding;
-import com.genesis.apps.databinding.ActivityMygVersionBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
 import com.genesis.apps.ui.myg.view.OilView;
+import com.google.gson.Gson;
 
-import java.util.List;
 import java.util.Locale;
 
-import static com.genesis.apps.comm.util.PackageUtil.isInstallApp;
+import androidx.lifecycle.ViewModelProvider;
 
 public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
@@ -50,17 +45,27 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         ui.setView(oilView);
 
         observerData();
+        reqData();
         setIvEffect();
+    }
+
+    //TODO 로딩 처리 필요..
+    private void reqData() {
+        mypViewModel.reqMYP0001(new MYP_0001.Request(APPIAInfo.MG01.getId()));
+        mypViewModel.reqMYP1003(new MYP_1003.Request(APPIAInfo.MG01.getId()));
+        //TODO 차대번호 확인해서 넣어줘야함 
+        mypViewModel.reqMYP1005(new MYP_1005.Request(APPIAInfo.MG01.getId(),""));
+        mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
     }
 
     private void observerData() {
 
-        mypViewModel.getRES_MYP_0001().observe(this, responseNetUI -> {
+        mypViewModel.getRES_MYP_0001().observe(this, result -> {
 
-            switch (responseNetUI.status){
+            switch (result.status){
                 case SUCCESS:
-                    ui.tvName.setText(String.format(Locale.getDefault(),getString(R.string.word_home_23), responseNetUI.data.getMbrNm()));
-                    ui.tvMail.setText(responseNetUI.data.getCcspEmail());
+                    ui.tvName.setText(String.format(Locale.getDefault(),getString(R.string.word_home_23), result.data.getMbrNm()));
+                    ui.tvMail.setText(result.data.getCcspEmail());
                     break;
                 case LOADING:
                     break;
@@ -69,10 +74,10 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
             }
         });
 
-        mypViewModel.getRES_MYP_1003().observe(this, responseNetUI -> {
-            switch (responseNetUI.status){
+        mypViewModel.getRES_MYP_1003().observe(this, result -> {
+            switch (result.status){
                 case SUCCESS:
-                    ui.tvPoint.setText(String.format(Locale.getDefault(),getString(R.string.word_home_24), StringUtil.getDigitGrouping(Integer.parseInt(responseNetUI.data.getBludMbrPoint()))));
+                    ui.tvPoint.setText(String.format(Locale.getDefault(),getString(R.string.word_home_24), StringUtil.getDigitGrouping(Integer.parseInt(result.data.getBludMbrPoint()))));
                     break;
                 case LOADING:
                     break;
@@ -81,10 +86,10 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
             }
         });
 
-        mypViewModel.getRES_MYP_1005().observe(this, responseNetUI -> {
-            switch (responseNetUI.status){
+        mypViewModel.getRES_MYP_1005().observe(this, result -> {
+            switch (result.status){
                 case SUCCESS:
-                    setPrivilegeLayout(responseNetUI.data);
+                    setPrivilegeLayout(result.data);
                     break;
                 case LOADING:
                     break;
@@ -93,16 +98,62 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
             }
         });
 
-        mypViewModel.getRES_MYP_1006().observe(this, responseNetUI -> {
-            switch (responseNetUI.status){
-                case SUCCESS:
-                    oilView.setOilLayout(responseNetUI.data);
-                    break;
-                case LOADING:
-                    break;
-                case ERROR:
-                    break;
-            }
+        mypViewModel.getRES_MYP_1006().observe(this, result -> {
+
+            String test ="{\n" +
+                    "  \"rsltCd\": \"0000\",\n" +
+                    "  \"rsltMsg\": \"성공\",\n" +
+                    "  \"oilRfnPontList\": [\n" +
+                    "    {\n" +
+                    "      \"oilRfnCd\": \"HDOL\",\n" +
+                    "      \"oilRfnNm\": \"현대오일뱅크\",\n" +
+                    "      \"rgstYn\": \"N\",\n" +
+                    "      \"cardNo\": \"1111111111111111\",\n" +
+                    "      \"pont\": \"1000000\",\n" +
+                    "      \"errMsg\": \"\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"oilRfnCd\": \"GSCT\",\n" +
+                    "      \"oilRfnNm\": \"GS칼텍스\",\n" +
+                    "      \"rgstYn\": \"N\",\n" +
+                    "      \"cardNo\": \"2222222222222222\",\n" +
+                    "      \"pont\": \"2000000\",\n" +
+                    "      \"errMsg\": \"\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"oilRfnCd\": \"SOIL\",\n" +
+                    "      \"oilRfnNm\": \"S-OIL\",\n" +
+                    "      \"rgstYn\": \"N\",\n" +
+                    "      \"cardNo\": \"3333333333333333\",\n" +
+                    "      \"pont\": \"3000000\",\n" +
+                    "      \"errMsg\": \"\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"oilRfnCd\": \"SKNO\",\n" +
+                    "      \"oilRfnNm\": \"SK 이노베이션\",\n" +
+                    "      \"rgstYn\": \"N\",\n" +
+                    "      \"cardNo\": \"4444444444444444\",\n" +
+                    "      \"pont\": \"4000000\",\n" +
+                    "      \"errMsg\": \"\"\n" +
+                    "    }\n" +
+                    "  ]\n" +
+                    "}";
+
+            MYP_1006.Response sample = new Gson().fromJson(test,MYP_1006.Response.class);
+
+            oilView.setOilLayout(sample);
+
+
+
+//            switch (result.status){
+//                case SUCCESS:
+//                    oilView.setOilLayout(result.data);
+//                    break;
+//                case LOADING:
+//                    break;
+//                case ERROR:
+//                    break;
+//            }
         });
     }
 
@@ -252,16 +303,16 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                 case R.id.btn_apply: //프리빌리지 신청하기
                     break;
                 case R.id.tv_integration_gs: //gs칼텍스 연동하기
-                    oilView.reqIntegrateOil(mypViewModel.getRES_MYP_1006().getValue().data.getOilRfnPontList(), OilPointVO.OIL_CODE_GSCT);
+                    oilView.reqIntegrateOil(OilPointVO.OIL_CODE_GSCT);
                     break;
                 case R.id.tv_integration_ho: //hyundai oilbank 연동하기
-                    oilView.reqIntegrateOil(mypViewModel.getRES_MYP_1006().getValue().data.getOilRfnPontList(),OilPointVO.OIL_CODE_HDOL);
+                    oilView.reqIntegrateOil(OilPointVO.OIL_CODE_HDOL);
                     break;
                 case R.id.tv_integration_sk: //sk에너지 연동하기
-                    oilView.reqIntegrateOil(mypViewModel.getRES_MYP_1006().getValue().data.getOilRfnPontList(),OilPointVO.OIL_CODE_SKNO);
+                    oilView.reqIntegrateOil(OilPointVO.OIL_CODE_SKNO);
                     break;
                 case R.id.tv_integration_soil: //S-OIL 연동하기
-                    oilView.reqIntegrateOil(mypViewModel.getRES_MYP_1006().getValue().data.getOilRfnPontList(),OilPointVO.OIL_CODE_SOIL);
+                    oilView.reqIntegrateOil(OilPointVO.OIL_CODE_SOIL);
                     break;
                 case R.id.btn_barcode_gs: //GS 바코드, 포인트 화면 이동
                     startActivitySingleTop(new Intent(this, MyGOilPointActivity.class).putExtra(OilCodes.KEY_OIL_CODE, OilPointVO.OIL_CODE_GSCT), RequestCodes.REQ_CODE_ACTIVITY.getCode());

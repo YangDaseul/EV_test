@@ -338,6 +338,7 @@
                         android:textSize="14sp"
                         android:text="@string/mg_member01_10"
                         android:background="@drawable/bg_00000000_underline_6f6f6f"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                         app:layout_constraintEnd_toStartOf="@+id/btn_question"
                         app:layout_constraintTop_toTopOf="@+id/tv_title_card"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_title_card"/>
