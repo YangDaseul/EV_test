@@ -12,35 +12,31 @@ import lombok.EqualsAndHashCode;
 
 /**
  * @author hjpark
- * @file GRA_STO_1001
- * @Brief Genesis + 유사재고차량
+ * @file GRA_STO_1002
+ * @Brief Genesis + BTO 웹뷰
  */
-public class STO_1001 extends BaseData {
+public class STO_1002 extends BaseData {
     /**
-     * @brief STO_1001 요청 항목
+     * @brief STO_1002 요청 항목
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     static
     class Request extends BaseRequest{
         public Request(String menuId){
-            setData(APIInfo.GRA_STO_1001.getIfCd(), menuId);
+            setData(APIInfo.GRA_STO_1002.getIfCd(), menuId);
         }
     }
 
     /**
-     * @brief STO_1001 응답 항목
-     * @see #estmVhclList 견적차량목록
-     * @see #smlrVhclList 유사차량목록
+     * @brief STO_1002 응답 항목
+     * @see #htmlFilUri HTML 파일 Uri
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse{
         @Expose
-        @SerializedName("estmVhclList")
-        private List<SimilarVehicleVO> estmVhclList;
-        @Expose
-        @SerializedName("smlrVhclList")
-        private List<SimilarVehicleVO> smlrVhclList;
+        @SerializedName("htmlFilUri")
+        private String htmlFilUri;
     }
 }

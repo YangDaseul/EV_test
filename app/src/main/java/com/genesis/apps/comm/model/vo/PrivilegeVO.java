@@ -12,6 +12,21 @@ import lombok.EqualsAndHashCode;
  * @brief 프리빌리지 정보
  * @author hjpark
  * @see #vin 차대번호
+ *
+ * @see #carRgstNo   차량번호
+ * @see #mdlCd	    차량모델코드
+ * ex) JX
+ * @see #mdlNm	    차량모델명
+ * ex) GV80
+ * @see #saleMdlNm	차량판매모델명
+ * ex) GV80 디젤 3.0 5인승 19인치 기본디자인 2WD 오토
+ * @see #xrclCtyNo	외장컬러상품번호
+ * 외장색상 컬러코드
+ * @see #xrclCtyNm	외장컬러명
+ * 외장색상 컬러명
+ * (판매정보 확인 가능한데 미정의된 데이터임)
+ *
+ *
  * @see #joinPsblCd 가입가능코드
  * 0:신청가능차량, 1:신청된차량, 9:신청불가차량
  * @see #stusCd 상태코드
@@ -31,6 +46,26 @@ class PrivilegeVO extends BaseData {
     @Expose
     @SerializedName("vin")
     private String vin;
+
+    @Expose
+    @SerializedName("carRgstNo")
+    private String carRgstNo;
+    @Expose
+    @SerializedName("mdlCd")
+    private String mdlCd;
+    @Expose
+    @SerializedName("mdlNm")
+    private String mdlNm;
+    @Expose
+    @SerializedName("saleMdlNm")
+    private String saleMdlNm;
+    @Expose
+    @SerializedName("xrclCtyNo")
+    private String xrclCtyNo;
+    @Expose
+    @SerializedName("xrclCtyNm")
+    private String xrclCtyNm;
+
 
     @Expose
     @SerializedName("joinPsblCd")

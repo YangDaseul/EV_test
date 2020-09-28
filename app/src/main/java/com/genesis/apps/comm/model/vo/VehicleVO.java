@@ -121,8 +121,9 @@ class VehicleVO extends BaseData {
     @SerializedName("recvYmd")
     private String recvYmd;
 
-
-
-
+    //내장컬러명
+    @Expose
+    @SerializedName("ieclCtyNm")
+    private String ieclCtyNm;
 
 }

@@ -130,6 +130,7 @@ public enum APIInfo {
 
 
     GRA_STO_1001("Genesis + 유사재고차량", "STO-1001", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_STO_1002("Genesis + BTO 웹뷰", "STO-1002", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
 
 
