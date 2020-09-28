@@ -147,6 +147,9 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
             case R.id.btn_use_list://TODO 멤버십고유번호는 임시로
                 startActivitySingleTop(new Intent(this, MyGMembershipUseListActivity.class).putExtra("mbrshMbrMgmtNo", "1"), RequestCodes.REQ_CODE_ACTIVITY.getCode());
                 break;
+            case R.id.btn_password:
+                startActivitySingleTop(new Intent(this, MyGMembershipCardPasswordActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode());
+                break;
         }
 
     }

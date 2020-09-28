@@ -117,6 +117,12 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
                 ui.tvPointSave.setText(StringUtil.getDigitGrouping(adapter.getTotalSavePoint()));
                 ui.tvPointUse.setText(StringUtil.getDigitGrouping(adapter.getTotalUsePoint()));
             }
+
+            if(adapter!=null&&adapter.getItemCount()<1){
+                ui.tvEmpty.setVisibility(View.VISIBLE);
+            }else{
+                ui.tvEmpty.setVisibility(View.GONE);
+            }
         });
 
 

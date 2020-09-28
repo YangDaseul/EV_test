@@ -159,16 +159,16 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
 
         switch (v.getId()){
             case R.id.tv_integration_gs: //gs칼텍스 연동하기
-                oilView.reqIntegrateOil(mypViewModel.getRES_MYP_1006().getValue().data.getOilRfnPontList(), OIL_CODE_GSCT);
+                oilView.reqIntegrateOil(OIL_CODE_GSCT);
                 break;
             case R.id.tv_integration_ho: //hyundai oilbank 연동하기
-                oilView.reqIntegrateOil(mypViewModel.getRES_MYP_1006().getValue().data.getOilRfnPontList(), OIL_CODE_HDOL);
+                oilView.reqIntegrateOil(OIL_CODE_HDOL);
                 break;
             case R.id.tv_integration_sk: //sk에너지 연동하기
-                oilView.reqIntegrateOil(mypViewModel.getRES_MYP_1006().getValue().data.getOilRfnPontList(), OIL_CODE_SKNO);
+                oilView.reqIntegrateOil(OIL_CODE_SKNO);
                 break;
             case R.id.tv_integration_soil: //S-OIL 연동하기
-                oilView.reqIntegrateOil(mypViewModel.getRES_MYP_1006().getValue().data.getOilRfnPontList(), OIL_CODE_SOIL);
+                oilView.reqIntegrateOil(OIL_CODE_SOIL);
                 break;
             case R.id.btn_release:
                 mypViewModel.reqOIL0003(new OIL_0003.Request(APPIAInfo.MG_CON01.getId(), oilRfnCd)); //연동해제 요청

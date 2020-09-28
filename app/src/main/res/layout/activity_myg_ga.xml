@@ -399,9 +399,26 @@
                             android:textSize="15sp"
                             android:textColor="@color/x_000000"
                             android:fontFamily="@font/light_genesissansheadglobal"
+                            app:layout_constraintHorizontal_chainStyle="spread_inside"
                             app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/cb_post"
                             app:layout_constraintTop_toBottomOf="@+id/cb_email" />
 
+
+                        <CheckBox
+                            android:id="@+id/cb_post"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:button="@null"
+                            android:drawableStart="@drawable/checkbox_selector"
+                            android:drawablePadding="8dp"
+                            android:textSize="15sp"
+                            android:textColor="@color/x_000000"
+                            android:fontFamily="@font/light_genesissansheadglobal"
+                            android:text="@string/word_ga_15"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/cb_phone"
+                            app:layout_constraintTop_toTopOf="@+id/cb_phone" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

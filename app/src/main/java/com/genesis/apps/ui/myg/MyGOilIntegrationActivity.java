@@ -1,13 +1,16 @@
 package com.genesis.apps.ui.myg;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.OilCodes;
+import com.genesis.apps.comm.model.RequestCodes;
 import com.genesis.apps.comm.model.ResultCodes;
 import com.genesis.apps.databinding.ActivityMygOilIntegrationBinding;
+import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 
 public class MyGOilIntegrationActivity extends SubActivity<ActivityMygOilIntegrationBinding> {
@@ -24,8 +27,9 @@ public class MyGOilIntegrationActivity extends SubActivity<ActivityMygOilIntegra
     }
 
     private void setView() {
-        ui.tv1.setText(OilCodes.findCode(oilRfnCd).getOilNm()+"\n"+getString(R.string.mg_con02_2));
-        ui.ivOil.setBackgroundResource(OilCodes.findCode(oilRfnCd).getBigSrc());
+        ui.setActivity(this);
+        ui.tv1.setText(getString(OilCodes.findCode(oilRfnCd).getOilNm())+"\n"+getString(R.string.mg_con02_2));
+        ui.ivOil.setImageResource(OilCodes.findCode(oilRfnCd).getBigSrc());
     }
 
     private void getOilCode(){
@@ -45,7 +49,7 @@ public class MyGOilIntegrationActivity extends SubActivity<ActivityMygOilIntegra
         switch (v.getId()){
             case R.id.btn_integration:
                 //TODO 약관동의 페이지로 이동 및 데이터 실패에 대한 스낵바 정의를 여기서 해줘야함.
-
+                startActivitySingleTop(new Intent(this, MyGOilTermActivity.class).putExtra(OilCodes.KEY_OIL_CODE, oilRfnCd), RequestCodes.REQ_CODE_ACTIVITY.getCode());
                 break;
         }
     }

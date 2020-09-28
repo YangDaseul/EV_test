@@ -2,4 +2,6 @@
 <resources>
     <integer type="id" name="actionv" format="integer">1001</integer>
     <item name="item_position" type="id"/>
+    <item name="et_reject" type="id"/>
+    <item name="oil_term" type="id"/>
 </resources>

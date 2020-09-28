@@ -59,6 +59,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
                     ui.cbAd.setChecked(sample.getMrktYn().equalsIgnoreCase("Y") ? true : false);
                     ui.cbSms.setChecked(sample.getMrktCd().substring(0,1).equalsIgnoreCase("1") ? true : false);
                     ui.cbEmail.setChecked(sample.getMrktCd().substring(1,2).equalsIgnoreCase("1") ? true : false);
+                    ui.cbPost.setChecked(sample.getMrktCd().substring(2,3).equalsIgnoreCase("1") ? true : false);
                     ui.cbPhone.setChecked(sample.getMrktCd().substring(3,4).equalsIgnoreCase("1") ? true : false);
                 }
 
@@ -83,6 +84,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
         ui.cbEmail.setOnCheckedChangeListener(listener);
         ui.cbPhone.setOnCheckedChangeListener(listener);
         ui.cbSms.setOnCheckedChangeListener(listener);
+        ui.cbPost.setOnCheckedChangeListener(listener);
         ui.cbAd.setOnCheckedChangeListener(listenerAll);
         ui.vBlock.setOnTouchListener((view, motionEvent) -> true);
     }
@@ -114,7 +116,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
 
     CompoundButton.OnCheckedChangeListener listener = (compoundButton, b) -> {
         if(compoundButton.isPressed()) {
-            ui.cbAd.setChecked(ui.cbEmail.isChecked()|ui.cbPhone.isChecked()|ui.cbSms.isChecked());
+            ui.cbAd.setChecked(ui.cbEmail.isChecked()|ui.cbPhone.isChecked()|ui.cbSms.isChecked()|ui.cbPost.isChecked());
         }
     };
 
@@ -123,6 +125,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
             ui.cbEmail.setChecked(b);
             ui.cbPhone.setChecked(b);
             ui.cbSms.setChecked(b);
+            ui.cbPost.setChecked(b);
         }
         ui.vBlock.setVisibility(b ? View.GONE : View.VISIBLE);
     };
