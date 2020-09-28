@@ -32,16 +32,26 @@ public class CBK_1002 extends BaseData {
         @Expose
         @SerializedName("basYymm")
         private String basYymm;
+        @Expose
+        @SerializedName("pageNo")
+        private String pageNo;
+        @Expose
+        @SerializedName("searchCnt")
+        private String searchCnt;
 
-        public Request(String menuId, String vin, String basYymm){
+        public Request(String menuId, String vin, String basYymm, String pageNo, String searchCnt){
             this.vin = vin;
             this.basYymm = basYymm;
+            this.pageNo = pageNo;
+            this.searchCnt = searchCnt;
             setData(APIInfo.GRA_CBK_1002.getIfCd(), menuId);
         }
     }
 
     /**
      * @brief CBK_1002 응답 항목
+     * @see #totCnt 지출내역수
+     * 해당년월 지출내역 수
      * @see #delYn 삭제여부
      * Y:삭제완료/N:삭제대기/null:복원 혹은 삭제취소 상태
      * @see #refulSumAmt 주유합계금액
@@ -59,7 +69,9 @@ public class CBK_1002 extends BaseData {
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse{
-
+        @Expose
+        @SerializedName("totCnt")
+        private String totCnt;
         @Expose
         @SerializedName("delYn")
         private String delYn;
