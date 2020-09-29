@@ -1,8 +1,13 @@
 package com.genesis.apps.comm.model.gra;
 
 import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.comm.model.vo.FloatingMenuVO;
+import com.genesis.apps.comm.model.vo.QuickMenuVO;
+import com.genesis.apps.comm.model.vo.WeatherVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,7 +40,32 @@ public class CMN_0002 extends BaseData {
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse{
-        //TODO 인터페이스 설계 중
+        @Expose
+        @SerializedName("menu0000")
+        private MenuInfo menu0000;
+        @Expose
+        @SerializedName("menuNV")
+        private MenuInfo menuNV;
+        @Expose
+        @SerializedName("menuOV")
+        private MenuInfo menuOV;
+        @Expose
+        @SerializedName("menuCV")
+        private MenuInfo menuCV;
+        @Expose
+        @SerializedName("wthrInsgtList")
+        private WeatherVO wthrInsgtList;
+    }
+
+
+    public @Data
+    class MenuInfo{
+        @Expose
+        @SerializedName("qckMenuList")
+        private List<QuickMenuVO> qckMenuList;
+        @Expose
+        @SerializedName("menuList")
+        private List<FloatingMenuVO> menuList;
     }
 
 }

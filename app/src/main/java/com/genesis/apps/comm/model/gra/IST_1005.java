@@ -28,6 +28,7 @@ public class IST_1005 extends BaseData {
      * @see #addrX 고객위치주소 x좌표
      * @see #addrY 고객위치주소 y좌표
      * @see #vin 차대번호
+     * @see #mdlNm 차량모델명
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -48,13 +49,17 @@ public class IST_1005 extends BaseData {
         @Expose
         @SerializedName("vin")
         private String vin;
+        @Expose
+        @SerializedName("mdlNm")
+        private String mdlNm;
 
-        public Request(String menuId, String lgrCatAreaCd, String smlCatAreaCd, String addrX, String addrY, String vin){
+        public Request(String menuId, String lgrCatAreaCd, String smlCatAreaCd, String addrX, String addrY, String vin, String mdlNm){
             this.lgrCatAreaCd = lgrCatAreaCd;
             this.smlCatAreaCd = smlCatAreaCd;
             this.addrX = addrX;
             this.addrY = addrY;
             this.vin = vin;
+            this.mdlNm = mdlNm;
             setData(APIInfo.GRA_IST_1005.getIfCd(), menuId);
         }
     }

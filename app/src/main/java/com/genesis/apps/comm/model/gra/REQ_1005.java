@@ -23,6 +23,7 @@ public class REQ_1005 extends BaseData {
      * 차량번호가 없는 경우 정비예약 중복확인 불가할 수 있음
      * @see #rparTypCd 정비내용코드
      * AC:냉난방부품, EG:엔진주요부품, PT:동력전달주요부품, BA:일반부품, CS:소모성부품, GT:기타
+     * @see #mdlNm 차량모델명 GV80
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -37,11 +38,15 @@ public class REQ_1005 extends BaseData {
         @Expose
         @SerializedName("rparTypCd")
         private String rparTypCd;
+        @Expose
+        @SerializedName("mdlNm")
+        private String mdlNm;
 
-        public Request(String menuId, String vin, String carRgstNo, String rparTypCd){
+        public Request(String menuId, String vin, String carRgstNo, String rparTypCd, String mdlNm){
             this.vin = vin;
             this.carRgstNo = carRgstNo;
             this.rparTypCd = rparTypCd;
+            this.mdlNm = mdlNm;
             setData(APIInfo.GRA_REQ_1005.getIfCd(), menuId);
         }
     }
