@@ -105,7 +105,7 @@ public class OILRepo {
 
 
     public MutableLiveData<NetUIResponse<OIL_0004.Response>> REQ_OIL_0004(final OIL_0004.Request reqData) {
-
+        RES_OIL_0004.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {

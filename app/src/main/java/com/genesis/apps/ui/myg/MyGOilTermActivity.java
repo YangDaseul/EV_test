@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.myg;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.CompoundButton;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.OilCodes;
+import com.genesis.apps.comm.model.RequestCodes;
 import com.genesis.apps.comm.model.ResultCodes;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.MYP_2001;
@@ -152,7 +154,7 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
                 try{
                     TermVO termVO = (TermVO)v.getTag(R.id.oil_term);
                     Log.v("test","test:"+termVO.getTermCd());
-                    //TODO 상세페이지로 이동
+                    startActivitySingleTop(new Intent(this, MyGOilTermDetailActivity.class).putExtra(MyGOilTermDetailActivity.OIL_CODE,oilRfnCd).putExtra(MyGOilTermDetailActivity.TERMS_CODE,termVO), RequestCodes.REQ_CODE_ACTIVITY.getCode());
                 }catch (Exception e){
                     e.printStackTrace();
                 }

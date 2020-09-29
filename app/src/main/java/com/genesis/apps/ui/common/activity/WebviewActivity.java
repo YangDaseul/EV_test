@@ -28,13 +28,19 @@ public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
 //        setContentView(activityWebviewBinding.getRoot());
         setContentView(R.layout.activity_webview);
         setResult(RESULT_CANCELED);
+        getDataFromIntent();
+        if(!TextUtils.isEmpty(url))
+            initWebview(url);
+    }
+
+    public void getDataFromIntent(){
         Intent intent = getIntent();
         if(intent == null || TextUtils.isEmpty(intent.getStringExtra("url"))) {
             finish();
             return;
         }
         url = intent.getStringExtra("url");
-        initWebview(url);
+
     }
 
     @Override
