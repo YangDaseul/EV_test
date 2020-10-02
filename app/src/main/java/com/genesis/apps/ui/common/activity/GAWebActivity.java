@@ -10,7 +10,7 @@ import android.view.inputmethod.EditorInfo;
 import android.webkit.WebChromeClient;
 import android.widget.TextView;
 
-import com.genesis.apps.comm.model.RequestCodes;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 

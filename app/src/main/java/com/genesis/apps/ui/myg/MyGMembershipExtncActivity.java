@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.MYP_2006;
-import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
+import com.genesis.apps.comm.model.gra.api.MYP_2006;
+import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.MembershipPointVO;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ActivityMygMembershipExtncBinding;

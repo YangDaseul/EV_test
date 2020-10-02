@@ -1,7 +1,6 @@
 package com.genesis.apps.ui.myg;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
@@ -10,29 +9,22 @@ import com.appeaser.sublimepickerlibrary.datepicker.SelectedDate;
 import com.appeaser.sublimepickerlibrary.helpers.SublimeOptions;
 import com.appeaser.sublimepickerlibrary.recurrencepicker.SublimeRecurrencePicker;
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.OilCodes;
-import com.genesis.apps.comm.model.ResultCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.MYP_2001;
-import com.genesis.apps.comm.model.gra.MYP_2002;
-import com.genesis.apps.comm.model.gra.MYP_8005;
-import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
-import com.genesis.apps.comm.model.vo.CardVO;
+import com.genesis.apps.comm.model.gra.api.MYP_2002;
+import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.util.CalenderUtil;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
-import com.genesis.apps.databinding.ActivityMygMembershipBinding;
 import com.genesis.apps.databinding.ActivityMygMembershipUseListBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.myg.view.CardHorizontalAdapter;
 import com.genesis.apps.ui.myg.view.PointUseListAdapter;
 import com.google.gson.Gson;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.Calendar;
 import java.util.Locale;

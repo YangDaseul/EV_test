@@ -18,10 +18,10 @@ import dagger.hilt.EntryPoint;
 import dagger.hilt.InstallIn;
 import dagger.hilt.android.components.ApplicationComponent;
 
-import static com.genesis.apps.comm.net.ga.GAInfo.CCSP_URL;
-import static com.genesis.apps.comm.net.ga.GAInfo.HTTP_HEADER_NAME;
-import static com.genesis.apps.comm.net.ga.GAInfo.HTTP_HEADER_VALUE;
-import static com.genesis.apps.comm.net.ga.GAInfo.TAG_MSG_LOGININFO;
+import static com.genesis.apps.comm.model.constants.GAInfo.CCSP_URL;
+import static com.genesis.apps.comm.model.constants.GAInfo.HTTP_HEADER_NAME;
+import static com.genesis.apps.comm.model.constants.GAInfo.HTTP_HEADER_VALUE;
+import static com.genesis.apps.comm.model.constants.GAInfo.TAG_MSG_LOGININFO;
 
 public class CCSP {
     private static final String TAG = CCSP.class.getSimpleName();

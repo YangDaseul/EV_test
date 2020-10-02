@@ -6,11 +6,10 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.OilCodes;
-import com.genesis.apps.comm.model.RequestCodes;
-import com.genesis.apps.comm.model.ResultCodes;
+import com.genesis.apps.comm.model.constants.OilCodes;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.databinding.ActivityMygOilIntegrationBinding;
-import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 
 public class MyGOilIntegrationActivity extends SubActivity<ActivityMygOilIntegrationBinding> {

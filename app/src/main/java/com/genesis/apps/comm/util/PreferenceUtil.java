@@ -9,7 +9,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import static com.genesis.apps.comm.model.KeyNames.SHARED_PREFERENCES_NAME;
+import static com.genesis.apps.comm.model.constants.KeyNames.SHARED_PREFERENCES_NAME;
 
 
 @SuppressLint("ApplySharedPref")

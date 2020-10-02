@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.MYP_8004;
-import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
+import com.genesis.apps.comm.model.gra.api.MYP_8004;
+import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.databinding.ActivityMygVersionBinding;
@@ -23,7 +23,6 @@ public class MyGVersioniActivity extends SubActivity<ActivityMygVersionBinding> 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myg_version);
-        ui.lTitle.title.setText(R.string.title_version);
         ui.setLifecycleOwner(this);
         mypViewModel= new ViewModelProvider(this).get(MYPViewModel.class);
         mypViewModel.getRES_MYP_8004().observe(this, responseNetUIResponse -> {

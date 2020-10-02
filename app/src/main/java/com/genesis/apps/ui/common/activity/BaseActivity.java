@@ -10,8 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.RequestCodes;
-import com.genesis.apps.comm.model.ResultCodes;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.fcm.PushCode;
@@ -20,8 +20,8 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
-import static com.genesis.apps.comm.model.KeyNames.NOTIFICATION_ID;
-import static com.genesis.apps.comm.model.KeyNames.PUSH_CODE;
+import static com.genesis.apps.comm.model.constants.KeyNames.NOTIFICATION_ID;
+import static com.genesis.apps.comm.model.constants.KeyNames.PUSH_CODE;
 
 @AndroidEntryPoint
 public class BaseActivity extends AppCompatActivity {

@@ -11,8 +11,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.main.myg.MenuRepository;
-import com.genesis.apps.comm.model.main.myg.MenuViewModel;
+import com.genesis.apps.comm.model.repo.MenuRepository;
+import com.genesis.apps.comm.viewmodel.MenuViewModel;
 import com.genesis.apps.comm.model.vo.MenuVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;

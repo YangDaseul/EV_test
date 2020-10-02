@@ -168,6 +168,70 @@ public class PackageUtil {
         }
     }
 
+
+    /**
+     * @brief 버전을 서버 형식으로 변경
+     * ex) 1.2.1 -> 01.02.01
+     * ex) 1.25.10 -> 01.25.10
+     * ex) 1.0 -> 01.00.00
+     * @param version 변경 대상
+     * @return 변경 결과
+     */
+    public static String changeVersionToServerFormat(String version) {
+
+        String parsingVersion="";
+        String[] array;
+        array = version.split("\\.");
+        //버전 자리 수를 최소 3개 이상으로 보장
+        int formatSize = array.length < 3 ? 3 : array.length;
+
+        for(int i=0; i<formatSize; i++){
+            int versionValue =0;
+
+            try{
+                versionValue = Integer.parseInt(array[i]);
+            }catch (Exception ignore){
+                versionValue=0;
+            }
+
+            parsingVersion += String.format("%02d", versionValue);
+
+            if(i+1 < formatSize){
+                parsingVersion+=".";
+            }
+        }
+
+        return parsingVersion;
+    }
+
+    public static String changeVersionToAppFormat(String version) {
+
+        String parsingVersion="";
+        String[] array;
+        array = version.split("\\.");
+        //버전 자리 수를 최소 3개 이상으로 보장
+        int formatSize = array.length < 3 ? 3 : array.length;
+
+        for(int i=0; i<formatSize; i++){
+            int versionValue =0;
+
+            try{
+                versionValue = Integer.parseInt(array[i]);
+            }catch (Exception ignore){
+                versionValue=0;
+            }
+
+            parsingVersion += versionValue;
+
+            if(i+1 < formatSize){
+                parsingVersion+=".";
+            }
+        }
+
+        return parsingVersion;
+    }
+
+
     /**
      * 마켓으로 이동
      */

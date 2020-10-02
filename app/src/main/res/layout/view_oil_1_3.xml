@@ -5,7 +5,7 @@
     <data>
         <import type="android.view.View" />
         <import type="android.text.TextUtils" />
-        <variable name="vm" type="com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel"/>
+        <variable name="vm" type="com.genesis.apps.comm.viewmodel.MYPViewModel"/>
         <variable name="view" type="com.genesis.apps.ui.myg.view.OilView"/>
         <variable name="listener" type="com.genesis.apps.ui.common.view.listener.OnItemClickListener"/>
     </data>

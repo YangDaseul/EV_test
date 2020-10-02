@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.map.MapViewModel;
+import com.genesis.apps.comm.viewmodel.MapViewModel;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.databinding.Frame2pBinding;
 import com.genesis.apps.ui.common.fragment.SubFragment;

@@ -7,10 +7,10 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.RequestCodes;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.MYP_2001;
-import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
+import com.genesis.apps.comm.model.gra.api.MYP_2001;
+import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.databinding.ActivityMygMembershipBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;

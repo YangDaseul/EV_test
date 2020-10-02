@@ -6,9 +6,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.OilCodes;
-import com.genesis.apps.comm.model.RequestCodes;
-import com.genesis.apps.comm.model.gra.MYP_1006;
+import com.genesis.apps.comm.model.constants.OilCodes;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.gra.api.MYP_1006;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ViewOilBinding;

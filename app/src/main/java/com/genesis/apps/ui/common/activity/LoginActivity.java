@@ -19,10 +19,10 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
-import static com.genesis.apps.comm.net.ga.GAInfo.CCSP_URL;
-import static com.genesis.apps.comm.net.ga.GAInfo.GA_CALLBACK_URL;
-import static com.genesis.apps.comm.net.ga.GAInfo.GA_REDIRECT_URL;
-import static com.genesis.apps.comm.net.ga.GAInfo.GA_URL;
+import static com.genesis.apps.comm.model.constants.GAInfo.CCSP_URL;
+import static com.genesis.apps.comm.model.constants.GAInfo.GA_CALLBACK_URL;
+import static com.genesis.apps.comm.model.constants.GAInfo.GA_REDIRECT_URL;
+import static com.genesis.apps.comm.model.constants.GAInfo.GA_URL;
 
 @AndroidEntryPoint
 public class LoginActivity extends WebviewActivity {

@@ -11,18 +11,13 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.OilCodes;
-import com.genesis.apps.comm.model.RequestCodes;
-import com.genesis.apps.comm.model.ResultCodes;
+import com.genesis.apps.comm.model.constants.OilCodes;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.MYP_2001;
-import com.genesis.apps.comm.model.gra.OIL_0001;
-import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
-import com.genesis.apps.comm.model.gra.viewmodel.OILViewModel;
+import com.genesis.apps.comm.model.gra.api.OIL_0001;
+import com.genesis.apps.comm.viewmodel.OILViewModel;
 import com.genesis.apps.comm.model.vo.TermVO;
-import com.genesis.apps.comm.net.NetUIResponse;
-import com.genesis.apps.comm.util.SnackBarUtil;
-import com.genesis.apps.databinding.ActivityMygOilIntegrationBinding;
 import com.genesis.apps.databinding.ActivityMygOilTermBinding;
 import com.genesis.apps.databinding.ItemTermBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -33,7 +28,6 @@ import java.util.List;
 import java.util.Locale;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import static com.genesis.apps.comm.model.vo.TermVO.TERM_ESN_AGMT_N;

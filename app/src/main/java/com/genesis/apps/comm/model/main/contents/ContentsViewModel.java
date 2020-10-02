@@ -1,13 +1,6 @@
 package com.genesis.apps.comm.model.main.contents;
 
-import com.genesis.apps.comm.model.map.AroundPOIReqVO;
-import com.genesis.apps.comm.model.map.FindPathReqVO;
-import com.genesis.apps.comm.model.map.FindPathResVO;
-import com.genesis.apps.comm.model.map.MapRepository;
-import com.genesis.apps.comm.model.map.ReverseGeocodingReqVO;
 import com.genesis.apps.comm.net.NetUIResponse;
-import com.hmns.playmap.extension.PlayMapGeoItem;
-import com.hmns.playmap.extension.PlayMapPoiItem;
 
 import java.util.ArrayList;
 

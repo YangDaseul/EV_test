@@ -4,8 +4,8 @@
 //import android.view.MotionEvent;
 //import android.widget.Toast;
 //
-//import com.genesis.apps.comm.model.map.MapViewModel;
-//import com.genesis.apps.comm.model.map.ReverseGeocodingReqVO;
+//import com.genesis.apps.comm.viewmodel.MapViewModel;
+//import com.genesis.apps.comm.model.vo.map.ReverseGeocodingReqVO;
 //import com.genesis.apps.comm.net.NetUIResponse;
 //import com.hmns.playmap.PlayMapPoint;
 //import com.hmns.playmap.PlayMapView;

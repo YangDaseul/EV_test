@@ -11,8 +11,8 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.hybrid.core.WebViewFragment;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.MYP_8001;
-import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
+import com.genesis.apps.comm.model.gra.api.MYP_8001;
+import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.ui.common.activity.WebviewActivity;
 

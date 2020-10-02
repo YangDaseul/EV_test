@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.RequestCodes;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.net.ga.GA;
 import com.genesis.apps.databinding.ActivityEntranceBinding;
 

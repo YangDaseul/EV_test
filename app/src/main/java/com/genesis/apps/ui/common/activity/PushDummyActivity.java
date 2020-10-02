@@ -4,8 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.genesis.apps.comm.util.CommonUtil;
+import com.genesis.apps.ui.intro.IntroActivity;
 
-import static com.genesis.apps.comm.model.KeyNames.IS_FOREGROUND_SERVICE;
+import static com.genesis.apps.comm.model.constants.KeyNames.IS_FOREGROUND_SERVICE;
 
 public class PushDummyActivity extends BaseActivity {
     @Override

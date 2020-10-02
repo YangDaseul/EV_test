@@ -13,7 +13,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.RequestCodes;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.databinding.ActivityMainBinding;
 import com.genesis.apps.fcm.FirebaseMessagingService;
 import com.genesis.apps.fcm.PushCode;

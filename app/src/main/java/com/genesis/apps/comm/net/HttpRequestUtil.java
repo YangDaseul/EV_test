@@ -13,9 +13,9 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.genesis.apps.comm.net.ga.GAInfo.HTTP_HEADER_NAME;
-import static com.genesis.apps.comm.net.ga.GAInfo.HTTP_HEADER_VALUE;
-import static com.genesis.apps.comm.net.ga.GAInfo.TAG_MSG_BODY;
+import static com.genesis.apps.comm.model.constants.GAInfo.HTTP_HEADER_NAME;
+import static com.genesis.apps.comm.model.constants.GAInfo.HTTP_HEADER_VALUE;
+import static com.genesis.apps.comm.model.constants.GAInfo.TAG_MSG_BODY;
 
 public class HttpRequestUtil {
     private static String TAG_LOG = HttpRequestUtil.class.getSimpleName();

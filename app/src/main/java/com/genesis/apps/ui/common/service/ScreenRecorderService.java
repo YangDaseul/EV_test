@@ -22,7 +22,7 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
-import static com.genesis.apps.comm.model.KeyNames.IS_FOREGROUND_SERVICE;
+import static com.genesis.apps.comm.model.constants.KeyNames.IS_FOREGROUND_SERVICE;
 
 @AndroidEntryPoint
 public class ScreenRecorderService extends Service {

@@ -6,17 +6,11 @@ import android.view.View;
 import android.webkit.WebView;
 
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.hybrid.core.WebViewFragment;
-import com.genesis.apps.comm.model.ResultCodes;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.OIL_0004;
-import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.TermVO;
-import com.genesis.apps.databinding.ActivityIntroBinding;
 import com.genesis.apps.databinding.ActivityTermBinding;
 
 import java.io.BufferedReader;

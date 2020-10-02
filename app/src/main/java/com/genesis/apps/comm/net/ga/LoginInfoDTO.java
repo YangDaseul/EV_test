@@ -3,6 +3,7 @@ package com.genesis.apps.comm.net.ga;
 import android.content.Context;
 import android.util.Log;
 
+import com.genesis.apps.comm.model.vo.UserProfileVO;
 import com.genesis.apps.comm.util.crypt.AesUtils;
 import com.google.gson.Gson;
 
@@ -17,7 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import static com.genesis.apps.comm.net.ga.GAInfo.TAG_MSG_LOGININFO;
+import static com.genesis.apps.comm.model.constants.GAInfo.TAG_MSG_LOGININFO;
 
 @EqualsAndHashCode(callSuper=false)
 @AllArgsConstructor

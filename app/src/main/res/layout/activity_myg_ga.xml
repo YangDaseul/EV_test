@@ -14,7 +14,7 @@
             type="com.genesis.apps.ui.myg.MyGGAActivity" />
         <variable
             name="data"
-            type="com.genesis.apps.comm.model.gra.MYP_0001.Response" />
+            type="com.genesis.apps.comm.model.gra.api.MYP_0001.Response" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

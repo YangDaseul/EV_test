@@ -18,10 +18,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.KeyNames;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.ui.common.activity.PushDummyActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.RemoteMessage;
@@ -31,7 +30,7 @@ import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.net.URL;
 
-import static com.genesis.apps.comm.model.KeyNames.PUSH_CODE;
+import static com.genesis.apps.comm.model.constants.KeyNames.PUSH_CODE;
 import static com.genesis.apps.fcm.PushCode.findCode;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {

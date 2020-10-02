@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.gra.APIInfo;
 import com.genesis.apps.comm.net.ga.GA;
-import com.genesis.apps.comm.net.ga.GAInfo;
+import com.genesis.apps.comm.model.constants.GAInfo;
 import com.genesis.apps.comm.net.model.BeanReqParm;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.google.common.reflect.TypeToken;

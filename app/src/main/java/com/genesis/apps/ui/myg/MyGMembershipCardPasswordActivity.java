@@ -8,8 +8,8 @@ import android.widget.ImageView;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.MYP_2005;
-import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
+import com.genesis.apps.comm.model.gra.api.MYP_2005;
+import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.VibratorUtil;
 import com.genesis.apps.databinding.ActivityMygMembershipCardPasswordBinding;

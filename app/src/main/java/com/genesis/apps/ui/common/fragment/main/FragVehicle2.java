@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.map.MapViewModel;
+import com.genesis.apps.comm.viewmodel.MapViewModel;
 import com.genesis.apps.databinding.FragVehicle2Binding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.view.listview.test.TestItemAdapter;

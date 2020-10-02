@@ -13,12 +13,12 @@ import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.OilCodes;
-import com.genesis.apps.comm.model.ResultCodes;
+import com.genesis.apps.comm.model.constants.OilCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.MYP_1006;
-import com.genesis.apps.comm.model.gra.OIL_0003;
-import com.genesis.apps.comm.model.gra.viewmodel.MYPViewModel;
+import com.genesis.apps.comm.model.gra.api.MYP_1006;
+import com.genesis.apps.comm.model.gra.api.OIL_0003;
+import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.util.BarcodeUtil;
 import com.genesis.apps.comm.util.PackageUtil;

@@ -32,6 +32,8 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         super.onCreate(savedInstanceState);
         if(base==null) base = (ActivityBaseBinding) inflate(R.layout.activity_base);
 
+//        setViewModel();
+//        setObserver();
     }
 
     @Override
@@ -104,4 +106,6 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         finish();
     }
     public abstract void onClickCommon(View v);
+//    public abstract void setViewModel();
+//    public abstract void setObserver();
 }
