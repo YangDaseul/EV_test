@@ -57,7 +57,7 @@ public class CMN_0002 extends BaseData {
         private MenuInfo menuCV;
         @Expose
         @SerializedName("wthrInsgtList")
-        private WeatherVO wthrInsgtList;
+        private List<WeatherVO> wthrInsgtList;
     }
 
 

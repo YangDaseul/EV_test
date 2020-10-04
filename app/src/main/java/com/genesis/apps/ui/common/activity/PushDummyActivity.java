@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.genesis.apps.comm.util.CommonUtil;
 import com.genesis.apps.ui.intro.IntroActivity;
+import com.genesis.apps.ui.main.MainActivity;
 
 import static com.genesis.apps.comm.model.constants.KeyNames.IS_FOREGROUND_SERVICE;
 

@@ -29,10 +29,13 @@ public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
         setContentView(R.layout.activity_webview);
         setResult(RESULT_CANCELED);
         getDataFromIntent();
+        setViewModel();
+        setObserver();
         if(!TextUtils.isEmpty(url))
             initWebview(url);
     }
 
+    @Override
     public void getDataFromIntent(){
         Intent intent = getIntent();
         if(intent == null || TextUtils.isEmpty(intent.getStringExtra("url"))) {
@@ -45,6 +48,16 @@ public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
 
     @Override
     public void onClickCommon(View v) {
+
+    }
+
+    @Override
+    public void setViewModel() {
+
+    }
+
+    @Override
+    public void setObserver() {
 
     }
 //    public void reload() {

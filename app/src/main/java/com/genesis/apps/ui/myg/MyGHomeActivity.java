@@ -15,11 +15,11 @@ import com.genesis.apps.comm.model.gra.api.MYP_0001;
 import com.genesis.apps.comm.model.gra.api.MYP_1003;
 import com.genesis.apps.comm.model.gra.api.MYP_1005;
 import com.genesis.apps.comm.model.gra.api.MYP_1006;
-import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.model.vo.PrivilegeVO;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.StringUtil;
+import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.databinding.ActivityMygHomeBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
@@ -34,37 +34,33 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
     private MYPViewModel mypViewModel;
     private OilView oilView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myg_home);
-        mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
-        oilView = new OilView(ui.lOil, v -> onSingleClickListener.onClick(v));
-        ui.setLifecycleOwner(this);
-        ui.setActivity(this);
-        ui.setView(oilView);
-
-        observerData();
+        getDataFromIntent();
+        setViewModel();
+        setObserver();
+        initView();
         reqData();
         setIvEffect();
     }
 
-    //TODO 로딩 처리 필요..
-    private void reqData() {
-        mypViewModel.reqMYP0001(new MYP_0001.Request(APPIAInfo.MG01.getId()));
-        mypViewModel.reqMYP1003(new MYP_1003.Request(APPIAInfo.MG01.getId()));
-        //TODO 차대번호 확인해서 넣어줘야함 
-        mypViewModel.reqMYP1005(new MYP_1005.Request(APPIAInfo.MG01.getId(),""));
-        mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
+    @Override
+    public void setViewModel() {
+        ui.setLifecycleOwner(this);
+        mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
     }
 
-    private void observerData() {
+    @Override
+    public void setObserver() {
 
         mypViewModel.getRES_MYP_0001().observe(this, result -> {
 
-            switch (result.status){
+            switch (result.status) {
                 case SUCCESS:
-                    ui.tvName.setText(String.format(Locale.getDefault(),getString(R.string.word_home_23), result.data.getMbrNm()));
+                    ui.tvName.setText(String.format(Locale.getDefault(), getString(R.string.word_home_23), result.data.getMbrNm()));
                     ui.tvMail.setText(result.data.getCcspEmail());
                     break;
                 case LOADING:
@@ -75,9 +71,9 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         });
 
         mypViewModel.getRES_MYP_1003().observe(this, result -> {
-            switch (result.status){
+            switch (result.status) {
                 case SUCCESS:
-                    ui.tvPoint.setText(String.format(Locale.getDefault(),getString(R.string.word_home_24), StringUtil.getDigitGrouping(Integer.parseInt(result.data.getBludMbrPoint()))));
+                    ui.tvPoint.setText(String.format(Locale.getDefault(), getString(R.string.word_home_24), StringUtil.getDigitGrouping(Integer.parseInt(result.data.getBludMbrPoint()))));
                     break;
                 case LOADING:
                     break;
@@ -87,7 +83,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         });
 
         mypViewModel.getRES_MYP_1005().observe(this, result -> {
-            switch (result.status){
+            switch (result.status) {
                 case SUCCESS:
                     setPrivilegeLayout(result.data);
                     break;
@@ -100,7 +96,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
         mypViewModel.getRES_MYP_1006().observe(this, result -> {
 
-            String test ="{\n" +
+            String test = "{\n" +
                     "  \"rsltCd\": \"0000\",\n" +
                     "  \"rsltMsg\": \"성공\",\n" +
                     "  \"oilRfnPontList\": [\n" +
@@ -139,10 +135,9 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     "  ]\n" +
                     "}";
 
-            MYP_1006.Response sample = new Gson().fromJson(test,MYP_1006.Response.class);
+            MYP_1006.Response sample = new Gson().fromJson(test, MYP_1006.Response.class);
 
             oilView.setOilLayout(sample);
-
 
 
 //            switch (result.status){
@@ -155,20 +150,42 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 //                    break;
 //            }
         });
+
+
+    }
+
+    @Override
+    public void getDataFromIntent() {
+
+    }
+
+    private void initView() {
+        oilView = new OilView(ui.lOil, v -> onSingleClickListener.onClick(v));
+        ui.setActivity(this);
+        ui.setView(oilView);
+    }
+
+    //TODO 로딩 처리 필요..
+    private void reqData() {
+        mypViewModel.reqMYP0001(new MYP_0001.Request(APPIAInfo.MG01.getId()));
+        mypViewModel.reqMYP1003(new MYP_1003.Request(APPIAInfo.MG01.getId()));
+        //TODO 차대번호 확인해서 넣어줘야함 
+        mypViewModel.reqMYP1005(new MYP_1005.Request(APPIAInfo.MG01.getId(), ""));
+        mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
     }
 
 
     private void setPrivilegeLayout(MYP_1005.Response data) {
 
-        if(data.getMbrshJoinYn().equalsIgnoreCase("N")||data.getPvilList().size()<1){
+        if (data.getMbrshJoinYn().equalsIgnoreCase("N") || data.getPvilList().size() < 1) {
             ui.lPrivilege.setVisibility(View.GONE);
-        }else{
+        } else {
             ui.lPrivilege.setVisibility(View.VISIBLE);
 
-            if(data.getPvilList().size()==1){
+            if (data.getPvilList().size() == 1) {
                 ui.btnCarList.setVisibility(View.GONE);
 
-                switch (data.getPvilList().get(0).getJoinPsblCd()){
+                switch (data.getPvilList().get(0).getJoinPsblCd()) {
                     case PrivilegeVO.JOIN_CODE_APPLY_POSSIBLE:
                         ui.btnStatus.setVisibility(View.GONE);
                         ui.btnBenefit.setVisibility(View.GONE);
@@ -184,7 +201,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                         ui.lPrivilege.setVisibility(View.GONE);
                         break;
                 }
-            }else{
+            } else {
                 ui.btnCarList.setVisibility(View.VISIBLE);
                 ui.btnStatus.setVisibility(View.GONE);
                 ui.btnBenefit.setVisibility(View.GONE);
@@ -195,82 +212,6 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
     }
 
-//    private void setOilLayout(MYP_1006.Response data) {
-//
-//        if(data.getOilRfnPontList()==null||data.getOilRfnPontList().size()<1){
-//            ui.btnBarcodeGs.setVisibility(View.GONE);
-//            ui.tvPointGs.setVisibility(View.GONE);
-//            ui.btnBarcodeHo.setVisibility(View.GONE);
-//            ui.tvPointHo.setVisibility(View.GONE);
-//            ui.btnBarcodeSk.setVisibility(View.GONE);
-//            ui.tvPointSk.setVisibility(View.GONE);
-//            ui.btnBarcodeSoil.setVisibility(View.GONE);
-//            ui.tvPointSoil.setVisibility(View.GONE);
-//
-//            ui.tvIntegrationGs.setVisibility(View.VISIBLE);
-//            ui.tvIntegrationHo.setVisibility(View.VISIBLE);
-//            ui.tvIntegrationSk.setVisibility(View.VISIBLE);
-//            ui.tvIntegrationSoil.setVisibility(View.VISIBLE);
-//        }else{
-//            for(int i=0; i<data.getOilRfnPontList().size(); i++){
-//                switch (data.getOilRfnPontList().get(i).getOilRfnCd()){
-//                    case OilPointVO.OIL_CODE_SOIL:
-//                        setOilView(data.getOilRfnPontList().get(i), ui.btnBarcodeSoil, ui.tvPointSoil, ui.tvIntegrationSoil);
-//                        break;
-//                    case OilPointVO.OIL_CODE_GSCT:
-//                        setOilView(data.getOilRfnPontList().get(i), ui.btnBarcodeGs, ui.tvPointGs, ui.tvIntegrationGs);
-//                        break;
-//                    case OilPointVO.OIL_CODE_HDOL:
-//                        setOilView(data.getOilRfnPontList().get(i), ui.btnBarcodeHo, ui.tvPointHo, ui.tvIntegrationHo);
-//                        break;
-//                    case OilPointVO.OIL_CODE_SKNO:
-//                        setOilView(data.getOilRfnPontList().get(i), ui.btnBarcodeSk, ui.tvPointSk, ui.tvIntegrationSk);
-//                        break;
-//                    default:
-//                        break;
-//                }
-//            }
-//        }
-//    }
-//
-//    private void setOilView(OilPointVO data, View barcode, TextView point, View integration){
-//        switch (data.getRgstYn()){
-//            case OilPointVO.OIL_JOIN_CODE_Y:
-//                barcode.setVisibility(View.VISIBLE);
-//                point.setVisibility(View.VISIBLE);
-//                point.setText(String.format(Locale.getDefault(),getString(R.string.word_home_24), StringUtil.getDigitGrouping(Integer.parseInt(data.getPont()))));
-//                integration.setVisibility(View.GONE);
-//                break;
-//            case OilPointVO.OIL_JOIN_CODE_R:
-//            case OilPointVO.OIL_JOIN_CODE_N:
-//            default:
-//                barcode.setVisibility(View.GONE);
-//                point.setVisibility(View.GONE);
-//                integration.setVisibility(View.VISIBLE);
-//                break;
-//        }
-//    }
-//
-//    private void reqIntegrateOil(String rfnCd){
-//        List<OilPointVO> list = mypViewModel.getRES_MYP_1006().getValue().data.getOilRfnPontList();
-//        for(int i=0; i<list.size(); i++){
-//            if(rfnCd.equalsIgnoreCase(list.get(i).getOilRfnCd())){
-//
-//                switch (list.get(i).getRgstYn()){
-//                    case OilPointVO.OIL_JOIN_CODE_R:
-//                        //TODO R일 경우 처리
-//                        break;
-//                    case OilPointVO.OIL_JOIN_CODE_N:
-//                        //TODO N일 경우 처리
-//                        break;
-//                    default:
-//                        break;
-//                }
-//            }
-//        }
-//    }
-
-
     private void setIvEffect() {
         ViewPressEffectHelper.attach(ui.lAppConnected);
         ViewPressEffectHelper.attach(ui.lAppDigitalkey);
@@ -280,7 +221,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
     @Override
     public void onClickCommon(final View v) {
-        Log.v("test duplicate","id:"+v.getId());
+        Log.v("test duplicate", "id:" + v.getId());
         if (v != null) {
             switch (v.getId()) {
                 case R.id.btn_search:
@@ -345,7 +286,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     //TODO 정책 결정 안됨
                     break;
                 case R.id.btn_call: //전화 상담
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL+ui.tvCenterMsg4.getText().toString())));
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + ui.tvCenterMsg4.getText().toString())));
                     break;
                 case R.id.l_terms_1://공지사항
                     startActivitySingleTop(new Intent(this, MyGNotiActivity.class), 0);
@@ -373,5 +314,4 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         }
 
     }
-
 }

@@ -35,25 +35,21 @@
                 android:clipChildren="false"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-
-            <me.relex.circleindicator.CircleIndicator3
-                android:id="@+id/indicator"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="bottom"
-                android:visibility="gone"/>
         </FrameLayout>
 
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="80dp"
+            android:visibility="visible"
+            android:background="@drawable/bg_000000_top_round_20"
             app:tabMode="fixed"
+            app:tabGravity="fill"
+            app:tabIndicatorHeight="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:visibility="gone"/>
+            app:layout_constraintRight_toRightOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

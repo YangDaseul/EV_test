@@ -11,12 +11,10 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.MYP_0001;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.databinding.ActivityMygGaBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.google.gson.Gson;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
@@ -27,48 +25,9 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myg_ga);
-        mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
-        mypViewModel.getRES_MYP_0001().observe(this, new Observer<NetUIResponse<MYP_0001.Response>>() {
-            @Override
-            public void onChanged(NetUIResponse<MYP_0001.Response> result) {
-                String test ="{\n" +
-                        "  \"rtCd\": \"0000\",\n" +
-                        "  \"rtMsg\": \"Success\",\n" +
-                        "  \"mbrStustCd\": \"1000\",\n" +
-                        "  \"ccspEmail\": \"test@email.com\",\n" +
-                        "  \"mbrNm\": \"댕댕이\",\n" +
-                        "  \"brtdy\": \"19800102\",\n" +
-                        "  \"sexDiv\": \"M\",\n" +
-                        "  \"celphNo\": \"01099990001\",\n" +
-                        "  \"mrktYn\": \"Y\",\n" +
-                        "  \"mrktDate\": \"20200824155819\",\n" +
-                        "  \"mrktCd\": \"1111\"\n" +
-                        "}";
-                MYP_0001.Response sample = new Gson().fromJson(test, MYP_0001.Response.class);
-                if(sample!=null) {
-                    ui.setData(sample);
-                    ui.cbAd.setChecked(sample.getMrktYn().equalsIgnoreCase("Y") ? true : false);
-                    ui.cbSms.setChecked(sample.getMrktCd().substring(0,1).equalsIgnoreCase("1") ? true : false);
-                    ui.cbEmail.setChecked(sample.getMrktCd().substring(1,2).equalsIgnoreCase("1") ? true : false);
-                    ui.cbPost.setChecked(sample.getMrktCd().substring(2,3).equalsIgnoreCase("1") ? true : false);
-                    ui.cbPhone.setChecked(sample.getMrktCd().substring(3,4).equalsIgnoreCase("1") ? true : false);
-                }
-
-
-                switch (result.status){
-                    case SUCCESS:
-                        break;
-                    case LOADING:
-
-                        break;
-                    case ERROR:
-
-                        break;
-                }
-
-
-            }
-        });
+        getDataFromIntent();
+        setViewModel();
+        setObserver();
         mypViewModel.reqMYP0001(new MYP_0001.Request(APPIAInfo.MG_GA01.getId()));
         //TODO 처리 필요
         ui.setActivity(this);
@@ -78,6 +37,59 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
         ui.cbPost.setOnCheckedChangeListener(listener);
         ui.cbAd.setOnCheckedChangeListener(listenerAll);
         ui.vBlock.setOnTouchListener((view, motionEvent) -> true);
+    }
+
+    @Override
+    public void setViewModel() {
+        ui.setLifecycleOwner(this);
+        mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
+    }
+
+    @Override
+    public void setObserver() {
+        mypViewModel.getRES_MYP_0001().observe(this, result -> {
+            String test ="{\n" +
+                    "  \"rtCd\": \"0000\",\n" +
+                    "  \"rtMsg\": \"Success\",\n" +
+                    "  \"mbrStustCd\": \"1000\",\n" +
+                    "  \"ccspEmail\": \"test@email.com\",\n" +
+                    "  \"mbrNm\": \"댕댕이\",\n" +
+                    "  \"brtdy\": \"19800102\",\n" +
+                    "  \"sexDiv\": \"M\",\n" +
+                    "  \"celphNo\": \"01099990001\",\n" +
+                    "  \"mrktYn\": \"Y\",\n" +
+                    "  \"mrktDate\": \"20200824155819\",\n" +
+                    "  \"mrktCd\": \"1111\"\n" +
+                    "}";
+            MYP_0001.Response sample = new Gson().fromJson(test, MYP_0001.Response.class);
+            if(sample!=null) {
+                ui.setData(sample);
+                ui.cbAd.setChecked(sample.getMrktYn().equalsIgnoreCase("Y") ? true : false);
+                ui.cbSms.setChecked(sample.getMrktCd().substring(0,1).equalsIgnoreCase("1") ? true : false);
+                ui.cbEmail.setChecked(sample.getMrktCd().substring(1,2).equalsIgnoreCase("1") ? true : false);
+                ui.cbPost.setChecked(sample.getMrktCd().substring(2,3).equalsIgnoreCase("1") ? true : false);
+                ui.cbPhone.setChecked(sample.getMrktCd().substring(3,4).equalsIgnoreCase("1") ? true : false);
+            }
+
+
+            switch (result.status){
+                case SUCCESS:
+                    break;
+                case LOADING:
+
+                    break;
+                case ERROR:
+
+                    break;
+            }
+
+
+        });
+    }
+
+    @Override
+    public void getDataFromIntent() {
+
     }
 
     @Override
@@ -104,6 +116,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
 //                break;
         }
     }
+
 
     CompoundButton.OnCheckedChangeListener listener = (compoundButton, b) -> {
         if(compoundButton.isPressed()) {

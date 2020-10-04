@@ -1,5 +1,7 @@
 package com.genesis.apps.room;
 
+import java.util.List;
+
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -13,6 +15,9 @@ public interface BaseDao<T> {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(T... obj);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(List<T> obj);
 
     @Update
     void update(T obj);

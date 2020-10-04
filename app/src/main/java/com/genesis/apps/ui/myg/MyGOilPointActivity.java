@@ -47,13 +47,13 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myg_oil_point);
+        getDataFromIntent();
+        setViewModel();
+        setObserver();
         initConstraintSets();
-        getOilCode();
-        mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
         oilView = new OilView(ui.lOil, v -> onSingleClickListener.onClick(v));
-        ui.setLifecycleOwner(this);
         ui.setView(oilView);
-        observerData();
+        mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG_CON01.getId()));
     }
 
     private void initConstraintSets() {
@@ -73,17 +73,6 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
 
 
 
-    private void getOilCode(){
-        try {
-            oilRfnCd = getIntent().getStringExtra(OilCodes.KEY_OIL_CODE);
-            if(TextUtils.isEmpty(oilRfnCd)){
-                exitPage("정유소 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            exitPage("정유소 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
-        }
-    }
 
     private void setOilDetailView(List<OilPointVO> list){
         initOilInfo(list);
@@ -118,41 +107,6 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
         }
     }
 
-    private void observerData() {
-        mypViewModel.getRES_MYP_1006().observe(this, responseNetUI -> {
-            switch (responseNetUI.status){
-                case LOADING:
-                    showProgressDialog(true);
-                    break;
-                case SUCCESS:
-                    doTransition(OilCodes.findCode(oilRfnCd).ordinal());
-                    oilView.setOilLayout(responseNetUI.data);
-                    setOilDetailView(responseNetUI.data.getOilRfnPontList());
-                    showProgressDialog(false);
-                    break;
-                case ERROR:
-                    showProgressDialog(false);
-                    break;
-            }
-        });
-        mypViewModel.getRES_OIL_0003().observe(this, responseNetUI -> {
-            switch (responseNetUI.status){
-                case LOADING:
-                    showProgressDialog(true);
-                    break;
-                case SUCCESS:
-                    //TODO 연동 해지 완료 후 처리.. 스낵바를 띄워야하는데 이전 페이지에. .넘기면서 띄워야할듯
-                    //BASEACTIVITY의 ONACTIVITYTRESULT에 스낵바 처리하는 부분을 공통을 넣어놓는게 나을듯..
-                    showProgressDialog(false);
-                    break;
-                case ERROR:
-                    showProgressDialog(false);
-                    break;
-            }
-        });
-
-        mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG_CON01.getId()));
-    }
 
     @Override
     public void onClickCommon(View v) {
@@ -197,6 +151,60 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
 
         }
 
+    }
+
+    @Override
+    public void setViewModel() {
+        ui.setLifecycleOwner(this);
+        mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
+    }
+
+    @Override
+    public void setObserver() {
+        mypViewModel.getRES_MYP_1006().observe(this, responseNetUI -> {
+            switch (responseNetUI.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    doTransition(OilCodes.findCode(oilRfnCd).ordinal());
+                    oilView.setOilLayout(responseNetUI.data);
+                    setOilDetailView(responseNetUI.data.getOilRfnPontList());
+                    showProgressDialog(false);
+                    break;
+                case ERROR:
+                    showProgressDialog(false);
+                    break;
+            }
+        });
+        mypViewModel.getRES_OIL_0003().observe(this, responseNetUI -> {
+            switch (responseNetUI.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    //TODO 연동 해지 완료 후 처리.. 스낵바를 띄워야하는데 이전 페이지에. .넘기면서 띄워야할듯
+                    //BASEACTIVITY의 ONACTIVITYTRESULT에 스낵바 처리하는 부분을 공통을 넣어놓는게 나을듯..
+                    showProgressDialog(false);
+                    break;
+                case ERROR:
+                    showProgressDialog(false);
+                    break;
+            }
+        });
+    }
+
+    @Override
+    public void getDataFromIntent() {
+        try {
+            oilRfnCd = getIntent().getStringExtra(OilCodes.KEY_OIL_CODE);
+            if(TextUtils.isEmpty(oilRfnCd)){
+                exitPage("정유소 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            exitPage("정유소 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+        }
     }
 
 }

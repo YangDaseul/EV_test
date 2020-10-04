@@ -1,23 +1,17 @@
-package com.genesis.apps.ui.common.activity;
+package com.genesis.apps.ui.main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.databinding.ActivityMainBinding;
-import com.genesis.apps.fcm.FirebaseMessagingService;
-import com.genesis.apps.fcm.PushCode;
-import com.genesis.apps.fcm.PushVO;
+import com.genesis.apps.databinding.ItemTabBinding;
+import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.main.FragFourth;
 import com.genesis.apps.ui.common.fragment.main.MainViewpagerAdapter;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -30,11 +24,18 @@ import com.google.android.exoplayer2.upstream.DataSpec;
 import com.google.android.exoplayer2.upstream.RawResourceDataSource;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
+
 import static com.google.android.exoplayer2.Player.REPEAT_MODE_ALL;
 
 public class MainActivity extends SubActivity<ActivityMainBinding> {
+    private final int pageNum = 4;
     public FragmentStateAdapter pagerAdapter;
-    private int num_page = 5;
     private SimpleExoPlayer simpleExoPlayer;
 
     @Override
@@ -42,65 +43,28 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+        getDataFromIntent();
+        setViewModel();
+        setObserver();
 
+        initView();
+        
+        try {
+            setVideo();
+        }catch (Exception e){
 
-//        ui.button.setOnClickListener(view -> startActivitySingleTop(new Intent(MainActivity.this, EntranceActivity.class),RequestCodes.REQ_CODE_DEFAULT.getCode()));
+        }
+    }
 
-//        String test="{\n" +
-//                "  \"rtCd\": \"0000\",\n" +
-//                "  \"rtMsg\": \"Success\",\n" +
-//                "  \"appVer\": \"01.03\",\n" +
-//                "  \"appUpdType\": \"M\",\n" +
-//                "  \"contVer\": \"01.00\",\n" +
-//                "  \"notiList\": [\n" +
-//                "    {\n" +
-//                "      \"notiType\": \"EMGR\",\n" +
-//                "      \"notiSeq\": \"11\",\n" +
-//                "      \"notiTitle\": \"긴급공지1\",\n" +
-//                "      \"notiCont\": \"긴급공지내용1\"\n" +
-//                "    },\n" +
-//                "    {\n" +
-//                "      \"notiType\": \"NOTI\",\n" +
-//                "      \"notiSeq\": \"10\",\n" +
-//                "      \"notiTitle\": \"일반공지1\",\n" +
-//                "      \"notiCont\": \"일반공지내용1\"\n" +
-//                "    },\n" +
-//                "    {\n" +
-//                "      \"notiType\": \"ANNC\",\n" +
-//                "      \"notiSeq\": \"9\",\n" +
-//                "      \"notiTitle\": \"필독공지1\",\n" +
-//                "      \"notiCont\": \"필독공지내용1\"\n" +
-//                "    }\n" +
-//                "  ]\n" +
-//                "}";
-//        CMN_0001.Response data = new Gson().fromJson(test, CMN_0001.Response.class);
-
-//        GNS_1012.Response testdata1 = new GNS_1012.Response();
-//        GNS_1012.Response2 testdata2 = new GNS_1012.Response2();
-//        testdata1.setAprvDtm("1");
-//        testdata1.setAsnCd("12");
-//
-//        SubcribeCarVO2 tmpdata = new SubcribeCarVO2("2","2","2","2","2","2","2","2","2","2","2","2","2","2","2","2","2","2");
-//        testdata2.setVo(tmpdata);
-//        new Gson().toJson(testdata1);
-//        new Gson().toJson(testdata2);
-//        new Gson().fromJ
-//        new Gson().fromJson("{\"aprvDtm\":\"2\",\"aprvStusCd\":\"2\",\"asnCd\":\"2\",\"asnNm\":\"2\",\"attachFilName\":\"2\",\"cnttUrl\":\"2\",\"crdRcvAdr\":\"2\",\"crdRcvDtlAdr\":\"2\",\"crdRcvScnCd\":\"2\",\"crdRcvZip\":\"2\",\"csmrScnCd\":\"2\",\"pbzAdr\":\"2\",\"rentPeriod\":\"2\",\"repTn\":\"2\",\"rtnRsnMsg\":\"2\",\"seqNo\":\"2\",\"subspDtm\":\"2\",\"vin\":\"2\"}", SubcribeCarVO2.class)
-        //ViewPager2
-        //Adapter
-        pagerAdapter = new MainViewpagerAdapter(this, num_page);
+    private void initView() {
+        pagerAdapter = new MainViewpagerAdapter(this, pageNum);
         ui.viewpager.setAdapter(pagerAdapter);
-        //Indicator
-        ui.indicator.setViewPager(ui.viewpager);
-        ui.indicator.createIndicators(num_page,0);
-
-        new TabLayoutMediator(ui.tabs, ui.viewpager, (tab, position) -> tab.setText("Tab " + (position + 1))).attach();
+        setTabView();
 
         //ViewPager Setting
         ui.viewpager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         ui.viewpager.setCurrentItem(0);
         ui.viewpager.setOffscreenPageLimit(4);
-
 
         ui.viewpager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -114,35 +78,27 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                ui.indicator.animatePageSelected(position%num_page);
+
+//                ui.indicator.animatePageSelected(position%num_page);
             }
 
         });
-
 
         final float pageMargin= getResources().getDimensionPixelOffset(R.dimen.pageMargin);
         final float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset);
 
-        ui.viewpager.setPageTransformer(new ViewPager2.PageTransformer() {
-            @Override
-            public void transformPage(@NonNull View page, float position) {
-                float myOffset = position * -(2 * pageOffset + pageMargin);
-                if (ui.viewpager.getOrientation() == ViewPager2.ORIENTATION_HORIZONTAL) {
-                    if (ViewCompat.getLayoutDirection(ui.viewpager) == ViewCompat.LAYOUT_DIRECTION_RTL) {
-                        page.setTranslationX(-myOffset);
-                    } else {
-                        page.setTranslationX(myOffset);
-                    }
+        ui.viewpager.setPageTransformer((page, position) -> {
+            float myOffset = position * -(2 * pageOffset + pageMargin);
+            if (ui.viewpager.getOrientation() == ViewPager2.ORIENTATION_HORIZONTAL) {
+                if (ViewCompat.getLayoutDirection(ui.viewpager) == ViewCompat.LAYOUT_DIRECTION_RTL) {
+                    page.setTranslationX(-myOffset);
                 } else {
-                    page.setTranslationY(myOffset);
+                    page.setTranslationX(myOffset);
                 }
+            } else {
+                page.setTranslationY(myOffset);
             }
         });
-        try {
-            setVideo();
-        }catch (Exception e){
-
-        }
     }
 
     @Override
@@ -151,11 +107,26 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
     }
 
     @Override
+    public void setViewModel() {
+
+    }
+
+    @Override
+    public void setObserver() {
+
+    }
+
+    @Override
+    public void getDataFromIntent() {
+
+    }
+
+    @Override
     public void onResume(){
         super.onResume();
         checkPushCode();
 
-        FirebaseMessagingService.notifyMessageTest(this, new PushVO(), PushCode.CAT_0E);
+//        FirebaseMessagingService.notifyMessageTest(this, new PushVO(), PushCode.CAT_0E);
     }
 
     @Override
@@ -239,4 +210,27 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
     public ViewPager2 getViewPager(){
         return ui.viewpager;
     }
+
+    private final int TAB_INFO[][]={
+            {R.string.main_word_1, R.drawable.ic_tabbar_home},
+            {R.string.main_word_2, R.drawable.ic_tabbar_insight},
+            {R.string.main_word_3, R.drawable.ic_tabbar_service},
+            {R.string.main_word_4, R.drawable.ic_tabbar_contents}
+    };
+
+    private void setTabView(){
+        new TabLayoutMediator(ui.tabs, ui.viewpager, (tab, position) -> {
+
+        }).attach();
+
+        for(int i=0 ; i<pageNum; i++) {
+            final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final ItemTabBinding itemTabBinding = DataBindingUtil.inflate(inflater, R.layout.item_tab, null, false);
+            final View view = itemTabBinding.getRoot();
+            itemTabBinding.tvTab.setText(TAB_INFO[i][0]);
+            itemTabBinding.ivTab.setImageResource(TAB_INFO[i][1]);
+            ui.tabs.getTabAt(i).setCustomView(view);
+        }
+    }
+
 }

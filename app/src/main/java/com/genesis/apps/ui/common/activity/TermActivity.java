@@ -23,12 +23,25 @@ public class TermActivity extends SubActivity<ActivityTermBinding>  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_term);
-        getDataFromIntent();
-
     }
 
     @Override
     public void onClickCommon(View v) {
+
+    }
+
+    @Override
+    public void setViewModel() {
+
+    }
+
+    @Override
+    public void setObserver() {
+
+    }
+
+    @Override
+    public void getDataFromIntent() {
 
     }
 
@@ -48,9 +61,6 @@ public class TermActivity extends SubActivity<ActivityTermBinding>  {
 
     }
 
-    public void getDataFromIntent() {
-
-    }
 
     public MyWebViewFrament.WebViewListener webViewListener = new MyWebViewFrament.WebViewListener() {
         @Override

@@ -39,6 +39,21 @@ public class ConstraintSetActivity extends SubActivity<ActivityCont1Binding> {
     }
 
     @Override
+    public void setViewModel() {
+
+    }
+
+    @Override
+    public void setObserver() {
+
+    }
+
+    @Override
+    public void getDataFromIntent() {
+
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
     }

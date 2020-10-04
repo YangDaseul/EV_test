@@ -20,30 +20,44 @@ import androidx.lifecycle.ViewModelProvider;
 public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMembershipCardPasswordBinding> {
 
     private MYPViewModel mypViewModel;
-    private final int STEP_1_1=1;
-    private final int STEP_1_2=2;
-    private final int STEP_2_1=3;
-    private final int STEP_2_2=4;
-    private final int STEP_2_3=5;
-    private int step=STEP_1_1;
+    private final int STEP_1_1 = 1;
+    private final int STEP_1_2 = 2;
+    private final int STEP_2_1 = 3;
+    private final int STEP_2_2 = 4;
+    private final int STEP_2_3 = 5;
+    private int step = STEP_1_1;
     private ImageView[] ivList;
 
-    private String newPwd="";
-    private String currPwd="";
+    private String newPwd = "";
+    private String currPwd = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myg_membership_card_password);
-        mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
-        ui.setLifecycleOwner(this);
-        ui.setActivity(this);
-        ivList = new ImageView[]{ui.ivInput1,ui.ivInput2,ui.ivInput3,ui.ivInput4};
+        getDataFromIntent();
+        setViewModel();
+        setObserver();
+        initView();
+    }
+
+    private void initView() {
+        ivList = new ImageView[]{ui.ivInput1, ui.ivInput2, ui.ivInput3, ui.ivInput4};
         ui.etHidden.addTextChangedListener(textWatcher);
         setView(STEP_1_1);
+    }
 
+    @Override
+    public void setViewModel() {
+        ui.setLifecycleOwner(this);
+        ui.setActivity(this);
+        mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
+    }
+
+    @Override
+    public void setObserver() {
         mypViewModel.getRES_MYP_2005().observe(this, result -> {
-            switch (result.status){
+            switch (result.status) {
                 case SUCCESS:
                     //TODO  종료 및 이전 액티비티에서 알림메시지가 활성화 될 수 있도록 처리 필요
                     break;
@@ -59,22 +73,24 @@ public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMe
     }
 
     @Override
+    public void getDataFromIntent() {
+
+    }
+
+    @Override
     public void onClickCommon(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.l_input:
                 SoftKeyboardUtil.showKeyboard(this);
                 break;
-
         }
     }
 
-
-
-    private void setView(int step){
+    private void setView(int step) {
         this.step = step;
-        switch (step){
+        switch (step) {
             case STEP_1_1:
-                ui.etHidden.setTag(R.id.et_reject,true);
+                ui.etHidden.setTag(R.id.et_reject, true);
                 ui.etHidden.setText("");
                 ui.tvMsg1.setText(R.string.mg_member03_2);
                 ui.ivInput1.setImageResource(R.drawable.ic_password);
@@ -84,7 +100,7 @@ public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMe
                 ui.tvMsgError.setVisibility(View.INVISIBLE);
                 break;
             case STEP_1_2:
-                ui.etHidden.setTag(R.id.et_reject,true);
+                ui.etHidden.setTag(R.id.et_reject, true);
                 ui.etHidden.setText("");
                 ui.tvMsg1.setText(R.string.mg_member03_2);
                 ui.ivInput1.setImageResource(R.drawable.ic_password_error);
@@ -96,7 +112,7 @@ public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMe
                 VibratorUtil.makeMeShake(ui.tvMsgError, 20, 5);
                 break;
             case STEP_2_1:
-                ui.etHidden.setTag(R.id.et_reject,true);
+                ui.etHidden.setTag(R.id.et_reject, true);
                 ui.etHidden.setText("");
                 ui.tvMsg1.setText(R.string.mg_member03_4);
                 ui.ivInput1.setImageResource(R.drawable.ic_password);
@@ -106,7 +122,7 @@ public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMe
                 ui.tvMsgError.setVisibility(View.INVISIBLE);
                 break;
             case STEP_2_2:
-                ui.etHidden.setTag(R.id.et_reject,true);
+                ui.etHidden.setTag(R.id.et_reject, true);
                 ui.etHidden.setText("");
                 ui.tvMsg1.setText(R.string.mg_member03_5);
                 ui.ivInput1.setImageResource(R.drawable.ic_password);
@@ -116,7 +132,7 @@ public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMe
                 ui.tvMsgError.setVisibility(View.INVISIBLE);
                 break;
             case STEP_2_3:
-                ui.etHidden.setTag(R.id.et_reject,true);
+                ui.etHidden.setTag(R.id.et_reject, true);
                 ui.etHidden.setText("");
                 ui.tvMsg1.setText(R.string.mg_member03_4);
                 ui.ivInput1.setImageResource(R.drawable.ic_password_error);
@@ -130,9 +146,6 @@ public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMe
             default:
                 break;
         }
-
-
-
     }
 
 
@@ -145,13 +158,13 @@ public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMe
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            if(Boolean.parseBoolean(ui.etHidden.getTag(R.id.et_reject).toString())){
-                ui.etHidden.setTag(R.id.et_reject,false);
+            if (Boolean.parseBoolean(ui.etHidden.getTag(R.id.et_reject).toString())) {
+                ui.etHidden.setTag(R.id.et_reject, false);
                 return;
             }
 
             if (charSequence.length() == ivList.length) {
-                switch (step){
+                switch (step) {
                     case STEP_1_1:
                     case STEP_1_2:
                         currPwd = charSequence.toString();
@@ -163,21 +176,21 @@ public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMe
                         setView(STEP_2_2);
                         return;
                     case STEP_2_2:
-                        if(newPwd.equalsIgnoreCase(charSequence.toString())){
+                        if (newPwd.equalsIgnoreCase(charSequence.toString())) {
                             //신규비밀번호가 일치하는 경우
                             mypViewModel.reqMYP2005(new MYP_2005.Request(APPIAInfo.MG_MEMBER03.getId(), currPwd, newPwd));
                             break;
-                        }else{
+                        } else {
                             //일치하지 않는 경우
-                            newPwd="";
+                            newPwd = "";
                             setView(STEP_2_3);
                             return;
                         }
                     default:
                         break;
                 }
-            }else{
-                switch (step){
+            } else {
+                switch (step) {
                     case STEP_1_2:
                     case STEP_2_3:
                         ui.tvMsgError.setVisibility(View.INVISIBLE);
@@ -185,10 +198,10 @@ public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMe
                 }
             }
 
-            for(int pos=0; pos<ivList.length; pos++){
-                if(pos<charSequence.length()){
+            for (int pos = 0; pos < ivList.length; pos++) {
+                if (pos < charSequence.length()) {
                     ivList[pos].setImageResource(R.drawable.ic_password_input);
-                }else{
+                } else {
                     ivList[pos].setImageResource(R.drawable.ic_password);
                 }
             }

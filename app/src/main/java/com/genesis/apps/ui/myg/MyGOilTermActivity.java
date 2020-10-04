@@ -42,9 +42,48 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myg_oil_term);
-        getOilCode();
-        oilViewModel = new ViewModelProvider(this).get(OILViewModel.class);
+        getDataFromIntent();
+        setViewModel();
+        setObserver();
         setView();
+        oilViewModel.reqOIL0001(new OIL_0001.Request(APPIAInfo.MG_CON02_01.getId(), oilRfnCd));
+    }
+
+    private void setView() {
+        ui.setActivity(this);
+        ui.cbAll.setOnCheckedChangeListener(listenerAll);
+        ui.tv1.setText(String.format(Locale.getDefault(), getString(R.string.mg_con02_01_2), getString(OilCodes.findCode(oilRfnCd).getOilNm())));
+        ui.tv2.setText(String.format(Locale.getDefault(), getString(R.string.mg_con02_01_3), getString(OilCodes.findCode(oilRfnCd).getOilNm())));
+        ui.tv3.setText(String.format(Locale.getDefault(), getString(R.string.mg_con02_01_6), getString(OilCodes.findCode(oilRfnCd).getOilPontNm())));
+    }
+
+
+    @Override
+    public void onClickCommon(View v) {
+        switch (v.getId()){
+            case R.id.btn_next:
+                //TODO 약관동의 페이지로 이동 및 데이터 실패에 대한 스낵바 정의를 여기서 해줘야함.
+                break;
+            case R.id.iv_arrow:
+                try{
+                    TermVO termVO = (TermVO)v.getTag(R.id.oil_term);
+                    Log.v("test","test:"+termVO.getTermCd());
+                    startActivitySingleTop(new Intent(this, MyGOilTermDetailActivity.class).putExtra(MyGOilTermDetailActivity.OIL_CODE,oilRfnCd).putExtra(MyGOilTermDetailActivity.TERMS_CODE,termVO), RequestCodes.REQ_CODE_ACTIVITY.getCode());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void setViewModel() {
+        ui.setLifecycleOwner(this);
+        oilViewModel = new ViewModelProvider(this).get(OILViewModel.class);
+    }
+
+    @Override
+    public void setObserver() {
         oilViewModel.getRES_OIL_0001().observe(this, result -> {
 
             String test="{\n" +
@@ -111,22 +150,11 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
 //                    showProgressDialog(false);
 //                    break;
 //            }
-
-
-
         });
-        oilViewModel.reqOIL0001(new OIL_0001.Request(APPIAInfo.MG_CON02_01.getId(), oilRfnCd));
     }
 
-    private void setView() {
-        ui.setActivity(this);
-        ui.cbAll.setOnCheckedChangeListener(listenerAll);
-        ui.tv1.setText(String.format(Locale.getDefault(), getString(R.string.mg_con02_01_2), getString(OilCodes.findCode(oilRfnCd).getOilNm())));
-        ui.tv2.setText(String.format(Locale.getDefault(), getString(R.string.mg_con02_01_3), getString(OilCodes.findCode(oilRfnCd).getOilNm())));
-        ui.tv3.setText(String.format(Locale.getDefault(), getString(R.string.mg_con02_01_6), getString(OilCodes.findCode(oilRfnCd).getOilPontNm())));
-    }
-
-    private void getOilCode(){
+    @Override
+    public void getDataFromIntent() {
         try {
             oilRfnCd = getIntent().getStringExtra(OilCodes.KEY_OIL_CODE);
             if(TextUtils.isEmpty(oilRfnCd)){
@@ -135,24 +163,6 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
         }catch (Exception e){
             e.printStackTrace();
             exitPage("정유소 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
-        }
-    }
-
-    @Override
-    public void onClickCommon(View v) {
-        switch (v.getId()){
-            case R.id.btn_next:
-                //TODO 약관동의 페이지로 이동 및 데이터 실패에 대한 스낵바 정의를 여기서 해줘야함.
-                break;
-            case R.id.iv_arrow:
-                try{
-                    TermVO termVO = (TermVO)v.getTag(R.id.oil_term);
-                    Log.v("test","test:"+termVO.getTermCd());
-                    startActivitySingleTop(new Intent(this, MyGOilTermDetailActivity.class).putExtra(MyGOilTermDetailActivity.OIL_CODE,oilRfnCd).putExtra(MyGOilTermDetailActivity.TERMS_CODE,termVO), RequestCodes.REQ_CODE_ACTIVITY.getCode());
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                break;
         }
     }
 

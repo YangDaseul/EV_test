@@ -17,7 +17,9 @@ public class MyGMembershipInfoActivity extends SubActivity<ActivityMygMembership
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myg_membership_info);
-
+        getDataFromIntent();
+        setViewModel();
+        setObserver();
     }
 
     @Override
@@ -28,5 +30,20 @@ public class MyGMembershipInfoActivity extends SubActivity<ActivityMygMembership
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Override
+    public void setViewModel() {
+
+    }
+
+    @Override
+    public void setObserver() {
+
+    }
+
+    @Override
+    public void getDataFromIntent() {
+
     }
 }

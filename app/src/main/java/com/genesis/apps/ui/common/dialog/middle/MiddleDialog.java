@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.common.dialog.middle;
 
 import android.app.Activity;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -14,7 +15,7 @@ import androidx.databinding.DataBindingUtil;
 
 public class MiddleDialog {
 
-    public static void remoteExitPop(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+    public static void dialogRemoteExit(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
         if (activity.isFinishing()) {
             return;
         }
@@ -26,6 +27,7 @@ public class MiddleDialog {
 
                     binding.tvTitle.setText(R.string.sm_emg01_p03_title_1);
                     binding.tvMsg.setText(R.string.sm_emg01_p03_msg_1);
+                    binding.tvMsg.setMovementMethod(new ScrollingMovementMethod());
 
                     binding.btnCancel.setOnClickListener(v -> {
                         dialog.dismiss();
@@ -40,7 +42,7 @@ public class MiddleDialog {
     }
 
     private static final String VERSION_TYPE_M = "M"; //필수업데이트)
-    public static void updatePopUp(@NonNull Activity activity, final Runnable ok, final Runnable cancel, String newVersion, String versionType) {
+    public static void dialogUpdate(@NonNull Activity activity, final Runnable ok, final Runnable cancel, String newVersion, String versionType) {
         if (activity.isFinishing()) {
             return;
         }
@@ -74,5 +76,29 @@ public class MiddleDialog {
         );
     }
 
+
+
+
+    public static void dialogNoti(@NonNull Activity activity, final Runnable ok, String title, String msg) {
+        if (activity.isFinishing()) {
+            return;
+        }
+
+        activity.runOnUiThread(() ->
+                new CustomDialog(activity, dialog -> {
+                    DialogMiddleTwoButtonBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_middle_two_button, null, false);
+                    dialog.setContentView(binding.getRoot());
+
+                    binding.tvTitle.setText(title);
+                    binding.tvMsg.setText(msg);
+                    binding.btnCancel.setVisibility(View.GONE);
+                    binding.btnOk.setText(R.string.dialog_common_4);
+                    binding.btnOk.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (ok != null) ok.run();
+                    });
+                }).show()
+        );
+    }
 
 }

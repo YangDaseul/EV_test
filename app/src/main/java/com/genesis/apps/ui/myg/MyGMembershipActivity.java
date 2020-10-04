@@ -24,21 +24,25 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
 
     private MYPViewModel mypViewModel;
     private CardHorizontalAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myg_membership);
-        mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
-        ui.setLifecycleOwner(this);
-        ui.setActivity(this);
+        getDataFromIntent();
+        setViewModel();
+        setObserver();
+        initView();
+        mypViewModel.reqMYP2001(new MYP_2001.Request(APPIAInfo.MG_MEMBER01.getId()));
+    }
 
-
+    private void initView() {
         adapter = new CardHorizontalAdapter(onSingleClickListener);
         ui.viewpager.setAdapter(adapter);
         ui.viewpager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
 //        ui.viewpager.setCurrentItem(0);
 
-        final float pageMargin= getResources().getDimensionPixelOffset(R.dimen.offset2);
+        final float pageMargin = getResources().getDimensionPixelOffset(R.dimen.offset2);
         final float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset2);
         ui.viewpager.setPageTransformer((page, position) -> {
             float myOffset = position * -(2 * pageOffset + pageMargin);
@@ -55,12 +59,19 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
             }
 
         });
+    }
 
+    @Override
+    public void setViewModel() {
+        ui.setLifecycleOwner(this);
+        ui.setActivity(this);
+        mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
+    }
 
-
+    @Override
+    public void setObserver() {
         mypViewModel.getRES_MYP_2001().observe(this, result -> {
-
-            String test ="{\n" +
+            String test = "{\n" +
                     "  \"rsltCd\": \"0000\",\n" +
                     "  \"rsltMsg\": \"성공\",\n" +
                     "  \"blueMbrYn\": \"Y\",\n" +
@@ -118,29 +129,32 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
 //            adapter.addCard();
             adapter.notifyDataSetChanged();
             //이동효과를 주는데 노티파이체인지와 딜레이없이 콜하면 효과가 중첩되어 사라저서 100ms 후 처리 진행
-            new Handler().postDelayed(() -> ui.viewpager.setCurrentItem(0,true),100);
+            new Handler().postDelayed(() -> ui.viewpager.setCurrentItem(0, true), 100);
         });
+    }
 
-        mypViewModel.reqMYP2001(new MYP_2001.Request(APPIAInfo.MG_MEMBER01.getId()));
+    @Override
+    public void getDataFromIntent() {
 
     }
+
 
     @Override
     public void onClickCommon(View v) {
 
-        int pos=-1;
-        try{
+        int pos = -1;
+        try {
             pos = Integer.parseInt(v.getTag(R.id.item_position).toString());
-        }catch (Exception ignore){
+        } catch (Exception ignore) {
             ignore.printStackTrace();
         }
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.l_whole:
                 break;
             case R.id.iv_favorite:
-                if( !((CardVO)adapter.getItem(pos)).isFavorite() && !TextUtils.isEmpty(((CardVO)adapter.getItem(pos)).getCardNo())){
-                    mypViewModel.reqChangeFavoriteCard(((CardVO)adapter.getItem(pos)).getCardNo(), adapter.getItems());
+                if (!((CardVO) adapter.getItem(pos)).isFavorite() && !TextUtils.isEmpty(((CardVO) adapter.getItem(pos)).getCardNo())) {
+                    mypViewModel.reqChangeFavoriteCard(((CardVO) adapter.getItem(pos)).getCardNo(), adapter.getItems());
                 }
 
                 break;
@@ -153,4 +167,5 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
         }
 
     }
+
 }

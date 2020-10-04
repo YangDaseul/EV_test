@@ -1,9 +1,13 @@
 package com.genesis.apps.comm.model.vo;
 
 import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.room.QuickMenuDao;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,13 +26,22 @@ import lombok.EqualsAndHashCode;
  * Y:웹뷰, N:아님
  * @see #lnkUri 링크URI
  */
+@Entity
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
 class QuickMenuVO extends BaseData {
+
+    public QuickMenuVO(){
+
+    }
+
+    @PrimaryKey
+    @NonNull
     @Expose
     @SerializedName("menuId")
     private String menuId;
+
     @Expose
     @SerializedName("qckMenuDivCd")
     private String qckMenuDivCd;
@@ -44,4 +57,8 @@ class QuickMenuVO extends BaseData {
     @Expose
     @SerializedName("lnkUri")
     private String lnkUri;
+
+    @Expose
+    @SerializedName("type")
+    private String type; //로컬db에서만 사용
 }

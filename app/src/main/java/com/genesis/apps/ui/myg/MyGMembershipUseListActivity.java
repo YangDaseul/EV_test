@@ -41,15 +41,58 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myg_membership_use_list);
-        getMemberNo();
-        mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
-        ui.setLifecycleOwner(this);
-        ui.setActivity(this);
+        getDataFromIntent();
+        setViewModel();
+        setObserver();
+        initView();
+        mypViewModel.reqMYP2002(new MYP_2002.Request(APPIAInfo.MG_MEMBER04.getId(), mbrshMbrMgmtNo, DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), "1", "20"));
+    }
 
+    private void initView() {
         adapter = new PointUseListAdapter();
         ui.rv.setHasFixedSize(true);
         ui.rv.setAdapter(adapter);
+        ui.rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (!ui.rv.canScrollVertically(-1)) {
+                    //top
+                } else if (!ui.rv.canScrollVertically(1)) {
+                    //end
+                    mypViewModel.reqMYP2002(new MYP_2002.Request(APPIAInfo.MG_MEMBER04.getId(), mbrshMbrMgmtNo, "", "", adapter.getPageNo() + 1 + "", "20"));
+                } else {
+                    //idle
+                }
+            }
+        });
+    }
 
+
+    @Override
+    public void onClickCommon(View v) {
+        switch (v.getId()) {
+            case R.id.btn_query:
+                mypViewModel.reqMYP2002(new MYP_2002.Request(APPIAInfo.MG_MEMBER04.getId(), mbrshMbrMgmtNo, DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), "1", "20"));
+                break;
+            case R.id.btn_start_date:
+                openDatePicker(startDateCallback, -1L, endDate == null ? CalenderUtil.getDateMils(0) : endDate.getTimeInMillis(), startDate);
+                break;
+            case R.id.btn_end_date:
+                openDatePicker(endDateCallback, startDate != null ? startDate.getTimeInMillis() : -1L, CalenderUtil.getDateMils(0), endDate != null ? endDate : startDate);
+                break;
+        }
+    }
+
+    @Override
+    public void setViewModel() {
+        ui.setLifecycleOwner(this);
+        ui.setActivity(this);
+        mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
+    }
+
+    @Override
+    public void setObserver() {
         mypViewModel.getRES_MYP_2002().observe(this, result -> {
 
             String test = "{\n" +
@@ -110,33 +153,16 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
                 ui.tvPointUse.setText(StringUtil.getDigitGrouping(adapter.getTotalUsePoint()));
             }
 
-            if(adapter!=null&&adapter.getItemCount()<1){
+            if (adapter != null && adapter.getItemCount() < 1) {
                 ui.tvEmpty.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 ui.tvEmpty.setVisibility(View.GONE);
             }
         });
-
-
-        ui.rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (!ui.rv.canScrollVertically(-1)) {
-                    //top
-                } else if (!ui.rv.canScrollVertically(1)) {
-                    //end
-                    mypViewModel.reqMYP2002(new MYP_2002.Request(APPIAInfo.MG_MEMBER04.getId(), mbrshMbrMgmtNo, "", "", adapter.getPageNo() + 1 + "", "20"));
-                } else {
-                    //idle
-                }
-
-            }
-        });
-        mypViewModel.reqMYP2002(new MYP_2002.Request(APPIAInfo.MG_MEMBER04.getId(), mbrshMbrMgmtNo, DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), "1", "20"));
     }
 
-    private void getMemberNo() {
+    @Override
+    public void getDataFromIntent() {
         try {
             mbrshMbrMgmtNo = getIntent().getStringExtra("mbrshMbrMgmtNo");
             if (TextUtils.isEmpty(mbrshMbrMgmtNo)) {
@@ -145,21 +171,6 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
         } catch (Exception e) {
             e.printStackTrace();
             exitPage("블루멤버스 회원번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
-        }
-    }
-
-    @Override
-    public void onClickCommon(View v) {
-        switch (v.getId()) {
-            case R.id.btn_query:
-                mypViewModel.reqMYP2002(new MYP_2002.Request(APPIAInfo.MG_MEMBER04.getId(), mbrshMbrMgmtNo, DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), "1", "20"));
-                break;
-            case R.id.btn_start_date:
-                openDatePicker(startDateCallback, -1L, endDate == null ? CalenderUtil.getDateMils(0) : endDate.getTimeInMillis(), startDate);
-                break;
-            case R.id.btn_end_date:
-                openDatePicker(endDateCallback, startDate != null ? startDate.getTimeInMillis() : -1L, CalenderUtil.getDateMils(0), endDate != null ? endDate : startDate);
-                break;
         }
     }
 

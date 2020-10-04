@@ -33,16 +33,56 @@ public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_noti_list);
-        ui.lTitle.title.setText(R.string.title_noti);
+        getDataFromIntent();
+        setViewModel();
+        setObserver();
+        initView();
+
+        mypViewModel.reqMYP8005(new MYP_8005.Request(APPIAInfo.MG_NOTICE01.getId(), "1","20"));
+    }
+
+    private void initView() {
+        adapter = new NotiAccodianRecyclerAdapter();
+//        ((SimpleItemAnimator) ui.rvNoti.getItemAnimator()).setSupportsChangeAnimations(true);
+        ui.rvNoti.setLayoutManager(new LinearLayoutManager(this));
+        ui.rvNoti.setHasFixedSize(true);
+        ui.rvNoti.setAdapter(adapter);
+
+        ui.rvNoti.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (!ui.rvNoti.canScrollVertically(-1)) {
+                    //top
+                } else if (!ui.rvNoti.canScrollVertically(1)) {
+                    //end
+                    mypViewModel.reqMYP8005(new MYP_8005.Request(APPIAInfo.MG_NOTICE01.getId(),(adapter.getPageNo()+1)+"","20"));
+                } else {
+                    //idle
+                }
+
+            }
+        });
+    }
+
+    @Override
+    public void onClickCommon(View v) {
+
+    }
+
+    @Override
+    public void setViewModel() {
         ui.setLifecycleOwner(this);
-
-
         mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
+    }
+
+    @Override
+    public void setObserver() {
         mypViewModel.getRES_MYP_8005().observe(this, responseNetUIResponse -> {
 
             switch (responseNetUIResponse.status){
                 case SUCCESS:
-                     showProgressDialog(false);
+                    showProgressDialog(false);
                     //추가할 아이템이 있을 경우만 adaper 갱신
                     if(responseNetUIResponse.data!=null&&responseNetUIResponse.data.getNotiList()!=null&&responseNetUIResponse.data.getNotiList().size()>0){
                         int itemSizeBefore = adapter.getItemCount();
@@ -80,35 +120,10 @@ public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
 ////                adapter.notifyDataSetChanged();
 //                adapter.notifyItemRangeInserted(itemSizeBefore, adapter.getItemCount());
         });
-
-
-        adapter = new NotiAccodianRecyclerAdapter();
-//        ((SimpleItemAnimator) ui.rvNoti.getItemAnimator()).setSupportsChangeAnimations(true);
-        ui.rvNoti.setLayoutManager(new LinearLayoutManager(this));
-        ui.rvNoti.setHasFixedSize(true);
-        ui.rvNoti.setAdapter(adapter);
-
-        ui.rvNoti.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (!ui.rvNoti.canScrollVertically(-1)) {
-                    //top
-                } else if (!ui.rvNoti.canScrollVertically(1)) {
-                    //end
-                    mypViewModel.reqMYP8005(new MYP_8005.Request(APPIAInfo.MG_NOTICE01.getId(),(adapter.getPageNo()+1)+"","20"));
-                } else {
-                    //idle
-                }
-
-            }
-        });
-
-        mypViewModel.reqMYP8005(new MYP_8005.Request(APPIAInfo.MG_NOTICE01.getId(), "1","20"));
     }
 
     @Override
-    public void onClickCommon(View v) {
+    public void getDataFromIntent() {
 
     }
 

@@ -22,10 +22,28 @@ public class EntranceActivity extends SubActivity<ActivityEntranceBinding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entrance);
+        getDataFromIntent();
+        setViewModel();
+        setObserver();
     }
 
     @Override
     public void onClickCommon(View v) {
+
+    }
+
+    @Override
+    public void setViewModel() {
+
+    }
+
+    @Override
+    public void setObserver() {
+
+    }
+
+    @Override
+    public void getDataFromIntent() {
 
     }
 

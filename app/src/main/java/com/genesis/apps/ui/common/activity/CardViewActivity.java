@@ -28,7 +28,9 @@ public class CardViewActivity extends SubActivity<ActivityVerticalOverlapExample
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vertical_overlap_example);
-
+        getDataFromIntent();
+        setViewModel();
+        setObserver();
         ui.viewPager.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
         ui.viewPager.setOffscreenPageLimit(offsetPageLimit);
         testCardViewAdapter = new CardViewAadapter();
@@ -107,6 +109,21 @@ public class CardViewActivity extends SubActivity<ActivityVerticalOverlapExample
 
     @Override
     public void onClickCommon(View v) {
+
+    }
+
+    @Override
+    public void setViewModel() {
+
+    }
+
+    @Override
+    public void setObserver() {
+
+    }
+
+    @Override
+    public void getDataFromIntent() {
 
     }
 

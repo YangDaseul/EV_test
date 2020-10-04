@@ -21,27 +21,10 @@ public class MyGOilTermDetailActivity extends TermActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getDataFromIntent();
-        ui.setLifecycleOwner(this);
         ui.setValue(termVO.getTermNm());
-        mypViewModel= new ViewModelProvider(this).get(MYPViewModel.class);
-
-        mypViewModel.getRES_OIL_0004().observe(this, result -> {
-            switch (result.status) {
-                case SUCCESS:
-                    if (result.data != null) {
-                        loadTerms(result.data.getTermVO());
-                        showProgressDialog(false);
-                        return;
-                    }
-                case LOADING:
-                    showProgressDialog(true);
-                    break;
-                default:
-                    showProgressDialog(false);
-                    break;
-            }
-        });
+        getDataFromIntent();
+        setViewModel();
+        setObserver();
         mypViewModel.reqOIL0004(new OIL_0004.Request(APPIAInfo.MG_CON02_02.getId(), oilRfnCd,termVO.getTermVer(),termVO.getTermCd()));
 
 //            loadTerms(new TermVO("",TERMS_6000,getString(R.string.title_terms_6),getStringFromAssetsFile(),""));
@@ -64,4 +47,29 @@ public class MyGOilTermDetailActivity extends TermActivity {
         }
     }
 
+    @Override
+    public void setViewModel() {
+        ui.setLifecycleOwner(this);
+        mypViewModel= new ViewModelProvider(this).get(MYPViewModel.class);
+    }
+
+    @Override
+    public void setObserver() {
+        mypViewModel.getRES_OIL_0004().observe(this, result -> {
+            switch (result.status) {
+                case SUCCESS:
+                    if (result.data != null) {
+                        loadTerms(result.data.getTermVO());
+                        showProgressDialog(false);
+                        return;
+                    }
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                default:
+                    showProgressDialog(false);
+                    break;
+            }
+        });
+    }
 }

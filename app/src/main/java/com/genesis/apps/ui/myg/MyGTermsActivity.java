@@ -42,9 +42,9 @@ public class MyGTermsActivity extends WebviewActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ui.setLifecycleOwner(this);
-        mypViewModel= new ViewModelProvider(this).get(MYPViewModel.class);
-        termsCd = getIntent().getStringExtra(TERMS_CODE);
+        getDataFromIntent();
+        setViewModel();
+        setObserver();
         String menuId="";
         switch (termsCd){
             case TERMS_1000:
@@ -68,7 +68,7 @@ public class MyGTermsActivity extends WebviewActivity {
                 titleId = R.string.title_terms_6;
                 break;
         }
-        ui.lTitle.title.setText(titleId);
+        ui.setValue(getString(titleId));
 
         if(!termsCd.equalsIgnoreCase(TERMS_6000)) {
             mypViewModel.getRES_MYP_8001().observe(this, responseNetUI -> {
@@ -144,4 +144,19 @@ public class MyGTermsActivity extends WebviewActivity {
         return sb!=null?sb.toString():"";
     }
 
+    @Override
+    public void getDataFromIntent() {
+        termsCd = getIntent().getStringExtra(TERMS_CODE);
+    }
+
+    @Override
+    public void setViewModel() {
+        ui.setLifecycleOwner(this);
+        mypViewModel= new ViewModelProvider(this).get(MYPViewModel.class);
+    }
+
+    @Override
+    public void setObserver() {
+
+    }
 }

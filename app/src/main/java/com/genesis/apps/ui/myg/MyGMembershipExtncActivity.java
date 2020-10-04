@@ -28,9 +28,34 @@ public class MyGMembershipExtncActivity extends SubActivity<ActivityMygMembershi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myg_membership_extnc);
-        ui.setLifecycleOwner(this);
+        getDataFromIntent();
+        setViewModel();
+        setObserver();
+        initView();
+        mypViewModel.reqMYP2006(new MYP_2006.Request(APPIAInfo.MG_MEMBER01_P01.getId()));
+    }
 
+    private void initView() {
+        adapter = new ExtncPlanPontAdapter();
+//        ((SimpleItemAnimator) ui.rvNoti.getItemAnimator()).setSupportsChangeAnimations(true);
+        ui.rv.setLayoutManager(new LinearLayoutManager(this));
+        ui.rv.setHasFixedSize(true);
+        ui.rv.setAdapter(adapter);
+    }
+
+    @Override
+    public void onClickCommon(View v) {
+
+    }
+
+    @Override
+    public void setViewModel() {
+        ui.setLifecycleOwner(this);
         mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
+    }
+
+    @Override
+    public void setObserver() {
         mypViewModel.getRES_MYP_2006().observe(this, responseNetUI -> {
 
 //            if(responseNetUI.status == NetUIResponse.Status.LOADING)
@@ -60,21 +85,11 @@ public class MyGMembershipExtncActivity extends SubActivity<ActivityMygMembershi
 
             setExtncPlanPont();
             setEmptyView(adapter.getItemCount());
-
         });
-
-
-        adapter = new ExtncPlanPontAdapter();
-//        ((SimpleItemAnimator) ui.rvNoti.getItemAnimator()).setSupportsChangeAnimations(true);
-        ui.rv.setLayoutManager(new LinearLayoutManager(this));
-        ui.rv.setHasFixedSize(true);
-        ui.rv.setAdapter(adapter);
-
-        mypViewModel.reqMYP2006(new MYP_2006.Request(APPIAInfo.MG_MEMBER01_P01.getId()));
     }
 
     @Override
-    public void onClickCommon(View v) {
+    public void getDataFromIntent() {
 
     }
 

@@ -85,6 +85,21 @@ public class PermissionsActivity extends SubActivity<ActivityPermissionsBinding>
 
     }
 
+    @Override
+    public void setViewModel() {
+
+    }
+
+    @Override
+    public void setObserver() {
+
+    }
+
+    @Override
+    public void getDataFromIntent() {
+
+    }
+
     private void checkPermissions() {
         /*
         Dexter 라이브러리 내 DexterInstance 클래스가 싱글톤 클래스이다.

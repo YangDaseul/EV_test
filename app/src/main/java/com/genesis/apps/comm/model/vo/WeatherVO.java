@@ -4,6 +4,9 @@ import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,13 +31,23 @@ import lombok.EqualsAndHashCode;
  * I : 대표앱 링크  O:외부링크(상세에서 보여주는 정보)
  * @see #lnkUri	    링크Uri
  */
+
+@Entity
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
 class WeatherVO extends BaseData {
+
+    public WeatherVO(){
+
+    }
+
+    @PrimaryKey
+    @NonNull
     @Expose
     @SerializedName("wthrCd")
     private String wthrCd;
+
     @Expose
     @SerializedName("msgTypCd")
     private String msgTypCd;

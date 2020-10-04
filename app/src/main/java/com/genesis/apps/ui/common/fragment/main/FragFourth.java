@@ -29,7 +29,7 @@ import com.genesis.apps.comm.util.graph.StackedBarActivity;
 import com.genesis.apps.databinding.Frame4pBinding;
 import com.genesis.apps.ui.common.activity.ConstraintSetActivity;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
-import com.genesis.apps.ui.common.activity.MainActivity;
+import com.genesis.apps.ui.main.MainActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.service.ScreenRecorderService;

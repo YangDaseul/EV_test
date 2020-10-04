@@ -38,8 +38,9 @@ public class LoginActivity extends WebviewActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getPageType();
-
+        getDataFromIntent();
+        setViewModel();
+        setObserver();
     }
 
     @Override
@@ -47,7 +48,9 @@ public class LoginActivity extends WebviewActivity {
         super.onDestroy();
     }
 
-    private void getPageType() {
+    @Override
+    public void getDataFromIntent() {
+        super.getDataFromIntent();
         Intent intent = getIntent();
         if(intent!=null&&intent.getStringExtra("url").equalsIgnoreCase(ga.getLoginUrl())){
             isLogin=true;

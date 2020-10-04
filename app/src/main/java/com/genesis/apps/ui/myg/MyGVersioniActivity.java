@@ -23,13 +23,30 @@ public class MyGVersioniActivity extends SubActivity<ActivityMygVersionBinding> 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myg_version);
+        getDataFromIntent();
+        setViewModel();
+        setObserver();
+        mypViewModel.reqMYP8004(new MYP_8004.Request(APPIAInfo.MG_VERSION01.getId()));
+    }
+
+    @Override
+    public void onClickCommon(View v) {
+
+    }
+
+    @Override
+    public void setViewModel() {
         ui.setLifecycleOwner(this);
         mypViewModel= new ViewModelProvider(this).get(MYPViewModel.class);
-        mypViewModel.getRES_MYP_8004().observe(this, responseNetUIResponse -> {
-            switch (responseNetUIResponse.status){
+    }
+
+    @Override
+    public void setObserver() {
+        mypViewModel.getRES_MYP_8004().observe(this, result -> {
+            switch (result.status){
                 case SUCCESS:
                     showProgressDialog(false);
-                    setView(PackageUtil.getApplicationVersionName(this, getPackageName()), responseNetUIResponse.data.getVer());
+                    setView(PackageUtil.getApplicationVersionName(this, getPackageName()), result.data.getVer());
                     break;
 //                    if(responseNetUIResponse.data!=null&&!TextUtils.isEmpty(responseNetUIResponse.data.getVer())){
 //                        showProgressDialog(false);
@@ -48,12 +65,10 @@ public class MyGVersioniActivity extends SubActivity<ActivityMygVersionBinding> 
                     break;
             }
         });
-
-        mypViewModel.reqMYP8004(new MYP_8004.Request(APPIAInfo.MG_VERSION01.getId()));
     }
 
     @Override
-    public void onClickCommon(View v) {
+    public void getDataFromIntent() {
 
     }
 

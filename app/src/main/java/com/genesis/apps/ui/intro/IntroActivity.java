@@ -14,19 +14,19 @@ import com.genesis.apps.comm.model.gra.api.CMN_0001;
 import com.genesis.apps.comm.model.gra.api.CMN_0002;
 import com.genesis.apps.comm.model.vo.DeviceDTO;
 import com.genesis.apps.comm.model.vo.NotiVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.databinding.ActivityIntroBinding;
-import com.genesis.apps.ui.common.activity.MainActivity;
+import com.genesis.apps.room.ResultCallback;
+import com.genesis.apps.ui.main.MainActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
+import com.google.gson.Gson;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -42,9 +42,278 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-        ui.setLifecycleOwner(this);
-        init();
+        if(isPermissions()){
+            init();
+        }
+    }
 
+    @Override
+    public void setViewModel() {
+        ui.setLifecycleOwner(this);
+        deviceDTO.initData();
+        cmnViewModel = new ViewModelProvider(this).get(CMNViewModel.class);
+    }
+
+    @Override
+    public void setObserver() {
+        cmnViewModel.getRES_CMN_0001().observe(this, result -> {
+
+
+            String test = "{\n" +
+                    "  \"rtCd\": \"0000\",\n" +
+                    "  \"rtMsg\": \"Success\",\n" +
+                    "  \"appVer\": \"01.00.00\",\n" +
+                    "  \"appUpdType\": \"X\",\n" +
+                    "  \"notiDt\": \"20200910\",\n" +
+                    "  \"notiList\": [\n" +
+                    "    {\n" +
+                    "      \"notiCd\": \"ANNC\",\n" +
+                    "      \"seqNo\": \"2020091000000015\",\n" +
+                    "      \"notiTtl\": \"필독공지1\",\n" +
+                    "      \"notiCont\": \"필독공지내용1\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"notiCd\": \"NOTI\",\n" +
+                    "      \"seqNo\": \"2020091000000014\",\n" +
+                    "      \"notiTtl\": \"일반공지1\",\n" +
+                    "      \"notiCont\": \"일반공지내용1\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"notiCd\": \"ANNC\",\n" +
+                    "      \"seqNo\": \"2020091000000013\",\n" +
+                    "      \"notiTtl\": \"긴급공지1\",\n" +
+                    "      \"notiCont\": \"긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용2\"\n" +
+                    "    }\n" +
+                    "  ]\n" +
+                    "}";
+
+            CMN_0001.Response sample = new Gson().fromJson(test, CMN_0001.Response.class);
+
+            if (!TextUtils.isEmpty(sample.getNotiDt()))
+                cmnViewModel.updateNotiDt(sample.getNotiDt());
+
+            Runnable reqContentsDownload = () -> cmnViewModel.reqCMN0002(new CMN_0002.Request(APPIAInfo.INT01.getId()));
+
+            Runnable notiCheck = () -> {
+                if (!checkNoti(sample.getNotiList(), reqContentsDownload)) {
+                    reqContentsDownload.run();
+                }
+            };
+            Runnable versionCheck = () -> {
+                if (!checkVersion(sample.getAppVer(), sample.getAppUpdType(), notiCheck)) {
+                    notiCheck.run();
+                }
+            };
+            versionCheck.run();
+
+
+//            switch (result.status){
+//                case SUCCESS:
+//                    if(!TextUtils.isEmpty(result.data.getNotiDt()))
+//                        cmnViewModel.updateNotiDt(result.data.getNotiDt());
+//
+//                    Runnable reqContentsDownload = () -> {
+//                        cmnViewModel.reqCMN0002(new CMN_0002.Request(APPIAInfo.INT01.getId()));
+//                    };
+//                    Runnable notiCheck = () -> {
+//                        if(!checkNoti(result.data.getNotiList(), reqContentsDownload)){
+//                            reqContentsDownload.run();
+//                        }
+//                    };
+//                    Runnable versionCheck = () -> {
+//                        if(!checkVersion(result.data.getAppVer(), result.data.getAppUpdType(), notiCheck)){
+//                            notiCheck.run();
+//                        }
+//                    };
+//                    versionCheck.run();
+//                    break;
+//                case LOADING:
+//
+//                    break;
+//                case ERROR:
+//                default:
+//
+//                    break;
+//            }
+
+
+        });
+        cmnViewModel.getRES_CMN_0002().observe(this, result -> {
+
+            String test = "{\n" +
+                    "  \"rtCd\": \"0000\",\n" +
+                    "  \"rtMsg\": \"Success\",\n" +
+                    "  \"menu0000\": {\n" +
+                    "    \"menuList\": [\n" +
+                    "      {\n" +
+                    "        \"menuId\": \"GM04\",\n" +
+                    "        \"upMenuId\": \"GM04\",\n" +
+                    "        \"menuNm\": \"HOME (비로그인)\",\n" +
+                    "        \"menuTypCd\": \"NA\",\n" +
+                    "        \"scrnTypCd\": \"PG\"\n" +
+                    "      }\n" +
+                    "    ],\n" +
+                    "    \"qckMenuList\": []\n" +
+                    "  },\n" +
+                    "  \"menuOV\": {\n" +
+                    "    \"menuList\": [\n" +
+                    "      {\n" +
+                    "        \"menuId\": \"GM01\",\n" +
+                    "        \"upMenuId\": \"GM01\",\n" +
+                    "        \"menuNm\": \"HOME (로그인/차량보유)\",\n" +
+                    "        \"menuTypCd\": \"NA\",\n" +
+                    "        \"scrnTypCd\": \"PG\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"menuId\": \"INT01\",\n" +
+                    "        \"upMenuId\": \"INT01\",\n" +
+                    "        \"menuNm\": \"스플래시\",\n" +
+                    "        \"menuTypCd\": \"NA\",\n" +
+                    "        \"scrnTypCd\": \"PG\"\n" +
+                    "      }\n" +
+                    "    ],\n" +
+                    "    \"qckMenuList\": [\n" +
+                    "      {\n" +
+                    "        \"menuId\": \"MENU0001\",\n" +
+                    "        \"menuNm\": \"메뉴0001\",\n" +
+                    "        \"qckMenuDivCd\": \"IM\",\n" +
+                    "        \"wvYn\": \"N\",\n" +
+                    "        \"nttOrd\": \"1\"\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"menuId\": \"MENU0002\",\n" +
+                    "        \"menuNm\": \"메뉴0002\",\n" +
+                    "        \"qckMenuDivCd\": \"OM\",\n" +
+                    "        \"wvYn\": \"Y\",\n" +
+                    "        \"lnkUri\": \"http://www.genesis.com/priv?id=G000001\",\n" +
+                    "        \"nttOrd\": \"2\"\n" +
+                    "      }\n" +
+                    "    ]\n" +
+                    "  },\n" +
+                    "  \"menuCV\": {\n" +
+                    "    \"menuList\": [\n" +
+                    "      {\n" +
+                    "        \"menuId\": \"GM02\",\n" +
+                    "        \"upMenuId\": \"GM02\",\n" +
+                    "        \"menuNm\": \"HOME (로그인/예약대기)\",\n" +
+                    "        \"menuTypCd\": \"NA\",\n" +
+                    "        \"scrnTypCd\": \"PG\"\n" +
+                    "      }\n" +
+                    "    ],\n" +
+                    "    \"qckMenuList\": [\n" +
+                    "      {\n" +
+                    "        \"menuId\": \"MENU0001\",\n" +
+                    "        \"menuNm\": \"메뉴0001\",\n" +
+                    "        \"qckMenuDivCd\": \"IM\",\n" +
+                    "        \"wvYn\": \"N\",\n" +
+                    "        \"nttOrd\": \"1\"\n" +
+                    "      }\n" +
+                    "    ]\n" +
+                    "  },\n" +
+                    "  \"menuNV\": {\n" +
+                    "    \"menuList\": [\n" +
+                    "      {\n" +
+                    "        \"menuId\": \"GM03\",\n" +
+                    "        \"upMenuId\": \"GM03\",\n" +
+                    "        \"menuNm\": \"HOME (로그인/차량미보유)\",\n" +
+                    "        \"menuTypCd\": \"NA\",\n" +
+                    "        \"scrnTypCd\": \"PG\"\n" +
+                    "      }\n" +
+                    "    ],\n" +
+                    "    \"qckMenuList\": [\n" +
+                    "      {\n" +
+                    "        \"menuId\": \"MENU0001\",\n" +
+                    "        \"menuNm\": \"메뉴0001\",\n" +
+                    "        \"qckMenuDivCd\": \"IM\",\n" +
+                    "        \"wvYn\": \"N\",\n" +
+                    "        \"nttOrd\": \"1\"\n" +
+                    "      }\n" +
+                    "    ]\n" +
+                    "  },\n" +
+                    "  \"wthrInsgtList\": [\n" +
+                    "    {\n" +
+                    "      \"wthrCd\": \"SKY_1\",\n" +
+                    "      \"msgTypCd\": \"TXT\",\n" +
+                    "      \"lnkUseYn\": \"N\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"wthrCd\": \"SKY_1\",\n" +
+                    "      \"msgTypCd\": \"TXT\",\n" +
+                    "      \"lnkUseYn\": \"N\"\n" +
+                    "    }\n" +
+                    "  ]\n" +
+                    "}";
+            CMN_0002.Response sample = new Gson().fromJson(test, CMN_0002.Response.class);
+
+            cmnViewModel.setContents(sample, new ResultCallback() {
+                @Override
+                public void onSuccess(Object result) {
+                    if (((Boolean) result)) {
+                        new Handler().postDelayed(() -> {
+                            if (isPushData()) {
+                                startActivity(moveToPush(MainActivity.class));
+                            } else {
+                                startActivitySingleTop(new Intent(IntroActivity.this, MainActivity.class), 0);
+                            }
+                            finish();
+                        }, 2000);
+
+                    } else {
+                        //TODO ERROR팝업 추가 필요
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onError(Object e) {
+                    //TODO ERROR팝업 추가 필요
+                    finish();
+                }
+            });
+
+//            switch (result.status){
+//                case SUCCESS:
+//                    cmnViewModel.setContents(result.data, new ResultCallback() {
+//                        @Override
+//                        public void onSuccess(Object result) {
+//                            if(((Boolean)result)){
+//                                new Handler().postDelayed(() -> {
+//                                    if (isPushData()) {
+//                                        startActivity(moveToPush(MainActivity.class));
+//                                    } else {
+//                                        startActivitySingleTop(new Intent(IntroActivity.this, MainActivity.class), 0);
+//                                    }
+//                                    finish();
+//                                }, 2000);
+//
+//                            }else{
+//                                //TODO ERROR팝업 추가 필요
+//                                finish();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onError(Object e) {
+//                            //TODO ERROR팝업 추가 필요
+//                            finish();
+//                        }
+//                    });
+//                    break;
+//                case LOADING:
+//
+//                    break;
+//                default:
+//                    //TODO ERROR팝업 추가 필요
+//                    finish();
+//                    break;
+//            }
+        });
+
+
+    }
+
+    @Override
+    public void getDataFromIntent() {
 
     }
 
@@ -67,67 +336,11 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
         }
     }
 
-    private void init(){
-        if(isPermissions()){
-            deviceDTO.initData();
-
-            cmnViewModel= new ViewModelProvider(this).get(CMNViewModel.class);
-            cmnViewModel.getRES_CMN_0001().observe(this, new Observer<NetUIResponse<CMN_0001.Response>>() {
-                @Override
-                public void onChanged(NetUIResponse<CMN_0001.Response> result) {
-
-
-                    switch (result.status){
-                        case SUCCESS:
-                            if(!TextUtils.isEmpty(result.data.getNotiDt()))
-                                cmnViewModel.updateNotiDt(result.data.getNotiDt());
-
-                            Runnable reqContentsDownload = () -> {
-                                cmnViewModel.reqCMN0002(new CMN_0002.Request(APPIAInfo.INT01.getId()));
-                            };
-                            Runnable notiCheck = () -> {
-                                if(!checkNoti(result.data.getNotiList(), reqContentsDownload)){
-                                    reqContentsDownload.run();
-                                }
-                            };
-                            Runnable versionCheck = () -> {
-                                if(!checkVersion(result.data.getAppVer(), result.data.getAppUpdType(), notiCheck)){
-                                    notiCheck.run();
-                                }
-                            };
-                            versionCheck.run();
-                            break;
-                        case LOADING:
-
-                            break;
-                        case ERROR:
-                        default:
-
-                            break;
-                    }
-
-
-                }
-            });
-
-            cmnViewModel.getRES_CMN_0002().observe(this, new Observer<NetUIResponse<CMN_0002.Response>>() {
-                @Override
-                public void onChanged(NetUIResponse<CMN_0002.Response> result) {
-
-                    new Handler().postDelayed(() -> {
-                        if(isPushData()){
-                            startActivity(moveToPush(MainActivity.class));
-                        }else{
-                            startActivitySingleTop(new Intent(IntroActivity.this, MainActivity.class),0);
-                        }
-                        finish();
-                    }, 2000);
-
-                }
-            });
-
-            cmnViewModel.reqCMN0001(new CMN_0001.Request(APPIAInfo.INT01.getId(), PackageUtil.getApplicationVersionName(this, getPackageName())));
-
+    private void init() {
+        getDataFromIntent();
+        setViewModel();
+        setObserver();
+        cmnViewModel.reqCMN0001(new CMN_0001.Request(APPIAInfo.INT01.getId(), PackageUtil.getApplicationVersionName(this, getPackageName())));
 
 
 //            String test = "{\n" +
@@ -177,7 +390,6 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
 //            databaseHolder.getDatabase().userDao().insert(user3);
 //            UserVO user4 = databaseHolder.getDatabase().userDao().select();
 
-        }
     }
 
 
@@ -203,13 +415,13 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
     }
 
 
-    private boolean checkVersion(String newVersion, String versionType, Runnable runnable){
-        boolean needUpdate =false;
+    private boolean checkVersion(String newVersion, String versionType, Runnable runnable) {
+        boolean needUpdate = false;
 
-        if(PackageUtil.versionCompare(PackageUtil.getApplicationVersionName(this, getPackageName()), newVersion)<0){
-            needUpdate=true;
+        if (PackageUtil.versionCompare(PackageUtil.getApplicationVersionName(this, getPackageName()), newVersion) < 0) {
+            needUpdate = true;
 
-            MiddleDialog.updatePopUp(this, new Runnable() {
+            MiddleDialog.dialogUpdate(this, new Runnable() {
                 @Override
                 public void run() {
 
@@ -217,18 +429,17 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
             }, runnable, newVersion, versionType);
 
 
-
         }
 
         return needUpdate;
     }
 
-    private boolean checkNoti (List<NotiVO> list, Runnable runnable){
-        NotiVO notiVO=null;
+    private boolean checkNoti(List<NotiVO> list, Runnable runnable) {
+        NotiVO notiVO = null;
 
-        try{
+        try {
             //NOTI 우선순위 결정
-            for(int i=0; i<list.size(); i++){
+            for (int i = 0; i < list.size(); i++) {
                 switch (list.get(i).getNotiCd()) {
                     case VariableType.NOTI_CODE_EMGR:
                         notiVO = list.get(i);
@@ -240,27 +451,41 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
                         }
                         break;
                     default:
-                        if (notiVO == null
-                                || !notiVO.getNotiCd().equalsIgnoreCase(VariableType.NOTI_CODE_EMGR)
-                                || !notiVO.getNotiCd().equalsIgnoreCase(VariableType.NOTI_CODE_ANNC)) {
-                            notiVO = list.get(i);
-                        }
+//                        if (notiVO == null
+//                                || !notiVO.getNotiCd().equalsIgnoreCase(VariableType.NOTI_CODE_EMGR)
+//                                || !notiVO.getNotiCd().equalsIgnoreCase(VariableType.NOTI_CODE_ANNC)) {
+//                            notiVO = list.get(i);
+//                        }
                         break;
                 }
             }
-        }catch (Exception ignore){
+        } catch (Exception ignore) {
             ignore.printStackTrace();
-        }finally {
+        } finally {
             //노티팝업활성화
             if (notiVO != null) {
-                switch (notiVO.hashCode()) {
+                switch (notiVO.getNotiCd()) {
+                    case VariableType.NOTI_CODE_EMGR:
+                        MiddleDialog.dialogNoti(this, new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                            }
+                        }, notiVO.getNotiTtl(), notiVO.getNotiCont());
 
+                        break;
+                    case VariableType.NOTI_CODE_ANNC:
+                        MiddleDialog.dialogNoti(this, runnable, notiVO.getNotiTtl(), notiVO.getNotiCont());
+                        break;
+                    default:
+
+                        break;
 
                 }
             }
         }
 
-        return notiVO==null ? false : true;
+        return notiVO == null ? false : true;
     }
 
 }

@@ -7,20 +7,20 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.repo.MenuRepository;
-import com.genesis.apps.comm.viewmodel.MenuViewModel;
 import com.genesis.apps.comm.model.vo.MenuVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
+import com.genesis.apps.comm.viewmodel.MenuViewModel;
 import com.genesis.apps.databinding.ActivityMygMenuBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.myg.view.MenuAdapter;
 
 import java.util.List;
+
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class MyGMenuActivity extends SubActivity<ActivityMygMenuBinding> {
 
@@ -31,25 +31,15 @@ public class MyGMenuActivity extends SubActivity<ActivityMygMenuBinding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myg_menu);
-        ui.setLifecycleOwner(this);
+        getDataFromIntent();
+        setViewModel();
+        setObserver();
+        initView();
 
-        menuViewModel = new ViewModelProvider(this).get(MenuViewModel.class);
-        menuViewModel.getMenuList().observe(this, result -> {
-            adapter.setRecently(false);
-            ui.tvTitleSub.setText("전체메뉴");
-            setListView(result.data);
-        });
-        menuViewModel.getRecentlyMenuList().observe(this, result -> {
-            adapter.setRecently(true);
-            ui.tvTitleSub.setText(R.string.mg00_word_2);
-            setListView(result.data);
-        });
-        menuViewModel.getKeywordMenuList().observe(this, result -> {
-            adapter.setRecently(false);
-            ui.tvTitleSub.setText(R.string.mg00_word_3);
-            setListView(result.data);
-        });
+        menuViewModel.reqMenuList(); //전체 리스트 요청
+    }
 
+    private void initView() {
         adapter = new MenuAdapter((v, position) -> {
 
             switch (v.getId()) {
@@ -108,11 +98,40 @@ public class MyGMenuActivity extends SubActivity<ActivityMygMenuBinding> {
 
         //키보드에서 search 버튼 클릭할 경우 정의 스토리보드에 정의되어있지 않아 삭선처리
 //        ui.etSearch.setOnEditorActionListener(editorActionListener);
-        menuViewModel.reqMenuList(); //전체 리스트 요청
     }
 
     @Override
     public void onClickCommon(View v) {
+
+    }
+
+    @Override
+    public void setViewModel() {
+        ui.setLifecycleOwner(this);
+        menuViewModel = new ViewModelProvider(this).get(MenuViewModel.class);
+    }
+
+    @Override
+    public void setObserver() {
+        menuViewModel.getMenuList().observe(this, result -> {
+            adapter.setRecently(false);
+            ui.tvTitleSub.setText("전체메뉴");
+            setListView(result.data);
+        });
+        menuViewModel.getRecentlyMenuList().observe(this, result -> {
+            adapter.setRecently(true);
+            ui.tvTitleSub.setText(R.string.mg00_word_2);
+            setListView(result.data);
+        });
+        menuViewModel.getKeywordMenuList().observe(this, result -> {
+            adapter.setRecently(false);
+            ui.tvTitleSub.setText(R.string.mg00_word_3);
+            setListView(result.data);
+        });
+    }
+
+    @Override
+    public void getDataFromIntent() {
 
     }
 

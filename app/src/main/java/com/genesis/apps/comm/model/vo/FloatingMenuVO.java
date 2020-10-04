@@ -4,6 +4,9 @@ import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,10 +24,19 @@ import lombok.EqualsAndHashCode;
  * PG: Page PU:popup
  * @see #lnkUri 링크URI
  */
+
+@Entity
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
 class FloatingMenuVO extends BaseData {
+
+    public FloatingMenuVO(){
+
+    }
+
+    @PrimaryKey
+    @NonNull
     @Expose
     @SerializedName("menuId")
     private String menuId;
@@ -43,4 +55,7 @@ class FloatingMenuVO extends BaseData {
     @Expose
     @SerializedName("lnkUri")
     private String lnkUri;
+    @Expose
+    @SerializedName("type")
+    private String type; //로컬db에서만 사용
 }
