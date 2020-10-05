@@ -1,4 +1,4 @@
-package com.genesis.apps.ui.common.fragment.main;
+package com.genesis.apps.ui.main.home;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,8 +19,8 @@ public class VehicleViewpagerAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         int index = getRealPosition(position);
-        if(index==0) return new FragVehicle1();
-        else return new FragVehicle2();
+        if(index==0) return new FragmentHome1();
+        else return new FragmentHome2();
     }
 
 

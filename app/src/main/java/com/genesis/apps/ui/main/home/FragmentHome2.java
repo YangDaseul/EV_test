@@ -1,4 +1,4 @@
-package com.genesis.apps.ui.common.fragment.main;
+package com.genesis.apps.ui.main.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,7 +14,7 @@ import com.genesis.apps.databinding.FragVehicle2Binding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.view.listview.test.TestItemAdapter;
 
-public class FragVehicle2 extends SubFragment<FragVehicle2Binding> {
+public class FragmentHome2 extends SubFragment<FragVehicle2Binding> {
     private MapViewModel mapViewModel;
 
     TestItemAdapter testItemAdapter;

@@ -1,4 +1,4 @@
-package com.genesis.apps.ui.common.fragment.main;
+package com.genesis.apps.ui.main;
 
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
@@ -16,22 +16,25 @@ import com.bumptech.glide.request.transition.DrawableCrossFadeTransition;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.request.transition.TransitionFactory;
 import com.genesis.apps.R;
-import com.genesis.apps.databinding.Frame1pBinding;
+import com.genesis.apps.databinding.FragmentHomeBinding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
+import com.genesis.apps.ui.main.home.VehicleViewpagerAdapter;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class FragFirst extends SubFragment<Frame1pBinding> {
+public class FragmentHome extends SubFragment<FragmentHomeBinding> {
 //    private ExampleViewModel exampleViewModel;
 //    private WeatherPointViewModel weatherPointViewModel;
 //    private MapViewModel mapViewModel;
 
+    private final int VIEWPAGER_VERTICAL_NUMBER=2;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return super.setContentView(inflater, R.layout.frame_1p);
+        return super.setContentView(inflater, R.layout.fragment_home);
     }
 
     @Override
@@ -43,12 +46,10 @@ public class FragFirst extends SubFragment<Frame1pBinding> {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        me.vpVehicle.setAdapter(new VehicleViewpagerAdapter(getActivity(), 2));
-        //ViewPager Setting
+        me.vpVehicle.setAdapter(new VehicleViewpagerAdapter(getActivity(), VIEWPAGER_VERTICAL_NUMBER));
         me.vpVehicle.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
         me.vpVehicle.setCurrentItem(0);
-        me.vpVehicle.setOffscreenPageLimit(2);
-
+        me.vpVehicle.setOffscreenPageLimit(VIEWPAGER_VERTICAL_NUMBER);
         me.vpVehicle.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -61,72 +62,8 @@ public class FragFirst extends SubFragment<Frame1pBinding> {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-//                ui.indicator.animatePageSelected(position%num_page);
             }
-
         });
-
-
-        final float pageMargin= getResources().getDimensionPixelOffset(R.dimen.pageMargin);
-        final float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset);
-
-
-//        me.vpVehicle.setPageTransformer(new MarginPageTransformer(0));
-//        me.vpVehicle.setPadding(0,0,0,0);
-
-//        me.vpVehicle.setPageTransformer(new ViewPager2.PageTransformer() {
-//            @Override
-//            public void transformPage(@NonNull View page, float position) {
-//                float myOffset = position * -(2 * pageOffset + pageMargin);
-//                if (me.vpVehicle.getOrientation() == ViewPager2.ORIENTATION_VERTICAL) {
-//                    if (ViewCompat.getLayoutDirection(me.vpVehicle) == ViewCompat.LAYOUT_DIRECTION_LTR) {
-//                        page.setTranslationX(-myOffset);
-//                    } else {
-//                        page.setTranslationX(myOffset);
-//                    }
-//                } else {
-//                    page.setTranslationY(myOffset);
-//                }
-//            }
-//        });
-
-
-
-//        mapViewModel = new ViewModelProvider(this).get(MapViewModel.class);
-//        me.setLifecycleOwner(getViewLifecycleOwner());
-//        me.tvName1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                mapViewModel.reqPlayMapPoiItemList(new AroundPOIReqVO("주유소",37.56719394162535,126.97875114212447,1000,1,1,0,20));
-//                mapViewModel.reqTestCount();
-//            }
-//        });
-//
-//
-//        getViewLifecycleOwnerLiveData().observe(getViewLifecycleOwner(), new Observer<LifecycleOwner>() {
-//            @Override
-//            public void onChanged(LifecycleOwner lifecycleOwner) {
-//
-//            }
-//        });
-//
-//
-//        mapViewModel.getPlayMapPoiItemList().observe(getActivity(), new Observer<NetUIResponse<ArrayList<PlayMapPoiItem>>>() {
-//            @Override
-//            public void onChanged(NetUIResponse<ArrayList<PlayMapPoiItem>> arrayListNetUIResponse) {
-//                Log.v("test", "test1:" + arrayListNetUIResponse);
-//
-//            }
-//        });
-//
-//        mapViewModel.getTestCount().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-//            @Override
-//            public void onChanged(Integer integer) {
-//                Log.v("test", "First:" + integer);
-//            }
-//        });
-
-
     }
 
     @Override

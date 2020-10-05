@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="background"
+            type="int"/>
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.main.MainActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:paddingTop="40dp">
+
+        <ImageView
+            android:id="@+id/btn_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@{background==0 ? @drawable/bg_000000_round_15 : @drawable/bg_33000000_round_15}"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_alarm"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible"/>
+
+        <ImageView
+            android:id="@+id/iv_badge"
+            android:layout_width="4dp"
+            android:layout_height="4dp"
+            android:background="@{background==0 ? @drawable/bg_000000_round_15 : @drawable/bg_33000000_round_15}"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="6dp"
+            android:visibility="gone"
+            app:layout_constraintRight_toRightOf="@+id/btn_alarm"
+            app:layout_constraintTop_toTopOf="@+id/btn_alarm"
+            tools:visibility="visible"/>
+
+
+        <ImageView
+            android:id="@+id/btn_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@{background==0 ? @drawable/bg_000000_round_15 : @drawable/bg_33000000_round_15}"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_profile"
+            app:layout_constraintRight_toLeftOf="@+id/btn_alarm"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginRight="0dp" />
+
+
+        <ImageView
+            android:id="@+id/btn_barcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@{background==0 ? @drawable/bg_000000_round_15 : @drawable/bg_33000000_round_15}"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_barcode"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/btn_profile"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginRight="0dp"
+            tools:visibility="visible"/>
+
+        <ImageView
+            android:id="@+id/btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@{background==0 ? @drawable/bg_000000_round_15 : @drawable/bg_33000000_round_15}"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_search_w"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

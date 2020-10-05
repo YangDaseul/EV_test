@@ -3,4 +3,22 @@
     <string name="main_word_2">INSIGHT</string>
     <string name="main_word_3">SERVICE</string>
     <string name="main_word_4">CONTENTS</string>
+
+    <string name="gm01_1">총 주행 거리</string>
+    <string name="gm01_2">최근 주행거리</string>
+    <string name="gm01_3">주행 가능 거리</string>
+    <string name="gm01_repair_status_1">긴급 출동 신청 중</string>
+    <string name="gm01_repair_status_2">차량 정비 중</string>
+
+    <string name="gm02_1">차량정보설정</string>
+    <string name="gm02_2">계약서 조회</string>
+    <string name="gm02_3">유사 재고 조회</string>
+    <string name="gm02_4">견적 내기</string>
+
+    <string name="gm03_1">렌트/리스\n실 운행자 등록</string>
+    <string name="gm03_2">중고차 등록</string>
+    <string name="gm03_3">견적 내기</string>
+
+    <string name="gm04_1">원하시는 차량의 견적을\n짜보세요.(BTO)</string>
+
 </resources>

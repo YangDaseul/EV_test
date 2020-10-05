@@ -7,23 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.RequestCodes;
-import com.genesis.apps.databinding.ActivityMainBinding;
-import com.genesis.apps.databinding.ItemTabBinding;
-import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.common.fragment.main.FragFourth;
-import com.genesis.apps.ui.common.fragment.main.MainViewpagerAdapter;
-import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.source.LoopingMediaSource;
-import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.ProgressiveMediaSource;
-import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
-import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.upstream.DataSpec;
-import com.google.android.exoplayer2.upstream.RawResourceDataSource;
-import com.google.android.material.tabs.TabLayoutMediator;
-
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
@@ -31,12 +14,17 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
-import static com.google.android.exoplayer2.Player.REPEAT_MODE_ALL;
+import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.databinding.ActivityMainBinding;
+import com.genesis.apps.databinding.ItemTabBinding;
+import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.fragment.main.FragFourth;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends SubActivity<ActivityMainBinding> {
     private final int pageNum = 4;
     public FragmentStateAdapter pagerAdapter;
-    private SimpleExoPlayer simpleExoPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +36,6 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
         setObserver();
 
         initView();
-        
-        try {
-            setVideo();
-        }catch (Exception e){
-
-        }
     }
 
     private void initView() {
@@ -86,7 +68,6 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
 
         final float pageMargin= getResources().getDimensionPixelOffset(R.dimen.pageMargin);
         final float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset);
-
         ui.viewpager.setPageTransformer((page, position) -> {
             float myOffset = position * -(2 * pageOffset + pageMargin);
             if (ui.viewpager.getOrientation() == ViewPager2.ORIENTATION_HORIZONTAL) {
@@ -133,62 +114,8 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
     protected void onDestroy() {
         super.onDestroy();
 
-        releaseVideo();
     }
 
-    private void releaseVideo(){
-        if(simpleExoPlayer!=null){
-            ui.exoPlayerView.getOverlayFrameLayout().removeAllViews();
-            ui.exoPlayerView.setPlayer(null);
-            simpleExoPlayer.release();
-            simpleExoPlayer=null;
-        }
-    }
-
-
-    private void setVideo() throws RawResourceDataSource.RawResourceDataSourceException {
-//            String path = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
-
-        DataSpec dataSpec = new DataSpec(RawResourceDataSource.buildRawResourceUri(R.raw.rain_mob));
-        final RawResourceDataSource rawResourceDataSource = new RawResourceDataSource(this);
-        rawResourceDataSource.open(dataSpec);
-        DataSource.Factory factory = new DataSource.Factory() {
-            @Override
-            public DataSource createDataSource() {
-                return rawResourceDataSource;
-            }
-        };
-
-        MediaSource audioSource = new ProgressiveMediaSource.Factory(factory).createMediaSource(rawResourceDataSource.getUri());
-        LoopingMediaSource mediaSource = new LoopingMediaSource(audioSource);
-
-
-//            String path = "android_asset://sky.mp4";
-//            DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(this, Util.getUserAgent(this, getString(R.string.app_name)));
-//            MediaSource mediaSource = new ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.parse(path));
-
-
-            simpleExoPlayer = new SimpleExoPlayer.Builder(this).build();
-            simpleExoPlayer.setPlayWhenReady(true);
-            simpleExoPlayer.setVolume(0);
-            simpleExoPlayer.setRepeatMode(REPEAT_MODE_ALL);
-            simpleExoPlayer.setSeekParameters(null);
-            ui.exoPlayerView.setPlayer(simpleExoPlayer);
-            simpleExoPlayer.prepare(mediaSource);
-            ui.exoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
-            ui.exoPlayerView.setUseController(false);
-
-//        ui.vVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.rain));
-//        ui.vVideo.setVideoURI(Uri.parse(path));
-//        ui.vVideo.requestFocus();
-//        ui.vVideo.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-//            @Override
-//            public void onPrepared(MediaPlayer mediaPlayer) {
-//                mediaPlayer.setLooping(true);
-//                ui.vVideo.start();
-//            }
-//        });
-    }
 
 
     @Override

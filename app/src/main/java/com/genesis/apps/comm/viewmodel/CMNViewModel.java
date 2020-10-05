@@ -104,14 +104,14 @@ class CMNViewModel extends ViewModel {
 
             try {
                 isSuccess = setWeatherList(data.getWthrInsgtList())
-                        ||setQuickMenu(data.getMenu0000().getQckMenuList(), "menu0000")
-                        ||setFloatingMenu(data.getMenu0000().getMenuList(), "menu0000")
-                        ||setQuickMenu(data.getMenuCV().getQckMenuList(), "menuCV")
-                        ||setFloatingMenu(data.getMenuCV().getMenuList(), "menuCV")
-                        ||setQuickMenu(data.getMenuNV().getQckMenuList(), "menuNV")
-                        ||setFloatingMenu(data.getMenuNV().getMenuList(), "menuNV")
-                        ||setQuickMenu(data.getMenuOV().getQckMenuList(), "menuOV")
-                        ||setFloatingMenu(data.getMenuOV().getMenuList(), "menuOV");
+                        &&setQuickMenu(data.getMenu0000().getQckMenuList(), "menu0000")
+                        &&setFloatingMenu(data.getMenu0000().getMenuList(), "menu0000")
+                        &&setQuickMenu(data.getMenuCV().getQckMenuList(), "menuCV")
+                        &&setFloatingMenu(data.getMenuCV().getMenuList(), "menuCV")
+                        &&setQuickMenu(data.getMenuNV().getQckMenuList(), "menuNV")
+                        &&setFloatingMenu(data.getMenuNV().getMenuList(), "menuNV")
+                        &&setQuickMenu(data.getMenuOV().getQckMenuList(), "menuOV")
+                        &&setFloatingMenu(data.getMenuOV().getMenuList(), "menuOV");
             } catch (Exception e1) {
                 e1.printStackTrace();
                 isSuccess=false;
