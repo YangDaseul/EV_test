@@ -11,18 +11,18 @@ import androidx.room.Transaction;
 
 @Dao
 public abstract class FloatingMenuDao implements BaseDao<FloatingMenuVO> {
-    @Query("SELECT * FROM FloatingMenuVO WHERE type=:type")
-    public abstract List<FloatingMenuVO> select(String type);
+    @Query("SELECT * FROM FloatingMenuVO WHERE custGbCd=:custGbCd")
+    public abstract List<FloatingMenuVO> select(String custGbCd);
 
     @Query("DELETE from FloatingMenuVO")
     public abstract void deleteAll();
 
-    @Query("DELETE FROM FloatingMenuVO WHERE type =:type")
-    public abstract void deleteType(String type);
+    @Query("DELETE FROM FloatingMenuVO WHERE custGbCd =:custGbCd")
+    public abstract void deleteCustGbCd(String custGbCd);
 
     @Transaction
-    public void insertAndDeleteInTransaction(List<FloatingMenuVO> list, String type){
-        deleteType(type);
+    public void insertAndDeleteInTransaction(List<FloatingMenuVO> list, String custGbCd){
+        deleteCustGbCd(custGbCd);
         insert(list);
     }
 }

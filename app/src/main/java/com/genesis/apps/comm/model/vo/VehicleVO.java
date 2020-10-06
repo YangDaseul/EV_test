@@ -1,5 +1,9 @@
 package com.genesis.apps.comm.model.vo;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -48,13 +52,23 @@ import lombok.EqualsAndHashCode;
  * @see #csmrCarRelCd 고객차량관계코드
  * 1:단독소유, 2:주계약자, 3:공동계약, 4:실운행자, 5:렌트리스
  */
+@Entity
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
 class VehicleVO extends BaseData {
-//    @Expose
-//    @SerializedName("carGbCd")
-//    private String carGbCd;
+
+    public VehicleVO(){
+
+    }
+
+    @PrimaryKey(autoGenerate = true)
+    private int _id;//app local db용도로 사용
+    @Expose
+    @SerializedName("custGbCd")
+    private String custGbCd; //app local db용도로 사용
+
+
     @Expose
     @SerializedName("vin")
     private String vin;
@@ -87,10 +101,6 @@ class VehicleVO extends BaseData {
     @Expose
     @SerializedName("ctrctNo")
     private String ctrctNo;
-
-
-
-
 
 
     //아래는 GNS-1001에서만 취급하는 데이터

@@ -59,6 +59,6 @@ class QuickMenuVO extends BaseData {
     private String lnkUri;
 
     @Expose
-    @SerializedName("type")
-    private String type; //로컬db에서만 사용
+    @SerializedName("custGbCd")
+    private String custGbCd; //로컬db에서만 사용
 }

@@ -27,22 +27,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guide_h3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="519dp" />
-
         <ImageView
             android:id="@+id/iv_car_bottom"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:background="@drawable/car_bottom"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/guide_h3" />
+            app:layout_constraintHeight_percent="0.6"/>
 
         <ImageView
             android:id="@+id/iv_car_bottom_shade"

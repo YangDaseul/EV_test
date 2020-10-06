@@ -8,14 +8,19 @@ import android.view.View;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.gra.APIInfo;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.CMN_0001;
 import com.genesis.apps.comm.model.gra.api.CMN_0002;
+import com.genesis.apps.comm.model.gra.api.LGN_0001;
 import com.genesis.apps.comm.model.vo.DeviceDTO;
 import com.genesis.apps.comm.model.vo.NotiVO;
+import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
+import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityIntroBinding;
 import com.genesis.apps.room.ResultCallback;
 import com.genesis.apps.ui.main.MainActivity;
@@ -27,6 +32,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -37,6 +43,10 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
     public DeviceDTO deviceDTO;
 
     private CMNViewModel cmnViewModel;
+    private LGNViewModel lgnViewModel;
+
+    private Runnable reqDownloadCarInfo;
+    private Runnable reqContentsDownload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,55 +62,27 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
         ui.setLifecycleOwner(this);
         deviceDTO.initData();
         cmnViewModel = new ViewModelProvider(this).get(CMNViewModel.class);
+        lgnViewModel = new ViewModelProvider(this).get(LGNViewModel.class);
     }
 
     @Override
     public void setObserver() {
         cmnViewModel.getRES_CMN_0001().observe(this, result -> {
 
+            if (!TextUtils.isEmpty(TestCode.CMN_0001.getNotiDt()))
+                cmnViewModel.updateNotiDt(TestCode.CMN_0001.getNotiDt());
 
-            String test = "{\n" +
-                    "  \"rtCd\": \"0000\",\n" +
-                    "  \"rtMsg\": \"Success\",\n" +
-                    "  \"appVer\": \"01.00.00\",\n" +
-                    "  \"appUpdType\": \"X\",\n" +
-                    "  \"notiDt\": \"20200910\",\n" +
-                    "  \"notiList\": [\n" +
-                    "    {\n" +
-                    "      \"notiCd\": \"ANNC\",\n" +
-                    "      \"seqNo\": \"2020091000000015\",\n" +
-                    "      \"notiTtl\": \"필독공지1\",\n" +
-                    "      \"notiCont\": \"필독공지내용1\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"notiCd\": \"NOTI\",\n" +
-                    "      \"seqNo\": \"2020091000000014\",\n" +
-                    "      \"notiTtl\": \"일반공지1\",\n" +
-                    "      \"notiCont\": \"일반공지내용1\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"notiCd\": \"ANNC\",\n" +
-                    "      \"seqNo\": \"2020091000000013\",\n" +
-                    "      \"notiTtl\": \"긴급공지1\",\n" +
-                    "      \"notiCont\": \"긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용1긴급공지내용2\"\n" +
-                    "    }\n" +
-                    "  ]\n" +
-                    "}";
+            reqDownloadCarInfo = () -> lgnViewModel.reqLGN0001(new LGN_0001.Request(APPIAInfo.INT01.getId(), PackageUtil.getApplicationVersionName(this, getPackageName()),""));
 
-            CMN_0001.Response sample = new Gson().fromJson(test, CMN_0001.Response.class);
-
-            if (!TextUtils.isEmpty(sample.getNotiDt()))
-                cmnViewModel.updateNotiDt(sample.getNotiDt());
-
-            Runnable reqContentsDownload = () -> cmnViewModel.reqCMN0002(new CMN_0002.Request(APPIAInfo.INT01.getId()));
+            reqContentsDownload = () -> cmnViewModel.reqCMN0002(new CMN_0002.Request(APPIAInfo.INT01.getId()));
 
             Runnable notiCheck = () -> {
-                if (!checkNoti(sample.getNotiList(), reqContentsDownload)) {
+                if (!checkNoti(TestCode.CMN_0001.getNotiList(), reqContentsDownload)) {
                     reqContentsDownload.run();
                 }
             };
             Runnable versionCheck = () -> {
-                if (!checkVersion(sample.getAppVer(), sample.getAppUpdType(), notiCheck)) {
+                if (!checkVersion(TestCode.CMN_0001.getAppVer(), TestCode.CMN_0001.getAppUpdType(), notiCheck)) {
                     notiCheck.run();
                 }
             };
@@ -140,124 +122,12 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
         });
         cmnViewModel.getRES_CMN_0002().observe(this, result -> {
 
-            String test = "{\n" +
-                    "  \"rtCd\": \"0000\",\n" +
-                    "  \"rtMsg\": \"Success\",\n" +
-                    "  \"menu0000\": {\n" +
-                    "    \"menuList\": [\n" +
-                    "      {\n" +
-                    "        \"menuId\": \"GM04\",\n" +
-                    "        \"upMenuId\": \"GM04\",\n" +
-                    "        \"menuNm\": \"HOME (비로그인)\",\n" +
-                    "        \"menuTypCd\": \"NA\",\n" +
-                    "        \"scrnTypCd\": \"PG\"\n" +
-                    "      }\n" +
-                    "    ],\n" +
-                    "    \"qckMenuList\": []\n" +
-                    "  },\n" +
-                    "  \"menuOV\": {\n" +
-                    "    \"menuList\": [\n" +
-                    "      {\n" +
-                    "        \"menuId\": \"GM01\",\n" +
-                    "        \"upMenuId\": \"GM01\",\n" +
-                    "        \"menuNm\": \"HOME (로그인/차량보유)\",\n" +
-                    "        \"menuTypCd\": \"NA\",\n" +
-                    "        \"scrnTypCd\": \"PG\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"menuId\": \"INT01\",\n" +
-                    "        \"upMenuId\": \"INT01\",\n" +
-                    "        \"menuNm\": \"스플래시\",\n" +
-                    "        \"menuTypCd\": \"NA\",\n" +
-                    "        \"scrnTypCd\": \"PG\"\n" +
-                    "      }\n" +
-                    "    ],\n" +
-                    "    \"qckMenuList\": [\n" +
-                    "      {\n" +
-                    "        \"menuId\": \"MENU0001\",\n" +
-                    "        \"menuNm\": \"메뉴0001\",\n" +
-                    "        \"qckMenuDivCd\": \"IM\",\n" +
-                    "        \"wvYn\": \"N\",\n" +
-                    "        \"nttOrd\": \"1\"\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"menuId\": \"MENU0002\",\n" +
-                    "        \"menuNm\": \"메뉴0002\",\n" +
-                    "        \"qckMenuDivCd\": \"OM\",\n" +
-                    "        \"wvYn\": \"Y\",\n" +
-                    "        \"lnkUri\": \"http://www.genesis.com/priv?id=G000001\",\n" +
-                    "        \"nttOrd\": \"2\"\n" +
-                    "      }\n" +
-                    "    ]\n" +
-                    "  },\n" +
-                    "  \"menuCV\": {\n" +
-                    "    \"menuList\": [\n" +
-                    "      {\n" +
-                    "        \"menuId\": \"GM02\",\n" +
-                    "        \"upMenuId\": \"GM02\",\n" +
-                    "        \"menuNm\": \"HOME (로그인/예약대기)\",\n" +
-                    "        \"menuTypCd\": \"NA\",\n" +
-                    "        \"scrnTypCd\": \"PG\"\n" +
-                    "      }\n" +
-                    "    ],\n" +
-                    "    \"qckMenuList\": [\n" +
-                    "      {\n" +
-                    "        \"menuId\": \"MENU0001\",\n" +
-                    "        \"menuNm\": \"메뉴0001\",\n" +
-                    "        \"qckMenuDivCd\": \"IM\",\n" +
-                    "        \"wvYn\": \"N\",\n" +
-                    "        \"nttOrd\": \"1\"\n" +
-                    "      }\n" +
-                    "    ]\n" +
-                    "  },\n" +
-                    "  \"menuNV\": {\n" +
-                    "    \"menuList\": [\n" +
-                    "      {\n" +
-                    "        \"menuId\": \"GM03\",\n" +
-                    "        \"upMenuId\": \"GM03\",\n" +
-                    "        \"menuNm\": \"HOME (로그인/차량미보유)\",\n" +
-                    "        \"menuTypCd\": \"NA\",\n" +
-                    "        \"scrnTypCd\": \"PG\"\n" +
-                    "      }\n" +
-                    "    ],\n" +
-                    "    \"qckMenuList\": [\n" +
-                    "      {\n" +
-                    "        \"menuId\": \"MENU0001\",\n" +
-                    "        \"menuNm\": \"메뉴0001\",\n" +
-                    "        \"qckMenuDivCd\": \"IM\",\n" +
-                    "        \"wvYn\": \"N\",\n" +
-                    "        \"nttOrd\": \"1\"\n" +
-                    "      }\n" +
-                    "    ]\n" +
-                    "  },\n" +
-                    "  \"wthrInsgtList\": [\n" +
-                    "    {\n" +
-                    "      \"wthrCd\": \"SKY_1\",\n" +
-                    "      \"msgTypCd\": \"TXT\",\n" +
-                    "      \"lnkUseYn\": \"N\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"wthrCd\": \"SKY_1\",\n" +
-                    "      \"msgTypCd\": \"TXT\",\n" +
-                    "      \"lnkUseYn\": \"N\"\n" +
-                    "    }\n" +
-                    "  ]\n" +
-                    "}";
-            CMN_0002.Response sample = new Gson().fromJson(test, CMN_0002.Response.class);
 
-            cmnViewModel.setContents(sample, new ResultCallback() {
+            cmnViewModel.setContents(TestCode.CMN_0002, new ResultCallback() {
                 @Override
                 public void onSuccess(Object result) {
                     if (((Boolean) result)) {
-                        new Handler().postDelayed(() -> {
-                            if (isPushData()) {
-                                startActivity(moveToPush(MainActivity.class));
-                            } else {
-                                startActivitySingleTop(new Intent(IntroActivity.this, MainActivity.class), 0);
-                            }
-                            finish();
-                        }, 2000);
-
+                        reqDownloadCarInfo.run();
                     } else {
                         //TODO ERROR팝업 추가 필요
                         finish();
@@ -277,15 +147,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
 //                        @Override
 //                        public void onSuccess(Object result) {
 //                            if(((Boolean)result)){
-//                                new Handler().postDelayed(() -> {
-//                                    if (isPushData()) {
-//                                        startActivity(moveToPush(MainActivity.class));
-//                                    } else {
-//                                        startActivitySingleTop(new Intent(IntroActivity.this, MainActivity.class), 0);
-//                                    }
-//                                    finish();
-//                                }, 2000);
-//
+//                                reqDownloadCarInfo.run();
 //                            }else{
 //                                //TODO ERROR팝업 추가 필요
 //                                finish();
@@ -310,6 +172,68 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
         });
 
 
+        lgnViewModel.getRES_LGN_0001().observe(this, result -> {
+
+            lgnViewModel.setLGN0001ToDB(TestCode.LGN_0001, new ResultCallback() {
+                @Override
+                public void onSuccess(Object result) {
+                    if (((Boolean) result)) {
+                        moveToMain();
+                    } else {
+                        //TODO ERROR팝업 추가 필요
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onError(Object e) {
+                    //TODO ERROR팝업 추가 필요
+                    finish();
+                }
+            });
+
+//            switch (result.status) {
+//                case SUCCESS:
+//                    lgnViewModel.setLGN0001ToDB(result.data, new ResultCallback() {
+//                        @Override
+//                        public void onSuccess(Object result) {
+//                            if (((Boolean) result)) {
+//                                moveToMain();
+//                            } else {
+//                                //TODO ERROR팝업 추가 필요
+//                                finish();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onError(Object e) {
+//                            //TODO ERROR팝업 추가 필요
+//                            finish();
+//                        }
+//                    });
+//                    break;
+//                case LOADING:
+//
+//                    break;
+//                default:
+//                    //TODO ERROR팝업 추가 필요
+//                    finish();
+//                    break;
+//            }
+        });
+
+
+    }
+
+    private void moveToMain() {
+        new Handler().postDelayed(() -> {
+            if (isPushData()) {
+                startActivity(moveToPush(MainActivity.class));
+            } else {
+                startActivitySingleTop(new Intent(IntroActivity.this, MainActivity.class), 0);
+            }
+            finish();
+        }, 2000);
     }
 
     @Override
@@ -341,55 +265,6 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
         setViewModel();
         setObserver();
         cmnViewModel.reqCMN0001(new CMN_0001.Request(APPIAInfo.INT01.getId(), PackageUtil.getApplicationVersionName(this, getPackageName())));
-
-
-//            String test = "{\n" +
-//                    "  \"rsltCd\": \"0000\",\n" +
-//                    "  \"rsltMsg\": \"성공\",\n" +
-//                    "  \"pushIdChgYn\": \"0000\",\n" +
-//                    "  \"carGbCd\": \"0000\",\n" +
-//                    "  \"custMgmtNo\": \"0000\",\n" +
-//                    "  \"custNm\": \"0000\",\n" +
-//                    "  \"celphNo\": \"0000\",\n" +
-//                    "  \"vin\": \"JK1234~\",\n" +
-//                    "  \"vrn\": \"0000\",\n" +
-//                    "  \"carMdelNm\": \"G70\",\n" +
-//                    "  \"carCdNm\": \"2WD 엘리트\",\n" +
-//                    "  \"exteriaColr\": \"블레이징 레드\",\n" +
-//                    "  \"interiaColor\": \"브라운 투톤\",\n" +
-//                    "  \"contractNo\": \"CJK1234~\"\n" +
-//                    "}";
-//
-//            UserVO user = new Gson().fromJson(test, UserVO.class);
-//
-//            databaseHolder.getDatabase().userDao().insert(user);
-//            UserVO user2 = databaseHolder.getDatabase().userDao().select();
-//
-//
-//
-//
-//
-//            String test2 = "{\n" +
-//                    "  \"rsltCd\": \"0000\",\n" +
-//                    "  \"rsltMsg\": \"성공\",\n" +
-//                    "  \"pushIdChgYn\": \"0000\",\n" +
-//                    "  \"carGbCd\": \"park\",\n" +
-//                    "  \"custMgmtNo\": \"park\",\n" +
-//                    "  \"custNm\": \"park\",\n" +
-//                    "  \"celphNo\": \"0000\",\n" +
-//                    "  \"vin\": \"JK1234~\",\n" +
-//                    "  \"vrn\": \"0000\",\n" +
-//                    "  \"carMdelNm\": \"G70\",\n" +
-//                    "  \"carCdNm\": \"2WD 엘리트\",\n" +
-//                    "  \"exteriaColr\": \"블레이징 레드\",\n" +
-//                    "  \"interiaColor\": \"브라운 투톤\",\n" +
-//                    "  \"contractNo\": \"CJK1234~\"\n" +
-//                    "}";
-//
-//            UserVO user3 = new Gson().fromJson(test2, UserVO.class);
-//            databaseHolder.getDatabase().userDao().insert(user3);
-//            UserVO user4 = databaseHolder.getDatabase().userDao().select();
-
     }
 
 

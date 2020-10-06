@@ -10,18 +10,18 @@ import androidx.room.Transaction;
 
 @Dao
 public abstract class QuickMenuDao implements BaseDao<QuickMenuVO> {
-    @Query("SELECT * FROM QuickMenuVO WHERE type=:type")
-    public abstract List<QuickMenuVO> select(String type);
+    @Query("SELECT * FROM QuickMenuVO WHERE custGbCd=:custGbCd")
+    public abstract List<QuickMenuVO> select(String custGbCd);
 
     @Query("DELETE from QuickMenuVO")
     public abstract void deleteAll();
 
-    @Query("DELETE FROM QuickMenuVO WHERE type =:type")
-    public abstract void deleteType(String type);
+    @Query("DELETE FROM QuickMenuVO WHERE custGbCd =:custGbCd")
+    public abstract void deleteCustGbCd(String custGbCd);
 
     @Transaction
-    public void insertAndDeleteInTransaction(List<QuickMenuVO> list, String type){
-        deleteType(type);
+    public void insertAndDeleteInTransaction(List<QuickMenuVO> list, String custGbCd){
+        deleteCustGbCd(custGbCd);
         insert(list);
     }
 }

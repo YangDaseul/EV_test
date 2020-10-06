@@ -38,17 +38,17 @@ public class DBContentsRepository {
         return isUpdate;
     }
 
-    public List<QuickMenuVO> getQuickMenu(String type){
-        return databaseHolder.getDatabase().quickMenuDao().select(type);
+    public List<QuickMenuVO> getQuickMenu(String custGbCd){
+        return databaseHolder.getDatabase().quickMenuDao().select(custGbCd);
     }
 
-    public boolean setQuickMenu(List<QuickMenuVO> list, String type){
+    public boolean setQuickMenu(List<QuickMenuVO> list, String custGbCd){
         boolean isUpdate = false;
         try{
             for(int i=0; i<list.size();i++){
-                list.get(i).setType(type);
+                list.get(i).setCustGbCd(custGbCd);
             }
-            databaseHolder.getDatabase().quickMenuDao().insertAndDeleteInTransaction(list, type);
+            databaseHolder.getDatabase().quickMenuDao().insertAndDeleteInTransaction(list, custGbCd);
             isUpdate=true;
         }catch (Exception e){
             e.printStackTrace();
@@ -57,17 +57,17 @@ public class DBContentsRepository {
     }
 
 
-    public List<FloatingMenuVO> getFloatingMenu(String type){
-        return databaseHolder.getDatabase().floatingMenuDao().select(type);
+    public List<FloatingMenuVO> getFloatingMenu(String custGbCd){
+        return databaseHolder.getDatabase().floatingMenuDao().select(custGbCd);
     }
 
-    public boolean setFloatingMenu(List<FloatingMenuVO> list, String type){
+    public boolean setFloatingMenu(List<FloatingMenuVO> list, String custGbCd){
         boolean isUpdate = false;
         try{
             for(int i=0; i<list.size();i++){
-                list.get(i).setType(type);
+                list.get(i).setCustGbCd(custGbCd);
             }
-            databaseHolder.getDatabase().floatingMenuDao().insertAndDeleteInTransaction(list, type);
+            databaseHolder.getDatabase().floatingMenuDao().insertAndDeleteInTransaction(list, custGbCd);
             isUpdate=true;
         }catch (Exception e){
             e.printStackTrace();

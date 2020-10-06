@@ -34,6 +34,10 @@ import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 import lombok.Data;
 
+import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_0000;
+import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_CV;
+import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_NV;
+import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_OV;
 import static com.genesis.apps.comm.model.vo.CardVO.CARD_STATUS_20;
 import static com.genesis.apps.comm.model.vo.CardVO.CARD_STATUS_30;
 
@@ -104,14 +108,14 @@ class CMNViewModel extends ViewModel {
 
             try {
                 isSuccess = setWeatherList(data.getWthrInsgtList())
-                        &&setQuickMenu(data.getMenu0000().getQckMenuList(), "menu0000")
-                        &&setFloatingMenu(data.getMenu0000().getMenuList(), "menu0000")
-                        &&setQuickMenu(data.getMenuCV().getQckMenuList(), "menuCV")
-                        &&setFloatingMenu(data.getMenuCV().getMenuList(), "menuCV")
-                        &&setQuickMenu(data.getMenuNV().getQckMenuList(), "menuNV")
-                        &&setFloatingMenu(data.getMenuNV().getMenuList(), "menuNV")
-                        &&setQuickMenu(data.getMenuOV().getQckMenuList(), "menuOV")
-                        &&setFloatingMenu(data.getMenuOV().getMenuList(), "menuOV");
+                        &&setQuickMenu(data.getMenu0000().getQckMenuList(), MAIN_VEHICLE_TYPE_0000)
+                        &&setFloatingMenu(data.getMenu0000().getMenuList(), MAIN_VEHICLE_TYPE_0000)
+                        &&setQuickMenu(data.getMenuCV().getQckMenuList(), MAIN_VEHICLE_TYPE_CV)
+                        &&setFloatingMenu(data.getMenuCV().getMenuList(), MAIN_VEHICLE_TYPE_CV)
+                        &&setQuickMenu(data.getMenuNV().getQckMenuList(), MAIN_VEHICLE_TYPE_NV)
+                        &&setFloatingMenu(data.getMenuNV().getMenuList(), MAIN_VEHICLE_TYPE_NV)
+                        &&setQuickMenu(data.getMenuOV().getQckMenuList(), MAIN_VEHICLE_TYPE_OV)
+                        &&setFloatingMenu(data.getMenuOV().getMenuList(), MAIN_VEHICLE_TYPE_OV);
             } catch (Exception e1) {
                 e1.printStackTrace();
                 isSuccess=false;

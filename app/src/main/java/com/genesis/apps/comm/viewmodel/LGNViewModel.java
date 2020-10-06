@@ -8,6 +8,7 @@ import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.api.LGN_0001;
 import com.genesis.apps.comm.model.gra.api.LGN_0002;
 import com.genesis.apps.comm.model.gra.api.LGN_0003;
@@ -15,18 +16,36 @@ import com.genesis.apps.comm.model.gra.api.LGN_0004;
 import com.genesis.apps.comm.model.gra.api.LGN_0005;
 import com.genesis.apps.comm.model.gra.api.LGN_0006;
 import com.genesis.apps.comm.model.gra.api.LGN_0007;
+import com.genesis.apps.comm.model.repo.DBContentsRepository;
+import com.genesis.apps.comm.model.repo.DBUserRepo;
+import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.LGNRepo;
+import com.genesis.apps.comm.model.vo.UserVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.excutor.ExecutorService;
+import com.genesis.apps.room.ResultCallback;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+import com.google.gson.Gson;
+
+import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 
 import java.util.List;
 
 import lombok.Data;
 
+import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_0000;
+import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_CV;
+import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_NV;
+import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_OV;
+
 public @Data
 class LGNViewModel extends ViewModel {
 
     private final LGNRepo repository;
+    private final DBVehicleRepository dbVehicleRepository;
+    private final DBUserRepo dbUserRepo;
     private final SavedStateHandle savedStateHandle;
 
     private MutableLiveData<NetUIResponse<LGN_0001.Response>> RES_LGN_0001;
@@ -52,9 +71,13 @@ class LGNViewModel extends ViewModel {
     @ViewModelInject
     LGNViewModel(
             LGNRepo repository,
+            DBVehicleRepository dbVehicleRepository,
+            DBUserRepo dbUserRepo,
             @Assisted SavedStateHandle savedStateHandle)
     {
         this.repository = repository;
+        this.dbVehicleRepository = dbVehicleRepository;
+        this.dbUserRepo = dbUserRepo;
         this.savedStateHandle = savedStateHandle;
 
         RES_LGN_0001 = repository.RES_LGN_0001;
@@ -68,30 +91,60 @@ class LGNViewModel extends ViewModel {
     }
 
     public void reqLGN0001(final LGN_0001.Request reqData){
-        RES_LGN_0001.setValue(repository.REQ_LGN_0001(reqData).getValue());
+        repository.REQ_LGN_0001(reqData);
     }
 
     public void reqLGN0002(final LGN_0002.Request reqData){
-        RES_LGN_0002.setValue(repository.REQ_LGN_0002(reqData).getValue());
+        repository.REQ_LGN_0002(reqData);
     }
 
     public void reqLGN0003(final LGN_0003.Request reqData){
-        RES_LGN_0003.setValue(repository.REQ_LGN_0003(reqData).getValue());
+        repository.REQ_LGN_0003(reqData);
     }
 
     public void reqLGN0004(final LGN_0004.Request reqData){
-        RES_LGN_0004.setValue(repository.REQ_LGN_0004(reqData).getValue());
+        repository.REQ_LGN_0004(reqData);
     }
 
     public void reqLGN0005(final LGN_0005.Request reqData){
-        RES_LGN_0005.setValue(repository.REQ_LGN_0005(reqData).getValue());
+        repository.REQ_LGN_0005(reqData);
     }
 
     public void reqLGN0006(final LGN_0006.Request reqData){
-        RES_LGN_0006.setValue(repository.REQ_LGN_0006(reqData).getValue());
+        repository.REQ_LGN_0006(reqData);
     }
 
     public void reqLGN0007(final LGN_0007.Request reqData){
-        RES_LGN_0007.setValue(repository.REQ_LGN_0007(reqData).getValue());
+        repository.REQ_LGN_0007(reqData);
+    }
+
+    public void setLGN0001ToDB(LGN_0001.Response data, ResultCallback callback){
+        ExecutorService es = new ExecutorService("");
+        Futures.addCallback(es.getListeningExecutorService().submit(() -> {
+
+            boolean isSuccess=false;
+            try {
+                isSuccess = dbVehicleRepository.setVehicleList(data.getOwnVhclList(), MAIN_VEHICLE_TYPE_OV)
+                        &&dbVehicleRepository.setVehicleList(data.getCtrctVhclList(), MAIN_VEHICLE_TYPE_CV)
+                        &&dbVehicleRepository.setVehicleList(data.getDftVhclInfo(), MAIN_VEHICLE_TYPE_0000)
+                        &&dbUserRepo.setUserVO(new Gson().fromJson(new Gson().toJson(data),UserVO.class));
+            } catch (Exception e1) {
+                e1.printStackTrace();
+                isSuccess=false;
+            }
+            return isSuccess;
+        }), new FutureCallback<Boolean>() {
+            @Override
+            public void onSuccess(@NullableDecl Boolean isSuccess) {
+                callback.onSuccess(isSuccess);
+                es.shutDownExcutor();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                callback.onError(t);
+                es.shutDownExcutor();
+            }
+        }, es.getUiThreadExecutor());
     }
 }

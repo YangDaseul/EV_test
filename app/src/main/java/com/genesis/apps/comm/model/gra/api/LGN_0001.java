@@ -1,10 +1,13 @@
 package com.genesis.apps.comm.model.gra.api;
 
 import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APIInfo;
 import com.genesis.apps.comm.model.gra.BaseRequest;
 import com.genesis.apps.comm.model.gra.BaseResponse;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.util.DeviceUtil;
+import com.genesis.apps.comm.util.PackageUtil;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -52,11 +55,11 @@ public class LGN_0001 extends BaseData {
         @SerializedName("vin")
         private String vin;
 
-        public Request(String menuId, String appVer, String etrmOsDivCd, String etrmOsVer, String etrmMdlNm, String vin){
-            this.appVer = appVer;
-            this.etrmOsDivCd = etrmOsDivCd;
-            this.etrmOsVer = etrmOsVer;
-            this.etrmMdlNm = etrmMdlNm;
+        public Request(String menuId, String appVer, String vin){
+            this.appVer = PackageUtil.changeVersionToServerFormat(appVer);
+            this.etrmOsDivCd = VariableType.OS_DIVICE_CODE;
+            this.etrmOsVer = DeviceUtil.getAndroidOS();
+            this.etrmMdlNm = DeviceUtil.getModel();
             this.vin = vin;
             setData(APIInfo.GRA_LGN_0001.getIfCd(), menuId);
         }
