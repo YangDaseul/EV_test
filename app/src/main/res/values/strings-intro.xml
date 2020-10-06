@@ -1,0 +1,10 @@
+<resources>
+    <string name="intro_word_1">권한을 확인합니다.</string>
+    <string name="intro_word_2">인트로 정보를 요청합니다.</string>
+    <string name="intro_word_3">최신 버전을 확인합니다.</string>
+    <string name="intro_word_4">공지사항을 확인합니다.</string>
+    <string name="intro_word_5">컨텐츠를 다운로드 중 입니다.</string>
+    <string name="intro_word_6">차량정보를 요청합니다.</string>
+    <string name="intro_word_7">앱이 시작됩니다.</string>
+    <string name="intro_word_8"></string>
+</resources>
