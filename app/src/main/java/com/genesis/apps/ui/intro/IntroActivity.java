@@ -66,183 +66,106 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
     public void setObserver() {
         cmnViewModel.getRES_CMN_0001().observe(this, result -> {
 
-            if (!TextUtils.isEmpty(TestCode.CMN_0001.getNotiDt()))
-                cmnViewModel.updateNotiDt(TestCode.CMN_0001.getNotiDt());
+            switch (result.status){
+                case SUCCESS:
+                    if (!TextUtils.isEmpty(result.data.getNotiDt()))
+                        cmnViewModel.updateNotiDt(result.data.getNotiDt());
 
 
-            reqDownloadCarInfo = new Runnable() {
-                @Override
-                public void run() {
-                    updateProgressBar(progressValue.VEHICLE.getProgress());
-                    lgnViewModel.reqLGN0001(new LGN_0001.Request(APPIAInfo.INT01.getId(), PackageUtil.getApplicationVersionName(IntroActivity.this, getPackageName()),""));
-                }
-            };
+                    reqDownloadCarInfo = () -> {
+                        updateProgressBar(progressValue.VEHICLE.getProgress());
+                        lgnViewModel.reqLGN0001(new LGN_0001.Request(APPIAInfo.INT01.getId(), PackageUtil.getApplicationVersionName(IntroActivity.this, getPackageName()),""));
+                    };
 
-            reqContentsDownload = () -> {
-                updateProgressBar(progressValue.CONTENTS.getProgress());
-                cmnViewModel.reqCMN0002(new CMN_0002.Request(APPIAInfo.INT01.getId()));
-            };
+                    reqContentsDownload = () -> {
+                        updateProgressBar(progressValue.CONTENTS.getProgress());
+                        cmnViewModel.reqCMN0002(new CMN_0002.Request(APPIAInfo.INT01.getId()));
+                    };
 
 
-            Runnable notiCheck = () -> {
-                if (!checkNoti(TestCode.CMN_0001.getNotiList(), reqContentsDownload)) {
-                    reqContentsDownload.run();
-                }
-            };
-            Runnable versionCheck = () -> {
-                if (!checkVersion(TestCode.CMN_0001.getAppVer(), TestCode.CMN_0001.getAppUpdType(), notiCheck)) {
-                    notiCheck.run();
-                }
-            };
-            versionCheck.run();
+                    Runnable notiCheck = () -> {
+                        if (!checkNoti(result.data.getNotiList(), reqContentsDownload)) {
+                            reqContentsDownload.run();
+                        }
+                    };
+                    Runnable versionCheck = () -> {
+                        if (!checkVersion(result.data.getAppVer(), result.data.getAppUpdType(), notiCheck)) {
+                            notiCheck.run();
+                        }
+                    };
+                    versionCheck.run();
+                    break;
+                case LOADING:
 
+                    break;
+                case ERROR:
+                default:
 
-//            switch (result.status){
-//                case SUCCESS:
-//                    if(!TextUtils.isEmpty(result.data.getNotiDt()))
-//                        cmnViewModel.updateNotiDt(result.data.getNotiDt());
-//
-//                    Runnable reqContentsDownload = () -> {
-//                        cmnViewModel.reqCMN0002(new CMN_0002.Request(APPIAInfo.INT01.getId()));
-//                    };
-//                    Runnable notiCheck = () -> {
-//                        if(!checkNoti(result.data.getNotiList(), reqContentsDownload)){
-//                            reqContentsDownload.run();
-//                        }
-//                    };
-//                    Runnable versionCheck = () -> {
-//                        if(!checkVersion(result.data.getAppVer(), result.data.getAppUpdType(), notiCheck)){
-//                            notiCheck.run();
-//                        }
-//                    };
-//                    versionCheck.run();
-//                    break;
-//                case LOADING:
-//
-//                    break;
-//                case ERROR:
-//                default:
-//
-//                    break;
-//            }
-
-
+                    break;
+            }
         });
+
         cmnViewModel.getRES_CMN_0002().observe(this, result -> {
+            switch (result.status){
+                case SUCCESS:
+                    cmnViewModel.setContents(result.data, new ResultCallback() {
+                        @Override
+                        public void onSuccess(Object result) {
+                            if(((Boolean)result)){
+                                reqDownloadCarInfo.run();
+                            }else{
+                                //TODO ERROR팝업 추가 필요
+                                finish();
+                            }
+                        }
 
+                        @Override
+                        public void onError(Object e) {
+                            //TODO ERROR팝업 추가 필요
+                            finish();
+                        }
+                    });
+                    break;
+                case LOADING:
 
-            cmnViewModel.setContents(TestCode.CMN_0002, new ResultCallback() {
-                @Override
-                public void onSuccess(Object result) {
-                    if (((Boolean) result)) {
-                        reqDownloadCarInfo.run();
-                    } else {
-                        //TODO ERROR팝업 추가 필요
-                        finish();
-                    }
-                }
-
-                @Override
-                public void onError(Object e) {
+                    break;
+                default:
                     //TODO ERROR팝업 추가 필요
                     finish();
-                }
-            });
-
-//            switch (result.status){
-//                case SUCCESS:
-//                    cmnViewModel.setContents(result.data, new ResultCallback() {
-//                        @Override
-//                        public void onSuccess(Object result) {
-//                            if(((Boolean)result)){
-//                                reqDownloadCarInfo.run();
-//                            }else{
-//                                //TODO ERROR팝업 추가 필요
-//                                finish();
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onError(Object e) {
-//                            //TODO ERROR팝업 추가 필요
-//                            finish();
-//                        }
-//                    });
-//                    break;
-//                case LOADING:
-//
-//                    break;
-//                default:
-//                    //TODO ERROR팝업 추가 필요
-//                    finish();
-//                    break;
-//            }
+                    break;
+            }
         });
-
 
         lgnViewModel.getRES_LGN_0001().observe(this, result -> {
+            switch (result.status) {
+                case SUCCESS:
+                    lgnViewModel.setLGN0001ToDB(result.data, new ResultCallback() {
+                        @Override
+                        public void onSuccess(Object result) {
+                            if (((Boolean) result)) {
+                                new moveToMainTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                            } else {
+                                //TODO ERROR팝업 추가 필요
+                                finish();
+                            }
+                        }
 
-            lgnViewModel.setLGN0001ToDB(TestCode.LGN_0001, new ResultCallback() {
-                @Override
-                public void onSuccess(Object result) {
-                    if (((Boolean) result)) {
-                        moveToMain();
-                    } else {
-                        //TODO ERROR팝업 추가 필요
-                        finish();
-                    }
-                }
+                        @Override
+                        public void onError(Object e) {
+                            //TODO ERROR팝업 추가 필요
+                            finish();
+                        }
+                    });
+                    break;
+                case LOADING:
 
-                @Override
-                public void onError(Object e) {
+                    break;
+                default:
                     //TODO ERROR팝업 추가 필요
                     finish();
-                }
-            });
-
-//            switch (result.status) {
-//                case SUCCESS:
-//                    lgnViewModel.setLGN0001ToDB(result.data, new ResultCallback() {
-//                        @Override
-//                        public void onSuccess(Object result) {
-//                            if (((Boolean) result)) {
-//                                moveToMain();
-//                            } else {
-//                                //TODO ERROR팝업 추가 필요
-//                                finish();
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onError(Object e) {
-//                            //TODO ERROR팝업 추가 필요
-//                            finish();
-//                        }
-//                    });
-//                    break;
-//                case LOADING:
-//
-//                    break;
-//                default:
-//                    //TODO ERROR팝업 추가 필요
-//                    finish();
-//                    break;
-//            }
+                    break;
+            }
         });
-
-
-    }
-
-    private void moveToMain() {
-        updateProgressBar(progressValue.START.getProgress());
-
-
-        if (isPushData()) {
-            startActivity(moveToPush(MainActivity.class));
-        } else {
-            startActivitySingleTop(new Intent(IntroActivity.this, MainActivity.class), 0);
-        }
-        finish();
     }
 
     @Override
@@ -408,13 +331,6 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
 //        return notiVO == null ? false : true;
     }
 
-
-
-
-
-
-
-
     private ProgressbarTask progressbarTask = null;
     private WaitNotify waitNotify;
     private int progressC = 0;
@@ -471,11 +387,12 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
     }
 
 
-    private class moveToActivityTask extends AsyncTask<Void, Integer, Integer> {
+    private class moveToMainTask extends AsyncTask<Void, Integer, Integer> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            updateProgressBar(progressValue.START.getProgress());
         }
 
         @Override
@@ -494,7 +411,12 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
             super.onPostExecute(integer);
 
             if(!isExit) {
-                moveToMain();
+                if (isPushData()) {
+                    startActivity(moveToPush(MainActivity.class));
+                } else {
+                    startActivitySingleTop(new Intent(IntroActivity.this, MainActivity.class), 0);
+                }
+                finish();
             }
 
         }

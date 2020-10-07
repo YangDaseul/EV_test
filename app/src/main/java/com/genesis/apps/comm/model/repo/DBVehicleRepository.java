@@ -71,5 +71,7 @@ public class DBVehicleRepository {
         return mainVehicle;
     }
 
-
+    public VehicleVO getMainVehicleFromDB(){
+        return getMainVehicleVO(getVehicleListAll());
+    }
 }

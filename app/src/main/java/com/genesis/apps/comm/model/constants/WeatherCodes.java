@@ -1,5 +1,7 @@
 package com.genesis.apps.comm.model.constants;
 
+import com.genesis.apps.R;
+
 import java.util.Arrays;
 
 import static com.genesis.apps.comm.model.constants.VariableType.WEATHER_NAME_LGT;
@@ -7,24 +9,24 @@ import static com.genesis.apps.comm.model.constants.VariableType.WEATHER_NAME_PT
 import static com.genesis.apps.comm.model.constants.VariableType.WEATHER_NAME_SKY;
 
 public enum WeatherCodes {
-    SKY1("SKY_1", WEATHER_NAME_SKY, "1", "맑음", 0, 0, 0, true),
-    SKY2("SKY_23", WEATHER_NAME_SKY, "2", "구름조금", 1, 1, 0, false),
-    SKY3("SKY_23", WEATHER_NAME_SKY, "3", "구름많음", 0, 1, 0, true),
-    SKY4("SKY_4", WEATHER_NAME_SKY, "4", "흐림", 1, 2, 0, false),
+    SKY1("SKY_1", WEATHER_NAME_SKY, "1", "맑음", 0, 0, 0, R.color.x_000000),
+    SKY2("SKY_23", WEATHER_NAME_SKY, "2", "구름조금", 1, 1, 0, R.color.x_000000),
+    SKY3("SKY_23", WEATHER_NAME_SKY, "3", "구름많음", 0, 1, 0, R.color.x_000000),
+    SKY4("SKY_4", WEATHER_NAME_SKY, "4", "흐림", 1, 2, 0, R.color.x_000000),
 
-    PTY0("PTY_0", WEATHER_NAME_PTY, "0", "없음", 0, -1, 0, true),
-    PTY1("PTY_145", WEATHER_NAME_PTY, "1", "비", 3, 3, 1, false),
-    PTY2("PTY_26", WEATHER_NAME_PTY, "2", "비/눈(진눈개비)", 2, 5, 2, true),
-    PTY3("PTY_37", WEATHER_NAME_PTY, "3", "눈", 2, 4, 2, true),
-    PTY4("PTY_145", WEATHER_NAME_PTY, "4", "소나기", 3, 3, 1, false),
-    PTY5("PTY_145", WEATHER_NAME_PTY, "5", "빗방울", 3, 3, 1, false),
-    PTY6("PTY_26", WEATHER_NAME_PTY, "6", "빗방울/눈날림", 2, 5, 2, true),
-    PTY7("PTY_37", WEATHER_NAME_PTY, "7", "눈날림", 2, 4, 2, true),
+    PTY0("PTY_0", WEATHER_NAME_PTY, "0", "없음", 0, -1, 0, R.color.x_000000),
+    PTY1("PTY_145", WEATHER_NAME_PTY, "1", "비", 3, 3, 1, R.color.x_000000),
+    PTY2("PTY_26", WEATHER_NAME_PTY, "2", "비/눈(진눈개비)", 2, 5, 2, R.color.x_000000),
+    PTY3("PTY_37", WEATHER_NAME_PTY, "3", "눈", 2, 4, 2, R.color.x_000000),
+    PTY4("PTY_145", WEATHER_NAME_PTY, "4", "소나기", 3, 3, 1, R.color.x_000000),
+    PTY5("PTY_145", WEATHER_NAME_PTY, "5", "빗방울", 3, 3, 1, R.color.x_000000),
+    PTY6("PTY_26", WEATHER_NAME_PTY, "6", "빗방울/눈날림", 2, 5, 2, R.color.x_000000),
+    PTY7("PTY_37", WEATHER_NAME_PTY, "7", "눈날림", 2, 4, 2, R.color.x_000000),
 
-    LGT0("LGT_0", WEATHER_NAME_LGT, "0", "확률없음", -1, -1, 0, true),
-    LGT1("LGT_1", WEATHER_NAME_LGT, "1", "낮음", -1, -1, 0, true),
-    LGT2("LGT_23", WEATHER_NAME_LGT, "2", "보통", 4, 6, 0, false),
-    LGT3("LGT_23", WEATHER_NAME_LGT, "3", "높음", 4, 6, 0, false);
+    LGT0("LGT_0", WEATHER_NAME_LGT, "0", "확률없음", -1, -1, 0, R.color.x_000000),
+    LGT1("LGT_1", WEATHER_NAME_LGT, "1", "낮음", -1, -1, 0, R.color.x_000000),
+    LGT2("LGT_23", WEATHER_NAME_LGT, "2", "보통", 4, 6, 0, R.color.x_000000),
+    LGT3("LGT_23", WEATHER_NAME_LGT, "3", "높음", 4, 6, 0, R.color.x_000000);
 
     //0 맑음
     //1 흐림
@@ -63,9 +65,9 @@ public enum WeatherCodes {
     private int posBackground;
     private int posIcon;
     private int posEffect;
-    private boolean isWhite;
+    private int textColor;
 
-    WeatherCodes(String dbCode, String apiName, String apiValue, String description, int posBackground, int posIcon, int posEffect, boolean isWhite) {
+    WeatherCodes(String dbCode, String apiName, String apiValue, String description, int posBackground, int posIcon, int posEffect, int textColor) {
         this.dbCode = dbCode;
         this.apiName = apiName;
         this.apiValue = apiValue;
@@ -74,7 +76,7 @@ public enum WeatherCodes {
         this.posBackground = posBackground;
         this.posIcon = posIcon;
         this.posEffect = posEffect;
-        this.isWhite = isWhite;
+        this.textColor = textColor;
     }
 
     public static WeatherCodes findCode(String apiName, String apiValue) {
@@ -108,12 +110,12 @@ public enum WeatherCodes {
         this.description = description;
     }
 
-    public boolean isWhite() {
-        return isWhite;
+    public int getTextColor() {
+        return textColor;
     }
 
-    public void setWhite(boolean white) {
-        isWhite = white;
+    public void setTextColor(int textColor) {
+        this.textColor = textColor;
     }
 
     public int getPosEffect() {

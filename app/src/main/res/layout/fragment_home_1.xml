@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="weatherCode"
             type="com.genesis.apps.comm.model.constants.WeatherCodes" />
@@ -54,13 +55,13 @@
             android:layout_marginBottom="80dp"
             android:paddingRight="-130dp"
             android:scaleType="centerInside"
-            android:src="@drawable/car_3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_default="percent"
             app:layout_constraintHeight_percent=".35"
             app:layout_constraintWidth_default="percent"
-            app:layout_constraintWidth_percent=".86" />
+            app:layout_constraintWidth_percent=".86"
+            tools:src="@drawable/car_3"/>
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieView"
@@ -110,7 +111,7 @@
             android:layout_marginRight="30dp"
             android:fontFamily="@font/light_genesissansheadglobal"
             android:textSize="40sp"
-            android:textColor="@{weatherCode.isWhite ? @color/x_000000 : @color/x_ffffff}"
+            android:textColor="@{weatherCode.textColor}"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="-10sp"
             android:maxLines="1"
@@ -141,7 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="30dp"
-            android:src="@{weatherCode.isWhite ? @drawable/ic_share_b : @drawable/ic_share}"
+            android:src="@{@drawable/ic_share_b}"
             android:scaleType="centerInside"
             android:visibility="gone"
             app:layout_constraintTop_toTopOf="@+id/tv_car_code"
@@ -157,7 +158,7 @@
             android:layout_marginRight="30dp"
             android:fontFamily="@font/light_genesissansheadglobal"
             android:textSize="22sp"
-            android:textColor="@{weatherCode.isWhite ? @color/x_000000 : @color/x_ffffff}"
+            android:textColor="@{weatherCode.textColor}"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="8sp"
             android:maxLines="1"
@@ -203,7 +204,7 @@
             android:layout_marginRight="30dp"
             android:fontFamily="@font/light_genesissansheadglobal"
             android:textSize="18sp"
-            android:textColor="@{weatherCode.isWhite ? @color/x_000000 : @color/x_ffffff}"
+            android:textColor="@{weatherCode.textColor}"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="12sp"
             android:maxLines="1"
@@ -224,16 +225,254 @@
             android:layout_marginRight="30dp"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:textSize="15sp"
-            android:textColor="@{weatherCode.isWhite ? @color/x_6f6f6f : @color/x_ffffff}"
+            android:textColor="@{weatherCode.textColor}"
             android:text="@string/gm02_1"
             android:lineSpacingExtra="29sp"
-            android:background="@{weatherCode.isWhite ? @drawable/bg_00000000_underline_6f6f6f : @drawable/bg_00000000_underline_ffffff}"
+            android:background="@drawable/bg_00000000_underline_6f6f6f"
             android:visibility="gone"
             app:layout_constraintTop_toTopOf="@+id/iv_car"
             app:layout_constraintBottom_toBottomOf="@id/iv_car"
             app:layout_constraintLeft_toLeftOf="@+id/tv_car_code"
             app:layout_constraintVertical_bias=".2"
             tools:visibility="visible"/>
+
+        <LinearLayout
+            android:id="@+id/l_floating"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_car"
+            tools:visibility="gone">
+
+            <TextView
+                android:id="@+id/btn_floating_1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/x_bfffffff"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:lineSpacingExtra="3sp"
+                android:letterSpacing="-0.01"
+                tools:text="렌트/리스\n실 운행자 등록"/>
+
+            <ImageView
+                android:id="@+id/iv_floating_mark_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_dotline"
+                android:visibility="@{btnFloating2.getVisibility() == View.VISIBLE ? View.VISIBLE : View.GONE}"/>
+
+            <TextView
+                android:id="@+id/btn_floating_2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/x_bfffffff"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:lineSpacingExtra="3sp"
+                android:letterSpacing="-0.01"
+                tools:text="중고차 등록"/>
+
+
+            <ImageView
+                android:id="@+id/iv_floating_mark_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_dotline"
+                android:visibility="@{btnFloating3.getVisibility() == View.VISIBLE ? View.VISIBLE : View.GONE}"/>
+
+            <TextView
+                android:id="@+id/btn_floating_3"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/x_bfffffff"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:lineSpacingExtra="3sp"
+                android:letterSpacing="-0.01"
+                tools:text="견적 내기"/>
+        </LinearLayout>
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_distance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_car"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/tv_distance_total"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/x_ffffff"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:lineSpacingExtra="3sp"
+                android:letterSpacing="-0.01"
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@+id/tv_title_distance_total"
+                app:layout_constraintBottom_toTopOf="@+id/tv_title_distance_total"
+                tools:text="1213123km"/>
+
+            <TextView
+                android:id="@+id/tv_title_distance_total"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/x_bfffffff"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:lineSpacingExtra="3sp"
+                android:letterSpacing="-0.01"
+                android:text="@string/gm01_1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintWidth_percent=".333"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_distance_1"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:barrierDirection="end"
+                app:constraint_referenced_ids="tv_distance_total,tv_title_distance_total" />
+
+
+            <ImageView
+                android:id="@+id/iv_distance_mark_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_dotline"
+                app:layout_constraintLeft_toRightOf="@+id/barrier_distance_1"
+                app:layout_constraintTop_toTopOf="@+id/tv_distance_total"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_title_distance_total"/>
+
+
+
+
+            <TextView
+                android:id="@+id/tv_distance_recently"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/x_ffffff"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:lineSpacingExtra="3sp"
+                android:letterSpacing="-0.01"
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="@+id/tv_title_distance_recently"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_title_distance_recently"
+                app:layout_constraintBottom_toTopOf="@+id/tv_title_distance_recently"
+                tools:text="135km"/>
+
+            <TextView
+                android:id="@+id/tv_title_distance_recently"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/x_bfffffff"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:lineSpacingExtra="3sp"
+                android:letterSpacing="-0.01"
+                android:text="@string/gm01_2"
+                app:layout_constraintLeft_toRightOf="@+id/barrier_distance_1"
+                app:layout_constraintWidth_percent=".333"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_distance_2"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:barrierDirection="end"
+                app:constraint_referenced_ids="tv_distance_recently,tv_title_distance_recently" />
+
+
+            <ImageView
+                android:id="@+id/iv_distance_mark_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_dotline"
+                app:layout_constraintLeft_toRightOf="@+id/barrier_distance_2"
+                app:layout_constraintTop_toTopOf="@+id/tv_distance_recently"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_title_distance_recently"/>
+
+
+            <TextView
+                android:id="@+id/tv_distance_possible"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/x_ffffff"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:lineSpacingExtra="3sp"
+                android:letterSpacing="-0.01"
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="@+id/tv_title_distance_possible"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_title_distance_possible"
+                app:layout_constraintBottom_toTopOf="@+id/tv_title_distance_possible"
+                tools:text="538km"/>
+
+            <TextView
+                android:id="@+id/tv_title_distance_possible"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/x_bfffffff"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:lineSpacingExtra="3sp"
+                android:letterSpacing="-0.01"
+                android:text="@string/gm01_3"
+                app:layout_constraintLeft_toRightOf="@+id/barrier_distance_2"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintWidth_percent=".333"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <ImageView
+            android:id="@+id/iv_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_main_more"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_car"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

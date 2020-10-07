@@ -3,6 +3,7 @@ package com.genesis.apps.comm.model.repo;
 import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.gra.APIInfo;
 import com.genesis.apps.comm.model.gra.api.CMN_0001;
 import com.genesis.apps.comm.model.gra.api.CMN_0002;
@@ -42,7 +43,8 @@ public class CMNRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_CMN_0001.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_CMN_0001.setValue(NetUIResponse.success(TestCode.CMN_0001));
+//                RES_CMN_0001.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override
@@ -65,7 +67,8 @@ public class CMNRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_CMN_0002.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_CMN_0002.setValue(NetUIResponse.success(TestCode.CMN_0002));
+//              RES_CMN_0002.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override

@@ -20,6 +20,7 @@ import com.genesis.apps.comm.model.repo.DBContentsRepository;
 import com.genesis.apps.comm.model.repo.DBUserRepo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.LGNRepo;
+import com.genesis.apps.comm.model.vo.NotiVO;
 import com.genesis.apps.comm.model.vo.UserVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
@@ -32,6 +33,8 @@ import com.google.gson.Gson;
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import lombok.Data;
 
@@ -146,5 +149,47 @@ class LGNViewModel extends ViewModel {
                 es.shutDownExcutor();
             }
         }, es.getUiThreadExecutor());
+    }
+
+    public VehicleVO getMainVehicleFromDB() throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<VehicleVO> future = es.getListeningExecutorService().submit(()->{
+            VehicleVO vehicleVO = null;
+            try {
+                vehicleVO = dbVehicleRepository.getMainVehicleFromDB();
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+                vehicleVO = null;
+            }
+            return vehicleVO;
+        });
+
+        try {
+            return future.get();
+        }finally {
+            //todo 테스트 필요
+            es.shutDownExcutor();
+        }
+    }
+
+    public UserVO getUserInfoFromDB() throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<UserVO> future = es.getListeningExecutorService().submit(()->{
+            UserVO userVO = null;
+            try {
+                userVO = dbUserRepo.getUserVO();
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+                userVO = null;
+            }
+            return userVO;
+        });
+
+        try {
+            return future.get();
+        }finally {
+            //todo 테스트 필요
+            es.shutDownExcutor();
+        }
     }
 }

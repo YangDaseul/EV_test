@@ -3,25 +3,29 @@ package com.genesis.apps.ui.main.home;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.transition.DrawableCrossFadeTransition;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.request.transition.TransitionFactory;
 import com.genesis.apps.R;
-import com.genesis.apps.comm.viewmodel.LGNViewModel;
-import com.genesis.apps.comm.viewmodel.MapViewModel;
+import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.gra.api.LGN_0001;
+import com.genesis.apps.comm.model.gra.api.LGN_0003;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.viewmodel.CMNViewModel;
+import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentHome1Binding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
@@ -32,13 +36,11 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.upstream.DataSpec;
 import com.google.android.exoplayer2.upstream.RawResourceDataSource;
-import com.hmns.playmap.extension.PlayMapPoiItem;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 import static com.google.android.exoplayer2.Player.REPEAT_MODE_ALL;
 
@@ -46,8 +48,12 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     private SimpleExoPlayer simpleExoPlayer;
 
-    private MapViewModel mapViewModel;
+//    private MapViewModel mapViewModel;
+//    private LGNViewModel lgnViewModel;
+
     private LGNViewModel lgnViewModel;
+    private CMNViewModel cmnViewModel;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -62,33 +68,55 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        mapViewModel = new ViewModelProvider(getActivity()).get(MapViewModel.class);
         me.setLifecycleOwner(getViewLifecycleOwner());
         me.setActivity((MainActivity)getActivity());
 
-        getViewLifecycleOwnerLiveData().observe(getViewLifecycleOwner(), new Observer<LifecycleOwner>() {
-            @Override
-            public void onChanged(LifecycleOwner lifecycleOwner) {
+        lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
+        cmnViewModel = new ViewModelProvider(getActivity()).get(CMNViewModel.class);
 
+        //TODO 뱃지 알람을 여기에서 처리하면안됨. 수정필요
+        lgnViewModel.getRES_LGN_0003().observe(getViewLifecycleOwner(), result -> {
+            switch (result.status){
+                case SUCCESS:
+                    if(result.data!=null){
+                        try{
+                            setGNB(Integer.parseInt(result.data.getNewNotiCnt())>0 ? true : false);
+                            return;
+                        }catch (Exception e){
+
+                        }
+                    }
+                default:
+                    me.lGnb.setIsAlarm(false);
+                    break;
             }
         });
 
 
-        mapViewModel.getPlayMapPoiItemList().observe(getActivity(), new Observer<NetUIResponse<ArrayList<PlayMapPoiItem>>>() {
-            @Override
-            public void onChanged(NetUIResponse<ArrayList<PlayMapPoiItem>> arrayListNetUIResponse) {
-                Log.v("test", "test1:" + arrayListNetUIResponse);
-
-            }
-        });
-
-        mapViewModel.getTestCount().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                Log.v("test", "First:" + integer);
-            }
-        });
+//        mapViewModel = new ViewModelProvider(getActivity()).get(MapViewModel.class);
+//
+//        getViewLifecycleOwnerLiveData().observe(getViewLifecycleOwner(), new Observer<LifecycleOwner>() {
+//            @Override
+//            public void onChanged(LifecycleOwner lifecycleOwner) {
+//
+//            }
+//        });
+//
+//
+//        mapViewModel.getPlayMapPoiItemList().observe(getActivity(), new Observer<NetUIResponse<ArrayList<PlayMapPoiItem>>>() {
+//            @Override
+//            public void onChanged(NetUIResponse<ArrayList<PlayMapPoiItem>> arrayListNetUIResponse) {
+//                Log.v("test", "test1:" + arrayListNetUIResponse);
+//
+//            }
+//        });
+//
+//        mapViewModel.getTestCount().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+//            @Override
+//            public void onChanged(Integer integer) {
+//                Log.v("test", "First:" + integer);
+//            }
+//        });
 
         setVideo();
     }
@@ -102,6 +130,13 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     @Override
     public void onRefresh() {
         videoPauseAndResume(true);
+        setViewVehicle();
+        //TODO 알람뱃지뉴 표시하는 부분 요청처리 필요
+
+
+
+
+
 //        Glide.with(this).load(R.drawable.snow).diskCacheStrategy(DiskCacheStrategy.RESOURCE).into(me.gifImage);
 //.optionalTransform(WebpDrawable.class, new WebpDrawableTransformation(circleCrop))
 //        Glide.with(this).load(setupSampleFile()).transition(DrawableTransitionOptions.with(new DrawableAlwaysCrossFadeFactory())) .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).   into(me.gifImage);
@@ -110,6 +145,56 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
 //        me.lottieView.playAnimation();
 //        me.lottieView.loop(true);
+    }
+
+    private void setGNB(boolean isAlarm) {
+        try {
+            me.lGnb.setIsAlarm(isAlarm);
+            me.lGnb.setIsSearch(false);
+            me.lGnb.setCustGbCd(lgnViewModel.getUserInfoFromDB().getCustGbCd());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void setViewVehicle() {
+        VehicleVO vehicleVO = null;
+        try{
+            vehicleVO = lgnViewModel.getMainVehicleFromDB();
+            if(vehicleVO!=null){
+                me.tvCarCode.setText(vehicleVO.getMdlCd());
+                me.tvCarModel.setText(vehicleVO.getMdlNm());
+                me.tvCarVrn.setText(vehicleVO.getCarRgstNo());
+                Glide
+                        .with(getContext())
+                        .load(vehicleVO.getVhclImgUri())
+                        .centerInside()
+                        .error(R.drawable.car_3)
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(me.ivCar);
+
+
+                switch (vehicleVO.getCustGbCd()){
+                    case VariableType.MAIN_VEHICLE_TYPE_OV:
+
+                        break;
+                    case VariableType.MAIN_VEHICLE_TYPE_CV:
+
+                        break;
+
+                    case VariableType.MAIN_VEHICLE_TYPE_NV:
+
+                        break;
+                    default:
+
+                        break;
+                }
+
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -216,8 +301,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     }
 
     private void videoPauseAndResume(boolean isResume){
-        simpleExoPlayer.setPlayWhenReady(isResume);
-        simpleExoPlayer.getPlaybackState();
+//        simpleExoPlayer.setPlayWhenReady(isResume);
+//        simpleExoPlayer.getPlaybackState();
     }
 
 }

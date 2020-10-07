@@ -3,6 +3,7 @@ package com.genesis.apps.comm.model.repo;
 import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.gra.APIInfo;
 import com.genesis.apps.comm.model.gra.api.LGN_0001;
 import com.genesis.apps.comm.model.gra.api.LGN_0002;
@@ -42,11 +43,11 @@ public class LGNRepo {
             @Override
             public void onSuccess(String object) {
                 RES_LGN_0001.setValue(NetUIResponse.success(new Gson().fromJson(object, LGN_0001.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
             @Override
             public void onFail(NetResult e) {
-                RES_LGN_0001.setValue(NetUIResponse.error(e.getMseeage(),null));
+                RES_LGN_0001.setValue(NetUIResponse.success(TestCode.LGN_0001));
+//                RES_LGN_0001.setValue(NetUIResponse.error(e.getMseeage(),null));
             }
             @Override
             public void onError(NetResult e) {
@@ -63,7 +64,6 @@ public class LGNRepo {
             @Override
             public void onSuccess(String object) {
                 RES_LGN_0002.setValue(NetUIResponse.success(new Gson().fromJson(object, LGN_0002.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
             @Override
             public void onFail(NetResult e) {
@@ -84,7 +84,6 @@ public class LGNRepo {
             @Override
             public void onSuccess(String object) {
                 RES_LGN_0003.setValue(NetUIResponse.success(new Gson().fromJson(object, LGN_0003.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
             @Override
             public void onFail(NetResult e) {
@@ -106,7 +105,6 @@ public class LGNRepo {
             @Override
             public void onSuccess(String object) {
                 RES_LGN_0004.setValue(NetUIResponse.success(new Gson().fromJson(object, LGN_0004.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
             @Override
             public void onFail(NetResult e) {
@@ -128,7 +126,6 @@ public class LGNRepo {
             @Override
             public void onSuccess(String object) {
                 RES_LGN_0005.setValue(NetUIResponse.success(new Gson().fromJson(object, LGN_0005.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
             @Override
             public void onFail(NetResult e) {
@@ -149,7 +146,6 @@ public class LGNRepo {
             @Override
             public void onSuccess(String object) {
                 RES_LGN_0006.setValue(NetUIResponse.success(new Gson().fromJson(object, LGN_0006.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
             @Override
             public void onFail(NetResult e) {
@@ -170,7 +166,6 @@ public class LGNRepo {
             @Override
             public void onSuccess(String object) {
                 RES_LGN_0007.setValue(NetUIResponse.success(new Gson().fromJson(object, LGN_0007.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
             @Override
             public void onFail(NetResult e) {
