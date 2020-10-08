@@ -43,6 +43,11 @@ public class FragmentHome2 extends SubFragment<FragVehicle2Binding> {
         return false;
     }
 
+    @Override
+    public void onClickCommon(View v) {
+
+    }
+
 
     @Override
     public void onRefresh() {
@@ -59,5 +64,7 @@ public class FragmentHome2 extends SubFragment<FragVehicle2Binding> {
 //        me.firstRv.setLayoutManager(new LinearLayoutManager(getActivity()));
 //        me.firstRv.setAdapter(testItemAdapter);
     }
+
+
 
 }

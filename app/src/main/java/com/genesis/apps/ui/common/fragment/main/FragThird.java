@@ -54,6 +54,11 @@ public class FragThird extends SubFragment<Frame3pBinding> {
         return false;
     }
 
+    @Override
+    public void onClickCommon(View v) {
+
+    }
+
     @BindingAdapter("items")
     public static void setItems(RecyclerView recyclerView, ArrayList<ExampleResVO> datas) {
 //        TestItemAdapter adapter;

@@ -13,6 +13,7 @@ public enum RequestCodes {
     REQ_CODE_PERMISSIONS(3,"퍼미션 획득"),
 
     REQ_CODE_FILECHOOSER(2002,"파일 획득 권한(webview)"),
+    REQ_CODE_GPS(2003,"GPS 설정"),
     REQ_CODE_DEFAULT(0,"기본");
 
     private int code;

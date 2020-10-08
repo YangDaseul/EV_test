@@ -24,4 +24,7 @@ public abstract class WeatherDao implements BaseDao<WeatherVO> {
         deleteAll();
         insert(list);
     }
+
+    @Query("SELECT * FROM WeatherVO WHERE wthrCd =:wthrCd ORDER BY RANDOM() LIMIT 1")
+    public abstract WeatherVO selectRandom(String wthrCd);
 }

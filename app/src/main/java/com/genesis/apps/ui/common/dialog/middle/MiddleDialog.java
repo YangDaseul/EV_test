@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.util.GpsUtils;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.databinding.DialogMiddleTwoButtonBinding;
 import com.genesis.apps.databinding.DialogUpdateBinding;
@@ -77,8 +78,14 @@ public class MiddleDialog {
     }
 
 
-
-
+    /**
+     * @brief 공지사항 팝업
+     *
+     * @param activity
+     * @param ok
+     * @param title
+     * @param msg
+     */
     public static void dialogNoti(@NonNull Activity activity, final Runnable ok, String title, String msg) {
         if (activity.isFinishing()) {
             return;
@@ -93,6 +100,35 @@ public class MiddleDialog {
                     binding.tvMsg.setText(msg);
                     binding.btnCancel.setVisibility(View.GONE);
                     binding.btnOk.setText(R.string.dialog_common_4);
+                    binding.btnOk.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (ok != null) ok.run();
+                    });
+                }).show()
+        );
+    }
+
+
+    public static void dialogGPS(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                new CustomDialog(activity, dialog -> {
+                    DialogMiddleTwoButtonBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_middle_two_button, null, false);
+                    dialog.setContentView(binding.getRoot());
+
+                    binding.tvTitle.setText(R.string.r_bt06_p01_title_1);
+                    binding.tvMsg.setText(R.string.r_bt06_p01_msg_1);
+                    binding.tvMsg.setMovementMethod(new ScrollingMovementMethod());
+
+                    binding.btnCancel.setText(R.string.dialog_common_4);
+                    binding.btnOk.setText(R.string.dialog_common_3);
+
+                    binding.btnCancel.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (cancel != null) cancel.run();
+                    });
                     binding.btnOk.setOnClickListener(v -> {
                         dialog.dismiss();
                         if (ok != null) ok.run();

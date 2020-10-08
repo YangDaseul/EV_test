@@ -3,6 +3,8 @@ package com.genesis.apps.comm.model.constants;
 import com.genesis.apps.comm.model.gra.api.CMN_0001;
 import com.genesis.apps.comm.model.gra.api.CMN_0002;
 import com.genesis.apps.comm.model.gra.api.LGN_0001;
+import com.genesis.apps.comm.model.gra.api.LGN_0003;
+import com.genesis.apps.comm.model.gra.api.LGN_0005;
 import com.google.gson.Gson;
 
 public class TestCode {
@@ -85,6 +87,64 @@ public class TestCode {
             "    }\n" +
             "  ]\n" +
             "}", LGN_0001.Response.class);
+
+    public static LGN_0003.Response LGN_0003 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"acptNo\": \"A1414\",\n" +
+            "  \"asnDt\": \"20201101\",\n" +
+            "  \"asnNm\": \"블루핸즈0호점\",\n" +
+            "  \"asnStatsNm\": \"차량 정비 중\",\n" +
+            "  \"asnStatsCd\": \"1111\",\n" +
+            "  \"asnHistList\": [\n" +
+            "    {\n" +
+            "      \"carRgstNo\": \"16조2841\",\n" +
+            "      \"carGbNm\": \"GV80\",\n" +
+            "      \"drivDist\": \"100000\",\n" +
+            "      \"asnNm\": \"블루핸즈1호점\",\n" +
+            "      \"pbzAddr\": \"도봉로1\",\n" +
+            "      \"repTn\": \"021111111\",\n" +
+            "      \"arrivDt\": \"20201021\",\n" +
+            "      \"asnHist\": \"오일교체1\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"carRgstNo\": \"16조2842\",\n" +
+            "      \"carGbNm\": \"GV81\",\n" +
+            "      \"drivDist\": \"100002\",\n" +
+            "      \"asnNm\": \"블루핸즈2호점\",\n" +
+            "      \"pbzAddr\": \"도봉로2\",\n" +
+            "      \"repTn\": \"0222221222\",\n" +
+            "      \"arrivDt\": \"20201022\",\n" +
+            "      \"asnHist\": \"오일교체2\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"carRgstNo\": \"16조2843\",\n" +
+            "      \"carGbNm\": \"GV82\",\n" +
+            "      \"drivDist\": \"100003\",\n" +
+            "      \"asnNm\": \"블루핸즈3호점\",\n" +
+            "      \"pbzAddr\": \"도봉로3\",\n" +
+            "      \"repTn\": \"023333333\",\n" +
+            "      \"arrivDt\": \"20201023\",\n" +
+            "      \"asnHist\": \"오일교체3\"\n" +
+            "    }\n" +
+            "  ],\n" +
+            "  \"butlSubsCd\": \"1111\",\n" +
+            "  \"virtRecptNo\": \"1111\"\n" +
+            "}", LGN_0003.Response.class);
+
+    public static LGN_0005.Response LGN_0005 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"fcstDtm\": \"20201008220011\",\n" +
+            "  \"nx\": \"37.463936\",\n" +
+            "  \"ny\": \"127.042953\",\n" +
+            "  \"t1h\": \"10\",\n" +
+            "  \"sky\": \"4\",\n" +
+            "  \"reh\": \"50\",\n" +
+            "  \"pty\": \"1\",\n" +
+            "  \"lgt\": \"0\",\n" +
+            "  \"dayCd\": \"1\"\n" +
+            "}", LGN_0005.Response.class);
 
     public static CMN_0001.Response CMN_0001 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
@@ -208,11 +268,38 @@ public class TestCode {
             "    {\n" +
             "      \"wthrCd\": \"SKY_1\",\n" +
             "      \"msgTypCd\": \"TXT\",\n" +
+            "      \"txtMsg\": \"나들이 가기\n좋은 날씨네요.\",\n" +
+            "      \"lnkUseYn\": \"N\"\n" +
+            "    },\n" +
+
+            "    {\n" +
+            "      \"wthrCd\": \"SKY_1\",\n" +
+            "      \"msgTypCd\": \"TXT\",\n" +
+            "      \"txtMsg\": \"드라이브하기\n좋은 날씨네요.\",\n" +
+            "      \"lnkUseYn\": \"N\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"wthrCd\": \"PTY_145\",\n" +
+            "      \"msgTypCd\": \"TXT\",\n" +
+            "      \"txtMsg\": \"우산은 챙기셨나요?\n빗길 운전 조심하세요\",\n" +
+            "      \"lnkUseYn\": \"N\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"wthrCd\": \"PTY_145\",\n" +
+            "      \"msgTypCd\": \"TXT\",\n" +
+            "      \"txtMsg\": \"차안에서 빗소리를 들을수 있겠네요.\n빗길운전 조심하세요!\",\n" +
+            "      \"lnkUseYn\": \"N\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"wthrCd\": \"PTY_145\",\n" +
+            "      \"msgTypCd\": \"TXT\",\n" +
+            "      \"txtMsg\": \"세차는 다음에 하세요,\n비오는 날 드라이브도 운치 있어요\",\n" +
             "      \"lnkUseYn\": \"N\"\n" +
             "    },\n" +
             "    {\n" +
             "      \"wthrCd\": \"SKY_1\",\n" +
             "      \"msgTypCd\": \"TXT\",\n" +
+            "      \"txtMsg\": \"맑고 화창한\n날씨입니다.\",\n" +
             "      \"lnkUseYn\": \"N\"\n" +
             "    }\n" +
             "  ]\n" +

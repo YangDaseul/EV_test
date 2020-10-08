@@ -1,32 +1,39 @@
 package com.genesis.apps.ui.main.home;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.transition.DrawableCrossFadeTransition;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.request.transition.TransitionFactory;
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.gra.api.LGN_0001;
+import com.genesis.apps.comm.model.constants.WeatherCodes;
+import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.LGN_0003;
+import com.genesis.apps.comm.model.gra.api.LGN_0005;
+import com.genesis.apps.comm.model.vo.FloatingMenuVO;
+import com.genesis.apps.comm.model.vo.MessageVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentHome1Binding;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -41,19 +48,18 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
 import static com.google.android.exoplayer2.Player.REPEAT_MODE_ALL;
 
 public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     private SimpleExoPlayer simpleExoPlayer;
-
-//    private MapViewModel mapViewModel;
-//    private LGNViewModel lgnViewModel;
-
     private LGNViewModel lgnViewModel;
     private CMNViewModel cmnViewModel;
 
+    private HomeInsightHorizontalAdapter adapter=null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -69,8 +75,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         me.setLifecycleOwner(getViewLifecycleOwner());
-        me.setActivity((MainActivity)getActivity());
-
+        initView();
         lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
         cmnViewModel = new ViewModelProvider(getActivity()).get(CMNViewModel.class);
 
@@ -78,52 +83,93 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         lgnViewModel.getRES_LGN_0003().observe(getViewLifecycleOwner(), result -> {
             switch (result.status){
                 case SUCCESS:
+                    if(result.data!=null&&!TextUtils.isEmpty(result.data.getAsnStatsNm())){
+                        me.tvRepairStatus.setVisibility(View.VISIBLE);
+                        me.tvRepairStatus.setText(result.data.getAsnStatsNm());
+                    }
+                default:
+                    break;
+            }
+        });
+        lgnViewModel.getRES_LGN_0005().observe(getViewLifecycleOwner(), result -> {
+            switch (result.status){
+                case SUCCESS:
                     if(result.data!=null){
-                        try{
-                            setGNB(Integer.parseInt(result.data.getNewNotiCnt())>0 ? true : false);
-                            return;
+                        try {
+                            WeatherCodes weatherCodes = WeatherCodes.decideCode(result.data.getLgt(), result.data.getPty(), result.data.getSky());
+                            MessageVO weather = cmnViewModel.getHomeWeatherInsight(weatherCodes);
+                            if(weather!=null) adapter.addRow(weather);
+                            adapter.addRow(cmnViewModel.getTmpInsight());
+                            adapter.notifyDataSetChanged();
+                            me.setActivity((MainActivity)getActivity());
+                            me.setWeatherCode(weatherCodes);
                         }catch (Exception e){
 
                         }
                     }
+                    break;
                 default:
-                    me.lGnb.setIsAlarm(false);
                     break;
             }
+
         });
 
 
-//        mapViewModel = new ViewModelProvider(getActivity()).get(MapViewModel.class);
-//
-//        getViewLifecycleOwnerLiveData().observe(getViewLifecycleOwner(), new Observer<LifecycleOwner>() {
-//            @Override
-//            public void onChanged(LifecycleOwner lifecycleOwner) {
-//
-//            }
-//        });
-//
-//
-//        mapViewModel.getPlayMapPoiItemList().observe(getActivity(), new Observer<NetUIResponse<ArrayList<PlayMapPoiItem>>>() {
-//            @Override
-//            public void onChanged(NetUIResponse<ArrayList<PlayMapPoiItem>> arrayListNetUIResponse) {
-//                Log.v("test", "test1:" + arrayListNetUIResponse);
-//
-//            }
-//        });
-//
-//        mapViewModel.getTestCount().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-//            @Override
-//            public void onChanged(Integer integer) {
-//                Log.v("test", "First:" + integer);
-//            }
-//        });
-
         setVideo();
+        setViewWeather();
+    }
+
+    private void initView() {
+        adapter = new HomeInsightHorizontalAdapter(onSingleClickListener);
+        me.vpInsight.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+        me.vpInsight.setAdapter(adapter);
+    }
+
+    private void setViewWeather() {
+//        cmnViewModel.getDbContentsRepository()
+
+
+        if(!((MainActivity)getActivity()).isGpsEnable()) {
+            MiddleDialog.dialogGPS(getActivity(), () -> ((MainActivity)getActivity()).turnGPSOn(isGPSEnable -> {
+            }), () -> {
+                //TODO 확인 클릭
+            });
+            //현대양재사옥위치
+            String nx="37.463936";
+            String ny="127.042953";
+            lgnViewModel.reqLGN0005(new LGN_0005.Request(APPIAInfo.GM01.getId(), nx, ny));
+        }else{
+            reqMyLocation();
+        }
+
+    }
+
+    private void reqMyLocation(){
+        ((MainActivity)getActivity()).showProgressDialog(true);
+        ((MainActivity)getActivity()).findMyLocation(location -> {
+            ((MainActivity)getActivity()).showProgressDialog(false);
+            if (location == null) {
+                return;
+            }
+            lgnViewModel.reqLGN0005(new LGN_0005.Request(APPIAInfo.GM01.getId(), String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude())));
+        },5000);
     }
 
     @Override
     public boolean onBackPressed() {
         return false;
+    }
+
+    @Override
+    public void onClickCommon(View v) {
+        switch (v.getId()){
+            case R.id.btn_floating_1:
+            case R.id.btn_floating_2:
+            case R.id.btn_floating_3:
+                String menuId = v.getTag(R.id.menu_id).toString();
+                //TODO menuId로 activity 이동 구현 필요
+                break;
+        }
     }
 
 
@@ -132,8 +178,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         videoPauseAndResume(true);
         setViewVehicle();
         //TODO 알람뱃지뉴 표시하는 부분 요청처리 필요
-
-
 
 
 
@@ -147,15 +191,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 //        me.lottieView.loop(true);
     }
 
-    private void setGNB(boolean isAlarm) {
-        try {
-            me.lGnb.setIsAlarm(isAlarm);
-            me.lGnb.setIsSearch(false);
-            me.lGnb.setCustGbCd(lgnViewModel.getUserInfoFromDB().getCustGbCd());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
     private void setViewVehicle() {
         VehicleVO vehicleVO = null;
@@ -170,27 +205,40 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         .load(vehicleVO.getVhclImgUri())
                         .centerInside()
                         .error(R.drawable.car_3)
-                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .placeholder(R.drawable.car_3)
                         .into(me.ivCar);
 
+                me.btnShare.setVisibility(View.GONE);
+                me.btnCarinfo.setVisibility(View.GONE);
+                me.ivMore.setVisibility(View.GONE);
+                me.tvRepairStatus.setVisibility(View.GONE);
+                me.lDistance.setVisibility(View.GONE);
+                me.lFloating.setVisibility(View.GONE);
 
                 switch (vehicleVO.getCustGbCd()){
                     case VariableType.MAIN_VEHICLE_TYPE_OV:
-
+                        me.btnShare.setVisibility(View.VISIBLE);
+                        me.btnCarinfo.setVisibility(View.VISIBLE);
+                        me.ivMore.setVisibility(View.VISIBLE);
+                        me.lDistance.setVisibility(View.VISIBLE);
+                        lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
+                        //TODO LGN-0003 요청을 여기서 해야할듯
+                        //TODO 위치정보 확인 요청
+                        //TODO 거리 확인 요청 등 다 여기서 해야함..
                         break;
                     case VariableType.MAIN_VEHICLE_TYPE_CV:
-
+                        me.btnCarinfo.setVisibility(View.VISIBLE);
+                        makeFloatingMenu(vehicleVO.getCustGbCd());
+                        //TODO QUICKMENU 만드는 로직 넣어야함
                         break;
-
                     case VariableType.MAIN_VEHICLE_TYPE_NV:
-
+                        makeFloatingMenu(vehicleVO.getCustGbCd());
+                        //TODO QUICKMENU 만드는 로직 넣어야함
                         break;
                     default:
-
+                        makeFloatingMenu(vehicleVO.getCustGbCd());
                         break;
                 }
-
-
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -202,6 +250,30 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         super.onPause();
         videoPauseAndResume(false);
     }
+
+    private void makeFloatingMenu(String custGbCd){
+        final TextView[] floatingBtns={me.btnFloating1, me.btnFloating2, me.btnFloating3};
+        List<FloatingMenuVO> list = cmnViewModel.getFloatingMenuList(custGbCd);
+        if(list==null||list.size()==0){
+            me.lFloating.setVisibility(View.GONE);
+        }else{
+            me.lFloating.setVisibility(View.VISIBLE);
+            me.btnFloating1.setVisibility(View.GONE);
+            me.btnFloating2.setVisibility(View.GONE);
+            me.btnFloating3.setVisibility(View.GONE);
+            for(int i=0; i<list.size(); i++){
+                floatingBtns[i].setVisibility(View.VISIBLE);
+                floatingBtns[i].setText(list.get(i).getMenuNm());
+                floatingBtns[i].setTag(R.id.menu_id, list.get(i).getMenuId());
+            }
+
+        }
+
+
+
+
+    }
+
 
     class DrawableAlwaysCrossFadeFactory implements TransitionFactory<Drawable> {
         private DrawableCrossFadeTransition resourceTransition = new DrawableCrossFadeTransition(2000, true);
@@ -303,6 +375,25 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     private void videoPauseAndResume(boolean isResume){
 //        simpleExoPlayer.setPlayWhenReady(isResume);
 //        simpleExoPlayer.getPlaybackState();
+    }
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        if (requestCode == RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode() && resultCode == RESULT_OK) {
+//            doRecordService(resultCode, data);
+//            return;
+//        }else if (requestCode == RequestCodes.REQ_CODE_PLAY_VIDEO.getCode()){
+//            requestShare();
+//        }
+
+        if(requestCode == RequestCodes.REQ_CODE_GPS.getCode() && resultCode == RESULT_OK){
+          reqMyLocation();
+        }else{
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+
     }
 
 }

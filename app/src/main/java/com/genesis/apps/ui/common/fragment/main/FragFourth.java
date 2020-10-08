@@ -174,6 +174,11 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         return false;
     }
 
+    @Override
+    public void onClickCommon(View v) {
+
+    }
+
 
     SelectedDate mSelectedDate;
     int mHour, mMinute;

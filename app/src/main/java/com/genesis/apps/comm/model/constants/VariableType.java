@@ -22,4 +22,12 @@ public class VariableType {
     public static final String MAIN_VEHICLE_Y= "Y";  //주 이용 차량
     public static final String MAIN_VEHICLE_N= "N";  //주 이용 차량 X
 
+
+    //인사이트 메시지 유형
+    public static final String MAIN_HOME_INSIGHT_TXT ="TXT"; //텍스트만 노출
+    public static final String MAIN_HOME_INSIGHT_IMG ="IMG"; //이미지만 노출
+    public static final String MAIN_HOME_INSIGHT_TXL ="TXL"; //텍스트+링크
+    public static final String MAIN_HOME_INSIGHT_IML ="IML"; //이미지+링크
+    public static final String MAIN_HOME_INSIGHT_TIL ="TIL"; //텍스트+이미지+링크
+    public static final String MAIN_HOME_INSIGHT_SYS ="SYS"; //고정된 메시지 유형?
 }

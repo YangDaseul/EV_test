@@ -11,36 +11,41 @@ import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityMainBinding;
 import com.genesis.apps.databinding.ItemTabBinding;
-import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.fragment.main.FragFourth;
+import com.genesis.apps.ui.main.home.FragmentHome1;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-public class MainActivity extends SubActivity<ActivityMainBinding> {
+public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     private final int pageNum = 4;
     public FragmentStateAdapter pagerAdapter;
+    private LGNViewModel lgnViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+        ui.setActivity(this);
         getDataFromIntent();
         setViewModel();
         setObserver();
 
         initView();
     }
-
     private void initView() {
         pagerAdapter = new MainViewpagerAdapter(this, pageNum);
         ui.viewpager.setAdapter(pagerAdapter);
+        ui.viewpager.setUserInputEnabled(false);
         setTabView();
 
         //ViewPager Setting
@@ -80,6 +85,8 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
                 page.setTranslationY(myOffset);
             }
         });
+
+        setGNB(false);//TODO 임시로 넣어놨음
     }
 
     @Override
@@ -89,7 +96,7 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
 
     @Override
     public void setViewModel() {
-
+        lgnViewModel = new ViewModelProvider(this).get(LGNViewModel.class);
     }
 
     @Override
@@ -130,6 +137,13 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
                     return;
                 }
             }
+        }else if(requestCode == RequestCodes.REQ_CODE_GPS.getCode() && resultCode == RESULT_OK){
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if (fragment instanceof FragmentHome1) {
+                    fragment.onActivityResult(requestCode, resultCode, data);
+                    return;
+                }
+            }
         }
 
     }
@@ -160,4 +174,14 @@ public class MainActivity extends SubActivity<ActivityMainBinding> {
         }
     }
 
+
+    private void setGNB(boolean isAlarm) {
+        try {
+            ui.lGnb.setIsAlarm(isAlarm);
+            ui.lGnb.setIsSearch(false);
+            ui.lGnb.setCustGbCd(lgnViewModel.getUserInfoFromDB().getCustGbCd());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

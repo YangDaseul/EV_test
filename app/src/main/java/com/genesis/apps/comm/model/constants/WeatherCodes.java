@@ -9,24 +9,24 @@ import static com.genesis.apps.comm.model.constants.VariableType.WEATHER_NAME_PT
 import static com.genesis.apps.comm.model.constants.VariableType.WEATHER_NAME_SKY;
 
 public enum WeatherCodes {
-    SKY1("SKY_1", WEATHER_NAME_SKY, "1", "맑음", 0, 0, 0, R.color.x_000000),
-    SKY2("SKY_23", WEATHER_NAME_SKY, "2", "구름조금", 1, 1, 0, R.color.x_000000),
-    SKY3("SKY_23", WEATHER_NAME_SKY, "3", "구름많음", 0, 1, 0, R.color.x_000000),
-    SKY4("SKY_4", WEATHER_NAME_SKY, "4", "흐림", 1, 2, 0, R.color.x_000000),
+    SKY1("SKY_1", WEATHER_NAME_SKY, "1", "맑음", 0, 0, 0, R.color.x_ffffff),
+    SKY2("SKY_23", WEATHER_NAME_SKY, "2", "구름조금", 1, 1, 0, R.color.x_ffffff),
+    SKY3("SKY_23", WEATHER_NAME_SKY, "3", "구름많음", 0, 1, 0, R.color.x_ffffff),
+    SKY4("SKY_4", WEATHER_NAME_SKY, "4", "흐림", 1, 2, 0, R.color.x_ffffff),
 
-    PTY0("PTY_0", WEATHER_NAME_PTY, "0", "없음", 0, -1, 0, R.color.x_000000),
-    PTY1("PTY_145", WEATHER_NAME_PTY, "1", "비", 3, 3, 1, R.color.x_000000),
-    PTY2("PTY_26", WEATHER_NAME_PTY, "2", "비/눈(진눈개비)", 2, 5, 2, R.color.x_000000),
-    PTY3("PTY_37", WEATHER_NAME_PTY, "3", "눈", 2, 4, 2, R.color.x_000000),
-    PTY4("PTY_145", WEATHER_NAME_PTY, "4", "소나기", 3, 3, 1, R.color.x_000000),
-    PTY5("PTY_145", WEATHER_NAME_PTY, "5", "빗방울", 3, 3, 1, R.color.x_000000),
-    PTY6("PTY_26", WEATHER_NAME_PTY, "6", "빗방울/눈날림", 2, 5, 2, R.color.x_000000),
-    PTY7("PTY_37", WEATHER_NAME_PTY, "7", "눈날림", 2, 4, 2, R.color.x_000000),
+    PTY0("PTY_0", WEATHER_NAME_PTY, "0", "없음", 0, -1, 0, R.color.x_ffffff),
+    PTY1("PTY_145", WEATHER_NAME_PTY, "1", "비", 3, 3, 1, R.color.x_ffffff),
+    PTY2("PTY_26", WEATHER_NAME_PTY, "2", "비/눈(진눈개비)", 2, 5, 2, R.color.x_ffffff),
+    PTY3("PTY_37", WEATHER_NAME_PTY, "3", "눈", 2, 4, 2, R.color.x_ffffff),
+    PTY4("PTY_145", WEATHER_NAME_PTY, "4", "소나기", 3, 3, 1, R.color.x_ffffff),
+    PTY5("PTY_145", WEATHER_NAME_PTY, "5", "빗방울", 3, 3, 1, R.color.x_ffffff),
+    PTY6("PTY_26", WEATHER_NAME_PTY, "6", "빗방울/눈날림", 2, 5, 2, R.color.x_ffffff),
+    PTY7("PTY_37", WEATHER_NAME_PTY, "7", "눈날림", 2, 4, 2, R.color.x_ffffff),
 
-    LGT0("LGT_0", WEATHER_NAME_LGT, "0", "확률없음", -1, -1, 0, R.color.x_000000),
-    LGT1("LGT_1", WEATHER_NAME_LGT, "1", "낮음", -1, -1, 0, R.color.x_000000),
-    LGT2("LGT_23", WEATHER_NAME_LGT, "2", "보통", 4, 6, 0, R.color.x_000000),
-    LGT3("LGT_23", WEATHER_NAME_LGT, "3", "높음", 4, 6, 0, R.color.x_000000);
+    LGT0("LGT_0", WEATHER_NAME_LGT, "0", "확률없음", -1, -1, 0, R.color.x_ffffff),
+    LGT1("LGT_1", WEATHER_NAME_LGT, "1", "낮음", -1, -1, 0, R.color.x_ffffff),
+    LGT2("LGT_23", WEATHER_NAME_LGT, "2", "보통", 4, 6, 0, R.color.x_ffffff),
+    LGT3("LGT_23", WEATHER_NAME_LGT, "3", "높음", 4, 6, 0, R.color.x_ffffff);
 
     //0 맑음
     //1 흐림
@@ -46,7 +46,7 @@ public enum WeatherCodes {
     //4 눈
     //5 비/눈
     //6 천둥번개
-    public static final int[] ICON_RESOURCE={0,0,0,0,0,0,0};
+    public static final int[] ICON_RESOURCE={R.drawable.ic_weather_rain,R.drawable.ic_weather_rain,R.drawable.ic_weather_rain,R.drawable.ic_weather_rain,R.drawable.ic_weather_rain,R.drawable.ic_weather_rain,R.drawable.ic_weather_rain};
     public static int getIconResource(WeatherCodes weatherCodes){
         return ICON_RESOURCE[weatherCodes.getPosIcon()];
     }

@@ -1,6 +1,9 @@
 package com.genesis.apps.comm.model.vo;
 
+import androidx.room.Ignore;
+
 import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.comm.model.constants.WeatherCodes;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -54,4 +57,7 @@ class MessageVO extends BaseData {
     @Expose
     @SerializedName("bnrNm")
     private String bnrNm;
+
+    @Ignore
+    private WeatherCodes weatherCodes;//로컬에서만 사용
 }

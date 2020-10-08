@@ -8,7 +8,6 @@ import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.api.LGN_0001;
 import com.genesis.apps.comm.model.gra.api.LGN_0002;
 import com.genesis.apps.comm.model.gra.api.LGN_0003;
@@ -16,11 +15,9 @@ import com.genesis.apps.comm.model.gra.api.LGN_0004;
 import com.genesis.apps.comm.model.gra.api.LGN_0005;
 import com.genesis.apps.comm.model.gra.api.LGN_0006;
 import com.genesis.apps.comm.model.gra.api.LGN_0007;
-import com.genesis.apps.comm.model.repo.DBContentsRepository;
 import com.genesis.apps.comm.model.repo.DBUserRepo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.LGNRepo;
-import com.genesis.apps.comm.model.vo.NotiVO;
 import com.genesis.apps.comm.model.vo.UserVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
@@ -40,7 +37,6 @@ import lombok.Data;
 
 import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_0000;
 import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_CV;
-import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_NV;
 import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_OV;
 
 public @Data

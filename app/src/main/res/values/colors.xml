@@ -35,6 +35,8 @@
 
     <color name="x_161616">#161616</color>
     <color name="x_141414">#141414</color>
+    <color name="x_cc141414">#ee141414</color>
+    <color name="x_1a141414">#1a141414</color>
     <color name="x_252831">#252831</color>
     <color name="x_525252">#525252</color>
     <color name="x_131313">#131313</color>
@@ -45,7 +47,6 @@
     <color name="x_77000000">#77000000</color>
     <color name="x_cc000000">#cc000000</color>
     <color name="x_44000000">#44000000</color>
-    <color name="x_cc141414">#ee141414</color>
     <color name="x_d5d5d5">#d5d5d5</color>
     <color name="x_cca281">#cca281</color>
     <color name="x_e63312">#e63312</color>

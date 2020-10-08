@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.genesis.apps.R;
+import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -16,7 +17,12 @@ public abstract class SubFragment<T extends ViewDataBinding> extends BaseFragmen
 
     public static final String POPUP_TRANSITION = "POPUP_TRANSITION";
     public T me;
-
+    public OnSingleClickListener onSingleClickListener = new OnSingleClickListener() {
+        @Override
+        public void onSingleClick(View v) {
+            onClickCommon(v);
+        }
+    };
     public SubFragment(){
 
     }
@@ -127,4 +133,6 @@ public abstract class SubFragment<T extends ViewDataBinding> extends BaseFragmen
                         View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
+
+    public abstract void onClickCommon(View v);
 }

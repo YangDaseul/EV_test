@@ -117,6 +117,11 @@ public class FragmentMainContents extends SubFragment<FragmentMainContentsBindin
         return false;
     }
 
+    @Override
+    public void onClickCommon(View v) {
+
+    }
+
 
     @Override
     public void onRefresh() {

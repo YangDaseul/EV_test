@@ -2,14 +2,17 @@ package com.genesis.apps.comm.viewmodel;
 
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.constants.WeatherCodes;
 import com.genesis.apps.comm.model.gra.api.CMN_0001;
 import com.genesis.apps.comm.model.gra.api.CMN_0002;
 import com.genesis.apps.comm.model.gra.api.CMN_0003;
 import com.genesis.apps.comm.model.gra.api.CMN_0004;
+import com.genesis.apps.comm.model.gra.api.LGN_0005;
 import com.genesis.apps.comm.model.repo.CMNRepo;
 import com.genesis.apps.comm.model.repo.DBContentsRepository;
 import com.genesis.apps.comm.model.repo.DBGlobalDataRepository;
 import com.genesis.apps.comm.model.vo.FloatingMenuVO;
+import com.genesis.apps.comm.model.vo.MessageVO;
 import com.genesis.apps.comm.model.vo.NotiVO;
 import com.genesis.apps.comm.model.vo.QuickMenuVO;
 import com.genesis.apps.comm.model.vo.WeatherVO;
@@ -18,9 +21,11 @@ import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.room.ResultCallback;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
+import com.google.gson.Gson;
 
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -99,6 +104,10 @@ class CMNViewModel extends ViewModel {
         return dbContentsRepository.setFloatingMenu(list, type);
     }
 
+    public List<FloatingMenuVO> getFloatingMenuList(String custGbCd){
+        return dbContentsRepository.getFloatingMenu(custGbCd);
+    }
+
     public void setContents(CMN_0002.Response data, ResultCallback callback) {
         ExecutorService es = new ExecutorService("");
         Futures.addCallback(es.getListeningExecutorService().submit(() -> {
@@ -166,8 +175,38 @@ class CMNViewModel extends ViewModel {
 
             return notiVO;
         });
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
+    }
 
-        return future.get();
+    public MessageVO getHomeWeatherInsight(WeatherCodes weatherCodes) throws ExecutionException, InterruptedException {
+
+        ExecutorService es = new ExecutorService("");
+        Future<MessageVO> future = es.getListeningExecutorService().submit(()->{
+            MessageVO weather = null;
+            try {
+                WeatherVO weatherVO = dbContentsRepository.getWeatherRandom(weatherCodes.getDbCode());
+                weather = new Gson().fromJson((new Gson().toJson(weatherVO)), MessageVO.class);
+                weather.setWeatherCodes(weatherCodes);
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+            }
+            return weather;
+        });
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
+    }
+
+
+    public MessageVO getTmpInsight(){
+        MessageVO insight = new MessageVO(VariableType.MAIN_HOME_INSIGHT_IML,"","","","","","https://www.genesis.com/kr/ko/support/genesis-events/detail.html?seq=0507","",null);
+        return insight;
     }
 
 

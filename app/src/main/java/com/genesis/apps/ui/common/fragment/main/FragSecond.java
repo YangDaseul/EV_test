@@ -80,6 +80,11 @@ public class FragSecond extends SubFragment<Frame2pBinding> {
         return false;
     }
 
+    @Override
+    public void onClickCommon(View v) {
+
+    }
+
     //generate a list of Link
     private List<Link> getListData(){
         List<Link> links = new LinkedList<Link>();

@@ -87,7 +87,8 @@ public class LGNRepo {
             }
             @Override
             public void onFail(NetResult e) {
-                RES_LGN_0003.setValue(NetUIResponse.error(e.getMseeage(),null));
+//                RES_LGN_0003.setValue(NetUIResponse.error(e.getMseeage(),null));
+                RES_LGN_0003.setValue(NetUIResponse.success(TestCode.LGN_0003));
             }
             @Override
             public void onError(NetResult e) {
@@ -129,7 +130,8 @@ public class LGNRepo {
             }
             @Override
             public void onFail(NetResult e) {
-                RES_LGN_0005.setValue(NetUIResponse.error(e.getMseeage(),null));
+//                RES_LGN_0005.setValue(NetUIResponse.error(e.getMseeage(),null));
+                RES_LGN_0005.setValue(NetUIResponse.success(TestCode.LGN_0005));
             }
             @Override
             public void onError(NetResult e) {

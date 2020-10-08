@@ -51,6 +51,11 @@ public class FragmentMainContentsVp extends SubFragment<FragmentMainContentsVpBi
         return false;
     }
 
+    @Override
+    public void onClickCommon(View v) {
+
+    }
+
 
     @Override
     public void onRefresh() {

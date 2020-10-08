@@ -55,11 +55,15 @@ public class DBVehicleRepository {
                     if(row.getMainVhclYn().equalsIgnoreCase(VariableType.MAIN_VEHICLE_Y)){
                         mainVehicle = row;
                         break repeat;
-                    }else if(mainVehicle==null){//소유차량이고 주 이용 차량이 아니면 일단 임시 저장
+                    }else if(mainVehicle==null||!mainVehicle.getCustGbCd().equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)){//소유차량이고 주 이용 차량이 아니면 일단 임시 저장
                         mainVehicle = row;
                     }
                     break;
                 case VariableType.MAIN_VEHICLE_TYPE_CV:
+                    if(mainVehicle==null|| (!mainVehicle.getCustGbCd().equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_CV)&&!mainVehicle.getCustGbCd().equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV))){
+                        mainVehicle = row;
+                    }
+                    break;
                 default:
                     if(mainVehicle==null){
                         mainVehicle = row;

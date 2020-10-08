@@ -57,6 +57,12 @@ public class FragmentHome extends SubFragment<FragmentHomeBinding> {
                 if (positionOffsetPixels == 0) {
                     me.vpVehicle.setCurrentItem(position);
                 }
+
+                if(position==0){
+                    ((MainActivity)getActivity()).ui.lGnb.lWhole.setVisibility(View.VISIBLE);
+                }else{
+                    ((MainActivity)getActivity()).ui.lGnb.lWhole.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
@@ -69,6 +75,11 @@ public class FragmentHome extends SubFragment<FragmentHomeBinding> {
     @Override
     public boolean onBackPressed() {
         return false;
+    }
+
+    @Override
+    public void onClickCommon(View v) {
+
     }
 
 

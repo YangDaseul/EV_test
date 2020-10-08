@@ -42,8 +42,8 @@ class WeatherVO extends BaseData {
 
     }
 
-    @PrimaryKey
-    @NonNull
+    @PrimaryKey (autoGenerate = true)
+    int _id;
     @Expose
     @SerializedName("wthrCd")
     private String wthrCd;

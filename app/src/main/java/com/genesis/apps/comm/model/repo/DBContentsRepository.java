@@ -27,6 +27,10 @@ public class DBContentsRepository {
         return databaseHolder.getDatabase().weatherDao().selectAll();
     }
 
+    public WeatherVO getWeatherRandom(String dbCode){
+        return databaseHolder.getDatabase().weatherDao().selectRandom(dbCode);
+    }
+
     public boolean setWeatherList(List<WeatherVO> list){
         boolean isUpdate = false;
         try{

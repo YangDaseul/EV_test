@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.main.MainActivity" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
@@ -24,6 +30,16 @@
                 android:clipChildren="false"
                 android:clipToPadding="false" />
         </FrameLayout>
+
+
+        <include
+            android:id="@+id/l_gnb"
+            layout="@layout/item_gnb"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:activity="@{activity}"
+            app:background="@{1}"/>
 
 
         <com.google.android.material.tabs.TabLayout
