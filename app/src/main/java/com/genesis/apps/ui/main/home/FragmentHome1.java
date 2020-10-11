@@ -36,6 +36,8 @@ import com.genesis.apps.databinding.FragmentHome1Binding;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
+import com.genesis.apps.ui.main.home.view.HomeInsightHorizontalAdapter;
+import com.genesis.apps.ui.myg.MyGMembershipCardPasswordActivity;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
@@ -75,6 +77,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         me.setLifecycleOwner(getViewLifecycleOwner());
+        me.setFragment(this);
         initView();
         lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
         cmnViewModel = new ViewModelProvider(getActivity()).get(CMNViewModel.class);
@@ -168,6 +171,9 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             case R.id.btn_floating_3:
                 String menuId = v.getTag(R.id.menu_id).toString();
                 //TODO menuId로 activity 이동 구현 필요
+                break;
+            case R.id.btn_carinfo://차량정보설정
+                ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), MyCarActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
         }
     }
@@ -273,45 +279,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
 
     }
-
-
-    class DrawableAlwaysCrossFadeFactory implements TransitionFactory<Drawable> {
-        private DrawableCrossFadeTransition resourceTransition = new DrawableCrossFadeTransition(2000, true);
-
-        @Override
-        public Transition<Drawable> build(DataSource dataSource, boolean isFirstResource) {
-            return resourceTransition;
-        }
-    }
-
-
-
-    private String setupSampleFile() {
-        AssetManager assetManager = getActivity().getAssets();
-        String srcFile = "rainfall_s.webp";
-        String destFile = getActivity().getFilesDir().getAbsolutePath() + File.separator + srcFile;
-        copyFile(assetManager, srcFile, destFile);
-        return destFile;
-    }
-
-    private void copyFile(AssetManager assetManager, String srcFile, String destFile) {
-        try {
-            InputStream is = assetManager.open(srcFile);
-            FileOutputStream os = new FileOutputStream(destFile);
-
-            byte[] buffer = new byte[1024];
-            int read;
-            while ((read = is.read(buffer)) != -1) {
-                os.write(buffer, 0, read);
-            }
-            is.close();
-            os.flush();
-            os.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     @Override
     public void onDestroy() {

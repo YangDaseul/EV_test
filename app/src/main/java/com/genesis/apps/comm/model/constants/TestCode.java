@@ -2,6 +2,9 @@ package com.genesis.apps.comm.model.constants;
 
 import com.genesis.apps.comm.model.gra.api.CMN_0001;
 import com.genesis.apps.comm.model.gra.api.CMN_0002;
+import com.genesis.apps.comm.model.gra.api.GNS_1001;
+import com.genesis.apps.comm.model.gra.api.GNS_1002;
+import com.genesis.apps.comm.model.gra.api.GNS_1004;
 import com.genesis.apps.comm.model.gra.api.LGN_0001;
 import com.genesis.apps.comm.model.gra.api.LGN_0003;
 import com.genesis.apps.comm.model.gra.api.LGN_0005;
@@ -128,7 +131,7 @@ public class TestCode {
             "      \"asnHist\": \"오일교체3\"\n" +
             "    }\n" +
             "  ],\n" +
-            "  \"butlSubsCd\": \"1111\",\n" +
+            "  \"butlSubsCd\": \"3000\",\n" +
             "  \"virtRecptNo\": \"1111\"\n" +
             "}", LGN_0003.Response.class);
 
@@ -303,5 +306,74 @@ public class TestCode {
             "      \"lnkUseYn\": \"N\"\n" +
             "    }\n" +
             "  ]\n" +
-            "}",CMN_0002.Response.class);;
+            "}",CMN_0002.Response.class);
+
+
+    public static GNS_1001.Response GNS_1001 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"actoprRgstYn\": \"Y\",\n" +
+            "  \"ownVhclCnt\": \"3\",\n" +
+            "  \"ownVhclList\": [\n" +
+            "    {\n" +
+            "      \"vin\": \"V141548641564\",\n" +
+            "      \"carRgstNo\": \"16조6840\",\n" +
+            "      \"mainVhclYn\": \"N\",\n" +
+            "      \"delYn\": \"N\",\n" +
+            "      \"csmrCarRelCd\": \"1\",\n" +
+            "      \"mdlCd\": \"JX1\",\n" +
+            "      \"mdlNm\": \"GV80\",\n" +
+            "      \"saleMdlNm\": \"GV80 디젤 3.0 5인승 19인치 기본디자인 2WD 오토\",\n" +
+            "      \"xrclCtyNo\": \"UYH\",\n" +
+            "      \"xrclCtyNm\": \"??\",\n" +
+            "      \"usedCarYn\": \"N\",\n" +
+            "      \"delExpYn\": \"N\",\n" +
+            "      \"delExpDay\": \"\",\n" +
+            "      \"vhclImgUri\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"vin\": \"V141548641564\",\n" +
+            "      \"carRgstNo\": \"16조6840\",\n" +
+            "      \"mainVhclYn\": \"Y\",\n" +
+            "      \"delYn\": \"N\",\n" +
+            "      \"csmrCarRelCd\": \"1\",\n" +
+            "      \"mdlCd\": \"JX2\",\n" +
+            "      \"mdlNm\": \"GV82\",\n" +
+            "      \"saleMdlNm\": \"GV82 디젤 3.0 5인승 19인치 기본디자인 2WD 오토\",\n" +
+            "      \"xrclCtyNo\": \"UYH2\",\n" +
+            "      \"xrclCtyNm\": \"??\",\n" +
+            "      \"usedCarYn\": \"N\",\n" +
+            "      \"delExpYn\": \"N\",\n" +
+            "      \"delExpDay\": \"\",\n" +
+            "      \"vhclImgUri\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"vin\": \"V141548641534\",\n" +
+            "      \"carRgstNo\": \"16조6843\",\n" +
+            "      \"mainVhclYn\": \"N\",\n" +
+            "      \"delYn\": \"N\",\n" +
+            "      \"csmrCarRelCd\": \"1\",\n" +
+            "      \"mdlCd\": \"JX3\",\n" +
+            "      \"mdlNm\": \"GV83\",\n" +
+            "      \"saleMdlNm\": \"GV83 디젤 3.0 5인승 19인치 기본디자인 2WD 오토\",\n" +
+            "      \"xrclCtyNo\": \"UYH2\",\n" +
+            "      \"xrclCtyNm\": \"??\",\n" +
+            "      \"usedCarYn\": \"N\",\n" +
+            "      \"delExpYn\": \"Y\",\n" +
+            "      \"delExpDay\": \"3\",\n" +
+            "      \"vhclImgUri\": \"\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",GNS_1001.Response.class);
+
+    public static GNS_1004.Response GNS_1004 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\"\n" +
+            "}",GNS_1004.Response.class);
+
+    public static GNS_1002.Response GNS_1002 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\"\n" +
+            "}",GNS_1002.Response.class);
+
 }

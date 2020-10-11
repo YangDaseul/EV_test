@@ -3,6 +3,7 @@ package com.genesis.apps.comm.model.repo;
 import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.gra.APIInfo;
 import com.genesis.apps.comm.model.gra.api.GNS_1001;
 import com.genesis.apps.comm.model.gra.api.GNS_1002;
@@ -54,7 +55,7 @@ public class GNSRepo {
     }
 
     public MutableLiveData<NetUIResponse<GNS_1001.Response>> REQ_GNS_1001(final GNS_1001.Request reqData) {
-
+        RES_GNS_1001.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -63,7 +64,8 @@ public class GNSRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_GNS_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_GNS_1001.setValue(NetUIResponse.success(TestCode.GNS_1001));
+//                RES_GNS_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override
@@ -76,7 +78,7 @@ public class GNSRepo {
     }
 
     public MutableLiveData<NetUIResponse<GNS_1002.Response>> REQ_GNS_1002(final GNS_1002.Request reqData) {
-
+        RES_GNS_1002.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -85,7 +87,8 @@ public class GNSRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_GNS_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_GNS_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_GNS_1002.setValue(NetUIResponse.success(TestCode.GNS_1002));
             }
 
             @Override
@@ -120,7 +123,7 @@ public class GNSRepo {
     }
 
     public MutableLiveData<NetUIResponse<GNS_1004.Response>> REQ_GNS_1004(final GNS_1004.Request reqData) {
-
+        RES_GNS_1004.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -129,7 +132,8 @@ public class GNSRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_GNS_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_GNS_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_GNS_1004.setValue(NetUIResponse.success(TestCode.GNS_1004));
             }
 
             @Override

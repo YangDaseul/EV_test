@@ -24,13 +24,21 @@ public class DBVehicleRepository {
         return databaseHolder.getDatabase().vehicleDao().select(type);
     }
 
+    public VehicleVO getVehicle(String vin){
+        return databaseHolder.getDatabase().vehicleDao().selectVin(vin);
+    }
+
     public boolean setVehicleList(List<VehicleVO> list, String custGbCd){
         boolean isUpdate = false;
         try{
-            for(int i=0; i<list.size();i++){
-                list.get(i).setCustGbCd(custGbCd);
+            if(list!=null) {
+                for (int i = 0; i < list.size(); i++) {
+                    list.get(i).setCustGbCd(custGbCd);
+                }
+                databaseHolder.getDatabase().vehicleDao().insertAndDeleteInTransaction(list, custGbCd);
+            }else{
+                databaseHolder.getDatabase().vehicleDao().deleteCustGbCd(custGbCd);
             }
-            databaseHolder.getDatabase().vehicleDao().insertAndDeleteInTransaction(list, custGbCd);
             isUpdate=true;
         }catch (Exception e){
             e.printStackTrace();
@@ -77,5 +85,9 @@ public class DBVehicleRepository {
 
     public VehicleVO getMainVehicleFromDB(){
         return getMainVehicleVO(getVehicleListAll());
+    }
+
+    public List<VehicleVO> getVehicleList(){
+        return databaseHolder.getDatabase().vehicleDao().selectMyCarList();
     }
 }

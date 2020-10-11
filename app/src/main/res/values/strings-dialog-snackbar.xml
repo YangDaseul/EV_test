@@ -13,5 +13,8 @@
     <string name="mg_con01_p01_snackbar_2">포인트 연동 해제가 되지 않았습니다.\n다시 시도해 주십시오.</string>
     <string name="gm_carlst_01_p05_snackbar">렌트/리스 실 운행자\n차량등록 신청이 취소되었습니다.</string>
 
-
+    <string name="gm_carlst01_snackbar_1">주 차량 설정이 완료되었습니다.</string>
+    <string name="gm_carlst01_snackbar_2">차량 번호를 수정하였습니다.</string>
+    <string name="gm_carlst01_snackbar_3">차량 복원이 완료되었습니다.</string>
+    <string name="gm_carlst01_snackbar_4">차량정보가 삭제됬습니다.\n7일이 지나면 최종 삭제 처리되며,\n차량 리스트에서 복원이 가능합니다.</string>
 </resources>

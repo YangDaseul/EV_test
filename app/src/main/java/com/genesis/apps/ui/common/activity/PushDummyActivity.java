@@ -3,6 +3,7 @@ package com.genesis.apps.ui.common.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.CommonUtil;
 import com.genesis.apps.ui.intro.IntroActivity;
 import com.genesis.apps.ui.main.MainActivity;
@@ -25,7 +26,7 @@ public class PushDummyActivity extends BaseActivity {
         }else{
             //foreground notification
             if(!isExcuteApp){
-                startActivitySingleTop(new Intent(this, IntroActivity.class),0);
+                startActivitySingleTop(new Intent(this, IntroActivity.class),0, VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
             }
         }
         finish();

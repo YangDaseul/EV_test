@@ -43,7 +43,7 @@ public class BaseBottomDialog<T extends ViewDataBinding> extends BottomSheetDial
             }
         });
         //2. bottomSheetDialog에서 editbox가 있어서 키보드 활성화 시 화면을 완전하게 올리도록 수정 (해당 부분을 추가하지 않으면 뷰가 잘림)
-        setOnShowListener(dialogInterface -> getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED));
+//        setOnShowListener(dialogInterface -> getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED));
     }
 
     private <T extends ViewDataBinding> T inflate(int layoutResId) {

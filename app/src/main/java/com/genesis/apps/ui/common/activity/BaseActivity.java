@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,12 +13,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.fcm.PushCode;
 
 import javax.inject.Inject;
 
+import androidx.core.app.ActivityCompat;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static com.genesis.apps.comm.model.constants.KeyNames.NOTIFICATION_ID;
@@ -42,12 +45,31 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
-    public void startActivitySingleTop(Intent intent, int flag) {
+    public void startActivitySingleTop(Intent intent, int flag, int animationFlag) {
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         if(flag==0)
             startActivity(intent);
         else
             startActivityForResult(intent, flag);
+
+        switch (animationFlag){
+            case VariableType.ACTIVITY_TRANSITION_ANIMATION_ZOON:
+                overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
+                break;
+            case VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE:
+                overridePendingTransition(R.anim.fragment_enter, R.anim.fragment_stay);
+                break;
+            case VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE:
+                overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+                break;
+            case VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE:
+            default:
+                break;
+
+
+        }
+
+
     }
 
     public void alert(String title, String msg, DialogInterface.OnClickListener okListener) {
@@ -125,4 +147,23 @@ public class BaseActivity extends AppCompatActivity {
         setResult(resultCode, new Intent().putExtra("msg",msg));
         finish();
     }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        closeTransition();
+    }
+
+    public void closeTransition(){
+        if(findViewById(R.id.l_title_bar_popup)!=null){
+            //팝업형 액티비티인 경우
+        }else{
+            //스택형 액티비티인 경우
+            overridePendingTransition(0, R.anim.fragment_exit_toright);
+        }
+    }
+
+
+
 }

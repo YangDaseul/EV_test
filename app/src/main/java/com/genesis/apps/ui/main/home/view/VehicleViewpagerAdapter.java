@@ -1,4 +1,7 @@
-package com.genesis.apps.ui.main.home;
+package com.genesis.apps.ui.main.home.view;
+
+import com.genesis.apps.ui.main.home.FragmentHome1;
+import com.genesis.apps.ui.main.home.FragmentHome2;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

@@ -35,6 +35,7 @@ public class GNS_1001 extends BaseData {
      * @brief GNS_1001 응답 항목
      * @see #ownVhclCnt 소유차량수
      * @see #ownVhclList 소유차량목록
+     * @see #ctrctVhclList 계약차량목록
      * @see #actoprRgstYn 실운행자 등록 여부
      * Y:실운행자등록건이 있음(1건이상) N: 실운행자등록건이 없음
      * Y이면 실운행자 내역조회 메뉴  N면 실운행자 등록메뉴
@@ -48,6 +49,9 @@ public class GNS_1001 extends BaseData {
         @Expose
         @SerializedName("ownVhclList")
         private List<VehicleVO> ownVhclList;//TODO 항목명 변경 상태에 따라 수정 여지 있음
+        @Expose
+        @SerializedName("ctrctVhclList")
+        private List<VehicleVO> ctrctVhclList;
         @Expose
         @SerializedName("actoprRgstYn")
         private String actoprRgstYn;

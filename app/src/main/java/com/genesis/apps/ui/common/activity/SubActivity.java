@@ -101,6 +101,7 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
 
     public void onBackButton(){
         finish();
+        closeTransition();
     }
     public abstract void onClickCommon(View v);
     public abstract void setViewModel();

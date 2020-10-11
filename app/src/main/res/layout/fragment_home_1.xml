@@ -225,6 +225,7 @@
             android:lineSpacingExtra="29sp"
             android:background="@drawable/bg_00000000_underline_ffffff"
             android:visibility="gone"
+            android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
             app:layout_constraintTop_toTopOf="@+id/iv_car"
             app:layout_constraintBottom_toBottomOf="@id/iv_car"
             app:layout_constraintLeft_toLeftOf="@+id/tv_car_code"

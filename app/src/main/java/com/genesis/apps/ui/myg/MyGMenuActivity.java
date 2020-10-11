@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.repo.MenuRepository;
 import com.genesis.apps.comm.model.vo.MenuVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -59,7 +60,7 @@ public class MyGMenuActivity extends SubActivity<ActivityMygMenuBinding> {
                         if (((MenuVO) adapter.getItem(position)).getActivity() == null) {
                             SnackBarUtil.show(this, "페이지가 존재하지 않습니다.");
                         } else {
-                            startActivitySingleTop(new Intent(this, ((MenuVO) adapter.getItem(position)).getActivity()), 0);
+                            startActivitySingleTop(new Intent(this, ((MenuVO) adapter.getItem(position)).getActivity()), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                             finish();
                         }
                     }

@@ -13,13 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.Nullable;
-
 import com.appeaser.sublimepickerlibrary.datepicker.SelectedDate;
 import com.appeaser.sublimepickerlibrary.helpers.SublimeOptions;
 import com.appeaser.sublimepickerlibrary.recurrencepicker.SublimeRecurrencePicker;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.CalenderUtil;
 import com.genesis.apps.comm.util.ScreenCaptureUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -29,14 +28,15 @@ import com.genesis.apps.comm.util.graph.StackedBarActivity;
 import com.genesis.apps.databinding.Frame4pBinding;
 import com.genesis.apps.ui.common.activity.ConstraintSetActivity;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
-import com.genesis.apps.ui.main.MainActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.service.ScreenRecorderService;
+import com.genesis.apps.ui.main.MainActivity;
 import com.genesis.apps.ui.myg.MyGHomeActivity;
 
 import java.lang.ref.WeakReference;
 
+import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static android.app.Activity.RESULT_OK;
@@ -85,7 +85,7 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         });
 
 
-        me.btnVisible.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), ConstraintSetActivity.class), 0));
+        me.btnVisible.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), ConstraintSetActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE));
 
         me.btnCalender.setOnClickListener(view -> {
             CalenderUtil pickerFrag = new CalenderUtil();
@@ -103,15 +103,15 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         });
 
 
-        me.btnGraphBar.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), AnotherBarActivity.class), 0));
-        me.btnGraphStackedbar.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), StackedBarActivity.class), 0));
-        me.btnGraphPie.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), PieChartActivity.class), 0));
+        me.btnGraphBar.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), AnotherBarActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE));
+        me.btnGraphStackedbar.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), StackedBarActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE));
+        me.btnGraphPie.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), PieChartActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE));
 
-        me.btnGaPurchase.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra("url",GAWebActivity.URL_PURCHASE_CONSULTING), 0));
-        me.btnGaDrive.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra("url",GAWebActivity.URL_TEST_DRIVE), 0));
-        me.btnGaSimilar.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra("url",GAWebActivity.URL_SIMILAR_STOCKS), 0));
-        me.btnGenesisMembership.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra("url",GAWebActivity.URL_MEMBERSHIP), 0));
-        me.btnBtoMain.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra("url",GAWebActivity.URL_BTO_MAIN), 0));
+        me.btnGaPurchase.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra("url",GAWebActivity.URL_PURCHASE_CONSULTING), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE));
+        me.btnGaDrive.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra("url",GAWebActivity.URL_TEST_DRIVE), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE));
+        me.btnGaSimilar.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra("url",GAWebActivity.URL_SIMILAR_STOCKS), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE));
+        me.btnGenesisMembership.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra("url",GAWebActivity.URL_MEMBERSHIP), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE));
+        me.btnBtoMain.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra("url",GAWebActivity.URL_BTO_MAIN), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE));
 //        me.btnRecord.setOnClickListener(view -> screenCaptureUtil.toggleRecord(()->{me.btnRecord.setText("recoding.....");}, ()->{me.btnRecord.setText("start record");}));
 
         me.btnRecord.setOnClickListener(view -> checkRecordPermission());
@@ -138,7 +138,7 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         me.btnCardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                baseActivity.startActivitySingleTop(new Intent(getActivity(), MyGHomeActivity.class), 0);
+                baseActivity.startActivitySingleTop(new Intent(getActivity(), MyGHomeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
             }
         });
     }

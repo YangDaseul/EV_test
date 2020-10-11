@@ -1,0 +1,35 @@
+<resources>
+    <string name="gm_carlst_01">MY 차고</string>
+    <string name="gm_carlst_01_1">렌트리스 실 운행자 /\n중고차 등록</string>
+    <string name="gm_carlst_01_2">렌트리스 실 운행자 등록 / 내역</string>
+    <string name="gm_carlst_01_3">중고차 등록</string>
+    <string name="gm_carlst_01_4">주 차량</string>
+    <string name="gm_carlst_01_5">계약 차량</string>
+    <string name="gm_carlst_01_6">차량이 없습니다.\n차량을 등록해주세요.</string>
+
+
+    <string name="gm_carlst_04_1">수정</string>
+    <string name="gm_carlst_04_2">삭제</string>
+    <string name="gm_carlst_04_3">복원</string>
+    <string name="gm_carlst_04_4">삭제 예정 D-%s</string>
+    <string name="gm_carlst_04_5">MOBILITY CAR</string>
+    <string name="gm_carlst_04_6">소모품 교환 쿠폰</string>
+    <string name="gm_carlst_04_7">엔진오일세트</string>
+    <string name="gm_carlst_04_8">엔진오일</string>
+    <string name="gm_carlst_04_9">오일필터</string>
+    <string name="gm_carlst_04_10">에어 크리너</string>
+    <string name="gm_carlst_04_11">에어컨 필터</string>
+    <string name="gm_carlst_04_12">브레이크 패드(앞)</string>
+    <string name="gm_carlst_04_13">와이퍼 블레이드</string>
+    <string name="gm_carlst_04_14">브레이크 오일</string>
+    <string name="gm_carlst_04_15">홈투홈 서비스</string>
+    <string name="gm_carlst_04_16"> 회</string>
+    <string name="gm_carlst_04_17">프리빌리지</string>
+    <string name="gm_carlst_04_18">혜택</string>
+    <string name="gm_carlst_04_19">현황</string>
+    <string name="gm_carlst_04_20">신청하기</string>
+    <string name="gm_carlst_04_21">MY 차고 상세</string>
+
+
+
+</resources>

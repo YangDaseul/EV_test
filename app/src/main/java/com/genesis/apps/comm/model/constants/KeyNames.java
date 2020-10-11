@@ -7,5 +7,6 @@ public interface KeyNames {
     String IS_FOREGROUND_SERVICE="IS_FOREGROUND_SERVICE";
 
     String KEY_NAME_DB_GLOBAL_DATA_NOTIDT="notiDt";
+    String KEY_NAME_VEHICLE="vehicle";
 
 }

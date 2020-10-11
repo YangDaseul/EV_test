@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.net.ga.GA;
 import com.genesis.apps.databinding.ActivityEntranceBinding;
 
@@ -48,10 +49,10 @@ public class EntranceActivity extends SubActivity<ActivityEntranceBinding> {
     }
 
     public void moveToLogin(){
-        startActivitySingleTop(new Intent(this, LoginActivity.class).putExtra("url",ga.getLoginUrl()), RequestCodes.REQ_CODE_LOGIN.getCode());
+        startActivitySingleTop(new Intent(this, LoginActivity.class).putExtra("url",ga.getLoginUrl()), RequestCodes.REQ_CODE_LOGIN.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
     public void moveToJoin(){
-        startActivitySingleTop(new Intent(this, LoginActivity.class).putExtra("url",ga.getEnrollUrl()), RequestCodes.REQ_CODE_JOIN.getCode());
+        startActivitySingleTop(new Intent(this, LoginActivity.class).putExtra("url",ga.getEnrollUrl()), RequestCodes.REQ_CODE_JOIN.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
     public void moveToFind(){
 

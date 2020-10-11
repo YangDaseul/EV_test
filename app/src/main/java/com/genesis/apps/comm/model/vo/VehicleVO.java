@@ -1,13 +1,11 @@
 package com.genesis.apps.comm.model.vo;
 
-import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
 import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

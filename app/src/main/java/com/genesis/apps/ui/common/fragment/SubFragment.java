@@ -91,28 +91,6 @@ public abstract class SubFragment<T extends ViewDataBinding> extends BaseFragmen
         return this;
     }
 
-    public void startActivityTransition(Intent intent, boolean popupTransition) {
-        intent.putExtra(POPUP_TRANSITION, popupTransition);
-        intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
-        startActivity(intent);
-        if (popupTransition) {
-            baseActivity.overridePendingTransition(R.anim.slide_up, R.anim.hold);
-            baseActivity.overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_left);
-        } else {
-        }
-    }
-
-    public void startActivityForResultTransition(Intent intent, int requestCode, boolean popupTransition) {
-        intent.putExtra(POPUP_TRANSITION, popupTransition);
-        intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
-        startActivityForResult(intent, requestCode);
-        if (popupTransition) {
-            baseActivity.overridePendingTransition(R.anim.slide_up, R.anim.hold);
-        } else {
-            baseActivity.overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_left);
-        }
-    }
-
     public void startForegroundService(Intent intent){
         if (Build.VERSION.SDK_INT >= 26) {
             getActivity().startForegroundService(intent);

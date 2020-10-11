@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.OilCodes;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.MYP_0001;
 import com.genesis.apps.comm.model.gra.api.MYP_1003;
@@ -225,13 +226,13 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         if (v != null) {
             switch (v.getId()) {
                 case R.id.btn_search:
-                    startActivitySingleTop(new Intent(this, MyGMenuActivity.class), 0);
+                    startActivitySingleTop(new Intent(this, MyGMenuActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.btn_my_info: //내정보보기
 
                     break;
                 case R.id.l_point: //블루멤버스 사용 가능 포인트
-                    startActivitySingleTop(new Intent(this, MyGMembershipActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode());
+                    startActivitySingleTop(new Intent(this, MyGMembershipActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.l_mobility_care: //혜택 쿠폰
                     break;
@@ -256,16 +257,16 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     oilView.reqIntegrateOil(OilPointVO.OIL_CODE_SOIL);
                     break;
                 case R.id.btn_barcode_gs: //GS 바코드, 포인트 화면 이동
-                    startActivitySingleTop(new Intent(this, MyGOilPointActivity.class).putExtra(OilCodes.KEY_OIL_CODE, OilPointVO.OIL_CODE_GSCT), RequestCodes.REQ_CODE_ACTIVITY.getCode());
+                    startActivitySingleTop(new Intent(this, MyGOilPointActivity.class).putExtra(OilCodes.KEY_OIL_CODE, OilPointVO.OIL_CODE_GSCT), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.btn_barcode_ho: //hyundai oilbank 바코드, 포인트 화면 이동
-                    startActivitySingleTop(new Intent(this, MyGOilPointActivity.class).putExtra(OilCodes.KEY_OIL_CODE, OilPointVO.OIL_CODE_HDOL), RequestCodes.REQ_CODE_ACTIVITY.getCode());
+                    startActivitySingleTop(new Intent(this, MyGOilPointActivity.class).putExtra(OilCodes.KEY_OIL_CODE, OilPointVO.OIL_CODE_HDOL), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.btn_barcode_sk: //sk 에너지 바코드, 포인트 화면 이동
-                    startActivitySingleTop(new Intent(this, MyGOilPointActivity.class).putExtra(OilCodes.KEY_OIL_CODE, OilPointVO.OIL_CODE_SKNO), RequestCodes.REQ_CODE_ACTIVITY.getCode());
+                    startActivitySingleTop(new Intent(this, MyGOilPointActivity.class).putExtra(OilCodes.KEY_OIL_CODE, OilPointVO.OIL_CODE_SKNO), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.btn_barcode_soil: //S-OIL 바코드, 포인트 화면 이동
-                    startActivitySingleTop(new Intent(this, MyGOilPointActivity.class).putExtra(OilCodes.KEY_OIL_CODE, OilPointVO.OIL_CODE_SOIL), RequestCodes.REQ_CODE_ACTIVITY.getCode());
+                    startActivitySingleTop(new Intent(this, MyGOilPointActivity.class).putExtra(OilCodes.KEY_OIL_CODE, OilPointVO.OIL_CODE_SOIL), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.btn_integration_michael: //마이클 연동하기
                     //TODO 정책 결정 안됨
@@ -289,19 +290,19 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + ui.tvCenterMsg4.getText().toString())));
                     break;
                 case R.id.l_terms_1://공지사항
-                    startActivitySingleTop(new Intent(this, MyGNotiActivity.class), 0);
+                    startActivitySingleTop(new Intent(this, MyGNotiActivity.class), 0,VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.l_terms_2://이용약관
-                    startActivitySingleTop(new Intent(this, MyGTermsActivity.class).putExtra(MyGTermsActivity.TERMS_CODE, MyGTermsActivity.TERMS_1000), 0);
+                    startActivitySingleTop(new Intent(this, MyGTermsActivity.class).putExtra(MyGTermsActivity.TERMS_CODE, MyGTermsActivity.TERMS_1000), 0,VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.l_terms_3://개인정보처리방침
-                    startActivitySingleTop(new Intent(this, MyGTermsActivity.class).putExtra(MyGTermsActivity.TERMS_CODE, MyGTermsActivity.TERMS_2000), 0);
+                    startActivitySingleTop(new Intent(this, MyGTermsActivity.class).putExtra(MyGTermsActivity.TERMS_CODE, MyGTermsActivity.TERMS_2000), 0,VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.l_terms_4://오픈소스 라이선스
-                    startActivitySingleTop(new Intent(this, MyGTermsActivity.class).putExtra(MyGTermsActivity.TERMS_CODE, MyGTermsActivity.TERMS_6000), 0);
+                    startActivitySingleTop(new Intent(this, MyGTermsActivity.class).putExtra(MyGTermsActivity.TERMS_CODE, MyGTermsActivity.TERMS_6000), 0,VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.l_terms_5://버전 정보
-                    startActivitySingleTop(new Intent(this, MyGVersioniActivity.class), 0);
+                    startActivitySingleTop(new Intent(this, MyGVersioniActivity.class), 0,VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.l_app_connected://커넥티트 아이콘
                 case R.id.l_app_digitalkey://디지털 키 아이콘

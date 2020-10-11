@@ -9,6 +9,19 @@
     <string name="gm01_3">주행 가능 거리</string>
     <string name="gm01_repair_status_1">긴급 출동 신청 중</string>
     <string name="gm01_repair_status_2">차량 정비 중</string>
+    <string name="gm01_bottom_1">소모품 현황</string>
+    <string name="gm01_bottom_2">최근 정비 이력</string>
+    <string name="gm01_bottom_3">보증 수리 안내</string>
+    <string name="gm01_bottom_4">보증기간</string>
+    <string name="gm01_bottom_5">최근 정비 이력이 없습니다.</string>
+    <string name="gm01_bottom_6">마이 버틀러</string>
+    <string name="gm01_bottom_7">전담 버틀러</string>
+    <string name="gm01_bottom_8">전담 블루핸즈/버틀러를\n통해 세심한\n차량관리를 받으실 수 있습니다.</string>
+    <string name="gm01_bottom_9">신청</string>
+    <string name="gm01_bottom_10">변경 신청 중</string>
+    <string name="gm01_bottom_11">차량의 보증 기간에 따른\n수리 안내입니다.</string>
+
+
 
     <string name="gm02_1">차량정보설정</string>
     <string name="gm02_2">계약서 조회</string>
@@ -20,6 +33,7 @@
     <string name="gm03_3">견적 내기</string>
 
     <string name="gm04_1">원하시는 차량의 견적을\n짜보세요.(BTO)</string>
+
 
 
 </resources>

@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.MYP_2001;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
@@ -159,10 +160,10 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
 
                 break;
             case R.id.btn_use_list://TODO 멤버십고유번호는 임시로
-                startActivitySingleTop(new Intent(this, MyGMembershipUseListActivity.class).putExtra("mbrshMbrMgmtNo", "1"), RequestCodes.REQ_CODE_ACTIVITY.getCode());
+                startActivitySingleTop(new Intent(this, MyGMembershipUseListActivity.class).putExtra("mbrshMbrMgmtNo", "1"), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.btn_password:
-                startActivitySingleTop(new Intent(this, MyGMembershipCardPasswordActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode());
+                startActivitySingleTop(new Intent(this, MyGMembershipCardPasswordActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
         }
 

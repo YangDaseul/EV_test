@@ -18,7 +18,7 @@ import com.bumptech.glide.request.transition.TransitionFactory;
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.FragmentHomeBinding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
-import com.genesis.apps.ui.main.home.VehicleViewpagerAdapter;
+import com.genesis.apps.ui.main.home.view.VehicleViewpagerAdapter;
 
 import java.io.File;
 import java.io.FileOutputStream;

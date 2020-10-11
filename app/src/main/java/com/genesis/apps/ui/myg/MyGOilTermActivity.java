@@ -14,6 +14,7 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.OilCodes;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.OIL_0001;
 import com.genesis.apps.comm.viewmodel.OILViewModel;
@@ -68,7 +69,7 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
                 try{
                     TermVO termVO = (TermVO)v.getTag(R.id.oil_term);
                     Log.v("test","test:"+termVO.getTermCd());
-                    startActivitySingleTop(new Intent(this, MyGOilTermDetailActivity.class).putExtra(MyGOilTermDetailActivity.OIL_CODE,oilRfnCd).putExtra(MyGOilTermDetailActivity.TERMS_CODE,termVO), RequestCodes.REQ_CODE_ACTIVITY.getCode());
+                    startActivitySingleTop(new Intent(this, MyGOilTermDetailActivity.class).putExtra(MyGOilTermDetailActivity.OIL_CODE,oilRfnCd).putExtra(MyGOilTermDetailActivity.TERMS_CODE,termVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }catch (Exception e){
                     e.printStackTrace();
                 }

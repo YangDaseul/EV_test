@@ -147,8 +147,6 @@ public class PermissionsActivity extends SubActivity<ActivityPermissionsBinding>
                             }
                             if (l.size() > 0) {
 
-//                               TwoButtonDialog twoButtonDialog = new TwoButtonDialog(PermissionsActivity.this, R.style.BottomSheetDialogTheme);
-
                                 twoButtonDialog.setOnShowListener(new DialogInterface.OnShowListener() {
                                     @Override
                                     public void onShow(DialogInterface dialogInterface) {

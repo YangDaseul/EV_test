@@ -215,7 +215,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
             }
             if (!check) {
                 // 권한동의로 이동
-                startActivitySingleTop(new Intent(this, PermissionsActivity.class), RequestCodes.REQ_CODE_PERMISSIONS.getCode());
+                startActivitySingleTop(new Intent(this, PermissionsActivity.class), RequestCodes.REQ_CODE_PERMISSIONS.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 return false;
             }
         }
@@ -414,7 +414,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
                 if (isPushData()) {
                     startActivity(moveToPush(MainActivity.class));
                 } else {
-                    startActivitySingleTop(new Intent(IntroActivity.this, MainActivity.class), 0);
+                    startActivitySingleTop(new Intent(IntroActivity.this, MainActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }
                 finish();
             }

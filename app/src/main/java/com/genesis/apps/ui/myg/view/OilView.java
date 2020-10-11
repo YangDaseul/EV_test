@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.OilCodes;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.api.MYP_1006;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.util.StringUtil;
@@ -115,7 +116,7 @@ public class OilView {
                         //TODO R일 경우 처리
                         break;
                     case OilPointVO.OIL_JOIN_CODE_N:
-                        ((BaseActivity)context).startActivitySingleTop(new Intent(context, MyGOilIntegrationActivity.class).putExtra(OilCodes.KEY_OIL_CODE, rfnCd), RequestCodes.REQ_CODE_ACTIVITY.getCode());
+                        ((BaseActivity)context).startActivitySingleTop(new Intent(context, MyGOilIntegrationActivity.class).putExtra(OilCodes.KEY_OIL_CODE, rfnCd), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                         //TODO N일 경우 처리
                         break;
                     default:

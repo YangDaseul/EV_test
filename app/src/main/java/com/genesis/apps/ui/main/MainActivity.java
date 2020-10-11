@@ -17,6 +17,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityMainBinding;
 import com.genesis.apps.databinding.ItemTabBinding;
@@ -182,6 +183,17 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             ui.lGnb.setCustGbCd(lgnViewModel.getUserInfoFromDB().getCustGbCd());
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    private long backKeyPressedTime = 0;
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() > backKeyPressedTime + (2 * 1000)) {
+            backKeyPressedTime = System.currentTimeMillis();
+            SnackBarUtil.show(this, getString(R.string.comm_msg_1));
+        } else {
+            super.onBackPressed();
         }
     }
 }

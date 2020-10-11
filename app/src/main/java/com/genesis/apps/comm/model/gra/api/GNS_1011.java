@@ -4,11 +4,8 @@ import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.gra.APIInfo;
 import com.genesis.apps.comm.model.gra.BaseRequest;
 import com.genesis.apps.comm.model.gra.BaseResponse;
-import com.genesis.apps.comm.model.vo.CouponVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
