@@ -7,7 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.genesis.apps.ui.common.fragment.main.FragFourth;
 import com.genesis.apps.ui.common.fragment.main.FragSecond;
-import com.genesis.apps.ui.common.fragment.main.FragThird;
+import com.genesis.apps.ui.common.activity.test.FragThird;
 import com.genesis.apps.ui.common.fragment.main.FragmentMainContents;
 
 
@@ -25,11 +25,18 @@ public class MainViewpagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         int index = getRealPosition(position);
 
-        if(index==0) return new FragmentHome();
-        else if(index==1) return new FragSecond();
-        else if(index==2) return new FragThird();
-        else if(index==3) return new FragFourth();
-        else return new FragmentMainContents();
+        switch (index) {
+            case 0:
+                return new FragmentHome();
+            case 1:
+                return new FragSecond();
+            case 2:
+                return new FragThird();
+            case 3:
+                return new FragFourth();
+            default:
+                return new FragmentMainContents();
+        }
 
     }
 
@@ -39,9 +46,9 @@ public class MainViewpagerAdapter extends FragmentStateAdapter {
         return mCount;
     }
 
-    public int getRealPosition(int position) { return position % mCount; }
-
-
+    public int getRealPosition(int position) {
+        return position % mCount;
+    }
 
 
 }

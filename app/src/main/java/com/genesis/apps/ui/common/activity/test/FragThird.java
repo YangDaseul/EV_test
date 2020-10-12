@@ -1,4 +1,4 @@
-package com.genesis.apps.ui.common.fragment.main;
+package com.genesis.apps.ui.common.activity.test;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.BindingAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.genesis.apps.R;
@@ -22,9 +23,19 @@ import java.util.ArrayList;
 public class FragThird extends SubFragment<Frame3pBinding> {
     TestItemAdapter testItemAdapter;
     ExampleViewModel exampleViewModel;
+
+    //TODO : 레이아웃 짤 때 이 테스트 목록에 추가하기
+    private int[] testLayoutList = {
+        R.layout.test_layout,
+    };
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return super.setContentView(inflater, R.layout.frame_3p);
+        super.setContentView(inflater, R.layout.frame_3p);
+        testItemAdapter = new TestItemAdapter(getActivity(), testLayoutList);
+        me.testLayoutList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        me.testLayoutList.setAdapter(testItemAdapter);
+        return me.getRoot();
     }
 
     @Override
