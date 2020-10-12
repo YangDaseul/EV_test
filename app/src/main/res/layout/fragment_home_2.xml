@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
+    <data>
+        <variable
+            name="fragment"
+            type="com.genesis.apps.ui.main.home.FragmentHome2" />
+    </data>
+
     <FrameLayout
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
@@ -263,6 +270,7 @@
                                 android:text="@string/gm01_bottom_7"
                                 android:textColor="@color/x_000000"
                                 android:textSize="16sp"
+                                android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -321,6 +329,7 @@
                                 android:textColor="@color/x_ffffff"
                                 android:textSize="14sp"
                                 android:visibility="gone"
+                                android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"

@@ -10,4 +10,6 @@ public interface KeyNames {
     String KEY_NAME_VEHICLE="vehicle";
     String KEY_NAME_VEHICLE_OWNER_COUNT="vehicleOwnerCnt";
 
+    String KEY_NAME_URL="url";
+
 }

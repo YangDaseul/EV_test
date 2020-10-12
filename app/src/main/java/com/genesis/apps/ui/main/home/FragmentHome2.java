@@ -1,6 +1,8 @@
 package com.genesis.apps.ui.main.home;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -8,9 +10,12 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.LinearLayout;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.api.LGN_0002;
 import com.genesis.apps.comm.model.gra.api.LGN_0003;
@@ -22,7 +27,10 @@ import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentHome2Binding;
 import com.genesis.apps.databinding.ItemAsanListBinding;
 import com.genesis.apps.databinding.ItemTermBinding;
+import com.genesis.apps.ui.common.activity.LoginActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
+import com.genesis.apps.ui.main.MainActivity;
 import com.genesis.apps.ui.myg.MyGOilTermActivity;
 
 import java.util.List;
@@ -53,6 +61,8 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding>{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        me.setFragment(this);
+
         lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
         lgnViewModel.getRES_LGN_0003().observe(getViewLifecycleOwner(), result -> {
             switch (result.status){
@@ -190,6 +200,18 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding>{
     @Override
     public void onClickCommon(View v) {
 
+        switch (v.getId()) {
+            case R.id.tv_btr_apply:
+                MiddleDialog.dialogBtrApply(getActivity(), () -> {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + getString(R.string.word_home_14))));
+                }, () -> {
+
+                });
+                break;
+            case R.id.tv_title_btr_term:
+//                ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), BtrServiceInfoActivity.class).putExtra(KeyNames.KEY_NAME_URL, ga.getLoginUrl()), RequestCodes.REQ_CODE_LOGIN.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
+        }
     }
 
 
