@@ -253,12 +253,13 @@ public class MyCarDetailActivity extends SubActivity<ActivityMyCarDetailBinding>
                 //TODO 차량 삭제
                 final BottomListDialog bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
                 bottomListDialog.setOnDismissListener(dialogInterface -> {
-
+                    String result = bottomListDialog.getSelectItem();
+                    if(!TextUtils.isEmpty(result)){
+                        //TODO 삭제 요청
+                    }
                 });
                 bottomListDialog.setDatas(Arrays.asList(getResources().getStringArray(R.array.vehicle_deletion_reason)));
                 bottomListDialog.show();
-
-
                 //삭제제요청후
                 //성공이면 gns 001 요청 및 db갱신 후
                 //해당 차대번호의 차량으로 vehicleVO를 덮어쓴 다음에

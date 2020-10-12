@@ -79,5 +79,11 @@ public class BottomListDialog extends BaseBottomDialog<DialogBottomListBinding> 
     }
 
 
+    public String getSelectItem() {
+        return selectItem;
+    }
 
+    public void setSelectItem(String selectItem) {
+        this.selectItem = selectItem;
+    }
 }
