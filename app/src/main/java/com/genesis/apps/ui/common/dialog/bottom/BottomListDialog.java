@@ -2,12 +2,16 @@ package com.genesis.apps.ui.common.dialog.bottom;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.DialogBottomListBinding;
+import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +19,8 @@ import java.util.List;
 public class BottomListDialog extends BaseBottomDialog<DialogBottomListBinding> {
 
     private List<String> datas = new ArrayList<>();
-
+    private ArrayAdapter adapter = null;
+    private String selectItem;
     public BottomListDialog(@NonNull Context context, int theme) {
         super(context, theme);
     }
@@ -25,10 +30,24 @@ public class BottomListDialog extends BaseBottomDialog<DialogBottomListBinding> 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_bottom_list);
         setAllowOutTouch(true);
+        if(datas!=null) {
+            adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, datas);
+            ui.lv.setAdapter(adapter);
+            ui.lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    selectItem = ((TextView)view).getText().toString();
+                    dismiss();
+                }
+            });
+        }
 
-        ui.rv.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
+        ui.lTitle.back.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                dismiss();
+            }
+        });
 
 
 //        ui.button.setOnClickListener(new View.OnClickListener() {
@@ -58,4 +77,7 @@ public class BottomListDialog extends BaseBottomDialog<DialogBottomListBinding> 
     public void setDatas(List<String> datas) {
         this.datas = datas;
     }
+
+
+
 }

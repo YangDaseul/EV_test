@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="vehicle_deletion_reason">
+        <item >매각</item>
+        <item >양도</item>
+        <item >폐차</item>
+        <item >기타</item>
+    </string-array>
+</resources>
+

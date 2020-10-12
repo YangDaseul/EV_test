@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
@@ -31,6 +32,7 @@ import com.genesis.apps.ui.common.dialog.bottom.DialogCarRgstNo;
 import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
 import com.genesis.apps.ui.main.home.view.CarHorizontalAdapter;
 
+import java.util.Arrays;
 import java.util.List;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -193,6 +195,7 @@ public class MyCarDetailActivity extends SubActivity<ActivityMyCarDetailBinding>
 
         ui.lCar.tvModel.setText(vehicleVO.getMdlCd() + "\n" + vehicleVO.getMdlNm());
         ui.lCar.tvCarRgstNo.setText(vehicleVO.getCarRgstNo());
+
         if (vehicleVO.getDelExpYn().equalsIgnoreCase(VariableType.DELETE_EXPIRE_Y)) {
             //삭제 예정 차량
             ui.lCar.tvCarStatus.setVisibility(View.VISIBLE);
@@ -202,9 +205,9 @@ public class MyCarDetailActivity extends SubActivity<ActivityMyCarDetailBinding>
         } else {
             ui.lCar.ivFavorite.setVisibility(View.VISIBLE);
             ui.lCar.ivFavorite.setImageResource(vehicleVO.getMainVhclYn().equalsIgnoreCase(VariableType.MAIN_VEHICLE_N) ? R.drawable.ic_star_s : R.drawable.ic_star_l_s);
+            ui.lCar.ivFavorite.setOnClickListener(onSingleClickListener);
             ui.lCar.btnModify.setVisibility(View.VISIBLE);
             ui.lCar.btnDelete.setVisibility(View.VISIBLE);
-            ui.lCar.ivFavorite.setOnClickListener(onSingleClickListener);
             ui.lCar.btnModify.setOnClickListener(onSingleClickListener);
             ui.lCar.btnDelete.setOnClickListener(onSingleClickListener);
         }
@@ -248,6 +251,14 @@ public class MyCarDetailActivity extends SubActivity<ActivityMyCarDetailBinding>
                 break;
             case R.id.btn_delete:
                 //TODO 차량 삭제
+                final BottomListDialog bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
+                bottomListDialog.setOnDismissListener(dialogInterface -> {
+
+                });
+                bottomListDialog.setDatas(Arrays.asList(getResources().getStringArray(R.array.vehicle_deletion_reason)));
+                bottomListDialog.show();
+
+
                 //삭제제요청후
                 //성공이면 gns 001 요청 및 db갱신 후
                 //해당 차대번호의 차량으로 vehicleVO를 덮어쓴 다음에
