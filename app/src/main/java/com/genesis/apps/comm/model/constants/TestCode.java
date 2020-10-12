@@ -4,10 +4,14 @@ import com.genesis.apps.comm.model.gra.api.CMN_0001;
 import com.genesis.apps.comm.model.gra.api.CMN_0002;
 import com.genesis.apps.comm.model.gra.api.GNS_1001;
 import com.genesis.apps.comm.model.gra.api.GNS_1002;
+import com.genesis.apps.comm.model.gra.api.GNS_1003;
 import com.genesis.apps.comm.model.gra.api.GNS_1004;
+import com.genesis.apps.comm.model.gra.api.GNS_1005;
+import com.genesis.apps.comm.model.gra.api.GNS_1010;
 import com.genesis.apps.comm.model.gra.api.LGN_0001;
 import com.genesis.apps.comm.model.gra.api.LGN_0003;
 import com.genesis.apps.comm.model.gra.api.LGN_0005;
+import com.genesis.apps.comm.model.gra.api.MYP_1005;
 import com.google.gson.Gson;
 
 public class TestCode {
@@ -383,5 +387,102 @@ public class TestCode {
             "  \"rtCd\": \"0000\",\n" +
             "  \"rtMsg\": \"성공\"\n" +
             "}",GNS_1002.Response.class);
+
+
+    public static GNS_1003.Response GNS_1003 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\"\n" +
+            "}",GNS_1003.Response.class);
+
+
+    public static GNS_1005.Response GNS_1005 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\"\n" +
+            "}",GNS_1005.Response.class);
+
+    public static GNS_1010.Response GNS_1010 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"cpnList\": [\n" +
+            "    {\n" +
+            "      \"itemDivCd\": \"11\",\n" +
+            "      \"itemNm\": \"\",\n" +
+            "      \"remCnt\": \"1\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"itemDivCd\": \"13\",\n" +
+            "      \"itemNm\": \"\",\n" +
+            "      \"remCnt\": \"2\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"itemDivCd\": \"32\",\n" +
+            "      \"itemNm\": \"\",\n" +
+            "      \"remCnt\": \"3\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"itemDivCd\": \"33\",\n" +
+            "      \"itemNm\": \"\",\n" +
+            "      \"remCnt\": \"4\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"itemDivCd\": \"34\",\n" +
+            "      \"itemNm\": \"브레이크오일343434\",\n" +
+            "      \"remCnt\": \"5\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"itemDivCd\": \"61\",\n" +
+            "      \"itemNm\": \"\",\n" +
+            "      \"remCnt\": \"6\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"itemDivCd\": \"99\",\n" +
+            "      \"itemNm\": \"\",\n" +
+            "      \"remCnt\": \"7\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}\n",GNS_1010.Response.class);
+
+
+    public static MYP_1005.Response MYP_1005 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"mbrshJoinYn\": \"Y\",\n" +
+            "  \"pvilList\": [\n" +
+            "    {\n" +
+            "      \"vin\": \"111111111\",\n" +
+            "      \"carRgstNo\": \"16조68404\",\n" +
+            "      \"mdlCd\": \"GV80\",\n" +
+            "      \"mdlNm\": \"가솔린1111111\",\n" +
+            "      \"saleMdlNm\": \"디젤가솔린1111111\",\n" +
+            "      \"xrclCtyNo\": \"\",\n" +
+            "      \"xrclCtyNm\": \"\",\n" +
+            "      \"joinPsblCd\": \"0\",\n" +
+            "      \"stusCd\": \"0000\",\n" +
+            "      \"stusMsg\": \"정상\",\n" +
+            "      \"serviceUrl\": \"\",\n" +
+            "      \"serviceDetailUrl\": \"\",\n" +
+            "      \"joinPsblCd\": \"0\",\n" +
+            "      \"joinPsblCd\": \"0\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"vin\": \"2222222\",\n" +
+            "      \"carRgstNo\": \"16조6842\",\n" +
+            "      \"mdlCd\": \"GV80\",\n" +
+            "      \"mdlNm\": \"가솔린22222\",\n" +
+            "      \"saleMdlNm\": \"디젤가솔린22222\",\n" +
+            "      \"xrclCtyNo\": \"\",\n" +
+            "      \"xrclCtyNm\": \"\",\n" +
+            "      \"joinPsblCd\": \"0\",\n" +
+            "      \"stusCd\": \"0000\",\n" +
+            "      \"stusMsg\": \"정상\",\n" +
+            "      \"serviceUrl\": \"\",\n" +
+            "      \"serviceDetailUrl\": \"\",\n" +
+            "      \"joinPsblCd\": \"0\",\n" +
+            "      \"joinPsblCd\": \"0\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}\n", MYP_1005.Response.class);
+
+
 
 }

@@ -3,6 +3,7 @@ package com.genesis.apps.ui.myg;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -19,6 +20,7 @@ import com.genesis.apps.comm.model.gra.api.MYP_1006;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.model.vo.PrivilegeVO;
 import com.genesis.apps.comm.util.PackageUtil;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.databinding.ActivityMygHomeBinding;
@@ -183,7 +185,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         } else {
             ui.lPrivilege.setVisibility(View.VISIBLE);
 
-            if (data.getPvilList().size() == 1) {
+            if (data.getPvilList().size()==1) {
                 ui.btnCarList.setVisibility(View.GONE);
 
                 switch (data.getPvilList().get(0).getJoinPsblCd()) {
@@ -191,11 +193,15 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                         ui.btnStatus.setVisibility(View.GONE);
                         ui.btnBenefit.setVisibility(View.GONE);
                         ui.btnApply.setVisibility(View.VISIBLE);
+                        ui.btnApply.setTag(R.id.url, data.getPvilList().get(0).getServiceUrl());
                         break;
                     case PrivilegeVO.JOIN_CODE_APPLYED:
                         ui.btnStatus.setVisibility(View.VISIBLE);
                         ui.btnBenefit.setVisibility(View.VISIBLE);
                         ui.btnApply.setVisibility(View.GONE);
+
+                        ui.btnStatus.setTag(R.id.url, data.getPvilList().get(0).getServiceUrl());
+                        ui.btnBenefit.setTag(R.id.url, data.getPvilList().get(0).getServiceDetailUrl());
                         break;
                     default:
                         //TODO 정의 필요 임시로 프리빌리지 레이아웃이 안보이도록 처리;
@@ -236,13 +242,21 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     break;
                 case R.id.l_mobility_care: //혜택 쿠폰
                     break;
-                case R.id.btn_benefit: //프리빌리지 혜택
+                case R.id.btn_benefit:
+                    //TODO 프리빌리지 혜택
+                case R.id.btn_status:
+                    //TODO 프리빌리지 현황
+                case R.id.btn_apply:
+                    //TODO 프리빌리지 신청하기
+                    String url = v.getTag(R.id.url).toString();
+                    if(!TextUtils.isEmpty(url)){
+                        //todo webview 이동
+                    }else{
+                        SnackBarUtil.show(this, "페이지 정보가 존재하지 않습니다.\n잠시 후 다시 시도해 주십시오.");
+                    }
                     break;
-                case R.id.btn_status: //프리빌리지 현황
-                    break;
+
                 case R.id.btn_car_list: //프리빌리지 차량목록
-                    break;
-                case R.id.btn_apply: //프리빌리지 신청하기
                     break;
                 case R.id.tv_integration_gs: //gs칼텍스 연동하기
                     oilView.reqIntegrateOil(OilPointVO.OIL_CODE_GSCT);

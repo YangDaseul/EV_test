@@ -8,5 +8,6 @@ public interface KeyNames {
 
     String KEY_NAME_DB_GLOBAL_DATA_NOTIDT="notiDt";
     String KEY_NAME_VEHICLE="vehicle";
+    String KEY_NAME_VEHICLE_OWNER_COUNT="vehicleOwnerCnt";
 
 }

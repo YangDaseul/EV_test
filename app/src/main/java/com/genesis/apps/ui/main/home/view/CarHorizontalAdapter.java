@@ -106,6 +106,21 @@ public class CarHorizontalAdapter extends BaseRecyclerViewAdapter2<VehicleVO> {
 
     }
 
+    public int getVehicleOwnerCnt(){
+        int cnt=0;
+
+        try{
+            for(VehicleVO vehicleVO : getItems()){
+                if(vehicleVO.getCustGbCd().equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)){
+                    cnt++;
+                }
+            }
+        }catch (Exception ignore){
+            ignore.printStackTrace();
+        }
+        return cnt;
+    }
+
 //    //소멸 및 정지상태 아이템은 제거
 //    public void applyFilter() {
 //        for (int i = 0; i < getItems().size(); i++) {

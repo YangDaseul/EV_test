@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
+import com.genesis.apps.R;
+import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -42,6 +44,17 @@ public class BaseBottomDialog<T extends ViewDataBinding> extends BottomSheetDial
 
             }
         });
+
+        try {
+            findViewById(R.id.back).setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    dismiss();
+                }
+            });
+        } catch (Exception e) {
+
+        }
         //2. bottomSheetDialog에서 editbox가 있어서 키보드 활성화 시 화면을 완전하게 올리도록 수정 (해당 부분을 추가하지 않으면 뷰가 잘림)
 //        setOnShowListener(dialogInterface -> getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED));
     }

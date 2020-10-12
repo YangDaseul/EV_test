@@ -3,6 +3,7 @@ package com.genesis.apps.comm.model.repo;
 import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.gra.APIInfo;
 import com.genesis.apps.comm.model.gra.api.MYP_0001;
 import com.genesis.apps.comm.model.gra.api.MYP_0004;
@@ -149,7 +150,7 @@ public class MYPRepo {
         return RES_MYP_1003;
     }
     public MutableLiveData<NetUIResponse<MYP_1005.Response>> REQ_MYP_1005(final MYP_1005.Request reqData) {
-
+        RES_MYP_1005.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -159,7 +160,8 @@ public class MYPRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_MYP_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_MYP_1005.setValue(NetUIResponse.success(TestCode.MYP_1005));
+//                RES_MYP_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override

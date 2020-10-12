@@ -21,6 +21,7 @@ public class BottomListDialog extends BaseBottomDialog<DialogBottomListBinding> 
     private List<String> datas = new ArrayList<>();
     private ArrayAdapter adapter = null;
     private String selectItem;
+    private String title;
     public BottomListDialog(@NonNull Context context, int theme) {
         super(context, theme);
     }
@@ -30,6 +31,7 @@ public class BottomListDialog extends BaseBottomDialog<DialogBottomListBinding> 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_bottom_list);
         setAllowOutTouch(true);
+        ui.lTitle.setValue(title);
         if(datas!=null) {
             adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, datas);
             ui.lv.setAdapter(adapter);
@@ -41,32 +43,6 @@ public class BottomListDialog extends BaseBottomDialog<DialogBottomListBinding> 
                 }
             });
         }
-
-        ui.lTitle.back.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                dismiss();
-            }
-        });
-
-
-//        ui.button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
-//
-//        ui.editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View view, boolean hasFocus) {
-//
-////                if(hasFocus)
-////                    behavior.setState(BottomSheetBehavior.STATE_DRAGGING);
-//
-//            }
-//        });
-
     }
 
 
@@ -85,5 +61,9 @@ public class BottomListDialog extends BaseBottomDialog<DialogBottomListBinding> 
 
     public void setSelectItem(String selectItem) {
         this.selectItem = selectItem;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

@@ -5,7 +5,7 @@ import android.view.View;
 
 public abstract class OnSingleClickListener implements View.OnClickListener {
     // 중복 클릭 방지 시간 설정
-    private static final long MIN_CLICK_INTERVAL=1000;
+    private static final long MIN_CLICK_INTERVAL=500;
     private long mLastClickTime;
     public abstract void onSingleClick(View v);
 

@@ -149,8 +149,7 @@
                         android:textColor="@color/x_cd9a81"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="0 회" />
+                        app:layout_constraintTop_toTopOf="parent"/>
 
 
                     <TextView
@@ -183,8 +182,7 @@
                         android:textColor="@color/x_cd9a81"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_title_part_oil_filter"
-                        tools:text="0 회" />
+                        app:layout_constraintTop_toTopOf="@+id/tv_title_part_oil_filter"/>
 
 
                     <TextView
@@ -216,8 +214,7 @@
                         android:textColor="@color/x_cd9a81"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_title_part_air_cleaner"
-                        tools:text="0 회" />
+                        app:layout_constraintTop_toTopOf="@+id/tv_title_part_air_cleaner"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -265,8 +262,7 @@
                         android:textColor="@color/x_cd9a81"
                         android:textSize="16sp"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="0 회" />
+                        app:layout_constraintTop_toTopOf="parent"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -315,8 +311,7 @@
                         android:textColor="@color/x_cd9a81"
                         android:textSize="16sp"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="0 회" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -363,8 +358,7 @@
                         android:textColor="@color/x_cd9a81"
                         android:textSize="16sp"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="0 회" />
+                        app:layout_constraintTop_toTopOf="parent"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -412,8 +406,7 @@
                         android:textColor="@color/x_cd9a81"
                         android:textSize="16sp"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="0 회" />
+                        app:layout_constraintTop_toTopOf="parent"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -461,8 +454,7 @@
                         android:textColor="@color/x_cd9a81"
                         android:textSize="16sp"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="0 회" />
+                        app:layout_constraintTop_toTopOf="parent"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -558,10 +550,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:visibility="visible"/>
-
-
-
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -44,4 +44,22 @@ public class VariableType {
     public static final String BTR_APPLY_CODE_1000 = "1000"; //신규신청
     public static final String BTR_APPLY_CODE_2000 = "2000"; //전담버틀러
     public static final String BTR_APPLY_CODE_3000 = "3000"; //변경신청중
+
+
+    //MY차고 차량 삭제 사유 유형
+    public static final String MY_CAR_DELETION_REASON_SELL="1";
+    public static final String MY_CAR_DELETION_REASON_SCRAPPED="2";
+    public static final String MY_CAR_DELETION_REASON_TRANSFER="4";
+    public static final String MY_CAR_DELETION_REASON_ETC="7";
+
+
+    //모빌리티케어 쿠폰 정보
+    public static final String COUPON_CODE_ENGINE="11";//엔진오일세트
+    public static final String COUPON_CODE_FILTER="13";//에어컨필터
+    public static final String COUPON_CODE_BREAK_PAD="32";//브레이크패드
+    public static final String COUPON_CODE_WIPER="33";//와이퍼블레이드
+    public static final String COUPON_CODE_BREAK_OIL="34";//브레이크오일
+    public static final String COUPON_CODE_PICKUP_DELIVERY="61";//픽업앤딜리버리
+    public static final String COUPON_CODE_SONAKS="99";//프리미엄 소낙스 세차 이용권
+
 }

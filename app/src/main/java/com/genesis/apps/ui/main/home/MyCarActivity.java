@@ -169,7 +169,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarBinding> {
                         &&!vehicleVO1.getDelExpYn().equalsIgnoreCase(VariableType.DELETE_EXPIRE_Y) //삭제 예정 차량이 아니고
                         &&vehicleVO1.getCustGbCd().equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)){//소유 차량이면
                     //TODO 차고 상세페이지로 이동
-                    startActivitySingleTop(new Intent(this, MyCarDetailActivity.class).putExtra(KeyNames.KEY_NAME_VEHICLE, vehicleVO1), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_ZOON);
+                    startActivitySingleTop(new Intent(this, MyCarDetailActivity.class).putExtra(KeyNames.KEY_NAME_VEHICLE, vehicleVO1).putExtra(KeyNames.KEY_NAME_VEHICLE_OWNER_COUNT, adapter.getVehicleOwnerCnt()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_ZOON);
                 }
 
                 break;

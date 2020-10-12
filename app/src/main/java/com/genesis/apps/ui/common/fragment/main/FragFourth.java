@@ -227,11 +227,11 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         }
     }
 
-    private void updateRecording(final boolean isRecording) {
-        if(!isRecording){
-            playRecordVideo();
-        }
-    }
+//    private void updateRecording(final boolean isRecording) {
+//        if(!isRecording){
+//            playRecordVideo();
+//        }
+//    }
 
     private void requestShare(){
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
@@ -241,11 +241,11 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         startActivity(Intent.createChooser(sharingIntent, "Share image using")); // 변경가능
     }
 
-    private void playRecordVideo(){
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.parse(ScreenCaptureUtil.videoFile), "video/mp4");
-        startActivityForResult(intent,RequestCodes.REQ_CODE_PLAY_VIDEO.getCode() );
-    }
+//    private void playRecordVideo(){
+//        Intent intent = new Intent(Intent.ACTION_VIEW);
+//        intent.setDataAndType(Uri.parse(ScreenCaptureUtil.videoFile), "video/mp4");
+//        startActivityForResult(intent,RequestCodes.REQ_CODE_PLAY_VIDEO.getCode() );
+//    }
 
     private void unRegReceiver() {
         if(mReceiver!=null) {
