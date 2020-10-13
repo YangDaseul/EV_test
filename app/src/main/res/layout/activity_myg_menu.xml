@@ -48,7 +48,8 @@
                 android:background="@drawable/bg_ffffff_stroke_dadde3"
                 android:textSize="15sp"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="6sp"/>
+                android:lineSpacingExtra="6sp"
+                android:minHeight="50dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
