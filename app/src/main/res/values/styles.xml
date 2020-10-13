@@ -61,7 +61,7 @@
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
         <item name="android:letterSpacing">-0.01</item>
-        
+
         <!--TODO : 항목 별 desc 밑에 여백 좁아서 0으로 해둠(원래 6)-->
         <item name="android:lineSpacingExtra">0sp</item>
         <item name="android:clickable">false</item>
@@ -92,4 +92,14 @@
     <style name="ServiceDriveDesc.regular" parent="ServiceDriveDesc">
         <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
     </style>
+
+    <!-- sonax 지점 검색 결과 없음   -->
+    <style name="SonaxNoResult">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/x_141414</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
 </resources>

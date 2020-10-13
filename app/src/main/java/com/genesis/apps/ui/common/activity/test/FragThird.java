@@ -28,10 +28,12 @@ public class FragThird extends SubFragment<Frame3pBinding> {
     private final int[] testLayoutList = {
             R.layout.fragment_service,
             R.layout.fragment_service_maintenance,
+
             R.layout.fragment_service_car_wash,
             R.layout.fragment_service_car_wash_item,
-            R.layout.fragment_service_service_driver,
+            R.layout.activity_car_wash_find_sonax_branch,
 
+            R.layout.fragment_service_service_driver,
 
     };
 

@@ -1,0 +1,11 @@
+<resources>
+    <!--  세차 -->
+    <string name="sm_cw_find_01">SONAX 지점 검색</string>
+    <string name="sm_cw_find_02">sonax 지점 검색을 위해\n시도별 선택해 주세요.</string>
+    <string name="sm_cw_find_03">위치</string>
+    <string name="sm_cw_find_04">시/도</string>
+    <string name="sm_cw_find_05">검색 결과</string>
+    <string name="sm_cw_find_06">해당 시도에 SONAX 지점이 없습니다.</string>
+    <string name="sm_cw_find_07">인근 다른 시도 지점을 이용해 주세요.</string>
+
+</resources>
