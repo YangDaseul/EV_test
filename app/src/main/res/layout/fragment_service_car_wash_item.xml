@@ -8,8 +8,7 @@
     android:background="@drawable/ripple_bg_ffffff_round_10"
     android:clickable="true"
     android:focusable="true"
-    android:padding="20dp"
-    tools:background="#a0f040">
+    android:padding="20dp">
     <!-- TODO 지정된 높이 120dp안에서 지정된 글씨크기로 여백 모자람  -->
 
     <!-- 아이템 이름 -->

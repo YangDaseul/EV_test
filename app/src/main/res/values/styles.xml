@@ -9,7 +9,7 @@
         <item name="android:splitMotionEvents">false</item>
     </style>
 
-    <style name="TextInputLayout" parent="Theme.MaterialComponents.Light.NoActionBar"/>
+    <style name="TextInputLayout" parent="Theme.MaterialComponents.Light.NoActionBar" />
 
     <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
@@ -18,8 +18,7 @@
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
     </style>
 
-    <style name="AppModalStyle"
-        parent="Widget.Design.BottomSheet.Modal">
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bg_ffffff_top_round_20</item>
     </style>
 
@@ -31,9 +30,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-<!--    <style name="CustomTextAppearance" parent="TextAppearance.MaterialCalendarWidget.Date">-->
-<!--        <item name="android:textColor">@drawable/selector_calendar</item>-->
-<!--    </style>-->
+    <!--    <style name="CustomTextAppearance" parent="TextAppearance.MaterialCalendarWidget.Date">-->
+    <!--        <item name="android:textColor">@drawable/selector_calendar</item>-->
+    <!--    </style>-->
     <style name="calendarStyle">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/selector_calendar</item>
@@ -42,6 +41,7 @@
         <item name="android:lineSpacingExtra">16sp</item>
         <item name="android:gravity">center</item>
     </style>
+
     <style name="calendarStyleHeader">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/x_000000</item>
@@ -69,8 +69,6 @@
         <item name="android:lineSpacingExtra">16sp</item>
         <item name="android:gravity">center</item>
     </style>
-
-
 
 
     <!-- 서비스 정비 항목 클릭 영역-->
@@ -135,4 +133,41 @@
     <style name="ServiceDriveDesc.regular" parent="ServiceDriveDesc">
         <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
     </style>
+
+    <!-- sonax 지점 검색 결과 공통 -->
+    <style name="SonaxResult">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:letterSpacing">-0.01</item>
+    </style>
+
+    <!-- sonax 지점 검색 결과 없음   -->
+    <style name="SonaxResult.NoResult" parent="SonaxResult">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textColor">@color/x_141414</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <!-- sonax 지점 검색 결과 타이틀 -->
+    <style name="SonaxResult.Title" parent="SonaxResult">
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!-- sonax 지점 검색 결과 아이템 공통 -->
+    <style name="SonaxResult.Item" parent="SonaxResult">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/x_000000</item>
+    </style>
+
+    <!-- sonax 지점 검색 결과 아이템 (지점명, 거리) -->
+    <style name="SonaxResult.Item.Regular" parent="SonaxResult.Item">
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+    </style>
+    <!-- sonax 지점 검색 결과 아이템 (주소, 동, 전화번호) -->
+    <style name="SonaxResult.Item.light" parent="SonaxResult.Item">
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+    </style>
+
+
 </resources>

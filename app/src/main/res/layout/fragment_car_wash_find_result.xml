@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/x_ffffff"
+    android:padding="20dp">
+
+    <!-- 검색결과 타이틀 -->
+    <TextView
+        android:id="@+id/tv_sonax_find_result_title"
+        style="@style/SonaxResult.Title"
+        android:text="@string/sm_cw_find_05"
+        android:textColor="@color/x_000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 검색된 수 -->
+    <TextView
+        style="@style/SonaxResult.Title"
+        android:layout_marginStart="4dp"
+        android:textColor="@color/x_cd9a81"
+        app:layout_constraintStart_toEndOf="@id/tv_sonax_find_result_title"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="7" />
+
+    <!-- 검색 결과 목록 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_sonax_find_result_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_sonax_find_result_title"
+        tools:background="#a0f040"
+        tools:listitem="@layout/fragment_car_wash_find_result_item" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

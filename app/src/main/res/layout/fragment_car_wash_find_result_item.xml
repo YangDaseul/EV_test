@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp"
+    android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingHorizontal="15dp"
+    android:paddingVertical="20dp">
+    <!--  TODO 지정높이(124dp)에 내용 다 안 들어가서 wrap_con으로 해둠.  -->
+
+    <!-- 지점명 -->
+    <TextView
+        android:id="@+id/tv_car_wash_find_result_branch_name"
+        style="@style/SonaxResult.Item.Regular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="SONAX 어쩌고저쩌고 지점" />
+
+    <!-- 거리 -->
+    <TextView
+        android:id="@+id/tv_car_wash_find_result_branch_distance"
+        style="@style/SonaxResult.Item.Regular"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@id/tv_car_wash_find_result_branch_name"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="99.9km" />
+
+    <!-- 주소 -->
+    <TextView
+        android:id="@+id/tv_car_wash_find_result_branch_location"
+        style="@style/SonaxResult.Item.light"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_car_wash_find_result_branch_name"
+        tools:text="지구 어딘가에는 있겠지" />
+
+    <!-- 동 -->
+    <TextView
+        android:id="@+id/tv_car_wash_find_result_branch_dong"
+        style="@style/SonaxResult.Item.light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_car_wash_find_result_branch_location"
+        tools:text="(울랄라동)" />
+
+    <!-- 전화번호 -->
+    <TextView
+        android:id="@+id/tv_car_wash_find_result_branch_phone"
+        style="@style/SonaxResult.Item.light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_car_wash_find_result_branch_dong"
+        tools:text="02-2435-23523" />
+
+    <!-- 오른쪽 '>' -->
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="0dp"
+        android:src="@drawable/btn_open_r"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
