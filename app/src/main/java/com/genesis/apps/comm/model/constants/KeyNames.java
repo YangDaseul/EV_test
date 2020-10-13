@@ -13,5 +13,6 @@ public interface KeyNames {
     String KEY_NAME_URL="url";
     String KEY_NAME_ADMIN_CODE="annMgmtCd";
     String KEY_NAME_VIN="vin";
+    String KEY_NAME_BTR="btr";
 
 }

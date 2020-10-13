@@ -1,14 +1,12 @@
 package com.genesis.apps.ui.main.home;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.view.View;
-
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
+import android.webkit.WebView;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
@@ -17,27 +15,21 @@ import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.BTR_1001;
-import com.genesis.apps.comm.model.gra.api.BTR_1010;
-import com.genesis.apps.comm.model.gra.api.GNS_1001;
-import com.genesis.apps.comm.model.gra.api.GNS_1004;
 import com.genesis.apps.comm.model.vo.BtrVO;
-import com.genesis.apps.comm.model.vo.VehicleVO;
-import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.BTRViewModel;
-import com.genesis.apps.comm.viewmodel.GNSViewModel;
 import com.genesis.apps.databinding.ActivityBtrBluehandsBinding;
-import com.genesis.apps.databinding.ActivityMyCarBinding;
-import com.genesis.apps.room.ResultCallback;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.main.home.view.CarHorizontalAdapter;
+import com.genesis.apps.ui.main.MainActivity;
 
-import java.util.List;
 import java.util.Locale;
+
+import androidx.lifecycle.ViewModelProvider;
 
 public class BtrBluehandsActivity extends SubActivity<ActivityBtrBluehandsBinding> {
 
     private BTRViewModel btrViewModel;
     private String vin;
+    private BtrVO btrVO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,13 +77,12 @@ public class BtrBluehandsActivity extends SubActivity<ActivityBtrBluehandsBindin
                 case SUCCESS:
                     showProgressDialog(false);
 
-                    BtrVO btrVO = result.data.getBtrVO();
+                    btrVO = result.data.getBtrVO();
 
                     if(btrVO!=null) {
                         ui.tvAsnnm.setText(btrVO.getAsnNm());
                         ui.tvAddr.setText(btrVO.getPbzAdr());
                         ui.tvReptn.setText(btrVO.getRepTn());
-                        ui.lAsan.setTag(R.id.addr, btrVO.getPbzAdr());
 
                         ui.tvName.setText(btrVO.getBtlrNm());
                         ui.tvPhone.setText(PhoneNumberUtils.formatNumber(btrVO.getCelphNo(), Locale.getDefault().getCountry()));
@@ -133,7 +124,7 @@ public class BtrBluehandsActivity extends SubActivity<ActivityBtrBluehandsBindin
 
         switch (v.getId()){
             case R.id.l_asan://내위치확인
-
+                startActivitySingleTop(new Intent(this, BtrBluehandsMapActivity.class).putExtra(KeyNames.KEY_NAME_BTR, btrVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.btn_change://변경하기
 
@@ -145,7 +136,7 @@ public class BtrBluehandsActivity extends SubActivity<ActivityBtrBluehandsBindin
 
                 break;
             case R.id.btn_call://통화하기
-
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + btrVO.getCelphNo())));
                 break;
         }
     }

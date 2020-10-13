@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -17,37 +16,32 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.LGN_0002;
 import com.genesis.apps.comm.model.gra.api.LGN_0003;
 import com.genesis.apps.comm.model.vo.MainHistVO;
-import com.genesis.apps.comm.model.vo.TermVO;
-import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentHome2Binding;
 import com.genesis.apps.databinding.ItemAsanListBinding;
-import com.genesis.apps.databinding.ItemTermBinding;
-import com.genesis.apps.ui.common.activity.LoginActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
-import com.genesis.apps.ui.myg.MyGOilTermActivity;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import static com.genesis.apps.comm.model.vo.TermVO.TERM_ESN_AGMT_N;
 
 public class FragmentHome2 extends SubFragment<FragmentHome2Binding>{
     boolean isScrollTop=false;
     boolean isTopDirection=false;
     float beforeYPosition=0;
     private LGNViewModel lgnViewModel;
+    private VehicleVO vehicleVO;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return super.setContentView(inflater, R.layout.fragment_home_2);
@@ -91,17 +85,20 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding>{
                 me.tvBtrApply.setVisibility(View.GONE);
                 me.tvBtrStatus.setVisibility(View.GONE);
                 me.ivBtrArrow.setVisibility(View.VISIBLE);
+                me.lBtr.setOnClickListener(view -> onSingleClickListener.onClick(view));
                 break;
             case VariableType.BTR_APPLY_CODE_3000:
                 me.tvBtrApply.setVisibility(View.GONE);
                 me.tvBtrStatus.setVisibility(View.VISIBLE);
                 me.ivBtrArrow.setVisibility(View.VISIBLE);
+                me.lBtr.setOnClickListener(view -> onSingleClickListener.onClick(view));
                 break;
             case VariableType.BTR_APPLY_CODE_1000:
             default:
                 me.tvBtrApply.setVisibility(View.VISIBLE);
                 me.tvBtrStatus.setVisibility(View.GONE);
                 me.ivBtrArrow.setVisibility(View.GONE);
+                me.lBtr.setOnClickListener(null);
                 break;
         }
     }
@@ -211,11 +208,14 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding>{
             case R.id.tv_title_btr_term:
                 String annMgmtCd;
                 try{
-                    annMgmtCd = "BTR_"+lgnViewModel.getMainVehicleFromDB().getMdlNm();
+                    annMgmtCd = "BTR_"+vehicleVO.getMdlNm();
                     ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), BtrServiceInfoActivity.class).putExtra(KeyNames.KEY_NAME_ADMIN_CODE, annMgmtCd), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
+                break;
+            case R.id.l_btr:
+                ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), BtrBluehandsActivity.class).putExtra(KeyNames.KEY_NAME_VIN, vehicleVO.getVin()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
         }
     }
@@ -223,6 +223,14 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding>{
 
     @Override
     public void onRefresh() {
+        try {
+            vehicleVO = lgnViewModel.getMainVehicleFromDB();
+        }catch (Exception e){
+            e.printStackTrace();;
+        }
+
+        lgnViewModel.reqLGN0002(new LGN_0002.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
+        lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
     }
 
 

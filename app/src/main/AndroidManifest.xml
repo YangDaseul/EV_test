@@ -193,6 +193,14 @@
             android:screenOrientation="portrait"
             android:exported="false"/>
         <activity
+            android:name=".ui.main.home.BtrBluehandsActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+        <activity
+            android:name=".ui.main.home.BtrBluehandsMapActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+        <activity
             android:name=".ui.common.activity.test.TestActivity"
             android:screenOrientation="portrait"
             android:exported="false"/>

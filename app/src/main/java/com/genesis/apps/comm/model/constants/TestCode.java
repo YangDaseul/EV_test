@@ -1,5 +1,6 @@
 package com.genesis.apps.comm.model.constants;
 
+import com.genesis.apps.comm.model.gra.api.BTR_1001;
 import com.genesis.apps.comm.model.gra.api.CMN_0001;
 import com.genesis.apps.comm.model.gra.api.CMN_0002;
 import com.genesis.apps.comm.model.gra.api.GNS_1001;
@@ -484,5 +485,21 @@ public class TestCode {
             "}\n", MYP_1005.Response.class);
 
 
+    public static BTR_1001.Response BTR_1001 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"vin\": \"VIN_000001\",\n" +
+            "  \"custMgmtNo\": \"CSMR_000001\",\n" +
+            "  \"asnCd\": \"블루핸즈 의왕\",\n" +
+            "  \"asnNm\": \"블루핸즈 의왕\",\n" +
+            "  \"repTn\": \"01000000000\",\n" +
+            "  \"pbzAdr\": \"인천광역시부평구\",\n" +
+            "  \"mapXcooNm\": \"37.463936\",\n" +
+            "  \"mapYcooNm\": \"127.042953\",\n" +
+            "  \"btlrNm\": \"박문수\",\n" +
+            "  \"celphNo\": \"01022223333\",\n" +
+            "  \"bltrChgYn\": \"C\",\n" +
+            "  \"cnsltBdgYn\": \"N\"\n" +
+            "}", BTR_1001.Response.class);
 
 }

@@ -21,7 +21,7 @@ import lombok.EqualsAndHashCode;
 public class LGN_0002 extends BaseData {
 
     /**
-     * @brief LGN_0001 요청 항목
+     * @brief LGN_0002 요청 항목
      * @author hjpark
      * @see #vin 차대번호
      */
@@ -39,13 +39,13 @@ public class LGN_0002 extends BaseData {
     }
 
     /**
-     * @brief LGN_0001 응답 항목
+     * @brief LGN_0002 응답 항목
      * @author hjpark
      *
      *
      * @see #carGbCd 차량구분코드
      * 차량구분코드 (주차량/계약차량/디폴트차량)
-     * 주차량: 0001, 계약차량: 0002, 디폴트차량: 0000
+     * 주차량: 0002, 계약차량: 0002, 디폴트차량: 0000
      * @see #vin 차대번호
      * @see #carRgstNo 차량번호
      * @see #mdlNm 차량모델명

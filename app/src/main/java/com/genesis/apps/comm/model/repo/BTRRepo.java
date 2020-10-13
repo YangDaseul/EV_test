@@ -3,6 +3,7 @@ package com.genesis.apps.comm.model.repo;
 import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.gra.APIInfo;
 import com.genesis.apps.comm.model.gra.api.BTR_1001;
 import com.genesis.apps.comm.model.gra.api.BTR_1008;
@@ -50,7 +51,29 @@ public class BTRRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_BTR_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+
+                String json = "{\n" +
+                        "  \"rtCd\": \"0000\",\n" +
+                        "  \"rtMsg\": \"Success\",\n" +
+                        "  \"vin\": \"VIN_000001\",\n" +
+                        "  \"custMgmtNo\": \"CSMR_000001\",\n" +
+                        "  \"asnCd\": \"블루핸즈 의왕\",\n" +
+                        "  \"asnNm\": \"블루핸즈 의왕\",\n" +
+                        "  \"repTn\": \"01000000000\",\n" +
+                        "  \"pbzAdr\": \"인천광역시부평구\",\n" +
+                        "  \"mapXcooNm\": \"37.463936\",\n" +
+                        "  \"mapYcooNm\": \"127.042953\",\n" +
+                        "  \"btlrNm\": \"박문수\",\n" +
+                        "  \"celphNo\": \"01022223333\",\n" +
+                        "  \"bltrChgYn\": \"C\",\n" +
+                        "  \"cnsltBdgYn\": \"N\"\n" +
+                        "}";
+                BTR_1001.Response response = TestCode.BTR_1001;
+                response.setBtrVO(new Gson().fromJson(json, BtrVO.class)); //btr 데이터 저장
+                RES_BTR_1001.setValue(NetUIResponse.success(response));
+
+
+//                RES_BTR_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override
