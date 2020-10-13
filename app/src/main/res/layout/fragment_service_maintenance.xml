@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,6 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/ripple_bg_000000_round_10"
+            android:clickable="true"
+            android:focusable="true"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:gravity="center_vertical"
             android:letterSpacing="-0.16"
@@ -141,7 +144,8 @@
             android:textSize="12sp"
             android:visibility="gone"
             app:layout_constraintLeft_toRightOf="@id/tv_service_maintenance_emergency_title"
-            app:layout_constraintTop_toTopOf="@id/tv_service_maintenance_emergency_title" />
+            app:layout_constraintTop_toTopOf="@id/tv_service_maintenance_emergency_title"
+            tools:visibility="visible" />
 
         <!--  정비 긴급출동 아이콘-->
         <ImageView

@@ -26,7 +26,6 @@ public class FragThird extends SubFragment<Frame3pBinding> {
 
     //TODO : 레이아웃 짤 때 이 테스트 목록에 추가하기
     private final int[] testLayoutList = {
-            R.layout.test_layout,
             R.layout.fragment_service,
             R.layout.fragment_service_maintenance,
             R.layout.fragment_service_car_wash,
