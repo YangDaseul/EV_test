@@ -5,6 +5,7 @@
 
 
     <data>
+
         <variable
             name="fragment"
             type="com.genesis.apps.ui.main.home.FragmentHome2" />
@@ -25,325 +26,321 @@
         <!--        </com.genesis.apps.ui.common.view.NestedScrollableHost>-->
 
 
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
 
-
-            <ScrollView
-                android:id="@+id/scroll"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fillViewport="true"
-                android:scrollbars="none">
+                android:background="@color/x_ffffff"
+                android:descendantFocusability="blocksDescendants"
+                android:paddingTop="20dp">
+
+                <ImageView
+                    android:id="@+id/iv_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_main_up"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/tv_title_part"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="20dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/regular_genesissansheadglobal"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="-2sp"
+                    android:maxLines="1"
+                    android:text="@string/gm01_bottom_1"
+                    android:textColor="@color/x_000000"
+                    android:textSize="18sp"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_up" />
+
+
+                <View
+                    android:id="@+id/v_graph"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintLeft_toLeftOf="@+id/tv_title_part"
+                    app:layout_constraintRight_toRightOf="@+id/tv_title_part"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_part" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/x_ffffff"
-                    android:paddingTop="20dp"
-                    android:descendantFocusability="blocksDescendants">
-
-                    <ImageView
-                        android:id="@+id/iv_up"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/ic_main_up"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/x_f4f4f4"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="40dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="110dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/v_graph">
 
 
                     <TextView
-                        android:id="@+id/tv_title_part"
+                        android:id="@+id/tv_title_asan"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginRight="20dp"
                         android:ellipsize="end"
                         android:fontFamily="@font/regular_genesissansheadglobal"
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="-2sp"
                         android:maxLines="1"
-                        android:text="@string/gm01_bottom_1"
+                        android:text="@string/gm01_bottom_2"
                         android:textColor="@color/x_000000"
                         android:textSize="18sp"
                         app:layout_constrainedWidth="true"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/iv_up" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
-
-                    <View
-                        android:id="@+id/v_graph"
-                        android:layout_width="0dp"
-                        android:layout_height="200dp"
-                        android:layout_marginTop="20dp"
-                        app:layout_constraintLeft_toLeftOf="@+id/tv_title_part"
-                        app:layout_constraintRight_toRightOf="@+id/tv_title_part"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_title_part" />
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <LinearLayout
+                        android:id="@+id/l_asan"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:background="@color/x_f4f4f4"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="40dp"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="110dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:orientation="vertical"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/v_graph">
-
+                        app:layout_constraintTop_toBottomOf="@+id/tv_title_asan">
 
                         <TextView
-                            android:id="@+id/tv_title_asan"
+                            android:id="@+id/tv_asan_empty"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+                            android:fontFamily="@font/regular_genesissansheadglobal"
+                            android:gravity="center"
+                            android:paddingTop="33dp"
+                            android:paddingBottom="33dp"
+                            android:text="@string/gm01_bottom_5"
+                            android:textColor="@color/x_141414" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_title_warranty"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/regular_genesissansheadglobal"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="-2sp"
+                        android:maxLines="1"
+                        android:text="@string/gm01_bottom_3"
+                        android:textColor="@color/x_000000"
+                        android:textSize="18sp"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_asan" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/l_warranty"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="20dp"
+                        android:paddingRight="15dp"
+                        android:paddingBottom="20dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_title_warranty">
+
+                        <ImageView
+                            android:id="@+id/iv_warranty_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/btn_arrow_open_r"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_title_warranty_term"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:fontFamily="@font/regular_genesissansheadglobal"
                             android:letterSpacing="-0.01"
-                            android:lineSpacingExtra="-2sp"
+                            android:lineSpacingExtra="2sp"
                             android:maxLines="1"
-                            android:text="@string/gm01_bottom_2"
+                            android:text="@string/gm01_bottom_4"
                             android:textColor="@color/x_000000"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             app:layout_constrainedWidth="true"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <LinearLayout
-                            android:id="@+id/l_asan"
+                        <TextView
+                            android:id="@+id/tv_msg_warranty"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:orientation="vertical"
+                            android:fontFamily="@font/light_genesissansheadglobal"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="6sp"
+                            android:text="@string/gm01_bottom_11"
+                            android:textColor="@color/x_000000"
+                            android:textSize="16sp"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_title_asan">
+                            app:layout_constraintTop_toBottomOf="@+id/tv_title_warranty_term" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                            <TextView
-                                android:id="@+id/tv_asan_empty"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/bg_ffffff_stroke_e2e2e2"
-                                android:fontFamily="@font/regular_genesissansheadglobal"
-                                android:gravity="center"
-                                android:paddingTop="33dp"
-                                android:paddingBottom="33dp"
-                                android:text="@string/gm01_bottom_5"
-                                android:textColor="@color/x_141414" />
 
-                        </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_title_btr"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/regular_genesissansheadglobal"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="-2sp"
+                        android:maxLines="1"
+                        android:text="@string/gm01_bottom_6"
+                        android:textColor="@color/x_000000"
+                        android:textSize="18sp"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_warranty" />
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/l_btr"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="20dp"
+                        android:paddingRight="15dp"
+                        android:paddingBottom="20dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_title_btr">
+
+                        <ImageView
+                            android:id="@+id/iv_btr_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/btn_arrow_open_r"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/tv_title_warranty"
-                            android:layout_width="0dp"
+                            android:id="@+id/tv_title_btr_term"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="40dp"
+                            android:drawableRight="@drawable/btn_question"
+                            android:drawablePadding="6dp"
                             android:ellipsize="end"
                             android:fontFamily="@font/regular_genesissansheadglobal"
                             android:letterSpacing="-0.01"
-                            android:lineSpacingExtra="-2sp"
+                            android:lineSpacingExtra="2sp"
                             android:maxLines="1"
-                            android:text="@string/gm01_bottom_3"
+                            android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
+                            android:text="@string/gm01_bottom_7"
                             android:textColor="@color/x_000000"
-                            android:textSize="18sp"
-                            app:layout_constrainedWidth="true"
+                            android:textSize="16sp"
                             app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/l_asan" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/l_warranty"
+                        <TextView
+                            android:id="@+id/tv_msg_btr"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:background="@drawable/bg_ffffff_stroke_e2e2e2"
-                            android:paddingLeft="15dp"
-                            android:paddingTop="20dp"
-                            android:paddingRight="15dp"
-                            android:paddingBottom="20dp"
+                            android:fontFamily="@font/light_genesissansheadglobal"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="6sp"
+                            android:text="@string/gm01_bottom_8"
+                            android:textColor="@color/x_000000"
+                            android:textSize="16sp"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_title_warranty">
-
-                            <ImageView
-                                android:id="@+id/iv_warranty_arrow"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/btn_arrow_open_r"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <TextView
-                                android:id="@+id/tv_title_warranty_term"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/regular_genesissansheadglobal"
-                                android:letterSpacing="-0.01"
-                                android:lineSpacingExtra="2sp"
-                                android:maxLines="1"
-                                android:text="@string/gm01_bottom_4"
-                                android:textColor="@color/x_000000"
-                                android:textSize="16sp"
-                                app:layout_constrainedWidth="true"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <TextView
-                                android:id="@+id/tv_msg_warranty"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/light_genesissansheadglobal"
-                                android:letterSpacing="-0.01"
-                                android:lineSpacingExtra="6sp"
-                                android:text="@string/gm01_bottom_11"
-                                android:textColor="@color/x_000000"
-                                android:textSize="16sp"
-                                app:layout_constrainedWidth="true"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/tv_title_warranty_term" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                            app:layout_constraintTop_toBottomOf="@+id/tv_title_btr_term" />
 
 
                         <TextView
-                            android:id="@+id/tv_title_btr"
-                            android:layout_width="0dp"
+                            android:id="@+id/tv_btr_status"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="40dp"
-                            android:ellipsize="end"
+                            android:background="@drawable/bg_ffffff_stroke_cd9a81"
                             android:fontFamily="@font/regular_genesissansheadglobal"
                             android:letterSpacing="-0.01"
-                            android:lineSpacingExtra="-2sp"
-                            android:maxLines="1"
-                            android:text="@string/gm01_bottom_6"
-                            android:textColor="@color/x_000000"
-                            android:textSize="18sp"
-                            app:layout_constrainedWidth="true"
-                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:lineSpacingExtra="4sp"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="10dp"
+                            android:paddingBottom="5dp"
+                            android:text="@string/gm01_bottom_10"
+                            android:textColor="@color/x_cd9a81"
+                            android:textSize="12sp"
+                            android:visibility="gone"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/l_warranty" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:visibility="visible" />
 
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/l_btr"
-                            android:layout_width="0dp"
+                        <TextView
+                            android:id="@+id/tv_btr_apply"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:background="@drawable/bg_ffffff_stroke_e2e2e2"
-                            android:paddingLeft="15dp"
-                            android:paddingTop="20dp"
-                            android:paddingRight="15dp"
-                            android:paddingBottom="20dp"
-                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:background="@drawable/ripple_bg_000000"
+                            android:fontFamily="@font/light_genesissansheadglobal"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="7sp"
+                            android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
+                            android:paddingLeft="14dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="14dp"
+                            android:paddingBottom="10dp"
+                            android:text="@string/gm01_bottom_9"
+                            android:textColor="@color/x_ffffff"
+                            android:textSize="14sp"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_title_btr">
-
-                            <ImageView
-                                android:id="@+id/iv_btr_arrow"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/btn_arrow_open_r"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <TextView
-                                android:id="@+id/tv_title_btr_term"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:drawableRight="@drawable/btn_question"
-                                android:drawablePadding="6dp"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/regular_genesissansheadglobal"
-                                android:letterSpacing="-0.01"
-                                android:lineSpacingExtra="2sp"
-                                android:maxLines="1"
-                                android:text="@string/gm01_bottom_7"
-                                android:textColor="@color/x_000000"
-                                android:textSize="16sp"
-                                android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <TextView
-                                android:id="@+id/tv_msg_btr"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/light_genesissansheadglobal"
-                                android:letterSpacing="-0.01"
-                                android:lineSpacingExtra="6sp"
-                                android:text="@string/gm01_bottom_8"
-                                android:textColor="@color/x_000000"
-                                android:textSize="16sp"
-                                app:layout_constrainedWidth="true"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/tv_title_btr_term" />
-
-
-
-
-                            <TextView
-                                android:id="@+id/tv_btr_status"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
-                                android:background="@drawable/bg_ffffff_stroke_cd9a81"
-                                android:fontFamily="@font/regular_genesissansheadglobal"
-                                android:letterSpacing="-0.01"
-                                android:lineSpacingExtra="4sp"
-                                android:text="@string/gm01_bottom_10"
-                                android:textColor="@color/x_cd9a81"
-                                android:textSize="12sp"
-                                android:visibility="gone"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                tools:visibility="visible"/>
-
-                            <TextView
-                                android:id="@+id/tv_btr_apply"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingLeft="14dp"
-                                android:paddingRight="14dp"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:background="@drawable/ripple_bg_000000"
-                                android:fontFamily="@font/light_genesissansheadglobal"
-                                android:letterSpacing="-0.01"
-                                android:lineSpacingExtra="7sp"
-                                android:text="@string/gm01_bottom_9"
-                                android:textColor="@color/x_ffffff"
-                                android:textSize="14sp"
-                                android:visibility="gone"
-                                android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                tools:visibility="visible"/>
-
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:visibility="visible" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </ScrollView>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
     </FrameLayout>
 

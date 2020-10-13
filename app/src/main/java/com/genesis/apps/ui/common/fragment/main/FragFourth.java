@@ -29,6 +29,7 @@ import com.genesis.apps.databinding.Frame4pBinding;
 import com.genesis.apps.ui.common.activity.ConstraintSetActivity;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
+import com.genesis.apps.ui.common.dialog.bottom.DialogCalendar;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.service.ScreenRecorderService;
 import com.genesis.apps.ui.main.MainActivity;
@@ -88,18 +89,21 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
         me.btnVisible.setOnClickListener(view -> baseActivity.startActivitySingleTop(new Intent(getActivity(), ConstraintSetActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE));
 
         me.btnCalender.setOnClickListener(view -> {
-            CalenderUtil pickerFrag = new CalenderUtil();
-            pickerFrag.setCallback(mFragmentCallback);
+            DialogCalendar dialogCalendar = new DialogCalendar(getContext(), R.style.BottomSheetDialogTheme);
+            dialogCalendar.show();
 
-            // Options
-            Pair<Boolean, SublimeOptions> optionsPair = pickerFrag.getOptions(SublimeOptions.ACTIVATE_DATE_PICKER,true,-1L, -1L, null);
-            // Valid options
-            Bundle bundle = new Bundle();
-            bundle.putParcelable("SUBLIME_OPTIONS", optionsPair.second);
-            pickerFrag.setArguments(bundle);
-
-            pickerFrag.setStyle(CalenderUtil.STYLE_NO_TITLE, 0);
-            pickerFrag.show(getChildFragmentManager(), "SUBLIME_PICKER");
+//            CalenderUtil pickerFrag = new CalenderUtil();
+//            pickerFrag.setCallback(mFragmentCallback);
+//
+//            // Options
+//            Pair<Boolean, SublimeOptions> optionsPair = pickerFrag.getOptions(SublimeOptions.ACTIVATE_DATE_PICKER,true,-1L, -1L, null);
+//            // Valid options
+//            Bundle bundle = new Bundle();
+//            bundle.putParcelable("SUBLIME_OPTIONS", optionsPair.second);
+//            pickerFrag.setArguments(bundle);
+//
+//            pickerFrag.setStyle(CalenderUtil.STYLE_NO_TITLE, 0);
+//            pickerFrag.show(getChildFragmentManager(), "SUBLIME_PICKER");
         });
 
 
