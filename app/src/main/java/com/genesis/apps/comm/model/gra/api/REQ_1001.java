@@ -39,24 +39,8 @@ public class REQ_1001 extends BaseData {
 
     /**
      * @brief REQ_1001 응답 항목
-     * @see #rsvtStusCd 정비상태코드
-     * 정비예약을 하지 않아 정비상태값이 없을 경우 "0000
-     * 예약상태코드	홈투홈	에어포트	오토케어	정비소
-     * 예약신청	    1100	2100	3100	4100
-     * 예약완료	    1200	2200	3200	4200
-     * 픽업대기	    1300	2300	3300
-     * 픽업중	    1400	2400	3400
-     * 정비소도착	1500	2500	3500
-     * 정비대기중	4600	4600	4600	4600
-     * 정비진행중	4700	4700	4700	4700
-     * 정비완료	    4800	4800	4800	4800
-     * 딜리버리대기	6300	7300	8300
-     * 딜리버리중	6400	7400	8400
-     * 딜리버리완료	6500	7500	8500
-     * 예약취소	    6800	7800	8800	9800
-     * @see #pgrsStusCd rsvtTypCd
-     * 정비상태코드가 "0000" 이 아닐 경우.
-     * AUTO:오토케어, ARPT:에어포트 HTOH:홈투홈 RPSH:정비소
+     * @see #stusCd 차량현재상태코드
+     * 코드값이 4610 ~ 4850 인 경우 "정비중" 표시. 그외 표시 안함.
      * @see #pgrsStusCd 긴급출동상태코드
      * 진행상태 - (R:신청, -> W:접수,-> S:출동,-> E:완료, C:취소)
      * 긴급출동 신청건이 없을경우 "0000"
@@ -65,11 +49,8 @@ public class REQ_1001 extends BaseData {
     public @Data
     class Response extends BaseResponse {
         @Expose
-        @SerializedName("rsvtStusCd")
-        private String rsvtStusCd;
-        @Expose
-        @SerializedName("rsvtTypCd")
-        private String rsvtTypCd;
+        @SerializedName("stusCd")
+        private String stusCd;
         @Expose
         @SerializedName("pgrsStusCd")
         private String pgrsStusCd;

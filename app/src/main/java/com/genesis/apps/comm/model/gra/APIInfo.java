@@ -45,6 +45,7 @@ public enum APIInfo {
 
     GRA_NOT_0001("알림센터+알림목록 조회", "NOT-0001", HttpRequest.METHOD_POST, "/graapi/lgn/notiInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_NOT_0002("알림센터+알림내용 읽기", "NOT-0002", HttpRequest.METHOD_POST, "/graapi/lgn/readNoti.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_NOT_0003("알림센터+ 신규알림 목록수", "NOT-0003", HttpRequest.METHOD_POST, "/graapi/not/newNoti.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     GRA_OIL_0001("MyG+ 정유사 약관요청", "OIL-0001", HttpRequest.METHOD_POST, "/graapi/myg/oilCompTermsRequest.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_OIL_0002("MyG+ 정유사 연동요청", "OIL-0002", HttpRequest.METHOD_POST, "/graapi/myg/oilCompLinkConn.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
@@ -96,9 +97,9 @@ public enum APIInfo {
     GRA_BTR_1009("Genesis + 블루핸즈 변경/신청 요청", "BTR-1009", HttpRequest.METHOD_POST, "/graapi/btr/blehdUpdt.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_BTR_1010("Genesis + 버틀러 안내조회", "BTR-1010", HttpRequest.METHOD_POST, "/graapi/btr//btlrGuide.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
-    GRA_BTR_1011("Genesis + 버틀러 상담 문의/개설", "BTR-1011", HttpRequest.METHOD_POST, "/graapi/btr//graapi/btr/btlrQnaRgstr.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_BTR_1012("Genesis + 버틀러 상담 이력조회", "BTR-1012", HttpRequest.METHOD_POST, "/graapi/btr/btlrQnaInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_BTR_1013("Genesis + 버틀러 상담 답변읽기", "BTR-1013", HttpRequest.METHOD_POST, "/graapi/btr/btlrQnaRead.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_BTR_2001("Genesis + 상담유형 및 카테고리 작성", "BTR-2001", HttpRequest.METHOD_POST, "/graapi/btr/cdValInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_BTR_2002("Genesis + 상담문의 작성", "BTR-2002", HttpRequest.METHOD_POST, "/graapi/btr/gnsBtrCslt.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_BTR_2003("Genesis + 이력 조회", "BTR-2003", HttpRequest.METHOD_POST, "/graapi/btr/gnsBtrCsltBkgd.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
 
     GRA_CBK_1001("insight + 차계부 차량조회", "CBK-1001", HttpRequest.METHOD_POST, "/graapi/cbk/carbkSearch.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
@@ -129,8 +130,8 @@ public enum APIInfo {
     GRA_PUB_1003("Home + 구군조회", "PUB-1003", HttpRequest.METHOD_POST, "/graapi/pub/gugun.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
 
-    GRA_STO_1001("Genesis + 유사재고차량", "STO-1001", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_STO_1002("Genesis + BTO 웹뷰", "STO-1002", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_STO_1001("Genesis + 유사재고차량", "STO-1001", HttpRequest.METHOD_POST, "/graapi/sto/smlrStckVhcl.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_STO_1002("Genesis + BTO 웹뷰", "STO-1002", HttpRequest.METHOD_POST, "/graapi/sto/btoWebview.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
 
 
