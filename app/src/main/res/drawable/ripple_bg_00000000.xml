@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/x_88ffffff"> <!-- Ripple color :: WHITE (눌린 후 색상) -->
+    android:color="@color/x_88ffffff"> <!-- Ripple color :: BLACK (눌린 후 색상) -->
 
     <item>
         <!-- Normal bg color :: #164A7D (눌리기 전 색상) -->

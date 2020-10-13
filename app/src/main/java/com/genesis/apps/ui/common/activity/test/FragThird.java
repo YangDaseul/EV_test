@@ -25,8 +25,14 @@ public class FragThird extends SubFragment<Frame3pBinding> {
     ExampleViewModel exampleViewModel;
 
     //TODO : 레이아웃 짤 때 이 테스트 목록에 추가하기
-    private int[] testLayoutList = {
-        R.layout.test_layout,
+    private final int[] testLayoutList = {
+            R.layout.fragment_service,
+            R.layout.fragment_service_maintenance,
+            R.layout.fragment_service_car_wash,
+            R.layout.fragment_service_car_wash_item,
+            R.layout.fragment_service_service_driver,
+
+
     };
 
     @Override
@@ -82,7 +88,6 @@ public class FragThird extends SubFragment<Frame3pBinding> {
 //        if(datas!=null)
 //            adapter.updateItems(adapter.makeItems(datas,0));
     }
-
 
 
 //    public void setItemsToAdvancedItemAdapter(List<Item> items) {

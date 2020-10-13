@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/x_f4f4f4"
+    android:padding="20dp">
+
+    <!-- 세차 예약 내역 클릭영역-->
+    <!-- TODO 세로 110dp에 지정된 글씨크기 및 여백으로 다 안 들어감. 지금 타이틀/메시지 사이 마진 없는 상태   -->
+    <!-- TODO 스크롤 범위 지정에 예약 내역이 포함될 경우, 이 부분도 별도 파일에 뷰로 작성하여 리사이클러 뷰 안에 넣기   -->
+    <ImageView
+        android:id="@+id/iv_service_car_wash_reserv_history"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:background="@drawable/ripple_bg_000000_round_10"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--  세차 예약 내역 타이틀-->
+    <TextView
+        android:id="@+id/iv_service_car_wash_reserv_history_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/regular_genesissansheadglobal"
+        android:letterSpacing="-0.01"
+        android:text="@string/sm01_car_wash_1"
+        android:textColor="@color/x_ffffff"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/iv_service_car_wash_reserv_history"
+        app:layout_constraintTop_toTopOf="@id/iv_service_car_wash_reserv_history" />
+
+    <!--  세차 예약 내역 텍스트-->
+    <TextView
+        android:id="@+id/iv_service_car_wash_reserv_history_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/light_genesissansheadglobal"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="6sp"
+        android:text="@string/sm01_car_wash_2"
+        android:textColor="@color/x_aaabaf"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/iv_service_car_wash_reserv_history_title"
+        app:layout_constraintTop_toBottomOf="@id/iv_service_car_wash_reserv_history_title" />
+
+    <!-- 세차 예약 내역 오른쪽에 " > " -->
+    <!--  TODO fix src   -->
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:src="@color/x_ba544d"
+        app:layout_constraintBottom_toBottomOf="@id/iv_service_car_wash_reserv_history"
+        app:layout_constraintEnd_toEndOf="@id/iv_service_car_wash_reserv_history"
+        app:layout_constraintTop_toTopOf="@id/iv_service_car_wash_reserv_history" />
+
+    <!--  아이템으로 사용되는 뷰 파일 : fragment_service_car_wash_item -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_service_car_wash_item_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_service_car_wash_reserv_history"
+        tools:background="#a0f040" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
