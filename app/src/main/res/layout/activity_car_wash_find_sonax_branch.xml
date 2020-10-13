@@ -112,14 +112,27 @@
         </LinearLayout>
 
         <!-- 검색 결과 : 결과 없음 위에 덮어씌우는 형태로 출력 -->
-        <fragment
-            android:id="@+id/l_car_wash_find_result_fragment"
-            android:layout_width="match_parent"
+
+        <include
+            android:layout_width="0dp"
             android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_dummy"
-            tools:background="#b0f060"
-            tools:layout="@layout/fragment_car_wash_find_result" />
+            layout="@layout/fragment_car_wash_find_result"/>
+
+
+<!--        <fragment-->
+<!--            android:id="@+id/l_car_wash_find_result_fragment"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/iv_dummy"-->
+<!--            tools:background="#b0f060"-->
+<!--            tools:layout="@layout/fragment_car_wash_find_result" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
