@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!--    <data>-->
-    <!--        <variable-->
-    <!--            name="activity"-->
-    <!--            type="com.genesis.apps.ui.main.home.MyCarActivity" />-->
-    <!--    </data>-->
+        <data>
+            <variable
+                name="activity"
+                type="com.genesis.apps.ui.main.home.BtrBluehandsActivity" />
+        </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_whole"
@@ -44,11 +44,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+                    android:background="@drawable/ripple_bg_ffffff_stroke_e2e2e2"
                     android:paddingLeft="15dp"
                     android:paddingTop="20dp"
                     android:paddingRight="15dp"
                     android:paddingBottom="20dp"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -209,6 +210,7 @@
                         android:text="@string/gm_bt02_4"
                         android:textColor="@color/x_141414"
                         android:textSize="14sp"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -240,9 +242,21 @@
                         android:text="@string/gm_bt02_5"
                         android:textColor="@color/x_141414"
                         android:textSize="16sp"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                         app:layout_constraintEnd_toStartOf="@+id/btn_cnsl"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/iv_badge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="50dp"
+                        android:src="@drawable/badge_ba544d"
+                        app:layout_constraintVertical_bias="0.3"
+                        app:layout_constraintTop_toTopOf="@+id/btn_cnsl_list"
+                        app:layout_constraintBottom_toBottomOf="@+id/btn_cnsl_list"
+                        app:layout_constraintEnd_toEndOf="@+id/btn_cnsl_list"/>
 
                     <TextView
                         android:id="@+id/btn_cnsl"
@@ -259,6 +273,7 @@
                         android:text="@string/gm_bt02_6"
                         android:textColor="@color/x_141414"
                         android:textSize="16sp"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/btn_cnsl_list"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -278,6 +293,7 @@
                         android:text="@string/gm_bt02_7"
                         android:textColor="@color/x_ffffff"
                         android:textSize="16sp"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/btn_cnsl_list" />

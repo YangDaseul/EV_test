@@ -209,7 +209,13 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding>{
                 });
                 break;
             case R.id.tv_title_btr_term:
-//                ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), BtrServiceInfoActivity.class).putExtra(KeyNames.KEY_NAME_URL, ga.getLoginUrl()), RequestCodes.REQ_CODE_LOGIN.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                String annMgmtCd;
+                try{
+                    annMgmtCd = "BTR_"+lgnViewModel.getMainVehicleFromDB().getMdlNm();
+                    ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), BtrServiceInfoActivity.class).putExtra(KeyNames.KEY_NAME_ADMIN_CODE, annMgmtCd), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 break;
         }
     }

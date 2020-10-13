@@ -12,6 +12,7 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.hybrid.core.WebViewFragment;
 import com.genesis.apps.comm.model.vo.TermVO;
+import com.genesis.apps.databinding.ActivityHtmlBinding;
 import com.genesis.apps.databinding.ActivityTermBinding;
 
 import java.io.BufferedReader;
@@ -19,11 +20,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
-public class TermActivity extends SubActivity<ActivityTermBinding>  {
+public class HtmlActivity extends SubActivity<ActivityHtmlBinding>  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_term);
+        setContentView(R.layout.activity_html);
     }
 
     @Override
@@ -46,10 +47,10 @@ public class TermActivity extends SubActivity<ActivityTermBinding>  {
 
     }
 
-    public void loadTerms(TermVO data){
-        if(data!=null&& !TextUtils.isEmpty(data.getTermCont())){
+    public void loadTerms(String html){
+        if(!TextUtils.isEmpty(html)){
             Bundle bundle = new Bundle();
-            bundle.putString(WebViewFragment.EXTRA_HTML_BODY, data.getTermCont());
+            bundle.putString(WebViewFragment.EXTRA_HTML_BODY, html);
 
             MyWebViewFrament fragment = new MyWebViewFrament();
             fragment.setArguments(bundle);

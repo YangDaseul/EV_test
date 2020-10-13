@@ -11,5 +11,7 @@ public interface KeyNames {
     String KEY_NAME_VEHICLE_OWNER_COUNT="vehicleOwnerCnt";
 
     String KEY_NAME_URL="url";
+    String KEY_NAME_ADMIN_CODE="annMgmtCd";
+    String KEY_NAME_VIN="vin";
 
 }

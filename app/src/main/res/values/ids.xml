@@ -8,4 +8,5 @@
     <item name="menu_id" type="id"/>
     <item name="vehicle" type="id"/>
     <item name="url" type="id"/>
+    <item name="addr" type="id"/>
 </resources>

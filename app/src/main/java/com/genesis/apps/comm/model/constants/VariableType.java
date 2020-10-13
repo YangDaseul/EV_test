@@ -44,6 +44,9 @@ public class VariableType {
     public static final String BTR_APPLY_CODE_1000 = "1000"; //신규신청
     public static final String BTR_APPLY_CODE_2000 = "2000"; //전담버틀러
     public static final String BTR_APPLY_CODE_3000 = "3000"; //변경신청중
+    public static final String BTR_CHANGE_REQUEST_YES = "Y"; //변경신청중
+    public static final String BTR_CNSL_BADGE_YES = "Y"; //상담뱃지여부
+
 
 
     //MY차고 차량 삭제 사유 유형
