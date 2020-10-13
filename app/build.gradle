@@ -175,6 +175,8 @@ dependencies {
 
     //calendar
     implementation 'com.appeaser.sublimepickerlibrary:sublimepickerlibrary:2.1.2'
+    implementation 'com.github.prolificinteractive:material-calendarview:1.4.3'
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'
 
     //graph
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
