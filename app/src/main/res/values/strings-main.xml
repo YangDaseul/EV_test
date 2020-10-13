@@ -63,11 +63,6 @@
     <!--TODO : "xx원" x가 얼마인지는 코드에서 입력-->
     <string name="sm01_car_wash_4">원</string>
 
-    <!--TODO : 이거 string리소스가 맞나, 서버 수신 데이터인가?-->
-    <string name="sm01_car_wash_5">프리미엄\n디테일링 세차</string>
-    <string name="sm01_car_wash_6">프리미엄\n광택 서비스</string>
-    <string name="sm01_car_wash_7">세라믹 코팅\n서비스</string>
-
     <!-- SERVICE 탭 대리 -->
     <string name="sm01_service_driver_1">대리운전</string>
     <string name="sm01_service_driver_2">고객님의 제네시스로 안전하게\n댁까지 모십니다.</string>
