@@ -9,6 +9,8 @@
         android:background="@color/x_f4f4f4"
         android:padding="20dp">
 
+        <!-- TODO  : 스크롤 범위 확정되면 그에 맞게 조치-->
+
         <!-- 서비스 네트워크 찾기 -->
         <TextView
             android:id="@+id/tv_service_maintenance_find_network"

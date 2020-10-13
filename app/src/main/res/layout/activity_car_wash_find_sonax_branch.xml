@@ -85,7 +85,7 @@
             android:src="@color/x_f4f4f4"
             app:layout_constraintTop_toBottomOf="@id/tv_car_wash_find_branch_location_select" />
 
-        <!-- 검색결과 없음 안내문 -->
+        <!-- 검색결과 없음 안내문 : 결과 없으면 visible로 바꾸기 -->
         <LinearLayout
             android:id="@+id/l_car_wash_find_branch_no_result"
             android:layout_width="match_parent"
@@ -99,17 +99,27 @@
             tools:visibility="visible">
 
             <TextView
-                style="@style/SonaxNoResult"
+                style="@style/SonaxResult.NoResult"
                 android:fontFamily="@font/regular_genesissansheadglobal"
                 android:text="@string/sm_cw_find_06"
                 android:textSize="16sp" />
 
             <TextView
-                style="@style/SonaxNoResult"
+                style="@style/SonaxResult.NoResult"
                 android:fontFamily="@font/light_genesissansheadglobal"
                 android:text="@string/sm_cw_find_07"
                 android:textSize="14sp" />
         </LinearLayout>
+
+        <!-- 검색 결과 : 결과 없음 위에 덮어씌우는 형태로 출력 -->
+        <fragment
+            android:id="@+id/l_car_wash_find_result_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_dummy"
+            tools:background="#b0f060"
+            tools:layout="@layout/fragment_car_wash_find_result" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
