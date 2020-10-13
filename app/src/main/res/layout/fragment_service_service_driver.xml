@@ -1,6 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:background="@drawable/bg_ffffff_round_10"
+    android:paddingStart="20dp"
+    android:paddingTop="20dp"
+    android:paddingEnd="15dp"
+    android:paddingBottom="25dp">
+
+    <!-- 대리운전 타이틀 -->
+    <TextView
+        android:id="@+id/tv_service_drive_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/regular_genesissansheadglobal"
+        android:letterSpacing="-0.01"
+        android:text="@string/sm01_service_driver_1"
+        android:textColor="@color/x_000000"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 개요 -->
+    <TextView
+        android:id="@+id/tv_service_drive_sub"
+        style="@style/ServiceDriveDesc.light"
+        android:layout_marginTop="14dp"
+        android:text="@string/sm01_service_driver_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_service_drive_title" />
+
+    <!-- 아이콘 -->
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_service_driver"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 상세 1 타이틀 -->
+    <TextView
+        android:id="@+id/tv_service_drive_dec1_title"
+        style="@style/ServiceDriveDesc.regular"
+        android:layout_marginTop="20dp"
+        android:text="@string/sm01_service_driver_3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_service_drive_sub" />
+    <!-- 상세 1 내용 -->
+    <TextView
+        android:id="@+id/tv_service_drive_dec1_dec"
+        style="@style/ServiceDriveDesc.light"
+        android:layout_marginTop="8dp"
+        android:text="@string/sm01_service_driver_4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_service_drive_dec1_title" />
+    <!-- 상세 2 타이틀 -->
+    <TextView
+        android:id="@+id/tv_service_drive_dec2_title"
+        style="@style/ServiceDriveDesc.regular"
+        android:layout_marginTop="15dp"
+        android:text="@string/sm01_service_driver_5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_service_drive_dec1_dec" />
+    <!-- 상세 2 내용 -->
+    <TextView
+        android:id="@+id/tv_service_drive_dec2_dec"
+        style="@style/ServiceDriveDesc.light"
+        android:layout_marginTop="8dp"
+        android:text="@string/sm01_service_driver_6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_service_drive_dec2_title" />
+
+    <!-- 신청 내역 버튼 -->
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ripple_bg_141414"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/light_genesissansheadglobal"
+        android:gravity="center"
+        android:letterSpacing="-0.01"
+        android:text="@string/sm01_service_driver_7"
+        android:textColor="@color/x_ffffff"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_service_drive_dec2_dec" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

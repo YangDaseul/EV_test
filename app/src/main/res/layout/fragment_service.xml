@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/x_ffffff">
 
     <!-- 헤터 타이틀  -->
     <TextView
@@ -44,6 +45,14 @@
         app:layout_constraintTop_toBottomOf="@id/tv_service_header_desc"
         app:tabIndicatorHeight="2dp"
         app:tabMode="fixed" />
+
+    <!--  탭 아래 부분 배경색 변경을 위한 더미 뷰  -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/x_f4f4f4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tl_service_tabs" />
 
     <!-- 서비스 탭 본문 -->
     <FrameLayout

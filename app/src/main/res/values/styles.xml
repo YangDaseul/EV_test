@@ -9,7 +9,7 @@
         <item name="android:splitMotionEvents">false</item>
     </style>
 
-    <style name="TextInputLayout" parent="Theme.MaterialComponents.Light.NoActionBar"/>
+    <style name="TextInputLayout" parent="Theme.MaterialComponents.Light.NoActionBar" />
 
     <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
@@ -61,7 +61,9 @@
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">0sp</item><!--TODO : 항목 별 desc 밑에 여백 좁아서 0으로 해둠(원래 6)-->
+        
+        <!--TODO : 항목 별 desc 밑에 여백 좁아서 0으로 해둠(원래 6)-->
+        <item name="android:lineSpacingExtra">0sp</item>
         <item name="android:clickable">false</item>
     </style>
 
@@ -71,5 +73,23 @@
         <item name="android:layout_height">60dp</item>
         <item name="android:layout_marginEnd">15dp</item>
         <item name="android:clickable">false</item>
+    </style>
+
+
+    <!-- 대리운전 항목 설명-->
+    <style name="ServiceDriveDesc">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/x_aaabaf</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:letterSpacing">-0.01</item>
+    </style>
+
+    <style name="ServiceDriveDesc.light" parent="ServiceDriveDesc">
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+    </style>
+
+    <style name="ServiceDriveDesc.regular" parent="ServiceDriveDesc">
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
     </style>
 </resources>
