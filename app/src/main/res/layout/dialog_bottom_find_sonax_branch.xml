@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingTop="40dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="20dp">
+
+        <include
+            android:id="@+id/l_find_sonax_branch_title"
+            layout="@layout/layout_titlebar_dialog"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:value="@{@string/sm_cw_find_08}" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/l_find_sonax_branch_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            app:boxBackgroundColor="@color/x_ffffff"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusTopEnd="0dp"
+            app:boxCornerRadiusTopStart="0dp"
+            app:boxStrokeColor="@color/x_141414"
+            app:boxStrokeErrorColor="@color/x_ba544d"
+            app:counterMaxLength="10"
+            app:endIconMode="clear_text"
+            app:errorEnabled="true"
+            app:errorIconTint="@color/x_ba544d"
+            app:errorTextColor="@color/x_ba544d"
+            app:hintEnabled="true"
+            app:hintTextColor="@color/x_000000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_find_sonax_branch_title">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_sonax_branch_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:hint="@string/sm_cw_find_08"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="6sp"
+                android:padding="16dp"
+                android:textColor="@color/x_000000"
+                android:textCursorDrawable="@drawable/cursor_141414"
+                android:textSize="15sp" />
+
+            <requestFocus />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/btn_ok"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ripple_bg_000000"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:gravity="center"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="0sp"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
+            android:text="@string/gm_carlst_p01_3"
+            android:textColor="@color/x_ffffff"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_find_sonax_branch_edit" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -27,6 +27,7 @@
     <color name="x_d4d4d4">#d4d4d4</color>
     <color name="x_e2e2e2">#e2e2e2</color>
     <color name="x_b8b8b8">#b8b8b8</color>
+    <color name="x_cbcbcb">#cbcbcb</color>
     <color name="x_d9d9d9">#d9d9d9</color>
     <color name="x_262626">#262626</color>
     <color name="x_de262626">#de262626</color>
@@ -36,7 +37,9 @@
 
     <color name="x_161616">#161616</color>
     <color name="x_141414">#141414</color>
+    <!--  TODO : 색 이름이랑 값이 다름-->
     <color name="x_cc141414">#ee141414</color>
+    <color name="x_e6141414">#e6141414</color>
     <color name="x_1a141414">#1a141414</color>
     <color name="x_252831">#252831</color>
     <color name="x_525252">#525252</color>
@@ -69,5 +72,4 @@
     <color name="x_12000000">#12000000</color>
     <color name="x_99000000">#99000000</color>
     <color name="x_33000000">#33000000</color>
-    <color name="x_e6141414">#e6141414</color>
 </resources>

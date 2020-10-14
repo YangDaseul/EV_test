@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:background="@color/x_e6141414"
+    android:paddingHorizontal="15dp"
+    android:paddingVertical="20dp"
+    app:layout_constraintBottom_toBottomOf="parent">
+
+    <!-- 지점명 -->
+    <TextView
+        android:id="@+id/tv_branch_detail_title"
+        style="@style/SonaxResult.PickFromMap.Title"
+        android:fontFamily="@font/regular_genesissansheadglobal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="SONAX 울랄라점" />
+
+    <!-- 거리 -->
+    <TextView
+        android:id="@+id/tv_branch_detail_distance"
+        style="@style/SonaxResult.PickFromMap.Distance"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/regular_genesissanstextglobal"
+        app:layout_constraintStart_toEndOf="@id/tv_branch_detail_title"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="1.7km" />
+
+    <!-- 사진 -->
+    <ImageView
+        android:id="@+id/iv_branch_detail_img"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_branch_detail_title"
+        tools:src="@drawable/ic_service_driver" />
+
+    <!-- 가능서비스 목록 -->
+    <TextView
+        android:id="@+id/tv_branch_detail_service_list"
+        style="@style/SonaxResult.PickFromMap.Service.List"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_branch_detail_img"
+        app:layout_constraintStart_toEndOf="@id/iv_branch_detail_img"
+        tools:text="이것도 하고 저것도 하고 울랄라도 하고" />
+    <!-- 가능서비스 타이틀 -->
+    <TextView
+        android:id="@+id/tv_branch_detail_service"
+        style="@style/SonaxResult.PickFromMap.Service.Title"
+        android:text="@string/sm_cw_find_map_01"
+        app:layout_constraintBottom_toTopOf="@id/tv_branch_detail_service_list"
+        app:layout_constraintStart_toStartOf="@id/tv_branch_detail_service_list" />
+
+    <!-- 주소 -->
+    <TextView
+        android:id="@+id/tv_branch_detail_location"
+        style="@style/SonaxResult.PickFromMap.Contact"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_branch_detail_img"
+        tools:text="지구 반대쪽에 있지는 않겠지" />
+
+    <!-- 전화번호 -->
+    <TextView
+        android:id="@+id/tv_branch_detail_phone"
+        style="@style/SonaxResult.PickFromMap.Contact"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_branch_detail_location"
+        tools:text="020-104140-042402" />
+
+    <!-- 예약버튼 -->
+    <TextView
+        android:id="@+id/tv_branch_detail_reserve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_bg_ffffff"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="14dp"
+        android:text="@string/sm_cw_find_map_02"
+        app:layout_constraintBottom_toBottomOf="@id/tv_branch_detail_phone"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
