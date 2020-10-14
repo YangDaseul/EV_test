@@ -113,4 +113,17 @@
         <item name="android:textColor">@color/x_000000</item>
     </style>
 
+    <!-- 세차 예약 내역 : -->
+    <style name="CarWashHistoryBtn" parent="TextBasic">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:textColor">@color/x_141414</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_6f6f6f</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">18dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
 </resources>

@@ -11,4 +11,12 @@
     <string name="sm_cw_find_map_01">가능 서비스</string>
     <string name="sm_cw_find_map_02">예약</string>
 
+    <string name="sm_cw_history_01">세차 서비스 예약 내역</string>
+    <string name="sm_cw_history_02">· 예약한 Sonax 지점에서 전화를 드린 후,\n\ \ 세차 예약 확정됩니다.</string>
+    <string name="sm_cw_history_03">현장 결제</string>
+    <string name="sm_cw_history_04">통화하기</string>
+    <string name="sm_cw_history_05">직원에게 확인</string>
+    <string name="sm_cw_history_06">예약 취소</string>
+    <string name="sm_cw_history_07">이용 완료</string>
+
 </resources>
