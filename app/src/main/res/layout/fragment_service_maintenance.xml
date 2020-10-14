@@ -14,7 +14,9 @@
         <!-- 서비스 네트워크 찾기 -->
         <TextView
             android:id="@+id/tv_service_maintenance_find_network"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_height="60dp"
             android:background="@drawable/ripple_bg_000000_round_10"
             android:clickable="true"

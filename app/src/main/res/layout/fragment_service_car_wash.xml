@@ -12,11 +12,13 @@
     <!-- TODO 스크롤 범위 지정에 예약 내역이 포함될 경우, 이 부분도 별도 파일에 뷰로 작성하여 리사이클러 뷰 안에 넣기   -->
     <ImageView
         android:id="@+id/iv_service_car_wash_reserv_history"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="110dp"
         android:background="@drawable/ripple_bg_000000_round_10"
         android:clickable="true"
         android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <!--  세차 예약 내역 타이틀-->
@@ -62,9 +64,11 @@
     <!--  아이템으로 사용되는 뷰 파일 : fragment_service_car_wash_item -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_service_car_wash_item_list"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_service_car_wash_reserv_history"
         tools:background="#a0f040"
         tools:listitem="@layout/fragment_service_car_wash_item" />

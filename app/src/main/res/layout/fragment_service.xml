@@ -38,20 +38,24 @@
     <!-- 서비스 탭 : 정비/세차/대리 -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tl_service_tabs"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="30dp"
         android:background="@color/x_ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_service_header_desc"
         app:tabIndicatorHeight="2dp"
         app:tabMode="fixed" />
 
     <!--  탭 아래 부분 배경색 변경을 위한 더미 뷰  -->
     <ImageView
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/x_f4f4f4"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tl_service_tabs" />
 
     <!-- 서비스 탭 본문 -->

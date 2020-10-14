@@ -79,7 +79,9 @@
         <!-- 윗부분과 검색 결과(결과목록 또는 결과없음 안내문) 사이에 회색영역을 위한 더미 뷰-->
         <ImageView
             android:id="@+id/iv_dummy"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_height="10dp"
             android:layout_marginTop="40dp"
             android:src="@color/x_f4f4f4"
@@ -88,7 +90,9 @@
         <!-- 검색결과 없음 안내문 : 결과 없으면 visible로 바꾸기 -->
         <LinearLayout
             android:id="@+id/l_car_wash_find_branch_no_result"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone"
@@ -112,7 +116,6 @@
         </LinearLayout>
 
         <!-- 검색 결과 : 결과 없음 위에 덮어씌우는 형태로 출력 -->
-
         <include
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -122,17 +125,6 @@
             app:layout_constraintTop_toBottomOf="@id/iv_dummy"
             layout="@layout/fragment_car_wash_find_result"/>
 
-
-<!--        <fragment-->
-<!--            android:id="@+id/l_car_wash_find_result_fragment"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/iv_dummy"-->
-<!--            tools:background="#b0f060"-->
-<!--            tools:layout="@layout/fragment_car_wash_find_result" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
