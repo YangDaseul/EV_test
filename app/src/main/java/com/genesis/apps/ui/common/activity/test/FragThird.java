@@ -36,6 +36,7 @@ public class FragThird extends SubFragment<Frame3pBinding> {
             R.layout.fragment_car_wash_find_result,
             R.layout.fragment_car_wash_find_result_item,
             R.layout.fragment_car_wash_branch_preview,
+            R.layout.layout_car_wash_find_branch_detail,
 
 
             R.layout.fragment_service_service_driver, //todo 스크롤 범위

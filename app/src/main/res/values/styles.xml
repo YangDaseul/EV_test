@@ -154,5 +154,38 @@
         <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
     </style>
 
+    <!-- sonax 지점을 지도에서 선택 -->
+    <style name="SonaxResult.PickFromMap" parent="SonaxResult">
+        <item name="android:textColor">@color/x_ffffff</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <!-- sonax 지점을 지도에서 선택 : 타이틀 -->
+    <style name="SonaxResult.PickFromMap.Title" parent="SonaxResult.PickFromMap">
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+    </style>
+    <!-- sonax 지점을 지도에서 선택 : 거리 -->
+    <style name="SonaxResult.PickFromMap.Distance" parent="SonaxResult.PickFromMap">
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+    </style>
+
+    <!-- sonax 지점을 지도에서 선택 : 서비스내용 -->
+    <style name="SonaxResult.PickFromMap.Service" parent="SonaxResult">
+        <item name="android:textColor">@color/x_cd9a81</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+    <!-- sonax 지점을 지도에서 선택 : 타이틀 -->
+    <style name="SonaxResult.PickFromMap.Service.Title" parent="SonaxResult.PickFromMap.Service">
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+    </style>
+    <!-- sonax 지점을 지도에서 선택 : 거리 -->
+    <style name="SonaxResult.PickFromMap.Service.List" parent="SonaxResult.PickFromMap.Service">
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+    </style>
+
+    <!-- sonax 지점을 지도에서 선택 : 주소/전화 -->
+    <style name="SonaxResult.PickFromMap.Contact" parent="SonaxResult.PickFromMap">
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+    </style>
+
 
 </resources>

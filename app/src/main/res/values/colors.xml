@@ -36,7 +36,9 @@
 
     <color name="x_161616">#161616</color>
     <color name="x_141414">#141414</color>
+    <!--  TODO : 색 이름이랑 값이 다름-->
     <color name="x_cc141414">#ee141414</color>
+    <color name="x_e6141414">#e6141414</color>
     <color name="x_1a141414">#1a141414</color>
     <color name="x_252831">#252831</color>
     <color name="x_525252">#525252</color>
@@ -69,5 +71,4 @@
     <color name="x_12000000">#12000000</color>
     <color name="x_99000000">#99000000</color>
     <color name="x_33000000">#33000000</color>
-    <color name="x_e6141414">#e6141414</color>
 </resources>
