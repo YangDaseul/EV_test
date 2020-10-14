@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="desc"
+            type="String" />
+
+        <variable
+            name="icon"
+            type="android.graphics.drawable.Drawable" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/ServiceMaintenanceItem"
+        android:paddingVertical="20dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="15dp">
+
+        <!--  정비 항목 타이틀-->
+        <TextView
+            android:id="@+id/tv_service_maintenance_item_title"
+            style="@style/ServiceMaintenance.Title"
+            android:text="@{title}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="정비 항목 이름" />
+
+        <!--  정비 항목 텍스트-->
+        <TextView
+            android:id="@+id/tv_service_maintenance_item_desc"
+            style="@style/ServiceMaintenance.Desc"
+            android:text="@{desc}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_maintenance_item_title"
+            tools:text="정비 항목 설명\n어쩌고저쩌고 울랄라뾰롱뾰롱" />
+
+        <!-- 긴급출동 출동중 : 긴급출동 한정 사용 -->
+        <TextView
+            android:id="@+id/tv_moving_now"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:background="@color/x_ba544d"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:gravity="center"
+            android:letterSpacing="-0.01"
+            android:paddingHorizontal="10dp"
+            android:text="@string/sm01_maintenance_7"
+            android:textColor="@color/x_ffffff"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/tv_service_maintenance_item_title"
+            app:layout_constraintStart_toEndOf="@id/tv_service_maintenance_item_title"
+            app:layout_constraintTop_toTopOf="@id/tv_service_maintenance_item_title"
+            tools:visibility="visible" />
+
+        <!--  정비 항목 아이콘-->
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@{icon}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_service_maintenance_item_desc"
+            tools:src="@drawable/ic_service_customercenter" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
