@@ -1,10 +1,4 @@
 <resources>
-    <style name="TextBasic">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:letterSpacing">-0.01</item>
-    </style>
-
     <!-- 서비스 정비 항목 클릭 영역-->
     <style name="ServiceMaintenanceItem">
         <item name="android:layout_width">match_parent</item>
