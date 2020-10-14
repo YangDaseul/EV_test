@@ -73,7 +73,7 @@
 
     <!-- 서비스 정비 항목 클릭 영역-->
     <style name="ServiceMaintenanceItem">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">140dp</item>
         <item name="android:layout_marginTop">15dp</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_round_10</item>
