@@ -71,6 +71,48 @@
     </style>
 
 
+
+
+    <style name="BtrConsultTypeDisable">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:textColor">@color/x_aaabaf</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_dadde3</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:drawableRight">@drawable/btn_dropdown</item>
+    </style>
+
+    <style name="BtrConsultTypeEnable">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_dadde3</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:drawableRight">@drawable/btn_dropdown</item>
+    </style>
+
+    <style name="BtrConsultTypeTitle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:gravity">bottom|left</item>
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+    </style>
+
     <!-- 서비스 정비 항목 클릭 영역-->
     <style name="ServiceMaintenanceItem">
         <item name="android:layout_width">0dp</item>

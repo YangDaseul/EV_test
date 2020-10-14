@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+        <import type="com.genesis.apps.comm.util.DateUtil" />
+        <import type="com.genesis.apps.comm.util.StringUtil" />
+
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.main.home.BtrConsultTypeActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/x_ffffff">
+
+        <include
+            android:id="@+id/l_title"
+            layout="@layout/layout_titlebar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:value="@{@string/gm_bt04_1}" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingTop="30dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_title">
+
+
+            <TextView
+                android:id="@+id/tv_msg"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:textColor="@color/x_000000"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="8sp"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="@string/gm_bt04_2"/>
+
+
+            <TextView
+                android:id="@+id/tv_title_smct"
+                style="@style/BtrConsultTypeTitle"
+                android:text="@{String.format(@string/gm_bt04_6,@string/gm_bt04_9)}"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_msg"
+                tools:text="상담 유형(소분류)" />
+
+            <TextView
+                style="@style/BtrConsultTypeDisable"
+                android:id="@+id/tv_smct"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:visibility="gone"
+                android:text="@{String.format(@string/gm_bt04_6,@string/gm_bt04_9)}"
+                android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_smct"
+                app:layout_goneMarginTop="40dp"
+                tools:text="상담 유형(소분류)"/>
+
+
+            <TextView
+                android:id="@+id/tv_title_mdct"
+                style="@style/BtrConsultTypeTitle"
+                android:text="@{String.format(@string/gm_bt04_6,@string/gm_bt04_8)}"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_smct"
+                tools:text="상담 유형(중분류)" />
+
+            <TextView
+                style="@style/BtrConsultTypeDisable"
+                android:id="@+id/tv_mdct"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:visibility="gone"
+                android:text="@{String.format(@string/gm_bt04_6,@string/gm_bt04_8)}"
+                android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_mdct"
+                app:layout_goneMarginTop="40dp"
+                tools:text="상담 유형(중분류)"/>
+
+
+            <TextView
+                android:id="@+id/tv_title_lgct"
+                style="@style/BtrConsultTypeTitle"
+                android:text="@{String.format(@string/gm_bt04_6,@string/gm_bt04_7)}"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_mdct"
+                tools:text="상담 유형(대분류)" />
+
+            <TextView
+                style="@style/BtrConsultTypeDisable"
+                android:id="@+id/tv_lgct"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:visibility="gone"
+                android:text="@{String.format(@string/gm_bt04_6,@string/gm_bt04_7)}"
+                android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_lgct"
+                app:layout_goneMarginTop="40dp"
+                tools:text="상담 유형(대분류)"/>
+
+
+
+            <TextView
+                android:id="@+id/tv_title_cnsl"
+                style="@style/BtrConsultTypeTitle"
+                android:text="@string/gm_bt04_3"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_lgct" />
+
+            <TextView
+                style="@style/BtrConsultTypeDisable"
+                android:id="@+id/tv_cnsl"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:text="@string/gm_bt04_3"
+                android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_cnsl"
+                app:layout_goneMarginTop="40dp"/>
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

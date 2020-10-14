@@ -9,9 +9,10 @@
         <variable
             name="data"
             type="com.genesis.apps.comm.model.gra.api.MYP_2001.Response" />
-            <variable
-                name="activity"
-                type="com.genesis.apps.ui.myg.MyGMembershipActivity" />
+
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.myg.MyGMembershipActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

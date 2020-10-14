@@ -65,4 +65,10 @@ public class VariableType {
     public static final String COUPON_CODE_PICKUP_DELIVERY="61";//픽업앤딜리버리
     public static final String COUPON_CODE_SONAKS="99";//프리미엄 소낙스 세차 이용권
 
+    //버틀러 상담유형 코드
+    public static final String BTR_CNSL_CODE_CNSL="CNSL";//상담구분코드
+    public static final String BTR_CNSL_CODE_LARGE="LGCT";//대분류코드
+    public static final String BTR_CNSL_CODE_MEDIUM="MDCT";//중분류코드
+    public static final String BTR_CNSL_CODE_SMALL="SMCT"; //소분류코드
+
 }

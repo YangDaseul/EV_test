@@ -1,24 +1,15 @@
 package com.genesis.apps.ui.main.home;
 
-import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.view.View;
-import android.webkit.WebView;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
-import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.BTR_1001;
 import com.genesis.apps.comm.model.vo.BtrVO;
-import com.genesis.apps.comm.viewmodel.BTRViewModel;
-import com.genesis.apps.databinding.ActivityBtrBluehandsBinding;
 import com.genesis.apps.databinding.ActivityMapBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.hmns.playmap.PlayMapPoint;
@@ -26,10 +17,7 @@ import com.hmns.playmap.shape.PlayMapMarker;
 
 import java.util.Locale;
 
-import androidx.lifecycle.ViewModelProvider;
-
 public class BtrBluehandsMapActivity extends SubActivity<ActivityMapBinding> {
-
     private BtrVO btrVO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +30,9 @@ public class BtrBluehandsMapActivity extends SubActivity<ActivityMapBinding> {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
+
     }
 
     @Override
@@ -61,7 +50,6 @@ public class BtrBluehandsMapActivity extends SubActivity<ActivityMapBinding> {
 
     @Override
     public void setViewModel() {
-
     }
 
     @Override
@@ -73,7 +61,7 @@ public class BtrBluehandsMapActivity extends SubActivity<ActivityMapBinding> {
         ui.tvAsnm.setText(btrVO.getAsnNm());
         ui.tvAddr.setText(btrVO.getPbzAdr());
         ui.tvReptn.setText(PhoneNumberUtils.formatNumber(btrVO.getCelphNo(), Locale.getDefault().getCountry()));
-        ui.map.initMap( Double.parseDouble(btrVO.getMapXcooNm()), Double.parseDouble(btrVO.getMapYcooNm()));
+        ui.map.initMap( Double.parseDouble(btrVO.getMapXcooNm()), Double.parseDouble(btrVO.getMapYcooNm()),17);
         drawMarkerItem();
     }
 

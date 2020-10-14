@@ -16,6 +16,31 @@
     <string name="gm_bt02_12">고객센터</string>
     <string name="gm_bt02_13">제네시스 고객센터 : 080-700-6000</string>
     <string name="gm_bt02_14">제네시스 Honors G 컨시어지 : 080-900-6000</string>
-    <string name="gm_bt02_15"></string>
+
+
+
+    <string name="gm_bt04_1">버틀러 1:1 문의</string>
+    <string name="gm_bt04_2">상담 구분을%s\n선택해 주세요.</string>
+    <string name="gm_bt04_3">상담 구분</string>
+    <string name="gm_bt04_4">%s를 선택해 주세요.</string>
+    <string name="gm_bt04_5">상담 유형%s을\n선택해 주세요.</string>
+    <string name="gm_bt04_6">상담 유형%s</string>
+    <string name="gm_bt04_7">(대분류)</string>
+    <string name="gm_bt04_8">(중분류)</string>
+    <string name="gm_bt04_9">(소분류)</string>
+    <string name="gm_bt04_10">내용을\n작성해 주세요.</string>
+    <string name="gm_bt04_11">전화로 답변 받기</string>
+    <string name="gm_bt04_12">제목</string>
+    <string name="gm_bt04_13">문의 내용</string>
+    <string name="gm_bt04_14">신청하기</string>
+    <string name="gm_bt04_15">제목을 입력해 주세요.</string>
+    <string name="gm_bt04_16">문의내용을\n입력해 주세요.</string>
+    <string name="gm_bt04_17">상담 구분을\n선택해 주세요.</string>
+    <string name="gm_bt04_18">대분류</string>
+    <string name="gm_bt04_19">중분류</string>
+    <string name="gm_bt04_20">소분류</string>
+
+
+
 
 </resources>

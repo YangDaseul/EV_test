@@ -82,7 +82,7 @@ public class BtrBluehandsActivity extends SubActivity<ActivityBtrBluehandsBindin
                     if(btrVO!=null) {
                         ui.tvAsnnm.setText(btrVO.getAsnNm());
                         ui.tvAddr.setText(btrVO.getPbzAdr());
-                        ui.tvReptn.setText(btrVO.getRepTn());
+                        ui.tvReptn.setText(PhoneNumberUtils.formatNumber(btrVO.getRepTn(), Locale.getDefault().getCountry()));
 
                         ui.tvName.setText(btrVO.getBtlrNm());
                         ui.tvPhone.setText(PhoneNumberUtils.formatNumber(btrVO.getCelphNo(), Locale.getDefault().getCountry()));
@@ -127,13 +127,12 @@ public class BtrBluehandsActivity extends SubActivity<ActivityBtrBluehandsBindin
                 startActivitySingleTop(new Intent(this, BtrBluehandsMapActivity.class).putExtra(KeyNames.KEY_NAME_BTR, btrVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.btn_change://변경하기
-
                 break;
             case R.id.btn_cnsl_list://상담이력
 
                 break;
             case R.id.btn_cnsl://1:!문의하기
-
+                startActivitySingleTop(new Intent(this, BtrConsultTypeActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.btn_call://통화하기
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + btrVO.getCelphNo())));

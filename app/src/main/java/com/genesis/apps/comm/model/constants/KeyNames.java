@@ -15,4 +15,5 @@ public interface KeyNames {
     String KEY_NAME_VIN="vin";
     String KEY_NAME_BTR="btr";
 
+    String KEY_NAME_BTR_CNSL_LIST="selectCdValId";
 }

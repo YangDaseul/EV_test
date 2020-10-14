@@ -1,6 +1,7 @@
 package com.genesis.apps.comm.model.constants;
 
 import com.genesis.apps.comm.model.gra.api.BTR_1001;
+import com.genesis.apps.comm.model.gra.api.BTR_2001;
 import com.genesis.apps.comm.model.gra.api.CMN_0001;
 import com.genesis.apps.comm.model.gra.api.CMN_0002;
 import com.genesis.apps.comm.model.gra.api.GNS_1001;
@@ -492,7 +493,7 @@ public class TestCode {
             "  \"custMgmtNo\": \"CSMR_000001\",\n" +
             "  \"asnCd\": \"블루핸즈 의왕\",\n" +
             "  \"asnNm\": \"블루핸즈 의왕\",\n" +
-            "  \"repTn\": \"01000000000\",\n" +
+            "  \"repTn\": \"02-112-1124\",\n" +
             "  \"pbzAdr\": \"인천광역시부평구\",\n" +
             "  \"mapXcooNm\": \"37.463936\",\n" +
             "  \"mapYcooNm\": \"127.042953\",\n" +
@@ -501,5 +502,120 @@ public class TestCode {
             "  \"bltrChgYn\": \"C\",\n" +
             "  \"cnsltBdgYn\": \"N\"\n" +
             "}", BTR_1001.Response.class);
+
+    public static BTR_2001.Response BTR_2001_1= new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"cdReqCd\": \"CNSL\",\n" +
+            "  \"cdList\": [\n" +
+            "    {\n" +
+            "      \"cdValId\": \"1\",\n" +
+            "      \"cdValNm\": \"문의\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"cdValId\": \"2\",\n" +
+            "      \"cdValNm\": \"칭찬\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"cdValId\": \"3\",\n" +
+            "      \"cdValNm\": \"불만\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"cdValId\": \"4\",\n" +
+            "      \"cdValNm\": \"제안\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",BTR_2001.Response.class);
+
+
+    public static BTR_2001.Response BTR_2001_2= new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"cdReqCd\": \"LGCT\",\n" +
+            "  \"conslCd\": \"1\",\n" +
+            "  \"lgrCatCd\": \"\",\n" +
+            "  \"mdlCatCd\": \"\",\n" +
+            "  \"cdList\": [\n" +
+            "    {\n" +
+            "      \"cdValId\": \"1000\",\n" +
+            "      \"cdValNm\": \"정비\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"cdValId\": \"2000\",\n" +
+            "      \"cdValNm\": \"제네시스멤버십\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"cdValId\": \"3000\",\n" +
+            "      \"cdValNm\": \"품질\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"cdValId\": \"4000\",\n" +
+            "      \"cdValNm\": \"판매\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",BTR_2001.Response.class);
+
+    public static BTR_2001.Response BTR_2001_3= new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"cdReqCd\": \"MDCT\",\n" +
+            "  \"conslCd\": \"\",\n" +
+            "  \"lgrCatCd\": \"1000\",\n" +
+            "  \"mdlCatCd\": \"\",\n" +
+            "  \"cdList\": [\n" +
+            "    {\n" +
+            "      \"cdValId\": \"1001\",\n" +
+            "      \"cdValNm\": \"차량수리/관리\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"cdValId\": \"1002\",\n" +
+            "      \"cdValNm\": \"예약\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"cdValId\": \"1003\",\n" +
+            "      \"cdValNm\": \"정비시설\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"cdValId\": \"1003\",\n" +
+            "      \"cdValNm\": \"리콜/사전점검\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"cdValId\": \"1005\",\n" +
+            "      \"cdValNm\": \"서비스네트워크\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",BTR_2001.Response.class);
+
+
+    public static BTR_2001.Response BTR_2001_4= new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"cdReqCd\": \"SMCT\",\n" +
+            "  \"conslCd\": \"\",\n" +
+            "  \"lgrCatCd\": \"\",\n" +
+            "  \"mdlCatCd\": \"1001\",\n" +
+            "  \"cdList\": [\n" +
+            "    {\n" +
+            "      \"cdValId\": \"1101\",\n" +
+            "      \"cdValNm\": \"보증기간\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"cdValId\": \"1102\",\n" +
+            "      \"cdValNm\": \"부품관련\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"cdValId\": \"1103\",\n" +
+            "      \"cdValNm\": \"수리비 및 수리기간\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"cdValId\": \"1104\",\n" +
+            "      \"cdValNm\": \"점검 및 교환주기\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"cdValId\": \"1105\",\n" +
+            "      \"cdValNm\": \"옵션 사용 방법\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",BTR_2001.Response.class);
 
 }

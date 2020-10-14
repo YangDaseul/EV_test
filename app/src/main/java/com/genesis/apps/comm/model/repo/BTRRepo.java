@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.TestCode;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APIInfo;
 import com.genesis.apps.comm.model.gra.api.BTR_1001;
 import com.genesis.apps.comm.model.gra.api.BTR_1008;
@@ -59,7 +60,7 @@ public class BTRRepo {
                         "  \"custMgmtNo\": \"CSMR_000001\",\n" +
                         "  \"asnCd\": \"블루핸즈 의왕\",\n" +
                         "  \"asnNm\": \"블루핸즈 의왕\",\n" +
-                        "  \"repTn\": \"01000000000\",\n" +
+                        "  \"repTn\": \"02-111-1111\",\n" +
                         "  \"pbzAdr\": \"인천광역시부평구\",\n" +
                         "  \"mapXcooNm\": \"37.463936\",\n" +
                         "  \"mapYcooNm\": \"127.042953\",\n" +
@@ -163,7 +164,6 @@ public class BTRRepo {
 
     public MutableLiveData<NetUIResponse<BTR_2001.Response>> REQ_BTR_2001(final BTR_2001.Request reqData) {
         RES_BTR_2001.setValue(NetUIResponse.loading(null));
-
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -172,7 +172,22 @@ public class BTRRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_BTR_2001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_BTR_2001.setValue(NetUIResponse.error(e.getMseeage(), null));
+
+                switch (reqData.getCdReqCd()){
+                    case VariableType.BTR_CNSL_CODE_CNSL:
+                        RES_BTR_2001.setValue(NetUIResponse.success(TestCode.BTR_2001_1));
+                        break;
+                    case VariableType.BTR_CNSL_CODE_LARGE:
+                        RES_BTR_2001.setValue(NetUIResponse.success(TestCode.BTR_2001_2));
+                        break;
+                    case VariableType.BTR_CNSL_CODE_MEDIUM:
+                        RES_BTR_2001.setValue(NetUIResponse.success(TestCode.BTR_2001_3));
+                        break;
+                    case VariableType.BTR_CNSL_CODE_SMALL:
+                        RES_BTR_2001.setValue(NetUIResponse.success(TestCode.BTR_2001_4));
+                        break;
+                }
             }
 
             @Override

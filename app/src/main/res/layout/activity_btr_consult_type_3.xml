@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <import type="com.genesis.apps.comm.util.DateUtil" />
+
+        <import type="com.genesis.apps.comm.util.StringUtil" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="20dp"
+        android:paddingTop="30dp"
+        android:paddingRight="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <TextView
+            android:id="@+id/tv_msg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="8sp"
+            android:textColor="@color/x_000000"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/gm_bt04_2" />
+
+
+        <TextView
+            android:id="@+id/tv_title_smct"
+            style="@style/BtrConsultTypeTitle"
+            android:text="@{String.format(@string/gm_bt04_6,@string/gm_bt04_9)}"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_msg"
+            tools:text="상담 유형(소분류)" />
+
+        <TextView
+            android:id="@+id/tv_smct"
+            style="@style/BtrConsultTypeDisable"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:text="@{String.format(@string/gm_bt04_6,@string/gm_bt04_9)}"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_smct"
+            app:layout_goneMarginTop="40dp"
+            tools:text="상담 유형(소분류)" />
+
+
+        <TextView
+            android:id="@+id/tv_title_mdct"
+            style="@style/BtrConsultTypeTitle"
+            android:text="@{String.format(@string/gm_bt04_6,@string/gm_bt04_8)}"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_smct"
+            tools:text="상담 유형(중분류)" />
+
+        <TextView
+            android:id="@+id/tv_mdct"
+            style="@style/BtrConsultTypeDisable"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:text="@{String.format(@string/gm_bt04_6,@string/gm_bt04_8)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_mdct"
+            app:layout_goneMarginTop="40dp"
+            tools:text="상담 유형(중분류)" />
+
+
+        <TextView
+            android:id="@+id/tv_title_lgct"
+            style="@style/BtrConsultTypeTitle"
+            android:text="@{String.format(@string/gm_bt04_6,@string/gm_bt04_7)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_mdct"
+            tools:text="상담 유형(대분류)" />
+
+        <TextView
+            android:id="@+id/tv_lgct"
+            style="@style/BtrConsultTypeDisable"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:text="@{String.format(@string/gm_bt04_6,@string/gm_bt04_7)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_lgct"
+            app:layout_goneMarginTop="40dp"
+            tools:text="상담 유형(대분류)" />
+
+
+        <TextView
+            android:id="@+id/tv_title_cnsl"
+            style="@style/BtrConsultTypeTitle"
+            android:text="@string/gm_bt04_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_lgct" />
+
+        <TextView
+            android:id="@+id/tv_cnsl"
+            style="@style/BtrConsultTypeDisable"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:text="@string/gm_bt04_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_cnsl"
+            app:layout_goneMarginTop="40dp"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
