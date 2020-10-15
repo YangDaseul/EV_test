@@ -60,9 +60,6 @@
     <string name="sm01_car_wash_2">기다릴 필요 없어요.\n간펀하게 세차장 검색하고 예약하세요.</string>
     <string name="sm01_car_wash_3">특가</string>
 
-    <!--TODO : "xx원" x가 얼마인지는 코드에서 입력-->
-    <string name="sm01_car_wash_4">원</string>
-
     <!-- SERVICE 탭 대리 -->
     <string name="sm01_service_driver_1">대리운전</string>
     <string name="sm01_service_driver_2">고객님의 제네시스로 안전하게\n댁까지 모십니다.</string>
