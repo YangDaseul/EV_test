@@ -17,6 +17,7 @@ import androidx.transition.TransitionManager;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.BTR_2001;
@@ -47,6 +48,7 @@ public class BtrConsultTypeActivity extends SubActivity<ActivityBtrConsultType1B
     private List<CounselCodeVO> listLgct;
     private List<CounselCodeVO> listMdct;
     private List<CounselCodeVO> listSmct;
+    private String vin;
 
     private BTRViewModel btrViewModel;
 //    private String vin;
@@ -69,6 +71,15 @@ public class BtrConsultTypeActivity extends SubActivity<ActivityBtrConsultType1B
 
     @Override
     public void getDataFromIntent() {
+        try {
+            vin = getIntent().getStringExtra(KeyNames.KEY_NAME_VIN);
+            if (TextUtils.isEmpty(vin)) {
+                exitPage("차대번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            exitPage("차대번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+        }
     }
 
     @Override
@@ -352,7 +363,7 @@ public class BtrConsultTypeActivity extends SubActivity<ActivityBtrConsultType1B
                 if(!selectCdValId[3].equalsIgnoreCase(cdValId)){
                     selectCdValId[3] = cdValId;
                     setUpdateView();
-                    startActivitySingleTop(new Intent(this, BtrConsultApplyActivity.class).putExtra(KeyNames.KEY_NAME_BTR_CNSL_LIST, new Gson().toJson(selectCdValId)), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    startActivitySingleTop(new Intent(this, BtrConsultApplyActivity.class).putExtra(KeyNames.KEY_NAME_BTR_CNSL_LIST, new Gson().toJson(selectCdValId)).putExtra(KeyNames.KEY_NAME_VIN,vin).addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     finish();
                 }
                 break;

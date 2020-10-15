@@ -16,13 +16,14 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.BTR_1001;
 import com.genesis.apps.comm.model.vo.BtrVO;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.BTRViewModel;
 import com.genesis.apps.databinding.ActivityBtrBluehandsBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.main.MainActivity;
 
 import java.util.Locale;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 public class BtrBluehandsActivity extends SubActivity<ActivityBtrBluehandsBinding> {
@@ -132,12 +133,11 @@ public class BtrBluehandsActivity extends SubActivity<ActivityBtrBluehandsBindin
 
                 break;
             case R.id.btn_cnsl://1:!문의하기
-                startActivitySingleTop(new Intent(this, BtrConsultTypeActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                startActivitySingleTop(new Intent(this, BtrConsultTypeActivity.class).putExtra(KeyNames.KEY_NAME_VIN, vin), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.btn_call://통화하기
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + btrVO.getCelphNo())));
                 break;
         }
     }
-
 }

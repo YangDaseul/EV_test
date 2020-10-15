@@ -138,7 +138,8 @@ public class BaseActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==RequestCodes.REQ_CODE_ACTIVITY.getCode()&&
                 (resultCode==ResultCodes.RES_CODE_NETWORK.getCode()||
-                        resultCode==ResultCodes.REQ_CODE_EMPTY_INTENT.getCode())){
+                        resultCode==ResultCodes.REQ_CODE_EMPTY_INTENT.getCode()||
+                        resultCode==ResultCodes.REQ_CODE_NORMAL.getCode())){
             SnackBarUtil.show(this, data.getStringExtra("msg"));
         }
     }
