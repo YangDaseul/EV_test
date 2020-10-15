@@ -3,6 +3,7 @@ package com.genesis.apps.comm.model.constants;
 import com.genesis.apps.comm.model.gra.api.BTR_1001;
 import com.genesis.apps.comm.model.gra.api.BTR_2001;
 import com.genesis.apps.comm.model.gra.api.BTR_2002;
+import com.genesis.apps.comm.model.gra.api.BTR_2003;
 import com.genesis.apps.comm.model.gra.api.CMN_0001;
 import com.genesis.apps.comm.model.gra.api.CMN_0002;
 import com.genesis.apps.comm.model.gra.api.GNS_1001;
@@ -623,5 +624,67 @@ public class TestCode {
             "  \"rtCd\": \"0000\",\n" +
             "  \"rtMsg\": \"성공\"\n" +
             "}",BTR_2002.Response.class);
+
+
+    public static BTR_2003.Response BTR_2003 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"conslList\": [\n" +
+            "    {\n" +
+            "      \"seqNo\": \"1\",\n" +
+            "      \"catNm\": \"문의/제네시스멤버십\",\n" +
+            "      \"conslDt\": \"2020.09.23\",\n" +
+            "      \"conslTtl\": \"작성\",\n" +
+            "      \"conslCont\": \"[전화응답요청]이상없습니다.\",\n" +
+            "      \"respDt\": \"2020.10.12\",\n" +
+            "      \"respCont\": \"안녕하세요 고객님\\n테스트입니다.22\\n감사합니다.\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"seqNo\": \"2\",\n" +
+            "      \"catNm\": \"문의/제네시스멤버십\",\n" +
+            "      \"conslDt\": \"2020.09.23\",\n" +
+            "      \"conslTtl\": \"작성\",\n" +
+            "      \"conslCont\": \"[전화응답요청]이상없습니다.\",\n" +
+            "      \"respDt\": \"\",\n" +
+            "      \"respCont\": \"안녕하세요 고객님\\n텍스트를 넣었습니다.1\\n감사합니다.\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"seqNo\": \"3\",\n" +
+            "      \"catNm\": \"문의/제네시스멤버십\",\n" +
+            "      \"conslDt\": \"2020.09.14\",\n" +
+            "      \"conslTtl\": \"작성\",\n" +
+            "      \"conslCont\": \"[APP응답요청]이상없습니다.\",\n" +
+            "      \"respDt\": \"2020.10.12\",\n" +
+            "      \"respCont\": \"안녕하세요 고객님\\n테스트입니다.\\n감사합니다.\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"seqNo\": \"4\",\n" +
+            "      \"catNm\": \"문의/제네시스멤버십\",\n" +
+            "      \"conslDt\": \"2020.09.17\",\n" +
+            "      \"conslTtl\": \"작성\",\n" +
+            "      \"conslCont\": \"[APP응답요청]이상없습니다.\",\n" +
+            "      \"respDt\": \"\",\n" +
+            "      \"respCont\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"seqNo\": \"5\",\n" +
+            "      \"catNm\": \"문의/제네시스멤버십\",\n" +
+            "      \"conslDt\": \"2020.09.14\",\n" +
+            "      \"conslTtl\": \"작성\",\n" +
+            "      \"conslCont\": \"[APP응답요청]이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.이상없습니다.\",\n" +
+            "      \"respDt\": \"\",\n" +
+            "      \"respCont\": \"2020년 09월 14일 에 유선 상담 완료\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"seqNo\": \"6\",\n" +
+            "      \"catNm\": \"문의/제네시스멤버십\",\n" +
+            "      \"conslDt\": \"2020.09.14\",\n" +
+            "      \"conslTtl\": \"작성\",\n" +
+            "      \"conslCont\": \"이상없습니다.\",\n" +
+            "      \"respDt\": \"\",\n" +
+            "      \"respCont\": \"2020년 09월 14일 에 유선 상담 완료\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",BTR_2003.Response.class);
 
 }

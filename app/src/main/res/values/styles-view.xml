@@ -16,4 +16,22 @@
         <item name="android:background">@drawable/bg_00000000_stroke_cd9a81</item>
         <item name="android:gravity">center</item>
     </style>
+
+    <!--내역이 없습니다.-->
+    <style name="ViewEmptyList">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:background">@color/x_ffffff</item>
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">2sp</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+
+
 </resources>

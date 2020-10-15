@@ -9,6 +9,7 @@ import android.view.View;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.BTR_2002;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -26,8 +27,6 @@ public class BtrConsultApplyActivity extends SubActivity<ActivityBtrConsultApply
 
     private BTRViewModel btrViewModel;
     private List<String> selectCdValId;
-    private final String REQUEST_CALL="[전화응답요청]";
-    private final String REQUEST_APP="[APP응답요청]";
     private String vin;
 
 
@@ -147,7 +146,7 @@ public class BtrConsultApplyActivity extends SubActivity<ActivityBtrConsultApply
         switch (v.getId()) {
             case R.id.btn_apply:
                 if (isValid()) {
-                    String conslCont = (ui.cbCall.isChecked() ? REQUEST_CALL : REQUEST_APP) + ui.etContents.getText().toString();
+                    String conslCont = (ui.cbCall.isChecked() ? VariableType.BTR_REQUEST_CALL : VariableType.BTR_REQUEST_APP) + ui.etContents.getText().toString();
                     btrViewModel.reqBTR2002(new BTR_2002.Request(APPIAInfo.GM_BT04.getId(), vin, selectCdValId.get(0), selectCdValId.get(1), selectCdValId.get(2), selectCdValId.get(3), ui.etSubject.getText().toString(), conslCont));
                 }
                 break;

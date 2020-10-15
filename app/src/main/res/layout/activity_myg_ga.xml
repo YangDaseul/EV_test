@@ -278,7 +278,7 @@
                         android:layout_marginLeft="1dp"
                         android:layout_marginRight="1dp"
                         android:layout_marginBottom="1dp"
-                        android:background="@drawable/bg_f9f9f9_sroke_upper_e2e2e2"
+                        android:background="@drawable/bg_f9f9f9_stroke_upper_e2e2e2"
                         android:fontFamily="@font/regular_genesissanstextglobal"
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="5sp"

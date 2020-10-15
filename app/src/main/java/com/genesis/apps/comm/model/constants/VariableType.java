@@ -71,4 +71,7 @@ public class VariableType {
     public static final String BTR_CNSL_CODE_MEDIUM="MDCT";//중분류코드
     public static final String BTR_CNSL_CODE_SMALL="SMCT"; //소분류코드
 
+    public static final String BTR_REQUEST_CALL="[전화응답요청]";
+    public static final String BTR_REQUEST_APP="[APP응답요청]";
+
 }

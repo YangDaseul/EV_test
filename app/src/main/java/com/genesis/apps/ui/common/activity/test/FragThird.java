@@ -36,7 +36,7 @@ public class FragThird extends SubFragment<Frame3pBinding> {
             R.layout.fragment_car_wash_find_result,
             R.layout.fragment_car_wash_find_result_item,
             R.layout.fragment_car_wash_branch_preview,
-            R.layout.layout_car_wash_find_branch_detail,
+            R.layout.layout_map_overlay_ui_bottom_sonax_branch,
             R.layout.activity_car_wash_history,
             R.layout.layout_car_wash_history_item,
 

@@ -15,18 +15,22 @@ import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.BTR_1001;
+import com.genesis.apps.comm.model.gra.api.LGN_0005;
 import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.BTRViewModel;
 import com.genesis.apps.databinding.ActivityBtrBluehandsBinding;
+import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
+import com.genesis.apps.ui.main.MainActivity;
 
 import java.util.Locale;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
-public class BtrBluehandsActivity extends SubActivity<ActivityBtrBluehandsBinding> {
+public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBinding> {
 
     private BTRViewModel btrViewModel;
     private String vin;
@@ -42,7 +46,7 @@ public class BtrBluehandsActivity extends SubActivity<ActivityBtrBluehandsBindin
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         btrViewModel.reqBTR1001(new BTR_1001.Request(APPIAInfo.GM_BT02.getId(),vin));
     }
@@ -125,12 +129,30 @@ public class BtrBluehandsActivity extends SubActivity<ActivityBtrBluehandsBindin
 
         switch (v.getId()){
             case R.id.l_asan://내위치확인
-                startActivitySingleTop(new Intent(this, BtrBluehandsMapActivity.class).putExtra(KeyNames.KEY_NAME_BTR, btrVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                if(!isGpsEnable()) {
+                    MiddleDialog.dialogGPS(this, () -> turnGPSOn(isGPSEnable -> {
+                    }), () -> {
+                        //TODO 확인 클릭
+                    });
+                }else{
+                    startActivitySingleTop(new Intent(this, BtrBluehandsMapActivity.class).putExtra(KeyNames.KEY_NAME_BTR, btrVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                }
                 break;
             case R.id.btn_change://변경하기
+
+                if(!isGpsEnable()) {
+                    MiddleDialog.dialogGPS(this, () -> turnGPSOn(isGPSEnable -> {
+                    }), () -> {
+                        //TODO 확인 클릭
+                    });
+                }else{
+
+                }
+
+
                 break;
             case R.id.btn_cnsl_list://상담이력
-
+                startActivitySingleTop(new Intent(this, BtrConslHistActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.btn_cnsl://1:!문의하기
                 startActivitySingleTop(new Intent(this, BtrConsultTypeActivity.class).putExtra(KeyNames.KEY_NAME_VIN, vin), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);

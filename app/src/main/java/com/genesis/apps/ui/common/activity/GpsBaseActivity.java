@@ -8,11 +8,13 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.ViewStub;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.ViewDataBinding;
 
+import com.genesis.apps.R;
 import com.genesis.apps.comm.util.GpsUtils;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -360,5 +362,12 @@ public abstract class GpsBaseActivity<T extends ViewDataBinding> extends SubActi
     public void turnGPSOn(GpsUtils.onGpsListener onGpsListener){
         gpsUtils.turnGPSOn(onGpsListener);
     }
+
+    public void setViewStub(int viewStub, int layout){
+        ViewStub stub = findViewById(viewStub);
+        stub.setLayoutResource(layout);
+        stub.inflate();
+    }
+
 
 }
