@@ -21,4 +21,7 @@
 
     <string name="gm_bt04_snackbar_1">버틀러 1:1 상담 신청이 완료되었습니다.</string>
     <string name="gm_bt04_snackbar_2">죄송합니다.\n일시적인 오류가 발생하였습니다.\n네트워크 연결 확인 후 다시 시도해 주세요.</string>
+
+    <string name="gm_bt06_snackbar_1">전담 블루핸즈/버틀러 변경 신청이\n정상 처리되었습니다.</string>
+    <string name="gm_bt06_snackbar_2">신청 중 오류가 발생했습니다.\n이용에 불편을 드려 죄송합니다.\n네트워크 연결 상태를 확인 후 다시 시도해 주세요.</string>
 </resources>

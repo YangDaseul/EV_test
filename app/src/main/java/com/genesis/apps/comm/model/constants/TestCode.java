@@ -1,6 +1,7 @@
 package com.genesis.apps.comm.model.constants;
 
 import com.genesis.apps.comm.model.gra.api.BTR_1001;
+import com.genesis.apps.comm.model.gra.api.BTR_1008;
 import com.genesis.apps.comm.model.gra.api.BTR_2001;
 import com.genesis.apps.comm.model.gra.api.BTR_2002;
 import com.genesis.apps.comm.model.gra.api.BTR_2003;
@@ -686,5 +687,32 @@ public class TestCode {
             "    }\n" +
             "  ]\n" +
             "}",BTR_2003.Response.class);
+
+
+
+    public static BTR_1008.Response BTR_1008 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"asnList\": [\n" +
+            "    {\n" +
+            "      \"asnCd\": \"Z14Z48\",\n" +
+            "      \"asnNm\": \"(주)영남중공업\",\n" +
+            "      \"repTn\": \"028559966\",\n" +
+            "      \"pbzAdr\": \"서울특별시 금천구 시흥대로153길 26 (독산동)\",\n" +
+            "      \"mapXcooNm\": \"126.8989417\",\n" +
+            "      \"mapYcooNm\": \"37.4745083\",\n" +
+            "      \"dist\": \"1.6\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"asnCd\": \"Z14Z47\",\n" +
+            "      \"asnNm\": \"(주)현대중공업\",\n" +
+            "      \"repTn\": \"020000000\",\n" +
+            "      \"pbzAdr\": \"인천광역시 금천구 시흥대로153길 26 (독산동)\",\n" +
+            "      \"mapXcooNm\": \"126.8989417\",\n" +
+            "      \"mapYcooNm\": \"37.4745083\",\n" +
+            "      \"dist\": \"4.6\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",BTR_1008.Response.class);
 
 }

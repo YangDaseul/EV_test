@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:background="@color/x_ffffff"
             android:outlineSpotShadowColor="#33000000"
-            android:src="@drawable/btn_back"
+            android:src="@drawable/btn_back2"
             app:backgroundTint="@color/x_ffffff"
             app:borderWidth="2dp"
             app:elevation="2dp"

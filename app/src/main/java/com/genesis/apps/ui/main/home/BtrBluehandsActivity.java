@@ -143,10 +143,9 @@ public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBi
                 if(!isGpsEnable()) {
                     MiddleDialog.dialogGPS(this, () -> turnGPSOn(isGPSEnable -> {
                     }), () -> {
-                        //TODO 확인 클릭
                     });
                 }else{
-
+                    startActivitySingleTop(new Intent(this, BtrChangeActivity.class).putExtra(KeyNames.KEY_NAME_BTR, btrVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }
 
 

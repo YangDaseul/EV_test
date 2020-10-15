@@ -73,6 +73,7 @@
             android:textColor="@color/x_000000"
             android:textSize="14sp"
             android:text="@{TextUtils.isEmpty(data.arrivDt) ? `--` : data.arrivDt.replaceAll(`-`,`.`)}"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintWidth_percent=".3"
             app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"

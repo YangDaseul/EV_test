@@ -48,5 +48,25 @@
     <string name="gm_bt05_6"></string>
 
 
+    <string name="bt06_1">필터</string>
+    <string name="bt06_2">위치와 필터를\n선택해 주세요.</string>
+    <string name="bt06_3">위치</string>
+    <string name="bt06_4">시/도</string>
+    <string name="bt06_5">시/군/구</string>
+    <string name="bt06_6">제네시스 전담</string>
+    <string name="bt06_7">일반 블루핸즈</string>
+    <string name="bt06_8">종합 블루핸즈</string>
+    <string name="bt06_9">전문 블루핸즈</string>
+    <string name="bt06_10">일반적인 차량 점검 수리 및 판금 도장 작업이 가능한 블루핸즈 입니다.</string>
+    <string name="bt06_11">일반적인 차량 점검 수리가 가능한 블루핸즈 입니다.</string>
+    <string name="bt06_12">일반 블루핸즈를 전담 업체로 선택할 경우, 1:1 차량 관리 서비스인 제네시스 버틀러 서비스를 받으실 수 없습니다.</string>
+    <string name="bt06_13">적용</string>
+    <string name="bt06_14">신청</string>
+
+    <string name="bt06_02_1">블루핸즈 찾기</string>
+    <string name="bt06_02_2">검색 결과</string>
+    <string name="bt06_02_3">내역이 없습니다.</string>
+
+
 
 </resources>

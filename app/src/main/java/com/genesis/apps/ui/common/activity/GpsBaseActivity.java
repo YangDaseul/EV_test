@@ -363,9 +363,10 @@ public abstract class GpsBaseActivity<T extends ViewDataBinding> extends SubActi
         gpsUtils.turnGPSOn(onGpsListener);
     }
 
-    public void setViewStub(int viewStub, int layout){
+    public void setViewStub(int viewStub, int addLayout, ViewStub.OnInflateListener listener){
         ViewStub stub = findViewById(viewStub);
-        stub.setLayoutResource(layout);
+        stub.setLayoutResource(addLayout);
+        stub.setOnInflateListener(listener);
         stub.inflate();
     }
 

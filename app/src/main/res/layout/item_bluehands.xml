@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:background="@drawable/ripple_bg_ffffff_stroke_e2e2e2">
+
+        <TextView
+            android:id="@+id/tv_asnm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/x_000000"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="2sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_distance"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintHorizontal_bias="0"
+            tools:text="가산모터스"/>
+
+        <TextView
+            android:id="@+id/tv_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/x_000000"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="6sp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_asnnm"
+            app:layout_constraintStart_toEndOf="@+id/tv_asnm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            tools:text="1.7km"/>
+
+
+        <TextView
+            android:id="@+id/tv_addr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/x_bf000000"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="6sp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintTop_toBottomOf="@+id/tv_asnm"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintHorizontal_bias="0"
+            tools:text="서울특별시 금천구 시흥대로 333 (가산동)"/>
+
+        <TextView
+            android:id="@+id/tv_reptn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/x_bf000000"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="6sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintTop_toBottomOf="@+id/tv_addr"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="02-982-0222"/>
+
+
+        <ImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btn_arrow_open_r"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

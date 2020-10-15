@@ -100,7 +100,8 @@ public class BTRRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_BTR_1008.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_BTR_1008.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_BTR_1008.setValue(NetUIResponse.success(TestCode.BTR_1008));
             }
 
             @Override

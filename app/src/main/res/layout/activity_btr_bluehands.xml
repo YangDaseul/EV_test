@@ -320,7 +320,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/l_btr_menu" />
 
-
                 <TextView
                     android:id="@+id/tv_title_btr_info"
                     android:layout_width="0dp"
@@ -338,7 +337,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_info" />
-
 
                 <TextView
                     android:id="@+id/tv_dash_1"
