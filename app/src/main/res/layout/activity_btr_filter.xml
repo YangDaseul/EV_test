@@ -12,7 +12,7 @@
 
         <variable
             name="activity"
-            type="com.genesis.apps.ui.main.home.BtrConsultTypeActivity" />
+            type="com.genesis.apps.ui.main.home.BtrBluehandsFilterActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

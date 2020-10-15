@@ -51,6 +51,7 @@
             android:text="@{title}"
             android:textColor="@color/x_aaabaf"
             android:textSize="15sp"
+            app:elevation="2dp"
             app:layout_constraintBottom_toBottomOf="@id/fab_map_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/fab_map_back"

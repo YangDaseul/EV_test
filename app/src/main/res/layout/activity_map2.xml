@@ -41,6 +41,7 @@
        -->
         <ViewStub
             android:id="@+id/l_map_overlay_msg"
+            android:inflatedId="@+id/l_map_overlay_msg"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -55,20 +56,22 @@
         -->
         <ViewStub
             android:id="@+id/vs_map_overlay_bottom_box"
+            android:inflatedId="@+id/vs_map_overlay_bottom_box"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <!-- gps 버튼 -->
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="15dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="15dp"
             android:background="@drawable/ripple_bg_ffffff_round_05"
+            android:elevation="2dp"
             android:src="@drawable/ic_gps"
             app:layout_constraintBottom_toTopOf="@id/vs_map_overlay_bottom_box"
             app:layout_constraintStart_toStartOf="parent" />
