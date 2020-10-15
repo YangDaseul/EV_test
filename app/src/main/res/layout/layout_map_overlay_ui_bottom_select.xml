@@ -73,6 +73,7 @@
         style="@style/MapOverlay.Btn"
         android:background="@drawable/ripple_bg_6f6f6f_stroke_dbdbdb"
         android:text="@string/map_btn_2"
+        android:textColor="@color/x_dbdbdb"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_map_select_btn1" />

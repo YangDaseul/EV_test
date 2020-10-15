@@ -36,9 +36,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <include
+        <!-- 상단 검은 UI 박스 -->
+        <!-- layout_map_overlay_ui_top_msg 지금은 이거 한 개개
+       -->
+        <ViewStub
             android:id="@+id/l_map_overlay_msg"
-            layout="@layout/layout_map_overlay_ui_top_msg"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -48,6 +50,9 @@
             app:layout_goneMarginTop="24dp" />
 
         <!-- 하단 검은 UI 박스 -->
+        <!-- layout_map_overlay_ui_bottom
+             _address, _select, _sonax_branch
+        -->
         <ViewStub
             android:id="@+id/vs_map_overlay_bottom_box"
             android:layout_width="0dp"

@@ -60,5 +60,7 @@
     <string name="package_name_cam">com.genesis.builtincam.kr</string>
 
     <string name="km">km</string>
+    <string name="won">원</string>
+
 
 </resources>
