@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--    <data>-->
+    <!--        <variable-->
+    <!--            name="activity"-->
+    <!--            type="com.genesis.apps.ui.main.home.MyCarActivity" />-->
+    <!--    </data>-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_map_whole"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:background="#ffff00">
+
+        <!--  지도  -->
+        <com.hmns.playmap.PlayMapView
+            android:id="@+id/pmv_map_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 백버튼, 검색하세요 버튼 -->
+        <include
+            android:id="@+id/l_map_overlay_title"
+            layout="@layout/layout_map_overlay_ui_title_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/l_map_overlay_msg"
+            layout="@layout/layout_map_overlay_ui_top_msg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/l_map_overlay_title"
+            app:layout_goneMarginTop="24dp" />
+
+        <!-- 하단 검은 UI 박스 -->
+        <ViewStub
+            android:id="@+id/vs_map_overlay_bottom_box"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- gps 버튼 -->
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/ripple_bg_ffffff_round_05"
+            android:src="@drawable/ic_gps"
+            app:layout_constraintBottom_toTopOf="@id/vs_map_overlay_bottom_box"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

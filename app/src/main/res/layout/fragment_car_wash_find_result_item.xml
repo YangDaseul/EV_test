@@ -31,7 +31,7 @@
 
     <!-- 주소 -->
     <TextView
-        android:id="@+id/tv_car_wash_find_result_branch_location"
+        android:id="@+id/tv_car_wash_find_result_branch_address"
         style="@style/SonaxResult.Item.light"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,7 @@
         android:id="@+id/tv_car_wash_find_result_branch_dong"
         style="@style/SonaxResult.Item.light"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_car_wash_find_result_branch_location"
+        app:layout_constraintTop_toBottomOf="@id/tv_car_wash_find_result_branch_address"
         tools:text="(울랄라동)" />
 
     <!-- 전화번호 -->

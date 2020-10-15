@@ -1,0 +1,15 @@
+<resources>
+    <string name="map_title_1">대리운전 출발지를 검색하세요.</string>
+    <string name="map_title_2">기사님이 출동하였습니다.</string>
+
+    <string name="map_msg_1">가능 서비스</string>
+    <string name="map_msg_2">약\ </string>
+    <string name="map_msg_3">분 후\ </string>
+    <string name="map_msg_4">도착 예정입니다.</string>
+
+    <string name="map_btn_1">선택</string>
+    <string name="map_btn_2">목록</string>
+    <string name="map_btn_3">예약</string>
+    <string name="map_btn_4">설정</string>
+
+</resources>

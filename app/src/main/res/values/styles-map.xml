@@ -1,0 +1,68 @@
+<resources>
+    <!-- 지도 UI 하단 검은상자 : 검은 상자 자체-->
+    <style name="MapOverlayBox">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:background">@color/x_e6141414</item>
+        <item name="android:paddingStart">15dp</item>
+        <item name="android:paddingEnd">15dp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
+    </style>
+
+    <!--  이 밑으로는 텍스트 뷰 -->
+
+    <!-- 지도 UI 하단 검은상자 -->
+    <style name="MapOverlay" parent="TextBasic">
+        <item name="android:textColor">@color/x_ffffff</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="maxLines">1</item>
+    </style>
+    <!-- 지도 UI 하단 검은상자 : 타이틀 -->
+    <style name="MapOverlay.RegularHead" parent="MapOverlay">
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+    </style>
+    <!-- 지도 UI 하단 검은상자 : 거리 -->
+    <style name="MapOverlay.RegularText" parent="MapOverlay">
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+    </style>
+    <!-- 지도 UI 하단 검은상자 : 주소 등  -->
+    <style name="MapOverlay.Light" parent="MapOverlay">
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="maxLines">2</item>
+        <item name="android:layout_marginEnd">20dp</item>
+    </style>
+
+
+    <!-- 지도 UI 하단 검은상자 : sonax 지점 : 갈색 글씨 부분 -->
+    <style name="MapOverlay.Sonax.Service" parent="TextBasic">
+        <item name="android:textColor">@color/x_cd9a81</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+    <!-- 지도 UI 하단 검은상자 : sonax 지점 : "가능서비스" -->
+    <style name="MapOverlay.Sonax.Service.Title" parent="MapOverlay.Sonax.Service">
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+    </style>
+    <!-- 지도 UI 하단 검은상자 : sonax 지점 : 서비스내용 -->
+    <style name="MapOverlay.Sonax.Service.List" parent="MapOverlay.Sonax.Service">
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+    </style>
+
+    <!-- 지도 UI 하단 검은상자 : 버튼 -->
+    <style name="MapOverlay.Btn" parent="TextBasic">
+        <item name="android:textColor">@color/x_141414</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:paddingStart">14dp</item>
+        <item name="android:paddingEnd">14dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
+
+</resources>
