@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_ffffff_underline_e2e2e2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_consl_dt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                android:lineSpacingExtra="76sp"
+                android:textColor="@color/x_000000"
+                android:textSize="14sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="2020.09.01"/>
+
+
+            <TextView
+                android:id="@+id/tv_cat_nm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                android:lineSpacingExtra="76sp"
+                android:textColor="@color/x_000000"
+                android:textSize="14sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:drawableLeft="@drawable/bar_525252_height_15"
+                android:drawablePadding="8dp"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintStart_toEndOf="@+id/tv_consl_dt"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tv_consl_dt"
+                app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
+                app:layout_constraintHorizontal_bias="0"
+                tools:text="문의/정비"/>
+
+            <TextView
+                android:id="@+id/tv_consl_ttl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:lineSpacingExtra="15sp"
+                android:textColor="@color/x_000000"
+                android:textSize="16sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_consl_dt"
+                app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constrainedWidth="true"
+                tools:text="Title,TitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitlTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleeTitleTitle" />
+
+
+            <TextView
+                android:id="@+id/tv_reply"
+                style="@style/ViewBackgroundTransStrokeToupe"
+                android:text="@string/gm_bt05_2"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_consl_ttl"
+                />
+
+            <TextView
+                android:id="@+id/tv_reply_call"
+                style="@style/ViewBackgroundTransStrokeToupe"
+                android:text="@string/gm_bt05_3"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                app:layout_constraintStart_toEndOf="@+id/tv_reply"
+                app:layout_constraintTop_toBottomOf="@+id/tv_consl_ttl"
+                />
+
+
+
+
+
+            <ImageView
+                android:id="@+id/iv_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_consl_ttl"
+                tools:src="@drawable/btn_arrow_open" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/tv_contents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="5sp"
+            android:textColor="@color/x_141414"
+            android:background="@color/x_f4f4f4"
+            android:textSize="13sp"
+            android:padding="20dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/l_title"
+            tools:text="공지사항 상세 내용 입니다. 공지사항 상세 내용 입니다. 공지사항 상세 내용 입니다. 공지사항 상세 내용 입니다. 공지사항 상세 내용 입니다. 공지사항 상세 내용 입니다. 공지사항 상세 내용 입니다. 공지사항 상세 내용 입니다."
+            tools:visibility="visible"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
