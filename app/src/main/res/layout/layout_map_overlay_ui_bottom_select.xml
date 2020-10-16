@@ -4,12 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.text.TextUtils" />
-        <import type="android.telephony.PhoneNumberUtils"/>
-        <import type="java.util.Locale"/>
+
+        <import type="android.telephony.PhoneNumberUtils" />
+
+        <import type="java.util.Locale" />
+
         <variable
             name="activity"
             type="com.genesis.apps.ui.common.activity.GpsBaseActivity" />
+
         <variable
             name="data"
             type="com.genesis.apps.comm.model.vo.BtrVO" />
@@ -27,13 +32,13 @@
         <TextView
             android:id="@+id/tv_map_select_title"
             style="@style/MapOverlay.RegularHead"
+            android:text="@{data.asnNm}"
             app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toStartOf="@+id/tv_map_select_distance"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{data.asnNm}"
             tools:text="가산모터스" />
 
         <!-- 거리 -->
@@ -41,11 +46,11 @@
             android:id="@+id/tv_map_select_distance"
             style="@style/MapOverlay.RegularText"
             android:layout_marginStart="10dp"
+            android:text="@{data.dist+`km`}"
             app:layout_constraintBaseline_toBaselineOf="@+id/tv_map_select_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@+id/tv_map_select_title"
-            android:text="@{data.dist+`km`}"
             tools:text="1.7km" />
 
         <!-- 주소 -->
@@ -53,27 +58,29 @@
             android:id="@+id/tv_map_select_address"
             style="@style/MapOverlay.Light"
             android:layout_width="0dp"
+            android:text="@{data.pbzAdr}"
             app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toTopOf="@id/tv_map_select_phone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tv_map_select_btn1"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_map_select_title"
-            android:text="@{data.pbzAdr}"
-            tools:text="서울특별시 금천구 시흥대로 333 (가산동)" />
+            app:layout_constraintTop_toBottomOf="@id/tv_map_select_title"
+            app:layout_constraintVertical_bias="1"
+            tools:text="서울특별시 금천구 어딘가에  333 (가산동)" />
 
         <!-- 전화번호 -->
         <TextView
             android:id="@+id/tv_map_select_phone"
             style="@style/MapOverlay.Light"
             android:layout_width="0dp"
+            android:text="@{PhoneNumberUtils.formatNumber( (data.repTn ?? ``), Locale.getDefault().getCountry())}"
             app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tv_map_select_btn1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_map_select_address"
-            android:text="@{PhoneNumberUtils.formatNumber( (data.repTn ?? ``), Locale.getDefault().getCountry())}"
             tools:text="02-982-0222" />
 
         <!-- 선택 버튼 -->
@@ -81,8 +88,8 @@
             android:id="@+id/tv_map_select_btn1"
             style="@style/MapOverlay.Btn"
             android:layout_marginBottom="5dp"
-            android:text="@string/map_btn_1"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:text="@string/map_btn_1"
             app:layout_constraintBottom_toTopOf="@id/tv_map_select_btn2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -92,9 +99,9 @@
             android:id="@+id/tv_map_select_btn2"
             style="@style/MapOverlay.Btn"
             android:background="@drawable/ripple_bg_6f6f6f_stroke_dbdbdb"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:text="@string/map_btn_2"
             android:textColor="@color/x_dbdbdb"
-            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_map_select_btn1" />

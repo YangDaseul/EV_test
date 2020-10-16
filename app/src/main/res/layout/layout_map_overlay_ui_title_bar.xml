@@ -25,33 +25,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/x_ffffff"
+            android:elevation="10dp"
             android:outlineSpotShadowColor="#33000000"
             android:src="@drawable/btn_back2"
             app:backgroundTint="@color/x_ffffff"
             app:borderWidth="2dp"
-            app:elevation="2dp"
+            app:elevation="10dp"
             app:fabSize="normal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- 검색하세요 버튼 -->
+        <!-- 타이틀 텍스트 버튼 -->
+        <!--  @string/map_title_1
+              @string/sm_cw_find_01
+        -->
         <TextView
             android:id="@+id/tv_map_title_text"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/ripple_bg_ffffff_round_99"
-            android:clickable="true"
-            android:drawableRight="@drawable/btn_open_r"
-            android:focusable="true"
-            android:fontFamily="@font/regular_genesissansheadglobal"
-            android:gravity="center_vertical"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
+            style="@style/MapOverlayTitleBar.Hint"
             android:text="@{title}"
-            android:textColor="@color/x_aaabaf"
-            android:textSize="15sp"
-            app:elevation="2dp"
+            app:elevation="10dp"
             app:layout_constraintBottom_toBottomOf="@id/fab_map_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/fab_map_back"

@@ -37,7 +37,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- 상단 검은 UI 박스 -->
-        <!-- layout_map_overlay_ui_top_msg 지금은 이거 한 개개
+        <!-- layout_map_overlay_ui_top_msg 지금은 이거 한 개
        -->
         <ViewStub
             android:id="@+id/l_map_overlay_msg"
