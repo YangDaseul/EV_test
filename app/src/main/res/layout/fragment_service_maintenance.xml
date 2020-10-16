@@ -14,40 +14,27 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+            <!-- 서비스 네트워크 찾기 -->
+            <!--  TODO fix icon x가 아니라 ">" 필요. 현재 흰색 ">" 없음-->
+            <TextView
+                android:id="@+id/tv_service_maintenance_find_network"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <!-- 서비스 네트워크 찾기 -->
-                <TextView
-                    android:id="@+id/tv_service_maintenance_find_network"
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/ripple_bg_000000_round_10"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:fontFamily="@font/regular_genesissansheadglobal"
-                    android:gravity="center_vertical"
-                    android:letterSpacing="-0.01"
-                    android:paddingStart="20dp"
-                    android:text="@string/sm01_maintenance_1"
-                    android:textColor="@color/x_ffffff"
-                    android:textSize="24sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <!-- 네트워크 찾기 오른쪽에 " > " -->
-                <!--  TODO fix src   -->
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="0dp"
-                    android:layout_margin="20dp"
-                    android:src="@color/x_ba544d"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_service_maintenance_find_network"
-                    app:layout_constraintEnd_toEndOf="@id/tv_service_maintenance_find_network"
-                    app:layout_constraintTop_toTopOf="@id/tv_service_maintenance_find_network" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_height="60dp"
+                android:background="@drawable/ripple_bg_000000_round_10"
+                android:clickable="true"
+                android:drawableRight="@drawable/btn_close_w"
+                android:focusable="true"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:gravity="center_vertical"
+                android:letterSpacing="-0.01"
+                android:paddingStart="20dp"
+                android:text="@string/sm01_maintenance_1"
+                android:textColor="@color/x_ffffff"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <!--  정비 예약 -->
             <!--   todo fix icon -->
