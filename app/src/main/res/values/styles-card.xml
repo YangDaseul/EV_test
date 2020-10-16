@@ -1,0 +1,43 @@
+<resources>
+    <style name="CardRoundGenesis">
+        <item name="android:background">@drawable/bg_141414_round_10</item>
+    </style>
+
+    <style name="CardRoundHyundaiOil">
+        <item name="android:background">@drawable/bg_323a3d_round_10</item>
+    </style>
+
+    <style name="CardRoundGS">
+        <item name="android:background">@drawable/bg_000000_round_10</item>
+    </style>
+
+    <style name="CardRoundSK">
+        <item name="android:background">@drawable/bg_4f585b_round_10</item>
+    </style>
+
+    <style name="CardRoundSOIL">
+        <item name="android:background">@drawable/bg_82898b_round_10</item>
+    </style>
+
+
+    <style name="CardModifyGenesis">
+        <item name="android:color">@color/x_141414</item>
+    </style>
+
+    <style name="CardModifyHyundaiOil">
+        <item name="android:color">@color/x_323a3d</item>
+    </style>
+
+    <style name="CardModifyGS">
+        <item name="android:color">@color/x_000000</item>
+    </style>
+
+    <style name="CardModifySK">
+        <item name="android:color">@color/x_4f585b</item>
+    </style>
+
+    <style name="CardModifySOIL">
+        <item name="android:color">@color/x_82898b</item>
+    </style>
+
+</resources>

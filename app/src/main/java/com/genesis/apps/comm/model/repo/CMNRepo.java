@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.gra.APIInfo;
+import com.genesis.apps.comm.model.gra.api.BAR_1001;
 import com.genesis.apps.comm.model.gra.api.CMN_0001;
 import com.genesis.apps.comm.model.gra.api.CMN_0002;
 import com.genesis.apps.comm.model.gra.api.CMN_0003;
@@ -128,5 +129,6 @@ public class CMNRepo {
 
         return RES_CMN_0004;
     }
+
 
 }

@@ -99,7 +99,7 @@
 
 
         <activity
-            android:name=".ui.common.activity.CardViewActivity"
+            android:name=".ui.main.BarcodeActivity"
             android:screenOrientation="portrait"
             android:exported="false"
             android:theme="@style/CardViewTheme"/>

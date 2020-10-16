@@ -1,5 +1,6 @@
 package com.genesis.apps.comm.model.constants;
 
+import com.genesis.apps.comm.model.gra.api.BAR_1001;
 import com.genesis.apps.comm.model.gra.api.BTR_1001;
 import com.genesis.apps.comm.model.gra.api.BTR_1008;
 import com.genesis.apps.comm.model.gra.api.BTR_2001;
@@ -27,7 +28,7 @@ public class TestCode {
             "  \"rtCd\": \"0000\",\n" +
             "  \"rtMsg\": \"성공\",\n" +
             "  \"custNo\": \"0000\",\n" +
-            "  \"custGbCd\": \"0000\",\n" +
+            "  \"custGbCd\": \"OV\",\n" +
             "  \"pushIdChgYn\": \"Y\",\n" +
             "  \"custMgmtNo\": \"12345612341\",\n" +
             "  \"custNm\": \"박현준\",\n" +
@@ -773,5 +774,45 @@ public class TestCode {
             "    }\n" +
             "  ]\n" +
             "}",PUB_1003.Response.class);
+
+
+
+
+    public static BAR_1001.Response BAR_1001 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"cardList\": [\n" +
+            "    {\n" +
+            "      \"isncCd\": \"BLUE\",\n" +
+            "      \"cardNo\": \"1234567545678777\",\n" +
+            "      \"cardIsncSubspDt\": \"20200101\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"isncCd\": \"BLUE\",\n" +
+            "      \"cardNo\": \"1234567545678999\",\n" +
+            "      \"cardIsncSubspDt\": \"20200111\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"isncCd\": \"GSCT\",\n" +
+            "      \"cardNo\": \"2000111122223333\",\n" +
+            "      \"cardIsncSubspDt\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"isncCd\": \"GSCT\",\n" +
+            "      \"cardNo\": \"2100111122223333\",\n" +
+            "      \"cardIsncSubspDt\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"isncCd\": \"HDOL\",\n" +
+            "      \"cardNo\": \"1000111122223333\",\n" +
+            "      \"cardIsncSubspDt\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"isncCd\": \"SKNO\",\n" +
+            "      \"cardNo\": \"4000111122223333\",\n" +
+            "      \"cardIsncSubspDt\": \"\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",BAR_1001.Response.class);
 
 }

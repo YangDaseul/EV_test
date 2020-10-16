@@ -18,38 +18,38 @@ import java.util.Collections;
 
 public class CardViewAadapter extends BaseRecyclerViewAdapter2<Link> implements ItemMoveCallback.ItemTouchHelperAdapter {
 
-        public static final int TYPE_CARD = 0;
-        public static final int TYPE_LINE = 1;
-        private int VIEW_TYPE = TYPE_CARD;
+    public static final int TYPE_CARD = 0;
+    public static final int TYPE_LINE = 1;
+    private int VIEW_TYPE = TYPE_CARD;
 
-        public int getViewType() {
-                return VIEW_TYPE;
-        }
+    public int getViewType() {
+        return VIEW_TYPE;
+    }
 
-        public void setViewType(int VIEW_TYPE) {
-                this.VIEW_TYPE = VIEW_TYPE;
-        }
+    public void setViewType(int VIEW_TYPE) {
+        this.VIEW_TYPE = VIEW_TYPE;
+    }
 
-        // Item의 클릭 상태를 저장할 array 객체
-        private SparseBooleanArray selectedItems = new SparseBooleanArray();
+    // Item의 클릭 상태를 저장할 array 객체
+    private SparseBooleanArray selectedItems = new SparseBooleanArray();
 
-        public CardViewAadapter() {
-        }
+    public CardViewAadapter() {
+    }
 
-        @Override
-        public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                if(VIEW_TYPE==TYPE_LINE)
-                        return new SquiareViewLineHolder(getView(parent, R.layout.square_view_line));
-                else
-                        return new SquiareViewHolder(getView(parent, R.layout.square_view));
-        }
+    @Override
+    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (VIEW_TYPE == TYPE_LINE)
+            return new SquiareViewLineHolder(getView(parent, R.layout.square_view_line));
+        else
+            return new SquiareViewHolder(getView(parent, R.layout.square_view));
+    }
 
-        @Override
-        public void onBindViewHolder(final BaseViewHolder holder, int position) {
-                Log.v("recyclerview onBindViewHolder","position pos:"+position);
+    @Override
+    public void onBindViewHolder(final BaseViewHolder holder, int position) {
+        Log.v("recyclerview onBindViewHolder", "position pos:" + position);
 //                super.onBindViewHolder(holder, position);
 
-                holder.onBindView(getItem(position),position, selectedItems);
+        holder.onBindView(getItem(position), position, selectedItems);
 
 //                holder.getBinding().lTitle.setOnClickListener(view -> {
 //                        Log.v("recyclerview onclick","position pos:"+position);
@@ -64,88 +64,86 @@ public class CardViewAadapter extends BaseRecyclerViewAdapter2<Link> implements 
 //
 //                });
 
+    }
+
+    @Override
+    public void onItemMove(int fromPos, int targetPos) {
+        if (fromPos < targetPos) {
+            for (int i = fromPos; i < targetPos; i++) {
+                Collections.swap(getItems(), i, i + 1);
+            }
+        } else {
+            for (int i = fromPos; i > targetPos; i--) {
+                Collections.swap(getItems(), i, i - 1);
+            }
+        }
+        notifyItemMoved(fromPos, targetPos);
+    }
+
+    @Override
+    public void onItemDismiss(int pos) {
+        getItems().remove(pos);
+        notifyItemRemoved(pos);
+    }
+
+
+    // inner class
+    public class SquiareViewHolder extends BaseViewHolder<Link, SquareViewBinding> {
+        private ImageView image;
+
+        public SquiareViewHolder(View itemLayoutView) {
+            super(itemLayoutView);
+            this.image = itemLayoutView.findViewById(R.id.image);
         }
 
         @Override
-        public void onItemMove(int fromPos, int targetPos) {
-                if (fromPos < targetPos) {
-                        for (int i = fromPos; i < targetPos; i++) {
-                                Collections.swap(getItems(), i, i + 1);
-                        }
-                } else {
-                        for (int i = fromPos; i > targetPos; i--) {
-                                Collections.swap(getItems(), i, i - 1);
-                        }
-                }
-                notifyItemMoved(fromPos, targetPos);
+        public void onBindView(Link item) {
+
         }
 
         @Override
-        public void onItemDismiss(int pos) {
-                getItems().remove(pos);
-                notifyItemRemoved(pos);
+        public void onBindView(Link item, int pos) {
+
         }
 
-
-        // inner class
-        public class SquiareViewHolder extends BaseViewHolder<Link, SquareViewBinding> {
-                private ImageView image;
-
-                public SquiareViewHolder(View itemLayoutView) {
-                        super(itemLayoutView);
-                        this.image = itemLayoutView.findViewById(R.id.image);
-                }
-
-                @Override
-                public void onBindView(Link item) {
-
-                }
-
-                @Override
-                public void onBindView(Link item, int pos) {
-
-                }
-
-                @Override
-                public void onBindView(Link item, int pos, SparseBooleanArray selectedItems) {
-                        this.image.setImageResource(item.getIcon());
+        @Override
+        public void onBindView(Link item, int pos, SparseBooleanArray selectedItems) {
+            this.image.setImageResource(item.getIcon());
 //                        this.image.setOnClickListener(
 //                                v -> myItemClickListener.onClick(link));
 
-                }
+        }
+
+    }
+
+
+    public class SquiareViewLineHolder extends BaseViewHolder<Link, SquareViewLineBinding> {
+        private ImageView image;
+
+        public SquiareViewLineHolder(View itemLayoutView) {
+            super(itemLayoutView);
+            this.image = itemLayoutView.findViewById(R.id.image);
+        }
+
+        @Override
+        public void onBindView(Link item) {
 
         }
 
+        @Override
+        public void onBindView(Link item, int pos) {
 
-        public class SquiareViewLineHolder extends BaseViewHolder<Link, SquareViewLineBinding> {
-                private ImageView image;
+        }
 
-                public SquiareViewLineHolder(View itemLayoutView) {
-                        super(itemLayoutView);
-                        this.image = itemLayoutView.findViewById(R.id.image);
-                }
-
-                @Override
-                public void onBindView(Link item) {
-
-                }
-
-                @Override
-                public void onBindView(Link item, int pos) {
-
-                }
-
-                @Override
-                public void onBindView(Link item, int pos, SparseBooleanArray selectedItems) {
-                        this.image.setImageResource(item.getIcon());
+        @Override
+        public void onBindView(Link item, int pos, SparseBooleanArray selectedItems) {
+            this.image.setImageResource(item.getIcon());
 //                        this.image.setOnClickListener(
 //                                v -> myItemClickListener.onClick(link));
 
-                }
-
         }
 
-
+    }
 
 
 }

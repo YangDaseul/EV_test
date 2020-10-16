@@ -3,11 +3,13 @@ package com.genesis.apps.comm.viewmodel;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.constants.WeatherCodes;
+import com.genesis.apps.comm.model.gra.api.BAR_1001;
 import com.genesis.apps.comm.model.gra.api.CMN_0001;
 import com.genesis.apps.comm.model.gra.api.CMN_0002;
 import com.genesis.apps.comm.model.gra.api.CMN_0003;
 import com.genesis.apps.comm.model.gra.api.CMN_0004;
 import com.genesis.apps.comm.model.gra.api.LGN_0005;
+import com.genesis.apps.comm.model.repo.BARRepo;
 import com.genesis.apps.comm.model.repo.CMNRepo;
 import com.genesis.apps.comm.model.repo.DBContentsRepository;
 import com.genesis.apps.comm.model.repo.DBGlobalDataRepository;
@@ -46,6 +48,7 @@ public @Data
 class CMNViewModel extends ViewModel {
 
     private final CMNRepo repository;
+    private final BARRepo barRepo;
     private final DBGlobalDataRepository dbGlobalDataRepository;
     private final DBContentsRepository dbContentsRepository;
     private final SavedStateHandle savedStateHandle;
@@ -55,13 +58,17 @@ class CMNViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<CMN_0003.Response>> RES_CMN_0003;
     private MutableLiveData<NetUIResponse<CMN_0004.Response>> RES_CMN_0004;
 
+    private MutableLiveData<NetUIResponse<BAR_1001.Response>> RES_BAR_1001;
+
     @ViewModelInject
     CMNViewModel(
             CMNRepo repository,
+            BARRepo barRepo,
             DBGlobalDataRepository dbGlobalDataRepository,
             DBContentsRepository dbContentsRepository,
             @Assisted SavedStateHandle savedStateHandle) {
         this.repository = repository;
+        this.barRepo = barRepo;
         this.dbGlobalDataRepository = dbGlobalDataRepository;
         this.dbContentsRepository = dbContentsRepository;
         this.savedStateHandle = savedStateHandle;
@@ -70,6 +77,8 @@ class CMNViewModel extends ViewModel {
         RES_CMN_0002 = repository.RES_CMN_0002;
         RES_CMN_0003 = repository.RES_CMN_0003;
         RES_CMN_0004 = repository.RES_CMN_0004;
+
+        RES_BAR_1001 = barRepo.RES_BAR_1001;
     }
 
     public void reqCMN0001(final CMN_0001.Request reqData) {
@@ -86,6 +95,10 @@ class CMNViewModel extends ViewModel {
 
     public void reqCMN0004(final CMN_0004.Request reqData) {
         repository.REQ_CMN_0004(reqData);
+    }
+
+    public void reqBAR1001(final BAR_1001.Request reqData) {
+        barRepo.REQ_BAR_1001(reqData);
     }
 
     public void updateNotiDt(String notiDt) {

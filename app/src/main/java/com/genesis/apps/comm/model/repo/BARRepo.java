@@ -1,6 +1,7 @@
 package com.genesis.apps.comm.model.repo;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.gra.APIInfo;
 import com.genesis.apps.comm.model.gra.api.BAR_1001;
 import com.genesis.apps.comm.net.NetCaller;
@@ -25,7 +26,7 @@ public class BARRepo {
     }
 
     public MutableLiveData<NetUIResponse<BAR_1001.Response>> REQ_BAR_1001(final BAR_1001.Request reqData) {
-
+        RES_BAR_1001.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -35,7 +36,8 @@ public class BARRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_BAR_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_BAR_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_BAR_1001.setValue(NetUIResponse.success(TestCode.BAR_1001));
             }
 
             @Override

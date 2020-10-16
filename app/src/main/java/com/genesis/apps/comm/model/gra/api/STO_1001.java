@@ -41,7 +41,7 @@ public class STO_1001 extends BaseData {
     class Response extends BaseResponse {
         @Expose
         @SerializedName("estmVhclList")
-        private List<SimilarVehicleVO> estmVhclList;
+        private SimilarVehicleVO estmVhclList;
         @Expose
         @SerializedName("smlrVhclList")
         private List<SimilarVehicleVO> smlrVhclList;

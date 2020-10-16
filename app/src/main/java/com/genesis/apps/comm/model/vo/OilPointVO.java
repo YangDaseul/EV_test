@@ -36,6 +36,7 @@ class OilPointVO extends BaseData {
     public static final String OIL_CODE_GSCT="GSCT";
     public static final String OIL_CODE_SOIL="SOIL";
     public static final String OIL_CODE_SKNO="SKNO";
+    public static final String OIL_CODE_BLUE="BLUE";
 
     @Expose
     @SerializedName("oilRfnNm")
