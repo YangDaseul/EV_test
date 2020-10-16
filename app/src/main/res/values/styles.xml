@@ -71,13 +71,11 @@
     </style>
 
 
-
-
-
     <style name="TextBasic">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:letterSpacing">-0.01</item>
+        <item name="android:ellipsize">end</item>
     </style>
 
 </resources>
