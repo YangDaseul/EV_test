@@ -8,15 +8,15 @@
     android:padding="20dp">
 
     <!-- 세차 예약 내역 클릭영역-->
-    <!-- TODO 세로 110dp에 지정된 글씨크기 및 여백으로 다 안 들어감. 지금 타이틀/메시지 사이 마진 없는 상태   -->
     <!-- TODO 스크롤 범위 지정에 예약 내역이 포함될 경우, 이 부분도 별도 파일에 뷰로 작성하여 리사이클러 뷰 안에 넣기   -->
     <ImageView
         android:id="@+id/iv_service_car_wash_reserv_history"
         android:layout_width="0dp"
-        android:layout_height="110dp"
+        android:layout_height="0dp"
         android:background="@drawable/ripple_bg_000000_round_10"
         android:clickable="true"
         android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="@id/iv_service_car_wash_reserv_history_desc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -41,9 +41,11 @@
         android:id="@+id/iv_service_car_wash_reserv_history_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/light_genesissansheadglobal"
         android:letterSpacing="-0.01"
         android:lineSpacingExtra="6sp"
+        android:paddingBottom="20dp"
         android:text="@string/sm01_car_wash_2"
         android:textColor="@color/x_aaabaf"
         android:textSize="14sp"
@@ -51,12 +53,12 @@
         app:layout_constraintTop_toBottomOf="@id/iv_service_car_wash_reserv_history_title" />
 
     <!-- 세차 예약 내역 오른쪽에 " > " -->
-    <!--  TODO fix src   -->
+    <!--  TODO fix src : ">" 리소스가 검은색만 있음  -->
     <ImageView
         android:layout_width="20dp"
-        android:layout_height="0dp"
+        android:layout_height="20dp"
         android:layout_margin="20dp"
-        android:src="@color/x_ba544d"
+        android:src="@drawable/btn_close_w"
         app:layout_constraintBottom_toBottomOf="@id/iv_service_car_wash_reserv_history"
         app:layout_constraintEnd_toEndOf="@id/iv_service_car_wash_reserv_history"
         app:layout_constraintTop_toTopOf="@id/iv_service_car_wash_reserv_history" />
