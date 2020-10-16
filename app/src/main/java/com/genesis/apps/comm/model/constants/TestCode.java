@@ -17,6 +17,8 @@ import com.genesis.apps.comm.model.gra.api.LGN_0001;
 import com.genesis.apps.comm.model.gra.api.LGN_0003;
 import com.genesis.apps.comm.model.gra.api.LGN_0005;
 import com.genesis.apps.comm.model.gra.api.MYP_1005;
+import com.genesis.apps.comm.model.gra.api.PUB_1002;
+import com.genesis.apps.comm.model.gra.api.PUB_1003;
 import com.google.gson.Gson;
 
 public class TestCode {
@@ -714,5 +716,62 @@ public class TestCode {
             "    }\n" +
             "  ]\n" +
             "}",BTR_1008.Response.class);
+
+
+
+    public static PUB_1002.Response PUB_1002 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"sidoList\": [\n" +
+            "    {\n" +
+            "      \"sidoCd\": \"1\",\n" +
+            "      \"sidoNm\": \"서울특별시\",\n" +
+            "      \"localNm\": \"??\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"sidoCd\": \"2\",\n" +
+            "      \"sidoNm\": \"인천광역시\",\n" +
+            "      \"localNm\": \"??\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"sidoCd\": \"3\",\n" +
+            "      \"sidoNm\": \"부산광역시\",\n" +
+            "      \"localNm\": \"??\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"sidoCd\": \"4\",\n" +
+            "      \"sidoNm\": \"경기도\",\n" +
+            "      \"localNm\": \"??\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"sidoCd\": \"5\",\n" +
+            "      \"sidoNm\": \"경상북도\",\n" +
+            "      \"localNm\": \"??\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",PUB_1002.Response.class);
+
+    public static PUB_1003.Response PUB_1003 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"gugunList\": [\n" +
+            "    {\n" +
+            "      \"gugunCd\": \"1\",\n" +
+            "      \"gugunNm\": \"강서구\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"gugunCd\": \"2\",\n" +
+            "      \"gugunNm\": \"금천구\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"gugunCd\": \"3\",\n" +
+            "      \"gugunNm\": \"강남구\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"gugunCd\": \"4\",\n" +
+            "      \"gugunNm\": \"송파구\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",PUB_1003.Response.class);
 
 }

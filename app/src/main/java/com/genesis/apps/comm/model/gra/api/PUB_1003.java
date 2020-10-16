@@ -31,7 +31,8 @@ public class PUB_1003 extends BaseData {
         @SerializedName("sidoCd")
         private String sidoCd;
 
-        public Request(String menuId){
+        public Request(String menuId, String sidoCd){
+            this.sidoCd = sidoCd;
             setData(APIInfo.GRA_PUB_1003.getIfCd(), menuId);
         }
     }

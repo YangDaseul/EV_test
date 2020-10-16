@@ -3,7 +3,9 @@ package com.genesis.apps.comm.model.repo;
 import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.gra.APIInfo;
+import com.genesis.apps.comm.model.gra.api.PUB_1001;
 import com.genesis.apps.comm.model.gra.api.PUB_1002;
 import com.genesis.apps.comm.model.gra.api.PUB_1003;
 import com.genesis.apps.comm.net.NetCaller;
@@ -18,6 +20,7 @@ public class PUBRepo {
 
     NetCaller netCaller;
 
+    public final MutableLiveData<NetUIResponse<PUB_1001.Response>> RES_PUB_1001 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<PUB_1002.Response>> RES_PUB_1002 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<PUB_1003.Response>> RES_PUB_1003 = new MutableLiveData<>();
 
@@ -26,8 +29,32 @@ public class PUBRepo {
         this.netCaller = netCaller;
     }
 
-    public MutableLiveData<NetUIResponse<PUB_1002.Response>> REQ_PUB_1002(final PUB_1002.Request reqData) {
+    public MutableLiveData<NetUIResponse<PUB_1001.Response>> REQ_PUB_1001(final PUB_1001.Request reqData) {
+        RES_PUB_1001.setValue(NetUIResponse.loading(null));
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_PUB_1001.setValue(NetUIResponse.success(new Gson().fromJson(object, PUB_1001.Response.class)));
+                //TODO SINGLETON VO에 값 저장?
+            }
 
+            @Override
+            public void onFail(NetResult e) {
+                RES_PUB_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_PUB_1001.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_PUB_1001, reqData);
+
+        return RES_PUB_1001;
+    }
+    
+
+    public MutableLiveData<NetUIResponse<PUB_1002.Response>> REQ_PUB_1002(final PUB_1002.Request reqData) {
+        RES_PUB_1002.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -37,7 +64,8 @@ public class PUBRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_PUB_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_PUB_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_PUB_1002.setValue(NetUIResponse.success(TestCode.PUB_1002));
             }
 
             @Override
@@ -50,7 +78,7 @@ public class PUBRepo {
     }
 
     public MutableLiveData<NetUIResponse<PUB_1003.Response>> REQ_PUB_1003(final PUB_1003.Request reqData) {
-
+        RES_PUB_1003.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -60,7 +88,8 @@ public class PUBRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_PUB_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_PUB_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_PUB_1003.setValue(NetUIResponse.success(TestCode.PUB_1003));
             }
 
             @Override
