@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- TODO : 스크롤 범위 처리-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/x_ffffff">
+
+        <!-- 타이틀바-->
+        <include
+            android:id="@+id/l_service_drive_req_result_titlebar"
+            layout="@layout/layout_titlebar"
+            app:value="@{@string/sm01_service_driver_1}" />
+
+        <!-- 우상단 신청내역 버튼 -->
+        <TextView
+            android:id="@+id/tv_service_drive_history_btn"
+            style="@style/ServiceDrive.History"
+            app:layout_constraintBottom_toBottomOf="@id/l_service_drive_req_result_titlebar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/l_service_drive_req_result_titlebar" />
+
+        <!-- 출발/도착지 뷰 상자 밖에 회색칠한 영역 -->
+        <ImageView
+            android:id="@+id/iv_service_drive_req_result_top_background_4f4f4f"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/x_f4f4f4"
+            app:layout_constraintBottom_toBottomOf="@id/iv_service_drive_req_result_fromto_back_panel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/l_service_drive_req_result_titlebar"
+            tools:background="#a0f040" />
+
+        <!-- 최외곽 회색배격 안쪽 흰색 둥근사각형  -->
+        <ImageView
+            android:id="@+id/iv_service_drive_req_result_fromto_back_panel"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:paddingBottom="30dp"
+            android:src="@drawable/bg_ffffff_round_10"
+            app:layout_constraintBottom_toBottomOf="@id/tv_service_drive_to_address"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_service_drive_req_result_top_background_4f4f4f" />
+
+        <!-- 차종 -->
+        <TextView
+            android:id="@+id/tv_service_drive_ready_car_model"
+            style="@style/ServiceDrive.RegularHead"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="GV 70"
+            app:layout_constraintStart_toStartOf="@id/iv_service_drive_req_result_fromto_back_panel"
+            app:layout_constraintTop_toTopOf="@id/iv_service_drive_req_result_fromto_back_panel"
+            tools:text="GV 70" />
+
+        <!-- 번호판 -->
+        <TextView
+            android:id="@+id/tv_service_drive_ready_car_number"
+            style="@style/ServiceDrive.Light"
+            android:layout_marginEnd="20dp"
+            android:text="123너 1231"
+            android:textSize="18sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_ready_car_model"
+            app:layout_constraintEnd_toEndOf="@id/iv_service_drive_req_result_fromto_back_panel"
+            tools:text="123너 1231" />
+
+        <!-- "출발지" -->
+        <TextView
+            android:id="@+id/tv_service_drive_from_title"
+            style="@style/ServiceDrive.Light"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/service_drive_top_info_05"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="@id/iv_service_drive_req_result_fromto_back_panel"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_drive_ready_car_model" />
+
+        <!-- 출발지 아이콘 -->
+        <ImageView
+            android:id="@+id/iv_service_drive_ready_from_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_from"
+            app:layout_constraintBottom_toBottomOf="@id/tv_service_drive_from_title"
+            app:layout_constraintStart_toStartOf="@id/iv_service_drive_req_result_fromto_back_panel"
+            app:layout_constraintTop_toTopOf="@id/tv_service_drive_from_title" />
+
+        <!-- 출발지 장소명 -->
+        <TextView
+            android:id="@+id/tv_service_drive_from_name"
+            style="@style/ServiceDriveReqResult.FromTo.Name"
+            android:text="서울특별시 금천구 가산동 440-4 asd fas dfa sdf asdfa dfasd fasdfad asdfas"
+            app:layout_constraintEnd_toEndOf="@id/iv_service_drive_req_result_fromto_back_panel"
+            app:layout_constraintStart_toStartOf="@id/tv_service_drive_from_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_drive_from_title"
+            tools:text="우림 라이온스 밸리 A동 지하 99층as dfsdfs dfsdf asdf asdfsfsfd" />
+
+        <!-- 출발지 주소 -->
+        <TextView
+            android:id="@+id/tv_service_drive_from_address"
+            style="@style/ServiceDriveReqResult.FromTo.Address"
+            android:text="서울특별시 금천구 가산동 440-4 asd fas dfa sdf asdfa dfasd fasdfad asdfas"
+            app:layout_constraintEnd_toEndOf="@id/iv_service_drive_req_result_fromto_back_panel"
+            app:layout_constraintStart_toStartOf="@id/tv_service_drive_from_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_drive_from_name"
+            tools:text="서울특별시 금천구 가산동 440-4 asd fas dfa sdf asdfa dfasd fasdfad asdfas" />
+
+        <!-- "도착지" -->
+        <TextView
+            android:id="@+id/tv_service_drive_to_title"
+            style="@style/ServiceDrive.Light"
+            android:layout_marginTop="15dp"
+            android:text="@string/service_drive_top_info_06"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="@id/tv_service_drive_from_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_drive_from_address" />
+
+        <!-- 도착지 아이콘 -->
+        <ImageView
+            android:id="@+id/iv_service_drive_ready_to_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_to"
+            app:layout_constraintBottom_toBottomOf="@id/tv_service_drive_to_title"
+            app:layout_constraintStart_toStartOf="@id/iv_service_drive_req_result_fromto_back_panel"
+            app:layout_constraintTop_toTopOf="@id/tv_service_drive_to_title" />
+
+        <!-- 출발지-도착지 선 -->
+        <ImageView
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:src="@color/x_e2e2e2"
+            app:layout_constraintBottom_toTopOf="@id/iv_service_drive_ready_to_icon"
+            app:layout_constraintEnd_toEndOf="@id/iv_service_drive_ready_from_icon"
+            app:layout_constraintStart_toStartOf="@id/iv_service_drive_ready_from_icon"
+            app:layout_constraintTop_toBottomOf="@id/iv_service_drive_ready_from_icon" />
+
+        <!-- 도착지 장소명 -->
+        <TextView
+            android:id="@+id/tv_service_drive_to_name"
+            style="@style/ServiceDriveReqResult.FromTo.Name"
+            android:text="서울특별시 금천구 가산동 440-4 asd fas dfa sdf asdfa dfasd fasdfad asdfas"
+            app:layout_constraintEnd_toEndOf="@id/iv_service_drive_req_result_fromto_back_panel"
+            app:layout_constraintStart_toStartOf="@id/tv_service_drive_to_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_drive_to_title"
+            tools:text="우림 라이온스 밸리 A동 지하 99층as dfsdfs dfsdf asdf asdfsfsfd" />
+
+        <!-- 도착지 주소 -->
+        <TextView
+            android:id="@+id/tv_service_drive_to_address"
+            style="@style/ServiceDriveReqResult.FromTo.Address"
+            android:paddingBottom="50dp"
+            android:text="서울특별시 금천구 가산동 440-4 asd fas dfa sdf asdfa dfasd fasdfad asdfas"
+            app:layout_constraintEnd_toEndOf="@id/iv_service_drive_req_result_fromto_back_panel"
+            app:layout_constraintStart_toStartOf="@id/tv_service_drive_to_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_drive_to_name"
+            tools:text="서울특별시 금천구 가산동 440-4 asd fas dfa sdf asdfa dfasd fasdfad asdfas" />
+
+        <!-- 대리 기사 배정 상태 타이틀 -->
+        <!-- msg : service_drive_req_result_01, 04, 05, 07, 09 -->
+        <TextView
+            android:id="@+id/tv_service_drive_driver_status_title"
+            style="@style/ServiceDriveReqResult.Info"
+            android:layout_marginTop="30dp"
+            android:text="기사님 배정을 준비 중입니다."
+            android:textColor="@color/x_a36b4f"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_service_drive_req_result_top_background_4f4f4f"
+            tools:text="@string/service_drive_req_result_01" />
+
+        <!-- 대리 기사 배정 상태 메시지 -->
+        <!-- 코드에서 Visibility 컨트롤,
+         msg : service_drive_req_result_02, 06 -->
+        <TextView
+            android:id="@+id/tv_service_drive_driver_status_desc"
+            style="@style/ServiceDriveReqResult.Info"
+            android:text="신청 취소는 기사 배정\n5분 이내에만 가능합니다."
+            android:textColor="@color/x_525252"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_drive_driver_status_title"
+            tools:text="@string/service_drive_req_result_02" />
+
+        <!-- 회색 배경 -->
+        <!-- layout_service_drive_status_
+             _matching, _matched, _reserved -->
+        <ViewStub
+            android:id="@+id/vs_service_drive_req_result_status_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:inflatedId="@+id/vs_service_drive_req_result_status_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_drive_driver_status_desc"
+            app:layout_goneMarginTop="20dp" />
+
+        <!-- 미리보기용 임시 뷰 : ViewStub은 xml미리보기가 안 돼서 -->
+        <!--        <include-->
+        <!--            layout="@layout/layout_service_drive_status_reserved"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_margin="20dp"-->
+        <!--            android:inflatedId="@+id/vs_service_drive_req_result_status_info"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/tv_service_drive_driver_status_desc" />-->
+
+        <!-- 취소/신청취소/예약취소 btn -->
+        <TextView
+            android:id="@+id/tv_service_drive_cancel_btn"
+            style="@style/ServiceDriveReq.Btn.White"
+            android:text="신청 취소"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_service_drive_re_request_btn"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/service_drive_req_result_btn_03" />
+
+        <!-- 다시요청 btn -->
+        <!-- TODO : 얘가 visible이 될 때, 위에 있는 놈 layout_marginEnd 10dp로 바꾸기 -->
+        <TextView
+            android:id="@+id/tv_service_drive_re_request_btn"
+            style="@style/ServiceDriveReq.Btn.Black"
+            android:layout_marginStart="10dp"
+            android:text="@string/service_drive_req_result_btn_04"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@id/tv_service_drive_cancel_btn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

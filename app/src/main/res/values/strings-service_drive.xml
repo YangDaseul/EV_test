@@ -1,0 +1,33 @@
+<resources>
+    <string name="service_drive_01">신청 내역</string>
+
+    <string name="service_drive_input_01">출발지 주소를\n입력해 주세요.</string>
+    <string name="service_drive_input_02">출발지 상세 주소를\n입력해 주세요.</string>
+    <string name="service_drive_input_03">도착지 주소를\n입력해 주세요.</string>
+    <string name="service_drive_input_04">도착지 상세 주소를\n입력해 주세요.</string>
+
+    <string name="service_drive_req_result_01">기사님 배정을 준비 중입니다.</string>
+    <string name="service_drive_req_result_02">신청 취소는 기사 배정\n5분 이내에만 가능합니다.</string>
+    <string name="service_drive_req_result_03">푸시 알림으로 배정 현황을 알려드립니다.</string>
+    <string name="service_drive_req_result_04">기사님이 배정되었습니다.</string>
+    <string name="service_drive_req_result_05">가까운 기사님을 찾지 못했습니다.</string>
+    <string name="service_drive_req_result_06">다시 배정을 원하시면\n아래 다시 요청 버튼을 선택해주세요.</string>
+    <string name="service_drive_req_result_07">대리운전이 예약되었습니다.</string>
+    <string name="service_drive_req_result_08">예약일시</string>
+    <string name="service_drive_req_result_09">차량 이동 중입니다.</string>
+
+    <string name="service_drive_req_result_btn_01">전화</string>
+    <string name="service_drive_req_result_btn_02">신청 취소</string>
+    <string name="service_drive_req_result_btn_03">취소</string>
+    <string name="service_drive_req_result_btn_04">다시 요청</string>
+    <string name="service_drive_req_result_btn_05">예약 취소</string>
+
+
+    <string name="service_drive_top_info_01">예상가격</string>
+    <string name="service_drive_top_info_02">서비스 불가 지역 포함</string>
+    <string name="service_drive_top_info_03">일시 오류</string>
+    <string name="service_drive_top_info_04">재시도</string>
+    <string name="service_drive_top_info_05">출발지</string>
+    <string name="service_drive_top_info_06">도착지</string>
+
+</resources>

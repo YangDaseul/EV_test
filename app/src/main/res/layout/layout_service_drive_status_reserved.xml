@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ServiceDriveReqResultStatusBackground">
+
+    <!-- "예약일시" -->
+    <TextView
+        android:id="@+id/tv_service_drive_status_reserved_title"
+        style="@style/ServiceDriveReqResult.Status.Text.Light"
+        android:text="@string/service_drive_req_result_08"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 예약 일시 : value -->
+    <TextView
+        android:id="@+id/tv_service_drive_status_reserved_data"
+        style="@style/ServiceDriveReqResult.Status.Text.Regular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_service_drive_status_reserved_title"
+        tools:text="2020.13.32 오전 -11:67" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

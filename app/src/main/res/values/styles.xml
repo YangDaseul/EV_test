@@ -81,4 +81,10 @@
         <item name="android:ellipsize">end</item>
     </style>
 
+    <style name="TextBtnBasic" parent="TextBasic">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

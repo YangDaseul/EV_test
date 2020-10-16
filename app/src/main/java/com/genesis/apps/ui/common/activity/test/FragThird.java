@@ -41,6 +41,18 @@ public class FragThird extends SubFragment<Frame3pBinding> {
 
 
             R.layout.fragment_service_service_driver, //todo 스크롤 범위
+            R.layout.activity_service_drive_req,
+            R.layout.layout_service_drive_top_info_not_ready,
+            R.layout.layout_service_drive_top_info_price,
+            R.layout.layout_service_drive_top_info_cant_service,
+            R.layout.layout_service_drive_top_info_retry,
+            R.layout.layout_service_drive_top_info_loading,
+
+            R.layout.activity_service_drive_req_result,
+            R.layout.layout_service_drive_status_matching,
+            R.layout.layout_service_drive_status_matched,
+            R.layout.layout_service_drive_status_reserved,
+
 
             R.layout.activity_map2,
             R.layout.layout_map_overlay_ui_title_bar,
