@@ -2,7 +2,9 @@ package com.genesis.apps.comm.model.repo;
 
 import android.text.TextUtils;
 
+import com.genesis.apps.comm.model.gra.api.OIL_0001;
 import com.genesis.apps.comm.model.vo.CardVO;
+import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.room.DatabaseHolder;
@@ -15,6 +17,7 @@ import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -75,7 +78,7 @@ public class CardRepository {
                         newList.add(cardVO);
                     }
                 }
-                newList.add(new CardVO("", "", "", CardVO.CARD_STATUS_99, "", "", "", false));
+                newList.add(new CardVO(0,"", "", "", CardVO.CARD_STATUS_99, "", "", "", 0,false));
 
             } catch (Exception e1) {
                 e1.printStackTrace();
@@ -114,4 +117,70 @@ public class CardRepository {
         }
         return isAdd;
     }
+
+
+
+    //서버로부터 BAR 1001 전문으로 데이터를 받을 때..DB에 그대로 업데이트
+    public List<CardVO> insertCardVO(List<CardVO> list){
+
+        try{
+            final List<CardVO> blueList = list.stream().filter(data -> data.getIsncCd().equalsIgnoreCase(OilPointVO.OIL_CODE_BLUE)).collect(Collectors.toList()); //원본 리스트에서 블루멤버스 카드를 가저오고
+            list = list.stream().filter(data -> !data.getIsncCd().equalsIgnoreCase(OilPointVO.OIL_CODE_BLUE)).collect(Collectors.toList()); //원본 리스트에서 블루멤버스 카드를 제외한다.
+            final String cardNoFromDB = databaseHolder.getDatabase().globalDataDao().get("card"); //db에서 즐겨찾기된 카드를 가지고 왔는데
+            if(TextUtils.isEmpty(cardNoFromDB)){//즐겨찾기가 설정되어있지 않고
+                //블루멤버스카드가 1개 이상이면
+                if(blueList.size()>0){
+                    //블루멤버 카드 목록 중 카드 발급 신청일자가 가장 최근인 카드를 가지고온다.
+                    CardVO firstCard = blueList.stream().max(Comparator.comparingInt(data -> Integer.parseInt(data.getCardIsncSubspDt()))).get();
+                    if(updateCard(firstCard.getCardNo())){//즐겨찾기로 해당 카드를 등록 후에
+                        list.add(0, firstCard); //즐겨찾기가 설정된 블루멤버스 카드를 추가해준다.
+                    }
+                }
+            }else{
+                //즐겨찾기가 설정되어 있는 경우
+                //list에서 즐겨찾기 카드를 찾고
+                CardVO cardFavorite = blueList.stream().filter(data -> data.getCardNo().equalsIgnoreCase(cardNoFromDB)).max(Comparator.comparingInt(data -> Integer.parseInt(data.getCardIsncSubspDt()))).get();
+                if(cardFavorite!=null){
+                    //서버에서준 블루멤버스 리스트에 즐겨찾기된 카드가 있으면
+                    list.add(0, cardFavorite); //즐겨찾기가 설정된 블루멤버스 카드를 추가해준다.
+                }else{
+                    //즐겨찾기된 카드가 서버에서 준 리스트에 없으면
+                    if(blueList.size()>0){
+                        //블루멤버 카드 목록 중 카드 발급 신청일자가 가장 최근인 카드를 가지고온다.
+                        CardVO firstCard = blueList.stream().max(Comparator.comparingInt(data -> Integer.parseInt(data.getCardIsncSubspDt()))).get();
+                        if(updateCard(firstCard.getCardNo())){//즐겨찾기로 해당 카드를 등록 후에
+                            list.add(0, firstCard); //즐겨찾기가 설정된 블루멤버스 카드를 추가해준다.
+                        }
+                    }
+                }
+            }
+            if(list.size()>0){
+                databaseHolder.getDatabase().cardDao().insert(list);
+            }else{
+                databaseHolder.getDatabase().cardDao().deleteAll();
+            }
+        }catch (Exception e){
+
+        }
+
+        return databaseHolder.getDatabase().cardDao().selectAll();
+    }
+
+
+    public boolean changeCardOrder(List<CardVO> list){
+        boolean isAdd=false;
+        try{
+            //임의로 순서 지정
+            for(int i=0; i<list.size();i++){
+                list.get(i).setOrderNumber(i);
+            }
+            databaseHolder.getDatabase().cardDao().insertAndDeleteInTransaction(list);
+            isAdd=true;
+        }catch (Exception e){
+            isAdd=false;
+        }
+        return isAdd;
+    }
+
+
 }

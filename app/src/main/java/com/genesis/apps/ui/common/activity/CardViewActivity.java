@@ -22,7 +22,7 @@ import androidx.viewpager2.widget.ViewPager2;
 public class CardViewActivity extends SubActivity<ActivityVerticalOverlapExampleBinding> {
 
     private CardViewAadapter testCardViewAdapter;
-    private final int offsetPageLimit=3;
+    private final int offsetPageLimit=5;
     private boolean animationStartNeeded = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class CardViewActivity extends SubActivity<ActivityVerticalOverlapExample
         testCardViewAdapter.addRows(getListData());
         ui.viewPager.setAdapter(testCardViewAdapter);
 
-        ui.pagerContainer.setOverlapSlider(0f,0f,0.2f,0f);
+        ui.pagerContainer.setOverlapSlider(0f,0f,0.1f,-30f);
         ui.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
 
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -141,6 +141,20 @@ public class CardViewActivity extends SubActivity<ActivityVerticalOverlapExample
         link.setIcon(R.drawable.building4);
         link.setTitle("@HMKCODE");
         link.setUrl("twitter.com/hmkcode");
+
+        links.add(link);
+
+        link = new Link();
+        link.setIcon(R.drawable.building3);
+        link.setTitle("HMKCODE");
+        link.setUrl("github.com/hmkcode");
+
+        links.add(link);
+
+        link = new Link();
+        link.setIcon(R.drawable.building3);
+        link.setTitle("HMKCODE");
+        link.setUrl("github.com/hmkcode");
 
         links.add(link);
 

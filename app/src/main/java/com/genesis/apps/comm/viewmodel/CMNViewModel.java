@@ -11,8 +11,10 @@ import com.genesis.apps.comm.model.gra.api.CMN_0004;
 import com.genesis.apps.comm.model.gra.api.LGN_0005;
 import com.genesis.apps.comm.model.repo.BARRepo;
 import com.genesis.apps.comm.model.repo.CMNRepo;
+import com.genesis.apps.comm.model.repo.CardRepository;
 import com.genesis.apps.comm.model.repo.DBContentsRepository;
 import com.genesis.apps.comm.model.repo.DBGlobalDataRepository;
+import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.comm.model.vo.FloatingMenuVO;
 import com.genesis.apps.comm.model.vo.MessageVO;
 import com.genesis.apps.comm.model.vo.NotiVO;
@@ -48,6 +50,7 @@ public @Data
 class CMNViewModel extends ViewModel {
 
     private final CMNRepo repository;
+    private final CardRepository cardRepository;
     private final BARRepo barRepo;
     private final DBGlobalDataRepository dbGlobalDataRepository;
     private final DBContentsRepository dbContentsRepository;
@@ -63,11 +66,13 @@ class CMNViewModel extends ViewModel {
     @ViewModelInject
     CMNViewModel(
             CMNRepo repository,
+            CardRepository cardRepository,
             BARRepo barRepo,
             DBGlobalDataRepository dbGlobalDataRepository,
             DBContentsRepository dbContentsRepository,
             @Assisted SavedStateHandle savedStateHandle) {
         this.repository = repository;
+        this.cardRepository = cardRepository;
         this.barRepo = barRepo;
         this.dbGlobalDataRepository = dbGlobalDataRepository;
         this.dbContentsRepository = dbContentsRepository;
@@ -220,6 +225,46 @@ class CMNViewModel extends ViewModel {
     public MessageVO getTmpInsight(){
         MessageVO insight = new MessageVO(VariableType.MAIN_HOME_INSIGHT_IML,"","","","","","https://www.genesis.com/kr/ko/support/genesis-events/detail.html?seq=0507","",null);
         return insight;
+    }
+
+
+
+
+    public List<CardVO> getCardVO(List<CardVO> list) throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<List<CardVO>> future = es.getListeningExecutorService().submit(()->{
+            List<CardVO> cardVOList = new ArrayList<>();
+            try {
+                cardVOList = cardRepository.insertCardVO(list);
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+            }
+            return cardVOList;
+        });
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
+    }
+
+
+    public boolean changeCardOrder(List<CardVO> list) throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<Boolean> future = es.getListeningExecutorService().submit(()->{
+            boolean isChange=false;
+            try {
+                isChange = cardRepository.changeCardOrder(list);
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+            }
+            return isChange;
+        });
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
     }
 
 

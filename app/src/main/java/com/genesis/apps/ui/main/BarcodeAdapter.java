@@ -13,6 +13,7 @@ import com.genesis.apps.comm.util.BarcodeUtil;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.StringRe2j;
 import com.genesis.apps.databinding.ItemBarcodeBinding;
+import com.genesis.apps.databinding.ItemBarcodeModifyBinding;
 import com.genesis.apps.ui.common.activity.test.ItemMoveCallback;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
@@ -48,9 +49,9 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (VIEW_TYPE == TYPE_LINE)
-            return new ItemBarcode(getView(parent, R.layout.item_barcode_modify));
+            return new ItemBarcodeModify(getView(parent, R.layout.item_barcode_modify));
         else
-            return new ItemBarcodeModify(getView(parent, R.layout.item_barcode));
+            return new ItemBarcode(getView(parent, R.layout.item_barcode));
     }
 
     @Override
@@ -120,7 +121,7 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
                     break;
             }
 
-            getBinding().lCard.setBackgroundResource(imageId);
+            getBinding().ivCard.setImageResource(imageId);
             getBinding().ivLogo.setImageResource(iconId);
             getBinding().tvCardNo.setText(StringRe2j.replaceAll(item.getCardNo(), getContext().getString(R.string.card_original), getContext().getString(R.string.card_mask)));
             getBinding().ivBarcode.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -146,7 +147,7 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
     }
 
 
-    private static class ItemBarcodeModify extends BaseViewHolder<CardVO, ItemBarcodeBinding> {
+    private static class ItemBarcodeModify extends BaseViewHolder<CardVO, ItemBarcodeModifyBinding> {
         public ItemBarcodeModify(View itemView) {
             super(itemView);
         }

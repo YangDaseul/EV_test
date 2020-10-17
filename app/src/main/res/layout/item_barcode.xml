@@ -6,33 +6,36 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/l_card"
-            android:layout_width="320dp"
-            android:layout_height="180dp"
-            android:paddingBottom="30dp"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:elevation="3dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:style="@style/CardRoundGenesis">
+            <ImageView
+                android:id="@+id/iv_card"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="1.66:1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:style="@style/CardRoundGenesis"/>
+
 
             <TextView
                 android:id="@+id/tv_card_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="30dp"
                 android:fontFamily="@font/regular_genesissansheadglobal"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="2sp"
                 android:textColor="@color/x_ffffff"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/iv_card"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_card"
                 tools:text="2165-1231-1231-4564" />
 
             <ImageView
@@ -40,10 +43,12 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/iv_card"
+                app:layout_constraintStart_toStartOf="@+id/iv_card"
                 app:layout_constraintBottom_toTopOf="@+id/tv_card_no"
                 app:layout_constraintDimensionRatio="5:1"
                 tools:background="#ffffff"/>
@@ -52,17 +57,18 @@
                 android:id="@+id/iv_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:scaleType="centerInside"
                 app:layout_constraintVertical_bias=".5"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/iv_card"
+                app:layout_constraintStart_toStartOf="@+id/iv_card"
                 app:layout_constraintBottom_toTopOf="@+id/iv_barcode"
                 tools:src="@drawable/logo_sk_w"/>
 
 
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

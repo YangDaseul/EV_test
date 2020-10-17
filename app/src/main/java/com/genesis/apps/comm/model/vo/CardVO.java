@@ -4,6 +4,11 @@ import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -37,16 +42,28 @@ import lombok.EqualsAndHashCode;
  * @see #cardIsncSubspDt 카드발급신청일자
  * YYYYMMDD (발급처코드가 BLUE 인 경우에만 필수)
  */
+
+
+@Entity(indices = {@Index(value = {"cardNo"}, unique = true)})
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
 class CardVO extends BaseData {
-    @Expose
-    @SerializedName("isncCd")
-    private String isncCd;
+
+    public CardVO(){
+
+    }
+
+    @PrimaryKey(autoGenerate = true)
+    private int _id;
+
     @Expose
     @SerializedName("cardNo")
     private String cardNo;
+
+    @Expose
+    @SerializedName("isncCd")
+    private String isncCd;
 
     @Expose
     @SerializedName("cardNm")
@@ -71,5 +88,8 @@ class CardVO extends BaseData {
     @SerializedName("cardIsncSubspDt")
     private String cardIsncSubspDt;
 
+    private int orderNumber=9999;
+
+    @Ignore
     private boolean isFavorite;
 }

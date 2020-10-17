@@ -103,6 +103,13 @@
             android:screenOrientation="portrait"
             android:exported="false"
             android:theme="@style/CardViewTheme"/>
+
+
+        <activity
+            android:name=".ui.common.activity.CardViewActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@style/CardViewTheme"/>
         <activity
             android:name=".ui.myg.MyGNotiActivity"
             android:screenOrientation="portrait"

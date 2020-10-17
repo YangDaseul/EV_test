@@ -25,6 +25,7 @@ import com.genesis.apps.comm.util.graph.PieChartActivity;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityMainBinding;
 import com.genesis.apps.databinding.ItemTabBinding;
+import com.genesis.apps.ui.common.activity.CardViewActivity;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.fragment.main.FragFourth;
 import com.genesis.apps.ui.main.home.FragmentHome1;

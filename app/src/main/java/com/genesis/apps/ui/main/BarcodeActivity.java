@@ -30,6 +30,7 @@ import java.util.List;
 public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
     private CMNViewModel cmnViewModel;
     private BarcodeAdapter barcodeAdapter;
+    private BarcodeAdapter barcodeAdapter2;
     private final int offsetPageLimit=5;
     private boolean animationStartNeeded = true;
     @Override
@@ -45,12 +46,20 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
 
     private void initView() {
 
+        barcodeAdapter2 = new BarcodeAdapter();
+        barcodeAdapter2.setViewType(CardViewAadapter.TYPE_LINE);
+        ItemTouchHelper.Callback callback = new ItemMoveCallback(barcodeAdapter2);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(ui.recyclerView);
+        ui.recyclerView.setLayoutManager(new LinearLayoutManager(BarcodeActivity.this));
+        ui.recyclerView.setAdapter(barcodeAdapter2);
+
         ui.viewPager.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
         ui.viewPager.setOffscreenPageLimit(offsetPageLimit);
         barcodeAdapter = new BarcodeAdapter();
         ui.viewPager.setAdapter(barcodeAdapter);
 
-        ui.pagerContainer.setOverlapSlider(0f,0f,0.2f,0f);
+        ui.pagerContainer.setOverlapSlider(0f,0f,0.5f,-120f);
         ui.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
 
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -77,41 +86,44 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
             }
         });
 
-//        ui.toggle.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if(barcodeAdapter!=null){
-//                    switch (barcodeAdapter.getViewType()) {
-//                        case CardViewAadapter.TYPE_CARD:
-//                            barcodeAdapter = new BarcodeAdapter();
-//                            barcodeAdapter.setViewType(CardViewAadapter.TYPE_LINE);
-//
-//
-//                            ItemTouchHelper.Callback callback = new ItemMoveCallback(barcodeAdapter);
-//                            ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-//                            touchHelper.attachToRecyclerView(ui.recyclerView);
-//
-//
-//                            ui.pagerContainer.setVisibility(View.GONE);
-//                            ui.recyclerView.setLayoutManager(new LinearLayoutManager(BarcodeActivity.this));
-//                            ui.recyclerView.setVisibility(View.VISIBLE);
-//                            ui.recyclerView.setAdapter(barcodeAdapter);
-//
-//                            break;
-//                        case CardViewAadapter.TYPE_LINE:
-//                            barcodeAdapter = new BarcodeAdapter();
-//                            barcodeAdapter.setViewType(CardViewAadapter.TYPE_CARD);
-//                            ui.pagerContainer.setVisibility(View.VISIBLE);
-//                            ui.recyclerView.setVisibility(View.GONE);
-//                            ui.viewPager.setAdapter(barcodeAdapter);
-//                            break;
-//                    }
-//
-//                    barcodeAdapter.setRows(getListData());
-//                    barcodeAdapter.notifyDataSetChanged();
-//                }
-//            }
-//        });
+        ui.toggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(barcodeAdapter!=null){
+                    switch (barcodeAdapter.getViewType()) {
+                        case CardViewAadapter.TYPE_CARD:
+                            ui.pagerContainer.setVisibility(View.GONE);
+                            ui.recyclerView.setVisibility(View.VISIBLE);
+                            barcodeAdapter2.setRows(barcodeAdapter.getItems());
+                            barcodeAdapter2.notifyDataSetChanged();
+                            break;
+                        case CardViewAadapter.TYPE_LINE:
+                            ui.pagerContainer.setVisibility(View.VISIBLE);
+                            ui.recyclerView.setVisibility(View.GONE);
+                            break;
+                    }
+                }
+            }
+        });
+
+        ui.confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try{
+                    showProgressDialog(true);
+                    if(cmnViewModel.changeCardOrder(barcodeAdapter2.getItems())){
+                        ui.pagerContainer.setVisibility(View.VISIBLE);
+                        ui.recyclerView.setVisibility(View.GONE);
+                        barcodeAdapter.setRows(barcodeAdapter2.getItems());
+                        barcodeAdapter.notifyDataSetChanged();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }finally {
+                    showProgressDialog(false);
+                }
+            }
+        });
 
     }
 
@@ -136,11 +148,17 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    showProgressDialog(false);
-
                     if(result.data!=null&&result.data.getCardList()!=null){
-                        barcodeAdapter.setRows(result.data.getCardList());
-                        barcodeAdapter.notifyDataSetChanged();
+                        try {
+                            barcodeAdapter.setRows(cmnViewModel.getCardVO(result.data.getCardList()));
+                            barcodeAdapter.notifyDataSetChanged();
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }finally {
+                            showProgressDialog(false);
+                        }
+                    }else{
+                        showProgressDialog(false);
                     }
                     break;
                 default:

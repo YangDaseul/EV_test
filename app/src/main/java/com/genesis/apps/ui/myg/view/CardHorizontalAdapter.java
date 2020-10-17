@@ -154,7 +154,7 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
 
     //카드 추가 레이아웃 생성
     public void addCard() {
-        CardVO cardVO = new CardVO("", "", "", CardVO.CARD_STATUS_99, "", "", "", false);
+        CardVO cardVO = new CardVO(0,"", "", "", CardVO.CARD_STATUS_99, "", "", "", 0, false);
         addRow(cardVO);
     }
 

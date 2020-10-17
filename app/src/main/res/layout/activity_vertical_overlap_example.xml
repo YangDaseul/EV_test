@@ -13,6 +13,8 @@
         <!-- crousel -->
         <com.saeed.infiniteflow.lib.FinitePagerContainer
             android:id="@+id/pager_container"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:elevation="4dp"
@@ -26,7 +28,7 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/view_pager"
                 android:layout_width="400dp"
-                android:layout_height="300dp"
+                android:layout_height="250dp"
                 android:layout_gravity="center"
                 android:orientation="vertical" />
         </com.saeed.infiniteflow.lib.FinitePagerContainer>
