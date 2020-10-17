@@ -4,6 +4,8 @@ import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,9 +14,9 @@ import lombok.EqualsAndHashCode;
  * @author hjpark
  * @Brief 알림 정보
  * @see #notiNo 알림일련번호
- * @see #cateCd 카테고리코드
- * @see #cateNm 카테고리명
- * @see #notDt 알림일시
+ * @see #cateCd 카테고리코드(대분류코드)
+ * @see #cateNm 카테고리명 (대분류명)
+ * @see #notDt 알림일시 (YYYYMMSSHH24MI) / 발송일시
  * @see #title 제목
  * @see #contents 내용
  * @see #readYn 읽기확인 여부
@@ -35,10 +37,20 @@ import lombok.EqualsAndHashCode;
  * 이미지 파일 uri
  *
  */
+
+@Entity
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
 class NotiInfoVO extends BaseData {
+
+    public NotiInfoVO(){
+
+    }
+
+    @PrimaryKey(autoGenerate = true)
+    private int _id;
+
     @Expose
     @SerializedName("notiNo")
     private String notiNo;

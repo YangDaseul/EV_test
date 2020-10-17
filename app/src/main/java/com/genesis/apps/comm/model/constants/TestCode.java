@@ -18,6 +18,7 @@ import com.genesis.apps.comm.model.gra.api.LGN_0001;
 import com.genesis.apps.comm.model.gra.api.LGN_0003;
 import com.genesis.apps.comm.model.gra.api.LGN_0005;
 import com.genesis.apps.comm.model.gra.api.MYP_1005;
+import com.genesis.apps.comm.model.gra.api.NOT_0001;
 import com.genesis.apps.comm.model.gra.api.PUB_1002;
 import com.genesis.apps.comm.model.gra.api.PUB_1003;
 import com.google.gson.Gson;
@@ -814,5 +815,92 @@ public class TestCode {
             "    }\n" +
             "  ]\n" +
             "}",BAR_1001.Response.class);
+
+    public static NOT_0001.Response NOT_0001 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"notiInfoList\": [\n" +
+            "    {\n" +
+            "      \"notiNo\": \"1\",\n" +
+            "      \"cateCd\": \"1000\",\n" +
+            "      \"cateNm\": \"APP\",\n" +
+            "      \"notDt\": \"20201017010000\",\n" +
+            "      \"title\": \"테스트1테스트1테스트1테스트1테스트1테스트1테스트1테스트1테스트1\",\n" +
+            "      \"contents\": \"테스트23테스트23테스트23테스트23테스트23테스트23테스트23테스트23테스트23테스트23테스트23테스트23\",\n" +
+            "      \"readYn\": \"N\",\n" +
+            "      \"msgLnkCd\": \"I\",\n" +
+            "      \"msgLnkUri\": \"www.naver.com\",\n" +
+            "      \"dtlLnkCd\": \"\",\n" +
+            "      \"dtlLnkUri\": \"www.naver.com\",\n" +
+            "      \"imgFilUri1\": \"\",\n" +
+            "      \"imgFilUri2\": \"\",\n" +
+            "      \"imgFilUri3\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"notiNo\": \"2\",\n" +
+            "      \"cateCd\": \"1000\",\n" +
+            "      \"cateNm\": \"APP\",\n" +
+            "      \"notDt\": \"20201018010000\",\n" +
+            "      \"title\": \"2222222222222222222222222222222222222222222222222222222222\",\n" +
+            "      \"contents\": \"232323232323232323323232323232323232323232323232323232323232323232323232\",\n" +
+            "      \"readYn\": \"Y\",\n" +
+            "      \"msgLnkCd\": \"O\",\n" +
+            "      \"msgLnkUri\": \"www.naver.com\",\n" +
+            "      \"dtlLnkCd\": \"\",\n" +
+            "      \"dtlLnkUri\": \"www.naver.com\",\n" +
+            "      \"imgFilUri1\": \"\",\n" +
+            "      \"imgFilUri2\": \"\",\n" +
+            "      \"imgFilUri3\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"notiNo\": \"3\",\n" +
+            "      \"cateCd\": \"2000\",\n" +
+            "      \"cateNm\": \"이벤트\",\n" +
+            "      \"notDt\": \"20201019010000\",\n" +
+            "      \"title\": \"333333333333333333333333333333333333333333333333333333333333333333333333333333333333\",\n" +
+            "      \"contents\": \"343434343343434343343434343343434343343434343343434343343434343343434343343434343343434343343434343\",\n" +
+            "      \"readYn\": \"N\",\n" +
+            "      \"msgLnkCd\": \"\",\n" +
+            "      \"msgLnkUri\": \"\",\n" +
+            "      \"dtlLnkCd\": \"O\",\n" +
+            "      \"dtlLnkUri\": \"www.naver.com\",\n" +
+            "      \"imgFilUri1\": \"\",\n" +
+            "      \"imgFilUri2\": \"\",\n" +
+            "      \"imgFilUri3\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"notiNo\": \"4\",\n" +
+            "      \"cateCd\": \"3000\",\n" +
+            "      \"cateNm\": \"쿠폰함\",\n" +
+            "      \"notDt\": \"20201011010000\",\n" +
+            "      \"title\": \"7878\",\n" +
+            "      \"contents\": \"\",\n" +
+            "      \"readYn\": \"N\",\n" +
+            "      \"msgLnkCd\": \"\",\n" +
+            "      \"msgLnkUri\": \"\",\n" +
+            "      \"dtlLnkCd\": \"\",\n" +
+            "      \"dtlLnkUri\": \"\",\n" +
+            "      \"imgFilUri1\": \"\",\n" +
+            "      \"imgFilUri2\": \"\",\n" +
+            "      \"imgFilUri3\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"notiNo\": \"5\",\n" +
+            "      \"cateCd\": \"3000\",\n" +
+            "      \"cateNm\": \"쿠폰함\",\n" +
+            "      \"notDt\": \"20201011010000\",\n" +
+            "      \"title\": \"풀테스트\",\n" +
+            "      \"contents\": \"내용있습니다.내용있습니다.내용있습니다.내용있습니다.내용있습니다.내용있습니다.내용있습니다.내용있습니다.내용있습니다.내용있습니다.내용있습니다.내용있습니다.\",\n" +
+            "      \"readYn\": \"Y\",\n" +
+            "      \"msgLnkCd\": \"\",\n" +
+            "      \"msgLnkUri\": \"\",\n" +
+            "      \"dtlLnkCd\": \"O\",\n" +
+            "      \"dtlLnkUri\": \"www.naver.com\",\n" +
+            "      \"imgFilUri1\": \"http://placehold.it/400x200/efa/aae&text=dsa\",\n" +
+            "      \"imgFilUri2\": \"\",\n" +
+            "      \"imgFilUri3\": \"\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}", NOT_0001.Response.class);
 
 }

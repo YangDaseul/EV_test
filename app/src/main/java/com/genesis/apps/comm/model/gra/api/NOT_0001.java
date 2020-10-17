@@ -23,9 +23,7 @@ public class NOT_0001 extends BaseData {
     /**
      * @author hjpark
      * @brief NOT_0001 요청 항목
-     * @see #pageNo 페이지번호
-     * 최근 순으로 페이지 번호
-     * @see #searchCnt 조회 건수
+     * @see #cateCd 요청할 카테고리 코드
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -34,16 +32,9 @@ public class NOT_0001 extends BaseData {
         @Expose
         @SerializedName("cateCd")
         private String cateCd;
-        @Expose
-        @SerializedName("pageNo")
-        private String pageNo;
-        @Expose
-        @SerializedName("searchCnt")
-        private String searchCnt;
 
-        public Request(String menuId, String pageNo, String searchCnt){
-            this.pageNo = pageNo;
-            this.searchCnt = searchCnt;
+        public Request(String menuId, String cateCd){
+            this.cateCd = cateCd;
             setData(APIInfo.GRA_NOT_0001.getIfCd(), menuId);
         }
     }

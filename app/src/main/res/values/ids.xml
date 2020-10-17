@@ -10,4 +10,5 @@
     <item name="url" type="id"/>
     <item name="addr" type="id"/>
     <item name="btr" type="id"/>
+    <item name="noti_info" type="id"/>
 </resources>

@@ -103,6 +103,9 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             case R.id.btn_barcode:
                 startActivitySingleTop(new Intent(this, BarcodeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
                 break;
+            case R.id.btn_alarm:
+                startActivitySingleTop(new Intent(this, AlarmCenterActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
         }
 
     }

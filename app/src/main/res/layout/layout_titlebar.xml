@@ -9,6 +9,9 @@
         <variable
             name="value"
             type="String"/>
+        <variable
+            name="iconId"
+            type="android.graphics.drawable.Drawable"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,5 +49,18 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             tools:text="Title"/>
+
+        <ImageView
+            android:id="@+id/btn_etc"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="5dp"
+            android:scaleType="centerInside"
+            android:src="@{iconId}"
+            android:visibility='@{iconId==null ? View.INVISIBLE : View.VISIBLE}'
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:src="@drawable/btn_search_b"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

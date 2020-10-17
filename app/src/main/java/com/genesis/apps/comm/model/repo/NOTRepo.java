@@ -1,22 +1,27 @@
 package com.genesis.apps.comm.model.repo;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.gra.APIInfo;
 import com.genesis.apps.comm.model.gra.api.NOT_0001;
 import com.genesis.apps.comm.model.gra.api.NOT_0002;
 import com.genesis.apps.comm.model.gra.api.NOT_0003;
+import com.genesis.apps.comm.model.vo.NotiInfoVO;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.net.NetResultCallback;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.room.DatabaseHolder;
 import com.google.gson.Gson;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
-public class NOTRepo {
+import androidx.lifecycle.MutableLiveData;
 
+public class NOTRepo {
+    private DatabaseHolder databaseHolder;
     NetCaller netCaller;
 
     public final MutableLiveData<NetUIResponse<NOT_0001.Response>> RES_NOT_0001 = new MutableLiveData<>();
@@ -24,12 +29,13 @@ public class NOTRepo {
     public final MutableLiveData<NetUIResponse<NOT_0003.Response>> RES_NOT_0003 = new MutableLiveData<>();
     
     @Inject
-    public NOTRepo(NetCaller netCaller) {
+    public NOTRepo(NetCaller netCaller, DatabaseHolder databaseHolder) {
         this.netCaller = netCaller;
+        this.databaseHolder = databaseHolder;
     }
 
     public MutableLiveData<NetUIResponse<NOT_0001.Response>> REQ_NOT_0001(final NOT_0001.Request reqData) {
-
+        RES_NOT_0001.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -39,7 +45,8 @@ public class NOTRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_NOT_0001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_NOT_0001.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_NOT_0001.setValue(NetUIResponse.success(TestCode.NOT_0001));
             }
 
             @Override
@@ -99,5 +106,29 @@ public class NOTRepo {
         return RES_NOT_0003;
     }
 
+
+    public boolean updateNotiInfoToDB(List<NotiInfoVO> list){
+        boolean isUpdate=false;
+        try{
+            databaseHolder.getDatabase().notiInfoDao().insertAndDeleteInTransaction(list);
+            isUpdate=true;
+        }catch (Exception e){
+            isUpdate=false;
+        }
+
+        return isUpdate;
+    }
+
+    public List<NotiInfoVO> getNotiInfoListAll(){
+        return databaseHolder.getDatabase().notiInfoDao().selectAll();
+    }
+
+    public List<NotiInfoVO> getNotiInfoList(String cateCd){
+        return databaseHolder.getDatabase().notiInfoDao().select(cateCd);
+    }
+
+    public List<NotiInfoVO> searchNotiInfoList(String search){
+        return databaseHolder.getDatabase().notiInfoDao().selectSearch(search);
+    }
 
 }

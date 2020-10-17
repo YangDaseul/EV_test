@@ -1,5 +1,7 @@
 package com.genesis.apps.comm.viewmodel;
 
+import android.text.TextUtils;
+
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.constants.WeatherCodes;
@@ -9,14 +11,18 @@ import com.genesis.apps.comm.model.gra.api.CMN_0002;
 import com.genesis.apps.comm.model.gra.api.CMN_0003;
 import com.genesis.apps.comm.model.gra.api.CMN_0004;
 import com.genesis.apps.comm.model.gra.api.LGN_0005;
+import com.genesis.apps.comm.model.gra.api.NOT_0001;
+import com.genesis.apps.comm.model.gra.api.NOT_0002;
 import com.genesis.apps.comm.model.repo.BARRepo;
 import com.genesis.apps.comm.model.repo.CMNRepo;
 import com.genesis.apps.comm.model.repo.CardRepository;
 import com.genesis.apps.comm.model.repo.DBContentsRepository;
 import com.genesis.apps.comm.model.repo.DBGlobalDataRepository;
+import com.genesis.apps.comm.model.repo.NOTRepo;
 import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.comm.model.vo.FloatingMenuVO;
 import com.genesis.apps.comm.model.vo.MessageVO;
+import com.genesis.apps.comm.model.vo.NotiInfoVO;
 import com.genesis.apps.comm.model.vo.NotiVO;
 import com.genesis.apps.comm.model.vo.QuickMenuVO;
 import com.genesis.apps.comm.model.vo.WeatherVO;
@@ -49,6 +55,7 @@ import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TY
 public @Data
 class CMNViewModel extends ViewModel {
 
+    private final NOTRepo notRepo;
     private final CMNRepo repository;
     private final CardRepository cardRepository;
     private final BARRepo barRepo;
@@ -63,14 +70,19 @@ class CMNViewModel extends ViewModel {
 
     private MutableLiveData<NetUIResponse<BAR_1001.Response>> RES_BAR_1001;
 
+    private MutableLiveData<NetUIResponse<NOT_0001.Response>> RES_NOT_0001;
+    private MutableLiveData<NetUIResponse<NOT_0002.Response>> RES_NOT_0002;
+
     @ViewModelInject
     CMNViewModel(
+            NOTRepo notRepo,
             CMNRepo repository,
             CardRepository cardRepository,
             BARRepo barRepo,
             DBGlobalDataRepository dbGlobalDataRepository,
             DBContentsRepository dbContentsRepository,
             @Assisted SavedStateHandle savedStateHandle) {
+        this.notRepo = notRepo;
         this.repository = repository;
         this.cardRepository = cardRepository;
         this.barRepo = barRepo;
@@ -84,6 +96,9 @@ class CMNViewModel extends ViewModel {
         RES_CMN_0004 = repository.RES_CMN_0004;
 
         RES_BAR_1001 = barRepo.RES_BAR_1001;
+
+        RES_NOT_0001 = notRepo.RES_NOT_0001;
+        RES_NOT_0002 = notRepo.RES_NOT_0002;
     }
 
     public void reqCMN0001(final CMN_0001.Request reqData) {
@@ -104,6 +119,15 @@ class CMNViewModel extends ViewModel {
 
     public void reqBAR1001(final BAR_1001.Request reqData) {
         barRepo.REQ_BAR_1001(reqData);
+    }
+
+
+    public void reqNOT0001(final NOT_0001.Request reqData) {
+        notRepo.REQ_NOT_0001(reqData);
+    }
+
+    public void reqNOT0002(final NOT_0002.Request reqData) {
+        notRepo.REQ_NOT_0002(reqData);
     }
 
     public void updateNotiDt(String notiDt) {
@@ -259,6 +283,53 @@ class CMNViewModel extends ViewModel {
                 ignore.printStackTrace();
             }
             return isChange;
+        });
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
+    }
+
+
+
+
+    public boolean updateNotiList(List<NotiInfoVO> list) throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<Boolean> future = es.getListeningExecutorService().submit(()->{
+            boolean isUpdate=false;
+            try {
+                isUpdate = notRepo.updateNotiInfoToDB(list);
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+            }
+            return isUpdate;
+        });
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
+    }
+
+    public List<NotiInfoVO> getNotiInfoFromDB(String cateCd, String search) throws ExecutionException, InterruptedException {
+
+        ExecutorService es = new ExecutorService("");
+        Future<List<NotiInfoVO>> future = es.getListeningExecutorService().submit(()->{
+            List<NotiInfoVO> list = new ArrayList<>();
+            try {
+                if(!TextUtils.isEmpty(cateCd))
+                    list = notRepo.getNotiInfoList(cateCd);
+                else if(!TextUtils.isEmpty(search))
+                    list = notRepo.searchNotiInfoList(search);
+                else
+                    list = notRepo.getNotiInfoListAll();
+
+                if(list==null) list = new ArrayList<>();
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+            }
+            return list;
         });
         try {
             return future.get();
