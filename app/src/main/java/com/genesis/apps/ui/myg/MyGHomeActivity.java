@@ -257,6 +257,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     break;
 
                 case R.id.btn_car_list: //프리빌리지 차량목록
+                    startActivitySingleTop(new Intent(this, MyGPrivilegeApplyActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.tv_integration_gs: //gs칼텍스 연동하기
                     oilView.reqIntegrateOil(OilPointVO.OIL_CODE_GSCT);

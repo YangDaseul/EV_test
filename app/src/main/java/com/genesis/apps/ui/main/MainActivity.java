@@ -29,6 +29,7 @@ import com.genesis.apps.ui.common.activity.CardViewActivity;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.fragment.main.FragFourth;
 import com.genesis.apps.ui.main.home.FragmentHome1;
+import com.genesis.apps.ui.myg.MyGHomeActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
@@ -105,6 +106,21 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 break;
             case R.id.btn_alarm:
                 startActivitySingleTop(new Intent(this, AlarmCenterActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
+            case R.id.btn_profile:
+                try {
+                    switch (lgnViewModel.getUserInfoFromDB().getCustGbCd()){
+                        case VariableType.MAIN_VEHICLE_TYPE_0000:
+
+                            break;
+                        case VariableType.MAIN_VEHICLE_TYPE_OV:
+                        default:
+                            startActivitySingleTop(new Intent(this, MyGHomeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                            break;
+                    }
+                }catch (Exception ignore){
+                    ignore.printStackTrace();
+                }
                 break;
         }
 

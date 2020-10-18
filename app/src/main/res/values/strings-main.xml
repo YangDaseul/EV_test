@@ -78,4 +78,9 @@
     <string name="alrm01_6">[%s]</string>
     <string name="alrm01_7">검색어를 입력해 주세요.</string>
 
+
+    <string name="gm02_inv01_1">유사 재고 조회</string>
+    <string name="gm02_inv01_2">%s%% 유사</string>
+    <string name="gm02_inv01_3">예약한 차량의\n유사 차량들입니다.</string>
+
 </resources>

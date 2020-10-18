@@ -114,6 +114,10 @@
             android:name=".ui.myg.MyGNotiActivity"
             android:screenOrientation="portrait"
             android:exported="false"/>
+        <activity
+            android:name=".ui.myg.MyGPrivilegeApplyActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.myg.MyGVersioniActivity"
@@ -249,6 +253,13 @@
             android:name=".ui.main.AlarmCenterSearchActivity"
             android:screenOrientation="portrait"
             android:exported="false"/>
+
+        <activity
+            android:name=".ui.main.SimilarCarActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+
+
 
         <activity
             android:name=".ui.common.activity.test.TestActivity"

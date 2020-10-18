@@ -21,9 +21,12 @@ import com.genesis.apps.comm.model.gra.api.MYP_1005;
 import com.genesis.apps.comm.model.gra.api.NOT_0001;
 import com.genesis.apps.comm.model.gra.api.PUB_1002;
 import com.genesis.apps.comm.model.gra.api.PUB_1003;
+import com.genesis.apps.comm.model.gra.api.STO_1001;
+import com.genesis.apps.comm.model.gra.api.STO_1002;
 import com.google.gson.Gson;
 
 public class TestCode {
+//((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), SimilarCarActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 
     public static LGN_0001.Response LGN_0001 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
@@ -461,33 +464,29 @@ public class TestCode {
             "      \"vin\": \"111111111\",\n" +
             "      \"carRgstNo\": \"16조68404\",\n" +
             "      \"mdlCd\": \"GV80\",\n" +
-            "      \"mdlNm\": \"가솔린1111111\",\n" +
+            "      \"mdlNm\": \"가솔린\n1111111\",\n" +
             "      \"saleMdlNm\": \"디젤가솔린1111111\",\n" +
             "      \"xrclCtyNo\": \"\",\n" +
             "      \"xrclCtyNm\": \"\",\n" +
-            "      \"joinPsblCd\": \"0\",\n" +
             "      \"stusCd\": \"0000\",\n" +
             "      \"stusMsg\": \"정상\",\n" +
             "      \"serviceUrl\": \"\",\n" +
             "      \"serviceDetailUrl\": \"\",\n" +
-            "      \"joinPsblCd\": \"0\",\n" +
             "      \"joinPsblCd\": \"0\"\n" +
             "    },\n" +
             "    {\n" +
             "      \"vin\": \"2222222\",\n" +
             "      \"carRgstNo\": \"16조6842\",\n" +
             "      \"mdlCd\": \"GV80\",\n" +
-            "      \"mdlNm\": \"가솔린22222\",\n" +
-            "      \"saleMdlNm\": \"디젤가솔린22222\",\n" +
+            "      \"mdlNm\": \"가솔린\n22222\",\n" +
+            "      \"saleMdlNm\": \"what the..\",\n" +
             "      \"xrclCtyNo\": \"\",\n" +
             "      \"xrclCtyNm\": \"\",\n" +
-            "      \"joinPsblCd\": \"0\",\n" +
             "      \"stusCd\": \"0000\",\n" +
             "      \"stusMsg\": \"정상\",\n" +
             "      \"serviceUrl\": \"\",\n" +
             "      \"serviceDetailUrl\": \"\",\n" +
-            "      \"joinPsblCd\": \"0\",\n" +
-            "      \"joinPsblCd\": \"0\"\n" +
+            "      \"joinPsblCd\": \"1\"\n" +
             "    }\n" +
             "  ]\n" +
             "}\n", MYP_1005.Response.class);
@@ -902,5 +901,116 @@ public class TestCode {
             "    }\n" +
             "  ]\n" +
             "}", NOT_0001.Response.class);
+
+
+    public static STO_1001.Response STO_1001 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"estmVhclList\": {\n" +
+            "    \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
+            "    \"vhclNm\": \"GV80\",\n" +
+            "    \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
+            "    \"etrrClrNm\": \"우유니 화이트\",\n" +
+            "    \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
+            "    \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "    \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
+            "  },\n" +
+            "  \"smlrVhclList\": [\n" +
+            "    {\n" +
+            "      \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
+            "      \"vhclNm\": \"GV80\",\n" +
+            "      \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
+            "      \"etrrClrNm\": \"우유니 화이트\",\n" +
+            "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
+            "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
+            "      \"vhclNm\": \"GV80\",\n" +
+            "      \"smlrRto\": \"80\",\n" +
+            "      \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
+            "      \"etrrClrNm\": \"우유니 화이트\",\n" +
+            "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
+            "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
+            "      \"vhclNm\": \"GV81\",\n" +
+            "      \"smlrRto\": \"90\",\n" +
+            "      \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
+            "      \"etrrClrNm\": \"우유니 화이트\",\n" +
+            "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
+            "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
+            "      \"vhclNm\": \"GV82\",\n" +
+            "      \"smlrRto\": \"99\",\n" +
+            "      \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
+            "      \"etrrClrNm\": \"우유니 화이트\",\n" +
+            "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
+            "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",STO_1001.Response.class);
+
+    public static STO_1002.Response STO_1002 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"estmVhclList\": {\n" +
+            "    \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
+            "    \"vhclNm\": \"GV80\",\n" +
+            "    \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
+            "    \"etrrClrNm\": \"우유니 화이트\",\n" +
+            "    \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
+            "    \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "    \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
+            "  },\n" +
+            "  \"smlrVhclList\": [\n" +
+            "    {\n" +
+            "      \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
+            "      \"vhclNm\": \"GV80\",\n" +
+            "      \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
+            "      \"etrrClrNm\": \"우유니 화이트\",\n" +
+            "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
+            "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
+            "      \"vhclNm\": \"GV80\",\n" +
+            "      \"smlrRto\": \"80\",\n" +
+            "      \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
+            "      \"etrrClrNm\": \"우유니 화이트\",\n" +
+            "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
+            "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
+            "      \"vhclNm\": \"GV81\",\n" +
+            "      \"smlrRto\": \"90\",\n" +
+            "      \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
+            "      \"etrrClrNm\": \"우유니 화이트\",\n" +
+            "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
+            "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
+            "      \"vhclNm\": \"GV82\",\n" +
+            "      \"smlrRto\": \"99\",\n" +
+            "      \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
+            "      \"etrrClrNm\": \"우유니 화이트\",\n" +
+            "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
+            "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",STO_1002.Response.class);
 
 }

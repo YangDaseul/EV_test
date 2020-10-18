@@ -15,9 +15,12 @@ import com.genesis.apps.comm.model.gra.api.LGN_0004;
 import com.genesis.apps.comm.model.gra.api.LGN_0005;
 import com.genesis.apps.comm.model.gra.api.LGN_0006;
 import com.genesis.apps.comm.model.gra.api.LGN_0007;
+import com.genesis.apps.comm.model.gra.api.STO_1001;
+import com.genesis.apps.comm.model.gra.api.STO_1002;
 import com.genesis.apps.comm.model.repo.DBUserRepo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.LGNRepo;
+import com.genesis.apps.comm.model.repo.STORepo;
 import com.genesis.apps.comm.model.vo.UserVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
@@ -42,7 +45,9 @@ import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TY
 public @Data
 class LGNViewModel extends ViewModel {
 
+
     private final LGNRepo repository;
+    private final STORepo stoRepo;
     private final DBVehicleRepository dbVehicleRepository;
     private final DBUserRepo dbUserRepo;
     private final SavedStateHandle savedStateHandle;
@@ -59,6 +64,10 @@ class LGNViewModel extends ViewModel {
     public final LiveData<List<VehicleVO>> carVO = Transformations.map(RES_LGN_0001, input -> input.data.getOwnVhclList());
 
 
+    private MutableLiveData<NetUIResponse<STO_1001.Response>> RES_STO_1001;
+    private MutableLiveData<NetUIResponse<STO_1002.Response>> RES_STO_1002;
+    
+    
 //    public final LiveData<VehicleVO> carVO =
 //            Transformations.switchMap(RES_LGN_0001, new Function<NetUIResponse<LGN_0001.Response>, LiveData<VehicleVO>>() {
 //                @Override
@@ -70,11 +79,13 @@ class LGNViewModel extends ViewModel {
     @ViewModelInject
     LGNViewModel(
             LGNRepo repository,
+            STORepo stoRepo,
             DBVehicleRepository dbVehicleRepository,
             DBUserRepo dbUserRepo,
             @Assisted SavedStateHandle savedStateHandle)
     {
         this.repository = repository;
+        this.stoRepo = stoRepo;
         this.dbVehicleRepository = dbVehicleRepository;
         this.dbUserRepo = dbUserRepo;
         this.savedStateHandle = savedStateHandle;
@@ -87,6 +98,9 @@ class LGNViewModel extends ViewModel {
 
         RES_LGN_0006 = repository.RES_LGN_0006;
         RES_LGN_0007 = repository.RES_LGN_0007;
+        
+        RES_STO_1001 = stoRepo.RES_STO_1001;
+        RES_STO_1002 = stoRepo.RES_STO_1002;
     }
 
     public void reqLGN0001(final LGN_0001.Request reqData){
@@ -116,6 +130,15 @@ class LGNViewModel extends ViewModel {
     public void reqLGN0007(final LGN_0007.Request reqData){
         repository.REQ_LGN_0007(reqData);
     }
+
+    public void reqSTO1001(final STO_1001.Request reqData){
+        stoRepo.REQ_STO_1001(reqData);
+    }
+
+    public void reqSTO1002(final STO_1002.Request reqData){
+        stoRepo.REQ_STO_1002(reqData);
+    }
+
 
     public void setLGN0001ToDB(LGN_0001.Response data, ResultCallback callback){
         ExecutorService es = new ExecutorService("");

@@ -31,6 +31,7 @@ import com.genesis.apps.databinding.FragmentHome1Binding;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
+import com.genesis.apps.ui.main.SimilarCarActivity;
 import com.genesis.apps.ui.main.home.view.HomeInsightHorizontalAdapter;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
@@ -228,6 +229,13 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         me.ivMore.setVisibility(View.VISIBLE);
                         me.lDistance.setVisibility(View.VISIBLE);
                         lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
+
+//                        me.lDistance.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), SimilarCarActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                            }
+//                        });
                         //TODO LGN-0003 요청을 여기서 해야할듯
                         //TODO 위치정보 확인 요청
                         //TODO 거리 확인 요청 등 다 여기서 해야함..
