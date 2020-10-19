@@ -32,7 +32,6 @@
         <item name="android:visibility">gone</item>
     </style>
 
-
     <!-- 하단 승인 버튼(검은색)-->
     <style name="ViewBottomOkBtn">
         <item name="android:layout_width">0dp</item>
@@ -46,7 +45,14 @@
         <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
     </style>
 
-
+    <!-- 타이틀 바 오른쪽 텍스트 버튼 (연한 글씨) -->
+    <style name="TitleBarTextBtn" parent="TextBtnBasic">
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/x_6f6f6f</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff</item>
+        <item name="android:layout_marginEnd">20dp</item>
+    </style>
 
 
 </resources>

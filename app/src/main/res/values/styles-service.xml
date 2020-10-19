@@ -103,16 +103,6 @@
         <item name="android:textColor">@color/x_525252</item>
     </style>
 
-    <!-- 대리운전 신청 페이지/신청 결과 페이지 : 신청 내역 버튼 -->
-    <style name="ServiceDrive.History" parent="TextBtnBasic">
-        <item name="android:text">@string/service_drive_01</item>
-        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/x_6f6f6f</item>
-        <item name="android:background">@drawable/ripple_bg_ffffff</item>
-        <item name="android:layout_marginEnd">20dp</item>
-    </style>
-
     <!-- 대리운전 신청 이용불가 msg -->
     <style name="ServiceDriveReq.Error" parent="TextBasic">
         <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
