@@ -13,15 +13,8 @@
         <include
             android:id="@+id/l_service_drive_req_result_titlebar"
             layout="@layout/layout_titlebar"
+            app:btnText="@{@string/service_drive_01}"
             app:value="@{@string/sm01_service_driver_1}" />
-
-        <!-- 우상단 신청내역 버튼 -->
-        <TextView
-            android:id="@+id/tv_service_drive_history_btn"
-            style="@style/ServiceDrive.History"
-            app:layout_constraintBottom_toBottomOf="@id/l_service_drive_req_result_titlebar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/l_service_drive_req_result_titlebar" />
 
         <!-- 출발/도착지 뷰 상자 밖에 회색칠한 영역 -->
         <ImageView

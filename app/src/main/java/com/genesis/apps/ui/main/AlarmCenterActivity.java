@@ -2,7 +2,6 @@ package com.genesis.apps.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import com.genesis.apps.comm.model.vo.NotiInfoVO;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.databinding.ActivityAlarmCenterBinding;
 import com.genesis.apps.databinding.ItemTabAlarmBinding;
-import com.genesis.apps.databinding.ItemTabBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.google.android.material.tabs.TabLayout;
 
@@ -46,7 +44,7 @@ public class AlarmCenterActivity extends SubActivity<ActivityAlarmCenterBinding>
     }
 
     private void initView() {
-        ui.lTitle.btnEtc.setOnClickListener(onSingleClickListener);
+        ui.lTitle.ivTitlebarImgBtn.setOnClickListener(onSingleClickListener);
         adapter = new AlarmCenterRecyclerAdapter(onSingleClickListener);
         ui.rvNoti.setLayoutManager(new LinearLayoutManager(this));
         ui.rvNoti.setHasFixedSize(true);
@@ -100,7 +98,7 @@ public class AlarmCenterActivity extends SubActivity<ActivityAlarmCenterBinding>
     public void onClickCommon(View v) {
         switch (v.getId()) {
             //todo 어댑터 이벤트 정의 필요
-            case R.id.btn_etc:
+            case R.id.iv_titlebar_img_btn:
                 startActivitySingleTop(new Intent(this, AlarmCenterSearchActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
 
