@@ -63,9 +63,9 @@ public class IST_1002 extends BaseData {
     class Response extends BaseResponse {
         @Expose
         @SerializedName("currMthAmt")
-        private List<ISTAmtVO> currMthAmt;
+        private ISTAmtVO currMthAmt;
         @Expose
         @SerializedName("prvsMthAmt")
-        private List<ISTAmtVO> prvsMthAmt;
+        private ISTAmtVO prvsMthAmt;
     }
 }

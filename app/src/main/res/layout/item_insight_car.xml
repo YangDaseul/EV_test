@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_ffffff_round_10"
+        android:layout_margin="5dp"
+        android:elevation="5dp"
+        android:paddingBottom="25dp"
+        android:paddingTop="25dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+
+        <TextView
+            android:id="@+id/tv_curr_mth_amt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:lineSpacingExtra="6sp"
+            android:textColor="@color/x_141414"
+            android:textSize="16sp"
+            android:bufferType="spannable"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/tm01_1" />
+
+
+        <TextView
+            android:id="@+id/tv_prvs_mth_amt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:lineSpacingExtra="19sp"
+            android:textColor="@color/x_141414"
+            android:textSize="11sp"
+            android:drawableLeft="@drawable/mark_000000"
+            android:drawablePadding="4dp"
+            android:bufferType="spannable"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_curr_mth_amt"
+            tools:text="@string/tm01_2" />
+
+
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintDimensionRatio="1.5:1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_prvs_mth_amt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

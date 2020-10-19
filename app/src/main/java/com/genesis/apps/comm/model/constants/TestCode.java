@@ -14,6 +14,7 @@ import com.genesis.apps.comm.model.gra.api.GNS_1003;
 import com.genesis.apps.comm.model.gra.api.GNS_1004;
 import com.genesis.apps.comm.model.gra.api.GNS_1005;
 import com.genesis.apps.comm.model.gra.api.GNS_1010;
+import com.genesis.apps.comm.model.gra.api.IST_1002;
 import com.genesis.apps.comm.model.gra.api.LGN_0001;
 import com.genesis.apps.comm.model.gra.api.LGN_0003;
 import com.genesis.apps.comm.model.gra.api.LGN_0005;
@@ -1013,10 +1014,24 @@ public class TestCode {
             "  ]\n" +
             "}",STO_1002.Response.class);
 
-
-
-
-
+    public static IST_1002.Response IST_1002 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"currMthAmt\": {\n" +
+            "    \"totUseAmt\": \"1250000\",\n" +
+            "    \"oilAmt\": \"500000\",\n" +
+            "    \"rparAmt\": \"500000\",\n" +
+            "    \"carWshAmt\": \"400000\",\n" +
+            "    \"etcAmt\": \"250000\"\n" +
+            "  },\n" +
+            "  \"prvsMthAmt\": {\n" +
+            "    \"totUseAmt\": \"578500\",\n" +
+            "    \"oilAmt\": \"250000\",\n" +
+            "    \"rparAmt\": \"250000\",\n" +
+            "    \"carWshAmt\": \"0\",\n" +
+            "    \"etcAmt\": \"78500\"\n" +
+            "  }\n" +
+            "}", IST_1002.Response.class);
 
 
 }

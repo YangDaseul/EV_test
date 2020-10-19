@@ -3,6 +3,7 @@ package com.genesis.apps.comm.model.repo;
 import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.gra.APIInfo;
 import com.genesis.apps.comm.model.gra.api.IST_1001;
 import com.genesis.apps.comm.model.gra.api.IST_1002;
@@ -64,7 +65,8 @@ public class ISTRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_IST_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_IST_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_IST_1002.setValue(NetUIResponse.success(TestCode.IST_1002));
             }
 
             @Override

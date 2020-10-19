@@ -30,6 +30,7 @@ import com.genesis.apps.ui.common.activity.CardViewActivity;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.fragment.main.FragFourth;
 import com.genesis.apps.ui.main.home.FragmentHome1;
+import com.genesis.apps.ui.main.insight.FragmentInsight;
 import com.genesis.apps.ui.myg.MyGHomeActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -146,6 +147,18 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     public void onResume(){
         super.onResume();
         checkPushCode();
+//        setGNBColor(1);
+//        for (Fragment fragment: getSupportFragmentManager().getFragments()) {
+//            if (fragment.isVisible()) {
+//                if(fragment instanceof FragmentInsight){
+//                    setGNBColor(0);
+//                    break;
+//                }
+//            }
+//        }
+
+
+
 //        startActivitySingleTop(new Intent(this, AnotherBarActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 //        FirebaseMessagingService.notifyMessageTest(this, new PushVO(), PushCode.CAT_0E);
     }
@@ -216,6 +229,11 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void setGNBColor(int value){
+        ui.lGnb.setBackground(value);
+        ui.lGnb.lWhole.setVisibility(View.VISIBLE);
     }
 
     private long backKeyPressedTime = 0;

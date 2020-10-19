@@ -151,6 +151,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             if (location == null) {
                 return;
             }
+
+            lgnViewModel.setPosition(location.getLatitude(),location.getLongitude());
             lgnViewModel.reqLGN0005(new LGN_0005.Request(APPIAInfo.GM01.getId(), String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude())));
         },5000);
     }
@@ -184,6 +186,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         videoPauseAndResume(true);
         setViewVehicle();
         recordUtil.regReceiver();
+        ((MainActivity)getActivity()).setGNBColor(1);
         //TODO 알람뱃지뉴 표시하는 부분 요청처리 필요
 
 

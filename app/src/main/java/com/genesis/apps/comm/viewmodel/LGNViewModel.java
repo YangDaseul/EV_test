@@ -32,6 +32,7 @@ import com.google.gson.Gson;
 
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -66,6 +67,8 @@ class LGNViewModel extends ViewModel {
 
     private MutableLiveData<NetUIResponse<STO_1001.Response>> RES_STO_1001;
     private MutableLiveData<NetUIResponse<STO_1002.Response>> RES_STO_1002;
+
+    private Double[] position = new Double[2];
     
     
 //    public final LiveData<VehicleVO> carVO =
@@ -211,4 +214,15 @@ class LGNViewModel extends ViewModel {
             es.shutDownExcutor();
         }
     }
+
+    public void setPosition(double x, double y){
+        position[0] = x;
+        position[1] = y;
+    }
+
+    public Double[] getPosition(){
+        return position;
+    }
+
+
 }

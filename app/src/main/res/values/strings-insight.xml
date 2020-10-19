@@ -1,0 +1,11 @@
+<resources>
+    <string name="tm01_1">이번 달 사용금액은\n총 %s 원을 쓰셨습니다.</string>
+    <string name="tm01_2">지난달 사용금액 %s원</string>
+    <string name="tm01_3">이번 달 사용 금액</string>
+    <string name="tm01_4">내차 유지비용은?\n차계부를 이용하여 나만의\n차량 비용을 기록해 보세요.</string>
+    <string name="tm01_5"></string>
+    <string name="tm01_6"></string>
+    <string name="tm01_7"></string>
+    <string name="tm01_8"></string>
+
+</resources>

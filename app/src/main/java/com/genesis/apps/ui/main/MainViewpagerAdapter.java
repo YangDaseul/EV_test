@@ -5,10 +5,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.genesis.apps.ui.common.fragment.main.FragFourth;
-import com.genesis.apps.ui.common.fragment.main.FragSecond;
 import com.genesis.apps.ui.common.activity.test.FragThird;
+import com.genesis.apps.ui.common.fragment.main.FragFourth;
 import com.genesis.apps.ui.common.fragment.main.FragmentMainContents;
+import com.genesis.apps.ui.main.insight.FragmentInsight;
 
 
 public class MainViewpagerAdapter extends FragmentStateAdapter {
@@ -29,7 +29,7 @@ public class MainViewpagerAdapter extends FragmentStateAdapter {
             case 0:
                 return new FragmentHome();
             case 1:
-                return new FragSecond();
+                return new FragmentInsight();
             case 2:
                 return new FragThird();
             case 3:
