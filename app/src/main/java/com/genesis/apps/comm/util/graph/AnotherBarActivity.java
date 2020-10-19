@@ -21,6 +21,7 @@ import com.github.mikephil.charting.components.XAxis.XAxisPosition;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 
@@ -29,6 +30,8 @@ import java.util.ArrayList;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
+import static android.graphics.Paint.Style.FILL;
+import static android.graphics.Paint.Style.STROKE;
 import static com.github.mikephil.charting.components.LimitLine.LimitLabelPosition.RIGHT_TOP;
 
 public class AnotherBarActivity extends DemoBase implements OnSeekBarChangeListener {
@@ -82,33 +85,35 @@ public class AnotherBarActivity extends DemoBase implements OnSeekBarChangeListe
         chart.setDrawGridBackground(false);
 
         XAxis xAxis = chart.getXAxis();
+        xAxis.setValueFormatter(new AxisValueFormatter());
         xAxis.setPosition(XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setLabelCount(3);
-
 //
         xAxis.setTextColor(ContextCompat.getColor(this,R.color.x_bf000000));
-        xAxis.setTextSize(DeviceUtil.dip2Pixel(this, 11));
+        xAxis.setTextSize(DeviceUtil.dip2Pixel(this, 8));
         xAxis.setTypeface(ResourcesCompat.getFont(this, R.font.regular_genesissansheadglobal));
 //        xAxis.setAxisMinimum(0f);
-
-
-
-//        chart.setExtraOffsets(0, 0, 0, 12);
+        chart.setExtraOffsets(0, 0, 0, 12);
         chart.getAxisLeft().setEnabled(false);
         chart.getAxisRight().setZeroLineColor(ContextCompat.getColor(this,R.color.x_e2e2e2));
         chart.getAxisRight().setGridColor(ContextCompat.getColor(this,R.color.x_e2e2e2));
         chart.getAxisRight().setAxisLineColor(ContextCompat.getColor(this,R.color.x_00000000));
         chart.getAxisRight().setTextColor(ContextCompat.getColor(this,R.color.x_4d525252));
-        chart.getAxisRight().setTextSize(DeviceUtil.dip2Pixel(this, 8));
+        chart.getAxisRight().setTextSize(DeviceUtil.dip2Pixel(this, 11));
         chart.getAxisRight().setTypeface(ResourcesCompat.getFont(this, R.font.regular_genesissansheadglobal));
         chart.getAxisRight().setAxisMinimum(0);
 
         LimitLine limitLine = new LimitLine(70000f);
         limitLine.setLineColor(ContextCompat.getColor(this,R.color.x_cd9a81));
+        limitLine.setTextColor(ContextCompat.getColor(this,R.color.x_cd9a81));
         limitLine.setLabel("이번달 사용 금액");
         limitLine.setLabelPosition(RIGHT_TOP);
         limitLine.enableDashedLine(10f,10f,0f);
+        limitLine.setTextStyle(FILL);
+        limitLine.setTypeface(ResourcesCompat.getFont(this, R.font.regular_genesissansheadglobal));
+        limitLine.setTextSize(DeviceUtil.dip2Pixel(this, 8));
+        limitLine.setYOffset(5f);
         chart.getAxisRight().addLimitLine(limitLine);
 
 

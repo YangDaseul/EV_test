@@ -165,7 +165,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     private void initView() {
         oilView = new OilView(ui.lOil, v -> onSingleClickListener.onClick(v));
         ui.setActivity(this);
-        ui.setView(oilView);
+        ui.setOilView(oilView);
     }
 
     //TODO 로딩 처리 필요..

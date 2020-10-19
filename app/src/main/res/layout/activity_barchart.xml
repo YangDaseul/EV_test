@@ -6,8 +6,7 @@
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/seekBar1" />
+        android:layout_height="match_parent"/>
 
     <SeekBar
         android:id="@+id/seekBar2"
@@ -19,6 +18,7 @@
         android:layout_toLeftOf="@+id/tvYMax"
         android:layout_marginRight="5dp"
         android:max="200"
+        android:visibility="invisible"
         android:paddingBottom="12dp" />
 
     <SeekBar
@@ -31,6 +31,7 @@
         android:layout_toLeftOf="@+id/tvXMax"
         android:layout_marginRight="5dp"
         android:max="1500"
+        android:visibility="invisible"
         android:paddingBottom="12dp" />
 
     <TextView
@@ -43,6 +44,7 @@
         android:layout_marginBottom="15dp"
         android:layout_marginRight="10dp"
         android:gravity="right"
+        android:visibility="invisible"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -55,6 +57,7 @@
         android:layout_marginBottom="15dp"
         android:layout_marginRight="10dp"
         android:gravity="right"
+        android:visibility="invisible"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>
