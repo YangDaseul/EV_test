@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- TODO : 스크롤 범위 처리-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/x_ffffff">
+
+        <!-- 타이틀바-->
+        <include
+            android:id="@+id/l_service_drive_req_titlebar"
+            layout="@layout/layout_titlebar"
+            app:value="@{@string/sm01_service_driver_1}" />
+
+        <!-- 우상단 신청내역 버튼 -->
+        <TextView
+            android:id="@+id/tv_service_drive_history_btn"
+            style="@style/ServiceDrive.History"
+            app:layout_constraintBottom_toBottomOf="@id/l_service_drive_req_titlebar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/l_service_drive_req_titlebar" />
+
+        <!-- 상단 정보 : 차종/번호판 뷰 -->
+        <!-- 배경영역 -->
+        <ImageView
+            android:id="@+id/iv_service_drive_req_car_info_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_f4f4f4_round_10"
+            app:layout_constraintBottom_toBottomOf="@id/tv_service_drive_req_car_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/l_service_drive_req_titlebar" />
+
+        <!-- 상단 정보 : 차종/번호판 뷰 -->
+        <!-- 차종 -->
+        <TextView
+            android:id="@+id/tv_service_drive_req_car_model"
+            style="@style/ServiceDrive.RegularHead"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toTopOf="@id/tv_service_drive_req_car_number"
+            app:layout_constraintStart_toStartOf="@id/iv_service_drive_req_car_info_background"
+            app:layout_constraintTop_toTopOf="@id/iv_service_drive_req_car_info_background"
+            tools:text="GV 70" />
+
+        <!-- 상단 정보 : 차종/번호판 뷰 -->
+        <!-- 번호판 -->
+        <TextView
+            android:id="@+id/tv_service_drive_req_car_number"
+            style="@style/ServiceDrive.Light"
+            android:paddingBottom="20dp"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_service_drive_req_car_info_background"
+            app:layout_constraintStart_toStartOf="@id/tv_service_drive_req_car_model"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_drive_req_car_model"
+            tools:text="123너 6456" />
+
+        <!-- 상단 정보 : 차종/번호판 뷰 -->
+        <!-- 예상가격/서비스불가안내/로딩중 등  -->
+        <!-- layout_service_drive_req_
+             _price, _cant_service, _retry, _loading   -->
+        <ViewStub
+            android:id="@+id/vs_service_drive_req_service_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:inflatedId="@+id/vs_service_drive_req_service_info"
+            app:layout_constraintBottom_toBottomOf="@id/iv_service_drive_req_car_info_background"
+            app:layout_constraintEnd_toEndOf="@id/iv_service_drive_req_car_info_background"
+            app:layout_constraintTop_toTopOf="@id/iv_service_drive_req_car_info_background" />
+        <!-- 미리보기용 임시 뷰 : ViewStub은 xml미리보기가 안 돼서 -->
+        <!--        <include-->
+        <!--            layout="@layout/layout_service_drive_req_price"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginEnd="20dp"-->
+        <!--            android:inflatedId="@+id/vs_service_drive_req_service_info"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@id/iv_service_drive_req_car_info_background"-->
+        <!--            app:layout_constraintEnd_toEndOf="@id/iv_service_drive_req_car_info_background"-->
+        <!--            app:layout_constraintTop_toTopOf="@id/iv_service_drive_req_car_info_background" />-->
+
+        <!-- "출발/도착지 주소를 입력해라" : 01 ~ 04 번 str -->
+        <TextView
+            android:id="@+id/iv_service_drive_req_please_input_xxx"
+            style="@style/TextBasic"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:text="@string/service_drive_input_02"
+            android:textColor="@color/x_000000"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_service_drive_req_car_info_background"
+            tools:text="@string/service_drive_input_02" />
+
+        <!-- 출발 주소 검색버튼 및 출발 상세주소 입력창 -->
+        <include
+            layout="@layout/layout_service_drive_req_input_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            app:detailHint="@{@string/service_drive_input_05}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_service_drive_req_please_input_xxx"
+            app:searchTitle="@{@string/service_drive_input_08}" />
+
+
+        <!-- 다음 버튼 TODO 그림자 도대체 왜 안 생기냐 -->
+        <TextView
+            style="@style/ServiceDriveReq.Btn.Black"
+            android:elevation="10dp"
+            android:text="@string/comm_next"
+            app:elevation="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+
+    <!-- "예상가격" -->
+    <TextView
+        style="@style/ServiceDrive.Light"
+        android:layout_marginEnd="5dp"
+        android:text="@string/service_drive_top_info_01"
+        android:textSize="13sp" />
+
+    <!-- 값 -->
+    <TextView
+        android:id="@+id/tv_service_drive_price_maybe"
+        style="@style/TextBasic"
+        android:textColor="@color/x_a36b4f"
+        android:textSize="18sp"
+        tools:text="15,000 원" />
+
+</LinearLayout>
+

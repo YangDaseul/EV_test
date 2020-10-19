@@ -4,6 +4,7 @@
 
 
     <data>
+
         <variable
             name="viewModel"
             type="com.genesis.apps.comm.model.ExampleViewModel" />
@@ -28,24 +29,13 @@
                 android:background="#aaff88"
                 android:contentDescription="@string/app_name" />
 
-            <TextView
-                android:id="@+id/tvName3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="Hello This is Page 3"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/test_layout_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:items="@{viewModel.datas}"/>
+                android:layout_marginBottom="99dp"
+                app:items="@{viewModel.datas}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </RelativeLayout>
 

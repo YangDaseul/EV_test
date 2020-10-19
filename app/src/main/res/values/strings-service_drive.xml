@@ -5,6 +5,11 @@
     <string name="service_drive_input_02">출발지 상세 주소를\n입력해 주세요.</string>
     <string name="service_drive_input_03">도착지 주소를\n입력해 주세요.</string>
     <string name="service_drive_input_04">도착지 상세 주소를\n입력해 주세요.</string>
+    <string name="service_drive_input_05">출발지 상세 주소</string>
+    <string name="service_drive_input_06">도착지 상세 주소</string>
+    <string name="service_drive_input_07">필수 입력 사항입니다.</string>
+    <string name="service_drive_input_08">출발지 주소</string>
+    <string name="service_drive_input_09">도착지 주소</string>
 
     <string name="service_drive_req_result_01">기사님 배정을 준비 중입니다.</string>
     <string name="service_drive_req_result_02">신청 취소는 기사 배정\n5분 이내에만 가능합니다.</string>
