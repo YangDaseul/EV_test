@@ -14,8 +14,8 @@
     <!-- 재시도버튼 -->
     <TextView
         android:id="@+id/tv_service_drive_retry"
-        style="@style/TextBasic"
-        android:background="@drawable/ripple_bg_00000000_stroke_141414"
+        style="@style/TextBtnBasic"
+        android:background="@drawable/ripple_bg_00000000_stroke_6f6f6f"
         android:fontFamily="@font/light_genesissansheadglobal"
         android:paddingStart="14dp"
         android:paddingTop="10dp"
