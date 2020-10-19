@@ -88,4 +88,13 @@
         <item name="android:gravity">center</item>
     </style>
 
+
+    <style name="TextGoldCommon">
+        <item name="android:background">@color/x_cd9a81</item>
+        <item name="android:textColor">@color/x_ffffff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
 </resources>

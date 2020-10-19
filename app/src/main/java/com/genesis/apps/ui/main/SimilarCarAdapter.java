@@ -10,20 +10,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.vo.MessageVO;
 import com.genesis.apps.comm.model.vo.SimilarVehicleVO;
-import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.DeviceUtil;
-import com.genesis.apps.comm.util.StringUtil;
-import com.genesis.apps.databinding.ItemExtncPlanPontBinding;
 import com.genesis.apps.databinding.ItemSimilarCarBinding;
 import com.genesis.apps.databinding.ItemSimilarCarHeaderBinding;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
-
-import java.util.Locale;
-
-import androidx.core.content.res.ResourcesCompat;
 
 
 public class SimilarCarAdapter extends BaseRecyclerViewAdapter2<SimilarVehicleVO> {

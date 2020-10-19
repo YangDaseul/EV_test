@@ -21,6 +21,7 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.graph.AnotherBarActivity;
 import com.genesis.apps.comm.util.graph.PieChartActivity;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityMainBinding;
@@ -145,7 +146,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     public void onResume(){
         super.onResume();
         checkPushCode();
-
+//        startActivitySingleTop(new Intent(this, AnotherBarActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 //        FirebaseMessagingService.notifyMessageTest(this, new PushVO(), PushCode.CAT_0E);
     }
 
