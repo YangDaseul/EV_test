@@ -22,6 +22,7 @@ import com.genesis.apps.comm.model.gra.api.IST_1004;
 import com.genesis.apps.comm.model.gra.api.IST_1005;
 import com.genesis.apps.comm.model.gra.api.LGN_0005;
 import com.genesis.apps.comm.model.vo.ISTAmtVO;
+import com.genesis.apps.comm.model.vo.SOSDriverVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.DeviceUtil;
@@ -31,6 +32,9 @@ import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentInsightBinding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
+import com.genesis.apps.ui.main.insight.view.InsightArea1Adapter;
+import com.genesis.apps.ui.main.insight.view.InsightArea2Adapter;
+import com.genesis.apps.ui.main.insight.view.InsightArea3Adapter;
 import com.genesis.apps.ui.main.insight.view.InsightCarAdapter;
 
 import java.util.ArrayList;
@@ -43,6 +47,9 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
 
     private ConcatAdapter concatAdapter;
     private InsightCarAdapter insightCarAdapter;
+    private InsightArea1Adapter insightArea1Adapter;
+    private InsightArea2Adapter insightArea2Adapter;
+    private InsightArea3Adapter insightArea3Adapter;
     private VehicleVO mainVehicleInfo;
 
     @Override
@@ -62,7 +69,11 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
         me.rvInsight.setHasFixedSize(true);
         me.rvInsight.addItemDecoration(new RecyclerViewDecoration((int) DeviceUtil.dip2Pixel(getContext(),4.0f)));
         insightCarAdapter = new InsightCarAdapter(onSingleClickListener);
-        concatAdapter = new ConcatAdapter(insightCarAdapter);
+        insightArea1Adapter = new InsightArea1Adapter(onSingleClickListener);
+        insightArea2Adapter = new InsightArea2Adapter(onSingleClickListener);
+        insightArea3Adapter = new InsightArea3Adapter(onSingleClickListener);
+
+        concatAdapter = new ConcatAdapter(insightCarAdapter, insightArea1Adapter,insightArea2Adapter,insightArea3Adapter);
         me.rvInsight.setAdapter(concatAdapter);
 
         istViewModel = new ViewModelProvider(getActivity()).get(ISTViewModel.class);
@@ -114,6 +125,65 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
         });
 
 
+        istViewModel.getRES_IST_1003().observe(getViewLifecycleOwner(), result -> {
+            switch (result.status){
+                case LOADING:
+                    ((MainActivity)getActivity()).showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    ((MainActivity)getActivity()).showProgressDialog(false);
+                    if(result.data!=null&&result.data.getAdmMsgList()!=null){
+                        insightArea1Adapter.setRows(result.data.getAdmMsgList());
+                        insightArea1Adapter.notifyDataSetChanged();
+                    }
+                    break;
+                default:
+                    ((MainActivity)getActivity()).showProgressDialog(false);
+                    break;
+            }
+        });
+
+
+        istViewModel.getRES_IST_1005().observe(getViewLifecycleOwner(), result -> {
+            switch (result.status){
+                case LOADING:
+                    ((MainActivity)getActivity()).showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    ((MainActivity)getActivity()).showProgressDialog(false);
+                    if(result.data!=null&&result.data.getMsgList()!=null){
+                        insightArea3Adapter.setRows(result.data.getMsgList());
+                        insightArea3Adapter.notifyDataSetChanged();
+                    }
+                    break;
+                default:
+                    ((MainActivity)getActivity()).showProgressDialog(false);
+                    break;
+            }
+        });
+
+        istViewModel.getRES_IST_1004().observe(getViewLifecycleOwner(), result -> {
+            switch (result.status){
+                case LOADING:
+                    ((MainActivity)getActivity()).showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    ((MainActivity)getActivity()).showProgressDialog(false);
+                    if(result.data!=null){
+                        List<SOSDriverVO> list = new ArrayList<>();
+                        if(result.data.getSosStatus()!=null){
+                            list.add(result.data.getSosStatus());
+                        }
+                        insightArea2Adapter.setRows(list);
+                        insightArea2Adapter.notifyDataSetChanged();
+                    }
+                    break;
+                default:
+                    ((MainActivity)getActivity()).showProgressDialog(false);
+                    break;
+            }
+        });
+
     }
 
     @Override
@@ -127,10 +197,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
         switch (v.getId()){
 
 
-
         }
-
-
     }
 
 

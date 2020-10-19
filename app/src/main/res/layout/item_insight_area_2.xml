@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:elevation="5dp"
+        android:background="@drawable/bg_ffffff_round_10"
+        android:paddingBottom="25dp"
+        android:paddingTop="25dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:lineSpacingExtra="8sp"
+            android:textColor="@color/x_000000"
+            android:textSize="22sp"
+            android:text="@string/tm01_8"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_icon"/>
+
+        <TextView
+            android:id="@+id/tv_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="18dp"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:lineSpacingExtra="2sp"
+            android:letterSpacing="-0.01"
+            android:textColor="@color/x_a36b4f"
+            android:textSize="16sp"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            app:layout_constraintEnd_toStartOf="@+id/iv_icon"
+            tools:text="@string/tm01_9"/>
+
+
+        <TextView
+            android:id="@+id/btn_driver_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:lineSpacingExtra="29sp"
+            android:textColor="@color/x_6f6f6f"
+            android:textSize="15sp"
+            android:text="@string/tm01_10"
+            android:background="@drawable/bg_00000000_underline_6f6f6f"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_msg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_icon"/>
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:src="@drawable/ic_service_emergency"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

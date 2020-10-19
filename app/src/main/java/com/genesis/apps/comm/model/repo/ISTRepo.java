@@ -88,7 +88,9 @@ public class ISTRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_IST_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_IST_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
+
+                RES_IST_1003.setValue(NetUIResponse.success(TestCode.IST_1003));
             }
 
             @Override
@@ -110,7 +112,9 @@ public class ISTRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_IST_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_IST_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
+
+                RES_IST_1004.setValue(NetUIResponse.success(TestCode.IST_1004));
             }
 
             @Override
@@ -132,7 +136,9 @@ public class ISTRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_IST_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_IST_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_IST_1005.setValue(NetUIResponse.success(TestCode.IST_1005));
+            
             }
 
             @Override

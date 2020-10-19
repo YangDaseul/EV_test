@@ -15,6 +15,9 @@ import com.genesis.apps.comm.model.gra.api.GNS_1004;
 import com.genesis.apps.comm.model.gra.api.GNS_1005;
 import com.genesis.apps.comm.model.gra.api.GNS_1010;
 import com.genesis.apps.comm.model.gra.api.IST_1002;
+import com.genesis.apps.comm.model.gra.api.IST_1003;
+import com.genesis.apps.comm.model.gra.api.IST_1004;
+import com.genesis.apps.comm.model.gra.api.IST_1005;
 import com.genesis.apps.comm.model.gra.api.LGN_0001;
 import com.genesis.apps.comm.model.gra.api.LGN_0003;
 import com.genesis.apps.comm.model.gra.api.LGN_0005;
@@ -1032,6 +1035,80 @@ public class TestCode {
             "    \"etcAmt\": \"78500\"\n" +
             "  }\n" +
             "}", IST_1002.Response.class);
+
+    public static IST_1003.Response IST_1003 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"admMsgList\": [\n" +
+            "    {\n" +
+            "      \"msgTypCd\": \"TXT\",\n" +
+            "      \"ttl\": \"테스트1\",\n" +
+            "      \"txtMsg\": \"테스트11111111111111\",\n" +
+            "      \"imgUri\": \"\",\n" +
+            "      \"lnkNm\": \"테스트명1\",\n" +
+            "      \"lnkTypCd\": \"\",\n" +
+            "      \"lnkUri\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"msgTypCd\": \"TXL\",\n" +
+            "      \"ttl\": \"테스트2\",\n" +
+            "      \"txtMsg\": \"테스트22222222\",\n" +
+            "      \"imgUri\": \"\",\n" +
+            "      \"lnkNm\": \"테스트명2\",\n" +
+            "      \"lnkTypCd\": \"O\",\n" +
+            "      \"lnkUri\": \"www.naver.com\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}", IST_1003.Response.class);
+
+
+
+    public static IST_1004.Response IST_1004= new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"sosStatus\": \n" +
+            "    {\n" +
+            "      \"sAllocNm\": \"박현준\",\n" +
+            "      \"controlTel\": \"01086029612\",\n" +
+            "      \"carNo\": \"16조6840\",\n" +
+            "      \"carTypeNm\": \"SANTAFE\",\n" +
+            "      \"receiveDtm\": \"20200801\",\n" +
+            "      \"gXpos\": \"1\",\n" +
+            "      \"gYpos\": \"1\",\n" +
+            "      \"gCustX\": \"1\",\n" +
+            "      \"gCustY\": \"1\",\n" +
+            "      \"startX\": \"1\",\n" +
+            "      \"startY\": \"1\",\n" +
+            "      \"finishX\": \"1\",\n" +
+            "      \"finishY\": \"1\"\n" +
+            "    }\n" +
+            "}",IST_1004.Response.class);
+    
+
+    public static IST_1005.Response IST_1005= new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"admMsgList\": [\n" +
+            "    {\n" +
+            "      \"msgTypCd\": \"TXT\",\n" +
+            "      \"ttl\": \"테스트1\",\n" +
+            "      \"txtMsg\": \"테스트11111111111111\",\n" +
+            "      \"imgUri\": \"\",\n" +
+            "      \"lnkNm\": \"테스트명1\",\n" +
+            "      \"lnkTypCd\": \"\",\n" +
+            "      \"lnkUri\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"msgTypCd\": \"TXL\",\n" +
+            "      \"ttl\": \"테스트2\",\n" +
+            "      \"txtMsg\": \"테스트22222222\",\n" +
+            "      \"imgUri\": \"\",\n" +
+            "      \"lnkNm\": \"테스트명2\",\n" +
+            "      \"lnkTypCd\": \"O\",\n" +
+            "      \"lnkUri\": \"www.naver.com\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",IST_1005.Response.class);
 
 
 }
