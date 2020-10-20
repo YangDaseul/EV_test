@@ -26,32 +26,31 @@ public class FragThird extends SubFragment<Frame3pBinding> {
 
     //TODO : 레이아웃 짤 때 이 테스트 목록에 추가하기
     private final int[] testLayoutList = {
-            R.layout.fragment_service, //todo 스크롤 범위
-            R.layout.fragment_service_maintenance, //todo 스크롤 범위
-            R.layout.fragment_service_maintenance_item, //todo 스크롤 범위
+//            R.layout.fragment_service, //todo 스크롤 범위
+//            R.layout.fragment_service_maintenance, //todo 스크롤 범위
+//            R.layout.fragment_service_maintenance_item, //todo 스크롤 범위
+//
+//            R.layout.fragment_service_car_wash, //todo 스크롤 범위
+//            R.layout.fragment_service_car_wash_item,
+//            R.layout.activity_car_wash_find_sonax_branch, //todo 스크롤 범위
+//            R.layout.fragment_car_wash_find_result,
+//            R.layout.fragment_car_wash_find_result_item,
+//            R.layout.fragment_car_wash_branch_preview,
+//            R.layout.activity_car_wash_history,
+//            R.layout.layout_car_wash_history_item,
 
-            R.layout.fragment_service_car_wash, //todo 스크롤 범위
-            R.layout.fragment_service_car_wash_item,
-            R.layout.activity_car_wash_find_sonax_branch, //todo 스크롤 범위
-            R.layout.fragment_car_wash_find_result,
-            R.layout.fragment_car_wash_find_result_item,
-            R.layout.fragment_car_wash_branch_preview,
-            R.layout.activity_car_wash_history,
-            R.layout.layout_car_wash_history_item,
+//            R.layout.fragment_service_service_driver, //todo 스크롤 범위
+            R.layout.activity_service_drive_req_1,
+//            R.layout.layout_service_drive_req_price,
+//            R.layout.layout_service_drive_req_cant_service,
+//            R.layout.layout_service_drive_req_retry,
+//            R.layout.layout_service_drive_req_loading,
+            R.layout.layout_service_drive_req_top_panel,
 
-
-            R.layout.fragment_service_service_driver, //todo 스크롤 범위
-            R.layout.activity_service_drive_req,
-            R.layout.layout_service_drive_req_price,
-            R.layout.layout_service_drive_req_cant_service,
-            R.layout.layout_service_drive_req_retry,
-            R.layout.layout_service_drive_req_loading,
-            R.layout.layout_service_drive_req_input_address,
-
-            R.layout.activity_service_drive_req_result,
-            R.layout.layout_service_drive_status_matching,
-            R.layout.layout_service_drive_status_matched,
-            R.layout.layout_service_drive_status_reserved,
+//            R.layout.activity_service_drive_req_result,
+//            R.layout.layout_service_drive_status_matching,
+//            R.layout.layout_service_drive_status_matched,
+//            R.layout.layout_service_drive_status_reserved,
 
 //            R.layout.activity_map2,
 //            R.layout.layout_map_overlay_ui_title_bar,

@@ -92,7 +92,6 @@
         <TextView
             android:id="@+id/tv_service_drive_from_name"
             style="@style/ServiceDriveReqResult.FromTo.Name"
-            android:text="서울특별시 금천구 가산동 440-4 asd fas dfa sdf asdfa dfasd fasdfad asdfas"
             app:layout_constraintEnd_toEndOf="@id/iv_service_drive_req_result_fromto_back_panel"
             app:layout_constraintStart_toStartOf="@id/tv_service_drive_from_title"
             app:layout_constraintTop_toBottomOf="@id/tv_service_drive_from_title"
@@ -102,7 +101,6 @@
         <TextView
             android:id="@+id/tv_service_drive_from_address"
             style="@style/ServiceDriveReqResult.FromTo.Address"
-            android:text="서울특별시 금천구 가산동 440-4 asd fas dfa sdf asdfa dfasd fasdfad asdfas"
             app:layout_constraintEnd_toEndOf="@id/iv_service_drive_req_result_fromto_back_panel"
             app:layout_constraintStart_toStartOf="@id/tv_service_drive_from_title"
             app:layout_constraintTop_toBottomOf="@id/tv_service_drive_from_name"
@@ -144,7 +142,6 @@
         <TextView
             android:id="@+id/tv_service_drive_to_name"
             style="@style/ServiceDriveReqResult.FromTo.Name"
-            android:text="서울특별시 금천구 가산동 440-4 asd fas dfa sdf asdfa dfasd fasdfad asdfas"
             app:layout_constraintEnd_toEndOf="@id/iv_service_drive_req_result_fromto_back_panel"
             app:layout_constraintStart_toStartOf="@id/tv_service_drive_to_title"
             app:layout_constraintTop_toBottomOf="@id/tv_service_drive_to_title"
@@ -155,7 +152,6 @@
             android:id="@+id/tv_service_drive_to_address"
             style="@style/ServiceDriveReqResult.FromTo.Address"
             android:paddingBottom="50dp"
-            android:text="서울특별시 금천구 가산동 440-4 asd fas dfa sdf asdfa dfasd fasdfad asdfas"
             app:layout_constraintEnd_toEndOf="@id/iv_service_drive_req_result_fromto_back_panel"
             app:layout_constraintStart_toStartOf="@id/tv_service_drive_to_title"
             app:layout_constraintTop_toBottomOf="@id/tv_service_drive_to_name"
@@ -167,7 +163,6 @@
             android:id="@+id/tv_service_drive_driver_status_title"
             style="@style/ServiceDriveReqResult.Info"
             android:layout_marginTop="30dp"
-            android:text="기사님 배정을 준비 중입니다."
             android:textColor="@color/x_a36b4f"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -181,7 +176,6 @@
         <TextView
             android:id="@+id/tv_service_drive_driver_status_desc"
             style="@style/ServiceDriveReqResult.Info"
-            android:text="신청 취소는 기사 배정\n5분 이내에만 가능합니다."
             android:textColor="@color/x_525252"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -218,25 +212,26 @@
         <TextView
             android:id="@+id/tv_service_drive_cancel_btn"
             style="@style/ServiceDriveReq.Btn.White"
-            android:text="신청 취소"
+            android:layout_marginEnd="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tv_service_drive_re_request_btn"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_goneMarginEnd="20dp"
             tools:text="@string/service_drive_req_result_btn_03" />
 
         <!-- 다시요청 btn -->
-        <!-- TODO : 얘가 visible이 될 때, 위에 있는 놈 layout_marginEnd 10dp로 바꾸기 -->
         <TextView
             android:id="@+id/tv_service_drive_re_request_btn"
             style="@style/ServiceDriveReq.Btn.Black"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="0dp"
             android:text="@string/service_drive_req_result_btn_04"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toEndOf="@id/tv_service_drive_cancel_btn" />
+            app:layout_constraintStart_toEndOf="@id/tv_service_drive_cancel_btn"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
