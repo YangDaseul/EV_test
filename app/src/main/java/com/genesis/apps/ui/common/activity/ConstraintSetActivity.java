@@ -4,6 +4,7 @@ package com.genesis.apps.ui.common.activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -29,6 +30,7 @@ public class ConstraintSetActivity extends SubActivity<ActivityCont1Binding> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(layouts[0]);
         init();
     }

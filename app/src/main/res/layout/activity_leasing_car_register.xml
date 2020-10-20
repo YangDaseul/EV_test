@@ -11,28 +11,23 @@
             type="com.genesis.apps.ui.main.home.LeasingCarVinRegisterActivity" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:background="@color/x_ffffff">
 
         <include
             android:id="@+id/l_title"
             layout="@layout/layout_titlebar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:value="@{@string/gm_carlst_01_7}" />
 
         <ScrollView
             android:id="@+id/sc"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/l_title"
-            app:layout_constraintBottom_toTopOf="@+id/btn_check">
+            android:layout_weight="1">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -79,9 +74,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:hint="@string/gm_carlst_p01_2"
+                        android:hint="@string/gm_carlst_01_9"
                         android:imeOptions="actionDone"
                         android:inputType="text"
+                        android:maxLength="13"
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="6sp"
                         android:padding="16dp"
@@ -282,15 +278,14 @@
         <TextView
             android:id="@+id/btn_check"
             style="@style/ViewBottomOkBtn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-            android:text="@string/gm_carlst_01_22"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:text="@string/gm_carlst_01_22"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </layout>

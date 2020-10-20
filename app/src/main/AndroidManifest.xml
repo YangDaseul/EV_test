@@ -95,7 +95,8 @@
             android:name=".ui.common.activity.ConstraintSetActivity"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/TextInputLayout"/>
 
 
         <activity

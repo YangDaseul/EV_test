@@ -9,7 +9,8 @@
         <item name="android:splitMotionEvents">false</item>
     </style>
 
-    <style name="TextInputLayout" parent="Theme.MaterialComponents.Light.NoActionBar" />
+    <style name="TextInputLayout" parent="Theme.MaterialComponents.Light.NoActionBar" >
+    </style>
 
     <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>

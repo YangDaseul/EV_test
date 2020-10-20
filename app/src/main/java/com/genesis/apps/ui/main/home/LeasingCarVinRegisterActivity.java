@@ -1,8 +1,11 @@
 package com.genesis.apps.ui.main.home;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -32,6 +35,9 @@ public class LeasingCarVinRegisterActivity extends SubActivity<ActivityLeasingCa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setResizeScreen();
+
+
         setContentView(R.layout.activity_leasing_car_register);
         getDataFromIntent();
         setViewModel();
@@ -42,6 +48,27 @@ public class LeasingCarVinRegisterActivity extends SubActivity<ActivityLeasingCa
 
     private void initView() {
 
+        ui.etVin.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                if(!TextUtils.isEmpty(editable.toString().trim())){
+                    ui.lVin.setError(null);
+                }
+
+            }
+        });
+
     }
 
     @Override
@@ -49,6 +76,15 @@ public class LeasingCarVinRegisterActivity extends SubActivity<ActivityLeasingCa
 
         switch (v.getId()){
             case R.id.btn_check:
+
+                if(TextUtils.isEmpty(ui.etVin.getText().toString().trim())){
+                    ui.lVin.setError(getString(R.string.gm_carlst_01_23));
+                }else if(ui.etVin.getText().toString().trim().length()!=13){
+                    ui.lVin.setError(getString(R.string.gm_carlst_01_45));
+                }else{
+                    //todo ..next action
+                }
+
                 break;
         }
 
