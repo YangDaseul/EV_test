@@ -108,7 +108,6 @@
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:textColor">@color/x_000000</item>
         <item name="android:textSize">13sp</item>
-        <item name="android:visibility">gone</item>
     </style>
 
     <!-- 대리운전 주소검색버튼 -->
