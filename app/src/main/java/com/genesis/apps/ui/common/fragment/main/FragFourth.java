@@ -28,6 +28,7 @@ import com.genesis.apps.comm.util.graph.StackedBarActivity;
 import com.genesis.apps.databinding.Frame4pBinding;
 import com.genesis.apps.ui.common.activity.ConstraintSetActivity;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
+import com.genesis.apps.ui.common.activity.ServiceDriveReqActivity;
 import com.genesis.apps.ui.common.activity.test.TestActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.bottom.DialogCalendar;
@@ -144,6 +145,13 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
             @Override
             public void onClick(View view) {
                 baseActivity.startActivitySingleTop(new Intent(getActivity(), TestActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
+            }
+        });
+
+        me.btnCardview2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                baseActivity.startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
             }
         });
     }

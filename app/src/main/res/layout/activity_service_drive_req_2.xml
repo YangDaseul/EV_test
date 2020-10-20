@@ -51,7 +51,7 @@
                     style="@style/TextBasic"
                     android:layout_marginBottom="30dp"
                     android:fontFamily="@font/light_genesissansheadglobal"
-                    android:text="@string/service_drive_input_01"
+                    android:text="@string/service_drive_input_03"
                     android:textColor="@color/x_000000"
                     android:textSize="22sp" />
 
@@ -102,8 +102,7 @@
                     style="@style/ServiceDrive.SearchAddress.NoData"
                     android:layout_marginBottom="30dp"
                     android:drawableRight="@drawable/btn_open_r"
-                    android:text="@string/service_drive_input_09"
-                    android:visibility="gone" />
+                    android:text="@string/service_drive_input_09" />
 
                 <!-- 출발지 상세 주소 입력칸 -->
                 <!-- app:helperText="@string/service_drive_input_05" -->
@@ -113,7 +112,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:hint="@string/service_drive_input_05"
-                    android:visibility="gone"
 
                     app:boxBackgroundColor="@color/x_ffffff"
                     app:boxBackgroundMode="outline"
@@ -141,7 +139,7 @@
                     android:id="@+id/tv_service_drive_req_from_title"
                     style="@style/ServiceDrive.SearchAddress.Title"
                     android:text="@string/service_drive_input_08"
-                    android:visibility="gone" />
+                    tools:visibility="visible" />
 
                 <!-- 출발 주소 검색 버튼
                  TODO : 주소 입력 전후는 스타일 바꿔서 처리
@@ -162,12 +160,10 @@
             style="@style/ServiceDriveReq.Btn.Black"
             android:elevation="10dp"
             android:text="@string/comm_next"
-            android:visibility="gone"
             app:elevation="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>
