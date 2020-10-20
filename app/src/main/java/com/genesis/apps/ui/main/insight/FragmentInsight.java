@@ -2,6 +2,7 @@ package com.genesis.apps.ui.main.insight;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -203,13 +204,14 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
 
     @Override
     public void onRefresh() {
+        Log.e("onResume","onReusme FragmentInsight");
         try {
             mainVehicleInfo = lgnViewModel.getMainVehicleFromDB();
         }catch (Exception e){
             e.printStackTrace();
         }
         initView();
-        ((MainActivity)getActivity()).setGNBColor(0, View.VISIBLE);
+        ((MainActivity)getActivity()).setGNB(false, false, 0, View.VISIBLE);
     }
 
     //TODO 로그인 되었을 때 상태 처리 전체적으로 필요

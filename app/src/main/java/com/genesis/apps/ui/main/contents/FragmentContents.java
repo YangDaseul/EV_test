@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.main.contents;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -184,10 +185,13 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
 
     @Override
     public void onRefresh() {
+
+        Log.e("onResume","onReusme contents");
+
         if(contentsAdapter.getPageNo()==0)
             cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(),"","",(contentsAdapter.getPageNo()+1)+"","20"));
 
-        ((MainActivity)getActivity()).setGNBColor(0, View.VISIBLE);
+        ((MainActivity)getActivity()).setGNB(false, true, 0, View.VISIBLE);
     }
 
 

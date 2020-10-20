@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -30,6 +31,7 @@ import com.genesis.apps.ui.common.activity.CardViewActivity;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.fragment.main.FragFourth;
 import com.genesis.apps.ui.main.home.FragmentHome1;
+import com.genesis.apps.ui.main.home.LeasingCarVinRegisterActivity;
 import com.genesis.apps.ui.main.insight.FragmentInsight;
 import com.genesis.apps.ui.myg.MyGHomeActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -96,7 +98,6 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             }
         });
 
-        setGNB(false);//TODO 임시로 넣어놨음
     }
 
     @Override
@@ -146,6 +147,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     @Override
     public void onResume(){
         super.onResume();
+        Log.e("onResume","onReusme Mainactivity");
         checkPushCode();
 //        setGNBColor(1);
 //        for (Fragment fragment: getSupportFragmentManager().getFragments()) {
@@ -159,7 +161,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 
 
 
-//        startActivitySingleTop(new Intent(this, AnotherBarActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//        startActivitySingleTop(new Intent(this, LeasingCarVinRegisterActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 //        FirebaseMessagingService.notifyMessageTest(this, new PushVO(), PushCode.CAT_0E);
     }
 
@@ -221,20 +223,18 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     }
 
 
-    private void setGNB(boolean isAlarm) {
+    public void setGNB(boolean isAlarm, boolean isSearch, int value, int isVisibility) {
         try {
             ui.lGnb.setIsAlarm(isAlarm);
-            ui.lGnb.setIsSearch(false);
+            ui.lGnb.setIsSearch(isSearch);
             ui.lGnb.setCustGbCd(lgnViewModel.getUserInfoFromDB().getCustGbCd());
+            ui.lGnb.setBackground(value);
+            ui.lGnb.lWhole.setVisibility(isVisibility);
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public void setGNBColor(int value, int isVisibility){
-        ui.lGnb.setBackground(value);
-        ui.lGnb.lWhole.setVisibility(isVisibility);
-    }
 
     private long backKeyPressedTime = 0;
     @Override

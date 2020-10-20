@@ -8,7 +8,10 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 
+import androidx.lifecycle.ViewModelProvider;
+
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.OilCodes;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
@@ -19,6 +22,7 @@ import com.genesis.apps.comm.model.gra.api.MYP_1005;
 import com.genesis.apps.comm.model.gra.api.MYP_1006;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.model.vo.PrivilegeVO;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
@@ -31,12 +35,11 @@ import com.google.gson.Gson;
 
 import java.util.Locale;
 
-import androidx.lifecycle.ViewModelProvider;
-
 public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
     private MYPViewModel mypViewModel;
     private OilView oilView;
+    private VehicleVO mainVehicle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,6 +162,11 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
     @Override
     public void getDataFromIntent() {
+        try {
+            mainVehicle = (VehicleVO)getIntent().getSerializableExtra(KeyNames.KEY_NAME_VEHICLE);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -166,6 +174,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         oilView = new OilView(ui.lOil, v -> onSingleClickListener.onClick(v));
         ui.setActivity(this);
         ui.setOilView(oilView);
+        setCallCenter();
     }
 
     //TODO 로딩 처리 필요..
@@ -224,6 +233,14 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         ViewPressEffectHelper.attach(ui.lAppDigitalkey);
         ViewPressEffectHelper.attach(ui.lAppCarpay);
         ViewPressEffectHelper.attach(ui.lAppCam);
+    }
+
+    private void setCallCenter(){
+        if(mainVehicle!=null&&!TextUtils.isEmpty(mainVehicle.getMdlNm())&& (mainVehicle.getMdlNm().equalsIgnoreCase("GV90")||mainVehicle.getMdlNm().equalsIgnoreCase("EQ900"))){
+            ui.tvCenterMsg4.setText(R.string.word_home_25);
+        }else{
+            ui.tvCenterMsg4.setText(R.string.word_home_14);
+        }
     }
 
     @Override

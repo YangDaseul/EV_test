@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -183,10 +184,12 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     @Override
     public void onRefresh() {
+        Log.e("onResume","onReusme FragmentHome1");
         videoPauseAndResume(true);
         setViewVehicle();
         recordUtil.regReceiver();
-        ((MainActivity)getActivity()).setGNBColor(1, View.VISIBLE);
+        ((MainActivity)getActivity()).setGNB(false, false, 1, View.VISIBLE);
+
         //TODO 알람뱃지뉴 표시하는 부분 요청처리 필요
 
     }
