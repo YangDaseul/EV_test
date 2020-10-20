@@ -178,7 +178,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 ||(requestCode == RequestCodes.REQ_CODE_PLAY_VIDEO.getCode())
         ) {
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-                if (fragment instanceof FragFourth) {
+                if (fragment instanceof FragmentHome1) {
                     fragment.onActivityResult(requestCode, resultCode, data);
                     return;
                 }
@@ -231,9 +231,9 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         }
     }
 
-    public void setGNBColor(int value){
+    public void setGNBColor(int value, int isVisibility){
         ui.lGnb.setBackground(value);
-        ui.lGnb.lWhole.setVisibility(View.VISIBLE);
+        ui.lGnb.lWhole.setVisibility(isVisibility);
     }
 
     private long backKeyPressedTime = 0;

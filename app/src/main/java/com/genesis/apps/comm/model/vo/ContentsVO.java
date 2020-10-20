@@ -1,5 +1,9 @@
 package com.genesis.apps.comm.model.vo;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -20,10 +24,19 @@ import lombok.EqualsAndHashCode;
  * 1000: 통이미지  2000: 이미지+텍스트  3000: HTML
  *
  */
+
+@Entity
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
 class ContentsVO extends BaseData {
+
+    public ContentsVO(){
+
+    }
+
+    @PrimaryKey
+    @NonNull
     @Expose
     @SerializedName("listSeqNo")
     private String listSeqNo;

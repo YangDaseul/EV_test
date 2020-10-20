@@ -186,19 +186,9 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         videoPauseAndResume(true);
         setViewVehicle();
         recordUtil.regReceiver();
-        ((MainActivity)getActivity()).setGNBColor(1);
+        ((MainActivity)getActivity()).setGNBColor(1, View.VISIBLE);
         //TODO 알람뱃지뉴 표시하는 부분 요청처리 필요
 
-
-
-//        Glide.with(this).load(R.drawable.snow).diskCacheStrategy(DiskCacheStrategy.RESOURCE).into(me.gifImage);
-//.optionalTransform(WebpDrawable.class, new WebpDrawableTransformation(circleCrop))
-//        Glide.with(this).load(setupSampleFile()).transition(DrawableTransitionOptions.with(new DrawableAlwaysCrossFadeFactory())) .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).   into(me.gifImage);
-
-//        Glide.with(this).load(setupSampleFile()).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.RESOURCE)).into(me.gifImage);
-
-//        me.lottieView.playAnimation();
-//        me.lottieView.loop(true);
     }
 
 

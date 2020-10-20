@@ -1,0 +1,17 @@
+<resources>
+    <string name="cm02_1">이벤트</string>
+    <string name="cm02_2">보여드릴 콘텐츠가 없습니다.\n데이터 추가 후\n다시 시도 버튼을 눌러 주세요.</string>
+    <string name="cm02_3">다시 시도</string>
+    <string name="cm02_4">로그인</string>
+
+    <string name="cm02_5">검색</string>
+    <string name="cm02_6">검색 결과</string>
+    <string name="cm02_7">검색결과가 없습니다.</string>
+    <string name="cm02_8">이전</string>
+    <string name="cm02_9">다음</string>
+
+    <string name="cm02_10">컨텐츠 정보가 맘에 드셨나요?</string>
+    <string name="cm02_11">평점 제출하기</string>
+
+    <string name="cm02_12">이벤트</string>
+</resources>

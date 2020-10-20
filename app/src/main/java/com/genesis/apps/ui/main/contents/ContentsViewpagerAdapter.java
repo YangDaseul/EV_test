@@ -1,4 +1,4 @@
-package com.genesis.apps.ui.common.fragment.main;
+package com.genesis.apps.ui.main.contents;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -30,7 +30,7 @@ public class ContentsViewpagerAdapter extends FragmentStateAdapter {
         if(contentsResVOList==null||contentsResVOList.size()<index){
             return new FragThird(); //TODO DATA가 없을 때 표현해야할 레이아웃  정의 필요
         }else {
-            return new FragmentMainContentsVp(); //new FragmentMainContentsVp(contentsResVOList.get(index)); 프래그먼트에 데이터 전달방법 확인 ㅋ
+            return new FragmentContentsVp(); //new FragmentContentsVp(contentsResVOList.get(index)); 프래그먼트에 데이터 전달방법 확인 ㅋ
         }
     }
 

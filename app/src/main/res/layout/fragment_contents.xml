@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+        <variable
+            name="fragment"
+            type="com.genesis.apps.ui.main.contents.FragmentContents" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/btn_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:paddingTop="4dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/bg_00000000_underline_6f6f6f"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="29sp"
+            android:paddingBottom="4dp"
+            android:text="@string/cm02_12"
+            android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
+            android:textColor="@color/x_6f6f6f"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/vp"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="170dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="80dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:constraintSet="@layout/fragment_contents_vp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_empty"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_0d000000_round_10"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@+id/vp"
+            app:layout_constraintStart_toStartOf="@+id/vp"
+            app:layout_constraintEnd_toEndOf="@+id/vp"
+            app:layout_constraintBottom_toBottomOf="@+id/vp"
+            tools:visibility="visible">
+
+
+            <TextView
+                android:id="@+id/tv_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cm02_2"
+                android:textSize="16sp"
+                android:textColor="@color/x_000000"
+                android:lineSpacingExtra="6sp"
+                android:letterSpacing="-0.01"
+                android:gravity="center"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/btn_retry"/>
+
+
+            <TextView
+                android:id="@+id/btn_retry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:text="@string/cm02_3"
+                android:textSize="14sp"
+                android:textColor="@color/x_6f6f6f"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:lineSpacingExtra="7sp"
+                android:letterSpacing="-0.01"
+                android:background="@drawable/bg_00000000_stroke_6f6f6f"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
+                app:layout_constraintTop_toBottomOf="@+id/tv_empty"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -8,6 +8,9 @@ import com.genesis.apps.comm.model.gra.api.BTR_2002;
 import com.genesis.apps.comm.model.gra.api.BTR_2003;
 import com.genesis.apps.comm.model.gra.api.CMN_0001;
 import com.genesis.apps.comm.model.gra.api.CMN_0002;
+import com.genesis.apps.comm.model.gra.api.CTT_1001;
+import com.genesis.apps.comm.model.gra.api.CTT_1002;
+import com.genesis.apps.comm.model.gra.api.CTT_1004;
 import com.genesis.apps.comm.model.gra.api.GNS_1001;
 import com.genesis.apps.comm.model.gra.api.GNS_1002;
 import com.genesis.apps.comm.model.gra.api.GNS_1003;
@@ -1109,6 +1112,43 @@ public class TestCode {
             "    }\n" +
             "  ]\n" +
             "}",IST_1005.Response.class);
+
+
+    public static CTT_1001.Response CTT_1001= new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"ttlList\": [\n" +
+            "    {\n" +
+            "      \"listSeqNo\": \"1\",\n" +
+            "      \"catCd\": \"1000\",\n" +
+            "      \"ttImgUri\": \"https://dive.hyundaicard.com/web/content/contentView.hdc?contentId=2741\",\n" +
+            "      \"dtlViewCd\": \"1000\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"listSeqNo\": \"2\",\n" +
+            "      \"catCd\": \"1000\",\n" +
+            "      \"ttImgUri\": \"https://dive.hyundaicard.com/web/content/contentView.hdc?contentId=2749&cookieDiveWeb=Y\",\n" +
+            "      \"dtlViewCd\": \"1000\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"listSeqNo\": \"3\",\n" +
+            "      \"catCd\": \"1000\",\n" +
+            "      \"ttImgUri\": \"https://dive.hyundaicard.com/web/content/contentView.hdc?contentId=2414&cookieDiveWeb=Y\",\n" +
+            "      \"dtlViewCd\": \"1000\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"listSeqNo\": \"4\",\n" +
+            "      \"catCd\": \"2000\",\n" +
+            "      \"ttImgUri\": \"https://dive.hyundaicard.com/web/content/contentView.hdc?contentId=2652&cookieDiveWeb=Y\",\n" +
+            "      \"dtlViewCd\": \"1000\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",CTT_1001.Response.class);
+    public static CTT_1002.Response CTT_1002 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\"\n" +
+            "}",CTT_1002.Response.class);
+    public static CTT_1004.Response CTT_1004 = new Gson().fromJson("",CTT_1004.Response.class);
 
 
 }

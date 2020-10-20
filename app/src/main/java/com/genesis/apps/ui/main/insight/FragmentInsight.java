@@ -209,7 +209,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
             e.printStackTrace();
         }
         initView();
-        ((MainActivity)getActivity()).setGNBColor(0);
+        ((MainActivity)getActivity()).setGNBColor(0, View.VISIBLE);
     }
 
     //TODO 로그인 되었을 때 상태 처리 전체적으로 필요
