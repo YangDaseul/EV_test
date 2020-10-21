@@ -4,15 +4,15 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.genesis.apps.R;
-import com.genesis.apps.databinding.ActivityCarWashFindSonaxBranchBinding;
+import com.genesis.apps.databinding.ActivityServiceDriveReq1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 
-public class TestActivity extends SubActivity<ActivityCarWashFindSonaxBranchBinding> {
+public class TestActivity extends SubActivity<ActivityServiceDriveReq1Binding> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_car_wash_find_sonax_branch);
+        setContentView(R.layout.activity_service_drive_req_1);
         getDataFromIntent();
         setViewModel();
         setObserver();

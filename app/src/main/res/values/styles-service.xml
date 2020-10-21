@@ -1,9 +1,17 @@
 <resources>
+
+    <!-- 서비스 메인 탭 텍스트 (정비/세차/대리) -->
+    <style name="ServiceMainTabs" parent="TextBasic">
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/selector_color_000000_b9b9b9</item>
+    </style>
+
     <!-- 서비스 정비 항목 클릭 영역-->
     <style name="ServiceMaintenanceItem">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">150dp</item>
-        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginBottom">15dp</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_round_10</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
@@ -103,6 +111,17 @@
         <item name="android:textColor">@color/x_525252</item>
     </style>
 
+
+    <!-- 대리운전 신청 페이지/신청 결과 페이지 : 신청 내역 버튼 -->
+    <style name="ServiceDrive.History" parent="TextBtnBasic">
+        <item name="android:text">@string/service_drive_01</item>
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/x_6f6f6f</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff</item>
+        <item name="android:layout_marginEnd">20dp</item>
+    </style>
+
     <!-- 대리운전 신청 이용불가 msg -->
     <style name="ServiceDriveReq.Error" parent="TextBasic">
         <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
@@ -151,7 +170,6 @@
         <item name="android:paddingEnd">15dp</item>
     </style>
 
-
     <!-- 대리운전 신청 상태 텍스트 -->
     <style name="ServiceDriveReqResult.Status.Text" parent="TextBasic">
         <item name="android:textColor">@color/x_000000</item>
@@ -162,11 +180,9 @@
         <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
     </style>
 
-
     <style name="ServiceDriveReqResult.Status.Text.Regular">
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
     </style>
-
 
     <!-- 대리운전 신청 및 결과 버튼 -->
     <style name="ServiceDriveReq.Btn" parent="TextBtnBasic">
@@ -189,6 +205,17 @@
     <style name="ServiceDriveReq.Btn.Black" parent="ServiceDriveReq.Btn">
         <item name="android:textColor">@color/x_ffffff</item>
         <item name="android:background">@drawable/ripple_bg_141414</item>
+    </style>
+
+    <!-- 대리운전 신청 대화상자 지금당장/예약 선택지 라디오버튼 텍스트 -->
+    <style name="ServiceDriveReqDialog" parent="TextBasic">
+        <item name="android:button">@drawable/radio_btn_selector</item>
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:paddingStart">8dp</item>
     </style>
 
 

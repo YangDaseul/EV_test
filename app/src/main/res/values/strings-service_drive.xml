@@ -5,6 +5,15 @@
     <string name="service_drive_input_02">출발지 상세 주소를\n입력해 주세요.</string>
     <string name="service_drive_input_03">도착지 주소를\n입력해 주세요.</string>
     <string name="service_drive_input_04">도착지 상세 주소를\n입력해 주세요.</string>
+    <string name="service_drive_input_05">출발지 상세 주소</string>
+    <string name="service_drive_input_06">도착지 상세 주소</string>
+    <string name="service_drive_input_07">필수 입력 사항입니다.</string>
+    <string name="service_drive_input_08">출발지 주소</string>
+    <string name="service_drive_input_09">도착지 주소</string>
+
+    <string name="service_drive_req_end_01">대리운전 신청 정보 확인</string>
+    <string name="service_drive_req_end_02">대리운전 실시간 신청이\n완료되었습니다.</string>
+    <string name="service_drive_req_end_03">대리운전 예약 신청이\n완료되었습니다.</string>
 
     <string name="service_drive_req_result_01">기사님 배정을 준비 중입니다.</string>
     <string name="service_drive_req_result_02">신청 취소는 기사 배정\n5분 이내에만 가능합니다.</string>
@@ -29,5 +38,12 @@
     <string name="service_drive_top_info_04">재시도</string>
     <string name="service_drive_top_info_05">출발지</string>
     <string name="service_drive_top_info_06">도착지</string>
+
+    <string name="service_drive_bottom_dialog_title">지금 바로 부르시겠습니까?</string>
+    <string name="service_drive_bottom_dialog_now">예, 지금 바로 불러주세요.</string>
+    <string name="service_drive_bottom_dialog_reserve">아니오, 예약하겠습니다.</string>
+    <string name="service_drive_bottom_dialog_reserve_desc">예약은 최소 3시간 이후부터 최대 7일\n이전까지 가능합니다.</string>
+    <string name="service_drive_bottom_dialog_request">요청사항</string>
+
 
 </resources>

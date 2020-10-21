@@ -35,7 +35,6 @@
 
 
     <!-- SERVICE 탭 -->
-    <string name="sm01_header_0">다양한 서비스 중\n원하는 서비스를 이용해보세요!</string>
     <string name="sm01_header_1">정비</string>
     <string name="sm01_header_2">세차</string>
     <string name="sm01_header_3">대리</string>

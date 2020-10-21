@@ -284,6 +284,7 @@
         <activity
             android:name=".ui.common.activity.test.TestActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/TextInputLayout"
             android:exported="false"/>
 
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
@@ -291,6 +292,11 @@
 
         <activity android:name=".ui.common.activity.test.TestLayoutActivity"
             android:screenOrientation="portrait"
+            android:exported="false"/>
+
+        <activity android:name=".ui.main.service.ServiceDriveReqActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/TextInputLayout"
             android:exported="false"/>
 
         <service

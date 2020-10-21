@@ -1,79 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/x_ffffff">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- 헤터 타이틀  -->
-    <TextView
-        android:id="@+id/tv_service_header_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
-        android:fontFamily="@font/regular_genesissansheadglobal"
-        android:lineHeight="30sp"
-        android:text="@string/main_word_3"
-        android:textColor="@color/x_141414"
-        android:textSize="22sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <!-- 헤더 메인 텍스트  -->
-    <TextView
-        android:id="@+id/tv_service_header_desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/light_genesissansheadglobal"
-        android:lineHeight="30sp"
-        android:text="@string/sm01_header_0"
-        android:textColor="@color/x_141414"
-        android:textSize="22sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_service_header_title" />
+        <variable
+            name="fragment"
+            type="com.genesis.apps.ui.main.service.FragmentService" />
+    </data>
 
-    <!-- 서비스 탭 : 정비/세차/대리 -->
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tl_service_tabs"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="30dp"
-        android:background="@color/x_ffffff"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_service_header_desc"
-        app:tabIndicatorHeight="2dp"
-        app:tabMode="fixed" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/x_ffffff">
 
-    <!--  탭 아래 부분 배경색 변경을 위한 더미 뷰  -->
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/x_f4f4f4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tl_service_tabs" />
+        <!-- 서비스 탭 : 정비/세차/대리 -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tl_service_tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="110dp"
+            android:layout_marginStart="20dp"
+            android:background="@color/x_ffffff"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabIndicatorColor="@color/x_141414"
+            app:tabIndicatorHeight="2dp"
+            app:tabMode="fixed">
 
-    <!-- 서비스 탭 본문 -->
-    <FrameLayout
-        android:id="@+id/fl_service_contents"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tl_service_tabs">
+        </com.google.android.material.tabs.TabLayout>
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vp_service_contents_view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipChildren="false"
-            android:clipToPadding="false" />
-    </FrameLayout>
+        <!--  탭 아래 부분 배경색 변경을 위한 더미 뷰  -->
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/x_f4f4f4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tl_service_tabs" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- 서비스 탭 본문 -->
+        <FrameLayout
+            android:id="@+id/fl_service_contents"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="80dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tl_service_tabs">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_service_contents_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="false"
+                android:clipToPadding="false" />
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

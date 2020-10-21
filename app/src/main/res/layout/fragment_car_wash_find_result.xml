@@ -36,6 +36,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_sonax_find_result_title"
         tools:background="#a0f040"
-        tools:listitem="@layout/fragment_car_wash_find_result_item" />
+        tools:listitem="@layout/layout_car_wash_find_result_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

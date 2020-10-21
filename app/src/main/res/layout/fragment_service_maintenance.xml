@@ -2,6 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.genesis.apps.ui.main.service.FragmentMaintenance" />
+    </data>
+
     <!-- TODO  : 스크롤 범위 확정되면 그에 맞게 조치-->
     <ScrollView
         android:layout_width="match_parent"
@@ -11,24 +18,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/x_f4f4f4"
-            android:orientation="vertical"
-            android:padding="20dp">
-
+            android:orientation="vertical">
 
             <!-- 서비스 네트워크 찾기 -->
-            <!--  TODO fix icon x가 아니라 ">" 필요. 현재 흰색 ">" 없음-->
             <TextView
                 android:id="@+id/tv_service_maintenance_find_network"
+                style="@style/TextBasic"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_margin="20dp"
                 android:background="@drawable/ripple_bg_000000_round_10"
                 android:clickable="true"
-                android:drawableRight="@drawable/btn_close_w"
+                android:drawableRight="@drawable/btn_arrow_open_r_w"
+                android:elevation="5dp"
                 android:focusable="true"
                 android:fontFamily="@font/regular_genesissansheadglobal"
                 android:gravity="center_vertical"
-                android:letterSpacing="-0.01"
                 android:paddingStart="20dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="12dp"
                 android:text="@string/sm01_maintenance_1"
                 android:textColor="@color/x_ffffff"
                 android:textSize="24sp"
@@ -37,27 +45,25 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <!--  정비 예약 -->
-            <!--   todo fix icon -->
             <include
                 android:id="@+id/l_service_maintenance_reservation"
-                layout="@layout/fragment_service_maintenance_item"
+                layout="@layout/layout_service_maintenance_item"
                 app:desc="@{@string/sm01_maintenance_3}"
-                app:icon="@{@drawable/ic_service_emergency}"
+                app:icon="@{@drawable/ic_service_reservation}"
                 app:title="@{@string/sm01_maintenance_2}" />
 
             <!--  정비 이력 -->
-            <!--  todo fix icon -->
             <include
                 android:id="@+id/l_service_maintenance_history"
-                layout="@layout/fragment_service_maintenance_item"
+                layout="@layout/layout_service_maintenance_item"
                 app:desc="@{@string/sm01_maintenance_5}"
-                app:icon="@{@drawable/ic_service_emergency}"
+                app:icon="@{@drawable/ic_service_list}"
                 app:title="@{@string/sm01_maintenance_4}" />
 
             <!--  정비 긴급출동 -->
             <include
                 android:id="@+id/l_service_maintenance_emergency"
-                layout="@layout/fragment_service_maintenance_item"
+                layout="@layout/layout_service_maintenance_item"
                 app:desc="@{@string/sm01_maintenance_8}"
                 app:icon="@{@drawable/ic_service_emergency}"
                 app:title="@{@string/sm01_maintenance_6}" />
@@ -65,7 +71,7 @@
             <!--  정비 원격진단 -->
             <include
                 android:id="@+id/l_service_maintenance_customercenter"
-                layout="@layout/fragment_service_maintenance_item"
+                layout="@layout/layout_service_maintenance_item"
                 app:desc="@{@string/sm01_maintenance_10}"
                 app:icon="@{@drawable/ic_service_customercenter}"
                 app:title="@{@string/sm01_maintenance_9}" />
@@ -73,7 +79,7 @@
             <!--  정비 재발 -->
             <include
                 android:id="@+id/l_service_maintenance_defect"
-                layout="@layout/fragment_service_maintenance_item"
+                layout="@layout/layout_service_maintenance_item"
                 app:desc="@{@string/sm01_maintenance_12}"
                 app:icon="@{@drawable/ic_service_defect}"
                 app:title="@{@string/sm01_maintenance_11}" />

@@ -1,78 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/x_f4f4f4"
-    android:padding="20dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- 세차 예약 내역 클릭영역-->
-    <!-- TODO 스크롤 범위 지정에 예약 내역이 포함될 경우, 이 부분도 별도 파일에 뷰로 작성하여 리사이클러 뷰 안에 넣기   -->
-    <ImageView
-        android:id="@+id/iv_service_car_wash_reserv_history"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/ripple_bg_000000_round_10"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="@id/iv_service_car_wash_reserv_history_desc"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <!--  세차 예약 내역 타이틀-->
-    <TextView
-        android:id="@+id/iv_service_car_wash_reserv_history_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/regular_genesissansheadglobal"
-        android:letterSpacing="-0.01"
-        android:text="@string/sm01_car_wash_1"
-        android:textColor="@color/x_ffffff"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/iv_service_car_wash_reserv_history"
-        app:layout_constraintTop_toTopOf="@id/iv_service_car_wash_reserv_history" />
+        <variable
+            name="fragment"
+            type="com.genesis.apps.ui.main.service.FragmentCarWash" />
+    </data>
 
-    <!--  세차 예약 내역 텍스트-->
-    <TextView
-        android:id="@+id/iv_service_car_wash_reserv_history_desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/light_genesissansheadglobal"
-        android:letterSpacing="-0.01"
-        android:lineSpacingExtra="6sp"
-        android:paddingBottom="20dp"
-        android:text="@string/sm01_car_wash_2"
-        android:textColor="@color/x_aaabaf"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@id/iv_service_car_wash_reserv_history_title"
-        app:layout_constraintTop_toBottomOf="@id/iv_service_car_wash_reserv_history_title" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/x_f4f4f4"
+        android:orientation="vertical">
 
-    <!-- 세차 예약 내역 오른쪽에 " > " -->
-    <!--  TODO fix src : ">" 리소스가 검은색만 있음  -->
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_margin="20dp"
-        android:src="@drawable/btn_close_w"
-        app:layout_constraintBottom_toBottomOf="@id/iv_service_car_wash_reserv_history"
-        app:layout_constraintEnd_toEndOf="@id/iv_service_car_wash_reserv_history"
-        app:layout_constraintTop_toTopOf="@id/iv_service_car_wash_reserv_history" />
+        <include
+            android:id="@+id/l_service_car_wash_history_btn"
+            layout="@layout/layout_service_car_wash_top_panel" />
 
-    <!--  아이템으로 사용되는 뷰 파일 : fragment_service_car_wash_item -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_service_car_wash_item_list"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_service_car_wash_reserv_history"
-        tools:background="#a0f040"
-        tools:listitem="@layout/fragment_service_car_wash_item" />
+        <!--  아이템으로 사용되는 뷰 파일 : layout_service_car_wash_item -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_service_car_wash_item_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="80dp"
+            tools:background="#a0f040"
+            tools:listitem="@layout/layout_service_car_wash_item" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</layout>
