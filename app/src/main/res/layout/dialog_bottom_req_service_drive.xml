@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="40dp">
+
+        <!-- 다음 버튼 빼고 나머지 것들 -->
+        <LinearLayout
+            android:id="@+id/l_dia_bottom_req_service_linear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!--  타이틀 바 -->
+            <include
+                android:id="@+id/l_service_drive_req_dialog_title"
+                layout="@layout/layout_titlebar_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:value="@{@string/service_drive_bottom_dialog_title}" />
+
+            <!-- 차종, 번호판, 요금 뷰-->
+            <include
+                android:id="@+id/l_service_drive_req_dialog_top_panel"
+                layout="@layout/layout_service_drive_req_top_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:isRound="@{false}" />
+
+            <!-- 지금당장/예약 선택지 -->
+            <RadioGroup
+                android:id="@+id/rg_service_drive_req_radiogroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    style="@style/ServiceDriveReqDialog"
+                    android:checked="true"
+                    android:text="@string/service_drive_bottom_dialog_now" />
+
+                <RadioButton
+                    style="@style/ServiceDriveReqDialog"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:text="@string/service_drive_bottom_dialog_reserve" />
+            </RadioGroup>
+
+            <!-- 예약 가능 시간 안내 -->
+            <TextView
+                android:id="@+id/tv_service_drive_req_noti"
+                style="@style/TextBasic"
+                android:layout_marginStart="30dp"
+                android:text="@string/service_drive_bottom_dialog_reserve_desc" />
+
+            <!-- 요청 사항 입력 -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_service_drive_req_request"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:hint="@string/service_drive_bottom_dialog_request"
+                android:padding="16dp"
+
+                app:boxBackgroundColor="@color/x_ffffff"
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="@color/x_141414"
+                app:boxStrokeWidth="1dp"
+                app:counterMaxLength="40">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_service_drive_req_request_input"
+                    style="@style/TextBasic"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:textColor="@color/x_141414"
+                    android:textSize="15sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+
+        <!-- 다음 버튼 -->
+        <TextView
+            android:id="@+id/btn_ok"
+            style="@style/ServiceDriveReq.Btn.Black"
+            android:layout_marginTop="25dp"
+            android:text="@string/comm_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/l_dia_bottom_req_service_linear" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

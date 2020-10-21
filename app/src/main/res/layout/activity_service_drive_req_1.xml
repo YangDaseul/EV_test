@@ -3,9 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO 다음 버튼이 키보드 뒤에 가려지면 매니페스트에서 이 액티비티에 추가하기
-       android:windowSoftInputMode="adjustResize|adjustPan"-->
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -41,7 +38,8 @@
                     layout="@layout/layout_service_drive_req_top_panel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="30dp" />
+                    android:layout_marginBottom="30dp"
+                    app:isRound="@{true}" />
 
                 <!-- "출발/도착지 주소를 입력해라" : 01 ~ 04 번 str -->
                 <TextView
