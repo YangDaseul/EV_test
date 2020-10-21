@@ -7,7 +7,7 @@
 
         <variable
             name="fragment"
-            type="com.genesis.apps.ui.main.service.FragService" />
+            type="com.genesis.apps.ui.main.service.FragmentService" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,16 +18,20 @@
         <!-- 서비스 탭 : 정비/세차/대리 -->
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_service_tabs"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginTop="110dp"
             android:background="@color/x_ffffff"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingStart="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:tabIndicatorColor="@color/x_141414"
             app:tabIndicatorHeight="2dp"
             app:tabMode="fixed"
-            tools:backround="#6aff4a" />
+            app:tabSelectedTextColor="@color/x_000000"
+            app:tabTextColor="@color/x_ba544d" >
+
+        </com.google.android.material.tabs.TabLayout>
 
         <!--  탭 아래 부분 배경색 변경을 위한 더미 뷰  -->
         <ImageView

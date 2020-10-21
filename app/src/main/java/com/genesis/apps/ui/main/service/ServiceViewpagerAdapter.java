@@ -7,15 +7,24 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 
 public class ServiceViewpagerAdapter extends FragmentStateAdapter {
-    private final static int MAINTENANCE = 0;
-    private final static int CAR_WASH = 1;
-    private final static int SERVICE_DRIVE = 2;
+    private static final int MAINTENANCE = 0;
+    private static final int CAR_WASH = 1;
+    private static final int SERVICE_DRIVE = 2;
 
-    public int mCount;
+//    private final Class[] fragmentList;
+    private final int tabCount;
+
+
+    //TODO 클래스 정보를 가져와서 갖고있다가 그 클래스의 인스턴스를 만들어주는 식으로 안 되나? 되면 공용으로 쓸 수 있을텐데
+//    public ServiceViewpagerAdapter(FragmentActivity fa, Class[] list) {
+//        super(fa);
+//        fragmentList = list;
+//        mCount = list.length;
+//    }
 
     public ServiceViewpagerAdapter(FragmentActivity fa, int count) {
         super(fa);
-        mCount = count;
+        tabCount = count;
     }
 
     @NonNull
@@ -31,17 +40,17 @@ public class ServiceViewpagerAdapter extends FragmentStateAdapter {
                 return new FragmentCarWash();
             case SERVICE_DRIVE:
             default:
-                return new FragServiceDrive();
+                return new FragmentServiceDrive();
         }
     }
 
 
     @Override
     public int getItemCount() {
-        return mCount;
+        return tabCount;
     }
 
     public int getRealPosition(int position) {
-        return position % mCount;
+        return position % tabCount;
     }
 }

@@ -1,4 +1,11 @@
 <resources>
+
+    <!-- 서비스 메인 탭 텍스트 (정비/세차/대리) -->
+    <style name="ServiceMainTabs" parent="TextBasic">
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <!-- 서비스 정비 항목 클릭 영역-->
     <style name="ServiceMaintenanceItem">
         <item name="android:layout_width">match_parent</item>

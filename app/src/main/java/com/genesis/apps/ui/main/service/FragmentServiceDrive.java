@@ -9,17 +9,17 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 
 import com.genesis.apps.R;
-import com.genesis.apps.databinding.FragmentServiceCarWashBinding;
+import com.genesis.apps.databinding.FragmentServiceDriveBinding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 
-public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> {
-    private static final String TAG = FragmentCarWash.class.getSimpleName();
+public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBinding> {
+    private static final String TAG = FragmentServiceDrive.class.getSimpleName();
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView(): start");
-        View view = super.setContentView(inflater, R.layout.fragment_service_car_wash);
+        View view = super.setContentView(inflater, R.layout.fragment_service_drive);
         me.setFragment(this);
 
         return view;
