@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!-- 대리운전 상세 주소 입력창 레이아웃 -->
+    <style name="ServiceDrive.InputAddressDetailLayout" parent="TextBasic">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxBackgroundColor">@color/x_ffffff</item>
+        <item name="boxStrokeColor">@color/x_141414</item>
+        <item name="boxStrokeErrorColor">@color/x_ba544d</item>
+        <item name="endIconMode">clear_text</item>
+        <item name="errorEnabled">true</item>
+        <item name="helperTextEnabled">true</item>
+        <item name="helperTextTextColor">@color/x_ba544d</item>
+        <item name="hintEnabled">true</item>
+        <item name="hintTextColor">@color/x_141414</item>
+
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_goneMarginBottom">20dp</item>
+    </style>
+
+    <!-- 도착지 상세주소 레이아웃 -->
+    <style name="ServiceDrive.InputToDetailLayout" parent="ServiceDrive.InputAddressDetailLayout">
+        <item name="android:hint">@string/service_drive_input_06</item>
+
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintBottom_toTopOf">@id/tv_service_drive_req_to_title</item>
+    </style>
+
+    <!-- 출발지 상세주소 레이아웃 -->
+    <style name="ServiceDrive.InputFromDetailLayout" parent="ServiceDrive.InputAddressDetailLayout">
+        <item name="android:hint">@string/service_drive_input_05</item>
+
+        <item name="layout_constraintTop_toBottomOf">
+            @id/tv_service_drive_req_search_to_address_btn
+        </item>
+        <item name="layout_constraintBottom_toTopOf">@id/tv_service_drive_req_from_title</item>
+    </style>
+
+
+    <!-- 대리운전 상세 주소 입력창 -->
+    <style name="ServiceDrive.InputAddressDetail" parent="TextBasic">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textCursorDrawable">@drawable/cursor_000000</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:inputType">text</item>
+        <item name="android:imeOptions">actionDone</item>
+    </style>
+
+    <!-- 대리운전 주소검색버튼 위 "출발지 주소" or "도착지 주소" -->
+    <style name="ServiceDrive.SearchAddress.Title" parent="TextBasic">
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">13sp</item>
+
+        <item name="layout_constraintStart_toStartOf">parent</item>
+    </style>
+
+    <!-- 도착지 주소  -->
+    <style name="ServiceDrive.SearchTo.Title" parent="ServiceDrive.SearchAddress.Title">
+        <item name="android:text">@string/service_drive_input_09</item>
+        <item name="android:visibility">gone</item>
+
+        <item name="layout_constraintTop_toBottomOf">@id/l_service_drive_req_input_to_detail</item>
+        <item name="layout_constraintBottom_toTopOf">
+            @id/tv_service_drive_req_search_to_address_btn
+        </item>
+    </style>
+
+    <!-- 출발지 주소  -->
+    <style name="ServiceDrive.SearchFrom.Title" parent="ServiceDrive.SearchAddress.Title">
+        <item name="android:text">@string/service_drive_input_08</item>
+
+        <item name="layout_constraintTop_toBottomOf">@id/l_service_drive_req_input_from_detail
+        </item>
+        <item name="layout_constraintBottom_toTopOf">
+            @id/tv_service_drive_req_search_from_address_btn
+        </item>
+    </style>
+
+
+    <!-- 대리운전 주소검색버튼 -->
+    <style name="ServiceDrive.SearchAddress" parent="TextBtnBasic">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginBottom">30dp</item>
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:paddingStart">15dp</item>
+        <item name="android:paddingEnd">15dp</item>
+        <item name="android:drawableRight">@drawable/btn_open_r</item>
+
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+    </style>
+
+    <!-- 대리운전 주소검색버튼 (미입력) -->
+    <style name="ServiceDrive.SearchAddress.NoData" parent="ServiceDrive.SearchAddress">
+        <item name="android:textColor">@color/x_aaabaf</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_e2e2e2</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+    </style>
+
+    <!-- 대리운전 주소검색버튼 (입력됨) -->
+    <style name="ServiceDrive.SearchAddress.HasData" parent="ServiceDrive.SearchAddress">
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_141414</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
+    </style>
+
+    <!-- 대리운전 도착지 검색버튼 (미입력) -->
+    <style name="ServiceDrive.SearchTo.NoData" parent="ServiceDrive.SearchAddress.NoData">
+        <item name="android:text">@string/service_drive_input_09</item>
+
+        <item name="layout_constraintTop_toBottomOf">@id/tv_service_drive_req_to_title</item>
+        <item name="layout_constraintBottom_toTopOf">@id/l_service_drive_req_input_from_detail
+        </item>
+    </style>
+
+    <!-- 대리운전 도착지 검색버튼 (입력됨) 미입력이랑 상속만 다름. 추가 프로퍼티는 동일-->
+    <style name="ServiceDrive.SearchTo.HasData" parent="ServiceDrive.SearchAddress.HasData">
+        <item name="android:text">@string/service_drive_input_09</item>
+
+        <item name="layout_constraintTop_toBottomOf">@id/tv_service_drive_req_to_title</item>
+        <item name="layout_constraintBottom_toTopOf">@id/l_service_drive_req_input_from_detail
+        </item>
+    </style>
+
+    <!-- 대리운전 출발지 검색버튼 (미입력) -->
+    <style name="ServiceDrive.SearchFrom.NoData" parent="ServiceDrive.SearchAddress.NoData">
+        <item name="android:text">@string/service_drive_input_08</item>
+
+        <item name="layout_constraintTop_toBottomOf">@id/tv_service_drive_req_from_title</item>
+    </style>
+
+    <!-- 대리운전 출발지 검색버튼 (입력됨) 미입력이랑 상속만 다름. 추가 프로퍼티는 동일 -->
+    <style name="ServiceDrive.SearchFrom.HasData" parent="ServiceDrive.SearchAddress.HasData">
+        <item name="android:text">@string/service_drive_input_08</item>
+
+        <item name="layout_constraintTop_toBottomOf">@id/tv_service_drive_req_from_title</item>
+    </style>
+
+</resources>

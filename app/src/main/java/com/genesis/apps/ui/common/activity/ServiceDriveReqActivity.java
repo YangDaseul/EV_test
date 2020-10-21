@@ -43,6 +43,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setResizeScreen();
         setContentView(layouts[0]);
         init();
     }

@@ -103,51 +103,7 @@
         <item name="android:textColor">@color/x_525252</item>
     </style>
 
-    <!-- 대리운전 주소검색버튼 위 "출발지 주소" or "도착지 주소" -->
-    <style name="ServiceDrive.SearchAddress.Title" parent="TextBasic">
-        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
-        <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">13sp</item>
-    </style>
 
-    <!-- 대리운전 주소검색버튼 -->
-    <style name="ServiceDrive.SearchAddress" parent="TextBtnBasic">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
-        <item name="android:gravity">start|center_vertical</item>
-        <item name="android:paddingStart">15dp</item>
-        <item name="android:paddingEnd">15dp</item>
-    </style>
-    <!-- 대리운전 주소검색버튼 (미입력) -->
-    <style name="ServiceDrive.SearchAddress.NoData" parent="ServiceDrive.SearchAddress">
-        <item name="android:textColor">@color/x_aaabaf</item>
-        <item name="android:textSize">15sp</item>
-        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_e2e2e2</item>
-        <item name="android:paddingTop">16dp</item>
-        <item name="android:paddingBottom">16dp</item>
-    </style>
-
-    <!-- 대리운전 주소검색버튼 (입력됨) -->
-    <style name="ServiceDrive.SearchAddress.HasData" parent="ServiceDrive.SearchAddress">
-        <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_141414</item>
-        <item name="android:paddingTop">20dp</item>
-        <item name="android:paddingBottom">20dp</item>
-    </style>
-
-    <!-- 대리운전 상세 주소 입력창 -->
-    <style name="ServiceDrive.InputAddressDetail" parent="TextBasic">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
-        <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">15sp</item>
-        <item name="android:textCursorDrawable">@drawable/cursor_000000</item>
-        <item name="android:padding">16dp</item>
-        <item name="android:inputType">text</item>
-        <item name="android:imeOptions">actionDone</item>
-    </style>
 
     <!-- 대리운전 신청 페이지/신청 결과 페이지 : 신청 내역 버튼 -->
     <style name="ServiceDrive.History" parent="TextBtnBasic">
