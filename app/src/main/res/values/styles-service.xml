@@ -4,6 +4,7 @@
     <style name="ServiceMainTabs" parent="TextBasic">
         <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/selector_color_000000_b9b9b9</item>
     </style>
 
     <!-- 서비스 정비 항목 클릭 영역-->
