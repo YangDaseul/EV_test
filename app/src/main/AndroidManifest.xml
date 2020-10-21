@@ -267,6 +267,20 @@
             android:exported="false"
             android:theme="@style/TextInputLayout"/>
 
+
+        <activity
+            android:name=".ui.main.home.LeasingCarInfoActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+
+        <activity
+            android:name=".ui.main.home.LeasingCarRegisterInputActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@style/TextInputLayout"/>
+
+
         <activity
             android:name=".ui.common.activity.test.TestActivity"
             android:screenOrientation="portrait"

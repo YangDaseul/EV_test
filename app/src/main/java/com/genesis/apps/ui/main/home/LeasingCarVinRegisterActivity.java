@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.PUB_1002;
 import com.genesis.apps.comm.model.gra.api.PUB_1003;
@@ -76,15 +78,16 @@ public class LeasingCarVinRegisterActivity extends SubActivity<ActivityLeasingCa
 
         switch (v.getId()){
             case R.id.btn_check:
-
                 if(TextUtils.isEmpty(ui.etVin.getText().toString().trim())){
                     ui.lVin.setError(getString(R.string.gm_carlst_01_23));
-                }else if(ui.etVin.getText().toString().trim().length()!=13){
+                }else if(ui.etVin.getText().toString().trim().length()!=17){
                     ui.lVin.setError(getString(R.string.gm_carlst_01_45));
                 }else{
                     //todo ..next action
                 }
-
+                break;
+            case R.id.btn_info:
+                startActivitySingleTop(new Intent(this, LeasingCarInfoActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
         }
 

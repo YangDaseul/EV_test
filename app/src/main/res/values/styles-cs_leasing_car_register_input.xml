@@ -1,0 +1,673 @@
+<resources>
+
+    <!-- 입력레이아웃의 안내 메시지 타이틀 ex)xxx를 입력해주세요.-->
+    <style name="TextMsg" parent="ViewMsgInputTile">
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+
+
+    <style name="LayoutCard">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">30dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/tv_msg</item>
+    </style>
+
+
+    <style name="ImageViewCard">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:src">@drawable/img_card_160</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+
+
+    <style name="TextViewTitleAddr">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">30dp</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:text">@string/gm_carlst_01_47</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">13sp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/iv_card</item>
+    </style>
+
+
+
+    <style name="TextViewPostNo">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:background">@drawable/bg_f5f6f8_stroke_dadde3</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:text">@string/gm_carlst_01_48</item>
+        <item name="android:textColor">@color/x_b9b9b9</item>
+        <item name="android:textSize">15sp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintEnd_toStartOf">@+id/btn_post_no</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/tv_title_addr</item>
+    </style>
+
+   <style name="ButtonPostNo">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@drawable/ripple_bg_141414</item>
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">7sp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:text">@string/gm_carlst_01_48</item>
+        <item name="android:textColor">@color/x_ffffff</item>
+        <item name="android:textSize">15sp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">@+id/tv_post_no</item>
+    </style>
+
+
+    <style name="TextViewAddr">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:background">@drawable/bg_f5f6f8_stroke_dadde3</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:text">@string/gm_carlst_01_49</item>
+        <item name="android:textColor">@color/x_b9b9b9</item>
+        <item name="android:textSize">15sp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/tv_post_no</item>
+    </style>
+
+    <style name="LayoutAddrDetail">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="boxBackgroundColor">@color/x_ffffff</item>
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxCornerRadiusTopEnd">0dp</item>
+        <item name="boxCornerRadiusTopStart">0dp</item>
+        <item name="boxStrokeColor">@color/x_141414</item>
+        <item name="boxStrokeErrorColor">@color/x_ba544d</item>
+        <item name="counterMaxLength">10</item>
+        <item name="endIconMode">clear_text</item>
+        <item name="errorEnabled">true</item>
+        <item name="errorIconTint">@color/x_ba544d</item>
+        <item name="errorTextColor">@color/x_ba544d</item>
+        <item name="hintEnabled">false</item>
+        <item name="hintTextColor">@color/x_000000</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/tv_addr</item>
+    </style>
+
+    <style name="EditTextAddrDetail">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:hint">@string/gm_carlst_01_50</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:inputType">text</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textCursorDrawable">@drawable/cursor_141414</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+    
+    <style name="TextViewMart1" parent="@style/ViewMarkGrey">
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">@+id/tv_addr_info_1</item>
+    </style>
+
+    <style name="TextViewAddrInfo1" parent="@style/ViewMsgInputSub">
+        <item name="android:text">@string/gm_carlst_01_51</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toEndOf">@+id/tv_mark_1</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/l_addr_detail</item>
+    </style>
+
+
+    <style name="TextViewAddrInfo2" parent="@style/ViewMsgInputSub">
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:text">@string/gm_carlst_01_52</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toEndOf">@+id/tv_mark_2</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/tv_addr_info_1</item>
+    </style>
+
+    <style name="TextViewAddrInfo3" parent="@style/ViewMsgInputSub">
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:text">@string/gm_carlst_01_53</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toEndOf">@+id/tv_mark_3</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/tv_addr_info_2</item>
+    </style>
+    
+    <style name="LayoutBtr">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/l_card</item>
+    </style>
+    
+    <style name="LayoutBtrInfo">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+
+
+    <style name="TextViewTitleBtr">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:text">@string/gm_carlst_01_54</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">13sp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+    
+    <style name="LayoutBtrInfo1">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:background">@drawable/bg_ffffff_stroke_e2e2e2</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingBottom">20dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/tv_title_btr</item>
+    </style>
+
+    <style name="TextViewBtrAsnm">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">2sp</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">16sp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+
+<style name="TextViewBtrAddr">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:textColor">@color/x_bf000000</item>
+        <item name="android:textSize">16sp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/tv_btr_asnm</item>
+    </style>
+
+    
+    <style name="TextViewBtrReptn">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:textColor">@color/x_bf000000</item>
+        <item name="android:textSize">16sp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/tv_btr_addr</item>
+    </style>
+
+    
+    <style name="TextViewBtr">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">30dp</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_e2e2e2</item>
+        <item name="android:drawableRight">@drawable/btn_arrow_open_r</item>
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">16sp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:text">@string/gm_carlst_01_44</item>
+        <item name="android:textColor">@color/x_aaabaf</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:visibility">gone</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+
+
+    
+    <style name="LayoutEmpCertiImg">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/l_btr</item>
+        <item name="layout_goneMarginTop">30dp</item>
+    </style>
+
+
+    <style name="TextViewTitleEmpCertiImg">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:text">@string/gm_carlst_01_40</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">13sp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+
+
+
+    <style name="TextViewEmpCertiImg">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintEnd_toStartOf">@+id/btn_emp_certi_img</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/tv_title_emp_certi_img</item>
+    </style>
+
+    <style name="TextViewEmpCertiImgEnable" parent="TextViewEmpCertiImg">
+        <item name="android:background">@drawable/bg_ffffff_stroke_141414</item>
+        <item name="android:textColor">@color/x_000000</item>
+    </style>
+
+    <style name="TextViewEmpCertiImgDisable" parent="TextViewEmpCertiImg">
+        <item name="android:background">@drawable/bg_ffffff_stroke_dadde3</item>
+        <item name="android:textColor">@color/x_b9b9b9</item>
+        <item name="android:text">@string/gm_carlst_01_41</item>
+    </style>
+
+
+    
+    
+    <style name="BtnEmpCertiImg">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@drawable/ripple_bg_141414</item>
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">7sp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:text">@string/gm_carlst_01_37</item>
+        <item name="android:textColor">@color/x_ffffff</item>
+        <item name="android:textSize">15sp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">@+id/tv_emp_certi_img</item>
+    </style>
+
+    
+    <style name="TextViewErrorEmpCertiImg">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">10sp</item>
+        <item name="android:text">@string/gm_carlst_01_42</item>
+        <item name="android:textColor">@color/x_ba544d</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:visibility">gone</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/tv_emp_certi_img</item>
+    </style>
+
+
+    <style name="LayoutCntImg">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/l_emp_certi_img</item>
+        <item name="layout_goneMarginTop">30dp</item>
+    </style>
+    
+    
+    
+    <style name="TextViewTitleCntImg">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:text">@string/gm_carlst_01_35</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">13sp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+
+    
+    <style name="TextViewCntImg">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintEnd_toStartOf">@+id/btn_cnt_img</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/tv_title_cnt_img</item>
+    </style>
+
+
+    <style name="TextViewCntImgEnable" parent="TextViewCntImg">
+        <item name="android:background">@drawable/bg_ffffff_stroke_141414</item>
+        <item name="android:textColor">@color/x_000000</item>
+    </style>
+
+    <style name="TextViewCntImgDisable" parent="TextViewCntImg">
+        <item name="android:background">@drawable/bg_ffffff_stroke_dadde3</item>
+        <item name="android:textColor">@color/x_b9b9b9</item>
+        <item name="android:text">@string/gm_carlst_01_36</item>
+    </style>
+
+
+
+
+
+
+
+    <style name="ButtonCntImg">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@drawable/ripple_bg_141414</item>
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">7sp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:text">@string/gm_carlst_01_37</item>
+        <item name="android:textColor">@color/x_ffffff</item>
+        <item name="android:textSize">15sp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">@+id/tv_cnt_img</item>
+    </style>
+
+
+    <style name="TextViewErrorCntImg">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">10sp</item>
+        <item name="android:text">@string/gm_carlst_01_55</item>
+        <item name="android:textColor">@color/x_ba544d</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:visibility">gone</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/tv_cnt_img</item>
+    </style>
+
+    <style name="LayoutRentPeriod">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/l_cnt_img</item>
+        <item name="layout_goneMarginTop">30dp</item>
+    </style>
+
+
+    <style name="TextViewTitleRentPeriod">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:text">@string/gm_carlst_01_30</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">13sp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+
+
+    
+    <style name="TextViewRentPeriod" parent="BtrConsultTypeDisable">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/tv_title_rent_period</item>
+    </style>
+
+
+    <style name="TextViewRentPeriodDisable" parent="TextViewRentPeriod">
+        <item name="android:textColor">@color/x_aaabaf</item>
+        <item name="android:text">@string/gm_carlst_01_30</item>
+    </style>
+
+    <style name="TextViewRentPeriodEnable" parent="TextViewRentPeriod">
+        <item name="android:textColor">@color/x_000000</item>
+    </style>
+
+    
+    <style name="LayoutRentPeriodEtc">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:visibility">gone</item>
+        <item name="boxBackgroundColor">@color/x_ffffff</item>
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxCornerRadiusTopEnd">0dp</item>
+        <item name="boxCornerRadiusTopStart">0dp</item>
+        <item name="boxStrokeColor">@color/x_141414</item>
+        <item name="boxStrokeErrorColor">@color/x_ba544d</item>
+        <item name="counterMaxLength">10</item>
+        <item name="endIconMode">clear_text</item>
+        <item name="errorEnabled">true</item>
+        <item name="errorIconTint">@color/x_ba544d</item>
+        <item name="errorTextColor">@color/x_ba544d</item>
+        <item name="hintEnabled">false</item>
+        <item name="hintTextColor">@color/x_000000</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/tv_rent_period</item>
+    </style>
+
+
+    <style name="EditTextRentPeriodEtc">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:hint">@string/gm_carlst_01_31</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:inputType">text</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textCursorDrawable">@drawable/cursor_141414</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="LayoutCsmrScnCd">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/l_rent_period</item>
+        <item name="layout_goneMarginTop">30dp</item>
+    </style>
+    
+    <style name="TextViewTitleCsmrScnCd">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:text">@string/gm_carlst_01_25</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">13sp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+
+    <style name="TextViewCsmrScnCd" parent="@style/BtrConsultTypeDisable">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/tv_title_csmr_scn_cd</item>
+    </style>
+
+
+    <style name="TextViewCsmrScnCdDisable" parent="TextViewCsmrScnCd">
+        <item name="android:textColor">@color/x_aaabaf</item>
+        <item name="android:text">@string/gm_carlst_01_25</item>
+    </style>
+
+    <style name="TextViewCsmrScnCdEnable" parent="TextViewCsmrScnCd">
+        <item name="android:textColor">@color/x_000000</item>
+    </style>
+
+
+    <style name="TextViewErrorCsmrScnCd">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">10sp</item>
+        <item name="android:text">@string/gm_carlst_01_26</item>
+        <item name="android:textColor">@color/x_ba544d</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:visibility">gone</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/tv_csmr_scn_cd</item>
+    </style>
+
+
+
+    <style name="LayoutVin">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/l_csmr_scn_cd</item>
+        <item name="layout_goneMarginTop">30dp</item>
+    </style>
+
+    
+    <style name="TextViewTitleVin">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:text">@string/gm_carlst_01_9</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">13sp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+    
+    <style name="TextViewVin">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:background">@drawable/bg_f5f6f8_stroke_dadde3</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:textColor">@color/x_525252</item>
+        <item name="android:textSize">15sp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/tv_title_vin</item>
+    </style>
+
+
+    <style name="TextViewVinInfo1" parent="@style/ViewMsgInputSub">
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:text">@string/gm_carlst_01_10</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toEndOf">@+id/tv_mark_4</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/tv_vin</item>
+    </style>
+
+
+</resources>

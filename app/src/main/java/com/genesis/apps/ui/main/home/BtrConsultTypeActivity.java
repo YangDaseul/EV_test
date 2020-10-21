@@ -8,7 +8,6 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.ChangeBounds;
 import androidx.transition.Transition;
@@ -16,22 +15,16 @@ import androidx.transition.TransitionManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.BTR_2001;
-import com.genesis.apps.comm.model.gra.api.GNS_1003;
-import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.CounselCodeVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.BTRViewModel;
-import com.genesis.apps.databinding.ActivityBtrBluehandsBinding;
 import com.genesis.apps.databinding.ActivityBtrConsultType1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

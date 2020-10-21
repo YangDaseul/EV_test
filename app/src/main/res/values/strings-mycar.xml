@@ -38,7 +38,7 @@
     <string name="gm_carlst_01_34">계약서 사진을\n올려주세요.</string>
     <string name="gm_carlst_01_35">계약서</string>
     <string name="gm_carlst_01_36">계약서 사진 첨부</string>
-    <string name="gm_carlst_01_37">파일 찾기</string>
+    <string name="gm_carlst_01_37">파일찾기</string>
     <string name="gm_carlst_01_38">사용할 수 없는 사진입니다.</string>
     <string name="gm_carlst_01_39">재직증명서 사진을\n올려주세요.</string>
     <string name="gm_carlst_01_40">재직증명서</string>
@@ -46,12 +46,27 @@
     <string name="gm_carlst_01_42">재직증명서 사진을 첨부해 주세요.</string>
     <string name="gm_carlst_01_43">전담 블루핸즈/버틀러를\n신청해 주세요.</string>
     <string name="gm_carlst_01_44">전담 블루핸즈/버틀러</string>
-    <string name="gm_carlst_01_45">차대 번호 13자리를 입력해 주세요.</string>
-    <string name="gm_carlst_01_46"></string>
-    <string name="gm_carlst_01_47"></string>
-    <string name="gm_carlst_01_48"></string>
-    <string name="gm_carlst_01_49"></string>
-    <string name="gm_carlst_01_50"></string>
+    <string name="gm_carlst_01_45">차대 번호 17자리를 입력해 주세요.</string>
+    <string name="gm_carlst_01_46">제네시스 실물카드 배송지를\n입력해 주세요.</string>
+    <string name="gm_carlst_01_47">수령지 주소</string>
+    <string name="gm_carlst_01_48">우편번호</string>
+    <string name="gm_carlst_01_49">주소</string>
+    <string name="gm_carlst_01_50">상세주소 입력</string>
+
+    <string name="gm_carlst_01_51">주소가 다르거나, 택배 수령지를 자택/직장 외로 수령을 원하시는 경우 기타입력으로 택배 수령지를 입력해 주세요. </string>
+    <string name="gm_carlst_01_52">택배 배송 전 단계에서만 배송지 수정이 가능합니다.</string>
+    <string name="gm_carlst_01_53">택배 배송 시작 후 배송지  변경은 어려우니, 신중한 주소 입력 부탁드립니다.</string>
+    <string name="gm_carlst_01_54">버틀러</string>
+    <string name="gm_carlst_01_55">계약서 사진을 첨부해 주세요.</string>
+    <string name="gm_carlst_01_56">기타</string>
+    <string name="gm_carlst_01_57">대여 기간을 선택해 주세요.</string>
+    <string name="gm_carlst_01_58"></string>
+    <string name="gm_carlst_01_59"></string>
+    <string name="gm_carlst_01_60"></string>
+    <string name="gm_carlst_01_61"></string>
+    <string name="gm_carlst_01_62"></string>
+    <string name="gm_carlst_01_63"></string>
+
 
 
     <string name="gm_carlst_01_p01_1">알려드립니다.</string>

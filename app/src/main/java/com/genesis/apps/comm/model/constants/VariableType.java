@@ -74,4 +74,15 @@ public class VariableType {
     public static final String BTR_REQUEST_CALL="[전화응답요청]";
     public static final String BTR_REQUEST_APP="[APP응답요청]";
 
+
+
+    //렌트 리스
+    public static final String LEASING_CAR_CSMR_SCN_CD_1="1"; //법인
+    public static final String LEASING_CAR_CSMR_SCN_CD_14="14"; //개인
+
+    public static final String LEASING_CAR_PERIOD_12="12"; //12개월
+    public static final String LEASING_CAR_PERIOD_24="24"; //24개월
+    public static final String LEASING_CAR_PERIOD_36="36"; //36개월
+    public static final String LEASING_CAR_PERIOD_48="48"; //48개월
+    public static final String LEASING_CAR_PERIOD_ETC="99"; //99개월
 }

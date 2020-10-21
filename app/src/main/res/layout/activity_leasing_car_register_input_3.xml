@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingConstraints">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="20dp"
+        android:paddingTop="30dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="30dp">
+
+        <TextView
+            android:id="@+id/tv_msg"
+            style="@style/TextMsg"
+            tools:text="@string/gm_carlst_01_46" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_card"
+            style="@style/LayoutCard"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_card"
+                style="@style/ImageViewCard" />
+
+            <TextView
+                android:id="@+id/tv_title_addr"
+                style="@style/TextViewTitleAddr" />
+
+
+            <TextView
+                android:id="@+id/tv_post_no"
+                style="@style/TextViewPostNo" />
+
+
+            <TextView
+                android:id="@+id/btn_post_no"
+                style="@style/ButtonPostNo" />
+
+
+            <TextView
+                android:id="@+id/tv_addr"
+                style="@style/TextViewAddr" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/l_addr_detail"
+                style="@style/LayoutAddrDetail">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_addr_detail"
+                    style="@style/EditTextAddrDetail" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/tv_mark_1"
+                style="@style/TextViewMart1" />
+
+            <TextView
+                android:id="@+id/tv_addr_info_1"
+                style="@style/TextViewAddrInfo1" />
+
+
+            <TextView
+                android:id="@+id/tv_mark_2"
+                style="@style/TextViewMart1"
+                app:layout_constraintTop_toTopOf="@+id/tv_addr_info_2" />
+
+            <TextView
+                android:id="@+id/tv_addr_info_2"
+                style="@style/TextViewAddrInfo2" />
+
+            <TextView
+                android:id="@+id/tv_mark_3"
+                style="@style/TextViewMart1"
+                app:layout_constraintTop_toTopOf="@+id/tv_addr_info_3" />
+
+            <TextView
+                android:id="@+id/tv_addr_info_3"
+                style="@style/TextViewAddrInfo3" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_btr"
+            style="@style/LayoutBtr"
+            android:visibility="gone">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/l_btr_info"
+                style="@style/LayoutBtrInfo"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_title_btr"
+                    style="@style/TextViewTitleBtr" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout style="@style/LayoutBtrInfo1">
+
+                    <TextView
+                        android:id="@+id/tv_btr_asnm"
+                        style="@style/TextViewBtrAsnm"
+                        tools:text="가산모터스" />
+
+                    <TextView
+                        android:id="@+id/tv_btr_addr"
+                        style="@style/TextViewBtrAddr"
+                        tools:text="서울특별시 금천구 시흥대로 333(가산동)" />
+
+                    <TextView
+                        android:id="@+id/tv_btr_reptn"
+                        style="@style/TextViewBtrReptn"
+                        tools:text="02-982-0222" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <TextView
+                android:id="@+id/tv_btr"
+                style="@style/TextViewBtr"
+                android:visibility="visible"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_emp_certi_img"
+            style="@style/LayoutEmpCertiImg"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_title_emp_certi_img"
+                style="@style/TextViewTitleEmpCertiImg" />
+
+            <TextView
+                android:id="@+id/tv_emp_certi_img"
+                style="@style/TextViewEmpCertiImgDisable" />
+
+            <TextView
+                android:id="@+id/btn_emp_certi_img"
+                style="@style/BtnEmpCertiImg" />
+
+            <TextView
+                android:id="@+id/tv_error_emp_certi_img"
+                style="@style/TextViewErrorEmpCertiImg"
+                tools:visibility="gone" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_cnt_img"
+            style="@style/LayoutCntImg">
+
+            <TextView
+                android:id="@+id/tv_title_cnt_img"
+                style="@style/TextViewTitleCntImg" />
+
+            <TextView
+                android:id="@+id/tv_cnt_img"
+                style="@style/TextViewCntImgDisable" />
+
+
+            <TextView
+                android:id="@+id/btn_cnt_img"
+                style="@style/ButtonCntImg" />
+
+
+            <TextView
+                android:id="@+id/tv_error_cnt_img"
+                style="@style/TextViewErrorCntImg"
+                tools:visibility="gone" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_rent_period"
+            style="@style/LayoutRentPeriod">
+
+            <TextView
+                android:id="@+id/tv_title_rent_period"
+                style="@style/TextViewTitleRentPeriod" />
+
+
+            <TextView
+                android:id="@+id/tv_rent_period"
+                style="@style/TextViewRentPeriod" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/l_rent_period_etc"
+                style="@style/LayoutRentPeriodEtc">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_rent_period_etc"
+                    style="@style/EditTextRentPeriodEtc" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_csmr_scn_cd"
+            style="@style/LayoutCsmrScnCd">
+
+            <TextView
+                android:id="@+id/tv_title_csmr_scn_cd"
+                style="@style/TextViewTitleCsmrScnCd" />
+
+
+            <TextView
+                android:id="@+id/tv_csmr_scn_cd"
+                style="@style/TextViewCsmrScnCd" />
+
+            <TextView
+                android:id="@+id/tv_error_csmr_scn_cd"
+                style="@style/TextViewErrorCsmrScnCd"
+                tools:visibility="gone" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_vin"
+            style="@style/LayoutVin">
+
+            <TextView
+                android:id="@+id/tv_title_vin"
+                style="@style/TextViewTitleVin" />
+
+
+            <TextView
+                android:id="@+id/tv_vin"
+                style="@style/TextViewVin"
+                tools:text="15487ABD45782" />
+
+
+            <TextView
+                android:id="@+id/tv_mark_4"
+                style="@style/TextViewMart1"
+                app:layout_constraintTop_toTopOf="@+id/tv_vin_info_1" />
+
+            <TextView
+                android:id="@+id/tv_vin_info_1"
+                style="@style/TextViewVinInfo1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
