@@ -10,7 +10,6 @@
     android:focusable="true"
     android:paddingHorizontal="15dp"
     android:paddingVertical="20dp">
-    <!--  TODO 지정높이(124dp)에 내용 다 안 들어가서 wrap_con으로 해둠.  -->
 
     <!-- 지점명 -->
     <TextView

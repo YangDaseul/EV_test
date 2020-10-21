@@ -14,10 +14,8 @@ import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityMainBinding;
 import com.genesis.apps.databinding.ItemTabBinding;
-import com.genesis.apps.ui.common.activity.ConstraintSetActivity;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.main.home.FragmentHome1;
-import com.genesis.apps.ui.main.home.LeasingCarVinRegisterActivity;
 import com.genesis.apps.ui.myg.MyGHomeActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -155,7 +153,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 
 
         //TODO : 테스트 액티비티 호출
-        startActivitySingleTop(new Intent(this, LeasingCarVinRegisterActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//        startActivitySingleTop(new Intent(this, ServiceDriveReqActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 //        FirebaseMessagingService.notifyMessageTest(this, new PushVO(), PushCode.CAT_0E);
     }
 

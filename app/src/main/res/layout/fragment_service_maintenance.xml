@@ -16,19 +16,19 @@
 
 
             <!-- 서비스 네트워크 찾기 -->
-            <!--  TODO fix icon x가 아니라 ">" 필요. 현재 흰색 ">" 없음-->
             <TextView
                 android:id="@+id/tv_service_maintenance_find_network"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@drawable/ripple_bg_000000_round_10"
                 android:clickable="true"
-                android:drawableRight="@drawable/btn_close_w"
+                android:drawableRight="@drawable/btn_arrow_open_r_w"
                 android:focusable="true"
                 android:fontFamily="@font/regular_genesissansheadglobal"
                 android:gravity="center_vertical"
                 android:letterSpacing="-0.01"
                 android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:text="@string/sm01_maintenance_1"
                 android:textColor="@color/x_ffffff"
                 android:textSize="24sp"
@@ -37,21 +37,19 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <!--  정비 예약 -->
-            <!--   todo fix icon -->
             <include
                 android:id="@+id/l_service_maintenance_reservation"
                 layout="@layout/fragment_service_maintenance_item"
                 app:desc="@{@string/sm01_maintenance_3}"
-                app:icon="@{@drawable/ic_service_emergency}"
+                app:icon="@{@drawable/ic_service_reservation}"
                 app:title="@{@string/sm01_maintenance_2}" />
 
             <!--  정비 이력 -->
-            <!--  todo fix icon -->
             <include
                 android:id="@+id/l_service_maintenance_history"
                 layout="@layout/fragment_service_maintenance_item"
                 app:desc="@{@string/sm01_maintenance_5}"
-                app:icon="@{@drawable/ic_service_emergency}"
+                app:icon="@{@drawable/ic_service_list}"
                 app:title="@{@string/sm01_maintenance_4}" />
 
             <!--  정비 긴급출동 -->

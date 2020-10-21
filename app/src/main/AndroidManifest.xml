@@ -280,7 +280,7 @@
             android:screenOrientation="portrait"
             android:exported="false"/>
 
-        <activity android:name=".ui.common.activity.ServiceDriveReqActivity"
+        <activity android:name=".ui.main.service.ServiceDriveReqActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:exported="false"/>

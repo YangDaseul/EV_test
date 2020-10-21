@@ -53,12 +53,11 @@
         app:layout_constraintTop_toBottomOf="@id/iv_service_car_wash_reserv_history_title" />
 
     <!-- 세차 예약 내역 오른쪽에 " > " -->
-    <!--  TODO fix src : ">" 리소스가 검은색만 있음  -->
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_margin="20dp"
-        android:src="@drawable/btn_close_w"
+        android:src="@drawable/btn_arrow_open_r_w"
         app:layout_constraintBottom_toBottomOf="@id/iv_service_car_wash_reserv_history"
         app:layout_constraintEnd_toEndOf="@id/iv_service_car_wash_reserv_history"
         app:layout_constraintTop_toTopOf="@id/iv_service_car_wash_reserv_history" />

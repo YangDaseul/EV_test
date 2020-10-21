@@ -1,20 +1,19 @@
-package com.genesis.apps.ui.main;
+package com.genesis.apps.ui.main.service;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.genesis.apps.ui.main.service.FragService;
-import com.genesis.apps.ui.main.contents.FragmentContents;
-import com.genesis.apps.ui.main.insight.FragmentInsight;
 
-
-public class MainViewpagerAdapter extends FragmentStateAdapter {
+public class ServiceViewpagerAdapter extends FragmentStateAdapter {
+    private final static int MAINTENANCE = 0;
+    private final static int CAR_WASH = 1;
+    private final static int SERVICE_DRIVE = 2;
 
     public int mCount;
 
-    public MainViewpagerAdapter(FragmentActivity fa, int count) {
+    public ServiceViewpagerAdapter(FragmentActivity fa, int count) {
         super(fa);
         mCount = count;
     }
@@ -24,17 +23,16 @@ public class MainViewpagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         int index = getRealPosition(position);
 
+        //TODO 정비 / 세차 / 대리 탭
         switch (index) {
-            case 0:
-                return new FragmentHome();
-            case 1:
-                return new FragmentInsight();
-            case 2:
-                return new FragService();
+            case MAINTENANCE:
+                return new FragmentMaintenance();
+            case CAR_WASH:
+                return new FragmentCarWash();
+            case SERVICE_DRIVE:
             default:
-                return new FragmentContents();
+                return new FragServiceDrive();
         }
-
     }
 
 
@@ -46,6 +44,4 @@ public class MainViewpagerAdapter extends FragmentStateAdapter {
     public int getRealPosition(int position) {
         return position % mCount;
     }
-
-
 }

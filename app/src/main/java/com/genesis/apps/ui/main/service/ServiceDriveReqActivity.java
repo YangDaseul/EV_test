@@ -1,4 +1,4 @@
-package com.genesis.apps.ui.common.activity;
+package com.genesis.apps.ui.main.service;
 
 
 import android.os.Bundle;
@@ -15,9 +15,8 @@ import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.databinding.ActivityServiceDriveReq1Binding;
-import com.google.android.material.textfield.TextInputEditText;
+import com.genesis.apps.ui.common.activity.SubActivity;
 
 public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq1Binding> {
     private static final int FROM = 0;
