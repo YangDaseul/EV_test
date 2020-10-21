@@ -57,6 +57,6 @@ public class IST_1004 extends BaseData {
     class Response extends BaseResponse {
         @Expose
         @SerializedName("sosStatus")
-        private List<SOSDriverVO> sosStatus;
+        private SOSDriverVO sosStatus;
     }
 }

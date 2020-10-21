@@ -30,6 +30,9 @@ class ISTAmtVO extends BaseData {
     @SerializedName("rparAmt")
     private String rparAmt;
     @Expose
+    @SerializedName("carWshAmt")
+    private String carWshAmt;
+    @Expose
     @SerializedName("etcAmt")
     private String etcAmt;
 }

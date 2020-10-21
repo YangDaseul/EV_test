@@ -18,6 +18,7 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.XAxis.XAxisPosition;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -52,7 +53,6 @@ public class AnotherBarActivity extends DemoBase implements OnSeekBarChangeListe
 
         chart = findViewById(R.id.chart1);
 
-
 //        chart.setMinimumHeight(150);
 //
 //        ValueFormatter xAxisFormatter = new DayAxisValueFormatter();
@@ -68,7 +68,7 @@ public class AnotherBarActivity extends DemoBase implements OnSeekBarChangeListe
 //        chart.setXAxisRenderer(new GraphLabelXAxisRenderer(chart.getViewPortHandler(), chart.getXAxis(), chart.getTransformer(YAxis.AxisDependency.LEFT), chart, this));
 //        chart.getAxisLeft().setEnabled(false);
 //        chart.getAxisRight().setEnabled(false);
-//        chart.setAutoScaleMinMaxEnabled(false);
+
 //        chart.getAxisLeft().setSpaceBottom(0f);
 //        chart.getAxisRight().setSpaceBottom(0f);
 //        chart.getAxisLeft().setLabelCount(25);
@@ -76,22 +76,22 @@ public class AnotherBarActivity extends DemoBase implements OnSeekBarChangeListe
 //        chart.getAxisLeft().setSpaceTop(0f);
 //        chart.getAxisRight().setSpaceTop(0f);
 
-
+        chart.setAutoScaleMinMaxEnabled(false);
         chart.setDrawValueAboveBar(false);
         chart.setScaleEnabled(false);
         chart.getDescription().setEnabled(false);
         chart.setPinchZoom(false);
-        chart.setDrawBarShadow(false); //charbar shadow
+        chart.setDrawBarShadow(false);
         chart.setDrawGridBackground(false);
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(new AxisValueFormatter());
         xAxis.setPosition(XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
-        xAxis.setLabelCount(3);
+        xAxis.setLabelCount(4);
 //
         xAxis.setTextColor(ContextCompat.getColor(this,R.color.x_bf000000));
-        xAxis.setTextSize(DeviceUtil.dip2Pixel(this, 8));
+        xAxis.setTextSize(8f);
         xAxis.setTypeface(ResourcesCompat.getFont(this, R.font.regular_genesissansheadglobal));
 //        xAxis.setAxisMinimum(0f);
         chart.setExtraOffsets(0, 0, 0, 12);
@@ -100,9 +100,10 @@ public class AnotherBarActivity extends DemoBase implements OnSeekBarChangeListe
         chart.getAxisRight().setGridColor(ContextCompat.getColor(this,R.color.x_e2e2e2));
         chart.getAxisRight().setAxisLineColor(ContextCompat.getColor(this,R.color.x_00000000));
         chart.getAxisRight().setTextColor(ContextCompat.getColor(this,R.color.x_4d525252));
-        chart.getAxisRight().setTextSize(DeviceUtil.dip2Pixel(this, 11));
+        chart.getAxisRight().setTextSize(DeviceUtil.dip2Pixel(this, 1));
         chart.getAxisRight().setTypeface(ResourcesCompat.getFont(this, R.font.regular_genesissansheadglobal));
         chart.getAxisRight().setAxisMinimum(0);
+        chart.getAxisLeft().setAxisMinimum(0);
 
         LimitLine limitLine = new LimitLine(70000f);
         limitLine.setLineColor(ContextCompat.getColor(this,R.color.x_cd9a81));
@@ -115,7 +116,8 @@ public class AnotherBarActivity extends DemoBase implements OnSeekBarChangeListe
         limitLine.setTextSize(DeviceUtil.dip2Pixel(this, 8));
         limitLine.setYOffset(5f);
         chart.getAxisRight().addLimitLine(limitLine);
-
+        chart.getAxisRight().setAxisMaximum(1500000f);
+        chart.getAxisLeft().setAxisMaximum(1500000f);
 
         // setting data
         seekBarX.setProgress(3);
@@ -131,11 +133,16 @@ public class AnotherBarActivity extends DemoBase implements OnSeekBarChangeListe
 
         ArrayList<BarEntry> values = new ArrayList<>();
 
-        for (int i = 0; i < 3; i++) {
-            float multi = (seekBarY.getProgress() + 100000);
-            float val = (float) (Math.random() * multi) + multi / 3;
-            values.add(new BarEntry(i, val));
-        }
+//        for (int i = 0; i < 3; i++) {
+//            float multi = (seekBarY.getProgress() + 100000);
+//            float val = (float) (Math.random() * multi) + multi / 3;
+//            values.add(new BarEntry(i, val));
+//        }
+        values.add(new BarEntry(0, 500000));
+        values.add(new BarEntry(1, 500000));
+        values.add(new BarEntry(2, 500000));
+        values.add(new BarEntry(3, 500000));
+
 
         BarDataSet set1;
 
@@ -152,6 +159,7 @@ public class AnotherBarActivity extends DemoBase implements OnSeekBarChangeListe
             set1.setDrawIcons(false);
             set1.setHighlightEnabled(false);
 
+
             ArrayList<IBarDataSet> dataSets = new ArrayList<>();
             dataSets.add(set1);
 
@@ -165,7 +173,7 @@ public class AnotherBarActivity extends DemoBase implements OnSeekBarChangeListe
 
             chart.setRenderer(roundedBarChartRenderer);
             chart.setData(data);
-            chart.setFitBars(true);
+//            chart.setFitBars(true);
         }
 
         chart.invalidate();

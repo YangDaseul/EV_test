@@ -144,10 +144,10 @@ public enum APIInfo {
     GRA_DDS_1006("Genesis + 수동 배정 요청", "DDS-1006", HttpRequest.METHOD_POST, "/graapi/dds/ddsAssignReqst.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     GRA_IST_1001("홈상단 영역", "IST-1001", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_IST_1002("인사이트 – 차계부 인사이트", "IST-1002", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_IST_1002("인사이트 – 차계부 인사이트", "IST-1002", HttpRequest.METHOD_POST, "/graapi/ist/inscbk.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_IST_1003("인사이트 – 인사이트 1 영역", "IST-1003", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_IST_1004("인사이트 – 인사이트 2 영역", "IST-1004", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_IST_1005("인사이트 – 인사이트 3 영역", "IST-1005", HttpRequest.METHOD_POST, "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8)
+    GRA_IST_1004("인사이트 – 인사이트 2 영역", "IST-1004", HttpRequest.METHOD_POST, "/graapi/ist/insgt2.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_IST_1005("인사이트 – 인사이트 3 영역", "IST-1005", HttpRequest.METHOD_POST, "/graapi/ist/insgt3.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8)
 
     ;
 

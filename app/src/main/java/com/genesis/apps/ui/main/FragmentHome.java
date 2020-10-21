@@ -3,12 +3,14 @@ package com.genesis.apps.ui.main;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.load.DataSource;
@@ -18,7 +20,10 @@ import com.bumptech.glide.request.transition.TransitionFactory;
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.FragmentHomeBinding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
+import com.genesis.apps.ui.main.home.FragmentHome1;
+import com.genesis.apps.ui.main.home.FragmentHome2;
 import com.genesis.apps.ui.main.home.view.VehicleViewpagerAdapter;
+import com.genesis.apps.ui.main.insight.FragmentInsight;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -85,14 +90,11 @@ public class FragmentHome extends SubFragment<FragmentHomeBinding> {
 
     @Override
     public void onRefresh() {
-//        Glide.with(this).load(R.drawable.snow).diskCacheStrategy(DiskCacheStrategy.RESOURCE).into(me.gifImage);
-//.optionalTransform(WebpDrawable.class, new WebpDrawableTransformation(circleCrop))
-//        Glide.with(this).load(setupSampleFile()).transition(DrawableTransitionOptions.with(new DrawableAlwaysCrossFadeFactory())) .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).   into(me.gifImage);
-
-//        Glide.with(this).load(setupSampleFile()).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.RESOURCE)).into(me.gifImage);
-
-//        me.lottieView.playAnimation();
-//        me.lottieView.loop(true);
+        if (me.vpVehicle.getCurrentItem() == 0) {
+            ((MainActivity)getActivity()).setGNB(false, false, 1, View.VISIBLE);
+        } else {
+            ((MainActivity)getActivity()).setGNB(false, false, 1, View.GONE);
+        }
     }
 
 

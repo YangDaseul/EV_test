@@ -1,4 +1,4 @@
-package com.genesis.apps.ui.common.fragment.main;
+package com.genesis.apps.ui.main.contents;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,20 +10,20 @@ import androidx.annotation.Nullable;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.main.contents.ContentsResVO;
-import com.genesis.apps.databinding.FragmentMainContentsVpBinding;
+import com.genesis.apps.databinding.FragmentContentsVpBinding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 
-public class FragmentMainContentsVp extends SubFragment<FragmentMainContentsVpBinding> {
+public class FragmentContentsVp extends SubFragment<FragmentContentsVpBinding> {
 
     private ContentsResVO contentsResVO;
 
-    public FragmentMainContentsVp(){
+    public FragmentContentsVp(){
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return super.setContentView(inflater, R.layout.fragment_main_contents_vp);
+        return super.setContentView(inflater, R.layout.fragment_contents_vp);
     }
 
     @Override

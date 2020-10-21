@@ -1,6 +1,7 @@
 package com.genesis.apps.room;
 
 import com.genesis.apps.comm.model.vo.CardVO;
+import com.genesis.apps.comm.model.vo.ContentsVO;
 import com.genesis.apps.comm.model.vo.FloatingMenuVO;
 import com.genesis.apps.comm.model.vo.MenuVO;
 import com.genesis.apps.comm.model.vo.NotiInfoVO;
@@ -12,7 +13,7 @@ import com.genesis.apps.comm.model.vo.WeatherVO;
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {GlobalData.class, UserVO.class, MenuVO.class, WeatherVO.class, QuickMenuVO.class, FloatingMenuVO.class, VehicleVO.class, CardVO.class, NotiInfoVO.class}, version = 1)
+@Database(entities = {GlobalData.class, UserVO.class, MenuVO.class, WeatherVO.class, QuickMenuVO.class, FloatingMenuVO.class, VehicleVO.class, CardVO.class, NotiInfoVO.class, ContentsVO.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract GlobalDataDao globalDataDao();
     public abstract UserDao userDao();
@@ -23,4 +24,5 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract VehicleDao vehicleDao();
     public abstract CardDao cardDao();
     public abstract NotiInfoDao notiInfoDao();
+    public abstract ContentsDao contentsDao();
 }

@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -151,6 +152,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             if (location == null) {
                 return;
             }
+
+            lgnViewModel.setPosition(location.getLatitude(),location.getLongitude());
             lgnViewModel.reqLGN0005(new LGN_0005.Request(APPIAInfo.GM01.getId(), String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude())));
         },5000);
     }
@@ -181,21 +184,14 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     @Override
     public void onRefresh() {
+        Log.e("onResume","onReusme FragmentHome1");
         videoPauseAndResume(true);
         setViewVehicle();
         recordUtil.regReceiver();
+        ((MainActivity)getActivity()).setGNB(false, false, 1, View.VISIBLE);
+
         //TODO 알람뱃지뉴 표시하는 부분 요청처리 필요
 
-
-
-//        Glide.with(this).load(R.drawable.snow).diskCacheStrategy(DiskCacheStrategy.RESOURCE).into(me.gifImage);
-//.optionalTransform(WebpDrawable.class, new WebpDrawableTransformation(circleCrop))
-//        Glide.with(this).load(setupSampleFile()).transition(DrawableTransitionOptions.with(new DrawableAlwaysCrossFadeFactory())) .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).   into(me.gifImage);
-
-//        Glide.with(this).load(setupSampleFile()).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.RESOURCE)).into(me.gifImage);
-
-//        me.lottieView.playAnimation();
-//        me.lottieView.loop(true);
     }
 
 

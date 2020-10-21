@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -43,6 +44,7 @@ public abstract class SubFragment<T extends ViewDataBinding> extends BaseFragmen
     @Override
     public void onResume() {
         super.onResume();
+        Log.e("onResume","onReusme subfragment");
             // 갱신 처리
             onRefresh();
     }

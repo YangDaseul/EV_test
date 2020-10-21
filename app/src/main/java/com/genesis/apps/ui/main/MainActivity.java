@@ -2,12 +2,24 @@ package com.genesis.apps.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
+
+import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.viewmodel.LGNViewModel;
+import com.genesis.apps.databinding.ActivityMainBinding;
+import com.genesis.apps.databinding.ItemTabBinding;
+import com.genesis.apps.ui.common.activity.ConstraintSetActivity;
+import com.genesis.apps.ui.common.activity.GpsBaseActivity;
+import com.genesis.apps.ui.main.home.FragmentHome1;
+import com.genesis.apps.ui.main.home.LeasingCarVinRegisterActivity;
+import com.genesis.apps.ui.myg.MyGHomeActivity;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
@@ -16,22 +28,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
-
-import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.RequestCodes;
-import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.util.SnackBarUtil;
-import com.genesis.apps.comm.util.graph.AnotherBarActivity;
-import com.genesis.apps.comm.util.graph.PieChartActivity;
-import com.genesis.apps.comm.viewmodel.LGNViewModel;
-import com.genesis.apps.databinding.ActivityMainBinding;
-import com.genesis.apps.databinding.ItemTabBinding;
-import com.genesis.apps.ui.common.activity.CardViewActivity;
-import com.genesis.apps.ui.common.activity.GpsBaseActivity;
-import com.genesis.apps.ui.common.fragment.main.FragFourth;
-import com.genesis.apps.ui.main.home.FragmentHome1;
-import com.genesis.apps.ui.myg.MyGHomeActivity;
-import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     private final int pageNum = 4;
@@ -95,7 +91,6 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             }
         });
 
-        setGNB(false);//TODO 임시로 넣어놨음
     }
 
     @Override
@@ -145,8 +140,21 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     @Override
     public void onResume(){
         super.onResume();
+        Log.e("onResume","onReusme Mainactivity");
         checkPushCode();
-//        startActivitySingleTop(new Intent(this, AnotherBarActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//        setGNBColor(1);
+//        for (Fragment fragment: getSupportFragmentManager().getFragments()) {
+//            if (fragment.isVisible()) {
+//                if(fragment instanceof FragmentInsight){
+//                    setGNBColor(0);
+//                    break;
+//                }
+//            }
+//        }
+
+
+
+        startActivitySingleTop(new Intent(this, LeasingCarVinRegisterActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 //        FirebaseMessagingService.notifyMessageTest(this, new PushVO(), PushCode.CAT_0E);
     }
 
@@ -165,7 +173,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 ||(requestCode == RequestCodes.REQ_CODE_PLAY_VIDEO.getCode())
         ) {
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-                if (fragment instanceof FragFourth) {
+                if (fragment instanceof FragmentHome1) {
                     fragment.onActivityResult(requestCode, resultCode, data);
                     return;
                 }
@@ -208,15 +216,18 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     }
 
 
-    private void setGNB(boolean isAlarm) {
+    public void setGNB(boolean isAlarm, boolean isSearch, int value, int isVisibility) {
         try {
             ui.lGnb.setIsAlarm(isAlarm);
-            ui.lGnb.setIsSearch(false);
+            ui.lGnb.setIsSearch(isSearch);
             ui.lGnb.setCustGbCd(lgnViewModel.getUserInfoFromDB().getCustGbCd());
+            ui.lGnb.setBackground(value);
+            ui.lGnb.lWhole.setVisibility(isVisibility);
         }catch (Exception e){
             e.printStackTrace();
         }
     }
+
 
     private long backKeyPressedTime = 0;
     @Override

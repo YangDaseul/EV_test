@@ -95,7 +95,8 @@
             android:name=".ui.common.activity.ConstraintSetActivity"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/TextInputLayout"/>
 
 
         <activity
@@ -259,7 +260,12 @@
             android:screenOrientation="portrait"
             android:exported="false"/>
 
-
+        <activity
+            android:name=".ui.main.home.LeasingCarVinRegisterActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@style/TextInputLayout"/>
 
         <activity
             android:name=".ui.common.activity.test.TestActivity"

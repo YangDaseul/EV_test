@@ -320,14 +320,14 @@ public class BtrConsultTypeActivity extends SubActivity<ActivityBtrConsultType1B
             case R.id.tv_cnsl:
                 break;
             case R.id.tv_lgct:
-                title = "상담 구분이 선택되지 않았습니다.\n상담 구분을 먼저 선택해주세요.";
+                title = "상담 구분이 선택되지 않았습니다.\n상담 구분을 먼저 선택해 주세요.";
                 break;
             case R.id.tv_mdct:
-                title = "상담 유형(대분류)이 선택되지 않았습니다.\n상담 유형을 먼저 선택해주세요.";
+                title = "상담 유형(대분류)이 선택되지 않았습니다.\n상담 유형을 먼저 선택해 주세요.";
                 break;
             case R.id.tv_smct:
             default:
-                title = "상담 유형(중분류)이 선택되지 않았습니다.\n상담 유형을 먼저 선택해주세요.";
+                title = "상담 유형(중분류)이 선택되지 않았습니다.\n상담 유형을 먼저 선택해 주세요.";
                 break;
         }
 

@@ -43,6 +43,11 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
+
+
+
+//        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
+
         if(base==null) base = (ActivityBaseBinding) inflate(R.layout.activity_base);
     }
 
@@ -120,4 +125,8 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
     public abstract void setViewModel();
     public abstract void setObserver();
     public abstract void getDataFromIntent();
+
+    public void setResizeScreen(){
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE );
+    }
 }

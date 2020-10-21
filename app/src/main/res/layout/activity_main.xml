@@ -38,8 +38,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:activity="@{activity}"
-            app:background="@{1}"/>
+            app:activity="@{activity}"/>
 
 
         <com.google.android.material.tabs.TabLayout

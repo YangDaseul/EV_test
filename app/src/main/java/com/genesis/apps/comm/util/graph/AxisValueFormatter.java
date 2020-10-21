@@ -8,7 +8,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
  */
 public class AxisValueFormatter extends ValueFormatter {
 
-    String[] xNames = {"주유/충전","정비","기타"};
+    String[] xNames = {"주유/충전","정비","세차","기타"};
 
     @Override
     public String getFormattedValue(float position) {
@@ -19,7 +19,7 @@ public class AxisValueFormatter extends ValueFormatter {
 
         int pos = position % xNames.length;
         if (pos > xNames.length-1)
-            pos = 2;
+            pos = 3;
 
         return xNames[pos];
     }
