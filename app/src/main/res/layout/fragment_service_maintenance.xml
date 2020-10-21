@@ -25,9 +25,7 @@
                 android:id="@+id/tv_service_maintenance_find_network"
                 style="@style/TextBasic"
                 android:layout_width="match_parent"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_margin="20dp"
                 android:background="@drawable/ripple_bg_000000_round_10"
                 android:clickable="true"
                 android:drawableRight="@drawable/btn_arrow_open_r_w"
@@ -49,7 +47,7 @@
             <!--  정비 예약 -->
             <include
                 android:id="@+id/l_service_maintenance_reservation"
-                layout="@layout/fragment_service_maintenance_item"
+                layout="@layout/layout_service_maintenance_item"
                 app:desc="@{@string/sm01_maintenance_3}"
                 app:icon="@{@drawable/ic_service_reservation}"
                 app:title="@{@string/sm01_maintenance_2}" />
@@ -57,7 +55,7 @@
             <!--  정비 이력 -->
             <include
                 android:id="@+id/l_service_maintenance_history"
-                layout="@layout/fragment_service_maintenance_item"
+                layout="@layout/layout_service_maintenance_item"
                 app:desc="@{@string/sm01_maintenance_5}"
                 app:icon="@{@drawable/ic_service_list}"
                 app:title="@{@string/sm01_maintenance_4}" />
@@ -65,7 +63,7 @@
             <!--  정비 긴급출동 -->
             <include
                 android:id="@+id/l_service_maintenance_emergency"
-                layout="@layout/fragment_service_maintenance_item"
+                layout="@layout/layout_service_maintenance_item"
                 app:desc="@{@string/sm01_maintenance_8}"
                 app:icon="@{@drawable/ic_service_emergency}"
                 app:title="@{@string/sm01_maintenance_6}" />
@@ -73,23 +71,15 @@
             <!--  정비 원격진단 -->
             <include
                 android:id="@+id/l_service_maintenance_customercenter"
-                layout="@layout/fragment_service_maintenance_item"
+                layout="@layout/layout_service_maintenance_item"
                 app:desc="@{@string/sm01_maintenance_10}"
                 app:icon="@{@drawable/ic_service_customercenter}"
                 app:title="@{@string/sm01_maintenance_9}" />
 
-            <!--  정비 재발
-                  아래쪽 그림자가 안 잘리게 하느라 마진 15를 별도로 넣었는데
-                  이것 때문에 너비 높이 상좌우 마진까지 다 강제 재설정함-->
+            <!--  정비 재발 -->
             <include
                 android:id="@+id/l_service_maintenance_defect"
-                layout="@layout/fragment_service_maintenance_item"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="15dp"
+                layout="@layout/layout_service_maintenance_item"
                 app:desc="@{@string/sm01_maintenance_12}"
                 app:icon="@{@drawable/ic_service_defect}"
                 app:title="@{@string/sm01_maintenance_11}" />
