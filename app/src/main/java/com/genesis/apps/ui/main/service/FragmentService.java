@@ -53,23 +53,24 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
         me.vpServiceContentsViewPager.setCurrentItem(0);
         me.vpServiceContentsViewPager.setOffscreenPageLimit(PAGE_NUM);
 
-        me.vpServiceContentsViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                if (positionOffsetPixels == 0) {
-                    me.vpServiceContentsViewPager.setCurrentItem(position);
-                }
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-
-//                ui.indicator.animatePageSelected(position%num_page);
-            }
-
-        });
+        //TODO : MAinActivity에서 복붙. 스와이프 리스너인데 필요한가?
+//        me.vpServiceContentsViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+//                if (positionOffsetPixels == 0) {
+//                    me.vpServiceContentsViewPager.setCurrentItem(position);
+//                }
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                super.onPageSelected(position);
+//
+////                ui.indicator.animatePageSelected(position%num_page);
+//            }
+//
+//        });
 
         //TODO : MAinActivity에서 복붙. 페이지 넘기는 이펙트 그럼 메인 탭이 넘어가야되나, 서비스 내부 탭이 넘어가야되나???
 //        final float pageMargin = getResources().getDimensionPixelOffset(R.dimen.pageMargin);
@@ -86,8 +87,6 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
 //                page.setTranslationY(myOffset);
 //            }
 //        });
-
-
     }
 
     //탭 헤더 세팅
@@ -119,13 +118,10 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
         me.setLifecycleOwner(getViewLifecycleOwner());
         me.setFragment(this);
         initViewPager();
-
-
     }
 
     private void initViewPager() {
         //ViewPager Setting
-
 
     }
 
