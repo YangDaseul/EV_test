@@ -43,26 +43,12 @@
         <item name="android:gravity">center_horizontal</item>
     </style>
 
-    <!-- sonax 지점 검색 결과 타이틀 -->
-    <style name="SonaxResult.Title" parent="TextBasic">
-        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
-        <item name="android:textSize">18sp</item>
-    </style>
-
     <!-- sonax 지점 검색 결과 아이템 공통 -->
     <style name="SonaxResult.Item" parent="TextBasic">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/x_000000</item>
     </style>
 
-    <!-- sonax 지점 검색 결과 아이템 (지점명, 거리) -->
-    <style name="SonaxResult.Item.Regular" parent="SonaxResult.Item">
-        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
-    </style>
-    <!-- sonax 지점 검색 결과 아이템 (주소, 동, 전화번호) -->
-    <style name="SonaxResult.Item.light" parent="SonaxResult.Item">
-        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
-    </style>
 
     <!-- 세차 예약 내역 : -->
     <style name="CarWashHistoryLight" parent="TextBasic">

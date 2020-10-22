@@ -94,5 +94,20 @@
         <item name="android:paddingBottom">10dp</item>
     </style>
 
+    <!-- 지도 검색 결과 목록 뷰-->
+    <!-- 지점 검색 결과 타이틀 -->
+    <style name="MapResult.Title" parent="TextBasic">
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 
+    <!-- 지점 검색 결과 아이템 (지점명, 거리) -->
+    <style name="MapResult.Item.Regular" parent="SonaxResult.Item">
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+    </style>
+
+    <!-- 지점 검색 결과 아이템 (주소, 동, 전화번호) -->
+    <style name="MapResult.Item.light" parent="SonaxResult.Item">
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+    </style>
 </resources>
