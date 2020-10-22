@@ -155,7 +155,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 
 
         //TODO 이것은 테스트 액티비티 호출
-//        startActivitySingleTop(new Intent(this, LeasingCarRegisterInputActivity.class).putExtra(KEY_NAME_VIN, "15487ABD45782"), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        startActivitySingleTop(new Intent(this, LeasingCarRegisterInputActivity.class).putExtra(KEY_NAME_VIN, "15487ABD45782"), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 //        FirebaseMessagingService.notifyMessageTest(this, new PushVO(), PushCode.CAT_0E);
     }
 

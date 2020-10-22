@@ -197,12 +197,13 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                 CropImage.startPickImageActivity(this);
                 break;
 
+            case R.id.btn_btr:
             case R.id.tv_btr:
                 startActivitySingleTop(new Intent(this, LeasingCarBtrChangeActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
 
             case R.id.btn_post_no:
-//                startActivitySingleTop(new Intent(this, .class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                startActivitySingleTop(new Intent(this, SearchAddressActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 
                 break;
         }
@@ -633,6 +634,9 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
         }else if(resultCode == ResultCodes.REQ_CODE_BTR.getCode()){
             btrVO = (BtrVO)data.getSerializableExtra(KeyNames.KEY_NAME_BTR);
             setBtrInfo();
+        }else if(resultCode == ResultCodes.REQ_CODE_ADDR_ZIP.getCode()){
+            addressZipVO = (AddressZipVO)data.getSerializableExtra(KeyNames.KEY_NAME_ZIP_ADDR);
+            setAddressInfo();
         }
     }
 
@@ -671,6 +675,22 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
         }
 
         checkValidBtr();
+    }
+
+
+    private void setAddressInfo(){
+
+        if(addressZipVO==null){
+            ui.tvPostNo.setTextAppearance(R.style.TextViewPostNo);
+            ui.tvAddr.setTextAppearance(R.style.TextViewAddr);
+        }else{
+            ui.tvPostNo.setTextAppearance(R.style.TextViewPostNoEnable);
+            ui.tvAddr.setTextAppearance(R.style.TextViewAddrEnable);
+            ui.tvPostNo.setText(addressZipVO.getZipNo());
+            ui.tvAddr.setText(addressZipVO.getRoadAddr());
+        }
+
+        checkValidAddr();
     }
 
 

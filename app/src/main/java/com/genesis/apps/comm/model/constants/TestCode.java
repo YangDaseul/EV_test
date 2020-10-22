@@ -26,6 +26,7 @@ import com.genesis.apps.comm.model.gra.api.LGN_0003;
 import com.genesis.apps.comm.model.gra.api.LGN_0005;
 import com.genesis.apps.comm.model.gra.api.MYP_1005;
 import com.genesis.apps.comm.model.gra.api.NOT_0001;
+import com.genesis.apps.comm.model.gra.api.PUB_1001;
 import com.genesis.apps.comm.model.gra.api.PUB_1002;
 import com.genesis.apps.comm.model.gra.api.PUB_1003;
 import com.genesis.apps.comm.model.gra.api.STO_1001;
@@ -725,6 +726,37 @@ public class TestCode {
             "  ]\n" +
             "}",BTR_1008.Response.class);
 
+
+
+    public static PUB_1001.Response PUB_1001 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"totPageNo\": \"\",\n" +
+            "  \"curPageNo\": \"\",\n" +
+            "  \"zipList\": [\n" +
+            "    {\n" +
+            "      \"zipNo\": \"02739\",\n" +
+            "      \"roadAddr\": \"서울특별시 성북구 화랑로 5(하월곡동)\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"zipNo\": \"12345\",\n" +
+            "      \"roadAddr\": \"서울특별시 금천구 가산디지털1로 51(가산동)\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"zipNo\": \"23412\",\n" +
+            "      \"roadAddr\": \"서울특별시 금천구 가산디지털1로 189(가산동)\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"zipNo\": \"23123\",\n" +
+            "      \"roadAddr\": \"서울특별시 서초구 강남대로 275(서초동)\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"zipNo\": \"78554\",\n" +
+            "      \"roadAddr\": \"서울특별시 강남구 밤고개로27길 20(율현동, 강남 한신휴플러스 8단지)\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",PUB_1001.Response.class);
+    
 
 
     public static PUB_1002.Response PUB_1002 = new Gson().fromJson("{\n" +

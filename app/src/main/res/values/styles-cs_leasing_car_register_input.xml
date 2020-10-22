@@ -66,6 +66,12 @@
         <item name="layout_constraintTop_toBottomOf">@+id/tv_title_addr</item>
     </style>
 
+    <style name="TextViewPostNoEnable" parent="TextViewPostNo">
+        <item name="android:textColor">@color/x_525252</item>
+    </style>
+
+
+
    <style name="ButtonPostNo">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">50dp</item>
@@ -102,6 +108,11 @@
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/tv_post_no</item>
     </style>
+
+    <style name="TextViewAddrEnable" parent="TextViewAddr">
+        <item name="android:textColor">@color/x_525252</item>
+    </style>
+
 
     <style name="LayoutAddrDetail">
         <item name="android:layout_width">0dp</item>
@@ -206,7 +217,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">6dp</item>
         <item name="android:layout_marginBottom">20dp</item>
-        <item name="android:background">@drawable/bg_ffffff_stroke_e2e2e2</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_e2e2e2</item>
         <item name="android:paddingLeft">15dp</item>
         <item name="android:paddingTop">20dp</item>
         <item name="android:paddingRight">15dp</item>

@@ -14,6 +14,7 @@ public interface KeyNames {
     String KEY_NAME_ADMIN_CODE="annMgmtCd";
     String KEY_NAME_VIN="vin";
     String KEY_NAME_BTR="btr";
+    String KEY_NAME_ZIP_ADDR="zipAddr";
 
     String KEY_NAME_BTR_CNSL_LIST="selectCdValId";
 }

@@ -152,6 +152,12 @@
             android:exported="false"/>
 
         <activity
+            android:name=".ui.main.home.SearchAddressActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+
+        <activity
             android:name=".ui.myg.MyGOilPointActivity"
             android:screenOrientation="portrait"
             android:exported="false"/>

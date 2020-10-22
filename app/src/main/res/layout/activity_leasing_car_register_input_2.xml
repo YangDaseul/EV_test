@@ -106,7 +106,9 @@
                     style="@style/TextViewTitleBtr" />
 
 
-                <androidx.constraintlayout.widget.ConstraintLayout style="@style/LayoutBtrInfo1">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_btr"
+                    style="@style/LayoutBtrInfo1">
 
                     <TextView
                         android:id="@+id/tv_btr_asnm"
