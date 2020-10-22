@@ -134,7 +134,8 @@
                             style="@style/TextViewTitleBtr" />
 
 
-                        <androidx.constraintlayout.widget.ConstraintLayout style="@style/LayoutBtrInfo1">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            style="@style/LayoutBtrInfo1">
 
                             <TextView
                                 android:id="@+id/tv_btr_asnm"
@@ -160,7 +161,8 @@
                     <TextView
                         android:id="@+id/tv_btr"
                         style="@style/TextViewBtr"
-                        android:visibility="visible"/>
+                        android:visibility="visible"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"/>
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -186,8 +188,7 @@
 
                     <TextView
                         android:id="@+id/tv_error_emp_certi_img"
-                        style="@style/TextViewErrorEmpCertiImg"
-                        tools:visibility="gone" />
+                        style="@style/TextViewErrorEmpCertiImg"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -214,7 +215,7 @@
                     <TextView
                         android:id="@+id/tv_error_cnt_img"
                         style="@style/TextViewErrorCntImg"
-                        tools:visibility="gone" />
+                        tools:visibility="visible" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

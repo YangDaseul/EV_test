@@ -336,9 +336,17 @@
         <item name="android:text">@string/gm_carlst_01_41</item>
     </style>
 
+    <style name="TextViewEmpCertiImgError" parent="TextViewEmpCertiImg">
+        <item name="android:background">@drawable/bg_ffffff_stroke_ba544d</item>
+        <item name="android:textColor">@color/x_525252</item>
+    </style>
 
-    
-    
+    <style name="TextViewEmpCertiImgError2" parent="TextViewEmpCertiImg">
+        <item name="android:background">@drawable/bg_ffffff_stroke_ba544d</item>
+        <item name="android:textColor">@color/x_b9b9b9</item>
+    </style>
+
+
     <style name="BtnEmpCertiImg">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">50dp</item>
@@ -365,10 +373,9 @@
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">10sp</item>
-        <item name="android:text">@string/gm_carlst_01_42</item>
         <item name="android:textColor">@color/x_ba544d</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:visibility">gone</item>
+        <item name="android:visibility">visible</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/tv_emp_certi_img</item>
     </style>
@@ -377,7 +384,7 @@
     <style name="LayoutCntImg">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginTop">0dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/l_emp_certi_img</item>
@@ -430,7 +437,15 @@
         <item name="android:text">@string/gm_carlst_01_36</item>
     </style>
 
+    <style name="TextViewCntImgError" parent="TextViewCntImg">
+        <item name="android:background">@drawable/bg_ffffff_stroke_ba544d</item>
+        <item name="android:textColor">@color/x_525252</item>
+    </style>
 
+    <style name="TextViewCntImgError2" parent="TextViewCntImg">
+        <item name="android:background">@drawable/bg_ffffff_stroke_ba544d</item>
+        <item name="android:textColor">@color/x_b9b9b9</item>
+    </style>
 
 
 
@@ -462,10 +477,9 @@
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">10sp</item>
-        <item name="android:text">@string/gm_carlst_01_55</item>
         <item name="android:textColor">@color/x_ba544d</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:visibility">gone</item>
+        <item name="android:visibility">visible</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/tv_cnt_img</item>
     </style>
@@ -473,7 +487,7 @@
     <style name="LayoutRentPeriod">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginTop">0dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/l_cnt_img</item>
@@ -599,6 +613,7 @@
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/l_rent_period</item>
+        <item name="layout_goneMarginTop">30dp</item>
     </style>
     
     <style name="TextViewTitleCsmrScnCd">

@@ -28,7 +28,7 @@
         <!-- 백버튼, 검색하세요 버튼 -->
         <include
             android:id="@+id/l_map_overlay_title"
-            layout="@layout/layout_map_overlay_ui_title_bar"
+            layout="@layout/layout_map_overlay_ui_title_bar_new"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"

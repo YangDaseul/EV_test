@@ -85,4 +85,10 @@ public class VariableType {
     public static final String LEASING_CAR_PERIOD_36="36"; //36개월
     public static final String LEASING_CAR_PERIOD_48="48"; //48개월
     public static final String LEASING_CAR_PERIOD_ETC="99"; //99개월
+
+    //블루핸즈 필터 코드
+    public static final String BTR_FILTER_CODE_A="A";//제네시스 전담
+    public static final String BTR_FILTER_CODE_C="C";//종합
+    public static final String BTR_FILTER_CODE_D="D";//전문
+    public static final String BTR_FILTER_CODE_P="P";//일반
 }

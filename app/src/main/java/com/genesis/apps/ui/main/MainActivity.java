@@ -7,23 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.RequestCodes;
-import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.util.SnackBarUtil;
-import com.genesis.apps.comm.viewmodel.LGNViewModel;
-import com.genesis.apps.databinding.ActivityMainBinding;
-import com.genesis.apps.databinding.ItemTabBinding;
-import com.genesis.apps.ui.common.activity.ConstraintSetActivity;
-import com.genesis.apps.ui.common.activity.GpsBaseActivity;
-import com.genesis.apps.ui.common.activity.test.TestActivity;
-import com.genesis.apps.ui.main.home.FragmentHome1;
-import com.genesis.apps.ui.main.home.LeasingCarRegisterInputActivity;
-import com.genesis.apps.ui.main.home.LeasingCarVinRegisterActivity;
-import com.genesis.apps.ui.main.service.ServiceDriveReqActivity;
-import com.genesis.apps.ui.myg.MyGHomeActivity;
-import com.google.android.material.tabs.TabLayoutMediator;
-
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
@@ -31,6 +14,19 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
+
+import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.viewmodel.LGNViewModel;
+import com.genesis.apps.databinding.ActivityMainBinding;
+import com.genesis.apps.databinding.ItemTabBinding;
+import com.genesis.apps.ui.common.activity.GpsBaseActivity;
+import com.genesis.apps.ui.main.home.FragmentHome1;
+import com.genesis.apps.ui.main.home.LeasingCarRegisterInputActivity;
+import com.genesis.apps.ui.myg.MyGHomeActivity;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import static com.genesis.apps.comm.model.constants.KeyNames.KEY_NAME_VIN;
 
@@ -159,7 +155,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 
 
         //TODO 이것은 테스트 액티비티 호출
-//        startActivitySingleTop(new Intent(this, LeasingCarRegisterInputActivity.class).putExtra(KEY_NAME_VIN, "15487ABD45782"), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        startActivitySingleTop(new Intent(this, LeasingCarRegisterInputActivity.class).putExtra(KEY_NAME_VIN, "15487ABD45782"), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 //        FirebaseMessagingService.notifyMessageTest(this, new PushVO(), PushCode.CAT_0E);
     }
 

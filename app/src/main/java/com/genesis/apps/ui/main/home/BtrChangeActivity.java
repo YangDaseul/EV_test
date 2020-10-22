@@ -3,7 +3,6 @@ package com.genesis.apps.ui.main.home;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewStub;
@@ -17,14 +16,10 @@ import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.databinding.ActivityMap2Binding;
-import com.genesis.apps.databinding.ActivityMapBinding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomSelectBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
-import com.genesis.apps.ui.common.activity.SubActivity;
 import com.hmns.playmap.PlayMapPoint;
 import com.hmns.playmap.shape.PlayMapMarker;
-
-import java.util.Locale;
 
 public class BtrChangeActivity extends GpsBaseActivity<ActivityMap2Binding> {
     private BtrVO btrVO;

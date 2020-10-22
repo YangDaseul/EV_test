@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
@@ -20,6 +21,7 @@ import androidx.transition.TransitionManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
@@ -31,11 +33,13 @@ import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.databinding.ActivityLeasingCarRegisterInput1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
+import com.genesis.apps.ui.main.AlarmCenterSearchActivity;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author hjpark
@@ -54,6 +58,10 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
     private String csmrScnCd;
     private String rentPeriod;
 
+    private int targetImgId=0;
+    private Uri cntImagPath;
+    private Uri empCertImagPath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +77,17 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
     private void initView() {
         initConstraintSets();
         ui.tvVin.setText(vin);
+
+        ui.etRentPeriodEtc.setOnFocusChangeListener((view, hasFocus) -> {
+
+            if (!hasFocus) {
+                SoftKeyboardUtil.hideKeyboard(LeasingCarRegisterInputActivity.this);
+            }else{
+                SoftKeyboardUtil.showKeyboard(getApplicationContext());
+            }
+
+        });
+
 
 
 
@@ -100,7 +119,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
 
         switch (v.getId()){
             case R.id.btn_next://다음
-                doNext();
+                isValid();
                 break;
 
             case R.id.tv_csmr_scn_cd:
@@ -112,40 +131,26 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
 
                         if(result.equalsIgnoreCase(cdList.get(0))){
                             csmrScnCd = VariableType.LEASING_CAR_CSMR_SCN_CD_14; //개인
+                            if(views[4].getVisibility()==View.VISIBLE){
+                                views[3].setVisibility(View.GONE);
+                                targetImgId = R.id.btn_cnt_img;
+                            }
                         }else{
                             csmrScnCd = VariableType.LEASING_CAR_CSMR_SCN_CD_1; //법인
+                            if(views[4].getVisibility()==View.VISIBLE){
+                                views[3].setVisibility(View.VISIBLE);
+                                targetImgId = R.id.btn_emp_certi_img;
+                            }
                         }
 
                         ui.tvTitleCsmrScnCd.setVisibility(View.VISIBLE);
                         ui.tvCsmrScnCd.setTextAppearance(R.style.TextViewCsmrScnCdEnable);
                         ui.tvCsmrScnCd.setText(result);
-                        ui.tvErrorCsmrScnCd.setVisibility(View.GONE);
-                        doTransition(1);
+
+                        checkValidCsmrScnCd();
+
                     }
                 });
-
-
-//                final BottomListDialog bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
-//                bottomListDialog.setOnDismissListener(dialogInterface -> {
-//                    String result = bottomListDialog.getSelectItem();
-//                    if(!TextUtils.isEmpty(result)){
-//                        //TODO 삭제 요청
-//
-//                        if(result.equalsIgnoreCase(cdList.get(0))){
-//                            csmrScnCd = VariableType.LEASING_CAR_CSMR_SCN_CD_14; //개인
-//                        }else{
-//                            csmrScnCd = VariableType.LEASING_CAR_CSMR_SCN_CD_1; //법인
-//                        }
-//
-//                        ui.tvCsmrScnCd.setTextAppearance(R.style.TextViewCsmrScnCdEnable);
-//                        ui.tvCsmrScnCd.setText(result);
-//                        ui.tvErrorCsmrScnCd.setVisibility(View.GONE);
-//                        doTransition(1);
-//                    }
-//                });
-//                bottomListDialog.setDatas(cdList);
-//                bottomListDialog.setTitle(getString(R.string.gm_carlst_01_26));
-//                bottomListDialog.show();
                 break;
 
             case R.id.tv_rent_period:
@@ -157,11 +162,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                     public void onDismiss(DialogInterface dialogInterface) {
                         String result = bottomListDialog.getSelectItem();
                         if(!TextUtils.isEmpty(result)){
-                            //TODO 삭제 요청
 
-                            ui.lRentPeriodEtc.setError(null);
-                            ui.lRentPeriodEtc.setVisibility(View.GONE);
-                            ui.tvErrorRentPeriod.setVisibility(View.GONE);
                             if(result.equalsIgnoreCase(periodList.get(0))){
                                 rentPeriod = VariableType.LEASING_CAR_PERIOD_12; //12개월
                             }else if(result.equalsIgnoreCase(periodList.get(1))){
@@ -172,20 +173,15 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                                 rentPeriod = VariableType.LEASING_CAR_PERIOD_48; //48개월
                             }else if(result.equalsIgnoreCase(periodList.get(4))){
                                 rentPeriod = VariableType.LEASING_CAR_PERIOD_ETC; //기타
-                                ui.lRentPeriodEtc.setVisibility(View.VISIBLE);
+                                ui.etRentPeriodEtc.setText("");
                             }
 
                             ui.tvRentPeriod.setTextAppearance(R.style.TextViewRentPeriodEnable);
                             ui.tvRentPeriod.setText(result);
                             ui.tvTitleRentPeriod.setVisibility(View.VISIBLE);
 
-                            if(result.equalsIgnoreCase(periodList.get(4))){
-                                ui.etRentPeriodEtc.setText("");
-                                ui.etRentPeriodEtc.requestFocus();
-                                SoftKeyboardUtil.showKeyboard(getApplicationContext());
-                            }else{
-                                doTransition(2);
-                            }
+
+                            checkValidPeriod();
                         }
                     }
                 });
@@ -194,32 +190,18 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                 break;
 
             case R.id.btn_cnt_img:
-//                CropImage.activity().start(this);
-
+            case R.id.btn_emp_certi_img:
+                targetImgId = v.getId();
                 CropImage.startPickImageActivity(this);
                 break;
-            case R.id.btn_emp_certi_img:
 
+            case R.id.tv_btr:
+                startActivitySingleTop(new Intent(this, LeasingCarBtrChangeActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
         }
 
-
-//        switch (v.getId()){
-//            case R.id.btn_check:
-//                if(TextUtils.isEmpty(ui.etVin.getText().toString().trim())){
-//                    ui.lVin.setError(getString(R.string.gm_carlst_01_23));
-//                }else if(ui.etVin.getText().toString().trim().length()!=13){
-//                    ui.lVin.setError(getString(R.string.gm_carlst_01_45));
-//                }else{
-//                    //todo ..next action
-//                }
-//                break;
-//            case R.id.btn_info:
-//                startActivitySingleTop(new Intent(this, LeasingCarInfoActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                break;
-//        }
-
     }
+
 
     private void showMapDialog(List<String> list, int title, DialogInterface.OnDismissListener dismissListener) {
         bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
@@ -228,37 +210,6 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
         bottomListDialog.setTitle(getString(title));
         bottomListDialog.show();
     }
-
-//    private void selectItem(String selectNm, int id) {
-//        switch (id){
-//            case R.id.tv_position_1:
-//                if(!ui.tvPosition1.getText().toString().equalsIgnoreCase(selectNm)){
-//                    ui.tvPosition1.setText(selectNm);
-//                    ui.tvPosition1.setTextAppearance(R.style.BtrPositionEnable);
-//                    ui.tvPosition2.setText(R.string.bt06_5);
-//                    ui.tvPosition2.setTextAppearance(R.style.BtrPositionDisable);
-//                    pubViewModel.reqPUB1003(new PUB_1003.Request(APPIAInfo.GM_BT06_01.getId(), pubViewModel.getSidoCode(selectNm)));
-//                }
-//                break;
-//            case R.id.tv_position_2:
-//                if(!ui.tvPosition2.getText().toString().equalsIgnoreCase(selectNm)){
-//                    ui.tvPosition2.setText(selectNm);
-//                    ui.tvPosition2.setTextAppearance(R.style.BtrPositionEnable);
-//                }
-//                break;
-//        }
-//    }
-//
-//    private void setFilter(int selectId){
-//        for(int i=0; i<filterIds.length; i++){
-//
-//            if(selectId==filterIds[i]){
-//                ((TextView)findViewById(filterIds[i])).setTextAppearance(R.style.BtrFilterEnable);
-//            }else{
-//                ((TextView)findViewById(filterIds[i])).setTextAppearance(R.style.BtrFilterDisable);
-//            }
-//        }
-//    }
 
 
     @Override
@@ -342,92 +293,108 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
         }
     }
 
-
-    private void doNext(){
-        String inputValue;
-
-        for(View view : views){
-
-            if(view.getVisibility()==View.GONE) {
-                switch (view.getId()) {
-                    case R.id.l_rent_period:
-                        inputValue = ui.tvCsmrScnCd.getText().toString();
-                        if(!TextUtils.isEmpty(inputValue)&&!inputValue.equalsIgnoreCase(getString(R.string.gm_carlst_01_25))){
-                            ui.tvErrorCsmrScnCd.setVisibility(View.GONE);
-                            doTransition(1);
-                        }else{
-                            ui.tvErrorCsmrScnCd.setVisibility(View.VISIBLE);
-                        }
-                        return;
-
-                    case R.id.l_cnt_img:
-                        inputValue = ui.tvRentPeriod.getText().toString();
-                        if(!TextUtils.isEmpty(inputValue)&&!inputValue.equalsIgnoreCase(getString(R.string.gm_carlst_01_30))&&!inputValue.equalsIgnoreCase(getString(R.string.gm_carlst_01_56))){
-                            //빈값이 아니고, 대여 기간이 아니고 기타가 아니면
-                            doTransition(2);
-                            ui.lRentPeriodEtc.setError(null);
-                        }else if(inputValue.equalsIgnoreCase(getString(R.string.gm_carlst_01_56))){
-                            //대여기간이 기타 일 때
-                            if(getPeriod()<12){
-                                ui.lRentPeriodEtc.setError(getString(R.string.gm_carlst_01_33));
-                            }else{
-                                ui.lRentPeriodEtc.setError(null);
-                                doTransition(2);
-                            }
-                        }else{
-                            ui.tvErrorRentPeriod.setVisibility(View.VISIBLE);
-                        }
-                        return;
-
-                    case R.id.l_emp_certi_img:
-                        inputValue = ui.tvCntImg.getText().toString();
-                        if(!TextUtils.isEmpty(inputValue)&&!inputValue.equalsIgnoreCase(getString(R.string.gm_carlst_01_36))){
-                            doTransition(3);
-                            //todo tv_error_cnt_img gone 필요?
-                            //todo 이미지 용량 제한 처리 필요
-                        }else{
-                            ui.tvErrorCntImg.setVisibility(View.VISIBLE);
-                            ui.tvErrorCntImg.setText(R.string.gm_carlst_01_55);
-                        }
-                        return;
-
-
-                    case R.id.l_btr:
-                        inputValue = ui.tvEmpCertiImg.getText().toString();
-                        if(!TextUtils.isEmpty(inputValue)&&!inputValue.equalsIgnoreCase(getString(R.string.gm_carlst_01_41))){
-                            doTransition(4);
-                            //todo ttvErrorEmpCertiImg gone 필요?
-                            //todo 이미지 용량 제한 처리 필요
-                        }else{
-                            ui.tvErrorEmpCertiImg.setVisibility(View.VISIBLE);
-                            ui.tvErrorEmpCertiImg.setText(R.string.gm_carlst_01_42);
-                        }
-                        return;
-
-                    case R.id.l_card:
-                        if(btrVO!=null){
-                            doTransition(5);
-                            ui.btnNext.setText(R.string.gm_carlst_04_20);
-                        }else{
-                            SnackBarUtil.show(this, "버틀러를 선택해 주세요.");
-                        }
-                        return;
-                }
-            }
-        }
-
-
-        inputValue = ui.etAddrDetail.getText().toString();
-
-        if(addressZipVO==null){
-            SnackBarUtil.show(this, "수령지 주소를 입력해 주세요.");
-        }else if(TextUtils.isEmpty(inputValue)){
-            SnackBarUtil.show(this, "상세 주소를 입력해 주세요.");
+    private boolean checkValidCsmrScnCd(){
+        if(!TextUtils.isEmpty(csmrScnCd)){
+            ui.tvErrorCsmrScnCd.setVisibility(View.GONE);
+            doTransition(1);
+            return true;
         }else{
-            //todo 신청하기 진행
+            ui.tvErrorCsmrScnCd.setVisibility(View.VISIBLE);
+            return false;
         }
     }
 
+    private boolean checkValidPeriod(){
+
+        boolean isValid=false;
+
+        //VIEW 초기화
+        ui.tvErrorRentPeriod.setVisibility(View.GONE); //대여 기간 미선택 에러 GONE
+        ui.lRentPeriodEtc.setError(null); //기타 기간에 대한 에러 제거 및 레이아웃 GONE
+        ui.lRentPeriodEtc.setVisibility(View.GONE);
+
+
+        if(TextUtils.isEmpty(rentPeriod)) {
+            //대여 기간이 선택되지 않은 경우
+            ui.tvErrorRentPeriod.setVisibility(View.VISIBLE);
+        }else if(rentPeriod.equalsIgnoreCase(VariableType.LEASING_CAR_PERIOD_ETC)){
+            ui.lRentPeriodEtc.setVisibility(View.VISIBLE);
+
+            //대여 기간이 기타로 선택된 경우
+            if(getPeriod()<12){//기간이 12개월 미만일 경우
+                ui.lRentPeriodEtc.setError(getString(R.string.gm_carlst_01_33));
+            }else {//정상적으로 입력됬을 경우
+                ui.etRentPeriodEtc.clearFocus();
+                doTransition(2);
+                isValid=true;
+            }
+        }else{
+            doTransition(2);
+            isValid=true;
+        }
+
+        return isValid;
+    }
+
+    private boolean checkValidImg(){
+        String mimeType;
+        try {
+            mimeType = getContentResolver().getType(targetImgId == R.id.btn_cnt_img ? cntImagPath : empCertImagPath);
+        }catch (Exception e){
+            mimeType="";
+        }
+
+        if (TextUtils.isEmpty(mimeType)) {
+            //파일이 첨부되지 않은 경우
+            switch (targetImgId) {
+                case R.id.btn_emp_certi_img:
+                    ui.tvEmpCertiImg.setTextAppearance(R.style.TextViewEmpCertiImgError2);
+                    ui.tvErrorEmpCertiImg.setText(R.string.gm_carlst_01_42);
+                    break;
+                case R.id.btn_cnt_img:
+                default: //아무 선택도 하지 않은 상태 0
+                    ui.tvCntImg.setTextAppearance(R.style.TextViewCntImgError2);
+                    ui.tvErrorCntImg.setText(R.string.gm_carlst_01_55);
+                    break;
+            }
+
+            return false;
+        } else if (!mimeType.contains("jpeg") && !mimeType.contains("pdf")) {
+
+            switch (targetImgId) {
+                case R.id.btn_cnt_img:
+                    ui.tvCntImg.setTextAppearance(R.style.TextViewCntImgError);
+                    ui.tvErrorCntImg.setText(R.string.gm_carlst_01_38);
+                    break;
+                case R.id.btn_emp_certi_img:
+                    ui.tvEmpCertiImg.setTextAppearance(R.style.TextViewEmpCertiImgError);
+                    ui.tvErrorEmpCertiImg.setText(R.string.gm_carlst_01_38);
+                    break;
+            }
+            return false;
+        } else {
+
+            switch (targetImgId) {
+                case R.id.btn_cnt_img:
+
+                    if(csmrScnCd.equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_1)){
+                        doTransition(3);
+                        targetImgId = R.id.btn_emp_certi_img;
+                    }else{
+                        doTransition(4);
+                        views[3].setVisibility(View.GONE);
+                    }
+
+                    break;
+                case R.id.btn_emp_certi_img:
+                    doTransition(4);
+                    break;
+            }
+
+            return true;
+        }
+
+    }
 
 
     private final int TYPE_CSMR_SCN_CD=0;
@@ -436,110 +403,133 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
     private final int TYPE_EMP_CERTI_IMG=3;
     private final int TYPE_BTR=4;
     private final int TYPE_CARD=5;
-
-
-    private void doNext(final int pos){
-        String inputValue;
-
-        switch (pos){
-            case TYPE_CSMR_SCN_CD:
-
-
-
-
-                break;
-
-
-
-
-
-        }
-
-
-
-
+    private boolean isValid(){
 
         for(View view : views){
-
             if(view.getVisibility()==View.GONE) {
                 switch (view.getId()) {
+                    //현재 페이지가 계약서 종류 입력하는 상태 인 경우
                     case R.id.l_rent_period:
-                        inputValue = ui.tvCsmrScnCd.getText().toString();
-                        if(!TextUtils.isEmpty(inputValue)&&!inputValue.equalsIgnoreCase(getString(R.string.gm_carlst_01_25))){
-                            ui.tvErrorCsmrScnCd.setVisibility(View.GONE);
-                            doTransition(1);
-                        }else{
-                            ui.tvErrorCsmrScnCd.setVisibility(View.VISIBLE);
-                        }
-                        return;
-
+                        return checkValidCsmrScnCd();
+                    //현재 페이지가 렌트 기간 입력하는 상태 인 경우
                     case R.id.l_cnt_img:
-                        inputValue = ui.tvRentPeriod.getText().toString();
-                        if(!TextUtils.isEmpty(inputValue)&&!inputValue.equalsIgnoreCase(getString(R.string.gm_carlst_01_30))&&!inputValue.equalsIgnoreCase(getString(R.string.gm_carlst_01_56))){
-                            //빈값이 아니고, 대여 기간이 아니고 기타가 아니면
-                            doTransition(2);
-                            ui.lRentPeriodEtc.setError(null);
-                        }else if(inputValue.equalsIgnoreCase(getString(R.string.gm_carlst_01_56))){
-                            //대여기간이 기타 일 때
-                            if(getPeriod()<12){
-                                ui.lRentPeriodEtc.setError(getString(R.string.gm_carlst_01_33));
-                            }else{
-                                ui.lRentPeriodEtc.setError(null);
-                                doTransition(2);
-                            }
-                        }else{
-                            SnackBarUtil.show(this, "대여 기간을 선택해 주세요.");
-                        }
-                        return;
-
+                        return checkValidCsmrScnCd()&&checkValidPeriod();
+                    //계약서 사진 입력하는 상태 인 경우
                     case R.id.l_emp_certi_img:
-                        inputValue = ui.tvCntImg.getText().toString();
-                        if(!TextUtils.isEmpty(inputValue)&&!inputValue.equalsIgnoreCase(getString(R.string.gm_carlst_01_36))){
-                            doTransition(3);
-                            //todo tv_error_cnt_img gone 필요?
-                            //todo 이미지 용량 제한 처리 필요
-                        }else{
-                            ui.tvErrorCntImg.setVisibility(View.VISIBLE);
-                            ui.tvErrorCntImg.setText(R.string.gm_carlst_01_55);
-                        }
-                        return;
-
-
+                        return checkValidCsmrScnCd()&&checkValidPeriod()&&checkValidImg();
+                    //재직증명서 입력하는 상태 인경우
                     case R.id.l_btr:
-                        inputValue = ui.tvEmpCertiImg.getText().toString();
-                        if(!TextUtils.isEmpty(inputValue)&&!inputValue.equalsIgnoreCase(getString(R.string.gm_carlst_01_41))){
-                            doTransition(4);
-                            //todo ttvErrorEmpCertiImg gone 필요?
-                            //todo 이미지 용량 제한 처리 필요
-                        }else{
-                            ui.tvErrorEmpCertiImg.setVisibility(View.VISIBLE);
-                            ui.tvErrorEmpCertiImg.setText(R.string.gm_carlst_01_42);
-                        }
-                        return;
+                        return checkValidCsmrScnCd()&&checkValidPeriod()&&checkValidImg();
 
                     case R.id.l_card:
-                        if(btrVO!=null){
-                            doTransition(5);
-                            ui.btnNext.setText(R.string.gm_carlst_04_20);
-                        }else{
-                            SnackBarUtil.show(this, "버틀러를 선택해 주세요.");
-                        }
-                        return;
+                        return checkValidCsmrScnCd()&&checkValidPeriod()&&checkValidImg();
                 }
             }
         }
 
+//        inputValue = ui.etAddrDetail.getText().toString();
+//
+//        if(addressZipVO==null){
+//            SnackBarUtil.show(this, "수령지 주소를 입력해 주세요.");
+//        }else if(TextUtils.isEmpty(inputValue)){
+//            SnackBarUtil.show(this, "상세 주소를 입력해 주세요.");
+//        }else{
+//            //todo 신청하기 진행
+//        }
+        return true;
 
-        inputValue = ui.etAddrDetail.getText().toString();
-
-        if(addressZipVO==null){
-            SnackBarUtil.show(this, "수령지 주소를 입력해 주세요.");
-        }else if(TextUtils.isEmpty(inputValue)){
-            SnackBarUtil.show(this, "상세 주소를 입력해 주세요.");
-        }else{
-            //todo 신청하기 진행
-        }
     }
+
+
+
+
+//    private void doNext(){
+//        String inputValue;
+//
+//        for(View view : views){
+//
+//            if(view.getVisibility()==View.GONE) {
+//                switch (view.getId()) {
+//                    //현재 페이지가 계약서 종류 입력하는 상태 인 경우
+//                    case R.id.l_rent_period:
+//                        inputValue = ui.tvCsmrScnCd.getText().toString();
+//                        if(!TextUtils.isEmpty(inputValue)&&!inputValue.equalsIgnoreCase(getString(R.string.gm_carlst_01_25))){
+//                            ui.tvErrorCsmrScnCd.setVisibility(View.GONE);
+//                            doTransition(1);
+//                        }else{
+//                            ui.tvErrorCsmrScnCd.setVisibility(View.VISIBLE);
+//                        }
+//                        return;
+//                    //현재 페이지가 렌트 기간 입력하는 상태 인 경우
+//                    case R.id.l_cnt_img:
+//                        inputValue = ui.tvRentPeriod.getText().toString();
+//                        if(!TextUtils.isEmpty(inputValue)&&!inputValue.equalsIgnoreCase(getString(R.string.gm_carlst_01_30))&&!inputValue.equalsIgnoreCase(getString(R.string.gm_carlst_01_56))){
+//                            //빈값이 아니고, 대여 기간이 아니고 기타가 아니면
+//                            doTransition(2);
+//                            ui.lRentPeriodEtc.setError(null);
+//                        }else if(inputValue.equalsIgnoreCase(getString(R.string.gm_carlst_01_56))){
+//                            //대여기간이 기타 일 때
+//                            if(getPeriod()<12){
+//                                ui.lRentPeriodEtc.setError(getString(R.string.gm_carlst_01_33));
+//                            }else{
+//                                ui.lRentPeriodEtc.setError(null);
+//                                doTransition(2);
+//                            }
+//                        }else{
+//                            ui.tvErrorRentPeriod.setVisibility(View.VISIBLE);
+//                        }
+//                        return;
+//
+//                    case R.id.l_emp_certi_img:
+//                        inputValue = ui.tvCntImg.getText().toString();
+//                        if(!TextUtils.isEmpty(inputValue)&&!inputValue.equalsIgnoreCase(getString(R.string.gm_carlst_01_36))){
+//                            doTransition(3);
+//                            //todo tv_error_cnt_img gone 필요?
+//                            //todo 이미지 용량 제한 처리 필요
+//                        }else{
+//                            ui.tvErrorCntImg.setVisibility(View.VISIBLE);
+//                            ui.tvErrorCntImg.setText(R.string.gm_carlst_01_55);
+//                        }
+//                        return;
+//
+//
+//                    case R.id.l_btr:
+//                        inputValue = ui.tvEmpCertiImg.getText().toString();
+//                        if(!TextUtils.isEmpty(inputValue)&&!inputValue.equalsIgnoreCase(getString(R.string.gm_carlst_01_41))){
+//                            doTransition(4);
+//                            //todo ttvErrorEmpCertiImg gone 필요?
+//                            //todo 이미지 용량 제한 처리 필요
+//                        }else{
+//                            ui.tvErrorEmpCertiImg.setVisibility(View.VISIBLE);
+//                            ui.tvErrorEmpCertiImg.setText(R.string.gm_carlst_01_42);
+//                        }
+//                        return;
+//
+//                    case R.id.l_card:
+//                        if(btrVO!=null){
+//                            doTransition(5);
+//                            ui.btnNext.setText(R.string.gm_carlst_04_20);
+//                        }else{
+//                            SnackBarUtil.show(this, "버틀러를 선택해 주세요.");
+//                        }
+//                        return;
+//                }
+//            }
+//        }
+//
+//
+//        inputValue = ui.etAddrDetail.getText().toString();
+//
+//        if(addressZipVO==null){
+//            SnackBarUtil.show(this, "수령지 주소를 입력해 주세요.");
+//        }else if(TextUtils.isEmpty(inputValue)){
+//            SnackBarUtil.show(this, "상세 주소를 입력해 주세요.");
+//        }else{
+//            //todo 신청하기 진행
+//        }
+//    }
+
+
 
 
 
@@ -578,11 +568,9 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                 String path = resultUri.getPath();
                 String name = new File(CropImage.getPickImageResultUri(this,data).getPath()).getName();
                 path = path.substring(path.lastIndexOf(".")+1,path.length());
-//                getContentResolver().getType(resultUri).;
 
+                setImgAttach(resultUri);
 
-//                Bitmap bitmap = MediaStore.Images.Media(getContentResolver(), resultUri);
-//                imgUserProfile.setImageBitmap(bitmap);
 
 
 
@@ -613,7 +601,46 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
 
 
             }
+        }else if(resultCode == ResultCodes.REQ_CODE_BTR.getCode()){
+            btrVO = (BtrVO)data.getSerializableExtra(KeyNames.KEY_NAME_BTR);
+            setBtrInfo();
         }
+    }
+
+    private void setImgAttach(Uri resultUri) {
+
+        switch (targetImgId){
+            case R.id.btn_cnt_img:
+                cntImagPath = resultUri;
+                ui.tvCntImg.setTextAppearance(R.style.TextViewCntImgEnable);
+                ui.tvCntImg.setText(cntImagPath.getPath());
+                ui.tvErrorCntImg.setText("");
+                break;
+            case R.id.btn_emp_certi_img:
+                empCertImagPath = resultUri;
+                ui.tvEmpCertiImg.setTextAppearance(R.style.TextViewEmpCertiImgEnable);
+                ui.tvEmpCertiImg.setText(empCertImagPath.getPath());
+                ui.tvErrorEmpCertiImg.setText("");
+                break;
+        }
+
+        checkValidImg();
+
+    }
+
+    private void setBtrInfo(){
+
+        if(btrVO==null){
+            ui.tvBtr.setVisibility(View.VISIBLE);
+            ui.lBtrInfo.setVisibility(View.GONE);
+        }else{
+            ui.tvBtr.setVisibility(View.GONE);
+            ui.lBtrInfo.setVisibility(View.VISIBLE);
+            ui.tvBtrAsnm.setText(btrVO.getAsnNm());
+            ui.tvBtrAddr.setText(btrVO.getPbzAdr());
+            ui.tvBtrReptn.setText(PhoneNumberUtils.formatNumber(btrVO.getRepTn(), Locale.getDefault().getCountry()));
+        }
+
     }
 
 

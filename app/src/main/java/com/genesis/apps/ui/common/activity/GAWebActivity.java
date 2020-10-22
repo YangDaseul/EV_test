@@ -64,7 +64,7 @@ public class GAWebActivity extends WebviewActivity {
 
         String url = ui.edit.getText().toString().trim();
         if(TextUtils.isEmpty(url)){
-            SnackBarUtil.show(GAWebActivity.this, "주소를 입력해주세요.");
+            SnackBarUtil.show(GAWebActivity.this, "주소를 입력해 주세요.");
         }else{
             if(!url.contains("http://")){
                 url = "http://"+url;

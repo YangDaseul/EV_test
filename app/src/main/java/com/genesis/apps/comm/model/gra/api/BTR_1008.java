@@ -28,11 +28,10 @@ public class BTR_1008 extends BaseData {
      * 시도
      * @see #addrDtl 위치주소2
      * 시/군
-     * @see #firmScnCd 정비망업체속성코드
-     * FIRM_SCN_CD = 1 또는 4 : 제네시스전담
-     * @see #acps1Cd 지정정비공장구분코드
-     * 일반블루핸즈 : ACPS1_CD = C 또는 D
-     * 종합 : ACPS1_CD = C, 전문 : ACPS1_CD = D
+     * @see #fillerCd 필터코드
+     * A: 제네시스전담, C:종합, D:전문, P:일반블루핸즈
+     * 필터가 여러 개일 경우 코드값을 더해서 요청
+     * 예) 전담+종합+전문 인 경우.  "ACD"
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -52,19 +51,15 @@ public class BTR_1008 extends BaseData {
         @SerializedName("addrDtl")
         private String addrDtl;
         @Expose
-        @SerializedName("firmScnCd")
-        private String firmScnCd;
-        @Expose
-        @SerializedName("acps1Cd")
-        private String acps1Cd;
+        @SerializedName("fillerCd")
+        private String fillerCd;
 
-        public Request(String menuId, String nx, String ny, String addr, String addrDtl, String firmScnCd, String acps1Cd){
+        public Request(String menuId, String nx, String ny, String addr, String addrDtl, String fillerCd){
             this.nx = nx;
             this.ny = ny;
             this.addr = addr;
             this.addrDtl = addrDtl;
-            this.firmScnCd = firmScnCd;
-            this.acps1Cd = acps1Cd;
+            this.fillerCd = fillerCd;
             setData(APIInfo.GRA_BTR_1008.getIfCd(), menuId);
         }
     }

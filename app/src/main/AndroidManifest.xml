@@ -282,6 +282,12 @@
 
 
         <activity
+            android:name=".ui.main.home.LeasingCarBtrChangeActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+
+
+        <activity
             android:name=".ui.common.activity.test.TestActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"

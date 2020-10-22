@@ -1,5 +1,5 @@
 <resources>
-    <string name="gm_carlst_p01_1">차량 번호를 입력해주세요.</string>
+    <string name="gm_carlst_p01_1">차량 번호를 입력해 주세요.</string>
     <string name="gm_carlst_p01_2">차량 번호</string>
     <string name="gm_carlst_p01_3">확인</string>
     <string name="gm_carlst_p01_4">차대 번호는 차량 등록증 또는 차량 내 라벨을 통해 확인 가능합니다.</string>
@@ -7,8 +7,8 @@
     <string name="gm_carlst_p01_6">차량 번호는 블루핸즈 및 정비 영업소에서 인증한 경우 노출됩니다.</string>
     <string name="gm_carlst_p01_7">삭제 사유를 선택해 주세요.</string>
     <string name="gm_carlst_p01_8">차량 번호를 올바르게 입력해 주세요.\nex)11가1111 또는 111가1111</string>
-    <string name="gm_carlst_p01_9">전담 블루핸즈를 선택해 주세요.\n(시/도)</string>
-    <string name="gm_carlst_p01_10">전담 블루핸즈를 선택해 주세요.\n(시/군/구)</string>
+    <string name="gm_carlst_p01_9">지역을 선택해 주세요.\n(시/도)</string>
+    <string name="gm_carlst_p01_10">지역을 선택해 주세요.\n(시/군/구)</string>
     <string name="gm_carlst_p01_11"></string>
     <string name="gm_carlst_p01_12"></string>
     <string name="gm_carlst_p01_13"></string>

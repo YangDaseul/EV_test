@@ -3,7 +3,7 @@
 
     <string name="service_review_01">서비스 리뷰</string>
     <string name="service_review_02">어떤 점이\n마음에 드셨나요?</string>
-    <string name="service_review_03">별점을 선택해주세요.</string>
+    <string name="service_review_03">별점을 선택해 주세요.</string>
     <string name="service_review_04">기타 의견을 적어주세요</string>
 
 </resources>

@@ -8,7 +8,7 @@
     <string name="sm_cw_find_06">해당 시도에 SONAX 지점이 없습니다.</string>
     <string name="sm_cw_find_07">인근 다른 시도 지점을 이용해 주세요.</string>
     <string name="sm_cw_find_08">지점 코드</string>
-    <string name="sm_cw_find_09">지점 코드를 입력해주세요.</string>
+    <string name="sm_cw_find_09">지점 코드를 입력해 주세요.</string>
 
     <string name="sm_cw_history_01">세차 서비스 예약 내역</string>
     <string name="sm_cw_history_02">· 예약한 Sonax 지점에서 전화를 드린 후,\n\ \ 세차 예약 확정됩니다.</string>

@@ -68,6 +68,8 @@ class LGNViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<STO_1001.Response>> RES_STO_1001;
     private MutableLiveData<NetUIResponse<STO_1002.Response>> RES_STO_1002;
 
+
+
     private Double[] position = new Double[2];
     
     

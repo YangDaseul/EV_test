@@ -41,7 +41,7 @@
     <string name="gm_carlst_03_p01_1">중고차 등록 알림</string>
     <string name="gm_carlst_03_p01_2">·확인 가능한 시간은 평일 08:00 ~ 18:00입니다.</string>
     <string name="gm_carlst_03_p01_3">·개인명의 자동차의 주명의자(대표자) 본인만 등록 할 수 있습니다.\n(공동 명의자는 등록 할 수 없습니다.)</string>
-    <string name="gm_carlst_03_p01_4">·개인사업자 및 법인 및 단체 고객님께서는 \'법인\회원에 먼저 가입해주세요.</string>
+    <string name="gm_carlst_03_p01_4">·개인사업자 및 법인 및 단체 고객님께서는 \'법인\회원에 먼저 가입해 주세요.</string>
     <string name="gm_carlst_03_p01_5">·차량 등록증 발급 후 2~3일까지 등록이 지연될 수 있습니다. (전산 작업 지연 등)</string>
 
     <string name="pop01_1">업데이트 안내 %s</string>
@@ -53,9 +53,4 @@
     <string name="pop01_7">업데이트</string>
 
     <string name="noti01_1">공지사항</string>
-
-
-
-
-
 </resources>
