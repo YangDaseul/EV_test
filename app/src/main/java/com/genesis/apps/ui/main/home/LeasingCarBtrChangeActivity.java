@@ -26,6 +26,7 @@ import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityMap2Binding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomSelectBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
+import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.hmns.playmap.PlayMapPoint;
 import com.hmns.playmap.shape.PlayMapMarker;
 
@@ -44,11 +45,17 @@ public class LeasingCarBtrChangeActivity extends GpsBaseActivity<ActivityMap2Bin
         getDataFromIntent();
         setViewModel();
         setObserver();
+        initView();
         if(btrVO==null) {
             reqMyLocation();
         }else{
             btrViewModel.reqBTR1008(new BTR_1008.Request(APPIAInfo.GM_CARLST_01_B01.getId(), String.valueOf(btrVO.getMapXcooNm()), String.valueOf(btrVO.getMapYcooNm()), "", "",  ""));
         }
+    }
+
+    private void initView() {
+
+        ui.btnMyPosition.setOnClickListener(onSingleClickListener);
     }
 
     @Override
@@ -117,6 +124,10 @@ public class LeasingCarBtrChangeActivity extends GpsBaseActivity<ActivityMap2Bin
                 if(btrViewModel.getRES_BTR_1008().getValue()!=null&&btrViewModel.getRES_BTR_1008().getValue().data.getAsnList()!=null&&btrViewModel.getRES_BTR_1008().getValue().data.getAsnList().size()>0){
                     startActivitySingleTop(new Intent(this, BtrBluehandsListActivity.class).putExtra(KeyNames.KEY_NAME_BTR, btrViewModel.getRES_BTR_1008().getValue().data), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }
+                break;
+            case R.id.btn_my_position:
+                Double[] position = lgnViewModel.getPosition();
+                ui.pmvMapView.initMap(position[0], position[1], 17);
                 break;
         }
 

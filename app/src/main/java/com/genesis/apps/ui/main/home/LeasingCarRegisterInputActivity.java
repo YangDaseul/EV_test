@@ -565,9 +565,8 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
         if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Uri resultUri = CropImage.getPickImageResultUri(this,data);
-                String path = resultUri.getPath();
-                String name = new File(CropImage.getPickImageResultUri(this,data).getPath()).getName();
-                path = path.substring(path.lastIndexOf(".")+1,path.length());
+//                String path = resultUri.getPath();
+//                String name = new File(CropImage.getPickImageResultUri(this,data).getPath()).getName();
 
                 setImgAttach(resultUri);
 
