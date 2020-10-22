@@ -13,13 +13,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="20dp"
         android:background="@drawable/bg_ffffff_round_10"
-        android:paddingStart="20dp"
-        android:paddingTop="20dp"
-        android:paddingEnd="15dp"
-        android:paddingBottom="25dp">
+        android:padding="20dp" >
 
         <!-- 대리운전 타이틀 -->
         <TextView
@@ -45,8 +42,8 @@
 
         <!-- 아이콘 -->
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/ic_service_driver"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

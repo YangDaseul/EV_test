@@ -31,8 +31,11 @@
         <!--  정비 항목 타이틀-->
         <TextView
             android:id="@+id/tv_service_maintenance_item_title"
-            style="@style/ServiceMaintenance.Title"
+            style="@style/TextBasic"
+            android:fontFamily="@font/regular_genesissansheadglobal"
             android:text="@{title}"
+            android:textColor="@color/x_000000"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="정비 항목 이름" />
@@ -40,8 +43,13 @@
         <!--  정비 항목 텍스트-->
         <TextView
             android:id="@+id/tv_service_maintenance_item_desc"
-            style="@style/ServiceMaintenance.Desc"
+            style="@style/TextBasic"
+            android:layout_marginTop="14dp"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:lineSpacingExtra="6sp"
             android:text="@{desc}"
+            android:textColor="@color/x_aaabaf"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_service_maintenance_item_title"
             tools:text="정비 항목 설명\n어쩌고저쩌고 울랄라뾰롱뾰롱" />
@@ -49,13 +57,12 @@
         <!-- 긴급출동 출동중 : 긴급출동 한정 사용 -->
         <TextView
             android:id="@+id/tv_moving_now"
-            android:layout_width="wrap_content"
+            style="@style/TextBasic"
             android:layout_height="0dp"
             android:layout_marginStart="10dp"
             android:background="@color/x_ba544d"
             android:fontFamily="@font/light_genesissansheadglobal"
             android:gravity="center"
-            android:letterSpacing="-0.01"
             android:paddingHorizontal="10dp"
             android:text="@string/sm01_maintenance_7"
             android:textColor="@color/x_ffffff"

@@ -10,35 +10,22 @@
     <!-- 서비스 정비 항목 클릭 영역-->
     <style name="ServiceMaintenanceItem">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">150dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">15dp</item>
+        <item name="android:paddingTop">25dp</item>
+        <item name="android:paddingBottom">20dp</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_round_10</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
-    </style>
-
-    <!-- 서비스 정비 항목 텍스트 -->
-    <style name="ServiceMaintenance" parent="TextBasic">
-        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
-    </style>
-
-    <!-- 서비스 정비 항목 타이틀-->
-    <style name="ServiceMaintenance.Title" parent="ServiceMaintenance">
-        <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">20sp</item>
-    </style>
-
-    <!-- 서비스 정비 항목 설명-->
-    <style name="ServiceMaintenance.Desc" parent="ServiceMaintenance">
-        <item name="android:layout_marginTop">12dp</item>
-        <item name="android:textColor">@color/x_aaabaf</item>
-        <item name="android:textSize">14sp</item>
     </style>
 
     <!-- 대리운전 항목 설명-->
     <style name="ServiceDriveDesc" parent="TextBasic">
         <item name="android:textColor">@color/x_aaabaf</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">6sp</item>
     </style>
 
     <style name="ServiceDriveDesc.light" parent="ServiceDriveDesc">
