@@ -137,7 +137,6 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
      * 도착지 주소 검색버튼 트랜지션
      */
     private void doTransition() {
-        //TODO if 조건 수정
         if (ui.tvServiceDriveReqToTitle.getVisibility() == View.GONE) {
             Transition changeBounds = new ChangeBounds();
             changeBounds.setInterpolator(new OvershootInterpolator());
