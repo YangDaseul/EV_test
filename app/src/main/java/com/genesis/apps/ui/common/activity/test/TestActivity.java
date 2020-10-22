@@ -5,14 +5,15 @@ import android.view.View;
 
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.ActivityServiceDriveReq1Binding;
+import com.genesis.apps.databinding.ActivityServiceReviewBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 
-public class TestActivity extends SubActivity<ActivityServiceDriveReq1Binding> {
+public class TestActivity extends SubActivity<ActivityServiceReviewBinding> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_service_drive_req_1);
+        setContentView(R.layout.activity_service_review);
         getDataFromIntent();
         setViewModel();
         setObserver();

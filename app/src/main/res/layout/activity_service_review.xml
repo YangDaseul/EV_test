@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- 타이틀바 -->
+        <include
+            android:id="@+id/l_service_review_titlebar"
+            layout="@layout/layout_titlebar"
+            app:value="@{@string/service_review_01}" />
+
+        <!-- "어디가 맘에 들었나요?" -->
+        <TextView
+            android:id="@+id/tv_service_review_desc"
+            style="@style/TextBasic"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:lineSpacingExtra="8sp"
+            android:text="@string/service_review_02"
+            android:textColor="@color/x_000000"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/l_service_review_titlebar" />
+
+        <!-- 별점 주세요 -->
+        <TextView
+            android:id="@+id/tv_service_review_please_star"
+            style="@style/TextBasic"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:text="@string/service_review_03"
+            android:textColor="@color/x_525252"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/tv_service_review_desc"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_review_desc" />
+
+        <!-- 별점 -->
+        <RatingBar
+            android:id="@+id/rb_service_review_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:numStars="5"
+            android:progressDrawable="@drawable/ic_rating_bar_star"
+            android:stepSize="1"
+            app:layout_constraintBottom_toTopOf="@id/et_service_review_input"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_review_please_star"
+            tools:rating="1" />
+
+        <!--  기타의견 -->
+        <EditText
+            android:id="@+id/et_service_review_input"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/bg_ffffff_stroke_dadde3"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="start"
+            android:hint="@string/service_review_04"
+            android:padding="16dp"
+            android:textColor="@color/x_000000"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@id/tv_service_review_ok_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rb_service_review_ratingbar" />
+
+        <!--  확인버튼  -->
+        <TextView
+            android:id="@+id/tv_service_review_ok_btn"
+            style="@style/ServiceDriveReq.Btn.Black"
+            android:text="@string/comm_word_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
