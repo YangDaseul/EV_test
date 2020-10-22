@@ -108,6 +108,7 @@
                     android:layout_marginTop="6dp"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     android:text="@string/bt06_6"
+                    android:tag="A"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tv_category_2"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_filter" />
@@ -117,6 +118,7 @@
                     style="@style/BtrFilterDisable"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     android:text="@string/bt06_7"
+                    android:tag="P"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tv_category_1"
                     app:layout_constraintTop_toTopOf="@+id/tv_category_1" />
@@ -126,6 +128,7 @@
                     style="@style/BtrFilterDisable"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     android:text="@string/bt06_8"
+                    android:tag="C"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tv_category_4"
                     app:layout_constraintTop_toBottomOf="@+id/tv_category_1" />
@@ -135,6 +138,7 @@
                     style="@style/BtrFilterDisable"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     android:text="@string/bt06_9"
+                    android:tag="D"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tv_category_3"
                     app:layout_constraintTop_toTopOf="@+id/tv_category_3" />

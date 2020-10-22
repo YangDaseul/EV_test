@@ -37,9 +37,9 @@ import java.util.List;
 public class BtrBluehandsFilterActivity extends SubActivity<ActivityBtrFilterBinding> {
     private BTRViewModel btrViewModel;
     private PUBViewModel pubViewModel;
-    private int[] filterIds = {R.id.tv_category_1, R.id.tv_category_2, R.id.tv_category_3, R.id.tv_category_4};
-    private String firmScnCd;
-    private String acps1Cd;
+    private final int[] filterIds = {R.id.tv_category_1, R.id.tv_category_3, R.id.tv_category_4, R.id.tv_category_2};
+    private final boolean[] isSelectFilter = {false,false,false,false};
+    private String fillerCd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,23 +61,9 @@ public class BtrBluehandsFilterActivity extends SubActivity<ActivityBtrFilterBin
 
         switch (v.getId()){
             case R.id.tv_category_1:
-                firmScnCd="Y";
-                acps1Cd="";
-                setFilter(v.getId());
-                break;
             case R.id.tv_category_2:
-                firmScnCd="N";
-                acps1Cd="CD";
-                setFilter(v.getId());
-                break;
             case R.id.tv_category_3:
-                firmScnCd="N";
-                acps1Cd="C";
-                setFilter(v.getId());
-                break;
             case R.id.tv_category_4:
-                firmScnCd="N";
-                acps1Cd="D";
                 setFilter(v.getId());
                 break;
             case R.id.tv_position_1:
@@ -134,11 +120,23 @@ public class BtrBluehandsFilterActivity extends SubActivity<ActivityBtrFilterBin
         for(int i=0; i<filterIds.length; i++){
 
             if(selectId==filterIds[i]){
+                isSelectFilter[i]=true;
                 ((TextView)findViewById(filterIds[i])).setTextAppearance(R.style.BtrFilterEnable);
             }else{
+                isSelectFilter[i]=false;
                 ((TextView)findViewById(filterIds[i])).setTextAppearance(R.style.BtrFilterDisable);
             }
         }
+    }
+
+    private String getFillerCd(){
+        fillerCd="";
+        for(int i=0; i<filterIds.length;i++){
+            if(isSelectFilter[i]){
+                fillerCd+=((TextView)findViewById(filterIds[i])).getTag().toString();
+            }
+        }
+        return fillerCd;
     }
 
 
