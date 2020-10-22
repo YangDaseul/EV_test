@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -26,9 +27,10 @@
                 layout="@layout/layout_titlebar_dialog"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:value="@{@string/service_drive_bottom_dialog_title}" />
+                app:value="@{@string/now_or_reserve_title}" />
 
-            <!-- 차종, 번호판, 요금 뷰-->
+            <!-- 차종, 번호판, 요금 뷰
+            TODO 이거 왜 안 되냐..... -->
             <include
                 android:id="@+id/l_dia_bottom_now_or_reserve_car_info_panel"
                 layout="@layout/layout_service_req_panel"
@@ -37,7 +39,8 @@
                 android:layout_marginTop="30dp"
                 app:isRound="@{false}" />
 
-            <!-- 지금당장/예약 선택지 -->
+            <!-- 지금당장/예약 선택지
+            TODO 버튼 모양은 왜 또 제멋대로고??? -->
             <RadioGroup
                 android:id="@+id/rg_dia_bottom_now_or_reserve_radiogroup"
                 android:layout_width="match_parent"
@@ -47,14 +50,14 @@
                     android:id="@+id/rb_dia_bottom_now_btn"
                     style="@style/ServiceReqDialog"
                     android:checked="true"
-                    android:text="@string/service_drive_bottom_dialog_now" />
+                    android:text="@string/now_or_reserve_now" />
 
                 <RadioButton
                     android:id="@+id/rb_dia_bottom_reserve_btn"
                     style="@style/ServiceReqDialog"
                     android:paddingTop="6dp"
                     android:paddingBottom="6dp"
-                    android:text="@string/service_drive_bottom_dialog_reserve" />
+                    android:text="@string/now_or_reserve_reserve" />
             </RadioGroup>
 
             <!-- 예약 가능 시간 안내 -->
@@ -62,17 +65,43 @@
                 android:id="@+id/tv_dia_bottom_now_or_reserve_noti"
                 style="@style/TextBasic"
                 android:layout_marginStart="30dp"
-                android:text="@string/service_drive_bottom_dialog_reserve_desc" />
+                android:text="@string/now_or_reserve_desc" />
 
-            <!-- 요청 사항 입력 -->
+            <!-- "예약일시" -->
+            <TextView
+                android:id="@+id/tv_dia_bottom_now_or_reserve_date_title"
+                style="@style/TextBasic"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:text="@string/now_or_reserve_date"
+                android:textColor="@color/x_000000"
+                android:textSize="13sp" />
+
+            <!-- 예약 날짜 선택 -->
+            <TextView
+                android:id="@+id/tv_dia_bottom_now_or_reserve_date_pick_btn"
+                style="@style/TextBtnBasic"
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/ripple_bg_ffffff_stroke_141414"
+                android:drawableRight="@drawable/ic_calendar"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:textColor="@color/x_000000"
+                android:textSize="15sp"
+                tools:text="2020.13.32 오후 27:61"
+                tools:visibility="visible" />
+
+            <!-- 요청 사항 입력
+            TODO 한 줄만 나와야되는데 개행 되고
+            힌트 색 이상함-->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_dia_bottom_now_or_reserve_request"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
-                android:hint="@string/service_drive_bottom_dialog_request"
+                android:hint="@string/now_or_reserve_request"
                 android:padding="16dp"
-
                 app:boxBackgroundColor="@color/x_ffffff"
                 app:boxBackgroundMode="outline"
                 app:boxStrokeColor="@color/x_141414"

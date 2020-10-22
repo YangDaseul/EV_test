@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="service_req_01">예상가격</string>
+    <string name="service_req_02">서비스 불가 지역 포함</string>
+    <string name="service_req_03">일시 오류</string>
+    <string name="service_req_04">재시도</string>
+
     <string name="service_review_01">서비스 리뷰</string>
     <string name="service_review_02">어떤 점이\n마음에 드셨나요?</string>
     <string name="service_review_03">별점을 선택해주세요.</string>

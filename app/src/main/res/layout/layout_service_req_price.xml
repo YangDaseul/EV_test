@@ -9,12 +9,12 @@
     <TextView
         style="@style/ServiceReq.Light"
         android:layout_marginEnd="5dp"
-        android:text="@string/service_drive_top_info_01"
+        android:text="@string/service_req_01"
         android:textSize="13sp" />
 
     <!-- 값 -->
     <TextView
-        android:id="@+id/tv_service_drive_price_maybe"
+        android:id="@+id/tv_service_price_maybe"
         style="@style/TextBasic"
         android:textColor="@color/x_a36b4f"
         android:textSize="18sp"
