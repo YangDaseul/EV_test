@@ -7,7 +7,7 @@
 
     <!-- "예상가격" -->
     <TextView
-        style="@style/ServiceDrive.Light"
+        style="@style/ServiceReq.Light"
         android:layout_marginEnd="5dp"
         android:text="@string/service_drive_top_info_01"
         android:textSize="13sp" />

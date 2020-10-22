@@ -7,7 +7,7 @@
 
     <!-- "일시오류" -->
     <TextView
-        style="@style/ServiceDriveReq.Error"
+        style="@style/ServiceReq.Error"
         android:layout_marginEnd="10dp"
         android:text="@string/service_drive_top_info_03" />
 

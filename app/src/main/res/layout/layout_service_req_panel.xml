@@ -13,50 +13,49 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:background="#aaff88"
-        android:background="@{isRound?@drawable/bg_f4f4f4_round_10:@color/x_f4f4f4}">
+        android:background="@{isRound?@drawable/bg_f4f4f4_round_10:@color/x_f4f4f4}"
+        android:paddingStart="15dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="20dp"
+        tools:background="#aaff88">
 
-        <!-- 상단 정보 : 차종/번호판 뷰 -->
         <!-- 차종 -->
         <TextView
-            android:id="@+id/tv_service_drive_req_car_model"
+            android:id="@+id/tv_service_req_car_model"
             style="@style/ServiceDrive.RegularHead"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toTopOf="@id/tv_service_req_car_number"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
             tools:text="GV 70" />
 
-        <!-- 상단 정보 : 차종/번호판 뷰 -->
         <!-- 번호판 -->
         <TextView
-            android:id="@+id/tv_service_drive_req_car_number"
-            style="@style/ServiceDrive.Light"
-            android:paddingBottom="20dp"
+            android:id="@+id/tv_service_req_car_number"
+            style="@style/ServiceReq.Light"
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@id/tv_service_drive_req_car_model"
-            app:layout_constraintTop_toBottomOf="@id/tv_service_drive_req_car_model"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_req_car_model"
             app:layout_constraintVertical_chainStyle="packed"
             tools:text="123너 6456" />
 
-        <!-- 상단 정보 : 차종/번호판 뷰 -->
-        <!-- 예상가격/서비스불가안내/로딩중 등  -->
-        <!-- layout_service_drive_req_
-             _price, _cant_service, _retry, _loading   -->
+        <!-- 로딩중/예상가격/서비스불가안내 등  -->
+        <!-- layout_service_req_
+             _loading, _price, _cant_service, _retry   -->
         <ViewStub
-            android:id="@+id/vs_service_drive_req_service_info"
+            android:id="@+id/vs_service_req_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:inflatedId="@+id/vs_service_drive_req_service_info"
+            android:inflatedId="@+id/vs_service_req_status"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!--     미리보기용 임시 뷰 : ViewStub은 xml미리보기가 안 돼서 -->
         <!--    <include-->
-        <!--        layout="@layout/layout_service_drive_req_price"-->
+        <!--        layout="@layout/layout_service_req_price"-->
         <!--        android:layout_width="wrap_content"-->
         <!--        android:layout_height="wrap_content"-->
         <!--        android:layout_marginEnd="20dp"-->
