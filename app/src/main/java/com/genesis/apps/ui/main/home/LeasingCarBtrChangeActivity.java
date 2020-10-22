@@ -4,14 +4,9 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewStub;
-
-import androidx.annotation.MainThread;
-import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
@@ -26,11 +21,14 @@ import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityMap2Binding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomSelectBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
-import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.hmns.playmap.PlayMapPoint;
 import com.hmns.playmap.shape.PlayMapMarker;
 
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 public class LeasingCarBtrChangeActivity extends GpsBaseActivity<ActivityMap2Binding> {
 
@@ -54,8 +52,30 @@ public class LeasingCarBtrChangeActivity extends GpsBaseActivity<ActivityMap2Bin
     }
 
     private void initView() {
-
         ui.btnMyPosition.setOnClickListener(onSingleClickListener);
+        ui.pmvMapView.onMapTouchUpListener((motionEvent, makerList) -> {
+
+            if(makerList!=null&&makerList.size()>0) {
+
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        BtrVO btrVO = btrViewModel.getBtrVO(makerList.get(0).getId());
+                        if(btrVO!=null){
+                            ui.pmvMapView.removeAllMarkerItem();
+                            setPosition(btrViewModel.getRES_BTR_1008().getValue().data.getAsnList(),btrVO);
+                        }
+
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+
+
+        });
     }
 
     @Override
@@ -146,6 +166,7 @@ public class LeasingCarBtrChangeActivity extends GpsBaseActivity<ActivityMap2Bin
         markerItem.setCanShowCallout(false);
         markerItem.setAutoCalloutVisible(false);
         markerItem.setIcon(((BitmapDrawable)getResources().getDrawable(iconId,null)).getBitmap());
+
 
         String strId = btrVO.getAsnCd();
         ui.pmvMapView.addMarkerItem(strId, markerItem);

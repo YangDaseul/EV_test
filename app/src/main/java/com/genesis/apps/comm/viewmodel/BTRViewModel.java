@@ -14,6 +14,7 @@ import com.genesis.apps.comm.model.gra.api.BTR_2001;
 import com.genesis.apps.comm.model.gra.api.BTR_2002;
 import com.genesis.apps.comm.model.gra.api.BTR_2003;
 import com.genesis.apps.comm.model.repo.BTRRepo;
+import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 
 import lombok.Data;
@@ -74,6 +75,18 @@ class BTRViewModel extends ViewModel {
 
     public void reqBTR2003(final BTR_2003.Request reqData) {
         repository.REQ_BTR_2003(reqData);
+    }
+
+
+    public BtrVO getBtrVO(String asnCd){
+
+        for(BtrVO btrVO : RES_BTR_1008.getValue().data.getAsnList()){
+            if(btrVO.getAsnCd().equalsIgnoreCase(asnCd)){
+                return btrVO;
+            }
+        }
+
+        return null;
     }
 
 
