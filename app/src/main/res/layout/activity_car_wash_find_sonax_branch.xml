@@ -108,7 +108,8 @@
 
         <!-- 검색 결과 : 결과 없음 위에 덮어씌우는 형태로 출력 -->
         <include
-            layout="@layout/fragment_car_wash_find_result"
+            android:id="@+id/l_sonax_find_list"
+            layout="@layout/layout_map_find_result"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"

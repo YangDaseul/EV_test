@@ -15,6 +15,11 @@
     <string name="gm_carlst_p01_14"></string>
     <string name="gm_carlst_p01_15"></string>
 
-
+    <string name="now_or_reserve_title">지금 바로 부르시겠습니까?</string>
+    <string name="now_or_reserve_now">예, 지금 바로 불러주세요.</string>
+    <string name="now_or_reserve_reserve">아니오, 예약하겠습니다.</string>
+    <string name="now_or_reserve_desc">예약은 최소 3시간 이후부터 최대 7일\n이전까지 가능합니다.</string>
+    <string name="now_or_reserve_date">예약일시</string>
+    <string name="now_or_reserve_request">요청사항</string>
 
 </resources>

@@ -9,8 +9,8 @@
 
     <!-- 검색결과 타이틀 -->
     <TextView
-        android:id="@+id/tv_sonax_find_result_title"
-        style="@style/SonaxResult.Title"
+        android:id="@+id/tv_map_find_result_title"
+        style="@style/MapResult.Title"
         android:text="@string/sm_cw_find_05"
         android:textColor="@color/x_000000"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,24 +18,24 @@
 
     <!-- 검색된 수 -->
     <TextView
-        style="@style/SonaxResult.Title"
+        style="@style/MapResult.Title"
         android:layout_marginStart="4dp"
         android:textColor="@color/x_cd9a81"
-        app:layout_constraintStart_toEndOf="@id/tv_sonax_find_result_title"
+        app:layout_constraintStart_toEndOf="@id/tv_map_find_result_title"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="7" />
 
     <!-- 검색 결과 목록 -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_sonax_find_result_list"
+        android:id="@+id/rv_map_find_result_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_sonax_find_result_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_map_find_result_title"
         tools:background="#a0f040"
-        tools:listitem="@layout/layout_car_wash_find_result_item" />
+        tools:listitem="@layout/layout_map_find_result_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

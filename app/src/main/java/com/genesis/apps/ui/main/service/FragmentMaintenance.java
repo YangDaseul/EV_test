@@ -29,6 +29,7 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
 
         //TODO 이것은 테스트 액티비티 호출
         me.tvServiceMaintenanceFindNetwork.setOnClickListener(v ->
+//                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE)
                 ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), TestActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE)
 //                startActivitySingleTop(new Intent(this, TestActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 //        startActivitySingleTop(new Intent(this, ServiceDriveReqActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);

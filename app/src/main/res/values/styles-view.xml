@@ -119,6 +119,50 @@
         <item name="android:paddingTop">20dp</item>
         <item name="android:paddingBottom">20dp</item>
     </style>
+    <!-- 결과 버튼 큰 거 -->
+    <style name="BigBtn" parent="TextBtnBasic">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 
+    <!--  바닥 하얀버튼 큰 거 -->
+    <style name="ServiceDriveReq.Btn.White" parent="BigBtn">
+        <item name="android:textColor">@color/x_141414</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_6f6f6f</item>
+    </style>
 
+    <!--  바닥 검은버튼 큰 거 -->
+    <style name="ServiceDriveReq.Btn.Black" parent="BigBtn">
+        <item name="android:textColor">@color/x_ffffff</item>
+        <item name="android:background">@drawable/ripple_bg_141414</item>
+    </style>
+
+    <!-- 서비스 이용불가 msg -->
+    <style name="ServiceReq.Error" parent="TextBasic">
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+        <item name="android:textColor">@color/x_ba544d</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- 서비스 신청 light 폰트  -->
+    <style name="ServiceReq.Light" parent="TextBasic">
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:textColor">@color/x_525252</item>
+    </style>
+
+    <!-- 서비스 신청 대화상자 지금당장/예약 선택지 라디오버튼 텍스트 -->
+    <style name="ServiceReqDialog" parent="TextBasic">
+        <item name="android:button">@drawable/radio_btn_selector</item>
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:paddingStart">8dp</item>
+    </style>
 </resources>

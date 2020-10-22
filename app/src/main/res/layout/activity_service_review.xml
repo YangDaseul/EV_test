@@ -46,14 +46,15 @@
             android:layout_height="24dp"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="20dp"
+            android:max="5"
             android:numStars="5"
             android:progressDrawable="@drawable/ic_rating_bar_star"
+            android:rating="5"
             android:stepSize="1"
             app:layout_constraintBottom_toTopOf="@id/et_service_review_input"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_service_review_please_star"
-            tools:rating="1" />
+            app:layout_constraintTop_toBottomOf="@id/tv_service_review_please_star" />
 
         <!--  기타의견 -->
         <EditText

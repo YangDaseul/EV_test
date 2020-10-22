@@ -31,19 +31,8 @@
     <string name="service_drive_req_result_btn_04">다시 요청</string>
     <string name="service_drive_req_result_btn_05">예약 취소</string>
 
-
-    <string name="service_drive_top_info_01">예상가격</string>
-    <string name="service_drive_top_info_02">서비스 불가 지역 포함</string>
-    <string name="service_drive_top_info_03">일시 오류</string>
-    <string name="service_drive_top_info_04">재시도</string>
     <string name="service_drive_top_info_05">출발지</string>
     <string name="service_drive_top_info_06">도착지</string>
-
-    <string name="service_drive_bottom_dialog_title">지금 바로 부르시겠습니까?</string>
-    <string name="service_drive_bottom_dialog_now">예, 지금 바로 불러주세요.</string>
-    <string name="service_drive_bottom_dialog_reserve">아니오, 예약하겠습니다.</string>
-    <string name="service_drive_bottom_dialog_reserve_desc">예약은 최소 3시간 이후부터 최대 7일\n이전까지 가능합니다.</string>
-    <string name="service_drive_bottom_dialog_request">요청사항</string>
 
 
 </resources>

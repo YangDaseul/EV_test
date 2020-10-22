@@ -13,50 +13,43 @@
 
     <!-- 지점명 -->
     <TextView
-        android:id="@+id/tv_car_wash_find_result_branch_name"
-        style="@style/SonaxResult.Item.Regular"
+        android:id="@+id/tv_map_find_result_branch_name"
+        style="@style/MapResult.Item.Regular"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="SONAX 어쩌고저쩌고 지점" />
 
     <!-- 거리 -->
     <TextView
-        android:id="@+id/tv_car_wash_find_result_branch_distance"
-        style="@style/SonaxResult.Item.Regular"
+        android:id="@+id/tv_map_find_result_branch_distance"
+        style="@style/MapResult.Item.Regular"
         android:layout_marginStart="10dp"
-        app:layout_constraintStart_toEndOf="@id/tv_car_wash_find_result_branch_name"
+        app:layout_constraintStart_toEndOf="@id/tv_map_find_result_branch_name"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="99.9km" />
 
     <!-- 주소 -->
     <TextView
-        android:id="@+id/tv_car_wash_find_result_branch_address"
-        style="@style/SonaxResult.Item.light"
+        android:id="@+id/tv_map_find_result_branch_address"
+        style="@style/MapResult.Item.light"
         android:layout_marginTop="8dp"
+        android:lineSpacingExtra="6sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_car_wash_find_result_branch_name"
-        tools:text="지구 어딘가에는 있겠지" />
-
-    <!-- 동 -->
-    <TextView
-        android:id="@+id/tv_car_wash_find_result_branch_dong"
-        style="@style/SonaxResult.Item.light"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_car_wash_find_result_branch_address"
-        tools:text="(울랄라동)" />
+        app:layout_constraintTop_toBottomOf="@id/tv_map_find_result_branch_name"
+        tools:text="지구 어딘가에는 있겠지\n울랄라동" />
 
     <!-- 전화번호 -->
     <TextView
-        android:id="@+id/tv_car_wash_find_result_branch_phone"
-        style="@style/SonaxResult.Item.light"
+        android:id="@+id/tv_map_find_result_branch_phone"
+        style="@style/MapResult.Item.light"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_car_wash_find_result_branch_dong"
+        app:layout_constraintTop_toBottomOf="@id/tv_map_find_result_branch_address"
         tools:text="02-2435-23523" />
 
     <!-- 오른쪽 '>' -->
     <ImageView
-        android:layout_width="20dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/btn_open_r"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -6,14 +6,15 @@ import android.view.View;
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.ActivityServiceDriveReq1Binding;
 import com.genesis.apps.databinding.ActivityServiceReviewBinding;
+import com.genesis.apps.databinding.DialogBottomNowOrReserveBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 
-public class TestActivity extends SubActivity<ActivityServiceReviewBinding> {
+public class TestActivity extends SubActivity<DialogBottomNowOrReserveBinding> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_service_review);
+        setContentView(R.layout.dialog_bottom_now_or_reserve);
         getDataFromIntent();
         setViewModel();
         setObserver();

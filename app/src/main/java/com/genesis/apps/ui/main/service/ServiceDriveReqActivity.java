@@ -74,8 +74,8 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
     private void init() {
         //TODO : 차종, 번호판 정보 표시
-        ui.lServiceDriveReqTopPanel.tvServiceDriveReqCarModel.setText("GV80");
-        ui.lServiceDriveReqTopPanel.tvServiceDriveReqCarNumber.setText("12너 3456");
+        ui.lServiceDriveReqTopPanel.tvServiceReqCarModel.setText("GV80");
+        ui.lServiceDriveReqTopPanel.tvServiceReqCarNumber.setText("12너 3456");
 
         initConstraintSets();
         initView();

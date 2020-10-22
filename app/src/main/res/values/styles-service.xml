@@ -10,35 +10,22 @@
     <!-- 서비스 정비 항목 클릭 영역-->
     <style name="ServiceMaintenanceItem">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">150dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">15dp</item>
+        <item name="android:paddingTop">25dp</item>
+        <item name="android:paddingBottom">20dp</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_round_10</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
-    </style>
-
-    <!-- 서비스 정비 항목 텍스트 -->
-    <style name="ServiceMaintenance" parent="TextBasic">
-        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
-    </style>
-
-    <!-- 서비스 정비 항목 타이틀-->
-    <style name="ServiceMaintenance.Title" parent="ServiceMaintenance">
-        <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">20sp</item>
-    </style>
-
-    <!-- 서비스 정비 항목 설명-->
-    <style name="ServiceMaintenance.Desc" parent="ServiceMaintenance">
-        <item name="android:layout_marginTop">12dp</item>
-        <item name="android:textColor">@color/x_aaabaf</item>
-        <item name="android:textSize">14sp</item>
     </style>
 
     <!-- 대리운전 항목 설명-->
     <style name="ServiceDriveDesc" parent="TextBasic">
         <item name="android:textColor">@color/x_aaabaf</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">6sp</item>
     </style>
 
     <style name="ServiceDriveDesc.light" parent="ServiceDriveDesc">
@@ -54,27 +41,6 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:textColor">@color/x_141414</item>
         <item name="android:gravity">center_horizontal</item>
-    </style>
-
-    <!-- sonax 지점 검색 결과 타이틀 -->
-    <style name="SonaxResult.Title" parent="TextBasic">
-        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
-        <item name="android:textSize">18sp</item>
-    </style>
-
-    <!-- sonax 지점 검색 결과 아이템 공통 -->
-    <style name="SonaxResult.Item" parent="TextBasic">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/x_000000</item>
-    </style>
-
-    <!-- sonax 지점 검색 결과 아이템 (지점명, 거리) -->
-    <style name="SonaxResult.Item.Regular" parent="SonaxResult.Item">
-        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
-    </style>
-    <!-- sonax 지점 검색 결과 아이템 (주소, 동, 전화번호) -->
-    <style name="SonaxResult.Item.light" parent="SonaxResult.Item">
-        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
     </style>
 
     <!-- 세차 예약 내역 : -->
@@ -98,7 +64,7 @@
         <item name="android:padding">18dp</item>
     </style>
 
-    <!-- 대리운전 차종코드 -->
+    <!-- 차종코드 -->
     <style name="ServiceDrive.RegularHead" parent="TextBasic">
         <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
         <item name="android:textColor">@color/x_000000</item>
@@ -120,13 +86,6 @@
         <item name="android:textColor">@color/x_6f6f6f</item>
         <item name="android:background">@drawable/ripple_bg_ffffff</item>
         <item name="android:layout_marginEnd">20dp</item>
-    </style>
-
-    <!-- 대리운전 신청 이용불가 msg -->
-    <style name="ServiceDriveReq.Error" parent="TextBasic">
-        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
-        <item name="android:textColor">@color/x_ba544d</item>
-        <item name="android:textSize">14sp</item>
     </style>
 
     <!-- 대리운전 신청 결과 출발/도착지 -->
@@ -183,40 +142,5 @@
     <style name="ServiceDriveReqResult.Status.Text.Regular">
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
     </style>
-
-    <!-- 대리운전 신청 및 결과 버튼 -->
-    <style name="ServiceDriveReq.Btn" parent="TextBtnBasic">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">52dp</item>
-        <item name="android:layout_marginStart">20dp</item>
-        <item name="android:layout_marginEnd">20dp</item>
-        <item name="android:layout_marginBottom">20dp</item>
-        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
-        <item name="android:textSize">16sp</item>
-    </style>
-
-    <!-- 대리운전 신청 및 결과 하얀버튼 -->
-    <style name="ServiceDriveReq.Btn.White" parent="ServiceDriveReq.Btn">
-        <item name="android:textColor">@color/x_141414</item>
-        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_6f6f6f</item>
-    </style>
-
-    <!-- 대리운전 신청 및 결과 검은버튼 -->
-    <style name="ServiceDriveReq.Btn.Black" parent="ServiceDriveReq.Btn">
-        <item name="android:textColor">@color/x_ffffff</item>
-        <item name="android:background">@drawable/ripple_bg_141414</item>
-    </style>
-
-    <!-- 대리운전 신청 대화상자 지금당장/예약 선택지 라디오버튼 텍스트 -->
-    <style name="ServiceDriveReqDialog" parent="TextBasic">
-        <item name="android:button">@drawable/radio_btn_selector</item>
-        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
-        <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">15sp</item>
-        <item name="android:paddingTop">15dp</item>
-        <item name="android:paddingBottom">15dp</item>
-        <item name="android:paddingStart">8dp</item>
-    </style>
-
 
 </resources>
