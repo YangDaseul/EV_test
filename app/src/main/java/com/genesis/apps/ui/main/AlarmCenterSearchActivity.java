@@ -35,11 +35,11 @@ public class AlarmCenterSearchActivity extends SubActivity<ActivityAlarmCenterSe
 
     private void initView() {
         adapter = new AlarmCenterRecyclerAdapter(onSingleClickListener);
-        ui.rv.setLayoutManager(new LinearLayoutManager(this));
-        ui.rv.setHasFixedSize(true);
-        ui.rv.setAdapter(adapter);
+        ui.lSearchParent.rv.setLayoutManager(new LinearLayoutManager(this));
+        ui.lSearchParent.rv.setHasFixedSize(true);
+        ui.lSearchParent.rv.setAdapter(adapter);
 
-        ui.etSearch.addTextChangedListener(new TextWatcher() {
+        ui.lSearchParent.etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -55,10 +55,10 @@ public class AlarmCenterSearchActivity extends SubActivity<ActivityAlarmCenterSe
         });
 
 
-        ui.etSearch.setOnFocusChangeListener((view, hasFocus) -> {
+        ui.lSearchParent.etSearch.setOnFocusChangeListener((view, hasFocus) -> {
 
             if (hasFocus) {
-                reqListData(ui.etSearch.getText().toString());
+                reqListData(ui.lSearchParent.etSearch.getText().toString());
             } else {
                 SoftKeyboardUtil.hideKeyboard(AlarmCenterSearchActivity.this);
             }
@@ -91,9 +91,9 @@ public class AlarmCenterSearchActivity extends SubActivity<ActivityAlarmCenterSe
 
     private void setListView(List<NotiInfoVO> list) {
         if (list == null || list.size() < 1) {
-            ui.tvEmpty.setVisibility(View.VISIBLE);
+            ui.lSearchParent.tvEmpty.setVisibility(View.VISIBLE);
         } else {
-            ui.tvEmpty.setVisibility(View.GONE);
+            ui.lSearchParent.tvEmpty.setVisibility(View.GONE);
         }
         adapter.setRows(list);
         adapter.notifyDataSetChanged();
@@ -102,10 +102,10 @@ public class AlarmCenterSearchActivity extends SubActivity<ActivityAlarmCenterSe
 
     private void reqListData(String keyword) {
         if (TextUtils.isEmpty(keyword)) {
-            ui.etSearch.setBackgroundResource(R.drawable.bg_ffffff_stroke_dadde3);
-            ui.tvEmpty.setVisibility(View.VISIBLE);
+            ui.lSearchParent.etSearch.setBackgroundResource(R.drawable.bg_ffffff_stroke_dadde3);
+            ui.lSearchParent.tvEmpty.setVisibility(View.VISIBLE);
         } else {
-            ui.etSearch.setBackgroundResource(R.drawable.bg_ffffff_stroke_141414);
+            ui.lSearchParent.etSearch.setBackgroundResource(R.drawable.bg_ffffff_stroke_141414);
             try {
                 setListView(cmnViewModel.getNotiInfoFromDB("", "%"+keyword+"%"));
             } catch (Exception e) {

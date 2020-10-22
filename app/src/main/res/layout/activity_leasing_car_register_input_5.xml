@@ -133,13 +133,19 @@
                 style="@style/TextViewBtr"
                 android:visibility="visible"/>
 
+            <TextView
+                android:id="@+id/tv_error_btr"
+                style="@style/TextViewErrorBtr"
+                tools:text="@string/gm_carlst_01_58"/>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_emp_certi_img"
-            style="@style/LayoutEmpCertiImg">
+            style="@style/LayoutEmpCertiImg"
+            >
 
             <TextView
                 android:id="@+id/tv_title_emp_certi_img"
@@ -163,6 +169,11 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_distance_1"
+            style="@style/BarrierDistance1"/>
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_cnt_img"
             style="@style/LayoutCntImg">
@@ -181,11 +192,9 @@
                 android:id="@+id/btn_cnt_img"
                 style="@style/ButtonCntImg" />
 
-
             <TextView
                 android:id="@+id/tv_error_cnt_img"
-                style="@style/TextViewErrorCntImg"
-                tools:visibility="visible" />
+                style="@style/TextViewErrorCntImg" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

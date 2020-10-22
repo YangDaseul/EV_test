@@ -134,6 +134,10 @@
                 style="@style/TextViewBtr"
                 android:visibility="visible"/>
 
+            <TextView
+                android:id="@+id/tv_error_btr"
+                style="@style/TextViewErrorBtr"
+                tools:text="ddd"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -160,6 +164,9 @@
                 tools:visibility="gone" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_distance_1"
+            style="@style/BarrierDistance1"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_cnt_img"

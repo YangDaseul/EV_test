@@ -147,6 +147,7 @@
 
         <activity
             android:name=".ui.myg.MyGMenuActivity"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
             android:exported="false"/>
 
@@ -252,6 +253,7 @@
 
         <activity
             android:name=".ui.main.AlarmCenterSearchActivity"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
             android:exported="false"/>
 

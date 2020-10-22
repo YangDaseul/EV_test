@@ -53,8 +53,8 @@ public class MyGMenuActivity extends SubActivity<ActivityMygMenuBinding> {
                         //최근 검색어 리스트 항목 클릭 시 editbox에 자동으로 타이핑해줌
                         menuViewModel.reqRecentlyMenuList(MenuRepository.ACTION_ADD_MENU, adapter.getItem(position)); //이미 리스트가 있지만 최상단으로 올려주는 효과
                         String name = ((MenuVO) adapter.getItem(position)).getName();
-                        ui.etSearch.setText(name);
-                        ui.etSearch.setSelection(name.length());
+                        ui.lSearchParent.etSearch.setText(name);
+                        ui.lSearchParent.etSearch.setSelection(name.length());
                     } else {
                         menuViewModel.reqRecentlyMenuList(MenuRepository.ACTION_ADD_MENU, adapter.getItem(position)); //키워드 저장
                         if (((MenuVO) adapter.getItem(position)).getActivity() == null) {
@@ -67,11 +67,11 @@ public class MyGMenuActivity extends SubActivity<ActivityMygMenuBinding> {
                     break;
             }
         });
-        ui.rv.setLayoutManager(new LinearLayoutManager(this));
-        ui.rv.setHasFixedSize(true);
-        ui.rv.setAdapter(adapter);
+        ui.lSearchParent.rv.setLayoutManager(new LinearLayoutManager(this));
+        ui.lSearchParent.rv.setHasFixedSize(true);
+        ui.lSearchParent.rv.setAdapter(adapter);
 
-        ui.etSearch.addTextChangedListener(new TextWatcher() {
+        ui.lSearchParent.etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -87,10 +87,10 @@ public class MyGMenuActivity extends SubActivity<ActivityMygMenuBinding> {
         });
 
 
-        ui.etSearch.setOnFocusChangeListener((view, hasFocus) -> {
+        ui.lSearchParent.etSearch.setOnFocusChangeListener((view, hasFocus) -> {
 
             if (hasFocus) {
-                reqListData(ui.etSearch.getText().toString());
+                reqListData(ui.lSearchParent.etSearch.getText().toString());
             } else {
                 SoftKeyboardUtil.hideKeyboard(MyGMenuActivity.this);
             }
@@ -116,17 +116,17 @@ public class MyGMenuActivity extends SubActivity<ActivityMygMenuBinding> {
     public void setObserver() {
         menuViewModel.getMenuList().observe(this, result -> {
             adapter.setRecently(false);
-            ui.tvTitleSub.setText("전체메뉴");
+            ui.lSearchParent.tvTitleSub.setText("전체메뉴");
             setListView(result.data);
         });
         menuViewModel.getRecentlyMenuList().observe(this, result -> {
             adapter.setRecently(true);
-            ui.tvTitleSub.setText(R.string.mg00_word_2);
+            ui.lSearchParent.tvTitleSub.setText(R.string.mg00_word_2);
             setListView(result.data);
         });
         menuViewModel.getKeywordMenuList().observe(this, result -> {
             adapter.setRecently(false);
-            ui.tvTitleSub.setText(R.string.mg00_word_3);
+            ui.lSearchParent.tvTitleSub.setText(R.string.mg00_word_3);
             setListView(result.data);
         });
     }
@@ -138,9 +138,9 @@ public class MyGMenuActivity extends SubActivity<ActivityMygMenuBinding> {
 
     private void setListView(List<MenuVO> list) {
         if (list == null || list.size() < 1) {
-            ui.tvEmpty.setVisibility(View.VISIBLE);
+            ui.lSearchParent.tvEmpty.setVisibility(View.VISIBLE);
         } else {
-            ui.tvEmpty.setVisibility(View.GONE);
+            ui.lSearchParent.tvEmpty.setVisibility(View.GONE);
         }
         adapter.setRows(list);
         adapter.notifyDataSetChanged();
@@ -150,12 +150,12 @@ public class MyGMenuActivity extends SubActivity<ActivityMygMenuBinding> {
     private void reqListData(String keyword) {
         if (TextUtils.isEmpty(keyword)) {
             menuViewModel.reqRecentlyMenuList(MenuRepository.ACTION_GET_MENU_ALL, null); //최근 검색어
-            ui.etSearch.setBackgroundResource(R.drawable.bg_ffffff_stroke_dadde3);
+            ui.lSearchParent.etSearch.setBackgroundResource(R.drawable.bg_ffffff_stroke_dadde3);
         } else {
             MenuVO menuVO = new MenuVO();
             menuVO.setName(keyword);
             menuViewModel.reqKeywordMenuList(menuVO); //검색결과
-            ui.etSearch.setBackgroundResource(R.drawable.bg_ffffff_stroke_141414);
+            ui.lSearchParent.etSearch.setBackgroundResource(R.drawable.bg_ffffff_stroke_141414);
         }
     }
 

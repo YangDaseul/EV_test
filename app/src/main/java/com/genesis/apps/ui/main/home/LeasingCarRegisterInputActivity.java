@@ -119,7 +119,9 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
 
         switch (v.getId()){
             case R.id.btn_next://다음
-                isValid();
+                if(isValid()){
+                    //todo 신청하기 진행
+                }
                 break;
 
             case R.id.tv_csmr_scn_cd:
@@ -197,6 +199,11 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
 
             case R.id.tv_btr:
                 startActivitySingleTop(new Intent(this, LeasingCarBtrChangeActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
+
+            case R.id.btn_post_no:
+//                startActivitySingleTop(new Intent(this, .class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
                 break;
         }
 
@@ -290,6 +297,11 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
             TransitionManager.beginDelayedTransition(ui.container);
             constraintSets[pos].applyTo(ui.container);
             ui.tvMsg.setText(textMsgId[pos]);
+
+            if(csmrScnCd.equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14)&&pos>3){
+                views[3].setVisibility(View.GONE);
+            }
+
         }
     }
 
@@ -382,7 +394,6 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                         targetImgId = R.id.btn_emp_certi_img;
                     }else{
                         doTransition(4);
-                        views[3].setVisibility(View.GONE);
                     }
 
                     break;
@@ -394,6 +405,33 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
             return true;
         }
 
+    }
+
+    private boolean checkValidBtr(){
+
+        if(btrVO==null){
+            ui.tvErrorBtr.setText(R.string.gm_carlst_01_58);
+            return false;
+        }else{
+            ui.tvErrorBtr.setText("");
+            ui.btnNext.setText(R.string.gm_carlst_04_20);
+            doTransition(5);
+            return true;
+        }
+
+    }
+
+    private boolean checkValidAddr(){
+        if(addressZipVO==null){
+            ui.lAddrDetail.setError(getString(R.string.gm_carlst_01_59));
+            return false;
+        }else if(TextUtils.isEmpty(ui.etAddrDetail.getText().toString().trim())){
+            ui.lAddrDetail.setError(getString(R.string.gm_carlst_01_60));
+            return false;
+        }else{
+            ui.lAddrDetail.setError(null);
+            return true;
+        }
     }
 
 
@@ -416,28 +454,20 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                         return checkValidCsmrScnCd()&&checkValidPeriod();
                     //계약서 사진 입력하는 상태 인 경우
                     case R.id.l_emp_certi_img:
-                        return checkValidCsmrScnCd()&&checkValidPeriod()&&checkValidImg();
+                        if(csmrScnCd.equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14))
+                            break; //개인 인 경우는 체크하지 않는다.
+                        else
+                            return checkValidCsmrScnCd()&&checkValidPeriod()&&checkValidImg();
                     //재직증명서 입력하는 상태 인경우
                     case R.id.l_btr:
                         return checkValidCsmrScnCd()&&checkValidPeriod()&&checkValidImg();
 
                     case R.id.l_card:
-                        return checkValidCsmrScnCd()&&checkValidPeriod()&&checkValidImg();
+                        return checkValidCsmrScnCd()&&checkValidPeriod()&&checkValidImg()&&checkValidBtr();
                 }
             }
         }
-
-//        inputValue = ui.etAddrDetail.getText().toString();
-//
-//        if(addressZipVO==null){
-//            SnackBarUtil.show(this, "수령지 주소를 입력해 주세요.");
-//        }else if(TextUtils.isEmpty(inputValue)){
-//            SnackBarUtil.show(this, "상세 주소를 입력해 주세요.");
-//        }else{
-//            //todo 신청하기 진행
-//        }
-        return true;
-
+        return checkValidAddr();
     }
 
 
@@ -640,6 +670,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
             ui.tvBtrReptn.setText(PhoneNumberUtils.formatNumber(btrVO.getRepTn(), Locale.getDefault().getCountry()));
         }
 
+        checkValidBtr();
     }
 
 

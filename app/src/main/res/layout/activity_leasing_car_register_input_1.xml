@@ -69,7 +69,8 @@
 
                     <TextView
                         android:id="@+id/btn_post_no"
-                        style="@style/ButtonPostNo" />
+                        style="@style/ButtonPostNo"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"/>
 
 
                     <TextView
@@ -164,6 +165,10 @@
                         android:visibility="visible"
                         android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"/>
 
+                    <TextView
+                        android:id="@+id/tv_error_btr"
+                        style="@style/TextViewErrorBtr"
+                        tools:text="ddd"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -191,6 +196,9 @@
                         style="@style/TextViewErrorEmpCertiImg"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/barrier_distance_1"
+                    style="@style/BarrierDistance1"/>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/l_cnt_img"
