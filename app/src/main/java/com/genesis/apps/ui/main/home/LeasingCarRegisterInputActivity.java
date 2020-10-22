@@ -1,12 +1,18 @@
 package com.genesis.apps.ui.main.home;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.transition.ChangeBounds;
 import androidx.transition.Transition;
@@ -21,10 +27,13 @@ import com.genesis.apps.comm.model.gra.api.GNS_1003;
 import com.genesis.apps.comm.model.vo.AddressZipVO;
 import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.databinding.ActivityLeasingCarRegisterInput1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
+import com.theartofdev.edmodo.cropper.CropImage;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -107,6 +116,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                             csmrScnCd = VariableType.LEASING_CAR_CSMR_SCN_CD_1; //법인
                         }
 
+                        ui.tvTitleCsmrScnCd.setVisibility(View.VISIBLE);
                         ui.tvCsmrScnCd.setTextAppearance(R.style.TextViewCsmrScnCdEnable);
                         ui.tvCsmrScnCd.setText(result);
                         ui.tvErrorCsmrScnCd.setVisibility(View.GONE);
@@ -151,7 +161,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
 
                             ui.lRentPeriodEtc.setError(null);
                             ui.lRentPeriodEtc.setVisibility(View.GONE);
-
+                            ui.tvErrorRentPeriod.setVisibility(View.GONE);
                             if(result.equalsIgnoreCase(periodList.get(0))){
                                 rentPeriod = VariableType.LEASING_CAR_PERIOD_12; //12개월
                             }else if(result.equalsIgnoreCase(periodList.get(1))){
@@ -167,36 +177,28 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
 
                             ui.tvRentPeriod.setTextAppearance(R.style.TextViewRentPeriodEnable);
                             ui.tvRentPeriod.setText(result);
-                            doTransition(2);
-                            //TODO  기타일 때 값을 넘겨야한다면 DO TRANSITION이 안되게 수정 필요..
+                            ui.tvTitleRentPeriod.setVisibility(View.VISIBLE);
 
-
-
-//                            if(!TextUtils.isEmpty(inputValue)&&!inputValue.equalsIgnoreCase(getString(R.string.gm_carlst_01_30))&&!inputValue.equalsIgnoreCase(getString(R.string.gm_carlst_01_56))){
-//                                //빈값이 아니고, 대여 기간이 아니고 기타가 아니면
-//                                doTransition(2);
-//                                ui.lRentPeriodEtc.setError(null);
-//                            }else if(inputValue.equalsIgnoreCase(getString(R.string.gm_carlst_01_56))){
-//                                //대여기간이 기타 일 때
-//                                if(getPeriod()<12){
-//                                    ui.lRentPeriodEtc.setError(getString(R.string.gm_carlst_01_33));
-//                                }else{
-//                                    ui.lRentPeriodEtc.setError(null);
-//                                    doTransition(2);
-//                                }
-//                            }else{
-//                                SnackBarUtil.show(this, "대여 기간을 선택해 주세요.");
-//                            }
-
-
-
-
-
-
+                            if(result.equalsIgnoreCase(periodList.get(4))){
+                                ui.etRentPeriodEtc.setText("");
+                                ui.etRentPeriodEtc.requestFocus();
+                                SoftKeyboardUtil.showKeyboard(getApplicationContext());
+                            }else{
+                                doTransition(2);
+                            }
                         }
                     }
                 });
 
+
+                break;
+
+            case R.id.btn_cnt_img:
+//                CropImage.activity().start(this);
+
+                CropImage.startPickImageActivity(this);
+                break;
+            case R.id.btn_emp_certi_img:
 
                 break;
         }
@@ -373,7 +375,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                                 doTransition(2);
                             }
                         }else{
-                            SnackBarUtil.show(this, "대여 기간을 선택해 주세요.");
+                            ui.tvErrorRentPeriod.setVisibility(View.VISIBLE);
                         }
                         return;
 
@@ -542,15 +544,6 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
 
 
 
-
-
-
-
-
-
-
-
-
     private int getPeriod(){
         int period = 0;
         try{
@@ -560,6 +553,67 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
         }
 
         return period;
+    }
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+//        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+//            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+//            if (resultCode == RESULT_OK) {
+//                Uri resultUri = result.getUri();
+//            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+//                Exception error = result.getError();
+//            }
+//        }
+
+
+
+        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = CropImage.getPickImageResultUri(this,data);
+                String path = resultUri.getPath();
+                String name = new File(CropImage.getPickImageResultUri(this,data).getPath()).getName();
+                path = path.substring(path.lastIndexOf(".")+1,path.length());
+//                getContentResolver().getType(resultUri).;
+
+
+//                Bitmap bitmap = MediaStore.Images.Media(getContentResolver(), resultUri);
+//                imgUserProfile.setImageBitmap(bitmap);
+
+
+
+
+
+
+
+
+//
+//                Uri returnUri = returnIntent.getData();
+//                Cursor returnCursor =
+//                        getContentResolver().query(returnUri, null, null, null, null);
+//                /*
+//                 * Get the column indexes of the data in the Cursor,
+//                 * move to the first row in the Cursor, get the data,
+//                 * and display it.
+//                 */
+//                int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+//                int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
+//                returnCursor.moveToFirst();
+//                TextView nameView = (TextView) findViewById(R.id.filename_text);
+//                TextView sizeView = (TextView) findViewById(R.id.filesize_text);
+//                nameView.setText(returnCursor.getString(nameIndex));
+//                sizeView.setText(Long.toString(returnCursor.getLong(sizeIndex)));
+
+
+
+
+
+            }
+        }
     }
 
 

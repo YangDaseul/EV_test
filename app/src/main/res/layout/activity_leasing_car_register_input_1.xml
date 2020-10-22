@@ -181,7 +181,8 @@
 
                     <TextView
                         android:id="@+id/btn_emp_certi_img"
-                        style="@style/BtnEmpCertiImg" />
+                        style="@style/BtnEmpCertiImg"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"/>
 
                     <TextView
                         android:id="@+id/tv_error_emp_certi_img"
@@ -206,7 +207,8 @@
 
                     <TextView
                         android:id="@+id/btn_cnt_img"
-                        style="@style/ButtonCntImg" />
+                        style="@style/ButtonCntImg"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"/>
 
 
                     <TextView
@@ -231,6 +233,11 @@
                         android:id="@+id/tv_rent_period"
                         style="@style/TextViewRentPeriodDisable"
                         android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"/>
+
+                    <TextView
+                        android:id="@+id/tv_error_rent_period"
+                        style="@style/TextViewErrorRentPeriod"
+                        tools:visibility="gone" />
 
 
                     <com.google.android.material.textfield.TextInputLayout

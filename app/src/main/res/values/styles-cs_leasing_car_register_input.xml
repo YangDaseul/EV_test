@@ -507,6 +507,41 @@
     </style>
 
 
+
+
+    <style name="TextViewErrorRentPeriod">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">10sp</item>
+        <item name="android:text">@string/gm_carlst_01_57</item>
+        <item name="android:textColor">@color/x_ba544d</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:visibility">gone</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/tv_rent_period</item>
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <style name="TextViewRentPeriodDisable" parent="TextViewRentPeriod">
         <item name="android:textColor">@color/x_aaabaf</item>
         <item name="android:text">@string/gm_carlst_01_30</item>
@@ -547,10 +582,11 @@
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:hint">@string/gm_carlst_01_31</item>
         <item name="android:imeOptions">actionDone</item>
-        <item name="android:inputType">text</item>
+        <item name="android:inputType">number</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">6sp</item>
         <item name="android:padding">16dp</item>
+        <item name="android:maxLength">2</item>
         <item name="android:textColor">@color/x_000000</item>
         <item name="android:textCursorDrawable">@drawable/cursor_141414</item>
         <item name="android:textSize">15sp</item>
@@ -563,7 +599,6 @@
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/l_rent_period</item>
-        <item name="layout_goneMarginTop">30dp</item>
     </style>
     
     <style name="TextViewTitleCsmrScnCd">

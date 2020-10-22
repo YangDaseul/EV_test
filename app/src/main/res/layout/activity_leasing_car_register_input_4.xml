@@ -200,6 +200,11 @@
                 android:id="@+id/tv_rent_period"
                 style="@style/TextViewRentPeriod" />
 
+            <TextView
+                android:id="@+id/tv_error_rent_period"
+                style="@style/TextViewErrorRentPeriod"
+                tools:visibility="gone" />
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/l_rent_period_etc"
