@@ -14,9 +14,6 @@
             name="fragment"
             type="com.genesis.apps.ui.main.home.BluehandsFilterFragment"/>
 
-        <variable
-            name="activity"
-            type="com.genesis.apps.ui.main.home.BtrBluehandsFilterActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -81,7 +78,7 @@
                     android:id="@+id/tv_position_1"
                     style="@style/BtrPositionDisable"
                     android:layout_marginTop="6dp"
-                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
                     android:text="@string/bt06_4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -91,7 +88,7 @@
                     android:id="@+id/tv_position_2"
                     style="@style/BtrPositionDisable"
                     android:layout_marginTop="10dp"
-                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
                     android:text="@string/bt06_5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -108,9 +105,9 @@
 
                 <TextView
                     android:id="@+id/tv_category_1"
-                    style="@style/BtrFilterEnable"
+                    style="@style/BtrFilterDisable"
                     android:layout_marginTop="6dp"
-                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    android:onClick="@{(view)->fragment.onClickListener.onClick(view)}"
                     android:text="@string/bt06_6"
                     android:tag="A"
                     app:layout_constraintStart_toStartOf="parent"
@@ -120,7 +117,7 @@
                 <TextView
                     android:id="@+id/tv_category_2"
                     style="@style/BtrFilterDisable"
-                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    android:onClick="@{(view)->fragment.onClickListener.onClick(view)}"
                     android:text="@string/bt06_7"
                     android:tag="P"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -130,7 +127,7 @@
                 <TextView
                     android:id="@+id/tv_category_3"
                     style="@style/BtrFilterDisable"
-                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    android:onClick="@{(view)->fragment.onClickListener.onClick(view)}"
                     android:text="@string/bt06_8"
                     android:tag="C"
                     app:layout_constraintStart_toStartOf="parent"
@@ -140,7 +137,7 @@
                 <TextView
                     android:id="@+id/tv_category_4"
                     style="@style/BtrFilterDisable"
-                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    android:onClick="@{(view)->fragment.onClickListener.onClick(view)}"
                     android:text="@string/bt06_9"
                     android:tag="D"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -254,7 +251,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
-            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
             android:text="@string/bt06_13"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

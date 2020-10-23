@@ -68,9 +68,11 @@ class LGNViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<STO_1001.Response>> RES_STO_1001;
     private MutableLiveData<NetUIResponse<STO_1002.Response>> RES_STO_1002;
 
+    //map에서 사용하는 디폴트 위치 (현재위치 혹은 버틀러 위치 등..)
+    private MutableLiveData<List<Double>> position = new MutableLiveData<>();
 
-
-    private Double[] position = new Double[2];
+    //단말기의 현재 위치
+    private List<Double> myPosition = new ArrayList<>();
     
     
 //    public final LiveData<VehicleVO> carVO =
@@ -218,12 +220,24 @@ class LGNViewModel extends ViewModel {
     }
 
     public void setPosition(double x, double y){
-        position[0] = x;
-        position[1] = y;
+
+        List<Double> positions = new ArrayList<>();
+//        positions.add(37.463936);
+//        positions.add(127.042953);
+        positions.add(x);
+        positions.add(y);
+        position.setValue(positions);
+
     }
 
-    public Double[] getPosition(){
-        return position;
+    public void setMyPosition(double x, double y){
+        myPosition = new ArrayList<>();
+        myPosition.add(x);
+        myPosition.add(y);
+    }
+
+    public List<Double> getPositionValue(){
+        return position.getValue();
     }
 
 

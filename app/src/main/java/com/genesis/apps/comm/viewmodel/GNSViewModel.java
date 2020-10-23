@@ -7,6 +7,8 @@ import com.genesis.apps.comm.model.gra.api.GNS_1004;
 import com.genesis.apps.comm.model.gra.api.GNS_1005;
 import com.genesis.apps.comm.model.gra.api.GNS_1006;
 import com.genesis.apps.comm.model.gra.api.GNS_1007;
+import com.genesis.apps.comm.model.gra.api.GNS_1008;
+import com.genesis.apps.comm.model.gra.api.GNS_1009;
 import com.genesis.apps.comm.model.gra.api.GNS_1010;
 import com.genesis.apps.comm.model.repo.DBUserRepo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
@@ -58,9 +60,12 @@ class GNSViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<GNS_1006.Response>> RES_GNS_1006;
     private MutableLiveData<NetUIResponse<GNS_1007.Response>> RES_GNS_1007;
 
+    private MutableLiveData<NetUIResponse<GNS_1008.Response>> RES_GNS_1008;
+    private MutableLiveData<NetUIResponse<GNS_1009.Response>> RES_GNS_1009;
+
     private MutableLiveData<NetUIResponse<GNS_1010.Response>> RES_GNS_1010;
 
-    public final LiveData<List<VehicleVO>> carVO = Transformations.map(RES_GNS_1001, input -> input.data.getOwnVhclList());
+//    public final LiveData<List<VehicleVO>> carVO = Transformations.map(RES_GNS_1001, input -> input.data.getOwnVhclList());
 
 
 //    public final LiveData<VehicleVO> carVO =
@@ -92,6 +97,10 @@ class GNSViewModel extends ViewModel {
         RES_GNS_1006 = repository.RES_GNS_1006;
         RES_GNS_1007 = repository.RES_GNS_1007;
 
+        RES_GNS_1008 = repository.RES_GNS_1008;
+        RES_GNS_1009 = repository.RES_GNS_1009;
+
+
         RES_GNS_1010 = repository.RES_GNS_1010;
     }
 
@@ -122,6 +131,15 @@ class GNSViewModel extends ViewModel {
     public void reqGNS1007(final GNS_1007.Request reqData){
         repository.REQ_GNS_1007(reqData);
     }
+
+
+    public void reqGNS1008(final GNS_1008.Request reqData){
+        repository.REQ_GNS_1008(reqData);
+    }
+    public void reqGNS1009(final GNS_1009.Request reqData){
+        repository.REQ_GNS_1009(reqData);
+    }
+
     public void reqGNS1010(final GNS_1010.Request reqData){
         repository.REQ_GNS_1010(reqData);
     }

@@ -37,8 +37,11 @@ class PUBViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<PUB_1002.Response>> RES_PUB_1002;
     private MutableLiveData<NetUIResponse<PUB_1003.Response>> RES_PUB_1003;
 
-    public final LiveData<List<String>> listAddrSidoNm = Transformations.map(RES_PUB_1002, input -> getAddrNm(input.data.getSidoList()));
-    public final LiveData<List<String>> listAddrGuNm = Transformations.map(RES_PUB_1003, input -> getAddrGuNm(input.data.getGugunList()));
+//    public final LiveData<List<String>> listAddrSidoNm = Transformations.map(RES_PUB_1002, input -> getAddrNm(input.data.getSidoList()));
+//    public final LiveData<List<String>> listAddrGuNm = Transformations.map(RES_PUB_1003, input -> getAddrGuNm(input.data.getGugunList()));
+
+    private MutableLiveData<List<String>> filterInfo = new MutableLiveData<>();
+
 
     @ViewModelInject
     PUBViewModel(
@@ -64,23 +67,38 @@ class PUBViewModel extends ViewModel {
         repository.REQ_PUB_1003(reqData);
     }
 
-    public List<String> getAddrNm(List<AddressCityVO> list){
 
+    public void setFilterInfo(String fillerCd, String addr, String addrDtl){
+        List<String> fillterInfo = new ArrayList<>();
+        fillterInfo.add(0,fillerCd);
+        fillterInfo.add(1,addr);
+        fillterInfo.add(2,addrDtl);
+        filterInfo.setValue(fillterInfo);
+    }
+
+
+    public List<String> getAddrNm(){
         List<String> addrNmList = new ArrayList<>();
 
-        for(AddressCityVO addressCityVO : list){
-            addrNmList.add(addressCityVO.getSidoNm());
+        try {
+            for (AddressCityVO addressCityVO : RES_PUB_1002.getValue().data.getSidoList()) {
+                addrNmList.add(addressCityVO.getSidoNm());
+            }
+        }catch (Exception e){
+
         }
 
         return addrNmList;
     }
 
-    public List<String> getAddrGuNm(List<AddressGuVO> list){
-
+    public List<String> getAddrGuNm(){
         List<String> addrNmList = new ArrayList<>();
+        try {
+            for (AddressGuVO addressGuVO : RES_PUB_1003.getValue().data.getGugunList()) {
+                addrNmList.add(addressGuVO.getGugunNm());
+            }
+        }catch (Exception e){
 
-        for(AddressGuVO addressGuVO : list){
-            addrNmList.add(addressGuVO.getGugunNm());
         }
 
         return addrNmList;

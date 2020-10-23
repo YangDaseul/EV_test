@@ -16,6 +16,10 @@ import com.genesis.apps.comm.model.gra.api.GNS_1002;
 import com.genesis.apps.comm.model.gra.api.GNS_1003;
 import com.genesis.apps.comm.model.gra.api.GNS_1004;
 import com.genesis.apps.comm.model.gra.api.GNS_1005;
+import com.genesis.apps.comm.model.gra.api.GNS_1006;
+import com.genesis.apps.comm.model.gra.api.GNS_1007;
+import com.genesis.apps.comm.model.gra.api.GNS_1008;
+import com.genesis.apps.comm.model.gra.api.GNS_1009;
 import com.genesis.apps.comm.model.gra.api.GNS_1010;
 import com.genesis.apps.comm.model.gra.api.IST_1002;
 import com.genesis.apps.comm.model.gra.api.IST_1003;
@@ -419,6 +423,102 @@ public class TestCode {
             "  \"rtCd\": \"0000\",\n" +
             "  \"rtMsg\": \"성공\"\n" +
             "}",GNS_1005.Response.class);
+
+
+    public static GNS_1006.Response GNS_1006 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\"\n" +
+            "}",GNS_1006.Response.class);
+
+
+    public static GNS_1007.Response GNS_1007 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"subspList\": [\n" +
+            "    {\n" +
+            "      \"seqNo\": \"1\",\n" +
+            "      \"vin\": \"123456789A1234501\",\n" +
+            "      \"rentPeriod\": \"12\",\n" +
+            "      \"ctrctNo\": \"A01\",\n" +
+            "      \"subspDtm\": \"20201001000000\",\n" +
+            "      \"aprvStusCd\": \"W\",\n" +
+            "      \"aprvDtm\": \"20201001000000\",\n" +
+            "      \"rtnRsnMsg\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"seqNo\": \"2\",\n" +
+            "      \"vin\": \"123456789A1234502\",\n" +
+            "      \"rentPeriod\": \"13\",\n" +
+            "      \"ctrctNo\": \"A02\",\n" +
+            "      \"subspDtm\": \"20201002000000\",\n" +
+            "      \"aprvStusCd\": \"Y\",\n" +
+            "      \"aprvDtm\": \"20201002000000\",\n" +
+            "      \"rtnRsnMsg\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"seqNo\": \"3\",\n" +
+            "      \"vin\": \"123456789A1234503\",\n" +
+            "      \"rentPeriod\": \"13\",\n" +
+            "      \"ctrctNo\": \"A03\",\n" +
+            "      \"subspDtm\": \"20201003000000\",\n" +
+            "      \"aprvStusCd\": \"N\",\n" +
+            "      \"aprvDtm\": \"20201003000000\",\n" +
+            "      \"rtnRsnMsg\": \"계약서 미제출\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"seqNo\": \"4\",\n" +
+            "      \"vin\": \"123456789A1234504\",\n" +
+            "      \"rentPeriod\": \"14\",\n" +
+            "      \"ctrctNo\": \"A04\",\n" +
+            "      \"subspDtm\": \"20201004000000\",\n" +
+            "      \"aprvStusCd\": \"Y\",\n" +
+            "      \"aprvDtm\": \"20201004000000\",\n" +
+            "      \"rtnRsnMsg\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"seqNo\": \"5\",\n" +
+            "      \"vin\": \"123456789A1234505\",\n" +
+            "      \"rentPeriod\": \"15\",\n" +
+            "      \"ctrctNo\": \"A051\",\n" +
+            "      \"subspDtm\": \"20201005000000\",\n" +
+            "      \"aprvStusCd\": \"Y\",\n" +
+            "      \"aprvDtm\": \"20201005000000\",\n" +
+            "      \"rtnRsnMsg\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"seqNo\": \"6\",\n" +
+            "      \"vin\": \"123456789A1234506\",\n" +
+            "      \"rentPeriod\": \"66\",\n" +
+            "      \"ctrctNo\": \"A06\",\n" +
+            "      \"subspDtm\": \"20201006000000\",\n" +
+            "      \"aprvStusCd\": \"Y\",\n" +
+            "      \"aprvDtm\": \"20201006000000\",\n" +
+            "      \"rtnRsnMsg\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"seqNo\": \"7\",\n" +
+            "      \"vin\": \"123456789A1234507\",\n" +
+            "      \"rentPeriod\": \"17\",\n" +
+            "      \"ctrctNo\": \"A07\",\n" +
+            "      \"subspDtm\": \"20201007000000\",\n" +
+            "      \"aprvStusCd\": \"Y\",\n" +
+            "      \"aprvDtm\": \"20201007000000\",\n" +
+            "      \"rtnRsnMsg\": \"\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",GNS_1007.Response.class);
+    
+    
+    public static GNS_1008.Response GNS_1008 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\"\n" +
+            "}",GNS_1008.Response.class);
+    
+
+    public static GNS_1009.Response GNS_1009 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\"\n" +
+            "}",GNS_1009.Response.class);
 
     public static GNS_1010.Response GNS_1010 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +

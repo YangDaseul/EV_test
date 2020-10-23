@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.ChangeBounds;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
@@ -26,10 +28,16 @@ import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.GNS_1003;
+import com.genesis.apps.comm.model.gra.api.GNS_1006;
+import com.genesis.apps.comm.model.gra.api.GNS_1008;
+import com.genesis.apps.comm.model.gra.api.GNS_1009;
 import com.genesis.apps.comm.model.vo.AddressZipVO;
 import com.genesis.apps.comm.model.vo.BtrVO;
+import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.FileUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
+import com.genesis.apps.comm.viewmodel.GNSViewModel;
 import com.genesis.apps.databinding.ActivityLeasingCarRegisterInput1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
@@ -46,6 +54,9 @@ import java.util.Locale;
  * @brief 렌트/리스 실 운행자 등록 (차대번호 입력)
  */
 public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasingCarRegisterInput1Binding> {
+
+    private GNSViewModel gnsViewModel;
+
     private BottomListDialog bottomListDialog;
     private final int[] layouts = {R.layout.activity_leasing_car_register_input_1, R.layout.activity_leasing_car_register_input_2, R.layout.activity_leasing_car_register_input_3, R.layout.activity_leasing_car_register_input_4, R.layout.activity_leasing_car_register_input_5, R.layout.activity_leasing_car_register_input_6};
     private final int[] textMsgId = {R.string.gm_carlst_01_24, R.string.gm_carlst_01_29, R.string.gm_carlst_01_34, R.string.gm_carlst_01_39, R.string.gm_carlst_01_43, R.string.gm_carlst_01_46};
@@ -121,6 +132,16 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
             case R.id.btn_next://다음
                 if(isValid()){
                     //todo 신청하기 진행
+                    gnsViewModel.reqGNS1006(new GNS_1006.Request(APPIAInfo.GM_CARLST_01_01.getId(),
+                            vin,
+                            csmrScnCd,
+                            (rentPeriod.equalsIgnoreCase(VariableType.LEASING_CAR_PERIOD_ETC) ? getPeriod()+"" : rentPeriod),
+                            "3",
+                            addressZipVO.getZipNo(),
+                            addressZipVO.getRoadAddr(),
+                            ui.etAddrDetail.getText().toString().trim(),
+                            "Y",
+                            (csmrScnCd.equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14) ? "N" : "Y")));
                 }
                 break;
 
@@ -190,21 +211,17 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
 
 
                 break;
-
             case R.id.btn_cnt_img:
             case R.id.btn_emp_certi_img:
                 targetImgId = v.getId();
                 CropImage.startPickImageActivity(this);
                 break;
-
             case R.id.btn_btr:
             case R.id.tv_btr:
                 startActivitySingleTop(new Intent(this, LeasingCarBtrChangeActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
-
             case R.id.btn_post_no:
                 startActivitySingleTop(new Intent(this, SearchAddressActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-
                 break;
         }
 
@@ -224,11 +241,73 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
     public void setViewModel() {
         ui.setLifecycleOwner(this);
         ui.setActivity(this);
-//        btrViewModel = new ViewModelProvider(this).get(BTRViewModel.class);
+        gnsViewModel = new ViewModelProvider(this).get(GNSViewModel.class);
     }
 
     @Override
     public void setObserver() {
+
+        //렌트 리스 신청하기 결과
+        gnsViewModel.getRES_GNS_1006().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+
+                case SUCCESS:
+                    if(result.data.getRtCd().equalsIgnoreCase("0000")){
+                        if(csmrScnCd.equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14)){
+                            File file = new File(FileUtil.getRealPathFromURI(this, cntImagPath));
+                            gnsViewModel.reqGNS1008(new GNS_1008.Request(APPIAInfo.GM_CARLST_01_01.getId(), vin, file.getName(), file ));
+                        }else{
+                            File file = new File(FileUtil.getRealPathFromURI(this, empCertImagPath));
+                            gnsViewModel.reqGNS1009(new GNS_1009.Request(APPIAInfo.GM_CARLST_01_01.getId(), vin, file.getName(), file ));
+                        }
+                    }
+                    break;
+                default:
+                    showProgressDialog(false);
+                    break;
+            }
+        });
+
+        //렌트 리스 재직증명서 등록 결과
+        gnsViewModel.getRES_GNS_1009().observe(this, result -> {
+
+            switch (result.status){
+                case LOADING:
+
+                    break;
+
+                case SUCCESS:
+                default:
+                    File file = new File(FileUtil.getRealPathFromURI(this, cntImagPath));
+                    gnsViewModel.reqGNS1008(new GNS_1008.Request(APPIAInfo.GM_CARLST_01_01.getId(), vin, file.getName(), file));
+
+                    break;
+            }
+
+        });
+
+        //렌트 리스 계약서 이미지 등록 결과
+        gnsViewModel.getRES_GNS_1008().observe(this, result -> {
+
+            switch (result.status){
+                case LOADING:
+
+
+                    break;
+
+                case SUCCESS:
+                default:
+                    showProgressDialog(false);
+                    startActivitySingleTop(new Intent(this, LeasingCarHistActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    finish();
+                    break;
+            }
+
+        });
+
 //        pubViewModel.getRES_PUB_1002().observe(this, result -> {
 //            switch (result.status) {
 //                case LOADING:
@@ -582,55 +661,10 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-//        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-//            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-//            if (resultCode == RESULT_OK) {
-//                Uri resultUri = result.getUri();
-//            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-//                Exception error = result.getError();
-//            }
-//        }
 
-
-
-        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                Uri resultUri = CropImage.getPickImageResultUri(this,data);
-//                String path = resultUri.getPath();
-//                String name = new File(CropImage.getPickImageResultUri(this,data).getPath()).getName();
-
-                setImgAttach(resultUri);
-
-
-
-
-
-
-
-
-
-//
-//                Uri returnUri = returnIntent.getData();
-//                Cursor returnCursor =
-//                        getContentResolver().query(returnUri, null, null, null, null);
-//                /*
-//                 * Get the column indexes of the data in the Cursor,
-//                 * move to the first row in the Cursor, get the data,
-//                 * and display it.
-//                 */
-//                int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-//                int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
-//                returnCursor.moveToFirst();
-//                TextView nameView = (TextView) findViewById(R.id.filename_text);
-//                TextView sizeView = (TextView) findViewById(R.id.filesize_text);
-//                nameView.setText(returnCursor.getString(nameIndex));
-//                sizeView.setText(Long.toString(returnCursor.getLong(sizeIndex)));
-
-
-
-
-
-            }
+        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE&&resultCode == RESULT_OK) {
+            Uri resultUri = CropImage.getPickImageResultUri(this, data);
+            setImgAttach(resultUri);
         }else if(resultCode == ResultCodes.REQ_CODE_BTR.getCode()){
             btrVO = (BtrVO)data.getSerializableExtra(KeyNames.KEY_NAME_BTR);
             setBtrInfo();
@@ -646,13 +680,14 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
             case R.id.btn_cnt_img:
                 cntImagPath = resultUri;
                 ui.tvCntImg.setTextAppearance(R.style.TextViewCntImgEnable);
-                ui.tvCntImg.setText(cntImagPath.getPath());
+
+                ui.tvCntImg.setText(new File(FileUtil.getRealPathFromURI(this, cntImagPath)).getName());
                 ui.tvErrorCntImg.setText("");
                 break;
             case R.id.btn_emp_certi_img:
                 empCertImagPath = resultUri;
                 ui.tvEmpCertiImg.setTextAppearance(R.style.TextViewEmpCertiImgEnable);
-                ui.tvEmpCertiImg.setText(empCertImagPath.getPath());
+                ui.tvEmpCertiImg.setText(new File(FileUtil.getRealPathFromURI(this, empCertImagPath)).getName());
                 ui.tvErrorEmpCertiImg.setText("");
                 break;
         }

@@ -11,4 +11,5 @@
     <item name="addr" type="id"/>
     <item name="btr" type="id"/>
     <item name="noti_info" type="id"/>
+    <item name="leasing_car_hist" type="id"/>
 </resources>

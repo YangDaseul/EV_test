@@ -6,16 +6,23 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.ActivityBaseBinding;
+import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivity {
@@ -129,4 +136,86 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
     public void setResizeScreen(){
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE );
     }
+
+
+
+    public <T extends SubFragment> T getFragment(int id) {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(id);
+        return (T) fragment;
+    }
+
+    public <T extends SubFragment> List<T> getFragments() {
+        final List<T> fragmentList = new ArrayList<>();
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            if (fragment instanceof SubFragment) {
+                fragmentList.add((T) fragment);
+            }
+        }
+        return fragmentList;
+    }
+
+    public <T extends SubFragment> boolean isVisible(T subFragment) {
+        for (Fragment fragment : getFragments()) {
+            if (fragment.isVisible() && fragment.equals(subFragment)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public <T extends SubFragment> T getVisibleFragment() {
+        Fragment visibleFragment = null;
+        for (Fragment fragment : getFragments()) {
+            if (fragment.isVisible()) {
+                visibleFragment = fragment;
+                break;
+            }
+        }
+        return (T) visibleFragment;
+    }
+
+    public <T extends SubFragment> T getBackFragment(T visibleFragment) {
+        final List<T> fragmentList = getFragments();
+        final int index = fragmentList.indexOf(visibleFragment);
+        if (index > 0) {
+            return fragmentList.get(index - 1);
+        }
+        return null;
+    }
+
+    public <T extends SubFragment> void showFragment(T fragment) {
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_stay);
+        transaction.add(R.id.l_fragment, fragment).show(fragment);
+        transaction.commitAllowingStateLoss();
+    }
+
+    public <T extends SubFragment> void hideFragment(T fragment) {
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(0, R.anim.fragment_exit_toright);
+        transaction.remove(fragment);
+        transaction.commitAllowingStateLoss();
+    }
+
+    public void clearFragmentStack() {
+        try {
+            int backStackEntry = getSupportFragmentManager().getBackStackEntryCount();
+            if (backStackEntry > 0) {
+                for (int i = 0; i < backStackEntry; i++) {
+                    getSupportFragmentManager().popBackStackImmediate();
+                }
+            }
+            if (getSupportFragmentManager().getFragments().size() > 0) {
+                for (int i = 0; i < getSupportFragmentManager().getFragments().size(); i++) {
+                    Fragment fragment = getSupportFragmentManager().getFragments().get(i);
+                    if (fragment != null) {
+                        getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

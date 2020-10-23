@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -115,6 +116,10 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
         });
 
+        lgnViewModel.getPosition().observe(getViewLifecycleOwner(), doubles -> {
+            lgnViewModel.reqLGN0005(new LGN_0005.Request(APPIAInfo.GM01.getId(), String.valueOf(doubles.get(0)), String.valueOf(doubles.get(1))));
+        });
+
 
         setVideo();
         setViewWeather();
@@ -127,18 +132,15 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     }
 
     private void setViewWeather() {
-//        cmnViewModel.getDbContentsRepository()
-
 
         if(!((MainActivity)getActivity()).isGpsEnable()) {
             MiddleDialog.dialogGPS(getActivity(), () -> ((MainActivity)getActivity()).turnGPSOn(isGPSEnable -> {
             }), () -> {
                 //TODO 확인 클릭
             });
+
             //현대양재사옥위치
-            String nx="37.463936";
-            String ny="127.042953";
-            lgnViewModel.reqLGN0005(new LGN_0005.Request(APPIAInfo.GM01.getId(), nx, ny));
+            lgnViewModel.setPosition(37.463936,127.042953);
         }else{
             reqMyLocation();
         }
@@ -153,8 +155,10 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 return;
             }
 
-            lgnViewModel.setPosition(location.getLatitude(),location.getLongitude());
-            lgnViewModel.reqLGN0005(new LGN_0005.Request(APPIAInfo.GM01.getId(), String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude())));
+            getActivity().runOnUiThread(() -> {
+                //TODO 테스트 필요
+                lgnViewModel.setPosition(location.getLatitude(),location.getLongitude());
+            });
         },5000);
     }
 

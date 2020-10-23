@@ -7,7 +7,8 @@ public enum ResultCodes {
     REQ_CODE_EMPTY_INTENT(-2,"intent 데이터 없음"),
     REQ_CODE_NORMAL(1,"정상"),
     REQ_CODE_ADDR_ZIP(11,"주소(우편) 정보"),
-    REQ_CODE_BTR(12,"버틀러 정보");
+    REQ_CODE_BTR(12,"버틀러 정보"),
+    REQ_CODE_ADDR_FILTER(13,"필터 정보");;
 
     private int code;
     private String description;

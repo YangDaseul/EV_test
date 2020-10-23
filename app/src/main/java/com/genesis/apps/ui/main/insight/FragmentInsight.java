@@ -225,8 +225,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
 
                     istViewModel.reqIST1003(new IST_1003.Request(APPIAInfo.TM01.getId(), "INSGT", "INS-01"));
                     istViewModel.reqIST1004(new IST_1004.Request(APPIAInfo.TM01.getId(), "INSGT", "INS-02"));
-                    Double[] position = lgnViewModel.getPosition();
-                    istViewModel.reqIST1005(new IST_1005.Request(APPIAInfo.TM01.getId(), "INSGT", "INS-03",  String.valueOf(position[0]),String.valueOf(position[1]),mainVehicleInfo.getVin(),mainVehicleInfo.getMdlNm()));
+                    istViewModel.reqIST1005(new IST_1005.Request(APPIAInfo.TM01.getId(), "INSGT", "INS-03", String.valueOf(lgnViewModel.getPositionValue().get(0)),String.valueOf(lgnViewModel.getPositionValue().get(1)),mainVehicleInfo.getVin(),mainVehicleInfo.getMdlNm()));
                     break;
                 case VariableType.MAIN_VEHICLE_TYPE_CV://계약
                 case VariableType.MAIN_VEHICLE_TYPE_NV://차량없음
