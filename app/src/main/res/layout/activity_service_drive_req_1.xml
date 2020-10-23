@@ -124,7 +124,7 @@
         -->
         <TextView
             android:id="@+id/tv_service_drive_req_next_btn"
-            style="@style/ServiceDriveReq.Btn.Black"
+            style="@style/BigBtn.Black"
             android:elevation="10dp"
             android:text="@string/comm_next"
             android:visibility="gone"

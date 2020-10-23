@@ -28,12 +28,13 @@
     <!-- 전화하기 버튼 -->
     <TextView
         android:id="@+id/tv_service_drive_status_call_btn"
-        style="@style/ServiceDriveReq.Btn.Black"
+        style="@style/TextBtnBasic"
         android:layout_width="54dp"
         android:layout_height="36dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp"
+        android:background="@drawable/ripple_bg_141414"
+        android:fontFamily="@font/light_genesissansheadglobal"
         android:text="@string/service_drive_req_result_btn_01"
+        android:textColor="@color/x_ffffff"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
