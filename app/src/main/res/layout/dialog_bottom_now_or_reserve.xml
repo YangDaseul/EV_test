@@ -50,6 +50,8 @@
                     android:id="@+id/rb_dia_bottom_now_btn"
                     style="@style/ServiceReqDialog"
                     android:checked="true"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
                     android:text="@string/now_or_reserve_now" />
 
                 <RadioButton
@@ -65,55 +67,69 @@
                 android:id="@+id/tv_dia_bottom_now_or_reserve_noti"
                 style="@style/TextBasic"
                 android:layout_marginStart="30dp"
-                android:text="@string/now_or_reserve_desc" />
-
-            <!-- "예약일시" -->
-            <TextView
-                android:id="@+id/tv_dia_bottom_now_or_reserve_date_title"
-                style="@style/TextBasic"
-                android:layout_marginTop="25dp"
                 android:fontFamily="@font/regular_genesissanstextglobal"
-                android:text="@string/now_or_reserve_date"
-                android:textColor="@color/x_000000"
-                android:textSize="13sp" />
+                android:text="@string/now_or_reserve_desc"
+                android:textColor="@color/x_aaabaf"
+                android:textSize="14sp" />
 
-            <!-- 예약 날짜 선택 -->
-            <TextView
-                android:id="@+id/tv_dia_bottom_now_or_reserve_date_pick_btn"
-                style="@style/TextBtnBasic"
+            <!-- "예약일시" 및 날짜선택버튼. visibility 컨트롤 한 번에 하려고 묶음 -->
+            <LinearLayout
+                android:id="@+id/l_dia_bottom_now_or_reserve_date"
                 android:layout_width="match_parent"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/ripple_bg_ffffff_stroke_141414"
-                android:drawableRight="@drawable/ic_calendar"
-                android:gravity="center_vertical"
-                android:padding="16dp"
-                android:textColor="@color/x_000000"
-                android:textSize="15sp"
-                tools:text="2020.13.32 오후 27:61"
-                tools:visibility="visible" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
 
-            <!-- 요청 사항 입력
-            TODO 한 줄만 나와야되는데 개행 되고
-            힌트 색 이상함-->
+                <!-- "예약일시" -->
+                <TextView
+                    style="@style/TextBasic"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:text="@string/now_or_reserve_date"
+                    android:textColor="@color/x_000000"
+                    android:textSize="13sp" />
+
+                <!-- 예약 날짜 선택 -->
+                <TextView
+                    android:id="@+id/tv_dia_bottom_now_or_reserve_date_pick_btn"
+                    style="@style/TextBtnBasic"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/ripple_bg_ffffff_stroke_141414"
+                    android:drawableRight="@drawable/ic_calendar"
+                    android:gravity="center_vertical"
+                    android:padding="16dp"
+                    android:textColor="@color/x_000000"
+                    android:textSize="15sp"
+                    tools:text="2020.13.32 오후 27:61" />
+            </LinearLayout>
+            <!-- 요청 사항 입력 -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_dia_bottom_now_or_reserve_request"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:hint="@string/now_or_reserve_request"
-                android:padding="16dp"
                 app:boxBackgroundColor="@color/x_ffffff"
                 app:boxBackgroundMode="outline"
                 app:boxStrokeColor="@color/x_141414"
                 app:boxStrokeWidth="1dp"
-                app:counterMaxLength="40">
+                app:counterEnabled="true"
+                app:counterMaxLength="40"
+                app:counterOverflowTextColor="@color/x_ba544d"
+                app:hintTextColor="@color/x_141414">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tiet_dia_bottom_now_or_reserve_request_input"
                     style="@style/TextBasic"
                     android:layout_width="match_parent"
                     android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:padding="16dp"
                     android:textColor="@color/x_141414"
+                    android:textCursorDrawable="@drawable/cursor_000000"
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -122,8 +138,8 @@
         <!-- 다음 버튼 -->
         <TextView
             android:id="@+id/btn_ok"
-            style="@style/ServiceDriveReq.Btn.Black"
-            android:layout_marginTop="25dp"
+            style="@style/BigBtn.Black"
+            android:layout_marginTop="30dp"
             android:text="@string/comm_next"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

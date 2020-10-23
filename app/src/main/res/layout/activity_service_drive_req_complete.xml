@@ -40,7 +40,7 @@
 
     <TextView
         android:id="@+id/tv_service_drive_req_complete_ok_btn"
-        style="@style/ServiceDriveReq.Btn.Black"
+        style="@style/BigBtn.Black"
         android:text="@string/comm_word_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

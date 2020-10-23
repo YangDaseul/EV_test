@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@{isRound?@drawable/bg_f4f4f4_round_10:@color/x_f4f4f4}"
+        android:background="@{isRound?@drawable/bg_f4f4f4_round_10:@drawable/bg_f4f4f4}"
         android:paddingStart="15dp"
         android:paddingTop="20dp"
         android:paddingEnd="15dp"

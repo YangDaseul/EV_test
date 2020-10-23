@@ -211,7 +211,7 @@
         <!-- 취소/신청취소/예약취소 btn -->
         <TextView
             android:id="@+id/tv_service_drive_cancel_btn"
-            style="@style/ServiceDriveReq.Btn.White"
+            style="@style/BigBtn.White"
             android:layout_marginEnd="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tv_service_drive_re_request_btn"
@@ -223,7 +223,7 @@
         <!-- 다시요청 btn -->
         <TextView
             android:id="@+id/tv_service_drive_re_request_btn"
-            style="@style/ServiceDriveReq.Btn.Black"
+            style="@style/BigBtn.Black"
             android:layout_marginStart="0dp"
             android:text="@string/service_drive_req_result_btn_04"
             android:visibility="gone"

@@ -18,27 +18,27 @@
             type="android.graphics.drawable.Drawable" />
     </data>
 
-    <!-- 아이콘 높이가 텍스트에 정렬됨 -->
+    <!-- 아이콘 높이가 가운데 정렬 -->
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/l_service_maintenance_item"
+        android:id="@+id/l_maintenance_category_item_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/ripple_bg_ffffff_round_10"
         android:clickable="true"
         android:elevation="5dp"
         android:focusable="true"
         android:paddingStart="20dp"
-        android:paddingTop="20dp"
+        android:paddingTop="25dp"
         android:paddingEnd="15dp"
-        android:paddingBottom="20dp">
+        android:paddingBottom="25dp">
 
-        <!--  정비 항목 타이틀-->
+        <!--  정비 카테고리 타이틀-->
         <TextView
-            android:id="@+id/tv_service_maintenance_item_title"
+            android:id="@+id/tv_maintenance_category_item_title"
             style="@style/TextBasic"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:text="@{title}"
@@ -46,11 +46,11 @@
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="정비 항목 이름" />
+            tools:text="정비 카테고리 이름" />
 
-        <!--  정비 항목 텍스트-->
+        <!--  정비 카테고리 텍스트-->
         <TextView
-            android:id="@+id/tv_service_maintenance_item_desc"
+            android:id="@+id/tv_maintenance_category_item_desc"
             style="@style/TextBasic"
             android:layout_marginTop="14dp"
             android:fontFamily="@font/light_genesissansheadglobal"
@@ -59,38 +59,18 @@
             android:textColor="@color/x_aaabaf"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_service_maintenance_item_title"
-            tools:text="정비 항목 설명\n어쩌고저쩌고 울랄라뾰롱뾰롱" />
-
-        <!-- 긴급출동 출동중 : 긴급출동 한정 사용 -->
-        <TextView
-            android:id="@+id/tv_moving_now"
-            style="@style/TextBasic"
-            android:layout_marginStart="10dp"
-            android:background="@color/x_ba544d"
-            android:fontFamily="@font/light_genesissansheadglobal"
-            android:gravity="center"
-            android:paddingStart="10dp"
-            android:paddingTop="4dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="4dp"
-            android:text="@string/sm01_maintenance_7"
-            android:textColor="@color/x_ffffff"
-            android:textSize="12sp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/tv_service_maintenance_item_title"
-            app:layout_constraintStart_toEndOf="@id/tv_service_maintenance_item_title"
-            app:layout_constraintTop_toTopOf="@id/tv_service_maintenance_item_title"
-            tools:visibility="visible" />
+            app:layout_constraintTop_toBottomOf="@id/tv_maintenance_category_item_title"
+            tools:text="정비 카테고리 설명\n어쩌고저쩌고 울랄라뾰롱뾰롱" />
 
         <!--  정비 항목 아이콘-->
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@{icon}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_service_maintenance_item_desc"
-            tools:src="@drawable/ic_service_customercenter" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_service_autocare" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

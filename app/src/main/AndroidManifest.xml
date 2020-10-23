@@ -318,6 +318,10 @@
             android:theme="@style/TextInputLayout"
             android:exported="false"/>
 
+        <activity android:name=".ui.main.service.MaintenanceReserveActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+
         <service
             android:name=".fcm.FirebaseMessagingService">
             <intent-filter>

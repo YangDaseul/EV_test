@@ -22,7 +22,7 @@
 
             <!-- 서비스 네트워크 찾기 -->
             <TextView
-                android:id="@+id/tv_service_maintenance_find_network"
+                android:id="@+id/tv_service_maintenance_find_network_btn"
                 style="@style/TextBasic"
                 android:layout_width="match_parent"
                 android:layout_margin="20dp"
@@ -43,7 +43,7 @@
 
             <!--  정비 예약 -->
             <include
-                android:id="@+id/l_service_maintenance_reservation"
+                android:id="@+id/l_service_maintenance_reservation_btn"
                 layout="@layout/layout_service_maintenance_item"
                 app:desc="@{@string/sm01_maintenance_3}"
                 app:icon="@{@drawable/ic_service_reservation}"
@@ -51,7 +51,7 @@
 
             <!--  정비 이력 -->
             <include
-                android:id="@+id/l_service_maintenance_history"
+                android:id="@+id/l_service_maintenance_history_btn"
                 layout="@layout/layout_service_maintenance_item"
                 app:desc="@{@string/sm01_maintenance_5}"
                 app:icon="@{@drawable/ic_service_list}"
@@ -59,7 +59,7 @@
 
             <!--  정비 긴급출동 -->
             <include
-                android:id="@+id/l_service_maintenance_emergency"
+                android:id="@+id/l_service_maintenance_emergency_btn"
                 layout="@layout/layout_service_maintenance_item"
                 app:desc="@{@string/sm01_maintenance_8}"
                 app:icon="@{@drawable/ic_service_emergency}"
@@ -67,7 +67,7 @@
 
             <!--  정비 원격진단 -->
             <include
-                android:id="@+id/l_service_maintenance_customercenter"
+                android:id="@+id/l_service_maintenance_customercenter_btn"
                 layout="@layout/layout_service_maintenance_item"
                 app:desc="@{@string/sm01_maintenance_10}"
                 app:icon="@{@drawable/ic_service_customercenter}"
@@ -75,7 +75,7 @@
 
             <!--  정비 재발 -->
             <include
-                android:id="@+id/l_service_maintenance_defect"
+                android:id="@+id/l_service_maintenance_defect_btn"
                 layout="@layout/layout_service_maintenance_item"
                 app:desc="@{@string/sm01_maintenance_12}"
                 app:icon="@{@drawable/ic_service_defect}"

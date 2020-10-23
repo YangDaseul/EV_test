@@ -14,33 +14,41 @@
             android:id="@+id/l_service_drive_req_titlebar"
             layout="@layout/layout_titlebar"
             app:btnText="@{@string/service_drive_01}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:value="@{@string/sm01_service_driver_1}" />
 
-        <!-- TODO : 스크롤 범위 맞나 확인 처리-->
+        <!-- 상단 정보 : 차종/번호판 서비스 요금 등 뷰 -->
+        <include
+            android:id="@+id/l_service_drive_req_top_panel"
+            layout="@layout/layout_service_req_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            app:isRound="@{true}"
+            app:layout_constraintBottom_toTopOf="@id/l_service_drive_req_scroll_view"
+            app:layout_constraintTop_toBottomOf="@id/l_service_drive_req_titlebar" />
+
+        <!-- 스크롤 범위 : 입력내용 안내 메시지 ~ 입력 창 네 개 -->
         <ScrollView
             android:id="@+id/l_service_drive_req_scroll_view"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="20dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="20dp"
+            android:layout_height="0dp"
+            android:padding="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/l_service_drive_req_titlebar">
+            app:layout_constraintTop_toBottomOf="@id/l_service_drive_req_top_panel"
+            app:layout_goneMarginTop="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <!-- 상단 정보 : 차종/번호판 뷰 -->
-                <include
-                    android:id="@+id/l_service_drive_req_top_panel"
-                    layout="@layout/layout_service_req_panel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="30dp"
-                    app:isRound="@{true}" />
 
                 <!-- "출발/도착지 주소를 입력해라" : 01 ~ 04 번 str -->
                 <TextView
@@ -116,16 +124,19 @@
                         style="@style/ServiceDrive.SearchFrom.NoData" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- 스크롤 범위 더미 : 이 뒤에 나올 다음 버튼과 같은 높이를 가져야 함.
+                     텍스트 지우면 높이 달라짐 -->
+                <TextView
+                    style="@style/BigBtn.Black"
+                    android:text="더미"
+                    android:visibility="invisible" />
             </LinearLayout>
         </ScrollView>
 
-        <!-- 다음 버튼
-        TODO 그림자 도대체 왜 안 생기냐 ㅠㅠ
-        -->
         <TextView
             android:id="@+id/tv_service_drive_req_next_btn"
-            style="@style/ServiceDriveReq.Btn.Black"
-            android:elevation="10dp"
+            style="@style/BigBtn.Black"
             android:text="@string/comm_next"
             android:visibility="gone"
             app:elevation="10dp"
