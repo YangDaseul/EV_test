@@ -88,9 +88,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_sm_service_drive_dec2_title" />
 
-            <!-- 신청 내역 버튼 -->
+            <!-- 신청 또는 신청 현황 버튼 -->
             <TextView
-                android:id="@+id/tv_sm_service_drive_history_btn"
+                android:id="@+id/tv_service_drive_req_btn"
                 style="@style/TextBtnBasic"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/ripple_bg_141414"
