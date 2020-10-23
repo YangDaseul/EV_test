@@ -6,30 +6,19 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.TextView;
-
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.GNS_1011;
-import com.genesis.apps.comm.model.gra.api.PUB_1002;
-import com.genesis.apps.comm.model.gra.api.PUB_1003;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.SnackBarUtil;
-import com.genesis.apps.comm.viewmodel.BTRViewModel;
 import com.genesis.apps.comm.viewmodel.GNSViewModel;
-import com.genesis.apps.comm.viewmodel.PUBViewModel;
-import com.genesis.apps.databinding.ActivityBtrFilterBinding;
+import com.genesis.apps.databinding.ActivityLeasingCarHistDetailBinding;
 import com.genesis.apps.databinding.ActivityLeasingCarRegisterBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 
-import java.util.List;
+import androidx.lifecycle.ViewModelProvider;
 
 import static com.genesis.apps.comm.model.constants.KeyNames.KEY_NAME_VIN;
 
@@ -37,15 +26,14 @@ import static com.genesis.apps.comm.model.constants.KeyNames.KEY_NAME_VIN;
  * @author hjpark
  * @brief 렌트/리스 실 운행자 등록 (차대번호 입력)
  */
-public class LeasingCarVinRegisterActivity extends SubActivity<ActivityLeasingCarRegisterBinding> {
+public class LeasingCarHistDetailActivity extends SubActivity<ActivityLeasingCarHistDetailBinding> {
     private GNSViewModel gnsViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setResizeScreen();
-
-        setContentView(R.layout.activity_leasing_car_register);
+        setContentView(R.layout.activity_leasing_car_hist_detail);
         getDataFromIntent();
         setViewModel();
         setObserver();
@@ -182,44 +170,6 @@ public class LeasingCarVinRegisterActivity extends SubActivity<ActivityLeasingCa
 
 
         });
-
-
-
-//        pubViewModel.getRES_PUB_1002().observe(this, result -> {
-//            switch (result.status) {
-//                case LOADING:
-//                    showProgressDialog(true);
-//                    break;
-//                case SUCCESS:
-//                    showProgressDialog(false);
-//                    ui.tvPosition1.setText(R.string.bt06_4);
-//                    ui.tvPosition1.setTextAppearance(R.style.BtrPositionDisable);
-//                    ui.tvPosition2.setText(R.string.bt06_5);
-//                    ui.tvPosition2.setTextAppearance(R.style.BtrPositionDisable);
-//                    break;
-//                default:
-//                    showProgressDialog(false);
-//                    break;
-//            }
-//        });
-//        pubViewModel.getRES_PUB_1003().observe(this, result -> {
-//            switch (result.status) {
-//                case LOADING:
-//                    showProgressDialog(true);
-//                    break;
-//                case SUCCESS:
-//                    showProgressDialog(false);
-//                    break;
-//                default:
-//                    ui.tvPosition1.setText(R.string.bt06_4);
-//                    ui.tvPosition1.setTextAppearance(R.style.BtrPositionDisable);
-//                    ui.tvPosition2.setText(R.string.bt06_5);
-//                    ui.tvPosition2.setTextAppearance(R.style.BtrPositionDisable);
-//                    pubViewModel.getRES_PUB_1003().setValue(null);
-//                    showProgressDialog(false);
-//                    break;
-//            }
-//        });
     }
 
     @Override

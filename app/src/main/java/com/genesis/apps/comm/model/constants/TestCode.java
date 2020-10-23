@@ -21,6 +21,7 @@ import com.genesis.apps.comm.model.gra.api.GNS_1007;
 import com.genesis.apps.comm.model.gra.api.GNS_1008;
 import com.genesis.apps.comm.model.gra.api.GNS_1009;
 import com.genesis.apps.comm.model.gra.api.GNS_1010;
+import com.genesis.apps.comm.model.gra.api.GNS_1011;
 import com.genesis.apps.comm.model.gra.api.IST_1002;
 import com.genesis.apps.comm.model.gra.api.IST_1003;
 import com.genesis.apps.comm.model.gra.api.IST_1004;
@@ -563,6 +564,13 @@ public class TestCode {
             "}\n",GNS_1010.Response.class);
 
 
+    public static GNS_1011.Response GNS_1011 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"rgstPsblYn\": \"Y\"\n" +
+            "}",GNS_1011.Response.class);
+
+
     public static MYP_1005.Response MYP_1005 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
             "  \"rtMsg\": \"성공\",\n" +
@@ -598,6 +606,8 @@ public class TestCode {
             "    }\n" +
             "  ]\n" +
             "}\n", MYP_1005.Response.class);
+
+
 
 
     public static BTR_1001.Response BTR_1001 = new Gson().fromJson("{\n" +

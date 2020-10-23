@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
@@ -99,7 +100,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
 
         });
 
-
+        new Handler().postDelayed(() -> SnackBarUtil.show(LeasingCarRegisterInputActivity.this, getString(R.string.gm_carlst_01_snackbar_1)),2000);
 
 
 //        ui.etVin.addTextChangedListener(new TextWatcher() {

@@ -10,6 +10,7 @@ import com.genesis.apps.comm.model.gra.api.GNS_1007;
 import com.genesis.apps.comm.model.gra.api.GNS_1008;
 import com.genesis.apps.comm.model.gra.api.GNS_1009;
 import com.genesis.apps.comm.model.gra.api.GNS_1010;
+import com.genesis.apps.comm.model.gra.api.GNS_1011;
 import com.genesis.apps.comm.model.repo.DBUserRepo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.GNSRepo;
@@ -65,6 +66,8 @@ class GNSViewModel extends ViewModel {
 
     private MutableLiveData<NetUIResponse<GNS_1010.Response>> RES_GNS_1010;
 
+    private MutableLiveData<NetUIResponse<GNS_1011.Response>> RES_GNS_1011;
+    
 //    public final LiveData<List<VehicleVO>> carVO = Transformations.map(RES_GNS_1001, input -> input.data.getOwnVhclList());
 
 
@@ -102,6 +105,8 @@ class GNSViewModel extends ViewModel {
 
 
         RES_GNS_1010 = repository.RES_GNS_1010;
+
+        RES_GNS_1011 = repository.RES_GNS_1011;
     }
 
     public void reqGNS1001(final GNS_1001.Request reqData){
@@ -143,6 +148,11 @@ class GNSViewModel extends ViewModel {
     public void reqGNS1010(final GNS_1010.Request reqData){
         repository.REQ_GNS_1010(reqData);
     }
+
+    public void reqGNS1011(final GNS_1011.Request reqData){
+        repository.REQ_GNS_1011(reqData);
+    }
+
 
     public void setGNS1001ToDB(GNS_1001.Response data, ResultCallback callback){
         ExecutorService es = new ExecutorService("");
