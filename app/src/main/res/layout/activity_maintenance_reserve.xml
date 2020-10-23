@@ -8,6 +8,7 @@
         android:orientation="vertical">
 
         <include
+            android:id="@+id/l_maintenance_reserv_titlebar"
             layout="@layout/layout_titlebar"
             app:value="@{@string/maintenance_reserve_title}" />
 
