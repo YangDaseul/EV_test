@@ -19,6 +19,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_service_maintenance_item"
         style="@style/ServiceMaintenanceItem"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"

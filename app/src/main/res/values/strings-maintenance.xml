@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maintenance_reserve_title">정비 예약</string>
+
+    <string name="maintenance_category_title">정비 내용</string>
+    <string name="maintenance_category_desc">정비할 부품을 선택해주세요.</string>
+    <string name="maintenance_category_01">냉난방 부품</string>
+    <string name="maintenance_category_02">차체 및 일반 부품</string>
+    <string name="maintenance_category_03">소모성 부품</string>
+    <string name="maintenance_category_04">엔진 주요 부품</string>
+    <string name="maintenance_category_05">동력 전달 부품</string>
+    <string name="maintenance_category_06">정비내용</string>
+    <string name="maintenance_category_07">기타</string>
+
+    <string name="maintenance_service_title">서비스</string>
+    <string name="maintenance_service_item_01">찾아가는 오토케어</string>
+    <string name="maintenance_service_desc_01">차량이 있는 곳으로 찾아가서\n정비해 드리는 서비스</string>
+    <string name="maintenance_service_item_02">에어포트</string>
+    <string name="maintenance_service_desc_02">김포공항에서 차량을 픽업/정비하고\n주차해 드리는 서비스</string>
+    <string name="maintenance_service_item_03">홈투홈</string>
+    <string name="maintenance_service_desc_03">차량을 픽업/정비하고\n배달해드리는 서비스</string>
+    <string name="maintenance_service_item_04">정비소</string>
+    <string name="maintenance_service_desc_04">서비스 네트워크 (블루핸즈)\n정비 서비스</string>
+
+
+</resources>
