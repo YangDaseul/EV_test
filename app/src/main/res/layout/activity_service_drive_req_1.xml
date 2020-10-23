@@ -14,6 +14,9 @@
             android:id="@+id/l_service_drive_req_titlebar"
             layout="@layout/layout_titlebar"
             app:btnText="@{@string/service_drive_01}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:value="@{@string/sm01_service_driver_1}" />
 
         <!-- 상단 정보 : 차종/번호판 서비스 요금 등 뷰 -->

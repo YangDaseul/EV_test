@@ -13,7 +13,6 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.databinding.FragmentServiceMaintenanceBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
-import com.genesis.apps.ui.common.activity.test.TestActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 
 public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceBinding> {
@@ -72,8 +71,7 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
 
             //정비 예약
             case R.id.l_service_maintenance_reservation_btn:
-//                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MaintenanceReserveActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                startActivity(new Intent(getActivity(), MaintenanceReserveActivity.class));
+                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MaintenanceReserveActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
 
             //정비 현황/예약 내역
