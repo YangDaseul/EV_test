@@ -211,8 +211,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         .with(getContext())
                         .load(vehicleVO.getVhclImgUri())
                         .centerInside()
-                        .error(R.drawable.car_3)
-                        .placeholder(R.drawable.car_3)
+                        .error(R.drawable.car_new_44)
+                        .placeholder(R.drawable.car_new_44)
                         .into(me.ivCar);
 
                 me.btnShare.setVisibility(View.GONE);

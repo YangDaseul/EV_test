@@ -82,4 +82,7 @@
     <string name="gm02_inv01_2">%s%% 유사</string>
     <string name="gm02_inv01_3">예약한 차량의\n유사 차량들입니다.</string>
 
+
+    <string name="bcode01_1">편집</string>
+    <string name="bcode01_2">완료</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.main;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
@@ -161,26 +162,32 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
         public void onBindView(CardVO item, final int pos) {
 
             int iconId = R.drawable.logo_genesis_w;
+            int bgId = R.color.x_141414;
             switch (item.getIsncCd()){
                 case OIL_CODE_HDOL:
                     iconId = R.drawable.logo_hyundaioilbank_w;
+                    bgId = R.color.x_323a3d;
                     break;
                 case OIL_CODE_GSCT:
                     iconId = R.drawable.logo_gs_w;
+                    bgId = R.color.x_000000;
                     break;
                 case OIL_CODE_SOIL:
                     iconId = R.drawable.logo_soil_w;
+                    bgId = R.color.x_82898b;
                     break;
                 case OIL_CODE_SKNO:
                     iconId = R.drawable.logo_sk_w;
+                    bgId = R.color.x_4f585b;
                     break;
                 case OIL_CODE_BLUE:
                 default:
                     iconId = R.drawable.logo_genesis_w;
+                    bgId = R.color.x_141414;
                     break;
             }
-
             getBinding().ivLogo.setImageResource(iconId);
+            getBinding().lCard.setBackgroundColor(getContext().getColor(bgId));
         }
 
         @Override

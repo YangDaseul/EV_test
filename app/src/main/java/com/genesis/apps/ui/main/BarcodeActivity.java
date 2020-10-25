@@ -15,6 +15,8 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.BAR_1001;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.DeviceUtil;
+import com.genesis.apps.comm.util.RecyclerViewDecoration;
 import com.genesis.apps.comm.util.VibratorUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -22,6 +24,7 @@ import com.genesis.apps.databinding.ActivityBarcodeBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.activity.test.CardViewAadapter;
 import com.genesis.apps.ui.common.activity.test.ItemMoveCallback;
+import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.test.Link;
 
 import java.util.LinkedList;
@@ -44,19 +47,10 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
         cmnViewModel.reqBAR1001(new BAR_1001.Request(APPIAInfo.Bcode01.getId()));
     }
 
-    private void initView() {
-
-        barcodeAdapter2 = new BarcodeAdapter();
-        barcodeAdapter2.setViewType(CardViewAadapter.TYPE_LINE);
-        ItemTouchHelper.Callback callback = new ItemMoveCallback(barcodeAdapter2);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(ui.recyclerView);
-        ui.recyclerView.setLayoutManager(new LinearLayoutManager(BarcodeActivity.this));
-        ui.recyclerView.setAdapter(barcodeAdapter2);
-
+    private void initCardView(){
+        barcodeAdapter = new BarcodeAdapter();
         ui.viewPager.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
         ui.viewPager.setOffscreenPageLimit(offsetPageLimit);
-        barcodeAdapter = new BarcodeAdapter();
         ui.viewPager.setAdapter(barcodeAdapter);
 
         ui.pagerContainer.setOverlapSlider(0f,0f,0.5f,-120f);
@@ -85,35 +79,34 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
                 super.onPageScrollStateChanged(state);
             }
         });
+    }
 
-        ui.toggle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(barcodeAdapter!=null){
-                    switch (barcodeAdapter.getViewType()) {
-                        case CardViewAadapter.TYPE_CARD:
-                            ui.pagerContainer.setVisibility(View.GONE);
-                            ui.recyclerView.setVisibility(View.VISIBLE);
-                            barcodeAdapter2.setRows(barcodeAdapter.getItems());
-                            barcodeAdapter2.notifyDataSetChanged();
-                            break;
-                        case CardViewAadapter.TYPE_LINE:
-                            ui.pagerContainer.setVisibility(View.VISIBLE);
-                            ui.recyclerView.setVisibility(View.GONE);
-                            break;
-                    }
-                }
-            }
-        });
+    private void initLineView(){
+        barcodeAdapter2 = new BarcodeAdapter();
+        barcodeAdapter2.setViewType(CardViewAadapter.TYPE_LINE);
+        ItemTouchHelper.Callback callback = new ItemMoveCallback(barcodeAdapter2);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(ui.recyclerView);
+        ui.recyclerView.setLayoutManager(new LinearLayoutManager(BarcodeActivity.this));
+        ui.recyclerView.setAdapter(barcodeAdapter2);
+        ui.recyclerView.addItemDecoration(new RecyclerViewDecoration((int) DeviceUtil.dip2Pixel(this,1.0f)));
+    }
 
-        ui.confirm.setOnClickListener(new View.OnClickListener() {
+    private void initView() {
+        initCardView();
+        initLineView();
+
+        ui.lTitle.tvTitlebarTextBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onSingleClick(View v) {
                 try{
                     showProgressDialog(true);
                     if(cmnViewModel.changeCardOrder(barcodeAdapter2.getItems())){
+                        initCardView();
                         ui.pagerContainer.setVisibility(View.VISIBLE);
                         ui.recyclerView.setVisibility(View.GONE);
+                        ui.lTitle.lTitleBar.setVisibility(View.GONE);
+                        ui.btnSettings.setVisibility(View.VISIBLE);
                         barcodeAdapter.setRows(barcodeAdapter2.getItems());
                         barcodeAdapter.notifyDataSetChanged();
                     }
@@ -124,6 +117,32 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
                 }
             }
         });
+
+        ui.btnSettings.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                if(barcodeAdapter!=null){
+                    switch (barcodeAdapter.getViewType()) {
+                        case CardViewAadapter.TYPE_CARD:
+                            ui.pagerContainer.setVisibility(View.GONE);
+                            ui.lTitle.lTitleBar.setVisibility(View.VISIBLE);
+                            ui.recyclerView.setVisibility(View.VISIBLE);
+                            barcodeAdapter2.setRows(barcodeAdapter.getItems());
+                            barcodeAdapter2.notifyDataSetChanged();
+                            ui.btnSettings.setVisibility(View.GONE);
+                            break;
+                        case CardViewAadapter.TYPE_LINE:
+                            ui.btnSettings.setVisibility(View.VISIBLE);
+                            ui.pagerContainer.setVisibility(View.VISIBLE);
+                            ui.recyclerView.setVisibility(View.GONE);
+                            ui.lTitle.lTitleBar.setVisibility(View.GONE);
+                            break;
+                    }
+                }
+            }
+        });
+
+
 
     }
 
