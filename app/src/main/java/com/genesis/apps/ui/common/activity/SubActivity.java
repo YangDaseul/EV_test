@@ -134,7 +134,18 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
     public abstract void getDataFromIntent();
 
     public void setResizeScreen(){
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE );
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+//        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
+//        WindowManager.LayoutParams lp = getWindow().getAttributes();
+//        lp.flags &= ~WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
+//        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+//        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+//        getWindow().setAttributes(lp);
+
     }
 
 

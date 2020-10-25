@@ -11,9 +11,12 @@ import com.genesis.apps.comm.model.gra.api.GNS_1008;
 import com.genesis.apps.comm.model.gra.api.GNS_1009;
 import com.genesis.apps.comm.model.gra.api.GNS_1010;
 import com.genesis.apps.comm.model.gra.api.GNS_1011;
+import com.genesis.apps.comm.model.gra.api.GNS_1012;
+import com.genesis.apps.comm.model.gra.api.GNS_1013;
+import com.genesis.apps.comm.model.gra.api.GNS_1014;
+import com.genesis.apps.comm.model.gra.api.GNS_1015;
 import com.genesis.apps.comm.model.repo.DBUserRepo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
-import com.genesis.apps.comm.model.repo.GNSRepo;
 import com.genesis.apps.comm.model.repo.GNSRepo;
 import com.genesis.apps.comm.model.vo.UserVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
@@ -22,7 +25,6 @@ import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.room.ResultCallback;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
-import com.google.gson.Gson;
 
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 
@@ -33,14 +35,11 @@ import java.util.concurrent.Future;
 
 import androidx.hilt.Assisted;
 import androidx.hilt.lifecycle.ViewModelInject;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 import lombok.Data;
 
-import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_0000;
 import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_CV;
 import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_OV;
 
@@ -67,17 +66,11 @@ class GNSViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<GNS_1010.Response>> RES_GNS_1010;
 
     private MutableLiveData<NetUIResponse<GNS_1011.Response>> RES_GNS_1011;
-    
-//    public final LiveData<List<VehicleVO>> carVO = Transformations.map(RES_GNS_1001, input -> input.data.getOwnVhclList());
 
-
-//    public final LiveData<VehicleVO> carVO =
-//            Transformations.switchMap(RES_GNS_1001, new Function<NetUIResponse<GNS_1001.Response>, LiveData<VehicleVO>>() {
-//                @Override
-//                public LiveData<VehicleVO> apply(NetUIResponse<GNS_1001.Response> input) {
-//                    return input.data.getCarVO(); repo에서 getcarvo로 가저올수있는.. 다른걸 요청 가능
-//                }
-//            });
+    private MutableLiveData<NetUIResponse<GNS_1012.Response>> RES_GNS_1012;
+    private MutableLiveData<NetUIResponse<GNS_1013.Response>> RES_GNS_1013;
+    private MutableLiveData<NetUIResponse<GNS_1014.Response>> RES_GNS_1014;
+    private MutableLiveData<NetUIResponse<GNS_1015.Response>> RES_GNS_1015;
 
     @ViewModelInject
     GNSViewModel(
@@ -107,6 +100,11 @@ class GNSViewModel extends ViewModel {
         RES_GNS_1010 = repository.RES_GNS_1010;
 
         RES_GNS_1011 = repository.RES_GNS_1011;
+
+        RES_GNS_1012 = repository.RES_GNS_1012;
+        RES_GNS_1013 = repository.RES_GNS_1013;
+        RES_GNS_1014 = repository.RES_GNS_1014;
+        RES_GNS_1015 = repository.RES_GNS_1015;
     }
 
     public void reqGNS1001(final GNS_1001.Request reqData){
@@ -153,6 +151,21 @@ class GNSViewModel extends ViewModel {
         repository.REQ_GNS_1011(reqData);
     }
 
+    public void reqGNS1012(final GNS_1012.Request reqData){
+        repository.REQ_GNS_1012(reqData);
+    }
+
+    public void reqGNS1013(final GNS_1013.Request reqData){
+        repository.REQ_GNS_1013(reqData);
+    }
+
+    public void reqGNS1014(final GNS_1014.Request reqData){
+        repository.REQ_GNS_1014(reqData);
+    }
+
+    public void reqGNS1015(final GNS_1015.Request reqData){
+        repository.REQ_GNS_1015(reqData);
+    }
 
     public void setGNS1001ToDB(GNS_1001.Response data, ResultCallback callback){
         ExecutorService es = new ExecutorService("");
@@ -236,9 +249,6 @@ class GNSViewModel extends ViewModel {
 //                    VehicleVO vehicleFirst = list.get(0);
 //
 //                    if(vehicleFirst.get)
-
-
-
                 }
 
 
@@ -255,6 +265,9 @@ class GNSViewModel extends ViewModel {
             es.shutDownExcutor();
         }
     }
+
+
+
 
     public VehicleVO getVehicle(String vin) throws ExecutionException, InterruptedException{
         ExecutorService es = new ExecutorService("");

@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.insight;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.IST_1002;
@@ -33,10 +36,12 @@ import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentInsightBinding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
+import com.genesis.apps.ui.main.home.BtrConsultApplyActivity;
 import com.genesis.apps.ui.main.insight.view.InsightArea1Adapter;
 import com.genesis.apps.ui.main.insight.view.InsightArea2Adapter;
 import com.genesis.apps.ui.main.insight.view.InsightArea3Adapter;
 import com.genesis.apps.ui.main.insight.view.InsightCarAdapter;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -112,6 +117,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                             list.add(result.data.getCurrMthAmt());
                             insightCarAdapter.setViewType(InsightCarAdapter.TYPE_CAR);
                         }else{
+                            list.add(new ISTAmtVO("0","0","0","0","0"));
                             list.add(new ISTAmtVO("0","0","0","0","0"));
                             insightCarAdapter.setViewType(InsightCarAdapter.TYPE_EMPTY);
                         }
@@ -196,7 +202,11 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
     public void onClickCommon(View v) {
 
         switch (v.getId()){
-
+            case R.id.l_car_expn_graph:
+            case R.id.chart:
+                //차계부 클릭 시
+                ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), InsightExpnMainActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
 
         }
     }

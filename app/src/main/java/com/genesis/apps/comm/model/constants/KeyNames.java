@@ -19,5 +19,6 @@ public interface KeyNames {
     String KEY_NAME_MAP_CITY="city";
     String KEY_NAME_MAP_GU="gu";
     String KEY_NAME_APPLY_LEASINGCAR="applyLeasingCar";
+    String KEY_NAME_DATA_LEASINGCAR="rentStatusVO";
     String KEY_NAME_BTR_CNSL_LIST="selectCdValId";
 }

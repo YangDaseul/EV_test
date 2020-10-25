@@ -10,4 +10,28 @@
     <string name="tm01_9">약 %s분 후 도착 예정입니다.</string>
     <string name="tm01_10">기사님 위치보기</string>
 
+    <string name="tm_exps01_1">차계부</string>
+    <string name="tm_exps01_2">추가</string>
+    <string name="tm_exps01_3">월</string>
+    <string name="tm_exps01_4">전체</string>
+    <string name="tm_exps01_5"></string>
+    <string name="tm_exps01_6"></string>
+    <string name="tm_exps01_7"></string>
+    <string name="tm_exps01_8">기타</string>
+    <string name="tm_exps01_9">누적주행거리</string>
+    <string name="tm_exps01_10">지출액</string>
+    <string name="tm_exps01_11">원</string>
+    <string name="tm_exps01_12">더보기</string>
+    <string name="tm_exps01_13">주유</string>
+    <string name="tm_exps01_14">정비</string>
+    <string name="tm_exps01_15">세차</string>
+    <string name="tm_exps01_16">주차</string>
+    <string name="tm_exps01_17">통행</string>
+    <string name="tm_exps01_18">보험</string>
+    <string name="tm_exps01_19">세금</string>
+    <string name="tm_exps01_20">용품</string>
+    <string name="tm_exps01_21">기타</string>
+    <string name="tm_exps01_22">조회할 날짜(월)를 선택해 주세요.</string>
+    <string name="tm_exps01_23">조회할 날짜(년)를 선택해 주세요.</string>
+    <string name="tm_exps01_24">조회할 차량을 선택해 주세요.</string>
 </resources>

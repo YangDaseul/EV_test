@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
+    <data>
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.main.home.LeasingCarHistActivity" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
@@ -25,6 +32,7 @@
             android:layout_marginTop="20dp"
             android:scaleType="centerInside"
             android:src="@drawable/btn_add"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/l_title" />

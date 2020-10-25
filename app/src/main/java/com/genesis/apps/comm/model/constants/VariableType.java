@@ -39,6 +39,31 @@ public class VariableType {
     public static final String MAIN_HOME_INSIGHT_TIL ="TIL"; //텍스트+이미지+링크
     public static final String MAIN_HOME_INSIGHT_SYS ="SYS"; //고정된 메시지 유형?
 
+    //인사이트 지출분류
+//    public static final String INSIGHT_EXPN_DIV_CODE_1000 ="1000"; //주유
+//    public static final String INSIGHT_EXPN_DIV_CODE_2000 ="2000"; //정비
+//    public static final String INSIGHT_EXPN_DIV_CODE_3000 ="3000"; //세차
+//    public static final String INSIGHT_EXPN_DIV_CODE_4000 ="4000"; //주차
+//    public static final String INSIGHT_EXPN_DIV_CODE_5000 ="5000"; //통행
+//    public static final String INSIGHT_EXPN_DIV_CODE_6000 ="6000"; //보험
+//    public static final String INSIGHT_EXPN_DIV_CODE_7000 ="7000"; //세금
+//    public static final String INSIGHT_EXPN_DIV_CODE_8000 ="8000"; //용품
+//    public static final String INSIGHT_EXPN_DIV_CODE_9000 ="9000"; //기타
+    public static final String INSIGHT_EXPN_DIV_CODE_1000 ="주유"; //주유
+    public static final String INSIGHT_EXPN_DIV_CODE_2000 ="정비"; //정비
+    public static final String INSIGHT_EXPN_DIV_CODE_3000 ="세차"; //세차
+    public static final String INSIGHT_EXPN_DIV_CODE_4000 ="주차"; //주차
+    public static final String INSIGHT_EXPN_DIV_CODE_5000 ="통행"; //통행
+    public static final String INSIGHT_EXPN_DIV_CODE_6000 ="보험"; //보험
+    public static final String INSIGHT_EXPN_DIV_CODE_7000 ="세금"; //세금
+    public static final String INSIGHT_EXPN_DIV_CODE_8000 ="용품"; //용품
+    public static final String INSIGHT_EXPN_DIV_CODE_9000 ="기타"; //기타
+
+
+
+
+
+
 
     //버틀러신청코드유형
     public static final String BTR_APPLY_CODE_1000 = "1000"; //신규신청

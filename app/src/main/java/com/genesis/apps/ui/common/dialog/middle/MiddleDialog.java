@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.util.GpsUtils;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.databinding.DialogMiddleTwoButtonBinding;
 import com.genesis.apps.databinding.DialogUpdateBinding;
@@ -156,6 +155,36 @@ public class MiddleDialog {
 
                     binding.tvTitle.setText(R.string.gm_bt01_p02_1);
                     binding.tvMsg.setText(R.string.gm_bt01_p02_2);
+                    binding.tvMsg.setMovementMethod(new ScrollingMovementMethod());
+
+                    binding.btnCancel.setText(R.string.dialog_common_1);
+                    binding.btnOk.setText(R.string.dialog_common_2);
+
+                    binding.btnCancel.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (cancel != null) cancel.run();
+                    });
+                    binding.btnOk.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (ok != null) ok.run();
+                    });
+                }).show()
+        );
+    }
+
+
+
+    public static void dialogLeasingCarApplyCancel(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                new CustomDialog(activity, dialog -> {
+                    DialogMiddleTwoButtonBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_middle_two_button, null, false);
+                    dialog.setContentView(binding.getRoot());
+
+                    binding.tvTitle.setText(R.string.gm_carlst_01_p05_1);
+                    binding.tvMsg.setText(R.string.gm_carlst_01_p05_2);
                     binding.tvMsg.setMovementMethod(new ScrollingMovementMethod());
 
                     binding.btnCancel.setText(R.string.dialog_common_1);

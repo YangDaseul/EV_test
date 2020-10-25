@@ -20,7 +20,6 @@ import com.genesis.apps.databinding.ActivityMyCarBinding;
 import com.genesis.apps.room.ResultCallback;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.main.home.view.CarHorizontalAdapter;
-import com.genesis.apps.ui.myg.MyGMembershipUseListActivity;
 
 import java.util.List;
 
@@ -191,12 +190,25 @@ public class MyCarActivity extends SubActivity<ActivityMyCarBinding> {
                 }
 
                 break;
-//            case R.id.btn_use_list://TODO 멤버십고유번호는 임시로
-//                startActivitySingleTop(new Intent(this, MyGMembershipUseListActivity.class).putExtra("mbrshMbrMgmtNo", "1"), RequestCodes.REQ_CODE_ACTIVITY.getCode());
-//                break;
-//            case R.id.btn_password:
-//                startActivitySingleTop(new Intent(this, MyGMembershipCardPasswordActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode());
-//                break;
+
+            case R.id.btn_ris:
+
+                String actoprRgstYn = "N";
+                try{
+                    actoprRgstYn = gnsViewModel.getRES_GNS_1001().getValue().data.getActoprRgstYn();
+                }catch (Exception e){
+                    actoprRgstYn = "N";
+                }finally{
+
+                    if(actoprRgstYn.equalsIgnoreCase("N")){
+                        //등록확인메뉴로 이동
+                        startActivitySingleTop(new Intent(this, LeasingCarVinRegisterActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    }else{
+                        //내역으로 이동
+                        startActivitySingleTop(new Intent(this, LeasingCarHistActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    }
+                }
+                break;
         }
 
     }

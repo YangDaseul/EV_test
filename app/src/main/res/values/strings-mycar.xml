@@ -63,9 +63,9 @@
     <string name="gm_carlst_01_58">전담 블루핸즈/버틀러를 신청해 주세요.</string>
     <string name="gm_carlst_01_59">주소를 입력해 주세요.</string>
     <string name="gm_carlst_01_60">상세 주소를 입력해 주세요.</string>
-    <string name="gm_carlst_01_61"></string>
-    <string name="gm_carlst_01_62"></string>
-    <string name="gm_carlst_01_63"></string>
+    <string name="gm_carlst_01_61">법인 임직원</string>
+    <string name="gm_carlst_01_62">개인 렌트리스</string>
+    <string name="gm_carlst_01_63">개월</string>
 
 
     <string name="gm_carlst_01_01_1">주소 검색</string>

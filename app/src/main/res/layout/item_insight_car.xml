@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/l_whole"
+        android:id="@+id/l_car_expn_graph"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_ffffff_round_10"
+        android:background="@drawable/ripple_bg_ffffff_round_10"
         android:layout_margin="5dp"
         android:elevation="5dp"
         android:paddingBottom="25dp"

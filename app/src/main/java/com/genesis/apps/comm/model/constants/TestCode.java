@@ -6,6 +6,7 @@ import com.genesis.apps.comm.model.gra.api.BTR_1008;
 import com.genesis.apps.comm.model.gra.api.BTR_2001;
 import com.genesis.apps.comm.model.gra.api.BTR_2002;
 import com.genesis.apps.comm.model.gra.api.BTR_2003;
+import com.genesis.apps.comm.model.gra.api.CBK_1002;
 import com.genesis.apps.comm.model.gra.api.CMN_0001;
 import com.genesis.apps.comm.model.gra.api.CMN_0002;
 import com.genesis.apps.comm.model.gra.api.CTT_1001;
@@ -22,6 +23,10 @@ import com.genesis.apps.comm.model.gra.api.GNS_1008;
 import com.genesis.apps.comm.model.gra.api.GNS_1009;
 import com.genesis.apps.comm.model.gra.api.GNS_1010;
 import com.genesis.apps.comm.model.gra.api.GNS_1011;
+import com.genesis.apps.comm.model.gra.api.GNS_1012;
+import com.genesis.apps.comm.model.gra.api.GNS_1013;
+import com.genesis.apps.comm.model.gra.api.GNS_1014;
+import com.genesis.apps.comm.model.gra.api.GNS_1015;
 import com.genesis.apps.comm.model.gra.api.IST_1002;
 import com.genesis.apps.comm.model.gra.api.IST_1003;
 import com.genesis.apps.comm.model.gra.api.IST_1004;
@@ -36,6 +41,7 @@ import com.genesis.apps.comm.model.gra.api.PUB_1002;
 import com.genesis.apps.comm.model.gra.api.PUB_1003;
 import com.genesis.apps.comm.model.gra.api.STO_1001;
 import com.genesis.apps.comm.model.gra.api.STO_1002;
+import com.genesis.apps.comm.model.vo.RentStatusVO;
 import com.google.gson.Gson;
 
 public class TestCode {
@@ -569,6 +575,92 @@ public class TestCode {
             "  \"rtMsg\": \"성공\",\n" +
             "  \"rgstPsblYn\": \"Y\"\n" +
             "}",GNS_1011.Response.class);
+
+
+    public static GNS_1012.Response GNS_1012 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"seqNo\": \"1\",\n" +
+            "  \"vin\": \"TEST1234578965412\",\n" +
+            "  \"csmrScnCd\": \"1\",\n" +
+            "  \"asnNm\": \"현대공업\",\n" +
+            "  \"repTn\": \"021245121\",\n" +
+            "  \"pbzAdr\": \"서울시 구로구 고척동 1450\",\n" +
+            "  \"crdRcvScnCd\": \"3\",\n" +
+            "  \"crdRcvZip\": \"12248\",\n" +
+            "  \"crdRcvAdr\": \"경기도 안산시 성포동\",\n" +
+            "  \"crdRcvDtlAdr\": \"주공 4단지 404동\",\n" +
+            "  \"ctrctNo\": \"12342S\",\n" +
+            "  \"attachFilName\": \"20101248_032.jpg\",\n" +
+            "  \"cnttUrl\": \"www.naver.com\",\n" +
+            "  \"subspDtm\": \"20201024110000\",\n" +
+            "  \"aprvStusCd\": \"W\",\n" +
+            "  \"aprvDtm\": \"20201024110000\",\n" +
+            "  \"rtnRsnMsg\": \"거절\"\n" +
+            "}",GNS_1012.Response.class);
+
+    public static RentStatusVO GNS_1012_REJECT = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"seqNo\": \"1\",\n" +
+            "  \"vin\": \"TEST1234578965412\",\n" +
+            "  \"csmrScnCd\": \"1\",\n" +
+            "  \"asnNm\": \"현대공업\",\n" +
+            "  \"repTn\": \"021245121\",\n" +
+            "  \"pbzAdr\": \"서울시 구로구 고척동 1450\",\n" +
+            "  \"crdRcvScnCd\": \"3\",\n" +
+            "  \"crdRcvZip\": \"12248\",\n" +
+            "  \"crdRcvAdr\": \"경기도 안산시 성포동\",\n" +
+            "  \"crdRcvDtlAdr\": \"주공 4단지 404동\",\n" +
+            "  \"ctrctNo\": \"12342S\",\n" +
+            "  \"attachFilName\": \"20101248_032.jpg\",\n" +
+            "  \"cnttUrl\": \"www.naver.com\",\n" +
+            "  \"subspDtm\": \"20201024110000\",\n" +
+            "  \"aprvStusCd\": \"N\",\n" +
+            "  \"aprvDtm\": \"20201024110000\",\n" +
+            "  \"rtnRsnMsg\": \"거절\"\n" +
+            "}",RentStatusVO.class);
+
+    public static RentStatusVO GNS_1012_WAIT = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"seqNo\": \"1\",\n" +
+            "  \"vin\": \"TEST1234578965412\",\n" +
+            "  \"csmrScnCd\": \"1\",\n" +
+            "  \"asnNm\": \"현대공업\",\n" +
+            "  \"repTn\": \"021245121\",\n" +
+            "  \"pbzAdr\": \"서울시 구로구 고척동 1450\",\n" +
+            "  \"crdRcvScnCd\": \"3\",\n" +
+            "  \"crdRcvZip\": \"12248\",\n" +
+            "  \"crdRcvAdr\": \"경기도 안산시 성포동\",\n" +
+            "  \"crdRcvDtlAdr\": \"주공 4단지 404동\",\n" +
+            "  \"ctrctNo\": \"12342S\",\n" +
+            "  \"attachFilName\": \"20101248_032.jpg\",\n" +
+            "  \"cnttUrl\": \"www.naver.com\",\n" +
+            "  \"subspDtm\": \"20201024110000\",\n" +
+            "  \"aprvStusCd\": \"W\",\n" +
+            "  \"aprvDtm\": \"20201024110000\",\n" +
+            "  \"rtnRsnMsg\": \"거절\"\n" +
+            "}",RentStatusVO.class);
+
+
+    public static GNS_1013.Response GNS_1013 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\"\n" +
+            "}",GNS_1013.Response.class);
+
+    public static GNS_1014.Response GNS_1014 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\"\n" +
+            "}",GNS_1014.Response.class);
+
+    public static GNS_1015.Response GNS_1015 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\"\n" +
+            "}",GNS_1015.Response.class);
+
+
+    
 
 
     public static MYP_1005.Response MYP_1005 = new Gson().fromJson("{\n" +
@@ -1292,5 +1384,149 @@ public class TestCode {
             "}",CTT_1002.Response.class);
     public static CTT_1004.Response CTT_1004 = new Gson().fromJson("",CTT_1004.Response.class);
 
+
+    public static CBK_1002.Response CBK_1002 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"totCnt\": \"23\",\n" +
+            "  \"delYn\": \"Y\",\n" +
+            "  \"refulSumAmt\": \"430000\",\n" +
+            "  \"rparSumAmt\": \"1103000\",\n" +
+            "  \"carWshSumAmt\": \"183000\",\n" +
+            "  \"etcSumAmt\": \"180000\",\n" +
+            "  \"expnList\": [\n" +
+            "    {\n" +
+            "      \"expnSeqNo\": \"2020101100000020\",\n" +
+            "      \"vin\": \"TEST\",\n" +
+            "      \"carRgstNo\": \"99호9999\",\n" +
+            "      \"mdlNm\": \"GV80\",\n" +
+            "      \"expnDivNm\": \"통행\",\n" +
+            "      \"expnDtm\": \"20201011180213\",\n" +
+            "      \"expnAmt\": \"80000\",\n" +
+            "      \"accmMilg\": \"3\",\n" +
+            "      \"expnPlc\": \"현대 통행\",\n" +
+            "      \"rgstChnlNm\": \"본인등록\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"expnSeqNo\": \"2020101200000019\",\n" +
+            "      \"vin\": \"TEST\",\n" +
+            "      \"carRgstNo\": \"99호9999\",\n" +
+            "      \"mdlNm\": \"GV80\",\n" +
+            "      \"expnDivNm\": \"주차\",\n" +
+            "      \"expnDtm\": \"20201013180158\",\n" +
+            "      \"expnAmt\": \"80000\",\n" +
+            "      \"accmMilg\": \"3\",\n" +
+            "      \"expnPlc\": \"현대 주차\",\n" +
+            "      \"rgstChnlNm\": \"본인등록\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"expnSeqNo\": \"2020101300000017\",\n" +
+            "      \"vin\": \"TEST\",\n" +
+            "      \"carRgstNo\": \"99호9999\",\n" +
+            "      \"mdlNm\": \"GV80\",\n" +
+            "      \"expnDivNm\": \"세차\",\n" +
+            "      \"expnDtm\": \"20201015180134\",\n" +
+            "      \"expnAmt\": \"80000\",\n" +
+            "      \"accmMilg\": \"3\",\n" +
+            "      \"expnPlc\": \"현대 세차\",\n" +
+            "      \"rgstChnlNm\": \"본인등록\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"expnSeqNo\": \"2020101000000016\",\n" +
+            "      \"vin\": \"TEST\",\n" +
+            "      \"carRgstNo\": \"99호9999\",\n" +
+            "      \"mdlNm\": \"GV80\",\n" +
+            "      \"expnDivNm\": \"세차\",\n" +
+            "      \"expnDtm\": \"20201010180128\",\n" +
+            "      \"expnAmt\": \"80000\",\n" +
+            "      \"accmMilg\": \"3\",\n" +
+            "      \"expnPlc\": \"현대 세차\",\n" +
+            "      \"rgstChnlNm\": \"본인등록\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"expnSeqNo\": \"2020101000000014\",\n" +
+            "      \"vin\": \"TEST\",\n" +
+            "      \"carRgstNo\": \"99호9999\",\n" +
+            "      \"mdlNm\": \"GV80\",\n" +
+            "      \"expnDivNm\": \"정비\",\n" +
+            "      \"expnDtm\": \"20201005180103\",\n" +
+            "      \"expnAmt\": \"80000\",\n" +
+            "      \"accmMilg\": \"3\",\n" +
+            "      \"expnPlc\": \"현대 정비\",\n" +
+            "      \"rgstChnlNm\": \"본인등록\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"expnSeqNo\": \"2020101000000014\",\n" +
+            "      \"vin\": \"TEST\",\n" +
+            "      \"carRgstNo\": \"99호9999\",\n" +
+            "      \"mdlNm\": \"GV80\",\n" +
+            "      \"expnDivNm\": \"정비\",\n" +
+            "      \"expnDtm\": \"20201005180103\",\n" +
+            "      \"expnAmt\": \"80000\",\n" +
+            "      \"accmMilg\": \"3\",\n" +
+            "      \"expnPlc\": \"현대 정비\",\n" +
+            "      \"rgstChnlNm\": \"본인등록\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"expnSeqNo\": \"2020101000000014\",\n" +
+            "      \"vin\": \"TEST\",\n" +
+            "      \"carRgstNo\": \"99호9999\",\n" +
+            "      \"mdlNm\": \"GV80\",\n" +
+            "      \"expnDivNm\": \"정비\",\n" +
+            "      \"expnDtm\": \"20201005180103\",\n" +
+            "      \"expnAmt\": \"80000\",\n" +
+            "      \"accmMilg\": \"3\",\n" +
+            "      \"expnPlc\": \"현대 정비\",\n" +
+            "      \"rgstChnlNm\": \"본인등록\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"expnSeqNo\": \"2020101000000014\",\n" +
+            "      \"vin\": \"TEST\",\n" +
+            "      \"carRgstNo\": \"99호9999\",\n" +
+            "      \"mdlNm\": \"GV80\",\n" +
+            "      \"expnDivNm\": \"정비\",\n" +
+            "      \"expnDtm\": \"20201005180103\",\n" +
+            "      \"expnAmt\": \"80000\",\n" +
+            "      \"accmMilg\": \"3\",\n" +
+            "      \"expnPlc\": \"현대 정비\",\n" +
+            "      \"rgstChnlNm\": \"본인등록\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"expnSeqNo\": \"2020101000000011\",\n" +
+            "      \"vin\": \"TEST\",\n" +
+            "      \"carRgstNo\": \"99호9999\",\n" +
+            "      \"mdlNm\": \"GV80\",\n" +
+            "      \"expnDivNm\": \"주유\",\n" +
+            "      \"expnDtm\": \"20201003180025\",\n" +
+            "      \"expnAmt\": \"80000\",\n" +
+            "      \"accmMilg\": \"3\",\n" +
+            "      \"expnPlc\": \"현대 주유소\",\n" +
+            "      \"rgstChnlNm\": \"본인등록\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"expnSeqNo\": \"2020101000000010\",\n" +
+            "      \"vin\": \"TEST\",\n" +
+            "      \"carRgstNo\": \"99호9999\",\n" +
+            "      \"mdlNm\": \"GV80\",\n" +
+            "      \"expnDivNm\": \"주유\",\n" +
+            "      \"expnDtm\": \"20201010180018\",\n" +
+            "      \"expnAmt\": \"80000\",\n" +
+            "      \"accmMilg\": \"3\",\n" +
+            "      \"expnPlc\": \"현대 주유소\",\n" +
+            "      \"rgstChnlNm\": \"본인등록\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"expnSeqNo\": \"2020101400000026\",\n" +
+            "      \"vin\": \"TEST\",\n" +
+            "      \"mdlNm\": \"GV80\",\n" +
+            "      \"expnDivNm\": \"주유\",\n" +
+            "      \"expnDtm\": \"20201002171849\",\n" +
+            "      \"expnAmt\": \"20000\",\n" +
+            "      \"accmMilg\": \"100\",\n" +
+            "      \"expnPlc\": \"현대 주유소\",\n" +
+            "      \"rgstChnlNm\": \"본인등록\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}", CBK_1002.Response.class);
 
 }

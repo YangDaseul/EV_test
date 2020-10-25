@@ -24,7 +24,7 @@
 
         <include
             android:id="@+id/l_title"
-            layout="@layout/layout_titlebar"
+            layout="@layout/layout_titlebar_use_edittext"
             app:value="@{@string/gm_carlst_01_7}" />
 
         <ScrollView

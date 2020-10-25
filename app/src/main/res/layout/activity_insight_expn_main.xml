@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.main.insight.InsightExpnMainActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/x_ffffff">
+
+        <include
+            android:id="@+id/l_title"
+            layout="@layout/layout_titlebar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:value="@{@string/tm_exps01_1}" />
+
+
+        <TextView
+            android:id="@+id/btn_month"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="16dp"
+            android:textColor="@color/x_000000"
+            android:textSize="15sp"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="6sp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="left|center_vertical"
+            android:drawableRight="@drawable/btn_dropdown"
+            android:drawablePadding="20dp"
+            android:background="@drawable/ripple_bg_ffffff_stroke_dadde3"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_title"
+            tools:text="7월"/>
+
+        <TextView
+            android:id="@+id/btn_vehicle"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="16dp"
+            android:textColor="@color/x_000000"
+            android:textSize="15sp"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="6sp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="left|center_vertical"
+            android:drawableRight="@drawable/btn_dropdown"
+            android:drawablePadding="20dp"
+            android:background="@drawable/ripple_bg_ffffff_stroke_dadde3"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            app:layout_constraintStart_toEndOf="@+id/btn_month"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_title"
+            tools:text="GV70 123제 4567"/>
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintDimensionRatio="1.5:1"
+            app:layout_constraintTop_toBottomOf="@+id/btn_month"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        <TextView
+            android:id="@+id/tv_empty_chart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/gm_carlst_02_29"
+            android:textColor="@color/x_141414"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:gravity="center"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="2sp"
+            android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+            app:layout_constraintTop_toTopOf="@+id/chart"
+            app:layout_constraintBottom_toBottomOf="@+id/chart"
+            app:layout_constraintStart_toStartOf="@+id/chart"
+            app:layout_constraintEnd_toEndOf="@+id/chart"
+            tools:visibility="gone"/>
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="20dp"
+            android:background="@color/x_f4f4f4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chart"
+            tools:listitem="@layout/item_insight_expn" />
+
+        <TextView
+            android:id="@+id/tv_empty"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/gm_carlst_02_29"
+            android:textColor="@color/x_141414"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:gravity="center"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="2sp"
+            android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+            app:layout_constraintTop_toTopOf="@+id/rv"
+            app:layout_constraintBottom_toBottomOf="@+id/rv"
+            app:layout_constraintStart_toStartOf="@+id/rv"
+            app:layout_constraintEnd_toEndOf="@+id/rv"
+            tools:visibility="gone"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

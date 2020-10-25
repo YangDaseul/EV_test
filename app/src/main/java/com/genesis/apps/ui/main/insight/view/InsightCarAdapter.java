@@ -112,6 +112,10 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
 //            getBinding().chart.getAxisRight().setAxisMaximum(Float.parseFloat(item.getTotUseAmt())*120/100);
 //            getBinding().chart.getAxisLeft().setAxisMaximum(Float.parseFloat(item.getTotUseAmt())*120/100);
 
+
+            getBinding().lCarExpnGraph.setOnClickListener(onSingleClickListener);
+            getBinding().chart.setOnClickListener(onSingleClickListener);
+
             //데이터에 따른 max값 정의
             float maxValue = getMaxValue(item);
             getBinding().chart.getAxisRight().setAxisMaximum(maxValue);
@@ -290,6 +294,12 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
         @Override
         public void onBindView(ISTAmtVO item, final int pos) {
 
+            getBinding().lCarExpnGraph.setOnClickListener(onSingleClickListener);
+            if(pos==0){
+                getBinding().ivEmpty.setImageResource(R.drawable.item_insight_car_empty_1);
+            }else{
+                getBinding().ivEmpty.setImageResource(R.drawable.item_insight_car_empty_2);
+            }
         }
 
         @Override

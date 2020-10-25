@@ -1,26 +1,14 @@
 package com.genesis.apps.ui.main.home;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
-import android.widget.TextView;
-
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.transition.ChangeBounds;
-import androidx.transition.Transition;
-import androidx.transition.TransitionManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
@@ -28,13 +16,11 @@ import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.GNS_1003;
 import com.genesis.apps.comm.model.gra.api.GNS_1006;
 import com.genesis.apps.comm.model.gra.api.GNS_1008;
 import com.genesis.apps.comm.model.gra.api.GNS_1009;
 import com.genesis.apps.comm.model.vo.AddressZipVO;
 import com.genesis.apps.comm.model.vo.BtrVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.FileUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
@@ -42,13 +28,19 @@ import com.genesis.apps.comm.viewmodel.GNSViewModel;
 import com.genesis.apps.databinding.ActivityLeasingCarRegisterInput1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
-import com.genesis.apps.ui.main.AlarmCenterSearchActivity;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.transition.ChangeBounds;
+import androidx.transition.Transition;
+import androidx.transition.TransitionManager;
 
 /**
  * @author hjpark
@@ -296,54 +288,16 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
             switch (result.status){
                 case LOADING:
 
-
                     break;
-
                 case SUCCESS:
                 default:
                     showProgressDialog(false);
-                    startActivitySingleTop(new Intent(this, LeasingCarHistActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    startActivitySingleTop(new Intent(this, LeasingCarHistActivity.class).putExtra(KeyNames.KEY_NAME_APPLY_LEASINGCAR, true), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     finish();
                     break;
             }
 
         });
-
-//        pubViewModel.getRES_PUB_1002().observe(this, result -> {
-//            switch (result.status) {
-//                case LOADING:
-//                    showProgressDialog(true);
-//                    break;
-//                case SUCCESS:
-//                    showProgressDialog(false);
-//                    ui.tvPosition1.setText(R.string.bt06_4);
-//                    ui.tvPosition1.setTextAppearance(R.style.BtrPositionDisable);
-//                    ui.tvPosition2.setText(R.string.bt06_5);
-//                    ui.tvPosition2.setTextAppearance(R.style.BtrPositionDisable);
-//                    break;
-//                default:
-//                    showProgressDialog(false);
-//                    break;
-//            }
-//        });
-//        pubViewModel.getRES_PUB_1003().observe(this, result -> {
-//            switch (result.status) {
-//                case LOADING:
-//                    showProgressDialog(true);
-//                    break;
-//                case SUCCESS:
-//                    showProgressDialog(false);
-//                    break;
-//                default:
-//                    ui.tvPosition1.setText(R.string.bt06_4);
-//                    ui.tvPosition1.setTextAppearance(R.style.BtrPositionDisable);
-//                    ui.tvPosition2.setText(R.string.bt06_5);
-//                    ui.tvPosition2.setTextAppearance(R.style.BtrPositionDisable);
-//                    pubViewModel.getRES_PUB_1003().setValue(null);
-//                    showProgressDialog(false);
-//                    break;
-//            }
-//        });
     }
 
     @Override

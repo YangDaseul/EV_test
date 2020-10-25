@@ -6,30 +6,18 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.TextView;
-
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.GNS_1011;
-import com.genesis.apps.comm.model.gra.api.PUB_1002;
-import com.genesis.apps.comm.model.gra.api.PUB_1003;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.SnackBarUtil;
-import com.genesis.apps.comm.viewmodel.BTRViewModel;
 import com.genesis.apps.comm.viewmodel.GNSViewModel;
-import com.genesis.apps.comm.viewmodel.PUBViewModel;
-import com.genesis.apps.databinding.ActivityBtrFilterBinding;
 import com.genesis.apps.databinding.ActivityLeasingCarRegisterBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 
-import java.util.List;
+import androidx.lifecycle.ViewModelProvider;
 
 import static com.genesis.apps.comm.model.constants.KeyNames.KEY_NAME_VIN;
 
@@ -91,7 +79,7 @@ public class LeasingCarVinRegisterActivity extends SubActivity<ActivityLeasingCa
                 }
                 break;
             case R.id.btn_info:
-                startActivitySingleTop(new Intent(this, LeasingCarInfoActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                startActivitySingleTop(new Intent(this, LeasingCarInfoActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
                 break;
         }
 

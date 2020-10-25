@@ -5,7 +5,6 @@
     tools:ignore="MissingConstraints">
 
     <data>
-
         <variable
             name="activity"
             type="com.genesis.apps.ui.main.home.LeasingCarHistDetailActivity" />
@@ -21,7 +20,7 @@
 
         <include
             android:id="@+id/l_title"
-            layout="@layout/layout_titlebar_depth3"
+            layout="@layout/layout_titlebar_depth3_user_edittext"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -229,7 +228,8 @@
 
                     <TextView
                         android:id="@+id/btn_post_no"
-                        style="@style/ButtonPostNo"/>
+                        style="@style/ButtonPostNo"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"/>
 
 
                     <TextView

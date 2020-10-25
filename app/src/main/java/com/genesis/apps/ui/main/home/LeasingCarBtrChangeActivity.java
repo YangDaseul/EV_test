@@ -3,9 +3,7 @@ package com.genesis.apps.ui.main.home;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewStub;
@@ -18,7 +16,6 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.BTR_1008;
 import com.genesis.apps.comm.model.vo.BtrVO;
-import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.BTRViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.PUBViewModel;
@@ -33,7 +30,6 @@ import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 public class LeasingCarBtrChangeActivity extends GpsBaseActivity<ActivityMap2Binding> {
@@ -264,7 +260,6 @@ public class LeasingCarBtrChangeActivity extends GpsBaseActivity<ActivityMap2Bin
                 btrViewModel.reqBTR1008(new BTR_1008.Request(APPIAInfo.GM_CARLST_01_B01.getId(), String.valueOf(btrVO.getMapXcooNm()), String.valueOf(btrVO.getMapYcooNm()), "", "", ""));
             }
         }
-
     }
 
     private void setPosition(List<BtrVO> list, BtrVO btrVO) {

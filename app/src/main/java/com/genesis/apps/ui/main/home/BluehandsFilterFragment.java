@@ -2,6 +2,7 @@ package com.genesis.apps.ui.main.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,7 +89,6 @@ public class BluehandsFilterFragment extends SubFragment<FragmentBluehandsFilter
                     me.tvPosition1.setTextAppearance(R.style.BtrPositionDisable);
                     me.tvPosition2.setText(R.string.bt06_5);
                     me.tvPosition2.setTextAppearance(R.style.BtrPositionDisable);
-                    pubViewModel.getRES_PUB_1003().setValue(null);
                     ((SubActivity)getActivity()).showProgressDialog(false);
                     addr = "";
                     addrDtl = "";
@@ -96,10 +96,11 @@ public class BluehandsFilterFragment extends SubFragment<FragmentBluehandsFilter
             }
         });
 
-        if(pubViewModel.getRES_PUB_1002().getValue()!=null&&pubViewModel.getFilterInfo().getValue()!=null)
-            updateView();
-        else
+        if(pubViewModel.getRES_PUB_1002().getValue()!=null&&pubViewModel.getFilterInfo().getValue()!=null) {
+            new Handler().postDelayed(() -> updateView(),100);
+        }else {
             pubViewModel.reqPUB1002(new PUB_1002.Request(APPIAInfo.GM_BT06_01.getId()));
+        }
     }
 
     private void updateView() {
@@ -108,25 +109,30 @@ public class BluehandsFilterFragment extends SubFragment<FragmentBluehandsFilter
 
         try {
             fillerCd = filterInfo.get(0);
-            setFilterView();
         } catch (Exception e) {
             fillerCd = "";
+        }finally {
+            setFilterView();
         }
         try {
             addr = filterInfo.get(1);
-            if(!TextUtils.isEmpty(addr)){
-                selectItem(addr, R.id.tv_position_1);
-            }
         } catch (Exception e) {
             addr = "";
+        }finally {
+            if(!TextUtils.isEmpty(addr)){
+                me.tvPosition1.setTextAppearance(R.style.BtrPositionEnable);
+                me.tvPosition1.setText(addr);
+            }
         }
         try {
             addrDtl = filterInfo.get(2);
-            if(!TextUtils.isEmpty(addrDtl)){
-                selectItem(addrDtl, R.id.tv_position_2);
-            }
         } catch (Exception e) {
             addrDtl = "";
+        }finally {
+            if(!TextUtils.isEmpty(addrDtl)){
+                me.tvPosition2.setTextAppearance(R.style.BtrPositionEnable);
+                me.tvPosition2.setText(addrDtl);
+            }
         }
 
     }

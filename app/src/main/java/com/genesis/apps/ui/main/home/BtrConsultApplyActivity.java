@@ -33,6 +33,7 @@ public class BtrConsultApplyActivity extends SubActivity<ActivityBtrConsultApply
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setResizeScreen();
         setContentView(R.layout.activity_btr_consult_apply);
         getDataFromIntent();
         setViewModel();

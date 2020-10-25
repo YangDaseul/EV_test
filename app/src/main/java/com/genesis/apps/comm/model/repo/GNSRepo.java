@@ -1,10 +1,9 @@
 package com.genesis.apps.comm.model.repo;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.gra.APIInfo;
+import com.genesis.apps.comm.model.gra.api.BTR_1001;
 import com.genesis.apps.comm.model.gra.api.GNS_1001;
 import com.genesis.apps.comm.model.gra.api.GNS_1002;
 import com.genesis.apps.comm.model.gra.api.GNS_1003;
@@ -20,6 +19,8 @@ import com.genesis.apps.comm.model.gra.api.GNS_1012;
 import com.genesis.apps.comm.model.gra.api.GNS_1013;
 import com.genesis.apps.comm.model.gra.api.GNS_1014;
 import com.genesis.apps.comm.model.gra.api.GNS_1015;
+import com.genesis.apps.comm.model.vo.BtrVO;
+import com.genesis.apps.comm.model.vo.RentStatusVO;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.net.NetResultCallback;
@@ -27,6 +28,8 @@ import com.genesis.apps.comm.net.NetUIResponse;
 import com.google.gson.Gson;
 
 import javax.inject.Inject;
+
+import androidx.lifecycle.MutableLiveData;
 
 public class GNSRepo {
 
@@ -313,12 +316,18 @@ public class GNSRepo {
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
-                RES_GNS_1012.setValue(NetUIResponse.success(new Gson().fromJson(object, GNS_1012.Response.class)));
+                GNS_1012.Response response = new Gson().fromJson(object, GNS_1012.Response.class); //결과코드 및 결과메시지 저장
+                response.setRentStatusVO(new Gson().fromJson(object, RentStatusVO.class)); //렌트 데이터 저장
+                RES_GNS_1012.setValue(NetUIResponse.success(response));
             }
 
             @Override
             public void onFail(NetResult e) {
-                RES_GNS_1012.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_GNS_1012.setValue(NetUIResponse.error(e.getMseeage(), null));
+
+                GNS_1012.Response response = TestCode.GNS_1012; //결과코드 및 결과메시지 저장
+                response.setRentStatusVO(reqData.getSeqNo().equalsIgnoreCase("3") ? TestCode.GNS_1012_REJECT : TestCode.GNS_1012_WAIT); //btr 데이터 저장
+                RES_GNS_1012.setValue(NetUIResponse.success(response));
             }
 
             @Override
@@ -342,7 +351,9 @@ public class GNSRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_GNS_1013.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_GNS_1013.setValue(NetUIResponse.error(e.getMseeage(), null));
+
+                RES_GNS_1013.setValue(NetUIResponse.success(TestCode.GNS_1013));
             }
 
             @Override
@@ -363,7 +374,9 @@ public class GNSRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_GNS_1014.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_GNS_1014.setValue(NetUIResponse.error(e.getMseeage(), null));
+
+                RES_GNS_1014.setValue(NetUIResponse.success(TestCode.GNS_1014));
             }
 
             @Override
@@ -384,7 +397,9 @@ public class GNSRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_GNS_1015.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_GNS_1015.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_GNS_1015.setValue(NetUIResponse.success(TestCode.GNS_1015));
+                
             }
 
             @Override

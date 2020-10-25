@@ -61,6 +61,7 @@
 
     <string name="km">km</string>
     <string name="won">원</string>
+    <string name="date_yyyy_mm">%d%02d</string>
 
 
 </resources>

@@ -247,10 +247,10 @@
             android:screenOrientation="portrait"
             android:exported="false"/>
 
-        <activity
-            android:name=".ui.main.home.BtrBluehandsFilterActivity"
-            android:screenOrientation="portrait"
-            android:exported="false"/>
+<!--        <activity-->
+<!--            android:name=".ui.main.home.BtrBluehandsFilterActivity"-->
+<!--            android:screenOrientation="portrait"-->
+<!--            android:exported="false"/>-->
 
         <activity
             android:name=".ui.main.AlarmCenterActivity"
@@ -296,6 +296,19 @@
 
         <activity
             android:name=".ui.main.home.LeasingCarHistActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+
+        <activity
+            android:name=".ui.main.home.LeasingCarHistDetailActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@style/TextInputLayout"/>
+
+
+        <activity
+            android:name=".ui.main.insight.InsightExpnMainActivity"
             android:screenOrientation="portrait"
             android:exported="false"/>
 

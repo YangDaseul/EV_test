@@ -144,7 +144,7 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
         Log.e("onResume", "onReusme contents");
 
 
-        ((MainActivity) getActivity()).setGNB(false, true, 0, View.VISIBLE);
+        ((MainActivity) getActivity()).setGNB(false, false, 0, View.VISIBLE);
     }
 
 

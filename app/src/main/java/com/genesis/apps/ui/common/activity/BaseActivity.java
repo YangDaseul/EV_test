@@ -5,10 +5,6 @@ import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.TextUtils;
-import android.widget.Toast;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.RequestCodes;
@@ -20,7 +16,8 @@ import com.genesis.apps.fcm.PushCode;
 
 import javax.inject.Inject;
 
-import androidx.core.app.ActivityCompat;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static com.genesis.apps.comm.model.constants.KeyNames.NOTIFICATION_ID;
@@ -60,7 +57,7 @@ public class BaseActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.fragment_enter, R.anim.fragment_stay);
                 break;
             case VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE:
-                overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+                overridePendingTransition(R.anim.slide_up, R.anim.fragment_stay);
                 break;
             case VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE:
             default:
@@ -140,7 +137,22 @@ public class BaseActivity extends AppCompatActivity {
                 (resultCode==ResultCodes.RES_CODE_NETWORK.getCode()||
                         resultCode==ResultCodes.REQ_CODE_EMPTY_INTENT.getCode()||
                         resultCode==ResultCodes.REQ_CODE_NORMAL.getCode())){
-            SnackBarUtil.show(this, data.getStringExtra("msg"));
+
+            String errorMsg="";
+            try {
+                errorMsg = data.getStringExtra("msg");
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally{
+                if(TextUtils.isEmpty(errorMsg)){
+                    if(requestCode==ResultCodes.RES_CODE_NETWORK.getCode()){
+                        errorMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                    }else{
+                        errorMsg = "오류가 발생했습니다.\n앱 재실행 후 다시 시도해 주세요. \nCODE:1";
+                    }
+                }
+                SnackBarUtil.show(this, errorMsg);
+            }
         }
     }
 
