@@ -19,6 +19,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.constants.WeatherCodes;
@@ -44,7 +45,9 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.upstream.DataSpec;
 import com.google.android.exoplayer2.upstream.RawResourceDataSource;
+import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -189,6 +192,22 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 break;
             case R.id.btn_share:
                 recordUtil.checkRecordPermission();
+                break;
+            case R.id.btn_location:
+
+                if(!((MainActivity)getActivity()).isGpsEnable()) {
+                    MiddleDialog.dialogGPS(getActivity(), () -> ((MainActivity)getActivity()).turnGPSOn(isGPSEnable -> {
+                    }), () -> {
+                        //TODO 확인 클릭
+                    });
+                }else{
+                    //todo 현재 강제로 하드코딩한 주소값. 제네시스 디벨로퍼에서 가저오도록 수정 필요
+                    List<String> position = new ArrayList<>();
+                    position.add("37.463936");
+                    position.add("127.042953");
+                    ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), MyLocationActivity.class).putExtra(KeyNames.KEY_NAME_VEHICLE_LOCATION, new Gson().toJson(position)), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                }
+
                 break;
         }
     }

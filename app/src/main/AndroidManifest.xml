@@ -236,7 +236,7 @@
             android:exported="false"/>
 
         <activity
-            android:name=".ui.main.home.BtrChangeActivity"
+            android:name=".ui.main.home.MyLocationActivity"
             android:screenOrientation="portrait"
             android:exported="false"/>
 

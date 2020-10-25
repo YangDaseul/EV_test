@@ -21,4 +21,5 @@ public interface KeyNames {
     String KEY_NAME_APPLY_LEASINGCAR="applyLeasingCar";
     String KEY_NAME_DATA_LEASINGCAR="rentStatusVO";
     String KEY_NAME_BTR_CNSL_LIST="selectCdValId";
+    String KEY_NAME_VEHICLE_LOCATION="vehicleLocation";
 }

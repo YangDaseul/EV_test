@@ -82,26 +82,7 @@ public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBi
                     btrVO = result.data.getBtrVO();
 
                     if(btrVO!=null) {
-                        ui.tvAsnnm.setText(btrVO.getAsnNm());
-                        ui.tvAddr.setText(btrVO.getPbzAdr());
-                        ui.tvReptn.setText(PhoneNumberUtils.formatNumber(btrVO.getRepTn(), Locale.getDefault().getCountry()));
-
-                        ui.tvName.setText(btrVO.getBtlrNm());
-                        ui.tvPhone.setText(PhoneNumberUtils.formatNumber(btrVO.getCelphNo(), Locale.getDefault().getCountry()));
-
-                        if(btrVO.getBltrChgYn().equalsIgnoreCase(VariableType.BTR_CHANGE_REQUEST_YES)){
-                            ui.tvInfo.setVisibility(View.VISIBLE);
-                            ui.lBtrMenu.setVisibility(View.GONE);
-                            ui.btnChange.setVisibility(View.INVISIBLE);
-                        }else{
-                            ui.tvInfo.setVisibility(View.GONE);
-                            ui.lBtrMenu.setVisibility(View.VISIBLE);
-                            ui.btnChange.setVisibility(View.VISIBLE);
-                        }
-
-                        ui.ivBadge.setVisibility(btrVO.getCnsltBdgYn().equalsIgnoreCase(VariableType.BTR_CNSL_BADGE_YES) ? View.VISIBLE : View.GONE);
-
-
+                        setViewBtrInfo();
                     }else{
                         //todo 예외처리 확인 필요
                     }

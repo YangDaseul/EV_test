@@ -144,11 +144,11 @@
             android:layout_marginLeft="6dp"
             android:src="@drawable/ic_carinfo"
             android:scaleType="centerInside"
-            android:visibility="gone"
+            android:visibility="visible"
+            android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
             app:layout_constraintTop_toTopOf="@+id/tv_car_code"
             app:layout_constraintBottom_toBottomOf="@+id/tv_car_code"
-            app:layout_constraintLeft_toRightOf="@+id/tv_car_code"
-            tools:visibility="visible"/>
+            app:layout_constraintLeft_toRightOf="@+id/tv_car_code"/>
 
 
         <ImageView

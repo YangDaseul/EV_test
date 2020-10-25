@@ -58,7 +58,8 @@ public class MapViewModel extends ViewModel {
     }
 
     public void reqPlayMapPoiItemList(final AroundPOIReqVO aroundPOIReqVO){
-        playMapPoiItemList.setValue(repository.aroundPOIserch(aroundPOIReqVO).getValue());
+//        playMapPoiItemList.setValue(repository.aroundPOIserch(aroundPOIReqVO).getValue());
+        repository.aroundPOIserch(aroundPOIReqVO);
     }
 
     public LiveData<NetUIResponse<ArrayList<PlayMapPoiItem>>> getPlayMapPoiItemList() {
@@ -66,7 +67,7 @@ public class MapViewModel extends ViewModel {
     }
 
     public void reqPlayMapGeoItem(final ReverseGeocodingReqVO reverseGeocodingReqVO){
-        playMapGeoItem.setValue(repository.reverseGeocoding(reverseGeocodingReqVO).getValue());
+        repository.reverseGeocoding(reverseGeocodingReqVO);
     }
 
     public LiveData<NetUIResponse<PlayMapGeoItem>> getPlayMapGeoItem() {
