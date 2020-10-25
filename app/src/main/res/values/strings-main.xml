@@ -82,7 +82,11 @@
     <string name="gm02_inv01_2">%s%% 유사</string>
     <string name="gm02_inv01_3">예약한 차량의\n유사 차량들입니다.</string>
 
-
     <string name="bcode01_1">편집</string>
     <string name="bcode01_2">완료</string>
+
+    <string name="gm01_02_1">보증 수리 안내</string>
+    <string name="gm01_02_2">오너 차량의\n주요부품의 보증기간에 따른\n수리 안내입니다.</string>
+    <string name="gm01_02_3">일반 보증 기간</string>
+    <string name="gm01_02_4">배출가스 관련 부품 보증기간</string>
 </resources>

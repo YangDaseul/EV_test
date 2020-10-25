@@ -42,6 +42,7 @@ import com.genesis.apps.comm.model.gra.api.PUB_1002;
 import com.genesis.apps.comm.model.gra.api.PUB_1003;
 import com.genesis.apps.comm.model.gra.api.STO_1001;
 import com.genesis.apps.comm.model.gra.api.STO_1002;
+import com.genesis.apps.comm.model.gra.api.WRT_1001;
 import com.genesis.apps.comm.model.vo.RentStatusVO;
 import com.google.gson.Gson;
 
@@ -1762,5 +1763,24 @@ public class TestCode {
             "    }\n" +
             "  ]\n" +
             "}", CBK_1002.Response.class);
+
+
+    public static WRT_1001.Response WRT_1001 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"contList\": [\n" +
+            "    {\n" +
+            "      \"vin\": \"KMHFF41CBHA584883\",\n" +
+            "      \"type\": \"1010\",\n" +
+            "      \"contents\": \"http://211.54.75.18:7070/genesis/app/html/repair_guidance_G90.html#\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"vin\": \"KMHFF41CBHA584883\",\n" +
+            "      \"type\": \"1011\",\n" +
+            "      \"contents\": \"http://211.54.75.18:7070/genesis/app/html/exhaust_gas_G90.html\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",WRT_1001.Response.class);
+
 
 }

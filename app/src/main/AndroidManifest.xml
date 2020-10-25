@@ -8,8 +8,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
-
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -28,11 +26,11 @@
         tools:replace="android:allowBackup"
         android:fullBackupContent="false"
         android:name=".comm.MyApplication"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_genesis"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_genesis_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
@@ -274,6 +272,11 @@
             android:screenOrientation="portrait"
             android:exported="false"
             android:theme="@style/TextInputLayout"/>
+        <activity
+            android:name=".ui.main.home.WarrantyRepairGuideActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+
 
 
         <activity

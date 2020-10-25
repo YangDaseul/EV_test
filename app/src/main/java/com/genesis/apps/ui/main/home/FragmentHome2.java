@@ -217,6 +217,9 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding>{
             case R.id.l_btr:
                 ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), BtrBluehandsActivity.class).putExtra(KeyNames.KEY_NAME_VIN, vehicleVO.getVin()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
+            case R.id.l_warranty:
+                ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), WarrantyRepairGuideActivity.class).putExtra(KeyNames.KEY_NAME_VIN, vehicleVO.getVin()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
         }
     }
 
