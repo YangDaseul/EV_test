@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.genesis.apps.R;
 import com.genesis.apps.chat.SocketIOHelper;
 import com.genesis.apps.ui.common.activity.BaseActivity;
+import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.bottom.TwoButtonDialog;
 
 import dagger.Module;
@@ -33,5 +34,11 @@ public class ActivityModule {
     @Provides
     public TwoButtonDialog getTwoButtonDialog(Activity activity){
         return new TwoButtonDialog(activity, R.style.BottomSheetDialogTheme);
+    }
+
+    //todo 위 다이얼로그 삭제 후 아래껄로 사용 필요
+    @Provides
+    public BottomListDialog bottomListDialog(Activity activity){
+        return new BottomListDialog(activity, R.style.BottomSheetDialogTheme);
     }
 }

@@ -2,7 +2,6 @@ package com.genesis.apps.ui.intro;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -14,8 +13,7 @@ import android.view.View;
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.ActivityPermissionsBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.common.dialog.bottom.TwoButtonDialog;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -27,15 +25,13 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class PermissionsActivity extends SubActivity<ActivityPermissionsBinding> {
 
-    @Inject
-    public TwoButtonDialog twoButtonDialog;
+//    @Inject
+//    public TwoButtonDialog twoButtonDialog;
 
     public static final List<String> requiredPermissions = new ArrayList<>();
 
@@ -65,29 +61,20 @@ public class PermissionsActivity extends SubActivity<ActivityPermissionsBinding>
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_permissions);
-
-        ui.permission.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkPermissions();
-            }
-        });
-
-//        l.llBtnClose.setOnClickListener(v -> {
-//            setResult(RESULT_CANCELED);
-//            finish();
-//        });
-
+        ui.setActivity(this);
     }
 
     @Override
     public void onClickCommon(View v) {
-
+        switch (v.getId()){
+            case R.id.btn_check:
+                checkPermissions();
+                break;
+        }
     }
 
     @Override
     public void setViewModel() {
-
     }
 
     @Override
@@ -147,26 +134,19 @@ public class PermissionsActivity extends SubActivity<ActivityPermissionsBinding>
                             }
                             if (l.size() > 0) {
 
-                                twoButtonDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                    @Override
-                                    public void onShow(DialogInterface dialogInterface) {
-                                        twoButtonDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
-                                        twoButtonDialog.setButtonAction(()->{
-                                            Context context = PermissionsActivity.this;
-                                            Intent myAppSettings = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                                    Uri.parse("package:" + context.getPackageName()));
-                                            myAppSettings.addCategory(Intent.CATEGORY_DEFAULT);
-                                            myAppSettings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            context.startActivity(myAppSettings);
-                                            setResult(RESULT_FIRST_USER);
-                                            finish();
-                                        }, ()->{
-                                            setResult(RESULT_FIRST_USER);
-                                            finish();
-                                        });
-                                    }
+                                MiddleDialog.dialogPermission(PermissionsActivity.this, () -> {
+                                    Context context = PermissionsActivity.this;
+                                    Intent myAppSettings = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                                            Uri.parse("package:" + context.getPackageName()));
+                                    myAppSettings.addCategory(Intent.CATEGORY_DEFAULT);
+                                    myAppSettings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    context.startActivity(myAppSettings);
+                                    setResult(RESULT_FIRST_USER);
+                                    finish();
+                                }, () -> {
+                                    setResult(RESULT_FIRST_USER);
+                                    finish();
                                 });
-                                twoButtonDialog.show();
                             } else {
                                 setResult(RESULT_OK);
                                 finish();
