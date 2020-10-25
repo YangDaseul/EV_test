@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.AutoScrollHelper;
+import androidx.core.widget.ListViewAutoScrollHelper;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
@@ -44,6 +46,8 @@ import com.google.android.exoplayer2.upstream.DataSpec;
 import com.google.android.exoplayer2.upstream.RawResourceDataSource;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -57,6 +61,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     private CMNViewModel cmnViewModel;
     private HomeInsightHorizontalAdapter adapter=null;
     private RecordUtil recordUtil;
+    private Timer timer = null;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return super.setContentView(inflater, R.layout.fragment_home_1);
@@ -129,6 +134,9 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         adapter = new HomeInsightHorizontalAdapter(onSingleClickListener);
         me.vpInsight.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         me.vpInsight.setAdapter(adapter);
+
+
+
     }
 
     private void setViewWeather() {
@@ -194,8 +202,37 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         recordUtil.regReceiver();
         ((MainActivity)getActivity()).setGNB(false, false, 1, View.VISIBLE);
 
+        startTimer();
+
         //TODO 알람뱃지뉴 표시하는 부분 요청처리 필요
 
+    }
+
+    private void startTimer() {
+
+        if(timer==null)
+            timer = new Timer();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                getActivity().runOnUiThread(() -> {
+                    try{
+                        me.vpInsight.setCurrentItem(me.vpInsight.getCurrentItem()+1, true);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                });
+            }
+        },3000,5000);
+
+    }
+
+    private void pauseTimer(){
+        if(timer!=null){
+            timer.cancel();
+            timer=null;
+        }
     }
 
 
@@ -262,6 +299,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     @Override
     public void onPause() {
         super.onPause();
+        pauseTimer();
         videoPauseAndResume(false);
         recordUtil.unRegReceiver();
     }

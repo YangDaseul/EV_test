@@ -6,6 +6,9 @@ import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.MessageVO;
@@ -50,13 +53,73 @@ public class InsightArea3Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
         public void onBindView(MessageVO item, final int pos) {
 
             getBinding().tvTitle.setVisibility(View.GONE);
-            getBinding().tvMsg.setVisibility(View.GONE);
+            getBinding().tvMsg.setVisibility(View.INVISIBLE);
             getBinding().tvLinkNm.setVisibility(View.GONE);
             getBinding().ivIcon.setVisibility(View.GONE);
             getBinding().lWhole.setOnClickListener(null);
 
+
+
+
+
+            ///////////////////////////////////////////////////////////////////여기서부터 제출용 하드 코딩
+
+            int iconId=0;
+
+            switch (item.getImgUri()){
+                case "1":
+                    iconId = R.drawable.ic_service_birthday;
+                    break;
+                case "2":
+                    iconId = R.drawable.ic_service_airport;
+                    break;
+                case "3":
+                    iconId = R.drawable.ic_service_curfew;
+                    break;
+                case "4":
+                    iconId = R.drawable.ic_service_hometohome;
+                    break;
+                case "5":
+                    iconId = R.drawable.ic_service_autocare;
+                    break;
+                case "6":
+                    iconId = R.drawable.ic_service_membership;
+                    break;
+                case "7":
+                    iconId = R.drawable.ic_service_refueling;
+                    break;
+                case "8":
+                    iconId = R.drawable.ic_service_tire;
+                    break;
+                case "9":
+                    iconId = R.drawable.ic_service_wash;
+                    break;
+            }
+
+
+            getBinding().ivIcon.setVisibility(View.VISIBLE);
+            Glide
+                    .with(getContext())
+                    .load(item.getImgUri())
+                    .format(DecodeFormat.PREFER_ARGB_8888)
+                    .error(iconId)
+                    .placeholder(iconId)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(getBinding().ivIcon);
+            //////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
             switch (item.getMsgTypCd()) {
-                case VariableType.MAIN_HOME_INSIGHT_TXL:
+                case VariableType.MAIN_HOME_INSIGHT_TXT:
                     if (TextUtils.isEmpty(item.getTtl())) {
                         getBinding().tvTitle.setVisibility(View.GONE);
                     } else {
@@ -65,14 +128,14 @@ public class InsightArea3Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
                     }
 
                     if (TextUtils.isEmpty(item.getTxtMsg())) {
-                        getBinding().tvMsg.setVisibility(View.GONE);
+                        getBinding().tvMsg.setVisibility(View.INVISIBLE);
                     } else {
                         getBinding().tvMsg.setVisibility(View.VISIBLE);
                         getBinding().tvMsg.setText(item.getTxtMsg());
                     }
 
                     break;
-                case VariableType.MAIN_HOME_INSIGHT_TXT:
+                case VariableType.MAIN_HOME_INSIGHT_TXL:
                 default:
                     if (TextUtils.isEmpty(item.getTtl())) {
                         getBinding().tvTitle.setVisibility(View.GONE);
@@ -82,7 +145,7 @@ public class InsightArea3Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
                     }
 
                     if (TextUtils.isEmpty(item.getTxtMsg())) {
-                        getBinding().tvMsg.setVisibility(View.GONE);
+                        getBinding().tvMsg.setVisibility(View.INVISIBLE);
                     } else {
                         getBinding().tvMsg.setVisibility(View.VISIBLE);
                         getBinding().tvMsg.setText(item.getTxtMsg());

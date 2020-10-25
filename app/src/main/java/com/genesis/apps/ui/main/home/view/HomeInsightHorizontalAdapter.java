@@ -41,7 +41,11 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
     @Override
     public int getItemViewType(int position) {
         try {
-            if (((MessageVO) getItem(position)).getWeatherCodes()!=null) {
+            int index = 0;
+            if(getItems().size()>0) {
+                index = position % getItems().size();
+            }
+            if (((MessageVO) getItem(index)).getWeatherCodes()!=null) {
                 return ITEM_WEATHER;
             } else {
                 return ITEM_ETC;
@@ -55,8 +59,16 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
     public void onBindViewHolder(final BaseViewHolder holder, int position) {
         Log.v("recyclerview onBindViewHolder", "position pos:" + position);
 //                super.onBindViewHolder(holder, position);
-        holder.onBindView(getItem(position), position);
 
+        if(getItems().size()>0) {
+            int index = position % getItems().size();
+            holder.onBindView(getItem(index), index);
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return Integer.MAX_VALUE; //무한스크롤을 위한 설정
     }
 
     private static class ItemHomeInsightEtc extends BaseViewHolder<MessageVO, ItemHomeInsightEtcBinding> {

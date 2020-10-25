@@ -47,7 +47,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
             app:layout_constraintEnd_toStartOf="@+id/iv_icon"
-            tools:text="@string/tm01_9"/>
+            android:text="약 15분 후 도착 예정입니다."/>
 
 
         <TextView
@@ -75,7 +75,7 @@
             android:scaleType="centerInside"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:src="@drawable/ic_service_emergency"/>
+            android:src="@drawable/ic_service_emergency"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

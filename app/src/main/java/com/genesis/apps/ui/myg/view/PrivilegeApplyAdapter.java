@@ -1,16 +1,11 @@
 package com.genesis.apps.ui.myg.view;
 
 import android.util.SparseBooleanArray;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DecodeFormat;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.PrivilegeVO;
-import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.databinding.ItemPrivilegeBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;

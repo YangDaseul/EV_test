@@ -6,6 +6,9 @@ import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.MessageVO;
@@ -55,8 +58,35 @@ public class InsightArea1Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
             getBinding().ivIcon.setVisibility(View.GONE);
             getBinding().lWhole.setOnClickListener(null);
 
+
+
+            ///////////////////////////////////////////////////////////////////여기서부터 제출용 하드 코딩
+
+            int iconId=0;
+
+            switch (item.getImgUri()){
+                case "1":
+                    iconId = R.drawable.ic_service_repair;
+                    break;
+                case "2":
+                    iconId = R.drawable.ic_service_potentiometer;
+                    break;
+            }
+
+
+            getBinding().ivIcon.setVisibility(View.VISIBLE);
+            Glide
+                    .with(getContext())
+                    .load(item.getImgUri())
+                    .format(DecodeFormat.PREFER_ARGB_8888)
+                    .error(iconId)
+                    .placeholder(iconId)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(getBinding().ivIcon);
+            //////////////////////////////////////////////////////////////////
+
             switch (item.getMsgTypCd()) {
-                case VariableType.MAIN_HOME_INSIGHT_TXL:
+                case VariableType.MAIN_HOME_INSIGHT_TXT:
                     if (TextUtils.isEmpty(item.getTtl())) {
                         getBinding().tvTitle.setVisibility(View.GONE);
                     } else {
@@ -72,7 +102,7 @@ public class InsightArea1Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
                     }
 
                     break;
-                case VariableType.MAIN_HOME_INSIGHT_TXT:
+                case VariableType.MAIN_HOME_INSIGHT_TXL:
                 default:
                     if (TextUtils.isEmpty(item.getTtl())) {
                         getBinding().tvTitle.setVisibility(View.GONE);
@@ -95,11 +125,11 @@ public class InsightArea1Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
                         getBinding().tvLinkNm.setText(item.getLnkNm());
                     }
 
-                    if (TextUtils.isEmpty(item.getImgUri())) {
+                    if (TextUtils.isEmpty(item.getLnkUri())) {
                         getBinding().lWhole.setOnClickListener(null);
                     } else {
                         getBinding().lWhole.setOnClickListener(onSingleClickListener);
-                        getBinding().lWhole.setTag(R.id.url, item.getImgUri());
+                        getBinding().lWhole.setTag(R.id.url, item.getLnkUri());
                     }
                     break;
             }

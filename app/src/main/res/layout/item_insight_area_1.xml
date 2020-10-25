@@ -24,8 +24,6 @@
             android:lineSpacingExtra="8sp"
             android:textColor="@color/x_000000"
             android:textSize="22sp"
-            android:maxLines="1"
-            android:ellipsize="end"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constrainedWidth="true"
             app:layout_constraintStart_toStartOf="parent"
