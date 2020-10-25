@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.contents;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,13 +14,18 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.CTT_1001;
 import com.genesis.apps.comm.model.vo.ContentsVO;
 import com.genesis.apps.comm.viewmodel.CTTViewModel;
 import com.genesis.apps.databinding.FragmentContentsBinding;
+import com.genesis.apps.ui.common.activity.WebviewActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
+import com.genesis.apps.ui.main.home.MyCarActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -179,6 +185,12 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
 
                 contentsAdapter.setPageNo(0);
                 cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(),isEvent ? "1000" :"0","",(contentsAdapter.getPageNo()+1)+"","20"));
+                break;
+
+            case R.id.iv_image:
+                //todo 컨텐츠에 대한 임시조치
+                String url = v.getTag(R.id.url).toString();
+                ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), WebviewActivity.class).putExtra(KeyNames.KEY_NAME_URL, url),RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
         }
     }

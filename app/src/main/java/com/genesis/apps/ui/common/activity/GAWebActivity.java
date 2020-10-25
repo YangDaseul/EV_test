@@ -32,50 +32,50 @@ public class GAWebActivity extends WebviewActivity {
         super.onCreate(savedInstanceState);
 
 
-        ui.lEdit.setEndIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goUrl();
-            }
-        });
-
-        ui.edit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                switch (actionId) {
-                    case EditorInfo.IME_ACTION_DONE:
-                        goUrl();
-                        break;
-                    default:
-                        // 기본 엔터키 동작
-                        return false;
-                }
-                return true;
-            }
-        });
-
-    }
-
-    private void goUrl(){
-        if(ui.edit.hasFocus()) {
-            SoftKeyboardUtil.hideKeyboard(getApplication());
-            ui.edit.clearFocus();
-        }
-
-        String url = ui.edit.getText().toString().trim();
-        if(TextUtils.isEmpty(url)){
-            SnackBarUtil.show(GAWebActivity.this, "주소를 입력해 주세요.");
-        }else{
-            if(!url.contains("http://")){
-                url = "http://"+url;
-            }
-
-            if(fragment.openWindows!=null&&fragment.openWindows.size()>0){
-                fragment.openWindows.get(0).loadUrl(url);
-            }else{
-                fragment.loadUrl(url);
-            }
-        }
+//        ui.lEdit.setEndIconOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                goUrl();
+//            }
+//        });
+//
+//        ui.edit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+//                switch (actionId) {
+//                    case EditorInfo.IME_ACTION_DONE:
+//                        goUrl();
+//                        break;
+//                    default:
+//                        // 기본 엔터키 동작
+//                        return false;
+//                }
+//                return true;
+//            }
+//        });
+//
+//    }
+//
+//    private void goUrl(){
+//        if(ui.edit.hasFocus()) {
+//            SoftKeyboardUtil.hideKeyboard(getApplication());
+//            ui.edit.clearFocus();
+//        }
+//
+//        String url = ui.edit.getText().toString().trim();
+//        if(TextUtils.isEmpty(url)){
+//            SnackBarUtil.show(GAWebActivity.this, "주소를 입력해 주세요.");
+//        }else{
+//            if(!url.contains("http://")){
+//                url = "http://"+url;
+//            }
+//
+//            if(fragment.openWindows!=null&&fragment.openWindows.size()>0){
+//                fragment.openWindows.get(0).loadUrl(url);
+//            }else{
+//                fragment.loadUrl(url);
+//            }
+//        }
     }
 
     @Override
