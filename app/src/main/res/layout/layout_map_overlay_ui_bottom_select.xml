@@ -7,6 +7,8 @@
 
         <import type="android.text.TextUtils" />
 
+        <import type="android.view.View"/>
+
         <import type="android.telephony.PhoneNumberUtils" />
 
         <import type="java.util.Locale" />
@@ -47,6 +49,7 @@
             style="@style/MapOverlay.RegularText"
             android:layout_marginStart="10dp"
             android:text="@{data.dist+`km`}"
+            android:visibility="@{TextUtils.isEmpty(data.dist) ? View.GONE : View.VISIBLE}"
             app:layout_constraintBaseline_toBaselineOf="@+id/tv_map_select_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"

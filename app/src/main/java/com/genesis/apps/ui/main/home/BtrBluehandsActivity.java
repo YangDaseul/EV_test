@@ -16,6 +16,7 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.BTR_1001;
 import com.genesis.apps.comm.model.vo.BtrVO;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.BTRViewModel;
 import com.genesis.apps.databinding.ActivityBtrBluehandsBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
@@ -23,6 +24,7 @@ import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 
 import java.util.Locale;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBinding> {
@@ -38,12 +40,12 @@ public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBi
         setViewModel();
         setObserver();
         initView();
+        btrViewModel.reqBTR1001(new BTR_1001.Request(APPIAInfo.GM_BT02.getId(),vin));
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        btrViewModel.reqBTR1001(new BTR_1001.Request(APPIAInfo.GM_BT02.getId(),vin));
     }
 
     @Override
@@ -140,7 +142,7 @@ public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBi
                     }), () -> {
                     });
                 }else{
-                    startActivitySingleTop(new Intent(this, BtrChangeActivity.class).putExtra(KeyNames.KEY_NAME_BTR, btrVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    startActivitySingleTop(new Intent(this, LeasingCarBtrChangeActivity.class).putExtra(KeyNames.KEY_NAME_BTR, btrVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }
 
 
@@ -154,6 +156,42 @@ public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBi
             case R.id.btn_call://통화하기
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + btrVO.getCelphNo())));
                 break;
+        }
+    }
+
+    private void setViewBtrInfo(){
+        if(btrVO!=null) {
+            ui.tvAsnnm.setText(btrVO.getAsnNm());
+            ui.tvAddr.setText(btrVO.getPbzAdr());
+            ui.tvReptn.setText(PhoneNumberUtils.formatNumber(btrVO.getRepTn(), Locale.getDefault().getCountry()));
+
+            ui.tvName.setText(btrVO.getBtlrNm());
+            ui.tvPhone.setText(PhoneNumberUtils.formatNumber(btrVO.getCelphNo(), Locale.getDefault().getCountry()));
+
+            if (btrVO.getBltrChgYn().equalsIgnoreCase(VariableType.BTR_CHANGE_REQUEST_YES)) {
+                ui.tvInfo.setVisibility(View.VISIBLE);
+                ui.lBtrMenu.setVisibility(View.GONE);
+                ui.btnChange.setVisibility(View.INVISIBLE);
+            } else {
+                ui.tvInfo.setVisibility(View.GONE);
+                ui.lBtrMenu.setVisibility(View.VISIBLE);
+                ui.btnChange.setVisibility(View.VISIBLE);
+            }
+
+            ui.ivBadge.setVisibility(btrVO.getCnsltBdgYn().equalsIgnoreCase(VariableType.BTR_CNSL_BADGE_YES) ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == ResultCodes.REQ_CODE_BTR.getCode()){
+            BtrVO btrVO = (BtrVO)data.getSerializableExtra(KeyNames.KEY_NAME_BTR);
+            if(btrVO!=null) {//버틀러 정보는 받지만 실제  블루핸즈 4개 정보만있고 버틀러 정보는 빠저있어서 재요청해야함;
+                btrViewModel.reqBTR1001(new BTR_1001.Request(APPIAInfo.GM_BT02.getId(),vin));
+                SnackBarUtil.show(this, getString(R.string.gm_bt06_snackbar_1));
+            }
         }
     }
 }

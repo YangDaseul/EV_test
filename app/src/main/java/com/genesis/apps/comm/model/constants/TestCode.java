@@ -3,6 +3,7 @@ package com.genesis.apps.comm.model.constants;
 import com.genesis.apps.comm.model.gra.api.BAR_1001;
 import com.genesis.apps.comm.model.gra.api.BTR_1001;
 import com.genesis.apps.comm.model.gra.api.BTR_1008;
+import com.genesis.apps.comm.model.gra.api.BTR_1009;
 import com.genesis.apps.comm.model.gra.api.BTR_2001;
 import com.genesis.apps.comm.model.gra.api.BTR_2002;
 import com.genesis.apps.comm.model.gra.api.BTR_2003;
@@ -929,6 +930,14 @@ public class TestCode {
             "}",BTR_1008.Response.class);
 
 
+    public static BTR_1009.Response BTR_1009 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"asnCd\": \"000001\",\n" +
+            "  \"asnNm\": \"케이 정비소\",\n" +
+            "  \"repnTn\": \"01012345678\",\n" +
+            "  \"pbzAdr\": \"서울특별시서초구\"\n" +
+            "}", BTR_1009.Response.class);
 
     public static PUB_1001.Response PUB_1001 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +

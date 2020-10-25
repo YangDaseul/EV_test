@@ -15,7 +15,9 @@ import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.BTR_1008;
+import com.genesis.apps.comm.model.gra.api.BTR_1009;
 import com.genesis.apps.comm.model.vo.BtrVO;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.BTRViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.PUBViewModel;
@@ -42,7 +44,7 @@ public class LeasingCarBtrChangeActivity extends GpsBaseActivity<ActivityMap2Bin
     private String fillerCd = "";
     private String addr = "";
     private String addrDtl = "";
-
+    private int btnStrId=R.string.bt06_15;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +94,8 @@ public class LeasingCarBtrChangeActivity extends GpsBaseActivity<ActivityMap2Bin
         } catch (Exception e) {
             e.printStackTrace();
         }
+        btnStrId = btrVO==null ? R.string.bt06_15 : R.string.bt06_14;
+
     }
 
     @Override
@@ -139,6 +143,26 @@ public class LeasingCarBtrChangeActivity extends GpsBaseActivity<ActivityMap2Bin
             }
         });
 
+        btrViewModel.getRES_BTR_1009().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
+                        setResult(ResultCodes.REQ_CODE_BTR.getCode(), new Intent().putExtra(KeyNames.KEY_NAME_BTR, btrVO));
+                        finish();
+                        break;
+                    }
+                default:
+                    showProgressDialog(false);
+                    SnackBarUtil.show(this, getString(R.string.gm_bt06_snackbar_2));
+                    break;
+            }
+        });
+
+
         pubViewModel.getFilterInfo().observe(this, filterInfo -> {
             try {
                 fillerCd = filterInfo.get(0);
@@ -168,8 +192,19 @@ public class LeasingCarBtrChangeActivity extends GpsBaseActivity<ActivityMap2Bin
 
         switch (v.getId()) {
             case R.id.tv_map_select_btn1://선택
-                setResult(ResultCodes.REQ_CODE_BTR.getCode(), new Intent().putExtra(KeyNames.KEY_NAME_BTR, btrVO));
-                finish();
+
+                switch (btnStrId){
+                    case R.string.bt06_14:
+                        //버틀러 신청 서비스인 경우
+                        //todo 아래 vin정보와 asncd가 유효한 값인지 확인 필요
+                        btrViewModel.reqBTR1009(new BTR_1009.Request(APPIAInfo.GM_BT06.getId(), btrVO.getVin(), btrVO.getAsnCd()));
+                        break;
+                    default:
+                        //기타 렌트리스.
+                        setResult(ResultCodes.REQ_CODE_BTR.getCode(), new Intent().putExtra(KeyNames.KEY_NAME_BTR, btrVO));
+                        finish();
+                        break;
+                }
                 break;
             case R.id.tv_map_select_btn2://목록
                 if (btrViewModel.getRES_BTR_1008().getValue() != null && btrViewModel.getRES_BTR_1008().getValue().data.getAsnList() != null && btrViewModel.getRES_BTR_1008().getValue().data.getAsnList().size() > 0) {
@@ -177,7 +212,7 @@ public class LeasingCarBtrChangeActivity extends GpsBaseActivity<ActivityMap2Bin
                 }
                 break;
             case R.id.btn_my_position:
-                ui.pmvMapView.initMap(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(0), 17);
+                ui.pmvMapView.initMap(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1), 17);
                 break;
             case R.id.tv_map_title_text:
                 showFragment(new BluehandsFilterFragment());
@@ -220,12 +255,12 @@ public class LeasingCarBtrChangeActivity extends GpsBaseActivity<ActivityMap2Bin
                 if (btrVO == null) {
                     //버틀러 정보가 없으면 내 위치를 기본값으로 사용
                     lgnViewModel.setPosition(location.getLatitude(), location.getLongitude());
-                    //내위치는 항상 저장
-                    lgnViewModel.setMyPosition(location.getLatitude(), location.getLongitude());
                 } else {
                     //버틀러 정보가 잇으면 버틀러 블루핸즈 위치를 기본값으로 사용
                     lgnViewModel.setPosition(Double.parseDouble(btrVO.getMapXcooNm()), Double.parseDouble(btrVO.getMapYcooNm()));
                 }
+                //내위치는 항상 저장
+                lgnViewModel.setMyPosition(location.getLatitude(), location.getLongitude());
             });
 
         }, 5000);
@@ -270,7 +305,7 @@ public class LeasingCarBtrChangeActivity extends GpsBaseActivity<ActivityMap2Bin
                 public void onInflate(ViewStub viewStub, View inflated) {
                     bottomSelectBinding = DataBindingUtil.bind(inflated);
                     bottomSelectBinding.setActivity(LeasingCarBtrChangeActivity.this);
-                    bottomSelectBinding.tvMapSelectBtn1.setText(R.string.bt06_15);
+                    bottomSelectBinding.tvMapSelectBtn1.setText(btnStrId);
                     bottomSelectBinding.setData(btrVO);
                 }
             });

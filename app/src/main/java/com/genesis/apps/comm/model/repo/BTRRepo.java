@@ -119,15 +119,13 @@ public class BTRRepo {
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
-
-                BTR_1009.Response response = new Gson().fromJson(object, BTR_1009.Response.class); //결과코드 및 결과메시지 저장
-                response.setBtrVO(new Gson().fromJson(object, BtrVO.class)); //btr 데이터 저장
-                RES_BTR_1009.setValue(NetUIResponse.success(response));
+                RES_BTR_1009.setValue(NetUIResponse.success(new Gson().fromJson(object, BTR_1009.Response.class)));
             }
 
             @Override
             public void onFail(NetResult e) {
-                RES_BTR_1009.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_BTR_1009.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_BTR_1009.setValue(NetUIResponse.success(TestCode.BTR_1009));
             }
 
             @Override

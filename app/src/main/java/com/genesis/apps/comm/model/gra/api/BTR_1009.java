@@ -50,6 +50,17 @@ public class BTR_1009 extends BaseData {
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse {
-        private BtrVO btrVO;
+        @Expose
+        @SerializedName("asnCd")
+        private String asnCd;
+        @Expose
+        @SerializedName("asnNm")
+        private String asnNm;
+        @Expose
+        @SerializedName("repnTn")
+        private String repnTn;
+        @Expose
+        @SerializedName("pbzAdr")
+        private String pbzAdr;
     }
 }
