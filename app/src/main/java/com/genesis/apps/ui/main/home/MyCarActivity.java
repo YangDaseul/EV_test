@@ -209,6 +209,10 @@ public class MyCarActivity extends SubActivity<ActivityMyCarBinding> {
                     }
                 }
                 break;
+
+            case R.id.btn_rent:
+                startActivitySingleTop(new Intent(this, RegisterUsedCarActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
         }
 
     }

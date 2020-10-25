@@ -9,6 +9,7 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.databinding.DialogMiddleTwoButtonBinding;
 import com.genesis.apps.databinding.DialogUpdateBinding;
+import com.genesis.apps.databinding.DialogUsedCarInfoBinding;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import androidx.annotation.NonNull;
@@ -223,6 +224,25 @@ public class MiddleDialog {
                         dialog.dismiss();
                         if (cancel != null) cancel.run();
                     });
+                    binding.btnOk.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (ok != null) ok.run();
+                    });
+                }).show()
+        );
+    }
+
+
+
+    public static void dialogUsedCarInfo(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                new CustomDialog(activity, dialog -> {
+                    DialogUsedCarInfoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_used_car_info, null, false);
+                    dialog.setContentView(binding.getRoot());
+
                     binding.btnOk.setOnClickListener(v -> {
                         dialog.dismiss();
                         if (ok != null) ok.run();
