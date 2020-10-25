@@ -31,7 +31,7 @@
 
             <include
                 android:id="@+id/l_title"
-                layout="@layout/layout_titlebar"
+                layout="@layout/layout_titlebar_use_edittext"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -59,7 +59,7 @@
                 android:id="@+id/cb_call"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:button="@null"
                 android:drawableStart="@drawable/checkbox_selector"
                 android:drawablePadding="8dp"
@@ -79,7 +79,7 @@
                 android:id="@+id/l_subject"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 app:boxBackgroundColor="@color/x_ffffff"
                 app:boxBackgroundMode="outline"
                 app:boxCornerRadiusTopEnd="0dp"
@@ -115,12 +115,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/l_contents"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
                 app:boxBackgroundColor="@color/x_ffffff"
                 app:boxBackgroundMode="outline"
                 app:boxCornerRadiusTopEnd="0dp"
@@ -133,6 +133,7 @@
                 app:errorTextColor="@color/x_ba544d"
                 app:hintEnabled="true"
                 app:hintTextColor="@color/x_000000"
+                app:layout_constraintVertical_bias="0"
                 app:layout_constraintEnd_toEndOf="@+id/tv_msg"
                 app:layout_constraintStart_toStartOf="@+id/tv_msg"
                 app:layout_constraintTop_toBottomOf="@+id/l_subject"
@@ -141,8 +142,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_contents"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="350dp"
+                    android:layout_height="match_parent"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:hint="@string/gm_bt04_13"
                     android:imeOptions="actionDone"
@@ -153,7 +153,7 @@
                     android:gravity="left|top"
                     android:textColor="@color/x_000000"
                     android:textCursorDrawable="@drawable/cursor_141414"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
