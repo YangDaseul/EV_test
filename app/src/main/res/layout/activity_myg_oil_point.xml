@@ -7,6 +7,10 @@
         <variable
             name="view"
             type="com.genesis.apps.ui.myg.view.OilView" />
+
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.myg.MyGOilPointActivity" />
     </data>
 
 
@@ -42,11 +46,12 @@
                     android:id="@+id/iv_ci"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="30dp"
                     android:scaleType="centerInside"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/logo_sk_l"/>
 
 
                 <TextView
@@ -54,13 +59,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
                     android:fontFamily="@font/regular_genesissansheadglobal"
                     android:gravity="left|center_vertical"
                     android:lineSpacingExtra="-18sp"
                     android:textColor="@color/x_cd9a81"
                     android:textSize="34sp"
                     android:visibility="visible"
-                    app:layout_constraintStart_toStartOf="@+id/iv_ci"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/iv_ci"
                     tools:text="32,450" />
 
@@ -158,6 +164,7 @@
                     android:paddingRight="15dp"
                     android:paddingBottom="8dp"
                     android:text="@string/mg_con01_word_2"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     android:textColor="@color/x_6f6f6f"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@+id/tv_info"
@@ -178,6 +185,7 @@
                     android:paddingTop="8dp"
                     android:paddingRight="15dp"
                     android:paddingBottom="8dp"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     android:text="@string/mg_con01_word_3"
                     android:textColor="@color/x_ffffff"
                     android:textSize="14sp"

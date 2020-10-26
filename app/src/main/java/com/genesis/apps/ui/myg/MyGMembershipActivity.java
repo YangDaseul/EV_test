@@ -165,6 +165,12 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
             case R.id.btn_password:
                 startActivitySingleTop(new Intent(this, MyGMembershipCardPasswordActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
+            case R.id.tv_extnc_point:
+                startActivitySingleTop(new Intent(this, MyGMembershipExtncActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
+            case R.id.btn_question:
+                startActivitySingleTop(new Intent(this, MyGMembershipInfoActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+                break;
         }
 
     }

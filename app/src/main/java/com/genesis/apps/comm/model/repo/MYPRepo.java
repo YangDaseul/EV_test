@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.gra.APIInfo;
+import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.MYP_0001;
 import com.genesis.apps.comm.model.gra.api.MYP_0004;
 import com.genesis.apps.comm.model.gra.api.MYP_0005;
@@ -25,9 +26,12 @@ import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.net.NetResultCallback;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.ui.myg.MyGTermsActivity;
 import com.google.gson.Gson;
 
 import javax.inject.Inject;
+
+import static com.genesis.apps.ui.myg.MyGTermsActivity.TERMS_4000;
 
 public class MYPRepo {
 
@@ -58,7 +62,7 @@ public class MYPRepo {
     }
 
     public MutableLiveData<NetUIResponse<MYP_0001.Response>> REQ_MYP_0001(final MYP_0001.Request reqData) {
-
+        RES_MYP_0001.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -68,7 +72,8 @@ public class MYPRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_MYP_0001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_MYP_0001.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_MYP_0001.setValue(NetUIResponse.success(TestCode.MYP_0001));
             }
 
             @Override
@@ -183,7 +188,9 @@ public class MYPRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_MYP_1006.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_MYP_1006.setValue(NetUIResponse.error(e.getMseeage(), null));
+
+                RES_MYP_1006.setValue(NetUIResponse.success(TestCode.MYP_1006));
             }
 
             @Override
@@ -320,7 +327,8 @@ public class MYPRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_MYP_2006.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_MYP_2006.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_MYP_2006.setValue(NetUIResponse.success(TestCode.MYP_2006));
             }
 
             @Override
@@ -338,16 +346,32 @@ public class MYPRepo {
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
-
-                MYP_8001.Response response = new Gson().fromJson(object, MYP_8001.Response.class); //결과코드 및 결과메시지 저장
-                response.setTermVO(new Gson().fromJson(object, TermVO.class)); //term데이터 저장
-                RES_MYP_8001.setValue(NetUIResponse.success(response));
-//                RES_MYP_8001.setValue(NetUIResponse.success(new Gson().fromJson(object, MYP_8001.Response.class)));
+                RES_MYP_8001.setValue(NetUIResponse.success(new Gson().fromJson(object, MYP_8001.Response.class)));
             }
 
             @Override
             public void onFail(NetResult e) {
-                RES_MYP_8001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_MYP_8001.setValue(NetUIResponse.error(e.getMseeage(), null));
+                switch (reqData.getTermCd()){
+                    case MyGTermsActivity.TERMS_1000:
+                        RES_MYP_8001.setValue(NetUIResponse.success(TestCode.MYP_8001_1000));
+                        break;
+                    case MyGTermsActivity.TERMS_2000:
+                        RES_MYP_8001.setValue(NetUIResponse.success(TestCode.MYP_8001_2000));
+                        break;
+                    case MyGTermsActivity.TERMS_3000:
+                        RES_MYP_8001.setValue(NetUIResponse.success(TestCode.MYP_8001_3000));
+                        break;
+                    case MyGTermsActivity.TERMS_4000:
+                        RES_MYP_8001.setValue(NetUIResponse.success(TestCode.MYP_8001_4000));
+                        break;
+                    case MyGTermsActivity.TERMS_5000:
+                    default:
+                        RES_MYP_8001.setValue(NetUIResponse.success(TestCode.MYP_8001_5000));
+
+                }
+
+
             }
 
             @Override
@@ -390,12 +414,12 @@ public class MYPRepo {
             @Override
             public void onSuccess(String object) {
                 RES_MYP_8005.setValue(NetUIResponse.success(new Gson().fromJson(object, MYP_8005.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
             public void onFail(NetResult e) {
-                RES_MYP_8005.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_MYP_8005.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_MYP_8005.setValue(NetUIResponse.success(TestCode.MYP_8005));
             }
 
             @Override

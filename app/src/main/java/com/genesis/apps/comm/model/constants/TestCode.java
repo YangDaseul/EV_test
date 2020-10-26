@@ -35,7 +35,12 @@ import com.genesis.apps.comm.model.gra.api.IST_1005;
 import com.genesis.apps.comm.model.gra.api.LGN_0001;
 import com.genesis.apps.comm.model.gra.api.LGN_0003;
 import com.genesis.apps.comm.model.gra.api.LGN_0005;
+import com.genesis.apps.comm.model.gra.api.MYP_0001;
 import com.genesis.apps.comm.model.gra.api.MYP_1005;
+import com.genesis.apps.comm.model.gra.api.MYP_1006;
+import com.genesis.apps.comm.model.gra.api.MYP_2006;
+import com.genesis.apps.comm.model.gra.api.MYP_8001;
+import com.genesis.apps.comm.model.gra.api.MYP_8005;
 import com.genesis.apps.comm.model.gra.api.NOT_0001;
 import com.genesis.apps.comm.model.gra.api.PUB_1001;
 import com.genesis.apps.comm.model.gra.api.PUB_1002;
@@ -1781,6 +1786,218 @@ public class TestCode {
             "    }\n" +
             "  ]\n" +
             "}",WRT_1001.Response.class);
+
+    public static MYP_8001.Response MYP_8001_1000 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"termList\": [\n" +
+            "    {\n" +
+            "      \"termCd\": \"1000\",\n" +
+            "      \"termVer\": \"01.03\",\n" +
+            "      \"termNm\": \"앱 이용 약관\",\n" +
+            "      \"termCont\": \"http://211.54.75.18:7070/genesis/app/html/terms_HOB04.html\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}", MYP_8001.Response.class);
+
+    public static MYP_8001.Response MYP_8001_2000 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"termList\": [\n" +
+            "    {\n" +
+            "      \"termCd\": \"1000\",\n" +
+            "      \"termVer\": \"01.03\",\n" +
+            "      \"termNm\": \"개인정보처리방침\",\n" +
+            "      \"termCont\": \"http://211.54.75.18:7070/genesis/app/html/terms_HOB04.html\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}", MYP_8001.Response.class);
+
+    public static MYP_8001.Response MYP_8001_3000 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"termList\": [\n" +
+            "    {\n" +
+            "      \"termCd\": \"1000\",\n" +
+            "      \"termVer\": \"01.03\",\n" +
+            "      \"termNm\": \"개인정보 수집/이용\",\n" +
+            "      \"termCont\": \"http://211.54.75.18:7070/genesis/app/html/terms_HOB04.html\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}", MYP_8001.Response.class);
+
+    public static MYP_8001.Response MYP_8001_4000 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"termList\": [\n" +
+            "    {\n" +
+            "      \"termCd\": \"1000\",\n" +
+            "      \"termVer\": \"01.03\",\n" +
+            "      \"termNm\": \"광고성 정보 수신동의\",\n" +
+            "      \"termCont\": \"http://211.54.75.18:7070/genesis/app/html/terms_HOB04.html\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}", MYP_8001.Response.class);
+
+    public static MYP_8001.Response MYP_8001_5000 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"termList\": [\n" +
+            "    {\n" +
+            "      \"termCd\": \"1000\",\n" +
+            "      \"termVer\": \"01.03\",\n" +
+            "      \"termNm\": \"제네시스 멤버십 가입 약관\",\n" +
+            "      \"termCont\": \"http://211.54.75.18:7070/genesis/app/html/terms_HOB04.html\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}", MYP_8001.Response.class);
+
+
+    public static MYP_8005.Response MYP_8005 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"notiList\": [\n" +
+            "    {\n" +
+            "      \"seqNo\": \"1\",\n" +
+            "      \"notiTtl\": \"제네시스, 『더 뉴 G70』 출시\",\n" +
+            "      \"notiCont\": \"더 뉴 G70는 ‘제네시스의 가장 역동적인 스포츠 세단’이라는 수식어에 걸맞은 디자인을 갖췄다.\\n\\n\\n\\n\\t전면부는 낮게 위치한 ‘크레스트 그릴’과 그릴 양 옆으로 날개처럼 뻗어나가는 두 줄 디자인의 ‘쿼드램프’가 제네시스 엠블럼(emblem)을 형상화하며 금방이라도 앞으로 달려나갈 듯한 긴장감을 연출한다. \\n\\n\\n\\n\\t측면부는 긴 후드(엔진부 덮개)와 짧은 전방 오버행(차량 끝에서 바퀴 중심까지 거리)으로 표현한 기존 G70의 역동적인 비율을 계승하고 공력 효율에 최적화된 사이드 벤트(공기 배출구)와 신규 G70 전용 휠을 적용해 민첩한 주행성능을 시각적으로 구현했다.\\n\\n\\n\\n\\t후면부는 쿼드램프로 제네시스의 정체성을 명확하게 표현했으며 듀얼 머플러(좌ᆞ우 배기구)와 차체와 동일한 색상의 디퓨저(Diffuser)로 고성능 세단의 모습을 완성했다.\\n\\n\\t[※ 디퓨저: 차체 하부 공기 흐름을 개선해 주행시 차체를 아래로 누르는 힘(다운포스)을 증대, 고속 주행시 주행안정성을 확보하는 장치]\\n\\n\\n\\n\\t운전자 중심 구조를 계승한 실내는 10.25인치 인포테인먼트 시스템과 충전속도가 향상된 스마트폰 무선충전 시스템이 새롭게 적용됐다.\\n\\n\\n\\n\\t아울러 기본형 계기반의 화면(클러스터 디스플레이)을 3.5인치에서 8인치로 크기를 키워 각종 주행정보의 시인성을 높였다.\\n\\n\\n\\n\\t또한 앞 유리(윈드실드 글라스)와 1열 창문에 이중접합 차음유리를 기본 적용해 실내 정숙성을 개선했다. \\n\\n\\n\\n\\t한편 제네시스는 더 뉴 G70를 기존 운영 중인 9가지 색상에 5 가지를 더해 총 14 가지 색상으로 운영한다.\\n\\n\\n\\n\\t새롭게 추가되는 색상은 ▲제네시스가 처음 선보이는 본드 실버를 포함해 ▲베르비에 화이트 ▲멜버른 그레이 등 무광 색상 3가지와 ▲세도나 브라운 ▲태즈먼 블루 등 유광 색상 2가지다.\",\n" +
+            "      \"trmsSrtDtm\": \"20200908141014\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"seqNo\": \"2\",\n" +
+            "      \"notiTtl\": \"제네시스 멤버십 제휴 서비스 종료안내\",\n" +
+            "      \"notiCont\": \"항상 제네시스를 아껴주시는 고객 여러분께 감사드립니다.\\n\\n\\n\\n멤버십 제휴 서비스 중 종료되는 서비스를 아래와 같이 안내드립니다.\",\n" +
+            "      \"trmsSrtDtm\": \"20200908132039\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"seqNo\": \"3\",\n" +
+            "      \"notiTtl\": \"Genesis Connected Services 개인정보 처리방침 개정 공지\",\n" +
+            "      \"notiCont\": \"※ 자세한 사항은 개정된 Genesis Connected Services 개인정보 처리방침(’20년 10월 9일)을 참조하시길 바랍니다.\\n\\n변경 약관 적용일 : 2020년 10월 9일\\n\\n감사합니다.\",\n" +
+            "      \"trmsSrtDtm\": \"20200908115134\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"seqNo\": \"4\",\n" +
+            "      \"notiTtl\": \"Genesis Connected Services 일시 중지 안내\",\n" +
+            "      \"notiCont\": \"안녕하세요.\\n제네시스 커넥티드 서비스가 시스템 개선 작업으로 인해 일시 중지됨을 알려드립니다.\\n\\n■ 시스템 개선 일시 : 2020년 8월 21일(금) 01시 00분 ~ 2020년 8월 21일(금) 01시 30분\\n■ 대상 서비스 : 제네시스 커넥티드 서비스 앱 관련 서비스 (앱 로그인, 원격 제어 등)\\n\\n고객님께 불편을 끼쳐드려 죄송합니다.\\n서비스 품질 향상을 위한 불가피한 조치이오니 고객님의 너그러운 양해 부탁드립니다.\",\n" +
+            "      \"trmsSrtDtm\": \"20200908115129\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"seqNo\": \"5\",\n" +
+            "      \"notiTtl\": \"제네시스 2020 레드닷 어워드 4개부문 수상\",\n" +
+            "      \"notiCont\": \"제네시스가 세계적인 디자인 상인 레드 닷 어워드에서 4개의 상을 동시에 받았다. \\n\\n\\n\\n제네시스 브랜드는 독일 노르트하인 베스트팔렌 디자인센터(Design Zentrum Nordhein Westfalen)가 주관하는 ‘2020 레드 닷 어워드(2020 Red Dot Award)’의\\n\\n브랜드ᆞ커뮤니케이션 분야에서 본상(Winner) 4개를 수상했다고 4일(화) 밝혔다. \\n\\n\\n\\n1955년 시작된 레드 닷 어워드는 iF, IDEA 디자인상과 함께 세계 3대 디자인상 중 하나로 평가받고 있으며 매년 제품 디자인, 브랜드ᆞ커뮤니케이션, 디자인 콘셉트\\n\\n3개 분야를 대상으로 공모전을 진행, 각 부문 수상작을 발표하고 있다. \\n\\n\\n\\n제네시스는 G80와 GV80에 적용한 ▲인포테인먼트 시스템의 카퍼(Copper) 디자인으로 인터페이스 디자인(Interface design) 부문 본상을 수상했다.\\n\\n제네시스의 이번 수상은 현대차와 기아차를 포함한 현대차그룹이 인포테인먼트 시스템으로 받은 첫 디자인 상이라 그 의미가 각별하다. \\n\\n\\n\\n제네시스의 컬러 DNA를 계승한 카퍼 디자인은 증강현실 내비게이션, 제네시스 카페이 등 인포테인먼트 시스템 내 다양한 디지털 콘텐츠의 시인성을 높여 운전자에게 최적의 사용 경험을 제공한다.\\n\\n또한 제네시스는 브랜드 체험관인 제네시스 스튜디오 하남으로 ‘리테일 디자인 – 쇼룸 (Retail Design – Showroom)’ 부문 본상을 수상했고 해당 공간에서의 G90 및\\n\\n민트 컨셉카 런칭 기념 특별전시로 ‘Spatial Communication - Light installations 와 Event Design’ 부문 본상을 각각 수상하는 등 공간 크리에이티브 우수성을 입증하게 되었다. \\n\\n\\n\\n2016년 제네시스 브랜드의 첫 번째 몰타입 (Mall-type) 전시장 컨셉으로 오픈한 제네시스 스튜디오 하남은 기존 자동차 전시장과 차별화된 구매부담 없는 오픈형 공간으로 설계되었고 신차 및 컨셉카 런칭 시 특별전시와 고객 소통 프로그램을 통해 혁신적인 자동차 쇼룸 플랫폼으로 평가되고 있다.\",\n" +
+            "      \"trmsSrtDtm\": \"20200908115124\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}", MYP_8005.Response.class);
+
+
+
+    public static MYP_0001.Response MYP_0001 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"mbrStustCd\": \"1000\",\n" +
+            "  \"ccspEmail\": \"kim.genesis@email.com\",\n" +
+            "  \"mbrNm\": \"김수현\",\n" +
+            "  \"brtdy\": \"19800102\",\n" +
+            "  \"sexDiv\": \"M\",\n" +
+            "  \"celphNo\": \"01099990001\",\n" +
+            "  \"mrktYn\": \"Y\",\n" +
+            "  \"mrktDate\": \"20200824155819\",\n" +
+            "  \"mrktCd\": \"1111\"\n" +
+            "}", MYP_0001.Response.class);
+
+
+    public static MYP_1006.Response MYP_1006 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"oilRfnPontList\": [\n" +
+            "    {\n" +
+            "      \"oilRfnCd\": \"HDOL\",\n" +
+            "      \"oilRfnNm\": \"현대오일\",\n" +
+            "      \"rgstYn\": \"Y\",\n" +
+            "      \"cardNo\": \"1111111111111111\",\n" +
+            "      \"pont\": \"12412301\",\n" +
+            "      \"errMsg\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"oilRfnCd\": \"GSCT\",\n" +
+            "      \"oilRfnNm\": \"GS 칼텍스\",\n" +
+            "      \"rgstYn\": \"Y\",\n" +
+            "      \"cardNo\": \"2222222222222222\",\n" +
+            "      \"pont\": \"15471\",\n" +
+            "      \"errMsg\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"oilRfnCd\": \"SOIL\",\n" +
+            "      \"oilRfnNm\": \"S-OIL\",\n" +
+            "      \"rgstYn\": \"Y\",\n" +
+            "      \"cardNo\": \"3333333333333333\",\n" +
+            "      \"pont\": \"511224487\",\n" +
+            "      \"errMsg\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"oilRfnCd\": \"SKNO\",\n" +
+            "      \"oilRfnNm\": \"SK 이노베이션\",\n" +
+            "      \"rgstYn\": \"Y\",\n" +
+            "      \"cardNo\": \"4444444444444444\",\n" +
+            "      \"pont\": \"87894561\",\n" +
+            "      \"errMsg\": \"\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",MYP_1006.Response.class);
+
+
+
+
+
+    public static MYP_2006.Response MYP_2006 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"blueMbrYn\": \"Y\",\n" +
+            "  \"extncPlanCnt\": \"10\",\n" +
+            "  \"extncPlanList\": [\n" +
+            "    {\n" +
+            "      \"extncPlanDt\": \"20201001\",\n" +
+            "      \"extncPlanPont\": \"123000\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"extncPlanDt\": \"20201001\",\n" +
+            "      \"extncPlanPont\": \"123000\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"extncPlanDt\": \"20201002\",\n" +
+            "      \"extncPlanPont\": \"123000\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"extncPlanDt\": \"20201003\",\n" +
+            "      \"extncPlanPont\": \"123000\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"extncPlanDt\": \"20201004\",\n" +
+            "      \"extncPlanPont\": \"245245\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"extncPlanDt\": \"20201005\",\n" +
+            "      \"extncPlanPont\": \"452452\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"extncPlanDt\": \"20201006\",\n" +
+            "      \"extncPlanPont\": \"254254\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"extncPlanDt\": \"20201007\",\n" +
+            "      \"extncPlanPont\": \"12124\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"extncPlanDt\": \"20201008\",\n" +
+            "      \"extncPlanPont\": \"452542\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"extncPlanDt\": \"20201026\",\n" +
+            "      \"extncPlanPont\": \"1242424\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",MYP_2006.Response.class);
 
 
 }

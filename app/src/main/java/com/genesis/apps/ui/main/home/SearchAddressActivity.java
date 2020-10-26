@@ -63,7 +63,7 @@ public class SearchAddressActivity extends SubActivity<ActivitySearchAddressBind
                     //top
                 } else if (!ui.lSearchParent.rv.canScrollVertically(1)) {
                     //end
-                    searchAddress();
+                    if(adapter.getItemCount()>19) searchAddress();
                 } else {
                     //idle
                 }

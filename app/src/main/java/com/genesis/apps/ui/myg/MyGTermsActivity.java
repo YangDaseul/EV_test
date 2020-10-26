@@ -73,16 +73,18 @@ public class MyGTermsActivity extends WebviewActivity {
         if(!termsCd.equalsIgnoreCase(TERMS_6000)) {
             mypViewModel.getRES_MYP_8001().observe(this, responseNetUI -> {
                 switch (responseNetUI.status) {
+                    case LOADING:
+                        showProgressDialog(true);
+                        break;
                     case SUCCESS:
-                        if (responseNetUI.data != null) {
-                            loadTerms(responseNetUI.data.getTermVO());
+                        showProgressDialog(false);
+                        if (responseNetUI.data != null&&responseNetUI.data.getTermList()!=null&&responseNetUI.data.getTermList().size()>0) {
+//                            loadTerms(responseNetUI.data.getTermList().get(0)); <---2020-10-26 검수용 버전으로 임시 삭선처리됨
+                            initWebview(responseNetUI.data.getTermList().get(0).getTermCont());//임시코드
                             return;
                         }
-                    case LOADING:
-
-                        break;
                     default:
-
+                        showProgressDialog(false);
                         break;
                 }
             });
@@ -93,21 +95,21 @@ public class MyGTermsActivity extends WebviewActivity {
         }
     }
 
-    private void loadTerms(TermVO data){
-        if(data!=null&& !TextUtils.isEmpty(data.getTermCont())){
-            Bundle bundle = new Bundle();
-            bundle.putString(WebViewFragment.EXTRA_HTML_BODY, data.getTermCont());
-
-            MyWebViewFrament fragment = new MyWebViewFrament();
-            fragment.setArguments(bundle);
-            fragment.setWebViewListener(webViewListener);
-
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.fm_holder, fragment);
-            ft.commitAllowingStateLoss();
-        }
-
-    }
+//    private void loadTerms(TermVO data){
+//        if(data!=null&& !TextUtils.isEmpty(data.getTermCont())){
+//            Bundle bundle = new Bundle();
+//            bundle.putString(WebViewFragment.EXTRA_HTML_BODY, data.getTermCont());
+//
+//            MyWebViewFrament fragment = new MyWebViewFrament();
+//            fragment.setArguments(bundle);
+//            fragment.setWebViewListener(webViewListener);
+//
+//            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//            ft.add(R.id.fm_holder, fragment);
+//            ft.commitAllowingStateLoss();
+//        }
+//
+//    }
 
 
     private MyWebViewFrament.WebViewListener webViewListener = new MyWebViewFrament.WebViewListener() {

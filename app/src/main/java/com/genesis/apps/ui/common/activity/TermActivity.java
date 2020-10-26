@@ -59,7 +59,20 @@ public class TermActivity extends SubActivity<ActivityTermBinding>  {
             ft.add(R.id.fm_holder, fragment);
             ft.commitAllowingStateLoss();
         }
+    }
 
+
+    public void loadTerms(String url) {
+        Bundle bundle = new Bundle();
+        bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
+
+        MyWebViewFrament fragment = new MyWebViewFrament();
+        fragment.setWebViewListener(webViewListener);
+        fragment.setArguments(bundle);
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.fm_holder, fragment);
+        ft.commitAllowingStateLoss();
     }
 
 

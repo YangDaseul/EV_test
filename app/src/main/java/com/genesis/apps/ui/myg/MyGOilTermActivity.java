@@ -31,6 +31,7 @@ import java.util.Locale;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_GSCT;
 import static com.genesis.apps.comm.model.vo.TermVO.TERM_ESN_AGMT_N;
 
 public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
@@ -91,50 +92,115 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
                     "  \"rsltCd\": \"0000\",\n" +
                     "  \"rsltMsg\": \"성공\",\n" +
                     "  \"termList\": [\n" +
-                    "    {\n" +
-                    "      \"termVer\": \"00.00.01\",\n" +
-                    "      \"termCd\": \"1000\",\n" +
-                    "      \"termNm\": \"모바일 멤버십 발급을 위한 제3자 제공\",\n" +
-                    "      \"termEsnAgmtYn\": \"Y\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"termVer\": \"00.00.01\",\n" +
-                    "      \"termCd\": \"1001\",\n" +
-                    "      \"termNm\": \"'제네시스 앱' 서비스 이용을 위한 제3자 제공\",\n" +
-                    "      \"termEsnAgmtYn\": \"Y\"\n" +
-                    "    },\n" +
+//                    "    {\n" +
+//                    "      \"termVer\": \"00.00.01\",\n" +
+//                    "      \"termCd\": \"1000\",\n" +
+//                    "      \"termNm\": \"모바일 멤버십 발급을 위한 제3자 제공\",\n" +
+//                    "      \"termEsnAgmtYn\": \"Y\"\n" +
+//                    "    },\n" +
+//                    "    {\n" +
+//                    "      \"termVer\": \"00.00.01\",\n" +
+//                    "      \"termCd\": \"1001\",\n" +
+//                    "      \"termNm\": \"'제네시스 앱' 서비스 이용을 위한 제3자 제공\",\n" +
+//                    "      \"termEsnAgmtYn\": \"Y\"\n" +
+//                    "    },\n" +
                     "    {\n" +
                     "      \"termVer\": \"00.00.01\",\n" +
                     "      \"termCd\": \"2000\",\n" +
-                    "      \"termNm\": \"서비스 약관\",\n" +
+                    "      \"termNm\": \"GS&POINT 서비스 약관\",\n" +
                     "      \"termEsnAgmtYn\": \"Y\"\n" +
                     "    },\n" +
                     "    {\n" +
                     "      \"termVer\": \"00.00.01\",\n" +
                     "      \"termCd\": \"2001\",\n" +
-                    "      \"termNm\": \"개인신용정보 수집 제공 및 활용\",\n" +
+                    "      \"termNm\": \"GS&POINT 개인정보 수집 및 활용\",\n" +
                     "      \"termEsnAgmtYn\": \"Y\"\n" +
                     "    },\n" +
                     "    {\n" +
                     "      \"termVer\": \"00.00.01\",\n" +
                     "      \"termCd\": \"2002\",\n" +
-                    "      \"termNm\": \"서비스 제공을 위한 제3자 제공\\n(GS리테일, GS홈쇼핑)\",\n" +
-                    "      \"termEsnAgmtYn\": \"Y\"\n" +
+                    "      \"termNm\": \"마케팅 목적 개인정보 수집 및 활용에 대한 동\",\n" +
+                    "      \"termEsnAgmtYn\": \"N\"\n" +
                     "    },\n" +
                     "    {\n" +
                     "      \"termVer\": \"00.00.01\",\n" +
                     "      \"termCd\": \"2003\",\n" +
-                    "      \"termNm\": \"개인정보의 위탁 처리\",\n" +
+                    "      \"termNm\": \"GS&POINT 서비스 제공을 위한 제3자 제공\\n(GS리테일, GS홈쇼핑)\",\n" +
                     "      \"termEsnAgmtYn\": \"Y\"\n" +
                     "    },\n" +
                     "    {\n" +
                     "      \"termVer\": \"00.00.01\",\n" +
                     "      \"termCd\": \"2004\",\n" +
-                    "      \"termNm\": \"참여사의 홍보 및 고객응대를 위한 3자 제공\\n(GS리테일, GS홈쇼핑)\",\n" +
+                    "      \"termNm\": \"\tGS&POINT 참여사의 상품/서비스 마케팅 및 고객응대를 위한 제3자 제공\n(GS리테일, GS 홈쇼핑) \",\n" +
+                    "      \"termEsnAgmtYn\": \"N\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"termVer\": \"00.00.01\",\n" +
+                    "      \"termCd\": \"2005\",\n" +
+                    "      \"termNm\": \"\tGS&POINT 제휴 상품/서비스 홍보를 위한 제3자 제공\n(GS엠비즈) \",\n" +
+                    "      \"termEsnAgmtYn\": \"N\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"termVer\": \"00.00.01\",\n" +
+                    "      \"termCd\": \"2006\",\n" +
+                    "      \"termNm\": \"\tGS&POINT 개인정보의 처리위탁\",\n" +
                     "      \"termEsnAgmtYn\": \"N\"\n" +
                     "    }\n" +
                     "  ]\n" +
                     "}";
+
+            if(!oilRfnCd.equalsIgnoreCase(OIL_CODE_GSCT)){
+                test="{\n" +
+                        "  \"rsltCd\": \"0000\",\n" +
+                        "  \"rsltMsg\": \"성공\",\n" +
+                        "  \"termList\": [\n" +
+//                    "    {\n" +
+//                    "      \"termVer\": \"00.00.01\",\n" +
+//                    "      \"termCd\": \"1000\",\n" +
+//                    "      \"termNm\": \"모바일 멤버십 발급을 위한 제3자 제공\",\n" +
+//                    "      \"termEsnAgmtYn\": \"Y\"\n" +
+//                    "    },\n" +
+//                    "    {\n" +
+//                    "      \"termVer\": \"00.00.01\",\n" +
+//                    "      \"termCd\": \"1001\",\n" +
+//                    "      \"termNm\": \"'제네시스 앱' 서비스 이용을 위한 제3자 제공\",\n" +
+//                    "      \"termEsnAgmtYn\": \"Y\"\n" +
+//                    "    },\n" +
+                        "    {\n" +
+                        "      \"termVer\": \"00.00.01\",\n" +
+                        "      \"termCd\": \"3000\",\n" +
+                        "      \"termNm\": \"회원약관\",\n" +
+                        "      \"termEsnAgmtYn\": \"Y\"\n" +
+                        "    },\n" +
+                        "    {\n" +
+                        "      \"termVer\": \"00.00.01\",\n" +
+                        "      \"termCd\": \"3001\",\n" +
+                        "      \"termNm\": \"보너스카드 이용약관\",\n" +
+                        "      \"termEsnAgmtYn\": \"Y\"\n" +
+                        "    },\n" +
+                        "    {\n" +
+                        "      \"termVer\": \"00.00.01\",\n" +
+                        "      \"termCd\": \"3002\",\n" +
+                        "      \"termNm\": \"가입화면 내 개인정보수집이용동의\",\n" +
+                        "      \"termEsnAgmtYn\": \"Y\"\n" +
+                        "    },\n" +
+                        "    {\n" +
+                        "      \"termVer\": \"00.00.01\",\n" +
+                        "      \"termCd\": \"3003\",\n" +
+                        "      \"termNm\": \"가입화면 내 개인정보수집이용동의\",\n" +
+                        "      \"termEsnAgmtYn\": \"N\"\n" +
+                        "    },\n" +
+                        "    {\n" +
+                        "      \"termVer\": \"00.00.01\",\n" +
+                        "      \"termCd\": \"3004\",\n" +
+                        "      \"termNm\": \"\t마케팅정보활용동의\",\n" +
+                        "      \"termEsnAgmtYn\": \"N\"\n" +
+                        "    }\n" +
+                        "  ]\n" +
+                        "}";
+            }
+
+
 
             OIL_0001.Response sample = new Gson().fromJson(test, OIL_0001.Response.class);
             addTermToLayout(sample.getTermList());
@@ -190,7 +256,7 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
 
             itemTermBinding.setActivity(this);
             itemTermBinding.cb.setOnCheckedChangeListener(listener);
-            itemTermBinding.cb.setText(termVO.getTermNm() + (termVO.getTermEsnAgmtYn().equalsIgnoreCase(TERM_ESN_AGMT_N) ? getString(R.string.mg_con02_01_13) : ""));
+            itemTermBinding.cb.setText(termVO.getTermNm() + (termVO.getTermEsnAgmtYn().equalsIgnoreCase(TERM_ESN_AGMT_N) ? getString(R.string.mg_con02_01_13) : getString(R.string.mg_con02_01_14)));
             itemTermBinding.ivArrow.setTag(R.id.oil_term, termVO);
             checkBoxs.add(new TermView(termVO, itemTermBinding.cb));
 //            view.setId(Integer.parseInt(termVO.getTermCd()));

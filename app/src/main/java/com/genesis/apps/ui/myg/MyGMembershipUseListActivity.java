@@ -60,7 +60,7 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
                     //top
                 } else if (!ui.rv.canScrollVertically(1)) {
                     //end
-                    mypViewModel.reqMYP2002(new MYP_2002.Request(APPIAInfo.MG_MEMBER04.getId(), mbrshMbrMgmtNo, "", "", adapter.getPageNo() + 1 + "", "20"));
+                    if(adapter.getItemCount()>19) mypViewModel.reqMYP2002(new MYP_2002.Request(APPIAInfo.MG_MEMBER04.getId(), mbrshMbrMgmtNo, "", "", adapter.getPageNo() + 1 + "", "20"));
                 } else {
                     //idle
                 }

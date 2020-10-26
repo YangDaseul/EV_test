@@ -18,13 +18,15 @@ import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.MYP_1006;
 import com.genesis.apps.comm.model.gra.api.OIL_0003;
-import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.util.BarcodeUtil;
 import com.genesis.apps.comm.util.PackageUtil;
+import com.genesis.apps.comm.util.StringRe2j;
 import com.genesis.apps.comm.util.StringUtil;
+import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.databinding.ActivityMygOilPointBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.myg.view.OilView;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -80,7 +82,7 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
             if(pointVO.getOilRfnCd().equalsIgnoreCase(oilRfnCd)){
                 ui.ivCi.setImageResource(OilCodes.findCode(oilRfnCd).getSmallSrc());
                 ui.tvPoint.setText(StringUtil.getDigitGrouping(TextUtils.isEmpty(pointVO.getPont()) ? 0 : Integer.parseInt(pointVO.getPont())));
-                ui.tvCardNo.setText(pointVO.getCardNo());
+                ui.tvCardNo.setText(StringRe2j.replaceAll(pointVO.getCardNo(), getString(R.string.card_original), getString(R.string.card_mask)));
                 setBarcode(pointVO.getCardNo());
                 break;
             }
@@ -125,7 +127,11 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
                 oilView.reqIntegrateOil(OIL_CODE_SOIL);
                 break;
             case R.id.btn_release:
-                mypViewModel.reqOIL0003(new OIL_0003.Request(APPIAInfo.MG_CON01.getId(), oilRfnCd)); //연동해제 요청
+                MiddleDialog.dialogOilDisconnect(this, () -> {
+                    mypViewModel.reqOIL0003(new OIL_0003.Request(APPIAInfo.MG_CON01.getId(), oilRfnCd)); //연동해제 요청
+                }, () -> {
+
+                });
                 break;
             case R.id.btn_check_point:
                 PackageUtil.runApp(this, OilCodes.findCode(oilRfnCd).getSchema());
@@ -139,6 +145,7 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
             case R.id.btn_barcode_gs:
                 oilRfnCd = v.getTag().toString();
                 doTransition(OilCodes.findCode(oilRfnCd).ordinal());
+                setOilDetailView(mypViewModel.getRES_MYP_1006().getValue().data.getOilRfnPontList());
                 break;
 
 //            case R.id.btn_barcode_soil:
@@ -156,6 +163,7 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
     @Override
     public void setViewModel() {
         ui.setLifecycleOwner(this);
+        ui.setActivity(this);
         mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
     }
 

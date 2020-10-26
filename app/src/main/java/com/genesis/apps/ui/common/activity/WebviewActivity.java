@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.hybrid.core.WebViewFragment;
+import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.databinding.ActivityWebviewBinding;
 
 public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
@@ -31,8 +32,7 @@ public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
         getDataFromIntent();
         setViewModel();
         setObserver();
-        if(!TextUtils.isEmpty(url))
-            initWebview(url);
+        initWebview(url);
     }
 
     @Override
@@ -84,7 +84,7 @@ public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
         super.onDestroy();
     }
 
-    private void initWebview(String url) {
+    public void initWebview(String url) {
         Bundle bundle = new Bundle();
         bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
 
@@ -96,6 +96,23 @@ public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
         ft.add(R.id.fm_holder, fragment);
         ft.commitAllowingStateLoss();
     }
+
+    public void loadTerms(TermVO data){
+        if(data!=null&& !TextUtils.isEmpty(data.getTermCont())){
+            Bundle bundle = new Bundle();
+            bundle.putString(WebViewFragment.EXTRA_HTML_BODY, data.getTermCont());
+
+            fragment = new MyWebViewFrament();
+            fragment.setArguments(bundle);
+            fragment.setWebViewListener(webViewListener);
+
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.add(R.id.fm_holder, fragment);
+            ft.commitAllowingStateLoss();
+        }
+
+    }
+
 
     public boolean parseURL(String url) {
         return false;

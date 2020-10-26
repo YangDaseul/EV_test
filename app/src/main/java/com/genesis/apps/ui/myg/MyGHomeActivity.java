@@ -63,39 +63,41 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     public void setObserver() {
 
         mypViewModel.getRES_MYP_0001().observe(this, result -> {
-
+            //TODO 예외처리 및 로딩처리 필요
             switch (result.status) {
+                case LOADING:
+                    break;
                 case SUCCESS:
                     ui.tvName.setText(String.format(Locale.getDefault(), getString(R.string.word_home_23), result.data.getMbrNm()));
                     ui.tvMail.setText(result.data.getCcspEmail());
                     break;
-                case LOADING:
-                    break;
-                case ERROR:
+                default:
                     break;
             }
         });
 
         mypViewModel.getRES_MYP_1003().observe(this, result -> {
+            //TODO 예외처리 및 로딩처리 필요
             switch (result.status) {
+                case LOADING:
+                    break;
                 case SUCCESS:
                     ui.tvPoint.setText(String.format(Locale.getDefault(), getString(R.string.word_home_24), StringUtil.getDigitGrouping(Integer.parseInt(result.data.getBludMbrPoint()))));
                     break;
-                case LOADING:
-                    break;
-                case ERROR:
+                default:
                     break;
             }
         });
 
         mypViewModel.getRES_MYP_1005().observe(this, result -> {
+            //TODO 예외처리 및 로딩처리 필요
             switch (result.status) {
+                case LOADING:
+                    break;
                 case SUCCESS:
                     setPrivilegeLayout(result.data);
                     break;
-                case LOADING:
-                    break;
-                case ERROR:
+                default:
                     break;
             }
         });
@@ -125,7 +127,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     "    {\n" +
                     "      \"oilRfnCd\": \"SOIL\",\n" +
                     "      \"oilRfnNm\": \"S-OIL\",\n" +
-                    "      \"rgstYn\": \"N\",\n" +
+                    "      \"rgstYn\": \"Y\",\n" +
                     "      \"cardNo\": \"3333333333333333\",\n" +
                     "      \"pont\": \"3000000\",\n" +
                     "      \"errMsg\": \"\"\n" +
@@ -133,7 +135,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     "    {\n" +
                     "      \"oilRfnCd\": \"SKNO\",\n" +
                     "      \"oilRfnNm\": \"SK 이노베이션\",\n" +
-                    "      \"rgstYn\": \"N\",\n" +
+                    "      \"rgstYn\": \"Y\",\n" +
                     "      \"cardNo\": \"4444444444444444\",\n" +
                     "      \"pont\": \"4000000\",\n" +
                     "      \"errMsg\": \"\"\n" +
@@ -252,6 +254,8 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     startActivitySingleTop(new Intent(this, MyGMenuActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.btn_my_info: //내정보보기
+
+                    startActivitySingleTop(new Intent(this, MyGGAActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 
                     break;
                 case R.id.l_point: //블루멤버스 사용 가능 포인트

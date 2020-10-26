@@ -55,8 +55,7 @@ public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
                 if (!ui.rvNoti.canScrollVertically(-1)) {
                     //top
                 } else if (!ui.rvNoti.canScrollVertically(1)) {
-                    //end
-                    mypViewModel.reqMYP8005(new MYP_8005.Request(APPIAInfo.MG_NOTICE01.getId(),(adapter.getPageNo()+1)+"","20"));
+                    if(adapter.getItemCount()>19) mypViewModel.reqMYP8005(new MYP_8005.Request(APPIAInfo.MG_NOTICE01.getId(),(adapter.getPageNo()+1)+"","20"));
                 } else {
                     //idle
                 }
@@ -81,6 +80,9 @@ public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
         mypViewModel.getRES_MYP_8005().observe(this, responseNetUIResponse -> {
 
             switch (responseNetUIResponse.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
                 case SUCCESS:
                     showProgressDialog(false);
                     //추가할 아이템이 있을 경우만 adaper 갱신
@@ -97,12 +99,11 @@ public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
                         adapter.setPageNo(adapter.getPageNo() + 1);
 //                      adapter.notifyDataSetChanged();
                         adapter.notifyItemRangeInserted(itemSizeBefore, adapter.getItemCount());
+                        ui.tvEmpty.setVisibility(View.GONE);
+                        break;
                     }
-                    break;
-                case LOADING:
-                    showProgressDialog(true);
-                    break;
                 default:
+                    ui.tvEmpty.setVisibility(View.VISIBLE);
                     showProgressDialog(false);
                     break;
             }

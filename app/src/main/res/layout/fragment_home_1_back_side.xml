@@ -35,19 +35,18 @@
         <ImageView
             android:id="@+id/iv_car_bottom"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/car_bottom_2"
-            android:adjustViewBounds="true"
+            android:layout_height="0dp"
+            android:background="@drawable/car_bottom_2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHeight_percent="0.4"/>
 
         <ImageView
             android:id="@+id/iv_car_bottom_shade"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/car_bottom_shadow_2"
-            android:adjustViewBounds="true"
+            android:background="@drawable/car_bottom_shadow_2"
             app:layout_constraintBottom_toBottomOf="@+id/iv_car_bottom"
             app:layout_constraintLeft_toLeftOf="@+id/iv_car_bottom"
             app:layout_constraintRight_toRightOf="@+id/iv_car_bottom"
@@ -56,12 +55,13 @@
         <ImageView
             android:id="@+id/iv_car"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:adjustViewBounds="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:src="@drawable/new_car_4"/>
+            app:layout_constraintHeight_percent="0.4"
+            tools:src="@drawable/car_new_44"/>
 
         <ImageView
             android:id="@+id/iv_car_light"
@@ -72,18 +72,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/iv_car"
-            android:src="@drawable/new_car_3_light"/>
+            android:src="@drawable/car_new_33"/>
 
 
         <ImageView
             android:id="@+id/iv_car_shadow"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:adjustViewBounds="true"
-            android:src="@drawable/new_car_2_shadow"
+            android:src="@drawable/car_new_22"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHeight_percent="0.4"/>
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieView"
@@ -245,8 +246,10 @@
             android:background="@drawable/bg_00000000_underline_ffffff"
             android:visibility="gone"
             android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
-            app:layout_constraintTop_toBottomOf="@+id/tv_car_vrn"
+            app:layout_constraintTop_toTopOf="@+id/iv_car"
+            app:layout_constraintBottom_toBottomOf="@id/iv_car"
             app:layout_constraintLeft_toLeftOf="@+id/tv_car_code"
+            app:layout_constraintVertical_bias="0"
             tools:visibility="visible"/>
 
         <LinearLayout

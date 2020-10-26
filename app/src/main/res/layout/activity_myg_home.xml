@@ -436,6 +436,7 @@
                         android:text="@string/word_home_9"
                         android:textColor="@color/x_000000"
                         android:textSize="16sp"
+                        android:visibility="gone"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_oil"/>
 
@@ -451,6 +452,7 @@
                         android:lineSpacingExtra="0sp"
                         android:textColor="@color/x_cd9a81"
                         android:textSize="16sp"
+                        android:visibility="gone"
                         app:layout_constraintStart_toEndOf="@+id/tv_title_data"
                         app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_data"
                         tools:text="2"/>
@@ -465,6 +467,7 @@
                         android:layout_marginTop="20dp"
                         android:gravity="center_vertical"
                         android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+                        android:visibility="gone"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_title_data">
@@ -528,6 +531,7 @@
                         android:layout_marginTop="6dp"
                         android:gravity="center_vertical"
                         android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+                        android:visibility="gone"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_michael">
@@ -591,6 +595,7 @@
                         android:layout_marginTop="6dp"
                         android:gravity="center_vertical"
                         android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+                        android:visibility="gone"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_owon">

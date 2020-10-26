@@ -243,7 +243,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     }
                 });
             }
-        },3000,5000);
+        },6000,5000);
 
     }
 

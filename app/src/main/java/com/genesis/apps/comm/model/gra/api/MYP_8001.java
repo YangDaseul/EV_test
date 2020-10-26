@@ -8,6 +8,8 @@ import com.genesis.apps.comm.model.vo.TermVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -45,12 +47,14 @@ public class MYP_8001 extends BaseData {
     /**
      * @author hjpark
      * @brief MYP_8001 응답 항목
-     * @see #termVO 약관정보
+     * @see #termList 약관정보
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     static
     class Response extends BaseResponse {
-        private TermVO termVO;
+        @Expose
+        @SerializedName("termList")
+        private List<TermVO> termList;
     }
 }

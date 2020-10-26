@@ -246,6 +246,7 @@
                         android:letterSpacing="-0.01"
                         android:textColor="@color/x_000000"
                         android:textSize="16sp"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                         android:text="@{StringUtil.getDigitGroupingString(data.extncPont6mm??`0`)}"
                         app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_extnc_point"
                         app:layout_constraintEnd_toStartOf="@+id/tv_save_unit"
@@ -320,6 +321,7 @@
                         android:layout_marginRight="20dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/btn_question"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_title_card"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_title_card"/>

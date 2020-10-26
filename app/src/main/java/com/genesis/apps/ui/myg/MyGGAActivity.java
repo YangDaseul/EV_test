@@ -52,8 +52,8 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
                     "  \"rtCd\": \"0000\",\n" +
                     "  \"rtMsg\": \"Success\",\n" +
                     "  \"mbrStustCd\": \"1000\",\n" +
-                    "  \"ccspEmail\": \"test@email.com\",\n" +
-                    "  \"mbrNm\": \"댕댕이\",\n" +
+                    "  \"ccspEmail\": \"kim.genesis@email.com\",\n" +
+                    "  \"mbrNm\": \"김수현\",\n" +
                     "  \"brtdy\": \"19800102\",\n" +
                     "  \"sexDiv\": \"M\",\n" +
                     "  \"celphNo\": \"01099990001\",\n" +
