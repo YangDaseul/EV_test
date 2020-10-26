@@ -1,4 +1,4 @@
-package com.genesis.apps.ui.main.home;
+package com.genesis.apps.ui.main.home.view;
 
 import android.util.SparseBooleanArray;
 import android.view.View;

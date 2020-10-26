@@ -20,6 +20,7 @@ import com.genesis.apps.comm.viewmodel.GNSViewModel;
 import com.genesis.apps.databinding.ActivityLeasingCarHistBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
+import com.genesis.apps.ui.main.home.view.LeasingCarHistAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

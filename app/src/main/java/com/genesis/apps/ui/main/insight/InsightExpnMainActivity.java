@@ -1,39 +1,23 @@
 package com.genesis.apps.ui.main.insight;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.RequestCodes;
-import com.genesis.apps.comm.model.constants.ResultCodes;
-import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.CBK_1002;
-import com.genesis.apps.comm.model.gra.api.GNS_1007;
 import com.genesis.apps.comm.model.vo.ExpnVO;
-import com.genesis.apps.comm.model.vo.ExpnVO;
-import com.genesis.apps.comm.model.vo.ISTAmtVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
-import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.graph.AxisValueFormatter;
 import com.genesis.apps.comm.util.graph.RoundedBarChartRenderer;
 import com.genesis.apps.comm.viewmodel.CBKViewModel;
-import com.genesis.apps.comm.viewmodel.GNSViewModel;
 import com.genesis.apps.databinding.ActivityInsightExpnMainBinding;
-import com.genesis.apps.databinding.ActivityLeasingCarHistBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
-import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
-import com.genesis.apps.ui.main.home.LeasingCarHistAdapter;
-import com.genesis.apps.ui.main.home.LeasingCarHistDetailActivity;
-import com.genesis.apps.ui.main.home.LeasingCarVinRegisterActivity;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -45,10 +29,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 

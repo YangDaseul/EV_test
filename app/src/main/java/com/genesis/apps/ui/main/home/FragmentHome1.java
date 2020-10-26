@@ -221,7 +221,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         recordUtil.regReceiver();
         ((MainActivity)getActivity()).setGNB(false, false, 1, View.VISIBLE);
 
-        startTimer();
+//        startTimer();
 
         //TODO 알람뱃지뉴 표시하는 부분 요청처리 필요
 

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.text.TextUtils" />
+        <variable
+            name="data"
+            type="com.genesis.apps.comm.model.vo.MainHistVO" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_title_asan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="-2sp"
+            android:maxLines="1"
+            android:text="@string/gm01_bottom_2"
+            android:textColor="@color/x_000000"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_asan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+            android:paddingLeft="15dp"
+            android:paddingTop="20dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_asan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_goneMarginTop="0dp"
+            tools:visibility="visible">
+
+
+            <TextView
+                android:id="@+id/tv_asnhist"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:lineSpacingExtra="15sp"
+                android:maxLines="1"
+                android:text="@{data.asnHist ?? ``}"
+                android:textColor="@color/x_000000"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="엔진오일/필터/에어크리너/엔진오일/필터/에어크리너/엔진오일/필터/에어크리너" />
+
+            <TextView
+                android:id="@+id/tv_asnnm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:drawableRight="@drawable/bar_525252_height_15"
+                android:drawablePadding="8dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                android:lineSpacingExtra="76sp"
+                android:maxLines="1"
+                android:text="@{data.asnNm ?? ``}"
+                android:textColor="@color/x_000000"
+                android:textSize="14sp"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/tv_date"
+                app:layout_constraintTop_toBottomOf="@+id/tv_asnhist"
+                tools:text="(주) 염리점현대자동차" />
+
+            <TextView
+                android:id="@+id/tv_dt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                android:lineSpacingExtra="76sp"
+                android:maxLines="1"
+                android:text="@{TextUtils.isEmpty(data.arrivDt) ? `--` : data.arrivDt.replaceAll(`-`,`.`)}"
+                android:textColor="@color/x_000000"
+                android:textSize="14sp"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toRightOf="@+id/tv_asnnm"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_asnnm"
+                app:layout_constraintWidth_percent=".3"
+                tools:text="2020.08.20" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_asan_empty"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:gravity="center"
+            android:paddingTop="33dp"
+            android:paddingBottom="33dp"
+            android:text="@string/gm01_bottom_5"
+            android:textColor="@color/x_141414"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_asan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
