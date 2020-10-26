@@ -85,20 +85,17 @@ public class BtrBluehandsListActivity extends SubActivity<ActivityBtrBluehandsHi
 
     @Override
     public void getDataFromIntent() {
-
+        BTR_1008.Response result = null;
         try {
-            BTR_1008.Response result = (BTR_1008.Response)getIntent().getSerializableExtra(KeyNames.KEY_NAME_BTR);
-
+            result = (BTR_1008.Response)getIntent().getSerializableExtra(KeyNames.KEY_NAME_BTR);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
             if (result==null||result.getAsnList()==null||result.getAsnList().size()<1) {
                 exitPage("블루핸즈 정보가 존재하지 않습니다.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }else{
                 initView(result.getAsnList());
             }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            exitPage("블루핸즈 정보가 존재하지 않습니다.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
         }
 
     }
