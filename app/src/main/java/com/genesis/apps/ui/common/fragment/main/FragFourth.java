@@ -288,7 +288,7 @@ public class FragFourth extends SubFragment<Frame4pBinding> {
     private void doRecordService(final int resultCode, final Intent data) {
         setRejectClick(me.vClickReject);
         startRecordService(resultCode, data);
-        doFullScreen();
+//        doFullScreen();
         new Handler().postDelayed(() -> {
             stopRecordService();
             new Handler().postDelayed(() -> {

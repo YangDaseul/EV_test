@@ -9,14 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.widget.AutoScrollHelper;
-import androidx.core.widget.ListViewAutoScrollHelper;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
-
 import com.bumptech.glide.Glide;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
@@ -36,7 +28,6 @@ import com.genesis.apps.databinding.FragmentHome1Binding;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
-import com.genesis.apps.ui.main.SimilarCarActivity;
 import com.genesis.apps.ui.main.home.view.HomeInsightHorizontalAdapter;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
@@ -52,6 +43,10 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static android.app.Activity.RESULT_OK;
@@ -65,6 +60,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     private HomeInsightHorizontalAdapter adapter=null;
     private RecordUtil recordUtil;
     private Timer timer = null;
+    private boolean isRecord=false;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return super.setContentView(inflater, R.layout.fragment_home_1);
@@ -82,9 +78,18 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         me.setFragment(this);
         initView();
         recordUtil = new RecordUtil(this, visibility -> {
+            ((MainActivity)getActivity()).ui.lGnb.lWhole.setVisibility(visibility);
+            ((MainActivity)getActivity()).ui.tabs.setVisibility(visibility);
+            me.vpInsight.setVisibility(visibility);
+            me.tvCarCode.setVisibility(visibility);
+            me.tvCarModel.setVisibility(visibility);
+            me.tvRepairStatus.setVisibility(visibility);
+            me.tvCarVrn.setVisibility(visibility);
+            me.btnCarinfo.setVisibility(visibility);
+            me.btnLocation.setVisibility(visibility);
+            me.btnShare.setVisibility(visibility);
             //TODO 배경 및 차량 리소스가 결정되면 녹화해야할 VIEW가 요건 정의 된 후 여기에서 해당 뷰 셋팅 정의 필요
             //EX ui.layout.setVisibility(visibility);
-
         });
         lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
         cmnViewModel = new ViewModelProvider(getActivity()).get(CMNViewModel.class);
@@ -215,13 +220,16 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     @Override
     public void onRefresh() {
+        if(isRecord)
+            return;
+
         Log.e("onResume","onReusme FragmentHome1");
         videoPauseAndResume(true);
         setViewVehicle();
         recordUtil.regReceiver();
         ((MainActivity)getActivity()).setGNB(false, false, 1, View.VISIBLE);
 
-//        startTimer();
+        startTimer();
 
         //TODO 알람뱃지뉴 표시하는 부분 요청처리 필요
 
@@ -424,8 +432,10 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             reqMyLocation();
         }else if (requestCode == RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode() && resultCode == RESULT_OK) {
             recordUtil.doRecordService(me.vClickReject, resultCode, data);
+            isRecord=true;
             return;
         }else if (requestCode == RequestCodes.REQ_CODE_PLAY_VIDEO.getCode()){
+            isRecord=false;
             recordUtil.requestShare();
         }else{
             super.onActivityResult(requestCode, resultCode, data);

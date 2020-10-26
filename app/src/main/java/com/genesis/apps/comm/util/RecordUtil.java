@@ -61,10 +61,14 @@ public class RecordUtil {
 
 
     public void unRegReceiver() {
-        if(mReceiver!=null) {
-            final IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(ScreenRecorderService.ACTION_QUERY_STATUS_RESULT);
-            subFragment.getActivity().unregisterReceiver(mReceiver);
+        try {
+            if (mReceiver != null) {
+                final IntentFilter intentFilter = new IntentFilter();
+                intentFilter.addAction(ScreenRecorderService.ACTION_QUERY_STATUS_RESULT);
+                subFragment.getActivity().unregisterReceiver(mReceiver);
+            }
+        }catch (Exception e){
+
         }
     }
 
@@ -89,7 +93,7 @@ public class RecordUtil {
     public void doRecordService(View vClickReject, final int resultCode, final Intent data) {
         setRejectClick(vClickReject);
         startRecordService(resultCode, data);
-        subFragment.doFullScreen();
+//        subFragment.doFullScreen();
         new Handler().postDelayed(() -> {
             stopRecordService();
             new Handler().postDelayed(() -> {
