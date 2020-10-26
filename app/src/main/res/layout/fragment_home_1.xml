@@ -327,13 +327,13 @@
             android:id="@+id/l_distance"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="100dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_car"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:visibility="visible">
 
             <TextView
@@ -347,13 +347,13 @@
                 android:letterSpacing="-0.01"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="-- km"
+                android:text="1,000 km"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="@+id/tv_title_distance_total"
                 app:layout_constraintBottom_toTopOf="@+id/tv_title_distance_total"
-                tools:text="1213123km"/>
+                tools:text="1000km"/>
 
             <TextView
                 android:id="@+id/tv_title_distance_total"
@@ -402,7 +402,7 @@
                 android:letterSpacing="-0.01"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="-- km"
+                android:text="135 km"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toRightOf="@+id/tv_title_distance_recently"
                 app:layout_constraintLeft_toLeftOf="@+id/tv_title_distance_recently"
@@ -454,7 +454,7 @@
                 android:letterSpacing="-0.01"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="-- km"
+                android:text="538 km"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toRightOf="@+id/tv_title_distance_possible"
                 app:layout_constraintLeft_toLeftOf="@+id/tv_title_distance_possible"
