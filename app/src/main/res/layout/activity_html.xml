@@ -25,6 +25,7 @@
 
         <ViewStub
             android:id="@+id/vs_contents"
+            android:inflatedId="@+id/vs_contents"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"

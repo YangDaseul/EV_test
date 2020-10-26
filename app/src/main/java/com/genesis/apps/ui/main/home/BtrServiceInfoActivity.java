@@ -26,12 +26,15 @@ public class BtrServiceInfoActivity extends HtmlActivity {
         setViewModel();
         setObserver();
         initView();
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         btrViewModel.reqBTR1010(new BTR_1010.Request(APPIAInfo.GM_BT01_P01.getId(),annMgmtCd));
+        //todo 20201026 임시코드
+        loadTermsUrl("http://211.54.75.18:7070/genesis/app/html/butler_G90.html");
     }
 
     @Override

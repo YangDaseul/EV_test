@@ -63,6 +63,18 @@ public class HtmlActivity extends SubActivity<ActivityHtmlBinding>  {
 
     }
 
+    public void loadTermsUrl(String url) {
+        Bundle bundle = new Bundle();
+        bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
+
+        MyWebViewFrament fragment = new MyWebViewFrament();
+        fragment.setWebViewListener(webViewListener);
+        fragment.setArguments(bundle);
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.fm_holder, fragment);
+        ft.commitAllowingStateLoss();
+    }
 
     public MyWebViewFrament.WebViewListener webViewListener = new MyWebViewFrament.WebViewListener() {
         @Override

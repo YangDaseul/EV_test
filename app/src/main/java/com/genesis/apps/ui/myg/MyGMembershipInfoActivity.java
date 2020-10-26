@@ -34,7 +34,7 @@ public class MyGMembershipInfoActivity extends SubActivity<ActivityMygMembership
 
     @Override
     public void setViewModel() {
-
+        ui.setActivity(this);
     }
 
     @Override
