@@ -121,12 +121,30 @@
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="ServiceDriveReqResult.Status.Text.Light">
+    <style name="ServiceDriveReqResult.Status.Text.Light" parent="ServiceDriveReqResult.Status.Text">
         <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
     </style>
 
-    <style name="ServiceDriveReqResult.Status.Text.Regular">
+    <style name="ServiceDriveReqResult.Status.Text.Regular" parent="ServiceDriveReqResult.Status.Text">
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
     </style>
+
+
+    <!-- 대리운전 신청내역 -->
+    <!-- 패널, 데이터 이름 -->
+    <style name="ServiceDrive.History.Data.Title" parent="TextBasic">
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="layout_constraintVertical_chainStyle">packed</item>
+    </style>
+
+    <!-- 패널, 데이터 값 -->
+    <style name="ServiceDrive.History.Data.Desc" parent="TextBasic">
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+    </style>
+
 
 </resources>

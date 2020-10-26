@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="icon"
+            type="android.graphics.drawable.Drawable" />
+    </data>
+
+    <!-- 펼치기 전 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:background="@drawable/ripple_bg_ffffff"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="15dp">
+
+        <!-- "이용완료" -->
+        <TextView
+            android:id="@+id/rv_service_drive_history_finished_title"
+            style="@style/TextBasic"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_141414_round_99"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="center"
+            android:text="@string/service_drive_history_finished"
+            android:textColor="@color/x_ffffff"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 오른쪽 드롭다운 화살표 -->
+        <ImageView
+            android:id="@+id/iv_service_drive_history_dropdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@{icon}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- "신청일시" -->
+        <TextView
+            android:id="@+id/rv_service_drive_history_finished_date_title"
+            style="@style/ServiceDrive.History.Data.Title"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/service_drive_history_date"
+            app:layout_constraintBottom_toTopOf="@id/rv_service_drive_history_finished_car_info_title"
+            app:layout_constraintStart_toEndOf="@+id/rv_service_drive_history_finished_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 신청일시 데이터 -->
+        <TextView
+            android:id="@+id/rv_service_drive_history_finished_date_desc"
+            style="@style/ServiceDrive.History.Data.Desc"
+            android:layout_marginStart="13dp"
+            android:text="20.12.10  오후 09:50(더미데이터)"
+            app:layout_constraintBaseline_toBaselineOf="@id/rv_service_drive_history_finished_date_title"
+            app:layout_constraintEnd_toStartOf="drop"
+            app:layout_constraintStart_toEndOf="@id/rv_service_drive_history_finished_date_title"
+            tools:text="20.12.10  오후 09:50(더미데이터)" />
+
+        <!-- "차량정보" -->
+        <TextView
+            android:id="@+id/rv_service_drive_history_finished_car_info_title"
+            style="@style/ServiceDrive.History.Data.Title"
+            android:layout_marginBottom="8dp"
+            android:text="@string/service_drive_history_car_info"
+            app:layout_constraintBottom_toBottomOf="@id/rv_service_drive_history_finished_paid_title"
+            app:layout_constraintStart_toStartOf="@id/rv_service_drive_history_finished_date_title"
+            app:layout_constraintTop_toBottomOf="@id/rv_service_drive_history_finished_date_title"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <!-- 차량정보 데이터 -->
+        <TextView
+            android:id="@+id/rv_service_drive_history_finished_car_info_desc"
+            style="@style/ServiceDrive.History.Data.Desc"
+            android:text="GV70 123제 4567"
+            app:layout_constraintBaseline_toBaselineOf="@id/rv_service_drive_history_finished_car_info_title"
+            app:layout_constraintStart_toStartOf="@id/rv_service_drive_history_finished_date_desc"
+            tools:text="GV70 123제 4567" />
+
+        <!-- "결제금액" -->
+        <TextView
+            android:id="@+id/rv_service_drive_history_finished_paid_title"
+            style="@style/ServiceDrive.History.Data.Title"
+            android:text="@string/service_drive_history_paid"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/rv_service_drive_history_finished_date_title"
+            app:layout_constraintTop_toBottomOf="@id/rv_service_drive_history_finished_car_info_title"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <!-- 결제금액 데이터 -->
+        <TextView
+            android:id="@+id/rv_service_drive_history_finished_paid_desc"
+            style="@style/ServiceDrive.History.Data.Desc"
+            android:text="30,000원"
+            app:layout_constraintBaseline_toBaselineOf="@id/rv_service_drive_history_finished_paid_title"
+            app:layout_constraintStart_toStartOf="@id/rv_service_drive_history_finished_date_desc"
+            tools:text="30,000원" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
