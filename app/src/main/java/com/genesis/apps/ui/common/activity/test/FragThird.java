@@ -28,16 +28,16 @@ public class FragThird extends SubFragment<Frame3pBinding> {
     private final int[] testLayoutList = {
 //            R.layout.fragment_service, //todo 스크롤 범위
 //            R.layout.fragment_service_maintenance, //todo 스크롤 범위
-//            R.layout.layout_service_maintenance_item, //todo 스크롤 범위
+//            R.layout.item_service_maintenance, //todo 스크롤 범위
 //
 //            R.layout.fragment_service_car_wash, //todo 스크롤 범위
-//            R.layout.layout_service_car_wash_item,
+//            R.layout.item_service_car_wash,
 //            R.layout.activity_car_wash_find_sonax_branch, //todo 스크롤 범위
 //            R.layout.layout_map_find_result,
-//            R.layout.layout_map_find_result_item,
+//            R.layout.item_map_find_result,
 //            R.layout.fragment_car_wash_branch_preview,
 //            R.layout.activity_car_wash_history,
-//            R.layout.layout_car_wash_history_item,
+//            R.layout.item_car_wash_history,
 
 //            R.layout.fragment_service_drive, //todo 스크롤 범위
             R.layout.activity_service_drive_req_1,

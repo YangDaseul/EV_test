@@ -20,13 +20,13 @@
             android:id="@+id/l_service_car_wash_history_btn"
             layout="@layout/layout_service_car_wash_top_panel" />
 
-        <!--  아이템으로 사용되는 뷰 파일 : layout_service_car_wash_item -->
+        <!--  아이템으로 사용되는 뷰 파일 : item_service_car_wash -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_service_car_wash_item_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:background="#a0f040"
-            tools:listitem="@layout/layout_service_car_wash_item" />
+            tools:listitem="@layout/item_service_car_wash" />
 
     </LinearLayout>
 </layout>

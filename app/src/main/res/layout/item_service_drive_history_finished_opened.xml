@@ -16,7 +16,7 @@
         -->
         <include
             android:id="@+id/l_service_drive_history_opened_btn"
-            layout="@layout/layout_service_drive_history_finished"
+            layout="@layout/item_service_drive_history_finished"
             app:icon="@{@drawable/btn_arrow_close}" />
 
         <!-- 회색 선 -->

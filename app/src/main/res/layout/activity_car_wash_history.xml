@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:paddingHorizontal="20dp"
             android:paddingBottom="20dp"
-            tools:listitem="@layout/layout_car_wash_history_item" />
+            tools:listitem="@layout/item_car_wash_history" />
 
     </LinearLayout>
 </layout>

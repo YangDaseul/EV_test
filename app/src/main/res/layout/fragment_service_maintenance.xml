@@ -44,7 +44,7 @@
             <!--  정비 예약 -->
             <include
                 android:id="@+id/l_service_maintenance_reservation_btn"
-                layout="@layout/layout_service_maintenance_item"
+                layout="@layout/item_service_maintenance"
                 app:desc="@{@string/sm01_maintenance_3}"
                 app:icon="@{@drawable/ic_service_reservation}"
                 app:title="@{@string/sm01_maintenance_2}" />
@@ -52,7 +52,7 @@
             <!--  정비 이력 -->
             <include
                 android:id="@+id/l_service_maintenance_history_btn"
-                layout="@layout/layout_service_maintenance_item"
+                layout="@layout/item_service_maintenance"
                 app:desc="@{@string/sm01_maintenance_5}"
                 app:icon="@{@drawable/ic_service_list}"
                 app:title="@{@string/sm01_maintenance_4}" />
@@ -60,7 +60,7 @@
             <!--  정비 긴급출동 -->
             <include
                 android:id="@+id/l_service_maintenance_emergency_btn"
-                layout="@layout/layout_service_maintenance_item"
+                layout="@layout/item_service_maintenance"
                 app:desc="@{@string/sm01_maintenance_8}"
                 app:icon="@{@drawable/ic_service_emergency}"
                 app:title="@{@string/sm01_maintenance_6}" />
@@ -68,7 +68,7 @@
             <!--  정비 원격진단 -->
             <include
                 android:id="@+id/l_service_maintenance_customercenter_btn"
-                layout="@layout/layout_service_maintenance_item"
+                layout="@layout/item_service_maintenance"
                 app:desc="@{@string/sm01_maintenance_10}"
                 app:icon="@{@drawable/ic_service_customercenter}"
                 app:title="@{@string/sm01_maintenance_9}" />
@@ -76,7 +76,7 @@
             <!--  정비 재발 -->
             <include
                 android:id="@+id/l_service_maintenance_defect_btn"
-                layout="@layout/layout_service_maintenance_item"
+                layout="@layout/item_service_maintenance"
                 app:desc="@{@string/sm01_maintenance_12}"
                 app:icon="@{@drawable/ic_service_defect}"
                 app:title="@{@string/sm01_maintenance_11}" />
