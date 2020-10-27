@@ -43,13 +43,11 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/ripple_bg_ffffff_stroke_dadde3"
-            android:drawableEnd="@drawable/btn_dropdown"
+            android:drawableEnd="@drawable/btn_arrow_open"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:gravity="center_vertical"
             android:hint="@string/maintenance_category_title"
-            android:paddingStart="16dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
+            android:padding="16dp"
             android:textColor="@color/x_000000"
             android:textColorHint="@color/x_aaabaf"
             android:textSize="15sp"
@@ -89,7 +87,7 @@
                 <!-- 오토케어 -->
                 <include
                     android:id="@+id/l_maintenance_autocare"
-                    layout="@layout/layout_maintenance_category_item"
+                    layout="@layout/item_maintenance_category"
                     app:desc="@{@string/maintenance_service_desc_01}"
                     app:icon="@{@drawable/ic_service_autocare}"
                     app:title="@{@string/maintenance_service_item_01}" />
@@ -97,7 +95,7 @@
                 <!-- 에어포트 -->
                 <include
                     android:id="@+id/l_maintenance_airport"
-                    layout="@layout/layout_maintenance_category_item"
+                    layout="@layout/item_maintenance_category"
                     app:desc="@{@string/maintenance_service_desc_02}"
                     app:icon="@{@drawable/ic_service_airport}"
                     app:title="@{@string/maintenance_service_item_02}" />
@@ -105,7 +103,7 @@
                 <!-- 홈투홈 -->
                 <include
                     android:id="@+id/l_maintenance_hometohome"
-                    layout="@layout/layout_maintenance_category_item"
+                    layout="@layout/item_maintenance_category"
                     app:desc="@{@string/maintenance_service_desc_03}"
                     app:icon="@{@drawable/ic_service_hometohome}"
                     app:title="@{@string/maintenance_service_item_03}" />
@@ -113,7 +111,7 @@
                 <!-- 정비소 -->
                 <include
                     android:id="@+id/l_maintenance_repair"
-                    layout="@layout/layout_maintenance_category_item"
+                    layout="@layout/item_maintenance_category"
                     app:desc="@{@string/maintenance_service_desc_04}"
                     app:icon="@{@drawable/ic_service_repair}"
                     app:title="@{@string/maintenance_service_item_04}" />

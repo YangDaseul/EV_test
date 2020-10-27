@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+        android:padding="15dp">
+
+        <!-- "사용자 취소" -->
+        <TextView
+            android:id="@+id/rv_service_drive_history_canceled_title"
+            style="@style/TextBasic"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_ffffff_round_99_stroke_ba544d"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="center"
+            android:lineSpacingExtra="2sp"
+            android:text="@string/service_drive_history_canceled"
+            android:textColor="@color/x_ba544d"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- "신청일시" -->
+        <TextView
+            android:id="@+id/rv_service_drive_history_canceled_date_title"
+            style="@style/ServiceDrive.History.Data.Title"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/service_drive_history_date"
+            app:layout_constraintBottom_toTopOf="@id/rv_service_drive_history_canceled_term_title"
+            app:layout_constraintStart_toEndOf="@+id/rv_service_drive_history_canceled_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 신청일시 데이터 -->
+        <TextView
+            android:id="@+id/rv_service_drive_history_canceled_date_desc"
+            style="@style/ServiceDrive.History.Data.Desc"
+            android:layout_marginStart="13dp"
+            android:text="20.12.10  오후 09:50(더미데이터)"
+            app:layout_constraintBaseline_toBaselineOf="@id/rv_service_drive_history_canceled_date_title"
+            app:layout_constraintStart_toEndOf="@id/rv_service_drive_history_canceled_date_title"
+            tools:text="20.12.10  오후 09:50(더미데이터)" />
+
+        <!-- "대여기간" -->
+        <TextView
+            android:id="@+id/rv_service_drive_history_canceled_term_title"
+            style="@style/ServiceDrive.History.Data.Title"
+            android:text="@string/service_drive_history_term"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/rv_service_drive_history_canceled_date_title"
+            app:layout_constraintTop_toBottomOf="@id/rv_service_drive_history_canceled_date_title"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <!-- 대여기간 데이터 -->
+        <TextView
+            android:id="@+id/rv_service_drive_history_canceled_term_desc"
+            style="@style/ServiceDrive.History.Data.Desc"
+            android:text="20.13.32. 27:61 ~ 20.13.35. 31:51"
+            app:layout_constraintBaseline_toBaselineOf="@id/rv_service_drive_history_canceled_term_title"
+            app:layout_constraintStart_toStartOf="@id/rv_service_drive_history_canceled_date_desc"
+            tools:text="20.13.32. 27:61 ~ 20.13.35. 31:51" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

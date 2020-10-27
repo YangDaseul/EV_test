@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- 출발지 아이콘 -->
+        <ImageView
+            android:id="@+id/iv_service_drive_route_from_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+            android:src="@drawable/ic_from"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- "출발지" -->
+        <TextView
+            android:id="@+id/tv_service_drive_route_from_title"
+            style="@style/ServiceDrive.Light"
+            android:layout_marginStart="10dp"
+            android:text="@string/service_drive_top_info_05"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_service_drive_route_from_icon"
+            app:layout_constraintStart_toEndOf="@id/iv_service_drive_route_from_icon"
+            app:layout_constraintTop_toTopOf="@id/iv_service_drive_route_from_icon" />
+
+        <!-- 출발지 장소명 -->
+        <TextView
+            android:id="@+id/tv_service_drive_route_from_name"
+            style="@style/ServiceDriveReqResult.FromTo.Name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_service_drive_route_from_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_drive_route_from_title"
+            tools:text="우림 라이온스 밸리 A동 지하 99층as dfsdfs dfsdf asdf asdfsfsfd" />
+
+        <!-- 출발지 주소 -->
+        <TextView
+            android:id="@+id/tv_service_drive_route_from_address"
+            style="@style/ServiceDriveReqResult.FromTo.Address"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_service_drive_route_from_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_drive_route_from_name"
+            tools:text="서울특별시 금천구 가산동 440-4 asd fas dfa sdf asdfa dfasd fasdfad asdfas" />
+
+        <!-- "도착지" -->
+        <TextView
+            android:id="@+id/tv_service_drive_route_to_title"
+            style="@style/ServiceDrive.Light"
+            android:layout_marginTop="15dp"
+            android:text="@string/service_drive_top_info_06"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="@id/tv_service_drive_route_from_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_drive_route_from_address" />
+
+        <!-- 도착지 아이콘 -->
+        <ImageView
+            android:id="@+id/iv_service_drive_route_to_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+            android:src="@drawable/ic_to"
+            app:layout_constraintBottom_toBottomOf="@id/tv_service_drive_route_to_title"
+            app:layout_constraintStart_toStartOf="@id/iv_service_drive_route_from_icon"
+            app:layout_constraintTop_toTopOf="@id/tv_service_drive_route_to_title" />
+
+        <!-- 출발지-도착지 선 -->
+        <ImageView
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:src="@color/x_e2e2e2"
+            app:layout_constraintBottom_toTopOf="@id/iv_service_drive_route_to_icon"
+            app:layout_constraintEnd_toEndOf="@id/iv_service_drive_route_from_icon"
+            app:layout_constraintStart_toStartOf="@id/iv_service_drive_route_from_icon"
+            app:layout_constraintTop_toBottomOf="@id/iv_service_drive_route_from_icon" />
+
+        <!-- 도착지 장소명 -->
+        <TextView
+            android:id="@+id/tv_service_drive_route_to_name"
+            style="@style/ServiceDriveReqResult.FromTo.Name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_service_drive_route_from_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_drive_route_to_title"
+            tools:text="우림 라이온스 밸리 A동 지하 99층as dfsdfs dfsdf asdf asdfsfsfd" />
+
+        <!-- 도착지 주소 -->
+        <TextView
+            android:id="@+id/tv_service_drive_route_to_address"
+            style="@style/ServiceDriveReqResult.FromTo.Address"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_service_drive_route_from_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_drive_route_to_name"
+            tools:text="서울특별시 금천구 가산동 440-4 asd fas dfa sdf asdfa dfasd fasdfad asdfas" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

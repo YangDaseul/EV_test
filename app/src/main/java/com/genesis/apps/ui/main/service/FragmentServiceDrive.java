@@ -52,6 +52,7 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
 
         switch (id) {
             //대리운전 신청(이미 신청한 상태이면 그 내용을 보여줌)
+            //TODO : 신청 액티비티 or 신청결과 액티비티 중 골라야 한다(지금은 확인 안 하고 신청액티비티 호출하는 상태)
             case R.id.tv_service_drive_req_btn:
                 ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;

@@ -6,7 +6,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/x_f4f4f4">
+        android:background="@color/x_f4f4f4"
+        android:orientation="vertical">
 
         <include
             layout="@layout/layout_titlebar"
@@ -18,7 +19,7 @@
             android:layout_height="match_parent"
             android:paddingHorizontal="20dp"
             android:paddingBottom="20dp"
-            tools:listitem="@layout/layout_car_wash_history_item" />
+            tools:listitem="@layout/item_car_wash_history" />
 
     </LinearLayout>
 </layout>

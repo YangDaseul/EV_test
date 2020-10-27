@@ -1,47 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    style="@style/MapOverlayBox"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    tools:layout_width="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- 출동함 -->
-    <TextView
-        android:id="@+id/tv_map_top_title"
-        style="@style/MapOverlay.RegularHead"
-        android:text="@string/map_title_2"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintHorizontal_chainStyle="packed"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/MapOverlayBox"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_width="match_parent">
 
-    <!--  "약"  -->
-    <TextView
-        android:id="@+id/tv_map_top_msg_1"
-        style="@style/MapOverlay.Light"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/map_msg_2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_map_top_title" />
+        <!-- 출동함 -->
+        <TextView
+            android:id="@+id/tv_map_top_title"
+            style="@style/MapOverlay.RegularHead"
+            android:text="@string/map_title_2"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- n분 후-->
-    <TextView
-        android:id="@+id/tv_map_top_msg_time"
-        style="@style/MapOverlay.Sonax.Service.Title"
-        android:textSize="16sp"
-        app:layout_constraintBaseline_toBaselineOf="@id/tv_map_top_msg_1"
-        app:layout_constraintStart_toEndOf="@id/tv_map_top_msg_1"
-        tools:text="17분 후 " />
+        <!--  "약"  -->
+        <TextView
+            android:id="@+id/tv_map_top_msg_1"
+            style="@style/MapOverlay.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/map_msg_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_map_top_title" />
 
-    <!-- 도착 예정입니다. -->
-    <TextView
-        style="@style/MapOverlay.Light"
-        android:text="@string/map_msg_4"
-        app:layout_constraintBaseline_toBaselineOf="@id/tv_map_top_msg_1"
-        app:layout_constraintStart_toEndOf="@id/tv_map_top_msg_time" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- n분 후-->
+        <TextView
+            android:id="@+id/tv_map_top_msg_time"
+            style="@style/MapOverlay.Sonax.Service.Title"
+            android:textSize="16sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_map_top_msg_1"
+            app:layout_constraintStart_toEndOf="@id/tv_map_top_msg_1"
+            tools:text="17분 후 " />
+
+        <!-- 도착 예정입니다. -->
+        <TextView
+            style="@style/MapOverlay.Light"
+            android:text="@string/map_msg_4"
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_map_top_msg_1"
+            app:layout_constraintStart_toEndOf="@id/tv_map_top_msg_time" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

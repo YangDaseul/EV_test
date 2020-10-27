@@ -1,45 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="20dp"
-    android:background="@drawable/ripple_bg_000000_round_10"
-    android:clickable="true"
-    android:elevation="5dp"
-    android:focusable="true"
-    android:padding="20dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--  세차 예약 내역 타이틀-->
-    <TextView
-        android:id="@+id/iv_service_car_wash_reserv_history_title"
-        style="@style/TextBasic"
-        android:fontFamily="@font/regular_genesissansheadglobal"
-        android:text="@string/sm01_car_wash_1"
-        android:textColor="@color/x_ffffff"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!--  세차 예약 내역 텍스트-->
-    <TextView
-        android:id="@+id/iv_service_car_wash_reserv_history_desc"
-        style="@style/TextBasic"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/light_genesissansheadglobal"
-        android:lineSpacingExtra="6sp"
-        android:text="@string/sm01_car_wash_2"
-        android:textColor="@color/x_aaabaf"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_service_car_wash_reserv_history_title" />
-
-    <!-- 세차 예약 내역 오른쪽에 " > " -->
-    <ImageView
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_service_car_wash"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/btn_arrow_open_r_w"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf=" parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_margin="20dp"
+        android:background="@drawable/ripple_bg_000000_round_10"
+        android:clickable="true"
+        android:elevation="5dp"
+        android:focusable="true"
+        android:padding="20dp">
+
+        <!--  세차 예약 내역 타이틀-->
+        <TextView
+            android:id="@+id/iv_service_car_wash_reserv_history_title"
+            style="@style/TextBasic"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:text="@string/sm01_car_wash_1"
+            android:textColor="@color/x_ffffff"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--  세차 예약 내역 텍스트-->
+        <TextView
+            android:id="@+id/iv_service_car_wash_reserv_history_desc"
+            style="@style/TextBasic"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:lineSpacingExtra="6sp"
+            android:text="@string/sm01_car_wash_2"
+            android:textColor="@color/x_aaabaf"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_service_car_wash_reserv_history_title" />
+
+        <!-- 세차 예약 내역 오른쪽에 " > " -->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btn_arrow_open_r_w"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf=" parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

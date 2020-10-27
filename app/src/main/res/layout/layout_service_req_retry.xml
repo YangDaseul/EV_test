@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- "일시오류" -->
-    <TextView
-        style="@style/ServiceReq.Error"
-        android:layout_marginEnd="10dp"
-        android:text="@string/service_req_03" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
 
-    <!-- 재시도버튼 -->
-    <TextView
-        android:id="@+id/tv_service_drive_retry"
-        style="@style/TextBtnBasic"
-        android:background="@drawable/ripple_bg_00000000_stroke_6f6f6f"
-        android:fontFamily="@font/light_genesissansheadglobal"
-        android:paddingStart="14dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="14dp"
-        android:paddingBottom="10dp"
-        android:text="@string/service_req_04"
-        android:textColor="@color/x_141414"
-        android:textSize="14sp" />
+        <!-- "일시오류" -->
+        <TextView
+            style="@style/ServiceReq.Error"
+            android:layout_marginEnd="10dp"
+            android:text="@string/service_req_03" />
 
-</LinearLayout>
+        <!-- 재시도버튼 -->
+        <TextView
+            android:id="@+id/tv_service_drive_retry"
+            style="@style/TextBtnBasic"
+            android:background="@drawable/ripple_bg_00000000_stroke_6f6f6f"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:paddingStart="14dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="10dp"
+            android:text="@string/service_req_04"
+            android:textColor="@color/x_141414"
+            android:textSize="14sp" />
 
+    </LinearLayout>
+
+</layout>

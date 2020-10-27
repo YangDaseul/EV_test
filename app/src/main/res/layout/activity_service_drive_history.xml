@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/x_f4f4f4">
+
+        <!-- 타이틀바-->
+        <include
+            android:id="@+id/l_service_drive_req_result_titlebar"
+            layout="@layout/layout_titlebar"
+            app:value="@{@string/service_drive_history_title}" />
+
+        <!-- "신청 내역 없어요" 메시지
+             TODO : 데이터 본체가 들어가는 리사이클러 뷰를 GONE으로 하면 보인다. -->
+        <TextView
+            style="@style/TextBasic"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:text="@string/service_drive_history_no_data"
+            android:textColor="@color/x_141414"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 신청 내역 목록 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_service_drive_history_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            android:background="@color/x_f4f4f4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/l_service_drive_req_result_titlebar"
+            tools:listitem="@layout/item_service_drive_history_finished_opened" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
