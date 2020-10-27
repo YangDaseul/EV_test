@@ -341,6 +341,16 @@
             android:theme="@style/TextInputLayout"
             android:exported="false"/>
 
+
+        <activity android:name=".ui.main.service.ServiceDriveReqResultActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/TextInputLayout"
+            android:exported="false"/>
+
+        <activity android:name=".ui.main.service.ServiceDriveHistoryActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+
         <activity android:name=".ui.main.service.MaintenanceReserveActivity"
             android:screenOrientation="portrait"
             android:exported="false"/>

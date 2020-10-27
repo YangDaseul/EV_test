@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.main.service;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.databinding.ActivityServiceDriveReq1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 
@@ -77,6 +79,12 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         ui.lServiceDriveReqTopPanel.tvServiceReqCarModel.setText("GV80");
         ui.lServiceDriveReqTopPanel.tvServiceReqCarNumber.setText("12너 3456");
 
+        //todo 신청내역 버튼 리스너, 적당한 코드 위치 정해서 이동하기
+        ui.lServiceDriveReqTitlebar.tvTitlebarTextBtn.setOnClickListener(v -> {
+            startActivitySingleTop(new Intent(this, ServiceDriveHistoryActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        });
+
+
         initConstraintSets();
         initView();
     }
@@ -128,6 +136,10 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
             if (getCurrentFocus() instanceof TextView) {
                 if (!TextUtils.isEmpty(((TextView) getCurrentFocus()).getText().toString())) {
                     doTransition();
+
+                    //TODO 임시코드. 신청 결과 액티비티 호출
+                    startActivitySingleTop(new Intent(this, ServiceDriveReqResultActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    finish();
                 }
             }
         });
