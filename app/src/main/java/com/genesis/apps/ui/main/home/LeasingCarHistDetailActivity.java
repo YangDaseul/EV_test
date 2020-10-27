@@ -72,7 +72,7 @@ public class LeasingCarHistDetailActivity extends SubActivity<ActivityLeasingCar
                 break;
             case VariableType.LEASING_CAR_APRV_STATUS_CODE_WAIT:
             default:
-                ui.ivMark.setImageResource(R.drawable.ic_fail);//todo 수정필요
+                ui.ivMark.setImageResource(R.drawable.ic_succeed);//todo 수정필요
                 ui.tvMsg.setText(getString(R.string.gm_carlst_02_18)+"\n"+getString(R.string.gm_carlst_02_27));
                 ui.tvAddrInfo.setVisibility(View.GONE);
                 ui.lAddr.setVisibility(View.VISIBLE);

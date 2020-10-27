@@ -1041,7 +1041,7 @@ public class TestCode {
             "    {\n" +
             "      \"isncCd\": \"BLUE\",\n" +
             "      \"cardNo\": \"1234567545678777\",\n" +
-            "      \"cardIsncSubspDt\": \"20200101\"\n" +
+            "      \"cardIsncSubspDt\": \"20200121\"\n" +
             "    },\n" +
             "    {\n" +
             "      \"isncCd\": \"BLUE\",\n" +
@@ -1054,8 +1054,8 @@ public class TestCode {
             "      \"cardIsncSubspDt\": \"\"\n" +
             "    },\n" +
             "    {\n" +
-            "      \"isncCd\": \"GSCT\",\n" +
-            "      \"cardNo\": \"2100111122223333\",\n" +
+            "      \"isncCd\": \"SOIL\",\n" +
+            "      \"cardNo\": \"2100111122224444\",\n" +
             "      \"cardIsncSubspDt\": \"\"\n" +
             "    },\n" +
             "    {\n" +
