@@ -42,8 +42,10 @@
             tools:text="123너 6456" />
 
         <!-- 로딩중/예상가격/서비스불가안내 등  -->
-        <!-- layout_service_req_
-             _loading, _price, _cant_service, _retry   -->
+        <!-- layout_service_req_loading
+             layout_service_req_price
+             layout_service_req_cant_service
+             layout_service_req_retry  -->
         <ViewStub
             android:id="@+id/vs_service_req_status"
             android:layout_width="wrap_content"

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/ServiceDriveReqResultStatusBackground"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
+
+        <!-- 대리 기사 이름 -->
+        <TextView
+            android:id="@+id/tv_service_drive_status_driver"
+            style="@style/ServiceDriveReqResult.Status.Text.Regular"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="울랄라" />
+
+        <!-- 전화번호 -->
+        <TextView
+            android:id="@+id/tv_service_drive_status_phone"
+            style="@style/ServiceDriveReqResult.Status.Text.Light"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_status_driver"
+            app:layout_constraintStart_toEndOf="@id/tv_service_drive_status_driver"
+            tools:text="123-4556-8987" />
+
+        <!-- 전화하기 버튼 -->
+        <TextView
+            android:id="@+id/tv_service_drive_status_call_btn"
+            style="@style/TextBtnBasic"
+            android:background="@drawable/ripple_bg_141414"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:paddingStart="14dp"
+            android:paddingTop="7dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="7dp"
+            android:text="@string/service_drive_req_result_btn_01"
+            android:textColor="@color/x_ffffff"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

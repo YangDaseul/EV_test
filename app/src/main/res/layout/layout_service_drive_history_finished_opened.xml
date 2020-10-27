@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- 펼친 상태 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+        android:orientation="vertical"
+        android:padding="1dp">
+
+        <!-- 접힘/펼침 상태 공통 부분 TODO  아랫부분 작성 : 서비스 대리운전 신청내역태그
+        -->
+        <include
+            android:id="@+id/l_service_drive_history_opened_btn"
+            layout="@layout/layout_service_drive_history_finished"
+            app:icon="@{@drawable/btn_arrow_close}" />
+
+        <!-- 회색 선 -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:src="@color/x_e2e2e2" />
+
+        <!-- 출발지 도착지  -->
+        <include
+            android:id="@+id/l_service_drive_history_route"
+            layout="@layout/layout_service_drive_route"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp" />
+
+        <!-- 운행기사 레이아웃 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/x_e2e2e2"
+            android:paddingStart="15dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="20dp">
+
+            <!-- "운행기사" -->
+            <TextView
+                android:id="@+id/tv_service_drive_history_driver_title"
+                style="@style/TextBasic"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                android:text="@string/service_drive_history_driver"
+                android:textColor="@color/x_000000"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toTopOf="@id/tv_service_drive_history_driver_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <!-- 기사 이름 -->
+            <TextView
+                android:id="@+id/tv_service_drive_history_driver_name"
+                style="@style/TextBasic"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:textColor="@color/x_000000"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tv_service_drive_history_driver_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_service_drive_history_driver_title"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="울랄라" />
+
+            <!-- 전화번호 -->
+            <TextView
+                android:id="@+id/tv_service_drive_history_driver_phone"
+                style="@style/TextBasic"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                android:textColor="@color/x_000000"
+                android:textSize="15sp"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_driver_name"
+                app:layout_constraintStart_toEndOf="@id/tv_service_drive_history_driver_name"
+                tools:text="010-1230-5654" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- 안내문(고정값) 세 줄 -->
+        <TextView
+            style="@style/ServiceDrive.History.Noti"
+            android:layout_marginTop="20dp"
+            android:text="@string/service_drive_history_des_01" />
+
+        <TextView
+            style="@style/ServiceDrive.History.Noti"
+            android:text="@string/service_drive_history_des_02" />
+
+        <TextView
+            style="@style/ServiceDrive.History.Noti"
+            android:text="@string/service_drive_history_des_03" />
+
+        <!-- 회색 점선 -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="30dp"
+            android:background="@color/x_ffffff"
+            android:src="@drawable/horizontal_ffffff_stroke_cbcbcb" />
+
+        <!-- 요금/할인/결제금액 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/x_f9f9f9"
+            android:paddingStart="15dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="20dp">
+
+            <!-- "대리운전 요금" -->
+            <TextView
+                android:id="@+id/tv_service_drive_history_opened_price_title"
+                style="@style/TextBasic"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                android:text="@string/service_drive_history_price"
+                android:textColor="@color/x_000000"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- 요금(값) -->
+            <TextView
+                android:id="@+id/tv_service_drive_history_opened_price_value"
+                style="@style/TextBasic"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:textColor="@color/x_000000"
+                android:textSize="15sp"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_opened_price_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="1,000,000원" />
+
+            <!-- "포인트할인" -->
+            <TextView
+                android:id="@+id/tv_service_drive_history_opened_discount_title"
+                style="@style/TextBasic"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                android:text="@string/service_drive_history_discount"
+                android:textColor="@color/x_000000"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_service_drive_history_opened_price_title" />
+
+            <!-- 할인액(값) -->
+            <TextView
+                android:id="@+id/tv_service_drive_history_opened_discount_value"
+                style="@style/TextBasic"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:textColor="@color/x_000000"
+                android:textSize="15sp"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_opened_discount_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="-500,000원" />
+
+            <!-- 회색실선 -->
+            <ImageView
+                android:id="@+id/iv_dummy"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:src="@color/x_e2e2e2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_service_drive_history_opened_discount_title" />
+
+            <!-- "결제금액" -->
+            <TextView
+                android:id="@+id/tv_service_drive_history_opened_paid_title"
+                style="@style/TextBasic"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:text="@string/service_drive_history_paid"
+                android:textColor="@color/x_000000"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_dummy" />
+            <!-- 결제액(값) -->
+            <TextView
+                android:id="@+id/tv_service_drive_history_opened_paid_value"
+                style="@style/TextBasic"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:textColor="@color/x_a36b4f"
+                android:textSize="18sp"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_opened_paid_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="500,000원" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>
