@@ -71,10 +71,10 @@ class CardVO extends BaseData {
     @Expose
     @SerializedName("cardStusNm")
     private String cardStusNm;
-    public static final String CARD_STATUS_10="정상";
+    public static final String CARD_STATUS_10="발급완료";
     public static final String CARD_STATUS_20="정지";
     public static final String CARD_STATUS_30="소멸";
-    public static final String CARD_STATUS_0="발급중";
+    public static final String CARD_STATUS_0="발급중";//TODO 20201026 기준으로 발급중이 없다고 회신받음.. 일단 구현은 되어있음
     public static final String CARD_STATUS_99="추가"; //APP NATIVE에서만 사용하는 코드
 
 

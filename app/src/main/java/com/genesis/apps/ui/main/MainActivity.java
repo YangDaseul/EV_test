@@ -7,6 +7,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
@@ -16,16 +24,8 @@ import com.genesis.apps.databinding.ActivityMainBinding;
 import com.genesis.apps.databinding.ItemTabBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.main.home.FragmentHome1;
-import com.genesis.apps.ui.myg.MyGHomeActivity;
+import com.genesis.apps.ui.myg.MyGEntranceActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
-
-import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
 
 public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     private final int pageNum = 4;
@@ -102,20 +102,24 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 startActivitySingleTop(new Intent(this, AlarmCenterActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.btn_profile:
-                try {
-                    switch (lgnViewModel.getUserInfoFromDB().getCustGbCd()){
-                        case VariableType.MAIN_VEHICLE_TYPE_0000:
 
-                            break;
-                        case VariableType.MAIN_VEHICLE_TYPE_OV:
-                        default:
-                            startActivitySingleTop(new Intent(this, MyGHomeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                            break;
-                    }
-                }catch (Exception ignore){
-                    ignore.printStackTrace();
-                }
-                break;
+                startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                return;
+
+//                try {
+//                    switch (lgnViewModel.getUserInfoFromDB().getCustGbCd()){
+//                        case VariableType.MAIN_VEHICLE_TYPE_0000:
+//                            startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                            break;
+//                        case VariableType.MAIN_VEHICLE_TYPE_OV:
+//                        default:
+//                            startActivitySingleTop(new Intent(this, MyGHomeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                            break;
+//                    }
+//                }catch (Exception ignore){
+//                    ignore.printStackTrace();
+//                }
+//                break;
         }
 
     }

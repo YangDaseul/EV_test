@@ -42,8 +42,8 @@ public class LGN_0003 extends BaseData {
      * @brief LGN_0003 응답 항목
      * @see #acptNo 접수번호
      * HSW 시스템 정의
-     * @see #asnCd 정비일자
-     * (형식 YYYY-MM-DD)
+     * @see #asnDt 정비일자
+     * 정비일자 (형식 YYYYMMDD)
      * @see #asnNm 정비망명
      * @see #asnStatsNm 정비상태명
      * HSW 시스템 정의
@@ -70,8 +70,8 @@ public class LGN_0003 extends BaseData {
         @SerializedName("acptNo")
         private String acptNo;
         @Expose
-        @SerializedName("asnCd")
-        private String asnCd;
+        @SerializedName("asnDt")
+        private String asnDt;
         @Expose
         @SerializedName("asnNm")
         private String asnNm;

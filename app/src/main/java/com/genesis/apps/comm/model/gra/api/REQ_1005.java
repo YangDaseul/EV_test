@@ -66,7 +66,9 @@ public class REQ_1005 extends BaseData {
      * Y:신청가능 N:신청불가
      * @see #rpshRsvtPsblYn 정비소예약가능여부
      * Y:신청가능 N:신청불가
-     *
+     * @see #avlRsrYn 예약신청가능여부
+     * Y:신청가능 N:신청불가
+     * 동일 차량에 대한 예약중복 방지.
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -86,5 +88,8 @@ public class REQ_1005 extends BaseData {
         @Expose
         @SerializedName("rpshRsvtPsblYn")
         private String rpshRsvtPsblYn;
+        @Expose
+        @SerializedName("avlRsrYn")
+        private String avlRsrYn;
     }
 }

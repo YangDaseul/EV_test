@@ -53,7 +53,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".ui.common.activity.EntranceActivity"
+            android:name=".ui.myg.MyGEntranceActivity"
             android:screenOrientation="portrait"
             android:exported="false" />
 
