@@ -12,7 +12,7 @@
         <!-- 접힘/펼침 상태 공통 부분.
              펼친 상태에서 이 부분 배경에 테두리 잘린 것 때문에 울면서 이렇게 한 번 더 포장 -->
         <include
-            android:id="@+id/l_service_drive_history_closed_item"
+            android:id="@+id/l_service_drive_history_closed_btn"
             layout="@layout/layout_service_drive_history_finished"
             app:icon="@{@drawable/btn_arrow_open}" />
 

@@ -10,8 +10,9 @@
             type="android.graphics.drawable.Drawable" />
     </data>
 
-    <!-- 펼치기 전 -->
+    <!-- 클릭 영역 -->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_service_drive_history_finished_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="1dp"
@@ -64,7 +65,7 @@
             android:layout_marginStart="13dp"
             android:text="20.12.10  오후 09:50(더미데이터)"
             app:layout_constraintBaseline_toBaselineOf="@id/rv_service_drive_history_finished_date_title"
-            app:layout_constraintEnd_toStartOf="drop"
+            app:layout_constraintEnd_toStartOf="@id/iv_service_drive_history_dropdown"
             app:layout_constraintStart_toEndOf="@id/rv_service_drive_history_finished_date_title"
             tools:text="20.12.10  오후 09:50(더미데이터)" />
 
@@ -85,6 +86,7 @@
             style="@style/ServiceDrive.History.Data.Desc"
             android:text="GV70 123제 4567"
             app:layout_constraintBaseline_toBaselineOf="@id/rv_service_drive_history_finished_car_info_title"
+            app:layout_constraintEnd_toStartOf="@id/iv_service_drive_history_dropdown"
             app:layout_constraintStart_toStartOf="@id/rv_service_drive_history_finished_date_desc"
             tools:text="GV70 123제 4567" />
 
@@ -104,6 +106,7 @@
             style="@style/ServiceDrive.History.Data.Desc"
             android:text="30,000원"
             app:layout_constraintBaseline_toBaselineOf="@id/rv_service_drive_history_finished_paid_title"
+            app:layout_constraintEnd_toStartOf="@id/iv_service_drive_history_dropdown"
             app:layout_constraintStart_toStartOf="@id/rv_service_drive_history_finished_date_desc"
             tools:text="30,000원" />
 

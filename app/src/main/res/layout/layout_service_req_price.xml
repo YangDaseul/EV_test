@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- "예상가격" -->
-    <TextView
-        style="@style/ServiceReq.Light"
-        android:layout_marginEnd="5dp"
-        android:text="@string/service_req_01"
-        android:textSize="13sp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
 
-    <!-- 값 -->
-    <TextView
-        android:id="@+id/tv_service_price_maybe"
-        style="@style/TextBasic"
-        android:textColor="@color/x_a36b4f"
-        android:textSize="18sp"
-        tools:text="15,000 원" />
+        <!-- "예상가격" -->
+        <TextView
+            style="@style/ServiceReq.Light"
+            android:layout_marginEnd="5dp"
+            android:text="@string/service_req_01"
+            android:textSize="13sp" />
 
-</LinearLayout>
+        <!-- 값 -->
+        <TextView
+            android:id="@+id/tv_service_price_maybe"
+            style="@style/TextBasic"
+            android:textColor="@color/x_a36b4f"
+            android:textSize="18sp"
+            tools:text="15,000 원" />
 
+    </LinearLayout>
+
+</layout>

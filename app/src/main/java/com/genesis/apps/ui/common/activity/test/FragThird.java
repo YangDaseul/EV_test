@@ -48,8 +48,8 @@ public class FragThird extends SubFragment<Frame3pBinding> {
             R.layout.layout_service_req_panel,
 
 //            R.layout.activity_service_drive_req_result,
-//            R.layout.layout_service_drive_status_matching,
-//            R.layout.layout_service_drive_status_matched,
+//            R.layout.layout_service_drive_status_match_waiting,
+//            R.layout.layout_service_drive_status_driver,
 //            R.layout.layout_service_drive_status_reserved,
 
 //            R.layout.activity_map2,
