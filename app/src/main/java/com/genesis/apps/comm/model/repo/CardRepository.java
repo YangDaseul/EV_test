@@ -78,7 +78,8 @@ public class CardRepository {
                         newList.add(cardVO);
                     }
                 }
-                newList.add(new CardVO(0,"", "", "", CardVO.CARD_STATUS_99, "", "", "", 0,false));
+                if(!haveAddCard(newList))
+                    newList.add(new CardVO(0,"", "", "", CardVO.CARD_STATUS_99, "", "", "", 0,false));
 
             } catch (Exception e1) {
                 e1.printStackTrace();
@@ -182,6 +183,21 @@ public class CardRepository {
             isAdd=false;
         }
         return isAdd;
+    }
+
+
+    /**
+     * 이미 임시로 추가된 "카드 추가" 가 있는지 없는지 유무 확인
+     * @param list
+     * @return
+     */
+    public boolean haveAddCard(List<CardVO> list){
+        for(CardVO cardVO : list){
+            if(cardVO.getCardStusNm().equalsIgnoreCase(CardVO.CARD_STATUS_99)){
+                return true;
+            }
+        }
+        return false;
     }
 
 
