@@ -340,6 +340,21 @@
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:exported="false"/>
+        
+        <activity
+            android:name=".ui.main.service.CarWashHistoryActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.main.service.ServiceDriveReqResultActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+
+        <activity
+            android:name=".ui.main.service.ServiceDriveHistoryActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
 
         <activity android:name=".ui.main.service.MaintenanceReserveActivity"
             android:screenOrientation="portrait"
