@@ -6,12 +6,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -19,21 +19,23 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
 
+
+
     <application
-        android:name=".comm.MyApplication"
         android:allowBackup="false"
+        tools:replace="android:allowBackup"
         android:fullBackupContent="false"
+        android:name=".comm.MyApplication"
         android:icon="@mipmap/ic_launcher_genesis"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
+        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_genesis_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        tools:replace="android:allowBackup">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".ui.intro.IntroActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -42,338 +44,319 @@
 
         <activity
             android:name=".ui.main.MainActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false" />
 
         <activity
             android:name=".ui.common.activity.WebviewActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false" />
 
         <activity
-            android:name=".ui.common.activity.EntranceActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:name=".ui.myg.MyGEntranceActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
 
         <activity
             android:name=".ui.common.activity.LoginActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false" />
 
         <activity
             android:name=".ui.common.activity.PushDummyActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false" />
 
         <activity
             android:name=".comm.util.graph.AnotherBarActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false" />
         <activity
             android:name=".comm.util.graph.PieChartActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false" />
         <activity
             android:name=".comm.util.graph.StackedBarActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false" />
         <activity
             android:name=".ui.common.activity.GAWebActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false" />
 
         <activity
             android:name=".ui.intro.PermissionsActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false" />
 
         <activity
             android:name=".ui.common.activity.ConstraintSetActivity"
-            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout"
-            android:windowSoftInputMode="adjustResize" />
+            android:exported="false"
+            android:theme="@style/TextInputLayout"/>
 
 
         <activity
             android:name=".ui.main.BarcodeActivity"
-            android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/CardViewTheme" />
+            android:exported="false"
+            android:theme="@style/CardViewTheme"/>
 
 
         <activity
             android:name=".ui.common.activity.CardViewActivity"
-            android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/CardViewTheme" />
+            android:exported="false"
+            android:theme="@style/CardViewTheme"/>
         <activity
             android:name=".ui.myg.MyGNotiActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
         <activity
             android:name=".ui.myg.MyGPrivilegeApplyActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.myg.MyGVersioniActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.myg.MyGMembershipInfoActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.myg.MyGMembershipExtncActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.myg.MyGHomeActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.myg.MyGTermsActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.myg.MyGMenuActivity"
-            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
+            android:exported="false"/>
 
         <activity
             android:name=".ui.main.home.SearchAddressActivity"
-            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
+            android:exported="false"/>
 
         <activity
             android:name=".ui.myg.MyGOilPointActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.myg.MyGGAActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.myg.MyGMembershipActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.myg.MyGMembershipUseListActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.myg.MyGMembershipCardPasswordActivity"
-            android:exported="false"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible" />
+            android:windowSoftInputMode="stateVisible"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.myg.MyGOilIntegrationActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.myg.MyGOilTermActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
         <activity
             android:name=".ui.myg.MyGOilTermDetailActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.main.home.MyCarActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.main.home.MyCarDetailActivity"
-            android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout" />
+            android:exported="false"
+            android:theme="@style/TextInputLayout"/>
         <activity
             android:name=".ui.main.home.BtrServiceInfoActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
         <activity
             android:name=".ui.main.home.BtrBluehandsActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
         <activity
             android:name=".ui.main.home.BtrBluehandsMapActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.main.home.BtrConsultTypeActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.main.home.BtrConsultApplyActivity"
-            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout"
-            android:windowSoftInputMode="adjustResize" />
+            android:exported="false"
+            android:theme="@style/TextInputLayout"/>
 
         <activity
             android:name=".ui.main.home.BtrConslHistActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.main.home.MyLocationActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.main.home.BtrBluehandsListActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
-        <!--        <activity-->
-        <!--            android:name=".ui.main.home.BtrBluehandsFilterActivity"-->
-        <!--            android:screenOrientation="portrait"-->
-        <!--            android:exported="false"/>-->
+<!--        <activity-->
+<!--            android:name=".ui.main.home.BtrBluehandsFilterActivity"-->
+<!--            android:screenOrientation="portrait"-->
+<!--            android:exported="false"/>-->
 
         <activity
             android:name=".ui.main.AlarmCenterActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.main.AlarmCenterSearchActivity"
-            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
+            android:exported="false"/>
 
         <activity
             android:name=".ui.main.SimilarCarActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.main.home.LeasingCarVinRegisterActivity"
-            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout"
-            android:windowSoftInputMode="adjustResize" />
+            android:exported="false"
+            android:theme="@style/TextInputLayout"/>
         <activity
             android:name=".ui.main.home.WarrantyRepairGuideActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+
 
 
         <activity
             android:name=".ui.main.home.LeasingCarInfoActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.main.home.LeasingCarRegisterInputActivity"
-            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout"
-            android:windowSoftInputMode="adjustResize" />
+            android:exported="false"
+            android:theme="@style/TextInputLayout"/>
 
 
         <activity
             android:name=".ui.main.home.LeasingCarBtrChangeActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.main.home.LeasingCarHistActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.main.home.LeasingCarHistDetailActivity"
-            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout"
-            android:windowSoftInputMode="adjustResize" />
+            android:exported="false"
+            android:theme="@style/TextInputLayout"/>
 
 
         <activity
             android:name=".ui.main.insight.InsightExpnMainActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.main.home.RegisterUsedCarActivity"
-            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout"
-            android:windowSoftInputMode="adjustResize" />
+            android:exported="false"
+            android:theme="@style/TextInputLayout"/>
 
 
         <activity
             android:name=".ui.common.activity.test.TestActivity"
-            android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout" />
+            android:theme="@style/TextInputLayout"
+            android:exported="false"/>
 
-        <activity
-            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" /> <!-- optional (needed if default theme has no action bar) -->
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/> <!-- optional (needed if default theme has no action bar) -->
 
-        <activity
-            android:name=".ui.common.activity.test.TestLayoutActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".ui.main.service.CarWashHistoryActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".ui.main.service.ServiceDriveReqActivity"
-            android:exported="false"
+        <activity android:name=".ui.common.activity.test.TestLayoutActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout" />
+            android:exported="false"/>
 
-
-        <activity
-            android:name=".ui.main.service.ServiceDriveReqResultActivity"
-            android:exported="false"
+        <activity android:name=".ui.main.service.ServiceDriveReqActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout" />
+            android:theme="@style/TextInputLayout"
+            android:exported="false"/>
 
-        <activity
-            android:name=".ui.main.service.ServiceDriveHistoryActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+        <activity android:name=".ui.main.service.MaintenanceReserveActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
 
-        <activity
-            android:name=".ui.main.service.MaintenanceReserveActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <service android:name=".fcm.FirebaseMessagingService">
+        <service
+            android:name=".fcm.FirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
 
         <service
             android:name=".ui.common.service.ScreenRecorderService"
+            android:foregroundServiceType="mediaProjection"
             android:enabled="true"
-            android:exported="false"
-            android:foregroundServiceType="mediaProjection" />
+            android:exported="false" />
     </application>
 
 </manifest>

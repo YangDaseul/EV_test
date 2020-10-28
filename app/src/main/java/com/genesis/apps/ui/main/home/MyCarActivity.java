@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.genesis.apps.R;
@@ -137,14 +138,20 @@ public class MyCarActivity extends SubActivity<ActivityMyCarBinding> {
             float myOffset = position * -(2 * pageOffset + pageMargin);
             if (position < -1) {
                 page.setTranslationX(-myOffset);
+
+                Log.v("viewpager bug1","offset:"+myOffset);
             } else if (position <= 1) {
-                float scaleFactor = Math.max(0.8f, 1 - Math.abs(position - 0.14285715f));
+                float scaleFactor = Math.max(1f, 1 - Math.abs(position - 0.14285715f));
                 page.setTranslationX(myOffset);
                 page.setScaleY(scaleFactor);
+                page.setScaleX(scaleFactor);
                 page.setAlpha(scaleFactor);
+
+                Log.v("viewpager bug2","offset:"+myOffset+ " Scale factor:"+scaleFactor);
             } else {
                 page.setAlpha(0f);
                 page.setTranslationX(myOffset);
+                Log.v("viewpager bug3","offset:"+myOffset);
             }
 
         });

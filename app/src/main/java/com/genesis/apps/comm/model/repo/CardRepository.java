@@ -78,7 +78,8 @@ public class CardRepository {
                         newList.add(cardVO);
                     }
                 }
-                newList.add(new CardVO(0,"", "", "", CardVO.CARD_STATUS_99, "", "", "", 0,false));
+                if(!haveAddCard(newList))
+                    newList.add(new CardVO(0,"", "", "", CardVO.CARD_STATUS_99, "", "", "", 0,false));
 
             } catch (Exception e1) {
                 e1.printStackTrace();
@@ -125,8 +126,8 @@ public class CardRepository {
 
         try{
             final List<CardVO> blueList = list.stream().filter(data -> data.getIsncCd().equalsIgnoreCase(OilPointVO.OIL_CODE_BLUE)).collect(Collectors.toList()); //원본 리스트에서 블루멤버스 카드를 가저오고
-            list = list.stream().filter(data -> !data.getIsncCd().equalsIgnoreCase(OilPointVO.OIL_CODE_BLUE)).collect(Collectors.toList()); //원본 리스트에서 블루멤버스 카드를 제외한다.
-            final String cardNoFromDB = databaseHolder.getDatabase().globalDataDao().get("card"); //db에서 즐겨찾기된 카드를 가지고 왔는데
+            list = list.stream().filter(data -> !data.getIsncCd().equalsIgnoreCase(OilPointVO.OIL_CODE_BLUE)).collect(Collectors.toList()); //원본 리스트에서 블루멤버스 카드를 제외한다. (서버에서 준 리스트를 블루멤버스와 기타로 분리)
+            final String cardNoFromDB = databaseHolder.getDatabase().globalDataDao().get("card"); //db에서 즐겨찾기된 카드를 확인
             if(TextUtils.isEmpty(cardNoFromDB)){//즐겨찾기가 설정되어있지 않고
                 //블루멤버스카드가 1개 이상이면
                 if(blueList.size()>0){
@@ -154,10 +155,12 @@ public class CardRepository {
                     }
                 }
             }
-            if(list.size()>0){
+
+            //db리스트 전체 삭제 후
+            databaseHolder.getDatabase().cardDao().deleteAll();
+
+            if(list.size()>0){//카드가 있는 경우 db에 다시 넣어준다.
                 databaseHolder.getDatabase().cardDao().insert(list);
-            }else{
-                databaseHolder.getDatabase().cardDao().deleteAll();
             }
         }catch (Exception e){
 
@@ -180,6 +183,21 @@ public class CardRepository {
             isAdd=false;
         }
         return isAdd;
+    }
+
+
+    /**
+     * 이미 임시로 추가된 "카드 추가" 가 있는지 없는지 유무 확인
+     * @param list
+     * @return
+     */
+    public boolean haveAddCard(List<CardVO> list){
+        for(CardVO cardVO : list){
+            if(cardVO.getCardStusNm().equalsIgnoreCase(CardVO.CARD_STATUS_99)){
+                return true;
+            }
+        }
+        return false;
     }
 
 

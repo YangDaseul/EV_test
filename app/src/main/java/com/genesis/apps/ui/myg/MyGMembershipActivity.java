@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.genesis.apps.R;
@@ -49,14 +50,20 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
             float myOffset = position * -(2 * pageOffset + pageMargin);
             if (position < -1) {
                 page.setTranslationX(-myOffset);
+
+                Log.v("viewpager bug1","offset:"+myOffset);
             } else if (position <= 1) {
-                float scaleFactor = Math.max(0.8f, 1 - Math.abs(position - 0.14285715f));
+                float scaleFactor = Math.max(1f, 1 - Math.abs(position - 0.14285715f));
                 page.setTranslationX(myOffset);
                 page.setScaleY(scaleFactor);
+                page.setScaleX(scaleFactor);
                 page.setAlpha(scaleFactor);
+
+                Log.v("viewpager bug2","offset:"+myOffset+ " Scale factor:"+scaleFactor);
             } else {
                 page.setAlpha(0f);
                 page.setTranslationX(myOffset);
+                Log.v("viewpager bug3","offset:"+myOffset);
             }
 
         });
@@ -87,7 +94,7 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
                     "    {\n" +
                     "      \"cardNo\": \"1234567890123456\",\n" +
                     "      \"cardNm\": \"블루멤버스\",\n" +
-                    "      \"cardStusNm\": \"정상\",\n" +
+                    "      \"cardStusNm\": \"발급완료\",\n" +
                     "      \"cardClsNm\": \"신용카드\",\n" +
                     "      \"cardKindNm\": \"현대가상화카드1\",\n" +
                     "      \"cardIsncSubspDt\": \"20200901\"\n" +
@@ -95,7 +102,7 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
                     "    {\n" +
                     "      \"cardNo\": \"5555555550123456\",\n" +
                     "      \"cardNm\": \"블루멤버스\",\n" +
-                    "      \"cardStusNm\": \"정상\",\n" +
+                    "      \"cardStusNm\": \"발급완료\",\n" +
                     "      \"cardClsNm\": \"신용카드\",\n" +
                     "      \"cardKindNm\": \"현대가상화카드2\",\n" +
                     "      \"cardIsncSubspDt\": \"20200802\"\n" +
@@ -111,7 +118,7 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
                     "    {\n" +
                     "      \"cardNo\": \"\",\n" +
                     "      \"cardNm\": \"블루멤버스\",\n" +
-                    "      \"cardStusNm\": \"정상\",\n" +
+                    "      \"cardStusNm\": \"발급완료\",\n" +
                     "      \"cardClsNm\": \"신용카드\",\n" +
                     "      \"cardKindNm\": \"현대가상화카드3\",\n" +
                     "      \"cardIsncSubspDt\": \"20200903\"\n" +

@@ -39,6 +39,9 @@ public class REQ_1001 extends BaseData {
 
     /**
      * @brief REQ_1001 응답 항목
+     * @see #avlRsrYn 예약신청가능여부
+     * Y:신청가능 N:신청불가
+     * 동일 차량에 대한 예약중복 방지.
      * @see #stusCd 차량현재상태코드
      * 코드값이 4610 ~ 4850 인 경우 "정비중" 표시. 그외 표시 안함.
      * @see #pgrsStusCd 긴급출동상태코드
@@ -48,6 +51,9 @@ public class REQ_1001 extends BaseData {
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse {
+        @Expose
+        @SerializedName("avlRsrYn")
+        private String avlRsrYn;
         @Expose
         @SerializedName("stusCd")
         private String stusCd;
