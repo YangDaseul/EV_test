@@ -6,7 +6,7 @@
     <data>
         <variable
             name="activity"
-            type="com.genesis.apps.ui.myg.MyGOilTermActivity" />
+            type="com.genesis.apps.ui.common.activity.SubActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,6 +29,7 @@
             android:lineSpacingExtra="3sp"
             android:textColor="@color/x_000000"
             android:textSize="15sp"
+            android:bufferType="spannable"
             app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/iv_arrow"

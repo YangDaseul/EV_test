@@ -10,6 +10,7 @@ import com.genesis.apps.comm.model.gra.api.BTR_2003;
 import com.genesis.apps.comm.model.gra.api.CBK_1002;
 import com.genesis.apps.comm.model.gra.api.CMN_0001;
 import com.genesis.apps.comm.model.gra.api.CMN_0002;
+import com.genesis.apps.comm.model.gra.api.CMN_0003;
 import com.genesis.apps.comm.model.gra.api.CTT_1001;
 import com.genesis.apps.comm.model.gra.api.CTT_1002;
 import com.genesis.apps.comm.model.gra.api.CTT_1004;
@@ -53,6 +54,102 @@ import com.google.gson.Gson;
 
 public class TestCode {
 //((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), SimilarCarActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
+    public static CMN_0003.Response CMN_0003 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"termList\": [\n" +
+            "    {\n" +
+            "      \"termVer\": \"01.00.00\",\n" +
+            "      \"termCd\": \"GRA0001\",\n" +
+            "      \"termNm\": \"제네시스 앱 이용약관(필수)\",\n" +
+            "      \"termEsnAgmtYn\": \"Y\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"termVer\": \"01.00.00\",\n" +
+            "      \"termCd\": \"GRA0002\",\n" +
+            "      \"termNm\": \"제네시스 앱 개인정보 처리방침\",\n" +
+            "      \"termEsnAgmtYn\": \"Y\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"termVer\": \"01.00.00\",\n" +
+            "      \"termCd\": \"GRA0003\",\n" +
+            "      \"termNm\": \"개인정보 수집/이용에 대한 동의\",\n" +
+            "      \"termEsnAgmtYn\": \"Y\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"termVer\": \"01.00.00\",\n" +
+            "      \"termCd\": \"GRA0004\",\n" +
+            "      \"termNm\": \"제네시스 멤버십 가입 약관\",\n" +
+            "      \"termEsnAgmtYn\": \"Y\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"termVer\": \"01.00.00\",\n" +
+            "      \"termCd\": \"GRA0005\",\n" +
+            "      \"termNm\": \"광고성 정보 수신 동의\",\n" +
+            "      \"termEsnAgmtYn\": \"N\"\n" +
+            "    }\n" +
+            "  ],\n" +
+            "  \"blueTermList\": [\n" +
+            "    {\n" +
+            "      \"termVer\": \"01.00.00\",\n" +
+            "      \"termCd\": \"BLM0001\",\n" +
+            "      \"termNm\": \"블루멤버스 회원약관(필수)\",\n" +
+            "      \"termEsnAgmtYn\": \"Y\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"termVer\": \"01.00.00\",\n" +
+            "      \"termCd\": \"BLM0002\",\n" +
+            "      \"termNm\": \"블루멤버스 개인정보 처리방침\",\n" +
+            "      \"termEsnAgmtYn\": \"Y\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"termVer\": \"01.00.00\",\n" +
+            "      \"termCd\": \"BLM0003\",\n" +
+            "      \"termNm\": \"개인정보 수집/이용에 대한 동의\",\n" +
+            "      \"termEsnAgmtYn\": \"Y\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"termVer\": \"01.00.00\",\n" +
+            "      \"termCd\": \"GRA0004\",\n" +
+            "      \"termNm\": \"제네시스 멤버십 가입 약관\",\n" +
+            "      \"termEsnAgmtYn\": \"Y\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"termVer\": \"01.00.00\",\n" +
+            "      \"termCd\": \"GRA0005\",\n" +
+            "      \"termNm\": \"광고성 정보 수신 동의\",\n" +
+            "      \"termEsnAgmtYn\": \"N\"\n" +
+            "    }\n" +
+            "  ],\n" +
+            "  \"mypgTermList\": [\n" +
+            "    {\n" +
+            "      \"termVer\": \"01.00.00\",\n" +
+            "      \"termCd\": \"MYP0001\",\n" +
+            "      \"termNm\": \"개인정보수집및이용(필수)\",\n" +
+            "      \"termEsnAgmtYn\": \"Y\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"termVer\": \"01.00.00\",\n" +
+            "      \"termCd\": \"MYP0002\",\n" +
+            "      \"termNm\": \"개인정보취급위탁에대한동의\",\n" +
+            "      \"termEsnAgmtYn\": \"Y\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"termVer\": \"01.00.00\",\n" +
+            "      \"termCd\": \"MYP0003\",\n" +
+            "      \"termNm\": \"제네시스사이트약관(필수)\",\n" +
+            "      \"termEsnAgmtYn\": \"Y\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"termVer\": \"01.00.00\",\n" +
+            "      \"termCd\": \"MYP0004\",\n" +
+            "      \"termNm\": \"선택적개인정보수집이용에대한안내\",\n" +
+            "      \"termEsnAgmtYn\": \"N\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",CMN_0003.Response.class);
+
 
     public static LGN_0001.Response LGN_0001 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +

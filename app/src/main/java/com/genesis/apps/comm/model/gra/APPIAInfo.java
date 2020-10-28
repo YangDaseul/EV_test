@@ -14,6 +14,7 @@ public enum APPIAInfo {
     INT03("INT03", null, false, "서비스 가입"),
     INT03_01("INT03_01", null, false, "제네시스 앱 이용약관"),
     INT03_P01("INT03_P01", null, false, "서비스 가입 실패 팝업"),
+    INT04("INT04", null, false, "블루멤버스 가입"),
     POP01("POP01", null, false, "업데이트 팝업"),
     POP02("POP02", null, false, "네트워크 불안정 팝업"),
     ALRM01("ALRM01", null, true, "알림 센터"),

@@ -7,4 +7,38 @@
     <string name="login_msg_2">아이디를 잊어버리셨나요?</string>
     <string name="login_msg_3">제네시스닷컴, 제네시스 커넥티드 서비스(홈투카)에서 사용하시던 이메일/비밀번호 그대로 로그인 하세요.</string>
     <string name="login_msg_4">아직 회원이 아니신가요?</string>
+
+
+    <string name="int03_1">제네시스 앱\n서비스 가입</string>
+    <string name="int03_2">광고성 정보 수신에 대한 안내 (선택)</string>
+    <string name="int03_3">(필수)</string>
+    <string name="int03_4"></string>
+    <string name="int03_5">수신동의여부와 관계없이 기본 안내는 제공됩니다.</string>
+    <string name="int03_6">단, 미동의 시, 당사에서 제공하는 이벤트 및 다양한 마케팅 정보 및 안내를 받으실 수 없습니다.</string>
+    <string name="int03_7">문자(SMS)</string>
+    <string name="int03_8">이메일</string>
+    <string name="int03_9">전화</string>
+    <string name="int03_10">우편</string>
+    <string name="int03_11">광고성 정보 수신에 대한 안내</string>
+    <string name="int03_12">수집 · 이용 목적 : 신규 상품 서비스 안내, 이벤트 및 행사 안내, 최신 기업 정보 안내, 고객별 통계 분석, 시장 조사</string>
+    <string name="int03_13">수집 항목 : 이메일, 휴대폰번호, 주소</string>
+    <string name="int03_14">보유 및 이용기간 : 홈페이지 회원 자격 유지 기간</string>
+
+
+    <string name="int04_1">제네시스 블루멤버스\n회원 가입</string>
+    <string name="int04_2">블루멤버스 광고성 정보 수신에 대한 안내 (선택)</string>
+    <string name="int04_3"></string>
+    <string name="int04_4">당사 멤버십 서비스에서 제공하는 광고성 정보 수신 및 마케팅 활용에 동의합니다.</string>
+    <string name="int04_5">단, 미동의 시 당사에서 제공하는 다양한 정보 및 안내를 받으실 수 없습니다.</string>
+    <string name="int04_6">광고성 정보 수신 동의</string>
+    <string name="int04_7">개인정보의 수집 및 이용목적 : 신규 멤버십 안내, 광고성 정보 전달 및 마케팅에 활용, 시장조사</string>
+    <string name="int04_8">수집하는 개인정보의 항목 : 휴대폰번호, 이메일, 주소, 전화번호</string>
+    <string name="int04_9">개인정보의 보유 및 이용기간 : 서비스 이용 기간</string>
+    <string name="int04_10">확인</string>
+    <string name="int04_11"></string>
+    <string name="int04_12"></string>
+    <string name="int04_13"></string>
+
+
+
 </resources>

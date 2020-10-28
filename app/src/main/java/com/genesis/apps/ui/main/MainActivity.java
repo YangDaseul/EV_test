@@ -102,8 +102,8 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 startActivitySingleTop(new Intent(this, AlarmCenterActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.btn_profile:
-
-                startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                startActivitySingleTop(new Intent(this, ServiceJoinActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 return;
 
 //                try {
@@ -156,7 +156,6 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 
 
         //TODO 이것은 테스트 액티비티 호출
-//        startActivitySingleTop(new Intent(this, LeasingCarHistActivity.class).putExtra(KeyNames.KEY_NAME_APPLY_LEASINGCAR, true), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 //        startActivitySingleTop(new Intent(this, LeasingCarRegisterInputActivity.class).putExtra(KEY_NAME_VIN, "15487ABD45782"), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 //        FirebaseMessagingService.notifyMessageTest(this, new PushVO(), PushCode.CAT_0E);
     }

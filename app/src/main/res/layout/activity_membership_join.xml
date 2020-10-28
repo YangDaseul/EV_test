@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="fragment"
+            type="com.genesis.apps.ui.main.ServiceMembershipJoinFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/x_ffffff">
+
+        <include
+            android:id="@+id/l_title"
+            layout="@layout/layout_titlebar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_title"
+            app:layout_constraintVertical_bias="0.0">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="30dp"
+                android:paddingBottom="20dp">
+
+
+                <TextView
+                    android:id="@+id/tv_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:fontFamily="@font/light_genesissansheadglobal"
+                    android:gravity="left|center_vertical"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="8sp"
+                    android:text="@string/int04_1"
+                    android:textColor="@color/x_000000"
+                    android:textSize="22sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <LinearLayout
+                    android:id="@+id/l_term_bottom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_ffffff_topline_e2e2e2"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_1"
+                    app:layout_constraintStart_toStartOf="@+id/tv_1"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_1">
+
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_ad_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/x_f4f4f4"
+                    android:padding="20dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/l_term_bottom"
+                    tools:visibility="visible">
+
+
+                    <TextView
+                        android:id="@+id/tv_title_agree_info"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular_genesissansheadglobal"
+                        android:gravity="left|center_vertical"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="6sp"
+                        android:text="@string/int04_6"
+                        android:textColor="@color/x_141414"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_agree_info_number_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:gravity="left|center_vertical"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="6sp"
+                        android:text="1."
+                        android:textColor="@color/x_525252"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_title_agree_info" />
+
+                    <TextView
+                        android:id="@+id/tv_agree_info_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:gravity="left|center_vertical"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="6sp"
+                        android:text="@string/int04_7"
+                        android:textColor="@color/x_525252"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/tv_agree_info_number_1"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_title_agree_info" />
+
+
+                    <TextView
+                        android:id="@+id/tv_agree_info_number_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:gravity="left|center_vertical"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="6sp"
+                        android:text="2."
+                        android:textColor="@color/x_525252"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_agree_info_1" />
+
+                    <TextView
+                        android:id="@+id/tv_agree_info_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:gravity="left|center_vertical"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="6sp"
+                        android:text="@string/int04_8"
+                        android:textColor="@color/x_525252"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/tv_agree_info_number_2"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_agree_info_1" />
+
+
+                    <TextView
+                        android:id="@+id/tv_agree_info_number_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:gravity="left|center_vertical"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="6sp"
+                        android:text="3."
+                        android:textColor="@color/x_525252"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_agree_info_2" />
+
+                    <TextView
+                        android:id="@+id/tv_agree_info_3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:gravity="left|center_vertical"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="6sp"
+                        android:text="@string/int04_9"
+                        android:textColor="@color/x_525252"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/tv_agree_info_number_3"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_agree_info_2" />
+
+
+                    <TextView
+                        android:id="@+id/tv_mark_1"
+                        style="@style/ViewMarkGrey"
+                        android:layout_marginLeft="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_info_1" />
+
+                    <TextView
+                        android:id="@+id/tv_info_1"
+                        style="@style/ViewMsgInputSub"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:text="@string/int04_4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/tv_mark_1"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_agree_info_3" />
+
+                    <TextView
+                        android:id="@+id/tv_mark_2"
+                        style="@style/ViewMarkGrey"
+                        android:layout_marginLeft="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_info_2" />
+
+                    <TextView
+                        android:id="@+id/tv_info_2"
+                        style="@style/ViewMsgInputSub"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:text="@string/int04_5"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/tv_mark_2"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_info_1" />
+
+
+                    <CheckBox
+                        android:id="@+id/cb_sms"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:button="@null"
+                        android:drawableStart="@drawable/checkbox_selector"
+                        android:drawablePadding="8dp"
+                        android:fontFamily="@font/light_genesissansheadglobal"
+                        android:text="@string/int03_7"
+                        android:textColor="@color/x_000000"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toStartOf="@+id/cb_email"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_info_2" />
+
+
+                    <CheckBox
+                        android:id="@+id/cb_email"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:button="@null"
+                        android:drawableStart="@drawable/checkbox_selector"
+                        android:drawablePadding="8dp"
+                        android:fontFamily="@font/light_genesissansheadglobal"
+                        android:text="@string/int03_8"
+                        android:textColor="@color/x_000000"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/cb_sms"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_info_2" />
+
+
+                    <CheckBox
+                        android:id="@+id/cb_post"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:button="@null"
+                        android:drawableStart="@drawable/checkbox_selector"
+                        android:drawablePadding="8dp"
+                        android:fontFamily="@font/light_genesissansheadglobal"
+                        android:text="@string/int03_10"
+                        android:textColor="@color/x_000000"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toStartOf="@+id/cb_phone"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cb_sms" />
+
+
+                    <CheckBox
+                        android:id="@+id/cb_phone"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:drawableStart="@drawable/checkbox_selector"
+                        android:drawablePadding="8dp"
+                        android:fontFamily="@font/light_genesissansheadglobal"
+                        android:text="@string/int03_9"
+                        android:textColor="@color/x_000000"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/cb_post"
+                        app:layout_constraintTop_toTopOf="@+id/cb_post" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/btn_next"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/ripple_bg_000000"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:gravity="center"
+            android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
+            android:text="@string/int04_10"
+            android:textColor="@color/x_ffffff"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/btn_block"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/x_88ffffff"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_next"
+            app:layout_constraintEnd_toEndOf="@+id/btn_next"
+            app:layout_constraintStart_toStartOf="@+id/btn_next"
+            app:layout_constraintTop_toTopOf="@+id/btn_next" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

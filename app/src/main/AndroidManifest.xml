@@ -324,6 +324,16 @@
 
 
         <activity
+            android:name=".ui.main.ServiceJoinActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+
+        <activity
+            android:name=".ui.main.ServiceTermDetailActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+
+        <activity
             android:name=".ui.common.activity.test.TestActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"

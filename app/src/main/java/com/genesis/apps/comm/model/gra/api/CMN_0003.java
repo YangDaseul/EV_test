@@ -35,14 +35,24 @@ public class CMN_0003 extends BaseData {
     /**
      * @brief CMN_0003의 응답 항목
      * @author hjpark
-     * @see #termList 약관리스트
+     * @see #termList 제네시스 앱 약관리스트
+     * @see #blueTermList 블루멤버스 약관리스트
+     * @see #mypgTermList 마이제네시스 약관리스트
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse {
         @Expose
         @SerializedName("termList")
-        private List<TermVO> termList; //0003에서는 termCont는 없음 0004에서 get 가능
+        private List<TermVO> termList;
+
+        @Expose
+        @SerializedName("blueTermList")
+        private List<TermVO> blueTermList;
+
+        @Expose
+        @SerializedName("mypgTermList")
+        private List<TermVO> mypgTermList;
     }
 
 }

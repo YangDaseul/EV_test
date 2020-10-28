@@ -7,6 +7,22 @@ public class VariableType {
     public static final int ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE=4;
 
 
+    public static final String TERM_SERVICE_JOIN_GRA0001="GRA0001"; //제네시스 앱 이용 약관
+    public static final String TERM_SERVICE_JOIN_GRA0002="GRA0002"; //제네시스 앱 개인정보 처리 방침
+    public static final String TERM_SERVICE_JOIN_GRA0003="GRA0003"; //개인정보 수집/이용에 대한 동의
+    public static final String TERM_SERVICE_JOIN_GRA0004="GRA0004"; //제네시스 멤버십 가입 약관
+    public static final String TERM_SERVICE_JOIN_GRA0005="GRA0005"; //광고성 정보 수신 동의(선택)
+
+    public static final String TERM_SERVICE_JOIN_MYP0001="MYP0001"; //개인정보수집및이용
+    public static final String TERM_SERVICE_JOIN_MYP0002="MYP0002"; //개인정보취급위탁에대한동의
+    public static final String TERM_SERVICE_JOIN_MYP0003="MYP0003"; //제네시스사이트약관
+    public static final String TERM_SERVICE_JOIN_MYP0004="MYP0004"; //선택적개인정보수집에대한안내
+
+    public static final String TERM_SERVICE_JOIN_BLM0001="BLM0001"; //블루멤버스 회원약관
+    public static final String TERM_SERVICE_JOIN_BLM0002="BLM0002"; //블루멤버스 개인정보 처리 방침
+    public static final String TERM_SERVICE_JOIN_BLM0003="BLM0003"; //블루멤버스 광고성 정보 수신에 대한 안내
+
+
     public static final String NOTI_CODE_NOTI = "NOTI"; //일반공지
     public static final String NOTI_CODE_ANNC = "ANNC"; //필독공지
     public static final String NOTI_CODE_EMGR = "EMGR"; //긴급공지
