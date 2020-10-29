@@ -53,4 +53,8 @@
     <string name="pop01_7">업데이트</string>
 
     <string name="noti01_1">공지사항</string>
+
+    <string name="cw_reserve_cancel_title">세차 서비스 예약 취소</string>
+    <string name="cw_reserve_cancel_msg">세차 서비스를\n취소하시겠습니까?</string>
+
 </resources>

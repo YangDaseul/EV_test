@@ -12,12 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.WSH_1004;
+import com.genesis.apps.comm.model.gra.api.WSH_1006;
 import com.genesis.apps.comm.model.vo.WashReserveVO;
 import com.genesis.apps.comm.util.PhoneUtil;
 import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.ActivityCarWashHistoryBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.main.service.CarWashHistoryAdapter.CarWashHistoryViewHolder;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 
 import java.util.List;
 
@@ -60,14 +61,24 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
                 break;
 
             case R.id.tv_car_wash_history_confirm:
-                // todo 뭐 해야되는지 정의 아직 정의 안 된 듯
+                // todo 반만 전산화.... 다른 지점으로 바뀌는 수가 있어서
+                //  사용자가 받아적은 그 코드를 서버에 송신
+
                 break;
 
             case R.id.tv_car_wash_history_cancel:
-                //todo : 취소할거냐? 팝업 -> yes하면
-                // 예약번호 알아내서 취소 api 호출. carWashHistoryItem.getReservationNumber()
-                // 취소 성공 응답 받으면 취소됨 상태로 변해야되네
+                // TODO 취소 성공 응답 받으면 취소됨 상태로 변해야되네
                 // 어... visibility 스위칭으로 해놔서 접히기 애니메이션 적용 안 되는데;;;
+
+                //todo : 예약 번호 및 지점코드 알아내기
+
+                String rsvtSeqNo = "dummy";
+                String brnhCd = "code";
+                MiddleDialog.dialogCarWashCancel(
+                        this,
+                        () -> viewModel.reqWSH1006(new WSH_1006.Request(APPIAInfo.SM_CW01_P01.getId(), rsvtSeqNo, brnhCd)),
+                        null);
+
                 break;
 
             default:
@@ -85,8 +96,8 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
 
     @Override
     public void setObserver() {
+        //예약 내역 옵저버
         viewModel.getRES_WSH_1004().observe(this, result -> {
-
             switch (result.status) {
                 case LOADING:
                     showProgressDialog(true);
@@ -97,6 +108,30 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
                     if (result.data != null && result.data.getRsvtList() != null) {
                         List<WashReserveVO> list = result.data.getRsvtList();
                         adapter.setRows(list);
+                        adapter.notifyDataSetChanged();
+                        break;
+                    }
+
+                default:
+                    showProgressDialog(false);
+                    break;
+            }
+        });
+
+        //예약 취소 옵저버
+        viewModel.getRES_WSH_1006().observe(this, result -> {
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if (result.data != null && result.data.getRtCd() != null) {
+                        //todo : 어댑터에서 해당 항목 정보 수정 (예약됨 -> 예약취소)
+                        // 그냥 싹 다 다시 받아올까 ㅡㅡ;;?
+                        Toast.makeText(this, "예약 취소 성공", Toast.LENGTH_LONG).show();
+
                         adapter.notifyDataSetChanged();
                         break;
                     }

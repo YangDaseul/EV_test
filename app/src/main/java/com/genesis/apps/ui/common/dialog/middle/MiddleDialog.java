@@ -44,6 +44,7 @@ public class MiddleDialog {
     }
 
     private static final String VERSION_TYPE_M = "M"; //필수업데이트)
+
     public static void dialogUpdate(@NonNull Activity activity, final Runnable ok, final Runnable cancel, String newVersion, String versionType) {
         if (activity.isFinishing()) {
             return;
@@ -54,12 +55,12 @@ public class MiddleDialog {
                     DialogUpdateBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_update, null, false);
                     dialog.setContentView(binding.getRoot());
 
-                    if(versionType.equalsIgnoreCase(VERSION_TYPE_M)){
+                    if (versionType.equalsIgnoreCase(VERSION_TYPE_M)) {
                         //필수업데이트
                         binding.tvTitle.setText(String.format(activity.getString(R.string.pop01_1), activity.getString(R.string.pop01_3)));
                         binding.btnCancel.setVisibility(View.GONE);
                         binding.btnOk.setText(R.string.dialog_common_4);
-                    }else{
+                    } else {
                         //선택업데이트
                         binding.tvTitle.setText(String.format(activity.getString(R.string.pop01_1), activity.getString(R.string.pop01_2)));
                     }
@@ -80,12 +81,11 @@ public class MiddleDialog {
 
 
     /**
-     * @brief 공지사항 팝업
-     *
      * @param activity
      * @param ok
      * @param title
      * @param msg
+     * @brief 공지사항 팝업
      */
     public static void dialogNoti(@NonNull Activity activity, final Runnable ok, String title, String msg) {
         if (activity.isFinishing()) {
@@ -140,11 +140,11 @@ public class MiddleDialog {
 
 
     /**
-     * @brief 서비스 신청 안내
-     * 버틀러 서비스 신청 안내 팝업
      * @param activity
      * @param ok
      * @param cancel
+     * @brief 서비스 신청 안내
+     * 버틀러 서비스 신청 안내 팝업
      */
     public static void dialogBtrApply(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
         if (activity.isFinishing()) {
@@ -173,7 +173,6 @@ public class MiddleDialog {
                 }).show()
         );
     }
-
 
 
     public static void dialogLeasingCarApplyCancel(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
@@ -233,7 +232,6 @@ public class MiddleDialog {
     }
 
 
-
     public static void dialogUsedCarInfo(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
         if (activity.isFinishing()) {
             return;
@@ -261,7 +259,7 @@ public class MiddleDialog {
                     dialog.setContentView(binding.getRoot());
 
                     binding.tvTitle.setText(R.string.mg_con01_p01_1);
-                    binding.tvMsg.setText(R.string. mg_con01_p01_2);
+                    binding.tvMsg.setText(R.string.mg_con01_p01_2);
                     binding.tvMsg.setMovementMethod(new ScrollingMovementMethod());
 
                     binding.btnCancel.setText(R.string.dialog_common_1);
@@ -277,6 +275,54 @@ public class MiddleDialog {
                     });
                 }).show()
         );
+    }
+
+    public static void dialogCarWashCancel(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        R.string.cw_reserve_cancel_title,
+                        R.string.cw_reserve_cancel_msg,
+                        R.string.dialog_common_1,
+                        R.string.dialog_common_2
+                ).show()
+        );
+    }
+
+    //R.layout.dialog_middle_two_button 쓰는 거 상당수를 이걸로 통합 가능할 듯..
+    private static CustomDialog getTwoButtonDialog(
+            @NonNull Activity activity,
+            final Runnable ok,
+            final Runnable cancel,
+            final int titleId,
+            final int msgId,
+            final int okBtnTextId,
+            final int cancelBtnTextId) {
+
+        return new CustomDialog(activity, dialog -> {
+            DialogMiddleTwoButtonBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_middle_two_button, null, false);
+            dialog.setContentView(binding.getRoot());
+
+            binding.tvTitle.setText(titleId);
+            binding.tvMsg.setText(msgId);
+            binding.tvMsg.setMovementMethod(new ScrollingMovementMethod());
+
+            binding.btnCancel.setText(okBtnTextId);
+            binding.btnOk.setText(cancelBtnTextId);
+
+            binding.btnCancel.setOnClickListener(v -> {
+                dialog.dismiss();
+                if (cancel != null) cancel.run();
+            });
+            binding.btnOk.setOnClickListener(v -> {
+                dialog.dismiss();
+                if (ok != null) ok.run();
+            });
+        });
     }
 
 
