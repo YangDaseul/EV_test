@@ -7,8 +7,6 @@
     <string name="sm_cw_find_05">검색 결과</string>
     <string name="sm_cw_find_06">해당 시도에 SONAX 지점이 없습니다.</string>
     <string name="sm_cw_find_07">인근 다른 시도 지점을 이용해 주세요.</string>
-    <string name="sm_cw_find_08">지점 코드</string>
-    <string name="sm_cw_find_09">지점 코드를 입력해 주세요.</string>
 
     <string name="sm_cw_history_01">세차 서비스 예약 내역</string>
     <string name="sm_cw_history_02">· 예약한 Sonax 지점에서 전화를 드린 후,\n\ \ 세차 예약 확정됩니다.</string>
@@ -17,7 +15,6 @@
     <string name="sm_cw_history_05">직원에게 확인</string>
     <string name="sm_cw_history_06">예약 취소</string>
     <string name="sm_cw_history_07">이용 완료</string>
-    <string name="sm_cw_history_08">지점 코드가 유효하지 않습니다.</string>
 
     <string name="sm_cw_pay_type_01">현금 결제</string>
     <string name="sm_cw_pay_type_xx">결제 정보 누락</string>

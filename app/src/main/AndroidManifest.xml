@@ -353,6 +353,7 @@
         
         <activity
             android:name=".ui.main.service.CarWashHistoryActivity"
+            android:theme="@style/TextInputLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
 

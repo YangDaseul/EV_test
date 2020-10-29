@@ -22,4 +22,9 @@
     <string name="now_or_reserve_date">예약일시</string>
     <string name="now_or_reserve_request">요청사항</string>
 
+    <string name="cw_branch_code_title">지점 코드를 입력해 주세요.</string>
+    <string name="cw_branch_code_hint">지점 코드</string>
+    <string name="cw_branch_code_error">지점 코드가 유효하지 않습니다.</string>
+
+
 </resources>
