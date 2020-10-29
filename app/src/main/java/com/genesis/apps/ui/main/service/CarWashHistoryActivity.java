@@ -13,6 +13,7 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.WSH_1004;
 import com.genesis.apps.comm.model.vo.WashReserveVO;
+import com.genesis.apps.comm.util.PhoneUtil;
 import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.ActivityCarWashHistoryBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -50,9 +51,11 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
         switch (id) {
             case R.id.tv_car_wash_history_call:
                 //todo 전화번호 알아내서 걸기
-
+                String phoneNumber = "01012345678";
 //                Log.d(TAG, "onClickCommon(): 통화하기 : " + carWashHistoryItem.getPhoneNumber());
 //                Toast.makeText(this, carWashHistoryItem.getPhoneNumber(), Toast.LENGTH_LONG).show();
+
+                PhoneUtil.phoneDial(this, phoneNumber);
 
                 break;
 
