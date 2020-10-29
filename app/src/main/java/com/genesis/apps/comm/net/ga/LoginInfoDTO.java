@@ -31,11 +31,26 @@ class LoginInfoDTO {
     private UserProfileVO profile;
     private long refreshTokenExpriesDate;
     private String tokenCode;
+    private Context context;
 
     private static byte[] key = new byte[]{
             (byte)0xDC, 0x0F, 0x79, (byte)0xCA, 0x39, 0x7E, (byte)0xB3, (byte)0x8C, 0x0A, 0x2E, (byte)0xB8, (byte)0x80, (byte)0xB2, 0x39, (byte)0x8B, 0x7D};
 
-    public LoginInfoDTO loadLoginInfo(Context context) {
+    public LoginInfoDTO(Context context){
+        this.context = context;
+    }
+
+    public void refereshData(String accessToken, String refreshToken, long expiresDate, UserProfileVO profile, long refreshTokenExpriesDate, String tokenCode){
+        this.accessToken =accessToken;
+        this.refreshToken = refreshToken;
+        this.expiresDate = expiresDate;
+        this.profile = profile;
+        this.refreshTokenExpriesDate = refreshTokenExpriesDate;
+        this.tokenCode = tokenCode;
+    }
+
+
+    public LoginInfoDTO loadLoginInfo() {
         LoginInfoDTO loginInfoDTO = null;
 
         File dir = context.getFilesDir();
@@ -173,7 +188,7 @@ class LoginInfoDTO {
         return loginInfoDTO;
     }
 
-    public boolean updateLoginInfo(Context context, LoginInfoDTO loginInfoDTO) {
+    public boolean updateLoginInfo(LoginInfoDTO loginInfoDTO) {
         Log.d(TAG, TAG_MSG_LOGININFO + (loginInfoDTO !=null ? loginInfoDTO.toString() : "null"));
         Gson gson = new Gson();
         String json = gson.toJson(loginInfoDTO);
@@ -226,7 +241,7 @@ class LoginInfoDTO {
         return true;
     }
 
-    public void clearLoginInfo(Context context) {
+    public void clearLoginInfo() {
         File dir = context.getFilesDir();
         File dataDir = new File(dir, "/data");
         if (!dataDir.exists()) {

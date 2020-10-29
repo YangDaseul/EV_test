@@ -30,9 +30,10 @@ public class CCSP {
     private Context context;
 
     @Inject
-    public CCSP(HttpRequestUtil httpRequestUtil, Context context){
+    public CCSP(HttpRequestUtil httpRequestUtil, Context context, LoginInfoDTO loginInfoDTO){
         this.httpRequestUtil = httpRequestUtil;
         this.context = context;
+        this.loginInfoDTO = loginInfoDTO;
     }
 
     @EntryPoint
@@ -78,7 +79,7 @@ public class CCSP {
     }
 
     public JsonObject getControlToken(String pin) throws NetException {
-        String url = CCSP_URL + "/api/v1/user/pin";
+        String url = CCSP_URL + "/user/pin";
 
         Map<String, Object> params = new HashMap<>();
         params.put("pin", pin);
@@ -92,7 +93,7 @@ public class CCSP {
     }
 
     public void changePin(String currentPin, String changedPin) throws NetException {
-        String url = CCSP_URL + "/api/v1/user/profile";
+        String url = CCSP_URL + "/user/profile";
 
         Map<String, Object> pinParams = new HashMap<>();
         pinParams.put("current", currentPin);
@@ -109,7 +110,7 @@ public class CCSP {
     }
 
     public void resetPin() throws NetException {
-        String url = CCSP_URL + "/api/v1/user/profile/pin";
+        String url = CCSP_URL + "/user/profile/pin";
 
         HttpRequest request = httpRequestUtil.getDeleteRequest(url);
         request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + loginInfoDTO.getAccessToken());
@@ -128,13 +129,13 @@ public class CCSP {
     }
 
     public LoginInfoDTO getLoginInfo() {
-        loginInfoDTO = (loginInfoDTO !=null ? loginInfoDTO : loginInfoDTO.loadLoginInfo(context));
+        loginInfoDTO = (loginInfoDTO.getProfile() !=null ? loginInfoDTO : loginInfoDTO.loadLoginInfo());
         Log.d(TAG, TAG_MSG_LOGININFO + (loginInfoDTO !=null ? loginInfoDTO.toString() : "null"));
         return loginInfoDTO;
     }
 
     public boolean updateLoginInfo() {
-        return loginInfoDTO.updateLoginInfo(context, loginInfoDTO);
+        return loginInfoDTO.updateLoginInfo(loginInfoDTO);
     }
 
     /**
@@ -142,7 +143,7 @@ public class CCSP {
      */
     public void clearLoginInfo() {
         try {
-            loginInfoDTO.clearLoginInfo(context);
+            loginInfoDTO.clearLoginInfo();
             loginInfoDTO = null;
         }catch (Exception ignore){
 

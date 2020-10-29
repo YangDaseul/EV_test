@@ -37,10 +37,12 @@ public class GA {
     private CCSP ccsp;
     private HttpRequestUtil httpRequestUtil;
     private int retryCount=0;
+    private LoginInfoDTO loginInfoDTO;
     @Inject
-    public GA(CCSP ccsp, HttpRequestUtil httpRequestUtil) {
+    public GA(CCSP ccsp, HttpRequestUtil httpRequestUtil, LoginInfoDTO loginInfoDTO) {
         this.ccsp = ccsp;
         this.httpRequestUtil = httpRequestUtil;
+        this.loginInfoDTO = loginInfoDTO;
     }
 
     public String getCsrf(){
@@ -180,8 +182,9 @@ public class GA {
                     int expiresIn = data.get("expires_in").getAsInt();
                     long currentTime = System.currentTimeMillis();
                     JsonObject data2 = data.getAsJsonObject("data");
-                    LoginInfoDTO loginInfo = new LoginInfoDTO(accessToken, refreshToken, currentTime + (expiresIn * 1000), null, currentTime + 31557600000L, httpRequestUtil.getJson(data2, "tokenCode"));
-                    if(!getProfile(accessToken, loginInfo)) {
+                    loginInfoDTO.refereshData(accessToken, refreshToken, currentTime + (expiresIn * 1000), null, currentTime + 31557600000L, httpRequestUtil.getJson(data2, "tokenCode"));
+//                    LoginInfoDTO loginInfo = new LoginInfoDTO(accessToken, refreshToken, currentTime + (expiresIn * 1000), null, currentTime + 31557600000L, httpRequestUtil.getJson(data2, "tokenCode"));
+                    if(!getProfile(accessToken, loginInfoDTO)) {
                         data = null;
                         ccsp.clearLoginInfo();
                     }

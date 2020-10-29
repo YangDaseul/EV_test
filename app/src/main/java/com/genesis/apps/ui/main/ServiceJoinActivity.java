@@ -22,12 +22,14 @@ import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.CMN_0003;
+import com.genesis.apps.comm.model.gra.api.MBR_0001;
 import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.databinding.ActivityServiceJoinBinding;
 import com.genesis.apps.databinding.ItemTermBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.view.TermView;
 import com.genesis.apps.ui.main.home.BluehandsFilterFragment;
 import com.genesis.apps.ui.myg.MyGOilTermDetailActivity;
@@ -68,6 +70,10 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
     public void onClickCommon(View v) {
         switch (v.getId()){
             case R.id.btn_next:
+
+                cmnViewModel.getREQ_MBR_0001().setValue(new MBR_0001.Request());
+
+
                 showFragment(new ServiceMembershipJoinFragment());
                 break;
             case R.id.iv_arrow:
@@ -220,5 +226,15 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
             }
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        List<SubFragment> fragments = getFragments();
+        if(fragments!=null&&fragments.size()>0){
+            hideFragment(fragments.get(0));
+        }else{
+            super.onBackPressed();
+        }
+    }
 
 }

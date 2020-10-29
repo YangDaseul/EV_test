@@ -7,6 +7,7 @@ import com.genesis.apps.comm.net.HttpRequestUtil;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.ga.CCSP;
 import com.genesis.apps.comm.net.ga.GA;
+import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.PreferenceUtil;
 import com.genesis.apps.comm.util.ScreenCaptureUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
@@ -55,14 +56,14 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    public CCSP getCCSP(HttpRequestUtil httpRequestUtil, Application application){
-        return new CCSP(httpRequestUtil, application);
+    public CCSP getCCSP(HttpRequestUtil httpRequestUtil, Application application, LoginInfoDTO loginInfoDTO){
+        return new CCSP(httpRequestUtil, application, loginInfoDTO);
     }
 
     @Provides
     @Singleton
-    public GA getGA(CCSP ccsp, HttpRequestUtil httpRequestUtil){
-        return new GA(ccsp, httpRequestUtil);
+    public GA getGA(CCSP ccsp, HttpRequestUtil httpRequestUtil, LoginInfoDTO loginInfoDTO){
+        return new GA(ccsp, httpRequestUtil, loginInfoDTO);
     }
 
     @Provides
@@ -81,6 +82,13 @@ public class ApplicationModule {
     @Provides
     @Singleton
     public DeviceDTO provideDeviceInfo(Application application){
-        return new DeviceDTO((application));
+        return new DeviceDTO(application);
+    }
+
+
+    @Provides
+    @Singleton
+    public LoginInfoDTO provideLoginInfo(Application application){
+        return new LoginInfoDTO(application);
     }
 }

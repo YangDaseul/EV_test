@@ -155,7 +155,7 @@ public class LoginActivity extends WebviewActivity {
         String result = uri.getQueryParameter("result");
         //0000: 정상, 1126: GA가입ok & 서비스 미가입
         if ("0000".equals(result) || (isLogin && "1126".equals(result))) {
-            final String scope = uri.getQueryParameter("scope");
+            final String scope = uri.getQueryParameter("scope"); //로그인 혹은 회원가입 확인 가능
             final String tokenCode = uri.getQueryParameter("code");
             Log.d(TAG, "shouldOverrideUrlLoading: scope = " + scope + ", tokenCode=" + tokenCode);
             if (TextUtils.isEmpty(tokenCode)) {

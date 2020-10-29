@@ -16,6 +16,7 @@ import com.genesis.apps.comm.model.gra.api.CMN_0001;
 import com.genesis.apps.comm.model.gra.api.CMN_0002;
 import com.genesis.apps.comm.model.gra.api.CMN_0003;
 import com.genesis.apps.comm.model.gra.api.CMN_0004;
+import com.genesis.apps.comm.model.gra.api.MBR_0001;
 import com.genesis.apps.comm.model.gra.api.NOT_0001;
 import com.genesis.apps.comm.model.gra.api.NOT_0002;
 import com.genesis.apps.comm.model.repo.BARRepo;
@@ -23,6 +24,7 @@ import com.genesis.apps.comm.model.repo.CMNRepo;
 import com.genesis.apps.comm.model.repo.CardRepository;
 import com.genesis.apps.comm.model.repo.DBContentsRepository;
 import com.genesis.apps.comm.model.repo.DBGlobalDataRepository;
+import com.genesis.apps.comm.model.repo.MBRRepo;
 import com.genesis.apps.comm.model.repo.NOTRepo;
 import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.comm.model.vo.FloatingMenuVO;
@@ -55,6 +57,7 @@ import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TY
 public @Data
 class CMNViewModel extends ViewModel {
 
+    private final MBRRepo mbrRepo;
     private final NOTRepo notRepo;
     private final CMNRepo repository;
     private final CardRepository cardRepository;
@@ -73,8 +76,11 @@ class CMNViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<NOT_0001.Response>> RES_NOT_0001;
     private MutableLiveData<NetUIResponse<NOT_0002.Response>> RES_NOT_0002;
 
+    private MutableLiveData<MBR_0001.Request> REQ_MBR_0001;
+
     @ViewModelInject
     CMNViewModel(
+            MBRRepo mbrRepo,
             NOTRepo notRepo,
             CMNRepo repository,
             CardRepository cardRepository,
@@ -82,6 +88,7 @@ class CMNViewModel extends ViewModel {
             DBGlobalDataRepository dbGlobalDataRepository,
             DBContentsRepository dbContentsRepository,
             @Assisted SavedStateHandle savedStateHandle) {
+        this.mbrRepo = mbrRepo;
         this.notRepo = notRepo;
         this.repository = repository;
         this.cardRepository = cardRepository;
@@ -99,6 +106,12 @@ class CMNViewModel extends ViewModel {
 
         RES_NOT_0001 = notRepo.RES_NOT_0001;
         RES_NOT_0002 = notRepo.RES_NOT_0002;
+
+        REQ_MBR_0001 = new MutableLiveData<>();
+    }
+
+    public void reqMBR0001(final MBR_0001.Request reqData) {
+        mbrRepo.REQ_MBR_0001(reqData);
     }
 
     public void reqCMN0001(final CMN_0001.Request reqData) {

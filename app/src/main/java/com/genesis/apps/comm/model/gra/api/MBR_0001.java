@@ -29,6 +29,8 @@ public class MBR_0001 extends BaseData {
      * @see #authUuid 본인인증UUID
      * GA 회원 가입 요청 api(GA-COM-030) 호출 할때 사용하는 값.
      * @see #terms 약관정보
+     * @see #blueTerms 블루멤버스약관정보
+     * @see #mypgTerms 마이페이지약관정보
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -42,12 +44,19 @@ public class MBR_0001 extends BaseData {
         @Expose
         @SerializedName("terms")
         private List<AgreeTermVO> terms;
+        @Expose
+        @SerializedName("blueTerms")
+        private List<AgreeTermVO> blueTerms;
+        @Expose
+        @SerializedName("mypgTerms")
+        private List<AgreeTermVO> mypgTerms;
 
-        public Request(String menuId, String tokenCode, String authUuid, List<AgreeTermVO> terms){
+        public Request(String menuId, String tokenCode, String authUuid, List<AgreeTermVO> terms, List<AgreeTermVO> blueTerms, List<AgreeTermVO> mypgTerms){
             this.tokenCode = tokenCode;
             this.authUuid = authUuid;
             this.terms = terms;
-
+            this.blueTerms = blueTerms;
+            this.mypgTerms = mypgTerms;
             setData(APIInfo.GRA_MBR_0001.getIfCd(), menuId);
         }
     }
