@@ -19,6 +19,12 @@ import lombok.EqualsAndHashCode;
  * @author hjpark
  */
 public class WSH_1004 extends BaseData {
+    public static final String RESERVE_VALID = "1000";      //예약됨
+    public static final String RESERVE_COMPLETED = "2000";  //이용완료
+    public static final String RESERVE_CANCELED = "9000";   //예약취소
+
+    public static final String PAY_CASH = "1000";           //현금결제
+
     /**
      * @brief WSH_1004의 요청 항목
      * @author hjpark

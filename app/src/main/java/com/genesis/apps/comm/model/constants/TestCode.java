@@ -49,11 +49,128 @@ import com.genesis.apps.comm.model.gra.api.PUB_1003;
 import com.genesis.apps.comm.model.gra.api.STO_1001;
 import com.genesis.apps.comm.model.gra.api.STO_1002;
 import com.genesis.apps.comm.model.gra.api.WRT_1001;
+import com.genesis.apps.comm.model.gra.api.WSH_1001;
+import com.genesis.apps.comm.model.gra.api.WSH_1002;
+import com.genesis.apps.comm.model.gra.api.WSH_1003;
+import com.genesis.apps.comm.model.gra.api.WSH_1004;
+import com.genesis.apps.comm.model.gra.api.WSH_1005;
+import com.genesis.apps.comm.model.gra.api.WSH_1006;
+import com.genesis.apps.comm.model.gra.api.WSH_1007;
+import com.genesis.apps.comm.model.gra.api.WSH_1008;
 import com.genesis.apps.comm.model.vo.RentStatusVO;
 import com.google.gson.Gson;
 
 public class TestCode {
 //((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), SimilarCarActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+    public static WSH_1001.Response WSH_1001 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"godsList\": [\n" +
+            "    {\n" +
+            "      \"godsSeqNo\": \"1\",\n" +
+            "      \"cmpyCd\": \"SONAX\",\n" +
+            "      \"godsNm\": \"상품명1\",\n" +
+            "      \"dsctNm\": \"할인명1\",\n" +
+            "      \"godsImgUri\": \"www.naver.com\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"godsSeqNo\": \"2\",\n" +
+            "      \"cmpyCd\": \"SONAX\",\n" +
+            "      \"godsNm\": \"상품명2\",\n" +
+            "      \"dsctNm\": \"할인명2\",\n" +
+            "      \"godsImgUri\": \"www.naver.com\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"godsSeqNo\": \"3\",\n" +
+            "      \"cmpyCd\": \"SONAX\",\n" +
+            "      \"godsNm\": \"상품명3\",\n" +
+            "      \"dsctNm\": \"할인명3\",\n" +
+            "      \"godsImgUri\": \"www.naver.com\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"godsSeqNo\": \"4\",\n" +
+            "      \"cmpyCd\": \"SONAX\",\n" +
+            "      \"godsNm\": \"상품명4\",\n" +
+            "      \"dsctNm\": \"할인명4\",\n" +
+            "      \"godsImgUri\": \"www.naver.com\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}", WSH_1001.Response.class);
+
+    public static WSH_1002.Response WSH_1002 = new Gson().fromJson("", WSH_1002.Response.class);
+
+    public static WSH_1003.Response WSH_1003 = new Gson().fromJson("", WSH_1003.Response.class);
+
+    public static WSH_1004.Response WSH_1004 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"rsvtList\":[\n" +
+            "    {\n" +
+            "      \"rsvtSeqNo\": \"16자리일련번호a\",\n" +
+            "      \"rsvtStusCd\": \"1000\",\n" +
+            "      \"rsvtDtm\": \"20200101130000\",\n" +
+            "      \"paymtWayCd\": \"1000\",\n" +
+            "      \"paymtCost\": \"100,000원\",\n" +
+            "      \"cmpyCd\": \"SONAX\",\n" +
+            "      \"brnhCd\": \"8자리지점코드\",\n" +
+            "      \"brnhNm\": \"지구반대쪽출장소\",\n" +
+            "      \"telNo\": \"03101230765\",\n" +
+            "      \"godsSeqNo\": \"16자리상품번호\",\n" +
+            "      \"godsNm\": \"서비스 이름1호\",\n" +
+            "      \"godsImgUri\": \"www.naver.com\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtSeqNo\": \"16자리일련번호a11\",\n" +
+            "      \"rsvtStusCd\": \"2000\",\n" +
+            "      \"rsvtDtm\": \"20200101130000\",\n" +
+            "      \"paymtWayCd\": \"1000\",\n" +
+            "      \"paymtCost\": \"100,000원\",\n" +
+            "      \"cmpyCd\": \"SONAX\",\n" +
+            "      \"brnhCd\": \"8자리지점코드\",\n" +
+            "      \"brnhNm\": \"지하10층영업소\",\n" +
+            "      \"telNo\": \"03101230765\",\n" +
+            "      \"godsSeqNo\": \"16자리상품번호\",\n" +
+            "      \"godsNm\": \"서비스 두번째 거\",\n" +
+            "      \"godsImgUri\": \"www.naver.com\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtSeqNo\": \"16자리일련번호13a\",\n" +
+            "      \"rsvtStusCd\": \"9000\",\n" +
+            "      \"rsvtDtm\": \"20200101130000\",\n" +
+            "      \"paymtWayCd\": \"1000\",\n" +
+            "      \"paymtCost\": \"100,000원\",\n" +
+            "      \"cmpyCd\": \"SONAX\",\n" +
+            "      \"brnhCd\": \"8자리지점코드\",\n" +
+            "      \"brnhNm\": \"카드안받는영업점\",\n" +
+            "      \"telNo\": \"03101230765\",\n" +
+            "      \"godsSeqNo\": \"16자리상품번호\",\n" +
+            "      \"godsNm\": \"현금만되는\n초특가풀옵션서비스\",\n" +
+            "      \"godsImgUri\": \"www.naver.com\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtSeqNo\": \"16자리일련번호3113\",\n" +
+            "      \"rsvtStusCd\": \"1000\",\n" +
+            "      \"rsvtDtm\": \"20200101130000\",\n" +
+            "      \"paymtWayCd\": \"1000\",\n" +
+            "      \"paymtCost\": \"100,000원\",\n" +
+            "      \"cmpyCd\": \"SONAX\",\n" +
+            "      \"brnhCd\": \"8자리지점코드\",\n" +
+            "      \"brnhNm\": \"울랄라뾰룡뾰룔 지점\",\n" +
+            "      \"telNo\": \"03101230765\",\n" +
+            "      \"godsSeqNo\": \"16자리상품번호\",\n" +
+            "      \"godsNm\": \"울랄라뾰룡뾰룔 서비스\",\n" +
+            "      \"godsImgUri\": \"www.naver.com\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}", WSH_1004.Response.class);
+
+    public static WSH_1005.Response WSH_1005 = new Gson().fromJson("", WSH_1005.Response.class);
+
+    public static WSH_1006.Response WSH_1006 = new Gson().fromJson("", WSH_1006.Response.class);
+
+    public static WSH_1007.Response WSH_1007 = new Gson().fromJson("", WSH_1007.Response.class);
+
+    public static WSH_1008.Response WSH_1008 = new Gson().fromJson("", WSH_1008.Response.class);
 
     public static CMN_0003.Response CMN_0003 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
