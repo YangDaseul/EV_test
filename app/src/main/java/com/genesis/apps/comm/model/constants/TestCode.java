@@ -112,9 +112,9 @@ public class TestCode {
             "      \"paymtWayCd\": \"1000\",\n" +
             "      \"paymtCost\": \"100,000원\",\n" +
             "      \"cmpyCd\": \"SONAX\",\n" +
-            "      \"brnhCd\": \"8자리지점코드\",\n" +
+            "      \"brnhCd\": \"1호점:지구반대\",\n" +
             "      \"brnhNm\": \"지구반대쪽출장소\",\n" +
-            "      \"telNo\": \"03101230765\",\n" +
+            "      \"telNo\": \"031011114576\",\n" +
             "      \"godsSeqNo\": \"16자리상품번호\",\n" +
             "      \"godsNm\": \"서비스 이름1호\",\n" +
             "      \"godsImgUri\": \"www.naver.com\"\n" +
@@ -126,9 +126,9 @@ public class TestCode {
             "      \"paymtWayCd\": \"1000\",\n" +
             "      \"paymtCost\": \"100,000원\",\n" +
             "      \"cmpyCd\": \"SONAX\",\n" +
-            "      \"brnhCd\": \"8자리지점코드\",\n" +
+            "      \"brnhCd\": \"2호점:지하깊음\",\n" +
             "      \"brnhNm\": \"지하10층영업소\",\n" +
-            "      \"telNo\": \"03101230765\",\n" +
+            "      \"telNo\": \"03122224576\",\n" +
             "      \"godsSeqNo\": \"16자리상품번호\",\n" +
             "      \"godsNm\": \"서비스 두번째 거\",\n" +
             "      \"godsImgUri\": \"www.naver.com\"\n" +
@@ -140,9 +140,9 @@ public class TestCode {
             "      \"paymtWayCd\": \"1000\",\n" +
             "      \"paymtCost\": \"100,000원\",\n" +
             "      \"cmpyCd\": \"SONAX\",\n" +
-            "      \"brnhCd\": \"8자리지점코드\",\n" +
+            "      \"brnhCd\": \"3호점:카드싫어\",\n" +
             "      \"brnhNm\": \"카드안받는영업점\",\n" +
-            "      \"telNo\": \"03101230765\",\n" +
+            "      \"telNo\": \"0233337195\",\n" +
             "      \"godsSeqNo\": \"16자리상품번호\",\n" +
             "      \"godsNm\": \"현금만되는\n초특가풀옵션서비스\",\n" +
             "      \"godsImgUri\": \"www.naver.com\"\n" +
@@ -154,9 +154,9 @@ public class TestCode {
             "      \"paymtWayCd\": \"1000\",\n" +
             "      \"paymtCost\": \"100,000원\",\n" +
             "      \"cmpyCd\": \"SONAX\",\n" +
-            "      \"brnhCd\": \"8자리지점코드\",\n" +
+            "      \"brnhCd\": \"4호점:울랄라\",\n" +
             "      \"brnhNm\": \"울랄라뾰룡뾰룔 지점\",\n" +
-            "      \"telNo\": \"03101230765\",\n" +
+            "      \"telNo\": \"0244442957\",\n" +
             "      \"godsSeqNo\": \"16자리상품번호\",\n" +
             "      \"godsNm\": \"울랄라뾰룡뾰룔 서비스\",\n" +
             "      \"godsImgUri\": \"www.naver.com\"\n" +
@@ -164,7 +164,10 @@ public class TestCode {
             "  ]\n" +
             "}", WSH_1004.Response.class);
 
-    public static WSH_1005.Response WSH_1005 = new Gson().fromJson("", WSH_1005.Response.class);
+    public static WSH_1005.Response WSH_1005 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\"\n" +
+            "}", WSH_1005.Response.class);
 
     public static WSH_1006.Response WSH_1006 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +

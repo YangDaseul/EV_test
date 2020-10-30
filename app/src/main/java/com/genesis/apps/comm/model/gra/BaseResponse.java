@@ -14,6 +14,8 @@ import lombok.Data;
  */
 public @Data
 class BaseResponse extends BaseData {
+    public static final String RETURN_CODE_SUCC = "0000";      //정상
+
     @Expose
     @SerializedName("rtCd")
     private String rtCd;

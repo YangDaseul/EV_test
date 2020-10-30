@@ -35,4 +35,8 @@
     <string name="gm_carlist_01_p05_snackbar_1">렌트/리스 실 운행자\n차량등록 신청이 취소되었습니다.</string>
     <string name="gm_carlist_01_p05_snackbar_2">수령지 수정이 완료되었습니다.</string>
 
+
+    <string name="cw_confirm_staff">사용 완료 되었습니다.</string>
+    <string name="cw_cancel_reserve">예약 취소 되었습니다.</string>
+
 </resources>
