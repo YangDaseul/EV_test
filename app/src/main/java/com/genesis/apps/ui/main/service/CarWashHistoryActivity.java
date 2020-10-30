@@ -32,7 +32,7 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
     private WSHViewModel viewModel;
     private CarWashHistoryAdapter adapter;
 
-    private int cancelPosition;
+    private int itemPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +79,7 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
                         if (inputBranchCodeDialog.isInputConfirmed()) {
+                            itemPosition = (int) v.getTag(R.id.item_position); //결과 처리할 곳에서 쓰기 위해 저장
                             String newBrnhCd = inputBranchCodeDialog.getBranchCode();
                             viewModel.reqWSH1005(new WSH_1005.Request(APPIAInfo.SM_CW01_P02.getId(), rsvtSeqNo, newBrnhCd));
                         }
@@ -90,7 +91,7 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
             case R.id.tv_car_wash_history_cancel:
                 rsvtSeqNo = tag.getRsvtSeqNo();
                 String brnhCd = tag.getBrnhCd();
-                cancelPosition = (int) v.getTag(R.id.item_position);
+                itemPosition = (int) v.getTag(R.id.item_position); //결과 처리할 곳에서 쓰기 위해 저장
 
                 MiddleDialog.dialogCarWashCancel(
                         this,
@@ -144,6 +145,7 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
 
                 case SUCCESS:
                     if (result.data != null && result.data.getRtCd().equals(BaseResponse.RETURN_CODE_SUCC)) {
+                        adapter.setRsvtStusCd(itemPosition, WSH_1004.RESERVE_COMPLETED);
                         SnackBarUtil.show(this, getString(R.string.cw_confirm_staff));
 
                         //성공 후 데이터 로딩까지 다 하고 로딩 치우고 break;
@@ -169,7 +171,7 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
 
                 case SUCCESS:
                     if (result.data != null && result.data.getRtCd().equals(BaseResponse.RETURN_CODE_SUCC)) {
-                        adapter.setRsvtStusCd(cancelPosition, WSH_1004.RESERVE_CANCELED);
+                        adapter.setRsvtStusCd(itemPosition, WSH_1004.RESERVE_CANCELED);
                         SnackBarUtil.show(this, getString(R.string.cw_cancel_reserve));
 
                         //성공 후 데이터 로딩까지 다 하고 로딩 치우고 break;

@@ -150,6 +150,7 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
             //직원에게확인
             getBinding().tvCarWashHistoryConfirm.setOnClickListener(singleClickListener);
             getBinding().tvCarWashHistoryConfirm.setTag(R.id.tag_wash_history, item);
+            getBinding().tvCarWashHistoryConfirm.setTag(R.id.item_position, pos);
 
             //예약취소
             getBinding().tvCarWashHistoryCancel.setOnClickListener(singleClickListener);
