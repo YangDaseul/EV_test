@@ -25,6 +25,7 @@ import com.genesis.apps.databinding.ItemTabBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.main.home.FragmentHome1;
 import com.genesis.apps.ui.myg.MyGEntranceActivity;
+import com.genesis.apps.ui.myg.MyGHomeActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
@@ -103,23 +104,23 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 break;
             case R.id.btn_profile:
 //                startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                startActivitySingleTop(new Intent(this, ServiceJoinActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                return;
+//                startActivitySingleTop(new Intent(this, ServiceJoinActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                return;
 
-//                try {
-//                    switch (lgnViewModel.getUserInfoFromDB().getCustGbCd()){
-//                        case VariableType.MAIN_VEHICLE_TYPE_0000:
-//                            startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                            break;
-//                        case VariableType.MAIN_VEHICLE_TYPE_OV:
-//                        default:
-//                            startActivitySingleTop(new Intent(this, MyGHomeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                            break;
-//                    }
-//                }catch (Exception ignore){
-//                    ignore.printStackTrace();
-//                }
-//                break;
+                try {
+                    switch (lgnViewModel.getUserInfoFromDB().getCustGbCd()){
+                        case VariableType.MAIN_VEHICLE_TYPE_0000:
+                            startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                            break;
+                        case VariableType.MAIN_VEHICLE_TYPE_OV:
+                        default:
+                            startActivitySingleTop(new Intent(this, MyGHomeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                            break;
+                    }
+                }catch (Exception ignore){
+                    ignore.printStackTrace();
+                }
+                break;
         }
 
     }

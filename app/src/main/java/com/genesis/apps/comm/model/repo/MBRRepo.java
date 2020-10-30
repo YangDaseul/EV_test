@@ -3,6 +3,7 @@ package com.genesis.apps.comm.model.repo;
 import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.gra.APIInfo;
 import com.genesis.apps.comm.model.gra.api.MBR_0001;
 import com.genesis.apps.comm.net.NetCaller;
@@ -35,7 +36,8 @@ public class MBRRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_MBR_0001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_MBR_0001.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_MBR_0001.setValue(NetUIResponse.success(TestCode.MBR_0001));
             }
 
             @Override

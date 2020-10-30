@@ -36,6 +36,7 @@ import com.genesis.apps.comm.model.gra.api.IST_1005;
 import com.genesis.apps.comm.model.gra.api.LGN_0001;
 import com.genesis.apps.comm.model.gra.api.LGN_0003;
 import com.genesis.apps.comm.model.gra.api.LGN_0005;
+import com.genesis.apps.comm.model.gra.api.MBR_0001;
 import com.genesis.apps.comm.model.gra.api.MYP_0001;
 import com.genesis.apps.comm.model.gra.api.MYP_1005;
 import com.genesis.apps.comm.model.gra.api.MYP_1006;
@@ -226,19 +227,7 @@ public class TestCode {
             "    {\n" +
             "      \"termVer\": \"01.00.00\",\n" +
             "      \"termCd\": \"BLM0003\",\n" +
-            "      \"termNm\": \"개인정보 수집/이용에 대한 동의\",\n" +
-            "      \"termEsnAgmtYn\": \"Y\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"termVer\": \"01.00.00\",\n" +
-            "      \"termCd\": \"GRA0004\",\n" +
-            "      \"termNm\": \"제네시스 멤버십 가입 약관\",\n" +
-            "      \"termEsnAgmtYn\": \"Y\"\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"termVer\": \"01.00.00\",\n" +
-            "      \"termCd\": \"GRA0005\",\n" +
-            "      \"termNm\": \"광고성 정보 수신 동의\",\n" +
+            "      \"termNm\": \"블루멤버스 광고성 정보 수신에 대한 안내\",\n" +
             "      \"termEsnAgmtYn\": \"N\"\n" +
             "    }\n" +
             "  ],\n" +
@@ -270,6 +259,86 @@ public class TestCode {
             "  ]\n" +
             "}",CMN_0003.Response.class);
 
+
+    public static MBR_0001.Response MBR_0001 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"custNo\": \"0000\",\n" +
+            "  \"custGbCd\": \"OV\",\n" +
+            "  \"pushIdChgYn\": \"Y\",\n" +
+            "  \"custMgmtNo\": \"12345612341\",\n" +
+            "  \"custNm\": \"박현준\",\n" +
+            "  \"celphNo\": \"01086029612\",\n" +
+            "  \"ownVhclList\": [\n" +
+            "    {\n" +
+            "      \"csmrCarRelCd\": \"1\",\n" +
+            "      \"vin\": \"AWJDIWHD234213KJ\",\n" +
+            "      \"carRgstNo\": \"16조6840\",\n" +
+            "      \"mdlCd\": \"GV80\",\n" +
+            "      \"mdlNm\": \"디젤 3.0 5인승 19인치\",\n" +
+            "      \"saleMdlNm\": \"GV80 디젤 3.0 5인승 19인치 기본디자인 2WD 오토\",\n" +
+            "      \"xrclCtyNo\": \"12345678\",\n" +
+            "      \"xrclCtyNm\": \"WHITE\",\n" +
+            "      \"mainVhclYn\": \"N\",\n" +
+            "      \"vhclImgUri\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"csmrCarRelCd\": \"2\",\n" +
+            "      \"vin\": \"AWJD3332232323KJ\",\n" +
+            "      \"carRgstNo\": \"161조6842\",\n" +
+            "      \"mdlCd\": \"GV90\",\n" +
+            "      \"mdlNm\": \"디젤 3.0 5인승 19인치\",\n" +
+            "      \"saleMdlNm\": \"GV90 디젤 3.0 5인승 19인치 기본디자인 2WD 오토\",\n" +
+            "      \"xrclCtyNo\": \"22245678\",\n" +
+            "      \"xrclCtyNm\": \"BLACK\",\n" +
+            "      \"mainVhclYn\": \"N\",\n" +
+            "      \"vhclImgUri\": \"\"\n" +
+            "    }\n" +
+            "  ],\n" +
+            "  \"ctrctVhclList\": [\n" +
+            "    {\n" +
+            "      \"saleMdlCd\": \"AAAAAA\",\n" +
+            "      \"mdlCd\": \"GV80\",\n" +
+            "      \"mdlNm\": \"디젤 3.0 5인승 19인치\",\n" +
+            "      \"saleMdlNm\": \"GV80 디젤 3.0 5인승 19인치 기본디자인 2WD 오토\",\n" +
+            "      \"xrclCtyNo\": \"12345678\",\n" +
+            "      \"xrclCtyNm\": \"WHITE\",\n" +
+            "      \"ieclCtyNo\": \"12345678\",\n" +
+            "      \"ieclCtyNm\": \"WHITE\",\n" +
+            "      \"vhclImgUri\": \"\",\n" +
+            "      \"ctrctNo\": \"21234\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"saleMdlCd\": \"AAAAAA\",\n" +
+            "      \"mdlCd\": \"GV80\",\n" +
+            "      \"mdlNm\": \"디젤 3.0 5인승 19인치\",\n" +
+            "      \"saleMdlNm\": \"GV80 디젤 3.0 5인승 19인치 기본디자인 2WD 오토\",\n" +
+            "      \"xrclCtyNo\": \"12345678\",\n" +
+            "      \"xrclCtyNm\": \"WHITE\",\n" +
+            "      \"ieclCtyNo\": \"12345678\",\n" +
+            "      \"ieclCtyNm\": \"WHITE\",\n" +
+            "      \"vhclImgUri\": \"\",\n" +
+            "      \"ctrctNo\": \"21234\"\n" +
+            "    }\n" +
+            "  ],\n" +
+            "  \"dftVhclInfo\": [\n" +
+            "    {\n" +
+            "      \"mdlCd\": \"GV80\",\n" +
+            "      \"mdlNm\": \"디젤 3.0 5인승 19인치\",\n" +
+            "      \"saleMdlNm\": \"GV80 디젤 3.0 5인승 19인치 기본디자인 2WD 오토\",\n" +
+            "      \"xrclCtyNo\": \"12345678\",\n" +
+            "      \"vhclImgUri\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"mdlCd\": \"GV90\",\n" +
+            "      \"mdlNm\": \"디젤 3.0 5인승 19인치\",\n" +
+            "      \"saleMdlNm\": \"GV90 디젤 3.0 5인승 19인치 기본디자인 2WD 오토\",\n" +
+            "      \"xrclCtyNo\": \"99999999\",\n" +
+            "      \"vhclImgUri\": \"\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",MBR_0001.Response.class);
+    
 
     public static LGN_0001.Response LGN_0001 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +

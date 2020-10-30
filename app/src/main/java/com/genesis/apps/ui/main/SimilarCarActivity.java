@@ -83,7 +83,6 @@ public class SimilarCarActivity extends SubActivity<ActivitySimilarCarBinding> {
                         adapter.notifyDataSetChanged();
                         break;
                     }
-
                 default:
                     showProgressDialog(false);
                     break;

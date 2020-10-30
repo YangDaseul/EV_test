@@ -85,8 +85,8 @@ public class LoginActivity extends WebviewActivity {
         String authUuid = uri.getQueryParameter("authUuid");
 
         if (csrf != null && csrf.equals(ga.getCsrf()) && !TextUtils.isEmpty(authUuid)) {
-
-
+            setResult(Activity.RESULT_OK, new Intent().putExtra("authUuid",authUuid));
+            finish(); //회원가입완료 시
 //                    if("INIT".equalsIgnoreCase(tokenCode)) {
 //                        //앱 최초 실행시 본인 인증 하는 경우
 //                        ListenableFuture<JsonObject> f = listeningExecutorService.submit(() -> {
@@ -205,7 +205,11 @@ public class LoginActivity extends WebviewActivity {
 
     @Override
     public boolean back(String currentUrl) {
-        if (!currentUrl.startsWith(GA_URL) && !currentUrl.startsWith(CCSP_URL)) {
+        if(currentUrl.endsWith("/web/v1/user/signin")){
+            //로그인화면
+            finish();
+            return true;
+        }else if (!currentUrl.startsWith(GA_URL) && !currentUrl.startsWith(CCSP_URL)) {
             //if(currentUrl.startsWith("https://nice.checkplus.co.kr")) {
             ccsp.clearLoginInfo();
             fragment.loadUrl(url);
@@ -216,10 +220,6 @@ public class LoginActivity extends WebviewActivity {
                 finish();
                 return true;
             }
-        }else if(currentUrl.contains("/web/v1/user/signin")){
-            //로그인화면
-            finish();
-            return true;
         }
         return false;
     }

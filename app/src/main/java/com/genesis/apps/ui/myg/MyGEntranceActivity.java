@@ -1,8 +1,11 @@
 package com.genesis.apps.ui.myg;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.annotation.Nullable;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.RequestCodes;
@@ -11,6 +14,7 @@ import com.genesis.apps.comm.net.ga.GA;
 import com.genesis.apps.databinding.ActivityMygEntranceBinding;
 import com.genesis.apps.ui.common.activity.LoginActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.main.ServiceJoinActivity;
 
 import javax.inject.Inject;
 
@@ -69,5 +73,16 @@ public class MyGEntranceActivity extends SubActivity<ActivityMygEntranceBinding>
     }
     public void moveToFind(){
 
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==Activity.RESULT_OK){
+            if(requestCode==RequestCodes.REQ_CODE_LOGIN.getCode()||requestCode==RequestCodes.REQ_CODE_JOIN.getCode()){
+                startActivitySingleTop(new Intent(this, ServiceJoinActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+            }
+        }
     }
 }
