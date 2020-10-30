@@ -71,9 +71,6 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
         switch (v.getId()){
             case R.id.btn_next:
 
-                cmnViewModel.getREQ_MBR_0001().setValue(new MBR_0001.Request());
-
-
                 showFragment(new ServiceMembershipJoinFragment());
                 break;
             case R.id.iv_arrow:

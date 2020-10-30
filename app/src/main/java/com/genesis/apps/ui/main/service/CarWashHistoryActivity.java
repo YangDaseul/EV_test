@@ -41,9 +41,8 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
 
         getDataFromIntent();
         setViewModel();
-        setObserver();
-
         setAdapter();
+        setObserver();
 
         //TODO 저거 ("SONAX") 하드코딩하는 게 맞나
         viewModel.reqWSH1004(new WSH_1004.Request(APPIAInfo.SM_CW01.getId(), "SONAX"));
@@ -199,7 +198,6 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
         super.onDestroy();
     }
 
-
     private void setAdapter() {
         //세차 예약 내역 어댑터 (인스턴스 타입 맞나 확인)
         adapter = new CarWashHistoryAdapter(onSingleClickListener);
@@ -207,5 +205,4 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
         ui.rvCarWashHistoryList.setHasFixedSize(true);
         ui.rvCarWashHistoryList.setAdapter(adapter);
     }
-
 }
