@@ -3,7 +3,6 @@ package com.genesis.apps.ui.main.service;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -19,6 +18,8 @@ import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
 import static com.genesis.apps.comm.model.gra.api.WSH_1004.PAY_CASH;
+import static com.genesis.apps.comm.model.gra.api.WSH_1004.RESERVE_CANCELED;
+import static com.genesis.apps.comm.model.gra.api.WSH_1004.RESERVE_COMPLETED;
 
 public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveVO> {
     private static OnSingleClickListener singleClickListener;
@@ -40,11 +41,6 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
 
     //세차 예약 내역 뷰홀더
     public static class CarWashHistoryViewHolder extends BaseViewHolder<WashReserveVO, ItemCarWashHistoryBinding> {
-        //지점 전화번호, 지점 코드, 예약번호
-        private String phoneNumber;
-        private String branchCode;
-        private String reservationNumber;
-
 
         public CarWashHistoryViewHolder(View itemView) {
             super(itemView);
@@ -57,8 +53,9 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
 
         @Override
         public void onBindView(WashReserveVO item, int pos) {
-            //예약 중인지 이용완료 또는 취소인지에 따라 뷰 모양 다름
-            setViewType(item.getRsvtStusCd());
+            //예약 중인지 이용완료 또는 취소인지에 따라 뷰 모양 다름.
+            //결제 방식 표기 여부도 이를 따름.
+            setViewType(item.getRsvtStusCd(), item.getPaymtWayCd());
 
             //지점명
             setBranchName(item.getBrnhNm());
@@ -68,11 +65,8 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
             //결제금액
             getBinding().tvCarWashHistoryPrice.setText(item.getPaymtCost());
 
-            //결제수단
-            setPayType(item.getPaymtWayCd());
-
             //버튼 클릭 리스너 및 해당 버튼 처리에 필요한 데이터 세팅
-            setSingleClickListenerAndData(item);
+            setSingleClickListenerAndData(item, pos);
 
             Glide.with(getContext())
                     .load(item.getGodsImgUri())
@@ -90,17 +84,34 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
 
         //예약 중인지 이용완료 또는 취소인지에 따라 뷰 모양 다름
         //공통 부분 비중이 커서 viewType을 아예 나누지는 않고 visibility로 처리함
-        private void setViewType(String status) {
+        private void setViewType(String status, String payType) {
             switch (status) {
                 case WSH_1004.RESERVE_VALID:
+                    //상단 결제방식, 하단 세부정보 visible
+                    getBinding().tvCarWashHistoryPaytype.setVisibility(View.VISIBLE);
                     getBinding().lCarWashHistoryBottom.setVisibility(View.VISIBLE);
+
+                    //결제방식 표시
+                    setPayType(payType);
+
+                    //상단 이용완료or취소, 하단 지점명 gone
+                    getBinding().tvCarWashHistoryServiceEnd.setVisibility(View.GONE);
                     getBinding().tvCarWashHistoryBranchNameEnd.setVisibility(View.GONE);
                     break;
 
-                case WSH_1004.RESERVE_CANCELED:
                 case WSH_1004.RESERVE_COMPLETED:
+                case WSH_1004.RESERVE_CANCELED:
+                    //상단 결제방식, 하단 세부정보 gone
+                    getBinding().tvCarWashHistoryPaytype.setVisibility(View.GONE);
                     getBinding().lCarWashHistoryBottom.setVisibility(View.GONE);
+
+                    //상단 이용완료or취소, 하단 지점명 visible
+                    getBinding().tvCarWashHistoryServiceEnd.setVisibility(View.VISIBLE);
                     getBinding().tvCarWashHistoryBranchNameEnd.setVisibility(View.VISIBLE);
+
+                    getBinding().tvCarWashHistoryServiceEnd.setText(
+                            status.equals(RESERVE_COMPLETED) ? R.string.sm_cw_history_07 : R.string.sm_cw_history_06
+                    );
                     break;
             }
         }
@@ -131,33 +142,26 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
         }
 
         //리스너를 연결하고, 이를 처리하는데 필요한 데이터도 저장
-        private void setSingleClickListenerAndData(WashReserveVO item) {
-            //지점 전화번호, 지점 코드, 예약번호
-            phoneNumber = item.getTelNo();
-            branchCode = item.getBrnhCd();
-            reservationNumber = item.getRsvtSeqNo();
-
-            //todo 직원에게 확인 버튼 : [지점코드 입력 팝업] 이건 뭐 하는거지?
-
+        private void setSingleClickListenerAndData(WashReserveVO item, int pos) {
             //통화하기
             getBinding().tvCarWashHistoryCall.setOnClickListener(singleClickListener);
+            getBinding().tvCarWashHistoryCall.setTag(R.id.tag_wash_history, item);
+
             //직원에게확인
             getBinding().tvCarWashHistoryConfirm.setOnClickListener(singleClickListener);
+            getBinding().tvCarWashHistoryConfirm.setTag(R.id.tag_wash_history, item);
+            getBinding().tvCarWashHistoryConfirm.setTag(R.id.item_position, pos);
+
             //예약취소
             getBinding().tvCarWashHistoryCancel.setOnClickListener(singleClickListener);
+            getBinding().tvCarWashHistoryCancel.setTag(R.id.tag_wash_history, item);
+            getBinding().tvCarWashHistoryCancel.setTag(R.id.item_position, pos);
         }
+    }
 
-        public String getPhoneNumber() {
-            return phoneNumber;
-        }
-
-        public String getBranchCode() {
-            return branchCode;
-        }
-
-        public String getReservationNumber() {
-            return reservationNumber;
-        }
+    public void setRsvtStusCd(int pos, String status) {
+        ((WashReserveVO) getItem(pos)).setRsvtStusCd(status);
+        notifyItemChanged(pos);
     }
 
 }

@@ -5,18 +5,19 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
+import com.genesis.apps.comm.model.gra.BaseResponse;
 import com.genesis.apps.comm.model.gra.api.WSH_1004;
 import com.genesis.apps.comm.model.gra.api.WSH_1005;
 import com.genesis.apps.comm.model.gra.api.WSH_1006;
 import com.genesis.apps.comm.model.vo.WashReserveVO;
 import com.genesis.apps.comm.util.PhoneUtil;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.ActivityCarWashHistoryBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -30,6 +31,8 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
 
     private WSHViewModel viewModel;
     private CarWashHistoryAdapter adapter;
+
+    private int itemPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,51 +50,49 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
     }
 
     @Override
+    public void setViewModel() {
+        ui.setLifecycleOwner(this);
+        viewModel = new ViewModelProvider(this).get(WSHViewModel.class);
+    }
+
+    @Override
     public void onClickCommon(View v) {
         Log.d(TAG, "onClickCommon()");
         int id = v.getId();
-//        CarWashHistoryViewHolder carWashHistoryItem = (CarWashHistoryViewHolder) v.getParent();
 
-        String rsvtSeqNo = "dummy";
-        String brnhCd = "code";
+        WashReserveVO tag = (WashReserveVO) v.getTag(R.id.tag_wash_history);
+        String rsvtSeqNo;
 
         switch (id) {
+            //통화하기
             case R.id.tv_car_wash_history_call:
-                //todo 전화번호 알아내서 걸기
-                String phoneNumber = "01012345678";
-//                Log.d(TAG, "onClickCommon(): 통화하기 : " + carWashHistoryItem.getPhoneNumber());
-//                Toast.makeText(this, carWashHistoryItem.getPhoneNumber(), Toast.LENGTH_LONG).show();
-
+                String phoneNumber = tag.getTelNo();
                 PhoneUtil.phoneDial(this, phoneNumber);
-
                 break;
 
+            //직원에게 확인
             case R.id.tv_car_wash_history_confirm:
-                // todo 반만 전산화.... 다른 지점으로 바뀌는 수가 있어서
-                //  사용자가 받아적은 그 코드를 서버에 송신
-                //todo : 예약 번호 및 지점코드 알아내기
+                rsvtSeqNo = tag.getRsvtSeqNo();
+                String oldBrnhCd = tag.getBrnhCd();
 
-                final BottomDialogInputBranchCode inputBranchCodeDialog = new BottomDialogInputBranchCode(this, R.style.BottomSheetDialogTheme);
+                final BottomDialogInputBranchCode inputBranchCodeDialog = new BottomDialogInputBranchCode(this, oldBrnhCd, R.style.BottomSheetDialogTheme);
                 inputBranchCodeDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
-                        if (
-                                true
-                                //todo inputBranchCodeDialog 인스턴스테서 입력값 꺼내고 유효성검사
-                        ) {
-                            viewModel.reqWSH1005(new WSH_1005.Request(APPIAInfo.SM_CW01_P02.getId(), rsvtSeqNo, brnhCd));
+                        if (inputBranchCodeDialog.isInputConfirmed()) {
+                            itemPosition = (int) v.getTag(R.id.item_position); //결과 처리할 곳에서 쓰기 위해 저장
+                            String newBrnhCd = inputBranchCodeDialog.getBranchCode();
+                            viewModel.reqWSH1005(new WSH_1005.Request(APPIAInfo.SM_CW01_P02.getId(), rsvtSeqNo, newBrnhCd));
                         }
                     }
                 });
                 inputBranchCodeDialog.show();
-
                 break;
 
             case R.id.tv_car_wash_history_cancel:
-                // TODO 취소 성공 응답 받으면 취소됨 상태로 변해야되네
-                // 어... visibility 스위칭으로 해놔서 접히기 애니메이션 적용 안 되는데;;;
-
-                //todo : 예약 번호 및 지점코드 알아내기
+                rsvtSeqNo = tag.getRsvtSeqNo();
+                String brnhCd = tag.getBrnhCd();
+                itemPosition = (int) v.getTag(R.id.item_position); //결과 처리할 곳에서 쓰기 위해 저장
 
                 MiddleDialog.dialogCarWashCancel(
                         this,
@@ -108,12 +109,6 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
     }
 
     @Override
-    public void setViewModel() {
-        ui.setLifecycleOwner(this);
-        viewModel = new ViewModelProvider(this).get(WSHViewModel.class);
-    }
-
-    @Override
     public void setObserver() {
         //예약 내역 옵저버
         viewModel.getRES_WSH_1004().observe(this, result -> {
@@ -123,17 +118,47 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
                     break;
 
                 case SUCCESS:
-                    showProgressDialog(false);
                     if (result.data != null && result.data.getRsvtList() != null) {
                         List<WashReserveVO> list = result.data.getRsvtList();
                         adapter.setRows(list);
                         adapter.notifyDataSetChanged();
+
+                        //성공 후 데이터 로딩까지 다 되면 로딩 치우고 break;
+                        showProgressDialog(false);
                         break;
                     }
+                    //not break; 데이터 이상하면 default로 진입시킴
 
                 default:
                     showProgressDialog(false);
-                    //실패하면 빈 목록이 뜰테니 사용자가 간접적으로 알 수 있다.
+                    SnackBarUtil.show(this, getString(result.message));
+                    //todo : 구체적인 예외처리
+                    break;
+            }
+        });
+
+        //직원에게 확인 옵저버
+        viewModel.getRES_WSH_1005().observe(this, result -> {
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+
+                case SUCCESS:
+                    if (result.data != null && result.data.getRtCd().equals(BaseResponse.RETURN_CODE_SUCC)) {
+                        adapter.setRsvtStusCd(itemPosition, WSH_1004.RESERVE_COMPLETED);
+                        SnackBarUtil.show(this, getString(R.string.cw_confirm_staff));
+
+                        //성공 후 데이터 로딩까지 다 하고 로딩 치우고 break;
+                        showProgressDialog(false);
+                        break;
+                    }
+                    //not break; 데이터 이상하면 default로 진입시킴
+
+                default:
+                    showProgressDialog(false);
+                    SnackBarUtil.show(this, getString(result.message));
+                    //todo : 구체적인 예외처리
                     break;
             }
         });
@@ -146,20 +171,20 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
                     break;
 
                 case SUCCESS:
-                    showProgressDialog(false);
-                    if (result.data != null && result.data.getRtCd() != null) {
-                        //todo : 어댑터에서 해당 항목 정보 수정 (예약됨 -> 예약취소)
-                        // 요청한 곳에서부터 여기로도 데이터 끌고 와야되네
-                        // 그냥 싹 다 다시 받아올까 ㅡㅡ;;?
-                        Toast.makeText(this, "예약 취소 성공", Toast.LENGTH_LONG).show();
+                    if (result.data != null && result.data.getRtCd().equals(BaseResponse.RETURN_CODE_SUCC)) {
+                        adapter.setRsvtStusCd(itemPosition, WSH_1004.RESERVE_CANCELED);
+                        SnackBarUtil.show(this, getString(R.string.cw_cancel_reserve));
 
-                        adapter.notifyDataSetChanged();
+                        //성공 후 데이터 로딩까지 다 하고 로딩 치우고 break;
+                        showProgressDialog(false);
                         break;
                     }
+                    //not break; 데이터 이상하면 default로 진입시킴
 
                 default:
                     showProgressDialog(false);
-                    //TODO 여기는 실패 관련 처리 안 해주면 사용자가 실패한 줄 모른다
+                    SnackBarUtil.show(this, getString(result.message));
+                    //todo : 구체적인 예외처리
                     break;
             }
         });

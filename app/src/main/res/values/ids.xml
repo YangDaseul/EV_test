@@ -13,4 +13,5 @@
     <item name="btr" type="id"/>
     <item name="noti_info" type="id"/>
     <item name="leasing_car_hist" type="id"/>
+    <item name="tag_wash_history" type="id"/>
 </resources>
