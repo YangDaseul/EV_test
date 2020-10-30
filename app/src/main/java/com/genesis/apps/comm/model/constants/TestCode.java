@@ -166,7 +166,10 @@ public class TestCode {
 
     public static WSH_1005.Response WSH_1005 = new Gson().fromJson("", WSH_1005.Response.class);
 
-    public static WSH_1006.Response WSH_1006 = new Gson().fromJson("", WSH_1006.Response.class);
+    public static WSH_1006.Response WSH_1006 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\"\n" +
+            "}", WSH_1006.Response.class);
 
     public static WSH_1007.Response WSH_1007 = new Gson().fromJson("", WSH_1007.Response.class);
 
@@ -735,13 +738,13 @@ public class TestCode {
             "    }\n" +
             "  ]\n" +
             "}",GNS_1007.Response.class);
-    
-    
+
+
     public static GNS_1008.Response GNS_1008 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
             "  \"rtMsg\": \"성공\"\n" +
             "}",GNS_1008.Response.class);
-    
+
 
     public static GNS_1009.Response GNS_1009 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
@@ -881,7 +884,7 @@ public class TestCode {
             "}",GNS_1015.Response.class);
 
 
-    
+
 
 
     public static MYP_1005.Response MYP_1005 = new Gson().fromJson("{\n" +
@@ -1187,7 +1190,7 @@ public class TestCode {
             "    }\n" +
             "  ]\n" +
             "}",PUB_1001.Response.class);
-    
+
 
 
     public static PUB_1002.Response PUB_1002 = new Gson().fromJson("{\n" +
@@ -1615,7 +1618,7 @@ public class TestCode {
             "      \"finishY\": \"1\"\n" +
             "    }\n" +
             "}",IST_1004.Response.class);
-    
+
 
     public static IST_1005.Response IST_1005= new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +

@@ -12,19 +12,20 @@
         android:paddingBottom="20dp">
 
         <include
-            android:id="@+id/l_find_sonax_branch_title"
+            android:id="@+id/l_dia_bottom_sonax_branch_title"
             layout="@layout/layout_titlebar_dialog"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:value="@{@string/sm_cw_find_08}" />
+            app:value="@{@string/cw_branch_code_title}" />
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/l_find_sonax_branch_edit"
+            android:id="@+id/l_dia_bottom_sonax_branch_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
+            android:hint="@string/cw_branch_code_hint"
             app:boxBackgroundColor="@color/x_ffffff"
             app:boxBackgroundMode="outline"
             app:boxCornerRadiusTopEnd="0dp"
@@ -40,14 +41,13 @@
             app:hintTextColor="@color/x_000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/l_find_sonax_branch_title">
+            app:layout_constraintTop_toBottomOf="@+id/l_dia_bottom_sonax_branch_title">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_sonax_branch_no"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/regular_genesissanstextglobal"
-                android:hint="@string/sm_cw_find_08"
                 android:imeOptions="actionDone"
                 android:inputType="text"
                 android:letterSpacing="-0.01"
@@ -77,7 +77,7 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/l_find_sonax_branch_edit" />
+            app:layout_constraintTop_toBottomOf="@+id/l_dia_bottom_sonax_branch_edit" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
