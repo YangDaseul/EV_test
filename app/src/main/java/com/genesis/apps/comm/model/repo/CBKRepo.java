@@ -95,7 +95,9 @@ public class CBKRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_CBK_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CBK_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_CBK_1005.setValue(NetUIResponse.success(TestCode.CBK_1005));
+                
             }
 
             @Override
@@ -119,7 +121,8 @@ public class CBKRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_CBK_1006.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CBK_1006.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_CBK_1006.setValue(NetUIResponse.success(TestCode.CBK_1006));
             }
 
             @Override
@@ -143,7 +146,9 @@ public class CBKRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_CBK_1007.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CBK_1007.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_CBK_1007.setValue(NetUIResponse.success(TestCode.CBK_1007));
+                
             }
 
             @Override

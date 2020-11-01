@@ -8,6 +8,9 @@ import com.genesis.apps.comm.model.gra.api.BTR_2001;
 import com.genesis.apps.comm.model.gra.api.BTR_2002;
 import com.genesis.apps.comm.model.gra.api.BTR_2003;
 import com.genesis.apps.comm.model.gra.api.CBK_1002;
+import com.genesis.apps.comm.model.gra.api.CBK_1005;
+import com.genesis.apps.comm.model.gra.api.CBK_1006;
+import com.genesis.apps.comm.model.gra.api.CBK_1007;
 import com.genesis.apps.comm.model.gra.api.CMN_0001;
 import com.genesis.apps.comm.model.gra.api.CMN_0002;
 import com.genesis.apps.comm.model.gra.api.CMN_0003;
@@ -2096,6 +2099,25 @@ public class TestCode {
             "    }\n" +
             "  ]\n" +
             "}", CBK_1002.Response.class);
+
+
+    public static CBK_1005.Response CBK_1005 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"accmMilg\": \"12045401\"\n" +
+            "}",CBK_1005.Response.class);
+
+
+    public static CBK_1006.Response CBK_1006 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\"\n" +
+            "}",CBK_1006.Response.class);
+
+    public static CBK_1007.Response CBK_1007 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\"\n" +
+            "}",CBK_1007.Response.class);
+
 
 
     public static WRT_1001.Response WRT_1001 = new Gson().fromJson("{\n" +

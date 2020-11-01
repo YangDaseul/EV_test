@@ -6,22 +6,31 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.style.ForegroundColorSpan;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.databinding.DialogBottomCalendarBinding;
+import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 public class DialogCalendar extends BaseBottomDialog<DialogBottomCalendarBinding> {
 
     private HighlightWeekendsDecorator highlightWeekendsDecorator = new HighlightWeekendsDecorator();
     private SelectedDayDecorator selectedDayDecorator = new SelectedDayDecorator(0);
+    public Calendar calendar = Calendar.getInstance(Locale.getDefault());
+    private Calendar calendarMaximum;
+    private Calendar calendarMinimum;
+    private String title;
+
     public DialogCalendar(@NonNull Context context, int theme) {
         super(context, theme);
     }
@@ -31,7 +40,7 @@ public class DialogCalendar extends BaseBottomDialog<DialogBottomCalendarBinding
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_bottom_calendar);
         setAllowOutTouch(true);
-
+        ui.lTitle.setValue(title);
         ui.calendarView.addDecorator(highlightWeekendsDecorator);
         ui.calendarView.setOnDateChangedListener((widget, date, selected) -> {
             ui.calendarView.removeDecorator(selectedDayDecorator);
@@ -41,13 +50,40 @@ public class DialogCalendar extends BaseBottomDialog<DialogBottomCalendarBinding
 //            ui.calendarView.addDecorators( highlightWeekendsDecorator, new SelectedDayDecorator(ui.calendarView.getSelectedDate().getDay()));
         });
 
+        if(calendarMaximum!=null||calendarMinimum!=null) {
+            ui.calendarView.state().edit().setMaximumDate(calendarMaximum).setMinimumDate(calendarMinimum).commit();
+        }
         ui.calendarView.setOnMonthChangedListener((widget, date) -> {
 //            ui.calendarView.removeDecorators();
 //            ui.calendarView.addDecorator(highlightWeekendsDecorator);
             ui.calendarView.removeDecorator(selectedDayDecorator);
         });
 
+        ui.btnNext.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                if(ui.calendarView.getSelectedDate()!=null){
+                    ui.calendarView.getSelectedDate().copyTo(calendar);
+                    dismiss();
+                }else{
+                    SnackBarUtil.show(getContext(), "날짜를 선택해 주세요.");
+                }
+            }
+        });
+
     }
+
+    public void setTitle(String title){
+        this.title = title;
+    }
+
+    public void setCalendarMinimum(Calendar calendarMinimum){
+        this.calendarMinimum = calendarMinimum;
+    }
+    public void setCalendarMaximum(Calendar calendarMaximum){
+        this.calendarMaximum = calendarMaximum;
+    }
+
 
     public class HighlightWeekendsDecorator implements DayViewDecorator {
 
