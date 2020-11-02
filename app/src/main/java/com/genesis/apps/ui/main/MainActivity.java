@@ -26,6 +26,7 @@ import com.genesis.apps.databinding.ItemTabBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.main.home.FragmentHome1;
 import com.genesis.apps.ui.main.insight.InsightExpnInputActivity;
+import com.genesis.apps.ui.main.service.ServiceSOSApplyActivity;
 import com.genesis.apps.ui.myg.MyGEntranceActivity;
 import com.genesis.apps.ui.myg.MyGHomeActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -159,7 +160,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 
 
         //TODO 이것은 테스트 액티비티 호출
-//        startActivitySingleTop(new Intent(this, InsightExpnInputActivity.class).putExtra(KeyNames.KEY_NAME_VIN, "121WDW54S5S"), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        startActivitySingleTop(new Intent(this, ServiceSOSApplyActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 //        FirebaseMessagingService.notifyMessageTest(this, new PushVO(), PushCode.CAT_0E);
     }
 

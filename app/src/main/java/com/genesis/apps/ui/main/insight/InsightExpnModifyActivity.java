@@ -6,40 +6,29 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.transition.ChangeBounds;
-import androidx.transition.Transition;
-import androidx.transition.TransitionManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.CBK_1005;
-import com.genesis.apps.comm.model.gra.api.CBK_1006;
 import com.genesis.apps.comm.model.gra.api.CBK_1008;
 import com.genesis.apps.comm.model.vo.ExpnVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CBKViewModel;
-import com.genesis.apps.databinding.ActivityInsightExpnInput1Binding;
 import com.genesis.apps.databinding.ActivityInsightExpnModifyBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.bottom.DialogCalendar;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,7 +38,7 @@ import java.util.Locale;
 
 /**
  * @author hjpark
- * @brief 차계부 입력
+ * @brief 차계부 수정
  */
 public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnModifyBinding> {
 

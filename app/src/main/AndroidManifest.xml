@@ -338,6 +338,14 @@
 
 
         <activity
+            android:name=".ui.main.service.ServiceSOSApplyActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@style/TextInputLayout"/>
+
+
+        <activity
             android:name=".ui.main.ServiceJoinActivity"
             android:screenOrientation="portrait"
             android:exported="false"/>

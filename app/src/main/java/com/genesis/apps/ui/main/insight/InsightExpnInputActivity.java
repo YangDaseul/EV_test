@@ -32,6 +32,7 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.bottom.DialogCalendar;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
+import com.genesis.apps.ui.main.home.LeasingCarRegisterInputActivity;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Arrays;
@@ -177,7 +178,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
         for(View view : edits){
             view.clearFocus();
         }
-        SoftKeyboardUtil.hideKeyboard(this);
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
 
     private void doNext(){

@@ -92,7 +92,7 @@ public class MyGMenuActivity extends SubActivity<ActivityMygMenuBinding> {
             if (hasFocus) {
                 reqListData(ui.lSearchParent.etSearch.getText().toString());
             } else {
-                SoftKeyboardUtil.hideKeyboard(MyGMenuActivity.this);
+                SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
             }
 
         });
