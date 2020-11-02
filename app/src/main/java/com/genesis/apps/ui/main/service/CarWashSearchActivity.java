@@ -12,12 +12,15 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.WashBrnVO;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.ActivityMap2Binding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomSonaxBranchBinding;
+import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.hmns.playmap.PlayMapPoint;
@@ -26,6 +29,7 @@ import com.hmns.playmap.shape.PlayMapMarker;
 import java.util.List;
 
 public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> {
+    private static final int DEFAULT_ZOOM = 17;
 
     private WSHViewModel wshViewModel;
     private LGNViewModel lgnViewModel;
@@ -72,48 +76,24 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == ResultCodes.REQ_CODE_BTR.getCode()) {
-//            washBrnVO = (WashBrnVO) data.getSerializableExtra(KeyNames.KEY_NAME_BTR);
-//            List<WashBrnVO> list = btrViewModel.getRES_BTR_1008().getValue().data.getAsnList();
-//            setPosition(list, washBrnVO);
-//        } else if (resultCode == ResultCodes.REQ_CODE_ADDR_FILTER.getCode()) {
-//            try {
-//                fillerCd = data.getStringExtra(KeyNames.KEY_NAME_MAP_FILTER);
-//            } catch (Exception e) {
-//                fillerCd = "";
-//            }
-//            try {
-//                addr = data.getStringExtra(KeyNames.KEY_NAME_MAP_CITY);
-//            } catch (Exception e) {
-//                addr = "";
-//            }
-//            try {
-//                addrDtl = data.getStringExtra(KeyNames.KEY_NAME_MAP_GU);
-//            } catch (Exception e) {
-//                addrDtl = "";
-//            }
-//
-//            if (!TextUtils.isEmpty(fillerCd) || !TextUtils.isEmpty(addr) || !TextUtils.isEmpty(addrDtl)) {
-//                btrViewModel.reqBTR1008(new BTR_1008.Request(APPIAInfo.GM_CARLST_01_B01.getId(), String.valueOf(washBrnVO.getMapXcooNm()), String.valueOf(washBrnVO.getMapYcooNm()), "", "", ""));
-//            }
-//        }
+
     }
 
     @Override
     public void onClickCommon(View v) {
         switch (v.getId()) {
-            case R.id.tv_map_sonax_branch_reserve_btn://예약
-                //todo impl
-                break;
-
             case R.id.btn_my_position:
-                //지도 초기화(현재 위치)
-                initMapWithMyPosition();
+                //내 위치 찾기
+                reqMyLocation();
                 break;
 
             case R.id.tv_map_title_text:
-                //todo impl
                 //지역선택 액티비티
+                startActivitySingleTop(new Intent(this, CarWashFindSonaxBranchActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
+
+            case R.id.tv_map_sonax_branch_reserve_btn://예약
+                //todo impl
                 break;
         }
     }
@@ -129,7 +109,11 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
     }
 
     private void initView() {
+        ui.lMapOverlayTitle.tvMapTitleText.setText(R.string.sm_cw_find_01);
+        ui.lMapOverlayTitle.tvMapTitleText.setTextAppearance(R.style.MapOverlayTitleBar_SearchSonax);
+        ui.lMapOverlayTitle.tvMapTitleText.setBackground(getDrawable(R.drawable.ripple_bg_ffffff_round_99_stroke_141414));
         ui.lMapOverlayTitle.tvMapTitleText.setOnClickListener(onSingleClickListener);
+
         ui.btnMyPosition.setOnClickListener(onSingleClickListener);
         ui.pmvMapView.onMapTouchUpListener((motionEvent, makerList) -> {
 
@@ -150,7 +134,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 
     //지도 초기화(현재 위치)
     private void initMapWithMyPosition() {
-        ui.pmvMapView.initMap(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1), 17);
+        ui.pmvMapView.initMap(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1), DEFAULT_ZOOM);
     }
 
     /**
@@ -219,7 +203,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 //            }
 //        }
 
-        ui.pmvMapView.initMap(Double.parseDouble(washBrnVO.getBrnhX()), Double.parseDouble(washBrnVO.getBrnhY()), 17);
+        ui.pmvMapView.initMap(Double.parseDouble(washBrnVO.getBrnhX()), Double.parseDouble(washBrnVO.getBrnhY()), DEFAULT_ZOOM);
 
     }
 }

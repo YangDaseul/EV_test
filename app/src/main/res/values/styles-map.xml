@@ -22,10 +22,13 @@
         <item name="android:textColor">@color/x_aaabaf</item>
     </style>
 
-    <!-- 지도 UI 타이틀바 입력됨 -->
-    <style name="MapOverlayTitleBar.HasData" parent="MapOverlayTitleBar">
+    <!-- 지도 UI 타이틀바 SONAX 지점 검색 -->
+    <style name="MapOverlayTitleBar.SearchSonax" parent="MapOverlayTitleBar">
+        <item name="android:layout_width">0dp</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_round_99_stroke_141414</item>
         <item name="android:textColor">@color/x_000000</item>
+        <item name="layout_constraintStart_toEndOf">@id/fab_map_back</item>
+
     </style>
 
 
