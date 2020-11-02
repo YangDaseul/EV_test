@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.insight;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -10,6 +11,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.ChangeBounds;
 import androidx.transition.Transition;
@@ -22,18 +24,24 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.CBK_1005;
 import com.genesis.apps.comm.model.gra.api.CBK_1006;
+import com.genesis.apps.comm.model.gra.api.CBK_1008;
+import com.genesis.apps.comm.model.vo.ExpnVO;
+import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CBKViewModel;
 import com.genesis.apps.databinding.ActivityInsightExpnInput1Binding;
+import com.genesis.apps.databinding.ActivityInsightExpnModifyBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.bottom.DialogCalendar;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -43,87 +51,136 @@ import java.util.Locale;
  * @author hjpark
  * @brief 차계부 입력
  */
-public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInput1Binding> {
+public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnModifyBinding> {
 
     private CBKViewModel cbkViewModel;
-
-    private final int[] layouts = {R.layout.activity_insight_expn_input_1, R.layout.activity_insight_expn_input_2, R.layout.activity_insight_expn_input_3, R.layout.activity_insight_expn_input_4};
-    private final int[] textMsgId = {R.string.tm_exps01_01_6, R.string.tm_exps01_01_2, R.string.tm_exps01_01_9, R.string.tm_exps01_01_12};
-    private ConstraintSet[] constraintSets = new ConstraintSet[layouts.length];
     private View[] views;
     private View[] edits;
+    private List<String> vehicleList = new ArrayList<>();
+    private ExpnVO baseData;
+    private VehicleVO selectVehicle;
+    private BottomListDialog bottomListDialog;
 
-    private String vin;
     private String expnDivCd="";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setResizeScreen();
-        setContentView(layouts[0]);
+        setContentView(R.layout.activity_insight_expn_modify);
         getDataFromIntent();
         setViewModel();
         setObserver();
         initView();
-        cbkViewModel.reqCBK1005(new CBK_1005.Request(APPIAInfo.TM_EXPS01_01.getId(),vin));
     }
 
     private void initView() {
-        initConstraintSets();
-        setViewDtm(Calendar.getInstance(Locale.getDefault()));
-        ui.etAccmMilg.setOnEditorActionListener(editorActionListener);
-        ui.etExpnAmt.setOnEditorActionListener(editorActionListener);
-        ui.etExpnPlc.setOnEditorActionListener(editorActionListener);
-        ui.etAccmMilg.setOnFocusChangeListener(focusChangeListener);
-        ui.etExpnAmt.setOnFocusChangeListener(focusChangeListener);
-        ui.etExpnPlc.setOnFocusChangeListener(focusChangeListener);
+        try {
+            vehicleList = cbkViewModel.getInsightVehicleList();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            initConstraintSets();
+            ui.etAccmMilg.setOnEditorActionListener(editorActionListener);
+            ui.etExpnAmt.setOnEditorActionListener(editorActionListener);
+            ui.etExpnPlc.setOnEditorActionListener(editorActionListener);
+            ui.etAccmMilg.setOnFocusChangeListener(focusChangeListener);
+            ui.etExpnAmt.setOnFocusChangeListener(focusChangeListener);
+            ui.etExpnPlc.setOnFocusChangeListener(focusChangeListener);
 
-
-
-        ui.etExpnAmt.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                String value = charSequence.toString().replace(",","");
-
-                if(value.length()>10){
-                    ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(value.substring(0,10)));
-                    ui.etExpnAmt.setSelection(ui.etExpnAmt.length());
+            ui.etExpnAmt.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 }
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
+                    String value = charSequence.toString().replace(",","");
 
-            }
-        });
+                    if(value.length()>10){
+                        ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(value.substring(0,10)));
+                        ui.etExpnAmt.setSelection(ui.etExpnAmt.length());
+                    }
 
-
-        ui.etAccmMilg.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                String value = charSequence.toString().replace(",","");
-
-                if(value.length()>10){
-                    ui.etAccmMilg.setText(StringUtil.getDigitGroupingString(value.substring(0,10)));
-                    ui.etAccmMilg.setSelection(ui.etAccmMilg.length());
                 }
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+
+
+            ui.etAccmMilg.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    String value = charSequence.toString().replace(",","");
+
+                    if(value.length()>10){
+                        ui.etAccmMilg.setText(StringUtil.getDigitGroupingString(value.substring(0,10)));
+                        ui.etAccmMilg.setSelection(ui.etAccmMilg.length());
+                    }
+                }
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+
+            updateView();
+        }
+    }
+
+    private void updateView() {
+        //지출 일자 //todo baseData.getExpnDtm()가 yyyyMMddHhmmss가 아니면..이슈 발생 가능
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        calendar.setTime(DateUtil.getDefaultDateFormat(baseData.getExpnDtm(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss));
+        setViewDtm(calendar);
+        //누적주행거리
+        ui.etAccmMilg.setText(StringUtil.getDigitGroupingString(baseData.getAccmMilg().replaceAll(",","")));
+        //지출 항목
+        ui.tvExpnDivCd.setText(baseData.getExpnDivNm());
+        //지출액
+        ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(baseData.getExpnAmt().replaceAll(",","")));
+        //지출처
+        ui.etExpnPlc.setText(baseData.getExpnPlc());
+    }
+
+
+    private void initVehicleBtnStatus() {
+        ui.tvVehicle.setText(selectVehicle.getMdlCd() +" "+selectVehicle.getCarRgstNo());
+        int size = vehicleList.size();
+        if(size<2){ //1대일경우
+            ui.tvVehicle.setCompoundDrawables(null, null, null, null);
+            ui.tvVehicle.setOnClickListener(null);
+            ui.tvVehicle.setTextAppearance(R.style.CommonSpinnerItemReject);
+        }
+    }
+
+    private String getVehicleName(int position) {
+        String vehicleName="--";
+        try{
+            vehicleName = vehicleList.get(position);
+        }catch (Exception e){
+            vehicleName="--";
+        }finally{
+            return vehicleName;
+        }
+    }
+
+    private int getVehiclePosition(String selectVehicle){
+        int pos=0;
+
+        for(String vehicleName : vehicleList){
+            if(vehicleName.equalsIgnoreCase(selectVehicle)){
+                return pos;
             }
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-
+            pos++;
+        }
+        return 0;
     }
 
     private void setViewDtm(Calendar calendar) {
@@ -133,7 +190,19 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
     @Override
     public void onClickCommon(View v) {
         switch (v.getId()){
-            case R.id.btn_next://다음
+            case R.id.tv_vehicle:
+                showDialog(vehicleList, R.string.tm_exps01_24, dialogInterface -> {
+                    String vehicleName = bottomListDialog.getSelectItem();
+                    if(!TextUtils.isEmpty(vehicleName)){
+                        selectVehicle = cbkViewModel.getVehicleList().getValue().get(getVehiclePosition(vehicleName));
+                        ui.tvVehicle.setText(vehicleName);
+                    }
+                });
+                break;
+            case R.id.btn_cancel:
+                dialogExit();
+                break;
+            case R.id.btn_modify:
                 doNext();
                 break;
             case R.id.tv_expn_div_cd:
@@ -152,6 +221,14 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
                 dialogCalendar.show();
                 break;
         }
+    }
+
+    private void showDialog(List<String> list, int title, DialogInterface.OnDismissListener dismissListener) {
+        bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
+        bottomListDialog.setOnDismissListener(dismissListener);
+        bottomListDialog.setDatas(list);
+        bottomListDialog.setTitle(getString(title));
+        bottomListDialog.show();
     }
 
     private void selectDivCd() {
@@ -177,13 +254,31 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
         for(View view : edits){
             view.clearFocus();
         }
-        SoftKeyboardUtil.hideKeyboard(this);
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
 
     private void doNext(){
         if(isValid()){
             clearKeypad();
-            cbkViewModel.reqCBK1006(new CBK_1006.Request(APPIAInfo.TM_EXPS01_01.getId(), vin, expnDivCd, ui.etExpnAmt.getText().toString().replaceAll(",", ""), ui.tvExpnDtm.getText().toString().replaceAll(".", ""), ui.etExpnPlc.getText().toString(), ui.etAccmMilg.getText().toString().replaceAll(",", "")));
+
+            String vin =selectVehicle.getVin();
+            String expnDivCd = this.expnDivCd;
+            String expnDtm = ui.tvExpnDtm.getText().toString().replaceAll("\\.", "").trim();
+            String expnAmt = ui.etExpnAmt.getText().toString().replaceAll(",", "").trim();
+            String accmMilg = ui.etAccmMilg.getText().toString().replaceAll(",", "").trim();
+            String expnPlc = ui.etExpnPlc.getText().toString().trim();
+
+            //하나라도 변경된 데이터가 있는지 확인
+            if (!baseData.getVin().equalsIgnoreCase(vin)
+                    || !VariableType.getExpnDivCd(baseData.getExpnDivNm()).equalsIgnoreCase(expnDivCd)
+                    || !baseData.getExpnDtm().substring(0,8).equalsIgnoreCase(expnDtm)
+                    || !baseData.getExpnAmt().equalsIgnoreCase(expnAmt)
+                    || !baseData.getAccmMilg().equalsIgnoreCase(accmMilg)
+                    || !baseData.getExpnPlc().equalsIgnoreCase(expnPlc)) {
+                cbkViewModel.reqCBK1008(new CBK_1008.Request(APPIAInfo.TM_EXPS01_02.getId(), baseData.getExpnSeqNo(), selectVehicle, expnDivCd,expnDtm,expnAmt,accmMilg,expnPlc,"1000"));
+            }else{
+                SnackBarUtil.show(this, "수정된 데이터가 존재하지 않습니다.\n확인 후 다시 시도해 주세요.");
+            }
         }
     }
 
@@ -198,25 +293,12 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
     @Override
     public void setObserver() {
 
-        cbkViewModel.getRES_CBK_1005().observe(this, result -> {
-            switch (result.status){
-                case LOADING:
-                    showProgressDialog(true);
-                    break;
-                case SUCCESS:
-                    showProgressDialog(false);
-                    if(result.data!=null&&!TextUtils.isEmpty(result.data.getAccmMilg())){
-                        ui.etAccmMilg.setText(result.data.getAccmMilg());
-                        checkVaildAccmMilg();
-                        break;
-                    }
-                default:
-                    showProgressDialog(false);
-                    break;
-            }
+        //최초 진입 후 차량
+        cbkViewModel.getVehicleList().observe(this, vehicleVOList -> {
+            initVehicleBtnStatus();
         });
 
-        cbkViewModel.getRES_CBK_1006().observe(this, result -> {
+        cbkViewModel.getRES_CBK_1008().observe(this, result -> {
             switch (result.status){
                 case LOADING:
                     showProgressDialog(true);
@@ -224,7 +306,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
                 case SUCCESS:
                     showProgressDialog(false);
                     if(result.data!=null&&!TextUtils.isEmpty(result.data.getRtCd())&&result.data.getRtCd().equalsIgnoreCase("0000")){
-                        exitPage(getString(R.string.tm_exps01_01_17), ResultCodes.REQ_CODE_INSIGHT_EXPN_ADD.getCode());
+                        exitPage(getString(R.string.tm_exps01_02_6), ResultCodes.REQ_CODE_INSIGHT_EXPN_MODIFY.getCode());
                         break;
                     }
                 default:
@@ -243,43 +325,19 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
                     break;
             }
         });
-
-        //렌트 리스 신청하기 결과
-//        gnsViewModel.getRES_GNS_1006().observe(this, result -> {
-//            switch (result.status){
-//                case LOADING:
-//                    showProgressDialog(true);
-//                    break;
-//
-//                case SUCCESS:
-//                    if(result.data.getRtCd().equalsIgnoreCase("0000")){
-//                        if(csmrScnCd.equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14)){
-//                            File file = new File(FileUtil.getRealPathFromURI(this, cntImagPath));
-//                            gnsViewModel.reqGNS1008(new GNS_1008.Request(APPIAInfo.GM_CARLST_01_01.getId(), vin, file.getName(), file ));
-//                        }else{
-//                            File file = new File(FileUtil.getRealPathFromURI(this, empCertImagPath));
-//                            gnsViewModel.reqGNS1009(new GNS_1009.Request(APPIAInfo.GM_CARLST_01_01.getId(), vin, file.getName(), file ));
-//                        }
-//                    }
-//                    break;
-//                default:
-//                    showProgressDialog(false);
-//                    break;
-//            }
-//        });
-
-
     }
 
     @Override
     public void getDataFromIntent() {
         try {
-            vin = getIntent().getStringExtra(KeyNames.KEY_NAME_VIN);
+            selectVehicle = (VehicleVO)getIntent().getSerializableExtra(KeyNames.KEY_NAME_VEHICLE);
+            baseData = (ExpnVO)getIntent().getSerializableExtra(KeyNames.KEY_NAME_INSIGHT_EXPN);
+            expnDivCd = VariableType.getExpnDivCd(baseData.getExpnDivNm());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (TextUtils.isEmpty(vin)) {
-                exitPage("차대번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+            if (selectVehicle==null||baseData==null) {
+                exitPage("차량정보가 존재하지 않습니다.\n잠시 후 다시 시도해 주세요.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }
         }
     }
@@ -287,40 +345,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
     private void initConstraintSets() {
         views = new View[]{ui.lAccmMilg, ui.lExpnDivCd, ui.lExpnAmt, ui.lExpnPlc};
         edits = new View[]{ui.etAccmMilg, ui.tvExpnDivCd, ui.etExpnAmt, ui.etExpnPlc};
-        for (int i = 0; i < layouts.length; i++) {
-            constraintSets[i] = new ConstraintSet();
-
-            if (i == 0)
-                constraintSets[i].clone(ui.container);
-            else
-                constraintSets[i].clone(this, layouts[i]);
-        }
     }
-
-    private void doTransition(int pos) {
-        if (views[pos].getVisibility() == View.GONE) {
-            Transition changeBounds = new ChangeBounds();
-            changeBounds.setInterpolator(new OvershootInterpolator());
-            TransitionManager.beginDelayedTransition(ui.container);
-            constraintSets[pos].applyTo(ui.container);
-            ui.tvMsg.setText(textMsgId[pos]);
-
-            if (edits[pos-1] instanceof TextInputEditText) {
-                edits[pos].clearFocus();
-            }
-
-            if (edits[pos] instanceof TextInputEditText) {
-                edits[pos].requestFocus();
-            }
-
-            if(pos==1){
-                selectDivCd();
-            }else if(pos==views.length-1){
-                ui.btnNext.setText(R.string.tm_exps01_01_16);
-            }
-        }
-    }
-
 
     private boolean checkVaildAccmMilg(){
 
@@ -333,7 +358,6 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
         }else{
             ui.etAccmMilg.setText(StringUtil.getDigitGroupingString(accmMilg.replaceAll(",","")));
             ui.lAccmMilg.setError(null);
-            doTransition(1);
             return true;
         }
     }
@@ -341,7 +365,6 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
     private boolean checkVaildDivCd(){
         if(!TextUtils.isEmpty(expnDivCd)){
             ui.tvErrorExpnDivCd.setVisibility(View.INVISIBLE);
-            doTransition(2);
             return true;
         }else{
             ui.tvErrorExpnDivCd.setVisibility(View.VISIBLE);
@@ -361,7 +384,6 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
         }else{
             ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(amt.replaceAll(",","")));
             ui.lExpnAmt.setError(null);
-            doTransition(3);
             return true;
         }
     }
@@ -377,7 +399,6 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
             return false;
         }else{
             ui.lExpnPlc.setError(null);
-            doTransition(3);
             return true;
         }
     }
@@ -425,7 +446,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
     }
 
     private void dialogExit(){
-        MiddleDialog.dialogInsightInputCancel(this, () -> {
+        MiddleDialog.dialogInsightModifyCancel(this, () -> {
             finish();
             closeTransition();
         }, () -> {

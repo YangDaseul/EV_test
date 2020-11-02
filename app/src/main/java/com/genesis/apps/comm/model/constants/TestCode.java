@@ -11,6 +11,7 @@ import com.genesis.apps.comm.model.gra.api.CBK_1002;
 import com.genesis.apps.comm.model.gra.api.CBK_1005;
 import com.genesis.apps.comm.model.gra.api.CBK_1006;
 import com.genesis.apps.comm.model.gra.api.CBK_1007;
+import com.genesis.apps.comm.model.gra.api.CBK_1008;
 import com.genesis.apps.comm.model.gra.api.CMN_0001;
 import com.genesis.apps.comm.model.gra.api.CMN_0002;
 import com.genesis.apps.comm.model.gra.api.CMN_0003;
@@ -1968,7 +1969,7 @@ public class TestCode {
             "  \"expnList\": [\n" +
             "    {\n" +
             "      \"expnSeqNo\": \"2020101100000020\",\n" +
-            "      \"vin\": \"TEST\",\n" +
+            "      \"vin\": \"AWJDIWHD234213KJ\",\n" +
             "      \"carRgstNo\": \"99호9999\",\n" +
             "      \"mdlNm\": \"GV80\",\n" +
             "      \"expnDivNm\": \"통행\",\n" +
@@ -1980,7 +1981,7 @@ public class TestCode {
             "    },\n" +
             "    {\n" +
             "      \"expnSeqNo\": \"2020101200000019\",\n" +
-            "      \"vin\": \"TEST\",\n" +
+            "      \"vin\": \"AWJDIWHD234213KJ\",\n" +
             "      \"carRgstNo\": \"99호9999\",\n" +
             "      \"mdlNm\": \"GV80\",\n" +
             "      \"expnDivNm\": \"주차\",\n" +
@@ -1992,7 +1993,7 @@ public class TestCode {
             "    },\n" +
             "    {\n" +
             "      \"expnSeqNo\": \"2020101300000017\",\n" +
-            "      \"vin\": \"TEST\",\n" +
+            "      \"vin\": \"AWJDIWHD234213KJ\",\n" +
             "      \"carRgstNo\": \"99호9999\",\n" +
             "      \"mdlNm\": \"GV80\",\n" +
             "      \"expnDivNm\": \"세차\",\n" +
@@ -2004,7 +2005,7 @@ public class TestCode {
             "    },\n" +
             "    {\n" +
             "      \"expnSeqNo\": \"2020101000000016\",\n" +
-            "      \"vin\": \"TEST\",\n" +
+            "      \"vin\": \"AWJDIWHD234213KJ\",\n" +
             "      \"carRgstNo\": \"99호9999\",\n" +
             "      \"mdlNm\": \"GV80\",\n" +
             "      \"expnDivNm\": \"세차\",\n" +
@@ -2016,7 +2017,7 @@ public class TestCode {
             "    },\n" +
             "    {\n" +
             "      \"expnSeqNo\": \"2020101000000014\",\n" +
-            "      \"vin\": \"TEST\",\n" +
+            "      \"vin\": \"AWJDIWHD234213KJ\",\n" +
             "      \"carRgstNo\": \"99호9999\",\n" +
             "      \"mdlNm\": \"GV80\",\n" +
             "      \"expnDivNm\": \"정비\",\n" +
@@ -2028,7 +2029,7 @@ public class TestCode {
             "    },\n" +
             "    {\n" +
             "      \"expnSeqNo\": \"2020101000000014\",\n" +
-            "      \"vin\": \"TEST\",\n" +
+            "      \"vin\": \"AWJDIWHD234213KJ\",\n" +
             "      \"carRgstNo\": \"99호9999\",\n" +
             "      \"mdlNm\": \"GV80\",\n" +
             "      \"expnDivNm\": \"정비\",\n" +
@@ -2040,7 +2041,7 @@ public class TestCode {
             "    },\n" +
             "    {\n" +
             "      \"expnSeqNo\": \"2020101000000014\",\n" +
-            "      \"vin\": \"TEST\",\n" +
+            "      \"vin\": \"AWJDIWHD234213KJ\",\n" +
             "      \"carRgstNo\": \"99호9999\",\n" +
             "      \"mdlNm\": \"GV80\",\n" +
             "      \"expnDivNm\": \"정비\",\n" +
@@ -2052,7 +2053,7 @@ public class TestCode {
             "    },\n" +
             "    {\n" +
             "      \"expnSeqNo\": \"2020101000000014\",\n" +
-            "      \"vin\": \"TEST\",\n" +
+            "      \"vin\": \"AWJDIWHD234213KJ\",\n" +
             "      \"carRgstNo\": \"99호9999\",\n" +
             "      \"mdlNm\": \"GV80\",\n" +
             "      \"expnDivNm\": \"정비\",\n" +
@@ -2064,7 +2065,7 @@ public class TestCode {
             "    },\n" +
             "    {\n" +
             "      \"expnSeqNo\": \"2020101000000011\",\n" +
-            "      \"vin\": \"TEST\",\n" +
+            "      \"vin\": \"AWJDIWHD234213KJ\",\n" +
             "      \"carRgstNo\": \"99호9999\",\n" +
             "      \"mdlNm\": \"GV80\",\n" +
             "      \"expnDivNm\": \"주유\",\n" +
@@ -2076,7 +2077,7 @@ public class TestCode {
             "    },\n" +
             "    {\n" +
             "      \"expnSeqNo\": \"2020101000000010\",\n" +
-            "      \"vin\": \"TEST\",\n" +
+            "      \"vin\": \"AWJDIWHD234213KJ\",\n" +
             "      \"carRgstNo\": \"99호9999\",\n" +
             "      \"mdlNm\": \"GV80\",\n" +
             "      \"expnDivNm\": \"주유\",\n" +
@@ -2088,7 +2089,7 @@ public class TestCode {
             "    },\n" +
             "    {\n" +
             "      \"expnSeqNo\": \"2020101400000026\",\n" +
-            "      \"vin\": \"TEST\",\n" +
+            "      \"vin\": \"AWJDIWHD234213KJ\",\n" +
             "      \"mdlNm\": \"GV80\",\n" +
             "      \"expnDivNm\": \"주유\",\n" +
             "      \"expnDtm\": \"20201002171849\",\n" +
@@ -2118,6 +2119,11 @@ public class TestCode {
             "  \"rtMsg\": \"Success\"\n" +
             "}",CBK_1007.Response.class);
 
+    public static CBK_1008.Response CBK_1008 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\"\n" +
+            "}",CBK_1008.Response.class);
+    
 
 
     public static WRT_1001.Response WRT_1001 = new Gson().fromJson("{\n" +

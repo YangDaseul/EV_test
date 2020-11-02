@@ -63,4 +63,7 @@
     <string name="tm_exps01_p01_1">차계부 입력 내용 삭제</string>
     <string name="tm_exps01_p01_2">입력하신 내용을 삭제하시겠습니까?</string>
 
+    <string name="tm_exps01_p03_1">수정 취소</string>
+    <string name="tm_exps01_p03_2">수정을 취소 하시면,\n지금까지 수정하신 내용이\n이전 내용으로 돌아갑니다.\n취소하시겠습니까?</string>
+
 </resources>

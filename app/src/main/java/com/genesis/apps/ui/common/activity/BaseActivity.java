@@ -160,6 +160,7 @@ public class BaseActivity extends AppCompatActivity {
     public void exitPage(String msg, int resultCode){
         setResult(resultCode, new Intent().putExtra("msg",msg));
         finish();
+        closeTransition();
     }
 
 

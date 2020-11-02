@@ -56,6 +56,12 @@
         <item name="android:textColor">@color/x_000000</item>
     </style>
 
+    <style name="CommonSpinnerItemReject" parent="CommonSpinnerItem">
+        <item name="android:textColor">@color/x_525252</item>
+        <item name="android:background">@drawable/bg_f5f6f8_stroke_dadde3</item>
+    </style>
+
+
     <style name="CommonSpinnerItemCalendar" parent="CommonSpinnerItem">
         <item name="android:textColor">@color/x_000000</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_141414</item>

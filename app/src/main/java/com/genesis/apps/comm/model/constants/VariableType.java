@@ -75,6 +75,29 @@ public class VariableType {
     public static final String INSIGHT_EXPN_DIV_CODE_8000 ="용품"; //용품
     public static final String INSIGHT_EXPN_DIV_CODE_9000 ="기타"; //기타
 
+    public static String getExpnDivCd(String result) {
+        switch (result){
+            case INSIGHT_EXPN_DIV_CODE_1000:
+                return "1000";
+            case INSIGHT_EXPN_DIV_CODE_2000:
+                return "2000";
+            case INSIGHT_EXPN_DIV_CODE_3000:
+                return "3000";
+            case INSIGHT_EXPN_DIV_CODE_4000:
+                return "4000";
+            case INSIGHT_EXPN_DIV_CODE_5000:
+                return "5000";
+            case INSIGHT_EXPN_DIV_CODE_6000:
+                return "6000";
+            case INSIGHT_EXPN_DIV_CODE_7000:
+                return "7000";
+            case INSIGHT_EXPN_DIV_CODE_8000:
+                return "8000";
+            case INSIGHT_EXPN_DIV_CODE_9000:
+            default:
+                return "9000";
+        }
+    }
 
 
 

@@ -112,6 +112,12 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
     public void onClickCommon(View v) {
 
         switch (v.getId()){
+            case R.id.btn_modify:
+                ExpnVO item = (ExpnVO)v.getTag(R.id.insight_expn_vo);
+                if(item!=null){
+                    startActivitySingleTop(new Intent(this, InsightExpnModifyActivity.class).putExtra(KeyNames.KEY_NAME_INSIGHT_EXPN, item).putExtra(KeyNames.KEY_NAME_VEHICLE, selectVehicle), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                }
+                break;
             case R.id.btn_delete:
                 ExpnVO expnVO = (ExpnVO)v.getTag(R.id.insight_expn_vo);
                 if(expnVO!=null){
@@ -122,10 +128,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
 
                     }, expnVO);
                 }
-
                 break;
-
-
             case R.id.tv_titlebar_text_btn:
                 if(selectVehicle.getVin()!=null) {
                     startActivitySingleTop(new Intent(this, InsightExpnInputActivity.class).putExtra(KeyNames.KEY_NAME_VIN, selectVehicle.getVin()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
@@ -465,8 +468,8 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == ResultCodes.REQ_CODE_INSIGHT_EXPN_ADD.getCode()){
-        //신청 취소 시 스낵바 메시지 활성화 및 리스트를 다시 갱신
+        if(resultCode == ResultCodes.REQ_CODE_INSIGHT_EXPN_ADD.getCode()
+                ||resultCode == ResultCodes.REQ_CODE_INSIGHT_EXPN_MODIFY.getCode()){
              String msg="";
              try {
                  msg = data.getStringExtra("msg");

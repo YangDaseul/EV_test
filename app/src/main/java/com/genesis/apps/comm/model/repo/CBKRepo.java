@@ -166,12 +166,12 @@ public class CBKRepo {
             @Override
             public void onSuccess(String object) {
                 RES_CBK_1008.setValue(NetUIResponse.success(new Gson().fromJson(object, CBK_1008.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
             public void onFail(NetResult e) {
-                RES_CBK_1008.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CBK_1008.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_CBK_1008.setValue(NetUIResponse.success(TestCode.CBK_1008));
             }
 
             @Override

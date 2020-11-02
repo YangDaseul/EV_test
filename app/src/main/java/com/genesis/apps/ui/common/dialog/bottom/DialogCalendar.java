@@ -26,7 +26,7 @@ public class DialogCalendar extends BaseBottomDialog<DialogBottomCalendarBinding
 
     private HighlightWeekendsDecorator highlightWeekendsDecorator = new HighlightWeekendsDecorator();
     private SelectedDayDecorator selectedDayDecorator = new SelectedDayDecorator(0);
-    public Calendar calendar = Calendar.getInstance(Locale.getDefault());
+    public Calendar calendar = null;
     private Calendar calendarMaximum;
     private Calendar calendarMinimum;
     private String title;
@@ -63,6 +63,7 @@ public class DialogCalendar extends BaseBottomDialog<DialogBottomCalendarBinding
             @Override
             public void onSingleClick(View v) {
                 if(ui.calendarView.getSelectedDate()!=null){
+                    calendar = Calendar.getInstance(Locale.getDefault());
                     ui.calendarView.getSelectedDate().copyTo(calendar);
                     dismiss();
                 }else{

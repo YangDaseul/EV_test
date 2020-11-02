@@ -381,6 +381,22 @@ public class MiddleDialog {
     }
 
 
+    public static void dialogInsightModifyCancel(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        R.string.tm_exps01_p03_1,
+                        R.string.tm_exps01_p03_2,
+                        R.string.dialog_common_1,
+                        R.string.dialog_common_2
+                ).show()
+        );
+    }
+
     public static void dialogCarWashCancel(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
         if (activity.isFinishing()) {
             return;

@@ -323,6 +323,13 @@
             android:theme="@style/TextInputLayout"/>
 
         <activity
+            android:name=".ui.main.insight.InsightExpnModifyActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@style/TextInputLayout"/>
+
+        <activity
             android:name=".ui.main.home.RegisterUsedCarActivity"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
