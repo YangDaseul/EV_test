@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.WSH_1001;
@@ -21,6 +22,7 @@ import com.genesis.apps.databinding.FragmentServiceCarWashBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
+import com.genesis.apps.ui.main.home.LeasingCarBtrChangeActivity;
 
 import java.util.List;
 
@@ -52,6 +54,7 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
 
     //TODO : 이중 클릭 방지 클릭 리스너 붙이기. 세차 서비스 예약내역 버튼인데
     // 이 버튼이 리사이클러 뷰에 들어가서 어댑터가 이걸 처리할지, 현행 그대로 둘지 고려
+    // 스크롤 범위 지정이 아직도 기획에서 안 내려옴
     private void setOnSingleClickListener() {
         me.lServiceCarWashHistoryBtn.lServiceCarWash.setOnClickListener(onSingleClickListener);
     }
@@ -62,6 +65,7 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
     }
 
     private void setObserver() {
+        //세차 쿠폰 목록
         viewModel.getRES_WSH_1001().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
@@ -108,6 +112,12 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
             //세차 서비스 예약내역 버튼
             case R.id.l_service_car_wash_history_btn:
                 ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), CarWashHistoryActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
+
+            //세차 쿠폰 선택(지점 검색(지도) 액티비티 열기)
+            case R.id.l_service_car_wash_item:
+                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), CarWashSearchActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
                 break;
 
             default:
