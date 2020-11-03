@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.PUB_1002;
 import com.genesis.apps.comm.model.gra.api.WSH_1002;
@@ -180,8 +181,9 @@ public class CarWashFindSonaxBranchActivity extends SubActivity<ActivityCarWashF
             //지점 선택
             case R.id.l_map_find_result_item:
                 Intent result = new Intent();
-                result.putExtra(WSH_1002.BRANCH, (WashBrnVO) v.getTag(R.id.tag_wash_branch));
-                setIntent(result);
+                result.putExtra(WSH_1002.BRANCH_LIST, new ArrayList<>(adapter.getItems()));
+                result.putExtra(WSH_1002.BRANCH_INDEX, (int) v.getTag(R.id.item_position));
+                setResult(RequestCodes.REQ_CODE_ACTIVITY.getCode(), result);
 
                 finish();
                 return;

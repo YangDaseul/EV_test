@@ -50,6 +50,9 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginTop="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_map_sonax_branch_title"
             tools:src="@drawable/ic_service_driver" />
@@ -58,9 +61,12 @@
         <TextView
             android:id="@+id/tv_map_sonax_branch_service_list"
             style="@style/MapOverlay.Sonax.Service.List"
+            android:layout_width="0dp"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:text="@{data.getBrnhIntro()}"
             app:layout_constraintBottom_toBottomOf="@id/iv_map_sonax_branch_img"
+            app:layout_constraintEnd_toStartOf="@id/tv_map_sonax_branch_reserve_btn"
             app:layout_constraintStart_toEndOf="@id/iv_map_sonax_branch_img"
             tools:text="이것도 하고 저것도 하고 울랄라도 하고" />
         <!-- 가능서비스 타이틀 -->
@@ -75,7 +81,9 @@
         <TextView
             android:id="@+id/tv_map_sonax_branch_address"
             style="@style/MapOverlay.Light"
+            android:layout_width="0dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:text="@{data.getBrnhAddr()}"
             app:layout_constraintEnd_toStartOf="@id/tv_map_sonax_branch_reserve_btn"
             app:layout_constraintHorizontal_bias="0"
@@ -99,6 +107,7 @@
         <TextView
             android:id="@+id/tv_map_sonax_branch_reserve_btn"
             style="@style/MapOverlay.Btn"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:text="@string/map_btn_3"
             app:layout_constraintBottom_toBottomOf="@id/tv_map_sonax_branch_phone"
             app:layout_constraintEnd_toEndOf="parent" />

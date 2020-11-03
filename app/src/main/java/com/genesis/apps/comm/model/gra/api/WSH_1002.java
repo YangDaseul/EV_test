@@ -23,7 +23,8 @@ public class WSH_1002 extends BaseData {
     public static final String GOODS_SEQ_NUM = "godsSeqNo";  //상품일련번호 intent로 전달용
     public static final String CUST_X = "custX";  //고객 현재 위치 intent로 전달용
     public static final String CUST_Y = "custY";  //고객 현재 위치 intent로 전달용
-    public static final String BRANCH = "branch";  //지점 정보 intent로 전달용
+    public static final String BRANCH_INDEX = "branchIndex";  //지점 정보. 선택된 것의 index. intent로 전달용
+    public static final String BRANCH_LIST = "branchList";  //지점 정보 전체. intent로 전달용
 
     /**
      * @brief WSH_1002의 요청 항목

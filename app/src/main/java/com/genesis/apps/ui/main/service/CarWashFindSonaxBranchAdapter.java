@@ -54,7 +54,7 @@ public class CarWashFindSonaxBranchAdapter extends BaseRecyclerViewAdapter2<Wash
             //전화번호
             getBinding().tvMapFindResultBranchPhone.setText(item.getTelNo());
             //클릭 리스너
-            setSingleClickListenerAndData(item);
+            setSingleClickListenerAndData(pos);
         }
 
         @Override
@@ -63,9 +63,9 @@ public class CarWashFindSonaxBranchAdapter extends BaseRecyclerViewAdapter2<Wash
         }
 
         //리스너를 연결하고, 이를 처리하는데 필요한 데이터도 저장
-        private void setSingleClickListenerAndData(WashBrnVO item) {
+        private void setSingleClickListenerAndData(int pos) {
             getBinding().lMapFindResultItem.setOnClickListener(singleClickListener);
-            getBinding().lMapFindResultItem.setTag(R.id.tag_wash_branch, item);
+            getBinding().lMapFindResultItem.setTag(R.id.item_position, pos);
         }
     }
 }
