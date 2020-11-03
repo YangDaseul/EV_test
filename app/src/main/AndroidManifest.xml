@@ -353,13 +353,6 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
-        <!-- 세차 지점검색 : 지역 선택 -->
-        <activity
-            android:name=".ui.main.service.CarWashFindSonaxBranchActivity"
-            android:theme="@style/TextInputLayout"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-
         <!-- 세차 예약내역 -->
         <activity
             android:name=".ui.main.service.CarWashHistoryActivity"

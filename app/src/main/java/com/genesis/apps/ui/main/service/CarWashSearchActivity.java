@@ -1,43 +1,38 @@
 package com.genesis.apps.ui.main.service;
 
-import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
-import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.api.WSH_1002;
 import com.genesis.apps.comm.model.vo.WashBrnVO;
 import com.genesis.apps.databinding.ActivityMap2Binding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomSonaxBranchBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
+import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.hmns.playmap.PlayMapPoint;
 import com.hmns.playmap.shape.PlayMapMarker;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> {
     private static final String TAG = CarWashSearchActivity.class.getSimpleName();
-    private static final int X = 0;
-    private static final int Y = 1;
+    public static final int X = 0;
+    public static final int Y = 1;
 
     private static final int DEFAULT_ZOOM = 17;
 
     private LayoutMapOverlayUiBottomSonaxBranchBinding sonaxBranchBinding;
     private List<WashBrnVO> searchedBranchList;
-    private int focusedBranch;
 
     private String godsSeqNo;
     private double[] myPosition = {360., 360.};//경도위도 무효값으로 초기화
@@ -85,17 +80,13 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (data == null) {
-            return;
+    public void onBackPressed() {
+        List<SubFragment> fragments = getFragments();
+        if (fragments != null && fragments.size() > 0) {
+            hideFragment(fragments.get(0));
+        } else {
+            super.onBackPressed();
         }
-
-        //현재 타 액티비티 호출은 지역별 검색으로 지점 선택해서 가져오는 것 뿐
-        //검색된 지점 목록, 선택된 지점의 index를 저장하고 화면에 표시
-        searchedBranchList = (ArrayList<WashBrnVO>) data.getSerializableExtra(WSH_1002.BRANCH_LIST);
-        focusedBranch = data.getIntExtra(WSH_1002.BRANCH_INDEX, 0);
-        showBranchInfoLayout();
     }
 
     @Override
@@ -113,15 +104,9 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
                 reqMyLocation();
                 break;
 
-            //지역선택 액티비티 호출
+            //지역선택 프래그먼트 호출
             case R.id.tv_map_title_text:
-                //선택한 쿠폰 정보, 현재 고객 위치 가져가기
-                Intent intent = new Intent(this, CarWashFindSonaxBranchActivity.class);
-                intent.putExtra(WSH_1002.GOODS_SEQ_NUM, godsSeqNo);
-                intent.putExtra(WSH_1002.CUST_X, myPosition[X]);
-                intent.putExtra(WSH_1002.CUST_Y, myPosition[Y]);
-
-                startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                showFragment(new CarWashFindSonaxBranchFragment());
                 break;
 
             case R.id.iv_map_sonax_branch_img:
@@ -190,7 +175,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
     }
 
     //ViewStub을 inflate하고 지점 정보 세팅
-    private void showBranchInfoLayout() {
+    public void showBranchInfo(WashBrnVO branchData) {
         Log.d(TAG, "setBranchData: ");
         if (searchedBranchList == null) {
             return;
@@ -203,13 +188,13 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
                     (viewStub, inflated) -> {
                         sonaxBranchBinding = DataBindingUtil.bind(inflated);
                         sonaxBranchBinding.setActivity(CarWashSearchActivity.this);
-                        setBranchData(searchedBranchList.get(focusedBranch));
+                        setBranchData(branchData);
                     });
         } else {
-            setBranchData(searchedBranchList.get(focusedBranch));
+            setBranchData(branchData);
         }
 
-        drawMarkerItem();
+        drawMarkerItem(branchData);
     }
 
     // 지점 정보 세팅
@@ -231,25 +216,37 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 
     /**
      * drawMarkerItem 지도에 마커를 그린다.
+     *
+     * @param pickedBranch
      */
-    public void drawMarkerItem() {
-        for (int i = 0; i < searchedBranchList.size(); ++i) {
-            WashBrnVO brnVO = searchedBranchList.get(i);
+    public void drawMarkerItem(WashBrnVO pickedBranch) {
+        //todo 마커 초기화
+        for (WashBrnVO branch : searchedBranchList) {
             PlayMapMarker markerItem = new PlayMapMarker();
-            PlayMapPoint point = new PlayMapPoint(Double.parseDouble(brnVO.getBrnhX()), Double.parseDouble(brnVO.getBrnhY()));
+            PlayMapPoint point = new PlayMapPoint(Double.parseDouble(branch.getBrnhX()), Double.parseDouble(branch.getBrnhY()));
             markerItem.setMapPoint(point);
-        markerItem.set
             markerItem.setCanShowCallout(false);
             markerItem.setAutoCalloutVisible(false);
             markerItem.setIcon(
                     ((BitmapDrawable) getResources().getDrawable(
-                            i == focusedBranch ? R.drawable.ic_pin_wash : R.drawable.ic_pin,
+                            pickedBranch == branch ? R.drawable.ic_pin_wash : R.drawable.ic_pin,
                             null)).getBitmap()
             );
 
-            String name = brnVO.getBrnhNm();
+            String name = branch.getBrnhCd();
             ui.pmvMapView.addMarkerItem(name, markerItem);
         }
+    }
 
+    public String getGodsSeqNo() {
+        return godsSeqNo;
+    }
+
+    public double[] getMyPosition() {
+        return myPosition;
+    }
+
+    public void setBranchList(List<WashBrnVO> list) {
+        searchedBranchList = list;
     }
 }

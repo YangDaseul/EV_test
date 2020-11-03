@@ -1,15 +1,16 @@
 package com.genesis.apps.ui.main.service;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.PUB_1002;
 import com.genesis.apps.comm.model.gra.api.WSH_1002;
@@ -18,40 +19,37 @@ import com.genesis.apps.comm.model.vo.WashBrnVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.PUBViewModel;
 import com.genesis.apps.comm.viewmodel.WSHViewModel;
-import com.genesis.apps.databinding.ActivityCarWashFindSonaxBranchBinding;
+import com.genesis.apps.databinding.FragmentCarWashFindSonaxBranchBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
+import com.genesis.apps.ui.common.fragment.SubFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarWashFindSonaxBranchActivity extends SubActivity<ActivityCarWashFindSonaxBranchBinding> {
-    private static final String TAG = CarWashFindSonaxBranchActivity.class.getSimpleName();
+import static com.genesis.apps.ui.main.service.CarWashSearchActivity.X;
+import static com.genesis.apps.ui.main.service.CarWashSearchActivity.Y;
+
+public class CarWashFindSonaxBranchFragment extends SubFragment<FragmentCarWashFindSonaxBranchBinding> {
+    private static final String TAG = CarWashFindSonaxBranchFragment.class.getSimpleName();
 
     private WSHViewModel wshViewModel;
     private PUBViewModel pubViewModel;
     private CarWashFindSonaxBranchAdapter adapter;
-
-    private String godsSeqNo;
-    private double custX;
-    private double custY;
 
     private List<String> areaList;
     private boolean showDialog = false;
     private BottomListDialog areaListDialog;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_car_wash_find_sonax_branch);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        return super.setContentView(inflater, R.layout.fragment_car_wash_find_sonax_branch);
+    }
 
-        //앞 단계에서 선택한 쿠폰 정보 및 고객 좌표를 알 수 없으면 지점 검색을 할 수 없다
-        if (!initDataFromIntent()) {
-            finish();
-            return;
-        }
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-        ui.setActivity(this);
         setViewModel();
         setAdapter();
         setObserver();
@@ -60,36 +58,21 @@ public class CarWashFindSonaxBranchActivity extends SubActivity<ActivityCarWashF
         reqAreaList();
     }
 
-    private boolean initDataFromIntent() {
-        godsSeqNo = getIntent().getStringExtra(WSH_1002.GOODS_SEQ_NUM);
-        //경도, 위도에서 나올 수 없는 값을 defaultValue로 정해서 유효성 검사에 사용
-        custX = getIntent().getDoubleExtra(WSH_1002.CUST_X, 360.0);
-        custY = getIntent().getDoubleExtra(WSH_1002.CUST_Y, 360.0);
-
-        Log.d(TAG, "Intent godsSeqNo: " + godsSeqNo);
-        Log.d(TAG, "Intent custX: " + custX);
-        Log.d(TAG, "Intent custY: " + custY);
-        return godsSeqNo != null &&
-                custX != 360.0 &&
-                custY != 360.0;
-    }
-
-    @Override
     public void setViewModel() {
-        ui.setLifecycleOwner(this);
+        me.setLifecycleOwner(getViewLifecycleOwner());
+        me.setFragment(this);
         wshViewModel = new ViewModelProvider(this).get(WSHViewModel.class);
         pubViewModel = new ViewModelProvider(this).get(PUBViewModel.class);
     }
 
-    @Override
     public void setObserver() {
         //지역 목록 옵저버
-        pubViewModel.getRES_PUB_1002().observe(this, result -> {
+        pubViewModel.getRES_PUB_1002().observe(getViewLifecycleOwner(), result -> {
             Log.d(TAG, "setObserver AreaObs: " + result);
 
             switch (result.status) {
                 case LOADING:
-                    showProgressDialog(true);
+                    ((SubActivity) getActivity()).showProgressDialog(true);
                     break;
 
                 case SUCCESS:
@@ -104,27 +87,27 @@ public class CarWashFindSonaxBranchActivity extends SubActivity<ActivityCarWashF
                         }
 
                         //성공 후 데이터 로딩까지 다 되면 로딩 치우고 break;
-                        showProgressDialog(false);
+                        ((SubActivity) getActivity()).showProgressDialog(false);
                         break;
                     }
                     //not break; 데이터 이상하면 default로 진입시킴
 
                 default:
                     setAreaList(null);
-                    showProgressDialog(false);
-                    SnackBarUtil.show(this, getString(result.message));
+                    ((SubActivity) getActivity()).showProgressDialog(false);
+                    SnackBarUtil.show(getActivity(), getString(result.message));
                     //todo : 구체적인 예외처리
                     break;
             }
         });
 
         //지정 지역 지점 목록 옵저버
-        wshViewModel.getRES_WSH_1002().observe(this, result -> {
+        wshViewModel.getRES_WSH_1002().observe(getViewLifecycleOwner(), result -> {
             Log.d(TAG, "setObserver branchObs: " + result);
 
             switch (result.status) {
                 case LOADING:
-                    showProgressDialog(true);
+                    ((SubActivity) getActivity()).showProgressDialog(true);
                     break;
 
                 case SUCCESS:
@@ -136,7 +119,7 @@ public class CarWashFindSonaxBranchActivity extends SubActivity<ActivityCarWashF
                         setResultCount(list.size());
 
                         //성공 후 데이터 로딩까지 다 되면 로딩 치우고 break;
-                        showProgressDialog(false);
+                        ((SubActivity) getActivity()).showProgressDialog(false);
                         break;
                     }
                     //결과 없으면 카운트 초기화
@@ -145,8 +128,8 @@ public class CarWashFindSonaxBranchActivity extends SubActivity<ActivityCarWashF
                     //not break; 데이터 이상하면 default로 진입시킴
 
                 default:
-                    showProgressDialog(false);
-                    SnackBarUtil.show(this, getString(result.message));
+                    ((SubActivity) getActivity()).showProgressDialog(false);
+                    SnackBarUtil.show(getActivity(), getString(result.message));
                     //todo : 구체적인 예외처리
                     break;
             }
@@ -155,8 +138,13 @@ public class CarWashFindSonaxBranchActivity extends SubActivity<ActivityCarWashF
     }
 
     @Override
-    public void getDataFromIntent() {
-        //do nothing
+    public void onRefresh() {
+
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        return false;
     }
 
     @Override
@@ -180,12 +168,10 @@ public class CarWashFindSonaxBranchActivity extends SubActivity<ActivityCarWashF
 
             //지점 선택
             case R.id.l_map_find_result_item:
-                Intent result = new Intent();
-                result.putExtra(WSH_1002.BRANCH_LIST, new ArrayList<>(adapter.getItems()));
-                result.putExtra(WSH_1002.BRANCH_INDEX, (int) v.getTag(R.id.item_position));
-                setResult(RequestCodes.REQ_CODE_ACTIVITY.getCode(), result);
+                ((CarWashSearchActivity) getActivity()).setBranchList(new ArrayList<>(adapter.getItems()));
+                ((CarWashSearchActivity) getActivity()).showBranchInfo(adapter.getItem((int) v.getTag(R.id.item_position)));
 
-                finish();
+                ((SubActivity) getActivity()).hideFragment(this);
                 return;
 
             default:
@@ -197,16 +183,16 @@ public class CarWashFindSonaxBranchActivity extends SubActivity<ActivityCarWashF
 
     //검색 결과 갯수 바인딩. 결과 없으면 목록 사라지도록 하는 거랑 결과 수를 표시하는 거
     private void setResultCount(int count) {
-        ui.setResultCount(count);
-        ui.lSonaxFindList.setResultCount("" + count);
+        me.setResultCount(count);
+        me.lSonaxFindList.setResultCount("" + count);
     }
 
     private void setAdapter() {
         //지점 검색 어댑터 (인스턴스 타입 맞나 확인)
         adapter = new CarWashFindSonaxBranchAdapter(onSingleClickListener);
-        ui.lSonaxFindList.rvMapFindResultList.setLayoutManager(new LinearLayoutManager(this));
-        ui.lSonaxFindList.rvMapFindResultList.setHasFixedSize(true);
-        ui.lSonaxFindList.rvMapFindResultList.setAdapter(adapter);
+        me.lSonaxFindList.rvMapFindResultList.setLayoutManager(new LinearLayoutManager(getContext()));
+        me.lSonaxFindList.rvMapFindResultList.setHasFixedSize(true);
+        me.lSonaxFindList.rvMapFindResultList.setAdapter(adapter);
     }
 
     //지역 목록 요청
@@ -233,7 +219,7 @@ public class CarWashFindSonaxBranchActivity extends SubActivity<ActivityCarWashF
     private void showAreaDialog() {
         Log.d(TAG, "showAreaDialog: " + areaListDialog);
         if (areaListDialog == null) {
-            areaListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
+            areaListDialog = new BottomListDialog(getContext(), R.style.BottomSheetDialogTheme);
             areaListDialog.setTitle(getString(R.string.cw_branch_find_area));
             areaListDialog.setDatas(areaList);
             areaListDialog.setOnDismissListener(
@@ -252,13 +238,17 @@ public class CarWashFindSonaxBranchActivity extends SubActivity<ActivityCarWashF
     //지정 지역의 지점 목록 요청
     private void reqBranchListInArea(String area) {
         Log.d(TAG, "reqBranchListInArea: ");
+
+        String godsSeqNo = ((CarWashSearchActivity) getActivity()).getGodsSeqNo();
+        double[] gps = ((CarWashSearchActivity) getActivity()).getMyPosition();
+
         wshViewModel.reqWSH1002(
                 new WSH_1002.Request(
                         APPIAInfo.SM_CW01_A02.getId(),
                         godsSeqNo,
                         WSHViewModel.SONAX,
-                        "" + custX,
-                        "" + custY,
+                        "" + gps[X],
+                        "" + gps[Y],
                         area));
     }
 }
