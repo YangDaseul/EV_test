@@ -39,13 +39,11 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_wash_history);
 
-        getDataFromIntent();
         setViewModel();
         setAdapter();
         setObserver();
 
-        //TODO 저거 ("SONAX") 하드코딩하는 게 맞나
-        viewModel.reqWSH1004(new WSH_1004.Request(APPIAInfo.SM_CW01.getId(), "SONAX"));
+        viewModel.reqWSH1004(new WSH_1004.Request(APPIAInfo.SM_CW01.getId(), WSHViewModel.SONAX));
     }
 
     @Override
@@ -88,6 +86,7 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
                 inputBranchCodeDialog.show();
                 break;
 
+            //예약 취소
             case R.id.tv_car_wash_history_cancel:
                 rsvtSeqNo = tag.getRsvtSeqNo();
                 String brnhCd = tag.getBrnhCd();
@@ -104,7 +103,6 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
                 //do nothing
                 break;
         }
-
     }
 
     @Override

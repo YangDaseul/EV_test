@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main.service;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewStub;
@@ -11,16 +12,19 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.gra.api.WSH_1002;
 import com.genesis.apps.comm.model.vo.WashBrnVO;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.ActivityMap2Binding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomSonaxBranchBinding;
-import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.hmns.playmap.PlayMapPoint;
@@ -29,6 +33,8 @@ import com.hmns.playmap.shape.PlayMapMarker;
 import java.util.List;
 
 public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> {
+    private static final String TAG = CarWashSearchActivity.class.getSimpleName();
+
     private static final int DEFAULT_ZOOM = 17;
 
     private WSHViewModel wshViewModel;
@@ -36,14 +42,30 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
     private WashBrnVO washBrnVO;
     private LayoutMapOverlayUiBottomSonaxBranchBinding sonaxBranchBinding;
 
+    private String godsSeqNo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map2);
+
+        //앞 단계에서 선택한 쿠폰 정보를 알 수 없으면 지점 검색을 할 수 없다
+        if (!initDataFromIntent()) {
+            finish();
+            return;
+        }
+
         setViewModel();
         setObserver();
         initView();
         reqMyLocation();
+    }
+
+    private boolean initDataFromIntent() {
+        godsSeqNo = getIntent().getStringExtra(WSH_1002.GOODS_SEQ_NUM);
+
+        Log.d(TAG, "initDataFromIntent: " + godsSeqNo);
+        return godsSeqNo != null;
     }
 
     @Override
@@ -82,14 +104,20 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
     @Override
     public void onClickCommon(View v) {
         switch (v.getId()) {
+            //내 위치 찾기
             case R.id.btn_my_position:
-                //내 위치 찾기
                 reqMyLocation();
                 break;
 
+            //지역선택 액티비티 호출
             case R.id.tv_map_title_text:
-                //지역선택 액티비티
-                startActivitySingleTop(new Intent(this, CarWashFindSonaxBranchActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                //선택한 쿠폰 정보, 현재 고객 위치 가져가기
+                Intent intent = new Intent(this, CarWashFindSonaxBranchActivity.class);
+                intent.putExtra(WSH_1002.GOODS_SEQ_NUM, godsSeqNo);
+                intent.putExtra(WSH_1002.CUST_X, lgnViewModel.getMyPosition().get(0));
+                intent.putExtra(WSH_1002.CUST_Y, lgnViewModel.getMyPosition().get(1));
+
+                startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
 
             case R.id.tv_map_sonax_branch_reserve_btn://예약
@@ -189,6 +217,14 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
                     sonaxBranchBinding = DataBindingUtil.bind(inflated);
                     sonaxBranchBinding.setActivity(CarWashSearchActivity.this);
                     sonaxBranchBinding.setData(washBrnVO);
+
+                    Glide.with(CarWashSearchActivity.this)
+                            .load(washBrnVO.getBrnhImgUri1())
+                            .format(DecodeFormat.PREFER_ARGB_8888)
+                            .error(R.drawable.img_car_339_2) //todo 대체 이미지 필요
+                            .placeholder(R.drawable.img_car_339_2) //todo 에러시 대체 이미지 필요
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .into(sonaxBranchBinding.ivMapSonaxBranchImg);
                 }
             });
         } else {

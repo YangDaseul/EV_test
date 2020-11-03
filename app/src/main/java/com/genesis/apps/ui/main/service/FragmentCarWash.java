@@ -16,6 +16,7 @@ import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.WSH_1001;
+import com.genesis.apps.comm.model.gra.api.WSH_1002;
 import com.genesis.apps.comm.model.vo.WashGoodsVO;
 import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.FragmentServiceCarWashBinding;
@@ -49,7 +50,7 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
         setAdapter();
         setObserver();
 
-        viewModel.reqWSH1001(new WSH_1001.Request(APPIAInfo.SM_CW01_A01.getId(), "SONAX"));
+        viewModel.reqWSH1001(new WSH_1001.Request(APPIAInfo.SM_CW01_A01.getId(), WSHViewModel.SONAX));
     }
 
     //TODO : 이중 클릭 방지 클릭 리스너 붙이기. 세차 서비스 예약내역 버튼인데
@@ -116,8 +117,13 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
 
             //세차 쿠폰 선택(지점 검색(지도) 액티비티 열기)
             case R.id.l_service_car_wash_item:
-                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), CarWashSearchActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                //선택한 쿠폰 정보를 새 액티비티에 가지고 가야 한다
+                String godsSeqNo = ((WashGoodsVO) v.getTag(R.id.tag_wash_item)).getGodsSeqNo();
 
+                Intent intent = new Intent(getActivity(), CarWashSearchActivity.class);
+                intent.putExtra(WSH_1002.GOODS_SEQ_NUM, godsSeqNo);
+
+                ((BaseActivity) getActivity()).startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
 
             default:

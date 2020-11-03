@@ -22,6 +22,7 @@ import lombok.Data;
 //CarWashHistory : 세차 예약 내역 뷰 모델
 public @Data
 class WSHViewModel extends ViewModel {
+    public static final String SONAX = "SONAX";
 
     private final WSHRepo repository;
     private final SavedStateHandle savedStateHandle;

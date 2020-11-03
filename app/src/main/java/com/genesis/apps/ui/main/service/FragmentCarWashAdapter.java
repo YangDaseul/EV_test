@@ -85,7 +85,7 @@ public class FragmentCarWashAdapter extends BaseRecyclerViewAdapter2<WashGoodsVO
         //리스너를 연결하고, 이를 처리하는데 필요한 데이터도 저장
         private void setSingleClickListenerAndData(WashGoodsVO item) {
             getBinding().lServiceCarWashItem.setOnClickListener(singleClickListener);
-            getBinding().lServiceCarWashItem.setTag(item);
+            getBinding().lServiceCarWashItem.setTag(R.id.tag_wash_item, item);
         }
     }
 }
