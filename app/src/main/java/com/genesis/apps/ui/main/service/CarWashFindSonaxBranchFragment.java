@@ -169,7 +169,7 @@ public class CarWashFindSonaxBranchFragment extends SubFragment<FragmentCarWashF
             //지점 선택
             case R.id.l_map_find_result_item:
                 ((CarWashSearchActivity) getActivity()).setBranchList(new ArrayList<>(adapter.getItems()));
-                ((CarWashSearchActivity) getActivity()).showBranchInfo(adapter.getItem((int) v.getTag(R.id.item_position)));
+                ((CarWashSearchActivity) getActivity()).showBranchInfo(adapter.getItem((int) v.getTag(R.id.item_position)), true);
 
                 ((SubActivity) getActivity()).hideFragment(this);
                 return;

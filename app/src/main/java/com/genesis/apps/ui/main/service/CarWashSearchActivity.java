@@ -129,15 +129,26 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
         ui.lMapOverlayTitle.tvMapTitleText.setOnClickListener(onSingleClickListener);
         ui.lMapOverlayTitle.fabMapBack.setOnClickListener(onSingleClickListener);
         ui.btnMyPosition.setOnClickListener(onSingleClickListener);
+
+        setMarkerClickListener();
+    }
+
+    private void setMarkerClickListener() {
         ui.pmvMapView.onMapTouchUpListener((motionEvent, makerList) -> {
-
             if (makerList != null && makerList.size() > 0) {
-
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
+                        //do nothing
                         break;
+
                     case MotionEvent.ACTION_UP:
+                        WashBrnVO picked = findBranch(makerList.get(0).getId());
+                        if (picked != null) {
+                            showBranchInfo(picked, false);
+                        }
+
                         break;
+
                     default:
                         break;
                 }
@@ -175,7 +186,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
     }
 
     //ViewStub을 inflate하고 지점 정보 세팅
-    public void showBranchInfo(WashBrnVO branchData) {
+    public void showBranchInfo(WashBrnVO branchData, boolean moveMapFocus) {
         Log.d(TAG, "setBranchData: ");
         if (searchedBranchList == null) {
             return;
@@ -188,19 +199,21 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
                     (viewStub, inflated) -> {
                         sonaxBranchBinding = DataBindingUtil.bind(inflated);
                         sonaxBranchBinding.setActivity(CarWashSearchActivity.this);
-                        setBranchData(branchData);
+                        setBranchData(branchData, moveMapFocus);
                     });
         } else {
-            setBranchData(branchData);
+            setBranchData(branchData, moveMapFocus);
         }
 
         drawMarkerItem(branchData);
     }
 
     // 지점 정보 세팅
-    private void setBranchData(WashBrnVO branchData) {
+    private void setBranchData(WashBrnVO branchData, boolean moveMapFocus) {
         //지도 뷰를 해당 위치로 이동
-        ui.pmvMapView.initMap(Double.parseDouble(branchData.getBrnhX()), Double.parseDouble(branchData.getBrnhY()), DEFAULT_ZOOM);
+        if (moveMapFocus) {
+            ui.pmvMapView.initMap(Double.parseDouble(branchData.getBrnhX()), Double.parseDouble(branchData.getBrnhY()), ui.pmvMapView.getZoomLevel());
+        }
 
         //지점 정보 뷰에 데이터 바인딩
         sonaxBranchBinding.setData(branchData);
@@ -220,7 +233,10 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
      * @param pickedBranch
      */
     public void drawMarkerItem(WashBrnVO pickedBranch) {
-        //todo 마커 초기화
+        //마커 초기화
+        ui.pmvMapView.removeAllMarkerItem();
+
+        //작은 마커 그리다가 선택된 놈 찾으면 걔만 큰 마커
         for (WashBrnVO branch : searchedBranchList) {
             PlayMapMarker markerItem = new PlayMapMarker();
             PlayMapPoint point = new PlayMapPoint(Double.parseDouble(branch.getBrnhX()), Double.parseDouble(branch.getBrnhY()));
@@ -248,5 +264,14 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 
     public void setBranchList(List<WashBrnVO> list) {
         searchedBranchList = list;
+    }
+
+    private WashBrnVO findBranch(String id) {
+        for (WashBrnVO branch : searchedBranchList) {
+            if (id.equals(branch.getBrnhCd())) {
+                return branch;
+            }
+        }
+        return null;
     }
 }
