@@ -4,18 +4,28 @@ import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import androidx.room.Entity;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * @brief 우편번호
+ * @brief 주소정보 (hmn)
  * @author hjpark
  */
+
+@Entity(indices = {@Index(value = {"addrRoad"}, unique = true)})
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
 class AddressVO extends BaseData {
+    public AddressVO(){
+
+    }
+    @PrimaryKey(autoGenerate = true)
+    private int _id;
     @Expose
     @SerializedName("poiId")
     private int poiId;

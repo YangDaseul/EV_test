@@ -1,7 +1,7 @@
 <resources>
     <string name="map_title_1">대리운전 출발지를 검색하세요.</string>
     <string name="map_title_2">기사님이 출동하였습니다.</string>
-    <string name="map_title_3">건물명, 주소를 검색하세요.</string>
+    <string name="map_title_3">건물명, 주소를 검색해 보세요.</string>
 
     <string name="map_msg_1">가능 서비스</string>
     <string name="map_msg_2">약\ </string>

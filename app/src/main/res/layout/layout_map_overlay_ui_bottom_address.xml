@@ -14,12 +14,14 @@
         <TextView
             android:id="@+id/tv_map_address_title"
             style="@style/MapOverlay.RegularHead"
+            android:layout_marginRight="10dp"
             app:layout_constrainedWidth="true"
             app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="우림 라이온스 밸리 A동" />
+            app:layout_constraintEnd_toStartOf="@+id/tv_map_address_btn"
+            app:layout_constraintBottom_toTopOf="@+id/tv_map_address_address"
+            tools:text="우림 라이온스 밸리 A동"/>
 
         <!-- 주소 -->
         <TextView
@@ -27,13 +29,12 @@
             style="@style/MapOverlay.Light"
             android:layout_width="0dp"
             android:textColor="@color/x_c0ffffff"
+            android:layout_marginRight="10dp"
             app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tv_map_address_btn"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_map_address_title"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="서울특별시 금천구 가산동 440-4" />
 
         <!-- 설정 버튼 -->

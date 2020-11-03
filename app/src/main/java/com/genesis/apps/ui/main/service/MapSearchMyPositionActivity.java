@@ -63,7 +63,6 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
                 case MotionEvent.ACTION_DOWN:
                     break;
                 case MotionEvent.ACTION_UP:
-//                    mapViewModel.reqFindAllPOI("가산", ui.pmvMapView.getMapCenterPoint().getLatitude(), ui.pmvMapView.getMapCenterPoint().getLongitude());
                     mapViewModel.reqPlayMapGeoItem(new ReverseGeocodingReqVO(ui.pmvMapView.getMapCenterPoint().getLatitude(),ui.pmvMapView.getMapCenterPoint().getLongitude(),1));
                     break;
                 default:
@@ -121,7 +120,7 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
             }
         });
 
-        mapViewModel.getPlayMapPoiItemList().observe(this, result -> {
+        mapViewModel.getPlayMapPoiItem().observe(this, result -> {
             switch (result.status){
                 case LOADING:
                     showProgressDialog(true);

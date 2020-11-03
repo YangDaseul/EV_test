@@ -24,6 +24,7 @@ import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -55,27 +56,24 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
         initView();
 
         mapViewModel.getPlayMapPoiItemList().observe(getViewLifecycleOwner(), result -> {
-
-            switch (result.status){
-                case LOADING:
-                    ((SubActivity)getActivity()).showProgressDialog(true);
-                    break;
-                case SUCCESS:
-                    ((SubActivity)getActivity()).showProgressDialog(false);
-                    if(result.data!=null&&result.data.size()>0){
-                        List<AddressVO> list = new Gson().fromJson( new Gson().toJson(result.data), new TypeToken<List<AddressVO>>(){}.getType());
-                        adapter.setRows(list);
-                        adapter.notifyDataSetChanged();
-                    }
-                default:
-                    ((SubActivity)getActivity()).showProgressDialog(false);
-                    if (adapter != null && adapter.getItemCount() < 1) {
-                        me.lSearchParent.tvEmpty.setVisibility(View.VISIBLE);
-                    } else {
-                        me.lSearchParent.tvEmpty.setVisibility(View.GONE);
-                    }
-                    break;
-
+            if(result!=null) {
+                switch (result.status) {
+                    case LOADING:
+                        ((SubActivity) getActivity()).showProgressDialog(true);
+                        break;
+                    case SUCCESS:
+                        ((SubActivity) getActivity()).showProgressDialog(false);
+                        if (result.data != null && result.data.size() > 0) {
+                            List<AddressVO> list = new Gson().fromJson(new Gson().toJson(result.data), new TypeToken<List<AddressVO>>() {
+                            }.getType());
+                            setListView(SearchAddressHMNAdapter.TYPE_NORMAL, list);
+                            break;
+                        }
+                    default:
+                        ((SubActivity) getActivity()).showProgressDialog(false);
+                        setListView(SearchAddressHMNAdapter.TYPE_NORMAL, new ArrayList<>());
+                        break;
+                }
             }
         });
     }
@@ -101,9 +99,28 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
 //        });
 
         me.lSearchParent.etSearch.setOnEditorActionListener(editorActionListener);
-        me.lSearchParent.etSearch.setHint(R.string.gm_carlst_02_30);
-        me.lSearchParent.tvTitleSub.setText(R.string.mg00_word_3);
-        me.lSearchParent.tvEmpty.setVisibility(View.VISIBLE);
+        me.lSearchParent.etSearch.setHint(R.string.map_title_3);
+        try {
+            setListView(SearchAddressHMNAdapter.TYPE_RECENTLY, mapViewModel.getRecentlyAddressVO());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setListView(int type, List<AddressVO> list) {
+        me.lSearchParent.tvTitleSub.setText(type == SearchAddressHMNAdapter.TYPE_RECENTLY ? R.string.mg00_word_2 : R.string.mg00_word_3);
+        adapter.setType(type);
+        adapter.setRows(list);
+        adapter.notifyDataSetChanged();
+        setEmptyView();
+    }
+
+    private void setEmptyView(){
+        if (adapter != null && adapter.getItemCount() < 1) {
+            me.lSearchParent.tvEmpty.setVisibility(View.VISIBLE);
+        } else {
+            me.lSearchParent.tvEmpty.setVisibility(View.GONE);
+        }
     }
 
 
@@ -117,9 +134,40 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
     public void onClickCommon(View v) {
         switch (v.getId()) {
             case R.id.l_whole:
-//                AddressZipVO addressZipVO = (AddressZipVO)v.getTag(R.id.addr);
-//                setResult(ResultCodes.REQ_CODE_ADDR_ZIP.getCode(), new Intent().putExtra(KeyNames.KEY_NAME_ZIP_ADDR, addressZipVO));
-//                finish();
+                try {
+                    AddressVO addressVO = (AddressVO) v.getTag(R.id.addr);
+                    if (addressVO != null) {
+                        if (mapViewModel.insertRecentlyAddressVO(addressVO)) {
+                            mapViewModel.getPlayMapPoiItemList().setValue(null);
+                            //todo 액티비티에 전달하 데이터 저장 후
+                            ((SubActivity)getActivity()).hideFragment(this);
+                        }
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }finally{
+
+                }
+                break;
+            case R.id.btn_del:
+                try {
+                    AddressVO addressVO = (AddressVO) v.getTag(R.id.addr);
+                    if (addressVO != null) {
+                        if (mapViewModel.deleteRecentlyAddressVO(addressVO)) {
+                            int position = adapter.getPosition(addressVO.getAddrRoad());
+                            if(position>-1){
+                                adapter.remove(position);
+                                adapter.notifyItemRemoved(position);
+                            }
+                        }
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }finally{
+                    setEmptyView();
+                }
                 break;
         }
     }

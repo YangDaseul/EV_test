@@ -43,12 +43,6 @@ public class FragSecond extends SubFragment<Frame2pBinding> {
         super.onActivityCreated(savedInstanceState);
         mapViewModel = new ViewModelProvider(this).get(MapViewModel.class);
         me.setLifecycleOwner(getViewLifecycleOwner());
-        mapViewModel.getTestCount().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                Log.v("test", "Second:" + integer);
-            }
-        });
 
 
         myViewModel= new ViewModelProvider(this).get(MyViewModel.class);
