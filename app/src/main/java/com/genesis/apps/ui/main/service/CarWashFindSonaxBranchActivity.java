@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.service;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,24 +10,34 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
+import com.genesis.apps.comm.model.gra.api.PUB_1002;
 import com.genesis.apps.comm.model.gra.api.WSH_1002;
+import com.genesis.apps.comm.model.vo.AddressCityVO;
 import com.genesis.apps.comm.model.vo.WashBrnVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.viewmodel.PUBViewModel;
 import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.ActivityCarWashFindSonaxBranchBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CarWashFindSonaxBranchActivity extends SubActivity<ActivityCarWashFindSonaxBranchBinding> {
     private static final String TAG = CarWashFindSonaxBranchActivity.class.getSimpleName();
 
-    private WSHViewModel viewModel;
+    private WSHViewModel wshViewModel;
+    private PUBViewModel pubViewModel;
     private CarWashFindSonaxBranchAdapter adapter;
 
     private String godsSeqNo;
     private double custX;
     private double custY;
+
+    private List<String> areaList;
+    private boolean showDialog = false;
+    private BottomListDialog areaListDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +54,9 @@ public class CarWashFindSonaxBranchActivity extends SubActivity<ActivityCarWashF
         setViewModel();
         setAdapter();
         setObserver();
+
+        //지역 목록에 표시할 내용 미리 로딩
+        reqAreaList();
     }
 
     private boolean initDataFromIntent() {
@@ -62,13 +76,50 @@ public class CarWashFindSonaxBranchActivity extends SubActivity<ActivityCarWashF
     @Override
     public void setViewModel() {
         ui.setLifecycleOwner(this);
-        viewModel = new ViewModelProvider(this).get(WSHViewModel.class);
+        wshViewModel = new ViewModelProvider(this).get(WSHViewModel.class);
+        pubViewModel = new ViewModelProvider(this).get(PUBViewModel.class);
     }
 
     @Override
     public void setObserver() {
-        //예약 내역 옵저버
-        viewModel.getRES_WSH_1002().observe(this, result -> {
+        //지역 목록 옵저버
+        pubViewModel.getRES_PUB_1002().observe(this, result -> {
+            Log.d(TAG, "setObserver AreaObs: " + result);
+
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+
+                case SUCCESS:
+                    if (result.data != null && result.data.getSidoList() != null) {
+                        //지역 목록을 저장
+                        setAreaList(result.data.getSidoList());
+
+                        //액티비티 실행직후 로딩인 경우는 가만히 있고(초기값 false),
+                        // 이 때 실패했다가 다시 호출할 때는 지역선택 다이얼로그를 바로 띄운다(true로 바꾸면서 호출함).
+                        if (showDialog) {
+                            showAreaDialog();
+                        }
+
+                        //성공 후 데이터 로딩까지 다 되면 로딩 치우고 break;
+                        showProgressDialog(false);
+                        break;
+                    }
+                    //not break; 데이터 이상하면 default로 진입시킴
+
+                default:
+                    setAreaList(null);
+                    showProgressDialog(false);
+                    SnackBarUtil.show(this, getString(result.message));
+                    //todo : 구체적인 예외처리
+                    break;
+            }
+        });
+
+        //지정 지역 지점 목록 옵저버
+        wshViewModel.getRES_WSH_1002().observe(this, result -> {
+            Log.d(TAG, "setObserver branchObs: " + result);
 
             switch (result.status) {
                 case LOADING:
@@ -113,17 +164,27 @@ public class CarWashFindSonaxBranchActivity extends SubActivity<ActivityCarWashF
         int id = v.getId();
 
         switch (id) {
+            //지역 선택 버튼
             case R.id.tv_car_wash_find_branch_location_select:
-                //todo 호출위치 수정;
-                viewModel.reqWSH1002(
-                        new WSH_1002.Request(
-                                APPIAInfo.SM_CW01_A02.getId(),
-                                godsSeqNo,
-                                WSHViewModel.SONAX,
-                                "" + custX,
-                                "" + custY,
-                                "todo 주소 입력"));
+                Log.d(TAG, "onClickCommon(areaList): " + areaList);
+                if (areaList == null) {
+                    //액티비티 켤 때 지역목록 로딩에 실패했으면 재시도(로딩 후 바로 지역 선택창 띄우도록 플래그부터 세팅).
+                    showDialog = true;
+                    reqAreaList();
+                } else {
+                    //로딩된 지역목록이 있으면 선택창 띄움
+                    showAreaDialog();
+                }
                 break;
+
+            //지점 선택
+            case R.id.l_map_find_result_item:
+                Intent result = new Intent();
+                result.putExtra(WSH_1002.BRANCH, (WashBrnVO) v.getTag(R.id.tag_wash_branch));
+                setIntent(result);
+
+                finish();
+                return;
 
             default:
                 //do nothing
@@ -144,5 +205,58 @@ public class CarWashFindSonaxBranchActivity extends SubActivity<ActivityCarWashF
         ui.lSonaxFindList.rvMapFindResultList.setLayoutManager(new LinearLayoutManager(this));
         ui.lSonaxFindList.rvMapFindResultList.setHasFixedSize(true);
         ui.lSonaxFindList.rvMapFindResultList.setAdapter(adapter);
+    }
+
+    //지역 목록 요청
+    private void reqAreaList() {
+        Log.d(TAG, "reqAreaList: ");
+        pubViewModel.reqPUB1002(new PUB_1002.Request(APPIAInfo.SM_CW01_A02.getId()));
+    }
+
+    //AddressCityVO List 로 받은 목록에서 행정구역 이름만 꺼내서 string 목록에 저장
+    private void setAreaList(List<AddressCityVO> list) {
+        Log.d(TAG, "setAreaList: " + list);
+        if (list == null) {
+            areaList = null;
+            return;
+        }
+
+        areaList = new ArrayList<>();
+        for (AddressCityVO areaData : list) {
+            areaList.add(areaData.getSidoNm());
+        }
+    }
+
+    //지역 선택 다이얼로그
+    private void showAreaDialog() {
+        Log.d(TAG, "showAreaDialog: " + areaListDialog);
+        if (areaListDialog == null) {
+            areaListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
+            areaListDialog.setTitle(getString(R.string.cw_branch_find_area));
+            areaListDialog.setDatas(areaList);
+            areaListDialog.setOnDismissListener(
+                    dialog -> {
+                        if (areaListDialog.getSelectItem() != null) {
+                            reqBranchListInArea(areaListDialog.getSelectItem());
+                        }
+                    }
+            );
+        }
+
+        areaListDialog.setSelectItem(null);
+        areaListDialog.show();
+    }
+
+    //지정 지역의 지점 목록 요청
+    private void reqBranchListInArea(String area) {
+        Log.d(TAG, "reqBranchListInArea: ");
+        wshViewModel.reqWSH1002(
+                new WSH_1002.Request(
+                        APPIAInfo.SM_CW01_A02.getId(),
+                        godsSeqNo,
+                        WSHViewModel.SONAX,
+                        "" + custX,
+                        "" + custY,
+                        area));
     }
 }

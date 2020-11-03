@@ -53,6 +53,8 @@ public class CarWashFindSonaxBranchAdapter extends BaseRecyclerViewAdapter2<Wash
             getBinding().tvMapFindResultBranchAddress.setText(item.getBrnhAddr());
             //전화번호
             getBinding().tvMapFindResultBranchPhone.setText(item.getTelNo());
+            //클릭 리스너
+            setSingleClickListenerAndData(item);
         }
 
         @Override
