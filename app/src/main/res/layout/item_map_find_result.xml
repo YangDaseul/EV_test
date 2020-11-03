@@ -11,8 +11,10 @@
         android:background="@drawable/ripple_bg_ffffff_stroke_e2e2e2"
         android:clickable="true"
         android:focusable="true"
-        android:paddingHorizontal="15dp"
-        android:paddingVertical="20dp">
+        android:paddingStart="15dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="20dp">
 
         <!-- 지점명 -->
         <TextView
@@ -35,8 +37,11 @@
         <TextView
             android:id="@+id/tv_map_find_result_branch_address"
             style="@style/MapResult.Item.light"
+            android:layout_width="0dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
             android:lineSpacingExtra="6sp"
+            app:layout_constraintEnd_toStartOf="@id/iv_map_find_result_end_marker"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_map_find_result_branch_name"
             tools:text="지구 어딘가에는 있겠지\n울랄라동" />
@@ -51,6 +56,7 @@
 
         <!-- 오른쪽 '>' -->
         <ImageView
+            android:id="@+id/iv_map_find_result_end_marker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/btn_open_r"

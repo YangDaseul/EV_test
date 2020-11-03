@@ -7,6 +7,12 @@
 
         <import type="android.view.View" />
 
+        <import type="com.genesis.apps.ui.main.service.CarWashFindSonaxBranchActivity" />
+
+        <variable
+            name="activity"
+            type="CarWashFindSonaxBranchActivity" />
+
         <variable
             name="resultCount"
             type="int" />
@@ -69,6 +75,7 @@
             android:focusable="true"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:gravity="center_vertical"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:paddingHorizontal="15dp"
             android:text="@string/sm_cw_find_04"
             android:textSize="15sp"

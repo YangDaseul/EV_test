@@ -39,11 +39,10 @@ public class CarWashFindSonaxBranchActivity extends SubActivity<ActivityCarWashF
             return;
         }
 
-        getDataFromIntent();
+        ui.setActivity(this);
         setViewModel();
         setAdapter();
         setObserver();
-
     }
 
     private boolean initDataFromIntent() {

@@ -25,19 +25,11 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
         View view = super.setContentView(inflater, R.layout.fragment_service_drive);
         me.setFragment(this);
 
-        setOnSingleClickListener();
-
         return view;
-    }
-
-    //이중 클릭 방지 클릭 리스너 붙이기. 이 프래그먼트는 누를 게 신청 버튼 하나 뿐이라 어댑터가 없으니 여기서 붙인다
-    private void setOnSingleClickListener() {
-        me.tvServiceDriveReqBtn.setOnClickListener(onSingleClickListener);
     }
 
     @Override
     public void onRefresh() {
-
     }
 
     @Override
