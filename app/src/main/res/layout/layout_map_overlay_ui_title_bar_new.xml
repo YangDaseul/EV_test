@@ -51,6 +51,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/fab_map_back" />
 
-
+        <TextView
+            android:id="@+id/tv_map_title_address"
+            style="@style/MapOverlayTitleBar.Hint"
+            android:elevation="10dp"
+            android:text="@{title}"
+            android:visibility="gone"
+            app:elevation="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/fab_map_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fab_map_back"
+            app:layout_constraintTop_toTopOf="@id/fab_map_back"
+            tools:text="@string/map_title_1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

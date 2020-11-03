@@ -344,6 +344,11 @@
             android:exported="false"
             android:theme="@style/TextInputLayout"/>
 
+        <activity
+            android:name=".ui.main.service.SearchAddressActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+
 
         <activity
             android:name=".ui.main.ServiceJoinActivity"

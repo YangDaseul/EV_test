@@ -4,13 +4,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewStub;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.vo.map.ReverseGeocodingReqVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.viewmodel.MapViewModel;
 import com.genesis.apps.databinding.ActivityMap2Binding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomAddressBinding;
@@ -24,7 +22,6 @@ import com.hmns.playmap.shape.PlayMapMarker;
 import java.util.List;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {

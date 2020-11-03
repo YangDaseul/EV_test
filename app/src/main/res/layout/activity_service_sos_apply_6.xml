@@ -243,7 +243,7 @@
             android:id="@+id/tv_info_1"
             style="@style/TextViewVinInfo1"
             android:text="@string/sm_emgc01_6"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toEndOf="@+id/tv_mark_1"
             app:layout_constraintTop_toBottomOf="@+id/l_cel_ph_no"/>
 

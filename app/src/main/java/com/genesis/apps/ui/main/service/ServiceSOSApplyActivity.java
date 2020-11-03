@@ -299,7 +299,7 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
             }
         });
         bottomListDialog.setDatas(divList);
-        bottomListDialog.setTitle(getString(R.string.sm_emgc01_22));
+        bottomListDialog.setTitle(getString(R.string.sm_emgc01_23));
         bottomListDialog.show();
     }
 
