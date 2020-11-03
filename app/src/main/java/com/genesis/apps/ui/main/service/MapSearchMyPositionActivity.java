@@ -1,45 +1,32 @@
 package com.genesis.apps.ui.main.service;
 
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewStub;
 
-import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.RequestCodes;
-import com.genesis.apps.comm.model.constants.ResultCodes;
-import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.BTR_1008;
-import com.genesis.apps.comm.model.gra.api.BTR_1009;
-import com.genesis.apps.comm.model.vo.BtrVO;
-import com.genesis.apps.comm.util.SnackBarUtil;
-import com.genesis.apps.comm.viewmodel.BTRViewModel;
-import com.genesis.apps.comm.viewmodel.LGNViewModel;
-import com.genesis.apps.comm.viewmodel.MapViewModel;
-import com.genesis.apps.comm.viewmodel.PUBViewModel;
-import com.genesis.apps.databinding.ActivityMap2Binding;
-import com.genesis.apps.databinding.LayoutMapOverlayUiBottomAddressBinding;
-import com.genesis.apps.databinding.LayoutMapOverlayUiBottomSelectBinding;
-import com.genesis.apps.ui.common.activity.GpsBaseActivity;
-import com.genesis.apps.ui.common.fragment.SubFragment;
-import com.genesis.apps.ui.main.home.BluehandsFilterFragment;
-import com.genesis.apps.ui.main.home.BtrBluehandsListActivity;
-import com.hmns.playmap.PlayMapPoint;
-import com.hmns.playmap.extension.PlayMapGeoItem;
-import com.hmns.playmap.shape.PlayMapMarker;
-
-import java.util.List;
-
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
-public class SearchAddressActivity extends GpsBaseActivity<ActivityMap2Binding> {
+import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.vo.map.AroundPOIReqVO;
+import com.genesis.apps.comm.model.vo.map.ReverseGeocodingReqVO;
+import com.genesis.apps.comm.viewmodel.LGNViewModel;
+import com.genesis.apps.comm.viewmodel.MapViewModel;
+import com.genesis.apps.databinding.ActivityMap2Binding;
+import com.genesis.apps.databinding.LayoutMapOverlayUiBottomAddressBinding;
+import com.genesis.apps.ui.common.activity.GpsBaseActivity;
+import com.genesis.apps.ui.common.fragment.SubFragment;
+import com.hmns.playmap.PlayMapPoint;
+import com.hmns.playmap.extension.PlayMapGeoItem;
+
+import java.util.List;
+
+public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Binding> {
     private MapViewModel mapViewModel;
     private LGNViewModel lgnViewModel;
     private LayoutMapOverlayUiBottomAddressBinding bottomSelectBinding;
@@ -52,35 +39,41 @@ public class SearchAddressActivity extends GpsBaseActivity<ActivityMap2Binding> 
         getDataFromIntent();
         setViewModel();
         setObserver();
-        initView();
         reqMyLocation();
     }
 
-    private void initView() {
+    private void initView(final double latitude, final double longitude) {
+        ui.ivCenterMaker.setVisibility(View.VISIBLE);
+        ui.ivCenterMaker.setImageResource(R.drawable.ic_pin_car);
+        //기본위치 갱신 시 맵 초기화
+        ui.pmvMapView.initMap(latitude, longitude,17);
         ui.lMapOverlayTitle.tvMapTitleText.setVisibility(View.GONE);
         ui.lMapOverlayTitle.tvMapTitleAddress.setVisibility(View.VISIBLE);
+        ui.lMapOverlayTitle.tvMapTitleAddress.setText(R.string.map_title_3);
         ui.lMapOverlayTitle.tvMapTitleAddress.setOnClickListener(onSingleClickListener);
+        //todo 타이틀 ui 수정 및 텍스트
         ui.btnMyPosition.setOnClickListener(onSingleClickListener);
+
+
+
         ui.pmvMapView.onMapTouchUpListener((motionEvent, makerList) -> {
 
-            if (makerList != null && makerList.size() > 0) {
 
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        break;
-                    case MotionEvent.ACTION_UP:
-//                        BtrVO btrVO = btrViewModel.getBtrVO(makerList.get(0).getId());
-//                        if (btrVO != null) {
-//                            ui.pmvMapView.removeAllMarkerItem();
-//                            setPosition(btrViewModel.getRES_BTR_1008().getValue().data.getAsnList(), btrVO);
-//                        }
-                        break;
-                    default:
-                        break;
-                }
-
+            switch (motionEvent.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    break;
+                case MotionEvent.ACTION_UP:
+//                    mapViewModel.reqFindAllPOI("가산", ui.pmvMapView.getMapCenterPoint().getLatitude(), ui.pmvMapView.getMapCenterPoint().getLongitude());
+                    mapViewModel.reqPlayMapGeoItem(new ReverseGeocodingReqVO(ui.pmvMapView.getMapCenterPoint().getLatitude(),ui.pmvMapView.getMapCenterPoint().getLongitude(),1));
+                    break;
+                default:
+                    break;
             }
+
         });
+
+
+
     }
 
     @Override
@@ -104,16 +97,52 @@ public class SearchAddressActivity extends GpsBaseActivity<ActivityMap2Binding> 
     @Override
     public void setObserver() {
 
-//        lgnViewModel.getPosition().observe(this, doubles -> {
-//            if (btrVO == null) {
-//                fillerCd = VariableType.BTR_FILTER_CODE_A;
-//            } else {
-//                fillerCd = "";
-//            }
-//
-//            //기본 버틀러 정보가 없을 때는 제네시스 전담으로 기본 필터 전달
-//            btrViewModel.reqBTR1008(new BTR_1008.Request(APPIAInfo.GM_CARLST_01_B01.getId(), String.valueOf(doubles.get(0)), String.valueOf(doubles.get(1)), "", "", fillerCd));
-//        });
+        lgnViewModel.getPosition().observe(this, doubles -> {
+            initView(doubles.get(0),doubles.get(1));
+            //차량 위치에 대한 주소 정보 요청
+            mapViewModel.reqPlayMapGeoItem(new ReverseGeocodingReqVO(doubles.get(0),doubles.get(1),1));
+        });
+
+        mapViewModel.getPlayMapGeoItem().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if(result.data!=null){
+                        mapViewModel.reqPlayMapPoiItemList(new AroundPOIReqVO("건물", ui.pmvMapView.getMapCenterPoint().getLatitude(),ui.pmvMapView.getMapCenterPoint().getLongitude(), 30, 3, 1, 0, 20));
+                    }
+                    break;
+                default:
+                    showProgressDialog(false);
+
+                    break;
+            }
+        });
+
+        mapViewModel.getPlayMapPoiItemList().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    //빌딩이름이 획득 가능하면
+                    if(result.data!=null&&result.data.size()>0){
+                        updateAddressInfo(result.data.get(0).title, result.data.get(0).cname, result.data.get(0).addrRoad);
+                        break;
+                    }
+                default:
+                    showProgressDialog(false);
+                    //빌딩이름이 획득 불가능하면
+                    PlayMapGeoItem item = mapViewModel.getPlayMapGeoItem().getValue().data;
+                    if(item!=null){
+                        updateAddressInfo(item.title, item.cname, item.addrRoad);
+                    }
+                    break;
+            }
+        });
 //
 //        btrViewModel.getRES_BTR_1008().observe(this, result -> {
 //
@@ -169,29 +198,28 @@ public class SearchAddressActivity extends GpsBaseActivity<ActivityMap2Binding> 
 //                finish();
                 break;
             case R.id.btn_my_position:
-                ui.pmvMapView.initMap(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1), 17);
+                ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)), 500);
                 break;
-            case R.id.tv_map_title_text:
-                showFragment(new BluehandsFilterFragment());
-//                startActivitySingleTop(new Intent(this, BtrBluehandsFilterActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+            case R.id.tv_map_title_address:
+                showFragment(new SearchAddressHMNFragment());
                 break;
         }
 
     }
 
-    /**
-     * drawMarkerItem 지도에 마커를 그린다.
-     */
-    public void drawMarkerItem(PlayMapGeoItem item, int iconId) {
-        PlayMapMarker markerItem = new PlayMapMarker();
-//        PlayMapPoint point = mapView.getMapCenterPoint();
-        PlayMapPoint point = new PlayMapPoint(item.centerLat, item.centerLon);
-        markerItem.setMapPoint(point);
-        markerItem.setCanShowCallout(false);
-        markerItem.setAutoCalloutVisible(false);
-        markerItem.setIcon(((BitmapDrawable) getResources().getDrawable(iconId, null)).getBitmap());
-        ui.pmvMapView.addMarkerItem("center", markerItem);
-    }
+//    /**
+//     * drawMarkerItem 지도에 마커를 그린다.
+//     */
+//    public void drawMarkerItem(PlayMapGeoItem item, int iconId) {
+//        PlayMapMarker markerItem = new PlayMapMarker();
+////        PlayMapPoint point = mapView.getMapCenterPoint();
+//        PlayMapPoint point = new PlayMapPoint(item.centerLat, item.centerLon);
+//        markerItem.setMapPoint(point);
+//        markerItem.setCanShowCallout(false);
+//        markerItem.setAutoCalloutVisible(false);
+//        markerItem.setIcon(((BitmapDrawable) getResources().getDrawable(iconId, null)).getBitmap());
+//        ui.pmvMapView.addMarkerItem("center", markerItem);
+//    }
 
 
     private void reqMyLocation() {
@@ -244,26 +272,48 @@ public class SearchAddressActivity extends GpsBaseActivity<ActivityMap2Binding> 
 //            }
 //        }
     }
+//
+//    private void setPosition(PlayMapGeoItem item) {
+//        if (bottomSelectBinding == null) {
+//            setViewStub(R.id.vs_map_overlay_bottom_box, R.layout.layout_map_overlay_ui_bottom_address, new ViewStub.OnInflateListener() {
+//                @Override
+//                public void onInflate(ViewStub viewStub, View inflated) {
+//                    bottomSelectBinding = DataBindingUtil.bind(inflated);
+//                    bottomSelectBinding.tvMapAddressBtn.setOnClickListener(onSingleClickListener);
+//                    bottomSelectBinding.tvMapAddressTitle.setText(item.title);
+//                    bottomSelectBinding.tvMapAddressAddress.setText(item.addrRoad);
+//                }
+//            });
+//        } else {
+//            bottomSelectBinding.tvMapAddressTitle.setText(item.title);
+//            bottomSelectBinding.tvMapAddressAddress.setText(item.addrRoad);
+//        }
+//    }
 
-    private void setPosition(PlayMapGeoItem item) {
+
+    private void updateAddressInfo(String buildName, String subBuildName, String address) {
         if (bottomSelectBinding == null) {
             setViewStub(R.id.vs_map_overlay_bottom_box, R.layout.layout_map_overlay_ui_bottom_address, new ViewStub.OnInflateListener() {
                 @Override
                 public void onInflate(ViewStub viewStub, View inflated) {
                     bottomSelectBinding = DataBindingUtil.bind(inflated);
                     bottomSelectBinding.tvMapAddressBtn.setOnClickListener(onSingleClickListener);
-                    bottomSelectBinding.tvMapAddressTitle.setText(item.title);
-                    bottomSelectBinding.tvMapAddressAddress.setText(item.addrRoad);
+                    setViewAddresInfo(buildName, subBuildName, address);
                 }
             });
         } else {
-            bottomSelectBinding.tvMapAddressTitle.setText(item.title);
-            bottomSelectBinding.tvMapAddressAddress.setText(item.addrRoad);
+            setViewAddresInfo(buildName, subBuildName, address);
         }
-
-        drawMarkerItem(item, R.drawable.ic_pin_carcenter);
-        ui.pmvMapView.initMap(item.centerLat, item.centerLon, 17);
     }
+
+
+    private void setViewAddresInfo(String buildName, String subBuildName, String address){
+        bottomSelectBinding.tvMapAddressTitle.setText(buildName+ (TextUtils.isEmpty(subBuildName) ? "" : " "+subBuildName));
+        bottomSelectBinding.tvMapAddressTitle.setVisibility(TextUtils.isEmpty(buildName) ? View.GONE : View.VISIBLE);
+        bottomSelectBinding.tvMapAddressAddress.setText(address);
+        bottomSelectBinding.tvMapAddressAddress.setVisibility(TextUtils.isEmpty(address) ? View.GONE : View.VISIBLE);
+    }
+
 
 
     @Override

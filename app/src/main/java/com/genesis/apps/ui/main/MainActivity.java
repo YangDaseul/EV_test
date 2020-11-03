@@ -16,7 +16,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -25,8 +24,7 @@ import com.genesis.apps.databinding.ActivityMainBinding;
 import com.genesis.apps.databinding.ItemTabBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.main.home.FragmentHome1;
-import com.genesis.apps.ui.main.insight.InsightExpnInputActivity;
-import com.genesis.apps.ui.main.service.ServiceSOSApplyActivity;
+import com.genesis.apps.ui.main.service.MapSearchMyPositionActivity;
 import com.genesis.apps.ui.myg.MyGEntranceActivity;
 import com.genesis.apps.ui.myg.MyGHomeActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -160,7 +158,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 
 
         //TODO 이것은 테스트 액티비티 호출
-//        startActivitySingleTop(new Intent(this, ServiceSOSApplyActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        startActivitySingleTop(new Intent(this, MapSearchMyPositionActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 //        FirebaseMessagingService.notifyMessageTest(this, new PushVO(), PushCode.CAT_0E);
     }
 

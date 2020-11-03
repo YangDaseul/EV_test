@@ -41,10 +41,10 @@
        -->
         <ViewStub
             android:id="@+id/l_map_overlay_msg"
-            android:inflatedId="@+id/l_map_overlay_msg"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:inflatedId="@+id/l_map_overlay_msg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/l_map_overlay_title"
@@ -56,13 +56,13 @@
         -->
         <ViewStub
             android:id="@+id/vs_map_overlay_bottom_box"
-            android:inflatedId="@+id/vs_map_overlay_bottom_box"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:inflatedId="@+id/vs_map_overlay_bottom_box"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <!-- gps 버튼 -->
         <ImageView
@@ -76,6 +76,25 @@
             android:src="@drawable/ic_gps"
             app:layout_constraintBottom_toTopOf="@id/vs_map_overlay_bottom_box"
             app:layout_constraintStart_toStartOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/iv_center_maker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/gl_center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:src="@drawable/ic_pin_car"
+            tools:visibility="visible" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

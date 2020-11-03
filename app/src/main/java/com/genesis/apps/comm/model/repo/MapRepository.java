@@ -66,6 +66,69 @@ public class MapRepository {
     }
 
 
+
+
+    public MutableLiveData<NetUIResponse<ArrayList<PlayMapPoiItem>>> findAllPOI (final String data,final double lat, final double lon){
+        netCaller.reqDataFromAnonymous(
+                () -> playMapRestApi.findAllPOI(data, lat, lon),
+                new NetCallback() {
+                    @Override
+                    public void onSuccess(Object object) {
+                        playMapPoiItemList.setValue(NetUIResponse.success((ArrayList<PlayMapPoiItem>)object));
+                    }
+
+                    @Override
+                    public void onFail(NetResult e) {
+                        playMapPoiItemList.setValue(NetUIResponse.error(e.getMseeage(),null));
+                    }
+
+                    @Override
+                    public void onError(NetResult e) {
+                        playMapPoiItemList.setValue(NetUIResponse.error(R.string.error_msg_4,null));
+                    }
+                });
+
+        return playMapPoiItemList;
+    }
+
+
+    /**
+     * @brief POI 검색
+     * @param data 검색할 문자열
+     * @param lat 위도
+     * @param lon 경도
+     * @param sort 정렬 옵션 (1=추천순, 2=명칭순, 3=거리순)
+     * @param intent 검색 의도 요청
+     * @param from 검색 결과 시작 위치
+     * @param size 응답으로 받을 결과 개수
+     * @param language 언어설정 영어 0 한국어 3(기본값)
+     * @return
+     */
+    public MutableLiveData<NetUIResponse<ArrayList<PlayMapPoiItem>>> findAllPOI (String data, double lat, double lon, int sort, String intent, int from, int size, int language){
+        netCaller.reqDataFromAnonymous(
+                () -> playMapRestApi.findAllPOI(data, lat, lon, sort, intent, from, size, language),
+                new NetCallback() {
+                    @Override
+                    public void onSuccess(Object object) {
+                        playMapPoiItemList.setValue(NetUIResponse.success((ArrayList<PlayMapPoiItem>)object));
+                    }
+
+                    @Override
+                    public void onFail(NetResult e) {
+                        playMapPoiItemList.setValue(NetUIResponse.error(e.getMseeage(),null));
+                    }
+
+                    @Override
+                    public void onError(NetResult e) {
+                        playMapPoiItemList.setValue(NetUIResponse.error(R.string.error_msg_4,null));
+                    }
+                });
+
+        return playMapPoiItemList;
+    }
+
+
+
     public MutableLiveData<NetUIResponse<ArrayList<PlayMapPoiItem>>> aroundPOIserch (final AroundPOIReqVO aroundPOIReqVO){
         netCaller.reqDataFromAnonymous(
                 () -> playMapRestApi.aroundPOIserch(aroundPOIReqVO.getDepthText(), aroundPOIReqVO.getLat(), aroundPOIReqVO.getLon(), aroundPOIReqVO.getRadius(), aroundPOIReqVO.getSort(), aroundPOIReqVO.getRoadType(), aroundPOIReqVO.getFrom(), aroundPOIReqVO.getSize()),

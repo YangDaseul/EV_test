@@ -345,7 +345,7 @@
             android:theme="@style/TextInputLayout"/>
 
         <activity
-            android:name=".ui.main.service.SearchAddressActivity"
+            android:name=".ui.main.service.MapSearchMyPositionActivity"
             android:screenOrientation="portrait"
             android:exported="false"/>
 

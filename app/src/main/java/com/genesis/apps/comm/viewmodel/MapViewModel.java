@@ -82,14 +82,21 @@ public class MapViewModel extends ViewModel {
         return testCount;
     }
 
-
-
     public void reqPlayMapGeoItemList(final String keyword){
         playMapGeoItemList.setValue(repository.searchGeocoding(keyword).getValue());
     }
 
     public LiveData<NetUIResponse<ArrayList<PlayMapGeoItem>>> getPlayMapGeoItemList() {
         return playMapGeoItemList;
+    }
+
+
+    public void reqFindAllPOI(final String keyword, final double lat, final double lon){
+        repository.findAllPOI(keyword, lat, lon);
+    }
+
+    public void reqFindAllPOI(final String keyword, double lat, double lon, int sort, String intent, int from, int size, int language){
+        repository.findAllPOI(keyword, lat, lon, sort, intent, from, size, language);
     }
 
 }
