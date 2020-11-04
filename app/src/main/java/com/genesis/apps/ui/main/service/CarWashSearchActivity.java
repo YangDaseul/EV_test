@@ -158,7 +158,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 
             //지점 사진
             case R.id.iv_map_sonax_branch_img:
-                showFragment(new FragmentCarWashBranchPreview(pickedBranch));
+                showFragment(new FragmentCarWashBranchPreview());
                 break;
 
             //예약
@@ -336,6 +336,15 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
         }
     }
 
+    private WashBrnVO findBranch(String id) {
+        for (WashBrnVO branch : searchedBranchList) {
+            if (id.equals(branch.getBrnhCd())) {
+                return branch;
+            }
+        }
+        return null;
+    }
+
     public String getGodsSeqNo() {
         return godsSeqNo;
     }
@@ -344,16 +353,11 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
         return myPosition;
     }
 
-    public void setBranchList(List<WashBrnVO> list) {
-        searchedBranchList = list;
+    public WashBrnVO getPickedBranch() {
+        return pickedBranch;
     }
 
-    private WashBrnVO findBranch(String id) {
-        for (WashBrnVO branch : searchedBranchList) {
-            if (id.equals(branch.getBrnhCd())) {
-                return branch;
-            }
-        }
-        return null;
+    public void setBranchList(List<WashBrnVO> list) {
+        searchedBranchList = list;
     }
 }

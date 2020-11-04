@@ -30,8 +30,28 @@ public class FragmentCarWashBranchPreview extends SubFragment<FragmentCarWashBra
     private BranchPreviewAdapter adapter;
     private List<String> urlList;
 
-    public FragmentCarWashBranchPreview(WashBrnVO pickedBranch) {
-        Log.d(TAG, "FragmentCarWashBranchPreview: ");
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView: ");
+        return super.setContentView(inflater, R.layout.fragment_car_wash_branch_preview);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        setImageUrls();
+
+        adapter = new BranchPreviewAdapter(getContext(), urlList);
+        me.vpBranchPreview.setAdapter(adapter);
+        me.vpBranchPreview.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+        me.vpBranchPreview.setCurrentItem(0);
+
+        me.ivCloseBranchPreview.setOnClickListener(onSingleClickListener);
+    }
+
+    private void setImageUrls() {
+        WashBrnVO pickedBranch = ((CarWashSearchActivity) getActivity()).getPickedBranch();
 
         urlList = new ArrayList<>();
 
@@ -50,24 +70,6 @@ public class FragmentCarWashBranchPreview extends SubFragment<FragmentCarWashBra
         if (temp != null && !temp.equals("")) {
             urlList.add(temp);
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: ");
-        return super.setContentView(inflater, R.layout.fragment_car_wash_branch_preview);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        adapter = new BranchPreviewAdapter(getContext(), urlList);
-        me.vpBranchPreview.setAdapter(adapter);
-        me.vpBranchPreview.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-        me.vpBranchPreview.setCurrentItem(0);
-
-        me.ivCloseBranchPreview.setOnClickListener(onSingleClickListener);
     }
 
     @Override
