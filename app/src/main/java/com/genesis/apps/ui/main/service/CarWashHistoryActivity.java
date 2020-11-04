@@ -94,8 +94,7 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
 
                 MiddleDialog.dialogCarWashCancel(
                         this,
-                        () -> viewModel.reqWSH1006(new WSH_1006.Request(APPIAInfo.SM_CW01_P01.getId(), rsvtSeqNo, brnhCd)),
-                        null);
+                        () -> viewModel.reqWSH1006(new WSH_1006.Request(APPIAInfo.SM_CW01_P01.getId(), rsvtSeqNo, brnhCd)));
 
                 break;
 

@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.service;
 
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,22 +8,31 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.WSH_1002;
+import com.genesis.apps.comm.model.gra.api.WSH_1003;
 import com.genesis.apps.comm.model.vo.WashBrnVO;
+import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.viewmodel.LGNViewModel;
+import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.ActivityMap2Binding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomSonaxBranchBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.hmns.playmap.PlayMapPoint;
 import com.hmns.playmap.shape.PlayMapMarker;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> {
     private static final String TAG = CarWashSearchActivity.class.getSimpleName();
@@ -31,11 +41,15 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 
     private static final int DEFAULT_ZOOM = 17;
 
+    private WSHViewModel wshViewModel;
+    private LGNViewModel lgnViewModel;
+
     private LayoutMapOverlayUiBottomSonaxBranchBinding sonaxBranchBinding;
     private List<WashBrnVO> searchedBranchList;
     private WashBrnVO pickedBranch;
 
     private String godsSeqNo;
+    private String godsNm;
     private double[] myPosition = {360., 360.};//경도위도 무효값으로 초기화
 
 
@@ -58,9 +72,10 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 
     private boolean initDataFromIntent() {
         godsSeqNo = getIntent().getStringExtra(WSH_1002.GOODS_SEQ_NUM);
+        godsNm = getIntent().getStringExtra(WSH_1002.GOODS_NAME);
 
-        Log.d(TAG, "initDataFromIntent: " + godsSeqNo);
-        return godsSeqNo != null;
+        Log.d(TAG, "initDataFromIntent: " + godsSeqNo + ", " + godsNm);
+        return godsSeqNo != null && godsNm != null;
     }
 
     @Override
@@ -74,10 +89,41 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 
     @Override
     public void setViewModel() {
+        ui.setLifecycleOwner(this);
+        wshViewModel = new ViewModelProvider(this).get(WSHViewModel.class);
+        lgnViewModel = new ViewModelProvider(this).get(LGNViewModel.class);
     }
 
     @Override
     public void setObserver() {
+        //예약 신청
+        wshViewModel.getRES_WSH_1003().observe(this, result -> {
+            Log.d(TAG, "setObserver req reserve: " + result.status);
+
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+
+                case SUCCESS:
+                    if (result.data != null && result.data.getRtCd() != null) {
+                        showProgressDialog(false);
+
+                        //예약 내역 액티비티 열기
+                        startActivitySingleTop(new Intent(this, CarWashHistoryActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        finish();
+                        return;
+                    }
+                    //not break; 데이터 이상하면 default로 진입시킴
+
+                default:
+                    showProgressDialog(false);
+                    SnackBarUtil.show(this, getString(result.message));
+                    //todo : 구체적인 예외처리
+                    break;
+            }
+        });
+
     }
 
     @Override
@@ -115,8 +161,9 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
                 showFragment(new FragmentCarWashBranchPreview(pickedBranch));
                 break;
 
-            case R.id.tv_map_sonax_branch_reserve_btn://예약
-                //todo impl pickedBranch널검사 하고 이거 예약
+            //예약
+            case R.id.tv_map_sonax_branch_reserve_btn:
+                showReserveDialog();
                 break;
         }
     }
@@ -135,6 +182,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
         setMarkerClickListener();
     }
 
+    //지도 마커 클릭 리스너
     private void setMarkerClickListener() {
         ui.pmvMapView.onMapTouchUpListener((motionEvent, makerList) -> {
             if (makerList != null && makerList.size() > 0) {
@@ -159,6 +207,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
         });
     }
 
+    //gps로 내 위치 찾아서 지도에 표시
     private void reqMyLocation() {
         Log.d(TAG, "reqMyLocation: ");
 
@@ -232,11 +281,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
                 .into(sonaxBranchBinding.ivMapSonaxBranchImg);
     }
 
-    /**
-     * drawMarkerItem 지도에 마커를 그린다.
-     *
-     * @param pickedBranch
-     */
+    // 지도에 마커를 그린다.
     public void drawMarkerItem(WashBrnVO pickedBranch) {
         //마커 초기화
         ui.pmvMapView.removeAllMarkerItem();
@@ -256,6 +301,37 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 
             String name = branch.getBrnhCd();
             ui.pmvMapView.addMarkerItem(name, markerItem);
+        }
+    }
+
+    //예약 할래? 대화상자
+    private void showReserveDialog() {
+        if (pickedBranch == null) {
+            SnackBarUtil.show(this, getString(R.string.cw_branch_no_data));
+            return;
+        }
+
+        String msg = pickedBranch.getBrnhNm() + "\n" + godsNm + "\n" + getString(R.string.cw_reserve_msg);
+
+        //예약 할래? 대화상자
+        MiddleDialog.dialogCarWashReserve(this, this::reserveCarWash, msg);
+    }
+
+    //예약 요청 보냄
+    private void reserveCarWash() {
+        try {
+            wshViewModel.reqWSH1003(
+                    new WSH_1003.Request(
+                            APPIAInfo.SM_CW01_A01.getId(),
+                            godsSeqNo,
+                            WSHViewModel.SONAX,
+                            pickedBranch.getBrnhCd(),
+                            lgnViewModel.getMainVehicleFromDB().getVin(),
+                            lgnViewModel.getMainVehicleFromDB().getCarRgstNo()
+                    ));
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            //todo 차량 정보 접근 실패에 대한 예외처리
         }
     }
 

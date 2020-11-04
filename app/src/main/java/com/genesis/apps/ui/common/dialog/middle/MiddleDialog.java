@@ -277,14 +277,32 @@ public class MiddleDialog {
         );
     }
 
-    public static void dialogCarWashCancel(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+    //세차 예약
+    public static void dialogCarWashReserve(@NonNull Activity activity, final Runnable ok, String msg) {
         if (activity.isFinishing()) {
             return;
         }
         activity.runOnUiThread(() ->
                 getTwoButtonDialog(activity,
                         ok,
-                        cancel,
+                        null,
+                        activity.getString(R.string.cw_reserve_title),
+                        msg,
+                        R.string.dialog_common_1,
+                        R.string.dialog_common_2
+                ).show()
+        );
+    }
+
+    //세차 예약 취소
+    public static void dialogCarWashCancel(@NonNull Activity activity, final Runnable ok) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        null,
                         R.string.cw_reserve_cancel_title,
                         R.string.cw_reserve_cancel_msg,
                         R.string.dialog_common_1,
@@ -303,12 +321,28 @@ public class MiddleDialog {
             final int okBtnTextId,
             final int cancelBtnTextId) {
 
+        return getTwoButtonDialog(
+                activity, ok, cancel,
+                activity.getString(titleId),
+                activity.getString(msgId),
+                okBtnTextId, cancelBtnTextId);
+    }
+
+    private static CustomDialog getTwoButtonDialog(
+            @NonNull Activity activity,
+            final Runnable ok,
+            final Runnable cancel,
+            final String title,
+            final String msg,
+            final int okBtnTextId,
+            final int cancelBtnTextId) {
+
         return new CustomDialog(activity, dialog -> {
             DialogMiddleTwoButtonBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_middle_two_button, null, false);
             dialog.setContentView(binding.getRoot());
 
-            binding.tvTitle.setText(titleId);
-            binding.tvMsg.setText(msgId);
+            binding.tvTitle.setText(title);
+            binding.tvMsg.setText(msg);
             binding.tvMsg.setMovementMethod(new ScrollingMovementMethod());
 
             binding.btnCancel.setText(okBtnTextId);

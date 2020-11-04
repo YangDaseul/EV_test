@@ -119,9 +119,11 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
             case R.id.l_service_car_wash_item:
                 //선택한 쿠폰 정보를 새 액티비티에 가지고 가야 한다
                 String godsSeqNo = ((WashGoodsVO) v.getTag(R.id.tag_wash_item)).getGodsSeqNo();
+                String godsNm = ((WashGoodsVO) v.getTag(R.id.tag_wash_item)).getGodsNm();
 
                 Intent intent = new Intent(getActivity(), CarWashSearchActivity.class);
                 intent.putExtra(WSH_1002.GOODS_SEQ_NUM, godsSeqNo);
+                intent.putExtra(WSH_1002.GOODS_NAME, godsNm);
 
                 ((BaseActivity) getActivity()).startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;

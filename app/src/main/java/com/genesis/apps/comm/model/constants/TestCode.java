@@ -216,7 +216,10 @@ public class TestCode {
             "  ]\n" +
             "}", WSH_1002.Response.class);
 
-    public static WSH_1003.Response WSH_1003 = new Gson().fromJson("", WSH_1003.Response.class);
+    public static WSH_1003.Response WSH_1003 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\"\n" +
+            "}", WSH_1003.Response.class);
 
     public static WSH_1004.Response WSH_1004 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
