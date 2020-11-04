@@ -2,38 +2,29 @@ package com.genesis.apps.ui.main.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-
-import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.ResultCodes;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.MYP_2002;
-import com.genesis.apps.comm.model.gra.api.PUB_1001;
-import com.genesis.apps.comm.model.vo.AddressZipVO;
-import com.genesis.apps.comm.model.vo.MenuVO;
-import com.genesis.apps.comm.model.vo.NotiInfoVO;
-import com.genesis.apps.comm.util.SoftKeyboardUtil;
-import com.genesis.apps.comm.util.StringUtil;
-import com.genesis.apps.comm.viewmodel.CMNViewModel;
-import com.genesis.apps.comm.viewmodel.PUBViewModel;
-import com.genesis.apps.databinding.ActivitySearchAddressBinding;
-import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.main.AlarmCenterRecyclerAdapter;
-import com.genesis.apps.ui.main.home.view.SearchAddressAdapter;
-import com.google.gson.Gson;
-
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.gra.APPIAInfo;
+import com.genesis.apps.comm.model.gra.api.PUB_1001;
+import com.genesis.apps.comm.model.vo.AddressZipVO;
+import com.genesis.apps.comm.util.SoftKeyboardUtil;
+import com.genesis.apps.comm.viewmodel.PUBViewModel;
+import com.genesis.apps.databinding.ActivitySearchAddressBinding;
+import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.main.home.view.SearchAddressAdapter;
+
+import java.util.List;
 
 public class SearchAddressActivity extends SubActivity<ActivitySearchAddressBinding> {
 
@@ -71,6 +62,9 @@ public class SearchAddressActivity extends SubActivity<ActivitySearchAddressBind
         });
 
         ui.lSearchParent.etSearch.setOnEditorActionListener(editorActionListener);
+        ui.lSearchParent.etSearch.setHint(R.string.gm_carlst_02_30);
+        ui.lSearchParent.tvTitleSub.setText(R.string.mg00_word_3);
+        ui.lSearchParent.tvEmpty.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -120,17 +114,13 @@ public class SearchAddressActivity extends SubActivity<ActivitySearchAddressBind
                         adapter.notifyItemRangeInserted(itemSizeBefore, adapter.getItemCount());
 
                     }
-
+                default:
+                    showProgressDialog(false);
                     if (adapter != null && adapter.getItemCount() < 1) {
                         ui.lSearchParent.tvEmpty.setVisibility(View.VISIBLE);
                     } else {
                         ui.lSearchParent.tvEmpty.setVisibility(View.GONE);
                     }
-
-
-                    break;
-                default:
-                    showProgressDialog(false);
                     break;
 
             }
@@ -154,28 +144,6 @@ public class SearchAddressActivity extends SubActivity<ActivitySearchAddressBind
         adapter.notifyDataSetChanged();
     }
 
-
-//    private void reqListData(String keyword) {
-//        if (TextUtils.isEmpty(keyword)) {
-//            ui.lSearchParent.etSearch.setBackgroundResource(R.drawable.bg_ffffff_stroke_dadde3);
-//            ui.lSearchParent.tvEmpty.setVisibility(View.VISIBLE);
-//        } else {
-//            ui.lSearchParent.etSearch.setBackgroundResource(R.drawable.bg_ffffff_stroke_141414);
-//            try {
-//                setListView(cmnViewModel.getNotiInfoFromDB("", "%"+keyword+"%"));
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            } finally {
-//
-//            }
-//        }
-//    }
-
-//    /**
-//     * @brief 키보드에서 search 버튼 클릭할 경우 정의
-//     * (스토리보드에 정의되어 있지 않아 제거)
-//     *
-//     */
     EditText.OnEditorActionListener editorActionListener = (textView, actionId, keyEvent) -> {
         if(actionId== EditorInfo.IME_ACTION_SEARCH){
             searchAddress();
@@ -187,9 +155,12 @@ public class SearchAddressActivity extends SubActivity<ActivitySearchAddressBind
     private void searchAddress(){
         //end
         String keyword = ui.lSearchParent.etSearch.getText().toString().trim();
-        if(!TextUtils.isEmpty(keyword))
+        if(!TextUtils.isEmpty(keyword)) {
             pubViewModel.reqPUB1001(new PUB_1001.Request(APPIAInfo.GM_CARLST_01_A01.getId(), keyword, adapter.getPageNo() + 1 + "", "20"));
-
+        }else{
+            ui.lSearchParent.tvEmpty.setVisibility(View.VISIBLE);
+        }
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
 
 }

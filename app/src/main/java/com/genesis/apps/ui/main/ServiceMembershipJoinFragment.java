@@ -21,9 +21,14 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.AgreeMeansVO;
+import com.genesis.apps.comm.model.vo.AgreeTermVO;
 import com.genesis.apps.comm.model.vo.TermVO;
+import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.InteractionUtil;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.databinding.ActivityMembershipJoinBinding;
 import com.genesis.apps.databinding.ItemTermBinding;
@@ -33,10 +38,13 @@ import com.genesis.apps.ui.common.view.TermView;
 import com.genesis.apps.ui.myg.MyGOilTermDetailActivity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
+import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_BLM0003;
 import static com.genesis.apps.comm.model.vo.TermVO.TERM_ESN_AGMT_N;
 
 @AndroidEntryPoint
@@ -67,18 +75,29 @@ public class ServiceMembershipJoinFragment extends SubFragment<ActivityMembershi
 
         cmnViewModel = new ViewModelProvider(getActivity()).get(CMNViewModel.class);
 
-        cmnViewModel.getRES_CMN_0004().observe(getViewLifecycleOwner(), result -> {
+        cmnViewModel.getRES_MBR_0001().observe(getViewLifecycleOwner(), result -> {
+
             switch (result.status){
                 case LOADING:
                     ((SubActivity)getActivity()).showProgressDialog(true);
                     break;
                 case SUCCESS:
                     ((SubActivity)getActivity()).showProgressDialog(false);
-                    //todo 가입완료처리
-                    break;
+
+                    if(result.data!=null&&!TextUtils.isEmpty(result.data.getCustGbCd())&&!result.data.getCustGbCd().equalsIgnoreCase("0000")){
+                        ((SubActivity)getActivity()).restart();
+                        break;
+                    }
                 default:
                     ((SubActivity)getActivity()).showProgressDialog(false);
-                    //todo 가입실패처리
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        SnackBarUtil.show(getActivity(), serverMsg);
+                    }
                     break;
             }
         });
@@ -114,13 +133,15 @@ public class ServiceMembershipJoinFragment extends SubFragment<ActivityMembershi
         switch (v.getId()){
             case R.id.btn_next:
                 //TODO 약관동의 페이지로 이동 및 데이터 실패에 대한 스낵바 정의를 여기서 해줘야함.
+                setAgreeStatus();
+                cmnViewModel.reqMBR0001(cmnViewModel.getREQ_MBR_0001().getValue());
                 break;
             case R.id.iv_arrow:
                 try{
                     TermVO termVO = (TermVO)v.getTag(R.id.term);
                     Log.v("test","test:"+termVO.getTermCd());
 
-                    if(termVO.getTermCd().equalsIgnoreCase(VariableType.TERM_SERVICE_JOIN_BLM0003)){ //광고성정보수신유무 선택 시
+                    if(termVO.getTermCd().equalsIgnoreCase(TERM_SERVICE_JOIN_BLM0003)){ //광고성정보수신유무 선택 시
 
                         if(me.lAdInfo.getVisibility()==View.VISIBLE){
                             itemTermAd.ivArrow.setImageResource(R.drawable.btn_accodian_open);
@@ -175,13 +196,32 @@ public class ServiceMembershipJoinFragment extends SubFragment<ActivityMembershi
     }
 
 
+
+    private void setAgreeStatus(){
+        List<AgreeTermVO> blueTerms = new ArrayList<>();
+        String agreeDate = DateUtil.getDate(Calendar.getInstance(Locale.getDefault()).getTime(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss);
+
+        //제네시스 앱 약관에 대한 데이터구조 생성
+        for(int i=0; i<checkBoxs.size(); i++){
+            AgreeMeansVO agreeMeansVO = null;
+            if(checkBoxs.get(i).getTermVO().getTermCd().equalsIgnoreCase(TERM_SERVICE_JOIN_BLM0003)){
+                agreeMeansVO = new AgreeMeansVO((me.cbSms.isChecked() ? "Y" : "N"), (me.cbEmail.isChecked() ? "Y" : "N"),(me.cbPost.isChecked() ? "Y" : "N"),(me.cbPhone.isChecked() ? "Y" : "N"));
+            }
+            blueTerms.add(new AgreeTermVO(checkBoxs.get(i).getTermVO().getTermCd(), (checkBoxs.get(i).getCheckBox().isChecked() ? "Y" : "N"),checkBoxs.get(i).getTermVO().getTermNm(),agreeDate,agreeMeansVO));
+        }
+
+        cmnViewModel.getREQ_MBR_0001().getValue().setBlueTerms(blueTerms);
+    }
+
+
+
     private void addTermToLayout(List<TermVO> termList){
         for(TermVO termVO : termList){
             final LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             final ItemTermBinding itemTermBinding = DataBindingUtil.inflate(inflater, R.layout.item_term, null, false);
             final View view = itemTermBinding.getRoot();
 
-            itemTermBinding.ivArrow.setOnClickListener(onSingleClickListener);
+            itemTermBinding.setListener(onSingleClickListener);
             itemTermBinding.cb.setOnCheckedChangeListener(listener);
 
             // (필수) 혹은 (선택) 이 제목에 붙어있으면 일단 제거
@@ -204,7 +244,7 @@ public class ServiceMembershipJoinFragment extends SubFragment<ActivityMembershi
             me.lTermBottom.addView(itemTermBinding.getRoot());
 
 
-            if(termVO.getTermCd().equalsIgnoreCase(VariableType.TERM_SERVICE_JOIN_BLM0003)){
+            if(termVO.getTermCd().equalsIgnoreCase(TERM_SERVICE_JOIN_BLM0003)){
                 itemTermAd = itemTermBinding;
                 itemTermAd.ivArrow.setImageResource(R.drawable.btn_accodian_open);
                 itemTermAd.cb.setOnCheckedChangeListener(listenerAdAll);
@@ -233,8 +273,9 @@ public class ServiceMembershipJoinFragment extends SubFragment<ActivityMembershi
     CompoundButton.OnCheckedChangeListener listenerAd = (compoundButton, b) -> {
         if(compoundButton.isPressed()) {
             if(itemTermAd!=null&&itemTermAd.cb!=null){
-                itemTermAd.cb.setChecked(checkBoxsAd[0].isChecked()&&checkBoxsAd[1].isChecked()&&checkBoxsAd[2].isChecked()&&checkBoxsAd[3].isChecked());
+                itemTermAd.cb.setChecked(checkBoxsAd[0].isChecked()||checkBoxsAd[1].isChecked()||checkBoxsAd[2].isChecked()||checkBoxsAd[3].isChecked());
             }
         }
     };
+
 }

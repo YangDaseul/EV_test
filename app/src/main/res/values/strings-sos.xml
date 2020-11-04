@@ -1,0 +1,44 @@
+<resources>
+    <string name="sm_emgc01_1">긴급출동서비스</string>
+    <string name="sm_emgc01_2">차량 문제를\n선택해 주세요.</string>
+    <string name="sm_emgc01_3">차량 문제</string>
+    <string name="sm_emgc01_4">휴대폰 번호</string>
+    <string name="sm_emgc01_5">휴대폰 번호를 입력해 주세요.</string>
+    <string name="sm_emgc01_6">보증기간이 지난 경우\n추가 비용이 발생할 수 있습니다.</string>
+    <string name="sm_emgc01_7">도로 구분을\n선택해 주세요.</string>
+    <string name="sm_emgc01_8">도로 구분</string>
+    <string name="sm_emgc01_9">도로 구분을 선택해 주세요.</string>
+    <string name="sm_emgc01_10">주소를\n입력해 주세요.</string>
+    <string name="sm_emgc01_11">주소</string>
+    <string name="sm_emgc01_12">주소를 입력해 주세요.</string>
+    <string name="sm_emgc01_13">상세 주소를\n입력해 주세요.</string>
+    <string name="sm_emgc01_14">상세 주소</string>
+    <string name="sm_emgc01_15">상세 주소를 입력해 주세요.</string>
+    <string name="sm_emgc01_16">차량 번호를\n입력해 주세요.</string>
+    <string name="sm_emgc01_17">차량 번호</string>
+    <string name="sm_emgc01_18">차량 번호를 입력해 주세요.</string>
+    <string name="sm_emgc01_19">메모를\n입력해 주세요.</string>
+    <string name="sm_emgc01_20">메모 입력</string>
+    <string name="sm_emgc01_21">메모를 입력해 주세요.</string>
+
+    <string name="sm_emgc01_22">어떤 도로에 계신가요?</string>
+    <string name="sm_emgc01_23">무엇을 도와드릴까요?</string>
+    <string name="sm_emgc01_24">차량 문제를 선택해 주세요.</string>
+    <string name="sm_emgc01_25">신청 하기</string>
+    <string name="sm_emgc01_26">휴대폰 번호를 올바르게 입력해 주세요.</string>
+    <string name="sm_emgc01_27">차량번호를 올바르게 입력해 주세요.</string>
+
+<!--    <string name="sm_emgc01_p04_1">추가 비용 안내</string>-->
+<!--    <string name="sm_emgc01_p04_2">차종\n(무게)</string>-->
+<!--    <string name="sm_emgc01_p04_3">주간\n(08:00~18:00)</string>-->
+<!--    <string name="sm_emgc01_p04_4">야간\n(18:01~07:59)</string>-->
+<!--    <string name="sm_emgc01_p04_5">승용,RV,포터,스타렉스</string>-->
+<!--    <string name="sm_emgc01_p04_6">2T~4.5T 미만</string>-->
+<!--    <string name="sm_emgc01_p04_7">4.5T~8T 미만</string>-->
+<!--    <string name="sm_emgc01_p04_8">8T 이상</string>-->
+<!--    <string name="sm_emgc01_p04_9">(단위:원, VAT 포함)</string>-->
+
+
+
+
+</resources>

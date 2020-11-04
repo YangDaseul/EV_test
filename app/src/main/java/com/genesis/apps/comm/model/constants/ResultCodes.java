@@ -10,7 +10,9 @@ public enum ResultCodes {
     REQ_CODE_BTR(12,"버틀러 정보"),
     REQ_CODE_ADDR_FILTER(13,"필터 정보"),
     REQ_CODE_LEASING_CAR_CANCEL(14,"렌트 리스 신청 취소"),
-    REQ_CODE_LEASING_CAR_RE_APPLY(15,"렌트 리스 재신청");
+    REQ_CODE_LEASING_CAR_RE_APPLY(15,"렌트 리스 재신청"),
+    REQ_CODE_INSIGHT_EXPN_ADD(16,"차계부 입력"),
+    REQ_CODE_INSIGHT_EXPN_MODIFY(17,"차계부 수정");
 
     private int code;
     private String description;

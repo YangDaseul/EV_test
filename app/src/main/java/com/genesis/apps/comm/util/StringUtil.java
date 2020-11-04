@@ -19,7 +19,14 @@ public class StringUtil {
     }
 
     public static String getDigitGroupingString(String value) {
-        return NumberFormat.getInstance(Locale.getDefault()).format(Integer.parseInt(value));
+        long valueLong=0;
+        try{
+            valueLong = Long.parseLong(value);
+        }catch (Exception e){
+            valueLong = 0;
+        }finally{
+            return NumberFormat.getInstance(Locale.getDefault()).format(valueLong);
+        }
     }
 
     /**

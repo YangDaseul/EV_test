@@ -55,16 +55,7 @@ public class VariableType {
     public static final String MAIN_HOME_INSIGHT_TIL ="TIL"; //텍스트+이미지+링크
     public static final String MAIN_HOME_INSIGHT_SYS ="SYS"; //고정된 메시지 유형?
 
-    //인사이트 지출분류
-//    public static final String INSIGHT_EXPN_DIV_CODE_1000 ="1000"; //주유
-//    public static final String INSIGHT_EXPN_DIV_CODE_2000 ="2000"; //정비
-//    public static final String INSIGHT_EXPN_DIV_CODE_3000 ="3000"; //세차
-//    public static final String INSIGHT_EXPN_DIV_CODE_4000 ="4000"; //주차
-//    public static final String INSIGHT_EXPN_DIV_CODE_5000 ="5000"; //통행
-//    public static final String INSIGHT_EXPN_DIV_CODE_6000 ="6000"; //보험
-//    public static final String INSIGHT_EXPN_DIV_CODE_7000 ="7000"; //세금
-//    public static final String INSIGHT_EXPN_DIV_CODE_8000 ="8000"; //용품
-//    public static final String INSIGHT_EXPN_DIV_CODE_9000 ="9000"; //기타
+
     public static final String INSIGHT_EXPN_DIV_CODE_1000 ="주유"; //주유
     public static final String INSIGHT_EXPN_DIV_CODE_2000 ="정비"; //정비
     public static final String INSIGHT_EXPN_DIV_CODE_3000 ="세차"; //세차
@@ -75,6 +66,29 @@ public class VariableType {
     public static final String INSIGHT_EXPN_DIV_CODE_8000 ="용품"; //용품
     public static final String INSIGHT_EXPN_DIV_CODE_9000 ="기타"; //기타
 
+    public static String getExpnDivCd(String result) {
+        switch (result){
+            case INSIGHT_EXPN_DIV_CODE_1000:
+                return "1000";
+            case INSIGHT_EXPN_DIV_CODE_2000:
+                return "2000";
+            case INSIGHT_EXPN_DIV_CODE_3000:
+                return "3000";
+            case INSIGHT_EXPN_DIV_CODE_4000:
+                return "4000";
+            case INSIGHT_EXPN_DIV_CODE_5000:
+                return "5000";
+            case INSIGHT_EXPN_DIV_CODE_6000:
+                return "6000";
+            case INSIGHT_EXPN_DIV_CODE_7000:
+                return "7000";
+            case INSIGHT_EXPN_DIV_CODE_8000:
+                return "8000";
+            case INSIGHT_EXPN_DIV_CODE_9000:
+            default:
+                return "9000";
+        }
+    }
 
 
 
@@ -137,4 +151,44 @@ public class VariableType {
     public static final String BTR_FILTER_CODE_C="C";//종합
     public static final String BTR_FILTER_CODE_D="D";//전문
     public static final String BTR_FILTER_CODE_P="P";//일반
+
+    //서비스 긴급출동 고장구분코드
+    public static final String SERVICE_SOS_FIT_CODE_010101 ="차량 시동이 걸리지 않아요."; //시동불가
+    public static final String SERVICE_SOS_FIT_CODE_020110 ="경고등 점등이 이상해요."; //경고등 점등
+    public static final String SERVICE_SOS_FIT_CODE_020104 ="오일이 뚝뚝 떨어져요.(누유 현상)"; //오일 누유
+    public static final String SERVICE_SOS_FIT_CODE_020108 ="창문에 문제가 생겼어요."; //윈도우 작동 불량
+    public static final String SERVICE_SOS_FIT_CODE_040101 ="견인이 필요합니다."; //견인
+    public static final String SERVICE_SOS_FIT_CODE_990100 ="기타"; //기타
+
+    public static String getFitCd(String result) {
+        switch (result){
+            case SERVICE_SOS_FIT_CODE_010101:
+                return "010101";
+            case SERVICE_SOS_FIT_CODE_020110:
+                return "020110";
+            case SERVICE_SOS_FIT_CODE_020104:
+                return "020104";
+            case SERVICE_SOS_FIT_CODE_020108:
+                return "020108";
+            case SERVICE_SOS_FIT_CODE_040101:
+                return "040101";
+            case SERVICE_SOS_FIT_CODE_990100:
+            default:
+                return "990100";
+        }
+    }
+
+    //서비스 긴급출동 도로구분코드
+    public static final String SERVICE_SOS_AREA_CLS_CODE_R ="일반 도로"; //일반도로
+    public static final String SERVICE_SOS_AREA_CLS_CODE_H ="자동차 전용 고속 도로"; //자동차전용도로
+    public static String getAreaClsCd(String result) {
+        switch (result){
+            case SERVICE_SOS_AREA_CLS_CODE_R:
+                return "R";
+            case SERVICE_SOS_AREA_CLS_CODE_H:
+            default:
+                return "H";
+        }
+    }
+
 }

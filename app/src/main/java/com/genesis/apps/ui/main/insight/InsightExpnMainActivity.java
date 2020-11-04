@@ -1,23 +1,32 @@
 package com.genesis.apps.ui.main.insight;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.CBK_1002;
+import com.genesis.apps.comm.model.gra.api.CBK_1007;
 import com.genesis.apps.comm.model.vo.ExpnVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.graph.AxisValueFormatter;
 import com.genesis.apps.comm.util.graph.RoundedBarChartRenderer;
 import com.genesis.apps.comm.viewmodel.CBKViewModel;
 import com.genesis.apps.databinding.ActivityInsightExpnMainBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -29,8 +38,10 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -67,6 +78,8 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
             ui.rv.addItemDecoration(new RecyclerViewDecoration((int) DeviceUtil.dip2Pixel(this,4.0f)));
             ui.rv.setHasFixedSize(true);
             ui.rv.setAdapter(adapter);
+            ui.lTitle.setBtnText(getString(R.string.tm_exps01_2));
+            ui.lTitle.tvTitlebarTextBtn.setOnClickListener(onSingleClickListener);
         }
     }
 
@@ -76,11 +89,11 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
         if(size<2){
             ui.btnVehicle.setCompoundDrawables(null, null, null, null);
             ui.btnVehicle.setOnClickListener(null);
-            reqCNKData();
+            reqCBKData();
         }else if(size==0){
             ui.btnMonth.setOnClickListener(null);
         }else{
-            reqCNKData();
+            reqCBKData();
         }
     }
 
@@ -99,6 +112,28 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
     public void onClickCommon(View v) {
 
         switch (v.getId()){
+            case R.id.btn_modify:
+                ExpnVO item = (ExpnVO)v.getTag(R.id.insight_expn_vo);
+                if(item!=null){
+                    startActivitySingleTop(new Intent(this, InsightExpnModifyActivity.class).putExtra(KeyNames.KEY_NAME_INSIGHT_EXPN, item).putExtra(KeyNames.KEY_NAME_VEHICLE, selectVehicle), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                }
+                break;
+            case R.id.btn_delete:
+                ExpnVO expnVO = (ExpnVO)v.getTag(R.id.insight_expn_vo);
+                if(expnVO!=null){
+                    MiddleDialog.dialogInsightExpnDelete(this, () -> {
+                        adapter.setDeleteExpnSeqNo(expnVO.getExpnSeqNo());
+                        cbkViewModel.reqCBK1007(new CBK_1007.Request(APPIAInfo.TM_EXPS01_P03.getId(), expnVO.getExpnSeqNo()));
+                    }, () -> {
+
+                    }, expnVO);
+                }
+                break;
+            case R.id.tv_titlebar_text_btn:
+                if(selectVehicle.getVin()!=null) {
+                    startActivitySingleTop(new Intent(this, InsightExpnInputActivity.class).putExtra(KeyNames.KEY_NAME_VIN, selectVehicle.getVin()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                }
+                break;
             case R.id.btn_month:
                 final List<String> yearList = cbkViewModel.getYearRecently5Years();
                 showMapDialog(yearList, R.string.tm_exps01_23, dialogInterface -> {
@@ -117,7 +152,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                     if(!TextUtils.isEmpty(vehicleName)){
                         selectVehicle = cbkViewModel.getVehicleList().getValue().get(getVehiclePosition(vehicleName));
                         ui.btnVehicle.setText(vehicleName);
-                        reqCNKData();
+                        reqCBKData();
                     }
                 });
 
@@ -154,12 +189,12 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
             if(!TextUtils.isEmpty(month)){
                 basYymm = year+month;
                 ui.btnMonth.setText(Integer.parseInt(month)+"월");
-                reqCNKData();
+                reqCBKData();
             }
         });
     }
 
-    private void reqCNKData(){
+    private void reqCBKData(){
         if(selectVehicle!=null) {
             cbkViewModel.reqCBK1002(new CBK_1002.Request(APPIAInfo.TM_EXPS01_P03.getId(), selectVehicle.getVin(), basYymm, "1", "11"));
         }
@@ -257,13 +292,39 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
             }
 
         });
-
-
-
-
-
-
-
+        cbkViewModel.getRES_CBK_1007().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if(result.data!=null&&!TextUtils.isEmpty(result.data.getRtCd())&&result.data.getRtCd().equalsIgnoreCase("0000")){
+                        int deletePosition = adapter.getRemovePosition();
+                        if(deletePosition>-1){
+                            adapter.setDeleteExpnSeqNo("");
+                            adapter.remove(deletePosition);
+                            adapter.notifyItemRemoved(deletePosition);
+                        }
+                        ui.tvEmpty.setVisibility(adapter.getItemCount()==0 ? View.VISIBLE : View.GONE);
+                        break;
+                    }
+                default:
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if (TextUtils.isEmpty(serverMsg)){
+                            serverMsg = getString(R.string.instability_network);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                        showProgressDialog(false);
+                    }
+                    break;
+            }
+        });
 
     }
 
@@ -403,28 +464,22 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
     
 
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        //재신청 시 내역 액티비티를 종료
-//         if (resultCode == ResultCodes.REQ_CODE_LEASING_CAR_RE_APPLY.getCode()) {
-//            finish();
-//        }else if(resultCode == ResultCodes.REQ_CODE_LEASING_CAR_CANCEL.getCode()){
-//        //신청 취소 시 스낵바 메시지 활성화 및 리스트를 다시 갱신
-//             String msg="";
-//             try {
-//                 msg = data.getStringExtra("msg");
-//             }catch (Exception e){
-//                 e.printStackTrace();
-//             }finally{
-//                 if(TextUtils.isEmpty(msg)){
-//                    msg = getString(R.string.gm_carlist_01_p05_snackbar_1);
-//                 }
-//                 SnackBarUtil.show(this, msg);
-//                 gnsViewModel.reqGNS1007(new GNS_1007.Request(APPIAInfo.GM_CARLST_02.getId()));
-//             }
-//         }
-//    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == ResultCodes.REQ_CODE_INSIGHT_EXPN_ADD.getCode()
+                ||resultCode == ResultCodes.REQ_CODE_INSIGHT_EXPN_MODIFY.getCode()){
+             String msg="";
+             try {
+                 msg = data.getStringExtra("msg");
+             }catch (Exception e){
+                 e.printStackTrace();
+             }finally{
+                 SnackBarUtil.show(this, msg);
+                 reqCBKData();
+             }
+         }
+    }
 
 }

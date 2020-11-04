@@ -28,6 +28,7 @@ import com.genesis.apps.comm.viewmodel.GNSViewModel;
 import com.genesis.apps.databinding.ActivityLeasingCarRegisterInput1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
+import com.genesis.apps.ui.main.AlarmCenterSearchActivity;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
@@ -85,7 +86,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
         ui.etRentPeriodEtc.setOnFocusChangeListener((view, hasFocus) -> {
 
             if (!hasFocus) {
-                SoftKeyboardUtil.hideKeyboard(LeasingCarRegisterInputActivity.this);
+                SoftKeyboardUtil.hideKeyboard(LeasingCarRegisterInputActivity.this, getWindow().getDecorView().getWindowToken());
             }else{
                 SoftKeyboardUtil.showKeyboard(getApplicationContext());
             }

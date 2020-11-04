@@ -52,13 +52,13 @@ public class CBK_1006 extends BaseData {
         @SerializedName("accmMilg")
         private String accmMilg;
 
-        public Request(String menuId, String vin, ExpnVO expnVO){
+        public Request(String menuId, String vin, String expnDivCd, String expnAmt, String expnDtm, String expnPlc, String accmMilg){
             this.vin = vin;
-            this.expnDivCd = expnVO.getExpnDivCd();
-            this.expnAmt = expnVO.getExpnAmt();
-            this.expnDtm = expnVO.getExpnDtm();
-            this.expnPlc = expnVO.getExpnPlc();
-            this.accmMilg = expnVO.getAccmMilg();
+            this.expnDivCd = expnDivCd;
+            this.expnAmt = expnAmt;
+            this.expnDtm = expnDtm;
+            this.expnPlc = expnPlc;
+            this.accmMilg = accmMilg;
             setData(APIInfo.GRA_CBK_1006.getIfCd(), menuId);
         }
     }

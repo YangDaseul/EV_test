@@ -36,5 +36,34 @@
         <item>12</item>
     </string-array>
 
+
+    <string-array name="insight_item">
+        <item>주유</item>
+        <item>정비</item>
+        <item>세차</item>
+        <item>주차</item>
+        <item>통행</item>
+        <item>보험</item>
+        <item>세금</item>
+        <item>용품</item>
+        <item>기타</item>
+    </string-array>
+
+
+    <string-array name="service_sos_area_cls">
+        <item>일반 도로</item>
+        <item>자동차 전용 고속 도로</item>
+    </string-array>
+
+
+    <string-array name="service_sos_fit">
+        <item>차량 시동이 걸리지 않아요.</item>
+        <item>경고등 점등이 이상해요.</item>
+        <item>오일이 뚝뚝 떨어져요.(누유 현상)</item>
+        <item>창문에 문제가 생겼어요.</item>
+        <item>견인이 필요합니다.</item>
+        <item>기타</item>
+    </string-array>
+
 </resources>
 

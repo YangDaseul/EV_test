@@ -78,7 +78,7 @@ public class CBK_1008 extends BaseData {
         @SerializedName("rgstChnlCd")
         private String rgstChnlCd;
 
-        public Request(String menuId, String expnSeqNo, VehicleVO vehicleVO, ExpnVO expnVO){
+        public Request(String menuId, String expnSeqNo, VehicleVO vehicleVO, String expnDivCd, String expnDtm, String expnAmt,String accmMilg,String expnPlc,String rgstChnlCd){
             this.expnSeqNo = expnSeqNo;
 
             this.vin = vehicleVO.getVin();
@@ -86,12 +86,12 @@ public class CBK_1008 extends BaseData {
             this.mdlCd = vehicleVO.getMdlCd();
             this.mdlNm = vehicleVO.getMdlNm();
 
-            this.expnDivCd = expnVO.getExpnDivCd();
-            this.expnDtm = expnVO.getExpnDtm();
-            this.expnAmt = expnVO.getExpnAmt();
-            this.accmMilg = expnVO.getAccmMilg();
-            this.expnPlc = expnVO.getExpnPlc();
-            this.rgstChnlCd = expnVO.getRgstChnlCd();
+            this.expnDivCd = expnDivCd;
+            this.expnDtm = expnDtm;
+            this.expnAmt = expnAmt;
+            this.accmMilg = accmMilg;
+            this.expnPlc = expnPlc;
+            this.rgstChnlCd = rgstChnlCd;
             setData(APIInfo.GRA_CBK_1008.getIfCd(), menuId);
         }
     }

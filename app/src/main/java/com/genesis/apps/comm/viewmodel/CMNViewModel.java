@@ -76,6 +76,8 @@ class CMNViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<NOT_0001.Response>> RES_NOT_0001;
     private MutableLiveData<NetUIResponse<NOT_0002.Response>> RES_NOT_0002;
 
+    private MutableLiveData<NetUIResponse<MBR_0001.Response>> RES_MBR_0001;
+
     private MutableLiveData<MBR_0001.Request> REQ_MBR_0001;
 
     @ViewModelInject
@@ -106,6 +108,8 @@ class CMNViewModel extends ViewModel {
 
         RES_NOT_0001 = notRepo.RES_NOT_0001;
         RES_NOT_0002 = notRepo.RES_NOT_0002;
+
+        RES_MBR_0001 = mbrRepo.RES_MBR_0001;
 
         REQ_MBR_0001 = new MutableLiveData<>();
     }

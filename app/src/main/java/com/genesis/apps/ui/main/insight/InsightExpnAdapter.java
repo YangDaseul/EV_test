@@ -30,7 +30,7 @@ public class InsightExpnAdapter extends BaseRecyclerViewAdapter2<ExpnVO> {
     private int pageNo = 0;
     private int pageLimit=10;
     private boolean isMore=false;
-
+    private String deleteExpnSeqNo;
 
     public InsightExpnAdapter(OnSingleClickListener onSingleClickListener) {
         this.onSingleClickListener = onSingleClickListener;
@@ -88,6 +88,25 @@ public class InsightExpnAdapter extends BaseRecyclerViewAdapter2<ExpnVO> {
         isMore = more;
     }
 
+    public String getDeleteExpnSeqNo() {
+        return deleteExpnSeqNo;
+    }
+
+    public void setDeleteExpnSeqNo(String deleteExpnSeqNo) {
+        this.deleteExpnSeqNo = deleteExpnSeqNo;
+    }
+
+    public int getRemovePosition(){
+        int position = -1;
+        for(int i=0; i<getItems().size(); i++){
+            if(getItems().get(i).getExpnSeqNo().equalsIgnoreCase(deleteExpnSeqNo)){
+                position=i;
+                break;
+            }
+        }
+        return position;
+    }
+
 
     private static class ItemInsightExpn extends BaseViewHolder<ExpnVO, ItemInsightExpnBinding> {
         public ItemInsightExpn(View itemView) {
@@ -107,14 +126,16 @@ public class InsightExpnAdapter extends BaseRecyclerViewAdapter2<ExpnVO> {
                 getBinding().tvExpnDtm.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(item.getExpnDtm(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot));
             }else{
                 getBinding().tvExpnDtm.setVisibility(View.GONE);
-
-
             }
-
 
             getBinding().tvExpnPlc.setText(item.getExpnPlc());
             getBinding().tvAccmMilg.setText(StringUtil.getDigitGroupingString(item.getAccmMilg())+"km");
             getBinding().tvExpnAmt.setText(StringUtil.getDigitGroupingString(item.getExpnAmt())+"원");
+
+            getBinding().btnDelete.setOnClickListener(onSingleClickListener);
+            getBinding().btnDelete.setTag(R.id.insight_expn_vo, item);
+            getBinding().btnModify.setOnClickListener(onSingleClickListener);
+            getBinding().btnModify.setTag(R.id.insight_expn_vo, item);
 
             int iconId=R.drawable.ic_service_potentiometer; //기타 이미지 변경 필요
             int expnDivNmId = R.string.tm_exps01_21;

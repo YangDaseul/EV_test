@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="activity"
-            type="com.genesis.apps.ui.common.activity.SubActivity" />
+            name="listener"
+            type="com.genesis.apps.ui.common.view.listener.OnSingleClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,7 +47,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cb"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"/>
+            android:onClick="@{(view)->listener.onClick(view)}"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

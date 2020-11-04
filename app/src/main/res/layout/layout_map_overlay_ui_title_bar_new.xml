@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="10dp"
-        android:paddingEnd="10dp"
+        android:paddingEnd="5dp"
         tools:background="#a0f040">
 
         <!-- 백 버튼 -->
@@ -25,33 +25,40 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/x_ffffff"
-            android:elevation="10dp"
+            android:elevation="5dp"
             android:outlineSpotShadowColor="#33000000"
             android:src="@drawable/btn_back2"
             app:backgroundTint="@color/x_ffffff"
-            app:borderWidth="2dp"
-            app:elevation="10dp"
             app:fabSize="normal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- 타이틀 텍스트 버튼 -->
         <!--  @string/map_title_1
-              @string/sm_cw_find_01
         -->
         <TextView
             android:id="@+id/tv_map_title_text"
             style="@style/MapOverlayTitleBar.Hint"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginEnd="5dp"
-            android:elevation="5dp"
+            android:layout_height="58dp"
             android:text="@string/cm02_5"
-            app:elevation="10dp"
             app:layout_constraintBottom_toBottomOf="@id/fab_map_back"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/fab_map_back" />
+            app:layout_constraintTop_toTopOf="@id/fab_map_back"
+            tools:visibility="gone" />
 
-
+        <!--  대리, 세차 검색시 타이틀 -->
+        <TextView
+            android:id="@+id/tv_map_title_address"
+            style="@style/MapOverlayTitleBar.Hint"
+            android:layout_height="58dp"
+            android:text="@{title}"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/fab_map_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fab_map_back"
+            app:layout_constraintTop_toTopOf="@id/fab_map_back"
+            tools:text="@string/map_title_1"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

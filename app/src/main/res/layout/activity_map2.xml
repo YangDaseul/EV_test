@@ -77,6 +77,25 @@
             app:layout_constraintBottom_toTopOf="@id/vs_map_overlay_bottom_box"
             app:layout_constraintStart_toStartOf="parent" />
 
+
+        <ImageView
+            android:id="@+id/iv_center_maker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/gl_center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:src="@drawable/ic_pin_car"
+            tools:visibility="visible" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

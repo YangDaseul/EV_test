@@ -254,7 +254,7 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
             final ItemTermBinding itemTermBinding = DataBindingUtil.inflate(inflater, R.layout.item_term, null, false);
             final View view = itemTermBinding.getRoot();
 
-            itemTermBinding.setActivity(this);
+            itemTermBinding.setListener(onSingleClickListener);
             itemTermBinding.cb.setOnCheckedChangeListener(listener);
             itemTermBinding.cb.setText(termVO.getTermNm() + (termVO.getTermEsnAgmtYn().equalsIgnoreCase(TERM_ESN_AGMT_N) ? getString(R.string.mg_con02_01_13) : getString(R.string.mg_con02_01_14)));
             itemTermBinding.ivArrow.setTag(R.id.oil_term, termVO);

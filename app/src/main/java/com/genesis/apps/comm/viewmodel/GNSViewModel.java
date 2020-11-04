@@ -211,7 +211,6 @@ class GNSViewModel extends ViewModel {
         try {
             return future.get();
         }finally {
-            //todo 테스트 필요
             es.shutDownExcutor();
         }
     }

@@ -3,9 +3,13 @@ package com.genesis.apps.comm.net.ga;
 import android.content.Context;
 import android.util.Log;
 
+import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.vo.UserProfileVO;
 import com.genesis.apps.comm.util.crypt.AesUtils;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -23,18 +27,25 @@ import static com.genesis.apps.comm.model.constants.GAInfo.TAG_MSG_LOGININFO;
 @EqualsAndHashCode(callSuper=false)
 @AllArgsConstructor
 public @Data
-class LoginInfoDTO {
-    private static final String TAG = CCSP.class.getSimpleName();
-    private String accessToken;
-    private String refreshToken;
-    private long expiresDate;
-    private UserProfileVO profile;
-    private long refreshTokenExpriesDate;
-    private String tokenCode;
-    private Context context;
-
-    private static byte[] key = new byte[]{
+class LoginInfoDTO extends BaseData {
+    private final String TAG = CCSP.class.getSimpleName();
+    private byte[] key = new byte[]{
             (byte)0xDC, 0x0F, 0x79, (byte)0xCA, 0x39, 0x7E, (byte)0xB3, (byte)0x8C, 0x0A, 0x2E, (byte)0xB8, (byte)0x80, (byte)0xB2, 0x39, (byte)0x8B, 0x7D};
+
+    @Expose
+    private String accessToken;
+    @Expose
+    private String refreshToken;
+    @Expose
+    private long expiresDate;
+    @Expose
+    private UserProfileVO profile;
+    @Expose
+    private long refreshTokenExpriesDate;
+    @Expose
+    private String tokenCode;
+
+    private Context context;
 
     public LoginInfoDTO(Context context){
         this.context = context;
@@ -190,7 +201,7 @@ class LoginInfoDTO {
 
     public boolean updateLoginInfo(LoginInfoDTO loginInfoDTO) {
         Log.d(TAG, TAG_MSG_LOGININFO + (loginInfoDTO !=null ? loginInfoDTO.toString() : "null"));
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(loginInfoDTO);
         File dir = context.getFilesDir();
         File dataDir = new File(dir, "/data");

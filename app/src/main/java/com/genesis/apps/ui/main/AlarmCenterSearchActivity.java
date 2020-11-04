@@ -60,7 +60,7 @@ public class AlarmCenterSearchActivity extends SubActivity<ActivityAlarmCenterSe
             if (hasFocus) {
                 reqListData(ui.lSearchParent.etSearch.getText().toString());
             } else {
-                SoftKeyboardUtil.hideKeyboard(AlarmCenterSearchActivity.this);
+                SoftKeyboardUtil.hideKeyboard(AlarmCenterSearchActivity.this, getWindow().getDecorView().getWindowToken());
             }
 
         });

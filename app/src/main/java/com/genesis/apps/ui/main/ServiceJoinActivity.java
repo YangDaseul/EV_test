@@ -23,7 +23,10 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.CMN_0003;
 import com.genesis.apps.comm.model.gra.api.MBR_0001;
+import com.genesis.apps.comm.model.vo.AgreeMeansVO;
+import com.genesis.apps.comm.model.vo.AgreeTermVO;
 import com.genesis.apps.comm.model.vo.TermVO;
+import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.databinding.ActivityServiceJoinBinding;
@@ -31,12 +34,16 @@ import com.genesis.apps.databinding.ItemTermBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.view.TermView;
-import com.genesis.apps.ui.main.home.BluehandsFilterFragment;
 import com.genesis.apps.ui.myg.MyGOilTermDetailActivity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
+import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_BLM0003;
+import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0005;
+import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_MYP0004;
 import static com.genesis.apps.comm.model.vo.TermVO.TERM_ESN_AGMT_N;
 
 public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding> {
@@ -45,6 +52,10 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
     private List<TermView> checkBoxs = new ArrayList<>();
     private ItemTermBinding itemTermAd;
     private CheckBox[] checkBoxsAd;
+
+    private String tokenCode="";
+    private String authUuid="";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +81,7 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
     public void onClickCommon(View v) {
         switch (v.getId()){
             case R.id.btn_next:
-
+                setAgreeStatus();
                 showFragment(new ServiceMembershipJoinFragment());
                 break;
             case R.id.iv_arrow:
@@ -78,7 +89,7 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
                     TermVO termVO = (TermVO)v.getTag(R.id.term);
                     Log.v("test","test:"+termVO.getTermCd());
 
-                    if(termVO.getTermCd().equalsIgnoreCase(VariableType.TERM_SERVICE_JOIN_GRA0005)){ //광고성정보수신유무 선택 시
+                    if(termVO.getTermCd().equalsIgnoreCase(TERM_SERVICE_JOIN_GRA0005)){ //광고성정보수신유무 선택 시
                         if(ui.lAdInfo.getVisibility()==View.VISIBLE){
                             itemTermAd.ivArrow.setImageResource(R.drawable.btn_accodian_open);
                             InteractionUtil.collapse(ui.lAdInfo);
@@ -151,13 +162,42 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
         ui.btnNext.setEnabled(true);
     }
 
+    private void setAgreeStatus(){
+        List<AgreeTermVO> terms = new ArrayList<>();
+        List<AgreeTermVO> mypgTerms = new ArrayList<>();
+        String agreeDate = DateUtil.getDate(Calendar.getInstance(Locale.getDefault()).getTime(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss);
+
+
+        //제네시스 앱 약관에 대한 데이터구조 생성
+        for(int i=0; i<checkBoxs.size(); i++){
+            AgreeMeansVO agreeMeansVO = null;
+            if(checkBoxs.get(i).getTermVO().getTermCd().equalsIgnoreCase(TERM_SERVICE_JOIN_GRA0005)){
+                agreeMeansVO = new AgreeMeansVO((ui.cbSms.isChecked() ? "Y" : "N"), (ui.cbEmail.isChecked() ? "Y" : "N"),"",(ui.cbPhone.isChecked() ? "Y" : "N"));
+            }
+            terms.add(new AgreeTermVO(checkBoxs.get(i).getTermVO().getTermCd(), (checkBoxs.get(i).getCheckBox().isChecked() ? "Y" : "N"),checkBoxs.get(i).getTermVO().getTermNm(),agreeDate,agreeMeansVO));
+        }
+
+        //마이페이지 약관에 대한 데이터 구조 생성 //todo 추후 oriMyGTerms을 지우고 checkboxs 리스트 만들어서 재 처리 필요
+        List<TermVO> oriMyGTerms = cmnViewModel.getRES_CMN_0003().getValue().data.getMypgTermList();
+        for(int i=0; i<oriMyGTerms.size(); i++){
+            AgreeMeansVO agreeMeansVO = null;
+            if(oriMyGTerms.get(i).getTermCd().equalsIgnoreCase(TERM_SERVICE_JOIN_MYP0004)){
+                agreeMeansVO = new AgreeMeansVO((ui.cbSms.isChecked() ? "Y" : "N"), (ui.cbEmail.isChecked() ? "Y" : "N"),"",(ui.cbPhone.isChecked() ? "Y" : "N"));
+            }
+            mypgTerms.add(new AgreeTermVO(oriMyGTerms.get(i).getTermCd(),"Y", oriMyGTerms.get(i).getTermNm(), agreeDate, agreeMeansVO));
+        }
+        MBR_0001.Request mbrRequest = new MBR_0001.Request(APPIAInfo.INT03.getId(), tokenCode, authUuid, terms, null, mypgTerms);
+        cmnViewModel.getREQ_MBR_0001().setValue(mbrRequest);
+    }
+
+
     private void addTermToLayout(List<TermVO> termList){
         for(TermVO termVO : termList){
             final LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             final ItemTermBinding itemTermBinding = DataBindingUtil.inflate(inflater, R.layout.item_term, null, false);
             final View view = itemTermBinding.getRoot();
 
-            itemTermBinding.setActivity(this);
+            itemTermBinding.setListener(onSingleClickListener);
             itemTermBinding.cb.setOnCheckedChangeListener(listener);
 
             // (필수) 혹은 (선택) 이 제목에 붙어있으면 일단 제거
@@ -179,7 +219,7 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
             checkBoxs.add(new TermView(termVO, itemTermBinding.cb));
             ui.lTermBottom.addView(itemTermBinding.getRoot());
 
-            if(termVO.getTermCd().equalsIgnoreCase(VariableType.TERM_SERVICE_JOIN_GRA0005)){
+            if(termVO.getTermCd().equalsIgnoreCase(TERM_SERVICE_JOIN_GRA0005)){
                 itemTermAd = itemTermBinding;
                 itemTermAd.ivArrow.setImageResource(R.drawable.btn_accodian_open);
                 itemTermAd.cb.setOnCheckedChangeListener(listenerAdAll);
@@ -219,7 +259,7 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
     CompoundButton.OnCheckedChangeListener listenerAd = (compoundButton, b) -> {
         if(compoundButton.isPressed()) {
             if(itemTermAd!=null&&itemTermAd.cb!=null){
-                itemTermAd.cb.setChecked(checkBoxsAd[0].isChecked()&&checkBoxsAd[1].isChecked()&&checkBoxsAd[2].isChecked());
+                itemTermAd.cb.setChecked(checkBoxsAd[0].isChecked()||checkBoxsAd[1].isChecked()||checkBoxsAd[2].isChecked());
             }
         }
     };

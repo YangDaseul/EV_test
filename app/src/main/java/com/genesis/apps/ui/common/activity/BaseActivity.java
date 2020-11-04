@@ -13,6 +13,7 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.fcm.PushCode;
+import com.genesis.apps.ui.intro.IntroActivity;
 
 import javax.inject.Inject;
 
@@ -159,6 +160,7 @@ public class BaseActivity extends AppCompatActivity {
     public void exitPage(String msg, int resultCode){
         setResult(resultCode, new Intent().putExtra("msg",msg));
         finish();
+        closeTransition();
     }
 
 
@@ -178,5 +180,14 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * 앱 재시작
+     */
+    public void restart() {
+        final Intent intent = new Intent(this, IntroActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+        startActivity(intent);
+        finish();
+    }
 
 }

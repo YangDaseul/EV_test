@@ -37,7 +37,6 @@ public class LeasingCarHistAdapter extends BaseRecyclerViewAdapter2<RentStatusVO
     @Override
     public void onBindViewHolder(final BaseViewHolder holder, int position) {
         holder.onBindView(getItem(position), position);
-
     }
 
 
