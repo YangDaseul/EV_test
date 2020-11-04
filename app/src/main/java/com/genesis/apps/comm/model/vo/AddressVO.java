@@ -26,6 +26,7 @@ class AddressVO extends BaseData {
     }
     @PrimaryKey(autoGenerate = true)
     private int _id;
+
     @Expose
     @SerializedName("poiId")
     private int poiId;

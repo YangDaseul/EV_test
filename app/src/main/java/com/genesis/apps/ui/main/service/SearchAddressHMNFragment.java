@@ -22,6 +22,7 @@ import com.genesis.apps.databinding.ActivitySearchAddressBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
@@ -35,7 +36,8 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
     private MapViewModel mapViewModel;
     private LGNViewModel lgnViewModel;
 
-    public View.OnClickListener onClickListener = view -> onClickCommon(view);
+//    public View.OnClickListener onClickListener = view -> onClickCommon(view);
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -51,12 +53,11 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         me.setLifecycleOwner(getViewLifecycleOwner());
-        mapViewModel = new ViewModelProvider(getActivity()).get(MapViewModel.class);
+        mapViewModel = new ViewModelProvider(this).get(MapViewModel.class);
         lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
-        initView();
 
         mapViewModel.getPlayMapPoiItemList().observe(getViewLifecycleOwner(), result -> {
-            if(result!=null) {
+            if (result != null) {
                 switch (result.status) {
                     case LOADING:
                         ((SubActivity) getActivity()).showProgressDialog(true);
@@ -76,6 +77,8 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
                 }
             }
         });
+
+        initView();
     }
 
     private void initView() {
@@ -100,10 +103,20 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
 
         me.lSearchParent.etSearch.setOnEditorActionListener(editorActionListener);
         me.lSearchParent.etSearch.setHint(R.string.map_title_3);
+        me.lTitle.back.setOnClickListener(onSingleClickListener);
+        reqRecentlyData();
+    }
+
+    private void reqRecentlyData(){
+        List<AddressVO> list = new ArrayList<>();
         try {
-            setListView(SearchAddressHMNAdapter.TYPE_RECENTLY, mapViewModel.getRecentlyAddressVO());
+            ((SubActivity) getActivity()).showProgressDialog(true);
+            list = mapViewModel.getRecentlyAddressVO();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            ((SubActivity) getActivity()).showProgressDialog(false);
+            setListView(SearchAddressHMNAdapter.TYPE_RECENTLY, list);
         }
     }
 
@@ -133,14 +146,17 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
     @Override
     public void onClickCommon(View v) {
         switch (v.getId()) {
+            case R.id.back:
+                ((SubActivity) getActivity()).hideFragment(this);
+                break;
             case R.id.l_whole:
                 try {
                     AddressVO addressVO = (AddressVO) v.getTag(R.id.addr);
+                    addressVO.set_id(0);
                     if (addressVO != null) {
                         if (mapViewModel.insertRecentlyAddressVO(addressVO)) {
-                            mapViewModel.getPlayMapPoiItemList().setValue(null);
-                            //todo 액티비티에 전달하 데이터 저장 후
                             ((SubActivity)getActivity()).hideFragment(this);
+                            ((MapSearchMyPositionActivity)getActivity()).setAddressInfo(addressVO);
                         }
                     }
 
@@ -188,7 +204,6 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
     @Override
     public void onDestroy() {
         super.onDestroy();
-
     }
 
 
@@ -210,7 +225,5 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
         }
         SoftKeyboardUtil.hideKeyboard(getActivity(), getActivity().getWindow().getDecorView().getWindowToken());
     }
-
-
 
 }

@@ -5,8 +5,6 @@ import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -197,7 +195,7 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
     public <T extends SubFragment> void showFragment(T fragment) {
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_stay);
-        transaction.add(R.id.l_fragment, fragment).show(fragment);
+        transaction.replace(R.id.l_fragment, fragment);
         transaction.commitAllowingStateLoss();
     }
 
