@@ -6,9 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/x_cc000000"
-        android:clickable="true"
-        android:focusable="true">
+        android:background="@color/x_cc000000">
         <!--TODO : 투명도 확정되면 반영-->
 
         <!--  닫기 버튼 -->
