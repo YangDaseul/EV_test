@@ -42,7 +42,6 @@
                 android:id="@+id/et_memo"
                 style="@style/CommonTextInputEditText"
                 android:hint="@string/sm_emgc01_20"
-                android:inputType="number"
                 android:maxLength="40" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,8 +54,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_addr_dtl"
                 style="@style/CommonTextInputEditText"
-                android:hint="@string/sm_emgc01_14"
-                android:inputType="number" />
+                android:hint="@string/sm_emgc01_14"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 

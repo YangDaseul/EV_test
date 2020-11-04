@@ -27,7 +27,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_round_99_stroke_141414</item>
         <item name="android:textColor">@color/x_000000</item>
-        <item name="layout_constraintStart_toEndOf">@id/fab_map_back</item>
+        <item name="layout_constraintStart_toEndOf">@id/back</item>
 
     </style>
 

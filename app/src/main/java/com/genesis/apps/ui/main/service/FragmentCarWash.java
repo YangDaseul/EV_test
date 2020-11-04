@@ -49,8 +49,6 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
         setViewModel();
         setAdapter();
         setObserver();
-
-        viewModel.reqWSH1001(new WSH_1001.Request(APPIAInfo.SM_CW01_A01.getId(), WSHViewModel.SONAX));
     }
 
     //TODO : 이중 클릭 방지 클릭 리스너 붙이기. 세차 서비스 예약내역 버튼인데
@@ -96,7 +94,7 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
 
     @Override
     public void onRefresh() {
-
+        viewModel.reqWSH1001(new WSH_1001.Request(APPIAInfo.SM_CW01_A01.getId(), WSHViewModel.SONAX));
     }
 
     @Override

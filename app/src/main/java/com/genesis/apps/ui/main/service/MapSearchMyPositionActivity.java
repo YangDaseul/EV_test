@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.map.AroundPOIReqVO;
@@ -58,6 +59,7 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
         ui.lMapOverlayTitle.tvMapTitleAddress.setText(R.string.map_title_3);
         ui.lMapOverlayTitle.tvMapTitleAddress.setOnClickListener(onSingleClickListener);
         ui.btnMyPosition.setOnClickListener(onSingleClickListener);
+//        ui.lMapOverlayTitle.fabMapBack.setOnClickListener(onSingleClickListener);
         ui.pmvMapView.onMapTouchUpListener((motionEvent, makerList) -> {
             switch (motionEvent.getAction()) {
                 case MotionEvent.ACTION_DOWN:
@@ -81,7 +83,12 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
 
     @Override
     public void getDataFromIntent() {
-
+        try{
+            selectAddressVO = (AddressVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_ADDR);
+        }catch (Exception e){
+            e.printStackTrace();
+            selectAddressVO = null;
+        }
     }
 
     @Override
@@ -189,14 +196,12 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
     public void onClickCommon(View v) {
 
         switch (v.getId()) {
-            case R.id.tv_map_select_btn1://선택
-//                //기타 렌트리스.
-//                setResult(ResultCodes.REQ_CODE_BTR.getCode(), new Intent().putExtra(KeyNames.KEY_NAME_BTR, btrVO));
-//                finish();
+            case R.id.tv_map_address_btn://선택
+                if(selectAddressVO!=null){
+                    exitPage(new Intent().putExtra(KeyNames.KEY_NAME_ADDR, selectAddressVO), ResultCodes.REQ_CODE_SERVICE_SOS_MAP.getCode());
+                }
                 break;
             case R.id.btn_my_position:
-
-
                 lgnViewModel.setPosition(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1));
                 ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)), 500);
                 break;
@@ -232,9 +237,14 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
             }
 
             runOnUiThread(() -> {
-                initView(location.getLatitude(),location.getLongitude());
-                //버틀러 정보가 없으면 내 위치를 기본값으로 사용
-                lgnViewModel.setPosition(location.getLatitude(), location.getLongitude());
+                if(selectAddressVO==null){
+                    //기 선택된 위치 정보가 없으면 map을 내 위치로 초기화
+                    initView(location.getLatitude(),location.getLongitude());
+                    lgnViewModel.setPosition(location.getLatitude(), location.getLongitude());
+                }else{
+                    initView(selectAddressVO.getCenterLat(), selectAddressVO.getCenterLon());
+                    lgnViewModel.setPosition(selectAddressVO.getCenterLat(), selectAddressVO.getCenterLon());
+                }
                 //내위치는 항상 저장
                 lgnViewModel.setMyPosition(location.getLatitude(), location.getLongitude());
             });

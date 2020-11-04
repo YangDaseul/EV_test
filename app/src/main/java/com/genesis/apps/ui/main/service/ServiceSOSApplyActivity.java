@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.main.service;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
@@ -12,6 +13,7 @@ import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.ChangeBounds;
@@ -27,6 +29,9 @@ import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.CBK_1005;
 import com.genesis.apps.comm.model.gra.api.CBK_1006;
 import com.genesis.apps.comm.model.gra.api.SOS_1002;
+import com.genesis.apps.comm.model.vo.AddressVO;
+import com.genesis.apps.comm.model.vo.AddressZipVO;
+import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.DeviceUtil;
@@ -43,6 +48,7 @@ import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.bottom.DialogCalendar;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.google.android.material.textfield.TextInputEditText;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -65,6 +71,7 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
 
     private String areaClsCd;
     private String fitCd;
+    private AddressVO addressVO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +120,7 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
     }
 
     private void startMapView(){
-        startActivitySingleTop(new Intent(this, MapSearchMyPositionActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        startActivitySingleTop(new Intent(this, MapSearchMyPositionActivity.class).putExtra(KeyNames.KEY_NAME_ADDR, addressVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
     @Override
@@ -121,6 +128,7 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
         switch (v.getId()){
             case R.id.tv_addr:
             case R.id.l_addr_info:
+                clearKeypad();
                 startMapView();
                 break;
             case R.id.tv_area_cls_cd:
@@ -130,7 +138,7 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
                 selectFitCd();
                 break;
             case R.id.btn_question:
-
+                //TODO HTML 웹뷰 페이지로 이동.. 전문 호출 필요
                 break;
             case R.id.btn_next://다음
                 doNext();
@@ -148,6 +156,7 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
     private void doNext(){
         if(isValid()){
             clearKeypad();
+            //TODO 긴급출동 접수 현황으로 이동해야함
 //            sosViewModel.reqSOS1002(new SOS_1002.Request());
 //            cbkViewModel.reqCBK1006(new CBK_1006.Request(APPIAInfo.TM_EXPS01_01.getId(), vin, expnDivCd, ui.etExpnAmt.getText().toString().replaceAll(",", ""), ui.tvExpnDtm.getText().toString().replaceAll(".", ""), ui.etExpnPlc.getText().toString(), ui.etAccmMilg.getText().toString().replaceAll(",", "")));
         }
@@ -261,6 +270,12 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
                 String carRegNo = mainVehicle.getCarRgstNo();
                 if(!TextUtils.isEmpty(carRegNo)){
                     ui.etCarRegNo.setText(carRegNo);
+                    ui.etCarRegNo.setSelection(ui.etCarRegNo.length());
+                    //checkValidCarRegNo 에서는 포커스를 제거하거나 키보드를 내리는 부분을 넣지않음. 최초로 뷰 활성화 시에만 유효
+                    ui.etCarRegNo.clearFocus();
+                    SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
+                    ui.tvMsg.setVisibility(View.GONE);
+                    ///////////////////////////////
                     checkValidCarRegNo();
                 }
                 //차량번호가 없으면 그대로..
@@ -362,6 +377,7 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
             ui.tvErrorAddr.setText(getString(R.string.sm_emgc01_12));
             return false;
         }else{
+            ui.lAddrInfo.setVisibility(View.VISIBLE);
             ui.tvTitleAddr.setVisibility(View.GONE);
             ui.tvAddr.setVisibility(View.GONE);
             ui.tvErrorAddr.setVisibility(View.INVISIBLE);
@@ -469,6 +485,24 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
         }, () -> {
 
         });
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == ResultCodes.REQ_CODE_SERVICE_SOS_MAP.getCode()){
+            addressVO = (AddressVO)data.getSerializableExtra(KeyNames.KEY_NAME_ADDR);
+            setViewAddr(addressVO.getTitle(), addressVO.getCname(), (TextUtils.isEmpty(addressVO.getAddrRoad()) ? addressVO.getAddr() : addressVO.getAddrRoad()));
+        }
+    }
+
+    private void setViewAddr(String buildName, String subBuildName, String address){
+        ui.tvAddrInfo1.setText(buildName+ (TextUtils.isEmpty(subBuildName) ? "" : " "+subBuildName));
+        ui.tvAddrInfo1.setVisibility(TextUtils.isEmpty(buildName) ? View.GONE : View.VISIBLE);
+        ui.tvAddrInfo2.setText(address);
+        ui.tvAddrInfo2.setVisibility(TextUtils.isEmpty(address) ? View.GONE : View.VISIBLE);
+        checkValidAddr();
     }
 
 }

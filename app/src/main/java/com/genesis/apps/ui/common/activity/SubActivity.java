@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -82,6 +83,7 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
     }
 
     public final void showProgressDialog(final boolean show) {
+        Log.v("test","test show:"+show);
         try {
             if (base.lProgress != null) {
                 runOnUiThread(() -> {

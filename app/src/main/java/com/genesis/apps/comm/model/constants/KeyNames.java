@@ -15,6 +15,7 @@ public interface KeyNames {
     String KEY_NAME_VIN="vin";
     String KEY_NAME_BTR="btr";
     String KEY_NAME_ZIP_ADDR="zipAddr";
+    String KEY_NAME_ADDR="addressVO";
     String KEY_NAME_MAP_FILTER="filter";
     String KEY_NAME_MAP_CITY="city";
     String KEY_NAME_MAP_GU="gu";

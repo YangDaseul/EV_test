@@ -163,6 +163,12 @@ public class BaseActivity extends AppCompatActivity {
         closeTransition();
     }
 
+    public void exitPage(Intent intent, int resultCode){
+        setResult(resultCode, intent);
+        finish();
+        closeTransition();
+    }
+
 
     @Override
     public void onBackPressed() {

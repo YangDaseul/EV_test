@@ -164,8 +164,10 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     }
 
     private void reqMyLocation(){
+        Log.v("test","test start");
         ((MainActivity)getActivity()).showProgressDialog(true);
         ((MainActivity)getActivity()).findMyLocation(location -> {
+            Log.v("test","test finish");
             ((MainActivity)getActivity()).showProgressDialog(false);
             if (location == null) {
                 return;

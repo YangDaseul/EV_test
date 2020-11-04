@@ -21,7 +21,7 @@
 
         <!-- 백 버튼 -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_map_back"
+            android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/x_ffffff"
@@ -45,10 +45,10 @@
             android:elevation="10dp"
             android:text="@{title}"
             app:elevation="10dp"
-            app:layout_constraintBottom_toBottomOf="@id/fab_map_back"
+            app:layout_constraintBottom_toBottomOf="@id/back"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/fab_map_back"
-            app:layout_constraintTop_toTopOf="@id/fab_map_back"
+            app:layout_constraintStart_toEndOf="@id/back"
+            app:layout_constraintTop_toTopOf="@id/back"
             tools:text="@string/map_title_1" />
 
 
