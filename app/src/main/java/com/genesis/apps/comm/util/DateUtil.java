@@ -59,6 +59,7 @@ public class DateUtil {
 
 
     // date time
+    public static final String DATE_FORMAT_yyyy_mm_dd_hh_mm = "yyyy.MM.dd HH:mm"; // 31-12-1989 12:30
     public static final String DATE_FORMAT_dd_MM_yyyy_hh_mm_ss = "dd-MM-yyyy hh:mm:ss"; // 31-12-1989 12:30:30
     public static final String DATE_FORMAT_dd_MM_yyyy_hh_mm = "dd-MM-yyyy hh:mm"; // 31-12-1989 12:30
     public static final String DATE_FORMAT_dd_MM_yyyy_hh_mm_aa = "dd-MM-yyyy hh:mm aa"; // 31-12-1989 12:30 am

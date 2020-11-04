@@ -393,7 +393,13 @@ public class MiddleDialog {
                 ).show()
         );
     }
-
+    /**
+     * @brief 긴급출동 신청 종료 팝업
+     *
+     * @param activity
+     * @param ok
+     * @param cancel
+     */
     public static void dialogServiceSOSApplyExit(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
         if (activity.isFinishing()) {
             return;
@@ -404,6 +410,27 @@ public class MiddleDialog {
                         cancel,
                         R.string.sm_emgc01_p03_4,
                         R.string.sm_emgc01_p03_5,
+                        R.string.dialog_common_1,
+                        R.string.dialog_common_2
+                ).show()
+        );
+    }
+    /**
+     * @brief 긴급출동 취소 안내 팝업
+     * @param activity
+     * @param ok
+     * @param cancel
+     */
+    public static void dialogServiceSOSApplyCancel(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        R.string.sm_emgc02_p01_1,
+                        R.string.sm_emgc02_p01_2,
                         R.string.dialog_common_1,
                         R.string.dialog_common_2
                 ).show()

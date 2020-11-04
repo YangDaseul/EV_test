@@ -345,6 +345,11 @@
             android:theme="@style/TextInputLayout"/>
 
         <activity
+            android:name=".ui.main.service.ServiceSOSApplyInfoActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+
+        <activity
             android:name=".ui.main.service.MapSearchMyPositionActivity"
             android:screenOrientation="portrait"
             android:exported="false"/>

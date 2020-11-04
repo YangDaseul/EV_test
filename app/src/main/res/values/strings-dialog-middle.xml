@@ -19,8 +19,6 @@
     <string name="sm_emgc01_p05_2">긴급출동 서비스가 출동했습니다.\n긴급출동 조치가 완료된 이후에 원격진단을 신청하실 수 있습니다.</string>
     <string name="sm_emgc01_p06_1">원격진단 신청 불가</string>
     <string name="sm_emgc01_p06_2">현재 원격진단 이용이 어렵습니다.\nGCS 서비스 사용 신청하시고, 차량 등록 후 이용해 주세요.</string>
-    <string name="sm_emgc02_p01_1">취소 안내</string>
-    <string name="sm_emgc02_p01_2">긴급출동서비스 신청을 취소하시겠습니까?</string>
 
     <!--   버틀러 팝업-->
     <string name="gm_bt01_p02_1">서비스 신청 안내</string>
@@ -70,5 +68,7 @@
 
     <string name="sm_emgc01_p03_4">종료 안내</string>
     <string name="sm_emgc01_p03_5">아직 긴급출동서비스 신청이 완료되지 않았습니다.\n신청을 종료 하시겠습니까?</string>
+    <string name="sm_emgc02_p01_1">취소 안내</string>
+    <string name="sm_emgc02_p01_2">긴급출동서비스 신청을\n취소하시겠습니까?</string>
 
 </resources>
