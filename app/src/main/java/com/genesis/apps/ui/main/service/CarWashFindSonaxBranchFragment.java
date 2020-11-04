@@ -68,7 +68,7 @@ public class CarWashFindSonaxBranchFragment extends SubFragment<FragmentCarWashF
     public void setObserver() {
         //지역 목록 옵저버
         pubViewModel.getRES_PUB_1002().observe(getViewLifecycleOwner(), result -> {
-            Log.d(TAG, "setObserver AreaObs: " + result);
+            Log.d(TAG, "setObserver AreaObs: " + result.status);
 
             switch (result.status) {
                 case LOADING:
@@ -103,7 +103,7 @@ public class CarWashFindSonaxBranchFragment extends SubFragment<FragmentCarWashF
 
         //지정 지역 지점 목록 옵저버
         wshViewModel.getRES_WSH_1002().observe(getViewLifecycleOwner(), result -> {
-            Log.d(TAG, "setObserver branchObs: " + result);
+            Log.d(TAG, "setObserver branchObs: " + result.status);
 
             switch (result.status) {
                 case LOADING:

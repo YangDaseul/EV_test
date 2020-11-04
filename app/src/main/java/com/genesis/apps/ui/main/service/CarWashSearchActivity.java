@@ -33,6 +33,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 
     private LayoutMapOverlayUiBottomSonaxBranchBinding sonaxBranchBinding;
     private List<WashBrnVO> searchedBranchList;
+    private WashBrnVO pickedBranch;
 
     private String godsSeqNo;
     private double[] myPosition = {360., 360.};//경도위도 무효값으로 초기화
@@ -99,9 +100,9 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
                 super.onBackPressed();
                 break;
 
-            //내 위치 찾기
+            //내 위치 버튼
             case R.id.btn_my_position:
-                reqMyLocation();
+                moveMapToInitPosition();
                 break;
 
             //지역선택 프래그먼트 호출
@@ -109,12 +110,13 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
                 showFragment(new CarWashFindSonaxBranchFragment());
                 break;
 
+            //지점 사진
             case R.id.iv_map_sonax_branch_img:
-
+                showFragment(new FragmentCarWashBranchPreview(pickedBranch));
                 break;
 
             case R.id.tv_map_sonax_branch_reserve_btn://예약
-                //todo impl
+                //todo impl pickedBranch널검사 하고 이거 예약
                 break;
         }
     }
@@ -173,16 +175,16 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
                 myPosition[X] = location.getLatitude();
                 myPosition[Y] = location.getLongitude();
 
-                //지도를 내 위치로 초기화
-                initMapWithMyPosition();
+                //지도 초기화
+                ui.pmvMapView.initMap(myPosition[X], myPosition[Y], DEFAULT_ZOOM);
             });
 
         }, 5000);
     }
 
-    //지도 초기화(현재 위치)
-    private void initMapWithMyPosition() {
-        ui.pmvMapView.initMap(myPosition[X], myPosition[Y], DEFAULT_ZOOM);
+    //초기 위치로 지도 이동
+    private void moveMapToInitPosition() {
+        ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(myPosition[X], myPosition[Y]), 500);
     }
 
     //ViewStub을 inflate하고 지점 정보 세팅
@@ -191,6 +193,9 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
         if (searchedBranchList == null) {
             return;
         }
+
+        //선택된 지점 정보를 저장. 예약 및 사진 미리보기에서 이용.
+        pickedBranch = branchData;
 
         if (sonaxBranchBinding == null) {
             setViewStub(
