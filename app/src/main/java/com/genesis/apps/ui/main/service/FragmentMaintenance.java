@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.databinding.FragmentServiceMaintenanceBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
@@ -81,6 +82,9 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
 
             //긴급출동
             case R.id.l_service_maintenance_emergency_btn:
+
+                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceSOSApplyActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
 //                startActivity(new Intent(getActivity(), MaintenanceReserveActivity.class));
                 break;
 

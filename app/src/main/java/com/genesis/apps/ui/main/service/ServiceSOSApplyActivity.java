@@ -1,10 +1,12 @@
 package com.genesis.apps.ui.main.service;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
@@ -18,6 +20,7 @@ import androidx.transition.TransitionManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
@@ -82,12 +85,10 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
         }finally{
             initPhoneNumber();
             initConstraintSets();
-
             ui.etCelPhNo.setOnEditorActionListener(editorActionListener);
             ui.etAddrDtl.setOnEditorActionListener(editorActionListener);
             ui.etMemo.setOnEditorActionListener(editorActionListener);
             ui.etCarRegNo.setOnEditorActionListener(editorActionListener);
-
             ui.etCelPhNo.setOnFocusChangeListener(focusChangeListener);
             ui.etAddrDtl.setOnFocusChangeListener(focusChangeListener);
             ui.etMemo.setOnFocusChangeListener(focusChangeListener);
@@ -111,12 +112,16 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
 
     }
 
+    private void startMapView(){
+        startActivitySingleTop(new Intent(this, MapSearchMyPositionActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+    }
+
     @Override
     public void onClickCommon(View v) {
         switch (v.getId()){
             case R.id.tv_addr:
             case R.id.l_addr_info:
-
+                startMapView();
                 break;
             case R.id.tv_area_cls_cd:
                 selectAreaClsCd();
@@ -251,7 +256,7 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
             if(pos==1){
                 selectAreaClsCd();
             }else if(pos==2){
-                //todo 자동 지도 활성화
+                startMapView();
             }else if(pos==views.length-1){
                 String carRegNo = mainVehicle.getCarRgstNo();
                 if(!TextUtils.isEmpty(carRegNo)){
