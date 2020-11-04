@@ -39,14 +39,11 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_wash_history);
 
-        getDataFromIntent();
         setViewModel();
+        setAdapter();
         setObserver();
 
-        setAdapter();
-
-        //TODO 저거 ("SONAX") 하드코딩하는 게 맞나
-        viewModel.reqWSH1004(new WSH_1004.Request(APPIAInfo.SM_CW01.getId(), "SONAX"));
+        viewModel.reqWSH1004(new WSH_1004.Request(APPIAInfo.SM_CW01.getId(), WSHViewModel.SONAX));
     }
 
     @Override
@@ -89,6 +86,7 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
                 inputBranchCodeDialog.show();
                 break;
 
+            //예약 취소
             case R.id.tv_car_wash_history_cancel:
                 rsvtSeqNo = tag.getRsvtSeqNo();
                 String brnhCd = tag.getBrnhCd();
@@ -96,8 +94,7 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
 
                 MiddleDialog.dialogCarWashCancel(
                         this,
-                        () -> viewModel.reqWSH1006(new WSH_1006.Request(APPIAInfo.SM_CW01_P01.getId(), rsvtSeqNo, brnhCd)),
-                        null);
+                        () -> viewModel.reqWSH1006(new WSH_1006.Request(APPIAInfo.SM_CW01_P01.getId(), rsvtSeqNo, brnhCd)));
 
                 break;
 
@@ -105,7 +102,6 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
                 //do nothing
                 break;
         }
-
     }
 
     @Override
@@ -201,7 +197,6 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
         super.onDestroy();
     }
 
-
     private void setAdapter() {
         //세차 예약 내역 어댑터 (인스턴스 타입 맞나 확인)
         adapter = new CarWashHistoryAdapter(onSingleClickListener);
@@ -209,5 +204,4 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
         ui.rvCarWashHistoryList.setHasFixedSize(true);
         ui.rvCarWashHistoryList.setAdapter(adapter);
     }
-
 }

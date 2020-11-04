@@ -20,6 +20,9 @@ import lombok.EqualsAndHashCode;
  * @author hjpark
  */
 public class WSH_1002 extends BaseData {
+    public static final String GOODS_SEQ_NUM = "godsSeqNo";  //상품일련번호 intent로 전달용
+    public static final String GOODS_NAME = "godsNm";  //상품이름 intent로 전달용
+
     /**
      * @brief WSH_1002의 요청 항목
      * @author hjpark
@@ -54,7 +57,6 @@ public class WSH_1002 extends BaseData {
 
         public Request(String menuId, String godsSeqNo, String cmpyCd, String custX, String custY, String addrNm){
             this.godsSeqNo = godsSeqNo;
-
             this.cmpyCd = cmpyCd;
             this.custX = custX;
             this.custY = custY;

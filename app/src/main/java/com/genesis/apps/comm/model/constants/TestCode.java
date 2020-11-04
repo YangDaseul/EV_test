@@ -72,28 +72,28 @@ public class TestCode {
             "  \"rtMsg\": \"성공\",\n" +
             "  \"godsList\": [\n" +
             "    {\n" +
-            "      \"godsSeqNo\": \"1\",\n" +
+            "      \"godsSeqNo\": \"11112323\",\n" +
             "      \"cmpyCd\": \"SONAX\",\n" +
             "      \"godsNm\": \"상품명1\",\n" +
             "      \"dsctNm\": \"할인명1\",\n" +
             "      \"godsImgUri\": \"www.naver.com\"\n" +
             "    },\n" +
             "    {\n" +
-            "      \"godsSeqNo\": \"2\",\n" +
+            "      \"godsSeqNo\": \"22224664\",\n" +
             "      \"cmpyCd\": \"SONAX\",\n" +
             "      \"godsNm\": \"상품명2\",\n" +
             "      \"dsctNm\": \"할인명2\",\n" +
             "      \"godsImgUri\": \"www.naver.com\"\n" +
             "    },\n" +
             "    {\n" +
-            "      \"godsSeqNo\": \"3\",\n" +
+            "      \"godsSeqNo\": \"33337477\",\n" +
             "      \"cmpyCd\": \"SONAX\",\n" +
             "      \"godsNm\": \"상품명3\",\n" +
             "      \"dsctNm\": \"할인명3\",\n" +
             "      \"godsImgUri\": \"www.naver.com\"\n" +
             "    },\n" +
             "    {\n" +
-            "      \"godsSeqNo\": \"4\",\n" +
+            "      \"godsSeqNo\": \"44443636\",\n" +
             "      \"cmpyCd\": \"SONAX\",\n" +
             "      \"godsNm\": \"상품명4\",\n" +
             "      \"dsctNm\": \"할인명4\",\n" +
@@ -102,9 +102,129 @@ public class TestCode {
             "  ]\n" +
             "}", WSH_1001.Response.class);
 
-    public static WSH_1002.Response WSH_1002 = new Gson().fromJson("", WSH_1002.Response.class);
+    public static WSH_1002.Response WSH_1002 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"brnhList\": [\n" +
+            "    {\n" +
+            "      \"cmpyCd\": \"SONAX\",\n" +
+            "      \"brnhCd\": \"asdf1111\",\n" +
+            "      \"brnhNm\": \"8개 목록 중에 1호지점\",\n" +
+            "      \"brnhAddr\": \"서울시 구로구 디지털동 아날로그 건물 1층 맨 앞자리\",\n" +
+            "      \"telNo\": \"03211118764\",\n" +
+            "      \"brnhX\": \"37.4813022\",\n" +
+            "      \"brnhY\": \"126.8821687\",\n" +
+            "      \"dist\": \"1km\",\n" +
+            "      \"brnhIntro\": \"이 지점은 잘났읍니다.\",\n" +
+            "      \"brnhImgUri1\": \"www.google.com\",\n" +
+            "      \"brnhImgUri2\": \"www.google.com\",\n" +
+            "      \"brnhImgUri3\": \"www.google.com\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"cmpyCd\": \"SONAX\",\n" +
+            "      \"brnhCd\": \"jkkj2222\",\n" +
+            "      \"brnhNm\": \"목록 2번째 지점\",\n" +
+            "      \"brnhAddr\": \"평양시 디지털동 아날로그 건물 2층 맨 뒷자리\",\n" +
+            "      \"telNo\": \"03122224856\",\n" +
+            "      \"brnhX\": \"37.5642135\",\n" +
+            "      \"brnhY\": \"127.0016985\",\n" +
+            "      \"dist\": \"99km\",\n" +
+            "      \"brnhIntro\": \"포기하고 서울시청 좌표 꽂았다\",\n" +
+            "      \"brnhImgUri1\": \"www.google.com\",\n" +
+            "      \"brnhImgUri2\": \"www.google.com\",\n" +
+            "      \"brnhImgUri3\": \"www.google.com\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"cmpyCd\": \"SONAX\",\n" +
+            "      \"brnhCd\": \"3333emem\",\n" +
+            "      \"brnhNm\": \"3333333333호점인가봐요\",\n" +
+            "      \"brnhAddr\": \"벌써부터 주소드립치기 귀찮아져서 우리 사무실 지하1층\",\n" +
+            "      \"telNo\": \"03233335028\",\n" +
+            "      \"brnhX\": \"37.4813022\",\n" +
+            "      \"brnhY\": \"126.8821687\",\n" +
+            "      \"dist\": \"35km\",\n" +
+            "      \"brnhIntro\": \"이 지점은 어디일까요.\",\n" +
+            "      \"brnhImgUri1\": \"www.google.com\",\n" +
+            "      \"brnhImgUri2\": \"www.google.com\",\n" +
+            "      \"brnhImgUri3\": \"www.google.com\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"cmpyCd\": \"SONAX\",\n" +
+            "      \"brnhCd\": \"444dsjeg\",\n" +
+            "      \"brnhNm\": \"4호점차례\",\n" +
+            "      \"brnhAddr\": \"스크롤을 돌리려고 아무동 아무번지\",\n" +
+            "      \"telNo\": \"03244445029\",\n" +
+            "      \"brnhX\": \"37.4813022\",\n" +
+            "      \"brnhY\": \"126.8821687\",\n" +
+            "      \"dist\": \"99km\",\n" +
+            "      \"brnhIntro\": \"이 지점은 우리 사무실이랑 좌표가 같아요.\",\n" +
+            "      \"brnhImgUri1\": \"www.google.com\",\n" +
+            "      \"brnhImgUri2\": \"www.google.com\",\n" +
+            "      \"brnhImgUri3\": \"www.google.com\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"cmpyCd\": \"SONAX\",\n" +
+            "      \"brnhCd\": \"55555555\",\n" +
+            "      \"brnhNm\": \"5호점\",\n" +
+            "      \"brnhAddr\": \"서울시 헐값구 월세싼동 자기건물 입구자리\",\n" +
+            "      \"telNo\": \"03255554949\",\n" +
+            "      \"brnhX\": \"37.58885149105208\",\n" +
+            "      \"brnhY\": \"126.9440832693006\",\n" +
+            "      \"dist\": \"19km\",\n" +
+            "      \"brnhIntro\": \"홍제역 좌표 박아둠\",\n" +
+            "      \"brnhImgUri1\": \"www.google.com\",\n" +
+            "      \"brnhImgUri2\": \"www.google.com\",\n" +
+            "      \"brnhImgUri3\": \"www.google.com\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"cmpyCd\": \"SONAX\",\n" +
+            "      \"brnhCd\": \"6666rlrl\",\n" +
+            "      \"brnhNm\": \"6호점\",\n" +
+            "      \"brnhAddr\": \"128자리 지점주소\",\n" +
+            "      \"telNo\": \"03266666666\",\n" +
+            "      \"brnhX\": \"36.4813022\",\n" +
+            "      \"brnhY\": \"126.8821687\",\n" +
+            "      \"dist\": \"45km\",\n" +
+            "      \"brnhIntro\": \"이 지점은 아마도 경기 남부 좌표\",\n" +
+            "      \"brnhImgUri1\": \"www.google.com\",\n" +
+            "      \"brnhImgUri2\": \"www.google.com\",\n" +
+            "      \"brnhImgUri3\": \"www.google.com\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"cmpyCd\": \"SONAX\",\n" +
+            "      \"brnhCd\": \"77772424\",\n" +
+            "      \"brnhNm\": \"7777777호점\",\n" +
+            "      \"brnhAddr\": \"경기도 성남시 분당구 비싼동네 비싼땅 1번지\",\n" +
+            "      \"telNo\": \"03211777717\",\n" +
+            "      \"brnhX\": \"37.39480184590172\",\n" +
+            "      \"brnhY\": \"127.11115315395405\",\n" +
+            "      \"dist\": \"99km\",\n" +
+            "      \"brnhIntro\": \"이 지점은 갑부인가봐요.\",\n" +
+            "      \"brnhImgUri1\": \"www.google.com\",\n" +
+            "      \"brnhImgUri2\": \"www.google.com\",\n" +
+            "      \"brnhImgUri3\": \"www.google.com\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"cmpyCd\": \"SONAX\",\n" +
+            "      \"brnhCd\": \"8자리지점코드\",\n" +
+            "      \"brnhNm\": \"8888마지막 더미다 \",\n" +
+            "      \"brnhAddr\": \"울ㄹ랄라시 저세상구 호러동 깨진구 집에가고싶다\",\n" +
+            "      \"telNo\": \"03200018888\",\n" +
+            "      \"brnhX\": \"33.4813022\",\n" +
+            "      \"brnhY\": \"126.8821687\",\n" +
+            "      \"dist\": \"999km\",\n" +
+            "      \"brnhIntro\": \"좌표 xy가 이상하다는 걸 좌표장난으로 x에 0넣고 눈치챔\",\n" +
+            "      \"brnhImgUri1\": \"www.google.com\",\n" +
+            "      \"brnhImgUri2\": \"www.google.com\",\n" +
+            "      \"brnhImgUri3\": \"www.google.com\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}", WSH_1002.Response.class);
 
-    public static WSH_1003.Response WSH_1003 = new Gson().fromJson("", WSH_1003.Response.class);
+    public static WSH_1003.Response WSH_1003 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\"\n" +
+            "}", WSH_1003.Response.class);
 
     public static WSH_1004.Response WSH_1004 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +

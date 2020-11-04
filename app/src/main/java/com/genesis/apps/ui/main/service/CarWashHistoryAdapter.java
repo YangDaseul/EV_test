@@ -57,11 +57,15 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
             //결제 방식 표기 여부도 이를 따름.
             setViewType(item.getRsvtStusCd(), item.getPaymtWayCd());
 
+            //날짜
+            setDate(item.getRsvtDtm());
+
             //지점명
             setBranchName(item.getBrnhNm());
 
             //상품명
             getBinding().tvCarWashHistoryName.setText(item.getGodsNm());
+
             //결제금액
             getBinding().tvCarWashHistoryPrice.setText(item.getPaymtCost());
 
@@ -114,6 +118,16 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
                     );
                     break;
             }
+        }
+
+        //날짜. 서버 값은 YYYYMMDDHH24MISS / UI 출력은 YYYY.MM.DD
+        private void setDate(String date) {
+            StringBuilder builder = new StringBuilder(date);
+            builder.insert(6, ".");//MM뒤에 점 추가
+            builder.insert(4, ".");//YYYY뒤에 점 추가
+
+            //DD까지만 잘라서 뷰에 출력
+            getBinding().tvCarWashHistoryDate.setText(builder.substring(0, 10));
         }
 
         //지점명. 예약중/이용완료또는 취소 두 뷰에 일괄 처리

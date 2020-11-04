@@ -3,6 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.main.service.CarWashSearchActivity" />
+
+        <variable
+            name="data"
+            type="com.genesis.apps.comm.model.vo.WashBrnVO" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/MapOverlayBox"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -14,6 +25,7 @@
         <TextView
             android:id="@+id/tv_map_sonax_branch_title"
             style="@style/MapOverlay.RegularHead"
+            android:text="@{data.getBrnhNm()}"
             app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toStartOf="@id/tv_map_sonax_branch_distance"
             app:layout_constraintHorizontal_bias="0"
@@ -27,6 +39,7 @@
             android:id="@+id/tv_map_sonax_branch_distance"
             style="@style/MapOverlay.RegularText"
             android:layout_marginStart="10dp"
+            android:text="@{data.getDist()}"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_map_sonax_branch_title"
             app:layout_constraintStart_toEndOf="@id/tv_map_sonax_branch_title"
             tools:text="1.7km" />
@@ -37,6 +50,9 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginTop="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_map_sonax_branch_title"
             tools:src="@drawable/ic_service_driver" />
@@ -45,8 +61,12 @@
         <TextView
             android:id="@+id/tv_map_sonax_branch_service_list"
             style="@style/MapOverlay.Sonax.Service.List"
+            android:layout_width="0dp"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="@{data.getBrnhIntro()}"
             app:layout_constraintBottom_toBottomOf="@id/iv_map_sonax_branch_img"
+            app:layout_constraintEnd_toStartOf="@id/tv_map_sonax_branch_reserve_btn"
             app:layout_constraintStart_toEndOf="@id/iv_map_sonax_branch_img"
             tools:text="이것도 하고 저것도 하고 울랄라도 하고" />
         <!-- 가능서비스 타이틀 -->
@@ -61,8 +81,11 @@
         <TextView
             android:id="@+id/tv_map_sonax_branch_address"
             style="@style/MapOverlay.Light"
+            android:layout_width="0dp"
             android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toStartOf="@id/tv_map_sonax_branch_reserve"
+            android:layout_marginEnd="10dp"
+            android:text="@{data.getBrnhAddr()}"
+            app:layout_constraintEnd_toStartOf="@id/tv_map_sonax_branch_reserve_btn"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_map_sonax_branch_img"
@@ -73,7 +96,8 @@
             android:id="@+id/tv_map_sonax_branch_phone"
             style="@style/MapOverlay.Light"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@id/tv_map_sonax_branch_reserve"
+            android:text="@{data.getTelNo()}"
+            app:layout_constraintEnd_toStartOf="@id/tv_map_sonax_branch_reserve_btn"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_map_sonax_branch_address"
@@ -81,8 +105,9 @@
 
         <!-- 예약버튼 -->
         <TextView
-            android:id="@+id/tv_map_sonax_branch_reserve"
+            android:id="@+id/tv_map_sonax_branch_reserve_btn"
             style="@style/MapOverlay.Btn"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:text="@string/map_btn_3"
             app:layout_constraintBottom_toBottomOf="@id/tv_map_sonax_branch_phone"
             app:layout_constraintEnd_toEndOf="parent" />

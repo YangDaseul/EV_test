@@ -35,7 +35,6 @@
 
         <!-- 타이틀 텍스트 버튼 -->
         <!--  @string/map_title_1
-              @string/sm_cw_find_01
         -->
         <TextView
             android:id="@+id/tv_map_title_text"
@@ -46,19 +45,20 @@
             app:layout_constraintBottom_toBottomOf="@id/fab_map_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/fab_map_back"
-            tools:visibility="gone"/>
+            tools:visibility="gone" />
 
+        <!--  대리, 세차 검색시 타이틀 -->
         <TextView
             android:id="@+id/tv_map_title_address"
             style="@style/MapOverlayTitleBar.Hint"
+            android:layout_height="58dp"
             android:text="@{title}"
             android:visibility="gone"
-            android:layout_height="58dp"
+            app:layout_constraintBottom_toBottomOf="@+id/fab_map_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/fab_map_back"
             app:layout_constraintTop_toTopOf="@id/fab_map_back"
-            app:layout_constraintBottom_toBottomOf="@+id/fab_map_back"
             tools:text="@string/map_title_1"
-            tools:visibility="visible"/>
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

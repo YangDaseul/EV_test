@@ -97,6 +97,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:fontFamily="@font/light_genesissansheadglobal"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
                 android:paddingStart="12dp"
                 android:paddingTop="8dp"
                 android:paddingEnd="12dp"

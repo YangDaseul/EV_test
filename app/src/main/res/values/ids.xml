@@ -14,5 +14,6 @@
     <item name="noti_info" type="id"/>
     <item name="leasing_car_hist" type="id"/>
     <item name="insight_expn_vo" type="id"/>
+    <item name="tag_wash_item" type="id"/>
     <item name="tag_wash_history" type="id"/>
 </resources>

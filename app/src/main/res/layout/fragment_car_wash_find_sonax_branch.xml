@@ -3,6 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.genesis.apps.ui.main.service.CarWashFindSonaxBranchFragment" />
+
+        <variable
+            name="fragment"
+            type="CarWashFindSonaxBranchFragment" />
+
+        <variable
+            name="resultCount"
+            type="int" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -60,6 +75,7 @@
             android:focusable="true"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:gravity="center_vertical"
+            android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
             android:paddingHorizontal="15dp"
             android:text="@string/sm_cw_find_04"
             android:textSize="15sp"
@@ -78,13 +94,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_car_wash_find_branch_location_select" />
 
-        <!-- 검색결과 없음 안내문 : 결과 없으면 visible로 바꾸기 -->
         <LinearLayout
             android:id="@+id/l_car_wash_find_branch_no_result"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -106,12 +120,14 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <!-- 검색 결과 : 결과 없음 위에 덮어씌우는 형태로 출력 -->
+        <!-- 검색 결과 : 결과 없음 위에 덮어씌우는 형태로 출력
+         결과 없으면 gone -->
         <include
             android:id="@+id/l_sonax_find_list"
             layout="@layout/layout_map_find_result"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:visibility="@{resultCount == 0 ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

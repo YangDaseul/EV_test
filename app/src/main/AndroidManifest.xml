@@ -373,22 +373,34 @@
             android:screenOrientation="portrait"
             android:exported="false"/>
 
-        <activity android:name=".ui.main.service.ServiceDriveReqActivity"
-            android:screenOrientation="portrait"
+        <!-- 세차 지점검색 -->
+        <activity
+            android:name=".ui.main.service.CarWashSearchActivity"
             android:theme="@style/TextInputLayout"
-            android:exported="false"/>
-        
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <!-- 세차 예약내역 -->
         <activity
             android:name=".ui.main.service.CarWashHistoryActivity"
             android:theme="@style/TextInputLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
 
+        <!-- 대리운전 신청 -->
+        <activity
+            android:name=".ui.main.service.ServiceDriveReqActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/TextInputLayout"
+            android:exported="false"/>
+
+        <!-- 대리운전 신청 결과 -->
         <activity
             android:name=".ui.main.service.ServiceDriveReqResultActivity"
             android:screenOrientation="portrait"
             android:exported="false"/>
 
+        <!-- 대리운전 이용내역 -->
         <activity
             android:name=".ui.main.service.ServiceDriveHistoryActivity"
             android:exported="false"

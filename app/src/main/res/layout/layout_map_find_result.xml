@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="resultCount"
+            type="String" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,8 +27,10 @@
 
         <!-- 검색된 수 -->
         <TextView
+            android:id="@+id/tv_map_find_result_count"
             style="@style/MapResult.Title"
             android:layout_marginStart="4dp"
+            android:text="@{resultCount}"
             android:textColor="@color/x_cd9a81"
             app:layout_constraintStart_toEndOf="@id/tv_map_find_result_title"
             app:layout_constraintTop_toTopOf="parent"
