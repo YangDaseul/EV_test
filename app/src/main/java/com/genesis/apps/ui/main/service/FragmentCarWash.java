@@ -18,6 +18,7 @@ import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.WSH_1001;
 import com.genesis.apps.comm.model.gra.api.WSH_1002;
 import com.genesis.apps.comm.model.vo.WashGoodsVO;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.FragmentServiceCarWashBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
@@ -86,6 +87,8 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
 
                 default:
                     ((MainActivity) getActivity()).showProgressDialog(false);
+                    SnackBarUtil.show(getActivity(), getString(result.message));
+                    //todo : 구체적인 예외처리
                     break;
             }
 

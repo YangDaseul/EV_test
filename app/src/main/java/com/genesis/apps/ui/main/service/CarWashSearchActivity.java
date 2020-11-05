@@ -141,10 +141,6 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
         Log.d(TAG, "onClickCommon: ");
 
         switch (v.getId()) {
-//            //좌상단 백버튼
-//            case R.id.fab_map_back:
-//                super.onBackPressed();
-//                break;
 
             //내 위치 버튼
             case R.id.btn_my_position:
@@ -177,7 +173,6 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
         ui.lMapOverlayTitle.setTitle(getString(R.string.sm_cw_find_01));
 
         ui.lMapOverlayTitle.tvMapTitleAddress.setOnClickListener(onSingleClickListener);
-//        ui.lMapOverlayTitle.fabMapBack.setOnClickListener(onSingleClickListener);
         ui.btnMyPosition.setOnClickListener(onSingleClickListener);
 
         setMarkerClickListener();
