@@ -170,6 +170,13 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
             getBinding().tvCarWashHistoryCancel.setOnClickListener(singleClickListener);
             getBinding().tvCarWashHistoryCancel.setTag(R.id.tag_wash_history, item);
             getBinding().tvCarWashHistoryCancel.setTag(R.id.item_position, pos);
+
+            //TODO : 임시 진입점 설정
+            // 이용 완료 버튼에 평가하기 호출 붙여둠
+            getBinding().tvCarWashHistoryServiceEnd.setOnClickListener(singleClickListener);
+            getBinding().tvCarWashHistoryServiceEnd.setTag(R.id.tag_wash_history, item);
+            getBinding().tvCarWashHistoryServiceEnd.setClickable(true);
+            getBinding().tvCarWashHistoryServiceEnd.setFocusable(true);
         }
     }
 

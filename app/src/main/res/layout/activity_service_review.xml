@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="com.genesis.apps.ui.main.service.ServiceReviewActivity" />
+
+        <variable
+            name="activity"
+            type="ServiceReviewActivity" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -78,6 +87,7 @@
         <TextView
             android:id="@+id/tv_service_review_ok_btn"
             style="@style/BigBtn.Black"
+            android:onClick="@{view->activity.onSingleClickListener.onClick(view)}"
             android:text="@string/comm_word_1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

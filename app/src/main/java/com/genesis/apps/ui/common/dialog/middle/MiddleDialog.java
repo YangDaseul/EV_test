@@ -8,14 +8,12 @@ import android.view.View;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.ExpnVO;
-import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.DialogInsightExpnDeleteBinding;
 import com.genesis.apps.databinding.DialogMiddleTwoButtonBinding;
 import com.genesis.apps.databinding.DialogUpdateBinding;
 import com.genesis.apps.databinding.DialogUsedCarInfoBinding;
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -465,6 +463,23 @@ public class MiddleDialog {
                         null,
                         R.string.cw_reserve_cancel_title,
                         R.string.cw_reserve_cancel_msg,
+                        R.string.dialog_common_1,
+                        R.string.dialog_common_2
+                ).show()
+        );
+    }
+
+    //세차 서비스 평가
+    public static void dialogCarWashReview(@NonNull Activity activity, final Runnable ok) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        null,
+                        R.string.service_review_title,
+                        R.string.service_review_msg,
                         R.string.dialog_common_1,
                         R.string.dialog_common_2
                 ).show()

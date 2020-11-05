@@ -411,6 +411,12 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
+        <!-- 세차, 대리운전 리뷰 -->
+        <activity
+            android:name=".ui.main.service.ServiceReviewActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
         <activity android:name=".ui.main.service.MaintenanceReserveActivity"
             android:screenOrientation="portrait"
             android:exported="false"/>

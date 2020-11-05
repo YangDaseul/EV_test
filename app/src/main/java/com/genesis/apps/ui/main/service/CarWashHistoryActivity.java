@@ -2,6 +2,7 @@ package com.genesis.apps.ui.main.service;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.BaseResponse;
 import com.genesis.apps.comm.model.gra.api.WSH_1004;
@@ -98,6 +100,12 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
 
                 break;
 
+            //TODO : 평가하기 임시 진입점 우선 여기다 붙임.
+            //이용 완료
+            case R.id.tv_car_wash_history_service_end:
+                startActivitySingleTop(new Intent(this, ServiceReviewActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
+
             default:
                 //do nothing
                 break;
@@ -108,6 +116,8 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
     public void setObserver() {
         //예약 내역 옵저버
         viewModel.getRES_WSH_1004().observe(this, result -> {
+            Log.d(TAG, "getRES_WSH_1004 reserve history obs" + result.status);
+
             switch (result.status) {
                 case LOADING:
                     showProgressDialog(true);
@@ -135,6 +145,7 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
 
         //직원에게 확인 옵저버
         viewModel.getRES_WSH_1005().observe(this, result -> {
+            Log.d(TAG, "getRES_WSH_1005 confirm staff obs" + result.status);
             switch (result.status) {
                 case LOADING:
                     showProgressDialog(true);
@@ -161,6 +172,8 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
 
         //예약 취소 옵저버
         viewModel.getRES_WSH_1006().observe(this, result -> {
+            Log.d(TAG, "getRES_WSH_1006 cancel reserve obs" + result.status);
+
             switch (result.status) {
                 case LOADING:
                     showProgressDialog(true);

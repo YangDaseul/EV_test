@@ -57,6 +57,9 @@
     <string name="cw_reserve_cancel_title">세차 서비스 예약 취소</string>
     <string name="cw_reserve_cancel_msg">세차 서비스를\n취소하시겠습니까?</string>
 
+    <string name="service_review_title">종료 안내</string>
+    <string name="service_review_msg">아직 서비스 리뷰 작성을\n완료하지 않으셨습니다.\n\n종료하시겠습니까? </string>
+
     <string name="tm_exps01_p02_1">입력 취소</string>
     <string name="tm_exps01_p02_2">입력을 취소 하시면,\n지금까지 입력하신 내용이\n모두 사라집니다.\n취소하시겠습니까?</string>
 

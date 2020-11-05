@@ -301,7 +301,10 @@ public class TestCode {
 
     public static WSH_1007.Response WSH_1007 = new Gson().fromJson("", WSH_1007.Response.class);
 
-    public static WSH_1008.Response WSH_1008 = new Gson().fromJson("", WSH_1008.Response.class);
+    public static WSH_1008.Response WSH_1008 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\"\n" +
+            "}", WSH_1008.Response.class);
 
     public static CMN_0003.Response CMN_0003 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
