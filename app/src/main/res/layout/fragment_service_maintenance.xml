@@ -37,6 +37,7 @@
                 android:text="@string/sm01_maintenance_1"
                 android:textColor="@color/x_ffffff"
                 android:textSize="16sp"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -45,6 +46,7 @@
             <include
                 android:id="@+id/l_service_maintenance_reservation_btn"
                 layout="@layout/item_service_maintenance"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
                 app:desc="@{@string/sm01_maintenance_3}"
                 app:icon="@{@drawable/ic_service_reservation}"
                 app:title="@{@string/sm01_maintenance_2}" />
@@ -53,6 +55,7 @@
             <include
                 android:id="@+id/l_service_maintenance_history_btn"
                 layout="@layout/item_service_maintenance"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
                 app:desc="@{@string/sm01_maintenance_5}"
                 app:icon="@{@drawable/ic_service_list}"
                 app:title="@{@string/sm01_maintenance_4}" />
@@ -61,6 +64,7 @@
             <include
                 android:id="@+id/l_service_maintenance_emergency_btn"
                 layout="@layout/item_service_maintenance"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
                 app:desc="@{@string/sm01_maintenance_8}"
                 app:icon="@{@drawable/ic_service_emergency}"
                 app:title="@{@string/sm01_maintenance_6}" />
@@ -69,6 +73,7 @@
             <include
                 android:id="@+id/l_service_maintenance_customercenter_btn"
                 layout="@layout/item_service_maintenance"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
                 app:desc="@{@string/sm01_maintenance_10}"
                 app:icon="@{@drawable/ic_service_customercenter}"
                 app:title="@{@string/sm01_maintenance_9}" />
@@ -77,6 +82,7 @@
             <include
                 android:id="@+id/l_service_maintenance_defect_btn"
                 layout="@layout/item_service_maintenance"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
                 app:desc="@{@string/sm01_maintenance_12}"
                 app:icon="@{@drawable/ic_service_defect}"
                 app:title="@{@string/sm01_maintenance_11}" />

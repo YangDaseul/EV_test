@@ -80,11 +80,19 @@ public class DBVehicleRepository {
             }
         }
 
+        if(mainVehicle!=null){
+            updateVehicle(mainVehicle);
+        }
+
         return mainVehicle;
     }
 
     public VehicleVO getMainVehicleFromDB(){
         return getMainVehicleVO(getVehicleListAll());
+    }
+
+    public VehicleVO getMainVehicleSimplyFromDB(){
+        return databaseHolder.getDatabase().vehicleDao().selectMainVehicle();
     }
 
     public List<VehicleVO> getVehicleList(){
@@ -95,5 +103,8 @@ public class DBVehicleRepository {
         return databaseHolder.getDatabase().vehicleDao().selectInsightExpnList();
     }
 
+    public void updateVehicle(VehicleVO vehicleVO){
+        databaseHolder.getDatabase().vehicleDao().update(vehicleVO);
+    }
 
 }

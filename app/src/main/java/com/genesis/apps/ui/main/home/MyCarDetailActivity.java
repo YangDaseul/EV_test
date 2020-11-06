@@ -164,6 +164,7 @@ public class MyCarDetailActivity extends SubActivity<ActivityMyCarDetailBinding>
                         vehicleVO.setMainVhclYn(VariableType.MAIN_VEHICLE_N);
                         vehicleVO.setDelExpDay("7");
                         vehicleVO.setDelExpYn(VariableType.DELETE_EXPIRE_Y);
+                        //TODO UPDATE VEHICLE VO TO DB 진행 필요
                         initView();
                         SnackBarUtil.show(this, getString(R.string.gm_carlst01_snackbar_4));
                     }else{
@@ -188,6 +189,7 @@ public class MyCarDetailActivity extends SubActivity<ActivityMyCarDetailBinding>
                     if(result.data.getRtCd().equalsIgnoreCase("0000")){
 //                        gnsViewModel.reqGNS1001(new GNS_1001.Request(APPIAInfo.GM_CARLST_04.getId()));
                         vehicleVO.setMainVhclYn(VariableType.MAIN_VEHICLE_Y);
+                        //TODO UPDATE VEHICLE VO TO DB 진행 필요
                         initView();
                         SnackBarUtil.show(this, getString(R.string.gm_carlst01_snackbar_1));
                     }else{
@@ -217,6 +219,7 @@ public class MyCarDetailActivity extends SubActivity<ActivityMyCarDetailBinding>
                         if(vehicleOwnerCnt==1){
                             vehicleVO.setMainVhclYn(VariableType.MAIN_VEHICLE_Y);
                         }
+                        //TODO UPDATE VEHICLE VO TO DB 진행 필요
                         initView();
                         SnackBarUtil.show(this, getString(R.string.gm_carlst01_snackbar_3));
                     }else{

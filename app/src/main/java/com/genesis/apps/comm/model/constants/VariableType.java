@@ -160,7 +160,7 @@ public class VariableType {
     public static final String SERVICE_SOS_FIT_CODE_040101 ="견인이 필요합니다."; //견인
     public static final String SERVICE_SOS_FIT_CODE_990100 ="기타"; //기타
 
-    public static String getFitCd(String result) {
+    public static String getFltCd(String result) {
         switch (result){
             case SERVICE_SOS_FIT_CODE_010101:
                 return "010101";
@@ -190,5 +190,11 @@ public class VariableType {
                 return "H";
         }
     }
+
+    public static final String SERVICE_SOS_STATUS_CODE_R ="R"; //신청
+    public static final String SERVICE_SOS_STATUS_CODE_W ="W"; //접수
+    public static final String SERVICE_SOS_STATUS_CODE_S ="S"; //출동
+    public static final String SERVICE_SOS_STATUS_CODE_E ="E"; //완료
+    public static final String SERVICE_SOS_STATUS_CODE_C ="C"; //취소
 
 }

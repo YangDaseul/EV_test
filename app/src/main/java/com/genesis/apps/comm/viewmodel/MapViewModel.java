@@ -9,8 +9,10 @@ import com.genesis.apps.comm.model.vo.map.FindPathResVO;
 import com.genesis.apps.comm.model.vo.map.ReverseGeocodingReqVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
+import com.hmns.playmap.PlayMapPoint;
 import com.hmns.playmap.extension.PlayMapGeoItem;
 import com.hmns.playmap.extension.PlayMapPoiItem;
+import com.hmns.playmap.shape.PlayMapPolyLine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,9 @@ import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
+
+import org.json.JSONObject;
+
 import lombok.Data;
 
 public @Data
@@ -31,6 +36,7 @@ class MapViewModel extends ViewModel {
     private final SavedStateHandle savedStateHandle;
 
     private MutableLiveData<NetUIResponse<FindPathResVO>> findPathResVo;
+    private MutableLiveData<NetUIResponse<PlayMapPolyLine>> playMapPolyLine;
     private MutableLiveData<NetUIResponse<ArrayList<PlayMapPoiItem>>> playMapPoiItem;
     private MutableLiveData<NetUIResponse<ArrayList<PlayMapPoiItem>>> playMapPoiItemList;
     private MutableLiveData<NetUIResponse<PlayMapGeoItem>> playMapGeoItem;
@@ -45,6 +51,7 @@ class MapViewModel extends ViewModel {
         this.repository = repository;
         this.savedStateHandle = savedStateHandle;
 
+        playMapPolyLine = repository.playMapPolyLine;
         playMapPoiItem = repository.playMapPoiItem;
         playMapPoiItemList = repository.playMapPoiItemList;
         findPathResVo = repository.findPathResVo;
@@ -54,6 +61,10 @@ class MapViewModel extends ViewModel {
 
     public void reqFindPathResVo(final FindPathReqVO findPathReqVO){
         repository.findPathDataJson(findPathReqVO);
+    }
+
+    public void reqFindPathPolyLine(final String routeOption, final String feeOption, final String roadOption, final String coordType, final PlayMapPoint startPoint, final PlayMapPoint goalPoint){
+        repository.findPathData(routeOption, feeOption, roadOption, coordType, startPoint, goalPoint);
     }
 
     public void reqPlayMapPoiItemList(final AroundPOIReqVO aroundPOIReqVO){
@@ -131,5 +142,29 @@ class MapViewModel extends ViewModel {
         }finally {
             es.shutDownExcutor();
         }
+    }
+
+    public PlayMapPolyLine makePolyLine(ArrayList<FindPathResVO.PosList> posList) throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<PlayMapPolyLine> future = es.getListeningExecutorService().submit(()->{
+            PlayMapPolyLine playMapPolyLine = new PlayMapPolyLine();
+            try {
+                for(int i = 0; i < posList.size(); ++i) {
+                    double lon = posList.get(i).getX();
+                    double lat = posList.get(i).getY();
+                    playMapPolyLine.addLinePoint(new PlayMapPoint(lat, lon));
+                }
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+            }
+            return playMapPolyLine;
+        });
+
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
+
     }
 }

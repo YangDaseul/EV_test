@@ -5,12 +5,16 @@ import androidx.lifecycle.MutableLiveData;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.gra.APIInfo;
+import com.genesis.apps.comm.model.gra.api.OIL_0004;
 import com.genesis.apps.comm.model.gra.api.SOS_1001;
 import com.genesis.apps.comm.model.gra.api.SOS_1002;
 import com.genesis.apps.comm.model.gra.api.SOS_1003;
 import com.genesis.apps.comm.model.gra.api.SOS_1004;
 import com.genesis.apps.comm.model.gra.api.SOS_1005;
 import com.genesis.apps.comm.model.gra.api.SOS_1006;
+import com.genesis.apps.comm.model.vo.SOSDriverVO;
+import com.genesis.apps.comm.model.vo.SOSStateVO;
+import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.net.NetResultCallback;
@@ -45,7 +49,8 @@ public class SOSRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_SOS_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_SOS_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_SOS_1001.setValue(NetUIResponse.success(TestCode.SOS_1001));
             }
 
             @Override
@@ -69,8 +74,8 @@ public class SOSRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_SOS_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
-//                RES_SOS_1002.setValue(NetUIResponse.success(TestCode.SOS_1002));
+//                RES_SOS_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_SOS_1002.setValue(NetUIResponse.success(TestCode.SOS_1002));
             }
 
             @Override
@@ -117,8 +122,8 @@ public class SOSRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_SOS_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
-//                RES_SOS_1004.setValue(NetUIResponse.success(TestCode.SOS_1004));
+//                RES_SOS_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_SOS_1004.setValue(NetUIResponse.success(TestCode.SOS_1004));
             }
 
             @Override
@@ -136,15 +141,18 @@ public class SOSRepo {
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
-                RES_SOS_1005.setValue(NetUIResponse.success(new Gson().fromJson(object, SOS_1005.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
+                SOS_1005.Response response = new Gson().fromJson(object, SOS_1005.Response.class);
+                response.setSosStateVO(new Gson().fromJson(object, SOSStateVO.class));
+                RES_SOS_1005.setValue(NetUIResponse.success(response));
             }
 
             @Override
             public void onFail(NetResult e) {
-                RES_SOS_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
-//                RES_SOS_1005.setValue(NetUIResponse.success(TestCode.SOS_1005));
-
+//                RES_SOS_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
+                String json = TestCode.SOS_1005;
+                SOS_1005.Response response = new Gson().fromJson(json, SOS_1005.Response.class);
+                response.setSosStateVO(new Gson().fromJson(json, SOSStateVO.class));
+                RES_SOS_1005.setValue(NetUIResponse.success(response));
             }
 
             @Override
@@ -162,14 +170,19 @@ public class SOSRepo {
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
-                RES_SOS_1006.setValue(NetUIResponse.success(new Gson().fromJson(object, SOS_1006.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
+//                RES_SOS_1006.setValue(NetUIResponse.success(new Gson().fromJson(object, SOS_1006.Response.class)));
+                SOS_1006.Response response = new Gson().fromJson(object, SOS_1006.Response.class);
+                response.setSosDriverVO(new Gson().fromJson(object, SOSDriverVO.class));
+                RES_SOS_1006.setValue(NetUIResponse.success(response));
             }
 
             @Override
             public void onFail(NetResult e) {
-                RES_SOS_1006.setValue(NetUIResponse.error(e.getMseeage(), null));
-//                RES_SOS_1006.setValue(NetUIResponse.success(TestCode.SOS_1006));
+//                RES_SOS_1006.setValue(NetUIResponse.error(e.getMseeage(), null));
+                String json = TestCode.SOS_1006;
+                SOS_1006.Response response = new Gson().fromJson(json, SOS_1006.Response.class);
+                response.setSosDriverVO(new Gson().fromJson(json, SOSDriverVO.class));
+                RES_SOS_1006.setValue(NetUIResponse.success(response));
             }
 
             @Override

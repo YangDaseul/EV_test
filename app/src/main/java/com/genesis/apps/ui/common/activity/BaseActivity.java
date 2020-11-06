@@ -44,6 +44,12 @@ public class BaseActivity extends AppCompatActivity {
 
 
     public void startActivitySingleTop(Intent intent, int flag, int animationFlag) {
+
+        // intent에 Intent.FLAG_ACTIVITY_FORWARD_RESULT 가 추가됬을 경우 반드시 flag를 0으로 사용해야함
+
+        if(intent.getFlags()==Intent.FLAG_ACTIVITY_FORWARD_RESULT)
+            flag=0;
+
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         if(flag==0)
             startActivity(intent);

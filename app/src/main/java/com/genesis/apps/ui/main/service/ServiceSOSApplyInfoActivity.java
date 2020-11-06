@@ -66,7 +66,16 @@ public class ServiceSOSApplyInfoActivity extends SubActivity<ActivityServiceSosA
         ui.tvAddr.setText(sosStateVO.getAddr());
         ui.tvCarRegNo.setText(sosStateVO.getCarRegNo());
         ui.tvMemo.setText(sosStateVO.getMemo());
-        ui.tvTmpAcptDtm.setText((!TextUtils.isEmpty(sosStateVO.getTmpAcptDtm()) ? (DateUtil.getDate(DateUtil.getDefaultDateFormat(sosStateVO.getTmpAcptDtm(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm)) : "--"));
+        ui.tvTmpAcptDtm.setText((!TextUtils.isEmpty(sosStateVO.getTmpAcptDtm()) ? (DateUtil.getDate(DateUtil.getDefaultDateFormat(getYyyyMMddHHmmss(sosStateVO.getTmpAcptDtm()), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm)) : "--"));
+    }
+
+    private String getYyyyMMddHHmmss(String tmpAcptDtm){
+
+        while(tmpAcptDtm.length()<14){
+            tmpAcptDtm+="0";
+        }
+
+        return tmpAcptDtm;
     }
 
     @Override
@@ -148,7 +157,7 @@ public class ServiceSOSApplyInfoActivity extends SubActivity<ActivityServiceSosA
                     }catch (Exception e){
                         e.printStackTrace();
                     }finally{
-                        SnackBarUtil.show(this, serverMsg);
+                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg) ? getString(R.string.sm_emgc02_p01_snackbar_1) : serverMsg));
                     }
                     break;
             }

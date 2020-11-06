@@ -350,6 +350,11 @@
             android:exported="false"/>
 
         <activity
+            android:name=".ui.main.service.ServiceSOSRouteInfoActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+
+        <activity
             android:name=".ui.main.service.MapSearchMyPositionActivity"
             android:screenOrientation="portrait"
             android:exported="false"/>

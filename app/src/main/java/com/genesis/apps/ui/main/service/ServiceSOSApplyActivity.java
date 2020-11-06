@@ -1,13 +1,9 @@
 package com.genesis.apps.ui.main.service;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
@@ -15,6 +11,7 @@ import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.ChangeBounds;
 import androidx.transition.Transition;
@@ -26,32 +23,22 @@ import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.CBK_1005;
-import com.genesis.apps.comm.model.gra.api.CBK_1006;
 import com.genesis.apps.comm.model.gra.api.SOS_1002;
 import com.genesis.apps.comm.model.vo.AddressVO;
-import com.genesis.apps.comm.model.vo.AddressZipVO;
-import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
-import com.genesis.apps.comm.util.DateUtil;
+import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringRe2j;
-import com.genesis.apps.comm.util.StringUtil;
-import com.genesis.apps.comm.viewmodel.CBKViewModel;
 import com.genesis.apps.comm.viewmodel.SOSViewModel;
-import com.genesis.apps.databinding.ActivityInsightExpnInput1Binding;
 import com.genesis.apps.databinding.ActivityServiceSosApply1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
-import com.genesis.apps.ui.common.dialog.bottom.DialogCalendar;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.google.android.material.textfield.TextInputEditText;
-import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -70,7 +57,7 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
     private View[] edits;
 
     private String areaClsCd;
-    private String fitCd;
+    private String fltCd;
     private AddressVO addressVO;
 
     @Override
@@ -86,26 +73,35 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
 
     private void initView() {
         try {
+            //주 이용 차량 정보를 DB에서 GET
             mainVehicle = sosViewModel.getMainVehicleFromDB();
         }catch (Exception e){
             e.printStackTrace();
         }finally{
             initPhoneNumber();
             initConstraintSets();
-            ui.etCelPhNo.setOnEditorActionListener(editorActionListener);
-            ui.etAddrDtl.setOnEditorActionListener(editorActionListener);
-            ui.etMemo.setOnEditorActionListener(editorActionListener);
-            ui.etCarRegNo.setOnEditorActionListener(editorActionListener);
-            ui.etCelPhNo.setOnFocusChangeListener(focusChangeListener);
-            ui.etAddrDtl.setOnFocusChangeListener(focusChangeListener);
-            ui.etMemo.setOnFocusChangeListener(focusChangeListener);
-            ui.etCarRegNo.setOnFocusChangeListener(focusChangeListener);
+            initEditView();
         }
     }
 
-    private void initPhoneNumber() {
-        //todo 폰번호가 없을땐?
+    private void initEditView() {
+        ui.etCelPhNo.setOnEditorActionListener(editorActionListener);
+        ui.etAddrDtl.setOnEditorActionListener(editorActionListener);
+        ui.etMemo.setOnEditorActionListener(editorActionListener);
+        ui.etCarRegNo.setOnEditorActionListener(editorActionListener);
+        ui.etCelPhNo.setOnFocusChangeListener(focusChangeListener);
+        ui.etAddrDtl.setOnFocusChangeListener(focusChangeListener);
+        ui.etMemo.setOnFocusChangeListener(focusChangeListener);
+        ui.etCarRegNo.setOnFocusChangeListener(focusChangeListener);
+    }
 
+    /**
+     * @author hjpark
+     * @brief 폰번호 확인
+     * 폰번호를 디바이스에서 화인하고 없을 경우 폰번호 입력 유도
+     * (기획에 정의되지 않은 예외처리)
+     */
+    private void initPhoneNumber() {
         String phoneNumber = DeviceUtil.getPhoneNumber(getApplication());
 
         if(TextUtils.isEmpty(phoneNumber)){
@@ -113,10 +109,8 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
         }else{
             ui.etCelPhNo.setText(PhoneNumberUtils.formatNumber(DeviceUtil.getPhoneNumber(getApplication()), Locale.getDefault().getCountry()));
             ui.etCelPhNo.setSelection(ui.etCelPhNo.length());
-            selectFitCd();
+            selectfltCd();
         }
-
-
     }
 
     private void startMapView(){
@@ -135,7 +129,7 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
                 selectAreaClsCd();
                 break;
             case R.id.tv_flt_cd:
-                selectFitCd();
+                selectfltCd();
                 break;
             case R.id.btn_question:
                 //TODO HTML 웹뷰 페이지로 이동.. 전문 호출 필요
@@ -157,7 +151,14 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
         if(isValid()){
             clearKeypad();
             //TODO 긴급출동 접수 현황으로 이동해야함
-//            sosViewModel.reqSOS1002(new SOS_1002.Request());
+            sosViewModel.reqSOS1002(new SOS_1002.Request(APPIAInfo.SM_EMGC01.getId(),
+                    mainVehicle.getVin(),
+                    ui.etCarRegNo.getText().toString().trim(),
+                    mainVehicle.getMdlCd(),
+                    fltCd,
+                    areaClsCd,
+                    ui.tvAddrInfo1.getText().toString().trim() +" "+ui.tvAddrInfo2.getText().toString().trim()+" "+ui.etAddrDtl.getText().toString().trim(),
+                    addressVO.getCenterLat()+"",addressVO.getCenterLon()+"",ui.etCelPhNo.getText().toString().trim(),ui.etMemo.getText().toString().trim()));
 //            cbkViewModel.reqCBK1006(new CBK_1006.Request(APPIAInfo.TM_EXPS01_01.getId(), vin, expnDivCd, ui.etExpnAmt.getText().toString().replaceAll(",", ""), ui.tvExpnDtm.getText().toString().replaceAll(".", ""), ui.etExpnPlc.getText().toString(), ui.etAccmMilg.getText().toString().replaceAll(",", "")));
         }
     }
@@ -172,6 +173,34 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
 
     @Override
     public void setObserver() {
+        sosViewModel.getRES_SOS_1002().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if(result.data!=null&&!TextUtils.isEmpty(result.data.getRtCd())&&result.data.getRtCd().equalsIgnoreCase("0000")&&!TextUtils.isEmpty(result.data.getTmpAcptNo())){
+                        startActivitySingleTop(new Intent(this, ServiceSOSApplyInfoActivity.class).putExtra(KeyNames.KEY_NAME_SOS_TMP_NO, result.data.getTmpAcptNo()).addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT),0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        finish();
+                        break;
+                    }
+                default:
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if (TextUtils.isEmpty(serverMsg)){
+                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                        showProgressDialog(false);
+                    }
+                    break;
+            }
+        });
 
 //        cbkViewModel.getRES_CBK_1005().observe(this, result -> {
 //            switch (result.status){
@@ -233,6 +262,10 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
 //        }
     }
 
+    /**
+     * @author
+     * @brief constraintSet 초기화
+     */
     private void initConstraintSets() {
         views = new View[]{ui.lFltCd, ui.lAreaClsCd, ui.lAddr, ui.lAddrDtl, ui.lMemo, ui.lCarRegNo};
         edits = new View[]{ui.etCelPhNo, ui.tvAreaClsCd, ui.tvAddr, ui.etAddrDtl, ui.etMemo, ui.etCarRegNo};
@@ -305,17 +338,17 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
         bottomListDialog.show();
     }
 
-    private void selectFitCd(){
+    private void selectfltCd(){
         final List<String> divList = Arrays.asList(getResources().getStringArray(R.array.service_sos_fit));
         final BottomListDialog bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
         bottomListDialog.setOnDismissListener(dialogInterface -> {
             String result = bottomListDialog.getSelectItem();
             if(!TextUtils.isEmpty(result)){
-                fitCd  = VariableType.getFitCd(result);
+                fltCd  = VariableType.getFltCd(result);
                 ui.tvTitleFltCd.setVisibility(View.VISIBLE);
                 ui.tvFltCd.setTextAppearance(R.style.CommonSpinnerItemEnable);
                 ui.tvFltCd.setText(result);
-                checkValidFitCd();
+                checkValidfltCd();
             }
         });
         bottomListDialog.setDatas(divList);
@@ -345,15 +378,15 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
     }
 
 
-    private boolean checkValidFitCd(){
-        if(!TextUtils.isEmpty(fitCd)){
+    private boolean checkValidfltCd(){
+        if(!TextUtils.isEmpty(fltCd)){
             ui.tvErrorFltCd.setVisibility(View.INVISIBLE);
             doTransition(1);
             return true;
         }else{
             ui.tvErrorFltCd.setVisibility(View.VISIBLE);
             ui.tvErrorFltCd.setText(R.string.sm_emgc01_24);
-            selectFitCd();
+            selectfltCd();
             return false;
         }
     }
@@ -439,19 +472,19 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
                     case R.id.l_flt_cd:
                         return checkValidPhoneNumber()&&false;
                     case R.id.l_area_cls_cd:
-                        return checkValidPhoneNumber()&&checkValidFitCd()&&false;
+                        return checkValidPhoneNumber()&&checkValidfltCd()&&false;
                     case R.id.l_addr:
-                        return checkValidPhoneNumber()&&checkValidFitCd()&&checkValidAreaClsCd()&&false;
+                        return checkValidPhoneNumber()&&checkValidfltCd()&&checkValidAreaClsCd()&&false;
                     case R.id.l_addr_dtl:
-                        return checkValidPhoneNumber()&&checkValidFitCd()&&checkValidAreaClsCd()&&checkValidAddr()&&false;
+                        return checkValidPhoneNumber()&&checkValidfltCd()&&checkValidAreaClsCd()&&checkValidAddr()&&false;
                     case R.id.l_memo:
-                        return checkValidPhoneNumber()&&checkValidFitCd()&&checkValidAreaClsCd()&&checkValidAddr()&&checkValidAddrDtl()&&false;
+                        return checkValidPhoneNumber()&&checkValidfltCd()&&checkValidAreaClsCd()&&checkValidAddr()&&checkValidAddrDtl()&&false;
                     case R.id.l_car_reg_no:
-                        return checkValidPhoneNumber()&&checkValidFitCd()&&checkValidAreaClsCd()&&checkValidAddr()&&checkValidAddrDtl()&&checkValidMemo()&&false;
+                        return checkValidPhoneNumber()&&checkValidfltCd()&&checkValidAreaClsCd()&&checkValidAddr()&&checkValidAddrDtl()&&checkValidMemo()&&false;
                 }
             }
         }
-        return checkValidPhoneNumber()&&checkValidFitCd()&&checkValidAreaClsCd()&&checkValidAddr()&&checkValidAddrDtl()&&checkValidMemo()&&checkValidCarRegNo();
+        return checkValidPhoneNumber()&&checkValidfltCd()&&checkValidAreaClsCd()&&checkValidAddr()&&checkValidAddrDtl()&&checkValidMemo()&&checkValidCarRegNo();
     }
 
 

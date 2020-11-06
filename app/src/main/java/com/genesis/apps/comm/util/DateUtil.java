@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class DateUtil {
     /*
@@ -56,7 +57,7 @@ public class DateUtil {
     public static final String DATE_FORMAT_dd_MM_yyyy = "dd-MM-yyyy"; // 31121989
     public static final String DATE_FORMAT_yyyyMMddHHmmss = "yyyyMMddHHmmss"; // 31121989
     public static final String DATE_FORMAT_mmdd = "MM월 dd일"; // 31121989
-
+    public static final String DATE_FORMAT_yyyy_MM_dd_e_hh_mm = "yyyy.MM.dd a hh:mm";
 
     // date time
     public static final String DATE_FORMAT_yyyy_mm_dd_hh_mm = "yyyy.MM.dd HH:mm"; // 31-12-1989 12:30
@@ -97,6 +98,28 @@ public class DateUtil {
         }
         return date;
     }
+
+    /**
+     * @brief String -> date
+     * 패턴에 해당하는 string을 date로 변환
+     * @param strDate
+     * @param format
+     * @param locale pm,am 등을 오전 오후로 변경하려면 Locale.KOREA
+     * @return
+     */
+    public static Date getDefaultDateFormat(String strDate, String format, Locale locale) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format,locale);
+        Date date = null;
+        try {
+            date = sdf.parse(strDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (Exception e){
+            date=null;
+        }
+        return date;
+    }
+
 
     public static long getDiffMillis(String strDate, String format){
         Date baseDate = getDefaultDateFormat(strDate, format);

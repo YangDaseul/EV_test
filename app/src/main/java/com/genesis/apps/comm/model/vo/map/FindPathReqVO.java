@@ -8,6 +8,7 @@ import com.hmns.playmap.network.PlayMapRestApi;
 
 import java.util.ArrayList;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -26,9 +27,9 @@ import lombok.EqualsAndHashCode;
  * @see #startPoint 출발지 좌표
  * @see #viaPoint 경유지 좌표 리스트 (최대 3개)
  * @see #goalPoint 목적지 좌표
- * @see #findPathDataListener 경로탐색 결과에 대한 인터페이스 호출
  */
 @EqualsAndHashCode(callSuper=false)
+@AllArgsConstructor
 public @Data class FindPathReqVO extends BaseData {
 
     @Expose
@@ -55,8 +56,4 @@ public @Data class FindPathReqVO extends BaseData {
     @Expose
     @SerializedName("goalPoint")
     private PlayMapPoint goalPoint;
-    @Expose
-    @SerializedName("findPathDataListener")
-    private PlayMapRestApi.FindPathDataListenerCallback findPathDataListener;
-
 }

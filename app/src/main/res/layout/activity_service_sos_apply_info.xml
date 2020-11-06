@@ -33,7 +33,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="30dp"
-            app:layout_constraintBottom_toTopOf="@+id/btn_cancel"
+            app:layout_constraintBottom_toTopOf="@+id/v_line_2"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/l_title">
@@ -53,7 +53,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    tools:src="@drawable/ic_fail"/>
+                    android:src="@drawable/ic_fail"/>
 
 
                 <TextView
@@ -205,24 +205,22 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="2020.07.14 14:00"/>
-
-
-                <View
-                    android:id="@+id/v_line_2"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@color/x_e2e2e2"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_tmp_acpt_dtm"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
+
+
+        <View
+            android:id="@+id/v_line_2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/x_e2e2e2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btn_cancel"/>
 
 
         <TextView
@@ -237,7 +235,6 @@
             android:background="@drawable/ripple_bg_ffffff_stroke_6f6f6f"
             android:fontFamily="@font/light_genesissansheadglobal"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-            app:layout_constraintTop_toBottomOf="@+id/scroll"
             app:layout_constraintEnd_toStartOf="@+id/btn_confirm"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
@@ -257,7 +254,7 @@
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             app:layout_constraintTop_toTopOf="@+id/btn_cancel"
             app:layout_constraintStart_toEndOf="@+id/btn_cancel"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
             app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

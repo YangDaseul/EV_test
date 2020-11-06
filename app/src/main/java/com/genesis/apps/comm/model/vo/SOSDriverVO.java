@@ -58,8 +58,8 @@ class SOSDriverVO extends BaseData {
     @SerializedName("gCustX")
     private String gCustX;
     @Expose
-    @SerializedName("gcustY")
-    private String gcustY;
+    @SerializedName("gCustY")
+    private String gCustY;
     @Expose
     @SerializedName("startX")
     private String startX;

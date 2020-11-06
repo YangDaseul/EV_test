@@ -14,9 +14,11 @@ import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.room.DatabaseHolder;
 import com.google.gson.Gson;
+import com.hmns.playmap.PlayMapPoint;
 import com.hmns.playmap.extension.PlayMapGeoItem;
 import com.hmns.playmap.extension.PlayMapPoiItem;
 import com.hmns.playmap.network.PlayMapRestApi;
+import com.hmns.playmap.shape.PlayMapPolyLine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,8 @@ public class MapRepository {
     private DatabaseHolder databaseHolder;
 
     public final MutableLiveData<NetUIResponse<FindPathResVO>> findPathResVo = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<PlayMapPolyLine>> playMapPolyLine = new MutableLiveData<>();
+    
     public final MutableLiveData<NetUIResponse<ArrayList<PlayMapPoiItem>>> playMapPoiItem = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<ArrayList<PlayMapPoiItem>>> playMapPoiItemList = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<PlayMapGeoItem>> playMapGeoItem = new MutableLiveData<>();
@@ -41,7 +45,6 @@ public class MapRepository {
         this.playMapRestApi = playMapRestApi;
         this.databaseHolder = databaseHolder;
     }
-
     public MutableLiveData<NetUIResponse<FindPathResVO>> findPathDataJson (final FindPathReqVO findPathReqVO){
         findPathResVo.setValue(NetUIResponse.loading(null));
         netCaller.reqDataFromAnonymous(
@@ -65,6 +68,28 @@ public class MapRepository {
         return findPathResVo;
     }
 
+    public MutableLiveData<NetUIResponse<PlayMapPolyLine>> findPathData (final String routeOption, final String feeOption, final String roadOption, final String coordType, final PlayMapPoint startPoint, final PlayMapPoint goalPoint){
+        playMapPolyLine.setValue(NetUIResponse.loading(null));
+        netCaller.reqDataFromAnonymous(
+                () -> playMapRestApi.findPathData(routeOption, feeOption, roadOption, coordType, startPoint, goalPoint), new NetCallback() {
+                    @Override
+                    public void onSuccess(Object object) {
+                        playMapPolyLine.setValue(NetUIResponse.success((PlayMapPolyLine)object));
+                    }
+
+                    @Override
+                    public void onFail(NetResult e) {
+                        playMapPolyLine.setValue(NetUIResponse.error(e.getMseeage(),null));
+                    }
+
+                    @Override
+                    public void onError(NetResult e) {
+                        playMapPolyLine.setValue(NetUIResponse.error(R.string.error_msg_4,null));
+                    }
+                });
+
+        return playMapPolyLine;
+    }
 
 
 

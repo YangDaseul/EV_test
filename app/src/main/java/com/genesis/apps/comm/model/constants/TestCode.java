@@ -57,6 +57,11 @@ import com.genesis.apps.comm.model.gra.api.NOT_0001;
 import com.genesis.apps.comm.model.gra.api.PUB_1001;
 import com.genesis.apps.comm.model.gra.api.PUB_1002;
 import com.genesis.apps.comm.model.gra.api.PUB_1003;
+import com.genesis.apps.comm.model.gra.api.REQ_1001;
+import com.genesis.apps.comm.model.gra.api.SOS_1001;
+import com.genesis.apps.comm.model.gra.api.SOS_1002;
+import com.genesis.apps.comm.model.gra.api.SOS_1004;
+import com.genesis.apps.comm.model.gra.api.SOS_1005;
 import com.genesis.apps.comm.model.gra.api.STO_1001;
 import com.genesis.apps.comm.model.gra.api.STO_1002;
 import com.genesis.apps.comm.model.gra.api.WRT_1001;
@@ -2497,5 +2502,83 @@ public class TestCode {
             "  ]\n" +
             "}",MYP_2006.Response.class);
 
+
+    public static SOS_1001.Response SOS_1001 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"tmpAcptNo\": \"22222\"\n" +
+            "}",SOS_1001.Response.class);
+    
+
+    public static SOS_1002.Response SOS_1002 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"tmpAcptNo\": \"28843\",\n" +
+            "  \"tmpAcptDtm\": \"20200826181423\",\n" +
+            "  \"carRegNo\": \"16조6840\",\n" +
+            "  \"areaClsCd\": \"R\",\n" +
+            "  \"addr\": \"서울시 금천구 가산동 우림라이온스밸리 A동 1207호 케이스마텍\",\n" +
+            "  \"memo\": \"메모내용메모내용메모내용메모내용메모내용메모내용메모내용메모내용메모내용메모내용메모내용메모내용메모내용메모내용메모내용메모내용메모내용\"\n" +
+            "}", SOS_1002.Response.class);
+
+
+    public static SOS_1004.Response SOS_1004 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"succYn\": \"Y\",\n" +
+            "  \"failMsg\": \"성공\"\n" +
+            "}", SOS_1004.Response.class);
+
+    public static String SOS_1005 = "{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"celphNo\": \"01086029612\",\n" +
+            "  \"fltCd\": \"020110\",\n" +
+            "  \"acptNo\": \"20191125-0002\",\n" +
+            "  \"acptDtm\": \"201911251029\",\n" +
+            "  \"acptCnclYn\": \"Y\",\n" +
+            "  \"pgrsStusCd\": \"R\",\n" +
+            "  \"carRegNo\": \"16조6840\",\n" +
+            "  \"areaClsCd\": \"R\",\n" +
+            "  \"addr\": \"서울시 금천구 가산동 우림라이온스밸리 A동 1207호 케이스마텍\",\n" +
+            "  \"mdlCd\": \"test\",\n" +
+            "  \"memo\": \"메모내용메모내용메모내용메모내용메모내용메모내용메모내용메모내용메모내용메모내용메모내용메모내용메모내용메모내용메모내용메모내용메모내용\",\n" +
+            "  \"tmpAcptNo\": \"28843\",\n" +
+            "  \"tmpAcptDtm\": \"201911250908\"\n" +
+            "}";
+
+
+    public static String SOS_1006 = "{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"tmpAcptNo\": \"28843\",\n" +
+            "  \"tmpAcptDtm\": \"20200827112847\",\n" +
+            "  \"areaClsCd\": \"R\",\n" +
+            "  \"addr\": \"서울시 용산구 원효\",\n" +
+            "  \"carRegNo\": \"23가9876\",\n" +
+            "  \"memo\": \"메모내용\",\n" +
+            "  \"controlTel\": \"01011111111\",\n" +
+            "  \"carNo\": \"10라0142\",\n" +
+            "  \"carTypeNm\": \"아이오닉EV\",\n" +
+            "  \"receiveDtm\": \"20180128105929\",\n" +
+            "  \"gCustX\": \"37.53235333090944\",\n" +
+            "  \"startX\": \"45728206\",\n" +
+            "  \"startY\": \"13502901\",\n" +
+            "  \"finishX\": \"45703607\",\n" +
+            "  \"finishY\": \"13510640\",\n" +
+            "  \"gCustY\": \"126.95236305538208\",\n" +
+            "  \"gXpos\": \"37.510865\",\n" +
+            "  \"gYpos\": \"127.020693\",\n" +
+            "  \"sallocNm\": \"출동(하이카)\"\n" +
+            "}";
+    
+
+    public static REQ_1001.Response REQ_1001 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"stusCd\": \"4610\",\n" +
+            "  \"pgrsStusCd\": \"S\",\n" +
+            "  \"avlRsrYn\": \"Y\"\n" +
+            "}",REQ_1001.Response.class);
 
 }
