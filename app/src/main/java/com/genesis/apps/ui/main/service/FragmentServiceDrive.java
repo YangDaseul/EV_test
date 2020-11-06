@@ -8,14 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.DDS_1001;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.DDSViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -103,7 +101,7 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
                         switch (result.data.getSvcStusCd()) {
                             //신청 현황 액티비티 호출
                             case DDS_1001.STATUS_DRIVER_MATCH_WAIT:
-                            case DDS_1001.STATUS_RESERVE_SUCC:
+                            case DDS_1001.STATUS_RESERVED:
                             case DDS_1001.STATUS_DRIVER_MATCHED:
                             case DDS_1001.STATUS_DRIVER_REMATCHED:
                             case DDS_1001.STATUS_DRIVE_NOW:

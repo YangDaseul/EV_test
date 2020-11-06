@@ -6,8 +6,9 @@
     <data>
 
         <variable
-            name="data"
-            type="com.genesis.apps.comm.model.gra.api.DDS_1001.Response" />
+            name="activity"
+            type="com.genesis.apps.ui.main.service.ServiceDriveReqResultActivity" />
+
     </data>
 
     <!-- TODO : 스크롤 범위 처리-->
@@ -51,7 +52,7 @@
                 <TextView
                     android:id="@+id/tv_service_drive_ready_car_model"
                     style="@style/ServiceDrive.RegularHead"
-                    android:text="@{data.getMdlNm()}"
+                    android:text="@{activity.serviceReqData.getMdlNm()}"
                     app:layout_constraintStart_toStartOf="@id/iv_service_drive_req_result_fromto_back_panel"
                     app:layout_constraintTop_toTopOf="@id/iv_service_drive_req_result_fromto_back_panel"
                     tools:text="GV 70" />
@@ -60,7 +61,7 @@
                 <TextView
                     android:id="@+id/tv_service_drive_ready_car_number"
                     style="@style/ServiceDrive.Light"
-                    android:text="@{data.getCarRegNo()}"
+                    android:text="@{activity.serviceReqData.getCarRegNo()}"
                     android:textSize="18sp"
                     app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_ready_car_model"
                     app:layout_constraintEnd_toEndOf="@id/iv_service_drive_req_result_fromto_back_panel"
@@ -75,8 +76,8 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="5dp"
-                    app:FROM="@{data.getPosInfo()[0]}"
-                    app:TO="@{data.getPosInfo()[1]}"
+                    app:FROM="@{activity.serviceReqData.getPosInfo()[0]}"
+                    app:TO="@{activity.serviceReqData.getPosInfo()[1]}"
                     app:layout_constraintEnd_toEndOf="@id/iv_service_drive_req_result_fromto_back_panel"
                     app:layout_constraintStart_toStartOf="@id/iv_service_drive_req_result_fromto_back_panel"
                     app:layout_constraintTop_toBottomOf="@id/tv_service_drive_ready_car_model" />
@@ -90,6 +91,7 @@
             android:id="@+id/tv_service_drive_driver_status_title"
             style="@style/ServiceDriveReqResult.Info"
             android:layout_marginTop="30dp"
+            android:text="@{activity.statusTitle}"
             android:textColor="@color/x_a36b4f"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -103,8 +105,10 @@
         <TextView
             android:id="@+id/tv_service_drive_driver_status_desc"
             style="@style/ServiceDriveReqResult.Info"
+            android:text="@{activity.statusMsg}"
             android:textColor="@color/x_525252"
             android:textSize="16sp"
+            android:visibility="@{activity.statusMsgVisibility}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_service_drive_driver_status_title"
@@ -141,6 +145,9 @@
             android:id="@+id/tv_service_drive_cancel_btn"
             style="@style/BigBtn.White"
             android:layout_marginEnd="10dp"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:text="@{activity.cancelBtnText}"
+            android:visibility="@{activity.cancelBtnVisibility}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tv_service_drive_re_request_btn"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -153,8 +160,9 @@
             android:id="@+id/tv_service_drive_re_request_btn"
             style="@style/BigBtn.Black"
             android:layout_marginStart="0dp"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:text="@string/service_drive_req_result_btn_04"
-            android:visibility="gone"
+            android:visibility="@{activity.reReqBtnVisibility}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="packed"

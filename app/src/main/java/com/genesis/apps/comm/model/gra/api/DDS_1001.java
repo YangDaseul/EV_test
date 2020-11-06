@@ -24,7 +24,7 @@ public class DDS_1001 extends BaseData {
 
     //신청 현황 화면이 나와야됨
     public static final String STATUS_DRIVER_MATCH_WAIT = "1100";//기사 배정 준비중
-    public static final String STATUS_RESERVE_SUCC = "1110";
+    public static final String STATUS_RESERVED = "1110";
     public static final String STATUS_DRIVER_MATCHED = "1200";
     public static final String STATUS_DRIVER_REMATCHED = "1210";
     public static final String STATUS_DRIVE_NOW = "1300";

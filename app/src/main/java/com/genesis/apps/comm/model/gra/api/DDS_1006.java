@@ -19,7 +19,6 @@ public class DDS_1006 extends BaseData {
     /**
      * @author hjpark
      * @brief DDS_1006 요청 항목
-     * @see #mbrMgmtNo 회원관리번호
      * 제네시스 CRM에서 발급되는 고객관리번호
      * @see #vin 차대번호
      * @see #transId 트랜젝션ID
@@ -29,17 +28,13 @@ public class DDS_1006 extends BaseData {
     static
     class Request extends BaseRequest {
         @Expose
-        @SerializedName("mbrMgmtNo")
-        private String mbrMgmtNo;
-        @Expose
         @SerializedName("vin")
         private String vin;
         @Expose
         @SerializedName("transId")
         private String transId;
 
-        public Request(String menuId, String mbrMgmtNo, String vin, String transId){
-            this.mbrMgmtNo = mbrMgmtNo;
+        public Request(String menuId, String vin, String transId) {
             this.vin = vin;
             this.transId = transId;
             setData(APIInfo.GRA_DDS_1006.getIfCd(), menuId);
