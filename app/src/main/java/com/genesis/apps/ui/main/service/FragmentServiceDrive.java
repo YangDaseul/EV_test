@@ -8,12 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.DDS_1001;
+import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.DDSViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -31,15 +33,18 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
     private LGNViewModel lgnViewModel;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView(): start");
-        View view = super.setContentView(inflater, R.layout.fragment_service_drive);
-        me.setFragment(this);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        Log.d(TAG, "onActivityCreated: ");
+        super.onActivityCreated(savedInstanceState);
 
         setViewModel();
         setObserver();
+    }
 
-        return view;
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView(): start");
+        return super.setContentView(inflater, R.layout.fragment_service_drive);
     }
 
     @Override
@@ -76,6 +81,7 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
 
     public void setViewModel() {
         me.setLifecycleOwner(getViewLifecycleOwner());
+        me.setFragment(this);
         ddsViewModel = new ViewModelProvider(this).get(DDSViewModel.class);
         lgnViewModel = new ViewModelProvider(this).get(LGNViewModel.class);
     }
@@ -102,9 +108,12 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
                             case DDS_1001.STATUS_DRIVER_REMATCHED:
                             case DDS_1001.STATUS_DRIVE_NOW:
                             case DDS_1001.STATUS_NO_DRIVER:
-                                //todo 이 액티비티 맞나 확인,
-                                //result.data 통째로 들고가야 됨. 뷰모델 통해서 접근 되나?
-                                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqResultActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
+                                //result.data 통째로 들고가서 화면에 뿌려야됨.
+                                Intent intent = new Intent(getActivity(), ServiceDriveReqResultActivity.class);
+                                intent.putExtra(DDS_1001.SERVICE_DRIVE_STATUS, result.data);
+
+                                ((BaseActivity) getActivity()).startActivitySingleTop(intent, 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                                 break;
 
                             //대리운전 신청 액티비티 호출

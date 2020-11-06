@@ -221,7 +221,7 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
     //  임시로 리뷰 액티비티만 종료하도록 해 둠.
     private void finishReview() {
         SnackBarUtil.show(this, getString(R.string.service_review_finish));
-        finish();
+        finish();//스낵 바 안 보임(인식하기도 전에 액티비티랑 같이 없어져버림)
 //        startActivitySingleTop(new Intent(this, MainActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
