@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="date"
+            type="String" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout style="@style/ServiceDriveReqResultStatusBackground">
 
         <!-- "예약일시" -->
@@ -18,6 +25,7 @@
         <TextView
             android:id="@+id/tv_service_drive_status_reserved_data"
             style="@style/ServiceDriveReqResult.Status.Text.Regular"
+            android:text="@{date}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_service_drive_status_reserved_title"
             tools:text="2020.13.32 오전 -11:67" />

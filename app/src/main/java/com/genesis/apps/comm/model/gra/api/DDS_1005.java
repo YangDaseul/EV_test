@@ -19,7 +19,6 @@ public class DDS_1005 extends BaseData {
     /**
      * @author hjpark
      * @brief DDS_1005 요청 항목
-     * @see #mbrMgmtNo 회원관리번호
      * 제네시스 CRM에서 발급되는 고객관리번호
      * @see #vin 차대번호
      * @see #transId 트랜젝션ID
@@ -31,9 +30,6 @@ public class DDS_1005 extends BaseData {
     public @Data
     static
     class Request extends BaseRequest {
-        @Expose
-        @SerializedName("mbrMgmtNo")
-        private String mbrMgmtNo;
         @Expose
         @SerializedName("vin")
         private String vin;
@@ -47,8 +43,7 @@ public class DDS_1005 extends BaseData {
         @SerializedName("userComment")
         private String userComment;
 
-        public Request(String menuId, String mbrMgmtNo, String vin, String transId, String userRate, String userComment){
-            this.mbrMgmtNo = mbrMgmtNo;
+        public Request(String menuId,  String vin, String transId, String userRate, String userComment){
             this.vin = vin;
             this.transId = transId;
             this.userRate = userRate;

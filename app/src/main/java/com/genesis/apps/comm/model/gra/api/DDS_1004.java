@@ -19,6 +19,9 @@ import lombok.EqualsAndHashCode;
  * @Brief Genesis + 대리운전 취소 요청
  */
 public class DDS_1004 extends BaseData {
+    public static final String CANCEL = "01";
+    public static final String CANCEL_CAUSE_NO_DRIVER = "02";
+
     /**
      * @author hjpark
      * @brief DDS_1004 요청 항목
@@ -37,9 +40,6 @@ public class DDS_1004 extends BaseData {
     static
     class Request extends BaseRequest {
         @Expose
-        @SerializedName("mbrMgmtNo")
-        private String mbrMgmtNo;
-        @Expose
         @SerializedName("vin")
         private String vin;
         @Expose
@@ -49,8 +49,7 @@ public class DDS_1004 extends BaseData {
         @SerializedName("cnclType")
         private String cnclType;
 
-        public Request(String menuId, String mbrMgmtNo, String vin, String transId, String cnclType){
-            this.mbrMgmtNo = mbrMgmtNo;
+        public Request(String menuId, String vin, String transId, String cnclType) {
             this.vin = vin;
             this.transId = transId;
             this.cnclType = cnclType;

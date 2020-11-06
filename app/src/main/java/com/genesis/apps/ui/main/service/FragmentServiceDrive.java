@@ -31,15 +31,18 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
     private LGNViewModel lgnViewModel;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView(): start");
-        View view = super.setContentView(inflater, R.layout.fragment_service_drive);
-        me.setFragment(this);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        Log.d(TAG, "onActivityCreated: ");
+        super.onActivityCreated(savedInstanceState);
 
         setViewModel();
         setObserver();
+    }
 
-        return view;
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView(): start");
+        return super.setContentView(inflater, R.layout.fragment_service_drive);
     }
 
     @Override
@@ -62,6 +65,12 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
                 onClickReqBtn();
                 break;
 
+            //TODO 테스트 끝나고 삭제
+            case R.id.test_force_req:
+                //신청 내역 있는지 확인 안 하고 그냥 신청 페이지 띄움
+                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
+
             default:
                 //do nothing
                 break;
@@ -70,6 +79,7 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
 
     public void setViewModel() {
         me.setLifecycleOwner(getViewLifecycleOwner());
+        me.setFragment(this);
         ddsViewModel = new ViewModelProvider(this).get(DDSViewModel.class);
         lgnViewModel = new ViewModelProvider(this).get(LGNViewModel.class);
     }
@@ -91,14 +101,17 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
                         switch (result.data.getSvcStusCd()) {
                             //신청 현황 액티비티 호출
                             case DDS_1001.STATUS_DRIVER_MATCH_WAIT:
-                            case DDS_1001.STATUS_RESERVE_SUCC:
+                            case DDS_1001.STATUS_RESERVED:
                             case DDS_1001.STATUS_DRIVER_MATCHED:
                             case DDS_1001.STATUS_DRIVER_REMATCHED:
                             case DDS_1001.STATUS_DRIVE_NOW:
                             case DDS_1001.STATUS_NO_DRIVER:
-                                //todo 이 액티비티 맞나 확인,
-                                //result.data 통째로 들고가야 됨. 뷰모델 통해서 접근 되나?
-                                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqResultActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
+                                //result.data 통째로 들고가서 화면에 뿌려야됨.
+                                Intent intent = new Intent(getActivity(), ServiceDriveReqResultActivity.class);
+                                intent.putExtra(DDS_1001.SERVICE_DRIVE_STATUS, result.data);
+
+                                ((BaseActivity) getActivity()).startActivitySingleTop(intent, 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                                 break;
 
                             //대리운전 신청 액티비티 호출
@@ -133,10 +146,9 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
     private void onClickReqBtn() {
         try {
             //신청 현황 조회
-            // todo 문서에는 VIN만 있었는데.. 내 거 최신문서 아닌가 OTL
             ddsViewModel.reqDDS1001(
-                    new DDS_1001.Request(APPIAInfo.SM_DRV02.getId(),
-                            "mbrMgntNo",
+                    new DDS_1001.Request(
+                            APPIAInfo.SM_DRV02.getId(),
                             lgnViewModel.getMainVehicleFromDB().getVin()));
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();

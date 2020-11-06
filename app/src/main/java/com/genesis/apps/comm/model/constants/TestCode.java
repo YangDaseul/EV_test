@@ -317,17 +317,64 @@ public class TestCode {
             "  \"rtMsg\": \"성공\"\n" +
             "}", WSH_1008.Response.class);
 
-    public static DDS_1001.Response DDS_1001 = new Gson().fromJson("", DDS_1001.Response.class);
+    public static DDS_1001.Response DDS_1001 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"transId\": \"서버 맘대로 20글자\",\n" +
+            "  \"vin\": \"차대번호 17자리\",\n" +
+            "  \"carRegNo\": \"차량번호 20자리\",\n" +
+            "  \"mdlNm\": \"차량명 50자리\",\n" +
+            "  \"reqDivCd\": \"RT\",\n" +
+            "  \"svcStusCd\": \"1110\",\n" +
+            "  \"rsvDt\": \"202012322361\",\n" +
+            "  \"driverNm\": \"기사이름 64글자\",\n" +
+            "  \"driverMdn\": \"010-2424-5432\",\n" +
+            "  \"posInfo\": [\n" +
+            "    {\n" +
+            "      \"posDivCd\": \"DEPT\",\n" +
+            "      \"latCoord\": \"37.58885149105208\",\n" +
+            "      \"lonCoord\": \"126.9440832693006\",\n" +
+            "      \"addrLotNo\": \"서울 특별시 무슨구더라 홍제동 홍제역 지번 주소 xxx-yy\",\n" +
+            "      \"addrBldNm\": \"홍제역 도로명 주소\",\n" +
+            "      \"addrDtl\": \"아마도 제일 가까운 유료 주차장 찾아가기 퀘스트 데이터 길이 테스트\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"posDivCd\": \"DEST\",\n" +
+            "      \"latCoord\": \"37.4813022\",\n" +
+            "      \"lonCoord\": \"126.8821687\",\n" +
+            "      \"addrLotNo\": \"서울 특별시 금천구 가산동 440-4\",\n" +
+            "      \"addrBldNm\": \"서울 구로구 라이온스밸리 도로명주소\",\n" +
+            "      \"addrDtl\": \"우림 라이온스 밸리 A동 지하 39층 나락주차장 F구역 53번\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}", DDS_1001.Response.class);
 
-    public static DDS_1002.Response DDS_1002 = new Gson().fromJson("", DDS_1002.Response.class);
+    public static DDS_1002.Response DDS_1002 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"transId\": \"서버 맘대로 20글자\"\n" +
+            "}", DDS_1002.Response.class);
 
-    public static DDS_1003.Response DDS_1003 = new Gson().fromJson("", DDS_1003.Response.class);
+    //todo add history dummy data
+    public static DDS_1003.Response DDS_1003 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\"\n" +
+            "}", DDS_1003.Response.class);
 
-    public static DDS_1004.Response DDS_1004 = new Gson().fromJson("", DDS_1004.Response.class);
+    public static DDS_1004.Response DDS_1004 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\"\n" +
+            "}", DDS_1004.Response.class);
 
-    public static DDS_1005.Response DDS_1005 = new Gson().fromJson("", DDS_1005.Response.class);
+    public static DDS_1005.Response DDS_1005 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\"\n" +
+            "}", DDS_1005.Response.class);
 
-    public static DDS_1006.Response DDS_1006 = new Gson().fromJson("", DDS_1006.Response.class);
+    public static DDS_1006.Response DDS_1006 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\"\n" +
+            "}", DDS_1006.Response.class);
 
 
     public static CMN_0003.Response CMN_0003 = new Gson().fromJson("{\n" +
@@ -492,7 +539,7 @@ public class TestCode {
             "    }\n" +
             "  ]\n" +
             "}",MBR_0001.Response.class);
-    
+
 
     public static LGN_0001.Response LGN_0001 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
@@ -2270,7 +2317,7 @@ public class TestCode {
             "  \"rtCd\": \"0000\",\n" +
             "  \"rtMsg\": \"Success\"\n" +
             "}",CBK_1008.Response.class);
-    
+
 
 
     public static WRT_1001.Response WRT_1001 = new Gson().fromJson("{\n" +

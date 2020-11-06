@@ -23,6 +23,9 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 public @Data
 class PositionVO extends BaseData {
+    public static final String POSITION_STARTING ="DEPT";   //출발지
+    public static final String POSITION_DESTINATION ="DEST";//도착지
+
     @Expose
     @SerializedName("posDivCd")
     private String posDivCd;

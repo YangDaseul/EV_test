@@ -20,9 +20,11 @@ import lombok.EqualsAndHashCode;
  * @Brief Genesis + 대리운전 진행 상태 확인
  */
 public class DDS_1001 extends BaseData {
+    public static final String SERVICE_DRIVE_STATUS = "serviceDriveStatus";//인텐트용
+
     //신청 현황 화면이 나와야됨
     public static final String STATUS_DRIVER_MATCH_WAIT = "1100";//기사 배정 준비중
-    public static final String STATUS_RESERVE_SUCC = "1110";
+    public static final String STATUS_RESERVED = "1110";
     public static final String STATUS_DRIVER_MATCHED = "1200";
     public static final String STATUS_DRIVER_REMATCHED = "1210";
     public static final String STATUS_DRIVE_NOW = "1300";
@@ -33,10 +35,14 @@ public class DDS_1001 extends BaseData {
     public static final String STATUS_SERVICE_COMPLETE = "1310";
     public static final String STATUS_CANCEL_BY_USER = "1400";
     public static final String STATUS_CANCEL_CAUSE_NO_DRIVER = "1420";
+
+    //지금 신청, 예약 상태 구분
+    public static final String REQ_RIGHT_NOW = "RT";
+    public static final String REQ_RESERVE = "RS";
+
     /**
      * @author hjpark
      * @brief DDS_1001 요청 항목
-     * @see #mbrMgmtNo 회원관리번호
      * 제네시스 CRM에서 발급되는 고객관리번호
      * @see #vin 차대번호
      */
@@ -45,14 +51,10 @@ public class DDS_1001 extends BaseData {
     static
     class Request extends BaseRequest {
         @Expose
-        @SerializedName("mbrMgmtNo")
-        private String mbrMgmtNo;
-        @Expose
         @SerializedName("vin")
         private String vin;
 
-        public Request(String menuId, String mbrMgmtNo, String vin) {
-            this.mbrMgmtNo = mbrMgmtNo;
+        public Request(String menuId, String vin) {
             this.vin = vin;
             setData(APIInfo.GRA_DDS_1001.getIfCd(), menuId);
         }

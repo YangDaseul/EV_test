@@ -80,19 +80,17 @@
         <item name="android:textColor">@color/x_000000</item>
         <item name="android:textSize">15sp</item>
         <item name="android:paddingEnd">20dp</item>
+        <item name="maxLines">2</item>
     </style>
 
     <!-- 대리운전 신청 결과 출발/도착지 이름  -->
     <style name="ServiceDriveReqResult.FromTo.Name" parent="ServiceDriveReqResult.FromTo">
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
-        <item name="maxLines">1</item>
-        <item name="android:singleLine">true</item>
     </style>
 
     <!-- 대리운전 신청 결과 출발/도착지 주소  -->
     <style name="ServiceDriveReqResult.FromTo.Address" parent="ServiceDriveReqResult.FromTo">
         <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
-        <item name="maxLines">2</item>
     </style>
 
     <!-- 대리운전 신청 결과 안내 -->

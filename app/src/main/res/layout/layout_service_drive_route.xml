@@ -3,6 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="com.genesis.apps.comm.model.vo.PositionVO" />
+
+        <variable
+            name="FROM"
+            type="PositionVO" />
+
+        <variable
+            name="TO"
+            type="PositionVO" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -32,6 +45,7 @@
         <TextView
             android:id="@+id/tv_service_drive_route_from_name"
             style="@style/ServiceDriveReqResult.FromTo.Name"
+            android:text="@{FROM.getAddrDtl()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_service_drive_route_from_title"
             app:layout_constraintTop_toBottomOf="@id/tv_service_drive_route_from_title"
@@ -41,6 +55,7 @@
         <TextView
             android:id="@+id/tv_service_drive_route_from_address"
             style="@style/ServiceDriveReqResult.FromTo.Address"
+            android:text="@{FROM.getAddrLotNo()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_service_drive_route_from_title"
             app:layout_constraintTop_toBottomOf="@id/tv_service_drive_route_from_name"
@@ -81,6 +96,7 @@
         <TextView
             android:id="@+id/tv_service_drive_route_to_name"
             style="@style/ServiceDriveReqResult.FromTo.Name"
+            android:text="@{TO.getAddrDtl()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_service_drive_route_from_title"
             app:layout_constraintTop_toBottomOf="@id/tv_service_drive_route_to_title"
@@ -90,6 +106,7 @@
         <TextView
             android:id="@+id/tv_service_drive_route_to_address"
             style="@style/ServiceDriveReqResult.FromTo.Address"
+            android:text="@{TO.getAddrLotNo()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_service_drive_route_from_title"
             app:layout_constraintTop_toBottomOf="@id/tv_service_drive_route_to_name"
