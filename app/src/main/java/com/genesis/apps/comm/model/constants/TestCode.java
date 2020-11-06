@@ -18,6 +18,12 @@ import com.genesis.apps.comm.model.gra.api.CMN_0003;
 import com.genesis.apps.comm.model.gra.api.CTT_1001;
 import com.genesis.apps.comm.model.gra.api.CTT_1002;
 import com.genesis.apps.comm.model.gra.api.CTT_1004;
+import com.genesis.apps.comm.model.gra.api.DDS_1001;
+import com.genesis.apps.comm.model.gra.api.DDS_1002;
+import com.genesis.apps.comm.model.gra.api.DDS_1003;
+import com.genesis.apps.comm.model.gra.api.DDS_1004;
+import com.genesis.apps.comm.model.gra.api.DDS_1005;
+import com.genesis.apps.comm.model.gra.api.DDS_1006;
 import com.genesis.apps.comm.model.gra.api.GNS_1001;
 import com.genesis.apps.comm.model.gra.api.GNS_1002;
 import com.genesis.apps.comm.model.gra.api.GNS_1003;
@@ -305,6 +311,19 @@ public class TestCode {
             "  \"rtCd\": \"0000\",\n" +
             "  \"rtMsg\": \"성공\"\n" +
             "}", WSH_1008.Response.class);
+
+    public static DDS_1001.Response DDS_1001 = new Gson().fromJson("", DDS_1001.Response.class);
+
+    public static DDS_1002.Response DDS_1002 = new Gson().fromJson("", DDS_1002.Response.class);
+
+    public static DDS_1003.Response DDS_1003 = new Gson().fromJson("", DDS_1003.Response.class);
+
+    public static DDS_1004.Response DDS_1004 = new Gson().fromJson("", DDS_1004.Response.class);
+
+    public static DDS_1005.Response DDS_1005 = new Gson().fromJson("", DDS_1005.Response.class);
+
+    public static DDS_1006.Response DDS_1006 = new Gson().fromJson("", DDS_1006.Response.class);
+
 
     public static CMN_0003.Response CMN_0003 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +

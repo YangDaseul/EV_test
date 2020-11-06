@@ -8,22 +8,36 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.gra.APPIAInfo;
+import com.genesis.apps.comm.model.gra.api.DDS_1001;
+import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.viewmodel.DDSViewModel;
+import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentServiceDriveBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
+import com.genesis.apps.ui.main.MainActivity;
+
+import java.util.concurrent.ExecutionException;
 
 public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBinding> {
     private static final String TAG = FragmentServiceDrive.class.getSimpleName();
 
+    private DDSViewModel ddsViewModel;
+    private LGNViewModel lgnViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView(): start");
         View view = super.setContentView(inflater, R.layout.fragment_service_drive);
         me.setFragment(this);
+
+        setViewModel();
+        setObserver();
 
         return view;
     }
@@ -43,15 +57,90 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
         Log.d(TAG, "onClickCommon: view id :" + id);
 
         switch (id) {
-            //대리운전 신청(이미 신청한 상태이면 그 내용을 보여줌)
-            //TODO : 신청 액티비티 or 신청결과 액티비티 중 골라야 한다(지금은 확인 안 하고 신청액티비티 호출하는 상태)
+            //대리운전 신청 버튼 (이미 신청한 상태이면 그 내용을 보여줌)
             case R.id.tv_service_drive_req_btn:
-                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                onClickReqBtn();
                 break;
 
             default:
                 //do nothing
                 break;
+        }
+    }
+
+    public void setViewModel() {
+        me.setLifecycleOwner(getViewLifecycleOwner());
+        ddsViewModel = new ViewModelProvider(this).get(DDSViewModel.class);
+        lgnViewModel = new ViewModelProvider(this).get(LGNViewModel.class);
+    }
+
+    public void setObserver() {
+        //신청 현황 확인
+        ddsViewModel.getRES_DDS_1001().observe(getViewLifecycleOwner(), result -> {
+            Log.d(TAG, "getRES_DDS_1001 check req obs: " + result.status);
+
+            switch (result.status) {
+                case LOADING:
+                    ((MainActivity) getActivity()).showProgressDialog(true);
+                    break;
+
+                case SUCCESS:
+                    if (result.data != null && result.data.getSvcStusCd() != null) {
+                        ((MainActivity) getActivity()).showProgressDialog(false);
+
+                        switch (result.data.getSvcStusCd()) {
+                            //신청 현황 액티비티 호출
+                            case DDS_1001.STATUS_DRIVER_MATCH_WAIT:
+                            case DDS_1001.STATUS_RESERVE_SUCC:
+                            case DDS_1001.STATUS_DRIVER_MATCHED:
+                            case DDS_1001.STATUS_DRIVER_REMATCHED:
+                            case DDS_1001.STATUS_DRIVE_NOW:
+                            case DDS_1001.STATUS_NO_DRIVER:
+                                //todo 이 액티비티 맞나 확인,
+                                //result.data 통째로 들고가야 됨. 뷰모델 통해서 접근 되나?
+                                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqResultActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                                break;
+
+                            //대리운전 신청 액티비티 호출
+                            case DDS_1001.STATUS_REQ:
+                            case DDS_1001.STATUS_SERVICE_COMPLETE:
+                            case DDS_1001.STATUS_CANCEL_BY_USER:
+                            case DDS_1001.STATUS_CANCEL_CAUSE_NO_DRIVER:
+                                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                                break;
+
+                            default:
+                                Log.d(TAG, "getRES_DDS_1001: unknown svcStusCd ");
+                                break;
+                        }
+
+                        return;
+                    }
+                    //not break; 데이터 이상하면 default로 진입시킴
+
+                default:
+                    ((MainActivity) getActivity()).showProgressDialog(false);
+                    SnackBarUtil.show(getActivity(), getString(result.message));
+                    //todo : 구체적인 예외처리
+                    break;
+            }
+        });
+
+    }
+
+    //대리운전 신청 버튼
+    //신청 현황을 확인하고 그에 따라 옵저버에서 처리(신청 상태 표시 or 신청하기 액티비티 호출)
+    private void onClickReqBtn() {
+        try {
+            //신청 현황 조회
+            // todo 문서에는 VIN만 있었는데.. 내 거 최신문서 아닌가 OTL
+            ddsViewModel.reqDDS1001(
+                    new DDS_1001.Request(APPIAInfo.SM_DRV02.getId(),
+                            "mbrMgntNo",
+                            lgnViewModel.getMainVehicleFromDB().getVin()));
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            //todo 차량 정보 접근 실패에 대한 예외처리
         }
     }
 }

@@ -20,6 +20,19 @@ import lombok.EqualsAndHashCode;
  * @Brief Genesis + 대리운전 진행 상태 확인
  */
 public class DDS_1001 extends BaseData {
+    //신청 현황 화면이 나와야됨
+    public static final String STATUS_DRIVER_MATCH_WAIT = "1100";//기사 배정 준비중
+    public static final String STATUS_RESERVE_SUCC = "1110";
+    public static final String STATUS_DRIVER_MATCHED = "1200";
+    public static final String STATUS_DRIVER_REMATCHED = "1210";
+    public static final String STATUS_DRIVE_NOW = "1300";
+    public static final String STATUS_NO_DRIVER = "1410";//기사 미배정
+
+    //신청하기 화면으로 진행함
+    public static final String STATUS_REQ = "1000";//신청중
+    public static final String STATUS_SERVICE_COMPLETE = "1310";
+    public static final String STATUS_CANCEL_BY_USER = "1400";
+    public static final String STATUS_CANCEL_CAUSE_NO_DRIVER = "1420";
     /**
      * @author hjpark
      * @brief DDS_1001 요청 항목
@@ -38,7 +51,7 @@ public class DDS_1001 extends BaseData {
         @SerializedName("vin")
         private String vin;
 
-        public Request(String menuId, String mbrMgmtNo, String vin){
+        public Request(String menuId, String mbrMgmtNo, String vin) {
             this.mbrMgmtNo = mbrMgmtNo;
             this.vin = vin;
             setData(APIInfo.GRA_DDS_1001.getIfCd(), menuId);
