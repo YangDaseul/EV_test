@@ -1,6 +1,5 @@
 package com.genesis.apps.ui.main.service;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,7 +7,6 @@ import android.view.View;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.DDS_1005;
 import com.genesis.apps.comm.model.gra.api.WSH_1008;
@@ -19,7 +17,6 @@ import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.ActivityServiceReviewBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
-import com.genesis.apps.ui.main.MainActivity;
 
 import java.util.concurrent.ExecutionException;
 
@@ -27,7 +24,9 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
     private static final String TAG = ServiceReviewActivity.class.getSimpleName();
     private static final int REVIEW_WASH = 1;
     private static final int REVIEW_DRIVE = 2;
-    private static final int REVIEW_MAX_LENGTH = 2048;
+
+    //서버 측 제한 2048바이트라서 한글 utf-8기준으로 넘치지 않도록
+    private static final int REVIEW_MAX_LENGTH = 680;
 
     private WSHViewModel wshViewModel;
     private DDSViewModel ddsViewModel;
@@ -41,6 +40,7 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
         ui.setActivity(this);
 
         //todo 세차 리뷰인지 대리운전 리뷰인지 알아내기
+        // 리뷰 송신할 때, 세차는 예약번호, 대리운전은 고객번호, transId도 있어야 함
         reviewType = REVIEW_WASH;
 
         setViewModel();
@@ -191,7 +191,7 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
         }
     }
 
-    //세차 리뷰 전송
+    //세차 리뷰 전송 TODO : 예약 번호 알아내기
     private void reqCarWashReview(String starRating, String reviewInput) {
         wshViewModel.reqWSH1008(
                 new WSH_1008.Request(APPIAInfo.SM_REVIEW01.getId(),
@@ -200,7 +200,7 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
                         reviewInput));
     }
 
-    //대리운전 리뷰 전송
+    //대리운전 리뷰 전송 TODO : 고객번호, transId 알아내기
     private void reqServiceDriveReview(String starRating, String reviewInput) {
         try {
             ddsViewModel.reqDDS1005(
@@ -217,11 +217,13 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
     }
 
     //작성한 리뷰 전달 성공시 처리
-    //안내 띄우고 메인 화면으로 보냄
+    //안내 띄우고
+    // TODO : [메인 화면으로 보냄]으로 돼 있는데 기획 확인 후 처리 방침 확정하여 반영
+    //  임시로 리뷰 액티비티만 종료하도록 해 둠.
     private void finishReview() {
         SnackBarUtil.show(this, getString(R.string.service_review_finish));
-        //todo clear top 이 필요하다
-        startActivitySingleTop(new Intent(this, MainActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        finish();
+//        startActivitySingleTop(new Intent(this, MainActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
     @Override
