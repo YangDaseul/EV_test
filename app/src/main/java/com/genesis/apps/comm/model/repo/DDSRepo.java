@@ -3,6 +3,7 @@ package com.genesis.apps.comm.model.repo;
 import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.gra.APIInfo;
 import com.genesis.apps.comm.model.gra.api.DDS_1001;
 import com.genesis.apps.comm.model.gra.api.DDS_1002;
@@ -45,7 +46,8 @@ public class DDSRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_DDS_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_DDS_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_DDS_1001.setValue(NetUIResponse.success(TestCode.DDS_1001));
             }
 
             @Override
@@ -67,7 +69,8 @@ public class DDSRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_DDS_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_DDS_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_DDS_1002.setValue(NetUIResponse.success(TestCode.DDS_1002));
             }
 
             @Override
@@ -89,7 +92,8 @@ public class DDSRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_DDS_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_DDS_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_DDS_1003.setValue(NetUIResponse.success(TestCode.DDS_1003));
             }
 
             @Override
@@ -111,7 +115,8 @@ public class DDSRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_DDS_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_DDS_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_DDS_1004.setValue(NetUIResponse.success(TestCode.DDS_1004));
             }
 
             @Override
@@ -133,7 +138,8 @@ public class DDSRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_DDS_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_DDS_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_DDS_1005.setValue(NetUIResponse.success(TestCode.DDS_1005));
             }
 
             @Override
@@ -155,7 +161,8 @@ public class DDSRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_DDS_1006.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_DDS_1006.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_DDS_1006.setValue(NetUIResponse.success(TestCode.DDS_1006));
             }
 
             @Override

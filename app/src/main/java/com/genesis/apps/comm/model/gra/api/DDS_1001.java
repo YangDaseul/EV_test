@@ -33,6 +33,11 @@ public class DDS_1001 extends BaseData {
     public static final String STATUS_SERVICE_COMPLETE = "1310";
     public static final String STATUS_CANCEL_BY_USER = "1400";
     public static final String STATUS_CANCEL_CAUSE_NO_DRIVER = "1420";
+
+    //지금 신청, 예약 상태 구분
+    public static final String REQ_RIGHT_NOW = "RT";
+    public static final String REQ_RESERVE = "RS";
+
     /**
      * @author hjpark
      * @brief DDS_1001 요청 항목
