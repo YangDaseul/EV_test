@@ -40,7 +40,7 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
         ui.setActivity(this);
 
         //todo 세차 리뷰인지 대리운전 리뷰인지 알아내기
-        // 리뷰 송신할 때, 세차는 예약번호, 대리운전은 고객번호, transId도 있어야 함
+        // 리뷰 송신할 때, 세차는 예약번호, 대리운전은 transId도 있어야 함
         reviewType = REVIEW_WASH;
 
         setViewModel();
@@ -200,12 +200,11 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
                         reviewInput));
     }
 
-    //대리운전 리뷰 전송 TODO : 고객번호, transId 알아내기
+    //대리운전 리뷰 전송 TODO :  transId 알아내기
     private void reqServiceDriveReview(String starRating, String reviewInput) {
         try {
             ddsViewModel.reqDDS1005(
                     new DDS_1005.Request(APPIAInfo.SM_REVIEW01.getId(),
-                            "mbrMgmtNO",
                             lgnViewModel.getMainVehicleFromDB().getVin(),
                             "transId",
                             starRating,

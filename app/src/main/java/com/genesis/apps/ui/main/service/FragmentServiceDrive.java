@@ -133,10 +133,9 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
     private void onClickReqBtn() {
         try {
             //신청 현황 조회
-            // todo 문서에는 VIN만 있었는데.. 내 거 최신문서 아닌가 OTL
             ddsViewModel.reqDDS1001(
-                    new DDS_1001.Request(APPIAInfo.SM_DRV02.getId(),
-                            "mbrMgntNo",
+                    new DDS_1001.Request(
+                            APPIAInfo.SM_DRV02.getId(),
                             lgnViewModel.getMainVehicleFromDB().getVin()));
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
