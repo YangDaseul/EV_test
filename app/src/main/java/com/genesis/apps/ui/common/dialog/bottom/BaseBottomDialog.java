@@ -45,6 +45,11 @@ public class BaseBottomDialog<T extends ViewDataBinding> extends BottomSheetDial
             }
         });
 
+        //풀스크린으로 펼쳐지지 않는 문제를 해결하기 위해 아래 코드 적용
+        getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
+        getBehavior().setSkipCollapsed(true);
+        getBehavior().setHideable(true);
+
         try {
             findViewById(R.id.back).setOnClickListener(new OnSingleClickListener() {
                 @Override

@@ -2618,6 +2618,30 @@ public class TestCode {
             "  \"gYpos\": \"127.020693\",\n" +
             "  \"sallocNm\": \"출동(하이카)\"\n" +
             "}";
+
+    public static String SOS_1006_2 = "{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"tmpAcptNo\": \"28843\",\n" +
+            "  \"tmpAcptDtm\": \"20200827112847\",\n" +
+            "  \"areaClsCd\": \"R\",\n" +
+            "  \"addr\": \"서울시 용산구 원효\",\n" +
+            "  \"carRegNo\": \"23가9876\",\n" +
+            "  \"memo\": \"메모내용\",\n" +
+            "  \"controlTel\": \"01011111111\",\n" +
+            "  \"carNo\": \"10라0142\",\n" +
+            "  \"carTypeNm\": \"아이오닉EV\",\n" +
+            "  \"receiveDtm\": \"20180128105929\",\n" +
+            "  \"gCustX\": \"37.347470\",\n" +
+            "  \"startX\": \"45728206\",\n" +
+            "  \"startY\": \"13502901\",\n" +
+            "  \"finishX\": \"45703607\",\n" +
+            "  \"finishY\": \"13510640\",\n" +
+            "  \"gCustY\": \"126.805108\",\n" +
+            "  \"gXpos\": \"37.334851\",\n" +
+            "  \"gYpos\": \"126.807125\",\n" +
+            "  \"sallocNm\": \"출동(하이카)\"\n" +
+            "}";
     
 
     public static REQ_1001.Response REQ_1001 = new Gson().fromJson("{\n" +

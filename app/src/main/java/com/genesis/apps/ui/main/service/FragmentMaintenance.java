@@ -78,7 +78,7 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
                     ((SubActivity)getActivity()).showProgressDialog(false);
                     SOSDriverVO sosDriverVO = result.data.getSosDriverVO();
                     if(result.data!=null&&sosDriverVO!=null&&!TextUtils.isEmpty(tmpAcptNo)){
-                        ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceSOSRouteInfoActivity.class).putExtra(KeyNames.KEY_NAME_SOS_DRIVER_VO, sosDriverVO).putExtra(KeyNames.KEY_NAME_SOS_TMP_NO, tmpAcptNo), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceSOSRouteInfoActivity.class).putExtra(KeyNames.KEY_NAME_SOS_DRIVER_VO, result.data), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                         break;
                     }
                 default:

@@ -40,4 +40,19 @@
     <string name="sm_emgc01_p02_1">어떤 도로에 계신가요?</string>
     <string name="sm_emgc01_p02_2">일반 도로</string>
     <string name="sm_emgc01_p02_3">자동차 전용 고속 도로</string>
+
+
+    <string name="sm_emgc03_p01_1">기사 정보</string>
+    <string name="sm_emgc03_p01_2">전화 번호</string>
+    <string name="sm_emgc03_p01_3">차량 정보</string>
+    <string name="sm_emgc03_p01_4">업체 정보</string>
+    <string name="sm_emgc03_p01_5">신청 정보</string>
+    <string name="sm_emgc03_p01_6">신청 일시</string>
+    <string name="sm_emgc03_p01_7">위치 유형</string>
+    <string name="sm_emgc03_p01_8">차량 위치</string>
+    <string name="sm_emgc03_p01_9">차량 번호</string>
+    <string name="sm_emgc03_p01_10">메모</string>
+    <string name="sm_emgc03_p01_11">기사님과 통화하기</string>
+
+
 </resources>

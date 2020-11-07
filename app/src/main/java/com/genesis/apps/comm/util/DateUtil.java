@@ -58,6 +58,7 @@ public class DateUtil {
     public static final String DATE_FORMAT_yyyyMMddHHmmss = "yyyyMMddHHmmss"; // 31121989
     public static final String DATE_FORMAT_mmdd = "MM월 dd일"; // 31121989
     public static final String DATE_FORMAT_yyyy_MM_dd_e_hh_mm = "yyyy.MM.dd a hh:mm";
+    public static final String DATE_FORMAT_yyyy_MM_dd_HH_mm = "yyyy-MM-dd HH:mm";
 
     // date time
     public static final String DATE_FORMAT_yyyy_mm_dd_hh_mm = "yyyy.MM.dd HH:mm"; // 31-12-1989 12:30
@@ -181,6 +182,15 @@ public class DateUtil {
         CharSequence ago =
                 DateUtils.getRelativeTimeSpanString(pastTimeStamp, now, DateUtils.SECOND_IN_MILLIS);
         return ago.toString();
+    }
+
+    public static String getYyyyMMddHHmmss(String tmpAcptDtm){
+
+        while(tmpAcptDtm.length()<14){
+            tmpAcptDtm+="0";
+        }
+
+        return tmpAcptDtm;
     }
 
 

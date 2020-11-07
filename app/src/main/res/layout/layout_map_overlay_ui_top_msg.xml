@@ -39,14 +39,14 @@
             android:layout_marginLeft="5dp"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_map_top_msg_1"
             app:layout_constraintStart_toEndOf="@id/tv_map_top_msg_1"
-            tools:text="17분 후 " />
+            tools:text="17분 후" />
 
         <!-- 도착 예정입니다. -->
         <TextView
             style="@style/MapOverlay.Light"
+            android:layout_marginStart="5dp"
             android:text="@string/map_msg_4"
-            android:layout_marginLeft="5dp"
-            app:layout_constraintBaseline_toBaselineOf="@id/tv_map_top_msg_1"
-            app:layout_constraintStart_toEndOf="@id/tv_map_top_msg_time" />
+            app:layout_constraintStart_toEndOf="@+id/tv_map_top_msg_time"
+            app:layout_constraintTop_toTopOf="@+id/tv_map_top_msg_time" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
