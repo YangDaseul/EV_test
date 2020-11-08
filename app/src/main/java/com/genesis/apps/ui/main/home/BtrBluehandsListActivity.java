@@ -24,6 +24,8 @@ import com.genesis.apps.databinding.ActivityBtrCnslHistBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.main.home.view.BtrAccodianRecyclerAdapter;
 import com.genesis.apps.ui.main.home.view.BtrBluehandsAdapter;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
@@ -85,16 +87,16 @@ public class BtrBluehandsListActivity extends SubActivity<ActivityBtrBluehandsHi
 
     @Override
     public void getDataFromIntent() {
-        BTR_1008.Response result = null;
+        List<BtrVO> list = null;
         try {
-            result = (BTR_1008.Response)getIntent().getSerializableExtra(KeyNames.KEY_NAME_BTR);
+            list = new Gson().fromJson(getIntent().getStringExtra(KeyNames.KEY_NAME_BTR), new TypeToken<List<BtrVO>>(){}.getType());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (result==null||result.getAsnList()==null||result.getAsnList().size()<1) {
+            if (list==null||list.size()<1) {
                 exitPage("블루핸즈 정보가 존재하지 않습니다.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }else{
-                initView(result.getAsnList());
+                initView(list);
             }
         }
 

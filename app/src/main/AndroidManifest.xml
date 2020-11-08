@@ -293,7 +293,7 @@
 
 
         <activity
-            android:name=".ui.main.home.LeasingCarBtrChangeActivity"
+            android:name=".ui.main.ServiceNetworkActivity"
             android:screenOrientation="portrait"
             android:exported="false"/>
 

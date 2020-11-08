@@ -4,6 +4,7 @@ import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.gra.APIInfo;
 import com.genesis.apps.comm.model.gra.BaseRequest;
 import com.genesis.apps.comm.model.gra.BaseResponse;
+import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.RepairVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -66,13 +67,14 @@ public class REQ_1002 extends BaseData {
         @SerializedName("rparTypCd")
         private String rparTypCd;
 
-        public Request(String menuId, String vin, String mdlCd, String nx, String ny, String addr, String fillerCd, String rparTypCd){
+        public Request(String menuId, String vin, String mdlCd, String nx, String ny, String addr, String addrDtl, String fillerCd, String rparTypCd){
             this.vin = vin;
 
             this.mdlCd = mdlCd;
             this.nx = nx;
             this.ny = ny;
             this.addr = addr;
+            this.addrDtl = addrDtl;
             this.fillerCd = fillerCd;
             this.rparTypCd = rparTypCd;
             setData(APIInfo.GRA_REQ_1002.getIfCd(), menuId);
@@ -88,6 +90,6 @@ public class REQ_1002 extends BaseData {
     class Response extends BaseResponse {
         @Expose
         @SerializedName("asnList")
-        private List<RepairVO> asnList;
+        private List<BtrVO> asnList;
     }
 }

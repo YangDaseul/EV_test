@@ -21,6 +21,7 @@ import com.genesis.apps.comm.viewmodel.BTRViewModel;
 import com.genesis.apps.databinding.ActivityBtrBluehandsBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
+import com.genesis.apps.ui.main.ServiceNetworkActivity;
 
 import java.util.Locale;
 
@@ -123,10 +124,8 @@ public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBi
                     }), () -> {
                     });
                 }else{
-                    startActivitySingleTop(new Intent(this, LeasingCarBtrChangeActivity.class).putExtra(KeyNames.KEY_NAME_BTR, btrVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    startActivitySingleTop(new Intent(this, ServiceNetworkActivity.class).putExtra(KeyNames.KEY_NAME_BTR, btrVO).putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_BTR), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }
-
-
                 break;
             case R.id.btn_cnsl_list://상담이력
                 startActivitySingleTop(new Intent(this, BtrConslHistActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);

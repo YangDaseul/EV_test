@@ -30,6 +30,7 @@ import com.genesis.apps.databinding.FragmentServiceMaintenanceBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
+import com.genesis.apps.ui.main.ServiceNetworkActivity;
 
 public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceBinding> {
     private static final String TAG = FragmentMaintenance.class.getSimpleName();
@@ -196,6 +197,7 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
             //TODO 지금 테스트 액티비티 호출 코드임. 제대로 된 기능으로 바꾸기
             //서비스 네트워크 찾기
             case R.id.tv_service_maintenance_find_network_btn:
+                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceNetworkActivity.class).putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_SERVICE), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 //                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE)
 //                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), TestActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;

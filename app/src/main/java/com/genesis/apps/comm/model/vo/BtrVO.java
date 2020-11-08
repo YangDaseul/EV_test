@@ -28,8 +28,15 @@ import lombok.EqualsAndHashCode;
  * @see #cnsltBdgYn 상담뱃지여부
  * Y: 상담이력뱃지표시 N:뱃지표시 안함
  *
+ * @see #acps1Cd 지정정비공장구분코드
+ * 일반블루핸즈 : ACPS1_CD = C 또는 D
+ * 종합 : ACPS1_CD = C, 전문 : ACPS1_CD = D
+ * 서비스센터 : 2
+ * @see #firmScnCd 정비망업체속성코드
+ * FIRM_SCN_CD = 1 또는 4 : 제네시스전담
  *
  * @see #dist 거리(km) btr-1008에서만 취급급 */
+
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
@@ -72,9 +79,15 @@ class BtrVO extends BaseData {
     private String cnsltBdgYn;
 
 
-    //btr-1008에서만 데이터 있음
+    //btr-1008 및 req-1002에서만 데이터 있음
     @Expose
     @SerializedName("dist")
     private String dist;
-
+    //req-1002에서만 데이터 있음
+    @Expose
+    @SerializedName("acps1Cd")
+    private String acps1Cd;
+    @Expose
+    @SerializedName("firmScnCd")
+    private String firmScnCd;
 }

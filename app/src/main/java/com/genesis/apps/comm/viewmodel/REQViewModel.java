@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
+import com.genesis.apps.comm.model.constants.PushCodes;
+import com.genesis.apps.comm.model.constants.WeatherCodes;
 import com.genesis.apps.comm.model.gra.api.REQ_1001;
 import com.genesis.apps.comm.model.gra.api.REQ_1002;
 import com.genesis.apps.comm.model.gra.api.REQ_1003;
@@ -22,15 +24,20 @@ import com.genesis.apps.comm.model.gra.api.REQ_1014;
 import com.genesis.apps.comm.model.gra.api.REQ_1015;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.REQRepo;
+import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import lombok.Data;
+
+import static java.util.stream.Collectors.toList;
 
 public @Data
 class REQViewModel extends ViewModel {
@@ -152,6 +159,62 @@ class REQViewModel extends ViewModel {
                 vehicleVO = null;
             }
             return vehicleVO;
+        });
+
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
+    }
+
+
+    /**
+     * @brief 정비유형리스트 중 정비유형명 리스트 반환
+     * @param repairTypeVOList
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
+    public List<String> getRepairTypeNm(List<RepairTypeVO> repairTypeVOList) throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<List<String>> future = es.getListeningExecutorService().submit(()->{
+            List<String> list = new ArrayList<>();
+            try {
+                list = repairTypeVOList.stream().map(RepairTypeVO::getRparTypNm).collect(toList());
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+                list = null;
+            }
+            return list;
+        });
+
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
+    }
+
+    /**
+     * @biref 정비유형명 해당하는 코드 반환
+     * @param repairTypeNm 정비유형코드
+     * @param repairTypeVOList 정비유형리스트
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
+    public RepairTypeVO getRepairTypeCd(String repairTypeNm, List<RepairTypeVO> repairTypeVOList) throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<RepairTypeVO> future = es.getListeningExecutorService().submit(()->{
+            RepairTypeVO repairTypeVO=null;
+            try {
+                repairTypeVO = repairTypeVOList.stream().filter(data -> (data.getRparTypNm().equalsIgnoreCase(repairTypeNm))).findFirst().get();
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+                repairTypeVO = null;
+            }
+            return repairTypeVO;
         });
 
         try {

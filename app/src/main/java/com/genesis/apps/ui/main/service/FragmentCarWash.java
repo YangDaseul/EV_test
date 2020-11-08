@@ -7,10 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
@@ -24,9 +20,12 @@ import com.genesis.apps.databinding.FragmentServiceCarWashBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
-import com.genesis.apps.ui.main.home.LeasingCarBtrChangeActivity;
 
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> {
     private static final String TAG = FragmentCarWash.class.getSimpleName();

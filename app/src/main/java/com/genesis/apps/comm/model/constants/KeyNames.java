@@ -26,4 +26,5 @@ public interface KeyNames {
     String KEY_NAME_SOS_TMP_NO="tmpAcptNo";
     String KEY_NAME_SNACKBAR="snackbar";
     String KEY_NAME_SOS_DRIVER_VO="sosdrivervo";
+    String KEY_NAME_PAGE_TYPE="pageType";
 }

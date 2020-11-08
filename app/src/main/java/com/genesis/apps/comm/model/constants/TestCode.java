@@ -58,6 +58,8 @@ import com.genesis.apps.comm.model.gra.api.PUB_1001;
 import com.genesis.apps.comm.model.gra.api.PUB_1002;
 import com.genesis.apps.comm.model.gra.api.PUB_1003;
 import com.genesis.apps.comm.model.gra.api.REQ_1001;
+import com.genesis.apps.comm.model.gra.api.REQ_1002;
+import com.genesis.apps.comm.model.gra.api.REQ_1003;
 import com.genesis.apps.comm.model.gra.api.SOS_1001;
 import com.genesis.apps.comm.model.gra.api.SOS_1002;
 import com.genesis.apps.comm.model.gra.api.SOS_1004;
@@ -2651,5 +2653,68 @@ public class TestCode {
             "  \"pgrsStusCd\": \"S\",\n" +
             "  \"avlRsrYn\": \"Y\"\n" +
             "}",REQ_1001.Response.class);
+
+
+    public static REQ_1002.Response REQ_1002 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"asnList\": [\n" +
+            "    {\n" +
+            "      \"asnCd\": \"Z14Z48\",\n" +
+            "      \"asnNm\": \"(주)영남중공업\",\n" +
+            "      \"acps1Cd\": \"C\",\n" +
+            "      \"firmScnCd\": \"Y\",\n" +
+            "      \"repTn\": \"028559966\",\n" +
+            "      \"pbzAdr\": \"서울특별시 금천구 시흥대로153길 26 (독산동)\",\n" +
+            "      \"mapXcooNm\": \"37.477919\",\n" +
+            "      \"mapYcooNm\": \"126.881762\",\n" +
+            "      \"dist\": \"1.6\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"asnCd\": \"Z14Z47\",\n" +
+            "      \"asnNm\": \"(주)현대중공업\",\n" +
+            "      \"acps1Cd\": \"C\",\n" +
+            "      \"firmScnCd\": \"Y\",\n" +
+            "      \"repTn\": \"0200000000\",\n" +
+            "      \"pbzAdr\": \"인천광역시 금천구 시흥대로153길 26 (독산동)\",\n" +
+            "      \"mapXcooNm\": \"37.481580\",\n" +
+            "      \"mapYcooNm\": \"126.881537\",\n" +
+            "      \"dist\": \"4.6\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",REQ_1002.Response.class);
+
+
+    public static REQ_1003.Response REQ_1003 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"prctYn\": \"Y\",\n" +
+            "  \"rparTypList\": [\n" +
+            "    {\n" +
+            "      \"rparTypCd\": \"AC\",\n" +
+            "      \"rparTypNm\": \"냉난방부품\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rparTypCd\": \"EG\",\n" +
+            "      \"rparTypNm\": \"엔진주요부품\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rparTypCd\": \"PT\",\n" +
+            "      \"rparTypNm\": \"동력전달주요부품\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rparTypCd\": \"BA\",\n" +
+            "      \"rparTypNm\": \"일반부품\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rparTypCd\": \"CS\",\n" +
+            "      \"rparTypNm\": \"소모성부품\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rparTypCd\": \"GT\",\n" +
+            "      \"rparTypNm\": \"기타\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",REQ_1003.Response.class);
 
 }

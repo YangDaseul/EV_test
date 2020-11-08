@@ -28,7 +28,7 @@ import com.genesis.apps.comm.viewmodel.GNSViewModel;
 import com.genesis.apps.databinding.ActivityLeasingCarRegisterInput1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
-import com.genesis.apps.ui.main.AlarmCenterSearchActivity;
+import com.genesis.apps.ui.main.ServiceNetworkActivity;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
@@ -93,7 +93,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
 
         });
 
-        new Handler().postDelayed(() -> SnackBarUtil.show(LeasingCarRegisterInputActivity.this, getString(R.string.gm_carlst_01_snackbar_1)),2000);
+        new Handler().postDelayed(() -> SnackBarUtil.show(LeasingCarRegisterInputActivity.this, getString(R.string.gm_carlst_01_snackbar_1)),100);
 
 
 //        ui.etVin.addTextChangedListener(new TextWatcher() {
@@ -212,7 +212,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                 break;
             case R.id.btn_btr:
             case R.id.tv_btr:
-                startActivitySingleTop(new Intent(this, LeasingCarBtrChangeActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                startActivitySingleTop(new Intent(this, ServiceNetworkActivity.class).putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_RENT), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.btn_post_no:
                 startActivitySingleTop(new Intent(this, SearchAddressActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
