@@ -435,6 +435,28 @@ public class MiddleDialog {
         );
     }
 
+    /**
+     * @brief 로그인 안내 팝업
+     * @param activity
+     * @param ok
+     * @param cancel
+     */
+    public static void dialogLogin(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        R.string.sm01_p01_1,
+                        R.string.sm01_p01_2,
+                        R.string.dialog_common_1,
+                        R.string.dialog_common_2
+                ).show()
+        );
+    }
+
     //세차 예약
     public static void dialogCarWashReserve(@NonNull Activity activity, final Runnable ok, String msg) {
         if (activity.isFinishing()) {

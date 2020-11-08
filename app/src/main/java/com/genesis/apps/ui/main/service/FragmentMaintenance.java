@@ -24,18 +24,23 @@ import com.genesis.apps.comm.model.vo.SOSDriverVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.comm.viewmodel.SOSViewModel;
 import com.genesis.apps.databinding.FragmentServiceMaintenanceBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.ServiceNetworkActivity;
+import com.genesis.apps.ui.myg.MyGEntranceActivity;
+import com.genesis.apps.ui.myg.MyGHomeActivity;
 
 public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceBinding> {
     private static final String TAG = FragmentMaintenance.class.getSimpleName();
     private REQViewModel reqViewModel;
     private SOSViewModel sosViewModel;
+    private LGNViewModel lgnViewModel;
     private String tmpAcptNo;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -51,6 +56,7 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
         me.setLifecycleOwner(this);
         sosViewModel = new ViewModelProvider(this).get(SOSViewModel.class);
         reqViewModel = new ViewModelProvider(this).get(REQViewModel.class);
+        lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
 
         sosViewModel.getRES_SOS_1001().observe(getViewLifecycleOwner(), result -> {
             switch (result.status){
@@ -193,6 +199,9 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
         int id = v.getId();
         Log.d(TAG, "onClickCommon: view id :" + id);
 
+        if(!checkCustGbCd(id))
+            return;
+
         switch (id) {
             //TODO 지금 테스트 액티비티 호출 코드임. 제대로 된 기능으로 바꾸기
             //서비스 네트워크 찾기
@@ -202,39 +211,79 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
 //                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), TestActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
 
+
             //정비 예약
             case R.id.l_service_maintenance_reservation_btn:
                 ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MaintenanceReserveActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
-
             //정비 현황/예약 내역
             case R.id.l_service_maintenance_history_btn:
-//                startActivity(new Intent(getActivity(), MaintenanceReserveActivity.class));
                 break;
-
             //긴급출동
             case R.id.l_service_maintenance_emergency_btn:
-
+                //TODO 조건에 따라 동작하도록 수정 필요
 //                //일반 상태일때 접수로 이동
 //                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceSOSApplyActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 
-
+                //현황보기
                 sosViewModel.reqSOS1001(new SOS_1001.Request(APPIAInfo.SM01.getId()));
                 break;
-
             //원격진단 신청
             case R.id.l_service_maintenance_customercenter_btn:
-//                startActivity(new Intent(getActivity(), MaintenanceReserveActivity.class));
                 break;
-
             //하자재발통보
             case R.id.l_service_maintenance_defect_btn:
-//                startActivity(new Intent(getActivity(), MaintenanceReserveActivity.class));
                 break;
-
             default:
                 //do nothing
                 break;
         }
+    }
+
+    private boolean checkCustGbCd(int viewId){
+        boolean isAllow=true;
+
+        try {
+            switch (viewId) {
+                case R.id.l_service_maintenance_reservation_btn://정비예약
+                case R.id.l_service_maintenance_history_btn: //정비 현황/예약 내역
+                case R.id.l_service_maintenance_emergency_btn: //긴급출동
+                case R.id.l_service_maintenance_customercenter_btn://원격진단 신청
+                case R.id.l_service_maintenance_defect_btn: //하자재발통보
+                    String custGbCd=lgnViewModel.getUserInfoFromDB().getCustGbCd();
+                    switch (custGbCd) {
+                        //소유차량인 경우 기존 메뉴 정상 이용
+                        case VariableType.MAIN_VEHICLE_TYPE_OV:
+                            isAllow=true;
+                            break;
+                        case VariableType.MAIN_VEHICLE_TYPE_CV:
+                        case VariableType.MAIN_VEHICLE_TYPE_NV:
+                            //계약 혹은 차량 미 보유 고객인 경우 스낵바 알림 메시지 노출
+                            isAllow=false;
+                            SnackBarUtil.show(getActivity(), getString(R.string.sm01_snack_bar));
+                            break;
+                        case VariableType.MAIN_VEHICLE_TYPE_0000:
+                        default:
+                            //미로그인 고객인 경우 로그인 유도
+                            isAllow=false;
+
+                            MiddleDialog.dialogLogin(getActivity(), () -> {
+                                ((SubActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                            }, () -> {
+
+                            });
+                            break;
+                    }
+                    break;
+                default:
+                    //그 외 버튼
+                    isAllow=true;
+                    break;
+            }
+        }catch (Exception ignore){
+
+        }
+
+        return isAllow;
     }
 }
