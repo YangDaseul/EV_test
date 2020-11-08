@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.main.service.MaintenanceReserveActivity" />
+    </data>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -51,6 +58,7 @@
             android:textColor="@color/x_000000"
             android:textColorHint="@color/x_aaabaf"
             android:textSize="15sp"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_maintenance_category_title"
@@ -88,6 +96,7 @@
                 <include
                     android:id="@+id/l_maintenance_autocare"
                     layout="@layout/item_maintenance_category"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     app:desc="@{@string/maintenance_service_desc_01}"
                     app:icon="@{@drawable/ic_service_autocare}"
                     app:title="@{@string/maintenance_service_item_01}" />
@@ -96,6 +105,7 @@
                 <include
                     android:id="@+id/l_maintenance_airport"
                     layout="@layout/item_maintenance_category"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     app:desc="@{@string/maintenance_service_desc_02}"
                     app:icon="@{@drawable/ic_service_airport}"
                     app:title="@{@string/maintenance_service_item_02}" />
@@ -104,6 +114,7 @@
                 <include
                     android:id="@+id/l_maintenance_hometohome"
                     layout="@layout/item_maintenance_category"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     app:desc="@{@string/maintenance_service_desc_03}"
                     app:icon="@{@drawable/ic_service_hometohome}"
                     app:title="@{@string/maintenance_service_item_03}" />
@@ -112,6 +123,7 @@
                 <include
                     android:id="@+id/l_maintenance_repair"
                     layout="@layout/item_maintenance_category"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     app:desc="@{@string/maintenance_service_desc_04}"
                     app:icon="@{@drawable/ic_service_repair}"
                     app:title="@{@string/maintenance_service_item_04}" />

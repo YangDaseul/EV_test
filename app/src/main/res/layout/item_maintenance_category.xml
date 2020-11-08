@@ -60,7 +60,7 @@
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_maintenance_category_item_title"
-            tools:text="정비 카테고리 설명\n어쩌고저쩌고 울랄라뾰롱뾰롱" />
+            tools:text="정비 카테고리 설명\n정비 카테고리 설명2" />
 
         <!--  정비 항목 아이콘-->
         <ImageView

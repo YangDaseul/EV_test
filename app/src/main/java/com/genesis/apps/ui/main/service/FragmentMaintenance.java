@@ -106,7 +106,6 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
                     if(result.data!=null){
                         setViewSOSStatus(result.data.getPgrsStusCd());
                         setViewMaintenanceStatus(result.data.getStusCd());
-                        setViewReserveStatus(result.data.getAvlRsrYn());
                     }
                     break;
                 default:
@@ -117,17 +116,6 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
 
         });
 
-    }
-
-    private void setViewReserveStatus(String avlRsrYn) {
-        if(!TextUtils.isEmpty(avlRsrYn)){
-            if(avlRsrYn.equalsIgnoreCase("Y")){
-                //예약신청가능
-                //TODO 요건 확인 필요..
-            }else{
-
-            }
-        }
     }
 
     private void setViewMaintenanceStatus(String result) {
@@ -185,6 +173,8 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
         }finally{
             if(mainVehicle!=null){
                 reqViewModel.reqREQ1001(new REQ_1001.Request(APPIAInfo.SM01.getId(), mainVehicle.getVin()));
+            }else{
+
             }
         }
     }
@@ -214,7 +204,12 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
 
             //정비 예약
             case R.id.l_service_maintenance_reservation_btn:
-                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MaintenanceReserveActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                try{
+                    String avlRsrVn = reqViewModel.getRES_REQ_1001().getValue().data.getAvlRsrYn();
+                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MaintenanceReserveActivity.class).putExtra(KeyNames.KEY_NAME_MAINTENANCE_AVL_RSR_YN, avlRsrVn), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                }catch (Exception e){
+
+                }
                 break;
             //정비 현황/예약 내역
             case R.id.l_service_maintenance_history_btn:

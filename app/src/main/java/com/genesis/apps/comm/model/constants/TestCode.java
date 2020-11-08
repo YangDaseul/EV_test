@@ -60,6 +60,7 @@ import com.genesis.apps.comm.model.gra.api.PUB_1003;
 import com.genesis.apps.comm.model.gra.api.REQ_1001;
 import com.genesis.apps.comm.model.gra.api.REQ_1002;
 import com.genesis.apps.comm.model.gra.api.REQ_1003;
+import com.genesis.apps.comm.model.gra.api.REQ_1004;
 import com.genesis.apps.comm.model.gra.api.SOS_1001;
 import com.genesis.apps.comm.model.gra.api.SOS_1002;
 import com.genesis.apps.comm.model.gra.api.SOS_1004;
@@ -2716,5 +2717,36 @@ public class TestCode {
             "    }\n" +
             "  ]\n" +
             "}",REQ_1003.Response.class);
+
+    public static REQ_1004.Response REQ_1004 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"rparTypList\": [\n" +
+            "    {\n" +
+            "      \"rparTypCd\": \"AC\",\n" +
+            "      \"rparTypNm\": \"냉난방부품\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rparTypCd\": \"EG\",\n" +
+            "      \"rparTypNm\": \"엔진주요부품\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rparTypCd\": \"PT\",\n" +
+            "      \"rparTypNm\": \"동력전달주요부품\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rparTypCd\": \"BA\",\n" +
+            "      \"rparTypNm\": \"일반부품\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rparTypCd\": \"CS\",\n" +
+            "      \"rparTypNm\": \"소모성부품\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rparTypCd\": \"GT\",\n" +
+            "      \"rparTypNm\": \"기타\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",REQ_1004.Response.class);
 
 }
