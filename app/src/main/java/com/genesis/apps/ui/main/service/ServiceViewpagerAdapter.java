@@ -22,7 +22,7 @@ public class ServiceViewpagerAdapter extends FragmentStateAdapter {
 //        mCount = list.length;
 //    }
 
-    public ServiceViewpagerAdapter(FragmentActivity fa, int count) {
+    public ServiceViewpagerAdapter(Fragment fa, int count) {
         super(fa);
         tabCount = count;
     }

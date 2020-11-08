@@ -51,7 +51,7 @@ public class FragmentHome extends SubFragment<FragmentHomeBinding> {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        me.vpVehicle.setAdapter(new VehicleViewpagerAdapter(getActivity(), VIEWPAGER_VERTICAL_NUMBER));
+        me.vpVehicle.setAdapter(new VehicleViewpagerAdapter(this, VIEWPAGER_VERTICAL_NUMBER));
         me.vpVehicle.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
         me.vpVehicle.setCurrentItem(0);
         me.vpVehicle.setOffscreenPageLimit(VIEWPAGER_VERTICAL_NUMBER);

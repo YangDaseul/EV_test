@@ -27,22 +27,13 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
 
     public FragmentStateAdapter serviceTabAdapter;
 
-
-    //TODO ViewModel
-//    private ViewModel ViewModel;
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView(): start");
-        View view = super.setContentView(inflater, R.layout.fragment_service);
-        me.setFragment(this);
-
-        initView();
-        return view;
+        return super.setContentView(inflater, R.layout.fragment_service);
     }
 
     private void initView() {
-        serviceTabAdapter = new ServiceViewpagerAdapter(getActivity(), PAGE_NUM);
+        serviceTabAdapter = new ServiceViewpagerAdapter(this, PAGE_NUM);
         me.vpServiceContentsViewPager.setAdapter(serviceTabAdapter);
         me.vpServiceContentsViewPager.setUserInputEnabled(false);
         setTabView();
@@ -108,12 +99,8 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "onActivityCreated(): start");
-
         super.onActivityCreated(savedInstanceState);
-        //TODO ViewModel
-//        ViewModel = new ViewModelProvider(getActivity()).get(ViewModel.class);
-
+        initView();
         me.setLifecycleOwner(getViewLifecycleOwner());
         me.setFragment(this);
         initViewPager();

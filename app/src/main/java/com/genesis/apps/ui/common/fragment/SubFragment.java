@@ -44,7 +44,7 @@ public abstract class SubFragment<T extends ViewDataBinding> extends BaseFragmen
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("onResume","onReusme subfragment");
+        Log.e("onResume","onReusme subfragment:"+me.toString());
             // 갱신 처리
             onRefresh();
     }

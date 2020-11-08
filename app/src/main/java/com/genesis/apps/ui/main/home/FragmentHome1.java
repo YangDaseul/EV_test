@@ -225,7 +225,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         if(isRecord)
             return;
 
-        Log.e("onResume","onReusme FragmentHome1");
         videoPauseAndResume(true);
         setViewVehicle();
         recordUtil.regReceiver();

@@ -13,7 +13,7 @@ public class VehicleViewpagerAdapter extends FragmentStateAdapter {
 
     public int mCount;
 
-    public VehicleViewpagerAdapter(FragmentActivity fa, int count) {
+    public VehicleViewpagerAdapter(Fragment fa, int count) {
         super(fa);
         mCount = count;
     }

@@ -81,6 +81,7 @@ public class DBVehicleRepository {
         }
 
         if(mainVehicle!=null){
+            mainVehicle.setMainVhclYn(VariableType.MAIN_VEHICLE_Y);
             updateVehicle(mainVehicle);
         }
 
