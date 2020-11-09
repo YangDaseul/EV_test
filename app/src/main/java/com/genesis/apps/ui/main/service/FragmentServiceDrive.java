@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.DDS_1001;
@@ -71,7 +73,7 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
             //TODO 테스트 끝나고 삭제
             case R.id.test_force_req:
                 //신청 내역 있는지 확인 안 하고 그냥 신청 페이지 띄움
-                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
 
             default:
@@ -114,7 +116,7 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
                                 Intent intent = new Intent(getActivity(), ServiceDriveReqResultActivity.class);
                                 intent.putExtra(DDS_1001.SERVICE_DRIVE_STATUS, result.data);
 
-                                ((BaseActivity) getActivity()).startActivitySingleTop(intent, 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                                ((BaseActivity) getActivity()).startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                                 break;
 
                             //대리운전 신청 액티비티 호출
@@ -122,7 +124,7 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
                             case DDS_1001.STATUS_SERVICE_COMPLETE:
                             case DDS_1001.STATUS_CANCEL_BY_USER:
                             case DDS_1001.STATUS_CANCEL_CAUSE_NO_DRIVER:
-                                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                                 break;
 
                             default:

@@ -39,4 +39,9 @@
     <string name="cw_confirm_staff">사용 완료 되었습니다.</string>
     <string name="cw_cancel_reserve">예약 취소 되었습니다.</string>
 
+
+    <string name="sd_cancel_succ">대리운전 서비스 신청이 정상적으로 취소되었습니다.</string>
+    <string name="sd_cancel_fail">대리운전 서비스 취소가 실패하였습니다.\n다시 시도해 주세요.</string>
+    <string name="sd_cant_cancel">기사 배정 후 5분이 경과하여,\n 신청 취소할 수 없습니다.</string>
+
 </resources>

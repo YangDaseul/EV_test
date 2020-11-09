@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.main.service.ServiceDriveReqResultActivity" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/ServiceDriveReqResultStatusBackground"
         android:paddingTop="12dp"
@@ -12,6 +19,7 @@
         <TextView
             android:id="@+id/tv_service_drive_status_driver"
             style="@style/ServiceDriveReqResult.Status.Text.Regular"
+            android:text="@{activity.serviceReqData.getDriverNm()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -22,6 +30,7 @@
             android:id="@+id/tv_service_drive_status_phone"
             style="@style/ServiceDriveReqResult.Status.Text.Light"
             android:layout_marginStart="10dp"
+            android:text="@{activity.serviceReqData.getDriverMdn()}"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_status_driver"
             app:layout_constraintStart_toEndOf="@id/tv_service_drive_status_driver"
             tools:text="123-4556-8987" />
@@ -32,6 +41,7 @@
             style="@style/TextBtnBasic"
             android:background="@drawable/ripple_bg_141414"
             android:fontFamily="@font/light_genesissansheadglobal"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:paddingStart="14dp"
             android:paddingTop="7dp"
             android:paddingEnd="14dp"

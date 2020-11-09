@@ -328,8 +328,8 @@ public class TestCode {
             "  \"carRegNo\": \"차량번호 20자리\",\n" +
             "  \"mdlNm\": \"차량명 50자리\",\n" +
             "  \"reqDivCd\": \"RT\",\n" +
-            "  \"svcStusCd\": \"1110\",\n" +
-            "  \"rsvDt\": \"202012322361\",\n" +
+            "  \"svcStusCd\": \"1410\",\n" +
+            "  \"rsvDt\": \"202012312359\",\n" +
             "  \"driverNm\": \"기사이름 64글자\",\n" +
             "  \"driverMdn\": \"010-2424-5432\",\n" +
             "  \"posInfo\": [\n" +

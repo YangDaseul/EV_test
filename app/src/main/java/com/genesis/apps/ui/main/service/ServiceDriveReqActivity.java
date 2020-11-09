@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main.service;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
@@ -17,10 +18,13 @@ import androidx.transition.TransitionManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.databinding.ActivityServiceDriveReq1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 
 public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq1Binding> {
+    public static final String START_MSG = "StartMsg";
+
     private static final int FROM = 0;
     private static final int TO = 1;
 
@@ -47,6 +51,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         setResizeScreen();
         setContentView(layouts[0]);
         init();
+        getDataFromIntent();
     }
 
     @Override
@@ -66,7 +71,15 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
     @Override
     public void getDataFromIntent() {
+        //대리운전 기사 못 찾아서 취소 누르고 여기로 떨어지는 경우, 스낵바 메시지를 들고온다. 없으면 무효값(-1)으로 초기화.
+        int msgId = getIntent().getIntExtra(START_MSG, -1);
 
+        //메지지가 있으면 보여준다
+        if (msgId > 0) {
+            new Handler().postDelayed(
+                    () -> SnackBarUtil.show(this, getString(msgId)),
+                    100);
+        }
     }
 
     @Override
