@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main.service;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
@@ -45,6 +46,7 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
     private DDSViewModel ddsViewModel;
     private LGNViewModel lgnViewModel;
     private VehicleVO mainVehicle;
+    private Handler autoCancelHandler;
 
     public DDS_1001.Response serviceReqData;
 
@@ -116,6 +118,7 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
     public void setObserver() {
         Log.d(TAG, "setObserver: ");
 
+        //취소요청
         ddsViewModel.getRES_DDS_1004().observe(this, result -> {
             Log.d(TAG, "setObserver: obs DDS_1004 : cancel" + result.status);
 
@@ -125,10 +128,10 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
                     break;
 
                 case SUCCESS:
-                    if (result.data != null) {
+                    if (result.data != null && result.data.getRtCd() != null) {
                         showProgressDialog(false);
 
-                        if (Objects.equals(result.data.getRtCd(), BaseResponse.RETURN_CODE_SUCC)) {
+                        if (result.data.getRtCd().equals(BaseResponse.RETURN_CODE_SUCC)) {
                             //취소 성공
                             switch (cancelBtnType) {
                                 case R.string.service_drive_req_result_btn_05:
@@ -148,7 +151,6 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
                             //취소 실패
                             SnackBarUtil.show(this, getString(R.string.sd_cancel_fail));
                         }
-
                         break;
                     }
                     //not break; 데이터 이상하면 default로 진입시킴
@@ -161,6 +163,7 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
             }
         });
 
+        //기사 배정 재시도 요청
         ddsViewModel.getRES_DDS_1006().observe(this, result -> {
             Log.d(TAG, "setObserver: obs DDS_1006 : re req" + result.status);
             switch (result.status) {
@@ -171,7 +174,10 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
                 case SUCCESS:
                     if (result.data != null && result.data.getRtCd() != null) {
                         showProgressDialog(false);
-
+                        if (Objects.equals(result.data.getRtCd(), BaseResponse.RETURN_CODE_SUCC)) {
+                            //기사 배정 대기중 화면으로 바꿈(타이머도 취소함)
+                            reInitDriverWait();
+                        }
                         break;
                     }
                     //not break; 데이터 이상하면 default로 진입시킴
@@ -181,12 +187,8 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
                     SnackBarUtil.show(this, getString(result.message));
                     //todo : 구체적인 예외처리
                     break;
-
             }
-
         });
-
-
     }
 
     //인텐트 까서 데이터를 뷰에 뿌림. 실패하면 액티비티 종료(뷰에 데이터 없어서 화면 다 깨짐)
@@ -334,6 +336,13 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
         //초기값
         statusMsgVisibility = View.VISIBLE;
         cancelBtnVisibility = View.VISIBLE;
+
+        //기사 배정 실패를 앱에서 인지하고 5분 지나면 취소 api 콜.
+        //TODO 5분 뒤에 자동 취소한다고 안내는 안 해도 되나?
+        autoCancelHandler = new Handler();
+        autoCancelHandler.postDelayed(
+                this::onClickCancel,
+                1000 * 60 * 5);
     }
 
     //취소 버튼이 세 종류인데,
@@ -405,7 +414,7 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
 
             default:
                 Log.d(TAG, "onClickCancel: unexcepted value");
-                return;
+                break;
         }
     }
 
@@ -428,5 +437,12 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
                         APPIAInfo.SM_DRV01_P01.getId(),
                         mainVehicle.getVin(),
                         serviceReqData.getTransId()));
+    }
+
+    //기사 배정 재시도 요청 성공
+    private void reInitDriverWait() {
+        initViewDriverWait();   //ui 값을 기사 대기중으로 바꾸고
+        ui.setActivity(this);   //뷰에 반영하고
+        autoCancelHandler.removeCallbacksAndMessages(null); //자동취소 타이머를 취소
     }
 }
