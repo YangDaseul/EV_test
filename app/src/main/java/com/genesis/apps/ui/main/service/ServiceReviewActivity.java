@@ -12,13 +12,10 @@ import com.genesis.apps.comm.model.gra.api.DDS_1005;
 import com.genesis.apps.comm.model.gra.api.WSH_1008;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.DDSViewModel;
-import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.ActivityServiceReviewBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
-
-import java.util.concurrent.ExecutionException;
 
 public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBinding> {
     private static final String TAG = ServiceReviewActivity.class.getSimpleName();
@@ -30,7 +27,6 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
 
     private WSHViewModel wshViewModel;
     private DDSViewModel ddsViewModel;
-    private LGNViewModel lgnViewModel;
     int reviewType;
 
     @Override
@@ -40,7 +36,7 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
         ui.setActivity(this);
 
         //todo 세차 리뷰인지 대리운전 리뷰인지 알아내기
-        // 리뷰 송신할 때, 세차는 예약번호, 대리운전은 transId도 있어야 함
+        // 리뷰 송신할 때, 세차는 예약번호, 대리운전은 transId, vin도 있어야 함
         reviewType = REVIEW_WASH;
 
         setViewModel();
@@ -88,7 +84,6 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
             case REVIEW_DRIVE:
                 //대리운전
                 ddsViewModel = new ViewModelProvider(this).get(DDSViewModel.class);
-                lgnViewModel = new ViewModelProvider(this).get(LGNViewModel.class);
                 break;
 
             default:
@@ -200,19 +195,14 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
                         reviewInput));
     }
 
-    //대리운전 리뷰 전송 TODO :  transId 알아내기
+    //대리운전 리뷰 전송 TODO :  transId 및 Vin 알아내기
     private void reqServiceDriveReview(String starRating, String reviewInput) {
-        try {
-            ddsViewModel.reqDDS1005(
-                    new DDS_1005.Request(APPIAInfo.SM_REVIEW01.getId(),
-                            lgnViewModel.getMainVehicleFromDB().getVin(),
-                            "transId",
-                            starRating,
-                            reviewInput));
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-            //todo 차량 정보 접근 실패에 대한 예외처리
-        }
+        ddsViewModel.reqDDS1005(
+                new DDS_1005.Request(APPIAInfo.SM_REVIEW01.getId(),
+                        "vin",// TODO 이거 현재 메인 차량일 거라는 보장이 없네... 이것도 푸시 알림에 포함되어있나?
+                        "transId",
+                        starRating,
+                        reviewInput));
     }
 
     //작성한 리뷰 전달 성공시 처리
@@ -221,7 +211,8 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
     //  임시로 리뷰 액티비티만 종료하도록 해 둠.
     private void finishReview() {
         SnackBarUtil.show(this, getString(R.string.service_review_finish));
-        finish();//스낵 바 안 보임(인식하기도 전에 액티비티랑 같이 없어져버림)
+        //TODO 스낵 바 안 보임(인식하기도 전에 액티비티랑 같이 없어져버림)
+        finish();
 //        startActivitySingleTop(new Intent(this, MainActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 

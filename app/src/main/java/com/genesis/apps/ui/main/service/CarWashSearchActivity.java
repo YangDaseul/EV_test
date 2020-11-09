@@ -19,6 +19,7 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.WSH_1002;
 import com.genesis.apps.comm.model.gra.api.WSH_1003;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.model.vo.WashBrnVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -43,6 +44,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 
     private WSHViewModel wshViewModel;
     private LGNViewModel lgnViewModel;
+    private VehicleVO mainVehicle;
 
     private LayoutMapOverlayUiBottomSonaxBranchBinding sonaxBranchBinding;
     private List<WashBrnVO> searchedBranchList;
@@ -51,7 +53,6 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
     private String godsSeqNo;
     private String godsNm;
     private double[] myPosition = {360., 360.};//경도위도 무효값으로 초기화
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
         setViewModel();
         setObserver();
         initView();
+        initMainVehicle();
         reqMyLocation();
     }
 
@@ -176,6 +178,15 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
         ui.btnMyPosition.setOnClickListener(onSingleClickListener);
 
         setMarkerClickListener();
+    }
+
+    private void initMainVehicle() {
+        try {
+            mainVehicle = lgnViewModel.getMainVehicleSimplyFromDB();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            //TODO 차량 정보 접근 실패에 대한 예외처리
+        }
     }
 
     //지도 마커 클릭 리스너
@@ -315,20 +326,15 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 
     //예약 요청 보냄
     private void reserveCarWash() {
-        try {
-            wshViewModel.reqWSH1003(
-                    new WSH_1003.Request(
-                            APPIAInfo.SM_CW01_A01.getId(),
-                            godsSeqNo,
-                            WSHViewModel.SONAX,
-                            pickedBranch.getBrnhCd(),
-                            lgnViewModel.getMainVehicleFromDB().getVin(),
-                            lgnViewModel.getMainVehicleFromDB().getCarRgstNo()
-                    ));
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-            //todo 차량 정보 접근 실패에 대한 예외처리
-        }
+        wshViewModel.reqWSH1003(
+                new WSH_1003.Request(
+                        APPIAInfo.SM_CW01_A01.getId(),
+                        godsSeqNo,
+                        WSHViewModel.SONAX,
+                        pickedBranch.getBrnhCd(),
+                        mainVehicle.getVin(),
+                        mainVehicle.getCarRgstNo()
+                ));
     }
 
     private WashBrnVO findBranch(String id) {
