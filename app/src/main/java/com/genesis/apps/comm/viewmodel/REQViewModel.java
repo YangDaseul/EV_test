@@ -24,6 +24,7 @@ import com.genesis.apps.comm.model.gra.api.REQ_1014;
 import com.genesis.apps.comm.model.gra.api.REQ_1015;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.REQRepo;
+import com.genesis.apps.comm.model.vo.CouponVO;
 import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
@@ -222,6 +223,22 @@ class REQViewModel extends ViewModel {
         }finally {
             es.shutDownExcutor();
         }
+    }
+
+    public boolean checkCoupon(List<CouponVO> couponList, String itemDivCd){
+        int remCnt=0;
+
+        for (CouponVO couponVO : couponList) {
+            if(couponVO.getItemDivCd().equalsIgnoreCase(itemDivCd)){
+                try{
+                    remCnt = Integer.parseInt(couponVO.getRemCnt());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
+        return remCnt>0;
     }
 
 

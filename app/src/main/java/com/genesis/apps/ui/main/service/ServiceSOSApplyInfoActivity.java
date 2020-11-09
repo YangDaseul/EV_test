@@ -16,8 +16,10 @@ import com.genesis.apps.comm.model.gra.api.GNS_1012;
 import com.genesis.apps.comm.model.gra.api.GNS_1013;
 import com.genesis.apps.comm.model.gra.api.GNS_1014;
 import com.genesis.apps.comm.model.gra.api.GNS_1015;
+import com.genesis.apps.comm.model.gra.api.SOS_1001;
 import com.genesis.apps.comm.model.gra.api.SOS_1004;
 import com.genesis.apps.comm.model.gra.api.SOS_1005;
+import com.genesis.apps.comm.model.gra.api.SOS_1006;
 import com.genesis.apps.comm.model.vo.AddressZipVO;
 import com.genesis.apps.comm.model.vo.RentStatusVO;
 import com.genesis.apps.comm.model.vo.SOSStateVO;
@@ -58,7 +60,11 @@ public class ServiceSOSApplyInfoActivity extends SubActivity<ActivityServiceSosA
         getDataFromIntent();
         setViewModel();
         setObserver();
-        sosViewModel.reqSOS1005(new SOS_1005.Request(APPIAInfo.SM_EMGC02.getId(), tmpAcptNo));
+        if(TextUtils.isEmpty(tmpAcptNo)){//가접수번호가 없는 경우 (서비스 메인에서 바로 접수내역 화면으로 이동 시)
+            sosViewModel.reqSOS1001(new SOS_1001.Request(APPIAInfo.SM_EMGC02.getId()));
+        }else{//가접수번호가 있는 경우 (신청 후)
+            sosViewModel.reqSOS1005(new SOS_1005.Request(APPIAInfo.SM_EMGC02.getId(), tmpAcptNo));
+        }
     }
 
     private void initView() {
@@ -96,6 +102,27 @@ public class ServiceSOSApplyInfoActivity extends SubActivity<ActivityServiceSosA
 
     @Override
     public void setObserver() {
+
+        sosViewModel.getRES_SOS_1001().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                  showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                   showProgressDialog(false);
+                    tmpAcptNo = result.data.getTmpAcptNo();
+                    if(result.data!=null&&!TextUtils.isEmpty(tmpAcptNo)){
+                        sosViewModel.reqSOS1005(new SOS_1005.Request(APPIAInfo.SM_EMGC02.getId(), tmpAcptNo));
+                        break;
+                    }
+                default:
+                    showProgressDialog(false);
+                    if (TextUtils.isEmpty(tmpAcptNo)) {
+                        exitPage("가접수번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                    }
+                    break;
+            }
+        });
 
         sosViewModel.getRES_SOS_1005().observe(this, result -> {
             switch (result.status) {
@@ -164,10 +191,6 @@ public class ServiceSOSApplyInfoActivity extends SubActivity<ActivityServiceSosA
             tmpAcptNo = getIntent().getStringExtra(KeyNames.KEY_NAME_SOS_TMP_NO);
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            if (TextUtils.isEmpty(tmpAcptNo)){
-                exitPage("가접수번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
-            }
         }
     }
 

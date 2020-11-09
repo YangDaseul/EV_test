@@ -39,6 +39,10 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
     private LayoutMapOverlayUiBottomAddressBinding bottomSelectBinding;
     private AddressVO selectAddressVO;
     private Double[] requestPosition = new Double[2];
+
+    private int titleId;
+    private int msgId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +89,8 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
     public void getDataFromIntent() {
         try{
             selectAddressVO = (AddressVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_ADDR);
+            titleId = getIntent().getIntExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID,0);
+            msgId = getIntent().getIntExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID,0);
         }catch (Exception e){
             e.printStackTrace();
             selectAddressVO = null;
@@ -206,7 +212,10 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
                 ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)), 500);
                 break;
             case R.id.tv_map_title_address:
-                showFragment(new SearchAddressHMNFragment());
+                Bundle bundle = new Bundle();
+                bundle.putInt(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, titleId);
+                bundle.putInt(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, msgId);
+                showFragment(new SearchAddressHMNFragment(),bundle);
                 break;
         }
 

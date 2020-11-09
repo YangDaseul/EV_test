@@ -201,6 +201,14 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         transaction.commitAllowingStateLoss();
     }
 
+    public <T extends SubFragment> void showFragment(T fragment, Bundle bundle) {
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_stay);
+        if(bundle!=null) fragment.setArguments(bundle);
+        transaction.replace(R.id.l_fragment, fragment);
+        transaction.commitAllowingStateLoss();
+    }
+
     public <T extends SubFragment> void hideFragment(T fragment) {
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(0, R.anim.fragment_exit_toright);

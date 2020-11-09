@@ -156,6 +156,34 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
         }
     }
 
+
+    private void startSOSActivity() {
+
+        String pgrsStusCd="";
+        try{
+            pgrsStusCd = reqViewModel.getRES_REQ_1001().getValue().data.getPgrsStusCd();
+        }catch (Exception e){
+            pgrsStusCd = "";
+        }
+
+        if(!TextUtils.isEmpty(pgrsStusCd)){
+            switch (pgrsStusCd){
+                case VariableType.SERVICE_SOS_STATUS_CODE_W://접수
+                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceSOSApplyInfoActivity.class),RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    break;
+                case VariableType.SERVICE_SOS_STATUS_CODE_S://출동
+                    sosViewModel.reqSOS1001(new SOS_1001.Request(APPIAInfo.SM01.getId()));
+                    break;
+                case VariableType.SERVICE_SOS_STATUS_CODE_R://신청
+                case VariableType.SERVICE_SOS_STATUS_CODE_E://완료
+                case VariableType.SERVICE_SOS_STATUS_CODE_C://취소
+                default:
+                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceSOSApplyActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    break;
+            }
+        }
+    }
+
     @Override
     public void onRefresh() {
         reqServiceInfoToServer();
@@ -206,8 +234,11 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
             case R.id.l_service_maintenance_reservation_btn:
                 try{
                     String avlRsrVn = reqViewModel.getRES_REQ_1001().getValue().data.getAvlRsrYn();
-                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MaintenanceReserveActivity.class).putExtra(KeyNames.KEY_NAME_MAINTENANCE_AVL_RSR_YN, avlRsrVn), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                }catch (Exception e){
+                    if(!TextUtils.isEmpty(avlRsrVn)&&avlRsrVn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES))
+                         ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MaintenanceReserveActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    else
+                        MiddleDialog.dialogServiceInfo(getActivity(), null);
+                }catch (Exception ignore){
 
                 }
                 break;
@@ -216,12 +247,7 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
                 break;
             //긴급출동
             case R.id.l_service_maintenance_emergency_btn:
-                //TODO 조건에 따라 동작하도록 수정 필요
-//                //일반 상태일때 접수로 이동
-//                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceSOSApplyActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-
-                //현황보기
-                sosViewModel.reqSOS1001(new SOS_1001.Request(APPIAInfo.SM01.getId()));
+                startSOSActivity();
                 break;
             //원격진단 신청
             case R.id.l_service_maintenance_customercenter_btn:

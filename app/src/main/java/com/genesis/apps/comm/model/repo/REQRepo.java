@@ -164,11 +164,13 @@ public class REQRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_REQ_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_REQ_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_REQ_1005.setValue(NetUIResponse.success(TestCode.REQ_1005));
+
+
 //                String json = TestCode.REQ_1005;
 //                REQ_1005.Response response = new Gson().fromJson(json, REQ_1005.Response.class);
 //                response.setREQStateVO(new Gson().fromJson(json, REQStateVO.class));
-//                RES_REQ_1005.setValue(NetUIResponse.success(response));
             }
 
             @Override

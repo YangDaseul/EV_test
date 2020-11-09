@@ -12,6 +12,7 @@ import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.DialogInsightExpnDeleteBinding;
 import com.genesis.apps.databinding.DialogMiddleTwoButtonBinding;
+import com.genesis.apps.databinding.DialogServiceCantReserveInfoBinding;
 import com.genesis.apps.databinding.DialogUpdateBinding;
 import com.genesis.apps.databinding.DialogUsedCarInfoBinding;
 
@@ -252,6 +253,24 @@ public class MiddleDialog {
         );
     }
 
+    public static void dialogServiceCantReserveInfo(@NonNull Activity activity, final Runnable ok) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                new CustomDialog(activity, dialog -> {
+                    DialogServiceCantReserveInfoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_service_cant_reserve_info, null, false);
+                    dialog.setContentView(binding.getRoot());
+
+                    binding.btnOk.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (ok != null) ok.run();
+                    });
+                }).show()
+        );
+    }
+
+
     public static void dialogOilDisconnect(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
         if (activity.isFinishing()) {
             return;
@@ -457,6 +476,7 @@ public class MiddleDialog {
         );
     }
 
+
     //세차 예약
     public static void dialogCarWashReserve(@NonNull Activity activity, final Runnable ok, String msg) {
         if (activity.isFinishing()) {
@@ -515,14 +535,14 @@ public class MiddleDialog {
             final Runnable cancel,
             final int titleId,
             final int msgId,
-            final int okBtnTextId,
-            final int cancelBtnTextId) {
+            final int cancelTextId,
+            final int okTextId) {
 
         return getTwoButtonDialog(
                 activity, ok, cancel,
                 activity.getString(titleId),
                 activity.getString(msgId),
-                okBtnTextId, cancelBtnTextId);
+                cancelTextId, okTextId);
     }
 
     private static CustomDialog getTwoButtonDialog(
@@ -531,8 +551,8 @@ public class MiddleDialog {
             final Runnable cancel,
             final String title,
             final String msg,
-            final int okBtnTextId,
-            final int cancelBtnTextId) {
+            final int cancelTextId,
+            final int okTextId) {
 
         return new CustomDialog(activity, dialog -> {
             DialogMiddleTwoButtonBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_middle_two_button, null, false);
@@ -542,8 +562,8 @@ public class MiddleDialog {
             binding.tvMsg.setText(msg);
             binding.tvMsg.setMovementMethod(new ScrollingMovementMethod());
 
-            binding.btnCancel.setText(okBtnTextId);
-            binding.btnOk.setText(cancelBtnTextId);
+            binding.btnCancel.setText(cancelTextId);
+            binding.btnOk.setText(okTextId);
 
             binding.btnCancel.setOnClickListener(v -> {
                 dialog.dismiss();
@@ -556,5 +576,84 @@ public class MiddleDialog {
         });
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private static CustomDialog getOneButtonDialog(
+            @NonNull Activity activity,
+            final Runnable ok,
+            final String title,
+            final String msg,
+            final int okTextId) {
+
+        return new CustomDialog(activity, dialog -> {
+            DialogMiddleTwoButtonBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_middle_two_button, null, false);
+            dialog.setContentView(binding.getRoot());
+
+            binding.tvTitle.setText(title);
+            binding.tvMsg.setText(msg);
+            binding.tvMsg.setMovementMethod(new ScrollingMovementMethod());
+
+            binding.btnCancel.setVisibility(View.GONE);
+            binding.btnOk.setText(okTextId);
+
+            binding.btnOk.setOnClickListener(v -> {
+                dialog.dismiss();
+                if (ok != null) ok.run();
+            });
+        });
+    }
+
+    private static CustomDialog getOneButtonDialog(
+            @NonNull Activity activity,
+            final Runnable ok,
+            final int titleId,
+            final int msgId,
+            final int okTextId) {
+
+        return getOneButtonDialog(
+                activity, ok,
+                activity.getString(titleId),
+                activity.getString(msgId),
+                okTextId);
+    }
+
+
+    /**
+     * @brief 서비스 예약 중복 안내
+     */
+    public static void dialogServiceInfo(@NonNull Activity activity, final Runnable ok) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getOneButtonDialog(activity,
+                        ok,
+                        R.string.sm01_p02_1,
+                        R.string.sm01_p02_2,
+                        R.string.dialog_common_4
+                ).show()
+        );
+    }
 
 }

@@ -61,6 +61,7 @@ import com.genesis.apps.comm.model.gra.api.REQ_1001;
 import com.genesis.apps.comm.model.gra.api.REQ_1002;
 import com.genesis.apps.comm.model.gra.api.REQ_1003;
 import com.genesis.apps.comm.model.gra.api.REQ_1004;
+import com.genesis.apps.comm.model.gra.api.REQ_1005;
 import com.genesis.apps.comm.model.gra.api.SOS_1001;
 import com.genesis.apps.comm.model.gra.api.SOS_1002;
 import com.genesis.apps.comm.model.gra.api.SOS_1004;
@@ -2611,12 +2612,12 @@ public class TestCode {
             "  \"carNo\": \"10라0142\",\n" +
             "  \"carTypeNm\": \"아이오닉EV\",\n" +
             "  \"receiveDtm\": \"20180128105929\",\n" +
-            "  \"gCustX\": \"37.53235333090944\",\n" +
+            "  \"gCustX\": \"37.347470\",\n" +
             "  \"startX\": \"45728206\",\n" +
             "  \"startY\": \"13502901\",\n" +
             "  \"finishX\": \"45703607\",\n" +
             "  \"finishY\": \"13510640\",\n" +
-            "  \"gCustY\": \"126.95236305538208\",\n" +
+            "  \"gCustY\": \"126.805108\",\n" +
             "  \"gXpos\": \"37.510865\",\n" +
             "  \"gYpos\": \"127.020693\",\n" +
             "  \"sallocNm\": \"출동(하이카)\"\n" +
@@ -2651,7 +2652,7 @@ public class TestCode {
             "  \"rtCd\": \"0000\",\n" +
             "  \"rtMsg\": \"Success\",\n" +
             "  \"stusCd\": \"4610\",\n" +
-            "  \"pgrsStusCd\": \"S\",\n" +
+            "  \"pgrsStusCd\": \"R\",\n" +
             "  \"avlRsrYn\": \"Y\"\n" +
             "}",REQ_1001.Response.class);
 
@@ -2748,5 +2749,54 @@ public class TestCode {
             "    }\n" +
             "  ]\n" +
             "}",REQ_1004.Response.class);
+
+
+
+    public static REQ_1005.Response REQ_1005 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"carCareCpnList\": [\n" +
+            "    {\n" +
+            "      \"itemDivCd\": \"11\",\n" +
+            "      \"itemNm\": \"HI 엔진오일\",\n" +
+            "      \"remCnt\": \"6\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"itemDivCd\": \"13\",\n" +
+            "      \"itemNm\": \"HI 에어컨필터\",\n" +
+            "      \"remCnt\": \"3\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"itemDivCd\": \"32\",\n" +
+            "      \"itemNm\": \"HI 브레이크패드\",\n" +
+            "      \"remCnt\": \"1\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"itemDivCd\": \"33\",\n" +
+            "      \"itemNm\": \"HI 와이퍼블레이드\",\n" +
+            "      \"remCnt\": \"2\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"itemDivCd\": \"34\",\n" +
+            "      \"itemNm\": \"HI 브레이크오일\",\n" +
+            "      \"remCnt\": \"3\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"itemDivCd\": \"61\",\n" +
+            "      \"itemNm\": \"HI 홈투홈\",\n" +
+            "      \"remCnt\": \"6\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"itemDivCd\": \"99\",\n" +
+            "      \"itemNm\": \"프리미엄 소낙스 세차 이용권\",\n" +
+            "      \"remCnt\": \"1\"\n" +
+            "    }\n" +
+            "  ],\n" +
+            "  \"autoRsvtPsblYn\": \"Y\",\n" +
+            "  \"arptRsvtPsblYn\": \"Y\",\n" +
+            "  \"hthRsvtPsblYn\": \"Y\",\n" +
+            "  \"rpshRsvtPsblYn\": \"Y\",\n" +
+            "  \"avlRsrYn\": \"Y\"\n" +
+            "}", REQ_1005.Response.class);
 
 }

@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -22,7 +23,6 @@ import com.genesis.apps.databinding.ActivitySearchAddressBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
@@ -36,9 +36,6 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
     private MapViewModel mapViewModel;
     private LGNViewModel lgnViewModel;
 
-//    public View.OnClickListener onClickListener = view -> onClickCommon(view);
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return super.setContentView(inflater, R.layout.activity_search_address);
@@ -47,6 +44,23 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setViewArgument();
+    }
+
+    private void setViewArgument() {
+        try {
+            int titleId = getArguments().getInt(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, 0);
+            int msgId = getArguments().getInt(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, 0);
+            if (titleId != 0) {
+                me.lTitle.setValue(getString(titleId));
+            }
+            if (msgId != 0) {
+                me.tvMsg.setVisibility(View.VISIBLE);
+                me.tvMsg.setText(getString(msgId));
+            }
+        }catch (Exception ignore){
+
+        }
     }
 
     @Override
@@ -86,20 +100,7 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
         me.lSearchParent.rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         me.lSearchParent.rv.setHasFixedSize(true);
         me.lSearchParent.rv.setAdapter(adapter);
-//        me.lSearchParent.rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//                if (!me.lSearchParent.rv.canScrollVertically(-1)) {
-//                    //top
-//                } else if (!me.lSearchParent.rv.canScrollVertically(1)) {
-//                    //end
-//                    if(adapter.getItemCount()>19) searchAddress();
-//                } else {
-//                    //idle
-//                }
-//            }
-//        });
+
 
         me.lSearchParent.etSearch.setOnEditorActionListener(editorActionListener);
         me.lSearchParent.etSearch.setHint(R.string.map_title_3);

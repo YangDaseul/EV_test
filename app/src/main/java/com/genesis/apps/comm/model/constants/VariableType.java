@@ -6,6 +6,8 @@ public class VariableType {
     public static final int ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE=3;
     public static final int ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE=4;
 
+    public static final String COMMON_MEANS_YES="Y";
+    public static final String COMMON_MEANS_NO="N";
 
     public static final String TERM_SERVICE_JOIN_GRA0001="GRA0001"; //제네시스 앱 이용 약관
     public static final String TERM_SERVICE_JOIN_GRA0002="GRA0002"; //제네시스 앱 개인정보 처리 방침
@@ -196,5 +198,23 @@ public class VariableType {
     public static final String SERVICE_SOS_STATUS_CODE_S ="S"; //출동
     public static final String SERVICE_SOS_STATUS_CODE_E ="E"; //완료
     public static final String SERVICE_SOS_STATUS_CODE_C ="C"; //취소
+
+
+    //서비스 카케어 쿠폰 리스트 (REQ-1005 응답)
+    public static final String SERVICE_CAR_CARE_COUPON_CODE_ENGINE="11";
+    public static final String SERVICE_CAR_CARE_COUPON_CODE_AC_FILTER="13";
+    public static final String SERVICE_CAR_CARE_COUPON_CODE_BREAK_PAD="32";
+    public static final String SERVICE_CAR_CARE_COUPON_CODE_WIPER="33";
+    public static final String SERVICE_CAR_CARE_COUPON_CODE_BREAK_OIL="34";
+    public static final String SERVICE_CAR_CARE_COUPON_CODE_PICKUP_DELIVERY="61";
+    public static final String SERVICE_CAR_CARE_COUPON_CODE_WASH_SONAKS="99";
+
+    //서비스 정비 내용
+    public static final String SERVICE_REPAIR_CODE_AC="AC"; //냉난방부품
+    public static final String SERVICE_REPAIR_CODE_BA="BA"; //일반부품
+    public static final String SERVICE_REPAIR_CODE_CS="CS"; //소모성부품
+    public static final String SERVICE_REPAIR_CODE_EG="EG"; //엔진주요부품
+    public static final String SERVICE_REPAIR_CODE_GT="GT"; //기타
+    public static final String SERVICE_REPAIR_CODE_PT="PT"; //동력전달주요부품
 
 }

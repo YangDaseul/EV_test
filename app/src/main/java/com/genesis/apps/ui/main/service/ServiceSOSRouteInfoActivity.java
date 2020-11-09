@@ -112,22 +112,26 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
     }
 
     private void drawMaker(boolean isFit){
+        //운전자 마커 생성
         PlayMapPoint point1 = new PlayMapPoint(Double.parseDouble(sosDriverVO.getGXpos()), Double.parseDouble(sosDriverVO.getGYpos()));
-        PlayMapPoint point2 = new PlayMapPoint(Double.parseDouble(sosDriverVO.getGCustX()), Double.parseDouble(sosDriverVO.getGCustY()));
-        PlayMapMarker mapMarker1 = new PlayMapMarker();
-        PlayMapMarker mapMarker2 = new PlayMapMarker();
-        mapMarker1.setMapPoint(point1);
-        mapMarker2.setMapPoint(point2);
-        mapMarker1.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_pin_driver));
-        mapMarker2.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_pin_mycar));
-        mapMarker1.setCanShowCallout(false);
-        mapMarker1.setAutoCalloutVisible(false);
-        mapMarker2.setCanShowCallout(false);
-        mapMarker2.setAutoCalloutVisible(false);
+        PlayMapMarker driverMarker = new PlayMapMarker();
+        driverMarker.setMapPoint(point1);
+        driverMarker.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_pin_driver));
+        driverMarker.setCanShowCallout(false);
+        driverMarker.setAutoCalloutVisible(false);
+        ui.pmvMapView.addMarkerItem("start", driverMarker);
 
 
-        ui.pmvMapView.addMarkerItem("start", mapMarker1);
-        ui.pmvMapView.addMarkerItem("end", mapMarker2);
+        //고객 위치 마커는 null일 경우에만 1회 생성
+        if(!ui.pmvMapView.markeritems.containsKey("end")) {
+            PlayMapPoint point2 = new PlayMapPoint(Double.parseDouble(sosDriverVO.getGCustX()), Double.parseDouble(sosDriverVO.getGCustY()));
+            PlayMapMarker customerMarker = new PlayMapMarker();
+            customerMarker.setMapPoint(point2);
+            customerMarker.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_pin_mycar));
+            customerMarker.setCanShowCallout(false);
+            customerMarker.setAutoCalloutVisible(false);
+            ui.pmvMapView.addMarkerItem("end", customerMarker);
+        }
 
         if(isFit) {
             //마커가 찍힌 후 충분한 시간 뒤에 핏 마커가 동작함
