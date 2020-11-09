@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.DDS_1005;
 import com.genesis.apps.comm.model.gra.api.WSH_1008;
@@ -211,9 +212,7 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
     //  임시로 리뷰 액티비티만 종료하도록 해 둠.
     private void finishReview() {
         SnackBarUtil.show(this, getString(R.string.service_review_finish));
-        //TODO 스낵 바 안 보임(인식하기도 전에 액티비티랑 같이 없어져버림)
-        finish();
-//        startActivitySingleTop(new Intent(this, MainActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        exitPage(getString(R.string.service_review_finish), ResultCodes.RES_CODE_NETWORK.getCode());
     }
 
     @Override
