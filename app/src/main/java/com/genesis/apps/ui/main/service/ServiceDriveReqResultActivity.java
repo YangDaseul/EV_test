@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewStub;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
@@ -22,7 +21,6 @@ import com.genesis.apps.comm.model.gra.api.DDS_1001;
 import com.genesis.apps.comm.model.gra.api.DDS_1004;
 import com.genesis.apps.comm.model.gra.api.DDS_1006;
 import com.genesis.apps.comm.model.vo.VehicleVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.PhoneUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -31,7 +29,6 @@ import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityServiceDriveReqResultBinding;
 import com.genesis.apps.databinding.LayoutServiceDriveStatusDriverBinding;
 import com.genesis.apps.databinding.LayoutServiceDriveStatusReservedBinding;
-import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 
@@ -133,13 +130,17 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
 
                         if (result.data.getRtCd().equals(BaseResponse.RETURN_CODE_SUCC)) {
                             //취소 성공
+                            //자동취소 타이머 끄기
+                            cancelTimer();
+
+                            //취소 종류에 따른 처리
                             switch (cancelBtnType) {
                                 case R.string.service_drive_req_result_btn_05:
                                 case R.string.service_drive_req_result_btn_02:
                                     exitPage(getString(R.string.sd_cancel_succ), ResultCodes.RES_CODE_NETWORK.getCode());
                                     break;
 
-                                case R.string.service_drive_req_result_btn_03:
+                                case R.string.service_drive_req_result_btn_03://대리운전 기사 못 찼았어요 상태에서
                                     exitPage("", ResultCodes.REQ_CODE_NORMAL.getCode());
 
                                     Intent intent = new Intent(this, ServiceDriveReqActivity.class);
@@ -429,6 +430,11 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
                         cancelType));
     }
 
+    //자동취소 타이머를 취소
+    private void cancelTimer() {
+        autoCancelHandler.removeCallbacksAndMessages(null);
+    }
+
     //다시 요청(기사 배정 실패 후, 배정 재요청)
     private void reRequest() {
         Log.d(TAG, "reRequest: ");
@@ -443,6 +449,6 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
     private void reInitDriverWait() {
         initViewDriverWait();   //ui 값을 기사 대기중으로 바꾸고
         ui.setActivity(this);   //뷰에 반영하고
-        autoCancelHandler.removeCallbacksAndMessages(null); //자동취소 타이머를 취소
+        cancelTimer();          //자동취소 타이머를 취소
     }
 }
