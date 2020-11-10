@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.RequestCodes;
-import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.DDS_1001;
@@ -121,7 +120,7 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
 
                             //대리운전 신청 액티비티 호출
                             case DDS_1001.STATUS_REQ:
-                            case DDS_1001.STATUS_SERVICE_COMPLETE:
+                            case DDS_1001.STATUS_SERVICE_FINISHED:
                             case DDS_1001.STATUS_CANCEL_BY_USER:
                             case DDS_1001.STATUS_CANCEL_CAUSE_NO_DRIVER:
                                 ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);

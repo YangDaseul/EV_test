@@ -3,21 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- 펼친 상태 -->
+    <data>
+
+        <variable
+            name="holder"
+            type="com.genesis.apps.ui.main.service.ServiceDriveHistoryAdapter.ServiceDriveHistoryFinishedViewHolder" />
+    </data>
+
     <LinearLayout
+        android:id="@+id/l_service_drive_history_detail_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/bg_ffffff_stroke_e2e2e2"
-        android:orientation="vertical"
-        android:padding="1dp">
-
-        <!-- 접힘/펼침 상태 공통 부분 TODO  아랫부분 작성 : 서비스 대리운전 신청내역태그
-        -->
-        <include
-            android:id="@+id/l_service_drive_history_opened_btn"
-            layout="@layout/item_service_drive_history_finished"
-            app:icon="@{@drawable/btn_arrow_close}" />
+        android:orientation="vertical">
 
         <!-- 회색 선 -->
         <ImageView
@@ -33,7 +30,9 @@
             layout="@layout/layout_service_drive_route"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp" />
+            android:layout_margin="20dp"
+            app:FROM="@{holder.from}"
+            app:TO="@{holder.to}" />
 
         <!-- 운행기사 레이아웃 -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -65,6 +64,7 @@
                 android:id="@+id/tv_service_drive_history_driver_name"
                 style="@style/TextBasic"
                 android:fontFamily="@font/regular_genesissanstextglobal"
+                android:text="@{holder.driverName}"
                 android:textColor="@color/x_000000"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -79,6 +79,7 @@
                 style="@style/TextBasic"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/light_genesissansheadglobal"
+                android:text="@{holder.driverPhone}"
                 android:textColor="@color/x_000000"
                 android:textSize="15sp"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_driver_name"
@@ -134,6 +135,7 @@
                 android:id="@+id/tv_service_drive_history_opened_price_value"
                 style="@style/TextBasic"
                 android:fontFamily="@font/regular_genesissanstextglobal"
+                android:text="@{holder.originalPrice}"
                 android:textColor="@color/x_000000"
                 android:textSize="15sp"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_opened_price_title"
@@ -149,6 +151,7 @@
                 android:text="@string/service_drive_history_discount"
                 android:textColor="@color/x_000000"
                 android:textSize="13sp"
+                android:visibility="@{holder.discountVisibility}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_service_drive_history_opened_price_title" />
 
@@ -157,8 +160,10 @@
                 android:id="@+id/tv_service_drive_history_opened_discount_value"
                 style="@style/TextBasic"
                 android:fontFamily="@font/regular_genesissanstextglobal"
+                android:text="@{holder.blueMemberPoint}"
                 android:textColor="@color/x_000000"
                 android:textSize="15sp"
+                android:visibility="@{holder.discountVisibility}"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_opened_discount_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="-500,000원" />
@@ -190,12 +195,12 @@
                 android:id="@+id/tv_service_drive_history_opened_paid_value"
                 style="@style/TextBasic"
                 android:fontFamily="@font/regular_genesissansheadglobal"
+                android:text="@{holder.paidPrice}"
                 android:textColor="@color/x_a36b4f"
                 android:textSize="18sp"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_opened_paid_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="500,000원" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

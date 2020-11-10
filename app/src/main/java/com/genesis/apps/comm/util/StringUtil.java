@@ -29,6 +29,26 @@ public class StringUtil {
         }
     }
 
+    //숫자를 받아서 10,000원 형태를 반환
+    public static String getPriceString(int value) {
+        return getPriceString(""+value);
+    }
+
+    //숫자만 써있는 문자열을 받아서 10,000원 형태를 반환
+    public static String getPriceString(String value) {
+        return getDigitGroupingString(value) + "원";
+    }
+
+    //숫자를 받아서 -10,000원 형태를 반환 (입력은 양수, 리턴은 음수 기호 붙음)
+    public static String getDiscountString(int value) {
+        return getDiscountString(""+value);
+    }
+
+    //숫자만 써있는 문자열을 받아서 -10,000원 형태를 반환 (입력은 양수, 리턴은 음수 기호 붙음)
+    public static String getDiscountString(String value) {
+        return "-" + getDigitGroupingString(value) + "원";
+    }
+
     /**
      * @brief 폰번호 포맷 변경
      * 폰번호가 +82로 시작되거나 대쉬가 있는 경우 아래 포맷으로 변경

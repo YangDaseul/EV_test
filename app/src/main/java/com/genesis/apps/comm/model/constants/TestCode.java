@@ -358,10 +358,457 @@ public class TestCode {
             "  \"transId\": \"서버 맘대로 20글자\"\n" +
             "}", DDS_1002.Response.class);
 
-    //todo add history dummy data
     public static DDS_1003.Response DDS_1003 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
-            "  \"rtMsg\": \"성공\"\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"totalCnt\": \"10byte\",\n" +
+            "  \"listCnt\": \"10byte\",\n" +
+            "  \"svcInfo\": [\n" +
+            "    {\n" +
+            "      \"transId\": \"예약번호20byte01\",\n" +
+            "      \"mbrMgmtNo\": \"16byte0001\",\n" +
+            "      \"reqDivCd\": \"RT\",\n" +
+            "      \"svcStusCd\": \"1300\",\n" +
+            "      \"stusNm\": \"운행중\",\n" +
+            "      \"vin\": \"2wert345r098wert7\",\n" +
+            "      \"carRegNo\": \"234고 3543\",\n" +
+            "      \"mdlNm\": \"GV70\",\n" +
+            "      \"expPrice\": \"20000\",\n" +
+            "      \"bluMbrDcPrice\": \"5000\",\n" +
+            "      \"rdwnSpcDcPrice\": \"\",\n" +
+            "      \"payDiv\": \"CARD\",\n" +
+            "      \"payPrice\": \"15000\",\n" +
+            "      \"payDt\": \"202012202200\",\n" +
+            "      \"updtDt\": \"202012202300\",\n" +
+            "      \"rsvDt\": \"202012202200\",\n" +
+            "      \"rgstDt\": \"202012201300\",\n" +
+            "      \"posInfo\": [\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEPT\",\n" +
+            "          \"latCoord\": \"37.58885149105208\",\n" +
+            "          \"lonCoord\": \"126.9440832693006\",\n" +
+            "          \"addrLotNo\": \"홍제역 지번 주소\",\n" +
+            "          \"addrBldNm\": \"홍제역 도로명 주소\",\n" +
+            "          \"addrDtl\": \" 1동 2호\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEST\",\n" +
+            "          \"latCoord\": \"37.4813022\",\n" +
+            "          \"lonCoord\": \"126.8821687\",\n" +
+            "          \"addrLotNo\": \"서울 구로구 라이온스밸리 지번주소\",\n" +
+            "          \"addrBldNm\": \"서울 구로구 라이온스밸리 도로명주소\",\n" +
+            "          \"addrDtl\": \"지하주차장이겠지\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"transId\": \"예약번호20byte02\",\n" +
+            "      \"mbrMgmtNo\": \"16byte0001\",\n" +
+            "      \"reqDivCd\": \"RT\",\n" +
+            "      \"svcStusCd\": \"1310\",\n" +
+            "      \"stusNm\": \"완료\",\n" +
+            "      \"vin\": \"2wert345r098wert7\",\n" +
+            "      \"carRegNo\": \"234고 3543\",\n" +
+            "      \"mdlNm\": \"GV72\",\n" +
+            "      \"expPrice\": \"20000\",\n" +
+            "      \"bluMbrDcPrice\": \"5000\",\n" +
+            "      \"rdwnSpcDcPrice\": \"\",\n" +
+            "      \"payDiv\": \"CARD\",\n" +
+            "      \"payPrice\": \"15000\",\n" +
+            "      \"payDt\": \"202012202200\",\n" +
+            "      \"updtDt\": \"202012202300\",\n" +
+            "      \"rsvDt\": \"202012202200\",\n" +
+            "      \"rgstDt\": \"202012201300\",\n" +
+            "      \"posInfo\": [\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEPT\",\n" +
+            "          \"latCoord\": \"37.58885149105208\",\n" +
+            "          \"lonCoord\": \"126.9440832693006\",\n" +
+            "          \"addrLotNo\": \"홍제역 지번 주소\",\n" +
+            "          \"addrBldNm\": \"홍제역 도로명 주소\",\n" +
+            "          \"addrDtl\": \" 1동 2호\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEST\",\n" +
+            "          \"latCoord\": \"37.4813022\",\n" +
+            "          \"lonCoord\": \"126.8821687\",\n" +
+            "          \"addrLotNo\": \"서울 구로구 라이온스밸리 지번주소\",\n" +
+            "          \"addrBldNm\": \"서울 구로구 라이온스밸리 도로명주소\",\n" +
+            "          \"addrDtl\": \"지하주차장이겠지\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"transId\": \"예약번호20byte03\",\n" +
+            "      \"mbrMgmtNo\": \"16byte0001\",\n" +
+            "      \"reqDivCd\": \"RT\",\n" +
+            "      \"svcStusCd\": \"1400\",\n" +
+            "      \"stusNm\": \"취소\",\n" +
+            "      \"vin\": \"2wert345r098wert7\",\n" +
+            "      \"carRegNo\": \"234고 3543\",\n" +
+            "      \"mdlNm\": \"GV73\",\n" +
+            "      \"expPrice\": \"20000\",\n" +
+            "      \"bluMbrDcPrice\": \"0\",\n" +
+            "      \"rdwnSpcDcPrice\": \"\",\n" +
+            "      \"payDiv\": \"CARD\",\n" +
+            "      \"payPrice\": \"20000\",\n" +
+            "      \"payDt\": \"202012202200\",\n" +
+            "      \"updtDt\": \"202012202300\",\n" +
+            "      \"rsvDt\": \"202012202200\",\n" +
+            "      \"rgstDt\": \"202012201300\",\n" +
+            "      \"posInfo\": [\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEPT\",\n" +
+            "          \"latCoord\": \"37.58885149105208\",\n" +
+            "          \"lonCoord\": \"126.9440832693006\",\n" +
+            "          \"addrLotNo\": \"홍제역 지번 주소\",\n" +
+            "          \"addrBldNm\": \"홍제역 도로명 주소\",\n" +
+            "          \"addrDtl\": \" 1동 2호\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEST\",\n" +
+            "          \"latCoord\": \"37.4813022\",\n" +
+            "          \"lonCoord\": \"126.8821687\",\n" +
+            "          \"addrLotNo\": \"서울 구로구 라이온스밸리 지번주소\",\n" +
+            "          \"addrBldNm\": \"서울 구로구 라이온스밸리 도로명주소\",\n" +
+            "          \"addrDtl\": \"지하주차장이겠지\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"transId\": \"예약번호20byte04\",\n" +
+            "      \"mbrMgmtNo\": \"16byte0001\",\n" +
+            "      \"reqDivCd\": \"RT\",\n" +
+            "      \"svcStusCd\": \"1400\",\n" +
+            "      \"stusNm\": \"취소\",\n" +
+            "      \"vin\": \"2wert345r098wert7\",\n" +
+            "      \"carRegNo\": \"234고 3543\",\n" +
+            "      \"mdlNm\": \"GV74\",\n" +
+            "      \"expPrice\": \"20000\",\n" +
+            "      \"bluMbrDcPrice\": \"5000\",\n" +
+            "      \"rdwnSpcDcPrice\": \"\",\n" +
+            "      \"payDiv\": \"CARD\",\n" +
+            "      \"payPrice\": \"15000\",\n" +
+            "      \"payDt\": \"202012202200\",\n" +
+            "      \"updtDt\": \"202012202300\",\n" +
+            "      \"rsvDt\": \"202012202200\",\n" +
+            "      \"rgstDt\": \"202012201300\",\n" +
+            "      \"posInfo\": [\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEPT\",\n" +
+            "          \"latCoord\": \"37.58885149105208\",\n" +
+            "          \"lonCoord\": \"126.9440832693006\",\n" +
+            "          \"addrLotNo\": \"홍제역 지번 주소\",\n" +
+            "          \"addrBldNm\": \"홍제역 도로명 주소\",\n" +
+            "          \"addrDtl\": \" 1동 2호\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEST\",\n" +
+            "          \"latCoord\": \"37.4813022\",\n" +
+            "          \"lonCoord\": \"126.8821687\",\n" +
+            "          \"addrLotNo\": \"서울 구로구 라이온스밸리 지번주소\",\n" +
+            "          \"addrBldNm\": \"서울 구로구 라이온스밸리 도로명주소\",\n" +
+            "          \"addrDtl\": \"지하주차장이겠지\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"transId\": \"예약번호20byte05\",\n" +
+            "      \"mbrMgmtNo\": \"16byte0001\",\n" +
+            "      \"reqDivCd\": \"RT\",\n" +
+            "      \"svcStusCd\": \"1310\",\n" +
+            "      \"stusNm\": \"완료\",\n" +
+            "      \"vin\": \"2wert345r098wert7\",\n" +
+            "      \"carRegNo\": \"234고 3543\",\n" +
+            "      \"mdlNm\": \"GV75\",\n" +
+            "      \"expPrice\": \"20000\",\n" +
+            "      \"bluMbrDcPrice\": \"5000\",\n" +
+            "      \"rdwnSpcDcPrice\": \"\",\n" +
+            "      \"payDiv\": \"CARD\",\n" +
+            "      \"payPrice\": \"15000\",\n" +
+            "      \"payDt\": \"202012202200\",\n" +
+            "      \"updtDt\": \"202012202300\",\n" +
+            "      \"rsvDt\": \"202012202200\",\n" +
+            "      \"rgstDt\": \"202012201300\",\n" +
+            "      \"posInfo\": [\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEPT\",\n" +
+            "          \"latCoord\": \"37.58885149105208\",\n" +
+            "          \"lonCoord\": \"126.9440832693006\",\n" +
+            "          \"addrLotNo\": \"홍제역 지번 주소\",\n" +
+            "          \"addrBldNm\": \"홍제역 도로명 주소\",\n" +
+            "          \"addrDtl\": \" 1동 2호\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEST\",\n" +
+            "          \"latCoord\": \"37.4813022\",\n" +
+            "          \"lonCoord\": \"126.8821687\",\n" +
+            "          \"addrLotNo\": \"서울 구로구 라이온스밸리 지번주소\",\n" +
+            "          \"addrBldNm\": \"서울 구로구 라이온스밸리 도로명주소\",\n" +
+            "          \"addrDtl\": \"지하주차장이겠지\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"transId\": \"예약번호20byte06\",\n" +
+            "      \"mbrMgmtNo\": \"16byte0001\",\n" +
+            "      \"reqDivCd\": \"RT\",\n" +
+            "      \"svcStusCd\": \"1310\",\n" +
+            "      \"stusNm\": \"완료\",\n" +
+            "      \"vin\": \"2wert345r098wert7\",\n" +
+            "      \"carRegNo\": \"234고 3543\",\n" +
+            "      \"mdlNm\": \"GV76\",\n" +
+            "      \"expPrice\": \"20000\",\n" +
+            "      \"bluMbrDcPrice\": \"5000\",\n" +
+            "      \"rdwnSpcDcPrice\": \"\",\n" +
+            "      \"payDiv\": \"CARD\",\n" +
+            "      \"payPrice\": \"15000\",\n" +
+            "      \"payDt\": \"202012202200\",\n" +
+            "      \"updtDt\": \"202012202300\",\n" +
+            "      \"rsvDt\": \"202012202200\",\n" +
+            "      \"rgstDt\": \"202012201300\",\n" +
+            "      \"posInfo\": [\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEPT\",\n" +
+            "          \"latCoord\": \"37.58885149105208\",\n" +
+            "          \"lonCoord\": \"126.9440832693006\",\n" +
+            "          \"addrLotNo\": \"홍제역 지번 주소\",\n" +
+            "          \"addrBldNm\": \"홍제역 도로명 주소\",\n" +
+            "          \"addrDtl\": \" 1동 2호\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEST\",\n" +
+            "          \"latCoord\": \"37.4813022\",\n" +
+            "          \"lonCoord\": \"126.8821687\",\n" +
+            "          \"addrLotNo\": \"서울 구로구 라이온스밸리 지번주소\",\n" +
+            "          \"addrBldNm\": \"서울 구로구 라이온스밸리 도로명주소\",\n" +
+            "          \"addrDtl\": \"지하주차장이겠지\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"transId\": \"예약번호20byte07\",\n" +
+            "      \"mbrMgmtNo\": \"16byte0001\",\n" +
+            "      \"reqDivCd\": \"RT\",\n" +
+            "      \"svcStusCd\": \"1310\",\n" +
+            "      \"stusNm\": \"완료\",\n" +
+            "      \"vin\": \"2wert345r098wert7\",\n" +
+            "      \"carRegNo\": \"234고 3543\",\n" +
+            "      \"mdlNm\": \"GV77\",\n" +
+            "      \"expPrice\": \"20000\",\n" +
+            "      \"bluMbrDcPrice\": \"5000\",\n" +
+            "      \"rdwnSpcDcPrice\": \"\",\n" +
+            "      \"payDiv\": \"CARD\",\n" +
+            "      \"payPrice\": \"15000\",\n" +
+            "      \"payDt\": \"202012202200\",\n" +
+            "      \"updtDt\": \"202012202300\",\n" +
+            "      \"rsvDt\": \"202012202200\",\n" +
+            "      \"rgstDt\": \"202012201300\",\n" +
+            "      \"posInfo\": [\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEPT\",\n" +
+            "          \"latCoord\": \"37.58885149105208\",\n" +
+            "          \"lonCoord\": \"126.9440832693006\",\n" +
+            "          \"addrLotNo\": \"홍제역 지번 주소\",\n" +
+            "          \"addrBldNm\": \"홍제역 도로명 주소\",\n" +
+            "          \"addrDtl\": \" 1동 2호\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEST\",\n" +
+            "          \"latCoord\": \"37.4813022\",\n" +
+            "          \"lonCoord\": \"126.8821687\",\n" +
+            "          \"addrLotNo\": \"서울 구로구 라이온스밸리 지번주소\",\n" +
+            "          \"addrBldNm\": \"서울 구로구 라이온스밸리 도로명주소\",\n" +
+            "          \"addrDtl\": \"지하주차장이겠지\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"transId\": \"예약번호20byte08\",\n" +
+            "      \"mbrMgmtNo\": \"16byte0001\",\n" +
+            "      \"reqDivCd\": \"RT\",\n" +
+            "      \"svcStusCd\": \"1310\",\n" +
+            "      \"stusNm\": \"완료\",\n" +
+            "      \"vin\": \"2wert345r098wert7\",\n" +
+            "      \"carRegNo\": \"234고 3543\",\n" +
+            "      \"mdlNm\": \"GV78\",\n" +
+            "      \"expPrice\": \"20000\",\n" +
+            "      \"bluMbrDcPrice\": \"5000\",\n" +
+            "      \"rdwnSpcDcPrice\": \"\",\n" +
+            "      \"payDiv\": \"CARD\",\n" +
+            "      \"payPrice\": \"15000\",\n" +
+            "      \"payDt\": \"202012202200\",\n" +
+            "      \"updtDt\": \"202012202300\",\n" +
+            "      \"rsvDt\": \"202012202200\",\n" +
+            "      \"rgstDt\": \"202012201300\",\n" +
+            "      \"posInfo\": [\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEPT\",\n" +
+            "          \"latCoord\": \"37.58885149105208\",\n" +
+            "          \"lonCoord\": \"126.9440832693006\",\n" +
+            "          \"addrLotNo\": \"홍제역 지번 주소\",\n" +
+            "          \"addrBldNm\": \"홍제역 도로명 주소\",\n" +
+            "          \"addrDtl\": \" 1동 2호\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEST\",\n" +
+            "          \"latCoord\": \"37.4813022\",\n" +
+            "          \"lonCoord\": \"126.8821687\",\n" +
+            "          \"addrLotNo\": \"서울 구로구 라이온스밸리 지번주소\",\n" +
+            "          \"addrBldNm\": \"서울 구로구 라이온스밸리 도로명주소\",\n" +
+            "          \"addrDtl\": \"지하주차장이겠지\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"transId\": \"예약번호20byte09\",\n" +
+            "      \"mbrMgmtNo\": \"16byte0001\",\n" +
+            "      \"reqDivCd\": \"RT\",\n" +
+            "      \"svcStusCd\": \"1400\",\n" +
+            "      \"stusNm\": \"취소\",\n" +
+            "      \"vin\": \"2wert345r098wert7\",\n" +
+            "      \"carRegNo\": \"234고 3543\",\n" +
+            "      \"mdlNm\": \"GV79\",\n" +
+            "      \"expPrice\": \"20000\",\n" +
+            "      \"bluMbrDcPrice\": \"5000\",\n" +
+            "      \"rdwnSpcDcPrice\": \"\",\n" +
+            "      \"payDiv\": \"CARD\",\n" +
+            "      \"payPrice\": \"15000\",\n" +
+            "      \"payDt\": \"202012202200\",\n" +
+            "      \"updtDt\": \"202012202300\",\n" +
+            "      \"rsvDt\": \"202012202200\",\n" +
+            "      \"rgstDt\": \"202012201300\",\n" +
+            "      \"posInfo\": [\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEPT\",\n" +
+            "          \"latCoord\": \"37.58885149105208\",\n" +
+            "          \"lonCoord\": \"126.9440832693006\",\n" +
+            "          \"addrLotNo\": \"홍제역 지번 주소\",\n" +
+            "          \"addrBldNm\": \"홍제역 도로명 주소\",\n" +
+            "          \"addrDtl\": \" 1동 2호\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEST\",\n" +
+            "          \"latCoord\": \"37.4813022\",\n" +
+            "          \"lonCoord\": \"126.8821687\",\n" +
+            "          \"addrLotNo\": \"서울 구로구 라이온스밸리 지번주소\",\n" +
+            "          \"addrBldNm\": \"서울 구로구 라이온스밸리 도로명주소\",\n" +
+            "          \"addrDtl\": \"지하주차장이겠지\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"transId\": \"예약번호20byte10\",\n" +
+            "      \"mbrMgmtNo\": \"16byte0001\",\n" +
+            "      \"reqDivCd\": \"RT\",\n" +
+            "      \"svcStusCd\": \"1310\",\n" +
+            "      \"stusNm\": \"상태이름\",\n" +
+            "      \"vin\": \"2wert345r098wert7\",\n" +
+            "      \"carRegNo\": \"234고 3543\",\n" +
+            "      \"mdlNm\": \"GV80\",\n" +
+            "      \"expPrice\": \"20000\",\n" +
+            "      \"bluMbrDcPrice\": \"0\",\n" +
+            "      \"rdwnSpcDcPrice\": \"\",\n" +
+            "      \"payDiv\": \"CARD\",\n" +
+            "      \"payPrice\": \"20000\",\n" +
+            "      \"payDt\": \"202012202200\",\n" +
+            "      \"updtDt\": \"202012202300\",\n" +
+            "      \"rsvDt\": \"202012202200\",\n" +
+            "      \"rgstDt\": \"202012201300\",\n" +
+            "      \"posInfo\": [\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEPT\",\n" +
+            "          \"latCoord\": \"37.58885149105208\",\n" +
+            "          \"lonCoord\": \"126.9440832693006\",\n" +
+            "          \"addrLotNo\": \"홍제역 지번 주소\",\n" +
+            "          \"addrBldNm\": \"홍제역 도로명 주소\",\n" +
+            "          \"addrDtl\": \" 1동 2호\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEST\",\n" +
+            "          \"latCoord\": \"37.4813022\",\n" +
+            "          \"lonCoord\": \"126.8821687\",\n" +
+            "          \"addrLotNo\": \"서울 구로구 라이온스밸리 지번주소\",\n" +
+            "          \"addrBldNm\": \"서울 구로구 라이온스밸리 도로명주소\",\n" +
+            "          \"addrDtl\": \"지하주차장이겠지\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"transId\": \"예약번호20byte11\",\n" +
+            "      \"mbrMgmtNo\": \"16byte0001\",\n" +
+            "      \"reqDivCd\": \"RT\",\n" +
+            "      \"svcStusCd\": \"1310\",\n" +
+            "      \"stusNm\": \"상태이름\",\n" +
+            "      \"vin\": \"2wert345r098wert7\",\n" +
+            "      \"carRegNo\": \"234고 3543\",\n" +
+            "      \"mdlNm\": \"GV81\",\n" +
+            "      \"expPrice\": \"20000\",\n" +
+            "      \"bluMbrDcPrice\": \"0\",\n" +
+            "      \"rdwnSpcDcPrice\": \"\",\n" +
+            "      \"payDiv\": \"CARD\",\n" +
+            "      \"payPrice\": \"20000\",\n" +
+            "      \"payDt\": \"202012202200\",\n" +
+            "      \"updtDt\": \"202012202300\",\n" +
+            "      \"rsvDt\": \"202012202200\",\n" +
+            "      \"rgstDt\": \"202012201300\",\n" +
+            "      \"posInfo\": [\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEPT\",\n" +
+            "          \"latCoord\": \"37.58885149105208\",\n" +
+            "          \"lonCoord\": \"126.9440832693006\",\n" +
+            "          \"addrLotNo\": \"홍제역 지번 주소\",\n" +
+            "          \"addrBldNm\": \"홍제역 도로명 주소\",\n" +
+            "          \"addrDtl\": \" 1동 2호\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEST\",\n" +
+            "          \"latCoord\": \"37.4813022\",\n" +
+            "          \"lonCoord\": \"126.8821687\",\n" +
+            "          \"addrLotNo\": \"서울 구로구 라이온스밸리 지번주소\",\n" +
+            "          \"addrBldNm\": \"서울 구로구 라이온스밸리 도로명주소\",\n" +
+            "          \"addrDtl\": \"지하주차장이겠지\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"transId\": \"예약번호20byte12\",\n" +
+            "      \"mbrMgmtNo\": \"16byte0001\",\n" +
+            "      \"reqDivCd\": \"RT\",\n" +
+            "      \"svcStusCd\": \"1400\",\n" +
+            "      \"stusNm\": \"상태이름\",\n" +
+            "      \"vin\": \"2wert345r098wert7\",\n" +
+            "      \"carRegNo\": \"234고 3543\",\n" +
+            "      \"mdlNm\": \"GV82\",\n" +
+            "      \"expPrice\": \"20000\",\n" +
+            "      \"bluMbrDcPrice\": \"5000\",\n" +
+            "      \"rdwnSpcDcPrice\": \"\",\n" +
+            "      \"payDiv\": \"CARD\",\n" +
+            "      \"payPrice\": \"15000\",\n" +
+            "      \"payDt\": \"202012202200\",\n" +
+            "      \"updtDt\": \"202012202300\",\n" +
+            "      \"rsvDt\": \"202012202200\",\n" +
+            "      \"rgstDt\": \"202012201300\",\n" +
+            "      \"posInfo\": [\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEPT\",\n" +
+            "          \"latCoord\": \"37.58885149105208\",\n" +
+            "          \"lonCoord\": \"126.9440832693006\",\n" +
+            "          \"addrLotNo\": \"홍제역 지번 주소\",\n" +
+            "          \"addrBldNm\": \"홍제역 도로명 주소\",\n" +
+            "          \"addrDtl\": \" 1동 2호\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"posDivCd\": \"DEST\",\n" +
+            "          \"latCoord\": \"37.4813022\",\n" +
+            "          \"lonCoord\": \"126.8821687\",\n" +
+            "          \"addrLotNo\": \"서울 구로구 라이온스밸리 지번주소\",\n" +
+            "          \"addrBldNm\": \"서울 구로구 라이온스밸리 도로명주소\",\n" +
+            "          \"addrDtl\": \"지하주차장이겠지\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  ]\n" +
             "}", DDS_1003.Response.class);
 
     public static DDS_1004.Response DDS_1004 = new Gson().fromJson("{\n" +

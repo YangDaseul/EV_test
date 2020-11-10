@@ -41,8 +41,8 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_wash_history);
 
-        setViewModel();
         setAdapter();
+        setViewModel();
         setObserver();
 
         viewModel.reqWSH1004(new WSH_1004.Request(APPIAInfo.SM_CW01.getId(), WSHViewModel.SONAX));
