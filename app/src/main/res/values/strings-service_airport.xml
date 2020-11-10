@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sm_r_rsv02_02_1">에어포트 예약하기</string>
+    <string name="sm_r_rsv02_02_2">고객센터를 통해\n예약 할 수 있습니다.</string>
+    <string name="sm_r_rsv02_02_3">에어포트</string>
+    <string name="sm_r_rsv02_02_4">김포공항에서 차량을 픽업/정비하고\n주차해 드리는 서비스</string>
+    <string name="sm_r_rsv02_02_5">제공 서비스</string>
+    <string name="sm_r_rsv02_02_6">제네시스 전용 안심 주차</string>
+    <string name="sm_r_rsv02_02_7">1일차 ~ 5일차 : 5천원/일</string>
+    <string name="sm_r_rsv02_02_8">5일차 이후 : 1만원/일</string>
+    <string name="sm_r_rsv02_02_9">김포공항 무상 발렛 서비스</string>
+    <string name="sm_r_rsv02_02_10">소모품 교환 (모빌리티케어)</string>
+    <string name="sm_r_rsv02_02_11">기본점검 15종</string>
+    <string name="sm_r_rsv02_02_12">사전점검 (SW 업데이트)</string>
+    <string name="sm_r_rsv02_02_13">고객센터로 통화하기</string>
+</resources>

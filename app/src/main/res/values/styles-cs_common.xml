@@ -67,6 +67,12 @@
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_141414</item>
     </style>
 
+    <style name="CommonSpinnerItemCalendarDisable" parent="CommonSpinnerItem">
+        <item name="android:textColor">@color/x_aaabaf</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_dadde3</item>
+    </style>
+
+
     <style name="CommonSpinnerError">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -82,6 +88,29 @@
         <item name="layout_constraintStart_toStartOf">parent</item>
     </style>
 
+    <style name="CommonInputItem">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:drawableRight">@drawable/btn_arrow_open_r</item>
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">16sp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:visibility">visible</item>
+    </style>
+
+    <style name="CommonInputItemDisable" parent="CommonInputItem">
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_e2e2e2</item>
+        <item name="android:textColor">@color/x_aaabaf</item>
+    </style>
+
+    <style name="CommonInputItemEnable" parent="CommonInputItem">
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_141414</item>
+        <item name="android:textColor">@color/x_000000</item>
+    </style>
 
 
 

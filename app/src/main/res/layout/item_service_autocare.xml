@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.genesis.apps.comm.util.StringUtil" />
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="svcNm"
+            type="String" />
+
+        <variable
+            name="remCnt"
+            type="int" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <CheckBox
+            android:id="@+id/cb_auto_svc_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableStart="@{remCnt==0 ? @drawable/btn_checkbox_l_d : @drawable/checkbox_selector_2 }"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:textColor="@{remCnt==0 ? @color/x_806f6f6f : @color/x_000000}"
+            android:textSize="15sp"
+            android:text="@{svcNm}"
+            android:enabled="@{remCnt==0 ? false : true}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_rem_cnt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="엔진오일 (필수)"/>
+
+        <TextView
+            android:id="@+id/tv_rem_cnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="2sp"
+            android:textColor="@{remCnt==0 ? @color/x_80cd9a81 : @color/x_cd9a81}"
+            android:textSize="16sp"
+            android:text="@{String.format(@string/sm_r_rsv02_01_p01_2, remCnt)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="잔여 6회"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

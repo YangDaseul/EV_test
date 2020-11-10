@@ -137,7 +137,6 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
         }
     }
 
-
     @Override
     public boolean onBackPressed() {
         return true;

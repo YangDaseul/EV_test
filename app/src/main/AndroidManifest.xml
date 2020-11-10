@@ -371,6 +371,14 @@
             android:exported="false"/>
 
         <activity
+            android:name=".ui.main.service.ServiceAutocareApplyActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@style/TextInputLayout"/>
+
+
+        <activity
             android:name=".ui.common.activity.test.TestActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"

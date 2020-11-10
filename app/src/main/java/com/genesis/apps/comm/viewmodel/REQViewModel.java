@@ -7,6 +7,7 @@ import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 import com.genesis.apps.comm.model.constants.PushCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.constants.WeatherCodes;
 import com.genesis.apps.comm.model.gra.api.REQ_1001;
 import com.genesis.apps.comm.model.gra.api.REQ_1002;
@@ -241,5 +242,27 @@ class REQViewModel extends ViewModel {
         return remCnt>0;
     }
 
+    /**
+     * @brief 오토케어 예약서비스에서 사용하는 리스트 선별
+     * @param couponList 전체 쿠폰 리스트
+     * @return
+     */
+    public List<CouponVO> getAutocareCouponList(List<CouponVO> couponList){
 
+        List<CouponVO> list = new ArrayList<>();
+        list.add(new CouponVO(VariableType.SERVICE_CAR_CARE_COUPON_CODE_ENGINE, "","0","0","0"));
+        list.add(new CouponVO(VariableType.SERVICE_CAR_CARE_COUPON_CODE_AC_FILTER, "","0","0","0"));
+        list.add(new CouponVO(VariableType.SERVICE_CAR_CARE_COUPON_CODE_WIPER, "","0","0","0"));
+        list.add(new CouponVO(VariableType.SERVICE_CAR_CARE_COUPON_CODE_NAVIGATION, "","0","0","0"));
+
+        for(int i=0; i<list.size(); i++){
+            for(CouponVO couponVO : couponList){
+                if(list.get(i).getItemDivCd().equalsIgnoreCase(couponVO.getItemDivCd())){
+                    list.set(i, couponVO);
+                }
+            }
+        }
+
+        return list;
+    }
 }

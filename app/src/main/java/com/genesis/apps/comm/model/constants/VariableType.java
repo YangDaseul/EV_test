@@ -201,11 +201,12 @@ public class VariableType {
 
 
     //서비스 카케어 쿠폰 리스트 (REQ-1005 응답)
-    public static final String SERVICE_CAR_CARE_COUPON_CODE_ENGINE="11";
-    public static final String SERVICE_CAR_CARE_COUPON_CODE_AC_FILTER="13";
+    public static final String SERVICE_CAR_CARE_COUPON_CODE_ENGINE="11"; //엔진오일
+    public static final String SERVICE_CAR_CARE_COUPON_CODE_AC_FILTER="13"; //에어컨필터
     public static final String SERVICE_CAR_CARE_COUPON_CODE_BREAK_PAD="32";
-    public static final String SERVICE_CAR_CARE_COUPON_CODE_WIPER="33";
+    public static final String SERVICE_CAR_CARE_COUPON_CODE_WIPER="33"; //와이퍼 블레이드
     public static final String SERVICE_CAR_CARE_COUPON_CODE_BREAK_OIL="34";
+    public static final String SERVICE_CAR_CARE_COUPON_CODE_NAVIGATION="35";
     public static final String SERVICE_CAR_CARE_COUPON_CODE_PICKUP_DELIVERY="61";
     public static final String SERVICE_CAR_CARE_COUPON_CODE_WASH_SONAKS="99";
 
@@ -217,4 +218,9 @@ public class VariableType {
     public static final String SERVICE_REPAIR_CODE_GT="GT"; //기타
     public static final String SERVICE_REPAIR_CODE_PT="PT"; //동력전달주요부품
 
+    //서비스 예약유형 코드
+    public static final String SERVICE_RESERVATION_TYPE_AUTOCARE="AUTO"; //오토케어
+    public static final String SERVICE_RESERVATION_TYPE_AIRPORT="ARPT"; //에어포트
+    public static final String SERVICE_RESERVATION_TYPE_HOMETOHOME="HTOH"; //홈투홈
+    public static final String SERVICE_RESERVATION_TYPE_RPSH="RPSH"; //정비소
 }

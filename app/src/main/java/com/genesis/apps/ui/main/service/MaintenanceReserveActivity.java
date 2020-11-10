@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.main.service;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -27,6 +28,8 @@ import com.genesis.apps.databinding.ActivityMaintenanceReserveBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
@@ -39,6 +42,7 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
     private REQViewModel reqViewModel;
     private RepairTypeVO selectRepairTypeVO;
     private List<RepairTypeVO> list;
+    private List<CouponVO> couponList;
     private VehicleVO mainVehicle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +80,8 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
                 showDialogRepairType(list);
                 break;
             case R.id.l_maintenance_autocare:
-
+                //todo 앱을 죽여야할지 말아야할지.. 예약으로 이동 한 뒤에 뒤로가기 시.. 정책에 따라 결정됨
+                startActivitySingleTop(new Intent(this, ServiceAutocareApplyActivity.class).putExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE, selectRepairTypeVO.getRparTypCd()).putExtra(KeyNames.KEY_NAME_SERVICE_COUPON_LIST, new Gson().toJson(couponList)), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.l_maintenance_airport:
 
@@ -187,7 +192,7 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
      */
     private void setViewServiceItem(REQ_1005.Response data) {
         //카케어쿠폰리스트
-        List<CouponVO> couponList = data.getCarCareCpnList();
+        couponList = data.getCarCareCpnList();
         //오토케어 예약가능여부
         String autoRsvtPsblYn = data.getAutoRsvtPsblYn();
         //에어포트 예약가능여부

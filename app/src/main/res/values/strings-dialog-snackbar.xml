@@ -39,4 +39,6 @@
     <string name="cw_confirm_staff">사용 완료 되었습니다.</string>
     <string name="cw_cancel_reserve">예약 취소 되었습니다.</string>
 
+    <string name="sm_emgc01_p03_snackbar_1">원격진단 서비스가 신청되었습니다.\n콜센터에서 진단을 위해 전화를 드립니다.\n진단은 정차한 상태에서 가능합니다.</string>
+
 </resources>
