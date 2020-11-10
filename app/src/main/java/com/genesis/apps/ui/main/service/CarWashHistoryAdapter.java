@@ -12,6 +12,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.gra.api.WSH_1004;
 import com.genesis.apps.comm.model.vo.WashReserveVO;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ItemCarWashHistoryBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
@@ -67,7 +68,7 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
             getBinding().tvCarWashHistoryName.setText(item.getGodsNm());
 
             //결제금액
-            getBinding().tvCarWashHistoryPrice.setText(item.getPaymtCost());
+            getBinding().tvCarWashHistoryPrice.setText(StringUtil.getPriceString(item.getPaymtCost()));
 
             //버튼 클릭 리스너 및 해당 버튼 처리에 필요한 데이터 세팅
             setSingleClickListenerAndData(item, pos);

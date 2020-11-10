@@ -249,7 +249,7 @@ public class TestCode {
             "      \"rsvtStusCd\": \"1000\",\n" +
             "      \"rsvtDtm\": \"20200101130000\",\n" +
             "      \"paymtWayCd\": \"1000\",\n" +
-            "      \"paymtCost\": \"100,000원\",\n" +
+            "      \"paymtCost\": \"100000\",\n" +
             "      \"cmpyCd\": \"SONAX\",\n" +
             "      \"brnhCd\": \"1호점:지구반대\",\n" +
             "      \"brnhNm\": \"지구반대쪽출장소\",\n" +
@@ -263,7 +263,7 @@ public class TestCode {
             "      \"rsvtStusCd\": \"2000\",\n" +
             "      \"rsvtDtm\": \"20200101130000\",\n" +
             "      \"paymtWayCd\": \"1000\",\n" +
-            "      \"paymtCost\": \"100,000원\",\n" +
+            "      \"paymtCost\": \"100000\",\n" +
             "      \"cmpyCd\": \"SONAX\",\n" +
             "      \"brnhCd\": \"2호점:지하깊음\",\n" +
             "      \"brnhNm\": \"지하10층영업소\",\n" +
@@ -277,7 +277,7 @@ public class TestCode {
             "      \"rsvtStusCd\": \"9000\",\n" +
             "      \"rsvtDtm\": \"20200101130000\",\n" +
             "      \"paymtWayCd\": \"1000\",\n" +
-            "      \"paymtCost\": \"100,000원\",\n" +
+            "      \"paymtCost\": \"100000\",\n" +
             "      \"cmpyCd\": \"SONAX\",\n" +
             "      \"brnhCd\": \"3호점:카드싫어\",\n" +
             "      \"brnhNm\": \"카드안받는영업점\",\n" +
@@ -291,7 +291,7 @@ public class TestCode {
             "      \"rsvtStusCd\": \"1000\",\n" +
             "      \"rsvtDtm\": \"20200101130000\",\n" +
             "      \"paymtWayCd\": \"1000\",\n" +
-            "      \"paymtCost\": \"100,000원\",\n" +
+            "      \"paymtCost\": \"100000\",\n" +
             "      \"cmpyCd\": \"SONAX\",\n" +
             "      \"brnhCd\": \"4호점:울랄라\",\n" +
             "      \"brnhNm\": \"울랄라뾰룡뾰룔 지점\",\n" +

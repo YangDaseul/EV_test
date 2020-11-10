@@ -4,10 +4,8 @@ package com.genesis.apps.ui.main.service;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,13 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.DDS_1003;
-import com.genesis.apps.comm.model.gra.api.WSH_1004;
 import com.genesis.apps.comm.model.vo.DriveServiceVO;
-import com.genesis.apps.comm.model.vo.WashReserveVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.DDSViewModel;
-import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.ActivityServiceDriveHistoryBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 
@@ -33,8 +27,6 @@ public class ServiceDriveHistoryActivity extends SubActivity<ActivityServiceDriv
 
     private DDSViewModel viewModel;
     private ServiceDriveHistoryAdapter adapter;
-
-    private int itemPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
