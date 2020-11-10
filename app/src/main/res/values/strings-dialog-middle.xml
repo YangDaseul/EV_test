@@ -8,7 +8,7 @@
     <string name="sm_emg01_p03_title_1">종료 안내</string>
     <string name="sm_emg01_p03_msg_1">아직 원격진단서비스 신청이 완료되지 않았습니다.\n신청을 종료하시겠습니까?</string>
 
-<!--    SM_EMGC_P01팝업과 중복됨-->
+    <!--    SM_EMGC_P01팝업과 중복됨-->
     <string name="r_bt06_p01_title_1">위치 정보 안내</string>
     <string name="r_bt06_p01_msg_1">현재 위치 정보를 확인하기 위해 스마트폰 GPS를 켜 주시기 바랍니다.\nGPS가 꺼진 경우 일부 동작이 제한될 수 있습니다.</string>
 
@@ -53,23 +53,33 @@
 
     <string name="noti01_1">공지사항</string>
 
+    <!-- 세차 -->
     <string name="cw_reserve_title">세차 예약 하기</string>
     <string name="cw_reserve_msg">예약 하시겠습니까?</string>
     <string name="cw_reserve_cancel_title">세차 서비스 예약 취소</string>
     <string name="cw_reserve_cancel_msg">세차 서비스를\n취소하시겠습니까?</string>
 
+    <!-- 대리운전 -->
+    <string name="sd_cancel_title">취소 안내</string>
+    <string name="sd_cancel_msg1">대리운전 예약을 취소하시겠습니까?\n취소시, 결제는 자동 취소 됩니다.</string>
+    <string name="sd_cancel_msg2">대리운전 신청을 취소하시겠습니까?\n취소시, 결제는 자동 취소 됩니다.</string>
+
+
+    <!-- 서비스 리뷰 -->
     <string name="service_review_title">종료 안내</string>
     <string name="service_review_msg">아직 서비스 리뷰 작성을\n완료하지 않으셨습니다.\n\n종료하시겠습니까? </string>
 
     <string name="tm_exps01_p02_1">입력 취소</string>
     <string name="tm_exps01_p02_2">입력을 취소 하시면,\n지금까지 입력하신 내용이\n모두 사라집니다.\n취소하시겠습니까?</string>
 
+    <!-- 차계부 -->
     <string name="tm_exps01_p01_1">차계부 입력 내용 삭제</string>
     <string name="tm_exps01_p01_2">입력하신 내용을 삭제하시겠습니까?</string>
 
     <string name="tm_exps01_p03_1">수정 취소</string>
     <string name="tm_exps01_p03_2">수정을 취소 하시면,\n지금까지 수정하신 내용이\n이전 내용으로 돌아갑니다.\n취소하시겠습니까?</string>
 
+    <!-- 긴급출동 -->
     <string name="sm_emgc01_p03_4">종료 안내</string>
     <string name="sm_emgc01_p03_5">아직 긴급출동서비스 신청이 완료되지 않았습니다.\n신청을 종료 하시겠습니까?</string>
     <string name="sm_emgc02_p01_1">취소 안내</string>

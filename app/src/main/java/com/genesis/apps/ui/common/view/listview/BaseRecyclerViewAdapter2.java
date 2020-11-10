@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public abstract class BaseRecyclerViewAdapter2<D extends BaseData> extends Recyc
         holder.onBindView(getItem(position));
     }
 
-    public List<D> getItems(){
+    public List<D> getItems() {
         return items;
     }
 
@@ -33,7 +34,7 @@ public abstract class BaseRecyclerViewAdapter2<D extends BaseData> extends Recyc
     }
 
     public void addRow(D row) {
-       items.add(row);
+        items.add(row);
     }
 
     public void addRows(List<D> rows) {
@@ -46,7 +47,7 @@ public abstract class BaseRecyclerViewAdapter2<D extends BaseData> extends Recyc
 
     public void setRows(List<D> mRows) {
         clear();
-        if(mRows!=null) this.items.addAll(mRows);
+        if (mRows != null) this.items.addAll(mRows);
     }
 
     public void remove(int pos) {
@@ -62,12 +63,24 @@ public abstract class BaseRecyclerViewAdapter2<D extends BaseData> extends Recyc
         return items.size();
     }
 
-//    @Override
+    //    @Override
 //    public int getItemViewType(int position) {
 //        return items.get(position).getItemViewType();
 //    }
-    public View getView(ViewGroup parent,int layout){
+    public View getView(ViewGroup parent, int layout) {
         return LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
+    }
+
+    public void changeVisibility(View targetView, boolean visible) {
+        if (visible) {
+            if (targetView.getVisibility() != View.VISIBLE) {
+                InteractionUtil.expand(targetView);
+            }
+        } else {
+            if (targetView.getVisibility() == View.VISIBLE) {
+                InteractionUtil.collapse(targetView);
+            }
+        }
     }
 }
 

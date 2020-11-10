@@ -23,8 +23,6 @@ public class DDS_1003 extends BaseData {
     /**
      * @author hjpark
      * @brief DDS_1003 요청 항목
-     * @see #mbrMgmtNo 회원관리번호
-     * 제네시스 CRM에서 발급되는 고객관리번호
      * @see #pageNo 페이지번호
      * @see #searchCnt 조회건수
      */
@@ -33,17 +31,13 @@ public class DDS_1003 extends BaseData {
     static
     class Request extends BaseRequest {
         @Expose
-        @SerializedName("mbrMgmtNo")
-        private String mbrMgmtNo;
-        @Expose
         @SerializedName("pageNo")
         private String pageNo;
         @Expose
         @SerializedName("searchCnt")
         private String searchCnt;
 
-        public Request(String menuId, String mbrMgmtNo, String pageNo, String searchCnt){
-            this.mbrMgmtNo = mbrMgmtNo;
+        public Request(String menuId,  String pageNo, String searchCnt){
             this.pageNo = pageNo;
             this.searchCnt = searchCnt;
             setData(APIInfo.GRA_DDS_1003.getIfCd(), menuId);

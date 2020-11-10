@@ -73,8 +73,8 @@ class LGNViewModel extends ViewModel {
 
     //단말기의 현재 위치
     private List<Double> myPosition = new ArrayList<>();
-    
-    
+
+
 //    public final LiveData<VehicleVO> carVO =
 //            Transformations.switchMap(RES_LGN_0001, new Function<NetUIResponse<LGN_0001.Response>, LiveData<VehicleVO>>() {
 //                @Override
@@ -105,7 +105,7 @@ class LGNViewModel extends ViewModel {
 
         RES_LGN_0006 = repository.RES_LGN_0006;
         RES_LGN_0007 = repository.RES_LGN_0007;
-        
+
         RES_STO_1001 = stoRepo.RES_STO_1001;
         RES_STO_1002 = stoRepo.RES_STO_1002;
     }
@@ -183,6 +183,27 @@ class LGNViewModel extends ViewModel {
             VehicleVO vehicleVO = null;
             try {
                 vehicleVO = dbVehicleRepository.getMainVehicleFromDB();
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+                vehicleVO = null;
+            }
+            return vehicleVO;
+        });
+
+        try {
+            return future.get();
+        }finally {
+            //todo 테스트 필요
+            es.shutDownExcutor();
+        }
+    }
+
+    public VehicleVO getMainVehicleSimplyFromDB() throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<VehicleVO> future = es.getListeningExecutorService().submit(()->{
+            VehicleVO vehicleVO = null;
+            try {
+                vehicleVO = dbVehicleRepository.getMainVehicleSimplyFromDB();
             } catch (Exception ignore) {
                 ignore.printStackTrace();
                 vehicleVO = null;

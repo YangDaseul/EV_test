@@ -27,6 +27,7 @@ import com.genesis.apps.ui.main.home.view.SearchAddressAdapter;
 import java.util.List;
 
 public class SearchAddressActivity extends SubActivity<ActivitySearchAddressBinding> {
+    private static final int PAGE_SIZE = 20;
 
     private PUBViewModel pubViewModel;
     private SearchAddressAdapter adapter;
@@ -50,13 +51,8 @@ public class SearchAddressActivity extends SubActivity<ActivitySearchAddressBind
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (!ui.lSearchParent.rv.canScrollVertically(-1)) {
-                    //top
-                } else if (!ui.lSearchParent.rv.canScrollVertically(1)) {
-                    //end
-                    if(adapter.getItemCount()>19) searchAddress();
-                } else {
-                    //idle
+                if (!ui.lSearchParent.rv.canScrollVertically(1)) {//scroll end
+                    if(adapter.getItemCount() >= adapter.getPageNo() * PAGE_SIZE) searchAddress();
                 }
             }
         });
@@ -156,7 +152,7 @@ public class SearchAddressActivity extends SubActivity<ActivitySearchAddressBind
         //end
         String keyword = ui.lSearchParent.etSearch.getText().toString().trim();
         if(!TextUtils.isEmpty(keyword)) {
-            pubViewModel.reqPUB1001(new PUB_1001.Request(APPIAInfo.GM_CARLST_01_A01.getId(), keyword, adapter.getPageNo() + 1 + "", "20"));
+            pubViewModel.reqPUB1001(new PUB_1001.Request(APPIAInfo.GM_CARLST_01_A01.getId(), keyword, adapter.getPageNo() + 1 + "", "" + PAGE_SIZE));
         }else{
             ui.lSearchParent.tvEmpty.setVisibility(View.VISIBLE);
         }

@@ -30,6 +30,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembershipUseListBinding> {
+    private static final int PAGE_SIZE = 20;
 
     private MYPViewModel mypViewModel;
     private PointUseListAdapter adapter;
@@ -45,7 +46,19 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
         setViewModel();
         setObserver();
         initView();
-        mypViewModel.reqMYP2002(new MYP_2002.Request(APPIAInfo.MG_MEMBER04.getId(), mbrshMbrMgmtNo, DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), "1", "20"));
+
+        reqMYP2002(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd),1 );
+    }
+
+    private void reqMYP2002(String transStrDt, String transEndDt, int pageNo){
+        mypViewModel.reqMYP2002(
+                new MYP_2002.Request(
+                        APPIAInfo.MG_MEMBER04.getId(),
+                        mbrshMbrMgmtNo,
+                        transStrDt,
+                        transEndDt,
+                        ""+ pageNo,
+                        "" + PAGE_SIZE));
     }
 
     private void initView() {
@@ -56,13 +69,9 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (!ui.rv.canScrollVertically(-1)) {
-                    //top
-                } else if (!ui.rv.canScrollVertically(1)) {
-                    //end
-                    if(adapter.getItemCount()>19) mypViewModel.reqMYP2002(new MYP_2002.Request(APPIAInfo.MG_MEMBER04.getId(), mbrshMbrMgmtNo, "", "", adapter.getPageNo() + 1 + "", "20"));
-                } else {
-                    //idle
+                if (!ui.rv.canScrollVertically(1)) {//scroll end
+                    if(adapter.getItemCount() >= adapter.getPageNo() * PAGE_SIZE)
+                        reqMYP2002("", "", adapter.getPageNo() + 1);
                 }
             }
         });
@@ -73,7 +82,7 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
     public void onClickCommon(View v) {
         switch (v.getId()) {
             case R.id.btn_query:
-                mypViewModel.reqMYP2002(new MYP_2002.Request(APPIAInfo.MG_MEMBER04.getId(), mbrshMbrMgmtNo, DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), "1", "20"));
+                reqMYP2002(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd),1 );
                 break;
             case R.id.btn_start_date:
                 openDatePicker(startDateCallback, -1L, endDate == null ? CalenderUtil.getDateMils(0) : endDate.getTimeInMillis(), startDate);

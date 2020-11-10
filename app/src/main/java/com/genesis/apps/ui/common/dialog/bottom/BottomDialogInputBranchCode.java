@@ -49,6 +49,8 @@ public class BottomDialogInputBranchCode extends BaseBottomDialog<DialogBottomSo
 
         //입력창 초기 값은 서버에서 준 값
         ui.etSonaxBranchNo.setText(branchCode);
+        
+        ui.etSonaxBranchNo.selectAll();
 
         ui.etSonaxBranchNo.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             switch (actionId) {

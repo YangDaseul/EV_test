@@ -32,12 +32,12 @@ public class DDS_1001 extends BaseData {
 
     //신청하기 화면으로 진행함
     public static final String STATUS_REQ = "1000";//신청중
-    public static final String STATUS_SERVICE_COMPLETE = "1310";
-    public static final String STATUS_CANCEL_BY_USER = "1400";
-    public static final String STATUS_CANCEL_CAUSE_NO_DRIVER = "1420";
+    public static final String STATUS_SERVICE_FINISHED = "1310";        //DDS1003:완료
+    public static final String STATUS_CANCEL_BY_USER = "1400";          //DDS1003:취소됨
+    public static final String STATUS_CANCEL_CAUSE_NO_DRIVER = "1420";  //DDS1003:취소됨
 
     //지금 신청, 예약 상태 구분
-    public static final String REQ_RIGHT_NOW = "RT";
+    public static final String REQ_REAL_TIME = "RT";
     public static final String REQ_RESERVE = "RS";
 
     /**

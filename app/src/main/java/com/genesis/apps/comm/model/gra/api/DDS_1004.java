@@ -25,7 +25,6 @@ public class DDS_1004 extends BaseData {
     /**
      * @author hjpark
      * @brief DDS_1004 요청 항목
-     * @see #mbrMgmtNo 회원관리번호
      * 제네시스 CRM에서 발급되는 고객관리번호
      * @see #vin 차대번호
      * @see #transId 트랜젝션ID

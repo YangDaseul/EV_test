@@ -11,9 +11,11 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.DDS_1001;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.DDSViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -29,6 +31,7 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
 
     private DDSViewModel ddsViewModel;
     private LGNViewModel lgnViewModel;
+    private VehicleVO mainVehicle;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -47,6 +50,7 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
 
     @Override
     public void onRefresh() {
+        initMainVehicle();
     }
 
     @Override
@@ -68,7 +72,7 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
             //TODO 테스트 끝나고 삭제
             case R.id.test_force_req:
                 //신청 내역 있는지 확인 안 하고 그냥 신청 페이지 띄움
-                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
 
             default:
@@ -111,15 +115,15 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
                                 Intent intent = new Intent(getActivity(), ServiceDriveReqResultActivity.class);
                                 intent.putExtra(DDS_1001.SERVICE_DRIVE_STATUS, result.data);
 
-                                ((BaseActivity) getActivity()).startActivitySingleTop(intent, 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                                ((BaseActivity) getActivity()).startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                                 break;
 
                             //대리운전 신청 액티비티 호출
                             case DDS_1001.STATUS_REQ:
-                            case DDS_1001.STATUS_SERVICE_COMPLETE:
+                            case DDS_1001.STATUS_SERVICE_FINISHED:
                             case DDS_1001.STATUS_CANCEL_BY_USER:
                             case DDS_1001.STATUS_CANCEL_CAUSE_NO_DRIVER:
-                                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                                 break;
 
                             default:
@@ -141,18 +145,22 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
 
     }
 
+    private void initMainVehicle() {
+        try {
+            mainVehicle = lgnViewModel.getMainVehicleSimplyFromDB();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            //TODO 차량 정보 접근 실패에 대한 예외처리
+        }
+    }
+
     //대리운전 신청 버튼
     //신청 현황을 확인하고 그에 따라 옵저버에서 처리(신청 상태 표시 or 신청하기 액티비티 호출)
     private void onClickReqBtn() {
-        try {
-            //신청 현황 조회
-            ddsViewModel.reqDDS1001(
-                    new DDS_1001.Request(
-                            APPIAInfo.SM_DRV02.getId(),
-                            lgnViewModel.getMainVehicleFromDB().getVin()));
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-            //todo 차량 정보 접근 실패에 대한 예외처리
-        }
+        //신청 현황 조회
+        ddsViewModel.reqDDS1001(
+                new DDS_1001.Request(
+                        APPIAInfo.SM_DRV02.getId(),
+                        mainVehicle.getVin()));
     }
 }

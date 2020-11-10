@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.telephony.PhoneNumberUtils" />
+
         <variable
             name="activity"
             type="com.genesis.apps.ui.main.service.CarWashSearchActivity" />
@@ -52,6 +54,7 @@
             android:layout_marginTop="12dp"
             android:clickable="true"
             android:focusable="true"
+            android:background="@color/x_ffffff"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_map_sonax_branch_title"
@@ -96,7 +99,7 @@
             android:id="@+id/tv_map_sonax_branch_phone"
             style="@style/MapOverlay.Light"
             android:layout_height="wrap_content"
-            android:text="@{data.getTelNo()}"
+            android:text="@{PhoneNumberUtils.formatNumber(data.getTelNo())}"
             app:layout_constraintEnd_toStartOf="@id/tv_map_sonax_branch_reserve_btn"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"

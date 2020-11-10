@@ -528,6 +528,24 @@ public class MiddleDialog {
         );
     }
 
+    //대리운전 취소
+    public static void dialogServiceDriveCancel(@NonNull Activity activity, int msgId, final Runnable ok) {
+        if (activity.isFinishing()) {
+            return;
+        }
+
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        null,
+                        R.string.sd_cancel_title,
+                        msgId,
+                        R.string.dialog_common_1,
+                        R.string.dialog_common_2
+                ).show()
+        );
+    }
+
     //R.layout.dialog_middle_two_button 쓰는 거 상당수를 이걸로 통합 가능할 듯..
     private static CustomDialog getTwoButtonDialog(
             @NonNull Activity activity,
