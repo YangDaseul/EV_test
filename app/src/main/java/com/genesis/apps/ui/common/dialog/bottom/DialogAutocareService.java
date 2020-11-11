@@ -46,9 +46,8 @@ public class DialogAutocareService extends BaseBottomDialog<DialogBottomAutocare
         setAllowOutTouch(true);
         checkBoxes = new CheckBox[]{ui.lAutoSvc1.cbAutoSvc1, ui.lAutoSvc2.cbAutoSvc1, ui.lAutoSvc3.cbAutoSvc1 ,ui.lAutoSvc4.cbAutoSvc1};
         ui.lAutoSvc1.setRemCnt(getRemCnt(list.get(0).getRemCnt()));
-        ui.lAutoSvc1.cbAutoSvc1.setCompoundDrawables( getContext().getDrawable(R.drawable.ic_check_s), null,null,null);
+        ui.lAutoSvc1.setIsEngine(true);
         ui.lAutoSvc1.cbAutoSvc1.setChecked(true);
-        ui.lAutoSvc1.cbAutoSvc1.setEnabled(false);
         ui.lAutoSvc1.cbAutoSvc1.setTypeface(ResourcesCompat.getFont(getContext(), R.font.regular_genesissansheadglobal));
 
 
