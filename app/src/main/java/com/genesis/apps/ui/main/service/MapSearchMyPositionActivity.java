@@ -70,8 +70,7 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
         ui.pmvMapView.initMap(latitude, longitude,17);
         ui.lMapOverlayTitle.tvMapTitleText.setVisibility(View.GONE);
         ui.lMapOverlayTitle.tvMapTitleAddress.setVisibility(View.VISIBLE);
-        //대리운전 타이틀 일 경우 검색 메시지 변경. 추후 더 많은 컨텐츠에서 검색 메시지 변경이 필요하면 구조 변경 필요
-        ui.lMapOverlayTitle.tvMapTitleAddress.setText(titleId==R.string.service_drive_address_search_title ? R.string.service_drive_map_title : R.string.map_title_3);
+        ui.lMapOverlayTitle.tvMapTitleAddress.setText(getTitleAddressMsg());
         ui.lMapOverlayTitle.tvMapTitleAddress.setOnClickListener(onSingleClickListener);
         ui.btnMyPosition.setOnClickListener(onSingleClickListener);
 //        ui.lMapOverlayTitle.fabMapBack.setOnClickListener(onSingleClickListener);
@@ -89,6 +88,16 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
             }
 
         });
+    }
+
+    private int getTitleAddressMsg() {
+        switch (titleId){
+            case R.string.service_drive_address_search_title://대리운전
+                return R.string.service_drive_map_title;
+            case 0:
+            default://그 외
+                return R.string.map_title_3;
+        }
     }
 
     @Override
