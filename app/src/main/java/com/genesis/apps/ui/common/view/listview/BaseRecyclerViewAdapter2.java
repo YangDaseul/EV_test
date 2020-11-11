@@ -71,14 +71,19 @@ public abstract class BaseRecyclerViewAdapter2<D extends BaseData> extends Recyc
         return LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
     }
 
-    public void changeVisibility(View targetView, boolean visible) {
+    /**
+     * @param targetView 대상 view 객체
+     * @param scrollView 대상 객체에 대한 애니메이션 재생하는동안 스크롤을 비활성화시킬 뷰
+     * @param visible    대상 객체의 목표 상태
+     */
+    public void changeVisibility(View targetView, View scrollView, boolean visible) {
         if (visible) {
             if (targetView.getVisibility() != View.VISIBLE) {
-                InteractionUtil.expand(targetView);
+                InteractionUtil.expand(targetView, scrollView);
             }
         } else {
             if (targetView.getVisibility() == View.VISIBLE) {
-                InteractionUtil.collapse(targetView);
+                InteractionUtil.collapse(targetView, scrollView);
             }
         }
     }

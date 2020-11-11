@@ -92,10 +92,10 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
                     if(termVO.getTermCd().equalsIgnoreCase(TERM_SERVICE_JOIN_GRA0005)){ //광고성정보수신유무 선택 시
                         if(ui.lAdInfo.getVisibility()==View.VISIBLE){
                             itemTermAd.ivArrow.setImageResource(R.drawable.btn_accodian_open);
-                            InteractionUtil.collapse(ui.lAdInfo);
+                            InteractionUtil.collapse(ui.lAdInfo, null);
                         }else{
                             itemTermAd.ivArrow.setImageResource(R.drawable.btn_accodian_close);
-                            InteractionUtil.expand(ui.lAdInfo);
+                            InteractionUtil.expand(ui.lAdInfo, null);
                         }
                     }else{
                         startActivitySingleTop(new Intent(this, ServiceTermDetailActivity.class).putExtra(MyGOilTermDetailActivity.TERMS_CODE,termVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);

@@ -5,24 +5,26 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
+import javax.annotation.Nullable;
+
 public class InteractionUtil {
     /**
      * 2019-07-25 park
      * View visible 시 expand 애니메이션 효과
-     * @param v 대상 view 객체
+     *
+     * @param v          대상 view 객체
+     * @param scrollView 대상 객체에 대한 애니메이션 재생하는동안 스크롤을 못 하게 하고싶은 뷰
      */
-    public static void expand(final View v) {
+    public static void expand(final View v, @Nullable final View scrollView) {
         v.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         final int targtetHeight = v.getMeasuredHeight();
 
         v.getLayoutParams().height = 0;
         v.setVisibility(View.VISIBLE);
-        Animation a = new Animation()
-        {
+        Animation a = new Animation() {
             @Override
             protected void applyTransformation(float interpolatedTime, Transformation t) {
-                v.getLayoutParams().height = interpolatedTime == 1 ? ViewGroup.LayoutParams.WRAP_CONTENT
-                        : (int)(targtetHeight * interpolatedTime);
+                v.getLayoutParams().height = (interpolatedTime == 1) ? ViewGroup.LayoutParams.WRAP_CONTENT : (int) (targtetHeight * interpolatedTime);
                 v.requestLayout();
             }
 
@@ -32,26 +34,48 @@ public class InteractionUtil {
             }
         };
 
-        a.setDuration((int)(targtetHeight / v.getContext().getResources().getDisplayMetrics().density));
+        if (scrollView != null) {
+            a.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    //스크롤 막음
+                    scrollView.setOnTouchListener((v1, event) -> true);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    //스크롤 살림
+                    scrollView.setOnTouchListener(null);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                    //do nothing
+                }
+            });
+        }
+
+        a.setDuration((int) (targtetHeight / v.getContext().getResources().getDisplayMetrics().density));
         v.startAnimation(a);
     }
 
     /**
      * 2019-07-25 park
      * View gone 시 collapse 애니메이션 효과
-     * @param v 대상 view 객체
+     *
+     * @param v          대상 view 객체
+     * @param scrollView 대상 객체에 대한 애니메이션 재생하는동안 스크롤을 못 하게 하고싶은 뷰
      */
-    public static void collapse(final View v) {
+    public static void collapse(final View v, @Nullable final View scrollView) {
         final int initialHeight = v.getMeasuredHeight();
 
-        Animation a = new Animation()
-        {
+        Animation a = new Animation() {
             @Override
             protected void applyTransformation(float interpolatedTime, Transformation t) {
-                if(interpolatedTime == 1){
+                if (interpolatedTime == 1) {
                     v.setVisibility(View.GONE);
-                }else{
-                    v.getLayoutParams().height = initialHeight - (int)(initialHeight * interpolatedTime);
+                } else {
+                    v.getLayoutParams().height = initialHeight - (int) (initialHeight * interpolatedTime);
                     v.requestLayout();
                 }
             }
@@ -62,7 +86,28 @@ public class InteractionUtil {
             }
         };
 
-        a.setDuration((int)(initialHeight / v.getContext().getResources().getDisplayMetrics().density));
+        if (scrollView != null) {
+            a.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    //스크롤 막음
+                    scrollView.setOnTouchListener((v1, event) -> true);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    //스크롤 살림
+                    scrollView.setOnTouchListener(null);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                    //do nothing
+                }
+            });
+        }
+
+        a.setDuration((int) (initialHeight / v.getContext().getResources().getDisplayMetrics().density));
         v.startAnimation(a);
     }
 }

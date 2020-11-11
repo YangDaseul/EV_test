@@ -99,10 +99,10 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
             case R.id.iv_arrow:
                 if(ui.tvAdInfo.getVisibility()==View.VISIBLE){
                     ui.ivArrow.setImageResource(R.drawable.btn_accodian_open);
-                    InteractionUtil.collapse(ui.tvAdInfo);
+                    InteractionUtil.collapse(ui.tvAdInfo, null);
                 }else{
                     ui.ivArrow.setImageResource(R.drawable.btn_accodian_close);
-                    InteractionUtil.expand(ui.tvAdInfo);
+                    InteractionUtil.expand(ui.tvAdInfo, null);
                 }
                 break;
 
