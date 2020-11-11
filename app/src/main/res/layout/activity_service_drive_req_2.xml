@@ -3,6 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingConstraints">
 
+    <data>
+
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.main.service.ServiceDriveReqActivity" />
+    </data>
+
     <!-- ConstraintSet으로 갈아끼울 구간 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_service_drive_req_container"
@@ -35,7 +42,8 @@
           .NoData / .HasData -->
         <TextView
             android:id="@+id/tv_service_drive_req_search_to_address_btn"
-            style="@style/ServiceDrive.SearchTo.NoData" />
+            style="@style/ServiceDrive.SearchTo.NoData"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}" />
 
         <!-- 출발지 상세 주소 입력칸 -->
         <!-- app:helperText="@string/service_drive_input_05" -->
@@ -61,7 +69,8 @@
           .NoData / .HasData -->
         <TextView
             android:id="@+id/tv_service_drive_req_search_from_address_btn"
-            style="@style/ServiceDrive.SearchFrom.NoData" />
+            style="@style/ServiceDrive.SearchFrom.NoData"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

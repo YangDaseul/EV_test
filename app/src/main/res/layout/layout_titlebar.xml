@@ -20,7 +20,7 @@
             type="String" />
 
         <variable
-            name="OnSingleClickListener"
+            name="textBtnListener"
             type="com.genesis.apps.ui.common.view.listener.OnSingleClickListener" />
 
     </data>
@@ -79,7 +79,7 @@
         <TextView
             android:id="@+id/tv_titlebar_text_btn"
             style="@style/TitleBarTextBtn"
-            android:onClick="@{(view)->OnSingleClickListener.onClick(view)}"
+            android:onClick="@{(view)->textBtnListener.onClick(view)}"
             android:text="@{btnText}"
             android:visibility='@{btnText==null ? View.GONE : View.VISIBLE}'
             app:layout_constraintBottom_toBottomOf="parent"

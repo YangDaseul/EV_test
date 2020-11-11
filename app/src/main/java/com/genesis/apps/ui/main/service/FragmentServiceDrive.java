@@ -165,9 +165,9 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
     //신청 현황 액티비티 호출
     private void startReqResultActivity(DDS_1001.Response data) {
         //신청 현황 데이터랑 주 차량 정보를 신청현황 액티비티로 가져감
-        Intent intent = new Intent(getActivity(), ServiceDriveReqResultActivity.class);
-        intent.putExtra(DDS_1001.SERVICE_DRIVE_STATUS, data);
-        intent.putExtra(VehicleVO.VEHICLE_VO, mainVehicle);
+        Intent intent = new Intent(getActivity(), ServiceDriveReqResultActivity.class)
+                .putExtra(DDS_1001.SERVICE_DRIVE_STATUS, data)
+                .putExtra(VehicleVO.VEHICLE_VO, mainVehicle);
 
         ((BaseActivity) getActivity()).startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
@@ -175,8 +175,8 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
     //신청 액티비티 호출
     private void startReqActivity() {
         //주 차량 정보를 가져감
-        Intent intent = new Intent(getActivity(), ServiceDriveReqActivity.class);
-        intent.putExtra(VehicleVO.VEHICLE_VO, mainVehicle);
+        Intent intent = new Intent(getActivity(), ServiceDriveReqActivity.class)
+                .putExtra(VehicleVO.VEHICLE_VO, mainVehicle);
 
         ((BaseActivity) getActivity()).startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }

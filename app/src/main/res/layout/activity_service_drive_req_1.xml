@@ -4,6 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingConstraints">
 
+    <data>
+
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.main.service.ServiceDriveReqActivity" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,6 +24,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:textBtnListener="@{activity.onSingleClickListener}"
             app:value="@{@string/sm01_service_driver_1}" />
 
         <!-- 상단 정보 : 차종/번호판 서비스 요금 등 뷰 -->
@@ -93,6 +101,7 @@
                     <TextView
                         android:id="@+id/tv_service_drive_req_search_to_address_btn"
                         style="@style/ServiceDrive.SearchTo.NoData"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                         android:visibility="gone" />
 
                     <!-- 출발지 상세 주소 입력칸 -->
@@ -121,7 +130,8 @@
                       .NoData / .HasData -->
                     <TextView
                         android:id="@+id/tv_service_drive_req_search_from_address_btn"
-                        style="@style/ServiceDrive.SearchFrom.NoData" />
+                        style="@style/ServiceDrive.SearchFrom.NoData"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -137,6 +147,7 @@
         <TextView
             android:id="@+id/tv_service_drive_req_next_btn"
             style="@style/BigBtn.Black"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:text="@string/comm_next"
             android:visibility="gone"
             app:elevation="10dp"

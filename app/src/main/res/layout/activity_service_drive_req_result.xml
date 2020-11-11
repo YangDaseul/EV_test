@@ -22,6 +22,7 @@
             android:id="@+id/l_service_drive_req_result_titlebar"
             layout="@layout/layout_titlebar"
             app:btnText="@{@string/service_drive_01}"
+            app:textBtnListener="@{activity.onSingleClickListener}"
             app:value="@{@string/sm01_service_driver_1}" />
 
         <!-- 출발/도착지 뷰 상자 밖에 회색칠한 영역 -->

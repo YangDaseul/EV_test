@@ -61,7 +61,6 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
         initView();//getDataFromIntent()가 성공해야 실행가능
         setViewModel();
         setObserver();
-        setHistoryBtnListener();
     }
 
     @Override
@@ -246,6 +245,7 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
 
         //차총, 번호판, 출발지, 도착지
         //상태 메지지 타이틀, 세부설명, 버튼 텍스트, 버튼 활성화 여부
+        //onSingleClickListener
         ui.setActivity(this);
     }
 
@@ -355,10 +355,6 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
         stub.setLayoutResource(addLayout);
         stub.setOnInflateListener(listener);
         stub.inflate();
-    }
-
-    private void setHistoryBtnListener() {
-        ui.lServiceDriveReqResultTitlebar.setOnSingleClickListener(onSingleClickListener);
     }
 
     //예약취소, 신청취소, 취소
