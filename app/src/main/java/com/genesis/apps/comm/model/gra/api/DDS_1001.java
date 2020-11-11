@@ -20,8 +20,6 @@ import lombok.EqualsAndHashCode;
  * @Brief Genesis + 대리운전 진행 상태 확인
  */
 public class DDS_1001 extends BaseData {
-    public static final String SERVICE_DRIVE_STATUS = "serviceDriveStatus";//인텐트용
-
     //신청 현황 화면이 나와야됨
     public static final String STATUS_DRIVER_MATCH_WAIT = "1100";//기사 배정 준비중
     public static final String STATUS_RESERVED = "1110";
@@ -35,10 +33,6 @@ public class DDS_1001 extends BaseData {
     public static final String STATUS_SERVICE_FINISHED = "1310";        //DDS1003:완료
     public static final String STATUS_CANCEL_BY_USER = "1400";          //DDS1003:취소됨
     public static final String STATUS_CANCEL_CAUSE_NO_DRIVER = "1420";  //DDS1003:취소됨
-
-    //지금 신청, 예약 상태 구분
-    public static final String REQ_REAL_TIME = "RT";
-    public static final String REQ_RESERVE = "RS";
 
     /**
      * @author hjpark

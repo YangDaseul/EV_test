@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
@@ -73,8 +74,8 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
     }
 
     private boolean initDataFromIntent() {
-        godsSeqNo = getIntent().getStringExtra(WSH_1002.GOODS_SEQ_NUM);
-        godsNm = getIntent().getStringExtra(WSH_1002.GOODS_NAME);
+        godsSeqNo = getIntent().getStringExtra(KeyNames.KEY_NAME_WASH_GOODS_SEQ_NUM);
+        godsNm = getIntent().getStringExtra(KeyNames.KEY_NAME_WASH_GOODS_NAME);
 
         Log.d(TAG, "initDataFromIntent: " + godsSeqNo + ", " + godsNm);
         return godsSeqNo != null && godsNm != null;

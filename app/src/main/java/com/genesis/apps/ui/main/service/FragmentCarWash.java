@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
@@ -122,8 +123,8 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
                 String godsNm = ((WashGoodsVO) v.getTag(R.id.tag_wash_item)).getGodsNm();
 
                 Intent intent = new Intent(getActivity(), CarWashSearchActivity.class);
-                intent.putExtra(WSH_1002.GOODS_SEQ_NUM, godsSeqNo);
-                intent.putExtra(WSH_1002.GOODS_NAME, godsNm);
+                intent.putExtra(KeyNames.KEY_NAME_WASH_GOODS_SEQ_NUM, godsSeqNo);
+                intent.putExtra(KeyNames.KEY_NAME_WASH_GOODS_NAME, godsNm);
 
                 ((BaseActivity) getActivity()).startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;

@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
@@ -139,7 +140,7 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
 
                                     Intent intent = new Intent(this, ServiceDriveReqActivity.class);
                                     intent.putExtra(ServiceDriveReqActivity.START_MSG, R.string.sd_cancel_succ);
-                                    intent.putExtra(VehicleVO.VEHICLE_VO, mainVehicle); //주 차량 정보도 가져감
+                                    intent.putExtra(KeyNames.KEY_NAME_VEHICLE_VO, mainVehicle); //주 차량 정보도 가져감
                                     startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                                     break;
                             }
@@ -193,10 +194,10 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
         Log.d(TAG, "getDataFromIntent: ");
 
         try {
-            DDS_1001.Response data = (DDS_1001.Response) getIntent().getSerializableExtra(DDS_1001.SERVICE_DRIVE_STATUS);
+            DDS_1001.Response data = (DDS_1001.Response) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SERVICE_DRIVE_STATUS);
             Log.d(TAG, "getDataFromIntent/initView : " + data);
             serviceReqData = data;
-            mainVehicle = (VehicleVO) getIntent().getSerializableExtra(VehicleVO.VEHICLE_VO);
+            mainVehicle = (VehicleVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_VEHICLE_VO);
         } catch (NullPointerException e) {
             Log.d(TAG, "init: 신청 현황 또는 주 차량 데이터 처리 실패");
             finish();

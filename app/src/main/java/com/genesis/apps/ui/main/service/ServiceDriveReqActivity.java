@@ -46,6 +46,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     private ConstraintSet[] constraintSets = new ConstraintSet[layouts.length];
 
     private EditText.OnEditorActionListener editorActionListener = (textView, actionId, keyEvent) -> {
+        //todo : onClickNext랑 구간 통합식으로 수정
         if (actionId == EditorInfo.IME_ACTION_DONE) {
             if (!TextUtils.isEmpty(textView.getText().toString())) {
                 doTransition();
@@ -144,7 +145,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                     100);
         }
 
-        mainVehicle = (VehicleVO) getIntent().getSerializableExtra(VehicleVO.VEHICLE_VO);
+        mainVehicle = (VehicleVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_VEHICLE_VO);
         if (mainVehicle == null) {
             Log.d(TAG, "getDataFromIntent: 주차량 정보 없음");
             exitPage("", ResultCodes.REQ_CODE_NORMAL.getCode());
@@ -160,7 +161,6 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         //차종, 번호판 정보 표시
         ui.lServiceDriveReqTopPanel.tvServiceReqCarModel.setText(mainVehicle.getMdlNm());
         ui.lServiceDriveReqTopPanel.tvServiceReqCarNumber.setText(mainVehicle.getCarRgstNo());
-
 
         initConstraintSets();
         initView();
