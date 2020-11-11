@@ -1,52 +1,38 @@
 package com.genesis.apps.ui.main.service;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.telephony.PhoneNumberUtils;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
-import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.transition.ChangeBounds;
-import androidx.transition.Transition;
-import androidx.transition.TransitionManager;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
-import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.REQ_1007;
-import com.genesis.apps.comm.model.vo.AddressVO;
-import com.genesis.apps.comm.model.vo.CouponVO;
 import com.genesis.apps.comm.model.vo.RepairReserveVO;
-import com.genesis.apps.comm.model.vo.VehicleVO;
-import com.genesis.apps.comm.util.DateUtil;
-import com.genesis.apps.comm.util.DeviceUtil;
+import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.InteractionUtil;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringRe2j;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
-import com.genesis.apps.databinding.ActivityServiceAutocare2Apply1Binding;
 import com.genesis.apps.databinding.ActivityServiceAutocare3CheckBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.common.dialog.bottom.DialogAutocareService;
-import com.genesis.apps.ui.common.dialog.bottom.DialogCalendar;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.GsonBuilder;
 
-import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
+
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 /**
  * @author hjpark
@@ -66,15 +52,34 @@ public class ServiceAutocare3CheckActivity extends SubActivity<ActivityServiceAu
         setViewModel();
         setObserver();
         initEditView();
-//        reqViewModel.reqREQ1007(new REQ_1007.Request());
+        isValid();
     }
 
     private void initEditView() {
-        edits = new View[]{ui.etVrn, ui.etTel};
+        edits = new View[]{ui.etVrn, ui.etTel, ui.etRqrm};
         ui.etTel.setOnEditorActionListener(editorActionListener);
         ui.etTel.setOnFocusChangeListener(focusChangeListener);
         ui.etVrn.setOnEditorActionListener(editorActionListener);
         ui.etVrn.setOnFocusChangeListener(focusChangeListener);
+        ui.etTel.setText(TextUtils.isEmpty(repairReserveVO.getHpNo()) ? "" :  repairReserveVO.getHpNo());
+        ui.etVrn.setText(TextUtils.isEmpty(repairReserveVO.getCarRgstNo()) ? "" :  repairReserveVO.getCarRgstNo());
+
+        ui.etRqrm.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                ui.tvRqrmCnt.setText(charSequence.length()+"");
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     @Override
@@ -82,6 +87,16 @@ public class ServiceAutocare3CheckActivity extends SubActivity<ActivityServiceAu
         switch (v.getId()) {
             case R.id.btn_next://다음
                 doNext();
+                break;
+            case R.id.iv_arrow:
+                if(ui.lBackground.getVisibility()==View.VISIBLE){
+                    ui.ivArrow.setImageResource(R.drawable.btn_accodian_open);
+                    InteractionUtil.collapse(ui.lBackground, null);
+                }else{
+                    ui.ivArrow.setImageResource(R.drawable.btn_accodian_close);
+
+                    InteractionUtil.expand2(ui.lBackground, () -> ui.sc.fullScroll(View.FOCUS_DOWN));
+                }
                 break;
         }
     }
@@ -96,6 +111,15 @@ public class ServiceAutocare3CheckActivity extends SubActivity<ActivityServiceAu
     private void doNext() {
         if (isValid()) {
             clearKeypad();
+            repairReserveVO.setRqrm(ui.etRqrm.getText().toString().trim());
+            repairReserveVO.setHpNo(ui.etTel.getText().toString().trim().replaceAll("-",""));
+            repairReserveVO.setCarRgstNo(ui.etVrn.getText().toString().trim());
+            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create(); //expose처리되어 있는 필드에 대해서만 파싱 진행
+
+            REQ_1007.Request request = gson.fromJson(new Gson().toJson(repairReserveVO), REQ_1007.Request.class);
+            request.updateData(APPIAInfo.SM_R_RSV03.getId());
+            reqViewModel.reqREQ1007(request);
+
 //            sosViewModel.reqSOS1002(new SOS_1002.Request(APPIAInfo.SM_EMGC01.getId(),
 //                    mainVehicle.getVin(),
 //                    ui.etCarRegNo.getText().toString().trim(),
@@ -117,6 +141,40 @@ public class ServiceAutocare3CheckActivity extends SubActivity<ActivityServiceAu
 
     @Override
     public void setObserver() {
+
+        reqViewModel.getRES_REQ_1007().observe(this, result -> {
+
+            switch (result.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if(result.data!=null&&!TextUtils.isEmpty(result.data.getRtCd())&&result.data.getRtCd().equalsIgnoreCase("0000")&&!TextUtils.isEmpty(result.data.getRsvtNo())){
+                        //TODO 완료페이지로 이동 RESERVE VO 그대로 줘야함..
+//                        startActivitySingleTop(new Intent(this, ServiceSOSApplyInfoActivity.class).putExtra(KeyNames.KEY_NAME_SOS_TMP_NO, result.data.getTmpAcptNo()).addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT),0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        exitPage(new Intent(), ResultCodes.REQ_CODE_EXIT_ACTIVITY.getCode());
+                        break;
+                    }
+                default:
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if (TextUtils.isEmpty(serverMsg)){
+                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                        showProgressDialog(false);
+                    }
+                    break;
+            }
+
+
+        });
+
 //        sosViewModel.getRES_SOS_1002().observe(this, result -> {
 //            switch (result.status){
 //                case LOADING:

@@ -200,7 +200,6 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_tel"
                         style="@style/CommonTextInputEditText"
-                        android:text="@{data.hpNo ?? ``}"
                         android:hint="@string/sm_r_rsv03_9" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -208,6 +207,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/l_vrn"
                     style="@style/CommonTextInputLayout"
+                    android:layout_marginTop="10dp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_msg"
                     app:layout_constraintStart_toStartOf="@+id/tv_msg"
                     app:layout_constraintTop_toBottomOf="@+id/l_tel">
@@ -215,7 +215,6 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_vrn"
                         style="@style/CommonTextInputEditText"
-                        android:text="@{data.carRgstNo ?? ``}"
                         android:hint="@string/sm_r_rsv03_10" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -245,7 +244,7 @@
                         android:textColor="@color/x_000000"
                         android:textSize="16sp"
                         app:layout_constrainedWidth="true"
-                        app:layout_constraintBottom_toTopOf="@+id/v_background"
+                        app:layout_constraintBottom_toTopOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/tv_rqrm_limit"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
@@ -294,36 +293,39 @@
 
 
 
-                  <View
-                      android:id="@+id/v_background"
+                  <LinearLayout
+                      android:id="@+id/l_background"
                       android:layout_width="0dp"
-                      android:layout_height="0dp"
+                      android:layout_height="250dp"
+                      android:layout_marginTop="20dp"
                       android:layout_marginLeft="1dp"
                       android:layout_marginRight="1dp"
                       android:layout_marginBottom="1dp"
                       android:background="@drawable/bg_f9f9f9_stroke_upper_e2e2e2"
-                      app:layout_constraintDimensionRatio="1.3:1"
+                      android:visibility="gone"
+                      android:orientation="vertical"
+                      tools:visibility="visible"
                       app:layout_constraintBottom_toBottomOf="parent"
                       app:layout_constraintEnd_toEndOf="parent"
                       app:layout_constraintStart_toStartOf="parent"
-                      app:layout_constraintTop_toBottomOf="@+id/tv_rqrm"/>
+                      app:layout_constraintTop_toBottomOf="@+id/tv_rqrm">
 
-                    <EditText
-                        android:id="@+id/et_rqrm"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_margin="20dp"
-                        android:padding="16dp"
-                        android:background="@drawable/bg_ffffff_stroke_141414"
-                        android:textSize="15sp"
-                        android:textColor="@color/x_000000"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:hint="@string/sm_r_rsv03_17"
-                        android:gravity="top|left"
-                        app:layout_constraintTop_toTopOf="@+id/v_background"
-                        app:layout_constraintBottom_toBottomOf="@+id/v_background"
-                        app:layout_constraintStart_toStartOf="@+id/v_background"
-                        app:layout_constraintEnd_toEndOf="@+id/v_background"/>
+                      <EditText
+                          android:id="@+id/et_rqrm"
+                          android:layout_width="match_parent"
+                          android:layout_height="210dp"
+                          android:layout_margin="20dp"
+                          android:maxLength="200"
+                          android:padding="16dp"
+                          android:background="@drawable/bg_ffffff_stroke_141414"
+                          android:textSize="15sp"
+                          android:textColor="@color/x_000000"
+                          android:fontFamily="@font/regular_genesissanstextglobal"
+                          android:hint="@string/sm_r_rsv03_17"
+                          android:gravity="top|left"/>
+
+                  </LinearLayout>
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

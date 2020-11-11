@@ -9,7 +9,6 @@ import com.genesis.apps.comm.util.crypt.AesUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 import java.io.BufferedInputStream;
 import java.io.File;

@@ -69,6 +69,44 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 public @Data
 class RepairReserveVO extends BaseData {
+
+    //REQ-1007
+    public RepairReserveVO(
+            String rsvtTypCd
+            , String rparTypCd
+            , String vin
+            , String carRgstNo
+            , String mdlCd
+            , String mdlNm
+            , String rsvtHopeDt
+            , String autoAmpmCd
+            , String hpNo
+            , String pckpAddr
+            , String autoSvc1
+            , String autoSvc2
+            , String autoSvc3
+            , String autoSvc4
+            , String rqrm
+            , String userNm){
+
+        this.rsvtTypCd = rsvtTypCd;
+        this.rparTypCd = rparTypCd;
+        this.vin = vin;
+        this.carRgstNo = carRgstNo;
+        this.mdlCd = mdlCd;
+        this.mdlNm = mdlNm;
+        this.rsvtHopeDt = rsvtHopeDt;
+        this.autoAmpmCd = autoAmpmCd;
+        this.hpNo = hpNo;
+        this.pckpAddr = pckpAddr;
+        this.autoSvc1 = autoSvc1;
+        this.autoSvc2 = autoSvc2;
+        this.autoSvc3 = autoSvc3;
+        this.autoSvc4 = autoSvc4;
+        this.rqrm = rqrm;
+        this.userNm = userNm;
+    }
+
     @Expose
     @SerializedName("rparRsvtSeqNo")
     private String rparRsvtSeqNo;

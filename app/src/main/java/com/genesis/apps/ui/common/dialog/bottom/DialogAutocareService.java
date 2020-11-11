@@ -87,6 +87,11 @@ public class DialogAutocareService extends BaseBottomDialog<DialogBottomAutocare
         return value;
     }
 
+    /**
+     * @brief 서비스 항목 중 선택된 서비스 확인
+     * (단, 엔진은 자동 선택)
+     * @return
+     */
     public List<CouponVO> getCheckService(){
         List<CouponVO> checkedService = new ArrayList<>();
 
