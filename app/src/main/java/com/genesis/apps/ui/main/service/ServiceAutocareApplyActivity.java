@@ -26,28 +26,32 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.CouponVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
-import com.genesis.apps.databinding.ActivityServiceAutocareApply1Binding;
+import com.genesis.apps.databinding.ActivityServiceAutocare2Apply1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.DialogAutocareService;
+import com.genesis.apps.ui.common.dialog.bottom.DialogCalendar;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author hjpark
  * @brief 차계부 입력
  */
-public class ServiceAutocareApplyActivity extends SubActivity<ActivityServiceAutocareApply1Binding> {
+public class ServiceAutocareApplyActivity extends SubActivity<ActivityServiceAutocare2Apply1Binding> {
 
     private REQViewModel reqViewModel;
     private VehicleVO mainVehicle;
-    private final int[] layouts = {R.layout.activity_service_autocare_apply_1, R.layout.activity_service_autocare_apply_2, R.layout.activity_service_autocare_apply_3, R.layout.activity_service_autocare_apply_4};
+    private final int[] layouts = {R.layout.activity_service_autocare_2_apply_1, R.layout.activity_service_autocare_2_apply_2, R.layout.activity_service_autocare_2_apply_3, R.layout.activity_service_autocare_2_apply_4};
     private final int[] textMsgId = {R.string.sm_r_rsv02_01_2, R.string.sm_r_rsv02_01_6, R.string.sm_r_rsv02_01_12, R.string.sm_r_rsv02_01_15};
     private ConstraintSet[] constraintSets = new ConstraintSet[layouts.length];
     private View[] views;
@@ -55,10 +59,12 @@ public class ServiceAutocareApplyActivity extends SubActivity<ActivityServiceAut
 
     private final String rsvtTypCd=VariableType.SERVICE_RESERVATION_TYPE_AUTOCARE; //에약유형코드
     private String rparTypCd; //정비내용코드
+    private String rsvtHopeDt; //예약희망일자
+    private String autoAmpmCd="A"; //오전오후구분코드
+
+
     private List<CouponVO> couponVOList;
     private List<CouponVO> selectCouponList;
-
-
     private AddressVO addressVO;
 
     @Override
@@ -81,6 +87,7 @@ public class ServiceAutocareApplyActivity extends SubActivity<ActivityServiceAut
         }finally{
             initConstraintSets();
             initEditView();
+            selectAutocareService();
         }
     }
 
@@ -91,23 +98,25 @@ public class ServiceAutocareApplyActivity extends SubActivity<ActivityServiceAut
 
 
     private void startMapView(){
+        clearKeypad();
         startActivitySingleTop(new Intent(this, MapSearchMyPositionActivity.class).putExtra(KeyNames.KEY_NAME_ADDR, addressVO).putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.sm_r_rsv02_01_10).putExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, R.string.sm_r_rsv02_01_11), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
     @Override
     public void onClickCommon(View v) {
         switch (v.getId()){
-            case R.id.tv_addr:
-                clearKeypad();
-                startMapView();
-                break;
-
+            //에약서비스선택
             case R.id.tv_autocare_service:
             case R.id.btn_change_autocare_service:
                 selectAutocareService();
                 break;
+            //주소검색
+            case R.id.tv_addr:
+                startMapView();
+                break;
+            //예약희망일
             case R.id.tv_rsvt_hope_dt:
-                //예야 희망일
+                selectCalendar();
                 break;
 
 
@@ -123,6 +132,33 @@ public class ServiceAutocareApplyActivity extends SubActivity<ActivityServiceAut
                 break;
         }
     }
+
+    private void selectCalendar() {
+        clearKeypad();
+        DialogCalendar dialogCalendar = new DialogCalendar(this, R.style.BottomSheetDialogTheme);
+        dialogCalendar.setOnDismissListener(dialogInterface -> {
+            Calendar calendar = dialogCalendar.calendar;
+            if(calendar!=null){
+                rsvtHopeDt = DateUtil.getDate(calendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd);
+                autoAmpmCd = dialogCalendar.getAutoAmpmCd();
+                checkValidRsvtHopeDt();
+//                setViewDtm(calendar);
+            }
+        });
+        dialogCalendar.setCalendarMaximum(Calendar.getInstance(Locale.getDefault()));
+        dialogCalendar.setTitle(getString(R.string.sm_r_rsv02_01_p02_1));
+        dialogCalendar.setUseAutoAmpmCd(true);
+        Calendar minCalendar = Calendar.getInstance(Locale.getDefault());
+        minCalendar.add(Calendar.DATE, 2);
+        Calendar maxCalendar = Calendar.getInstance(Locale.getDefault());
+        maxCalendar.add(Calendar.DATE, 14);
+
+        dialogCalendar.setCalendarMinimum(minCalendar);
+        dialogCalendar.setCalendarMaximum(maxCalendar);
+        dialogCalendar.setRemoveWeekends(true);
+        dialogCalendar.show();
+    }
+
 
 
     private void clearKeypad(){
@@ -235,11 +271,12 @@ public class ServiceAutocareApplyActivity extends SubActivity<ActivityServiceAut
             }
 
             if(pos==1){
-                //todo startMap
-//                selectAreaClsCd();
+                startMapView();
+//                new Handler().postDelayed(() -> startMapView(),700);
+            }else if(pos==2){
+
             }else if(pos==3){
-                //todo select date
-//                startMapView();
+                selectCalendar();
             }else if(pos==views.length-1){
                 //todo 아래 해야하나 ?
                 ui.btnNext.setText(R.string.sm_emgc01_25);
@@ -302,9 +339,28 @@ public class ServiceAutocareApplyActivity extends SubActivity<ActivityServiceAut
         }
     }
 
+    private boolean checkValidRsvtHopeDt() {
+        if(TextUtils.isEmpty(rsvtHopeDt)){
+            ui.tvRsvtHopeDt.setText(R.string.sm_r_rsv02_01_16);
+            ui.tvRsvtHopeDt.setTextColor(getColor(R.color.x_aaabaf));
+            ui.tvRsvtHopeDt.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
+            ui.tvTitleRsvtHopeDt.setVisibility(View.GONE);
+            ui.tvErrorRsvtHopeDt.setVisibility(View.VISIBLE);
+            ui.tvErrorRsvtHopeDt.setText(R.string.sm_r_rsv02_01_14);
+            return false;
+        }else{
+            String date = DateUtil.getDate(DateUtil.getDefaultDateFormat(rsvtHopeDt, DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)
+                    + " / "
+                    + (autoAmpmCd.equalsIgnoreCase("A") ? getString(R.string.sm_r_rsv02_01_p02_2) : getString(R.string.sm_r_rsv02_01_p02_3));
 
-
-
+            ui.tvRsvtHopeDt.setText(date);
+            ui.tvRsvtHopeDt.setTextColor(getColor(R.color.x_000000));
+            ui.tvRsvtHopeDt.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
+            ui.tvTitleRsvtHopeDt.setVisibility(View.VISIBLE);
+            ui.tvErrorRsvtHopeDt.setVisibility(View.INVISIBLE);
+            return true;
+        }
+    }
 
 //    private boolean checkValidPhoneNumber(){
 //        String celPhoneNo = ui.etCelPhNo.getText().toString().replaceAll("-","").trim();
@@ -352,35 +408,52 @@ public class ServiceAutocareApplyActivity extends SubActivity<ActivityServiceAut
 //        }
 //    }
 //
-//    private boolean checkValidAddr(){
-//        String addr = ui.tvAddrInfo1.getText().toString().trim() + ui.tvAddrInfo2.getText().toString().trim();
-//        if(TextUtils.isEmpty(addr)){
-//            ui.tvErrorAddr.setVisibility(View.VISIBLE);
-//            ui.tvErrorAddr.setText(getString(R.string.sm_emgc01_12));
-//            return false;
-//        }else{
-//            ui.lAddrInfo.setVisibility(View.VISIBLE);
-//            ui.tvTitleAddr.setVisibility(View.GONE);
-//            ui.tvAddr.setVisibility(View.GONE);
-//            ui.tvErrorAddr.setVisibility(View.INVISIBLE);
-//            doTransition(3);
-//            return true;
-//        }
-//    }
-//
-//    private boolean checkValidAddrDtl(){
-//        String addrDtl = ui.etAddrDtl.getText().toString().trim();
-//
-//        if(TextUtils.isEmpty(addrDtl)){
-//            ui.etAddrDtl.requestFocus();
-//            ui.lAddrDtl.setError(getString(R.string.sm_emgc01_15));
-//            return false;
-//        }else{
-//            ui.lAddrDtl.setError(null);
-//            doTransition(4);
-//            return true;
-//        }
-//    }
+    private boolean checkValidAddr(){
+        if(addressVO==null){
+            ui.tvErrorAddr.setVisibility(View.VISIBLE);
+            ui.tvErrorAddr.setText(getString(R.string.sm_r_rsv02_01_14));
+//            ui.tvAddr.setTextAppearance(R.style.CommonInputItemDisable);
+            ui.tvAddr.setTextColor(getColor(R.color.x_aaabaf));
+            ui.tvAddr.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
+            ui.tvAddr.setText(R.string.sm_r_rsv02_01_7);
+            ui.tvTitleAddr.setVisibility(View.INVISIBLE);
+            return false;
+        }else{
+            ui.tvErrorAddr.setVisibility(View.INVISIBLE);
+//            ui.tvAddr.setTextAppearance(R.style.CommonInputItemEnable);
+            ui.tvAddr.setTextColor(getColor(R.color.x_000000));
+            ui.tvAddr.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
+            ui.tvAddr.setText(addressVO.getAddrRoad());
+            ui.tvTitleAddr.setVisibility(View.VISIBLE);
+            setViewAddrDetail();
+            doTransition(2);
+            return true;
+        }
+    }
+
+
+    private void setViewAddrDetail(){
+        String addrDetail = (TextUtils.isEmpty(addressVO.getTitle()) ? "" : addressVO.getTitle()) + (TextUtils.isEmpty(addressVO.getCname()) ? "" : " "+addressVO.getCname());
+        if(!TextUtils.isEmpty(addrDetail.trim())){
+            ui.etAddrDtl.setText(addrDetail.trim());
+            ui.etAddrDtl.setSelection(ui.etAddrDtl.length());
+        }
+    }
+
+
+    private boolean checkValidAddrDtl(){
+        String addrDtl = ui.etAddrDtl.getText().toString().trim();
+
+        if(TextUtils.isEmpty(addrDtl)){
+            ui.etAddrDtl.requestFocus();
+            ui.lAddrDtl.setError(getString(R.string.sm_r_rsv02_01_14));
+            return false;
+        }else{
+            ui.lAddrDtl.setError(null);
+            doTransition(3);
+            return true;
+        }
+    }
 //
 //    private boolean checkValidMemo(){
 //        String memo = ui.etMemo.getText().toString().trim();
@@ -423,13 +496,13 @@ public class ServiceAutocareApplyActivity extends SubActivity<ActivityServiceAut
                     case R.id.l_addr:
                         return checkValidAutocareService()&&false;
                     case R.id.l_addr_dtl:
-                        return checkValidAutocareService()&&false;
+                        return checkValidAutocareService()&&checkValidAddr()&&false;
                     case R.id.l_rsvt_hope_dt:
-                        return checkValidAutocareService()&&false;
+                        return checkValidAutocareService()&&checkValidAddr()&&checkValidAddrDtl()&&false;
                 }
             }
         }
-        return checkValidAutocareService();
+        return checkValidAutocareService()&&checkValidAddr()&&checkValidAddrDtl()&&checkValidRsvtHopeDt();
     }
 
 
@@ -457,7 +530,7 @@ public class ServiceAutocareApplyActivity extends SubActivity<ActivityServiceAut
     }
 
     private void dialogExit(){
-        MiddleDialog.dialogServiceSOSApplyExit(this, () -> {
+        MiddleDialog.dialogServiceBack(this, () -> {
             finish();
             closeTransition();
         }, () -> {
@@ -471,16 +544,9 @@ public class ServiceAutocareApplyActivity extends SubActivity<ActivityServiceAut
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == ResultCodes.REQ_CODE_SERVICE_SOS_MAP.getCode()){
             addressVO = (AddressVO)data.getSerializableExtra(KeyNames.KEY_NAME_ADDR);
-//            setViewAddr(addressVO.getTitle(), addressVO.getCname(), (TextUtils.isEmpty(addressVO.getAddrRoad()) ? addressVO.getAddr() : addressVO.getAddrRoad()));
+            checkValidAddr();
         }
     }
 
-//    private void setViewAddr(String buildName, String subBuildName, String address){
-//        ui.tvAddrInfo1.setText(buildName+ (TextUtils.isEmpty(subBuildName) ? "" : " "+subBuildName));
-//        ui.tvAddrInfo1.setVisibility(TextUtils.isEmpty(buildName) ? View.GONE : View.VISIBLE);
-//        ui.tvAddrInfo2.setText(address);
-//        ui.tvAddrInfo2.setVisibility(TextUtils.isEmpty(address) ? View.GONE : View.VISIBLE);
-//        checkValidAddr();
-//    }
 
 }

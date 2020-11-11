@@ -45,16 +45,17 @@ public class DialogAutocareService extends BaseBottomDialog<DialogBottomAutocare
         setContentView(R.layout.dialog_bottom_autocare_service);
         setAllowOutTouch(true);
         checkBoxes = new CheckBox[]{ui.lAutoSvc1.cbAutoSvc1, ui.lAutoSvc2.cbAutoSvc1, ui.lAutoSvc3.cbAutoSvc1 ,ui.lAutoSvc4.cbAutoSvc1};
-        ui.lAutoSvc1.setRemCnt(getRemCnt(list.get(0).getRemCnt()));
-        ui.lAutoSvc1.setIsEngine(true);
-        ui.lAutoSvc1.cbAutoSvc1.setChecked(true);
+        ui.setDialog(this);
+        ui.setCouponList(list);
         ui.lAutoSvc1.cbAutoSvc1.setTypeface(ResourcesCompat.getFont(getContext(), R.font.regular_genesissansheadglobal));
 
 
-
-        ui.lAutoSvc2.setRemCnt(getRemCnt(list.get(1).getRemCnt()));
-        ui.lAutoSvc3.setRemCnt(getRemCnt(list.get(2).getRemCnt()));
-        ui.lAutoSvc4.setRemCnt(getRemCnt(list.get(3).getRemCnt()));
+//        ui.lAutoSvc1.setRemCnt(getRemCnt(list.get(0).getRemCnt()));
+//        ui.lAutoSvc1.cbAutoSvc1.setChecked(true);
+//        ui.lAutoSvc1.cbAutoSvc1.setTypeface(ResourcesCompat.getFont(getContext(), R.font.regular_genesissansheadglobal));
+//        ui.lAutoSvc2.setRemCnt(getRemCnt(list.get(1).getRemCnt()));
+//        ui.lAutoSvc3.setRemCnt(getRemCnt(list.get(2).getRemCnt()));
+//        ui.lAutoSvc4.setRemCnt(getRemCnt(list.get(3).getRemCnt()));
 
         ui.btnNext.setOnClickListener(new OnSingleClickListener() {
             @Override
@@ -74,7 +75,7 @@ public class DialogAutocareService extends BaseBottomDialog<DialogBottomAutocare
         this.list = list;
     }
 
-    private int getRemCnt(String remCnt){
+    public int getRemCnt(String remCnt){
         int value=0;
 
         try{

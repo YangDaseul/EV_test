@@ -41,6 +41,7 @@
             android:textSize="15sp"
             android:text="@{svcNm}"
             android:enabled="@{ (remCnt==0||isEngine) ? false : true}"
+            android:checked="@{ isEngine ? true : false}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_rem_cnt"
             app:layout_constraintStart_toStartOf="parent"

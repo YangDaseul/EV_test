@@ -2,6 +2,22 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <data>
+
+        <import type="java.util.List"/>
+        <import type="com.genesis.apps.comm.model.vo.CouponVO"/>
+
+        <variable
+            name="couponList"
+            type="List&lt;CouponVO&gt;" />
+
+        <variable
+            name="dialog"
+            type="com.genesis.apps.ui.common.dialog.bottom.DialogAutocareService" />
+
+    </data>
+    
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -28,7 +44,9 @@
             app:layout_constraintTop_toBottomOf="@+id/l_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:svcNm="@{@string/sm_r_rsv02_01_p01_4}"/>
+            app:svcNm="@{@string/sm_r_rsv02_01_p01_4}"
+            app:isEngine="@{true}"
+            app:remCnt="@{dialog.getRemCnt(couponList.get(0).remCnt)}"/>
 
 
         <include
@@ -39,7 +57,8 @@
             app:layout_constraintTop_toBottomOf="@+id/l_auto_svc_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:svcNm="@{@string/sm_r_rsv02_01_p01_5}"/>
+            app:svcNm="@{@string/sm_r_rsv02_01_p01_5}"
+            app:remCnt="@{dialog.getRemCnt(couponList.get(1).remCnt)}"/>
 
         <include
             android:id="@+id/l_auto_svc_3"
@@ -49,7 +68,8 @@
             app:layout_constraintTop_toBottomOf="@+id/l_auto_svc_2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:svcNm="@{@string/sm_r_rsv02_01_p01_6}"/>
+            app:svcNm="@{@string/sm_r_rsv02_01_p01_6}"
+            app:remCnt="@{dialog.getRemCnt(couponList.get(2).remCnt)}"/>
 
         <include
             android:id="@+id/l_auto_svc_4"
@@ -59,7 +79,8 @@
             app:layout_constraintTop_toBottomOf="@+id/l_auto_svc_3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:svcNm="@{@string/sm_r_rsv02_01_p01_7}"/>
+            app:svcNm="@{@string/sm_r_rsv02_01_p01_7}"
+            app:remCnt="@{dialog.getRemCnt(couponList.get(3).remCnt)}"/>
 
         <TextView
             android:id="@+id/btn_next"

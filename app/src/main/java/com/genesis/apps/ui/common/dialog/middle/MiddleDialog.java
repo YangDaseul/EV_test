@@ -455,6 +455,29 @@ public class MiddleDialog {
     }
 
     /**
+     * @brief 정비예약 뒤로가기 경고 팝업
+     *
+     * @param activity
+     * @param ok
+     * @param cancel
+     */
+    public static void dialogServiceBack(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        R.string.sm_r_rsv_p03_1,
+                        R.string.sm_r_rsv_p03_2,
+                        R.string.dialog_common_1,
+                        R.string.dialog_common_2
+                ).show()
+        );
+    }
+
+    /**
      * @brief 로그인 안내 팝업
      * @param activity
      * @param ok

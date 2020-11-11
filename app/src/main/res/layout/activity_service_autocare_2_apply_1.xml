@@ -24,7 +24,7 @@
         <include
             android:id="@+id/l_title"
             layout="@layout/layout_titlebar_use_edittext"
-            app:value="@{@string/sm_emgc01_1}"/>
+            app:value="@{@string/sm_r_rsv02_01_1}"/>
 
         <ScrollView
             android:id="@+id/sc"
@@ -197,7 +197,7 @@
                     android:id="@+id/iv_line_1"
                     android:layout_width="0dp"
                     android:layout_height="10dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="40dp"
                     android:background="@color/x_f4f4f4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

@@ -35,6 +35,8 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
     private SearchAddressHMNAdapter adapter;
     private MapViewModel mapViewModel;
     private LGNViewModel lgnViewModel;
+    int titleId=0;
+    int msgId=0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -49,17 +51,21 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
 
     private void setViewArgument() {
         try {
-            int titleId = getArguments().getInt(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, 0);
-            int msgId = getArguments().getInt(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, 0);
-            if (titleId != 0) {
-                me.lTitle.setValue(getString(titleId));
-            }
-            if (msgId != 0) {
-                me.tvMsg.setVisibility(View.VISIBLE);
-                me.tvMsg.setText(getString(msgId));
-            }
+             titleId = getArguments().getInt(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, 0);
+             msgId = getArguments().getInt(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, 0);
         }catch (Exception ignore){
 
+        }
+    }
+    private void setViewMsg(){
+        if (titleId != 0) {
+            me.lTitle.setValue(getString(titleId));
+        }else{
+            me.lTitle.setValue(getString(R.string.gm_carlst_01_01_1));
+        }
+        if (msgId != 0) {
+            me.tvMsg.setVisibility(View.VISIBLE);
+            me.tvMsg.setText(getString(msgId));
         }
     }
 
@@ -105,6 +111,7 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
         me.lSearchParent.etSearch.setOnEditorActionListener(editorActionListener);
         me.lSearchParent.etSearch.setHint(R.string.map_title_3);
         me.lTitle.back.setOnClickListener(onSingleClickListener);
+        setViewMsg();
         reqRecentlyData();
     }
 

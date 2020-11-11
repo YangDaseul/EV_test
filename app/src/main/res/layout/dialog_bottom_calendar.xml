@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -33,6 +36,33 @@
             app:mcv_weekDayTextAppearance="@style/calendarStyleWeekend"
             app:mcv_rightArrowMask="@drawable/btn_arrow_open_r"
             />
+
+
+
+        <TextView
+            android:id="@+id/tv_category_1"
+            style="@style/BtrFilterEnable"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="30dp"
+            android:text="@string/sm_r_rsv02_01_p02_2"
+            android:tag="A"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_category_2"
+            app:layout_constraintBottom_toBottomOf="@+id/calendarView"
+            tools:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/tv_category_2"
+            style="@style/BtrFilterDisable"
+            android:text="@string/sm_r_rsv02_01_p02_3"
+            android:tag="P"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_category_1"
+            app:layout_constraintTop_toTopOf="@+id/tv_category_1"
+            tools:visibility="visible"/>
+
 
         <TextView
             android:id="@+id/btn_next"
