@@ -4,7 +4,9 @@ package com.genesis.apps.ui.main.service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
@@ -27,6 +29,7 @@ import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.databinding.ActivityServiceDriveReq1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq1Binding> {
     private static final String TAG = ServiceDriveReqActivity.class.getSimpleName();
@@ -125,7 +128,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                 .putExtra(KeyNames.KEY_NAME_ADDR, addressVO)
                 .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.service_drive_address_search_title)
                 .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, R.string.service_drive_address_search_msg);
-//                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_DIRECT_OPEN, true);
+//                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_DIRECT_OPEN, true);//바로 다음 화면 넘기기
 
         startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
@@ -170,7 +173,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         ui.lServiceDriveReqTopPanel.tvServiceReqCarNumber.setText(mainVehicle.getCarRgstNo());
 
         initConstraintSets();
-        setTextInputListener();
+        setTextListener();
         ui.setActivity(this);
     }
 
@@ -185,9 +188,56 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         }
     }
 
-    public void setTextInputListener() {
+    public void setTextListener() {
         ui.tietServiceDriveReqInputFromAddressDetail.setOnEditorActionListener(editorActionListener);
+        ui.tietServiceDriveReqInputFromAddressDetail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //do nothing
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                setError(ui.lServiceDriveReqInputFromDetail, !hasInput(editable.toString()));
+            }
+        });
+
         ui.tietServiceDriveReqInputToAddressDetail.setOnEditorActionListener(editorActionListener);
+        ui.tietServiceDriveReqInputToAddressDetail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //do nothing
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                setError(ui.lServiceDriveReqInputToDetail, !hasInput(editable.toString()));
+            }
+        });
+    }
+
+    //세부주소 칸에 입력한 값이 있는지 없는지 검사
+    private boolean hasInput(String input) {
+        return 0 < input.length();
+    }
+
+    //에러 메시지 표시하기/끄기
+    private void setError(TextInputLayout textInputLayout, boolean enable) {
+        if (enable) {
+            textInputLayout.setError(getString(R.string.service_drive_input_00));
+        } else {
+            textInputLayout.setError(null);
+        }
     }
 
     private void onClickNextBtn() {
@@ -207,6 +257,11 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     private int determineWork() {
 
         return NEXT_BTN_ASK_PRICE;
+
+
+//        NEXT_BTN_LACK_INPUT;
+//        NEXT_BTN_OPEN_TO_ADDRESS;
+//        NEXT_BTN_REQ_SERVICE;
     }
 
     /**

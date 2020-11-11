@@ -8,6 +8,7 @@
 
 
     <!-- 신청 정보 입력 -->
+    <string name="service_drive_input_00">필수 입력 사항입니다.</string>
     <string name="service_drive_input_01">출발지 주소를\n입력해 주세요.</string>
     <string name="service_drive_input_02">출발지 상세 주소를\n입력해 주세요.</string>
     <string name="service_drive_input_03">도착지 주소를\n입력해 주세요.</string>
