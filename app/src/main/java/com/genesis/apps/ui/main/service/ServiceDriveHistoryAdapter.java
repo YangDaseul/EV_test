@@ -1,6 +1,5 @@
 package com.genesis.apps.ui.main.service;
 
-import android.graphics.drawable.Drawable;
 import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -120,9 +119,9 @@ public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveSe
 
     //대리운전 완료됨 뷰 홀더
     public class ServiceDriveHistoryFinishedViewHolder extends BaseViewHolder<DriveServiceVO, ItemServiceDriveHistoryFinishedBinding> {
-        public Drawable icon;
-        public Drawable iconCloseBtn;
-        public Drawable iconOpenBtn;
+        private View detailView;
+        public int iconCloseBtn;
+        public int iconOpenBtn;
         public String date;
         public String carInfo;
         public String paidPrice;
@@ -138,8 +137,9 @@ public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveSe
         public ServiceDriveHistoryFinishedViewHolder(View itemView) {
             super(itemView);
             Log.d(TAG, "ServiceDriveHistoryFinishedViewHolder: ");
-            iconOpenBtn = itemView.getContext().getDrawable(R.drawable.btn_arrow_open);
-            iconCloseBtn = itemView.getContext().getDrawable(R.drawable.btn_arrow_close);
+            detailView = getBinding().lServiceDriveHistoryFinishedDetail.lServiceDriveHistoryDetailRoot;
+            iconOpenBtn = R.drawable.btn_arrow_open;
+            iconCloseBtn = R.drawable.btn_arrow_close;
         }
 
         @Override
@@ -156,25 +156,43 @@ public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveSe
         public void onBindView(DriveServiceVO item, int pos, SparseBooleanArray selectedItems) {
             Log.d(TAG, "onBindView(finished): ");
 
+            //세부사항 접기/펴기 리스너
+            setOpenListener(pos, selectedItems);
+
             //뷰에 들어갈 데이터 추출
             getDataFromItem(item);
 
-            //열림/닫힘 구분해서 세부사항 뷰 visibility처리
+            //열림/닫힘 구분해서 세부사항 뷰 접기/열기 아이콘 및 visibility 처리
             setViewStatus(selectedItems.get(pos));
-
-            //세부사항 접기/펴기 리스너
-            setOpenListener(pos, selectedItems);
 
             //데이터 바인딩
             getBinding().setHolder(this);
         }
 
+        //접기/펴기 리스너 붙이기
+        private void setOpenListener(int pos, SparseBooleanArray selectedItems) {
+            getBinding().lServiceDriveHistoryFinishedBtn.lServiceDriveHistoryFinishedItem.setOnClickListener(v -> {
+                Log.d(TAG, "recyclerView onClick position : " + pos);
+
+                //클릭하면 상태 변경을 저장하고
+                if (selectedItems.get(pos)) {
+                    selectedItems.delete(pos);  // 펼쳐진 Item 클릭하면 열림 목록에서 삭제
+                } else {
+                    selectedItems.put(pos, true);// 닫힌 거 클릭하면 열림 목록에 추가
+                }
+
+                //변경된 상태를 반영
+                changeViewStatus(selectedItems.get(pos));
+            });
+        }
+
+        //아이템에서 데이터를 꺼내서 뷰에 출력할 값으로 가공하여 뷰홀더에 저장
         private void getDataFromItem(DriveServiceVO item) {
             //날짜 : 포맷에 맞게 변경
             Date date = DateUtil.getDefaultDateFormat(item.getRgstDt(), DateUtil.DATE_FORMAT_yyyyMMddHHmm, Locale.KOREA);
             this.date = DateUtil.getDate(date, DateUtil.DATE_FORMAT_yyyy_MM_dd_e_hh_mm);
 
-            //차종 + 번호판
+            //차량정보 : 차종 + 번호판
             carInfo = item.getMdlNm() + " " + item.getCarRegNo();
 
             //가격 : 숫자를 가격으로
@@ -197,26 +215,25 @@ public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveSe
             // TODO : 서버 수정되면 반영
             driverName = "운전맨";
             driverPhone = PhoneNumberUtils.formatNumber("01020104214", Locale.getDefault().getCountry());
-
         }
 
+        //세부사항 뷰의 개폐 상태를 처리
+        // (화면 밖에 있다가 스크롤되어서 화면 안에 들어오는 경우 호출됨)
         private void setViewStatus(boolean opened) {
-            icon = opened ? iconCloseBtn : iconOpenBtn;
-            changeVisibility(getBinding().lServiceDriveHistoryFinishedDetail.lServiceDriveHistoryDetailRoot, opened);
+            setIcon(opened ? iconCloseBtn : iconOpenBtn);
+            detailView.setVisibility(opened ? View.VISIBLE : View.GONE);
         }
 
-        private void setOpenListener(int pos, SparseBooleanArray selectedItems) {
-            getBinding().lServiceDriveHistoryFinishedBtn.lServiceDriveHistoryFinishedItem.setOnClickListener(v -> {
-                Log.d(TAG, "recyclerView onClick position : " + pos);
+        //세부사항 뷰의 개폐 상태가 변경되는 애니메이션을 처리
+        // (클릭해서 상태를 토글할 때 호출됨)
+        private void changeViewStatus(boolean opened) {
+            setIcon(opened ? iconCloseBtn : iconOpenBtn);
+            changeVisibility(detailView, opened);
+        }
 
-                if (selectedItems.get(pos)) {
-                    selectedItems.delete(pos);  // 펼쳐진 Item 클릭하면 열림 목록에서 삭제
-                } else {
-                    selectedItems.put(pos, true);// 닫힌 거 클릭하면 열림 목록에 추가
-                }
-
-                getBindingAdapter().notifyItemChanged(pos);
-            });
+        //드롭다운 아이콘의 개폐 상태를 변경
+        private void setIcon(int icon) {
+            getBinding().lServiceDriveHistoryFinishedBtn.ivServiceDriveHistoryDropdown.setImageResource(icon);
         }
     }
 
