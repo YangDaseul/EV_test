@@ -30,10 +30,14 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 
 public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq1Binding> {
     private static final String TAG = ServiceDriveReqActivity.class.getSimpleName();
-    public static final String START_MSG = "StartMsg";
 
     private static final int FROM = 0;
     private static final int TO = 1;
+
+    private static final int NEXT_BTN_LACK_INPUT = 0;
+    private static final int NEXT_BTN_OPEN_TO_ADDRESS = 1;
+    private static final int NEXT_BTN_ASK_PRICE = 2;
+    private static final int NEXT_BTN_REQ_SERVICE = 3;
 
     private VehicleVO mainVehicle;
     private AddressVO addressVO;
@@ -45,11 +49,11 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
     private ConstraintSet[] constraintSets = new ConstraintSet[layouts.length];
 
+    //키보드로 입력하고 엔터 누르면 밑에 다음 버튼 누른 거랑 같도록 하는 리스너
     private EditText.OnEditorActionListener editorActionListener = (textView, actionId, keyEvent) -> {
-        //todo : onClickNext랑 구간 통합식으로 수정
         if (actionId == EditorInfo.IME_ACTION_DONE) {
             if (!TextUtils.isEmpty(textView.getText().toString())) {
-                doTransition();
+                onClickNextBtn();
             }
         }
         return false;
@@ -66,7 +70,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         init();
 
         //시작하자마자 출발 주소 검색 화면으로 넘어감
-        onClickSearchFromAddressBtn();
+//        onClickSearchFromAddressBtn();
     }
 
     @Override
@@ -79,23 +83,25 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
             //출발주소 검색버튼
             case R.id.tv_service_drive_req_search_from_address_btn:
-                onClickSearchFromAddressBtn();
+                //todo impl
+//                onClickSearchFromAddressBtn();
 
                 //onActivityResult()에서 이 값을 세팅하고 다음 게 이미 펼쳐져있도록 하면 될 듯?
                 //아니면 펼쳐지는 장면을 onActivityResult()에서 보여주거나(이미 입력된 값을 수정하고왔을 때는 펼치기 이펙트 재생 안 해야겠지?)
-//                ui.tvServiceDriveReqSearchFromAddressBtn.setText("지도 액티비티에서 가져온 출발지 주소");
-//                ui.tvServiceDriveReqSearchFromAddressBtn.setTextAppearance(R.style.ServiceDrive_SearchAddress_HasData);
-//                ui.tvServiceDriveReqSearchFromAddressBtn.setBackground(getDrawable(R.drawable.ripple_bg_ffffff_stroke_141414));
-//                ui.ivServiceDriveReqPleaseInputXxx.setText(R.string.service_drive_input_02);
-//                ui.tvServiceDriveReqFromTitle.setVisibility(View.VISIBLE);
-//                ui.lServiceDriveReqInputFromDetail.setVisibility(View.VISIBLE);
-//                ui.tvServiceDriveReqNextBtn.setVisibility(View.VISIBLE);
+                ui.tvServiceDriveReqSearchFromAddressBtn.setText("지도 액티비티에서 가져온 출발지 주소");
+                ui.tvServiceDriveReqSearchFromAddressBtn.setTextAppearance(R.style.ServiceDrive_SearchAddress_HasData);
+                ui.tvServiceDriveReqSearchFromAddressBtn.setBackground(getDrawable(R.drawable.ripple_bg_ffffff_stroke_141414));
+                ui.ivServiceDriveReqPleaseInputXxx.setText(R.string.service_drive_input_02);
+                ui.tvServiceDriveReqFromTitle.setVisibility(View.VISIBLE);
+                ui.lServiceDriveReqInputFromDetail.setVisibility(View.VISIBLE);
+                ui.tvServiceDriveReqNextBtn.setVisibility(View.VISIBLE);
                 break;
 
             //도착주소 검색버튼
             case R.id.tv_service_drive_req_search_to_address_btn:
                 //onActivityResult()에서 이 값을 세팅하고 다음 게 이미 펼쳐져있도록 하면 될 듯?
                 //아니면 펼쳐지는 장면을 onActivityResult()에서 보여주거나(이미 입력된 값을 수정하고왔을 때는 펼치기 이펙트 재생 안 해야겠지?)
+                //todo impl
                 ui.tvServiceDriveReqSearchToAddressBtn.setText("지도 액티비티에서 가져온 도착지 주소");
                 ui.tvServiceDriveReqSearchToAddressBtn.setTextAppearance(R.style.ServiceDrive_SearchAddress_HasData);
                 ui.tvServiceDriveReqSearchToAddressBtn.setBackground(getDrawable(R.drawable.ripple_bg_ffffff_stroke_141414));
@@ -118,7 +124,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         Intent intent = new Intent(this, MapSearchMyPositionActivity.class)
                 .putExtra(KeyNames.KEY_NAME_ADDR, addressVO)
                 .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.service_drive_map_title)
-                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, R.string.sm_r_rsv02_01_11);
+                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, R.string.service_drive_address_search_msg);
 
         startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
@@ -136,7 +142,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     @Override
     public void getDataFromIntent() {
         //대리운전 기사 못 찾아서 취소 누르고 여기로 떨어지는 경우, 스낵바 메시지를 들고온다. 없으면 무효값(-1)으로 초기화.
-        int msgId = getIntent().getIntExtra(START_MSG, -1);
+        int msgId = getIntent().getIntExtra(KeyNames.KEY_NAME_SERVICE_DRIVE_REQ_START_MSG, -1);
 
         //메지지가 있으면 보여준다
         if (msgId > 0) {
@@ -163,7 +169,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         ui.lServiceDriveReqTopPanel.tvServiceReqCarNumber.setText(mainVehicle.getCarRgstNo());
 
         initConstraintSets();
-        initView();
+        setTextInputListener();
         ui.setActivity(this);
     }
 
@@ -178,24 +184,28 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         }
     }
 
-    public void initView() {
-        //출발지 상세주소 입력 완료하면 도착지 검색버튼 뜨도록 리스너 붙임(키패드 엔터)
+    public void setTextInputListener() {
         ui.tietServiceDriveReqInputFromAddressDetail.setOnEditorActionListener(editorActionListener);
-
-
-        //출발지 상세주소 입력 완료하면 도착지 검색버튼 뜨도록 리스너 붙임(화면 맨 아래 다음 버튼)
-        ui.tvServiceDriveReqNextBtn.setOnClickListener(view -> {
-            if (getCurrentFocus() instanceof TextView) {
-                if (!TextUtils.isEmpty(((TextView) getCurrentFocus()).getText().toString())) {
-                    doTransition();
-
-                }
-            }
-        });
+        ui.tietServiceDriveReqInputToAddressDetail.setOnEditorActionListener(editorActionListener);
     }
 
     private void onClickNextBtn() {
+        determineWork();
 
+        //출발지 상세주소 입력 완료하면 도착지 검색버튼 뜨도록 리스너 붙임(화면 맨 아래 다음 버튼)
+        if (getCurrentFocus() instanceof TextView) {
+            if (!TextUtils.isEmpty(((TextView) getCurrentFocus()).getText().toString())) {
+                doTransition();
+
+            }
+        }
+
+    }
+
+    //입력 상태를 검사하여 "다음" 버튼이 처리할 내용 결정
+    private int determineWork() {
+
+        return NEXT_BTN_ASK_PRICE;
     }
 
     /**

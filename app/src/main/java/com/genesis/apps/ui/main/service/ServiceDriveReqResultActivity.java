@@ -139,7 +139,7 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
                                     exitPage("", ResultCodes.REQ_CODE_NORMAL.getCode());
 
                                     Intent intent = new Intent(this, ServiceDriveReqActivity.class);
-                                    intent.putExtra(ServiceDriveReqActivity.START_MSG, R.string.sd_cancel_succ);
+                                    intent.putExtra(KeyNames.KEY_NAME_SERVICE_DRIVE_REQ_START_MSG, R.string.sd_cancel_succ);
                                     intent.putExtra(KeyNames.KEY_NAME_VEHICLE_VO, mainVehicle); //주 차량 정보도 가져감
                                     startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                                     break;

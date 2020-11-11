@@ -36,8 +36,11 @@ public interface KeyNames {
     String KEY_NAME_SERVICE_COUPON_LIST="couponList";
 
     String KEY_NAME_VEHICLE_VO = "VehicleVO";
-    String KEY_NAME_SERVICE_DRIVE_STATUS = "serviceDriveStatus";
     String KEY_NAME_WASH_GOODS_SEQ_NUM = "godsSeqNo";
     String KEY_NAME_WASH_GOODS_NAME = "godsNm";
+
+    String KEY_NAME_SERVICE_DRIVE_STATUS = "serviceDriveStatus";
+    String KEY_NAME_SERVICE_DRIVE_REQ_START_MSG = "StartMsg";
+
 
 }
