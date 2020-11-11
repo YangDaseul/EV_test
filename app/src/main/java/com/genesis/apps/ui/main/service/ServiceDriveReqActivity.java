@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
@@ -17,17 +18,22 @@ import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.databinding.ActivityServiceDriveReq1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 
 public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq1Binding> {
+    private static final String TAG = ServiceDriveReqActivity.class.getSimpleName();
     public static final String START_MSG = "StartMsg";
 
     private static final int FROM = 0;
     private static final int TO = 1;
 
+    private VehicleVO mainVehicle;
 
     private final int[] layouts = {
             R.layout.activity_service_drive_req_1,
@@ -48,15 +54,26 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getDataFromIntent();//데이터 제대로 안 들어있으면 액티비티 종료처리까지 함
+
         setResizeScreen();
         setContentView(layouts[0]);
         init();
-        getDataFromIntent();
+        setHistoryBtnListener();
     }
 
     @Override
     public void onClickCommon(View v) {
+        switch (v.getId()) {
+            //이용 내역
+            case R.id.tv_titlebar_text_btn:
+                startActivitySingleTop(new Intent(this, ServiceDriveHistoryActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
 
+            default:
+                //do nothing
+                break;
+        }
     }
 
     @Override
@@ -80,6 +97,12 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                     () -> SnackBarUtil.show(this, getString(msgId)),
                     100);
         }
+
+        mainVehicle = (VehicleVO) getIntent().getSerializableExtra(VehicleVO.VEHICLE_VO);
+        if (mainVehicle == null) {
+            Log.d(TAG, "getDataFromIntent: 주차량 정보 없음");
+            exitPage("", ResultCodes.REQ_CODE_NORMAL.getCode());
+        }
     }
 
     @Override
@@ -88,14 +111,9 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     }
 
     private void init() {
-        //TODO : 차종, 번호판 정보 표시
-        ui.lServiceDriveReqTopPanel.tvServiceReqCarModel.setText("GV80");
-        ui.lServiceDriveReqTopPanel.tvServiceReqCarNumber.setText("12너 3456");
-
-        //todo 신청내역 버튼 리스너, 적당한 코드 위치 정해서 이동하기
-        ui.lServiceDriveReqTitlebar.tvTitlebarTextBtn.setOnClickListener(v -> {
-            startActivitySingleTop(new Intent(this, ServiceDriveHistoryActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-        });
+        //차종, 번호판 정보 표시
+        ui.lServiceDriveReqTopPanel.tvServiceReqCarModel.setText(mainVehicle.getMdlNm());
+        ui.lServiceDriveReqTopPanel.tvServiceReqCarNumber.setText(mainVehicle.getCarRgstNo());
 
 
         initConstraintSets();
@@ -156,6 +174,10 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                 }
             }
         });
+    }
+
+    private void setHistoryBtnListener() {
+        ui.lServiceDriveReqTitlebar.setOnSingleClickListener(onSingleClickListener);
     }
 
     /**
