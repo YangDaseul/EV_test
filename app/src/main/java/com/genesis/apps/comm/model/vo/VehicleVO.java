@@ -55,7 +55,6 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 public @Data
 class VehicleVO extends BaseData {
-
     public VehicleVO(){
 
     }

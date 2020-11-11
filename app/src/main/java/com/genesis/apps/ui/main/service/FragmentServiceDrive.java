@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
@@ -72,7 +73,7 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
             //TODO 테스트 끝나고 삭제
             case R.id.test_force_req:
                 //신청 내역 있는지 확인 안 하고 그냥 신청 페이지 띄움
-                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                startReqActivity();
                 break;
 
             default:
@@ -93,6 +94,8 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
         ddsViewModel.getRES_DDS_1001().observe(getViewLifecycleOwner(), result -> {
             Log.d(TAG, "getRES_DDS_1001 check req obs: " + result.status);
 
+            Intent intent;
+
             switch (result.status) {
                 case LOADING:
                     ((MainActivity) getActivity()).showProgressDialog(true);
@@ -110,12 +113,8 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
                             case DDS_1001.STATUS_DRIVER_REMATCHED:
                             case DDS_1001.STATUS_DRIVE_NOW:
                             case DDS_1001.STATUS_NO_DRIVER:
-
-                                //result.data 통째로 들고가서 화면에 뿌려야됨.
-                                Intent intent = new Intent(getActivity(), ServiceDriveReqResultActivity.class);
-                                intent.putExtra(DDS_1001.SERVICE_DRIVE_STATUS, result.data);
-
-                                ((BaseActivity) getActivity()).startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                                //현황 데이터를 현황 액티비티로 가져감
+                                startReqResultActivity(result.data);
                                 break;
 
                             //대리운전 신청 액티비티 호출
@@ -123,7 +122,7 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
                             case DDS_1001.STATUS_SERVICE_FINISHED:
                             case DDS_1001.STATUS_CANCEL_BY_USER:
                             case DDS_1001.STATUS_CANCEL_CAUSE_NO_DRIVER:
-                                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                                startReqActivity();
                                 break;
 
                             default:
@@ -162,5 +161,24 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
                 new DDS_1001.Request(
                         APPIAInfo.SM_DRV02.getId(),
                         mainVehicle.getVin()));
+    }
+
+    //신청 현황 액티비티 호출
+    private void startReqResultActivity(DDS_1001.Response data) {
+        //신청 현황 데이터랑 주 차량 정보를 신청현황 액티비티로 가져감
+        Intent intent = new Intent(getActivity(), ServiceDriveReqResultActivity.class)
+                .putExtra(KeyNames.KEY_NAME_SERVICE_DRIVE_STATUS, data)
+                .putExtra(KeyNames.KEY_NAME_VEHICLE_VO, mainVehicle);
+
+        ((BaseActivity) getActivity()).startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+    }
+
+    //신청 액티비티 호출
+    private void startReqActivity() {
+        //주 차량 정보를 가져감
+        Intent intent = new Intent(getActivity(), ServiceDriveReqActivity.class)
+                .putExtra(KeyNames.KEY_NAME_VEHICLE_VO, mainVehicle);
+
+        ((BaseActivity) getActivity()).startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 }

@@ -10,17 +10,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.gra.api.WSH_1004;
 import com.genesis.apps.comm.model.vo.WashGoodsVO;
-import com.genesis.apps.comm.model.vo.WashReserveVO;
-import com.genesis.apps.databinding.ItemCarWashHistoryBinding;
 import com.genesis.apps.databinding.ItemServiceCarWashBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
-
-import static com.genesis.apps.comm.model.gra.api.WSH_1004.PAY_CASH;
-import static com.genesis.apps.comm.model.gra.api.WSH_1004.RESERVE_COMPLETED;
 
 public class FragmentCarWashAdapter extends BaseRecyclerViewAdapter2<WashGoodsVO> {
     private static OnSingleClickListener singleClickListener;

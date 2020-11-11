@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
@@ -25,7 +26,6 @@ import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.PhoneUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.DDSViewModel;
-import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityServiceDriveReqResultBinding;
 import com.genesis.apps.databinding.LayoutServiceDriveStatusDriverBinding;
 import com.genesis.apps.databinding.LayoutServiceDriveStatusReservedBinding;
@@ -35,13 +35,11 @@ import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 
 public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDriveReqResultBinding> {
     private static final String TAG = ServiceDriveReqResultActivity.class.getSimpleName();
 
-    private DDSViewModel ddsViewModel;
-    private LGNViewModel lgnViewModel;
+    private DDSViewModel viewModel;
     private VehicleVO mainVehicle;
     private Handler autoCancelHandler;
 
@@ -64,8 +62,6 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
         initView();//getDataFromIntent()가 성공해야 실행가능
         setViewModel();
         setObserver();
-        initMainVehicle(); //viewModel 초기화 다음에 해야 함.
-        setHistoryBtnListener();
     }
 
     @Override
@@ -78,9 +74,9 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
     @Override
     public void onClickCommon(View v) {
         switch (v.getId()) {
-            //신청 내역
+            //이용 내역
             case R.id.tv_titlebar_text_btn:
-                startActivitySingleTop(new Intent(this, ServiceDriveHistoryActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                startActivitySingleTop(new Intent(this, ServiceDriveHistoryActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
 
             //기사에게 전화
@@ -107,8 +103,7 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
     @Override
     public void setViewModel() {
         ui.setLifecycleOwner(this);
-        ddsViewModel = new ViewModelProvider(this).get(DDSViewModel.class);
-        lgnViewModel = new ViewModelProvider(this).get(LGNViewModel.class);
+        viewModel = new ViewModelProvider(this).get(DDSViewModel.class);
     }
 
     @Override
@@ -116,7 +111,7 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
         Log.d(TAG, "setObserver: ");
 
         //취소요청
-        ddsViewModel.getRES_DDS_1004().observe(this, result -> {
+        viewModel.getRES_DDS_1004().observe(this, result -> {
             Log.d(TAG, "setObserver: obs DDS_1004 : cancel" + result.status);
 
             switch (result.status) {
@@ -144,7 +139,8 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
                                     exitPage("", ResultCodes.REQ_CODE_NORMAL.getCode());
 
                                     Intent intent = new Intent(this, ServiceDriveReqActivity.class);
-                                    intent.putExtra(ServiceDriveReqActivity.START_MSG, R.string.sd_cancel_succ);
+                                    intent.putExtra(KeyNames.KEY_NAME_SERVICE_DRIVE_REQ_START_MSG, R.string.sd_cancel_succ);
+                                    intent.putExtra(KeyNames.KEY_NAME_VEHICLE_VO, mainVehicle); //주 차량 정보도 가져감
                                     startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                                     break;
                             }
@@ -165,7 +161,7 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
         });
 
         //기사 배정 재시도 요청
-        ddsViewModel.getRES_DDS_1006().observe(this, result -> {
+        viewModel.getRES_DDS_1006().observe(this, result -> {
             Log.d(TAG, "setObserver: obs DDS_1006 : re req" + result.status);
             switch (result.status) {
                 case LOADING:
@@ -198,11 +194,12 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
         Log.d(TAG, "getDataFromIntent: ");
 
         try {
-            DDS_1001.Response data = (DDS_1001.Response) getIntent().getSerializableExtra(DDS_1001.SERVICE_DRIVE_STATUS);
+            DDS_1001.Response data = (DDS_1001.Response) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SERVICE_DRIVE_STATUS);
             Log.d(TAG, "getDataFromIntent/initView : " + data);
             serviceReqData = data;
+            mainVehicle = (VehicleVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_VEHICLE_VO);
         } catch (NullPointerException e) {
-            Log.d(TAG, "init: 신청 현황 데이터 처리 실패");
+            Log.d(TAG, "init: 신청 현황 또는 주 차량 데이터 처리 실패");
             finish();
         }
     }
@@ -249,6 +246,7 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
 
         //차총, 번호판, 출발지, 도착지
         //상태 메지지 타이틀, 세부설명, 버튼 텍스트, 버튼 활성화 여부
+        //onSingleClickListener
         ui.setActivity(this);
     }
 
@@ -360,19 +358,6 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
         stub.inflate();
     }
 
-    private void initMainVehicle() {
-        try {
-            mainVehicle = lgnViewModel.getMainVehicleSimplyFromDB();
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-            //TODO 차량 정보 접근 실패에 대한 예외처리
-        }
-    }
-
-    private void setHistoryBtnListener() {
-        ui.lServiceDriveReqResultTitlebar.tvTitlebarTextBtn.setOnClickListener(onSingleClickListener);
-    }
-
     //예약취소, 신청취소, 취소
     private void onClickCancel() {
         Log.d(TAG, "onClickCancel: ");
@@ -422,10 +407,10 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
     //취소 요청
     private void reqCancel(String menuId, String cancelType) {
         Log.d(TAG, "reqCancel: ");
-        ddsViewModel.reqDDS1004(
+        viewModel.reqDDS1004(
                 new DDS_1004.Request(
                         menuId,
-                        mainVehicle.getVin(),
+                        serviceReqData.getVin(),
                         serviceReqData.getTransId(),
                         cancelType));
     }
@@ -438,10 +423,10 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
     //다시 요청(기사 배정 실패 후, 배정 재요청)
     private void reRequest() {
         Log.d(TAG, "reRequest: ");
-        ddsViewModel.reqDDS1006(
+        viewModel.reqDDS1006(
                 new DDS_1006.Request(
                         APPIAInfo.SM_DRV01_P01.getId(),
-                        mainVehicle.getVin(),
+                        serviceReqData.getVin(),
                         serviceReqData.getTransId()));
     }
 

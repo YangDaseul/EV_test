@@ -18,10 +18,6 @@ import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
-import static com.genesis.apps.comm.model.gra.api.WSH_1004.PAY_CASH;
-import static com.genesis.apps.comm.model.gra.api.WSH_1004.RESERVE_CANCELED;
-import static com.genesis.apps.comm.model.gra.api.WSH_1004.RESERVE_COMPLETED;
-
 public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveVO> {
     private static OnSingleClickListener singleClickListener;
 
@@ -115,7 +111,7 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
                     getBinding().tvCarWashHistoryBranchNameEnd.setVisibility(View.VISIBLE);
 
                     getBinding().tvCarWashHistoryServiceEnd.setText(
-                            status.equals(RESERVE_COMPLETED) ? R.string.sm_cw_history_07 : R.string.sm_cw_history_06
+                            status.equals(WSH_1004.RESERVE_COMPLETED) ? R.string.sm_cw_history_07 : R.string.sm_cw_history_06
                     );
                     break;
             }
@@ -143,7 +139,7 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
             int payTypeId;
 
             switch (type) {
-                case PAY_CASH:
+                case WSH_1004.PAY_CASH:
                     payTypeId = R.string.sm_cw_pay_type_01;
                     break;
 
