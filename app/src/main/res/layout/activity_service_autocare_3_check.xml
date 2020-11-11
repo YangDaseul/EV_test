@@ -11,7 +11,11 @@
 
         <variable
             name="activity"
-            type="com.genesis.apps.ui.main.service.ServiceAutocareApplyActivity" />
+            type="com.genesis.apps.ui.main.service.ServiceAutocare3CheckActivity" />
+
+        <variable
+            name="data"
+            type="com.genesis.apps.comm.model.vo.RepairReserveVO" />
     </data>
 
     <LinearLayout
@@ -99,6 +103,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="20dp"
+                    android:text="@{data.pckpAddr}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_addr"
@@ -123,11 +128,11 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="20dp"
+                    android:text="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.rsvtHopeDt ?? ``), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_MM_dd_E) + ` / ` + (data.autoAmpmCd.equalsIgnoreCase(`A`) ? @string/sm_r_rsv02_01_p02_2 : @string/sm_r_rsv02_01_p02_3)}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_date"
                     tools:text="2020.12.10(목) / 오전" />
-
 
                 <ImageView
                     android:id="@+id/iv_line_1"
@@ -138,9 +143,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_date" />
-
-
-
 
                 <TextView
                     android:id="@+id/tv_title_reserver"
@@ -180,6 +182,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="20dp"
+                    android:text="@{data.userNm}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_name"
@@ -197,6 +200,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_tel"
                         style="@style/CommonTextInputEditText"
+                        android:text="@{data.hpNo ?? ``}"
                         android:hint="@string/sm_r_rsv03_9" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -211,6 +215,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_vrn"
                         style="@style/CommonTextInputEditText"
+                        android:text="@{data.carRgstNo ?? ``}"
                         android:hint="@string/sm_r_rsv03_10" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -247,17 +252,30 @@
 
 
                     <TextView
-                        android:id="@+id/tv_rqrm_limit"
+                        android:id="@+id/tv_rqrm_cnt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:textColor="@color/x_000000"
+                        android:textColor="@color/x_cd9a81"
                         android:textSize="14sp"
+                        android:text="0"
                         app:layout_constraintBaseline_toBaselineOf="@+id/tv_rqrm"
                         app:layout_constraintStart_toEndOf="@+id/tv_rqrm"
-                        app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
-                        tools:text="35/200"/>
+                        app:layout_constraintEnd_toStartOf="@+id/tv_rqrm_limit"/>
+
+
+                    <TextView
+                        android:id="@+id/tv_rqrm_limit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:textColor="@color/x_000000"
+                        android:textSize="14sp"
+                        android:text="/200"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/tv_rqrm"
+                        app:layout_constraintStart_toEndOf="@+id/tv_rqrm_cnt"
+                        app:layout_constraintEnd_toStartOf="@+id/iv_arrow"/>
 
 
                     <ImageView

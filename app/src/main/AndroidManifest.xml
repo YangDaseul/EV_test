@@ -371,12 +371,18 @@
             android:exported="false"/>
 
         <activity
-            android:name=".ui.main.service.ServiceAutocareApplyActivity"
+            android:name=".ui.main.service.ServiceAutocare2ApplyActivity"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
             android:exported="false"
             android:theme="@style/TextInputLayout"/>
 
+        <activity
+            android:name=".ui.main.service.ServiceAutocare3CheckActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@style/TextInputLayout"/>
 
         <activity
             android:name=".ui.common.activity.test.TestActivity"

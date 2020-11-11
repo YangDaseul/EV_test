@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
@@ -16,24 +15,19 @@ import com.genesis.apps.comm.model.gra.APPIAInfo;
 import com.genesis.apps.comm.model.gra.api.REQ_1004;
 import com.genesis.apps.comm.model.gra.api.REQ_1005;
 import com.genesis.apps.comm.model.vo.CouponVO;
-import com.genesis.apps.comm.model.vo.RentStatusVO;
 import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
-import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.ActivityMaintenanceReserveBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceReserveBinding> {
@@ -80,7 +74,7 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
                 showDialogRepairType(list);
                 break;
             case R.id.l_maintenance_autocare:
-                startActivitySingleTop(new Intent(this, ServiceAutocareApplyActivity.class).putExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE, selectRepairTypeVO.getRparTypCd()).putExtra(KeyNames.KEY_NAME_SERVICE_COUPON_LIST, new Gson().toJson(couponList)), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                startActivitySingleTop(new Intent(this, ServiceAutocare2ApplyActivity.class).putExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE, selectRepairTypeVO.getRparTypCd()).putExtra(KeyNames.KEY_NAME_SERVICE_COUPON_LIST, new Gson().toJson(couponList)), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.l_maintenance_airport:
 

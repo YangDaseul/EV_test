@@ -11,7 +11,7 @@
 
         <variable
             name="activity"
-            type="com.genesis.apps.ui.main.service.ServiceAutocareApplyActivity" />
+            type="com.genesis.apps.ui.main.service.ServiceAutocare2ApplyActivity" />
     </data>
 
     <LinearLayout

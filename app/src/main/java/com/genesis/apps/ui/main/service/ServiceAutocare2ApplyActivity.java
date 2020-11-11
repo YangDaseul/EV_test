@@ -47,7 +47,7 @@ import java.util.Locale;
  * @author hjpark
  * @brief 차계부 입력
  */
-public class ServiceAutocareApplyActivity extends SubActivity<ActivityServiceAutocare2Apply1Binding> {
+public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAutocare2Apply1Binding> {
 
     private REQViewModel reqViewModel;
     private VehicleVO mainVehicle;

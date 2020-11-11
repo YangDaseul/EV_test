@@ -77,12 +77,16 @@ public class REQ_1007 extends BaseData {
 
         public Request(String menuId){
             //TODO RepairReserveVO repairReserveVO를 DEEP COPY
-            //            REQ_1007.Request cpy = new Gson().fromJson(new Gson().toJson(repairReserveVO), REQ_1007.Request.class);
-            //            try {
-            //                원본데이터 = (REQ_1007.Request) cpy.clone();
-            //            }catch ( Exception e){
-            //
-            //            }
+//                        REQ_1007.Request cpy = new Gson().fromJson(new Gson().toJson(repairReserveVO), REQ_1007.Request.class);
+//                        try {
+//                            원본데이터 = (REQ_1007.Request) cpy.clone();
+//                        }catch ( Exception e){
+//
+//                        }
+            setData(APIInfo.GRA_REQ_1007.getIfCd(), menuId);
+        }
+
+        public void updateData(String menuId){
             setData(APIInfo.GRA_REQ_1007.getIfCd(), menuId);
         }
     }

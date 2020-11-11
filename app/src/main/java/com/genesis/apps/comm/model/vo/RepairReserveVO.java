@@ -186,7 +186,8 @@ class RepairReserveVO extends BaseData {
     @SerializedName("dlvryExtapChkUri") //딜리버리외관체크URI
     private String dlvryExtapChkUri;
 
-
+    //로컬(오토케어 3단계 입력 확인)에서 표시용으로만 사용
+    private String userNm;
 
 
 }
