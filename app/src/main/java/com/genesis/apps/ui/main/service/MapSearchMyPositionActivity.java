@@ -42,6 +42,8 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
 
     private int titleId;
     private int msgId;
+    //true면 주소 검색 창을 바로 오픈
+    private boolean isDirect=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,14 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
         setViewModel();
         setObserver();
         reqMyLocation();
+        checkIsDirect();
+    }
+
+    private void checkIsDirect() {
+        if(isDirect) {
+            isDirect=false;
+            openSearchAddress();
+        }
     }
 
     private void initView(final double latitude, final double longitude) {
@@ -60,7 +70,8 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
         ui.pmvMapView.initMap(latitude, longitude,17);
         ui.lMapOverlayTitle.tvMapTitleText.setVisibility(View.GONE);
         ui.lMapOverlayTitle.tvMapTitleAddress.setVisibility(View.VISIBLE);
-        ui.lMapOverlayTitle.tvMapTitleAddress.setText(R.string.map_title_3);
+        //대리운전 타이틀 일 경우 검색 메시지 변경. 추후 더 많은 컨텐츠에서 검색 메시지 변경이 필요하면 구조 변경 필요
+        ui.lMapOverlayTitle.tvMapTitleAddress.setText(titleId==R.string.service_drive_address_search_title ? R.string.service_drive_map_title : R.string.map_title_3);
         ui.lMapOverlayTitle.tvMapTitleAddress.setOnClickListener(onSingleClickListener);
         ui.btnMyPosition.setOnClickListener(onSingleClickListener);
 //        ui.lMapOverlayTitle.fabMapBack.setOnClickListener(onSingleClickListener);
@@ -91,6 +102,7 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
             selectAddressVO = (AddressVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_ADDR);
             titleId = getIntent().getIntExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID,0);
             msgId = getIntent().getIntExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID,0);
+            isDirect = getIntent().getBooleanExtra(KeyNames.KEY_NAME_MAP_SEARCH_DIRECT_OPEN,false);
         }catch (Exception e){
             e.printStackTrace();
             selectAddressVO = null;
@@ -212,13 +224,17 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
                 ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)), 500);
                 break;
             case R.id.tv_map_title_address:
-                Bundle bundle = new Bundle();
-                bundle.putInt(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, titleId);
-                bundle.putInt(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, msgId);
-                showFragment(new SearchAddressHMNFragment(),bundle);
+                openSearchAddress();
                 break;
         }
 
+    }
+
+    private void openSearchAddress() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, titleId);
+        bundle.putInt(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, msgId);
+        showFragment(new SearchAddressHMNFragment(),bundle);
     }
 
 //    /**

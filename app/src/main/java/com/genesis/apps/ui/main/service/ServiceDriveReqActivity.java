@@ -123,8 +123,9 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     private void onClickSearchFromAddressBtn() {
         Intent intent = new Intent(this, MapSearchMyPositionActivity.class)
                 .putExtra(KeyNames.KEY_NAME_ADDR, addressVO)
-                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.service_drive_map_title)
+                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.service_drive_address_search_title)
                 .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, R.string.service_drive_address_search_msg);
+//                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_DIRECT_OPEN, true);
 
         startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
