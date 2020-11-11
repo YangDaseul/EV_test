@@ -22,7 +22,6 @@ import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 import java.util.Date;
 import java.util.Locale;
 
-
 public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveServiceVO> {
     private static final String TAG = ServiceDriveHistoryAdapter.class.getSimpleName();
 
@@ -33,16 +32,12 @@ public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveSe
     private SparseBooleanArray selectedItems = new SparseBooleanArray();
     private int pageNo;
 
-
     public int getPageNo() {
         return pageNo;
     }
 
     public void incPageNo() {
         ++pageNo;
-    }
-
-    public ServiceDriveHistoryAdapter() {
     }
 
     @Override
@@ -114,7 +109,6 @@ public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveSe
                 //do nothing
                 break;
         }
-
     }
 
     //대리운전 완료됨 뷰 홀더
@@ -228,7 +222,10 @@ public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveSe
         // (클릭해서 상태를 토글할 때 호출됨)
         private void changeViewStatus(boolean opened) {
             setIcon(opened ? iconCloseBtn : iconOpenBtn);
-            changeVisibility(detailView, opened);
+            changeVisibility(
+                    detailView, //개폐 애니메이션 대상 뷰
+                    (View) detailView.getParent().getParent(), //애니 재생동안 스크롤 막아야되는 뷰
+                    opened); //개폐 상태
         }
 
         //드롭다운 아이콘의 개폐 상태를 변경

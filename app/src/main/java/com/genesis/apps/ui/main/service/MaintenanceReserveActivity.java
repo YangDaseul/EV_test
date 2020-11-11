@@ -230,8 +230,8 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
      */
     private void setViewVisibility(View view, boolean visibility){
 
-        if(visibility&&view.getVisibility()!=View.VISIBLE) InteractionUtil.expand(view);
-        else if(!visibility&&view.getVisibility()!=View.GONE) InteractionUtil.collapse(view);
+        if(visibility&&view.getVisibility()!=View.VISIBLE) InteractionUtil.expand(view, null);
+        else if(!visibility&&view.getVisibility()!=View.GONE) InteractionUtil.collapse(view, null);
 
 //        view.setVisibility(visibility ? View.VISIBLE : View.GONE);
     }

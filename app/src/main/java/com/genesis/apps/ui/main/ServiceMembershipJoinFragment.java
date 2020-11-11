@@ -145,10 +145,10 @@ public class ServiceMembershipJoinFragment extends SubFragment<ActivityMembershi
 
                         if(me.lAdInfo.getVisibility()==View.VISIBLE){
                             itemTermAd.ivArrow.setImageResource(R.drawable.btn_accodian_open);
-                            InteractionUtil.collapse(me.lAdInfo);
+                            InteractionUtil.collapse(me.lAdInfo, null);
                         }else{
                             itemTermAd.ivArrow.setImageResource(R.drawable.btn_accodian_close);
-                            InteractionUtil.expand(me.lAdInfo);
+                            InteractionUtil.expand(me.lAdInfo, null);
                         }
                     }else{
                         ((SubActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceTermDetailActivity.class).putExtra(MyGOilTermDetailActivity.TERMS_CODE,termVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
