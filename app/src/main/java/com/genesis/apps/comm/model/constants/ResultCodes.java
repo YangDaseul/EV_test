@@ -14,9 +14,7 @@ public enum ResultCodes {
     REQ_CODE_LEASING_CAR_RE_APPLY(15,"렌트 리스 재신청"),
     REQ_CODE_INSIGHT_EXPN_ADD(16,"차계부 입력"),
     REQ_CODE_INSIGHT_EXPN_MODIFY(17,"차계부 수정"),
-    REQ_CODE_SERVICE_SOS_MAP(18,"주소 정보 입력"),
-    REQ_CODE_SERVICE_DRIVE_FROM_MAP(19,"출발지 주소 정보 입력"),
-    REQ_CODE_SERVICE_DRIVE_TO_MAP(20,"도착지 주소 정보 입력");
+    REQ_CODE_SERVICE_SOS_MAP(18,"주소 정보 입력");
 
     private int code;
     private String description;

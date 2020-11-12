@@ -29,12 +29,12 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
-import com.genesis.apps.databinding.ActivityServiceDriveReq1Binding;
+import com.genesis.apps.databinding.ActivityServiceDriveReqBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq1Binding> {
+public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReqBinding> {
     private static final String TAG = ServiceDriveReqActivity.class.getSimpleName();
     private static final String PRICE_NO_DATA = "";
 
@@ -57,14 +57,6 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     private TextInputEditText fromDetail;
     private TextInputEditText toDetail;
 
-    //TODO  이거 이제 필요없지않나? 재생 되기 전에 다음 액티비티가 덮어버릴텐데
-    private final int[] layouts = {
-            R.layout.activity_service_drive_req_1,
-            R.layout.activity_service_drive_req_2,
-    };
-
-    private ConstraintSet[] constraintSets = new ConstraintSet[layouts.length];
-
     //키보드로 입력하고 엔터 누르면 밑에 다음 버튼 누른 거랑 같도록 하는 리스너
     private EditText.OnEditorActionListener editorActionListener = (textView, actionId, keyEvent) -> {
         if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -78,13 +70,10 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         getDataFromIntent();//데이터 제대로 안 들어있으면 액티비티 종료처리까지 함
-
         setResizeScreen();
-
-        //TODO  이거 이제 필요없지않나? 재생 되기 전에 다음 액티비티가 덮어버릴텐데
-        setContentView(layouts[FROM]);
-
+        setContentView(R.layout.activity_service_drive_req);
         init();
 
         //시작하자마자 출발 주소 검색 화면으로 넘어감
@@ -96,7 +85,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         super.onActivityResult(requestCode, resultCode, data);
 
         //출발지 주소 얻어옴
-        if (resultCode == ResultCodes.REQ_CODE_SERVICE_DRIVE_FROM_MAP.getCode()) {
+        if (requestCode == RequestCodes.REQ_CODE_FROM_ADDRESS.getCode()) {
             setAddressData(
                     FROM,
                     data,
@@ -107,7 +96,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
         }
         //도착지 주소 얻어옴
-        else if (resultCode == ResultCodes.REQ_CODE_SERVICE_DRIVE_TO_MAP.getCode()) {
+        else if (requestCode == RequestCodes.REQ_CODE_TO_ADDRESS.getCode()) {
             setAddressData(
                     TO,
                     data,
@@ -119,33 +108,6 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         //뭔가 잘못됨?
         else {
             Log.d(TAG, "onActivityResult: unexpected result code");
-        }
-    }
-
-    /**
-     * 검색된 주소를 화면에 출력
-     *
-     * @param where      : 출발지/도착지 구분
-     * @param data       : 지도 액티비티에서 가져온 데이터
-     * @param addressBtn : 출발지 버튼/도착지 버튼 구분. 여기에 주소를 출력함.
-     * @param topMsgId   : 입력창 위에 있는 안내 메시지
-     * @param views      : 다음 단계 입력을 위해 해금해야 할 뷰
-     */
-    private void setAddressData(int where, Intent data, TextView addressBtn, int topMsgId, View[] views) {
-        try {
-            addressVO[where] = (AddressVO) data.getSerializableExtra(KeyNames.KEY_NAME_ADDR);
-        } catch (Exception exception) {
-            Log.d(TAG, "setAddressData: 주소 데이터 추출 실패");
-            return;
-        }
-
-        addressBtn.setText(addressVO[where].getAddrRoad());
-        addressBtn.setTextAppearance(R.style.ServiceDrive_SearchAddress_HasData);
-        addressBtn.setBackground(getDrawable(R.drawable.ripple_bg_ffffff_stroke_141414));
-        ui.ivServiceDriveReqPleaseInputXxx.setText(topMsgId);
-
-        for (View v : views) {
-            v.setVisibility(View.VISIBLE);
         }
     }
 
@@ -189,7 +151,10 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
             intent.putExtra(KeyNames.KEY_NAME_MAP_SEARCH_DIRECT_OPEN, true);//바로 다음 화면 넘기기
         }
 
-        startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        startActivitySingleTop(
+                intent,
+                where == FROM ? RequestCodes.REQ_CODE_FROM_ADDRESS.getCode() : RequestCodes.REQ_CODE_TO_ADDRESS.getCode(),
+                VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
     @Override
@@ -239,21 +204,10 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         fromDetail = ui.tietServiceDriveReqInputFromAddressDetail;
         toDetail = ui.tietServiceDriveReqInputToAddressDetail;
 
-        initConstraintSets();
         setTextListener();
         ui.setActivity(this);
     }
 
-    private void initConstraintSets() {
-        for (int i = 0; i < layouts.length; ++i) {
-            constraintSets[i] = new ConstraintSet();
-
-            if (i == 0)
-                constraintSets[i].clone(ui.lServiceDriveReqContainer);
-            else
-                constraintSets[i].clone(this, layouts[i]);
-        }
-    }
 
     public void setTextListener() {
         fromDetail.setOnEditorActionListener(editorActionListener);
@@ -327,8 +281,9 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
             //출발지 입력 다 있으니 도착지 검색 버튼 해금. 그리고 즉시 실행(break; 안 함)시킴.
             case NEXT_BTN_OPEN_TO_ADDRESS:
-                doTransition();
+                openToAddressBtn();
                 //not break
+
             case NEXT_BTN_NEED_TO_ADDRESS:
                 onClickSearchAddressBtn(TO);
                 //todo 키보드 숨김처리 명시적으로 필요한지 확인하여 반영
@@ -398,7 +353,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
         //------여기까지 왔으면 입력은 다 됐음------
 
-        if (priceMaybe == PRICE_NO_DATA) {
+        if (priceMaybe.equals(PRICE_NO_DATA)) {
             //가격을 모르면 예상 가격 조회
             return NEXT_BTN_ASK_PRICE;
         } else {
@@ -418,15 +373,41 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         }
     }
 
-    //도착지 주소 검색버튼 트랜지션 : TODO  이거 이제 필요없지않나? 재생 되기 전에 다음 액티비티가 덮어버릴텐데
-    private void doTransition() {
-        if (ui.tvServiceDriveReqToTitle.getVisibility() == View.GONE) {
-            Transition changeBounds = new ChangeBounds();
-            changeBounds.setInterpolator(new OvershootInterpolator());
-            TransitionManager.beginDelayedTransition(ui.lServiceDriveReqContainer);
-            constraintSets[TO].applyTo(ui.lServiceDriveReqContainer);
+    //도착지 주소 검색 버튼 해금
+    private void openToAddressBtn() {
+        ui.tvServiceDriveReqSearchToAddressBtn.setVisibility(View.VISIBLE);
+        ui.ivServiceDriveReqPleaseInputXxx.setText(R.string.service_drive_input_03);
+    }
 
-            ui.ivServiceDriveReqPleaseInputXxx.setText(R.string.service_drive_input_03);
+    /**
+     * 검색된 주소를 화면에 출력
+     *
+     * @param where      : 출발지/도착지 구분
+     * @param data       : 지도 액티비티에서 가져온 데이터
+     * @param addressBtn : 출발지 버튼/도착지 버튼 구분. 여기에 주소를 출력함.
+     * @param topMsgId   : 입력창 위에 있는 안내 메시지
+     * @param views      : 다음 단계 입력을 위해 해금해야 할 뷰
+     */
+    private void setAddressData(int where, Intent data, TextView addressBtn, int topMsgId, View[] views) {
+        try {
+            addressVO[where] = (AddressVO) data.getSerializableExtra(KeyNames.KEY_NAME_ADDR);
+        } catch (Exception exception) {
+            Log.d(TAG, "setAddressData: 주소 데이터 추출 실패");
+            return;
+        }
+
+        String address = addressVO[where].getAddrRoad();
+        if (address == null) {
+            address = addressVO[where].getAddr();
+        }
+
+        addressBtn.setText(address);
+        addressBtn.setTextAppearance(R.style.ServiceDrive_SearchAddress_HasData);
+        addressBtn.setBackground(getDrawable(R.drawable.ripple_bg_ffffff_stroke_141414));
+        ui.ivServiceDriveReqPleaseInputXxx.setText(topMsgId);
+
+        for (View v : views) {
+            v.setVisibility(View.VISIBLE);
         }
     }
 

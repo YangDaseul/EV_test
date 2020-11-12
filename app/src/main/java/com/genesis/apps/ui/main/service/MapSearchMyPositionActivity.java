@@ -43,7 +43,7 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
     private int titleId;
     private int msgId;
     //true면 주소 검색 창을 바로 오픈
-    private boolean isDirect = false;
+    private boolean isDirect=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +56,8 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
     }
 
     private void checkIsDirect() {
-        if (isDirect) {
-            isDirect = false;
+        if(isDirect) {
+            isDirect=false;
             openSearchAddress();
         }
     }
@@ -66,7 +66,7 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
         ui.ivCenterMaker.setVisibility(View.VISIBLE);
         ui.ivCenterMaker.setImageResource(R.drawable.ic_pin_car);
         //기본위치 갱신 시 맵 초기화
-        ui.pmvMapView.initMap(latitude, longitude, 17);
+        ui.pmvMapView.initMap(latitude, longitude,17);
         ui.lMapOverlayTitle.tvMapTitleText.setVisibility(View.GONE);
         ui.lMapOverlayTitle.tvMapTitleAddress.setVisibility(View.VISIBLE);
         ui.lMapOverlayTitle.tvMapTitleAddress.setText(getTitleAddressMsg());
@@ -78,7 +78,7 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
                 case MotionEvent.ACTION_DOWN:
                     break;
                 case MotionEvent.ACTION_UP:
-                    lgnViewModel.setPosition(ui.pmvMapView.getMapCenterPoint().getLatitude(), ui.pmvMapView.getMapCenterPoint().getLongitude());
+                    lgnViewModel.setPosition(ui.pmvMapView.getMapCenterPoint().getLatitude(),ui.pmvMapView.getMapCenterPoint().getLongitude());
 
 //                    mapViewModel.reqPlayMapGeoItem(new ReverseGeocodingReqVO(ui.pmvMapView.getMapCenterPoint().getLatitude(),ui.pmvMapView.getMapCenterPoint().getLongitude(),1));
                     break;
@@ -92,7 +92,7 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
     }
 
     private int getTitleAddressMsg() {
-        switch (titleId) {
+        switch (titleId){
             case R.string.service_drive_address_search_from_title://대리운전
                 return R.string.service_drive_map_from_title;
             case R.string.service_drive_address_search_to_title://대리운전
@@ -110,12 +110,12 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
 
     @Override
     public void getDataFromIntent() {
-        try {
+        try{
             selectAddressVO = (AddressVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_ADDR);
-            titleId = getIntent().getIntExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, 0);
-            msgId = getIntent().getIntExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, 0);
-            isDirect = getIntent().getBooleanExtra(KeyNames.KEY_NAME_MAP_SEARCH_DIRECT_OPEN, false);
-        } catch (Exception e) {
+            titleId = getIntent().getIntExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID,0);
+            msgId = getIntent().getIntExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID,0);
+            isDirect = getIntent().getBooleanExtra(KeyNames.KEY_NAME_MAP_SEARCH_DIRECT_OPEN,false);
+        }catch (Exception e){
             e.printStackTrace();
             selectAddressVO = null;
         }
@@ -135,18 +135,18 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
             requestPosition[0] = doubles.get(0);
             requestPosition[1] = doubles.get(1);
             //위치에 대한 도로명주소 요청
-            mapViewModel.reqPlayMapGeoItem(new ReverseGeocodingReqVO(requestPosition[0], requestPosition[1], 1));
+            mapViewModel.reqPlayMapGeoItem(new ReverseGeocodingReqVO(requestPosition[0],requestPosition[1],1));
         });
 
         mapViewModel.getPlayMapGeoItem().observe(this, result -> {
-            switch (result.status) {
+            switch (result.status){
                 case LOADING:
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
-                    if (result.data != null) {
-                        mapViewModel.reqPlayMapPoiItemList(new AroundPOIReqVO("건물", requestPosition[0], requestPosition[1], 30, 3, 1, 0, 20));
+                    if(result.data!=null){
+                        mapViewModel.reqPlayMapPoiItemList(new AroundPOIReqVO("건물", requestPosition[0],requestPosition[1], 30, 3, 1, 0, 20));
                     }
                     break;
                 default:
@@ -156,23 +156,23 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
         });
 
         mapViewModel.getPlayMapPoiItem().observe(this, result -> {
-            switch (result.status) {
+            switch (result.status){
                 case LOADING:
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
                     //빌딩이름이 획득 가능하면
-                    if (result.data != null && result.data.size() > 0) {
-                        updateAddressInfo(new Gson().fromJson(new Gson().toJson(result.data.get(0)), AddressVO.class));
+                    if(result.data!=null&&result.data.size()>0){
+                        updateAddressInfo(new Gson().fromJson(new Gson().toJson(result.data.get(0)),AddressVO.class));
                         break;
                     }
                 default:
                     showProgressDialog(false);
                     //빌딩이름이 획득 불가능하면
                     PlayMapGeoItem item = mapViewModel.getPlayMapGeoItem().getValue().data;
-                    if (item != null) {
-                        updateAddressInfo(new Gson().fromJson(new Gson().toJson(item), AddressVO.class));
+                    if(item!=null){
+                        updateAddressInfo(new Gson().fromJson(new Gson().toJson(item),AddressVO.class));
                     }
                     break;
             }
@@ -227,8 +227,8 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
 
         switch (v.getId()) {
             case R.id.tv_map_address_btn://선택
-                if (selectAddressVO != null) {
-                    exitPage(new Intent().putExtra(KeyNames.KEY_NAME_ADDR, selectAddressVO), determineResultCode());
+                if(selectAddressVO!=null){
+                    exitPage(new Intent().putExtra(KeyNames.KEY_NAME_ADDR, selectAddressVO), ResultCodes.REQ_CODE_SERVICE_SOS_MAP.getCode());
                 }
                 break;
             case R.id.btn_my_position:
@@ -242,27 +242,11 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
 
     }
 
-    private int determineResultCode() {
-        switch (titleId) {
-            //대리운전 출발지
-            case R.string.service_drive_address_search_from_title:
-                return ResultCodes.REQ_CODE_SERVICE_DRIVE_FROM_MAP.getCode();
-
-            //대리운전 도착지
-            case R.string.service_drive_address_search_to_title:
-                return ResultCodes.REQ_CODE_SERVICE_DRIVE_TO_MAP.getCode();
-
-            case 0:
-            default://그 외
-                return ResultCodes.REQ_CODE_SERVICE_SOS_MAP.getCode();
-        }
-    }
-
     private void openSearchAddress() {
         Bundle bundle = new Bundle();
         bundle.putInt(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, titleId);
         bundle.putInt(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, msgId);
-        showFragment(new SearchAddressHMNFragment(), bundle);
+        showFragment(new SearchAddressHMNFragment(),bundle);
     }
 
 //    /**
@@ -290,11 +274,11 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
             }
 
             runOnUiThread(() -> {
-                if (selectAddressVO == null) {
+                if(selectAddressVO==null){
                     //기 선택된 위치 정보가 없으면 map을 내 위치로 초기화
-                    initView(location.getLatitude(), location.getLongitude());
+                    initView(location.getLatitude(),location.getLongitude());
                     lgnViewModel.setPosition(location.getLatitude(), location.getLongitude());
-                } else {
+                }else{
                     initView(selectAddressVO.getCenterLat(), selectAddressVO.getCenterLon());
                     lgnViewModel.setPosition(selectAddressVO.getCenterLat(), selectAddressVO.getCenterLon());
                 }
@@ -371,29 +355,30 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
     }
 
 
-    private void setViewAddresInfo(String buildName, String subBuildName, String address) {
-        bottomSelectBinding.tvMapAddressTitle.setText(buildName + (TextUtils.isEmpty(subBuildName) ? "" : " " + subBuildName));
+    private void setViewAddresInfo(String buildName, String subBuildName, String address){
+        bottomSelectBinding.tvMapAddressTitle.setText(buildName+ (TextUtils.isEmpty(subBuildName) ? "" : " "+subBuildName));
         bottomSelectBinding.tvMapAddressTitle.setVisibility(TextUtils.isEmpty(buildName) ? View.GONE : View.VISIBLE);
         bottomSelectBinding.tvMapAddressAddress.setText(address);
         bottomSelectBinding.tvMapAddressAddress.setVisibility(TextUtils.isEmpty(address) ? View.GONE : View.VISIBLE);
     }
 
-    public void setAddressInfo(AddressVO addressVO) {
+    public void setAddressInfo(AddressVO addressVO){
         new Handler().postDelayed(() -> {
-            if (addressVO != null) {
+            if(addressVO!=null) {
                 updateAddressInfo(addressVO);
                 ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(addressVO.getCenterLat(), addressVO.getCenterLon()), 500);
             }
-        }, 500);
+        },500);
     }
+
 
 
     @Override
     public void onBackPressed() {
         List<SubFragment> fragments = getFragments();
-        if (fragments != null && fragments.size() > 0) {
+        if(fragments!=null&&fragments.size()>0){
             hideFragment(fragments.get(0));
-        } else {
+        }else{
             super.onBackPressed();
         }
     }
