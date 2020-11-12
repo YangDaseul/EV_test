@@ -83,6 +83,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: reqCode : " + requestCode);
 
         //출발지 주소 얻어옴
         if (requestCode == RequestCodes.REQ_CODE_FROM_ADDRESS.getCode()) {
@@ -105,15 +106,17 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                     new View[]{ui.tvServiceDriveReqToTitle, toDetailLayout}
             );
         }
-        //뭔가 잘못됨?
-        else {
-            Log.d(TAG, "onActivityResult: unexpected result code");
-        }
     }
 
     @Override
     public void onClickCommon(View v) {
         Log.d(TAG, "onClickCommon: " + v.getId());
+        Log.d(TAG, "onClickCommon active : " + buttonActive);
+
+        //예상 가격 응답 기다리는 동안은 버튼 무력화
+       if (!buttonActive) {
+            return;
+        }
 
         switch (v.getId()) {
             //이용 내역
@@ -134,6 +137,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
             //다음 버튼
             case R.id.tv_service_drive_req_next_btn:
                 onClickNextBtn();
+                break;
 
             default:
                 Log.d(TAG, "onClickCommon: unexpected click event : " + v.getId());
@@ -142,6 +146,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     }
 
     private void onClickSearchAddressBtn(int where) {
+        //todo 포커스
         Intent intent = new Intent(this, MapSearchMyPositionActivity.class)
                 .putExtra(KeyNames.KEY_NAME_ADDR, addressVO[where])
                 .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, where == FROM ? R.string.service_drive_address_search_from_title : R.string.service_drive_address_search_to_title)
@@ -208,7 +213,6 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         ui.setActivity(this);
     }
 
-
     public void setTextListener() {
         fromDetail.setOnEditorActionListener(editorActionListener);
         fromDetail.addTextChangedListener(new TextWatcher() {
@@ -263,6 +267,8 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
     private void onClickNextBtn() {
         Log.d(TAG, "onClickNextBtn active : " + buttonActive);
+
+        //예상 가격 응답 기다리는 동안은 버튼 무력화
         if (!buttonActive) {
             return;
         }
@@ -283,10 +289,8 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
             case NEXT_BTN_OPEN_TO_ADDRESS:
                 openToAddressBtn();
                 //not break
-
             case NEXT_BTN_NEED_TO_ADDRESS:
                 onClickSearchAddressBtn(TO);
-                //todo 키보드 숨김처리 명시적으로 필요한지 확인하여 반영
                 break;
 
             case NEXT_BTN_ASK_PRICE:
@@ -392,7 +396,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         try {
             addressVO[where] = (AddressVO) data.getSerializableExtra(KeyNames.KEY_NAME_ADDR);
         } catch (Exception exception) {
-            Log.d(TAG, "setAddressData: 주소 데이터 추출 실패");
+            Log.d(TAG, "setAddressData: 주소 데이터 없음");
             return;
         }
 
