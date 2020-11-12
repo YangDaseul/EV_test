@@ -581,6 +581,8 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
         if(resultCode == ResultCodes.REQ_CODE_SERVICE_SOS_MAP.getCode()){
             addressVO = (AddressVO)data.getSerializableExtra(KeyNames.KEY_NAME_ADDR);
             checkValidAddr();
+        }else if(resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_AUTOCARE.getCode()){
+            exitPage(data, ResultCodes.REQ_CODE_SERVICE_RESERVE_AUTOCARE.getCode());
         }
     }
 

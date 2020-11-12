@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.service;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.databinding.FragmentServiceBinding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
@@ -131,6 +133,23 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
 
 
         ((MainActivity) getActivity()).setGNB(false, false, 0, View.VISIBLE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(resultCode==ResultCodes.REQ_CODE_SERVICE_RESERVE_AUTOCARE.getCode()){
+            //todo 오토케어 서비스 예약 완료 시 페이지 이동
+        }else if(resultCode==ResultCodes.REQ_CODE_SERVICE_RESERVE_HOMETOHOME.getCode()){
+            //todo 홈투홈 서비스 예약 완료 시 페이지 이동
+
+        }else if(resultCode==ResultCodes.REQ_CODE_SERVICE_RESERVE_REPAIR.getCode()){
+            //todo 정비 서비스 예약 완료 시 페이지 이동
+
+        }else if(resultCode==ResultCodes.REQ_CODE_SERVICE_RESERVE_REMOTE.getCode()){
+            //todo 원격진단 서비스 예약 완료 시 페이지 이동
+        }else{
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
 

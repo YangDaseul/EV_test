@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
@@ -27,8 +30,6 @@ import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.google.gson.Gson;
 
 import java.util.List;
-
-import androidx.lifecycle.ViewModelProvider;
 
 public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceReserveBinding> {
     private static final String TAG = MaintenanceReserveActivity.class.getSimpleName();
@@ -291,6 +292,19 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
     private void setViewCategorySelect(){
         if(selectRepairTypeVO!=null)
             ui.tvMaintenanceCategorySelectBtn.setText(selectRepairTypeVO.getRparTypNm());
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //오토케어, 홈투홈, 원격진단, 정비 예약 완료 시 메인 서비스 프래그먼트에 CALLBACK 전달
+        if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_AUTOCARE.getCode()
+                || resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_HOMETOHOME.getCode()
+                || resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REPAIR.getCode()
+                || resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REMOTE.getCode()) {
+            exitPage(data, resultCode);
+        }
     }
 
 }

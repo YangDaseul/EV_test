@@ -200,6 +200,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_tel"
                         style="@style/CommonTextInputEditText"
+                        android:inputType="number"
                         android:hint="@string/sm_r_rsv03_9" />
                 </com.google.android.material.textfield.TextInputLayout>
 
