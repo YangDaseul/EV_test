@@ -240,22 +240,29 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
     }
 
     /**
+     * @param addressVO
+     * @return 0 : 주소 1 : 서브주소
      * @brief 주소 정보에서 도로명주소 혹은 도로지번 주소를 결정
      * (도로명 주소가 우선순위)
-     * @param addressVO
-     * @return
      */
-    public String getAddress(AddressVO addressVO){
+    public String[] getAddress(AddressVO addressVO) {
+        String[] address = new String[2];
 
-        String address="";
-
-        try{
-            address = TextUtils.isEmpty(addressVO.getAddrRoad()) ?
-                    (addressVO.getAddr() + (TextUtils.isEmpty(addressVO.getTitle()) ? "" : " "+addressVO.getTitle()))//지번주소는 타이틀도 포함함
-                    :
-                    addressVO.getAddrRoad();
-
-        }catch (Exception e){
+        try {
+            if (!TextUtils.isEmpty(addressVO.getAddrRoad())) {
+                //도로명주소
+                address[0] = addressVO.getAddrRoad();
+                //건물이름 동
+                address[1] = (TextUtils.isEmpty(addressVO.getTitle()) ? "" : addressVO.getTitle()) + (TextUtils.isEmpty(addressVO.getCname()) ? "" : " " + addressVO.getCname());
+            } else {
+                //지번주소
+                address[0] = addressVO.getAddr() + (TextUtils.isEmpty(addressVO.getTitle()) ? "" : " " + addressVO.getTitle());
+                //건물이름
+                address[1] = (TextUtils.isEmpty(addressVO.getCname()) ? "" : addressVO.getCname());
+            }
+        } catch (Exception e) {
+            address[0]="";
+            address[1]="";
             e.printStackTrace();
         }
 

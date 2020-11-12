@@ -211,8 +211,8 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
                 rsvtHopeDt,
                 loginInfoDTO.getProfile() != null ? loginInfoDTO.getProfile().getMobileNum() : "",
                 pckpDivCd,
-                pckpAddressVO.getAddrRoad() +"\n"+ui.etPckpAddrDtl.getText().toString().trim(),
-                dlvryAddressVO.getAddrRoad() +"\n"+ui.etDlvryAddrDtl.getText().toString().trim(),
+                getAddress(pckpAddressVO)[0] +"\n"+ui.etPckpAddrDtl.getText().toString().trim(),
+                getAddress(dlvryAddressVO)[0] +"\n"+ui.etDlvryAddrDtl.getText().toString().trim(),
                 "",
                 loginInfoDTO.getProfile() != null ? loginInfoDTO.getProfile().getName() : "");
 
@@ -392,7 +392,7 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
             ui.tvErrorPckpAddr.setVisibility(View.INVISIBLE);
             ui.tvPckpAddr.setTextColor(getColor(R.color.x_000000));
             ui.tvPckpAddr.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
-            ui.tvPckpAddr.setText(pckpAddressVO.getAddrRoad());
+            ui.tvPckpAddr.setText(getAddress(pckpAddressVO)[0]);
             ui.tvTitlePckpAddr.setVisibility(View.VISIBLE);
             doTransition(2);
             return true;
@@ -450,7 +450,7 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
             ui.tvErrorDlvryAddr.setVisibility(View.GONE);
             ui.tvDlvryAddr.setTextColor(getColor(R.color.x_000000));
             ui.tvDlvryAddr.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
-            ui.tvDlvryAddr.setText(dlvryAddressVO.getAddrRoad());
+            ui.tvDlvryAddr.setText(getAddress(dlvryAddressVO)[0]);
             ui.tvTitleDlvryAddr.setVisibility(View.VISIBLE);
             doTransition(4);
             return true;

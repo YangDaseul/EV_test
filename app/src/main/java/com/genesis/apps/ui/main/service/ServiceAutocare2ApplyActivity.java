@@ -202,7 +202,7 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
                 rsvtHopeDt,
                 autoAmpmCd,
                 loginInfoDTO.getProfile()!=null ? loginInfoDTO.getProfile().getMobileNum() : "",
-                addressVO.getAddrRoad() + ui.etAddrDtl.getText().toString().trim(),
+                getAddress(addressVO)[0] + ui.etAddrDtl.getText().toString().trim(),
                 VariableType.COMMON_MEANS_YES, //엔진은 항상 선택
                 reqViewModel.getAutocareSelectCouponStatus(selectCouponList, VariableType.SERVICE_CAR_CARE_COUPON_CODE_WIPER),
                 reqViewModel.getAutocareSelectCouponStatus(selectCouponList, VariableType.SERVICE_CAR_CARE_COUPON_CODE_AC_FILTER),
@@ -459,7 +459,7 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
 //            ui.tvAddr.setTextAppearance(R.style.CommonInputItemEnable);
             ui.tvAddr.setTextColor(getColor(R.color.x_000000));
             ui.tvAddr.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
-            ui.tvAddr.setText(addressVO.getAddrRoad());
+            ui.tvAddr.setText(getAddress(addressVO)[0]);
             ui.tvTitleAddr.setVisibility(View.VISIBLE);
             doTransition(2);
             return true;

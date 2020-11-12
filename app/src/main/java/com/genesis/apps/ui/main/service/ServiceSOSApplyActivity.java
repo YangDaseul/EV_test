@@ -526,15 +526,16 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == ResultCodes.REQ_CODE_SERVICE_SOS_MAP.getCode()){
             addressVO = (AddressVO)data.getSerializableExtra(KeyNames.KEY_NAME_ADDR);
-            setViewAddr(addressVO.getTitle(), addressVO.getCname(), (TextUtils.isEmpty(addressVO.getAddrRoad()) ? addressVO.getAddr() : addressVO.getAddrRoad()));
+            setViewAddr(addressVO);
         }
     }
 
-    private void setViewAddr(String buildName, String subBuildName, String address){
-        ui.tvAddrInfo1.setText(buildName+ (TextUtils.isEmpty(subBuildName) ? "" : " "+subBuildName));
-        ui.tvAddrInfo1.setVisibility(TextUtils.isEmpty(buildName) ? View.GONE : View.VISIBLE);
-        ui.tvAddrInfo2.setText(address);
-        ui.tvAddrInfo2.setVisibility(TextUtils.isEmpty(address) ? View.GONE : View.VISIBLE);
+    private void setViewAddr(AddressVO addressVO){
+        String[] addressInfo = getAddress(addressVO);
+        ui.tvAddrInfo1.setText(addressInfo[1]);
+        ui.tvAddrInfo1.setVisibility(TextUtils.isEmpty(addressInfo[1]) ? View.GONE : View.VISIBLE);
+        ui.tvAddrInfo2.setText(addressInfo[0]);
+        ui.tvAddrInfo2.setVisibility(TextUtils.isEmpty(addressInfo[0]) ? View.GONE : View.VISIBLE);
         checkValidAddr();
     }
 
