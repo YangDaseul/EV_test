@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.databinding.ActivityBaseBinding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
@@ -235,6 +237,29 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * @brief 주소 정보에서 도로명주소 혹은 도로지번 주소를 결정
+     * (도로명 주소가 우선순위)
+     * @param addressVO
+     * @return
+     */
+    public String getAddress(AddressVO addressVO){
+
+        String address="";
+
+        try{
+            address = TextUtils.isEmpty(addressVO.getAddrRoad()) ?
+                    (addressVO.getAddr() + (TextUtils.isEmpty(addressVO.getTitle()) ? "" : " "+addressVO.getTitle()))//지번주소는 타이틀도 포함함
+                    :
+                    addressVO.getAddrRoad();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return address;
     }
 
 }
