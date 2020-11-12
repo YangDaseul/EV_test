@@ -13,6 +13,7 @@ import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.transition.ChangeBounds;
 import androidx.transition.Transition;
@@ -33,6 +34,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq1Binding> {
     private static final String TAG = ServiceDriveReqActivity.class.getSimpleName();
+    private static final String PRICE_NO_DATA = "";
 
     private static final int FROM = 0;
     private static final int TO = 1;
@@ -44,13 +46,16 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     private static final int NEXT_BTN_REQ_SERVICE = 4;
 
     private VehicleVO mainVehicle;
-    private AddressVO addressVO;
+    private AddressVO[] addressVO;
+    private String priceMaybe = PRICE_NO_DATA;    //TODO 예상가격 자료형 숫자인지 글자인지 확인
+    private boolean buttonActive = true;
 
     private TextInputLayout fromDetailLayout;
     private TextInputLayout toDetailLayout;
     private TextInputEditText fromDetail;
     private TextInputEditText toDetail;
 
+    //TODO  이거 이제 필요없지않나? 재생 되기 전에 다음 액티비티가 덮어버릴텐데
     private final int[] layouts = {
             R.layout.activity_service_drive_req_1,
             R.layout.activity_service_drive_req_2,
@@ -74,12 +79,20 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         getDataFromIntent();//데이터 제대로 안 들어있으면 액티비티 종료처리까지 함
 
         setResizeScreen();
-        setContentView(layouts[0]);
+        
+        //TODO  이거 이제 필요없지않나? 재생 되기 전에 다음 액티비티가 덮어버릴텐데
+        setContentView(layouts[FROM]);
 
         init();
 
         //시작하자마자 출발 주소 검색 화면으로 넘어감
-//        onClickSearchFromAddressBtn();
+//        onClickSearchAddressBtn(FROM);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
 
     @Override
@@ -93,7 +106,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
             //출발주소 검색버튼
             case R.id.tv_service_drive_req_search_from_address_btn:
                 //todo impl
-//                onClickSearchFromAddressBtn();
+//                onClickSearchAddressBtn(FROM);
 
                 //onActivityResult()에서 이 값을 세팅하고 다음 게 이미 펼쳐져있도록 하면 될 듯?
                 //아니면 펼쳐지는 장면을 onActivityResult()에서 보여주거나(이미 입력된 값을 수정하고왔을 때는 펼치기 이펙트 재생 안 해야겠지?)
@@ -108,9 +121,11 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
             //도착주소 검색버튼
             case R.id.tv_service_drive_req_search_to_address_btn:
+                //todo impl
+                //onClickSearchAddressBtn(TO);
+
                 //onActivityResult()에서 이 값을 세팅하고 다음 게 이미 펼쳐져있도록 하면 될 듯?
                 //아니면 펼쳐지는 장면을 onActivityResult()에서 보여주거나(이미 입력된 값을 수정하고왔을 때는 펼치기 이펙트 재생 안 해야겠지?)
-                //todo impl
                 ui.tvServiceDriveReqSearchToAddressBtn.setText("지도 액티비티에서 가져온 도착지 주소");
                 ui.tvServiceDriveReqSearchToAddressBtn.setTextAppearance(R.style.ServiceDrive_SearchAddress_HasData);
                 ui.tvServiceDriveReqSearchToAddressBtn.setBackground(getDrawable(R.drawable.ripple_bg_ffffff_stroke_141414));
@@ -129,12 +144,15 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         }
     }
 
-    private void onClickSearchFromAddressBtn() {
+    private void onClickSearchAddressBtn(int where) {
         Intent intent = new Intent(this, MapSearchMyPositionActivity.class)
-                .putExtra(KeyNames.KEY_NAME_ADDR, addressVO)
-                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.service_drive_address_search_title)
-                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, R.string.service_drive_address_search_msg);
-//                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_DIRECT_OPEN, true);//바로 다음 화면 넘기기
+                .putExtra(KeyNames.KEY_NAME_ADDR, addressVO[where])
+                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, where == FROM ? R.string.service_drive_address_search_from_title : R.string.service_drive_address_search_to_title)
+                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, where == FROM ? R.string.service_drive_address_search_from_msg : R.string.service_drive_address_search_to_msg);
+
+        if (addressVO[where] == null) {
+            intent.putExtra(KeyNames.KEY_NAME_MAP_SEARCH_DIRECT_OPEN, true);//바로 다음 화면 넘기기
+        }
 
         startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
@@ -255,24 +273,40 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     }
 
     private void onClickNextBtn() {
+        Log.d(TAG, "onClickNextBtn active : " + buttonActive);
+        if (!buttonActive) {
+            return;
+        }
+
         int work = determineWork();
         Log.d(TAG, "onClickNextBtn: " + work);
 
         switch (work) {
+            //입력 미비 : 예상 가격에 저장된 값 삭제.
+            // 1) 출발지 주소 입력됐고 세부주소 안 적음(도착지 주소 잠긴 상태).
+            // 2) 출발지 및 도착지 주소 입력됐고 세부주소 둘 중에 하나 이상 빈칸.
+            // 3) 예상가격 보고 나서 세부주소를 지운 경우도 여기로 떨어짐(  [2)]와 같은 판정  ).
+            case NEXT_BTN_LACK_INPUT:
+                priceMaybe = PRICE_NO_DATA;
+                break;
 
+            //출발지 입력 다 있으니 도착지 검색 버튼 해금. 그리고 즉시 실행(break; 안 함)시킴.
             case NEXT_BTN_OPEN_TO_ADDRESS:
                 doTransition();
                 //not break
             case NEXT_BTN_NEED_TO_ADDRESS:
-                //todo 도착지 주소검색 버튼 누름
+                onClickSearchAddressBtn(TO);
                 //todo 키보드 숨김처리 명시적으로 필요한지 확인하여 반영
                 break;
 
             case NEXT_BTN_ASK_PRICE:
                 //todo [1] 서버에 예상 가격 물어보기
                 // 그동안 로딩 뷰스텁 띄우기(점 세 개짜리).
-                // 로딩하는 동안 다음버튼 비활성화
 
+                // 로딩하는 동안 다음버튼 비활성화
+                buttonActive = false;
+
+                //todo 옵저버
                 // 예상가격 받으면 저장. 다음 버튼 재활성화
                 // 서비스 불가 지역 : 다음 비활성 및 뷰스텁 갱신
                 // 오류 : 다음 비활성 및 재시도 뷰스텁 재시도하면 [1]을 다시 실행
@@ -288,13 +322,10 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
                 break;
 
-            case NEXT_BTN_LACK_INPUT:   //입력 미비 todo 디폴트랑 분리할지 고민
             default:
                 //do nothing
                 break;
         }
-
-
     }
 
     //입력 상태를 검사하여 "다음" 버튼이 처리할 내용 결정
@@ -314,30 +345,34 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         }
 
         //도착지 주소 안 고르고 뒤로 와버려서
-        // 도착지 주소 버튼이 기본값으로 보이는 경우
+        //도착지 주소 버튼이 기본값으로 보이는 경우
+        //출발 세부주소가 빈칸(지웠다는 거)이어도 여기선 그냥 넘어감. 어차피 바로 뒤에서 잡음
         if (ui.tvServiceDriveReqSearchToAddressBtn.getVisibility() == View.VISIBLE &&
                 ui.tvServiceDriveReqSearchToAddressBtn.getText().toString().equals(getString(R.string.service_drive_input_09))) {
             return NEXT_BTN_NEED_TO_ADDRESS;
         }
 
+        //-----여기까지 왔다는 건 출발/도착지 검색 버튼에 둘 다 값(=주소)이 있다는 뜻------
+
         //세부 주소 입력 미비 : 여기서부터는 [[입력이 하나라도 없으면]] 바로 리턴해버림
         if (!hasFromDetail || !hasToDetail) {
-            //todo 저장해둔 예상가격이 있으면 삭제 : 예상가격 보고 나서 세부주소를 지웠다는 뜻임. 여기서 해야되나, 리턴 받은 뒤에 해도 되나 고민
             return NEXT_BTN_LACK_INPUT;
         }
 
-        //여기까지 왔으면 입력은 다 됐음
+        //------여기까지 왔으면 입력은 다 됐음------
 
-        //if(가격을 모른다)
-        return NEXT_BTN_ASK_PRICE;
-
-        //예상 가격 값이 있다
-        //todo
-//        return NEXT_BTN_REQ_SERVICE;
+        if (priceMaybe == PRICE_NO_DATA) {
+            //가격을 모르면 예상 가격 조회
+            return NEXT_BTN_ASK_PRICE;
+        } else {
+            //가격을 알면 신청(또는 예약 신청) 대화상자 호출
+            return NEXT_BTN_REQ_SERVICE;
+        }
     }
 
+    //세부주소 입력칸이 빈칸이면 에러메시지 표시(입력 창에 손도 안 댄 경우 여기서 처리됨)
     private void checkDetailAddress(boolean hasFromDetail, boolean hasToDetail) {
-        //출발지 세부 주소가 빈칸인 채로 진행하려고 하는 경우(입력 창에 손도 안 댄 경우) 입력 창에 에러메시지 출력
+        //출발지 세부 주소
         setError(fromDetailLayout, hasFromDetail);
 
         //도착지 세부 주소는 입력 창이 해금된 상태에서만 검사
@@ -346,9 +381,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         }
     }
 
-    /**
-     * 도착지 주소 검색버튼 트랜지션
-     */
+    //도착지 주소 검색버튼 트랜지션 : TODO  이거 이제 필요없지않나? 재생 되기 전에 다음 액티비티가 덮어버릴텐데
     private void doTransition() {
         if (ui.tvServiceDriveReqToTitle.getVisibility() == View.GONE) {
             Transition changeBounds = new ChangeBounds();

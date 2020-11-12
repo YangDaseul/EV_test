@@ -92,8 +92,10 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
 
     private int getTitleAddressMsg() {
         switch (titleId){
-            case R.string.service_drive_address_search_title://대리운전
-                return R.string.service_drive_map_title;
+            case R.string.service_drive_address_search_from_title://대리운전
+                return R.string.service_drive_map_from_title;
+            case R.string.service_drive_address_search_to_title://대리운전
+                return R.string.service_drive_map_to_title;
             case 0:
             default://그 외
                 return R.string.map_title_3;
