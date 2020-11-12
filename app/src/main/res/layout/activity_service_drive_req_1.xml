@@ -30,7 +30,7 @@
         <!-- 상단 정보 : 차종/번호판 서비스 요금 등 뷰 -->
         <include
             android:id="@+id/l_service_drive_req_top_panel"
-            layout="@layout/layout_service_req_panel"
+            layout="@layout/layout_service_drive_req_panel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"

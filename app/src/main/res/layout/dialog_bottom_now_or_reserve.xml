@@ -33,7 +33,7 @@
             TODO 이거 왜 안 되냐..... -->
             <include
                 android:id="@+id/l_dia_bottom_now_or_reserve_car_info_panel"
-                layout="@layout/layout_service_req_panel"
+                layout="@layout/layout_service_drive_req_panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"

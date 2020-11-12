@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewStub;
 import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -46,7 +47,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     private static final int NEXT_BTN_REQ_SERVICE = 4;
 
     private VehicleVO mainVehicle;
-    private AddressVO[] addressVO;
+    private AddressVO[] addressVO = new AddressVO[2];
     private String priceMaybe = PRICE_NO_DATA;    //TODO 예상가격 자료형 숫자인지 글자인지 확인
     private boolean buttonActive = true;
 
@@ -79,14 +80,14 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         getDataFromIntent();//데이터 제대로 안 들어있으면 액티비티 종료처리까지 함
 
         setResizeScreen();
-        
+
         //TODO  이거 이제 필요없지않나? 재생 되기 전에 다음 액티비티가 덮어버릴텐데
         setContentView(layouts[FROM]);
 
         init();
 
         //시작하자마자 출발 주소 검색 화면으로 넘어감
-//        onClickSearchAddressBtn(FROM);
+        onClickSearchAddressBtn(FROM);
     }
 
     @Override
@@ -301,7 +302,9 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
             case NEXT_BTN_ASK_PRICE:
                 //todo [1] 서버에 예상 가격 물어보기
-                // 그동안 로딩 뷰스텁 띄우기(점 세 개짜리).
+
+                // 그동안 로딩 뷰스텁 띄우기
+                setViewStub(R.layout.layout_service_drive_req_loading, null);
 
                 // 로딩하는 동안 다음버튼 비활성화
                 buttonActive = false;
@@ -391,5 +394,12 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
             ui.ivServiceDriveReqPleaseInputXxx.setText(R.string.service_drive_input_03);
         }
+    }
+
+    public void setViewStub(int addLayout, ViewStub.OnInflateListener listener) {
+        ViewStub stub = findViewById(R.id.vs_service_req_status);
+        stub.setLayoutResource(addLayout);
+        stub.setOnInflateListener(listener);
+        stub.inflate();
     }
 }

@@ -42,10 +42,10 @@
             tools:text="123너 6456" />
 
         <!-- 로딩중/예상가격/서비스불가안내 등  -->
-        <!-- layout_service_req_loading
-             layout_service_req_price
-             layout_service_req_cant_service
-             layout_service_req_retry  -->
+        <!-- layout_service_drive_req_loading
+             layout_service_drive_req_price
+             layout_service_drive_req_cant_service
+             layout_service_drive_req_retry  -->
         <ViewStub
             android:id="@+id/vs_service_req_status"
             android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
 
         <!--     미리보기용 임시 뷰 : ViewStub은 xml미리보기가 안 돼서 -->
         <!--    <include-->
-        <!--        layout="@layout/layout_service_req_price"-->
+        <!--        layout="@layout/layout_service_drive_req_price"-->
         <!--        android:layout_width="wrap_content"-->
         <!--        android:layout_height="wrap_content"-->
         <!--        android:layout_marginEnd="20dp"-->

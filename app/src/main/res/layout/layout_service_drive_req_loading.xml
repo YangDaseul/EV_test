@@ -4,5 +4,5 @@
     <ImageView
         android:layout_width="37dp"
         android:layout_height="37dp"
-        android:src="@drawable/ic_loading_dot_trio" />
+        android:src="@drawable/loading_price" />
 </layout>
