@@ -403,21 +403,52 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
             return;
         }
 
-        String address = addressVO[where].getAddrRoad();
-        if (address == null) {
-            address = addressVO[where].getAddr();
-        }
+        //주소 얻기. 세부주소 있으면 세부주소 창에 반영까지 이 안에서 처리.
+        String address = extractAddress(where);
 
+        //검색 버튼에 주소 입력하고 '값 있음' 스타일로 변경
         addressBtn.setText(address);
         addressBtn.setTextAppearance(R.style.ServiceDrive_SearchAddress_HasData);
         addressBtn.setBackground(getDrawable(R.drawable.ripple_bg_ffffff_stroke_141414));
+
+        //다음 단계 입력에 대한 안내 메시지
         ui.ivServiceDriveReqPleaseInputXxx.setText(topMsgId);
 
+        //다음 단게 뷰 해금
         for (View v : views) {
             v.setVisibility(View.VISIBLE);
         }
     }
 
+    //주소 추출
+    //도로명 우선이긴 한데 없으면 지번 써야됨. 혼파망. 뭐가 들어있을 지 알 수 없으니 둘 다 검사
+    //세부주소 내용 있으면 세부주소 창에 반영
+    private String extractAddress(int where) {
+        String address = addressVO[where].getAddrRoad();//도로명 주소
+        String buildingName;
+
+        if (!TextUtils.isEmpty(address)) {          //도로명 주소 있음
+            buildingName = TextUtils.concat(        //세부주소 입력 창에 건물명 넣자. 없으면 말고
+                    addressVO[where].getTitle(),    //건물명(도로명일 때)
+                    addressVO[where].getCname()     //건물 동
+            ).toString();
+
+            if (!TextUtils.isEmpty(buildingName)) {
+                if (where == FROM) {
+                    fromDetail.setText(buildingName);
+                } else {
+                    toDetail.setText(buildingName);
+                }
+            }
+        } else {                                //도로명 없으면 지번주소 쓰자
+            address = TextUtils.concat(
+                    addressVO[where].getAddr(), //지번주소 '동'까지 나옴
+                    addressVO[where].getTitle() //번지 수(지번일 때)
+            ).toString();
+        }
+
+        return address;
+    }
     public void setViewStub(int addLayout, ViewStub.OnInflateListener listener) {
         ViewStub stub = findViewById(R.id.vs_service_req_status);
         stub.setLayoutResource(addLayout);
