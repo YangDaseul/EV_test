@@ -26,6 +26,7 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ActivityServiceDriveReqBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.google.android.material.textfield.TextInputEditText;
@@ -47,7 +48,8 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     private VehicleVO mainVehicle;
     private AddressVO[] addressVO = new AddressVO[2];
     private String priceMaybe = PRICE_NO_DATA;    //TODO 예상가격 자료형 숫자인지 글자인지 확인
-    private boolean buttonActive = true;
+    private boolean allButtonActive = true;
+    private boolean nextButtonActive = true;
 
     private TextInputLayout fromDetailLayout;
     private TextInputLayout toDetailLayout;
@@ -108,10 +110,10 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     @Override
     public void onClickCommon(View v) {
         Log.d(TAG, "onClickCommon: " + v.getId());
-        Log.d(TAG, "onClickCommon active : " + buttonActive);
+        Log.d(TAG, "onClickCommon active : " + allButtonActive);
 
         //예상 가격 응답 기다리는 동안은 버튼 무력화
-        if (!buttonActive) {
+        if (!allButtonActive) {
             return;
         }
 
@@ -134,6 +136,11 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
             //다음 버튼
             case R.id.tv_service_drive_req_next_btn:
                 onClickNextBtn();
+                break;
+
+            //가격 조회 실패하면 뜨는 재시도 버튼 todo :askPrice() 정말 이거 한방에 해결인지 점검
+            case R.id.tv_service_drive_retry:
+                askPrice();
                 break;
 
             default:
@@ -263,10 +270,10 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     }
 
     private void onClickNextBtn() {
-        Log.d(TAG, "onClickNextBtn active : " + buttonActive);
+        Log.d(TAG, "onClickNextBtn active : " + nextButtonActive);
 
         //예상 가격 응답 기다리는 동안은 버튼 무력화
-        if (!buttonActive) {
+        if (!nextButtonActive) {
             return;
         }
 
@@ -290,28 +297,9 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                 onClickSearchAddressBtn(TO);
                 break;
 
+            //예상 가격 조회
             case NEXT_BTN_ASK_PRICE:
-                //todo [1] 서버에 예상 가격 물어보기
-
-                // 그동안 로딩 뷰스텁 띄우기
-                setViewStub(
-                        R.layout.layout_service_drive_req_loading,
-                        (stub, inflated) -> {
-                            ImageView progress = inflated.findViewById(R.id.iv_service_drive_req_loading_price);
-                            AnimationDrawable animationDrawable = (AnimationDrawable) ((ImageView) progress).getDrawable();
-                            animationDrawable.start();
-                        });
-
-                // 로딩하는 동안 다음버튼 비활성화
-                buttonActive = false;
-
-                //todo 옵저버
-                // 예상가격 받으면 저장. 다음 버튼 재활성화
-                // 서비스 불가 지역 : 다음 비활성 및 뷰스텁 갱신
-                // 오류 : 다음 비활성 및 재시도 뷰스텁 재시도하면 [1]을 다시 실행
-                //
-
-
+                askPrice();
                 break;
 
             case NEXT_BTN_REQ_SERVICE:
@@ -449,6 +437,52 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
         return address;
     }
+
+    //예상 가격 조회
+    private void askPrice() {
+        // 로딩하는 동안 버튼들 비활성화
+        allButtonActive = false;
+        nextButtonActive = false;
+
+        //로딩 뷰스텁 띄우기
+        setViewStub(
+                R.layout.layout_service_drive_req_loading,
+                (stub, inflated) -> {
+                    ImageView progress = (ImageView) inflated.findViewById(R.id.iv_service_drive_req_loading_price);
+                    AnimationDrawable animationDrawable = (AnimationDrawable) progress.getDrawable();
+                    animationDrawable.start();
+                });
+
+        //todo [1] 로드윈에 서비스 가능 지역 물어보기
+
+        //todo 서비스 가능지역 옵저버
+        //  불가능하면   {해당 뷰스텁 출력 setViewStub(R.layout.layout_service_drive_req_cant_service, null);
+        //               allButtonActive = true;
+        //               다음버튼은 비활성인 채로 방치 -> 주소 변경만 가능한 상태가 됨
+        //               }
+        //  가능하면 [2] 예상 가격 물어보기
+        //   예상가격 옵저버    {
+        //                            setViewStub(
+        //                                    R.layout.layout_service_drive_req_price,
+        //                                    (stub, inflated) -> {
+        //                                        TextView priceText = (TextView) inflated.findViewById(R.id.tv_service_price_maybe);
+        //                                        priceText.setText(
+        //                                                StringUtil.getPriceString("result.data.get가격")
+        //                                        );
+        //                                    });
+        //                           가격 저장. 버튼 전부 재활성화
+        //                          allButtonActive = true;
+        //                           nextButtonActive = true;
+//                                        //todo 여기까지 와놓고 주소 변경하는 양아치 짓 하면 어떻게 해? 그게 서비스 불가 주소면??
+//                                        //주소 변경하면 이거 초기화하는 내용 넣어야겠네 ㅂㄷㅂㄷㅂㄷㅂㅂㄷㄷㅂㅂㄷㅂㄷㄷㅂ
+        //                      }
+        //todo 위에 두 놈 오류 공통 : 어, 공통이면 함수로 빼자
+        setViewStub(
+                R.layout.layout_service_drive_req_retry,
+                (stub, inflated) -> inflated.setOnClickListener(onSingleClickListener));
+        //
+    }
+
     public void setViewStub(int addLayout, ViewStub.OnInflateListener listener) {
         ViewStub stub = findViewById(R.id.vs_service_req_status);
         stub.setLayoutResource(addLayout);
