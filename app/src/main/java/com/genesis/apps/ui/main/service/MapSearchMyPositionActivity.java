@@ -53,7 +53,6 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
         setViewModel();
         setObserver();
         reqMyLocation();
-        checkIsDirect();
     }
 
     private void checkIsDirect() {
@@ -88,6 +87,8 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
             }
 
         });
+
+        checkIsDirect();
     }
 
     private int getTitleAddressMsg() {
