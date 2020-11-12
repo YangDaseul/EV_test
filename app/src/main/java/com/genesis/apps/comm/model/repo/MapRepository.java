@@ -1,5 +1,7 @@
 package com.genesis.apps.comm.model.repo;
 
+import android.text.TextUtils;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.R;
@@ -247,7 +249,12 @@ public class MapRepository {
 
     public boolean deleteRecentlyAddressVO(AddressVO addressVO) {
         try {
-            databaseHolder.getDatabase().addressDao().deleteName(addressVO.getAddrRoad());
+            if(!TextUtils.isEmpty(addressVO.getAddrRoad())){
+                databaseHolder.getDatabase().addressDao().deleteName(addressVO.getAddrRoad());
+            }else if(!TextUtils.isEmpty(addressVO.getAddr())){
+                databaseHolder.getDatabase().addressDao().deleteAddr(addressVO.getAddr(),
+                        TextUtils.isEmpty(addressVO.getTitle()) ? "" : addressVO.getTitle());
+            }
             return true;
         } catch (Exception e) {
             return false;

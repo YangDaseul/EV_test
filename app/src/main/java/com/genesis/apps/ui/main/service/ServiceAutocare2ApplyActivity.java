@@ -461,7 +461,6 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
             ui.tvAddr.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
             ui.tvAddr.setText(addressVO.getAddrRoad());
             ui.tvTitleAddr.setVisibility(View.VISIBLE);
-            setViewAddrDetail();
             doTransition(2);
             return true;
         }
@@ -580,6 +579,7 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == ResultCodes.REQ_CODE_SERVICE_SOS_MAP.getCode()){
             addressVO = (AddressVO)data.getSerializableExtra(KeyNames.KEY_NAME_ADDR);
+            setViewAddrDetail();
             checkValidAddr();
         }else if(resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_AUTOCARE.getCode()){
             exitPage(data, ResultCodes.REQ_CODE_SERVICE_RESERVE_AUTOCARE.getCode());

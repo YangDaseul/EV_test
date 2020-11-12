@@ -79,6 +79,10 @@ public class REQ_1009 extends BaseData {
             //            }
             setData(APIInfo.GRA_REQ_1009.getIfCd(), menuId);
         }
+
+        public void updateData(String menuId){
+            setData(APIInfo.GRA_REQ_1009.getIfCd(), menuId);
+        }
     }
 
     /**

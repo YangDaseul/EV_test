@@ -178,7 +178,7 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
                     AddressVO addressVO = (AddressVO) v.getTag(R.id.addr);
                     if (addressVO != null) {
                         if (mapViewModel.deleteRecentlyAddressVO(addressVO)) {
-                            int position = adapter.getPosition(addressVO.getAddrRoad());
+                            int position = adapter.getPosition(addressVO);
                             if(position>-1){
                                 adapter.remove(position);
                                 adapter.notifyItemRemoved(position);
