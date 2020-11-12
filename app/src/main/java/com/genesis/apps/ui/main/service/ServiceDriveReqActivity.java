@@ -2,6 +2,7 @@ package com.genesis.apps.ui.main.service;
 
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -10,16 +11,12 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
-import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.transition.ChangeBounds;
-import androidx.transition.Transition;
-import androidx.transition.TransitionManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
@@ -114,7 +111,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         Log.d(TAG, "onClickCommon active : " + buttonActive);
 
         //예상 가격 응답 기다리는 동안은 버튼 무력화
-       if (!buttonActive) {
+        if (!buttonActive) {
             return;
         }
 
@@ -297,7 +294,13 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                 //todo [1] 서버에 예상 가격 물어보기
 
                 // 그동안 로딩 뷰스텁 띄우기
-                setViewStub(R.layout.layout_service_drive_req_loading, null);
+                setViewStub(
+                        R.layout.layout_service_drive_req_loading,
+                        (stub, inflated) -> {
+                            ImageView progress = inflated.findViewById(R.id.iv_service_drive_req_loading_price);
+                            AnimationDrawable animationDrawable = (AnimationDrawable) ((ImageView) progress).getDrawable();
+                            animationDrawable.start();
+                        });
 
                 // 로딩하는 동안 다음버튼 비활성화
                 buttonActive = false;
