@@ -13,6 +13,7 @@ import android.view.ViewStub;
 import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintSet;
@@ -94,10 +95,64 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        //출발지 주소 얻어옴
+        if (resultCode == ResultCodes.REQ_CODE_SERVICE_DRIVE_FROM_MAP.getCode()) {
+            setAddressData(
+                    FROM,
+                    data,
+                    ui.tvServiceDriveReqSearchFromAddressBtn,
+                    R.string.service_drive_input_02,
+                    new View[]{ui.tvServiceDriveReqFromTitle, fromDetailLayout, ui.tvServiceDriveReqNextBtn}
+            );
+
+        }
+        //도착지 주소 얻어옴
+        else if (resultCode == ResultCodes.REQ_CODE_SERVICE_DRIVE_TO_MAP.getCode()) {
+            setAddressData(
+                    TO,
+                    data,
+                    ui.tvServiceDriveReqSearchToAddressBtn,
+                    R.string.service_drive_input_04,
+                    new View[]{ui.tvServiceDriveReqToTitle, toDetailLayout}
+            );
+        }
+        //뭔가 잘못됨?
+        else {
+            Log.d(TAG, "onActivityResult: unexpected result code");
+        }
+    }
+
+    /**
+     * 검색된 주소를 화면에 출력
+     *
+     * @param where      : 출발지/도착지 구분
+     * @param data       : 지도 액티비티에서 가져온 데이터
+     * @param addressBtn : 출발지 버튼/도착지 버튼 구분. 여기에 주소를 출력함.
+     * @param topMsgId   : 입력창 위에 있는 안내 메시지
+     * @param views      : 다음 단계 입력을 위해 해금해야 할 뷰
+     */
+    private void setAddressData(int where, Intent data, TextView addressBtn, int topMsgId, View[] views) {
+        try {
+            addressVO[where] = (AddressVO) data.getSerializableExtra(KeyNames.KEY_NAME_ADDR);
+        } catch (Exception exception) {
+            Log.d(TAG, "setAddressData: 주소 데이터 추출 실패");
+            return;
+        }
+
+        addressBtn.setText(addressVO[where].getAddrRoad());
+        addressBtn.setTextAppearance(R.style.ServiceDrive_SearchAddress_HasData);
+        addressBtn.setBackground(getDrawable(R.drawable.ripple_bg_ffffff_stroke_141414));
+        ui.ivServiceDriveReqPleaseInputXxx.setText(topMsgId);
+
+        for (View v : views) {
+            v.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void onClickCommon(View v) {
+        Log.d(TAG, "onClickCommon: " + v.getId());
+
         switch (v.getId()) {
             //이용 내역
             case R.id.tv_titlebar_text_btn:
@@ -106,33 +161,12 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
             //출발주소 검색버튼
             case R.id.tv_service_drive_req_search_from_address_btn:
-                //todo impl
-//                onClickSearchAddressBtn(FROM);
-
-                //onActivityResult()에서 이 값을 세팅하고 다음 게 이미 펼쳐져있도록 하면 될 듯?
-                //아니면 펼쳐지는 장면을 onActivityResult()에서 보여주거나(이미 입력된 값을 수정하고왔을 때는 펼치기 이펙트 재생 안 해야겠지?)
-                ui.tvServiceDriveReqSearchFromAddressBtn.setText("지도 액티비티에서 가져온 출발지 주소");
-                ui.tvServiceDriveReqSearchFromAddressBtn.setTextAppearance(R.style.ServiceDrive_SearchAddress_HasData);
-                ui.tvServiceDriveReqSearchFromAddressBtn.setBackground(getDrawable(R.drawable.ripple_bg_ffffff_stroke_141414));
-                ui.ivServiceDriveReqPleaseInputXxx.setText(R.string.service_drive_input_02);
-                ui.tvServiceDriveReqFromTitle.setVisibility(View.VISIBLE);
-                fromDetailLayout.setVisibility(View.VISIBLE);
-                ui.tvServiceDriveReqNextBtn.setVisibility(View.VISIBLE);
+                onClickSearchAddressBtn(FROM);
                 break;
 
             //도착주소 검색버튼
             case R.id.tv_service_drive_req_search_to_address_btn:
-                //todo impl
-                //onClickSearchAddressBtn(TO);
-
-                //onActivityResult()에서 이 값을 세팅하고 다음 게 이미 펼쳐져있도록 하면 될 듯?
-                //아니면 펼쳐지는 장면을 onActivityResult()에서 보여주거나(이미 입력된 값을 수정하고왔을 때는 펼치기 이펙트 재생 안 해야겠지?)
-                ui.tvServiceDriveReqSearchToAddressBtn.setText("지도 액티비티에서 가져온 도착지 주소");
-                ui.tvServiceDriveReqSearchToAddressBtn.setTextAppearance(R.style.ServiceDrive_SearchAddress_HasData);
-                ui.tvServiceDriveReqSearchToAddressBtn.setBackground(getDrawable(R.drawable.ripple_bg_ffffff_stroke_141414));
-                ui.ivServiceDriveReqPleaseInputXxx.setText(R.string.service_drive_input_04);
-                ui.tvServiceDriveReqToTitle.setVisibility(View.VISIBLE);
-                toDetailLayout.setVisibility(View.VISIBLE);
+                onClickSearchAddressBtn(TO);
                 break;
 
             //다음 버튼
@@ -140,7 +174,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                 onClickNextBtn();
 
             default:
-                //do nothing
+                Log.d(TAG, "onClickCommon: unexpected click event : " + v.getId());
                 break;
         }
     }
