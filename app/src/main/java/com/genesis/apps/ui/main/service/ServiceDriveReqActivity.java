@@ -191,42 +191,6 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
     @Override
     public void setObserver() {
-
-        //서비스 가능 지역 조회 //todo MapSearchMyPositionActivity에서 해야 됨 ㅠㅠ
-        roadWinViewModel.getRES_SERVICE_AREA_CHECK().observe(this, result -> {
-
-            Log.d(TAG, "observer serviceAreaCheck : " + result.status);
-            switch (result.status) {
-                case LOADING:
-                    showProgressDialog(true);
-                    break;
-
-                case SUCCESS:
-                    if (result.data != null && result.data.getRspCode() != null) {
-                        //서비스 가능 지역
-                        if (result.data.getRspCode().equals(ServiceAreaCheck.RSP_CODE_POSSIBLE)) {
-                            //todo 서비스 가능지역 옵저버
-                            //  불가능하면
-                            //  가능하면    예상 가격 물어보기 api 호출
-
-                        }
-                        // 서비스 불가 지역
-                        else {
-                        }
-
-                        showProgressDialog(false);
-                        return;
-                    }
-                    //not break; 데이터 이상하면 default로 진입시킴
-
-                default:
-                    showProgressDialog(false);
-                    SnackBarUtil.show(this, getString(result.message));
-                    //todo : 구체적인 예외처리
-                    break;
-            }
-        });
-
         //예상 가격 조회
         roadWinViewModel.getRES_CHECK_PRICE().observe(this, result -> {
             Log.d(TAG, "observer check price : " + result.status);
@@ -542,11 +506,11 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         Log.d(TAG, "askPrice: ");
 
         roadWinViewModel.reqCheckPrice(new CheckPrice.Request(
-                Double.toString(addressVO[FROM].getCenterLat()), Double.toString(addressVO[FROM].getCenterLon()),
+                "" + addressVO[FROM].getCenterLat(), "" + addressVO[FROM].getCenterLon(),
                 "", "",
                 "", "",
                 "", "",
-                Double.toString(addressVO[TO].getCenterLat()), Double.toString(addressVO[TO].getCenterLon()),
+                "" + addressVO[TO].getCenterLat(), "" + addressVO[TO].getCenterLon(),
                 CheckPrice.RST_SVC_TYPE_D
         ));
     }
