@@ -93,6 +93,10 @@ public class REQ_1012 extends BaseData {
 
             setData(APIInfo.GRA_REQ_1012.getIfCd(), menuId);
         }
+
+        public void updateData(String menuId){
+            setData(APIInfo.GRA_REQ_1012.getIfCd(), menuId);
+        }
     }
 
     /**

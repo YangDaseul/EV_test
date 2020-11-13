@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!--    <string name="sm_r_rsv02_01_1">오토케어 예약하기</string>-->
+<!--    <string name="sm_r_rsv02_01_2">예약 서비스를\n선택해 주세요.</string>-->
+<!--    <string name="sm_r_rsv02_01_3">예약 서비스</string>-->
+<!--    <string name="sm_r_rsv02_01_4">찾아가는 오토케어</string>-->
+<!--    <string name="sm_r_rsv02_01_5">차량이 있는 곳으로 찾아가서\n정비해 드리는 서비스</string>-->
+<!--    <string name="sm_r_rsv02_01_6">서비스 받으실 주소를\n입력해 주세요.</string>-->
+<!--    <string name="sm_r_rsv02_01_7">서비스 받을 주소</string>-->
+<!--    <string name="sm_r_rsv02_01_8">주소</string>-->
+<!--    <string name="sm_r_rsv02_01_9">변경</string>-->
+<!--    <string name="sm_r_rsv02_01_10">오토케어 주소검색</string>-->
+<!--    <string name="sm_r_rsv02_01_11">서비스 받으실 주소를\n검색해 주세요.</string>-->
+<!--    <string name="sm_r_rsv02_01_12">상세 주소를\n입력해 주세요.</string>-->
+<!--    <string name="sm_r_rsv02_01_13">상세 주소</string>-->
+<!--    <string name="sm_r_rsv02_01_14">필수 입력 사항입니다.</string>-->
+<!--    <string name="sm_r_rsv02_01_15">예약 희망일을\n선택해 주세요.</string>-->
+<!--    <string name="sm_r_rsv02_01_16">예약 희망일</string>-->
+<!--    <string name="sm_r_rsv02_01_17">서비스 받으실 주소를 입력해 주세요.</string>-->
+
+    <string name="sm_r_rsv03_04_1">정비소 예약 정보를\n확인해 주세요.</string>
+    <string name="sm_r_rsv03_04_2">예약 내역을 확인하고,\n아래 다음 버튼을 누르시면,\n정비소 에약이 완료됩니다.</string>
+    <string name="sm_r_rsv03_04_3">예약 정보</string>
+    <string name="sm_r_rsv03_04_4">업체명</string>
+    <string name="sm_r_rsv03_04_5">주소</string>
+    <string name="sm_r_rsv03_04_6">일시</string>
+    <string name="sm_r_rsv03_04_7">이름</string>
+    <string name="sm_r_rsv03_04_8">전화 번호</string>
+    <string name="sm_r_rsv03_04_9">예약자 정보</string>
+    <string name="sm_r_rsv03_04_10">이름</string>
+    <string name="sm_r_rsv03_04_11">휴대폰 번호</string>
+    <string name="sm_r_rsv03_04_12">차량 번호</string>
+
+    <string name="sm_r_rsv04_04_1">정비소 예약이\n완료되었습니다.</string>
+    <string name="sm_r_rsv04_04_2">예약 내역은 제네시스 정비 현황/예약/이력\n메뉴에서 확인 가능합니다.</string>
+    <string name="sm_r_rsv04_04_3">예약 번호 %s</string>
+    <string name="sm_r_rsv04_04_4">업체명</string>
+    <string name="sm_r_rsv04_04_5">주소</string>
+    <string name="sm_r_rsv04_04_6">일시</string>
+    <string name="sm_r_rsv04_04_7">전화번호</string>
+    <string name="sm_r_rsv04_04_8">예약자 정보</string>
+    <string name="sm_r_rsv04_04_9">이름</string>
+    <string name="sm_r_rsv04_04_10">휴대폰 번호</string>
+    <string name="sm_r_rsv04_04_11">차량 번호</string>
+    <string name="sm_r_rsv04_04_12">예약 확인</string>
+</resources>

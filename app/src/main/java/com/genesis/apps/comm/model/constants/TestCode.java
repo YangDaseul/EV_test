@@ -64,6 +64,7 @@ import com.genesis.apps.comm.model.gra.api.REQ_1004;
 import com.genesis.apps.comm.model.gra.api.REQ_1005;
 import com.genesis.apps.comm.model.gra.api.REQ_1007;
 import com.genesis.apps.comm.model.gra.api.REQ_1009;
+import com.genesis.apps.comm.model.gra.api.REQ_1012;
 import com.genesis.apps.comm.model.gra.api.SOS_1001;
 import com.genesis.apps.comm.model.gra.api.SOS_1002;
 import com.genesis.apps.comm.model.gra.api.SOS_1004;
@@ -3261,6 +3262,13 @@ public class TestCode {
             "  \"rtMsg\": \"Success\",\n" +
             "  \"rsvtNo\": \"1234567890123\"\n" +
             "}",REQ_1009.Response.class);
+
+
+    public static REQ_1012.Response REQ_1012 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"rsvtNo\": \"1234567890123\"\n" +
+            "}",REQ_1012.Response.class);
     
 
 }

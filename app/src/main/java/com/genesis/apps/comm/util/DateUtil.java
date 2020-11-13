@@ -60,7 +60,7 @@ public class DateUtil {
     public static final String DATE_FORMAT_mmdd = "MM월 dd일"; // 31121989
     public static final String DATE_FORMAT_yyyy_MM_dd_e_hh_mm = "yyyy.MM.dd a hh:mm";
     public static final String DATE_FORMAT_yyyy_MM_dd_HH_mm = "yyyy-MM-dd HH:mm";
-    public static final String DATE_FORMAT_yyyy_MM_dd_E="yyyy.MM.dd(E)";
+    public static final String DATE_FORMAT_yyyy_MM_dd_E="yyyy.MM.dd (E)";
 
     // date time
     public static final String DATE_FORMAT_yyyy_mm_dd_hh_mm = "yyyy.MM.dd HH:mm"; // 31-12-1989 12:30
@@ -68,6 +68,8 @@ public class DateUtil {
     public static final String DATE_FORMAT_dd_MM_yyyy_hh_mm = "dd-MM-yyyy hh:mm"; // 31-12-1989 12:30
     public static final String DATE_FORMAT_dd_MM_yyyy_hh_mm_aa = "dd-MM-yyyy hh:mm aa"; // 31-12-1989 12:30 am
     public static final String DATE_FORMAT_MMM_dd_yyyy_hh_aa = "MMM dd, yyyy hh aa"; // Jan 15, 2019 12 pm
+
+    public static final String DATE_FORMAT_HHmm = "HHmm"; // Jan 15, 2019 12 pm
 
     /**
      * @biref date -> string
