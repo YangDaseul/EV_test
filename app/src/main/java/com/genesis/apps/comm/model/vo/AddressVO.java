@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  * @author hjpark
  */
 
-@Entity(indices = {@Index(value = {"addrRoad"}, unique = true)})
+@Entity(indices = {@Index(value = {"addrRoad", "addr"}, unique = true)})
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data

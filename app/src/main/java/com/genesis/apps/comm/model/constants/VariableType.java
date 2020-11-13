@@ -223,4 +223,28 @@ public class VariableType {
     public static final String SERVICE_RESERVATION_TYPE_AIRPORT="ARPT"; //에어포트
     public static final String SERVICE_RESERVATION_TYPE_HOMETOHOME="HTOH"; //홈투홈
     public static final String SERVICE_RESERVATION_TYPE_RPSH="RPSH"; //정비소
+
+    //서비스 홈투홈 픽업구분코드
+    public static final String SERVICE_HOMETOHOME_PCKP_DIV_NM_PICKUP="픽업 서비스"; //픽업
+    public static final String SERVICE_HOMETOHOME_PCKP_DIV_NM_DELIVERY="딜리버리 서비스"; //딜리버리
+    public static final String SERVICE_HOMETOHOME_PCKP_DIV_NM_PICKUP_DELIVERY="픽업 + 딜리버리 서비스"; //픽업+딜리버리
+    public static final String SERVICE_HOMETOHOME_PCKP_DIV_CD_PICKUP="1"; //픽업
+    public static final String SERVICE_HOMETOHOME_PCKP_DIV_CD_DELIVERY="2"; //딜리버리
+    public static final String SERVICE_HOMETOHOME_PCKP_DIV_CD_PICKUP_DELIVERY="3"; //픽업+딜리버리
+
+
+    public static String getPckpDivCd(String result) {
+        switch (result){
+            case SERVICE_HOMETOHOME_PCKP_DIV_NM_PICKUP:
+                return "1";
+            case SERVICE_HOMETOHOME_PCKP_DIV_NM_DELIVERY:
+                return "2";
+            case SERVICE_HOMETOHOME_PCKP_DIV_NM_PICKUP_DELIVERY:
+            default:
+                return "3";
+        }
+    }
+
+
+
 }

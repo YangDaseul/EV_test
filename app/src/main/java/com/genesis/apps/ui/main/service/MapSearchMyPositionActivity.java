@@ -346,20 +346,26 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
                 public void onInflate(ViewStub viewStub, View inflated) {
                     bottomSelectBinding = DataBindingUtil.bind(inflated);
                     bottomSelectBinding.tvMapAddressBtn.setOnClickListener(onSingleClickListener);
-                    setViewAddresInfo(addressVO.getTitle(), addressVO.getCname(), addressVO.getAddrRoad());
+//                    setViewAddresInfo(addressVO.getTitle(), addressVO.getCname(), addressVO.getAddrRoad());
+                    setViewAddresInfo(addressVO);
                 }
             });
         } else {
-            setViewAddresInfo(addressVO.getTitle(), addressVO.getCname(), addressVO.getAddrRoad());
+            setViewAddresInfo(addressVO);
         }
     }
 
 
-    private void setViewAddresInfo(String buildName, String subBuildName, String address){
-        bottomSelectBinding.tvMapAddressTitle.setText(buildName+ (TextUtils.isEmpty(subBuildName) ? "" : " "+subBuildName));
-        bottomSelectBinding.tvMapAddressTitle.setVisibility(TextUtils.isEmpty(buildName) ? View.GONE : View.VISIBLE);
-        bottomSelectBinding.tvMapAddressAddress.setText(address);
-        bottomSelectBinding.tvMapAddressAddress.setVisibility(TextUtils.isEmpty(address) ? View.GONE : View.VISIBLE);
+    private void setViewAddresInfo(AddressVO addressVO){
+        String[] addressInfo = getAddress(addressVO);
+        bottomSelectBinding.tvMapAddressTitle.setText(addressInfo[1]);
+        bottomSelectBinding.tvMapAddressTitle.setVisibility(TextUtils.isEmpty(addressInfo[1]) ? View.GONE : View.VISIBLE);
+        bottomSelectBinding.tvMapAddressAddress.setText(addressInfo[0]);
+        bottomSelectBinding.tvMapAddressAddress.setVisibility(TextUtils.isEmpty(addressInfo[0]) ? View.GONE : View.VISIBLE);
+//        bottomSelectBinding.tvMapAddressTitle.setText(buildName+ (TextUtils.isEmpty(subBuildName) ? "" : " "+subBuildName));
+//        bottomSelectBinding.tvMapAddressTitle.setVisibility(TextUtils.isEmpty(buildName) ? View.GONE : View.VISIBLE);
+//        bottomSelectBinding.tvMapAddressAddress.setText(address);
+//        bottomSelectBinding.tvMapAddressAddress.setVisibility(TextUtils.isEmpty(address) ? View.GONE : View.VISIBLE);
     }
 
     public void setAddressInfo(AddressVO addressVO){
@@ -370,8 +376,6 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
             }
         },500);
     }
-
-
 
     @Override
     public void onBackPressed() {

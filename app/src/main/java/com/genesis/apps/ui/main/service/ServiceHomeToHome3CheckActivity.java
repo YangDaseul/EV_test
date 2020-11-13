@@ -16,14 +16,14 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.REQ_1007;
+import com.genesis.apps.comm.model.gra.api.REQ_1009;
 import com.genesis.apps.comm.model.vo.RepairReserveVO;
 import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringRe2j;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
-import com.genesis.apps.databinding.ActivityServiceAutocare3CheckBinding;
+import com.genesis.apps.databinding.ActivityServiceHometohome3CheckBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.google.gson.Gson;
@@ -35,7 +35,7 @@ import java.util.Locale;
  * @author hjpark
  * @brief 오토케어 3단계
  */
-public class ServiceAutocare3CheckActivity extends SubActivity<ActivityServiceAutocare3CheckBinding> {
+public class ServiceHomeToHome3CheckActivity extends SubActivity<ActivityServiceHometohome3CheckBinding> {
     private RepairReserveVO repairReserveVO;
     private REQViewModel reqViewModel;
     private View[] edits;
@@ -44,7 +44,7 @@ public class ServiceAutocare3CheckActivity extends SubActivity<ActivityServiceAu
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setResizeScreen();
-        setContentView(R.layout.activity_service_autocare_3_check);
+        setContentView(R.layout.activity_service_hometohome_3_check);
         getDataFromIntent();
         setViewModel();
         setObserver();
@@ -91,7 +91,6 @@ public class ServiceAutocare3CheckActivity extends SubActivity<ActivityServiceAu
                     InteractionUtil.collapse(ui.lBackground, null);
                 } else {
                     ui.ivArrow.setImageResource(R.drawable.btn_accodian_close);
-
                     InteractionUtil.expand2(ui.lBackground, () -> ui.sc.fullScroll(View.FOCUS_DOWN));
                 }
                 break;
@@ -112,9 +111,9 @@ public class ServiceAutocare3CheckActivity extends SubActivity<ActivityServiceAu
             repairReserveVO.setHpNo(ui.etTel.getText().toString().trim().replaceAll("-", ""));
             repairReserveVO.setCarRgstNo(ui.etVrn.getText().toString().trim());
             Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create(); //expose처리되어 있는 필드에 대해서만 파싱 진행
-            REQ_1007.Request request = gson.fromJson(new Gson().toJson(repairReserveVO), REQ_1007.Request.class);
+            REQ_1009.Request request = gson.fromJson(new Gson().toJson(repairReserveVO), REQ_1009.Request.class);
             request.updateData(APPIAInfo.SM_R_RSV03.getId());
-            reqViewModel.reqREQ1007(request);
+            reqViewModel.reqREQ1009(request);
         }
     }
 
@@ -129,7 +128,7 @@ public class ServiceAutocare3CheckActivity extends SubActivity<ActivityServiceAu
     @Override
     public void setObserver() {
 
-        reqViewModel.getRES_REQ_1007().observe(this, result -> {
+        reqViewModel.getRES_REQ_1009().observe(this, result -> {
 
             switch (result.status) {
                 case LOADING:
@@ -138,7 +137,7 @@ public class ServiceAutocare3CheckActivity extends SubActivity<ActivityServiceAu
                 case SUCCESS:
                     showProgressDialog(false);
                     if (result.data != null && !TextUtils.isEmpty(result.data.getRtCd()) && result.data.getRtCd().equalsIgnoreCase("0000") && !TextUtils.isEmpty(result.data.getRsvtNo())) {
-                        exitPage(new Intent().putExtra(KeyNames.KEY_NAME_SERVICE_RESERVE_INFO, repairReserveVO), ResultCodes.REQ_CODE_SERVICE_RESERVE_AUTOCARE.getCode());
+                        exitPage(new Intent().putExtra(KeyNames.KEY_NAME_SERVICE_RESERVE_INFO, repairReserveVO), ResultCodes.REQ_CODE_SERVICE_RESERVE_HOMETOHOME.getCode());
                         break;
                     }
                 default:

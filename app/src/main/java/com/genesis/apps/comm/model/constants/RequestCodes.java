@@ -14,8 +14,12 @@ public enum RequestCodes {
 
     REQ_CODE_FILECHOOSER(2002,"파일 획득 권한(webview)"),
     REQ_CODE_GPS(2003,"GPS 설정"),
+    REQ_CODE_SERVICE_HOMETOHOME_PCKP(2004,"홈투홈 픽업 주소 설정"),
+    REQ_CODE_SERVICE_HOMETOHOME_DELIVERY(2005,"홈투홈 딜리버리 주소 설정"),
+
     REQ_CODE_FROM_ADDRESS(3001,"출발지 주소"),
     REQ_CODE_TO_ADDRESS(3002,"도착지 주소"),
+
     REQ_CODE_DEFAULT(0,"기본");
 
     private int code;

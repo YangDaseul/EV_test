@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.databinding.ActivityBaseBinding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
@@ -235,6 +237,36 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * @param addressVO
+     * @return 0 : 주소 1 : 서브주소
+     * @brief 주소 정보에서 도로명주소 혹은 도로지번 주소를 결정
+     * (도로명 주소가 우선순위)
+     */
+    public String[] getAddress(AddressVO addressVO) {
+        String[] address = new String[2];
+
+        try {
+            if (!TextUtils.isEmpty(addressVO.getAddrRoad())) {
+                //도로명주소
+                address[0] = addressVO.getAddrRoad();
+                //건물이름 동
+                address[1] = (TextUtils.isEmpty(addressVO.getTitle()) ? "" : addressVO.getTitle()) + (TextUtils.isEmpty(addressVO.getCname()) ? "" : " " + addressVO.getCname());
+            } else {
+                //지번주소
+                address[0] = addressVO.getAddr() + (TextUtils.isEmpty(addressVO.getTitle()) ? "" : " " + addressVO.getTitle());
+                //건물이름
+                address[1] = (TextUtils.isEmpty(addressVO.getCname()) ? "" : addressVO.getCname());
+            }
+        } catch (Exception e) {
+            address[0]="";
+            address[1]="";
+            e.printStackTrace();
+        }
+
+        return address;
     }
 
 }

@@ -46,7 +46,7 @@ import lombok.EqualsAndHashCode;
  *
  *
  * //홈투홈전용
- * @see #pkckDivCd 픽업구분코드
+ * @see #pckpDivCd 픽업구분코드
  * 1: 픽업  2: 딜리버리   3: 픽업+딜리버리
  *
  * //정비소 예약 신청 전용 1012
@@ -69,6 +69,76 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 public @Data
 class RepairReserveVO extends BaseData {
+
+    //REQ-1007
+    public RepairReserveVO(
+            String rsvtTypCd
+            , String rparTypCd
+            , String vin
+            , String carRgstNo
+            , String mdlCd
+            , String mdlNm
+            , String rsvtHopeDt
+            , String autoAmpmCd
+            , String hpNo
+            , String pckpAddr
+            , String autoSvc1
+            , String autoSvc2
+            , String autoSvc3
+            , String autoSvc4
+            , String rqrm
+            , String userNm){
+
+        this.rsvtTypCd = rsvtTypCd;
+        this.rparTypCd = rparTypCd;
+        this.vin = vin;
+        this.carRgstNo = carRgstNo;
+        this.mdlCd = mdlCd;
+        this.mdlNm = mdlNm;
+        this.rsvtHopeDt = rsvtHopeDt;
+        this.autoAmpmCd = autoAmpmCd;
+        this.hpNo = hpNo;
+        this.pckpAddr = pckpAddr;
+        this.autoSvc1 = autoSvc1;
+        this.autoSvc2 = autoSvc2;
+        this.autoSvc3 = autoSvc3;
+        this.autoSvc4 = autoSvc4;
+        this.rqrm = rqrm;
+        this.userNm = userNm;
+    }
+
+
+    //REQ-1009
+    public RepairReserveVO(
+            String rsvtTypCd
+            , String rparTypCd
+            , String vin
+            , String carRgstNo
+            , String mdlCd
+            , String mdlNm
+            , String rsvtHopeDt
+            , String hpNo
+            , String pckpDivCd
+            , String pckpAddr
+            , String dlvryAddr
+            , String rqrm
+            , String userNm){
+
+        this.rsvtTypCd = rsvtTypCd;
+        this.rparTypCd = rparTypCd;
+        this.vin = vin;
+        this.carRgstNo = carRgstNo;
+        this.mdlCd = mdlCd;
+        this.mdlNm = mdlNm;
+        this.rsvtHopeDt = rsvtHopeDt;
+        this.hpNo = hpNo;
+        this.pckpDivCd = pckpDivCd;
+        this.pckpAddr = pckpAddr;
+        this.dlvryAddr = dlvryAddr;
+        this.rqrm = rqrm;
+        this.userNm = userNm;
+    }
+
     @Expose
     @SerializedName("rparRsvtSeqNo")
     private String rparRsvtSeqNo;
@@ -131,8 +201,8 @@ class RepairReserveVO extends BaseData {
 
     //홈투홈 REQ-1009의 요청항목에서만 사용
     @Expose
-    @SerializedName("pkckDivCd")
-    private String pkckDivCd;
+    @SerializedName("pckpDivCd")
+    private String pckpDivCd;
 
 
     //홈투홈 REQ-1012의 요청항목에서만 사용

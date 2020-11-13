@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.service;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +14,13 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.RepairReserveVO;
 import com.genesis.apps.databinding.FragmentServiceBinding;
+import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -131,6 +138,34 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
 
 
         ((MainActivity) getActivity()).setGNB(false, false, 0, View.VISIBLE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_AUTOCARE.getCode()) {
+            //오토케어 서비스 예약 완료 시 페이지 이동
+            RepairReserveVO repairReserveVO = (RepairReserveVO) data.getSerializableExtra(KeyNames.KEY_NAME_SERVICE_RESERVE_INFO);
+            if (repairReserveVO != null) {
+                ((SubActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceAutocare4ResultActivity.class).putExtra(KeyNames.KEY_NAME_SERVICE_RESERVE_INFO, repairReserveVO)
+                        , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                        , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+            }
+        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_HOMETOHOME.getCode()) {
+            //홈투홈 서비스 예약 완료 시 페이지 이동
+            RepairReserveVO repairReserveVO = (RepairReserveVO) data.getSerializableExtra(KeyNames.KEY_NAME_SERVICE_RESERVE_INFO);
+            if (repairReserveVO != null) {
+                ((SubActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceHomeToHome4ResultActivity.class).putExtra(KeyNames.KEY_NAME_SERVICE_RESERVE_INFO, repairReserveVO)
+                        , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                        , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+            }
+        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REPAIR.getCode()) {
+            //todo 정비 서비스 예약 완료 시 페이지 이동
+
+        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REMOTE.getCode()) {
+            //todo 원격진단 서비스 예약 완료 시 페이지 이동
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
 

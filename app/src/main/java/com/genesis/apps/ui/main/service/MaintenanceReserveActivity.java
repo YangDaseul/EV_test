@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
@@ -27,8 +30,6 @@ import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.google.gson.Gson;
 
 import java.util.List;
-
-import androidx.lifecycle.ViewModelProvider;
 
 public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceReserveBinding> {
     private static final String TAG = MaintenanceReserveActivity.class.getSimpleName();
@@ -74,14 +75,22 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
                 showDialogRepairType(list);
                 break;
             case R.id.l_maintenance_autocare:
-                startActivitySingleTop(new Intent(this, ServiceAutocare2ApplyActivity.class).putExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE, selectRepairTypeVO.getRparTypCd()).putExtra(KeyNames.KEY_NAME_SERVICE_COUPON_LIST, new Gson().toJson(couponList)), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                startActivitySingleTop(new Intent(this, ServiceAutocare2ApplyActivity.class)
+                        .putExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE, selectRepairTypeVO.getRparTypCd())
+                        .putExtra(KeyNames.KEY_NAME_SERVICE_COUPON_LIST, new Gson().toJson(couponList))
+                        , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                        , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.l_maintenance_airport:
 
                 break;
             case R.id.l_maintenance_hometohome:
-
+                startActivitySingleTop(new Intent(this, ServiceHomeToHome2ApplyActivity.class)
+                        .putExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE, selectRepairTypeVO.getRparTypCd())
+                        , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                        , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
+
             case R.id.l_maintenance_repair:
 
                 MiddleDialog.dialogServiceCantReserveInfo(this, () -> {
@@ -291,6 +300,19 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
     private void setViewCategorySelect(){
         if(selectRepairTypeVO!=null)
             ui.tvMaintenanceCategorySelectBtn.setText(selectRepairTypeVO.getRparTypNm());
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //오토케어, 홈투홈, 원격진단, 정비 예약 완료 시 메인 서비스 프래그먼트에 CALLBACK 전달
+        if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_AUTOCARE.getCode()
+                || resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_HOMETOHOME.getCode()
+                || resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REPAIR.getCode()
+                || resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REMOTE.getCode()) {
+            exitPage(data, resultCode);
+        }
     }
 
 }

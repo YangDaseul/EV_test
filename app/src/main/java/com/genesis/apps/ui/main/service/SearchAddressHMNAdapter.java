@@ -39,14 +39,27 @@ public class SearchAddressHMNAdapter extends BaseRecyclerViewAdapter2<AddressVO>
         this.TYPE = type;
     }
 
-    public int getPosition(String addrRoad){
+    public int getPosition(AddressVO addressVO){
         int pos = -1;
         for (int i = 0; i < getItemCount(); i++) {
-            if (getItems().get(i).getAddrRoad().equalsIgnoreCase(addrRoad)) {
+            if(!TextUtils.isEmpty((getItems().get(i).getAddrRoad()))&&getItems().get(i).getAddrRoad().equalsIgnoreCase(addressVO.getAddrRoad())) {
                 pos = i;
                 break;
             }
         }
+
+        if(pos==-1){
+            for (int i = 0; i < getItemCount(); i++) {
+                if (!TextUtils.isEmpty((getItems().get(i).getAddr()))
+                        &&!TextUtils.isEmpty((getItems().get(i).getTitle()))
+                        &&getItems().get(i).getAddr().equalsIgnoreCase(addressVO.getAddr())
+                        &&getItems().get(i).getTitle().equalsIgnoreCase(addressVO.getTitle())) {
+                    pos = i;
+                    break;
+                }
+            }
+        }
+
         return pos;
     }
 

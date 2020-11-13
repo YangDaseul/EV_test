@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.ChangeBounds;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
+import dagger.hilt.android.AndroidEntryPoint;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
@@ -25,7 +26,9 @@ import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.CouponVO;
+import com.genesis.apps.comm.model.vo.RepairReserveVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
@@ -43,11 +46,17 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 /**
  * @author hjpark
  * @brief 차계부 입력
  */
+@AndroidEntryPoint
 public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAutocare2Apply1Binding> {
+
+    @Inject
+    public LoginInfoDTO loginInfoDTO;
 
     private REQViewModel reqViewModel;
     private VehicleVO mainVehicle;
@@ -57,15 +66,13 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
     private View[] views;
     private View[] edits;
 
-    private final String rsvtTypCd=VariableType.SERVICE_RESERVATION_TYPE_AUTOCARE; //에약유형코드
     private String rparTypCd; //정비내용코드
     private String rsvtHopeDt; //예약희망일자
     private String autoAmpmCd="A"; //오전오후구분코드
-
-
-    private List<CouponVO> couponVOList;
     private List<CouponVO> selectCouponList;
     private AddressVO addressVO;
+
+    private List<CouponVO> couponVOList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +106,13 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
 
     private void startMapView(){
         clearKeypad();
-        startActivitySingleTop(new Intent(this, MapSearchMyPositionActivity.class).putExtra(KeyNames.KEY_NAME_ADDR, addressVO).putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.sm_r_rsv02_01_10).putExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, R.string.sm_r_rsv02_01_11), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        startActivitySingleTop(new Intent(this
+                        ,MapSearchMyPositionActivity.class)
+                        .putExtra(KeyNames.KEY_NAME_ADDR, addressVO)
+                        .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.sm_r_rsv02_01_10)
+                        .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, R.string.sm_r_rsv02_01_11)
+                ,RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                ,VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
     @Override
@@ -171,15 +184,38 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
     private void doNext(){
         if(isValid()){
             clearKeypad();
-//            sosViewModel.reqSOS1002(new SOS_1002.Request(APPIAInfo.SM_EMGC01.getId(),
-//                    mainVehicle.getVin(),
-//                    ui.etCarRegNo.getText().toString().trim(),
-//                    mainVehicle.getMdlCd(),
-//                    fltCd,
-//                    areaClsCd,
-//                    ui.tvAddrInfo1.getText().toString().trim() +" "+ui.tvAddrInfo2.getText().toString().trim()+" "+ui.etAddrDtl.getText().toString().trim(),
-//                    addressVO.getCenterLat()+"",addressVO.getCenterLon()+"",ui.etCelPhNo.getText().toString().trim(),ui.etMemo.getText().toString().trim()));
+            moveToNextPage();
         }
+    }
+
+    /**
+     * @brief 3단계로 이동
+     */
+    private void moveToNextPage() {
+        RepairReserveVO repairReserveVO = new RepairReserveVO(
+                VariableType.SERVICE_RESERVATION_TYPE_AUTOCARE,
+                rparTypCd,
+                mainVehicle.getVin(),
+                mainVehicle.getCarRgstNo(),
+                mainVehicle.getMdlCd(),
+                mainVehicle.getMdlNm(),
+                rsvtHopeDt,
+                autoAmpmCd,
+                loginInfoDTO.getProfile()!=null ? loginInfoDTO.getProfile().getMobileNum() : "",
+                getAddress(addressVO)[0] + ui.etAddrDtl.getText().toString().trim(),
+                VariableType.COMMON_MEANS_YES, //엔진은 항상 선택
+                reqViewModel.getAutocareSelectCouponStatus(selectCouponList, VariableType.SERVICE_CAR_CARE_COUPON_CODE_WIPER),
+                reqViewModel.getAutocareSelectCouponStatus(selectCouponList, VariableType.SERVICE_CAR_CARE_COUPON_CODE_AC_FILTER),
+                reqViewModel.getAutocareSelectCouponStatus(selectCouponList, VariableType.SERVICE_CAR_CARE_COUPON_CODE_NAVIGATION),
+                "",
+                loginInfoDTO.getProfile()!=null ? loginInfoDTO.getProfile().getName() : "");
+
+
+        startActivitySingleTop(new Intent(this
+                        ,ServiceAutocare3CheckActivity.class)
+                        .putExtra(KeyNames.KEY_NAME_SERVICE_RESERVE_INFO, repairReserveVO)
+                ,RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                ,VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
 
@@ -423,9 +459,8 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
 //            ui.tvAddr.setTextAppearance(R.style.CommonInputItemEnable);
             ui.tvAddr.setTextColor(getColor(R.color.x_000000));
             ui.tvAddr.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
-            ui.tvAddr.setText(addressVO.getAddrRoad());
+            ui.tvAddr.setText(getAddress(addressVO)[0]);
             ui.tvTitleAddr.setVisibility(View.VISIBLE);
-            setViewAddrDetail();
             doTransition(2);
             return true;
         }
@@ -544,7 +579,10 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == ResultCodes.REQ_CODE_SERVICE_SOS_MAP.getCode()){
             addressVO = (AddressVO)data.getSerializableExtra(KeyNames.KEY_NAME_ADDR);
+            setViewAddrDetail();
             checkValidAddr();
+        }else if(resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_AUTOCARE.getCode()){
+            exitPage(data, ResultCodes.REQ_CODE_SERVICE_RESERVE_AUTOCARE.getCode());
         }
     }
 

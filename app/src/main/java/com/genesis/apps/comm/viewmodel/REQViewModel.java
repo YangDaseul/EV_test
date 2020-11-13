@@ -265,4 +265,25 @@ class REQViewModel extends ViewModel {
 
         return list;
     }
+
+    /**
+     * @brief 쿠폰 선택 결과 확인
+     *
+     * @param couponList
+     * @param itemDivCd
+     * @return
+     */
+    public String getAutocareSelectCouponStatus(List<CouponVO> couponList, String itemDivCd){
+
+        String retv=VariableType.COMMON_MEANS_NO;
+
+        for(CouponVO couponVO : couponList){
+            if(couponVO.getItemDivCd().equalsIgnoreCase(itemDivCd)){
+                retv = VariableType.COMMON_MEANS_YES;
+                break;
+            }
+        }
+
+        return retv;
+    }
 }
