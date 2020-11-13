@@ -26,7 +26,6 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
-import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ActivityServiceDriveReqBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.google.android.material.textfield.TextInputEditText;
@@ -90,6 +89,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                     FROM,
                     data,
                     ui.tvServiceDriveReqSearchFromAddressBtn,
+                    fromDetail,
                     R.string.service_drive_input_02,
                     new View[]{ui.tvServiceDriveReqFromTitle, fromDetailLayout, ui.tvServiceDriveReqNextBtn}
             );
@@ -101,6 +101,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                     TO,
                     data,
                     ui.tvServiceDriveReqSearchToAddressBtn,
+                    toDetail,
                     R.string.service_drive_input_04,
                     new View[]{ui.tvServiceDriveReqToTitle, toDetailLayout}
             );
@@ -150,7 +151,6 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     }
 
     private void onClickSearchAddressBtn(int where) {
-        //todo 포커스
         Intent intent = new Intent(this, MapSearchMyPositionActivity.class)
                 .putExtra(KeyNames.KEY_NAME_ADDR, addressVO[where])
                 .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, where == FROM ? R.string.service_drive_address_search_from_title : R.string.service_drive_address_search_to_title)
@@ -377,27 +377,38 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     /**
      * 검색된 주소를 화면에 출력
      *
-     * @param where      : 출발지/도착지 구분
-     * @param data       : 지도 액티비티에서 가져온 데이터
-     * @param addressBtn : 출발지 버튼/도착지 버튼 구분. 여기에 주소를 출력함.
-     * @param topMsgId   : 입력창 위에 있는 안내 메시지
-     * @param views      : 다음 단계 입력을 위해 해금해야 할 뷰
+     * @param where         : 출발지/도착지 구분
+     * @param data          : 지도 액티비티에서 가져온 데이터
+     * @param addressBtn    : 출발지 버튼/도착지 버튼 구분. 여기에 주소를 출력함.
+     * @param addressDetail : 출발지 버튼/도착지 세부주소 구분. 여기에 세부 주소를 출력함.
+     * @param topMsgId      : 입력창 위에 있는 안내 메시지
+     * @param views         : 다음 단계 입력을 위해 해금해야 할 뷰
      */
-    private void setAddressData(int where, Intent data, TextView addressBtn, int topMsgId, View[] views) {
+    private void setAddressData(int where, Intent data, TextView addressBtn, TextInputEditText addressDetail, int topMsgId, View[] views) {
         try {
             addressVO[where] = (AddressVO) data.getSerializableExtra(KeyNames.KEY_NAME_ADDR);
         } catch (Exception exception) {
-            Log.d(TAG, "setAddressData: 주소 데이터 없음");
+            Log.d(TAG, "setAddressData: 주소 데이터 인텐트 없음");
             return;
         }
 
-        //주소 얻기. 세부주소 있으면 세부주소 창에 반영까지 이 안에서 처리.
-        String address = extractAddress(where);
+        //주소 꺼내기. 도로명/지번 알아서 처리됨. [메인주소, 세부주소]로 리턴됨.
+        String[] address = getAddress(addressVO[where]);
+
+        if (TextUtils.isEmpty(address[0])) {
+            Log.d(TAG, "setAddressData: 주소 객체에 해당 데이터 없음");
+            return;
+        }
 
         //검색 버튼에 주소 입력하고 '값 있음' 스타일로 변경
-        addressBtn.setText(address);
+        addressBtn.setText(address[0]);
         addressBtn.setTextAppearance(R.style.ServiceDrive_SearchAddress_HasData);
         addressBtn.setBackground(getDrawable(R.drawable.ripple_bg_ffffff_stroke_141414));
+
+        //세부주소도 입력하고 입력 창에 포커스 주기
+        addressDetail.setText(address[1]);
+        addressDetail.requestFocus();
+        addressDetail.setSelection(addressDetail.length());
 
         //다음 단계 입력에 대한 안내 메시지
         ui.ivServiceDriveReqPleaseInputXxx.setText(topMsgId);
@@ -406,36 +417,6 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         for (View v : views) {
             v.setVisibility(View.VISIBLE);
         }
-    }
-
-    //주소 추출
-    //도로명 우선이긴 한데 없으면 지번 써야됨. 혼파망. 뭐가 들어있을 지 알 수 없으니 둘 다 검사
-    //세부주소 내용 있으면 세부주소 창에 반영
-    private String extractAddress(int where) {
-        String address = addressVO[where].getAddrRoad();//도로명 주소
-        String buildingName;
-
-        if (!TextUtils.isEmpty(address)) {          //도로명 주소 있음
-            buildingName = TextUtils.concat(        //세부주소 입력 창에 건물명 넣자. 없으면 말고
-                    addressVO[where].getTitle(),    //건물명(도로명일 때)
-                    addressVO[where].getCname()     //건물 동
-            ).toString();
-
-            if (!TextUtils.isEmpty(buildingName)) {
-                if (where == FROM) {
-                    fromDetail.setText(buildingName);
-                } else {
-                    toDetail.setText(buildingName);
-                }
-            }
-        } else {                                //도로명 없으면 지번주소 쓰자
-            address = TextUtils.concat(
-                    addressVO[where].getAddr(), //지번주소 '동'까지 나옴
-                    addressVO[where].getTitle() //번지 수(지번일 때)
-            ).toString();
-        }
-
-        return address;
     }
 
     //예상 가격 조회
