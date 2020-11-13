@@ -2,10 +2,10 @@ package com.genesis.apps.comm.model.repo;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.TestCode;
-import com.genesis.apps.comm.model.gra.APIInfo;
-import com.genesis.apps.comm.model.gra.api.NOT_0001;
-import com.genesis.apps.comm.model.gra.api.NOT_0002;
-import com.genesis.apps.comm.model.gra.api.NOT_0003;
+import com.genesis.apps.comm.model.api.APIInfo;
+import com.genesis.apps.comm.model.api.gra.NOT_0001;
+import com.genesis.apps.comm.model.api.gra.NOT_0002;
+import com.genesis.apps.comm.model.api.gra.NOT_0003;
 import com.genesis.apps.comm.model.vo.NotiInfoVO;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;

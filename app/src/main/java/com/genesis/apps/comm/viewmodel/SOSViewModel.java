@@ -6,27 +6,21 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
-import com.genesis.apps.comm.model.gra.api.SOS_1001;
-import com.genesis.apps.comm.model.gra.api.SOS_1002;
-import com.genesis.apps.comm.model.gra.api.SOS_1003;
-import com.genesis.apps.comm.model.gra.api.SOS_1004;
-import com.genesis.apps.comm.model.gra.api.SOS_1005;
-import com.genesis.apps.comm.model.gra.api.SOS_1006;
+import com.genesis.apps.comm.model.api.gra.SOS_1001;
+import com.genesis.apps.comm.model.api.gra.SOS_1002;
+import com.genesis.apps.comm.model.api.gra.SOS_1003;
+import com.genesis.apps.comm.model.api.gra.SOS_1004;
+import com.genesis.apps.comm.model.api.gra.SOS_1005;
+import com.genesis.apps.comm.model.api.gra.SOS_1006;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.SOSRepo;
-import com.genesis.apps.comm.model.vo.ExpnVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.stream.Collectors;
 
 import lombok.Data;
 

@@ -419,6 +419,12 @@
 
 
         <activity
+            android:name=".ui.main.service.ServiceAirport2ApplyActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+
+        <activity
             android:name=".ui.common.activity.test.TestActivity"
             android:exported="false"
             android:screenOrientation="portrait"

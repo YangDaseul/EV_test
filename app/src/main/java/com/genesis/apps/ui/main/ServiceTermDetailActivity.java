@@ -6,8 +6,6 @@ import android.text.TextUtils;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.comm.model.constants.ResultCodes;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.OIL_0004;
 import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.ui.common.activity.TermActivity;

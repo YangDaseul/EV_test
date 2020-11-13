@@ -4,24 +4,22 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.TestCode;
-import com.genesis.apps.comm.model.gra.APIInfo;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.MYP_0001;
-import com.genesis.apps.comm.model.gra.api.MYP_0004;
-import com.genesis.apps.comm.model.gra.api.MYP_0005;
-import com.genesis.apps.comm.model.gra.api.MYP_1003;
-import com.genesis.apps.comm.model.gra.api.MYP_1005;
-import com.genesis.apps.comm.model.gra.api.MYP_1006;
-import com.genesis.apps.comm.model.gra.api.MYP_2001;
-import com.genesis.apps.comm.model.gra.api.MYP_2002;
-import com.genesis.apps.comm.model.gra.api.MYP_2003;
-import com.genesis.apps.comm.model.gra.api.MYP_2004;
-import com.genesis.apps.comm.model.gra.api.MYP_2005;
-import com.genesis.apps.comm.model.gra.api.MYP_2006;
-import com.genesis.apps.comm.model.gra.api.MYP_8001;
-import com.genesis.apps.comm.model.gra.api.MYP_8004;
-import com.genesis.apps.comm.model.gra.api.MYP_8005;
-import com.genesis.apps.comm.model.vo.TermVO;
+import com.genesis.apps.comm.model.api.APIInfo;
+import com.genesis.apps.comm.model.api.gra.MYP_0001;
+import com.genesis.apps.comm.model.api.gra.MYP_0004;
+import com.genesis.apps.comm.model.api.gra.MYP_0005;
+import com.genesis.apps.comm.model.api.gra.MYP_1003;
+import com.genesis.apps.comm.model.api.gra.MYP_1005;
+import com.genesis.apps.comm.model.api.gra.MYP_1006;
+import com.genesis.apps.comm.model.api.gra.MYP_2001;
+import com.genesis.apps.comm.model.api.gra.MYP_2002;
+import com.genesis.apps.comm.model.api.gra.MYP_2003;
+import com.genesis.apps.comm.model.api.gra.MYP_2004;
+import com.genesis.apps.comm.model.api.gra.MYP_2005;
+import com.genesis.apps.comm.model.api.gra.MYP_2006;
+import com.genesis.apps.comm.model.api.gra.MYP_8001;
+import com.genesis.apps.comm.model.api.gra.MYP_8004;
+import com.genesis.apps.comm.model.api.gra.MYP_8005;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.net.NetResultCallback;
@@ -30,8 +28,6 @@ import com.genesis.apps.ui.myg.MyGTermsActivity;
 import com.google.gson.Gson;
 
 import javax.inject.Inject;
-
-import static com.genesis.apps.ui.myg.MyGTermsActivity.TERMS_4000;
 
 public class MYPRepo {
 

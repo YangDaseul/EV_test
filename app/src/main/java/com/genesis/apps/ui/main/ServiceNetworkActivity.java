@@ -9,23 +9,28 @@ import android.view.View;
 import android.view.ViewStub;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.roadwin.CheckPrice;
+import com.genesis.apps.comm.model.api.roadwin.ServiceAreaCheck;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.BTR_1008;
-import com.genesis.apps.comm.model.gra.api.BTR_1009;
-import com.genesis.apps.comm.model.gra.api.REQ_1002;
-import com.genesis.apps.comm.model.gra.api.REQ_1003;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.BTR_1008;
+import com.genesis.apps.comm.model.api.gra.BTR_1009;
+import com.genesis.apps.comm.model.api.gra.REQ_1002;
+import com.genesis.apps.comm.model.api.gra.REQ_1003;
+import com.genesis.apps.comm.model.repo.RoadWinRepo;
 import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.BTRViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.PUBViewModel;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
+import com.genesis.apps.comm.viewmodel.RoadWinViewModel;
 import com.genesis.apps.databinding.ActivityMap2Binding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomSelectBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
@@ -42,6 +47,7 @@ import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 /**
  * @brief 서비스 네트워크
@@ -372,7 +378,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 break;
             case R.id.tv_map_title_text:
                 showFragment(new BluehandsFilterFragment());
-//                startActivitySingleTop(new Intent(this, BtrBluehandsFilterActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
         }
 

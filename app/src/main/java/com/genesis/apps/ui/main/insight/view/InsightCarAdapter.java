@@ -5,8 +5,6 @@ import android.text.Spannable;
 import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.StyleSpan;
-import android.text.style.TypefaceSpan;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
@@ -16,8 +14,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.LGN_0005;
 import com.genesis.apps.comm.model.vo.ISTAmtVO;
 import com.genesis.apps.comm.util.CustomTypefaceSpan;
 import com.genesis.apps.comm.util.DeviceUtil;
@@ -29,22 +25,14 @@ import com.genesis.apps.databinding.ItemInsightCarEmptyBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
-import com.genesis.apps.ui.main.MainActivity;
-import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Comparator;
-
-import static android.graphics.Paint.Style.FILL;
-import static com.github.mikephil.charting.components.LimitLine.LimitLabelPosition.RIGHT_BOTTOM;
-import static com.github.mikephil.charting.components.LimitLine.LimitLabelPosition.RIGHT_TOP;
 
 
 public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {

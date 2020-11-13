@@ -2,43 +2,25 @@ package com.genesis.apps.ui.main.service;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
-import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.GNS_1012;
-import com.genesis.apps.comm.model.gra.api.GNS_1013;
-import com.genesis.apps.comm.model.gra.api.GNS_1014;
-import com.genesis.apps.comm.model.gra.api.GNS_1015;
-import com.genesis.apps.comm.model.gra.api.SOS_1001;
-import com.genesis.apps.comm.model.gra.api.SOS_1004;
-import com.genesis.apps.comm.model.gra.api.SOS_1005;
-import com.genesis.apps.comm.model.gra.api.SOS_1006;
-import com.genesis.apps.comm.model.vo.AddressZipVO;
-import com.genesis.apps.comm.model.vo.RentStatusVO;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.SOS_1001;
+import com.genesis.apps.comm.model.api.gra.SOS_1004;
+import com.genesis.apps.comm.model.api.gra.SOS_1005;
 import com.genesis.apps.comm.model.vo.SOSStateVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
-import com.genesis.apps.comm.viewmodel.GNSViewModel;
 import com.genesis.apps.comm.viewmodel.SOSViewModel;
-import com.genesis.apps.databinding.ActivityLeasingCarHistDetailBinding;
 import com.genesis.apps.databinding.ActivityServiceSosApplyInfoBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
-import com.genesis.apps.ui.main.home.LeasingCarVinRegisterActivity;
-import com.genesis.apps.ui.main.home.SearchAddressActivity;
-
-import java.util.Locale;
 
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_SOS_AREA_CLS_CODE_H;

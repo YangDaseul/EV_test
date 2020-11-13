@@ -2,7 +2,6 @@ package com.genesis.apps.comm.model.repo;
 
 import android.text.TextUtils;
 
-import com.genesis.apps.comm.model.gra.api.OIL_0001;
 import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.net.NetUIResponse;

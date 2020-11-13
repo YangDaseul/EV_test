@@ -1,6 +1,6 @@
 package com.genesis.apps.comm.viewmodel;
 
-import com.genesis.apps.comm.model.gra.api.WRT_1001;
+import com.genesis.apps.comm.model.api.gra.WRT_1001;
 import com.genesis.apps.comm.model.repo.WRTRepo;
 import com.genesis.apps.comm.net.NetUIResponse;
 

@@ -1,10 +1,10 @@
 package com.genesis.apps.comm.viewmodel;
 
-import com.genesis.apps.comm.model.gra.api.OIL_0001;
-import com.genesis.apps.comm.model.gra.api.OIL_0002;
-import com.genesis.apps.comm.model.gra.api.OIL_0003;
-import com.genesis.apps.comm.model.gra.api.OIL_0004;
-import com.genesis.apps.comm.model.gra.api.OIL_0005;
+import com.genesis.apps.comm.model.api.gra.OIL_0001;
+import com.genesis.apps.comm.model.api.gra.OIL_0002;
+import com.genesis.apps.comm.model.api.gra.OIL_0003;
+import com.genesis.apps.comm.model.api.gra.OIL_0004;
+import com.genesis.apps.comm.model.api.gra.OIL_0005;
 import com.genesis.apps.comm.model.repo.OILRepo;
 import com.genesis.apps.comm.net.NetUIResponse;
 

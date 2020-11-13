@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.BaseResponse;
-import com.genesis.apps.comm.model.gra.api.WSH_1004;
-import com.genesis.apps.comm.model.gra.api.WSH_1005;
-import com.genesis.apps.comm.model.gra.api.WSH_1006;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.BaseResponse;
+import com.genesis.apps.comm.model.api.gra.WSH_1004;
+import com.genesis.apps.comm.model.api.gra.WSH_1005;
+import com.genesis.apps.comm.model.api.gra.WSH_1006;
 import com.genesis.apps.comm.model.vo.WashReserveVO;
 import com.genesis.apps.comm.util.PhoneUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;

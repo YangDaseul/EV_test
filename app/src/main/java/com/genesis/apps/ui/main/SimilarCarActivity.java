@@ -4,28 +4,18 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.MYP_8005;
-import com.genesis.apps.comm.model.gra.api.STO_1001;
-import com.genesis.apps.comm.model.vo.NotiVO;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.STO_1001;
 import com.genesis.apps.comm.model.vo.SimilarVehicleVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
-import com.genesis.apps.comm.viewmodel.MYPViewModel;
-import com.genesis.apps.databinding.ActivityNotiListBinding;
 import com.genesis.apps.databinding.ActivitySimilarCarBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.myg.view.NotiAccodianRecyclerAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @author hjpark

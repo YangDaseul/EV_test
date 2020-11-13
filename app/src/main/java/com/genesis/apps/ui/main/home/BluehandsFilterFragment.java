@@ -14,17 +14,15 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.PUB_1002;
-import com.genesis.apps.comm.model.gra.api.PUB_1003;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.PUB_1002;
+import com.genesis.apps.comm.model.api.gra.PUB_1003;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.PUBViewModel;
 import com.genesis.apps.databinding.FragmentBluehandsFilterBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
-import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 
 import java.util.List;
 

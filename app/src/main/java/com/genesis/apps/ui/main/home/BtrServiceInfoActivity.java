@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.BTR_1010;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.BTR_1010;
 import com.genesis.apps.comm.viewmodel.BTRViewModel;
 import com.genesis.apps.ui.common.activity.HtmlActivity;
 

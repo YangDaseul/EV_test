@@ -3,7 +3,7 @@ package com.genesis.apps.comm.net;
 import android.text.TextUtils;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.gra.APIInfo;
+import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.net.ga.GA;
 import com.genesis.apps.comm.model.constants.GAInfo;
 import com.genesis.apps.comm.net.model.BeanReqParm;
@@ -20,6 +20,7 @@ import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 import java.io.File;
 import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
@@ -221,6 +222,90 @@ public class NetCaller {
             }
         }, es.getUiThreadExecutor());
     }
+
+
+
+    /**
+     * @brief ETC API Request
+     * ETC 서버에 데이터 요청 시 사용되며
+     * 데이터 결과는 JsonObject를 String으로 변환해서 callback에 전달
+     *
+     * @param callback network result callback
+     * @param apiInfo request API Infomation
+     * @param reqVO request data
+     * @param <REQ> request data format
+     */
+    public <REQ>void reqDataFromAnonymous(NetResultCallback callback,String serverDomain, APIInfo apiInfo, REQ reqVO) {
+        ExecutorService es = new ExecutorService("");
+        Futures.addCallback(es.getListeningExecutorService().submit(() -> {
+            JsonObject jsonObject = null;
+            try {
+                String serverUrl = serverDomain + apiInfo.getURI();
+                switch (apiInfo.getReqType()) {
+                    case HttpRequest.METHOD_GET:
+                        if(reqVO!=null) {
+                            Map<String, Object> map = new Gson().fromJson(
+                                    new Gson().toJson(reqVO), new TypeToken<HashMap<String, Object>>() {
+                                    }.getType());
+                            jsonObject = httpRequestUtil.getData(serverUrl, map);
+                        }else{
+                            jsonObject = httpRequestUtil.getData(serverUrl);
+                        }
+                        break;
+                    case HttpRequest.METHOD_PUT:
+                        jsonObject = httpRequestUtil.sendPut(serverUrl, new Gson().toJson(reqVO));
+                        break;
+                    case HttpRequest.METHOD_POST:
+                        jsonObject = ga.postDataWithAccessToken(serverUrl, new Gson().toJson(reqVO));
+//                       jsonObject = httpRequestUtil.send(serverUrl, new Gson().toJson(reqVO));
+                        break;
+                    default:
+                        break;
+                }
+
+                if (jsonObject != null && !TextUtils.isEmpty(jsonObject.toString())) {
+                    return new NetResult(NetStatusCode.SUCCESS, 0, jsonObject);
+                } else {
+                    return new NetResult(NetStatusCode.ERR_DATA_NULL, R.string.error_msg_1, null);
+                }
+            } catch (HttpRequest.HttpRequestException e) {
+                e.printStackTrace();
+                return new NetResult(NetStatusCode.ERR_EXCEPTION_HTTP, R.string.error_msg_2, null);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+                return new NetResult(NetStatusCode.ERR_EXCEPTION_UNKNOWN, R.string.error_msg_3, null);
+            }
+
+        }), new FutureCallback<NetResult>() {
+            @Override
+            public void onSuccess(@NullableDecl NetResult result) {
+                switch (result.getCode()) {
+                    case SUCCESS:
+                        callback.onSuccess(((JsonObject) result.getData()).toString());
+                        break;
+                    case ERR_EXCEPTION_DKC:
+                    case ERR_EXCEPTION_HTTP:
+                    case ERR_EXCEPTION_UNKNOWN:
+                    case ERR_DATA_NULL:
+                    case ERR_ISSUE_SOURCE:
+                    case ERR_DATA_INCORRECT:
+                    default:
+                        callback.onFail(result);
+                        break;
+                }
+                es.shutDownExcutor();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                callback.onError(new NetResult(NetStatusCode.ERR_ISSUE_SOURCE, R.string.error_msg_4, t));
+                es.shutDownExcutor();
+            }
+        }, es.getUiThreadExecutor());
+    }
+
+
+
 
 
 

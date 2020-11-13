@@ -17,15 +17,14 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.CTT_1001;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.CTT_1001;
 import com.genesis.apps.comm.model.vo.ContentsVO;
 import com.genesis.apps.comm.viewmodel.CTTViewModel;
 import com.genesis.apps.databinding.FragmentContentsBinding;
 import com.genesis.apps.ui.common.activity.WebviewActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
-import com.genesis.apps.ui.main.home.MyCarActivity;
 
 import java.util.ArrayList;
 import java.util.List;

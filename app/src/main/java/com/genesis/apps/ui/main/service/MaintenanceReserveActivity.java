@@ -14,9 +14,9 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.REQ_1004;
-import com.genesis.apps.comm.model.gra.api.REQ_1005;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.REQ_1004;
+import com.genesis.apps.comm.model.api.gra.REQ_1005;
 import com.genesis.apps.comm.model.vo.CouponVO;
 import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
@@ -82,7 +82,10 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
                         , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.l_maintenance_airport:
-
+                startActivitySingleTop(new Intent(this, ServiceAirport2ApplyActivity.class)
+                        .putExtra(KeyNames.KEY_NAME_VEHICLE_VO, mainVehicle)
+                        , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                        , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.l_maintenance_hometohome:
                 startActivitySingleTop(new Intent(this, ServiceHomeToHome2ApplyActivity.class)

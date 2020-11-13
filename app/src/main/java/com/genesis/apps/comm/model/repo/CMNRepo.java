@@ -4,12 +4,11 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.TestCode;
-import com.genesis.apps.comm.model.gra.APIInfo;
-import com.genesis.apps.comm.model.gra.api.BAR_1001;
-import com.genesis.apps.comm.model.gra.api.CMN_0001;
-import com.genesis.apps.comm.model.gra.api.CMN_0002;
-import com.genesis.apps.comm.model.gra.api.CMN_0003;
-import com.genesis.apps.comm.model.gra.api.CMN_0004;
+import com.genesis.apps.comm.model.api.APIInfo;
+import com.genesis.apps.comm.model.api.gra.CMN_0001;
+import com.genesis.apps.comm.model.api.gra.CMN_0002;
+import com.genesis.apps.comm.model.api.gra.CMN_0003;
+import com.genesis.apps.comm.model.api.gra.CMN_0004;
 import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;

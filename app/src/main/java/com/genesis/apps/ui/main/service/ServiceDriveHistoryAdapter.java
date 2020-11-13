@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.gra.api.DDS_1001;
+import com.genesis.apps.comm.model.api.gra.DDS_1001;
 import com.genesis.apps.comm.model.vo.DriveServiceVO;
 import com.genesis.apps.comm.model.vo.PositionVO;
 import com.genesis.apps.comm.util.DateUtil;

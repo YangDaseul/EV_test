@@ -6,12 +6,12 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
-import com.genesis.apps.comm.model.gra.api.CBK_1001;
-import com.genesis.apps.comm.model.gra.api.CBK_1002;
-import com.genesis.apps.comm.model.gra.api.CBK_1005;
-import com.genesis.apps.comm.model.gra.api.CBK_1006;
-import com.genesis.apps.comm.model.gra.api.CBK_1007;
-import com.genesis.apps.comm.model.gra.api.CBK_1008;
+import com.genesis.apps.comm.model.api.gra.CBK_1001;
+import com.genesis.apps.comm.model.api.gra.CBK_1002;
+import com.genesis.apps.comm.model.api.gra.CBK_1005;
+import com.genesis.apps.comm.model.api.gra.CBK_1006;
+import com.genesis.apps.comm.model.api.gra.CBK_1007;
+import com.genesis.apps.comm.model.api.gra.CBK_1008;
 import com.genesis.apps.comm.model.repo.CBKRepo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.vo.ExpnVO;

@@ -2,24 +2,16 @@ package com.genesis.apps.comm.viewmodel;
 
 import androidx.hilt.Assisted;
 import androidx.hilt.lifecycle.ViewModelInject;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-import com.genesis.apps.comm.model.gra.api.PUB_1001;
-import com.genesis.apps.comm.model.gra.api.PUB_1002;
-import com.genesis.apps.comm.model.gra.api.PUB_1003;
-import com.genesis.apps.comm.model.gra.api.BTR_1010;
-import com.genesis.apps.comm.model.gra.api.BTR_2001;
-import com.genesis.apps.comm.model.gra.api.BTR_2002;
-import com.genesis.apps.comm.model.gra.api.BTR_2003;
-import com.genesis.apps.comm.model.repo.BTRRepo;
+import com.genesis.apps.comm.model.api.gra.PUB_1001;
+import com.genesis.apps.comm.model.api.gra.PUB_1002;
+import com.genesis.apps.comm.model.api.gra.PUB_1003;
 import com.genesis.apps.comm.model.repo.PUBRepo;
 import com.genesis.apps.comm.model.vo.AddressCityVO;
 import com.genesis.apps.comm.model.vo.AddressGuVO;
-import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 
 import java.util.ArrayList;
