@@ -13,7 +13,6 @@ import com.genesis.apps.R;
 import com.genesis.apps.databinding.DialogBottomSonaxBranchBinding;
 
 public class BottomDialogInputBranchCode extends BaseBottomDialog<DialogBottomSonaxBranchBinding> {
-    //todo 레이아웃에는 하드코딩 돼 있으니 혹시 수정하게 되면 같이 수정
     private static final int BRANCH_CODE_MAX_LENGTH = 8;
 
     private String branchCode;
@@ -29,6 +28,8 @@ public class BottomDialogInputBranchCode extends BaseBottomDialog<DialogBottomSo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_bottom_sonax_branch);
         setAllowOutTouch(true);
+
+        ui.setMaxLength(BRANCH_CODE_MAX_LENGTH);
 
         ui.etSonaxBranchNo.addTextChangedListener(new TextWatcher() {
             @Override
@@ -49,7 +50,7 @@ public class BottomDialogInputBranchCode extends BaseBottomDialog<DialogBottomSo
 
         //입력창 초기 값은 서버에서 준 값
         ui.etSonaxBranchNo.setText(branchCode);
-        
+
         ui.etSonaxBranchNo.selectAll();
 
         ui.etSonaxBranchNo.setOnEditorActionListener((textView, actionId, keyEvent) -> {

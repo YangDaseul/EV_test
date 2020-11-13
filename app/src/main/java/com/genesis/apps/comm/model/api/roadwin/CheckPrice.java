@@ -14,6 +14,10 @@ import lombok.EqualsAndHashCode;
  * @Brief 가격정보
  */
 public class CheckPrice extends BaseData {
+    public static final String RST_CODE_POSSIBLE = "0";
+    public static final String RST_CODE_IMPOSSIBLE = "1";
+    public static final String RST_SVC_TYPE_D = "D";//대리
+    public static final String RST_SVC_TYPE_T = "T";//탁송
 
     /**
      * @author hjpark

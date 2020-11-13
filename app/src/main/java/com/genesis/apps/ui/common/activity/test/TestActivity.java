@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.genesis.apps.R;
-import com.genesis.apps.databinding.ActivityServiceDriveReq1Binding;
-import com.genesis.apps.databinding.ActivityServiceReviewBinding;
 import com.genesis.apps.databinding.DialogBottomNowOrReserveBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 

@@ -2,12 +2,16 @@
     <string name="service_drive_01">신청 내역</string>
 
     <!-- 지도 -->
-    <string name="service_drive_map_title">대리운전 출발지를 검색하세요.</string>
-    <string name="service_drive_address_search_title">대리운전 출발지입력</string>
-    <string name="service_drive_address_search_msg">출발지 주소를\n검색해 주세요.</string>
+    <string name="service_drive_map_from_title">대리운전 출발지를 검색하세요.</string>
+    <string name="service_drive_address_search_from_title">대리운전 출발지 입력</string>
+    <string name="service_drive_address_search_from_msg">출발지 주소를\n검색해 주세요.</string>
+    <string name="service_drive_map_to_title">대리운전 도착지를 검색하세요.</string>
+    <string name="service_drive_address_search_to_title">대리운전 도착지 입력</string>
+    <string name="service_drive_address_search_to_msg">도착지 주소를\n검색해 주세요.</string>
 
 
     <!-- 신청 정보 입력 -->
+    <string name="service_drive_input_00">필수 입력 사항입니다.</string>
     <string name="service_drive_input_01">출발지 주소를\n입력해 주세요.</string>
     <string name="service_drive_input_02">출발지 상세 주소를\n입력해 주세요.</string>
     <string name="service_drive_input_03">도착지 주소를\n입력해 주세요.</string>

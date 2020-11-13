@@ -75,16 +75,14 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
                 String oldBrnhCd = tag.getBrnhCd();
 
                 final BottomDialogInputBranchCode inputBranchCodeDialog = new BottomDialogInputBranchCode(this, oldBrnhCd, R.style.BottomSheetDialogTheme);
-                inputBranchCodeDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
-                        if (inputBranchCodeDialog.isInputConfirmed()) {
-                            itemPosition = (int) v.getTag(R.id.item_position); //결과 처리할 곳에서 쓰기 위해 저장
-                            String newBrnhCd = inputBranchCodeDialog.getBranchCode();
-                            viewModel.reqWSH1005(new WSH_1005.Request(APPIAInfo.SM_CW01_P02.getId(), rsvtSeqNo, newBrnhCd));
-                        }
-                    }
-                });
+                inputBranchCodeDialog.setOnDismissListener(
+                        dialogInterface -> {
+                            if (inputBranchCodeDialog.isInputConfirmed()) {
+                                itemPosition = (int) v.getTag(R.id.item_position); //결과 처리할 곳에서 쓰기 위해 저장
+                                String newBrnhCd = inputBranchCodeDialog.getBranchCode();
+                                viewModel.reqWSH1005(new WSH_1005.Request(APPIAInfo.SM_CW01_P02.getId(), rsvtSeqNo, newBrnhCd));
+                            }
+                        });
                 inputBranchCodeDialog.show();
                 break;
 

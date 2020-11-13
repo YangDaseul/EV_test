@@ -16,13 +16,13 @@ import lombok.EqualsAndHashCode;
  * @Brief Genesis + 대리운전 취소 요청
  */
 public class ServiceAreaCheck extends BaseData {
+    public static final String RSP_CODE_POSSIBLE = "1";
 
     /**
      * @author hjpark
      * @brief ServiceAreaCheck 요청 항목
      * @see #latitude 위도
      * @see #longitude 경도
-
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -44,7 +44,6 @@ public class ServiceAreaCheck extends BaseData {
     /**
      * @author hjpark
      * @brief ServiceAreaCheck 응답 항목
-     *
      * @Ssee #rspCode 1 가능, 그 외 불가능
      */
     @EqualsAndHashCode(callSuper = true)

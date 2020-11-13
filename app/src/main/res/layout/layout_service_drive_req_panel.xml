@@ -41,29 +41,41 @@
             app:layout_constraintVertical_chainStyle="packed"
             tools:text="123너 6456" />
 
-        <!-- 로딩중/예상가격/서비스불가안내 등  -->
-        <!-- layout_service_req_loading
-             layout_service_req_price
-             layout_service_req_cant_service
-             layout_service_req_retry  -->
-        <ViewStub
-            android:id="@+id/vs_service_req_status"
+        <!-- 로딩중/예상가격/에러표시
+             visibility 조작으로 이들 중 한 개만 보이도록 선별함. -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inflatedId="@+id/vs_service_req_status"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <!--     미리보기용 임시 뷰 : ViewStub은 xml미리보기가 안 돼서 -->
-        <!--    <include-->
-        <!--        layout="@layout/layout_service_req_price"-->
-        <!--        android:layout_width="wrap_content"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:layout_marginEnd="20dp"-->
-        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--        app:layout_constraintEnd_toEndOf="parent"-->
-        <!--        app:layout_constraintTop_toTopOf="parent" />-->
+            <!-- 로딩중 -->
+            <include
+                android:id="@+id/l_service_drive_req_loading"
+                layout="@layout/layout_service_drive_req_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <!-- 예상 가격 -->
+            <include
+                android:id="@+id/l_service_drive_req_price"
+                layout="@layout/layout_service_drive_req_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <!-- 재시도 -->
+            <include
+                android:id="@+id/l_service_drive_req_retry"
+                layout="@layout/layout_service_drive_req_retry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

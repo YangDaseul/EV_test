@@ -3,6 +3,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="maxLength"
+            type="int" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,7 +40,7 @@
             app:boxStrokeColor="@color/x_141414"
             app:boxStrokeErrorColor="@color/x_ba544d"
             app:counterEnabled="true"
-            app:counterMaxLength="8"
+            app:counterMaxLength="@{maxLength}"
             app:endIconMode="clear_text"
             app:errorEnabled="true"
             app:errorIconTint="@color/x_ba544d"
