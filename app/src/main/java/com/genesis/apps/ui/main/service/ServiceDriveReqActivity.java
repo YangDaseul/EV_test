@@ -28,6 +28,7 @@ import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ActivityServiceDriveReqBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.bottom.BottomDialogReqNowOrReserve;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -322,12 +323,11 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         Log.d(TAG, "onClickNextBtn: " + work);
 
         switch (work) {
-            //입력 미비 : 예상 가격에 저장된 값 삭제.
+            //입력 미비
             // 1) 출발지 주소 입력됐고 세부주소 안 적음(도착지 주소 잠긴 상태).
             // 2) 출발지 및 도착지 주소 입력됐고 세부주소 둘 중에 하나 이상 빈칸.
             // 3) 예상가격 조회 시도 후에 세부주소를 지운 경우도 여기로 떨어짐(  [2)]와 같은 판정  ).
             case NEXT_BTN_LACK_INPUT:
-                priceMaybe = null;
                 showStatus(STATUS_GONE);
                 break;
 
@@ -344,11 +344,9 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                 askPrice();
                 break;
 
+            //신청 대화상자 호출
             case NEXT_BTN_REQ_SERVICE:
-                //todo : 지금할래, 예약할래 대화상자 호출
-                // 만들어야 됨... 레이아웃만 있음
-                // R.layout.dialog_bottom_now_or_reserve 보드 167쪽
-
+                showReqDialog();
                 break;
 
             default:
@@ -491,8 +489,30 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
         //todo 위에 두 옵저버 오류 공통 [ changeStateToError() ]
         //TODO TEST 임시로 3초 뒤에 실패상태로 진입하도록 함
-        new Handler().postDelayed(this::changeStateToError, 3000);
+        //      재시도하면 가격이 생김
+        new Handler().postDelayed(() -> {
+//                changeStateToError();
+                changeStateToPriceMaybe("30000");
+        }, 3000);
         //
+    }
+
+    //지금 부를래, 예약할래? 대화상자 호출
+    private void showReqDialog() {
+        final BottomDialogReqNowOrReserve reqDialog = new BottomDialogReqNowOrReserve(
+                this,
+                mainVehicle,
+                priceMaybe,
+                R.style.BottomSheetDialogTheme);
+
+        reqDialog.setOnDismissListener(
+                dialogInterface -> {
+                    if (reqDialog.isInputConfirmed()) {
+
+                    }
+                });
+
+        reqDialog.show();
     }
 
     private void changeStateToLoading() {
@@ -563,6 +583,8 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                 break;
 
             case STATUS_GONE:
+                priceMaybe = null;
+                //not break;
             default:
                 //do nothing
                 //브레이크 말고 리턴
