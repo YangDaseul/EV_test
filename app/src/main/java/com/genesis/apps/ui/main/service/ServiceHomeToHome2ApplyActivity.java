@@ -111,24 +111,24 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
                 , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
-//    //스피너를 선택하거나 doTranstion이 발생될 떄 ..
-    private void setViewPckpDivCd(){
-        switch (pckpDivCd){
-            case VariableType.SERVICE_HOMETOHOME_PCKP_DIV_CD_PICKUP:
-                ui.lDlvryAddr.setVisibility(View.GONE);
-                ui.lDlvryAddrDtl.setVisibility(View.GONE);
-                ui.cbPckp.setVisibility(View.VISIBLE);
-                break;
-            case VariableType.SERVICE_HOMETOHOME_PCKP_DIV_CD_DELIVERY:
-                ui.lPckpAddr.setVisibility(View.GONE);
-                ui.lPckpAddrDtl.setVisibility(View.GONE);
-                ui.cbPckp.setVisibility(View.GONE);
-                break;
-            default:
-                ui.cbPckp.setVisibility(View.VISIBLE);
-                break;
-        }
-    }
+////    //스피너를 선택하거나 doTranstion이 발생될 떄 ..
+//    private void setViewPckpDivCd(){
+//        switch (pckpDivCd){
+//            case VariableType.SERVICE_HOMETOHOME_PCKP_DIV_CD_PICKUP:
+//                ui.lDlvryAddr.setVisibility(View.GONE);
+//                ui.lDlvryAddrDtl.setVisibility(View.GONE);
+//                ui.cbPckp.setVisibility(View.VISIBLE);
+//                break;
+//            case VariableType.SERVICE_HOMETOHOME_PCKP_DIV_CD_DELIVERY:
+//                ui.lPckpAddr.setVisibility(View.GONE);
+//                ui.lPckpAddrDtl.setVisibility(View.GONE);
+//                ui.cbPckp.setVisibility(View.GONE);
+//                break;
+//            default:
+//                ui.cbPckp.setVisibility(View.VISIBLE);
+//                break;
+//        }
+//    }
 
 
 
@@ -211,8 +211,8 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
                 rsvtHopeDt,
                 loginInfoDTO.getProfile() != null ? loginInfoDTO.getProfile().getMobileNum() : "",
                 pckpDivCd,
-                getAddress(pckpAddressVO)[0] +"\n"+ui.etPckpAddrDtl.getText().toString().trim(),
-                getAddress(dlvryAddressVO)[0] +"\n"+ui.etDlvryAddrDtl.getText().toString().trim(),
+                getAddress(pckpAddressVO)[0] + (TextUtils.isEmpty(ui.etPckpAddrDtl.getText().toString().trim()) ? "" : ("\n"+ui.etPckpAddrDtl.getText().toString().trim())),
+                getAddress(dlvryAddressVO)[0] + (TextUtils.isEmpty(ui.etDlvryAddrDtl.getText().toString().trim()) ? "" : ("\n"+ui.etDlvryAddrDtl.getText().toString().trim())),
                 "",
                 loginInfoDTO.getProfile() != null ? loginInfoDTO.getProfile().getName() : "");
 
@@ -287,30 +287,36 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
             } else if (pos == views.length - 1) {
                 selectCalendar();
             }
-
-            setViewPckpDivCd();
         }else{
             switch (pckpDivCd){
                 case VariableType.SERVICE_HOMETOHOME_PCKP_DIV_CD_PICKUP_DELIVERY:
-                    if(views[5].getVisibility() == View.VISIBLE){
+                    if(views[5].getVisibility() == View.VISIBLE){//이미 희망일 지정하는 부분이 visible 된 상태 일때 픽업+딜리버리로 변경 시.
                         ui.lDlvryAddr.setVisibility(View.VISIBLE);
                         ui.lDlvryAddrDtl.setVisibility(View.VISIBLE);
-                        ui.lPckpAddr.setVisibility(View.VISIBLE);
-                        ui.lPckpAddrDtl.setVisibility(View.VISIBLE);
-                    }else if(views[4].getVisibility() == View.VISIBLE){
-                        ui.lDlvryAddr.setVisibility(View.VISIBLE);
-                        ui.lPckpAddr.setVisibility(View.VISIBLE);
-                        ui.lPckpAddrDtl.setVisibility(View.VISIBLE);
-                    } else if (views[3].getVisibility() == View.VISIBLE) {
-                        ui.lPckpAddr.setVisibility(View.VISIBLE);
-                        ui.lPckpAddrDtl.setVisibility(View.VISIBLE);
-                    } else if (views[2].getVisibility() == View.VISIBLE) {
-                        ui.lPckpAddr.setVisibility(View.VISIBLE);
+                    }
+                    break;
+                case VariableType.SERVICE_HOMETOHOME_PCKP_DIV_CD_PICKUP:
+                    if(views[5].getVisibility() == View.VISIBLE
+                            ||views[4].getVisibility() == View.VISIBLE
+                            ||views[3].getVisibility() == View.VISIBLE){//이미 희망일 지정하는 부분이 visible 된 상태 일때 픽업+딜리버리로 변경 시.
+                        clearDlvry();
                     }
                     break;
             }
         }
     }
+
+
+    private void clearDlvry(){
+        dlvryAddressVO = null;
+        ui.lDlvryAddr.setVisibility(View.GONE);
+        ui.tvDlvryAddr.setText("");
+        ui.tvErrorDlvryAddr.setVisibility(View.INVISIBLE);
+        ui.lDlvryAddrDtl.setVisibility(View.GONE);
+        ui.etDlvryAddrDtl.setText("");
+        ui.lDlvryAddrDtl.setError(null);
+    }
+
 
     /**
      * @brief 홈투홈 예약 서비스 항목 선택 다이얼로그 활성화
@@ -343,17 +349,7 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
             ui.tvTitleHometohomeService.setVisibility(View.VISIBLE);
             ui.tvErrorHometohomeService.setVisibility(View.INVISIBLE);
             ui.tvHometohomeService.setTextAppearance(R.style.CommonSpinnerItemEnable);
-            switch (pckpDivCd){
-                case VariableType.SERVICE_HOMETOHOME_PCKP_DIV_CD_PICKUP:
-                case VariableType.SERVICE_HOMETOHOME_PCKP_DIV_CD_PICKUP_DELIVERY:
-                    doTransition(1);//ok
-                    break;
-                case VariableType.SERVICE_HOMETOHOME_PCKP_DIV_CD_DELIVERY:
-                    doTransition(3);//ok
-                    break;
-                default:
-                    break;
-            }
+            doTransition(1);//ok
             return true;
         }
     }
@@ -420,24 +416,21 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
             switch (pckpDivCd){
                 case VariableType.SERVICE_HOMETOHOME_PCKP_DIV_CD_PICKUP://픽업상태인경우 바로 일정입
                     doTransition(5);//ok
+                    ui.lDlvryAddrDtl.setVisibility(View.GONE);
+                    ui.lDlvryAddr.setVisibility(View.GONE);
                     break;
-
                 case VariableType.SERVICE_HOMETOHOME_PCKP_DIV_CD_PICKUP_DELIVERY:
+                default:
                     doTransition(3);//ok
                     break;
-
-                case VariableType.SERVICE_HOMETOHOME_PCKP_DIV_CD_DELIVERY://<--의미없는상태
-                default:
-                    break;
             }
-
-
             return true;
         }
     }
 
 
     private boolean checkValidDlvryAddr() {
+
         if (dlvryAddressVO == null) {
             ui.tvErrorDlvryAddr.setVisibility(View.VISIBLE);
             ui.tvErrorDlvryAddr.setText(getString(R.string.sm_r_rsv02_01_14));
@@ -445,9 +438,9 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
             ui.tvDlvryAddr.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
             ui.tvDlvryAddr.setText(R.string.sm_r_rsv02_03_16);
             ui.tvTitleDlvryAddr.setVisibility(View.INVISIBLE);
-            return false;
+            return isOnlyPickUp()||false;
         } else {
-            ui.tvErrorDlvryAddr.setVisibility(View.GONE);
+            ui.tvErrorDlvryAddr.setVisibility(View.INVISIBLE);
             ui.tvDlvryAddr.setTextColor(getColor(R.color.x_000000));
             ui.tvDlvryAddr.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
             ui.tvDlvryAddr.setText(getAddress(dlvryAddressVO)[0]);
@@ -471,7 +464,7 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
         if (TextUtils.isEmpty(addrDtl)) {
             ui.etDlvryAddrDtl.requestFocus();
             ui.lDlvryAddrDtl.setError(getString(R.string.sm_r_rsv02_01_14));
-            return false;
+            return isOnlyPickUp()||false;
         } else {
             ui.lDlvryAddrDtl.setError(null);
             doTransition(5);//TODO 딜리버리일 때 예약희망일을 날릴지는 확인 중
@@ -491,8 +484,12 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
                     case R.id.l_pckp_addr_dtl:
                         return checkValidHometohomeService() && checkValidPckpAddr() && false;
                     case R.id.l_dlvry_addr:
+                        if(isOnlyPickUp())
+                            break;
                         return checkValidHometohomeService() && checkValidPckpAddr() && checkValidPckpAddrDtl() && false;
                     case R.id.l_dlvry_addr_dtl:
+                        if(isOnlyPickUp())
+                            break;
                         return checkValidHometohomeService() && checkValidPckpAddr() && checkValidPckpAddrDtl() && checkValidDlvryAddr() && false;
                     case R.id.l_rsvt_hope_dt:
                         return checkValidHometohomeService() && checkValidPckpAddr() && checkValidPckpAddrDtl() && checkValidDlvryAddr() && checkValidDlvryAddrDtl() && false;
@@ -512,7 +509,11 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
 
     EditText.OnFocusChangeListener focusChangeListener = (view, hasFocus) -> {
         if (hasFocus) {
-            SoftKeyboardUtil.showKeyboard(getApplicationContext());
+            if(view.getId()==R.id.et_dlvry_addr_dtl&&isOnlyPickUp()){
+
+            }else{
+                SoftKeyboardUtil.showKeyboard(getApplicationContext());
+            }
         }
     };
 
@@ -570,5 +571,8 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
         }
     }
 
+    private boolean isOnlyPickUp(){
+        return pckpDivCd.equalsIgnoreCase(VariableType.SERVICE_HOMETOHOME_PCKP_DIV_CD_PICKUP);
+    }
 
 }

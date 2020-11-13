@@ -93,26 +93,26 @@
                 android:id="@+id/tv_error_dlvry_addr"
                 style="@style/CommonSpinnerError"
                 app:layout_constraintTop_toBottomOf="@+id/tv_dlvry_addr"
-                tools:visibility="gone" />
+                tools:visibility="invisible" />
 
-            <CheckBox
-                android:id="@+id/cb_pckp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:button="@null"
-                android:drawableStart="@drawable/checkbox_selector_2"
-                android:drawablePadding="8dp"
-                android:fontFamily="@font/light_genesissansheadglobal"
-                android:letterSpacing="-0.01"
-                android:text="@string/sm_r_rsv02_03_18"
-                android:textColor="@color/x_000000"
-                android:textSize="15sp"
-                app:layout_constrainedWidth="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_error_dlvry_addr" />
+<!--            <CheckBox-->
+<!--                android:id="@+id/cb_pckp"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:button="@null"-->
+<!--                android:drawableStart="@drawable/checkbox_selector_2"-->
+<!--                android:drawablePadding="8dp"-->
+<!--                android:fontFamily="@font/light_genesissansheadglobal"-->
+<!--                android:letterSpacing="-0.01"-->
+<!--                android:text="@string/sm_r_rsv02_03_18"-->
+<!--                android:textColor="@color/x_000000"-->
+<!--                android:textSize="15sp"-->
+<!--                app:layout_constrainedWidth="true"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/tv_error_dlvry_addr" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -120,7 +120,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/l_pckp_addr_dtl"
             style="@style/CommonTextInputLayout"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="0dp"
+            app:layout_goneMarginTop="0dp"
             app:layout_constraintEnd_toEndOf="@+id/tv_msg_bottom"
             app:layout_constraintStart_toStartOf="@+id/tv_msg_bottom"
             app:layout_constraintTop_toBottomOf="@+id/l_dlvry_addr">

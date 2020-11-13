@@ -78,7 +78,6 @@
 
     <string-array name="service_hometohome">
         <item>픽업 서비스</item>
-        <item>딜리버리 서비스</item>
         <item>픽업 + 딜리버리 서비스</item>
     </string-array>
 
