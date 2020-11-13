@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingConstraints">
+
+    <data>
+
+        <import type="com.genesis.apps.comm.util.DateUtil" />
+
+        <import type="com.genesis.apps.comm.util.StringUtil" />
+
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.main.service.ServiceAirport2ApplyActivity" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/x_ffffff"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/l_title"
+            layout="@layout/layout_titlebar"
+            app:value="@{@string/sm_r_rsv02_02_1}" />
+
+        <ScrollView
+            android:id="@+id/sc"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="30dp"
+                android:paddingBottom="30dp">
+
+                <TextView
+                    android:id="@+id/tv_msg"
+                    style="@style/CommonTextMsg"
+                    android:text="@string/sm_r_rsv02_02_2"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_msg_bottom"
+                    app:layout_constraintStart_toStartOf="@+id/tv_msg_bottom" />
+
+
+                <ImageView
+                    android:id="@+id/iv_line_1"
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="40dp"
+                    android:background="@color/x_f4f4f4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_msg" />
+
+                <TextView
+                    android:id="@+id/tv_msg_bottom"
+                    style="@style/ViewMsgInputTile"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/sm_r_rsv02_02_3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_line_1" />
+
+                <TextView
+                    android:id="@+id/tv_msg_sub_bottom"
+                    style="@style/ViewMsgInputSub2"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/sm_r_rsv02_02_4"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_msg_bottom"
+                    app:layout_constraintStart_toStartOf="@+id/tv_msg_bottom"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_msg_bottom" />
+
+
+
+
+
+
+
+
+                <TextView
+                    android:id="@+id/tv_contents"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/regular_genesissansheadglobal"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="6sp"
+                    android:text="@string/sm_r_rsv02_02_5"
+                    android:textColor="@color/x_141414"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_msg_bottom"
+                    app:layout_constraintStart_toStartOf="@+id/tv_msg_bottom"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_msg_sub_bottom" />
+
+
+                <RelativeLayout
+                    android:id="@+id/l_contents_sub_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/x_f4f4f4"
+                    android:padding="14dp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_msg_bottom"
+                    app:layout_constraintStart_toStartOf="@+id/tv_msg_bottom"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_contents">
+
+                    <TextView
+                        android:id="@+id/tv_contents_sub_1_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:text="@string/sm_r_rsv02_02_6"
+                        android:textColor="@color/x_000000"
+                        android:textSize="15sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_contents_sub_1_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_below="@+id/tv_contents_sub_1_1"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:text="@string/msg_membership_6"
+                        android:textColor="@color/x_aaabaf"
+                        android:textSize="14sp"
+                        android:lineSpacingExtra="6sp"
+                        android:letterSpacing="-0.01"
+                        tools:text="· 1일차 ~ 5일차 : 5천원/일\n· 5일차 이후 : 1만원/일"/>
+
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_contents_sub_2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/x_f4f4f4"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:text="@string/sm_r_rsv02_02_9"
+                    android:textColor="@color/x_000000"
+                    android:textSize="15sp"
+                    android:paddingTop="22dp"
+                    android:paddingBottom="22dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_msg_bottom"
+                    app:layout_constraintStart_toStartOf="@+id/tv_msg_bottom"
+                    app:layout_constraintTop_toBottomOf="@+id/l_contents_sub_1"/>
+
+
+                <TextView
+                    android:id="@+id/tv_contents_sub_3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/x_f4f4f4"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:text="@string/sm_r_rsv02_02_10"
+                    android:textColor="@color/x_000000"
+                    android:textSize="15sp"
+                    android:paddingTop="22dp"
+                    android:paddingBottom="22dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_msg_bottom"
+                    app:layout_constraintStart_toStartOf="@+id/tv_msg_bottom"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_contents_sub_2"/>
+
+
+
+                <TextView
+                    android:id="@+id/tv_contents_sub_4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/x_f4f4f4"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:text="@string/sm_r_rsv02_02_11"
+                    android:textColor="@color/x_000000"
+                    android:textSize="15sp"
+                    android:paddingTop="22dp"
+                    android:paddingBottom="22dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_msg_bottom"
+                    app:layout_constraintStart_toStartOf="@+id/tv_msg_bottom"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_contents_sub_3"/>
+
+                <TextView
+                    android:id="@+id/tv_contents_sub_5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/x_f4f4f4"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:text="@string/sm_r_rsv02_02_12"
+                    android:textColor="@color/x_000000"
+                    android:textSize="15sp"
+                    android:paddingTop="22dp"
+                    android:paddingBottom="22dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_msg_bottom"
+                    app:layout_constraintStart_toStartOf="@+id/tv_msg_bottom"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_contents_sub_4"/>
+                
+                
+                
+                
+                
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/btn_call"
+            style="@style/ViewBottomOkBtn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:tag="@string/word_home_14"
+            android:text="@string/sm_r_rsv02_02_13" />
+
+    </LinearLayout>
+
+</layout>

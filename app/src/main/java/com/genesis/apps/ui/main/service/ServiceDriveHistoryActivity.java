@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.DDS_1003;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.DDS_1003;
 import com.genesis.apps.comm.model.vo.DriveServiceVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.DDSViewModel;

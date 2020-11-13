@@ -11,9 +11,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.PUB_1002;
-import com.genesis.apps.comm.model.gra.api.WSH_1002;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.PUB_1002;
+import com.genesis.apps.comm.model.api.gra.WSH_1002;
 import com.genesis.apps.comm.model.vo.AddressCityVO;
 import com.genesis.apps.comm.model.vo.WashBrnVO;
 import com.genesis.apps.comm.util.SnackBarUtil;

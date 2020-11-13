@@ -9,20 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.REQ_1001;
-import com.genesis.apps.comm.model.gra.api.SOS_1001;
-import com.genesis.apps.comm.model.gra.api.SOS_1006;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.REQ_1001;
+import com.genesis.apps.comm.model.api.gra.SOS_1001;
+import com.genesis.apps.comm.model.api.gra.SOS_1006;
 import com.genesis.apps.comm.model.vo.SOSDriverVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
@@ -34,7 +32,6 @@ import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.ServiceNetworkActivity;
 import com.genesis.apps.ui.myg.MyGEntranceActivity;
-import com.genesis.apps.ui.myg.MyGHomeActivity;
 
 public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceBinding> {
     private static final String TAG = FragmentMaintenance.class.getSimpleName();

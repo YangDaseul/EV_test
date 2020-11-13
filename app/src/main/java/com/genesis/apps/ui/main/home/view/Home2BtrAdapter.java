@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.gra.api.LGN_0003;
+import com.genesis.apps.comm.model.api.gra.LGN_0003;
 import com.genesis.apps.databinding.ItemBtrNewBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;

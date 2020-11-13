@@ -5,30 +5,23 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.BAR_1001;
-import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.BAR_1001;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
 import com.genesis.apps.comm.util.VibratorUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
-import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityBarcodeBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.activity.test.CardViewAadapter;
 import com.genesis.apps.ui.common.activity.test.ItemMoveCallback;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
-import com.genesis.apps.ui.common.view.listview.test.Link;
-
-import java.util.LinkedList;
-import java.util.List;
 
 public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
     private CMNViewModel cmnViewModel;

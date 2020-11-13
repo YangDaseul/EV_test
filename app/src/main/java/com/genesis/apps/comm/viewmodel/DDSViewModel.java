@@ -6,12 +6,12 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
-import com.genesis.apps.comm.model.gra.api.DDS_1001;
-import com.genesis.apps.comm.model.gra.api.DDS_1002;
-import com.genesis.apps.comm.model.gra.api.DDS_1003;
-import com.genesis.apps.comm.model.gra.api.DDS_1004;
-import com.genesis.apps.comm.model.gra.api.DDS_1005;
-import com.genesis.apps.comm.model.gra.api.DDS_1006;
+import com.genesis.apps.comm.model.api.gra.DDS_1001;
+import com.genesis.apps.comm.model.api.gra.DDS_1002;
+import com.genesis.apps.comm.model.api.gra.DDS_1003;
+import com.genesis.apps.comm.model.api.gra.DDS_1004;
+import com.genesis.apps.comm.model.api.gra.DDS_1005;
+import com.genesis.apps.comm.model.api.gra.DDS_1006;
 import com.genesis.apps.comm.model.repo.DDSRepo;
 import com.genesis.apps.comm.net.NetUIResponse;
 

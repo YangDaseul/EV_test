@@ -1,12 +1,12 @@
 package com.genesis.apps.comm.model.repo;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.gra.APIInfo;
-import com.genesis.apps.comm.model.gra.api.OIL_0001;
-import com.genesis.apps.comm.model.gra.api.OIL_0002;
-import com.genesis.apps.comm.model.gra.api.OIL_0003;
-import com.genesis.apps.comm.model.gra.api.OIL_0004;
-import com.genesis.apps.comm.model.gra.api.OIL_0005;
+import com.genesis.apps.comm.model.api.APIInfo;
+import com.genesis.apps.comm.model.api.gra.OIL_0001;
+import com.genesis.apps.comm.model.api.gra.OIL_0002;
+import com.genesis.apps.comm.model.api.gra.OIL_0003;
+import com.genesis.apps.comm.model.api.gra.OIL_0004;
+import com.genesis.apps.comm.model.api.gra.OIL_0005;
 import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;

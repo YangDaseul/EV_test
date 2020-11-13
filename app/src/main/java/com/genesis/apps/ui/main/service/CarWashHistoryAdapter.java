@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.gra.api.WSH_1004;
+import com.genesis.apps.comm.model.api.gra.WSH_1004;
 import com.genesis.apps.comm.model.vo.WashReserveVO;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ItemCarWashHistoryBinding;

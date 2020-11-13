@@ -12,14 +12,10 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.hybrid.core.WebViewFragment;
 import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.PushCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.WRT_1001;
-import com.genesis.apps.comm.model.vo.TermVO;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.WRT_1001;
 import com.genesis.apps.comm.model.vo.WarrantyVO;
-import com.genesis.apps.comm.net.NetUIResponse;
-import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.WRTViewModel;
 import com.genesis.apps.databinding.ActivityWarrantyRepairGuideBinding;
 import com.genesis.apps.databinding.ItemTabAlarmBinding;
@@ -34,7 +30,6 @@ import java.util.List;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 public class WarrantyRepairGuideActivity extends SubActivity<ActivityWarrantyRepairGuideBinding>  {

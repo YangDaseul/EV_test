@@ -2,9 +2,9 @@ package com.genesis.apps.comm.model.repo;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.TestCode;
-import com.genesis.apps.comm.model.gra.APIInfo;
-import com.genesis.apps.comm.model.gra.api.STO_1001;
-import com.genesis.apps.comm.model.gra.api.STO_1002;
+import com.genesis.apps.comm.model.api.APIInfo;
+import com.genesis.apps.comm.model.api.gra.STO_1001;
+import com.genesis.apps.comm.model.api.gra.STO_1002;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.net.NetResultCallback;

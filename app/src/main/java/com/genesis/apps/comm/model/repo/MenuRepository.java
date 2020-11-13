@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.genesis.apps.comm.model.gra.APPIAInfo;
+import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.vo.MenuVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.SoundSearcher;

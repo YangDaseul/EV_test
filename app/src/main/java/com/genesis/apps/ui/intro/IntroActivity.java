@@ -8,12 +8,11 @@ import android.view.View;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.RequestCodes;
-import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.CMN_0001;
-import com.genesis.apps.comm.model.gra.api.CMN_0002;
-import com.genesis.apps.comm.model.gra.api.LGN_0001;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.CMN_0001;
+import com.genesis.apps.comm.model.api.gra.CMN_0002;
+import com.genesis.apps.comm.model.api.gra.LGN_0001;
 import com.genesis.apps.comm.model.vo.DeviceDTO;
 import com.genesis.apps.comm.model.vo.NotiVO;
 import com.genesis.apps.comm.util.PackageUtil;

@@ -1,32 +1,20 @@
 package com.genesis.apps.ui.common.dialog.bottom;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.telephony.PhoneNumberUtils;
-import android.text.TextUtils;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.gra.api.SOS_1006;
 import com.genesis.apps.comm.model.vo.CouponVO;
-import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.databinding.DialogBottomAutocareServiceBinding;
-import com.genesis.apps.databinding.DialogBottomSosDriverInfoBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-
-import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_SOS_AREA_CLS_CODE_H;
-import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_SOS_AREA_CLS_CODE_R;
 
 public class DialogAutocareService extends BaseBottomDialog<DialogBottomAutocareServiceBinding> {
 

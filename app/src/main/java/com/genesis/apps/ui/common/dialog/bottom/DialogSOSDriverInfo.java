@@ -1,7 +1,6 @@
 package com.genesis.apps.ui.common.dialog.bottom;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,9 +10,8 @@ import android.view.View;
 import android.webkit.WebView;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.gra.api.SOS_1006;
+import com.genesis.apps.comm.model.api.gra.SOS_1006;
 import com.genesis.apps.comm.util.DateUtil;
-import com.genesis.apps.comm.util.PhoneUtil;
 import com.genesis.apps.databinding.DialogBottomSosDriverInfoBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 

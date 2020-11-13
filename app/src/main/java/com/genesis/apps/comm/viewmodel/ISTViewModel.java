@@ -6,11 +6,11 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
-import com.genesis.apps.comm.model.gra.api.IST_1001;
-import com.genesis.apps.comm.model.gra.api.IST_1002;
-import com.genesis.apps.comm.model.gra.api.IST_1003;
-import com.genesis.apps.comm.model.gra.api.IST_1004;
-import com.genesis.apps.comm.model.gra.api.IST_1005;
+import com.genesis.apps.comm.model.api.gra.IST_1001;
+import com.genesis.apps.comm.model.api.gra.IST_1002;
+import com.genesis.apps.comm.model.api.gra.IST_1003;
+import com.genesis.apps.comm.model.api.gra.IST_1004;
+import com.genesis.apps.comm.model.api.gra.IST_1005;
 import com.genesis.apps.comm.model.repo.ISTRepo;
 import com.genesis.apps.comm.net.NetUIResponse;
 

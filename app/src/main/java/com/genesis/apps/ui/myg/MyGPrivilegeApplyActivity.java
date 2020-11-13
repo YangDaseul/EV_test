@@ -1,21 +1,16 @@
 package com.genesis.apps.ui.myg;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.BTR_2003;
-import com.genesis.apps.comm.model.gra.api.MYP_1005;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.MYP_1005;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
-import com.genesis.apps.comm.viewmodel.BTRViewModel;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
-import com.genesis.apps.databinding.ActivityBtrCnslHistBinding;
 import com.genesis.apps.databinding.ActivityPrivilegeApplyBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.main.home.view.BtrAccodianRecyclerAdapter;
 import com.genesis.apps.ui.myg.view.PrivilegeApplyAdapter;
 
 import androidx.lifecycle.ViewModelProvider;

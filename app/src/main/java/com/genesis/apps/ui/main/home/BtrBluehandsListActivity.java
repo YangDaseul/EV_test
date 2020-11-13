@@ -4,25 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.BTR_1008;
-import com.genesis.apps.comm.model.gra.api.BTR_2003;
 import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
-import com.genesis.apps.comm.viewmodel.BTRViewModel;
-import com.genesis.apps.databinding.ActivityBtrBluehandsBinding;
 import com.genesis.apps.databinding.ActivityBtrBluehandsHistBinding;
-import com.genesis.apps.databinding.ActivityBtrCnslHistBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.main.home.view.BtrAccodianRecyclerAdapter;
 import com.genesis.apps.ui.main.home.view.BtrBluehandsAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

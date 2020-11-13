@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.MYP_8005;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.MYP_8005;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.NotiVO;
 import com.genesis.apps.databinding.ActivityNotiListBinding;

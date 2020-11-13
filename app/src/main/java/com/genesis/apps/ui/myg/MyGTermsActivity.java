@@ -1,17 +1,14 @@
 package com.genesis.apps.ui.myg;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.webkit.WebView;
 
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
-import com.genesis.apps.comm.hybrid.core.WebViewFragment;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.MYP_8001;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.MYP_8001;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.ui.common.activity.WebviewActivity;

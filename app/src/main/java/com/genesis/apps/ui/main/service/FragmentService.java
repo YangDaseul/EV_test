@@ -159,7 +159,13 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
                         , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
             }
         } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REPAIR.getCode()) {
-            //todo 정비 서비스 예약 완료 시 페이지 이동
+            //정비 서비스 예약 완료 시 페이지 이동
+            RepairReserveVO repairReserveVO = (RepairReserveVO) data.getSerializableExtra(KeyNames.KEY_NAME_SERVICE_RESERVE_INFO);
+            if (repairReserveVO != null) {
+                ((SubActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRepair4ResultActivity.class).putExtra(KeyNames.KEY_NAME_SERVICE_RESERVE_INFO, repairReserveVO)
+                        , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                        , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+            }
 
         } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REMOTE.getCode()) {
             //todo 원격진단 서비스 예약 완료 시 페이지 이동

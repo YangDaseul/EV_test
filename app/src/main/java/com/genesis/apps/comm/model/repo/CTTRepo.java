@@ -4,19 +4,16 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.TestCode;
-import com.genesis.apps.comm.model.gra.APIInfo;
-import com.genesis.apps.comm.model.gra.api.CTT_1001;
-import com.genesis.apps.comm.model.gra.api.CTT_1002;
-import com.genesis.apps.comm.model.gra.api.CTT_1004;
-import com.genesis.apps.comm.model.vo.ContentsVO;
+import com.genesis.apps.comm.model.api.APIInfo;
+import com.genesis.apps.comm.model.api.gra.CTT_1001;
+import com.genesis.apps.comm.model.api.gra.CTT_1002;
+import com.genesis.apps.comm.model.api.gra.CTT_1004;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.net.NetResultCallback;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.room.DatabaseHolder;
 import com.google.gson.Gson;
-
-import java.util.List;
 
 import javax.inject.Inject;
 

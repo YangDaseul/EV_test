@@ -10,25 +10,21 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.gra.APPIAInfo;
-import com.genesis.apps.comm.model.gra.api.IST_1002;
-import com.genesis.apps.comm.model.gra.api.IST_1003;
-import com.genesis.apps.comm.model.gra.api.IST_1004;
-import com.genesis.apps.comm.model.gra.api.IST_1005;
-import com.genesis.apps.comm.model.gra.api.LGN_0005;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.IST_1002;
+import com.genesis.apps.comm.model.api.gra.IST_1003;
+import com.genesis.apps.comm.model.api.gra.IST_1004;
+import com.genesis.apps.comm.model.api.gra.IST_1005;
 import com.genesis.apps.comm.model.vo.ISTAmtVO;
 import com.genesis.apps.comm.model.vo.SOSDriverVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
 import com.genesis.apps.comm.viewmodel.ISTViewModel;
@@ -36,15 +32,12 @@ import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentInsightBinding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
-import com.genesis.apps.ui.main.home.BtrConsultApplyActivity;
 import com.genesis.apps.ui.main.insight.view.InsightArea1Adapter;
 import com.genesis.apps.ui.main.insight.view.InsightArea2Adapter;
 import com.genesis.apps.ui.main.insight.view.InsightArea3Adapter;
 import com.genesis.apps.ui.main.insight.view.InsightCarAdapter;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class FragmentInsight extends SubFragment<FragmentInsightBinding> {

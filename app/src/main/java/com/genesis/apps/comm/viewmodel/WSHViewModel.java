@@ -6,14 +6,14 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
-import com.genesis.apps.comm.model.gra.api.WSH_1001;
-import com.genesis.apps.comm.model.gra.api.WSH_1002;
-import com.genesis.apps.comm.model.gra.api.WSH_1003;
-import com.genesis.apps.comm.model.gra.api.WSH_1004;
-import com.genesis.apps.comm.model.gra.api.WSH_1005;
-import com.genesis.apps.comm.model.gra.api.WSH_1006;
-import com.genesis.apps.comm.model.gra.api.WSH_1007;
-import com.genesis.apps.comm.model.gra.api.WSH_1008;
+import com.genesis.apps.comm.model.api.gra.WSH_1001;
+import com.genesis.apps.comm.model.api.gra.WSH_1002;
+import com.genesis.apps.comm.model.api.gra.WSH_1003;
+import com.genesis.apps.comm.model.api.gra.WSH_1004;
+import com.genesis.apps.comm.model.api.gra.WSH_1005;
+import com.genesis.apps.comm.model.api.gra.WSH_1006;
+import com.genesis.apps.comm.model.api.gra.WSH_1007;
+import com.genesis.apps.comm.model.api.gra.WSH_1008;
 import com.genesis.apps.comm.model.repo.WSHRepo;
 import com.genesis.apps.comm.net.NetUIResponse;
 
