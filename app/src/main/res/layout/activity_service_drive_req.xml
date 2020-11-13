@@ -60,7 +60,7 @@
 
                 <!-- "출발/도착지 주소를 입력해라" : 01 ~ 04 번 str -->
                 <TextView
-                    android:id="@+id/iv_service_drive_req_please_input_xxx"
+                    android:id="@+id/tv_service_drive_req_please_input_xxx"
                     style="@style/TextBasic"
                     android:layout_marginBottom="30dp"
                     android:fontFamily="@font/light_genesissansheadglobal"

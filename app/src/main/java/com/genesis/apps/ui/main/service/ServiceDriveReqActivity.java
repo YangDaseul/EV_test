@@ -10,7 +10,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewStub;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,6 +25,7 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ActivityServiceDriveReqBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.google.android.material.textfield.TextInputEditText;
@@ -33,10 +33,15 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReqBinding> {
     private static final String TAG = ServiceDriveReqActivity.class.getSimpleName();
-    private static final String PRICE_NO_DATA = "";
 
     private static final int FROM = 0;
     private static final int TO = 1;
+
+    private static final int STATUS_GONE = -1;
+    private static final int STATUS_LOADING = 0;
+    private static final int STATUS_CANT_SERVICE = 1;
+    private static final int STATUS_PRICE_MAYBE = 2;
+    private static final int STATUS_ERROR = 3;
 
     private static final int NEXT_BTN_LACK_INPUT = 0;
     private static final int NEXT_BTN_OPEN_TO_ADDRESS = 1;
@@ -46,9 +51,13 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
     private VehicleVO mainVehicle;
     private AddressVO[] addressVO = new AddressVO[2];
-    private String priceMaybe = PRICE_NO_DATA;    //TODO 예상가격 자료형 숫자인지 글자인지 확인
-    private boolean allButtonActive = true;
-    private boolean nextButtonActive = true;
+    private String priceMaybe;    //TODO 예상가격 자료형 숫자인지 글자인지 확인
+    private boolean commonButtonEnable = true;
+    private boolean nextButtonEnable = true;
+
+    private View[] statusViews;
+    private AnimationDrawable loadingAnimation;
+    private TextView priceTextView;
 
     private TextInputLayout fromDetailLayout;
     private TextInputLayout toDetailLayout;
@@ -111,10 +120,10 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     @Override
     public void onClickCommon(View v) {
         Log.d(TAG, "onClickCommon: " + v.getId());
-        Log.d(TAG, "onClickCommon active : " + allButtonActive);
+        Log.d(TAG, "onClickCommon active : " + commonButtonEnable);
 
         //예상 가격 응답 기다리는 동안은 버튼 무력화
-        if (!allButtonActive) {
+        if (!commonButtonEnable) {
             return;
         }
 
@@ -134,14 +143,11 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                 onClickSearchAddressBtn(TO);
                 break;
 
-            //다음 버튼
-            case R.id.tv_service_drive_req_next_btn:
-                onClickNextBtn();
-                break;
-
-            //가격 조회 실패하면 뜨는 재시도 버튼 todo :askPrice() 정말 이거 한방에 해결인지 점검
+            //가격 조회 실패하면 뜨는 재시도 버튼
+            // (재시도 누르기 전에 입력 값을 바꿀 수 있으니 여기로 보내서 할 일 검사부터 다시 한다)
             case R.id.tv_service_drive_retry:
-                askPrice();
+            case R.id.tv_service_drive_req_next_btn://다음 버튼
+                onClickNextBtn();
                 break;
 
             default:
@@ -202,19 +208,46 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
     private void init() {
         Log.d(TAG, "init: ");
+
+        //todo  : 키보드 올라와있는 동안 이거 안 보여야됨 -> ui.lServiceDriveReqTopPanel
+
+        initCarInfo();
+        initStatusViews();
+        initTextInputLayouts();
+        ui.setActivity(this);
+    }
+
+    private void initCarInfo() {
         //차종, 번호판 정보 표시
-        //todo  : 키보드 올라와있는 동안 안 보여야됨  ui.lServiceDriveReqTopPanel
         ui.lServiceDriveReqTopPanel.tvServiceReqCarModel.setText(mainVehicle.getMdlNm());
         ui.lServiceDriveReqTopPanel.tvServiceReqCarNumber.setText(mainVehicle.getCarRgstNo());
+    }
 
+    private void initStatusViews() {
+        //visibility 일괄 초기화를 위해 묶어둠
+        statusViews = new View[]{
+                ui.lServiceDriveReqTopPanel.lServiceDriveReqLoading.getRoot(),
+                ui.lServiceDriveReqTopPanel.lServiceDriveReqCantService.getRoot(),
+                ui.lServiceDriveReqTopPanel.lServiceDriveReqPrice.getRoot(),
+                ui.lServiceDriveReqTopPanel.lServiceDriveReqRetry.getRoot()
+        };
 
+        ImageView loadingView = ui.lServiceDriveReqTopPanel.lServiceDriveReqLoading.ivServiceDriveReqLoadingPrice;
+        loadingAnimation = (AnimationDrawable) loadingView.getDrawable();
+
+        priceTextView = ui.lServiceDriveReqTopPanel.lServiceDriveReqPrice.tvServicePriceMaybe;
+
+        //재시도 버튼 리스너 : 이 레이아웃은 딴 데서도 쓰는데 리스너는 여기만 쓰므로 코드에서 처리
+        ui.lServiceDriveReqTopPanel.lServiceDriveReqRetry.tvServiceDriveRetry.setOnClickListener(onSingleClickListener);
+    }
+
+    private void initTextInputLayouts() {
         fromDetailLayout = ui.lServiceDriveReqInputFromDetail;
         toDetailLayout = ui.lServiceDriveReqInputToDetail;
         fromDetail = ui.tietServiceDriveReqInputFromAddressDetail;
         toDetail = ui.tietServiceDriveReqInputToAddressDetail;
 
         setTextListener();
-        ui.setActivity(this);
     }
 
     public void setTextListener() {
@@ -269,11 +302,19 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         }
     }
 
+    //버튼 활성화 여부 변경
+    //서비스 불가 뜨면 다음버튼은 막고 주소변경은 가능하게 해야 돼서 다음 버튼은 별도 플래그 하나 더 가짐
+    //common을 disable하는 상황은 api 응답 대기중이므로 이 플래그가 false이면 다음 버튼도 비활성화됨
+    private void setBtnEnable(boolean commonBtn, boolean nextBtn) {
+        commonButtonEnable = commonBtn;
+        nextButtonEnable = nextBtn;
+    }
+
     private void onClickNextBtn() {
-        Log.d(TAG, "onClickNextBtn active : " + nextButtonActive);
+        Log.d(TAG, "onClickNextBtn active : " + nextButtonEnable);
 
         //예상 가격 응답 기다리는 동안은 버튼 무력화
-        if (!nextButtonActive) {
+        if (!nextButtonEnable) {
             return;
         }
 
@@ -284,9 +325,10 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
             //입력 미비 : 예상 가격에 저장된 값 삭제.
             // 1) 출발지 주소 입력됐고 세부주소 안 적음(도착지 주소 잠긴 상태).
             // 2) 출발지 및 도착지 주소 입력됐고 세부주소 둘 중에 하나 이상 빈칸.
-            // 3) 예상가격 보고 나서 세부주소를 지운 경우도 여기로 떨어짐(  [2)]와 같은 판정  ).
+            // 3) 예상가격 조회 시도 후에 세부주소를 지운 경우도 여기로 떨어짐(  [2)]와 같은 판정  ).
             case NEXT_BTN_LACK_INPUT:
-                priceMaybe = PRICE_NO_DATA;
+                priceMaybe = null;
+                showStatus(STATUS_GONE);
                 break;
 
             //출발지 입력 다 있으니 도착지 검색 버튼 해금. 그리고 즉시 실행(break; 안 함)시킴.
@@ -348,7 +390,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
         //------여기까지 왔으면 입력은 다 됐음------
 
-        if (priceMaybe.equals(PRICE_NO_DATA)) {
+        if (TextUtils.isEmpty(priceMaybe)) {
             //가격을 모르면 예상 가격 조회
             return NEXT_BTN_ASK_PRICE;
         } else {
@@ -371,7 +413,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     //도착지 주소 검색 버튼 해금
     private void openToAddressBtn() {
         ui.tvServiceDriveReqSearchToAddressBtn.setVisibility(View.VISIBLE);
-        ui.ivServiceDriveReqPleaseInputXxx.setText(R.string.service_drive_input_03);
+        ui.tvServiceDriveReqPleaseInputXxx.setText(R.string.service_drive_input_03);
     }
 
     /**
@@ -411,63 +453,123 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         addressDetail.setSelection(addressDetail.length());
 
         //다음 단계 입력에 대한 안내 메시지
-        ui.ivServiceDriveReqPleaseInputXxx.setText(topMsgId);
+        ui.tvServiceDriveReqPleaseInputXxx.setText(topMsgId);
 
         //다음 단게 뷰 해금
         for (View v : views) {
             v.setVisibility(View.VISIBLE);
         }
+
+        //사용자가 이상한 시나리오로 조작하는 상황에 대한 방어
+        refreshState();
+    }
+
+    //예상가격 조회 누른 이후에 주소를 바꾸는 경우에 대비한 초기화
+    private void refreshState() {
+        //가격조회 시도 결과 '서비스 이용불가 지역' 나온 상태[ changeStateToCantService() ]에서
+        //주소 변경하면 재조회 가능하도록 다음버튼 해금
+        setBtnEnable(true, true);
+
+        //예상가격 조회 결과로 출력된 상태 뷰 초기화
+        showStatus(STATUS_GONE);
     }
 
     //예상 가격 조회
     private void askPrice() {
-        // 로딩하는 동안 버튼들 비활성화
-        allButtonActive = false;
-        nextButtonActive = false;
+        Log.d(TAG, "askPrice: ");
 
-        //로딩 뷰스텁 띄우기
-        setViewStub(
-                R.layout.layout_service_drive_req_loading,
-                (stub, inflated) -> {
-                    ImageView progress = (ImageView) inflated.findViewById(R.id.iv_service_drive_req_loading_price);
-                    AnimationDrawable animationDrawable = (AnimationDrawable) progress.getDrawable();
-                    animationDrawable.start();
-                });
-
-        //todo [1] 로드윈에 서비스 가능 지역 물어보기
+        changeStateToLoading();
+        //todo 로드윈에 서비스 가능 지역 물어보기 api 호출
 
         //todo 서비스 가능지역 옵저버
-        //  불가능하면   {해당 뷰스텁 출력 setViewStub(R.layout.layout_service_drive_req_cant_service, null);
-        //               allButtonActive = true;
-        //               다음버튼은 비활성인 채로 방치 -> 주소 변경만 가능한 상태가 됨
-        //               }
-        //  가능하면 [2] 예상 가격 물어보기
-        //   예상가격 옵저버    {
-        //                            setViewStub(
-        //                                    R.layout.layout_service_drive_req_price,
-        //                                    (stub, inflated) -> {
-        //                                        TextView priceText = (TextView) inflated.findViewById(R.id.tv_service_price_maybe);
-        //                                        priceText.setText(
-        //                                                StringUtil.getPriceString("result.data.get가격")
-        //                                        );
-        //                                    });
-        //                           가격 저장. 버튼 전부 재활성화
-        //                          allButtonActive = true;
-        //                           nextButtonActive = true;
-//                                        //todo 여기까지 와놓고 주소 변경하는 양아치 짓 하면 어떻게 해? 그게 서비스 불가 주소면??
-//                                        //주소 변경하면 이거 초기화하는 내용 넣어야겠네 ㅂㄷㅂㄷㅂㄷㅂㅂㄷㄷㅂㅂㄷㅂㄷㄷㅂ
+        //  불가능하면   changeStateToCantService();
+        //  가능하면    예상 가격 물어보기 api 호출
+
+        //  todo 예상가격 옵저버    {
+        //                            changeStateToPriceMaybe(price);
         //                      }
-        //todo 위에 두 놈 오류 공통 : 어, 공통이면 함수로 빼자
-        setViewStub(
-                R.layout.layout_service_drive_req_retry,
-                (stub, inflated) -> inflated.setOnClickListener(onSingleClickListener));
+
+        //todo 위에 두 옵저버 오류 공통 [ changeStateToError() ]
+        //TODO TEST 임시로 3초 뒤에 실패상태로 진입하도록 함
+        new Handler().postDelayed(this::changeStateToError, 3000);
         //
     }
 
-    public void setViewStub(int addLayout, ViewStub.OnInflateListener listener) {
-        ViewStub stub = findViewById(R.id.vs_service_req_status);
-        stub.setLayoutResource(addLayout);
-        stub.setOnInflateListener(listener);
-        stub.inflate();
+    private void changeStateToLoading() {
+        Log.d(TAG, "changeStateToLoading: ");
+
+        // 로딩하는 동안 버튼들 비활성화
+        setBtnEnable(false, false);
+
+        //로딩중 표시
+        showStatus(STATUS_LOADING);
+    }
+
+    private void changeStateToCantService() {
+        Log.d(TAG, "changeStateToCantService: ");
+
+        //주소 변경이 가능하도록 해금. 다음 버튼은 주소 변경 안 하고 누르면 또 여기로 떨어질테니 막아둠.
+        setBtnEnable(true, false);
+
+        //서비스 이용 불가지역 안내 뷰 표시
+        showStatus(STATUS_CANT_SERVICE);
+    }
+
+    private void changeStateToPriceMaybe(String price) {
+        Log.d(TAG, "changeStateToPriceMaybe: ");
+
+        //다음 단계 진행 가능해졌으니 버튼 전부 활성화
+        setBtnEnable(true, true);
+
+        //예상 가격 저장
+        priceMaybe = price;
+
+        showStatus(STATUS_PRICE_MAYBE);
+
+        //여기까지 와놓고 주소 변경해버리면? 그게 서비스 불가 주소면??
+        //->주소 변경하면 이거 초기화하는 내용 넣었음
+    }
+
+    private void changeStateToError() {
+        Log.d(TAG, "changeStateToError: ");
+
+        //로딩 끝났으니 버튼들 활성화
+        setBtnEnable(true, true);
+
+        //오류 발생 표시
+        showStatus(STATUS_ERROR);
+    }
+
+    public void showStatus(int newStatus) {
+        Log.d(TAG, "showStatus: " + newStatus);
+
+        //전부 숨기도록 초기화
+        loadingAnimation.stop();
+        for (View status : statusViews) {
+            status.setVisibility(View.GONE);
+        }
+
+        switch (newStatus) {
+            case STATUS_LOADING:
+                loadingAnimation.start();
+                break;
+
+            case STATUS_PRICE_MAYBE:
+                priceTextView.setText(StringUtil.getPriceString(priceMaybe));
+                //not break;
+            case STATUS_CANT_SERVICE:
+            case STATUS_ERROR:
+                //뒤에 리턴으로 떨어지면 안 되니까 이 둘도 지우면 안 됨
+                break;
+
+            case STATUS_GONE:
+            default:
+                //do nothing
+                //브레이크 말고 리턴
+                return;
+        }
+
+        //새 상태 표시
+        statusViews[newStatus].setVisibility(View.VISIBLE);
     }
 }
