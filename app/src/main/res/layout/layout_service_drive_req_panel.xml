@@ -41,7 +41,7 @@
             app:layout_constraintVertical_chainStyle="packed"
             tools:text="123너 6456" />
 
-        <!-- 로딩중/예상가격/서비스불가안내 등
+        <!-- 로딩중/예상가격/에러표시
              visibility 조작으로 이들 중 한 개만 보이도록 선별함. -->
         <LinearLayout
             android:layout_width="wrap_content"
@@ -56,14 +56,6 @@
             <include
                 android:id="@+id/l_service_drive_req_loading"
                 layout="@layout/layout_service_drive_req_loading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
-            <!-- 서비스 불가 안내 -->
-            <include
-                android:id="@+id/l_service_drive_req_cant_service"
-                layout="@layout/layout_service_drive_req_cant_service"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone" />
