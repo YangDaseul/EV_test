@@ -23,7 +23,7 @@
 
         <!-- "사용자 취소" -->
         <TextView
-            android:id="@+id/rv_service_drive_history_canceled_title"
+            android:id="@+id/tv_service_drive_history_canceled_title"
             style="@style/TextBasic"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -40,42 +40,42 @@
 
         <!-- "신청일시" -->
         <TextView
-            android:id="@+id/rv_service_drive_history_canceled_date_title"
+            android:id="@+id/tv_service_drive_history_canceled_date_title"
             style="@style/ServiceDrive.History.Data.Title"
             android:layout_marginStart="15dp"
             android:layout_marginBottom="10dp"
             android:text="@string/service_drive_history_date"
-            app:layout_constraintBottom_toTopOf="@id/rv_service_drive_history_canceled_term_title"
-            app:layout_constraintStart_toEndOf="@+id/rv_service_drive_history_canceled_title"
+            app:layout_constraintBottom_toTopOf="@id/tv_service_drive_history_canceled_term_title"
+            app:layout_constraintStart_toEndOf="@+id/tv_service_drive_history_canceled_title"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- 신청일시 데이터 -->
         <TextView
-            android:id="@+id/rv_service_drive_history_canceled_date_desc"
+            android:id="@+id/tv_service_drive_history_canceled_date_desc"
             style="@style/ServiceDrive.History.Data.Desc"
             android:layout_marginStart="13dp"
             android:text="@{date}"
-            app:layout_constraintBaseline_toBaselineOf="@id/rv_service_drive_history_canceled_date_title"
-            app:layout_constraintStart_toEndOf="@id/rv_service_drive_history_canceled_date_title"
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_canceled_date_title"
+            app:layout_constraintStart_toEndOf="@id/tv_service_drive_history_canceled_date_title"
             tools:text="20.12.10  오후 09:50(더미데이터)" />
 
         <!-- "차량정보" -->
         <TextView
-            android:id="@+id/rv_service_drive_history_canceled_term_title"
+            android:id="@+id/tv_service_drive_history_canceled_term_title"
             style="@style/ServiceDrive.History.Data.Title"
             android:text="@string/service_drive_history_car_info"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/rv_service_drive_history_canceled_date_title"
-            app:layout_constraintTop_toBottomOf="@id/rv_service_drive_history_canceled_date_title"
+            app:layout_constraintStart_toStartOf="@id/tv_service_drive_history_canceled_date_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_drive_history_canceled_date_title"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <!-- 대여기간 데이터 -->
         <TextView
-            android:id="@+id/rv_service_drive_history_canceled_term_desc"
+            android:id="@+id/tv_service_drive_history_canceled_term_desc"
             style="@style/ServiceDrive.History.Data.Desc"
             android:text="@{carInfo}"
-            app:layout_constraintBaseline_toBaselineOf="@id/rv_service_drive_history_canceled_term_title"
-            app:layout_constraintStart_toStartOf="@id/rv_service_drive_history_canceled_date_desc"
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_canceled_term_title"
+            app:layout_constraintStart_toStartOf="@id/tv_service_drive_history_canceled_date_desc"
             tools:text="GV70 123제 4567" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
