@@ -5,10 +5,11 @@
 
     <data>
 
-        <!-- todo : 객체 자료형 -->
+        <import type="android.view.View" />
+
         <variable
             name="holder"
-            type="com.genesis.apps.ui.main.service.ServiceDriveHistoryAdapter.ServiceDriveHistoryFinishedViewHolder" />
+            type="com.genesis.apps.ui.main.service.ServiceRelapseHistoryAdapter.RelapseHistoryViewHolder" />
 
     </data>
 
@@ -19,26 +20,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+        android:background="@drawable/ripple_bg_ffffff_stroke_e2e2e2"
+        android:clickable="@{!holder.finished}"
+        android:focusable="@{!holder.finished}"
         android:padding="15dp">
 
-        <!-- "접수중 or 신청 완료"
-        layout_relapse_header_finished
-        layout_relapse_header_waiting -->
-        <ViewStub
-            android:id="@+id/vs_relapse_title"
-            style="@style/TextBasic"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_141414_round_99"
-            android:fontFamily="@font/regular_genesissanstextglobal"
-            android:gravity="center"
-            android:text="@string/item_relapse_history_finished"
-            android:textColor="@color/x_ffffff"
-            android:textSize="11sp"
+        <!-- "접수중 or 신청 완료" -->
+        <LinearLayout
+            android:id="@+id/l_relapse_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                style="@style/RelapseHistoryHeader"
+                android:background="@drawable/bg_ffffff_round_99_stroke_cd9a81"
+                android:text="@string/item_relapse_history_waiting"
+                android:textColor="@color/x_cd9a81"
+                android:textSize="11sp"
+                android:visibility="@{holder.finished? View.GONE:View.VISIBLE}" />
+
+            <TextView
+                style="@style/RelapseHistoryHeader"
+                android:background="@drawable/bg_141414_round_99"
+                android:text="@string/item_relapse_history_finished"
+                android:textColor="@color/x_ffffff"
+                android:textSize="11sp"
+                android:visibility="@{holder.finished? View.VISIBLE:View.GONE}"
+                tools:visibility="gone" />
+        </LinearLayout>
 
         <!-- 오른쪽 화살표 -->
         <ImageView
@@ -46,6 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/btn_arrow_open_r"
+            android:visibility="@{holder.finished? View.GONE:View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -58,7 +72,7 @@
             android:layout_marginBottom="8dp"
             android:text="@string/item_relapse_history_vin"
             app:layout_constraintBottom_toTopOf="@id/tv_relapse_history_date_title"
-            app:layout_constraintStart_toEndOf="@+id/vs_relapse_title"
+            app:layout_constraintStart_toEndOf="@+id/l_relapse_header"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- 차대번호 데이터 todo : 객체 만들고 나서 바인딩 변수명 제대로 -->
@@ -66,7 +80,7 @@
             android:id="@+id/tv_relapse_history_vin_desc"
             style="@style/RelapseHistoryItemDesc"
             android:layout_marginStart="13dp"
-            android:text="@{holder.date}"
+            android:text="@{holder.vin}"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_relapse_history_vin_title"
             app:layout_constraintEnd_toStartOf="@id/iv_relapse_history_open_ic"
             app:layout_constraintStart_toEndOf="@id/tv_relapse_history_vin_title"
@@ -86,7 +100,7 @@
         <TextView
             android:id="@+id/tv_relapse_history_date_desc"
             style="@style/RelapseHistoryItemDesc"
-            android:text="@{holder.date}"
+            android:text="@{holder.dateStr}"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_relapse_history_date_title"
             app:layout_constraintEnd_toStartOf="@id/iv_relapse_history_open_ic"
             app:layout_constraintStart_toStartOf="@id/tv_relapse_history_vin_desc"

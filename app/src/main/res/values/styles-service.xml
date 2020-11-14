@@ -157,6 +157,14 @@
 
 
     <!-- 하자 재발 신청 내역 아이템-->
+    <!-- 왼쪽 동그란 텍스트 -->
+    <style name="RelapseHistoryHeader" parent="TextBasic">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:gravity">center</item>
+    </style>
+
     <!-- 항목 이름-->
     <style name="RelapseHistoryItemTitle" parent="TextBasic">
         <item name="android:textColor">@color/x_525252</item>
@@ -165,7 +173,7 @@
         <item name="layout_constraintVertical_chainStyle">packed</item>
     </style>
 
-    <!-- 항목 이름-->
+    <!-- 항목 항목 값-->
     <style name="RelapseHistoryItemDesc" parent="TextBasic">
         <item name="android:layout_width">0dp</item>
         <item name="android:textColor">@color/x_141414</item>

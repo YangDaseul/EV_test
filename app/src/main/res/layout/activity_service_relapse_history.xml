@@ -6,8 +6,12 @@
     <data>
 
         <variable
+            name="activity"
+            type="com.genesis.apps.ui.main.service.ServiceRelapseHistoryActivity" />
+
+        <variable
             name="itemCount"
-            type="int" />
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -218,14 +218,10 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
             return;
 
         switch (id) {
-            //TODO 지금 테스트 액티비티 호출 코드임. 제대로 된 기능으로 바꾸기
             //서비스 네트워크 찾기
             case R.id.tv_service_maintenance_find_network_btn:
                 ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceNetworkActivity.class).putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_SERVICE), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveReqActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE)
-//                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), TestActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
-
 
             //정비 예약
             case R.id.l_service_maintenance_reservation_btn:
@@ -239,19 +235,25 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
 
                 }
                 break;
+
             //정비 현황/예약 내역
             case R.id.l_service_maintenance_history_btn:
                 break;
+
             //긴급출동
-            case R.id.l_service_maintenance_emergency_btn:
+           case R.id.l_service_maintenance_emergency_btn:
                 startSOSActivity();
                 break;
+
             //원격진단 신청
             case R.id.l_service_maintenance_customercenter_btn:
                 break;
+
             //하자재발통보
             case R.id.l_service_maintenance_defect_btn:
+                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRelapseHistoryActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
+
             default:
                 //do nothing
                 break;
