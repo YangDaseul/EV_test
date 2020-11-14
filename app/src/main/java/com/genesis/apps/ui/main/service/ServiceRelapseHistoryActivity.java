@@ -5,18 +5,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.DDS_1003;
-import com.genesis.apps.comm.model.vo.DriveServiceVO;
+import com.genesis.apps.comm.model.api.gra.VOC_1003;
+import com.genesis.apps.comm.model.vo.VOCInfoVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
-import com.genesis.apps.comm.viewmodel.DDSViewModel;
-import com.genesis.apps.databinding.ActivityServiceDriveHistoryBinding;
+import com.genesis.apps.comm.viewmodel.VOCViewModel;
 import com.genesis.apps.databinding.ActivityServiceRelapseHistoryBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 
@@ -24,10 +21,9 @@ import java.util.List;
 
 public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRelapseHistoryBinding> {
     private static final String TAG = ServiceRelapseHistoryActivity.class.getSimpleName();
-    private static final int PAGE_SIZE = 20;
+//    private static final int PAGE_SIZE = 20;
 
-    //todo 하자재발 뷰 모델로 변경
-    private DDSViewModel viewModel;
+    private VOCViewModel viewModel;
     private ServiceRelapseHistoryAdapter adapter;
 
     @Override
@@ -40,7 +36,7 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
         setObserver();
 
         ui.setActivity(this);
-        reqNextPage();//초기값이 0이니까 1페이지를 요청한다
+        reqNextPage();//페이징 처리 없어서 그냥 한번에 전체가 다 온다
     }
 
     @Override
@@ -48,8 +44,18 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
         Log.d(TAG, "onClickCommon: ");
 
         switch (v.getId()) {
-            case R.id.tv_relapse_history_req_btn:
+            //신청 내역 목록에서 [접수중] 상태인 아이템
+            case R.id.l_relapse_history_item:
+
                 //todo impl
+
+                break;
+
+            //신청 버튼
+            case R.id.tv_relapse_history_req_btn:
+
+                //todo impl
+
                 break;
 
             default:
@@ -61,16 +67,15 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
     @Override
     public void setViewModel() {
         ui.setLifecycleOwner(this);
-        viewModel = new ViewModelProvider(this).get(DDSViewModel.class);
+        viewModel = new ViewModelProvider(this).get(VOCViewModel.class);
     }
 
     @Override
     public void setObserver() {
         Log.d(TAG, "setObserver: ");
 
-        //TODO 뷰모델만 바꾸고 안쪽은 거의 그대로 써먹기 가능할듯?
-        viewModel.getRES_DDS_1003().observe(this, result -> {
-            Log.d(TAG, "getRES_DDS_1003 service drive history obs" + result.status);
+        viewModel.getRES_VOC_1003().observe(this, result -> {
+            Log.d(TAG, "getRES_VOC_1003 relapse history obs" + result.status);
 
             switch (result.status) {
                 case LOADING:
@@ -78,26 +83,26 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
                     break;
 
                 case SUCCESS:
-                    if (result.data != null && result.data.getSvcInfo() != null) {
-                        //수신 성공했으니 페이지 카운트 증가
-                        adapter.incPageNo();
+                    if (result.data != null && result.data.getDfctList() != null) {
 
                         //수신된 데이터를 꺼내고
-                        List<DriveServiceVO> list = result.data.getSvcInfo();
+                        List<VOCInfoVO> list = result.data.getDfctList();
 
-                        //받은 목록의 길이가 1 이상이면 데이터 추가
-                        //todo ...중간에 끼워넣어야되는데 ㅡㅡ;; concatAdapter 써야되나
+                        //받은 목록의 길이가 1 이상이면 어댑터에 추가
                         if (list.size() > 0) {
                             adapter.addRows(list);
-                            adapter.notifyDataSetChanged();
                         }
-                        //데이터가 없으면 목록을 숨겨서 '내역 없음'뷰가 보이도록 함
-                        //todo 데이터 없으면.... 안내문 세 개가 들어있어야되는데......
-                        else if (adapter.getItemCount() == 0) {
-                            //todo impl
+                        //데이터가 없으면 '내역 없음'뷰를 출력할 더미 추가
+                        else {
+                            adapter.addRow(null);
                         }
 
-                        ui.setItemCount("" + adapter.getItemCount());
+                        //목록 뒤에 더미 하나 더 추가. 이건 안내문 페이지가 된다.
+                        adapter.addRow(null);
+                        adapter.notifyDataSetChanged();
+
+                        //이용 내역 수를 표시
+                        ui.setItemCount("" + list.size());
 
                         //성공 후 데이터 로딩까지 다 되면 로딩 치우고 break;
                         showProgressDialog(false);
@@ -126,35 +131,32 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
 
     private void setAdapter() {
         //하자 재발 신청 내역 어댑터 (인스턴스 타입 맞나 확인)
-        adapter = new ServiceRelapseHistoryAdapter();
+        adapter = new ServiceRelapseHistoryAdapter(onSingleClickListener);
         ui.rvServiceDriveHistoryList.setLayoutManager(new LinearLayoutManager(this));
         ui.rvServiceDriveHistoryList.setHasFixedSize(true);
         ui.rvServiceDriveHistoryList.setAdapter(adapter);
 
         //끝까지 스크롤하면 다음 페이지 요청
-        ui.rvServiceDriveHistoryList.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-
-                if (!ui.rvServiceDriveHistoryList.canScrollVertically(1) &&//scroll end
-                        adapter.getItemCount() >= PAGE_SIZE * adapter.getPageNo()) {      //페이지 포화
-                    reqNextPage();
-                }
-            }
-        });
+        //페이징 처리 없는 api라서 페이징 관련 코드 주석화
+//        ui.rvServiceDriveHistoryList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//                if (!ui.rvServiceDriveHistoryList.canScrollVertically(1) &&//scroll end
+//                        adapter.getItemCount() >= PAGE_SIZE * adapter.getPageNo()) {      //페이지 포화
+//                    reqNextPage();
+//                }
+//            }
+//        });
     }
 
-    //이용 내역 한 페이지 요청
+    //이용 내역 한 페이지 요청 : 그런 거 없고 통째로 다 준다
     private void reqNextPage() {
-        Log.d(TAG, "reqNextPage: " + (adapter.getPageNo() + 1));
+//        Log.d(TAG, "reqNextPage: " + (adapter.getPageNo() + 1));
 
-        //todo api 반영
-        viewModel.reqDDS1003(
-                new DDS_1003.Request(
-                        APPIAInfo.SM_DRV05.getId(),
-                        "" + (adapter.getPageNo() + 1),
-                        "" + PAGE_SIZE
+        viewModel.reqVOC1003(
+                new VOC_1003.Request(
+                        APPIAInfo.SM_FLAW01.getId()
                 ));
     }
 }

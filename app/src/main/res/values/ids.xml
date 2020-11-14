@@ -16,4 +16,5 @@
     <item name="insight_expn_vo" type="id"/>
     <item name="tag_wash_item" type="id"/>
     <item name="tag_wash_history" type="id"/>
+    <item name="tag_relapse_history" type="id"/>
 </resources>

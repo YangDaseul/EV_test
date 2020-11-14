@@ -24,7 +24,6 @@ public class DDSRepo {
     NetCaller netCaller;
 
     public final MutableLiveData<NetUIResponse<DDS_1001.Response>> RES_DDS_1001 = new MutableLiveData<>();
-
     public final MutableLiveData<NetUIResponse<DDS_1002.Response>> RES_DDS_1002 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<DDS_1003.Response>> RES_DDS_1003 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<DDS_1004.Response>> RES_DDS_1004 = new MutableLiveData<>();

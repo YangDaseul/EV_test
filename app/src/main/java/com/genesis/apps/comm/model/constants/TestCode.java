@@ -70,6 +70,11 @@ import com.genesis.apps.comm.model.api.gra.SOS_1002;
 import com.genesis.apps.comm.model.api.gra.SOS_1004;
 import com.genesis.apps.comm.model.api.gra.STO_1001;
 import com.genesis.apps.comm.model.api.gra.STO_1002;
+import com.genesis.apps.comm.model.api.gra.VOC_1001;
+import com.genesis.apps.comm.model.api.gra.VOC_1002;
+import com.genesis.apps.comm.model.api.gra.VOC_1003;
+import com.genesis.apps.comm.model.api.gra.VOC_1004;
+import com.genesis.apps.comm.model.api.gra.VOC_1005;
 import com.genesis.apps.comm.model.api.gra.WRT_1001;
 import com.genesis.apps.comm.model.api.gra.WSH_1001;
 import com.genesis.apps.comm.model.api.gra.WSH_1002;
@@ -84,6 +89,58 @@ import com.google.gson.Gson;
 
 public class TestCode {
 //((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), SimilarCarActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
+
+
+    public static VOC_1001.Response VOC_1001 = new Gson().fromJson("", VOC_1001.Response.class);
+    public static VOC_1002.Response VOC_1002 = new Gson().fromJson("", VOC_1002.Response.class);
+
+    public static VOC_1003.Response VOC_1003 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"dfctList\": [\n" +
+            "    {\n" +
+            "      \"inpSt\": \"1\",\n" +
+            "      \"inpDate\": \"20201212\",\n" +
+            "      \"inpDesc\": \"울랄라뾰롱뾰롱\",\n" +
+            "      \"vin\": \"TESTVIN0011111\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"inpSt\": \"2\",\n" +
+            "      \"inpDate\": \"20201231\",\n" +
+            "      \"inpDesc\": \"도로명주소싫어\",\n" +
+            "      \"vin\": \"TESTVIN002222\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"inpSt\": \"2\",\n" +
+            "      \"inpDate\": \"20201212\",\n" +
+            "      \"inpDesc\": \"울랄라뾰롱뾰롱\",\n" +
+            "      \"vin\": \"TESTVIN003333\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"inpSt\": \"2\",\n" +
+            "      \"inpDate\": \"20201231\",\n" +
+            "      \"inpDesc\": \"도로명주소싫어\",\n" +
+            "      \"vin\": \"TESTVIN044444\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"inpSt\": \"2\",\n" +
+            "      \"inpDate\": \"20201212\",\n" +
+            "      \"inpDesc\": \"울랄라뾰롱뾰롱\",\n" +
+            "      \"vin\": \"TESTVIN005551\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"inpSt\": \"2\",\n" +
+            "      \"inpDate\": \"20201231\",\n" +
+            "      \"inpDesc\": \"도로명주소싫어\",\n" +
+            "      \"vin\": \"TESTVIN06666\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}", VOC_1003.Response.class);
+
+    public static VOC_1004.Response VOC_1004 = new Gson().fromJson("", VOC_1004.Response.class);
+    public static VOC_1005.Response VOC_1005 = new Gson().fromJson("", VOC_1005.Response.class);
+
     public static WSH_1001.Response WSH_1001 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
             "  \"rtMsg\": \"성공\",\n" +

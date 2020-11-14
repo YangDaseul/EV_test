@@ -4,13 +4,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/bg_ffffff_stroke_e2e2e2"
         android:gravity="center">
 
+
         <TextView
             style="@style/TextBasic"
-            android:layout_margin="32dp"
-            android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+            android:layout_margin="40dp"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:text="@string/relapse_history_no_data"
             android:textColor="@color/x_141414"

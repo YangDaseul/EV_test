@@ -13,8 +13,7 @@
 
     </data>
 
-    <!-- 클릭 영역 :
-         TODO 항목 상태가 접수중이면 클릭 가능하게 하고 배경 리소스도 클릭 이펙트 있는 걸로 바꿔야 함-->
+    <!-- 클릭 영역 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_relapse_history_item"
         android:layout_width="match_parent"
@@ -75,7 +74,7 @@
             app:layout_constraintStart_toEndOf="@+id/l_relapse_header"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- 차대번호 데이터 todo : 객체 만들고 나서 바인딩 변수명 제대로 -->
+        <!-- 차대번호 데이터 -->
         <TextView
             android:id="@+id/tv_relapse_history_vin_desc"
             style="@style/RelapseHistoryItemDesc"

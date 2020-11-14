@@ -1,23 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
+        <!-- 점1 -->
         <TextView
+            android:id="@+id/tv_relapse_dot1"
             style="@style/RelapseHistoryItemNoti"
-            android:text="@string/relapse_history_noti_01" />
+            android:text="@string/relapse_history_dot"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_relapse_noti1" />
 
+        <!--안내 1-->
         <TextView
+            android:id="@+id/tv_relapse_noti1"
             style="@style/RelapseHistoryItemNoti"
-            android:text="@string/relapse_history_noti_02" />
+            android:layout_marginStart="4dp"
+            android:text="@string/relapse_history_noti_01"
+            app:layout_constraintStart_toEndOf="@id/tv_relapse_dot1"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <!--안내 2 -->
         <TextView
+            android:id="@+id/tv_relapse_noti2"
             style="@style/RelapseHistoryItemNoti"
-            android:layout_marginBottom="0dp"
-            android:text="@string/relapse_history_noti_03" />
+            android:layout_marginTop="12dp"
+            android:text="@string/relapse_history_noti_02"
+            app:layout_constraintStart_toStartOf="@id/tv_relapse_noti1"
+            app:layout_constraintTop_toBottomOf="@id/tv_relapse_noti1" />
 
-    </LinearLayout>
+        <!-- 점2 -->
+        <TextView
+            android:id="@+id/tv_relapse_dot2"
+            style="@style/RelapseHistoryItemNoti"
+            android:text="@string/relapse_history_dot"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_relapse_noti2" />
+
+        <!--안내 3 -->
+        <TextView
+            android:id="@+id/tv_relapse_noti3"
+            style="@style/RelapseHistoryItemNoti"
+            android:layout_marginTop="12dp"
+            android:text="@string/relapse_history_noti_03"
+            app:layout_constraintStart_toStartOf="@id/tv_relapse_noti1"
+            app:layout_constraintTop_toBottomOf="@id/tv_relapse_noti2" />
+
+        <!-- 점3 -->
+        <TextView
+            android:id="@+id/tv_relapse_dot3"
+            style="@style/RelapseHistoryItemNoti"
+            android:text="@string/relapse_history_dot"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_relapse_noti3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

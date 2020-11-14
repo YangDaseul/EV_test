@@ -12,11 +12,14 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.gra.WSH_1004;
 import com.genesis.apps.comm.model.vo.WashReserveVO;
+import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ItemCarWashHistoryBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
+
+import java.util.Date;
 
 public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveVO> {
     private static OnSingleClickListener singleClickListener;
@@ -118,13 +121,11 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
         }
 
         //날짜. 서버 값은 YYYYMMDDHH24MISS / UI 출력은 YYYY.MM.DD
-        private void setDate(String date) {
-            StringBuilder builder = new StringBuilder(date);
-            builder.insert(6, ".");//MM뒤에 점 추가
-            builder.insert(4, ".");//YYYY뒤에 점 추가
+        private void setDate(String dateOriginal) {
+            Date date = DateUtil.getDefaultDateFormat(dateOriginal, DateUtil.DATE_FORMAT_yyyyMMddHHmm);
+            String dateStr = DateUtil.getDate(date, DateUtil.DATE_FORMAT_yyyy_mm_dd_dot);
 
-            //DD까지만 잘라서 뷰에 출력
-            getBinding().tvCarWashHistoryDate.setText(builder.substring(0, 10));
+            getBinding().tvCarWashHistoryDate.setText(dateStr);
         }
 
         //지점명. 예약중/이용완료또는 취소 두 뷰에 일괄 처리
