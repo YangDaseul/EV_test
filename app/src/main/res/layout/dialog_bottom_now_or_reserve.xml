@@ -36,8 +36,7 @@
                 android:layout_height="wrap_content"
                 app:value="@{@string/now_or_reserve_title}" />
 
-            <!-- 차종, 번호판, 요금 뷰
-            TODO 이거 왜 안 되냐..... -->
+            <!-- 차종, 번호판, 요금 뷰 -->
             <include
                 android:id="@+id/l_dia_bottom_now_or_reserve_car_info_panel"
                 layout="@layout/layout_service_drive_req_panel"
@@ -46,8 +45,7 @@
                 android:layout_marginTop="30dp"
                 app:isRound="@{false}" />
 
-            <!-- 지금당장/예약 선택지
-            TODO 버튼 모양은 왜 또 제멋대로고??? -->
+            <!-- 지금당장/예약 선택지 -->
             <RadioGroup
                 android:id="@+id/rg_dia_bottom_now_or_reserve_radiogroup"
                 android:layout_width="match_parent"

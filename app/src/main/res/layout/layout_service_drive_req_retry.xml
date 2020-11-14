@@ -10,7 +10,7 @@
         <TextView
             style="@style/ServiceReq.Error"
             android:layout_marginEnd="10dp"
-            android:text="@string/service_req_03" />
+            android:text="@string/service_req_error" />
 
         <!-- 재시도버튼 -->
         <TextView
@@ -22,7 +22,7 @@
             android:paddingTop="10dp"
             android:paddingEnd="14dp"
             android:paddingBottom="10dp"
-            android:text="@string/service_req_04"
+            android:text="@string/service_req_retry"
             android:textColor="@color/x_141414"
             android:textSize="14sp" />
 
