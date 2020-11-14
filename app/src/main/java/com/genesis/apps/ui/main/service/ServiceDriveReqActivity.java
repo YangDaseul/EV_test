@@ -222,7 +222,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
                 default://[★]
                     showStatus(STATUS_ERROR);
-                    SnackBarUtil.show(this, getString(result.message));
+                    SnackBarUtil.show(this, "" + result.message);
                     //todo : 구체적인 예외처리
                     break;
             }
@@ -247,12 +247,13 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
                         }
                         showProgressDialog(false);
+                        break;
                     }
                     //not break; 데이터 이상하면 default로 진입시킴
 
                 default:
                     showProgressDialog(false);
-                    SnackBarUtil.show(this, getString(result.message));
+                    SnackBarUtil.show(this, "" + result.message);
                     //todo : 구체적인 예외처리
                     break;
             }
@@ -526,8 +527,6 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
         //세부주소 입력 창에 포커스 주기
         addressDetail.requestFocus();
-//        addressDetail.setText(address[1]);
-//        addressDetail.setSelection(addressDetail.length());
 
         //다음 단계 입력에 대한 안내 메시지
         ui.tvServiceDriveReqPleaseInputXxx.setText(topMsgId);

@@ -120,7 +120,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 
                 default:
                     showProgressDialog(false);
-                    SnackBarUtil.show(this, getString(result.message));
+                    SnackBarUtil.show(this, "" + result.message);
                     //todo : 구체적인 예외처리
                     break;
             }

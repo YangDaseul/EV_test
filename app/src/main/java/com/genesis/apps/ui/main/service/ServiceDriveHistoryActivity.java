@@ -96,7 +96,7 @@ public class ServiceDriveHistoryActivity extends SubActivity<ActivityServiceDriv
 
                 default:
                     showProgressDialog(false);
-                    SnackBarUtil.show(this, getString(result.message));
+                    SnackBarUtil.show(this, ""+result.message);
                     //todo : 구체적인 예외처리
                     break;
             }
