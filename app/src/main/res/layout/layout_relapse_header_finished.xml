@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        style="@style/TextBasic"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_141414_round_99"
+        android:fontFamily="@font/regular_genesissanstextglobal"
+        android:gravity="center"
+        android:text="@string/item_relapse_history_finished"
+        android:textColor="@color/x_ffffff"
+        android:textSize="11sp" />
+</layout>
