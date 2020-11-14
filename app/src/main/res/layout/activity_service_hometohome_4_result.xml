@@ -14,6 +14,10 @@
 
         <import type="java.util.Locale"/>
 
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View"/>
+
         <variable
             name="activity"
             type="com.genesis.apps.ui.main.service.ServiceHomeToHome4ResultActivity" />
@@ -181,6 +185,7 @@
                     android:layout_marginRight="20dp"
                     android:text="@string/sm_r_rsv03_03_6"
                     android:textColor="@color/x_525252"
+                    android:visibility="@{TextUtils.isEmpty(data.dlvryAddr) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_rsvt_hope_dt" />
@@ -192,6 +197,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="20dp"
                     android:text="@{data.pckpAddr}"
+                    android:visibility="@{TextUtils.isEmpty(data.dlvryAddr) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_dlvry_addr"
@@ -207,6 +213,7 @@
                     android:layout_marginRight="20dp"
                     android:text="@string/sm_r_rsv03_03_7"
                     android:textColor="@color/x_525252"
+                    android:visibility="@{TextUtils.isEmpty(data.dlvryAddr) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_dlvry_addr" />
@@ -218,6 +225,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="20dp"
                     android:text="정비 완료 후"
+                    android:visibility="@{TextUtils.isEmpty(data.dlvryAddr) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_dt" />
