@@ -17,26 +17,29 @@ import lombok.EqualsAndHashCode;
  * @Brief Genesis + 대리운전 신청 정보 등록
  */
 public class DDS_1002 extends BaseData {
+    //지금 신청, 예약 상태 구분
+    public static final String REQ_RIGHT_NOW = "RT";
+    public static final String REQ_RESERVE = "RS";
+
+    //출발지, 도착지 구분
+    public static final String REQ_POSITION_FROM = "DEPT";
+    public static final String REQ_POSITION_TO = "DEST";
+
     /**
      * @author hjpark
      * @brief DDS_1002 요청 항목
-     * @see #mbrMgmtNo 회원관리번호
      * 제네시스 CRM에서 발급되는 고객관리번호
      * @see #vin 차대번호
      * @see #reqDivCd 신청구분코드
      * @see #rsvDt 예약일시
      * @see #reqMemo 요청사항
      * @see #expPrice 예상금액
-     * @see #posInfo 위치정보
-     *
+     * @see #posInfo 위치정보[출발지, 도착지]
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     static
     class Request extends BaseRequest {
-        @Expose
-        @SerializedName("mbrMgmtNo")
-        private String mbrMgmtNo;
         @Expose
         @SerializedName("vin")
         private String vin;
@@ -54,11 +57,10 @@ public class DDS_1002 extends BaseData {
         private String expPrice;
         @Expose
         @SerializedName("posInfo")
-        private PositionVO posInfo;
+        private PositionVO[] posInfo;
 
 
-        public Request(String menuId, String mbrMgmtNo, String vin, String reqDivCd, String rsvDt, String reqMemo, String expPrice, PositionVO posInfo){
-            this.mbrMgmtNo = mbrMgmtNo;
+        public Request(String menuId, String vin, String reqDivCd, String rsvDt, String reqMemo, String expPrice, PositionVO[] posInfo) {
             this.vin = vin;
             this.reqDivCd = reqDivCd;
             this.rsvDt = rsvDt;

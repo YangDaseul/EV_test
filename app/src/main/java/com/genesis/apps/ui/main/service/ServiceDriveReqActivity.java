@@ -19,13 +19,16 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.BaseResponse;
+import com.genesis.apps.comm.model.api.gra.DDS_1002;
 import com.genesis.apps.comm.model.api.roadwin.CheckPrice;
-import com.genesis.apps.comm.model.api.roadwin.ServiceAreaCheck;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
+import com.genesis.apps.comm.model.vo.PositionVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
@@ -224,6 +227,37 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                     break;
             }
         });
+
+        //대리운전 신청
+        ddsViewModel.getRES_DDS_1002().observe(this, result -> {
+
+            Log.d(TAG, "observer req driver : " + result.status);
+
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+
+                case SUCCESS:
+                    if (result.data != null && result.data.getRtCd() != null) {
+                        Log.d(TAG, "setObserver req driver: " + result.data.getRtCd());
+
+                        if (result.data.getRtCd().equals(BaseResponse.RETURN_CODE_SUCC)) {
+                            //todo impl
+
+                        }
+                        showProgressDialog(false);
+                    }
+                    //not break; 데이터 이상하면 default로 진입시킴
+
+                default:
+                    showProgressDialog(false);
+                    SnackBarUtil.show(this, getString(result.message));
+                    //todo : 구체적인 예외처리
+                    break;
+            }
+
+        });
     }
 
     @Override
@@ -294,7 +328,8 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     }
 
     public void setTextListener() {
-        fromDetail.setOnEditorActionListener(editorActionListener);
+        enableEnterListener(true);
+
         fromDetail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -312,7 +347,6 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
             }
         });
 
-        toDetail.setOnEditorActionListener(editorActionListener);
         toDetail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -329,6 +363,12 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                 setError(toDetailLayout, hasInput(editable.toString()));
             }
         });
+    }
+
+    //대화상자 쪽 엔터 리스너 활성화 여부 조정
+    private void enableEnterListener(boolean enable) {
+        fromDetail.setOnEditorActionListener(enable ? editorActionListener : null);
+        toDetail.setOnEditorActionListener(enable ? editorActionListener : null);
     }
 
     //세부주소 칸에 입력한 값이 있는지 없는지 검사
@@ -480,14 +520,14 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         }
 
         //검색 버튼에 주소 입력하고 '값 있음' 스타일로 변경
-        addressBtn.setText(address[0]);
+        addressBtn.setText(TextUtils.concat(address[0], " ", address[1]));
         addressBtn.setTextAppearance(R.style.ServiceDrive_SearchAddress_HasData);
         addressBtn.setBackground(getDrawable(R.drawable.ripple_bg_ffffff_stroke_141414));
 
-        //세부주소도 입력하고 입력 창에 포커스 주기
-        addressDetail.setText(address[1]);
+        //세부주소 입력 창에 포커스 주기
         addressDetail.requestFocus();
-        addressDetail.setSelection(addressDetail.length());
+//        addressDetail.setText(address[1]);
+//        addressDetail.setSelection(addressDetail.length());
 
         //다음 단계 입력에 대한 안내 메시지
         ui.tvServiceDriveReqPleaseInputXxx.setText(topMsgId);
@@ -517,6 +557,9 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
     //지금 부를래, 예약할래? 대화상자 호출
     private void showReqDialog() {
+        //바깥쪽 입력창이 엔터 안 받게 막고
+        enableEnterListener(false);
+
         final BottomDialogReqNowOrReserve reqDialog = new BottomDialogReqNowOrReserve(
                 this,
                 mainVehicle,
@@ -525,12 +568,54 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
         reqDialog.setOnDismissListener(
                 dialogInterface -> {
-                    if (reqDialog.isInputConfirmed()) {
+                    //바깥 입력창 엔터 다시 활성화하고
+                    enableEnterListener(true);
 
+                    //서비스 신청ㄱㄱ
+                    if (reqDialog.isInputConfirmed()) {
+                        reqDriver(
+                                reqDialog.isNow() ? DDS_1002.REQ_RIGHT_NOW : DDS_1002.REQ_RESERVE,
+                                reqDialog.getReserveDate(),
+                                reqDialog.getMsg());
                     }
                 });
 
         reqDialog.show();
+    }
+
+    private void reqDriver(String when, String reserveDate, String msg) {
+        PositionVO[] route = new PositionVO[2];
+        String[] address;
+
+        address = getAddress(addressVO[FROM]);
+        route[FROM] =
+                new PositionVO(
+                        DDS_1002.REQ_POSITION_FROM,
+                        "" + addressVO[FROM].getCenterLat(),
+                        "" + addressVO[FROM].getCenterLon(),
+                        address[0],
+                        address[1],
+                        fromDetail.getText().toString());
+
+        address = getAddress(addressVO[TO]);
+        route[TO] =
+                new PositionVO(
+                        DDS_1002.REQ_POSITION_FROM,
+                        "" + addressVO[TO].getCenterLat(),
+                        "" + addressVO[TO].getCenterLon(),
+                        address[0],
+                        address[1],
+                        toDetail.getText().toString());
+
+        ddsViewModel.reqDDS1002(
+                new DDS_1002.Request(
+                        APPIAInfo.SM_DRV01_P01.getId(),
+                        mainVehicle.getVin(),
+                        when,
+                        reserveDate,
+                        msg,
+                        priceMaybe,
+                        route));
     }
 
     public void showStatus(int newStatus) {
