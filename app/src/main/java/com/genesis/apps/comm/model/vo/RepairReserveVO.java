@@ -139,6 +139,48 @@ class RepairReserveVO extends BaseData {
         this.userNm = userNm;
     }
 
+
+    //REQ-1012
+    public RepairReserveVO(
+            String rsvtTypCd
+            , String rparTypCd
+            , String vin
+            , String carRgstNo
+            , String mdlCd
+            , String mdlNm
+            , String rsvtHopeDt
+            , String rsvtHopeTm
+            , String hpNo
+            , String acps1Cd
+            , String asnCd
+            , String asnNm
+            , String repTn
+            , String pbzAdr
+            , String rpshGrpCd
+            , String rpshGrpNm
+            , String rqrm
+            , String userNm){
+
+        this.rsvtTypCd = rsvtTypCd;
+        this.rparTypCd = rparTypCd;
+        this.vin = vin;
+        this.carRgstNo = carRgstNo;
+        this.mdlCd = mdlCd;
+        this.mdlNm = mdlNm;
+        this.rsvtHopeDt = rsvtHopeDt;
+        this.rsvtHopeTm = rsvtHopeTm;
+        this.hpNo = hpNo;
+        this.acps1Cd = acps1Cd;
+        this.asnCd = asnCd;
+        this.asnNm = asnNm;
+        this.repTn = repTn;
+        this.pbzAdr = pbzAdr;
+        this.rpshGrpCd = rpshGrpCd;
+        this.rpshGrpNm = rpshGrpNm;
+        this.rqrm = rqrm;
+        this.userNm = userNm;
+    }
+
     @Expose
     @SerializedName("rparRsvtSeqNo")
     private String rparRsvtSeqNo;

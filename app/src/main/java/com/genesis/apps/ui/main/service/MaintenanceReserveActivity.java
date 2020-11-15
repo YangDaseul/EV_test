@@ -96,9 +96,16 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
 
             case R.id.l_maintenance_repair:
 
-                MiddleDialog.dialogServiceCantReserveInfo(this, () -> {
-                    //todo 다음 클릭 시 정비예약으로..
-                });
+                        startActivitySingleTop(new Intent(this, ServiceRepair2ApplyActivity.class)
+                                        .putExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE, selectRepairTypeVO)
+                                , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                                , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
+//                MiddleDialog.dialogServiceCantReserveInfo(this, () ->
+//                    startActivitySingleTop(new Intent(this, ServiceRepair2ApplyActivity.class)
+//                                    .putExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE, selectRepairTypeVO)
+//                            , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+//                            , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE));
 
                 break;
         }

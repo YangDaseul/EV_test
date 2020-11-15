@@ -406,6 +406,11 @@
 
 
         <activity
+            android:name=".ui.main.service.ServiceRepair2ApplyActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".ui.main.service.ServiceRepair3CheckActivity"
             android:exported="false"
             android:screenOrientation="portrait"

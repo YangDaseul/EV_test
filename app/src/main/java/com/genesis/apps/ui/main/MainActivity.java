@@ -194,7 +194,8 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         }else if(resultCode==ResultCodes.REQ_CODE_SERVICE_RESERVE_AUTOCARE.getCode()
                 ||resultCode==ResultCodes.REQ_CODE_SERVICE_RESERVE_HOMETOHOME.getCode()
                 ||resultCode==ResultCodes.REQ_CODE_SERVICE_RESERVE_REPAIR.getCode()
-                ||resultCode==ResultCodes.REQ_CODE_SERVICE_RESERVE_REMOTE.getCode()){
+                ||resultCode==ResultCodes.REQ_CODE_SERVICE_RESERVE_REMOTE.getCode()
+                ||resultCode==ResultCodes.REQ_CODE_SERVICE_NETWORK_RESERVE.getCode()){
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                 if (fragment instanceof FragmentService) {
                     fragment.onActivityResult(requestCode, resultCode, data);

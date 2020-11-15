@@ -50,7 +50,7 @@ import javax.inject.Inject;
 
 /**
  * @author hjpark
- * @brief 차계부 입력
+ * @brief 오토케어2단계
  */
 @AndroidEntryPoint
 public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAutocare2Apply1Binding> {

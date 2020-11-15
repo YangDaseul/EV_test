@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<!--    <string name="sm_r_rsv02_01_1">오토케어 예약하기</string>-->
-<!--    <string name="sm_r_rsv02_01_2">예약 서비스를\n선택해 주세요.</string>-->
-<!--    <string name="sm_r_rsv02_01_3">예약 서비스</string>-->
-<!--    <string name="sm_r_rsv02_01_4">찾아가는 오토케어</string>-->
-<!--    <string name="sm_r_rsv02_01_5">차량이 있는 곳으로 찾아가서\n정비해 드리는 서비스</string>-->
-<!--    <string name="sm_r_rsv02_01_6">서비스 받으실 주소를\n입력해 주세요.</string>-->
-<!--    <string name="sm_r_rsv02_01_7">서비스 받을 주소</string>-->
-<!--    <string name="sm_r_rsv02_01_8">주소</string>-->
-<!--    <string name="sm_r_rsv02_01_9">변경</string>-->
-<!--    <string name="sm_r_rsv02_01_10">오토케어 주소검색</string>-->
-<!--    <string name="sm_r_rsv02_01_11">서비스 받으실 주소를\n검색해 주세요.</string>-->
-<!--    <string name="sm_r_rsv02_01_12">상세 주소를\n입력해 주세요.</string>-->
-<!--    <string name="sm_r_rsv02_01_13">상세 주소</string>-->
-<!--    <string name="sm_r_rsv02_01_14">필수 입력 사항입니다.</string>-->
-<!--    <string name="sm_r_rsv02_01_15">예약 희망일을\n선택해 주세요.</string>-->
-<!--    <string name="sm_r_rsv02_01_16">예약 희망일</string>-->
-<!--    <string name="sm_r_rsv02_01_17">서비스 받으실 주소를 입력해 주세요.</string>-->
+    <string name="sm_r_rsv02_04_1">정비소 예약하기</string>
+    <string name="sm_r_rsv02_04_2">예약할 정비소를\n검색해 주세요.</string>
+    <string name="sm_r_rsv02_04_3">정비소</string>
+    <string name="sm_r_rsv02_04_4">서비스 네트워크(블루핸즈)\n정비 서비스</string>
+    <string name="sm_r_rsv02_04_5">정비 내용</string>
+    <string name="sm_r_rsv02_04_6">정비소 위치 / 필터</string>
+    <string name="sm_r_rsv02_04_7">위치와 필터를\n선택해 주세요.</string>
+    <string name="sm_r_rsv02_04_8">날짜 / 시간</string>
+    <string name="sm_r_rsv02_04_9">정비소 예약일을\n선택해 주세요.</string>
+    <string name="sm_r_rsv02_04_10">정비소 예약일 선택</string>
+    <string name="sm_r_rsv02_04_11">예약 가능 시간</string>
+    <string name="sm_r_rsv02_04_12">정비반 선택</string>
+    <string name="sm_r_rsv02_04_13">정비반 선택</string>
+    <string name="sm_r_rsv02_04_14">예약 가능 시간이 없습니다.</string>
+    <string name="sm_r_rsv02_04_15">10:00</string>
+    <string name="sm_r_rsv02_04_16">14:00</string>
 
     <string name="sm_r_rsv03_04_1">정비소 예약 정보를\n확인해 주세요.</string>
     <string name="sm_r_rsv03_04_2">예약 내역을 확인하고,\n아래 다음 버튼을 누르시면,\n정비소 에약이 완료됩니다.</string>

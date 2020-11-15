@@ -15,15 +15,25 @@ import lombok.EqualsAndHashCode;
  * YYYYMMDD
  * @see #dayCd  요일코드
  * 1: 월 2:화 3:수 4 : 목 5: 금 6:토 7:일
+ * @see #rsvtTm 예약시간
+ * HH24MI
  **/
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
 class RepairReserveDateVO extends BaseData {
+
+    public RepairReserveDateVO(){
+
+    }
+
     @Expose
     @SerializedName("rsvtDt")
     private String rsvtDt;
     @Expose
     @SerializedName("dayCd")
     private String dayCd;
+    @Expose
+    @SerializedName("rsvtTm")
+    private String rsvtTm;
 }

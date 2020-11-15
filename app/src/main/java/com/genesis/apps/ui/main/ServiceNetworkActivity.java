@@ -9,28 +9,23 @@ import android.view.View;
 import android.view.ViewStub;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.api.roadwin.CheckPrice;
-import com.genesis.apps.comm.model.api.roadwin.ServiceAreaCheck;
-import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.RequestCodes;
-import com.genesis.apps.comm.model.constants.ResultCodes;
-import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.BTR_1008;
 import com.genesis.apps.comm.model.api.gra.BTR_1009;
 import com.genesis.apps.comm.model.api.gra.REQ_1002;
 import com.genesis.apps.comm.model.api.gra.REQ_1003;
-import com.genesis.apps.comm.model.repo.RoadWinRepo;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.BTRViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.PUBViewModel;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
-import com.genesis.apps.comm.viewmodel.RoadWinViewModel;
 import com.genesis.apps.databinding.ActivityMap2Binding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomSelectBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
@@ -47,7 +42,6 @@ import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 /**
  * @brief 서비스 네트워크
@@ -78,6 +72,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     public final static int PAGE_TYPE_BTR=0;//버틀러 변경
     public final static int PAGE_TYPE_RENT=1;//렌트리스 등록
     public final static int PAGE_TYPE_SERVICE=2;//서비스 네트워크
+    public final static int PAGE_TYPE_REPAIR=3;//정비소예약
     private int pageType=0;
 
     @Override
@@ -111,6 +106,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                                     setPosition(btrViewModel.getRES_BTR_1008().getValue().data.getAsnList(), btrVO);
                                     break;
                                 case PAGE_TYPE_SERVICE:
+                                case PAGE_TYPE_REPAIR:
                                 default:
                                     setPosition(reqViewModel.getRES_REQ_1002().getValue().data.getAsnList(), btrVO);
                                     break;
@@ -171,6 +167,16 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 case PAGE_TYPE_RENT:
                     btrViewModel.reqBTR1008(new BTR_1008.Request(APPIAInfo.GM_CARLST_01_B01.getId(), String.valueOf(doubles.get(0)), String.valueOf(doubles.get(1)), "", "", fillerCd));
                     break;
+                case PAGE_TYPE_REPAIR:
+                    if(btrVO!=null) {
+                        try {
+                            mainVehicle = reqViewModel.getMainVehicle();
+                            reqViewModel.reqREQ1002(new REQ_1002.Request(APPIAInfo.SM_SNFIND01.getId(), mainVehicle.getVin(), mainVehicle.getMdlCd(), String.valueOf(doubles.get(0)), String.valueOf(doubles.get(1)),"", "", "", ""));
+                        } catch (Exception e) {
+
+                        }
+                        break;
+                    }
                 case PAGE_TYPE_SERVICE:
                 default:
                     try {
@@ -246,6 +252,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         case PAGE_TYPE_RENT:
                             btrViewModel.reqBTR1008(new BTR_1008.Request(APPIAInfo.GM_CARLST_01_B01.getId(), String.valueOf(lgnViewModel.getPosition().getValue().get(0)), String.valueOf(lgnViewModel.getPosition().getValue().get(1)), addr, addrDtl, fillerCd));
                             break;
+                        case PAGE_TYPE_REPAIR:
                         case PAGE_TYPE_SERVICE:
                         default:
                             reqViewModel.reqREQ1002(new REQ_1002.Request(APPIAInfo.SM_SNFIND01.getId(), reqViewModel.getMainVehicle().getVin(), reqViewModel.getMainVehicle().getMdlCd(), String.valueOf(lgnViewModel.getPosition().getValue().get(0)), String.valueOf(lgnViewModel.getPosition().getValue().get(1)), addr, addrDtl, fillerCd, "" ));
@@ -305,7 +312,8 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     RepairTypeVO repairTypeVO = null;
                     try{
                         repairTypeVO = reqViewModel.getRepairTypeCd(result, list);
-                        //todo 예약으로 이동하는 부분 처리 필요
+                        exitPage(new Intent().putExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE, repairTypeVO)
+                        .putExtra(KeyNames.KEY_NAME_BTR, btrVO), ResultCodes.REQ_CODE_SERVICE_NETWORK_RESERVE.getCode());
                     }catch (Exception e){
 
                     }
@@ -332,8 +340,11 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         break;
                     case PAGE_TYPE_RENT:
                         //기타 렌트리스.
-                        setResult(ResultCodes.REQ_CODE_BTR.getCode(), new Intent().putExtra(KeyNames.KEY_NAME_BTR, btrVO));
-                        finish();
+                        exitPage(new Intent().putExtra(KeyNames.KEY_NAME_BTR, btrVO), ResultCodes.REQ_CODE_BTR.getCode());
+                        break;
+                    case PAGE_TYPE_REPAIR:
+                        //정비소 예약2단계 선택
+                        exitPage(new Intent().putExtra(KeyNames.KEY_NAME_BTR, btrVO), ResultCodes.REQ_CODE_BTR.getCode());
                         break;
                     case PAGE_TYPE_SERVICE:
                     default:
@@ -364,6 +375,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     case PAGE_TYPE_RENT:
                         list = btrViewModel.getRES_BTR_1008().getValue().data.getAsnList();
                         break;
+                    case PAGE_TYPE_REPAIR:
                     case PAGE_TYPE_SERVICE:
                     default:
                         list = reqViewModel.getRES_REQ_1002().getValue().data.getAsnList();
@@ -440,6 +452,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 case PAGE_TYPE_RENT:
                     list = btrViewModel.getRES_BTR_1008().getValue().data.getAsnList();
                     break;
+                case PAGE_TYPE_REPAIR:
                 case PAGE_TYPE_SERVICE:
                 default:
                     list = reqViewModel.getRES_REQ_1002().getValue().data.getAsnList();
@@ -485,6 +498,9 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                             break;
                         case PAGE_TYPE_RENT:
                             bottomSelectBinding.tvMapSelectBtn1.setText(R.string.bt06_15);
+                            break;
+                        case PAGE_TYPE_REPAIR:
+                            bottomSelectBinding.tvMapSelectBtn1.setText(R.string.map_btn_1);
                             break;
                         case PAGE_TYPE_SERVICE:
                         default:

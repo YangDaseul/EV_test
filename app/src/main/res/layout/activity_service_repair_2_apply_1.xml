@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingConstraints">
+
+    <data>
+        <import type="com.genesis.apps.comm.util.DateUtil" />
+
+        <import type="com.genesis.apps.comm.util.StringUtil" />
+
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.main.service.ServiceRepair2ApplyActivity" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/x_ffffff"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/l_title"
+            layout="@layout/layout_titlebar"
+            app:value="@{@string/sm_r_rsv02_04_1}"/>
+
+        <ScrollView
+            android:id="@+id/sc"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="30dp"
+                android:paddingBottom="30dp">
+
+                <TextView
+                    android:id="@+id/tv_msg"
+                    style="@style/CommonTextMsg"
+                    android:text="@string/sm_r_rsv02_04_2"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_msg_bottom"
+                    app:layout_constraintStart_toStartOf="@+id/tv_msg_bottom" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_rsvt_hope_dt"
+                    style="@style/CommonSpinnerLayout"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_msg_bottom"
+                    app:layout_constraintStart_toStartOf="@+id/tv_msg_bottom"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_msg">
+
+                    <TextView
+                        android:id="@+id/tv_rsvt_hope_dt"
+                        style="@style/CommonSpinnerItemCalendarDisable"
+                        android:drawableRight="@drawable/ic_calendar"
+                        android:paddingRight="12dp"
+                        android:text="@string/sm_r_rsv02_04_8"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_error_rsvt_hope_dt"
+                        style="@style/CommonSpinnerError"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_rsvt_hope_dt"
+                        tools:visibility="invisible" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_repair"
+                    style="@style/CommonSpinnerLayout"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_msg_bottom"
+                    app:layout_constraintStart_toStartOf="@+id/tv_msg_bottom"
+                    app:layout_constraintTop_toBottomOf="@+id/l_rsvt_hope_dt">
+
+                    <TextView
+                        android:id="@+id/tv_title_repair"
+                        style="@style/CommonSpinnerTitle"
+                        android:text="@string/sm_r_rsv02_04_3"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tv_repair"
+                        style="@style/CommonInputItemDisable"
+                        android:text="@string/sm_r_rsv02_04_3"
+                        android:layout_marginTop="6dp"
+                        android:visibility="visible"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_title_repair"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tv_error_repair"
+                        style="@style/CommonSpinnerError"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_repair"
+                        tools:visibility="invisible"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_rpartypnm"
+                    style="@style/CommonSpinnerLayout"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_msg_bottom"
+                    app:layout_constraintStart_toStartOf="@+id/tv_msg_bottom"
+                    app:layout_constraintTop_toBottomOf="@+id/l_repair">
+
+                    <TextView
+                        android:id="@+id/tv_title_rpartypnm"
+                        style="@style/CommonSpinnerTitle"
+                        android:text="@string/sm_r_rsv02_04_5"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/tv_rpartypnm"
+                        style="@style/CommonTextViewFix"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_title_rpartypnm"
+                        tools:text="소모성 부품" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                <ImageView
+                    android:id="@+id/iv_line_1"
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="40dp"
+                    android:background="@color/x_f4f4f4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/l_rpartypnm" />
+
+                <TextView
+                    android:id="@+id/tv_msg_bottom"
+                    style="@style/ViewMsgInputTile"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/sm_r_rsv02_04_3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_line_1" />
+
+                <TextView
+                    android:id="@+id/tv_msg_sub_bottom"
+                    style="@style/ViewMsgInputSub2"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/sm_r_rsv02_04_4"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_msg_bottom"
+                    app:layout_constraintStart_toStartOf="@+id/tv_msg_bottom"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_msg_bottom" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/btn_next"
+            style="@style/ViewBottomOkBtn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:text="@string/gm_carlst_01_32" />
+
+    </LinearLayout>
+
+</layout>

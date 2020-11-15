@@ -64,6 +64,8 @@ import com.genesis.apps.comm.model.api.gra.REQ_1004;
 import com.genesis.apps.comm.model.api.gra.REQ_1005;
 import com.genesis.apps.comm.model.api.gra.REQ_1007;
 import com.genesis.apps.comm.model.api.gra.REQ_1009;
+import com.genesis.apps.comm.model.api.gra.REQ_1010;
+import com.genesis.apps.comm.model.api.gra.REQ_1011;
 import com.genesis.apps.comm.model.api.gra.REQ_1012;
 import com.genesis.apps.comm.model.api.gra.SOS_1001;
 import com.genesis.apps.comm.model.api.gra.SOS_1002;
@@ -3269,6 +3271,91 @@ public class TestCode {
             "  \"rtMsg\": \"Success\",\n" +
             "  \"rsvtNo\": \"1234567890123\"\n" +
             "}",REQ_1012.Response.class);
+
+
+    public static REQ_1010.Response REQ_1010 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"rsvtDtList\": [\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201116\",\n" +
+            "      \"rsvtTm\": \"1000\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201116\",\n" +
+            "      \"rsvtTm\": \"1400\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201117\",\n" +
+            "      \"rsvtTm\": \"1000\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201117\",\n" +
+            "      \"rsvtTm\": \"1400\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201118\",\n" +
+            "      \"rsvtTm\": \"1000\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201118\",\n" +
+            "      \"rsvtTm\": \"1400\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201119\",\n" +
+            "      \"rsvtTm\": \"1000\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201119\",\n" +
+            "      \"rsvtTm\": \"1400\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201120\",\n" +
+            "      \"rsvtTm\": \"1000\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201120\",\n" +
+            "      \"rsvtTm\": \"1400\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201121\",\n" +
+            "      \"rsvtTm\": \"1000\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201122\",\n" +
+            "      \"rsvtTm\": \"1400\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",REQ_1010.Response.class);
+
+
+
+    public static REQ_1011.Response REQ_1011 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"rpshGrpList\": [\n" +
+            "    {\n" +
+            "      \"rpshGrpCd\": \"codea\",\n" +
+            "      \"rpshGrpNm\": \"정비반A\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rpshGrpCd\": \"codeb\",\n" +
+            "      \"rpshGrpNm\": \"정비반B\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rpshGrpCd\": \"codec\",\n" +
+            "      \"rpshGrpNm\": \"정비반C\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rpshGrpCd\": \"coded\",\n" +
+            "      \"rpshGrpNm\": \"정비반D\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rpshGrpCd\": \"codee\",\n" +
+            "      \"rpshGrpNm\": \"정비반E\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",REQ_1011.Response.class);
     
 
 }

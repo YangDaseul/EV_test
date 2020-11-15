@@ -18,7 +18,9 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.RepairReserveVO;
+import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.databinding.FragmentServiceBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
@@ -169,6 +171,15 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
 
         } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REMOTE.getCode()) {
             //todo 원격진단 서비스 예약 완료 시 페이지 이동
+        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_NETWORK_RESERVE.getCode()) {
+            //서비스네트워크에서 예약 선택 시
+            RepairTypeVO repairTypeVO = (RepairTypeVO) data.getSerializableExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE);
+            BtrVO btrVO = (BtrVO) data.getSerializableExtra(KeyNames.KEY_NAME_BTR);
+            ((SubActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRepair2ApplyActivity.class)
+                            .putExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE, repairTypeVO)
+                            .putExtra(KeyNames.KEY_NAME_BTR, btrVO)
+                    , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                    , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }

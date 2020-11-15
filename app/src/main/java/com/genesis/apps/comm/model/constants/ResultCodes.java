@@ -20,7 +20,8 @@ public enum ResultCodes {
     REQ_CODE_SERVICE_RESERVE_AUTOCARE(20,"오토케어 예약 완료"),
     REQ_CODE_SERVICE_RESERVE_HOMETOHOME(21,"홈투홈 예약 완료"),
     REQ_CODE_SERVICE_RESERVE_REPAIR(22,"정비 예약 완료"),
-    REQ_CODE_SERVICE_RESERVE_REMOTE(23,"원격진단 예약 완료");
+    REQ_CODE_SERVICE_RESERVE_REMOTE(23,"원격진단 예약 완료"),
+    REQ_CODE_SERVICE_NETWORK_RESERVE(24,"서비스 네트워크 예약 진행");
 
     private int code;
     private String description;

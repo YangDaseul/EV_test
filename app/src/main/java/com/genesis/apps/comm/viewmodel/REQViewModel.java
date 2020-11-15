@@ -24,6 +24,7 @@ import com.genesis.apps.comm.model.api.gra.REQ_1015;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.REQRepo;
 import com.genesis.apps.comm.model.vo.CouponVO;
+import com.genesis.apps.comm.model.vo.RepairGroupVO;
 import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
@@ -222,6 +223,69 @@ class REQViewModel extends ViewModel {
             es.shutDownExcutor();
         }
     }
+
+
+
+    /**
+     * @brief 정비소 리스트 중 명칭 확인
+     * @param repairTypeVOList
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
+    public List<String> getRpshGrpNmList(List<RepairGroupVO> repairTypeVOList) throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<List<String>> future = es.getListeningExecutorService().submit(()->{
+            List<String> list = new ArrayList<>();
+            try {
+                list = repairTypeVOList.stream().map(RepairGroupVO::getRpshGrpNm).collect(toList());
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+                list = null;
+            }
+            return list;
+        });
+
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
+    }
+
+    /**
+     * @biref 정비소명에 해당하는 코드 반환
+     * @param rpshGrpNm 정비소코드
+     * @param list 정비소리스트
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
+    public RepairGroupVO getRpshGrpCd(String rpshGrpNm, List<RepairGroupVO> list) throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<RepairGroupVO> future = es.getListeningExecutorService().submit(()->{
+            RepairGroupVO repairGroupVO=null;
+            try {
+                repairGroupVO = list.stream().filter(data -> (data.getRpshGrpNm().equalsIgnoreCase(rpshGrpNm))).findFirst().get();
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+                repairGroupVO = null;
+            }
+            return repairGroupVO;
+        });
+
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
+    }
+
+
+
+
+
+
 
     public boolean checkCoupon(List<CouponVO> couponList, String itemDivCd){
         int remCnt=0;

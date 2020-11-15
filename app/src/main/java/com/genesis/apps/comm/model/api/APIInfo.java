@@ -113,7 +113,7 @@ public enum APIInfo {
     GRA_REQ_1001("service + 서비스메인 - 정비상태", "REQ-1001", HttpRequest.METHOD_POST, "/graapi/req/svcMain.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_REQ_1002("service + 서비스메인 - 네트워크 찾기", "REQ-1002", HttpRequest.METHOD_POST, "/graapi/req/svcFind.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_REQ_1003("service + 서비스메인 - 정비내용조회(업체선택)", "REQ-1003", HttpRequest.METHOD_POST, "/graapi/req/rparTypList.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_REQ_1004("service + 정비예약 - 정비내용조회(업체미선택)", "REQ-1004", HttpRequest.METHOD_POST, "/graapi/req/rparDefTypList.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_REQ_1004("service + 정비예약 - 정비내용조회(업체미선택)", "REQ-1004", HttpRequest.METHOD_POST, "/graapi/req/rparTypDbList.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_REQ_1005("service + 정비예약 - 정비1단계", "REQ-1005", HttpRequest.METHOD_POST, "/graapi/req/rparChkStaus.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_REQ_1007("service + 정비예약 - 오토케어 예약신청", "REQ-1007", HttpRequest.METHOD_POST, "/graapi/req/autoReserv.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_REQ_1008("service + 정비예약 - 홈투홈 예약가능일", "REQ-1008", HttpRequest.METHOD_POST, "/graapi/req/availBookHome.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
