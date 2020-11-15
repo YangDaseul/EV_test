@@ -72,6 +72,10 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 public @Data
 class VOCInfoVO extends BaseData {
+    public static final String INP_ST_CODE_REQ = "0";    //신청
+    public static final  String INP_ST_CODE_WAITING = "1";//접수중
+    public static final  String INP_ST_CODE_FINISH = "2"; //접수완료
+
     @Expose
     @SerializedName("csmrNm")
     private String csmrNm;

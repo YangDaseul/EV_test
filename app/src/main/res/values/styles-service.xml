@@ -156,4 +156,38 @@
     </style>
 
 
+    <!-- 하자 재발 신청 내역 아이템-->
+    <!-- 왼쪽 동그란 텍스트 -->
+    <style name="RelapseHistoryHeader" parent="TextBasic">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- 항목 이름-->
+    <style name="RelapseHistoryItemTitle" parent="TextBasic">
+        <item name="android:textColor">@color/x_525252</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="layout_constraintVertical_chainStyle">packed</item>
+    </style>
+
+    <!-- 항목 항목 값-->
+    <style name="RelapseHistoryItemDesc" parent="TextBasic">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:textColor">@color/x_141414</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+    </style>
+
+    <!-- 하자 재발 내역 목록 밑에 안내문 세 개 -->
+    <style name="RelapseHistoryItemNoti" parent="TextBasic">
+        <item name="android:textColor">@color/x_aaabaf</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+    </style>
+
+
 </resources>

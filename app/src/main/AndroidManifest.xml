@@ -444,6 +444,12 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
+        <!-- 하자 재발 신청 내역 -->
+        <activity
+            android:name=".ui.main.service.ServiceRelapseHistoryActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+
         <!-- 세차 지점검색 -->
         <activity
             android:name=".ui.main.service.CarWashSearchActivity"

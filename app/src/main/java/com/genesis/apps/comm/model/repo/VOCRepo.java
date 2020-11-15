@@ -9,6 +9,7 @@ import com.genesis.apps.comm.model.api.gra.VOC_1002;
 import com.genesis.apps.comm.model.api.gra.VOC_1003;
 import com.genesis.apps.comm.model.api.gra.VOC_1004;
 import com.genesis.apps.comm.model.api.gra.VOC_1005;
+import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
@@ -44,7 +45,8 @@ public class VOCRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_VOC_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_VOC_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_VOC_1001.setValue(NetUIResponse.success(TestCode.VOC_1001));
             }
 
             @Override
@@ -68,7 +70,8 @@ public class VOCRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_VOC_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_VOC_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_VOC_1002.setValue(NetUIResponse.success(TestCode.VOC_1002));
             }
 
             @Override
@@ -92,7 +95,8 @@ public class VOCRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_VOC_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_VOC_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_VOC_1003.setValue(NetUIResponse.success(TestCode.VOC_1003));
             }
 
             @Override
@@ -103,7 +107,6 @@ public class VOCRepo {
 
         return RES_VOC_1003;
     }
-
 
     public MutableLiveData<NetUIResponse<VOC_1004.Response>> REQ_VOC_1004(final VOC_1004.Request reqData) {
         RES_VOC_1004.setValue(NetUIResponse.loading(null));
@@ -116,7 +119,8 @@ public class VOCRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_VOC_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_VOC_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_VOC_1004.setValue(NetUIResponse.success(TestCode.VOC_1004));
             }
 
             @Override
@@ -142,7 +146,8 @@ public class VOCRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_VOC_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_VOC_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_VOC_1005.setValue(NetUIResponse.success(TestCode.VOC_1005));
             }
 
             @Override
