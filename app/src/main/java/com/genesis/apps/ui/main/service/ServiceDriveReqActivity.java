@@ -42,6 +42,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReqBinding> {
     private static final String TAG = ServiceDriveReqActivity.class.getSimpleName();
+    private static final int INVALID_ID = 0;
 
     private static final int FROM = 0;
     private static final int TO = 1;
@@ -74,6 +75,9 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     private TextInputEditText fromDetail;
     private TextInputEditText toDetail;
 
+    //true면 주소 검색 창을 바로 오픈
+    private boolean isDirect;
+
     //키보드로 입력하고 엔터 누르면 밑에 다음 버튼 누른 거랑 같도록 하는 리스너
     private EditText.OnEditorActionListener editorActionListener = (textView, actionId, keyEvent) -> {
         if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -96,8 +100,10 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         setObserver();
         initView();
 
-        //시작하자마자 출발 주소 검색 화면으로 넘어감
-        onClickSearchAddressBtn(FROM);
+        //플래그를 보고 출발지 검색 지도 호출을 즉시 실행
+        if (isDirect) {
+            onClickSearchAddressBtn(FROM);
+        }
     }
 
     @Override
@@ -263,15 +269,20 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
     @Override
     public void getDataFromIntent() {
-        //대리운전 기사 못 찾아서 취소 누르고 여기로 떨어지는 경우, 스낵바 메시지를 들고온다. 없으면 무효값(-1)으로 초기화.
-        int msgId = getIntent().getIntExtra(KeyNames.KEY_NAME_SERVICE_DRIVE_REQ_START_MSG, -1);
+        //대리운전 기사 못 찾아서 취소 누르고 여기로 떨어지는 경우, 스낵바 메시지를 들고온다. 없으면 무효값으로 초기화.
+        int msgId = getIntent().getIntExtra(KeyNames.KEY_NAME_SERVICE_DRIVE_REQ_START_MSG, INVALID_ID);
 
         //메지지가 있으면 보여준다
-        if (msgId > 0) {
+        if (msgId != INVALID_ID) {
             new Handler().postDelayed(
                     () -> SnackBarUtil.show(this, getString(msgId)),
                     100);
         }
+        //메시지가 없으면 정규 루트 : 자동으로 지도를 호출하도록 플래그 세팅
+        else {
+            isDirect = true;
+        }
+
 
         mainVehicle = (VehicleVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_VEHICLE_VO);
         if (mainVehicle == null) {
