@@ -184,7 +184,7 @@ public class BottomDialogReqNowOrReserve extends BaseBottomDialog<DialogBottomNo
                 false,
                 reserveLimitStart,
                 reserveLimitEnd,
-                Calendar.getInstance(Locale.getDefault())
+                limitStart
         );
 
         // Options

@@ -50,6 +50,12 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
+        <!-- 결제 웹뷰 -->
+        <activity
+            android:name=".ui.common.activity.PaymentWebViewActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".ui.myg.MyGEntranceActivity"
             android:exported="false"
