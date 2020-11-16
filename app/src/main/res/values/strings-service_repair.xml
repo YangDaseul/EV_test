@@ -43,4 +43,66 @@
     <string name="sm_r_rsv04_04_10">휴대폰 번호</string>
     <string name="sm_r_rsv04_04_11">차량 번호</string>
     <string name="sm_r_rsv04_04_12">예약 확인</string>
+
+
+    <string name="sm_r_rsv05_1">정비 현황 / 예약</string>
+    <string name="sm_r_rsv05_2">현황/예약</string>
+    <string name="sm_r_rsv05_3">이력</string>
+    <string name="sm_r_rsv05_4">차량 현재 상태</string>
+    <string name="sm_r_rsv05_5">작업대기</string>
+    <string name="sm_r_rsv05_6">차량점검</string>
+    <string name="sm_r_rsv05_7">작업 중</string>
+    <string name="sm_r_rsv05_8">최종점검</string>
+    <string name="sm_r_rsv05_9">작업완료</string>
+    <string name="sm_r_rsv05_10">픽업대기</string>
+    <string name="sm_r_rsv05_11">픽업 중</string>
+    <string name="sm_r_rsv05_12">정비소\n도착</string>
+    <string name="sm_r_rsv05_13">딜리버라\n대기</string>
+    <string name="sm_r_rsv05_14">딜리버리\n완료</string>
+    <string name="sm_r_rsv05_15">예약\n신청 중</string>
+    <string name="sm_r_rsv05_16">예약 중</string>
+    <string name="sm_r_rsv05_17">정비 현황</string>
+    <string name="sm_r_rsv05_18">업체명</string>
+    <string name="sm_r_rsv05_19">주소</string>
+    <string name="sm_r_rsv05_20">연락처</string>
+    <string name="sm_r_rsv05_21">예약 내역</string>
+    <string name="sm_r_rsv05_22">정비소</string>
+    <string name="sm_r_rsv05_23">오토케어</string>
+    <string name="sm_r_rsv05_24">홈투홈</string>
+    <string name="sm_r_rsv05_25">일시</string>
+    <string name="sm_r_rsv05_26">예약 번호</string>
+    <string name="sm_r_rsv05_27">전화</string>
+    <string name="sm_r_rsv05_28">예약자</string>
+    <string name="sm_r_rsv05_29">전화번호</string>
+    <string name="sm_r_rsv05_30">차량번호</string>
+    <string name="sm_r_rsv05_31">예약취소</string>
+    <string name="sm_r_rsv05_32">예약 취소</string>
+    <string name="sm_r_rsv05_33">정비 예약 내역이 없습니다.</string>
+    <string name="sm_r_rsv05_34">정비 현황 / 예약 내역이 없습니다.</string>
+    <string name="sm_r_rsv05_35">예약 취소 사유</string>
+    <string name="sm_r_rsv05_36">픽업</string>
+    <string name="sm_r_rsv05_37">딜리버리</string>
+    <string name="sm_r_rsv05_38">딜리버리\n중</string>
+
+    <string name="sm_r_history01_1">업체명</string>
+    <string name="sm_r_history01_2">작업내역</string>
+    <string name="sm_r_history01_3">주행거리</string>
+    <string name="sm_r_history01_4">정비 이력이 없습니다.</string>
+    <string name="sm_r_history01_5">정비소</string>
+    <string name="sm_r_history01_6">오토케어</string>
+    <string name="sm_r_history01_7">홈투홈</string>
+    <string name="sm_r_history01_8"></string>
+    <string name="sm_r_history01_9"></string>
+    <string name="sm_r_history01_10"></string>
+    <string name="sm_r_history01_11"></string>
+    <string name="sm_r_history01_12"></string>
+    <string name="sm_r_history01_13"></string>
+    <string name="sm_r_history01_14"></string>
+
+
+
+
+
+
+
 </resources>

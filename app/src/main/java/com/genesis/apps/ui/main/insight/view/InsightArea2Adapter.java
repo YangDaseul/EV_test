@@ -1,13 +1,11 @@
 package com.genesis.apps.ui.main.insight.view;
 
-import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.SOSDriverVO;
 import com.genesis.apps.databinding.ItemInsightArea2Binding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;

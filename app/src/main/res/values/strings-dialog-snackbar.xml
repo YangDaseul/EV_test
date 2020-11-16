@@ -51,5 +51,9 @@
     <string name="sd_cant_cancel">기사 배정 후 5분이 경과하여,\n 신청 취소할 수 없습니다.</string>
 
 
+    <string name="sm_r_rsv05_p02_snackbar_1">정비예약이 취소되었습니다.</string>
+    <string name="sm_r_rsv05_p02_snackbar_2">정비 예약 취소가 실패했습니다.\n다시 시도해 주세요.</string>
+
+
 
 </resources>

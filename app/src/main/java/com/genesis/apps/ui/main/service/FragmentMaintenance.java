@@ -238,6 +238,7 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
 
             //정비 현황/예약 내역
             case R.id.l_service_maintenance_history_btn:
+                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRepairReserveHistoryActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
 
             //긴급출동

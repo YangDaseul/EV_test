@@ -81,5 +81,13 @@
         <item>픽업 + 딜리버리 서비스</item>
     </string-array>
 
+    <string-array name="service_reserve_cancel">
+        <item>예약 변경</item>
+        <item>타 업체 입고</item>
+        <item>입고 불가</item>
+        <item>대기 과다</item>
+        <item>기타</item>
+    </string-array>
+
 </resources>
 

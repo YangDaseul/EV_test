@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
+        <import type="android.telephony.PhoneNumberUtils" />
+
+        <import type="java.util.Locale" />
+
+        <variable
+            name="data"
+            type="com.genesis.apps.comm.model.vo.RepairVO" />
+
+        <variable
+            name="adapter"
+            type="com.genesis.apps.ui.main.service.view.ServiceRepairCurrentStatusAdapter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/x_ffffff"
+        android:visibility="@{data==null ? View.GONE : View.VISIBLE}"
+        android:paddingTop="30dp"
+        android:paddingBottom="40dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_stus_cd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+            android:padding="15dp"
+            android:visibility="@{TextUtils.isEmpty(data.stusCd) || data.stusCd.equalsIgnoreCase(`0000`) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/iv_stus_cd"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@{adapter.isFinish(data.stusCd) ? @drawable/bg_141414_round_99 : @drawable/bg_ffffff_round_99_stroke_ba544d}"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:gravity="center"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="7sp"
+                android:textColor="@{adapter.isFinish(data.stusCd) ? @color/x_ffffff : @color/x_ba544d}"
+                android:textSize="11sp"
+                android:text="@{adapter.getStusName(data.stusCd)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="작업대기"
+                tools:background="@drawable/bg_ffffff_round_99_stroke_ba544d"/>
+
+            <TextView
+                android:id="@+id/tv_stus_cd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="4sp"
+                android:text="@string/sm_r_rsv05_4"
+                android:textColor="@color/x_000000"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/iv_stus_cd"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_stus_detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:visibility="@{ (data==null || TextUtils.isEmpty(data.asnCd) || data.stusCd.equalsIgnoreCase(``)) ? View.GONE : View.VISIBLE}"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/l_stus_cd">
+
+
+        <TextView
+            android:id="@+id/tv_title_reserve"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/bg_00000000_underline_5e5e5e"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="2sp"
+            android:paddingBottom="10dp"
+            android:text="@string/sm_r_rsv05_17"
+            android:textColor="@color/x_000000"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+        <TextView
+            android:id="@+id/tv_title_asn_nm"
+            style="@style/LeasingCarTextViewTitle"
+            android:layout_marginTop="20dp"
+            android:text="@string/sm_r_rsv03_04_4"
+            android:textColor="@color/x_525252"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_reserve" />
+
+        <TextView
+            android:id="@+id/tv_asn_nm"
+            style="@style/LeasingCarTextView"
+            android:layout_marginTop="5dp"
+            android:text="@{data.asnNm}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_asn_nm"
+            tools:text="금천 제네시스 센터" />
+
+
+        <TextView
+            android:id="@+id/tv_title_pbz_adr"
+            style="@style/LeasingCarTextViewTitle"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/sm_r_rsv03_04_5"
+            android:textColor="@color/x_525252"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_asn_nm" />
+
+        <TextView
+            android:id="@+id/tv_pbz_adr"
+            style="@style/LeasingCarTextView"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:text="@{data.asnAddr}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_pbz_adr"
+            tools:text="서울특별시 금천구 가산디지털1로 168" />
+
+
+        <TextView
+            android:id="@+id/tv_title_reptn"
+            style="@style/LeasingCarTextViewTitle"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/sm_r_rsv05_20"
+            android:textColor="@color/x_525252"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_pbz_adr" />
+
+        <TextView
+            android:id="@+id/tv_reptn"
+            style="@style/LeasingCarTextView"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:text="@{PhoneNumberUtils.formatNumber((data.asnTelNo ?? ``), Locale.getDefault().getCountry())}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_reptn"
+            tools:text="02-0000-0000" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

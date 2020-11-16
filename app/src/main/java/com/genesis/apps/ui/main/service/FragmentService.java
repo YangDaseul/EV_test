@@ -31,8 +31,8 @@ import com.google.android.material.tabs.TabLayoutMediator;
 public class FragmentService extends SubFragment<FragmentServiceBinding> {
     private static final String TAG = FragmentService.class.getSimpleName();
 
-    private static final int PAGE_NUM = 3;//정비 세차 대리
-    private static final int[] TAB_ID_LIST = {R.string.sm01_header_1, R.string.sm01_header_2, R.string.sm01_header_3};
+    private final int PAGE_NUM = 3;//정비 세차 대리
+    private final int[] TAB_ID_LIST = {R.string.sm01_header_1, R.string.sm01_header_2, R.string.sm01_header_3};
 
     public FragmentStateAdapter serviceTabAdapter;
 

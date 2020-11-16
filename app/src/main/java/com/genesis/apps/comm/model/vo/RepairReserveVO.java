@@ -70,6 +70,10 @@ import lombok.EqualsAndHashCode;
 public @Data
 class RepairReserveVO extends BaseData {
 
+    public RepairReserveVO(){
+        this.rsvtTypCd = "";
+    }
+
     //REQ-1007
     public RepairReserveVO(
             String rsvtTypCd

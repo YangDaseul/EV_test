@@ -70,7 +70,7 @@ public class REQ_1013 extends BaseData {
 
         @Expose
         @SerializedName("rparStatus")
-        private List<RepairVO> rparStatus;
+        private RepairVO rparStatus;
 
 
         @Expose

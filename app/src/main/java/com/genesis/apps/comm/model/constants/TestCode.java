@@ -67,6 +67,7 @@ import com.genesis.apps.comm.model.api.gra.REQ_1009;
 import com.genesis.apps.comm.model.api.gra.REQ_1010;
 import com.genesis.apps.comm.model.api.gra.REQ_1011;
 import com.genesis.apps.comm.model.api.gra.REQ_1012;
+import com.genesis.apps.comm.model.api.gra.REQ_1013;
 import com.genesis.apps.comm.model.api.gra.SOS_1001;
 import com.genesis.apps.comm.model.api.gra.SOS_1002;
 import com.genesis.apps.comm.model.api.gra.SOS_1004;
@@ -3413,6 +3414,123 @@ public class TestCode {
             "    }\n" +
             "  ]\n" +
             "}",REQ_1011.Response.class);
-    
+
+
+
+
+    public static REQ_1013.Response REQ_1013 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"stusCd\": \"6800\",\n" +
+            "  \"rparStatus\": {\n" +
+            "    \"asnCd\": \"B08000\",\n" +
+            "    \"asnNm\": \"고양서비스센터\",\n" +
+            "    \"asnAddr\": \"경기도 고양시 일산서구 킨텍스로 217-6(대화동)\",\n" +
+            "    \"asnTelNo\": \"18996611\"\n" +
+            "  },\n" +
+            "  \"rsvtStatList\": [\n" +
+            "    {\n" +
+            "      \"rparRsvtSeqNo\": \"20091700000063\",\n" +
+            "      \"mbrNm\": \"댕댕이\",\n" +
+            "      \"hpNo\": \"01099990001\",\n" +
+            "      \"carRgstNo\": \"12가7777\",\n" +
+            "      \"rsvtTypCd\": \"AUTO\",\n" +
+            "      \"rsvtStusCd\": \"3200\",\n" +
+            "      \"rsvtNo\": \"1234567890123\",\n" +
+            "      \"rsvtHopeDt\": \"20200916\",\n" +
+            "      \"pckpAddr\": \"서울특별시 금천구 가산디지털1로 168, A동 1207호 &#40;가산동&#41; 우림라이온스밸리\",\n" +
+            "      \"dlvryAddr\": \"\",\n" +
+            "      \"asnCd\": \"\",\n" +
+            "      \"asnNm\": \"\",\n" +
+            "      \"pbzAdr\": \"\",\n" +
+            "      \"repTn\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rparRsvtSeqNo\": \"20091800000065\",\n" +
+            "      \"mbrNm\": \"댕댕이\",\n" +
+            "      \"hpNo\": \"01099990001\",\n" +
+            "      \"carRgstNo\": \"12가7777\",\n" +
+            "      \"rsvtTypCd\": \"HTOH\",\n" +
+            "      \"rsvtStusCd\": \"6800\",\n" +
+            "      \"rsvtNo\": \"1234567890123\",\n" +
+            "      \"rsvtHopeDt\": \"20200916\",\n" +
+            "      \"rsvtHopeTm\": \"\",\n" +
+            "      \"pckpAddr\": \"서울특별시 금천구 가산디지털1로 168, A동 1207호 &#40;가산동&#41; 우림라이온스밸리\",\n" +
+            "      \"dlvryAddr\": \"\",\n" +
+            "      \"asnCd\": \"\",\n" +
+            "      \"asnNm\": \"\",\n" +
+            "      \"pbzAdr\": \"\",\n" +
+            "      \"repTn\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rparRsvtSeqNo\": \"20091800000066\",\n" +
+            "      \"mbrNm\": \"댕댕이\",\n" +
+            "      \"hpNo\": \"01099990001\",\n" +
+            "      \"carRgstNo\": \"12가7777\",\n" +
+            "      \"rsvtTypCd\": \"HTOH\",\n" +
+            "      \"rsvtStusCd\": \"4610\",\n" +
+            "      \"rsvtNo\": \"1234567890123\",\n" +
+            "      \"rsvtHopeDt\": \"20200916\",\n" +
+            "      \"rsvtHopeTm\": \"\",\n" +
+            "      \"pckpAddr\": \"서울특별시 금천구 가산디지털1로 168, A동 1207호 &#40;가산동&#41; 우림라이온스밸리\",\n" +
+            "      \"dlvryAddr\": \"\",\n" +
+            "      \"asnCd\": \"\",\n" +
+            "      \"asnNm\": \"\",\n" +
+            "      \"pbzAdr\": \"\",\n" +
+            "      \"repTn\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rparRsvtSeqNo\": \"20091800000067\",\n" +
+            "      \"mbrNm\": \"댕댕이\",\n" +
+            "      \"hpNo\": \"01099990001\",\n" +
+            "      \"carRgstNo\": \"12가7777\",\n" +
+            "      \"rsvtTypCd\": \"RPSH\",\n" +
+            "      \"rsvtStusCd\": \"6800\",\n" +
+            "      \"rsvtNo\": \"1234567890123\",\n" +
+            "      \"rsvtHopeDt\": \"20200916\",\n" +
+            "      \"rsvtHopeTm\": \"\",\n" +
+            "      \"pckpAddr\": \"서울특별시 금천구 가산디지털1로 168, A동 1207호 &#40;가산동&#41; 우림라이온스밸리\",\n" +
+            "      \"dlvryAddr\": \"\",\n" +
+            "      \"asnCd\": \"12231\",\n" +
+            "      \"asnNm\": \"현대정비소\",\n" +
+            "      \"pbzAdr\": \"정비소주소2222\",\n" +
+            "      \"repTn\": \"020000000\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rparRsvtSeqNo\": \"20091800000068\",\n" +
+            "      \"mbrNm\": \"댕댕이\",\n" +
+            "      \"hpNo\": \"01099990001\",\n" +
+            "      \"carRgstNo\": \"12가7777\",\n" +
+            "      \"rsvtTypCd\": \"HTOH\",\n" +
+            "      \"rsvtStusCd\": \"1300\",\n" +
+            "      \"rsvtNo\": \"1234567890123\",\n" +
+            "      \"rsvtHopeDt\": \"20200916\",\n" +
+            "      \"rsvtHopeTm\": \"\",\n" +
+            "      \"pckpAddr\": \"서울특별시 금천구 가산디지털1로 168, A동 1207호 &#40;가산동&#41; 우림라이온스밸리\",\n" +
+            "      \"dlvryAddr\": \"서울특별시 금천구 가산디지털1로 테스트\",\n" +
+            "      \"asnCd\": \"\",\n" +
+            "      \"asnNm\": \"\",\n" +
+            "      \"pbzAdr\": \"\",\n" +
+            "      \"repTn\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rparRsvtSeqNo\": \"20092400000069\",\n" +
+            "      \"mbrNm\": \"댕댕이\",\n" +
+            "      \"hpNo\": \"01099990001\",\n" +
+            "      \"carRgstNo\": \"12가7777\",\n" +
+            "      \"rsvtTypCd\": \"RPSH\",\n" +
+            "      \"rsvtStusCd\": \"3100\",\n" +
+            "      \"rsvtNo\": \"1234567890123\",\n" +
+            "      \"rsvtHopeDt\": \"20200916\",\n" +
+            "      \"rsvtHopeTm\": \"\",\n" +
+            "      \"pckpAddr\": \"서울특별시 금천구 가산디지털1로 168, A동 1207호 &#40;가산동&#41; 우림라이온스밸리\",\n" +
+            "      \"dlvryAddr\": \"\",\n" +
+            "      \"asnCd\": \"122312\",\n" +
+            "      \"asnNm\": \"제네시스정비소\",\n" +
+            "      \"pbzAdr\": \"정비소주소3\",\n" +
+            "      \"repTn\": \"031000000\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",REQ_1013.Response.class);
 
 }
