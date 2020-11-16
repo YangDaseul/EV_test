@@ -3,4 +3,5 @@ package com.genesis.apps.comm.model.constants;
 public interface RoadWinInfo {
     String[] ROADWIN_INFO = {"https://test.roadwin.net/h", "https://prod.roadwin.net/h"};
     String ROADWIN_URL = ROADWIN_INFO[GAInfo.SERVER_TYPE];
+    String ROADWIN_PAYMENT = "/ipay_order_1.php?tid=";
 }

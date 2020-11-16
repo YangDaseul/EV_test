@@ -20,12 +20,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.api.gra.DDS_1002;
 import com.genesis.apps.comm.model.api.roadwin.CheckPrice;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.constants.RoadWinInfo;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.PositionVO;
@@ -35,6 +35,7 @@ import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.DDSViewModel;
 import com.genesis.apps.comm.viewmodel.RoadWinViewModel;
 import com.genesis.apps.databinding.ActivityServiceDriveReqBinding;
+import com.genesis.apps.ui.common.activity.PaymentWebViewActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomDialogReqNowOrReserve;
 import com.google.android.material.textfield.TextInputEditText;
@@ -65,6 +66,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     private AddressVO[] addressVO = new AddressVO[2];
     private String priceMaybe;
     private boolean buttonEnable = true;
+    private boolean now;//실시간 신청인가? false면 예약
 
     private View[] statusViews;
     private AnimationDrawable loadingAnimation;
@@ -121,7 +123,6 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                     R.string.service_drive_input_02,
                     new View[]{ui.tvServiceDriveReqFromTitle, fromDetailLayout, ui.tvServiceDriveReqNextBtn}
             );
-
         }
         //도착지 주소 얻어옴
         else if (requestCode == RequestCodes.REQ_CODE_TO_ADDRESS.getCode()) {
@@ -133,6 +134,36 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                     R.string.service_drive_input_04,
                     new View[]{ui.tvServiceDriveReqToTitle, toDetailLayout}
             );
+        }
+        // 대리운전 결제
+        else if (requestCode == RequestCodes.REQ_CODE_PAYMENT_WEB_VIEW.getCode()) {
+            //todo 이거 스낵 바 띄워봤자 또 읽기 전에 증발할 거 같은데 ㅡㅡ;;
+            int paymentResultId = INVALID_ID;
+
+            //결제 성공
+            if (resultCode == ResultCodes.REQ_CODE_PAYMENT_SUCC.getCode()) {
+                Intent intent = new Intent(this, ServiceDriveReqCompleteActivity.class)
+                        .putExtra(KeyNames.KEY_NAME_SERVICE_DRIVE_REQ_COMPLETE_MSG_ID,
+                                now ? R.string.service_drive_req_end_realtime : R.string.service_drive_req_end_reserve);
+
+                startActivitySingleTop(
+                        intent,
+                        RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                        VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
+                exitPage("", ResultCodes.REQ_CODE_NORMAL.getCode());
+                return;
+            }
+            //결제 실패
+            else if (resultCode == ResultCodes.REQ_CODE_PAYMENT_FAIL.getCode()) {
+                paymentResultId = R.string.sd_pay_fail;
+            }
+            //결제 취소
+            else if (resultCode == ResultCodes.REQ_CODE_PAYMENT_CANCEL.getCode()) {
+                paymentResultId = R.string.sd_pay_cancel;
+            }
+
+            SnackBarUtil.show(this, getString(paymentResultId));
         }
     }
 
@@ -245,13 +276,20 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                     break;
 
                 case SUCCESS:
-                    if (result.data != null && result.data.getRtCd() != null) {
-                        Log.d(TAG, "setObserver req driver: " + result.data.getRtCd());
+                    if (result.data != null && result.data.getTransId() != null) {
 
-                        if (result.data.getRtCd().equals(BaseResponse.RETURN_CODE_SUCC)) {
-                            //todo impl
+                        Intent intent = new Intent(this, PaymentWebViewActivity.class)
+                                .putExtra(KeyNames.KEY_NAME_URL,
+                                        TextUtils.concat(
+                                                RoadWinInfo.ROADWIN_URL,
+                                                RoadWinInfo.ROADWIN_PAYMENT,
+                                                result.data.getTransId()));
 
-                        }
+                        startActivitySingleTop(
+                                intent,
+                                RequestCodes.REQ_CODE_PAYMENT_WEB_VIEW.getCode(),
+                                VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
                         showProgressDialog(false);
                         break;
                     }
@@ -263,7 +301,6 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                     //todo : 구체적인 예외처리
                     break;
             }
-
         });
     }
 
@@ -282,7 +319,6 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         else {
             isDirect = true;
         }
-
 
         mainVehicle = (VehicleVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_VEHICLE_VO);
         if (mainVehicle == null) {
@@ -583,8 +619,9 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
                     //서비스 신청ㄱㄱ
                     if (reqDialog.isInputConfirmed()) {
+                        now = reqDialog.isNow();
                         reqDriver(
-                                reqDialog.isNow() ? DDS_1002.REQ_RIGHT_NOW : DDS_1002.REQ_RESERVE,
+                                now ? DDS_1002.REQ_RIGHT_NOW : DDS_1002.REQ_RESERVE,
                                 reqDialog.getReserveDate(),
                                 reqDialog.getMsg());
                     }
