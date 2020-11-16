@@ -4,13 +4,19 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 
+import com.appeaser.sublimepickerlibrary.datepicker.SelectedDate;
+import com.appeaser.sublimepickerlibrary.helpers.SublimeOptions;
+import com.appeaser.sublimepickerlibrary.recurrencepicker.SublimeRecurrencePicker;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.util.CalenderUtil;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.util.StringUtil;
@@ -23,19 +29,46 @@ import java.util.Locale;
 public class BottomDialogReqNowOrReserve extends BaseBottomDialog<DialogBottomNowOrReserveBinding> {
     private static final String TAG = BottomDialogReqNowOrReserve.class.getSimpleName();
     private static final int MSG_MAX_LENGTH = 40;
-    private static final int HOUR3 = 1000 * 60 * 60 * 3;
+    private static final int RESERVE_MIN_HOUR = 3;
     private static final int RESERVE_MAX_DAY = 7;
 
     private SubActivity activity;
     private VehicleVO mainVehicle;
     private String priceMaybe;
 
-    private boolean inputConfirmed = false;
+    private boolean inputConfirmed;
     private boolean isNow = true;
-    private Calendar pickedDate;
-    private String parsedDate;
+    private boolean isValidReserve;
+    private Calendar pickedTime;
     private EditText msgInput;
     private String msg;
+
+    private long reserveLimitStart;
+    private long reserveLimitEnd;
+    private CalenderUtil.Callback calendarCallback = new CalenderUtil.Callback() {
+        @Override
+        public void onCancelled() {
+            Log.d(TAG, "onCancelled: ");
+
+            //예약 날짜 선택을 취소하면 실시간 호출로 선택 변경
+            ui.rbDiaBottomNowBtn.setChecked(true);
+        }
+
+        @Override
+        public void onDateTimeRecurrenceSet(SelectedDate selectedDate,
+                                            int hourOfDay, int minute,
+                                            SublimeRecurrencePicker.RecurrenceOption recurrenceOption,
+                                            String recurrenceRule) {
+            Log.d(TAG, "onDateTimeRecurrenceSet: ");
+
+            pickedTime = selectedDate.getFirstDate();
+            pickedTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            pickedTime.set(Calendar.MINUTE, minute);
+
+            //선택 결과를 예약 날짜 뷰에 출력
+            showDatePickResult();
+        }
+    };
 
     public BottomDialogReqNowOrReserve(@NonNull SubActivity activity, VehicleVO vehicleVO, String price, int theme) {
         super(activity, theme);
@@ -57,12 +90,7 @@ public class BottomDialogReqNowOrReserve extends BaseBottomDialog<DialogBottomNo
         initPrice();
         initTextInputLayouts();
         initRadioBtn();
-
-        ui.btnOk.setOnClickListener(view -> {
-            inputConfirmed = true;
-            msg = msgInput.getText().toString();
-            dismiss();
-        });
+        initOkBtn();
     }
 
     private void initCarInfo() {
@@ -101,48 +129,113 @@ public class BottomDialogReqNowOrReserve extends BaseBottomDialog<DialogBottomNo
     }
 
     private void initRadioBtn() {
-        //지금 버튼 :
-        ui.rbDiaBottomNowBtn.setOnClickListener(v -> {
-            setNow(true);
+        ui.rgDiaBottomNowOrReserveRadiogroup.setOnCheckedChangeListener((group, checkedId) -> {
+            switch (checkedId) {
+                case R.id.rb_dia_bottom_now_btn:
+                    Log.d(TAG, "radio selected : now");
+                    setNow(true);
+                    break;
+
+                case R.id.rb_dia_bottom_reserve_btn:
+                    Log.d(TAG, "radio selected : reserve");
+                    setNow(false);
+                    break;
+
+                default:
+                    //do nothing
+                    break;
+            }
         });
 
-        //예약 버튼
-        ui.rbDiaBottomReserveBtn.setOnClickListener(v -> {
-            setNow(false);
-        });
-
-        //예약-날짜 선택 버튼
         ui.tvDiaBottomNowOrReserveDatePickBtn.setOnClickListener(v -> {
-            pickDate();
+            showDatePicker();
         });
     }
 
     //선택을 저장하고 예약 날짜 뷰 접기/펴기(펼 때 picker 호출)
     private void setNow(boolean now) {
+        Log.d(TAG, "setNow: " + now);
+
         isNow = now;
         if (now) {
             InteractionUtil.collapse(ui.lDiaBottomNowOrReserveDate, null);
         } else {
             InteractionUtil.expand(ui.lDiaBottomNowOrReserveDate, null);
-            pickDate();
+            showDatePicker();
         }
     }
 
-    private void pickDate() {
-        //호출된 시점을 기준시간으로 설정
-        pickedDate = Calendar.getInstance(Locale.getDefault());
+    private void showDatePicker() {
+        CalenderUtil datePicker = new CalenderUtil();
+        datePicker.setCallback(calendarCallback);
 
-        //todo 실제로 picker 띄우기
-        // TEST : 날짜 결정 임시로 72시간 뒤로 설정
-        pickedDate.add(Calendar.DAY_OF_MONTH, 3);
+        //예약 시간 최소 3시간 후부터
+        Calendar limitStart = Calendar.getInstance(Locale.getDefault());
+        limitStart.add(Calendar.HOUR_OF_DAY, RESERVE_MIN_HOUR);
+        reserveLimitStart = limitStart.getTimeInMillis();
 
-        //결정된 날짜/시간을 pickedDate에 저장하고 picker 뷰에 출력
-        ui.tvDiaBottomNowOrReserveDatePickBtn.setText(
-                DateUtil.getDate(pickedDate.getTime(), DateUtil.DATE_FORMAT_yyyy_MM_dd_e_hh_mm));
+        //최대 7일후 까지
+        Calendar limitEnd = Calendar.getInstance(Locale.getDefault());
+        limitEnd.add(Calendar.DAY_OF_MONTH, RESERVE_MAX_DAY);
+        reserveLimitEnd = limitEnd.getTimeInMillis();
 
-        //todo : 기껏 picker 호출해놓고 날짜선택을 취소하면
-//        setNow(true);
+        Pair<Boolean, SublimeOptions> optionsPair = datePicker.getOptions(
+                SublimeOptions.ACTIVATE_DATE_PICKER | SublimeOptions.ACTIVATE_TIME_PICKER,
+                false,
+                reserveLimitStart,
+                reserveLimitEnd,
+                Calendar.getInstance(Locale.getDefault())
+        );
+
+        // Options
+        // Valid options
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("SUBLIME_OPTIONS", optionsPair.second);
+        datePicker.setArguments(bundle);
+
+        datePicker.setStyle(CalenderUtil.STYLE_NO_TITLE, 0);
+        datePicker.show(activity.getSupportFragmentManager(), "SUBLIME_PICKER");
     }
+
+    //선택된 시간이 유효하면 그 시간을 표시, 아니면 안내문을 표시
+    private void showDatePickResult() {
+
+        //선택한 시간이 유효 범위(3시간 후 ~ 7일 후) 이내에 있는지 검사(picker UI에서 day 단위까지만 필터링 돼서 H 이하 단위는 여기서 검사해야 됨)하고 검사 결과를 저장
+        validateReserveTime();
+
+        ui.tvDiaBottomNowOrReserveDatePickBtn.setText(
+                isValidReserve ?
+                        DateUtil.getDate(pickedTime.getTime(), DateUtil.DATE_FORMAT_yyyy_MM_dd_e_hh_mm) :
+                        activity.getString(R.string.sd_out_of_range_reserve)
+        );
+    }
+
+    private void validateReserveTime() {
+        //유효성 검사를 위해 자료형 맞춤
+        long picked = pickedTime.getTimeInMillis();
+
+        isValidReserve = (reserveLimitStart <= picked && picked <= reserveLimitEnd);
+    }
+
+    private void initOkBtn() {
+        ui.btnOk.setOnClickListener(view -> {
+
+            inputConfirmed = validateSelect();
+
+            if (!inputConfirmed) {
+                return;
+            }
+
+            msg = msgInput.getText().toString();
+            dismiss();
+        });
+    }
+
+    private boolean validateSelect() {
+        //즉시 호출이면 ok, 예약이면 선택 날짜 유효성 검사도 통과된 상태여야 함(선택 처리 마지막 단계에서 검사 결과 저장까지 처리함)
+        return isNow || isValidReserve;
+    }
+
 
     public boolean isInputConfirmed() {
         return inputConfirmed;
@@ -156,7 +249,7 @@ public class BottomDialogReqNowOrReserve extends BaseBottomDialog<DialogBottomNo
         if (isNow) {
             return "";
         } else {
-            return DateUtil.getDate(pickedDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMddHHmm);
+            return DateUtil.getDate(pickedTime.getTime(), DateUtil.DATE_FORMAT_yyyyMMddHHmm);
         }
     }
 
