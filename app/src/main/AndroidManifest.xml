@@ -477,7 +477,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout" />
 
-        <!-- 대리운전 신청 결과 -->
+        <!-- 대리운전 신청 완료 (신청하고 결제 성공하면 나오는 거) -->
+        <activity
+            android:name=".ui.main.service.ServiceDriveReqCompleteActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <!-- 대리운전 신청 결과 (현황 조회하면 나오는 거) -->
         <activity
             android:name=".ui.main.service.ServiceDriveReqResultActivity"
             android:exported="false"

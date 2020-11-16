@@ -19,6 +19,8 @@ public class ServiceDriveReqCompleteActivity extends SubActivity<ActivityService
         setContentView(R.layout.activity_service_drive_req_complete);
 
         getDataFromIntent();
+        ui.setListener(onSingleClickListener);
+
         SnackBarUtil.show(this, getString(R.string.sd_pay_succ));
     }
 

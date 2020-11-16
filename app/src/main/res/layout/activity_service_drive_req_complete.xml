@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="Listener"
+            type="com.genesis.apps.ui.common.view.listener.OnSingleClickListener" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -43,6 +50,7 @@
         <TextView
             android:id="@+id/tv_service_drive_req_complete_ok_btn"
             style="@style/BigBtn.Black"
+            android:onClick="@{(view)->Listener.onClick(view)}"
             android:text="@string/comm_word_1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
