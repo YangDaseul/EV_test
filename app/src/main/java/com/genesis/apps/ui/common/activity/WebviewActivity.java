@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.hybrid.core.WebViewFragment;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.databinding.ActivityWebviewBinding;
 
@@ -38,11 +39,11 @@ public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
     @Override
     public void getDataFromIntent(){
         Intent intent = getIntent();
-        if(intent == null || TextUtils.isEmpty(intent.getStringExtra("url"))) {
+        if(intent == null || TextUtils.isEmpty(intent.getStringExtra(KeyNames.KEY_NAME_URL))) {
             finish();
             return;
         }
-        url = intent.getStringExtra("url");
+        url = intent.getStringExtra(KeyNames.KEY_NAME_URL);
 
     }
 

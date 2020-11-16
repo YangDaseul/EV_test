@@ -42,6 +42,7 @@ public interface KeyNames {
 
     String KEY_NAME_SERVICE_DRIVE_STATUS = "serviceDriveStatus";
     String KEY_NAME_SERVICE_DRIVE_REQ_START_MSG = "StartMsg";
+    String KEY_NAME_SERVICE_DRIVE_REQ_COMPLETE_MSG_ID = "sdComplete";
 
 
     String KEY_NAME_SERVICE_RESERVE_INFO="repairReserveVO";

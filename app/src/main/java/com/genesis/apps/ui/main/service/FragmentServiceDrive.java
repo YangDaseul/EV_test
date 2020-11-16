@@ -70,12 +70,6 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
                 onClickReqBtn();
                 break;
 
-            //TODO 테스트 끝나고 삭제
-            case R.id.test_force_req:
-                //신청 내역 있는지 확인 안 하고 그냥 신청 페이지 띄움
-                startReqActivity();
-                break;
-
             default:
                 //do nothing
                 break;

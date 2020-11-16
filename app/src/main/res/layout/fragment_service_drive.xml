@@ -106,25 +106,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_sm_service_drive_dec2_dec" />
 
-            <!-- 테스트용 강제 신청 -->
-            <TextView
-                android:id="@+id/test_force_req"
-                style="@style/TextBtnBasic"
-                android:layout_marginStart="20dp"
-                android:background="@drawable/ripple_bg_141414"
-                android:fontFamily="@font/light_genesissansheadglobal"
-                android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
-                android:paddingStart="12dp"
-                android:paddingTop="8dp"
-                android:paddingEnd="12dp"
-                android:paddingBottom="8dp"
-                android:text="안 물어보고 신청\n(테스트 끝나고 삭제)"
-                android:textColor="@color/x_ffffff"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@id/tv_service_drive_req_btn"
-                app:layout_constraintTop_toBottomOf="@id/tv_sm_service_drive_dec2_dec" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </layout>

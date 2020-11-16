@@ -43,6 +43,7 @@
 
 
     <string name="sd_cant_service">죄송합니다.\n대리운전 서비스 지역이 아닙니다.</string>
+    <string name="sd_out_of_range_reserve">예약 가능한 시간이 아닙니다.</string>
     <string name="sd_pay_succ">대리운전 서비스 결제가 완료되었습니다.</string>
     <string name="sd_pay_cancel">대리운전 서비스 결제가 취소되었습니다.</string>
     <string name="sd_pay_fail">대리운전 서비스 결제가 실패하였습니다.\n다시 시도해주세요.</string>

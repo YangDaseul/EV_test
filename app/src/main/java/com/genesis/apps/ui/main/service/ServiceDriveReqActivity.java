@@ -20,12 +20,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.api.gra.DDS_1002;
 import com.genesis.apps.comm.model.api.roadwin.CheckPrice;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.constants.RoadWinInfo;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.PositionVO;
@@ -35,6 +35,7 @@ import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.DDSViewModel;
 import com.genesis.apps.comm.viewmodel.RoadWinViewModel;
 import com.genesis.apps.databinding.ActivityServiceDriveReqBinding;
+import com.genesis.apps.ui.common.activity.PaymentWebViewActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomDialogReqNowOrReserve;
 import com.google.android.material.textfield.TextInputEditText;
@@ -42,6 +43,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReqBinding> {
     private static final String TAG = ServiceDriveReqActivity.class.getSimpleName();
+    private static final int INVALID_ID = 0;
 
     private static final int FROM = 0;
     private static final int TO = 1;
@@ -64,6 +66,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     private AddressVO[] addressVO = new AddressVO[2];
     private String priceMaybe;
     private boolean buttonEnable = true;
+    private boolean now;//실시간 신청인가? false면 예약
 
     private View[] statusViews;
     private AnimationDrawable loadingAnimation;
@@ -73,6 +76,9 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     private TextInputLayout toDetailLayout;
     private TextInputEditText fromDetail;
     private TextInputEditText toDetail;
+
+    //true면 주소 검색 창을 바로 오픈
+    private boolean isDirect;
 
     //키보드로 입력하고 엔터 누르면 밑에 다음 버튼 누른 거랑 같도록 하는 리스너
     private EditText.OnEditorActionListener editorActionListener = (textView, actionId, keyEvent) -> {
@@ -96,8 +102,10 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         setObserver();
         initView();
 
-        //시작하자마자 출발 주소 검색 화면으로 넘어감
-        onClickSearchAddressBtn(FROM);
+        //플래그를 보고 출발지 검색 지도 호출을 즉시 실행
+        if (isDirect) {
+            onClickSearchAddressBtn(FROM);
+        }
     }
 
     @Override
@@ -115,7 +123,6 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                     R.string.service_drive_input_02,
                     new View[]{ui.tvServiceDriveReqFromTitle, fromDetailLayout, ui.tvServiceDriveReqNextBtn}
             );
-
         }
         //도착지 주소 얻어옴
         else if (requestCode == RequestCodes.REQ_CODE_TO_ADDRESS.getCode()) {
@@ -127,6 +134,36 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                     R.string.service_drive_input_04,
                     new View[]{ui.tvServiceDriveReqToTitle, toDetailLayout}
             );
+        }
+        // 대리운전 결제
+        else if (requestCode == RequestCodes.REQ_CODE_PAYMENT_WEB_VIEW.getCode()) {
+            //todo 이거 스낵 바 띄워봤자 또 읽기 전에 증발할 거 같은데 ㅡㅡ;;
+            int paymentResultId = INVALID_ID;
+
+            //결제 성공
+            if (resultCode == ResultCodes.REQ_CODE_PAYMENT_SUCC.getCode()) {
+                Intent intent = new Intent(this, ServiceDriveReqCompleteActivity.class)
+                        .putExtra(KeyNames.KEY_NAME_SERVICE_DRIVE_REQ_COMPLETE_MSG_ID,
+                                now ? R.string.service_drive_req_end_realtime : R.string.service_drive_req_end_reserve);
+
+                startActivitySingleTop(
+                        intent,
+                        RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                        VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
+                exitPage("", ResultCodes.REQ_CODE_NORMAL.getCode());
+                return;
+            }
+            //결제 실패
+            else if (resultCode == ResultCodes.REQ_CODE_PAYMENT_FAIL.getCode()) {
+                paymentResultId = R.string.sd_pay_fail;
+            }
+            //결제 취소
+            else if (resultCode == ResultCodes.REQ_CODE_PAYMENT_CANCEL.getCode()) {
+                paymentResultId = R.string.sd_pay_cancel;
+            }
+
+            SnackBarUtil.show(this, getString(paymentResultId));
         }
     }
 
@@ -239,13 +276,20 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                     break;
 
                 case SUCCESS:
-                    if (result.data != null && result.data.getRtCd() != null) {
-                        Log.d(TAG, "setObserver req driver: " + result.data.getRtCd());
+                    if (result.data != null && result.data.getTransId() != null) {
 
-                        if (result.data.getRtCd().equals(BaseResponse.RETURN_CODE_SUCC)) {
-                            //todo impl
+                        Intent intent = new Intent(this, PaymentWebViewActivity.class)
+                                .putExtra(KeyNames.KEY_NAME_URL,
+                                        TextUtils.concat(
+                                                RoadWinInfo.ROADWIN_URL,
+                                                RoadWinInfo.ROADWIN_PAYMENT,
+                                                result.data.getTransId()));
 
-                        }
+                        startActivitySingleTop(
+                                intent,
+                                RequestCodes.REQ_CODE_PAYMENT_WEB_VIEW.getCode(),
+                                VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
                         showProgressDialog(false);
                         break;
                     }
@@ -257,20 +301,23 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                     //todo : 구체적인 예외처리
                     break;
             }
-
         });
     }
 
     @Override
     public void getDataFromIntent() {
-        //대리운전 기사 못 찾아서 취소 누르고 여기로 떨어지는 경우, 스낵바 메시지를 들고온다. 없으면 무효값(-1)으로 초기화.
-        int msgId = getIntent().getIntExtra(KeyNames.KEY_NAME_SERVICE_DRIVE_REQ_START_MSG, -1);
+        //대리운전 기사 못 찾아서 취소 누르고 여기로 떨어지는 경우, 스낵바 메시지를 들고온다. 없으면 무효값으로 초기화.
+        int msgId = getIntent().getIntExtra(KeyNames.KEY_NAME_SERVICE_DRIVE_REQ_START_MSG, INVALID_ID);
 
         //메지지가 있으면 보여준다
-        if (msgId > 0) {
+        if (msgId != INVALID_ID) {
             new Handler().postDelayed(
                     () -> SnackBarUtil.show(this, getString(msgId)),
                     100);
+        }
+        //메시지가 없으면 정규 루트 : 자동으로 지도를 호출하도록 플래그 세팅
+        else {
+            isDirect = true;
         }
 
         mainVehicle = (VehicleVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_VEHICLE_VO);
@@ -572,8 +619,9 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
                     //서비스 신청ㄱㄱ
                     if (reqDialog.isInputConfirmed()) {
+                        now = reqDialog.isNow();
                         reqDriver(
-                                reqDialog.isNow() ? DDS_1002.REQ_RIGHT_NOW : DDS_1002.REQ_RESERVE,
+                                now ? DDS_1002.REQ_RIGHT_NOW : DDS_1002.REQ_RESERVE,
                                 reqDialog.getReserveDate(),
                                 reqDialog.getMsg());
                     }

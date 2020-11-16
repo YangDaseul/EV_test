@@ -418,7 +418,7 @@ public class TestCode {
     public static DDS_1002.Response DDS_1002 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
             "  \"rtMsg\": \"성공\",\n" +
-            "  \"transId\": \"서버 맘대로 20글자\"\n" +
+            "  \"transId\": \"enTwi3ktn3iaoen2i4io\"\n" +
             "}", DDS_1002.Response.class);
 
     public static DDS_1003.Response DDS_1003 = new Gson().fromJson("{\n" +
