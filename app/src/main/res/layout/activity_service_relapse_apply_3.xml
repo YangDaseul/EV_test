@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/bg_ffffff_stroke_e2e2e2"
-                android:visibility="@{activity.yesNoVisibility}"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_relapse_3_desc"
@@ -102,84 +102,97 @@
                     app:layout_constraintStart_toEndOf="@id/tv_relapse_3_yes" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- 누적 수리 기간 입력창 -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/l_relapse_3_term"
-                style="@style/Relapse3RepairHistoryTextInputLayout"
+            <!-- 누적 수리 기간 + "일"-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/l_relapse_3_term_container"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:hint="@string/relapse_3_repair_term"
-                android:visibility="@{activity.repairCountVisibility}"
-                app:layout_constraintEnd_toStartOf="@id/tv_relapse_3_unit_total_count"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/l_relapse_3_yes_no"
-                app:layout_goneMarginTop="30dp"
-                tools:visibility="gone">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_relapse_3_term"
-                    style="@style/Relapse3RepairHistoryTextInputEditText"
-                    android:inputType="number" />
-
-                <requestFocus />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- "일"-->
-            <TextView
-                android:id="@+id/tv_relapse_3_unit_term"
-                style="@style/TextBasic"
-                android:fontFamily="@font/regular_genesissanstextglobal"
-                android:padding="16dp"
-                android:text="@string/relapse_3_repair_day"
-                android:textColor="@color/x_000000"
-                android:textSize="15sp"
-                android:visibility="@{activity.repairCountVisibility}"
-                app:layout_constraintBottom_toBottomOf="@id/l_relapse_3_term"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toEndOf="@id/l_relapse_3_term"
-                app:layout_constraintTop_toTopOf="@id/l_relapse_3_term"
-                tools:visibility="gone" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/l_relapse_3_yes_no">
 
-            <!-- 추가 수리 횟수 입력창 -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/l_relapse_3_total_count"
-                style="@style/Relapse3RepairHistoryTextInputLayout"
+                <!-- 누적 수리 기간 입력창 -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/l_relapse_3_term"
+                    style="@style/Relapse3RepairHistoryTextInputLayout"
+                    android:layout_width="0dp"
+                    android:hint="@string/relapse_3_repair_term"
+                    app:layout_constraintEnd_toStartOf="@id/tv_relapse_3_unit_term"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_goneMarginTop="30dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_relapse_3_term"
+                        style="@style/Relapse3RepairHistoryTextInputEditText"
+                        android:inputType="number" />
+
+                    <requestFocus />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- "일"-->
+                <TextView
+                    android:id="@+id/tv_relapse_3_unit_term"
+                    style="@style/TextBasic"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:padding="16dp"
+                    android:text="@string/relapse_3_repair_day"
+                    android:textColor="@color/x_000000"
+                    android:textSize="15sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/l_relapse_3_term"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toEndOf="@id/l_relapse_3_term" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- 추가 수리 횟수 + "회" -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/l_relapse_3_total_count_container"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:hint="@string/relapse_3_repair_total_count"
-                android:visibility="@{activity.totalTermVisibility}"
-                app:layout_constraintEnd_toStartOf="@id/tv_relapse_3_unit_total_count"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/l_relapse_3_term"
-                tools:visibility="gone">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_relapse_3_total_count"
-                    style="@style/Relapse3RepairHistoryTextInputEditText"
-                    android:inputType="number" />
-
-                <requestFocus />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- "회"-->
-            <TextView
-                android:id="@+id/tv_relapse_3_unit_total_count"
-                style="@style/TextBasic"
-                android:fontFamily="@font/regular_genesissanstextglobal"
-                android:padding="16dp"
-                android:text="@string/relapse_3_repair_count"
-                android:textColor="@color/x_000000"
-                android:textSize="15sp"
-                android:visibility="@{activity.totalTermVisibility}"
-                app:layout_constraintBottom_toBottomOf="@id/l_relapse_3_total_count"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toEndOf="@id/l_relapse_3_total_count"
-                app:layout_constraintTop_toTopOf="@id/l_relapse_3_total_count"
-                tools:visibility="gone" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/l_relapse_3_term_container"
+                app:layout_goneMarginTop="15dp">
+
+                <!-- 추가 수리 횟수 입력창 -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/l_relapse_3_total_count"
+                    style="@style/Relapse3RepairHistoryTextInputLayout"
+                    android:layout_width="0dp"
+                    android:hint="@string/relapse_3_repair_total_count"
+                    app:layout_constraintEnd_toStartOf="@id/tv_relapse_3_unit_total_count"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_relapse_3_total_count"
+                        style="@style/Relapse3RepairHistoryTextInputEditText"
+                        android:inputType="number" />
+
+                    <requestFocus />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- "회"-->
+                <TextView
+                    android:id="@+id/tv_relapse_3_unit_total_count"
+                    style="@style/TextBasic"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:padding="16dp"
+                    android:text="@string/relapse_3_repair_count"
+                    android:textColor="@color/x_000000"
+                    android:textSize="15sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/l_relapse_3_total_count"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toEndOf="@id/l_relapse_3_total_count" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -195,76 +208,120 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/l_relapse_3_top" />
 
-        <!-- 수리내역 최대 3개 -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_relapse_3_repair_history_list"
+        <!-- 아래 전체가 스크롤 영역, 단 다음 버튼은 항상 위 -->
+        <ScrollView
+            android:id="@+id/l_relapse_3_scroll_area"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="20dp"
-            android:visibility="gone"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_dummy"
-            app:layout_goneMarginTop="30dp" />
+            app:layout_constraintTop_toBottomOf="@id/iv_dummy">
 
-        <!-- "수리 더 했나요?" -->
-        <TextView
-            android:id="@+id/tv_relapse_3_repair_more"
-            style="@style/TextBasic"
-            android:layout_marginStart="20dp"
-            android:fontFamily="@font/regular_genesissanstextglobal"
-            android:text="@string/relapse_3_repair_more"
-            android:textColor="@color/x_aaabaf"
-            android:textSize="14sp"
-            android:visibility="@{activity.addHistoryVisibility}"
-            app:layout_constraintBottom_toBottomOf="@id/tv_relapse_3_repair_add_btn"
-            app:layout_constraintEnd_toStartOf="@id/tv_relapse_3_repair_add_btn"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_relapse_3_repair_add_btn"
-            tools:visibility="gone" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <!-- 수리 내역 추가 버튼-->
+                <!-- 수리내역 최대 3개 -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_relapse_3_repair_history_list"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:overScrollMode="never"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_goneMarginTop="30dp" />
+
+                <!--  수리 내역 추가 레이아웃-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_relapse_3_repair_add_container"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_relapse_3_repair_history_list">
+                    <!-- "수리 더 했나요?" -->
+                    <TextView
+                        android:id="@+id/tv_relapse_3_repair_more"
+                        style="@style/TextBasic"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:text="@string/relapse_3_repair_more"
+                        android:textColor="@color/x_aaabaf"
+                        android:textSize="14sp"
+                        app:layout_constraintBaseline_toBaselineOf="@id/tv_relapse_3_repair_add_btn"
+                        app:layout_constraintEnd_toStartOf="@id/tv_relapse_3_repair_add_btn"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <!-- 수리 내역 추가 버튼-->
+                    <TextView
+                        android:id="@+id/tv_relapse_3_repair_add_btn"
+                        style="@style/BigBtn.Black"
+                        android:layout_width="wrap_content"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                        android:padding="11dp"
+                        android:text="@string/relapse_3_repair_add"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toEndOf="@id/tv_relapse_3_repair_more"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- 하자 구분(선택)창 -->
+                <TextView
+                    android:id="@+id/tv_relapse_defect_select"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/ripple_bg_ffffff_stroke_e2e2e2"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/btn_accodian_open"
+                    android:focusable="true"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    android:padding="16dp"
+                    android:text="@string/relapse_3_which"
+                    android:textColor="@color/x_aaabaf"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/l_relapse_3_repair_add_container"
+                    app:layout_goneMarginTop="20dp" />
+
+                <!-- 다음버튼이 위쪽 UI 덮어버리지 않도록 공간 확보(같은 크기의 뷰)
+                 TODO 얘 일 안 하는데???? 글씨 써놨으니 이제 일 하나? -->
+                <TextView
+                    android:id="@+id/button_area_dummy"
+                    style="@style/BigBtn.Black"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:visibility="invisible"
+                    android:text="다음"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_relapse_defect_select" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <!-- 다음버튼 -->
         <TextView
-            android:id="@+id/tv_relapse_3_repair_add_btn"
+            android:id="@+id/tv_relapse_3_next_btn"
             style="@style/BigBtn.Black"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="20dp"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-            android:padding="11dp"
-            android:text="@string/relapse_3_repair_add"
-            android:textSize="14sp"
-            android:visibility="@{activity.addHistoryVisibility}"
+            android:text="@string/dialog_common_5"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toEndOf="@id/tv_relapse_3_repair_more"
-            app:layout_constraintTop_toBottomOf="@id/rv_relapse_3_repair_history_list"
-            tools:visibility="gone" />
-
-        <!-- 하자 구분(선택)창 -->
-        <TextView
-            android:id="@+id/tv_relapse_defect_select"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/ripple_bg_ffffff_stroke_e2e2e2"
-            android:clickable="true"
-            android:drawableRight="@drawable/btn_accodian_open"
-            android:focusable="true"
-            android:fontFamily="@font/regular_genesissanstextglobal"
-            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-            android:padding="16dp"
-            android:text="@string/relapse_3_which"
-            android:textColor="@color/x_aaabaf"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_relapse_3_repair_add_btn" />
-
-
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

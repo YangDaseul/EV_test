@@ -131,6 +131,11 @@ public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveSe
         public ServiceDriveHistoryFinishedViewHolder(View itemView) {
             super(itemView);
             Log.d(TAG, "ServiceDriveHistoryFinishedViewHolder: ");
+
+            // TODO 리사이클러 뷰 아이템에 접기/펴기 기능 붙는 경우 그대로 복붙(...)해서 쓰기 가능
+            // 생성자에서 detailView(상태 변화대상) 저장해놓고
+            // setOpenListener(), setViewStatus(), changeViewStatus() 이 셋이 세트
+            // 일단 주석통째로 복붙 해두는데.... 이 정도로 다 겹치면 유틸로 빼거나 상위 클래스에 잘 올리거나 하고싶은데
             detailView = getBinding().lServiceDriveHistoryFinishedDetail.lServiceDriveHistoryDetailRoot;
             iconOpenBtn = R.drawable.btn_arrow_open;
             iconCloseBtn = R.drawable.btn_arrow_close;

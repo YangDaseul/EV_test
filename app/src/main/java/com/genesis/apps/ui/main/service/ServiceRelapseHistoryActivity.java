@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.main.service;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,10 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.VOC_1003;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.VOCInfoVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.VOCViewModel;
 import com.genesis.apps.databinding.ActivityServiceRelapseHistoryBinding;
+import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 
 import java.util.List;
@@ -44,6 +48,11 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
         Log.d(TAG, "onClickCommon: ");
 
         switch (v.getId()) {
+            //todo 임시 진입점. 개발 완료 후 삭제(레이아웃 가서도 관련 코드 삭제)
+            case R.id.tv_relapse_history_list_title:
+                startActivitySingleTop(new Intent(this, ServiceRelapse3Activity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
+
             //신청 내역 목록에서 [접수중] 상태인 아이템
             case R.id.l_relapse_history_item:
 

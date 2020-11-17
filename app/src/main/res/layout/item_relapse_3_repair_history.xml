@@ -38,7 +38,9 @@
             tools:drawableRight="@drawable/btn_accodian_open"
             tools:text="1회" />
 
-        <!-- 삭제 버튼 -->
+        <!-- 삭제 버튼
+        todo 투명배경 ㅠㅠ
+         -->
         <TextView
             android:id="@+id/tv_relapse_3_repair_history_delete_btn"
             style="@style/TextBtnBasic"
@@ -54,6 +56,7 @@
 
         <!-- 접히는 부분 -->
         <LinearLayout
+            android:id="@+id/l_relapse_3_repair_history_detail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
