@@ -46,5 +46,6 @@ public interface KeyNames {
 
 
     String KEY_NAME_SERVICE_RESERVE_INFO="repairReserveVO";
+    String KEY_NAME_SERVICE_VOC_INFO_VO="VocInfoVO";
 
 }

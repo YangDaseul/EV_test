@@ -460,6 +460,22 @@
             android:exported="false"
             android:screenOrientation="portrait"/>
 
+        <!-- 하자 재발 신청 1단계 -->
+        <activity
+            android:name=".ui.main.service.ServiceRelapseApply1Activity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/TextInputLayout"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- 하자 재발 신청 2단계 -->
+        <activity
+            android:name=".ui.main.service.ServiceRelapseApply2Activity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/TextInputLayout"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- 세차 지점검색 -->
         <activity
             android:name=".ui.main.service.CarWashSearchActivity"

@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.service;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -40,7 +42,13 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return super.setContentView(inflater, R.layout.activity_search_address);
+
+
+        Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.AppTheme);
+        LayoutInflater localInflater = getActivity().getLayoutInflater().cloneInContext(contextThemeWrapper);
+//        View v = localInflater.inflate(R.layout.fragment_work_detail, container, false);
+
+        return super.setContentView(localInflater, R.layout.activity_search_address);
     }
 
     @Override
@@ -163,7 +171,12 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
                     if (addressVO != null) {
                         if (mapViewModel.insertRecentlyAddressVO(addressVO)) {
                             ((SubActivity)getActivity()).hideFragment(this);
-                            ((MapSearchMyPositionActivity)getActivity()).setAddressInfo(addressVO);
+                            if(getActivity() instanceof ServiceRelapseApply1Activity){ //TODO 리펙토링..
+                                ((ServiceRelapseApply1Activity)getActivity()).setAddressInfo(addressVO);
+                            }else{
+                                ((MapSearchMyPositionActivity)getActivity()).setAddressInfo(addressVO);
+                            }
+
                         }
                     }
 

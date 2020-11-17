@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.main.service;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.VOC_1003;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.VOCInfoVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.VOCViewModel;
@@ -25,12 +30,13 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
 
     private VOCViewModel viewModel;
     private ServiceRelapseHistoryAdapter adapter;
+    private AddressVO addressVO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_relapse_history);
-
+        getDataFromIntent();
         setAdapter();
         setViewModel();
         setObserver();
@@ -53,9 +59,7 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
 
             //신청 버튼
             case R.id.tv_relapse_history_req_btn:
-
-                //todo impl
-
+                startActivitySingleTop(new Intent(this, ServiceRelapseApply1Activity.class).putExtra(KeyNames.KEY_NAME_ADDR, addressVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
 
             default:
@@ -121,7 +125,11 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
 
     @Override
     public void getDataFromIntent() {
-        //do nothing
+        try {
+            addressVO =(AddressVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_ADDR);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

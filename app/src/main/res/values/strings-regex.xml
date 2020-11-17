@@ -3,6 +3,5 @@
     <string name="card_mask">$1-****-****-$4</string>
     <string name="check_car_vrn">(([0-9]{2}[가-힣]{1}[0-9]{4}|[0-9]{3}[가-힣]{1}[0-9]{4}))</string>
     <string name="check_phone_number">^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$</string>
-
-
+    <string name="check_email">[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}\\@[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}(\\.[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25})+</string>
 </resources>

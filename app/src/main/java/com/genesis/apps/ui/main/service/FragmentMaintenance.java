@@ -19,6 +19,7 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.REQ_1001;
 import com.genesis.apps.comm.model.api.gra.SOS_1001;
 import com.genesis.apps.comm.model.api.gra.SOS_1006;
+import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.SOSDriverVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -252,7 +253,11 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
 
             //하자재발통보
             case R.id.l_service_maintenance_defect_btn:
-                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRelapseHistoryActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                //주소 검색 시 사용하기 위한 내 위치 정보 전달
+                AddressVO addressVO = new AddressVO();
+                addressVO.setCenterLat(lgnViewModel.getPosition().getValue().get(0));
+                addressVO.setCenterLon(lgnViewModel.getPosition().getValue().get(1));
+                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRelapseHistoryActivity.class).putExtra(KeyNames.KEY_NAME_ADDR, addressVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
 
             default:

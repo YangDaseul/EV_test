@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="r_flaw05_0">하자 재발 통보</string>
+    <string name="r_flaw05_1">자동차 등록증을 참고하시어 작성\n바랍니다.</string>
+    <string name="r_flaw05_2">예시확인</string>
+    <string name="r_flaw05_3">제작자명</string>
+    <string name="r_flaw05_4">현대자동차</string>
+    <string name="r_flaw05_5">차명</string>
+    <string name="r_flaw05_6">인도날짜</string>
+    <string name="r_flaw05_7">차대 번호</string>
+    <string name="r_flaw05_8">차대번호 확인</string>
+    <string name="r_flaw05_9">차량 번호 (자동차등록번호)</string>
+    <string name="r_flaw05_10">등록연월일</string>
+    <string name="r_flaw05_11">주행거리 km</string>
+    <string name="r_flaw05_12">운행 지역 (시/도)</string>
+    <string name="r_flaw05_13">운행 지역 (시/군/구)</string>
+    <string name="r_flaw05_14">차대 번호를\n확인해 주세요.</string>
+    <string name="r_flaw05_15">입력하신 차대 번호가 유효하지 않습니다.\n차대번호를 확인해 주세요.</string>
+    <string name="r_flaw05_16">차량번호(자동차등록번호)를\n입력해 주세요.</string>
+    <string name="r_flaw05_17">등록연월일을\n선택해 주세요.</string>
+    <string name="r_flaw05_18">주행거리를\n입력해 주세요.</string>
+    <string name="r_flaw05_19">운행 지역(시/도)을\n선택해 주세요.</string>
+    <string name="r_flaw05_20">운행 지역(시/군/구)을\n선택해 주세요.</string>
+    <string name="r_flaw05_21">차대 번호가 올바르지 않습니다.</string>
+    <string name="r_flaw05_22">차량 번호를 입력해 주세요.</string>
+    <string name="r_flaw05_23">차량 번호가 올바르지 않습니다.</string>
+    <string name="r_flaw05_24">등록연월일을 입력해 주세요.</string>
+    <string name="r_flaw05_25">주행거리를 입력해 주세요.</string>
+    <string name="r_flaw05_26">운행 지역 (시/도)을 입력해 주세요.</string>
+    <string name="r_flaw05_27">운행 지역 (시/군/구)을 입력해 주세요.</string>
+    <string name="r_flaw05_28">차대 번호를 입력해 주세요.</string>
+    <string name="r_flaw05_29">차대 번호 17자리를 입력해 주세요.</string>
+    <string name="r_flaw05_30">차대 번호 확인을 진행해 주세요.</string>
+    <string name="r_flaw05_31">등록연월일 선택</string>
+    <string name="r_flaw05_32">운행지역을 선택해 주세요.\n(시/도)</string>
+    <string name="r_flaw05_33">운행지역을 선택해 주세요.\n((시/군/구)</string>
+
+</resources>

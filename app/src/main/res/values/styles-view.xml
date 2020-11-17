@@ -42,7 +42,7 @@
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">6sp</item>
         <item name="android:gravity">center</item>
-        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
     </style>
 
     <!-- ok 버튼(검은색)-->

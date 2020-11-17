@@ -24,6 +24,7 @@ class AddressVO extends BaseData {
     public AddressVO(){
 
     }
+
     @PrimaryKey(autoGenerate = true)
     private int _id;
 

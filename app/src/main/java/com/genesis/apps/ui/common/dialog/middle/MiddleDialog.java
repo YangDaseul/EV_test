@@ -410,6 +410,30 @@ public class MiddleDialog {
                 ).show()
         );
     }
+
+    /**
+     * @brief 하자재발 신청 종료 팝업
+     *
+     * @param activity
+     * @param ok
+     * @param cancel
+     */
+    public static void dialogServiceRelapseApplyExit(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        R.string.sm_flaw03_01_1,
+                        R.string.sm_flaw03_01_2,
+                        R.string.dialog_common_1,
+                        R.string.dialog_common_2
+                ).show()
+        );
+    }
+
     /**
      * @brief 긴급출동 신청 종료 팝업
      *
