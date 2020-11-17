@@ -30,6 +30,7 @@ import lombok.EqualsAndHashCode;
  * YYYYMMDD
  * @see #carNm 차명
  * @see #crnVehlCd 차종코드
+ * @see #mdYyyy 등록연월일
  * @see #whotYmd 출고일자
  * @see #trvgDist 주행거리
  * @see #carNo 차량등록번호
@@ -113,6 +114,9 @@ class VOCInfoVO extends BaseData {
     @Expose
     @SerializedName("crnVehlCd")
     private String crnVehlCd;
+    @Expose
+    @SerializedName("mdYyyy")
+    private String mdYyyy;
     @Expose
     @SerializedName("whotYmd")
     private String whotYmd;

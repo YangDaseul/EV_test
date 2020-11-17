@@ -62,6 +62,9 @@ public class VOC_1002 extends BaseData {
         @SerializedName("crnVehlCd")
         private String crnVehlCd;
         @Expose
+        @SerializedName("mdYyyy")
+        private String mdYyyy;
+        @Expose
         @SerializedName("whotYmd")
         private String whotYmd;
         @Expose

@@ -17,15 +17,15 @@ import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.SOS_1002;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.SOS_1002;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
-import com.genesis.apps.comm.util.DeviceUtil;
+import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringRe2j;
@@ -40,11 +40,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
 /**
  * @author hjpark
  * @brief 차계부 입력
  */
+
+@AndroidEntryPoint
 public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply1Binding> {
+
+    @Inject
+    public LoginInfoDTO loginInfoDTO;
 
     private SOSViewModel sosViewModel;
     private VehicleVO mainVehicle;
@@ -100,12 +109,12 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
      * (기획에 정의되지 않은 예외처리)
      */
     private void initPhoneNumber() {
-        String phoneNumber = DeviceUtil.getPhoneNumber(getApplication());
+        String phoneNumber = loginInfoDTO.getProfile()!=null ? loginInfoDTO.getProfile().getMobileNum() : "" ;
 
         if(TextUtils.isEmpty(phoneNumber)){
             ui.etCelPhNo.requestFocus();
         }else{
-            ui.etCelPhNo.setText(PhoneNumberUtils.formatNumber(DeviceUtil.getPhoneNumber(getApplication()), Locale.getDefault().getCountry()));
+            ui.etCelPhNo.setText(PhoneNumberUtils.formatNumber(phoneNumber.replaceAll("-",""), Locale.getDefault().getCountry()));
             ui.etCelPhNo.setSelection(ui.etCelPhNo.length());
             selectfltCd();
         }
