@@ -246,12 +246,11 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    showProgressDialog(false);
                     if(result.data!=null&&result.data.getExpnList()!=null&&result.data.getExpnList().size()>0){
-                        List<ExpnVO> list;
+                        List<ExpnVO> list = new ArrayList<>();
                         int itemSizeBefore=0;
                         try{
-                            list = cbkViewModel.getExpnList(result.data.getExpnList());
+                            list.addAll(cbkViewModel.getExpnList(result.data.getExpnList()));
                             itemSizeBefore = adapter.getItemCount();
                             if (adapter.getPageNo() == 0) {
                                 adapter.setRows(list);
@@ -278,8 +277,8 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                             list = new ArrayList<>();
                         }finally{
                             adapter.notifyDataSetChanged();
-//                            adapter.notifyItemRangeInserted(itemSizeBefore, adapter.getItemCount());
                             ui.tvEmpty.setVisibility(adapter.getItemCount()==0 ? View.VISIBLE : View.GONE);
+                            showProgressDialog(false);
                         }
                         break;
                     }

@@ -105,4 +105,6 @@
     <string name="sm_r_rsv_p03_1">정비 예약 취소</string>
     <string name="sm_r_rsv_p03_2">이전 단계로 이동하시면,\n지금까지 입력하신 예약 정보가\n모두 사라집니다.\n이동하시겠습니까?</string>
 
+    <string name="sm_r_rsv05_p02_1">예약 취소</string>
+    <string name="sm_r_rsv05_p02_2">%s 예약을\n취소하시겠습니까?</string>
 </resources>

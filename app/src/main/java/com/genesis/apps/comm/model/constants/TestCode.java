@@ -68,6 +68,8 @@ import com.genesis.apps.comm.model.api.gra.REQ_1010;
 import com.genesis.apps.comm.model.api.gra.REQ_1011;
 import com.genesis.apps.comm.model.api.gra.REQ_1012;
 import com.genesis.apps.comm.model.api.gra.REQ_1013;
+import com.genesis.apps.comm.model.api.gra.REQ_1014;
+import com.genesis.apps.comm.model.api.gra.REQ_1015;
 import com.genesis.apps.comm.model.api.gra.SOS_1001;
 import com.genesis.apps.comm.model.api.gra.SOS_1002;
 import com.genesis.apps.comm.model.api.gra.SOS_1004;
@@ -3532,5 +3534,89 @@ public class TestCode {
             "    }\n" +
             "  ]\n" +
             "}",REQ_1013.Response.class);
+
+
+    public static REQ_1014.Response REQ_1014 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"rsvtStatList\": [\n" +
+            "    {\n" +
+            "      \"wrhsDtm\": \"20190926\",\n" +
+            "      \"asnCd\": \"D01000\",\n" +
+            "      \"asnNm\": \"인천서비스센터2\",\n" +
+            "      \"milg\": \"83367\",\n" +
+            "      \"rparWorkNm\": \"진단점검 점검2\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"wrhsDtm\": \"20190926\",\n" +
+            "      \"asnCd\": \"D01000\",\n" +
+            "      \"asnNm\": \"인천서비스센터2\",\n" +
+            "      \"milg\": \"83367\",\n" +
+            "      \"rparWorkNm\": \"진단점검 점검2\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"wrhsDtm\": \"20190926\",\n" +
+            "      \"asnCd\": \"D01000\",\n" +
+            "      \"asnNm\": \"인천서비스센터2\",\n" +
+            "      \"milg\": \"83367\",\n" +
+            "      \"rparWorkNm\": \"진단점검 점검2\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"wrhsDtm\": \"20190926\",\n" +
+            "      \"asnCd\": \"D01000\",\n" +
+            "      \"asnNm\": \"인천서비스센터2\",\n" +
+            "      \"milg\": \"83367\",\n" +
+            "      \"rparWorkNm\": \"진단점검 점검2\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"wrhsDtm\": \"20190926\",\n" +
+            "      \"asnCd\": \"D01000\",\n" +
+            "      \"asnNm\": \"인천서비스센터2\",\n" +
+            "      \"milg\": \"83367\",\n" +
+            "      \"rparWorkNm\": \"진단점검 점검2\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"wrhsDtm\": \"20191001\",\n" +
+            "      \"asnCd\": \"D01000\",\n" +
+            "      \"asnNm\": \"인천서비스센터2\",\n" +
+            "      \"milg\": \"83367\",\n" +
+            "      \"rparWorkNm\": \"진단점검 점검2\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"wrhsDtm\": \"20191001\",\n" +
+            "      \"asnCd\": \"D01000\",\n" +
+            "      \"asnNm\": \"인천서비스센터2\",\n" +
+            "      \"milg\": \"83367\",\n" +
+            "      \"rparWorkNm\": \"진단점검 점검2\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"wrhsDtm\": \"20191001\",\n" +
+            "      \"asnCd\": \"D01000\",\n" +
+            "      \"asnNm\": \"인천서비스센터2\",\n" +
+            "      \"milg\": \"83367\",\n" +
+            "      \"rparWorkNm\": \"진단점검 점검2\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"wrhsDtm\": \"20191001\",\n" +
+            "      \"asnCd\": \"D01000\",\n" +
+            "      \"asnNm\": \"인천서비스센터2\",\n" +
+            "      \"milg\": \"83367\",\n" +
+            "      \"rparWorkNm\": \"진단점검 점검2\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"wrhsDtm\": \"20190826\",\n" +
+            "      \"asnCd\": \"D01000\",\n" +
+            "      \"asnNm\": \"인천서비스센터1\",\n" +
+            "      \"milg\": \"73367\",\n" +
+            "      \"rparWorkNm\": \"진단점검 점검1\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",REQ_1014.Response.class);
+
+
+    public static REQ_1015.Response REQ_1015 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\"\n" +
+            "}",REQ_1015.Response.class);
 
 }

@@ -24,16 +24,20 @@ import com.genesis.apps.comm.model.api.gra.REQ_1015;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.REQRepo;
 import com.genesis.apps.comm.model.vo.CouponVO;
+import com.genesis.apps.comm.model.vo.ExpnVO;
 import com.genesis.apps.comm.model.vo.RepairGroupVO;
+import com.genesis.apps.comm.model.vo.RepairHistVO;
 import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 import lombok.Data;
 
@@ -347,4 +351,52 @@ class REQViewModel extends ViewModel {
 
         return retv;
     }
+
+
+    public List<RepairHistVO> getRepairHistList(List<RepairHistVO> oriList) throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<List<RepairHistVO>> future = es.getListeningExecutorService().submit(() -> {
+
+            //날짜 sort 값 초기화
+            for(int i=0; i<oriList.size(); i++){
+                oriList.get(i).setFirst(false);
+            }
+
+            final List<String> wrhsDtmList = oriList.stream().map(x -> x.getWrhsDtm().substring(0, 8)).distinct().sorted().collect(Collectors.toList());
+            try {
+
+                for (int i = 0; i < wrhsDtmList.size(); i++) {
+                    for (int n = 0; n < oriList.size(); n++) {
+                        String subWrhsDtm = "";
+                        try {
+                            subWrhsDtm = oriList.get(n).getWrhsDtm().substring(0, 8);
+                        } catch (Exception e) {
+                            subWrhsDtm = "";
+                        } finally {
+                            if (subWrhsDtm.equalsIgnoreCase(wrhsDtmList.get(i))) {
+                                oriList.get(n).setFirst(true);
+                                break;
+                            }
+                        }
+                    }
+                }
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+            }
+            oriList.sort(Comparator.comparing(RepairHistVO::getWrhsDtm).reversed());
+            return oriList;
+        });
+
+        try {
+            return future.get();
+        } finally {
+            //todo 테스트 필요
+            es.shutDownExcutor();
+        }
+    }
+
+
+    
+    
+    
 }

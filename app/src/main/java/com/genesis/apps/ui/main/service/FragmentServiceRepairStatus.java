@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.REQ_1013;
+import com.genesis.apps.comm.model.api.gra.REQ_1015;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.RepairReserveVO;
 import com.genesis.apps.comm.model.vo.RepairVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
@@ -22,11 +24,14 @@ import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.FragmentServiceRepairStatusBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.service.view.ServiceRepairCurrentStatusAdapter;
 import com.genesis.apps.ui.main.service.view.ServiceRepairReserveStatusAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FragmentServiceRepairStatus extends SubFragment<FragmentServiceRepairStatusBinding> {
@@ -54,7 +59,7 @@ public class FragmentServiceRepairStatus extends SubFragment<FragmentServiceRepa
         setViewModel();
         setObserver();
         initView();
-        reqDataFromServer();
+        initData();
     }
 
     private void initView() {
@@ -66,14 +71,11 @@ public class FragmentServiceRepairStatus extends SubFragment<FragmentServiceRepa
         me.rv.setAdapter(concatAdapter);
     }
 
-    private void reqDataFromServer() {
+    private void initData() {
         try {
             if (mainVehicle == null) mainVehicle = reqViewModel.getMainVehicle();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (mainVehicle != null)
-                reqViewModel.reqREQ1013(new REQ_1013.Request(APPIAInfo.SM_R_RSV05.getId(), mainVehicle.getVin()));
         }
     }
 
@@ -84,12 +86,49 @@ public class FragmentServiceRepairStatus extends SubFragment<FragmentServiceRepa
 
     @Override
     public void onClickCommon(View v) {
+        switch (v.getId()) {
+            case R.id.btn_cancel:
+                int pos = 0;
 
+                try {
+                    pos = Integer.parseInt(v.getTag(R.id.position).toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    if (pos != 0) {
+                        RepairReserveVO repairReserveVO = serviceRepairReserveStatusAdapter.getItem(pos);
+                        if (repairReserveVO != null
+                                && !TextUtils.isEmpty(repairReserveVO.getRparRsvtSeqNo())) {
+                            selectRsvtCnclCd(repairReserveVO.getRparRsvtSeqNo(), repairReserveVO.getRsvtTypCd());
+                        }
+                    }
+                }
+                break;
+        }
+    }
+
+    private void selectRsvtCnclCd(final String rparRsvtSeqNo, final String rsvtTypCd) {
+        final List<String> rsvtCnclCdList = Arrays.asList(getResources().getStringArray(R.array.service_reserve_cancel));
+
+        final BottomListDialog bottomListDialog = new BottomListDialog(getContext(), R.style.BottomSheetDialogTheme);
+        bottomListDialog.setOnDismissListener(dialogInterface -> {
+            String result = bottomListDialog.getSelectItem();
+            if (!TextUtils.isEmpty(result)) {
+                MiddleDialog.dialogServiceReserveCancel(getActivity(), String.format(getActivity().getString(R.string.sm_r_rsv05_p02_2), VariableType.getRsvtTypNm(rsvtTypCd)), () -> {
+                    reqViewModel.reqREQ1015(new REQ_1015.Request(APPIAInfo.SM_R_RSV05.getId(), rparRsvtSeqNo, VariableType.getRsvtCnclCd(result)));
+                });
+            }
+        });
+
+        bottomListDialog.setDatas(rsvtCnclCdList);
+        bottomListDialog.setTitle(getString(R.string.sm_r_rsv05_35));
+        bottomListDialog.show();
     }
 
     @Override
     public void onRefresh() {
-
+        if (mainVehicle != null)
+            reqViewModel.reqREQ1013(new REQ_1013.Request(APPIAInfo.SM_R_RSV05.getId(), mainVehicle.getVin()));
     }
 
     private void setViewModel() {
@@ -97,6 +136,40 @@ public class FragmentServiceRepairStatus extends SubFragment<FragmentServiceRepa
     }
 
     private void setObserver() {
+
+        reqViewModel.getRES_REQ_1015().observe(getViewLifecycleOwner(), result -> {
+
+            switch (result.status) {
+                case LOADING:
+                    ((SubActivity) getActivity()).showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    ((SubActivity) getActivity()).showProgressDialog(false);
+                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000")) {
+                        SnackBarUtil.show(getActivity(), getString(R.string.sm_r_rsv05_p02_snackbar_1));
+                        reqViewModel.reqREQ1013(new REQ_1013.Request(APPIAInfo.SM_R_RSV05.getId(), mainVehicle.getVin()));
+                        break;
+                    }
+                default:
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
+                            serverMsg = getString(R.string.sm_r_rsv05_p02_snackbar_2);
+                        }
+                        SnackBarUtil.show(getActivity(), serverMsg);
+                        ((SubActivity) getActivity()).showProgressDialog(false);
+                    }
+                    break;
+            }
+
+
+        });
+
+
         reqViewModel.getRES_REQ_1013().observe(getViewLifecycleOwner(), result -> {
 
             switch (result.status) {
@@ -110,9 +183,9 @@ public class FragmentServiceRepairStatus extends SubFragment<FragmentServiceRepa
                         List<RepairReserveVO> rsvtStatList = new ArrayList<>();
                         rsvtStatList.addAll(result.data.getRsvtStatList());
                         RepairVO currentData = null;
-                        try{
-                            currentData = (RepairVO)result.data.getRparStatus().clone();
-                        }catch (Exception e){
+                        try {
+                            currentData = (RepairVO) result.data.getRparStatus().clone();
+                        } catch (Exception e) {
 
                         }
 
@@ -137,6 +210,7 @@ public class FragmentServiceRepairStatus extends SubFragment<FragmentServiceRepa
                             serviceRepairReserveStatusAdapter.setRows(rsvtStatList);
                             serviceRepairCurrentStatusAdapter.notifyDataSetChanged();
                             serviceRepairReserveStatusAdapter.notifyDataSetChanged();
+                            me.lEmpty.lWhole.setVisibility(View.GONE);
                         }
                         break;
                     }

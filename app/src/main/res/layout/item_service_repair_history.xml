@@ -13,17 +13,9 @@
 
         <import type="android.view.View" />
 
-        <import type="android.telephony.PhoneNumberUtils" />
-
-        <import type="java.util.Locale" />
-
         <variable
             name="data"
             type="com.genesis.apps.comm.model.vo.RepairHistVO" />
-
-        <variable
-            name="pos"
-            type="int" />
 
     </data>
 
@@ -42,10 +34,10 @@
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="10sp"
-            android:text="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.wrhsDtm ?? ``), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)}"
+            android:text="@{data.isFirst ? (DateUtil.getDate(DateUtil.getDefaultDateFormat((data.wrhsDtm ?? ``), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)) : ``}"
             android:textColor="@color/x_000000"
             android:textSize="14sp"
-            android:visibility="@{pos==0 ? View.VISIBLE : View.GONE}"
+            android:visibility="@{data.isFirst ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="2020.07.25" />

@@ -125,6 +125,7 @@ public class ServiceRepairReserveStatusAdapter extends BaseRecyclerViewAdapter2<
             super(itemView);
             this.serviceRepairReserveStatusAdapter = serviceRepairReserveStatusAdapter;
 
+            getBinding().btnCancel.setOnClickListener(onSingleClickListener);
             getBinding().btnArrow.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
@@ -165,6 +166,7 @@ public class ServiceRepairReserveStatusAdapter extends BaseRecyclerViewAdapter2<
             super(itemView);
             this.serviceRepairReserveStatusAdapter = serviceRepairReserveStatusAdapter;
 
+            getBinding().btnCancel.setOnClickListener(onSingleClickListener);
             getBinding().btnArrow.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
@@ -205,6 +207,7 @@ public class ServiceRepairReserveStatusAdapter extends BaseRecyclerViewAdapter2<
             super(itemView);
             this.serviceRepairReserveStatusAdapter = serviceRepairReserveStatusAdapter;
 
+            getBinding().btnCancel.setOnClickListener(onSingleClickListener);
             getBinding().btnArrow.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
