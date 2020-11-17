@@ -156,57 +156,58 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         //todo 중대한 하자인가?
         // 클래스 필드로 두거나 해서 어쨌든 유효값 넣기.
         boolean isCritical = true;
+        return null;
 
-        return new VOCInfoVO(
-                "고객 이름",
-                "고객 생년월일",
-                "이메일",
-                "도로명 우편번호",
-                "도로명주소",
-                "도로명 상세주소",
-                "연락처1",//010
-                "연락처2",//전번 앞자리
-                "연락처3",//전번  뒷자리
-
-                mainVehicle.getRecvYmd(),   //인도날짜(recvDt)인데 이거 맞나?
-                mainVehicle.getMdlNm(),     //차명(carNm)인데 이거 맞나?
-                mainVehicle.getMdlCd(),     //차종코드(crnVehlCd)인데 이거 맞나?
-                mainVehicle.getRecvYmd(),   //출고일자(whotYmd)는 인도날짜(이거 세 칸 앞에 거)랑 다른 건가?
-                "주행거리",
-                mainVehicle.getCarRgstNo(),
-                mainVehicle.getVin(),
-                "운행지역 시도",
-                "운행지역 시군구",
-                isCritical ? VOCInfoVO.DEFECT_LEVEL_HIGH : VOCInfoVO.DEFECT_LEVEL_LOW,
-
-                repairHistory[FIRST].getMechanic(),
-                repairHistory[FIRST].getReqDate(),
-                repairHistory[FIRST].getFinishDate(),
-                "주행거리 1회차",//이건 도대체 어떻게 알아내는 거여?
-                repairHistory[FIRST].getDefectDetail(),
-                repairHistory[FIRST].getRepairDetail(),
-
-                repairHistory[SECOND].getMechanic(),
-                repairHistory[SECOND].getReqDate(),
-                repairHistory[SECOND].getFinishDate(),
-                "주행거리 2회차",
-                repairHistory[SECOND].getDefectDetail(),
-                repairHistory[SECOND].getRepairDetail(),
-
-                repairHistory[THIRD].getMechanic(),
-                repairHistory[THIRD].getReqDate(),
-                repairHistory[THIRD].getFinishDate(),
-                "주행거리 3회차",
-                repairHistory[THIRD].getDefectDetail(),
-                repairHistory[THIRD].getRepairDetail(),
-
-                "",//수리시도회수4회이상여부 "Y" "N"
-                "누적수리기간",
-                "개인정보취급동의",//"Y" "N"
-                "",//미사용
-                "",//미사용
-                ""//미사용
-        );
+//        return new VOCInfoVO(
+//                "고객 이름",
+//                "고객 생년월일",
+//                "이메일",
+//                "도로명 우편번호",
+//                "도로명주소",
+//                "도로명 상세주소",
+//                "연락처1",//010
+//                "연락처2",//전번 앞자리
+//                "연락처3",//전번  뒷자리
+//
+//                mainVehicle.getRecvYmd(),   //인도날짜(recvDt)인데 이거 맞나?
+//                mainVehicle.getMdlNm(),     //차명(carNm)인데 이거 맞나?
+//                mainVehicle.getMdlCd(),     //차종코드(crnVehlCd)인데 이거 맞나?
+//                mainVehicle.getRecvYmd(),   //출고일자(whotYmd)는 인도날짜(이거 세 칸 앞에 거)랑 다른 건가?
+//                "주행거리",
+//                mainVehicle.getCarRgstNo(),
+//                mainVehicle.getVin(),
+//                "운행지역 시도",
+//                "운행지역 시군구",
+//                isCritical ? VOCInfoVO.DEFECT_LEVEL_HIGH : VOCInfoVO.DEFECT_LEVEL_LOW,
+//
+//                repairHistory[FIRST].getMechanic(),
+//                repairHistory[FIRST].getReqDate(),
+//                repairHistory[FIRST].getFinishDate(),
+//                "주행거리 1회차",//이건 도대체 어떻게 알아내는 거여?
+//                repairHistory[FIRST].getDefectDetail(),
+//                repairHistory[FIRST].getRepairDetail(),
+//
+//                repairHistory[SECOND].getMechanic(),
+//                repairHistory[SECOND].getReqDate(),
+//                repairHistory[SECOND].getFinishDate(),
+//                "주행거리 2회차",
+//                repairHistory[SECOND].getDefectDetail(),
+//                repairHistory[SECOND].getRepairDetail(),
+//
+//                repairHistory[THIRD].getMechanic(),
+//                repairHistory[THIRD].getReqDate(),
+//                repairHistory[THIRD].getFinishDate(),
+//                "주행거리 3회차",
+//                repairHistory[THIRD].getDefectDetail(),
+//                repairHistory[THIRD].getRepairDetail(),
+//
+//                "",//수리시도회수4회이상여부 "Y" "N"
+//                "누적수리기간",
+//                "개인정보취급동의",//"Y" "N"
+//                "",//미사용
+//                "",//미사용
+//                ""//미사용
+//        );
     }
 
     private class RepairData {

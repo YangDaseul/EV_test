@@ -11,7 +11,6 @@
             name="activity"
             type="com.genesis.apps.ui.main.service.ServiceRelapse3Activity" />
 
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,7 +85,7 @@
                 <TextView
                     android:id="@+id/tv_relapse_3_yes"
                     style="@style/Relapse3RepairMore4Btn"
-                    android:alpha="@{activity.more4?1:0.6}"
+                    android:alpha="@{activity.more4?1.0f:0.6f}"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     android:text="@string/dialog_common_2"
                     app:layout_constraintEnd_toStartOf="@id/tv_relapse_3_no"
@@ -96,7 +95,7 @@
                 <TextView
                     android:id="@+id/tv_relapse_3_no"
                     style="@style/Relapse3RepairMore4Btn"
-                    android:alpha="@{activity.more4?0.6:1}"
+                    android:alpha="@{activity.more4?0.6f:1.0f}"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     android:text="@string/dialog_common_1"
                     app:layout_constraintEnd_toEndOf="parent"
