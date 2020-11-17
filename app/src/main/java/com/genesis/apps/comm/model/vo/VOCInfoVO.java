@@ -83,6 +83,9 @@ class VOCInfoVO extends BaseData {
     public static final  String INP_ST_CODE_WAITING = "1";//접수중
     public static final  String INP_ST_CODE_FINISH = "2"; //접수완료
 
+    public static final String DEFECT_LEVEL_HIGH = "A";//중대한 하자
+    public static final String DEFECT_LEVEL_LOW = "B"; //일반 하자
+
     @Expose
     @SerializedName("csmrNm")
     private String csmrNm;

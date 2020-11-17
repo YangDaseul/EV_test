@@ -15,6 +15,8 @@
     <string name="gm_carlst_p01_14"></string>
     <string name="gm_carlst_p01_15"></string>
 
+    <string name="relapse_list_01">하자 구분을 선택해주세요.</string>
+
     <string name="now_or_reserve_title">지금 바로 부르시겠습니까?</string>
     <string name="now_or_reserve_now">예, 지금 바로 불러주세요.</string>
     <string name="now_or_reserve_reserve">아니오, 예약하겠습니다.</string>

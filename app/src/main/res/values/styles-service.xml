@@ -189,5 +189,81 @@
         <item name="android:lineSpacingExtra">6sp</item>
     </style>
 
+    <!-- 하자 재발 3단계 4회이상 테두리 -->
+    <style name="Relapse3RepairMore4Selected" parent="TextBasic">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:background">@drawable/bg_ffffff_stroke_141414_2dp</item>
+        <item name="android:padding">18dp</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintHorizontal_chainStyle">packed</item>
+    </style>
+
+    <!-- 하자 재발 3단계 4회이상 버튼 -->
+    <style name="Relapse3RepairMore4Btn" parent="TextBtnBasic">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff</item>
+        <item name="android:padding">16dp</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintHorizontal_chainStyle">packed</item>
+    </style>
+
+
+    <!-- 하자 재발 3단계 과거 수리내역 레이아웃 -->
+    <style name="Relapse3RepairHistoryTextInputLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="boxBackgroundColor">@color/x_ffffff</item>
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxCornerRadiusTopEnd">0dp</item>
+        <item name="boxCornerRadiusTopStart">0dp</item>
+        <item name="boxStrokeColor">@color/x_141414</item>
+        <item name="boxStrokeErrorColor">@color/x_ba544d</item>
+        <item name="endIconMode">clear_text</item>
+        <item name="errorEnabled">true</item>
+        <item name="errorIconTint">@color/x_ba544d</item>
+        <item name="errorTextColor">@color/x_ba544d</item>
+        <item name="hintEnabled">true</item>
+        <item name="hintTextColor">@color/x_000000</item>
+    </style>
+
+    <!-- 과거수리내역 입력창 -->
+    <style name="Relapse3RepairHistoryTextInputEditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:inputType">text</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textCursorDrawable">@drawable/cursor_141414</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <!-- 하자재발3 수리내역 날짜선택 타이틀-->
+    <style name="Relapse3RepairHistoryDatePickTitle" parent="TextBasic">
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <!-- 하자재발3 수리내역 날짜선택 버튼-->
+    <style name="Relapse3RepairHistoryDatePickBtn" parent="TextBtnBasic">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_141414</item>
+        <item name="android:drawableRight">@drawable/ic_calendar</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
 
 </resources>

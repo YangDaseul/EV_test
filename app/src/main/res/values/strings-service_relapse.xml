@@ -18,6 +18,39 @@
     <string name="item_relapse_history_vin">차대번호</string>
     <string name="item_relapse_history_date">접수일</string>
 
+    <!--하자 재발 통보-->
+    <string name="relapse_title">하자 재발 통보</string>
+
+    <!-- 1단계 -->
+
+    <!-- 2단계 -->
+
+    <!-- 3단계 -->
+    <string name="relapse_3_msg_01">하자 구분을\n선택해 주세요.</string>
+    <string name="relapse_3_msg_02">수리 내역을\n입력해 주세요.</string>
+    <string name="relapse_3_msg_03">수리 시도 횟수가\n4회 이상인가요?</string>
+    <string name="relapse_3_msg_04">누적 수리 기간은\n며칠인가요?</string>
+    <string name="relapse_3_which">하자 구분</string>
+    <string name="relapse_3_repair_count">회</string>
+    <string name="relapse_3_repair_day">일</string>
+
+    <string name="relapse_3_repair_term">누적 수리 기간</string>
+    <string name="relapse_3_repair_term_error">누적 수리 기간을 입력해주세요</string>
+    <string name="relapse_3_repair_total_count">추가 수리 횟수</string>
+    <string name="relapse_3_repair_total_count_error">추가 수리 횟수를 입력해주세요</string>
+
+    <string name="relapse_3_repair_delete">삭제</string>
+    <string name="relapse_3_repair_mechanic">수리업자명</string>
+    <string name="relapse_3_repair_mechanic_error">수리업자명을 입력해주세요</string>
+    <string name="relapse_3_repair_req_date">수리요청일</string>
+    <string name="relapse_3_repair_finish_date">수리완료일</string>
+    <string name="relapse_3_repair_defect">하자내용(증상)</string>
+    <string name="relapse_3_repair_defect_error">하자내용(증상)을 입력해주세요</string>
+    <string name="relapse_3_repair_detail">수리내용</string>
+    <string name="relapse_3_repair_detail_error">수리내용을 입력해주세요</string>
+
+    <string name="relapse_3_repair_more">· 수리한 횟수가 더 있으신가요?</string>
+    <string name="relapse_3_repair_add">수리 횟수 추가</string>
 
     <!--    <string name="relapse_history_">하자신청</string>-->
 </resources>
