@@ -89,5 +89,10 @@
         <item>기타</item>
     </string-array>
 
+    <string-array name="service_relapse_defect_list">
+        <item>일반 보증 기간</item>
+        <item>배출 가스 관련 부품 보증 기간</item>
+    </string-array>
+
 </resources>
 

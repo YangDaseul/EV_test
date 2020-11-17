@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.main.service.ServiceRelapse3Activity" />
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/x_ffffff">
+
+        <!-- 화면 이름 -->
+        <include
+            android:id="@+id/l_relapse_3_title"
+            layout="@layout/layout_titlebar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:value="@{@string/relapse_title}" />
+
+        <!-- 윗부분 안내문 ~ 추가수리횟수-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_relapse_3_top"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/l_relapse_3_title">
+
+            <!-- 안내 문구  -->
+            <TextView
+                android:id="@+id/tv_relapse_3_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                android:letterSpacing="-0.01"
+                android:text="@string/relapse_3_msg_01"
+                android:textColor="@color/x_000000"
+                android:textSize="22sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- 예, 아니오 버튼 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/l_relapse_3_yes_no"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+                android:visibility="@{activity.yesNoVisibility}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_relapse_3_desc"
+                tools:visibility="gone">
+
+                <!-- 예 버튼 테두리 -->
+                <TextView
+                    android:id="@+id/tv_relapse_3_yes_border"
+                    style="@style/Relapse3RepairMore4Selected"
+                    android:visibility="@{activity.more4?View.VISIBLE:View.GONE}"
+                    app:layout_constraintEnd_toStartOf="@id/tv_relapse_3_no_border"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <!-- 아니오 버튼 테두리 -->
+                <TextView
+                    android:id="@+id/tv_relapse_3_no_border"
+                    style="@style/Relapse3RepairMore4Selected"
+                    android:visibility="@{activity.more4?View.GONE:View.VISIBLE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_relapse_3_yes_border" />
+
+                <!-- 예 버튼 -->
+                <TextView
+                    android:id="@+id/tv_relapse_3_yes"
+                    style="@style/Relapse3RepairMore4Btn"
+                    android:alpha="@{activity.more4?1:0.6}"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    android:text="@string/dialog_common_2"
+                    app:layout_constraintEnd_toStartOf="@id/tv_relapse_3_no"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <!-- 아니오 버튼 -->
+                <TextView
+                    android:id="@+id/tv_relapse_3_no"
+                    style="@style/Relapse3RepairMore4Btn"
+                    android:alpha="@{activity.more4?0.6:1}"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    android:text="@string/dialog_common_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_relapse_3_yes" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- 누적 수리 기간 입력창 -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/l_relapse_3_term"
+                style="@style/Relapse3RepairHistoryTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_marginTop="30dp"
+                android:hint="@string/relapse_3_repair_term"
+                android:visibility="@{activity.repairCountVisibility}"
+                app:layout_constraintEnd_toStartOf="@id/tv_relapse_3_unit_total_count"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/l_relapse_3_yes_no"
+                app:layout_goneMarginTop="30dp"
+                tools:visibility="gone">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_relapse_3_term"
+                    style="@style/Relapse3RepairHistoryTextInputEditText"
+                    android:inputType="number" />
+
+                <requestFocus />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- "일"-->
+            <TextView
+                android:id="@+id/tv_relapse_3_unit_term"
+                style="@style/TextBasic"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:padding="16dp"
+                android:text="@string/relapse_3_repair_day"
+                android:textColor="@color/x_000000"
+                android:textSize="15sp"
+                android:visibility="@{activity.repairCountVisibility}"
+                app:layout_constraintBottom_toBottomOf="@id/l_relapse_3_term"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@id/l_relapse_3_term"
+                app:layout_constraintTop_toTopOf="@id/l_relapse_3_term"
+                tools:visibility="gone" />
+
+            <!-- 추가 수리 횟수 입력창 -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/l_relapse_3_total_count"
+                style="@style/Relapse3RepairHistoryTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_marginTop="15dp"
+                android:hint="@string/relapse_3_repair_total_count"
+                android:visibility="@{activity.totalTermVisibility}"
+                app:layout_constraintEnd_toStartOf="@id/tv_relapse_3_unit_total_count"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/l_relapse_3_term"
+                tools:visibility="gone">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_relapse_3_total_count"
+                    style="@style/Relapse3RepairHistoryTextInputEditText"
+                    android:inputType="number" />
+
+                <requestFocus />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- "회"-->
+            <TextView
+                android:id="@+id/tv_relapse_3_unit_total_count"
+                style="@style/TextBasic"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:padding="16dp"
+                android:text="@string/relapse_3_repair_count"
+                android:textColor="@color/x_000000"
+                android:textSize="15sp"
+                android:visibility="@{activity.totalTermVisibility}"
+                app:layout_constraintBottom_toBottomOf="@id/l_relapse_3_total_count"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@id/l_relapse_3_total_count"
+                app:layout_constraintTop_toTopOf="@id/l_relapse_3_total_count"
+                tools:visibility="gone" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- 윗부분과 아래 부분 사이에 회색영역을 위한 더미 뷰-->
+        <ImageView
+            android:id="@+id/iv_dummy"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="40dp"
+            android:src="@color/x_f4f4f4"
+            android:visibility="@{activity.dummyLineVisibility}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/l_relapse_3_top" />
+
+        <!-- 수리내역 최대 3개 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_relapse_3_repair_history_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="20dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_dummy"
+            app:layout_goneMarginTop="30dp" />
+
+        <!-- "수리 더 했나요?" -->
+        <TextView
+            android:id="@+id/tv_relapse_3_repair_more"
+            style="@style/TextBasic"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:text="@string/relapse_3_repair_more"
+            android:textColor="@color/x_aaabaf"
+            android:textSize="14sp"
+            android:visibility="@{activity.addHistoryVisibility}"
+            app:layout_constraintBottom_toBottomOf="@id/tv_relapse_3_repair_add_btn"
+            app:layout_constraintEnd_toStartOf="@id/tv_relapse_3_repair_add_btn"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_relapse_3_repair_add_btn"
+            tools:visibility="gone" />
+
+        <!-- 수리 내역 추가 버튼-->
+        <TextView
+            android:id="@+id/tv_relapse_3_repair_add_btn"
+            style="@style/BigBtn.Black"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:padding="11dp"
+            android:text="@string/relapse_3_repair_add"
+            android:textSize="14sp"
+            android:visibility="@{activity.addHistoryVisibility}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toEndOf="@id/tv_relapse_3_repair_more"
+            app:layout_constraintTop_toBottomOf="@id/rv_relapse_3_repair_history_list"
+            tools:visibility="gone" />
+
+        <!-- 하자 구분(선택)창 -->
+        <TextView
+            android:id="@+id/tv_relapse_defect_select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/ripple_bg_ffffff_stroke_e2e2e2"
+            android:clickable="true"
+            android:drawableRight="@drawable/btn_accodian_open"
+            android:focusable="true"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:padding="16dp"
+            android:text="@string/relapse_3_which"
+            android:textColor="@color/x_aaabaf"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_relapse_3_repair_add_btn" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
