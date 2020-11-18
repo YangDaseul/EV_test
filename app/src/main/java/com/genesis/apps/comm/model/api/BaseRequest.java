@@ -4,8 +4,10 @@ import android.text.TextUtils;
 
 import com.genesis.apps.comm.MyApplication;
 import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.DeviceDTO;
 import com.genesis.apps.comm.model.vo.UserVO;
+import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.room.DatabaseHolder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -72,6 +74,7 @@ class BaseRequest extends BaseData {
     interface CompInterface {
         DeviceDTO getDeviceDTO();
         DatabaseHolder getDB();
+        LoginInfoDTO getLoginInfoDTO();
     }
 
     public void setData(String ifCd, String menuID){
@@ -88,11 +91,16 @@ class BaseRequest extends BaseData {
         this.appGbCd = "GRA";
 
         this.custNo = userVO.getCustNo();
-        this.custGbCd = userVO.getCustGbCd();
+
+        if((userVO.getCustGbCd().equalsIgnoreCase("0000")||(userVO.getCustGbCd().equalsIgnoreCase(""))) //UserVO DB의 값이 0000혹은 빈값일 때
+                && !TextUtils.isEmpty(compInterface.getLoginInfoDTO().getAccessToken())){ //엑세스 토큰이 있으면
+            this.custGbCd = VariableType.MAIN_VEHICLE_TYPE_NV; //(엑세스 토큰이 있을때 nv로 요청해야함)
+        }else{
+            this.custGbCd = userVO.getCustGbCd();
+        }
 
         this.mdn = compInterface.getDeviceDTO().getMdn();
         this.pushId = compInterface.getDeviceDTO().getPushId();
         this.deviceId = compInterface.getDeviceDTO().getDeviceId();
-        //TODO menuID 추가 필요.. ?
     }
 }

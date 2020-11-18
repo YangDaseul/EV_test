@@ -1,10 +1,10 @@
 package com.genesis.apps.comm.model.api.gra;
 
 import com.genesis.apps.comm.model.BaseData;
-import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.BaseRequest;
 import com.genesis.apps.comm.model.api.BaseResponse;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.CcspVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.DeviceUtil;
@@ -63,6 +63,10 @@ public class LGN_0001 extends BaseData {
             this.etrmMdlNm = DeviceUtil.getModel();
             this.vin = vin;
             setData(APIInfo.GRA_LGN_0001.getIfCd(), menuId);
+//            if(!TextUtils.isEmpty(custGbCd)&& //파라미터 값이 유효하고
+//                    (getCustGbCd().equalsIgnoreCase("0000")||(getCustGbCd().equalsIgnoreCase("")))){ //UserVO DB의 값이 0000혹은 빈값일 때
+//                setCustGbCd(custGbCd); //파라미터 값 사용 (LGN-0001에서는 엑세스 토큰이 있을때 nv로 요청해야함)
+//            }
         }
 
     }
