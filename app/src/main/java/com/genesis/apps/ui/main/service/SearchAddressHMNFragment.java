@@ -153,7 +153,7 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
     }
 
     @Override
-    public boolean onBackPressed() {
+    public boolean onBackPressed(){
         return true;
     }
 
@@ -224,6 +224,7 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
     @Override
     public void onDestroy() {
         super.onDestroy();
+        SoftKeyboardUtil.hideKeyboard(getActivity(), getActivity().getWindow().getDecorView().getWindowToken());
     }
 
 
