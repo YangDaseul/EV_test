@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.myg;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -94,8 +95,8 @@ public class MyGVersioniActivity extends SubActivity<ActivityMygVersionBinding> 
             ui.tvNewVersion.setTextColor(getColor(R.color.x_141414));
             ui.tvUpdate2.setVisibility(View.GONE);
         }
-        ui.tvCurrentVersion.setText(currentVersion);
-        ui.tvNewVersion.setText(newVersion);
+        ui.tvCurrentVersion.setText(PackageUtil.changeVersionToAppFormat(currentVersion));
+        ui.tvNewVersion.setText(!TextUtils.isEmpty(newVersion) ? PackageUtil.changeVersionToAppFormat(newVersion) : PackageUtil.changeVersionToAppFormat(currentVersion));
     }
 
     @Override

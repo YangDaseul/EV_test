@@ -1235,7 +1235,7 @@ public class TestCode {
             "  \"rtCd\": \"0000\",\n" +
             "  \"rtMsg\": \"Success\",\n" +
             "  \"appVer\": \"01.00.00\",\n" +
-            "  \"appUpdType\": \"X\",\n" +
+            "  \"appUpdType\": \"x\",\n" +
             "  \"notiDt\": \"20200910\"" +
             "}", CMN_0001.Response.class);
 

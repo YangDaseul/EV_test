@@ -23,6 +23,7 @@ import com.genesis.apps.room.ResultCallback;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.main.MainActivity;
+import com.genesis.apps.ui.myg.MyGVersioniActivity;
 
 import java.util.List;
 
@@ -66,6 +67,9 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
         cmnViewModel.getRES_CMN_0001().observe(this, result -> {
 
             switch (result.status){
+                case LOADING:
+
+                    break;
                 case SUCCESS:
                     if (!TextUtils.isEmpty(result.data.getNotiDt()))
                         cmnViewModel.updateNotiDt(result.data.getNotiDt());
@@ -94,12 +98,10 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
                     };
                     versionCheck.run();
                     break;
-                case LOADING:
-
-                    break;
                 case ERROR:
                 default:
-
+                    //TODO ERROR팝업 추가 필요
+                    finish();
                     break;
             }
         });
@@ -230,14 +232,10 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
         if (PackageUtil.versionCompare(PackageUtil.getApplicationVersionName(this, getPackageName()), newVersion) < 0) {
             needUpdate = true;
 
-            MiddleDialog.dialogUpdate(this, new Runnable() {
-                @Override
-                public void run() {
-
-                }
+            MiddleDialog.dialogUpdate(this, () -> {
+                PackageUtil.goMarket(IntroActivity.this, getPackageName());
+                finish();
             }, runnable, newVersion, versionType);
-
-
         }
 
         return needUpdate;

@@ -158,10 +158,9 @@ public class PackageUtil {
             }
 
             retv=0;
-            return retv;
         }catch (Exception e){
             e.printStackTrace();
-            retv=-2;
+            retv=2;
             // end of try-with-resources
         }finally {
             return retv;

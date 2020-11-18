@@ -23,7 +23,14 @@ public class MYP_8004 extends BaseData {
     public @Data
     static
     class Request extends BaseRequest {
+
+        @Expose
+        @SerializedName("termOSGbCd")
+        private String termOSGbCd;
+
+
         public Request(String menuId){
+            this.termOSGbCd = "A";
             setData(APIInfo.GRA_MYP_8004.getIfCd(), menuId);
         }
     }

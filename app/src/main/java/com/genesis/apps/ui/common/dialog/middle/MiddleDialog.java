@@ -61,15 +61,17 @@ public class MiddleDialog {
 
                     if (versionType.equalsIgnoreCase(VERSION_TYPE_M)) {
                         //필수업데이트
-                        binding.tvTitle.setText(String.format(activity.getString(R.string.pop01_1), activity.getString(R.string.pop01_3)));
+                        binding.tvTitleSub.setText(R.string.pop01_3);
+                        binding.tvTitleSub.setTextColor(activity.getColor(R.color.x_cd9a81));
                         binding.btnCancel.setVisibility(View.GONE);
                         binding.btnOk.setText(R.string.dialog_common_4);
                     } else {
                         //선택업데이트
-                        binding.tvTitle.setText(String.format(activity.getString(R.string.pop01_1), activity.getString(R.string.pop01_2)));
+                        binding.tvTitleSub.setText(R.string.pop01_2);
                     }
 
-                    binding.tvMsg.setText(String.format(activity.getString(R.string.pop01_4), String.format(activity.getString(R.string.pop01_5), PackageUtil.getApplicationVersionName(activity, activity.getPackageName())), String.format(activity.getString(R.string.pop01_6), newVersion)));
+                    binding.tvVersionC.setText(PackageUtil.changeVersionToAppFormat(PackageUtil.getApplicationVersionName(activity, activity.getPackageName())));
+                    binding.tvVersionN.setText(PackageUtil.changeVersionToAppFormat(newVersion));
 
                     binding.btnCancel.setOnClickListener(v -> {
                         dialog.dismiss();
