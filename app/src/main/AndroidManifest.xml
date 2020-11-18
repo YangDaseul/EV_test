@@ -483,6 +483,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout" />
 
+        <!-- 하자 재발 신청 예시) -->
+        <activity
+            android:name=".ui.main.service.ServiceRelapseApplyExampleActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
         <!-- 세차 지점검색 -->
         <activity
             android:name=".ui.main.service.CarWashSearchActivity"

@@ -23,6 +23,8 @@ import com.genesis.apps.comm.model.api.gra.PUB_1002;
 import com.genesis.apps.comm.model.api.gra.PUB_1003;
 import com.genesis.apps.comm.model.api.gra.VOC_1001;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.VOCInfoVO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -136,6 +138,9 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
             case R.id.tv_md_yyyy://등록연월일
                 selectCalendar();
                 break;
+            case R.id.btn_example:
+                startActivitySingleTop(new Intent(this, ServiceRelapseApplyExampleActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+                break;
             case R.id.btn_next://다음
                 doNext();
                 break;
@@ -152,16 +157,10 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
     private void doNext(){
         if(isValid()){
             clearKeypad();
-            //todo 2단계로 이동
-//            sosViewModel.reqSOS1002(new SOS_1002.Request(APPIAInfo.SM_EMGC01.getId(),
-//                    mainVehicle.getVin(),
-//                    ui.etCarRegNo.getText().toString().trim(),
-//                    mainVehicle.getMdlCd(),
-//                    fltCd,
-//                    areaClsCd,
-//                    ui.tvAddrInfo1.getText().toString().trim() +" "+ui.tvAddrInfo2.getText().toString().trim()+" "+ui.etAddrDtl.getText().toString().trim(),
-//                    addressVO.getCenterLat()+"",addressVO.getCenterLon()+"",ui.etCelPhNo.getText().toString().trim(),ui.etMemo.getText().toString().trim()));
-//            cbkViewModel.reqCBK1006(new CBK_1006.Request(APPIAInfo.TM_EXPS01_01.getId(), vin, expnDivCd, ui.etExpnAmt.getText().toString().replaceAll(",", ""), ui.tvExpnDtm.getText().toString().replaceAll(".", ""), ui.etExpnPlc.getText().toString(), ui.etAccmMilg.getText().toString().replaceAll(",", "")));
+            vocInfoVO.setVin(ui.etVin.getText().toString().trim());
+            vocInfoVO.setCarNo(ui.etVrn.getText().toString().trim());
+            vocInfoVO.setTrvgDist(ui.etTrvgDist.getText().toString().trim().replaceAll(",",""));
+            startActivitySingleTop(new Intent(this, ServiceRelapse3Activity.class).putExtra(KeyNames.KEY_NAME_SERVICE_VOC_INFO_VO, vocInfoVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
         }
     }
 

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.BaseResponse;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.vo.VOCInfoVO;
 import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -122,7 +123,11 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
     @Override
     public void getDataFromIntent() {
         //todo mainVehicle 데이터 획득(딴 데서 해도 되고...)
-
+        try {
+            vocInfoVO =(VOCInfoVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SERVICE_VOC_INFO_VO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void setAdapter() {
