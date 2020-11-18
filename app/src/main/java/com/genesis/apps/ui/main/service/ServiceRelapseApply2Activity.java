@@ -32,6 +32,7 @@ import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringRe2j;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.PUBViewModel;
+import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.comm.viewmodel.VOCViewModel;
 import com.genesis.apps.databinding.ActivityServiceRelapseApply21Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -56,6 +57,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRelapseApply21Binding> {
     private PUBViewModel pubViewModel;
     private VOCViewModel vocViewModel;
+    private REQViewModel reqViewModel;
     private final int[] layouts = {R.layout.activity_service_relapse_apply_2_1, R.layout.activity_service_relapse_apply_2_2, R.layout.activity_service_relapse_apply_2_3, R.layout.activity_service_relapse_apply_2_4, R.layout.activity_service_relapse_apply_2_5, R.layout.activity_service_relapse_apply_2_6};
     private final int[] textMsgId = {R.string.r_flaw05_14, R.string.r_flaw05_16, R.string.r_flaw05_17, R.string.r_flaw05_18, R.string.r_flaw05_19, R.string.r_flaw05_20};
     private ConstraintSet[] constraintSets = new ConstraintSet[layouts.length];
@@ -108,6 +110,21 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
 
             }
         });
+        setViewVin();
+    }
+
+    private void setViewVin() {
+        String vin="";
+
+        try {
+            vin = reqViewModel.getMainVehicle().getVin();
+        }catch (Exception e){
+
+        }finally{
+            ui.etVin.setText(vin);
+            ui.etVin.setSelection(ui.etVin.length());
+        }
+
     }
 
 
@@ -171,7 +188,7 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
         ui.setActivity(this);
         vocViewModel = new ViewModelProvider(this).get(VOCViewModel.class);
         pubViewModel = new ViewModelProvider(this).get(PUBViewModel.class);
-        vocInfoVO = new VOCInfoVO();
+        reqViewModel = new ViewModelProvider(this).get(REQViewModel.class);
         pubViewModel.reqPUB1002(new PUB_1002.Request(APPIAInfo.SM_FLAW05.getId()));
     }
 
@@ -228,6 +245,7 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
                 case SUCCESS:
                     showProgressDialog(false);
                     vocInfoVO.setAdmz("");
+                    checkValidWpa();
                     break;
                 default:
                     showProgressDialog(false);
@@ -240,6 +258,7 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
 
 
     private void showMapDialog(int id, List<String> list, int title) {
+        clearKeypad();
         if (list != null && list.size() > 0) {
             final BottomListDialog bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
             bottomListDialog.setOnDismissListener(dialogInterface -> {
@@ -265,7 +284,6 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
                     ui.tvAdmz.setText(R.string.r_flaw05_12);
                     ui.tvAdmz.setTextColor(getColor(R.color.x_aaabaf));
                     ui.tvAdmz.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
-                    checkValidWpa();
                     pubViewModel.reqPUB1003(new PUB_1003.Request(APPIAInfo.SM_FLAW05.getId(), pubViewModel.getSidoCode(selectNm)));
                 }
                 break;
@@ -425,7 +443,7 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
 
 
     private boolean checkValidTrvgDist() {
-        String trvgDist = ui.etTrvgDist.getText().toString().trim();
+        String trvgDist = ui.etTrvgDist.getText().toString().replaceAll(",","").trim();
 
         if (TextUtils.isEmpty(trvgDist)) {
             ui.etTrvgDist.requestFocus();

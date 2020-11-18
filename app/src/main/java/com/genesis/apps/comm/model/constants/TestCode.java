@@ -93,11 +93,21 @@ import com.genesis.apps.comm.model.vo.RentStatusVO;
 import com.google.gson.Gson;
 
 public class TestCode {
-//((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), SimilarCarActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+    public static VOC_1001.Response VOC_1001 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"vhclList\": [\n" +
+            "    {\n" +
+            "      \"vin\": \"TEST1452154785412\",\n" +
+            "      \"carRgstNO\": \"16조6840\",\n" +
+            "      \"mdlNm\": \"gv80\",\n" +
+            "      \"mdlCd\": \"gv80 2222\",\n" +
+            "      \"recvYmd\": \"20201118\",\n" +
+            "      \"csmrCarRelCd\": \"1\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}", VOC_1001.Response.class);
 
-
-
-    public static VOC_1001.Response VOC_1001 = new Gson().fromJson("", VOC_1001.Response.class);
     public static VOC_1002.Response VOC_1002 = new Gson().fromJson("", VOC_1002.Response.class);
 
     public static VOC_1003.Response VOC_1003 = new Gson().fromJson("{\n" +
