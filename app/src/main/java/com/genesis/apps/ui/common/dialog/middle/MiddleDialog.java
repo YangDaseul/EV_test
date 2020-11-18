@@ -13,8 +13,10 @@ import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.DialogInsightExpnDeleteBinding;
 import com.genesis.apps.databinding.DialogMiddleTwoButtonBinding;
 import com.genesis.apps.databinding.DialogServiceCantReserveInfoBinding;
+import com.genesis.apps.databinding.DialogServiceRemoteInfoBinding;
 import com.genesis.apps.databinding.DialogUpdateBinding;
 import com.genesis.apps.databinding.DialogUsedCarInfoBinding;
+import com.genesis.apps.ui.main.service.FragmentMaintenance;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -167,6 +169,34 @@ public class MiddleDialog {
 
                     binding.btnCancel.setText(R.string.dialog_common_1);
                     binding.btnOk.setText(R.string.dialog_common_2);
+
+                    binding.btnCancel.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (cancel != null) cancel.run();
+                    });
+                    binding.btnOk.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (ok != null) ok.run();
+                    });
+                }).show()
+        );
+    }
+
+
+    /**
+     * @param activity
+     * @param ok
+     * @param cancel
+     * @brief 원격진단안내팝업
+     */
+    public static void dialogServiceRemoteInfo(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                new CustomDialog(activity, dialog -> {
+                    DialogServiceRemoteInfoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_service_remote_info, null, false);
+                    dialog.setContentView(binding.getRoot());
 
                     binding.btnCancel.setOnClickListener(v -> {
                         dialog.dismiss();

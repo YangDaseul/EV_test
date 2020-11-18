@@ -5,6 +5,8 @@
     <string name="dialog_common_4">확인</string>
     <string name="dialog_common_5">다음</string>
     <string name="dialog_common_6">닫기</string>
+    <string name="dialog_common_7">취소</string>
+    <string name="dialog_common_8">전화걸기</string>
 
     <string name="sm_emg01_p03_title_1">종료 안내</string>
     <string name="sm_emg01_p03_msg_1">아직 원격진단서비스 신청이 완료되지 않았습니다.\n신청을 종료하시겠습니까?</string>
@@ -21,6 +23,17 @@
     <string name="sm_emgc01_p05_2">긴급출동 서비스가 출동했습니다.\n긴급출동 조치가 완료된 이후에 원격진단을 신청하실 수 있습니다.</string>
     <string name="sm_emgc01_p06_1">원격진단 신청 불가</string>
     <string name="sm_emgc01_p06_2">현재 원격진단 이용이 어렵습니다.\nGCS 서비스 사용 신청하시고, 차량 등록 후 이용해 주세요.</string>
+
+    <string name="sm_romte_p01_1">원격진단 서비스 안내</string>
+    <string name="sm_romte_p01_2">원격진단은 모바일로 신청하면 지정된 시간에 고객센터에서 전화 드리겠습니다.\n원격진단을 신청하시겠습니까?</string>
+    <string name="sm_romte_p01_3">이용 시간 : 평일 08:00 – 16:00 (토/일요일, 공휴일 제외)</string>
+    <string name="sm_romte_p01_4">GV80, GV70, The All-new Genesis G80 차량만 서비스 제공이 가능합니다.</string>
+    <string name="sm_romte_p01_5">고장 발생 시 긴급 상담을 제공하며, 정비를 위해서는 별도의 예약이 필요합니다.</string>
+    <string name="sm_romte_p01_6">상담 결과는 차량 데이터를 원격에서 점검하여 추정한 결과로, 상세 점검을 위해서는 서비스센터 및 블루핸즈 방문이 필요합니다.</string>
+    <string name="sm_romte_p01_7"></string>
+    <string name="sm_romte_p01_8"></string>
+    <string name="sm_romte_p01_9"></string>
+
 
     <!--   버틀러 팝업-->
     <string name="gm_bt01_p02_1">서비스 신청 안내</string>

@@ -1,12 +1,14 @@
 package com.genesis.apps.ui.main.service;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
@@ -249,7 +251,17 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
 
             //원격진단 신청
             case R.id.l_service_maintenance_customercenter_btn:
+
+                MiddleDialog.dialogServiceRemoteInfo(getActivity(), () -> {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL+"080-700-6000"));
+                    startActivity(intent);
+                }, () -> {
+
+                });
+
+
                 break;
+
 
             //하자재발통보
             case R.id.l_service_maintenance_defect_btn:
