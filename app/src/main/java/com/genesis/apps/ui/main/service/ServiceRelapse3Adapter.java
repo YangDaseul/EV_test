@@ -1,59 +1,112 @@
 package com.genesis.apps.ui.main.service;
 
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Pair;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
+import com.appeaser.sublimepickerlibrary.datepicker.SelectedDate;
+import com.appeaser.sublimepickerlibrary.helpers.SublimeOptions;
+import com.appeaser.sublimepickerlibrary.recurrencepicker.SublimeRecurrencePicker;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.comm.util.CalenderUtil;
+import com.genesis.apps.comm.util.DateUtil;
+import com.genesis.apps.comm.util.InteractionUtil;
+import com.genesis.apps.databinding.ItemRelapse3BottomBinding;
 import com.genesis.apps.databinding.ItemRelapse3RepairHistoryBinding;
+import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 
 public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRelapse3Adapter.RepairData> {
     private static final String TAG = ServiceRelapse3Adapter.class.getSimpleName();
-    private static final int REPAIR_HISTORY_MAX_SIZE = 3;//레이아웃 레벨에서 입력창 3개 제공
+    private static final int REPAIR_HISTORY_MAX_SIZE = 4;//입력창 3개 제공 + 아래쪽 UI용 한 칸
 
-    private List<RepairData> repairHistory;
+    private static final int VIEW_TYPE_DEFECT_HISTORY = 1;
+    private static final int VIEW_TYPE_BOTTOM = 2;
+
+    private final ServiceRelapse3Activity activity;
     private SparseBooleanArray selectedItems = new SparseBooleanArray();
+    private String mechanicErrorString;
+    private String defectDetailErrorString;
+    private String repairDetailErrorString;
 
-    ServiceRelapse3Adapter() {
-        repairHistory = new ArrayList<>();
-        repairHistory.add(new RepairData());
-        setRows(repairHistory);
+    ServiceRelapse3Adapter(ServiceRelapse3Activity activity) {
+        this.activity = activity;
+        mechanicErrorString = activity.getString(R.string.relapse_3_repair_mechanic_error);
+        defectDetailErrorString = activity.getString(R.string.relapse_3_repair_defect_error);
+        repairDetailErrorString = activity.getString(R.string.relapse_3_repair_detail_error);
+
+        addRow(null);   //아이템 길이 확보용 더미이고, 수리내역 아래에 붙는 UI 한 벌이다
+    }
+
+    public void addRow() {
+        addRow(new RepairData());
     }
 
     @Override
     public void addRow(RepairData row) {
-        if (getItemCount() < REPAIR_HISTORY_MAX_SIZE) {
-            super.addRow(row);
+        Log.d(TAG, "addRow: ");
+        if (getItemCount() >= REPAIR_HISTORY_MAX_SIZE) {
+            return;
         }
+
+        //앞에다 추가한다
+        getItems().add(0, row);
+
+        //개폐 상태 뒤로 한 칸씩 밀기 i 범위 잘 보기
+        for (int i = getItemCount() - 1; i > 0; --i) {
+            selectedItems.put(i, selectedItems.get(i - 1));
+        }
+
+        //새로 들어온 첫 칸은 열림 상태로 설정
+        selectedItems.put(0, true);
+        notifyDataSetChanged();
     }
 
     @Override
-    public void addRows(List<RepairData> rows) {
+    public void remove(int pos) {
+        Log.d(TAG, "remove: " + pos);
+        super.remove(pos);
 
-        super.addRows(rows);
+        //개폐 상태 앞으로 한 칸씩 당기기(맨 뒤 UI 뷰는 제외)
+        for (int i = pos; i < getItemCount() - 1; ++i) {
+            selectedItems.put(i, selectedItems.get(i + 1));
+        }
+
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemViewType(int position) {
-        //다 똑같음
-        return 0;
+        //마지막 아이템은 다른 UI
+        return (position == (getItemCount() - 1)) ? VIEW_TYPE_BOTTOM : VIEW_TYPE_DEFECT_HISTORY;
     }
 
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.d(TAG, "onCreateViewHolder: viewType : " + viewType);
-        return new ServiceRelapse3ViewHolder(getView(parent, R.layout.item_relapse_3_repair_history));
+        if (viewType == VIEW_TYPE_DEFECT_HISTORY) {
+            return new ServiceRelapse3DefectHistoryViewHolder(getView(parent, R.layout.item_relapse_3_repair_history));
+        } else {
+            return new ServiceRelapse3BottomViewHolder(getView(parent, R.layout.item_relapse_3_bottom));
+        }
     }
 
     @Override
@@ -62,13 +115,72 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
         holder.onBindView(getItem(position), position, selectedItems);
     }
 
+    //입력 데이터 전체 검사해서 미비한 게 하나라도 있으면 return false
+    // 중간에 입력 미비를 발견해도 검사는 끝까지 하면서 어디가 틀렸는지 뷰에 표시함
+    public boolean validateInputData() {
+        boolean valid = true;
+
+        for (RepairData data : getItems()) {
+            if (data != null) {
+                if (!data.validateData()) {
+                    valid = false;
+                }
+            }
+        }
+
+        return valid;
+    }
+
     //하자 재발 신청 3단계 입력창 뷰 홀더
-    public class ServiceRelapse3ViewHolder extends BaseViewHolder<RepairData, ItemRelapse3RepairHistoryBinding> {
+    public class ServiceRelapse3DefectHistoryViewHolder extends BaseViewHolder<RepairData, ItemRelapse3RepairHistoryBinding> {
+        private static final int DATE_REQ = 1;
+        private static final int DATE_FINISH = 2;
+
         private View detailView;
         public int iconCloseBtn;
         public int iconOpenBtn;
 
-        public ServiceRelapse3ViewHolder(View itemView) {
+        private TextWatcher mechanicWatcher;
+        private TextWatcher defectDetailWatcher;
+        private TextWatcher repairDetailWatcher;
+        private int position;
+        private int datePickWhich;
+
+        private CalenderUtil.Callback calendarCallback = new CalenderUtil.Callback() {
+            @Override
+            public void onCancelled() {
+                //do nothing
+            }
+
+            @Override
+            public void onDateTimeRecurrenceSet(SelectedDate selectedDate,
+                                                int hourOfDay, int minute,
+                                                SublimeRecurrencePicker.RecurrenceOption recurrenceOption,
+                                                String recurrenceRule) {
+                Log.d(TAG, "onDateTimeRecurrenceSet: ");
+
+                String date = DateUtil.getDate(selectedDate.getEndDate().getTime(), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot);
+
+                switch (datePickWhich) {
+                    case DATE_REQ:
+                        getBinding().tvRelapse3RepairReqDateBtn.setText(date);
+                        ((RepairData) getItem(position)).setReqDate(date);
+                        break;
+                    case DATE_FINISH:
+                        getBinding().tvRelapse3RepairFinishDateBtn.setText(date);
+                        ((RepairData) getItem(position)).setFinishDate(date);
+                        break;
+                    default:
+                        //do nothing
+                        break;
+                }
+
+                getBinding().tvRelapse3RepairReqDateError.setVisibility(View.GONE);
+                getBinding().tvRelapse3RepairFinishDateError.setVisibility(View.GONE);
+            }
+        };
+
+        public ServiceRelapse3DefectHistoryViewHolder(View itemView) {
             super(itemView);
             Log.d(TAG, "ServiceRelapse3ViewHolder: ");
 
@@ -79,6 +191,126 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
             detailView = getBinding().lRelapse3RepairHistoryDetail;
             iconOpenBtn = R.drawable.btn_arrow_open;
             iconCloseBtn = R.drawable.btn_arrow_close;
+
+            initTextChangeListener();
+            initDatePicker();
+        }
+
+        private void initTextChangeListener() {
+            mechanicWatcher = new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    //do nothing
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    //do nothing
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (TextUtils.isEmpty(s)) {
+                        getBinding().lRelapse3Mechanic.setError(mechanicErrorString);
+                    } else {
+                        getBinding().lRelapse3Mechanic.setError(null);
+                    }
+                    ((RepairData) getItem(position)).setMechanic(s.toString());
+                }
+            };
+
+            defectDetailWatcher = new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    //do nothing
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    //do nothing
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (TextUtils.isEmpty(s)) {
+                        getBinding().lRelapse3DefectDetail.setError(defectDetailErrorString);
+                    } else {
+                        getBinding().lRelapse3DefectDetail.setError(null);
+                    }
+                    ((RepairData) getItem(position)).setDefectDetail(s.toString());
+                }
+            };
+
+            repairDetailWatcher = new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    //do nothing
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    //do nothing
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (TextUtils.isEmpty(s)) {
+                        getBinding().lRelapse3RepairDetail.setError(repairDetailErrorString);
+                    } else {
+                        getBinding().lRelapse3RepairDetail.setError(null);
+                    }
+                    ((RepairData) getItem(position)).setRepairDetail(s.toString());
+                }
+            };
+        }
+
+        //이거랑 init 이랑 정비소/증상/수리내용 뷰 맞는지 잘 보기
+        // (물론 잘 맞춰았지만 처음에 이거 어긋나서 오작동으로 시작해서 적어둠)
+        private void setTextChangeListener(boolean enable) {
+            if (enable) {
+                getBinding().etRelapse3Mechanic.addTextChangedListener(mechanicWatcher);
+                getBinding().etRelapse3DefectDetail.addTextChangedListener(defectDetailWatcher);
+                getBinding().etRelapse3RepairDetail.addTextChangedListener(repairDetailWatcher);
+            } else {
+                getBinding().etRelapse3Mechanic.removeTextChangedListener(mechanicWatcher);
+                getBinding().etRelapse3DefectDetail.removeTextChangedListener(defectDetailWatcher);
+                getBinding().etRelapse3RepairDetail.removeTextChangedListener(repairDetailWatcher);
+
+                getBinding().lRelapse3Mechanic.setError(null);
+                getBinding().lRelapse3DefectDetail.setError(null);
+                getBinding().lRelapse3RepairDetail.setError(null);
+            }
+        }
+
+        private void initDatePicker() {
+            getBinding().tvRelapse3RepairReqDateBtn.setOnClickListener(v -> showDatePicker(DATE_REQ));
+            getBinding().tvRelapse3RepairFinishDateBtn.setOnClickListener(v -> showDatePicker(DATE_FINISH));
+        }
+
+        private void showDatePicker(int which) {
+            datePickWhich = which;
+
+            CalenderUtil datePicker = new CalenderUtil();
+            datePicker.setCallback(calendarCallback);
+
+            Calendar now = Calendar.getInstance(Locale.getDefault());
+
+            Pair<Boolean, SublimeOptions> optionsPair = datePicker.getOptions(
+                    SublimeOptions.ACTIVATE_DATE_PICKER,
+                    false,
+                    0L,
+                    now.getTimeInMillis(),
+                    now
+            );
+
+            // Options
+            // Valid options
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("SUBLIME_OPTIONS", optionsPair.second);
+            datePicker.setArguments(bundle);
+
+            datePicker.setStyle(CalenderUtil.STYLE_NO_TITLE, 0);
+            datePicker.show(activity.getSupportFragmentManager(), "SUBLIME_PICKER");
         }
 
         @Override
@@ -95,8 +327,16 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
         public void onBindView(RepairData item, int pos, SparseBooleanArray selectedItems) {
             Log.d(TAG, "onBindView(finished): ");
 
-            //뷰에 들어갈 데이터 추출
-            getDataFromItem(item);
+            position = pos;
+
+            //재사용될 때 꼬이니까 리스너 한 번 떼고
+            setTextChangeListener(false);
+
+            //뷰에 들어갈 데이터 넣고
+            setData(item, pos);
+
+            //리스너 다시 연결
+            setTextChangeListener(true);
 
             //세부사항 접기/펴기 리스너
             setOpenListener(pos, selectedItems);
@@ -105,12 +345,24 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
             setViewStatus(selectedItems.get(pos));
         }
 
-        //아이템에서 데이터를 꺼내서 뷰에 출력할 값으로 가공하여 뷰홀더에 저장
-        private void getDataFromItem(RepairData item) {
+        private void setData(RepairData item, int pos) {
+            //몇회차인가(거꾸로 세기, 뒤에 별도 UI가 한 칸 먹음)
+            int turn = getBindingAdapter().getItemCount() - pos - 1;
+            getBinding().tvRelapse3RepairHistoryTitle.setText(turn + getContext().getString(R.string.relapse_3_repair_count));
 
-            //todo 이거 뷰어가 아니라 입력 받는 곳인데....
-            //1회 2회 3회는 여기서 써줘야됨 삭제버튼 유무도 처리하고
+            //삭제 버튼. 1회차는 삭제버튼 없다
+            getBinding().tvRelapse3RepairHistoryDeleteBtn.setOnClickListener(turn == 1 ? null : v -> remove(pos));
+            getBinding().tvRelapse3RepairHistoryDeleteBtn.setVisibility(turn == 1 ? View.GONE : View.VISIBLE);
 
+            //데이터를 뷰에 출력
+            getBinding().etRelapse3Mechanic.setText(item.mechanic);
+            getBinding().tvRelapse3RepairReqDateBtn.setText(item.reqDate);
+            getBinding().tvRelapse3RepairFinishDateBtn.setText(item.finishDate);
+            getBinding().etRelapse3DefectDetail.setText(item.defectDetail);
+            getBinding().etRelapse3RepairDetail.setText(item.repairDetail);
+
+            //입력 검사할 때 오류표시를 하기 위해 데이터에도 홀더 인스턴스를 저장
+            item.setHolder(this);
         }
 
         //접기/펴기 리스너 붙이기 :
@@ -150,7 +402,7 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
         //드롭다운 아이콘의 개폐 상태를 변경
         private void setIcon(int icon) {
             //setDrawableRight()는 없고 네 방향을 한 번에 넣네 'ㅅ'..
-            getBinding().tvRelapse3RepairHistoryTitle.setCompoundDrawablesRelative(
+            getBinding().tvRelapse3RepairHistoryTitle.setCompoundDrawablesWithIntrinsicBounds(
                     null,
                     null,
                     getContext().getDrawable(icon),
@@ -158,8 +410,92 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
         }
     }
 
+    //수리 내역 입력창 밑에 붙는 UI
+    public class ServiceRelapse3BottomViewHolder extends BaseViewHolder<RepairData, ItemRelapse3BottomBinding> {
+        private BottomListDialog defectListDialog;
+
+        public ServiceRelapse3BottomViewHolder(View itemView) {
+            super(itemView);
+        }
+
+        @Override
+        public void onBindView(RepairData item) {
+
+        }
+
+        @Override
+        public void onBindView(RepairData item, int pos) {
+
+        }
+
+        @Override
+        public void onBindView(RepairData item, int pos, SparseBooleanArray selectedItems) {
+            setListener();
+//            setViewStatus(determineAddBtnVisibility());
+            //todo 항상 말고 add/remove에만 반응하도록
+            setAddBtnContainerVisibility();
+        }
+
+        private void setListener() {
+            getBinding().tvRelapse3RepairAddBtn.setOnClickListener(v -> addRow(new RepairData()));
+            getBinding().tvRelapseDefectSelect.setOnClickListener(this::showDefectListDialog);
+        }
+
+        //하자 구분 다이얼로그
+        private void showDefectListDialog(View v) {
+            Log.d(TAG, "showDefectListDialog: " + defectListDialog);
+
+            if (defectListDialog == null) {
+                defectListDialog = new BottomListDialog(getContext(), R.style.BottomSheetDialogTheme);
+                defectListDialog.setTitle(getContext().getString(R.string.relapse_list_01));
+                final List<String> defectList = Arrays.asList(getContext().getResources().getStringArray(R.array.service_relapse_defect_list));
+                defectListDialog.setDatas(defectList);
+                defectListDialog.setOnDismissListener(this::onDismissDefectListDialog);
+            }
+
+            defectListDialog.setSelectItem(null);
+            defectListDialog.show();
+        }
+
+        //수리내역 입력창 열기
+        private void onDismissDefectListDialog(DialogInterface dialog) {
+            if (defectListDialog.getSelectItem() != null) {
+                //선택한 내용을 버튼에 표시(따로 저장은 안 함. 버튼 글씨만 변함)
+                getBinding().tvRelapseDefectSelect.setText(defectListDialog.getSelectItem());
+                getBinding().tvRelapseDefectSelect.setTextColor((getContext().getColor(R.color.x_141414)));
+
+                //입력창 하나 추가(아이템이 UI 뷰 하나만 있을 때 한정)
+                if (getItemCount() == 1) {
+                    addRow(new RepairData());
+                    activity.changeStatusToDefectHistory();
+                }
+            }
+        }
+
+        //세부사항 뷰의 개폐 상태를 처리
+        // (화면 밖에 있다가 스크롤되어서 화면 안에 들어오는 경우 호출됨)
+        private void setViewStatus(boolean opened) {
+            getBinding().lRelapse3RepairAddContainer.setVisibility(opened ? View.VISIBLE : View.GONE);
+        }
+
+        private void setAddBtnContainerVisibility() {
+            if (determineAddBtnVisibility()) {
+                InteractionUtil.expand(getBinding().lRelapse3RepairAddContainer, null);
+            } else {
+                InteractionUtil.collapse(getBinding().lRelapse3RepairAddContainer, null);
+            }
+        }
+
+        public boolean determineAddBtnVisibility() {
+            //1개인 경우는 데이터가 아니라 UI 뷰라서 제외 : 1개보다 많고 최대치보다 적으면 add 버튼 활성화
+            return 1 < getItemCount() && getItemCount() < REPAIR_HISTORY_MAX_SIZE;
+        }
+
+    }
+
     //입력 데이터
     public class RepairData extends BaseData {
+        private ServiceRelapse3DefectHistoryViewHolder holder;
         private String mechanic;
         private String reqDate;     //YYYYMMDD
         private String finishDate;  //YYYYMMDD
@@ -172,6 +508,48 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
             finishDate = "";
             defectDetail = "";
             repairDetail = "";
+        }
+
+        //입력 창 전체 검사해서 미비한 게 하나라도 있으면 return false
+        // 중간에 입력 미비를 발견해도 검사는 끝까지 하면서 어디가 틀렸는지 뷰에 표시함
+        public boolean validateData() {
+            if (holder == null) {
+                return false;
+            }
+
+            boolean valid = true;
+
+            //검사하는 뷰랑 오류 표시하는 뷰 싱크로 주의
+
+            if (TextUtils.isEmpty(mechanic)) {
+                holder.getBinding().lRelapse3Mechanic.setError(mechanicErrorString);
+                valid = false;
+            }
+            if (TextUtils.isEmpty(defectDetail)) {
+                holder.getBinding().lRelapse3DefectDetail.setError(defectDetailErrorString);
+                valid = false;
+            }
+            if (TextUtils.isEmpty(repairDetail)) {
+                holder.getBinding().lRelapse3RepairDetail.setError(repairDetailErrorString);
+                valid = false;
+            }
+
+            //수리 완료일이 요청일보다 미래로 적혀있지 않으면 오류(같은 건 ㅇㅋ 당일에 해결했나보지)
+            if (0 < reqDate.compareTo(finishDate)) {
+                holder.getBinding().tvRelapse3RepairReqDateError.setVisibility(View.VISIBLE);
+                holder.getBinding().tvRelapse3RepairFinishDateError.setVisibility(View.VISIBLE);
+                valid = false;
+            }
+
+            return valid;
+        }
+
+        public ServiceRelapse3DefectHistoryViewHolder getHolder() {
+            return holder;
+        }
+
+        public void setHolder(ServiceRelapse3DefectHistoryViewHolder holder) {
+            this.holder = holder;
         }
 
         public String getMechanic() {

@@ -11,21 +11,17 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.vo.VOCInfoVO;
-import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.VOCViewModel;
 import com.genesis.apps.databinding.ActivityServiceRelapseApply3Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseApply3Binding> {
     private static final String TAG = ServiceRelapse3Activity.class.getSimpleName();
 
     private static final int STATE_INIT = 0;
-    private static final int STATE_1 = 1;
+    private static final int STATE_OPEN_DEFECT_HISOTY = 1;
     private static final int STATE_2 = 2;
     private static final int STATE_3 = 3;
     private static final int STATE_4 = 4;
@@ -62,13 +58,7 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         switch (v.getId()) {
             //수리 횟수 추가
             case R.id.tv_relapse_3_repair_add_btn:
-                //todo impl
-
-                break;
-
-            //하자 구분
-            case R.id.tv_relapse_defect_select:
-                showDefectListDialog();
+                onClickAddRepairHistory();
                 break;
 
             //다음 버튼
@@ -124,77 +114,53 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
     public void getDataFromIntent() {
         //todo mainVehicle 데이터 획득(딴 데서 해도 되고...)
         try {
-            vocInfoVO =(VOCInfoVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SERVICE_VOC_INFO_VO);
+            vocInfoVO = (VOCInfoVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SERVICE_VOC_INFO_VO);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void setAdapter() {
-        adapter = new ServiceRelapse3Adapter();
+        adapter = new ServiceRelapse3Adapter(this);
         ui.rvRelapse3RepairHistoryList.setLayoutManager(new LinearLayoutManager(this));
         ui.rvRelapse3RepairHistoryList.setHasFixedSize(true);
         ui.rvRelapse3RepairHistoryList.setAdapter(adapter);
     }
 
+    //수리 내역 추가 버튼
+    private void onClickAddRepairHistory() {
+        //입력 창 추가
+        adapter.addRow();
+    }
+
     private void onClickNextBtn() {
         Log.d(TAG, "onClickNextBtn: ");
 
-        int work = determineWork();
+        switch (currentState) {
+            case STATE_OPEN_DEFECT_HISOTY:
+                if (adapter.validateInputData()) {
+                    //todo 다음 단계 이름 짓고 뷰 갱신
+                    currentState = STATE_2;
+                }
+                break;
 
-        switch (work) {
-
-            case STATE_INIT:
             default:
                 //do nothing
                 break;
         }
     }
 
-    private int determineWork() {
-        Log.d(TAG, "determineWork: ");
 
-        //아무것도 안 건드린 상태
-        if (ui.tvRelapseDefectSelect.getText().toString().equals(getString(R.string.relapse_3_which))) {
-            return STATE_INIT;
+    public void changeStatusToDefectHistory() {
+        if (currentState == STATE_INIT) {
+            ui.tvRelapse3Desc.setText(R.string.relapse_3_msg_02);
+            ui.tvRelapse3NextBtn.setVisibility(View.VISIBLE);
+
+            //단계 변동을 저장
+            currentState = STATE_OPEN_DEFECT_HISOTY;
         }
-
-        //todo 삭제. switch 안에서 다 해결하기
-        return 0;
     }
 
-
-    //하자 구분 다이얼로그
-    private void showDefectListDialog() {
-        Log.d(TAG, "showDefectListDialog: " + defectListDialog);
-
-        if (defectListDialog == null) {
-            defectListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
-            defectListDialog.setTitle(getString(R.string.relapse_list_01));
-            final List<String> defectList = Arrays.asList(getResources().getStringArray(R.array.service_relapse_defect_list));
-            defectListDialog.setDatas(defectList);
-            defectListDialog.setOnDismissListener(
-                    dialog -> {
-
-                        //todo 여기 본문 함수로 빼고 레퍼런스 넣자
-                        if (defectListDialog.getSelectItem() != null) {
-                            //선택한 내용을 버튼에 표시(따로 저장은 안 함. 버튼 글씨만 변함)
-                            ui.tvRelapseDefectSelect.setText(defectListDialog.getSelectItem());
-                            if (currentState == STATE_INIT) {
-                                ui.tvRelapseDefectSelect.setTextColor((getColor(R.color.x_141414)));
-                                ui.tvRelapse3Desc.setText(R.string.relapse_3_msg_02);
-                                InteractionUtil.expand(ui.rvRelapse3RepairHistoryList, null);
-                            }
-                        }
-
-
-                    }
-            );
-        }
-
-        defectListDialog.setSelectItem(null);
-        defectListDialog.show();
-    }
 
     //TODO 1,2단계 입력정보 및 그 앞 단계인 회원정보 집어넣기
     // 특히 mainVehicle 아직 처리 안 한 상태라 null임

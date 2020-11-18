@@ -3,18 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <!--TODO 이거 필요없나? 참고 : 대리 내역 . 어댑터에서 리스너 깡접속했네
-        TODO 홀더에서 max count 랑 인덱스-->
-        <variable
-            name="activity"
-            type="com.genesis.apps.ui.main.service.ServiceRelapse3Activity" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_relapse_3_repair_history_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:background="@drawable/bg_f9f9f9_stroke_e2e2e2">
 
         <!-- "n회" -->
@@ -35,17 +28,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:drawableRight="@drawable/btn_accodian_open"
+            tools:drawableRight="@drawable/btn_arrow_open"
             tools:text="1회" />
 
-        <!-- 삭제 버튼
-        todo 투명배경 ㅠㅠ
-         -->
+        <!-- 삭제 버튼 -->
         <TextView
             android:id="@+id/tv_relapse_3_repair_history_delete_btn"
             style="@style/TextBtnBasic"
             android:layout_marginEnd="50dp"
-            android:background="@drawable/ripple_bg_ffffff_underline_6f6f6f"
+            android:background="@drawable/ripple_bg_00000000_underline_6f6f6f"
             android:fontFamily="@font/light_genesissansheadglobal"
             android:text="@string/relapse_3_repair_delete"
             android:textColor="@color/x_6f6f6f"
@@ -93,9 +84,15 @@
                 style="@style/Relapse3RepairHistoryDatePickBtn"
                 tools:text="2020.13.32" />
 
+            <!--  수리 요청 날짜 에러 메시지-->
+            <TextView
+                android:id="@+id/tv_relapse_3_repair_req_date_error"
+                style="@style/Relapse3RepairHistoryDateError" />
+
             <!-- 수리 완료일 -->
             <TextView
                 style="@style/Relapse3RepairHistoryDatePickTitle"
+                android:layout_marginTop="20dp"
                 android:text="@string/relapse_3_repair_finish_date" />
 
             <!-- 수리 완료 날짜 선택 -->
@@ -104,10 +101,16 @@
                 style="@style/Relapse3RepairHistoryDatePickBtn"
                 tools:text="2020.13.32" />
 
+            <!--  수리 완료 날짜 에러 메시지-->
+            <TextView
+                android:id="@+id/tv_relapse_3_repair_finish_date_error"
+                style="@style/Relapse3RepairHistoryDateError" />
+
             <!-- 하자 내용(증상) -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/l_relapse_3_defect_detail"
                 style="@style/Relapse3RepairHistoryTextInputLayout"
+                android:layout_marginTop="20dp"
                 android:hint="@string/relapse_3_repair_defect">
 
                 <com.google.android.material.textfield.TextInputEditText
