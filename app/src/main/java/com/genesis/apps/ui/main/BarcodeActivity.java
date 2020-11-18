@@ -21,6 +21,7 @@ import com.genesis.apps.databinding.ActivityBarcodeBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.activity.test.CardViewAadapter;
 import com.genesis.apps.ui.common.activity.test.ItemMoveCallback;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 
 public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
@@ -88,59 +89,52 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
     private void initView() {
         initCardView();
         initLineView();
-
-        ui.lTitle.tvTitlebarTextBtn.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                try{
-                    showProgressDialog(true);
-                    if(cmnViewModel.changeCardOrder(barcodeAdapter2.getItems())){
-                        initCardView();
-                        ui.pagerContainer.setVisibility(View.VISIBLE);
-                        ui.recyclerView.setVisibility(View.GONE);
-                        ui.lTitle.lTitleBar.setVisibility(View.GONE);
-                        ui.btnSettings.setVisibility(View.VISIBLE);
-                        barcodeAdapter.setRows(barcodeAdapter2.getItems());
-                        barcodeAdapter.notifyDataSetChanged();
-                    }
-                }catch (Exception e){
-                    e.printStackTrace();
-                }finally {
-                    showProgressDialog(false);
-                }
-            }
-        });
-
-        ui.btnSettings.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                if(barcodeAdapter!=null){
-                    switch (barcodeAdapter.getViewType()) {
-                        case CardViewAadapter.TYPE_CARD:
-                            ui.pagerContainer.setVisibility(View.GONE);
-                            ui.lTitle.lTitleBar.setVisibility(View.VISIBLE);
-                            ui.recyclerView.setVisibility(View.VISIBLE);
-                            barcodeAdapter2.setRows(barcodeAdapter.getItems());
-                            barcodeAdapter2.notifyDataSetChanged();
-                            ui.btnSettings.setVisibility(View.GONE);
-                            break;
-                        case CardViewAadapter.TYPE_LINE:
-                            ui.btnSettings.setVisibility(View.VISIBLE);
-                            ui.pagerContainer.setVisibility(View.VISIBLE);
-                            ui.recyclerView.setVisibility(View.GONE);
-                            ui.lTitle.lTitleBar.setVisibility(View.GONE);
-                            break;
-                    }
-                }
-            }
-        });
-
-
-
+        ui.lTitle.setTextBtnListener(onSingleClickListener);
+        ui.btnSettings.setOnClickListener(onSingleClickListener);
     }
+
+    private void openViewer(){
+        initCardView();
+        ui.pagerContainer.setVisibility(View.VISIBLE);
+        ui.recyclerView.setVisibility(View.GONE);
+        ui.lTitle.lTitleBar.setVisibility(View.GONE);
+        ui.btnSettings.setVisibility(View.VISIBLE);
+        barcodeAdapter.setRows(barcodeAdapter2.getItems());
+        barcodeAdapter.notifyDataSetChanged();
+    }
+
+    private void editViewer(){
+        ui.pagerContainer.setVisibility(View.GONE);
+        ui.lTitle.lTitleBar.setVisibility(View.VISIBLE);
+        ui.recyclerView.setVisibility(View.VISIBLE);
+        barcodeAdapter2.setRows(barcodeAdapter.getItems());
+        barcodeAdapter2.notifyDataSetChanged();
+        ui.btnSettings.setVisibility(View.GONE);
+    }
+
 
     @Override
     public void onClickCommon(View v) {
+
+        switch (v.getId()){
+            case R.id.tv_titlebar_text_btn:
+                try {
+                    showProgressDialog(true);
+                    if (cmnViewModel.changeCardOrder(barcodeAdapter2.getItems())) {
+                        openViewer();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    showProgressDialog(false);
+                }
+                break;
+            case R.id.btn_settings:
+                if(barcodeAdapter!=null){
+                    editViewer();
+                }
+                break;
+        }
 
     }
 
@@ -187,4 +181,24 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
     public void getDataFromIntent() {
 
     }
+
+
+    @Override
+    public void onBackPressed() {
+        exit();
+    }
+
+    @Override
+    public void onBackButton() {
+        exit();
+    }
+
+    private void exit() {
+        if(ui.btnSettings.getVisibility()!=View.VISIBLE){
+            openViewer();
+        }else{
+            finish();
+        }
+    }
+
 }

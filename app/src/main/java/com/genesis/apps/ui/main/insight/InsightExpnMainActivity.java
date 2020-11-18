@@ -77,7 +77,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
             ui.rv.setHasFixedSize(true);
             ui.rv.setAdapter(adapter);
             ui.lTitle.setBtnText(getString(R.string.tm_exps01_2));
-            ui.lTitle.tvTitlebarTextBtn.setOnClickListener(onSingleClickListener);
+            ui.lTitle.setTextBtnListener(onSingleClickListener);
         }
     }
 
