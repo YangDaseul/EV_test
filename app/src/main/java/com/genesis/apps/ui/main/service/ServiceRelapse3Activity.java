@@ -16,6 +16,7 @@ import com.genesis.apps.comm.model.api.gra.VOC_1002;
 import com.genesis.apps.comm.model.api.gra.VOC_1004;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.comm.model.vo.VOCInfoVO;
@@ -26,9 +27,9 @@ import com.genesis.apps.databinding.ActivityServiceRelapseApply3Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomDialogAskAgreeTerms;
 import com.genesis.apps.ui.main.ServiceTermDetailActivity;
+import com.genesis.apps.ui.main.service.ServiceRelapse3Adapter.RepairData;
 import com.genesis.apps.ui.myg.MyGOilTermDetailActivity;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseApply3Binding> {
@@ -88,24 +89,24 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
 
             //다음 버튼
             case R.id.tv_relapse_3_next_btn:
-                //todo 테스트 빨리 진입하려고 앞단계 다 건너뛰고 호출하도록 함
-                showTermsDialog(Arrays.asList(new TermVO[]{
-                        new TermVO(
-                                "",
-                                "010",
-                                "약관 1호",
-                                "ㅁㄴㅇㄹ",
-                                "Y"
-                        ),
-
-                        new TermVO(
-                                "",
-                                "010",
-                                "약관 2호",
-                                "ㅁㄴㅇㄹ",
-                                "Y")
-                }));
-//                onClickNextBtn();
+//                //todo 테스트 빨리 진입하려고 앞단계 다 건너뛰고 호출하도록 함
+//                showTermsDialog(Arrays.asList(new TermVO[]{
+//                        new TermVO(
+//                                "",
+//                                "2000",
+//                                "약관 1호",
+//                                "ㅁㄴㅇㄹ",
+//                                "Y"
+//                        ),
+//
+//                        new TermVO(
+//                                "",
+//                                "3000",
+//                                "약관 2호",
+//                                "ㅁㄴㅇㄹ",
+//                                "Y")
+//                }));
+                onClickNextBtn();
                 break;
 
             default:
@@ -136,7 +137,7 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
                 case SUCCESS:
                     if (result.data != null && result.data.getRtCd() != null) {
                         if (result.data.getRtCd().equals(BaseResponse.RETURN_CODE_SUCC)) {
-                            //TODO impl
+                            exitPage(getString(R.string.relapse_succ), ResultCodes.REQ_CODE_NORMAL.getCode());
                         }
 
                         showProgressDialog(false);
@@ -183,7 +184,6 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
 
     @Override
     public void getDataFromIntent() {
-        //todo mainVehicle 데이터 획득(딴 데서 해도 되고...)
         try {
             vocInfoVO = (VOCInfoVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SERVICE_VOC_INFO_VO);
         } catch (Exception e) {
@@ -226,13 +226,11 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
             case STATE_ASK_PERIOD:
                 if (adapter.validateInputData()) {
                     period = ui.etRelapse3Period.getText().toString();
-                    if (!TextUtils.isEmpty(period)) {
+                    if (TextUtils.isEmpty(period)) {
                         return;
                     }
 
                     reqTermsOfService();
-                    //todo 옵저버로 이동
-//                    askAgreeTermsOfService();
                 }
 
 
@@ -323,9 +321,11 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         TermVO termVO = (TermVO) v.getTag(R.id.tag_term_vo);
         Log.d(TAG, "showTerm: " + termVO);
 
+        Intent intent = new Intent(this, ServiceTermDetailActivity.class)
+                .putExtra(MyGOilTermDetailActivity.TERMS_CODE, termVO);
+
         startActivitySingleTop(
-                new Intent(this, ServiceTermDetailActivity.class)
-                        .putExtra(MyGOilTermDetailActivity.TERMS_CODE, termVO),
+                intent,
                 RequestCodes.REQ_CODE_ACTIVITY.getCode(),
                 VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
@@ -333,81 +333,70 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
     private void reqVOC1002() {
         VOC_1002.Request param = new VOC_1002.Request(APPIAInfo.SM_FLAW06.getId());
 
-        //todo param에 데이터 넣기 :
         // 앞 단계에서 가져온 거 + 어댑터가 들고있는 거 + over4 + period
+        param.setCsmrNm(vocInfoVO.getCsmrNm());
+        param.setCsmrTymd(vocInfoVO.getCsmrTymd());
+        param.setEmlAdr(vocInfoVO.getEmlAdr());
+        param.setRdwNmZip(vocInfoVO.getRdwNmZip());
+        param.setRdwNmAdr(vocInfoVO.getRdwNmAdr());
+        param.setRdwNmDtlAdr(vocInfoVO.getRdwNmDtlAdr());
+        param.setRegnTn(vocInfoVO.getRegnTn());
+        param.setFrtDgtTn(vocInfoVO.getFrtDgtTn());
+        param.setRealDgtTn(vocInfoVO.getRealDgtTn());
+        param.setRecvDt(vocInfoVO.getRecvDt());
+        param.setCarNm(vocInfoVO.getCarNm());
+        param.setCrnVehlCd(vocInfoVO.getCrnVehlCd());
+        param.setMdYyyy(vocInfoVO.getMdYyyy());
+        param.setTrvgDist(vocInfoVO.getTrvgDist());
+        param.setCarNo(vocInfoVO.getCarNo());
+        param.setVin(vocInfoVO.getVin());
+        param.setWpa(vocInfoVO.getWpa());
+        param.setAdmz(vocInfoVO.getAdmz());
+        param.setFlawCd(vocInfoVO.getFlawCd());
+
+        List<RepairData> repairData = adapter.getItems();
+
+        for (RepairData data : repairData) {
+            if (data != null) {
+                setRepairData(param, data);
+            }
+        }
+
+        param.setWkCntFth(over4 ? "Y" : "N");
+        param.setWkPeriod("" + period);
+        param.setPrnInfoAgreeFlg("Y");
 
         viewModel.reqVOC1002(param);
     }
 
-    //TODO 1,2단계 입력정보 및 그 앞 단계인 회원정보 집어넣기
-    // 특히 mainVehicle 아직 처리 안 한 상태라 null임
-//    private VOCInfoVO makeVOCInfoVO(RepairData[] repairHistory) {
-//        final int FIRST = 0;
-//        final int SECOND = 1;
-//        final int THIRD = 2;
-//
-//        for (RepairData data : repairHistory) {
-//            if (data == null) {
-//                //TODO 이거 dataList에 반영되는 거 맞는지 확인
-//                data = new RepairData();//데이터 없으면 공백문자열로 채우기
-//            }
-//        }
-//
-//        //todo 중대한 하자인가?
-//        // 클래스 필드로 두거나 해서 어쨌든 유효값 넣기.
-//        boolean isCritical = true;
-//        return null;
-//
-////        return new VOCInfoVO(
-////                "고객 이름",
-////                "고객 생년월일",
-////                "이메일",
-////                "도로명 우편번호",
-////                "도로명주소",
-////                "도로명 상세주소",
-////                "연락처1",//010
-////                "연락처2",//전번 앞자리
-////                "연락처3",//전번  뒷자리
-////
-////                mainVehicle.getRecvYmd(),   //인도날짜(recvDt)인데 이거 맞나?
-////                mainVehicle.getMdlNm(),     //차명(carNm)인데 이거 맞나?
-////                mainVehicle.getMdlCd(),     //차종코드(crnVehlCd)인데 이거 맞나?
-////                mainVehicle.getRecvYmd(),   //출고일자(whotYmd)는 인도날짜(이거 세 칸 앞에 거)랑 다른 건가?
-////                "주행거리",
-////                mainVehicle.getCarRgstNo(),
-////                mainVehicle.getVin(),
-////                "운행지역 시도",
-////                "운행지역 시군구",
-////                isCritical ? VOCInfoVO.DEFECT_LEVEL_HIGH : VOCInfoVO.DEFECT_LEVEL_LOW,
-////
-////                repairHistory[FIRST].getMechanic(),
-////                repairHistory[FIRST].getReqDate(),
-////                repairHistory[FIRST].getFinishDate(),
-////                "주행거리 1회차",//이건 도대체 어떻게 알아내는 거여?
-////                repairHistory[FIRST].getDefectDetail(),
-////                repairHistory[FIRST].getRepairDetail(),
-////
-////                repairHistory[SECOND].getMechanic(),
-////                repairHistory[SECOND].getReqDate(),
-////                repairHistory[SECOND].getFinishDate(),
-////                "주행거리 2회차",
-////                repairHistory[SECOND].getDefectDetail(),
-////                repairHistory[SECOND].getRepairDetail(),
-////
-////                repairHistory[THIRD].getMechanic(),
-////                repairHistory[THIRD].getReqDate(),
-////                repairHistory[THIRD].getFinishDate(),
-////                "주행거리 3회차",
-////                repairHistory[THIRD].getDefectDetail(),
-////                repairHistory[THIRD].getRepairDetail(),
-////
-////                over4? "Y" : "N"
-////                "누적수리기간",
-////                "개인정보취급동의",//"Y" "N"
-////                "",//미사용
-////                "",//미사용
-////                ""//미사용
-////        );
-//    }
+    private void setRepairData(VOC_1002.Request param, RepairData data) {
 
+        switch (data.getTurn()) {
+            case 1:
+                param.setWkr1Nm(data.getMechanic());
+                param.setWk1StrtDt(data.getReqDate());
+                param.setWk1Dt(data.getFinishDate());
+                param.setWk1Caus(data.getDefectDetail());
+                param.setWk1Dtl(data.getRepairDetail());
+                break;
+            case 2:
+                param.setWkr2Nm(data.getMechanic());
+                param.setWk2StrtDt(data.getReqDate());
+                param.setWk2Dt(data.getFinishDate());
+                param.setWk2Caus(data.getDefectDetail());
+                param.setWk2Dtl(data.getRepairDetail());
+                break;
+            case 3:
+                param.setWkr3Nm(data.getMechanic());
+                param.setWk3StrtDt(data.getReqDate());
+                param.setWk3Dt(data.getFinishDate());
+                param.setWk3Caus(data.getDefectDetail());
+                param.setWk3Dtl(data.getRepairDetail());
+                break;
+
+            default:
+                //do nothing
+                break;
+        }
+    }
 }

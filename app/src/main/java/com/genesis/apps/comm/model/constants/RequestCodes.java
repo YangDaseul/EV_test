@@ -21,6 +21,7 @@ public enum RequestCodes {
     REQ_CODE_TO_ADDRESS(3002,"도착지 주소"),
 
     REQ_CODE_PAYMENT_WEB_VIEW(4001,"결제 웹뷰"),
+    REQ_CODE_RELAPSE_REQ(5001,"하자 재발 통보"),
 
     REQ_CODE_DEFAULT(0,"기본");
 

@@ -83,8 +83,6 @@ public class TermsAdapter extends BaseRecyclerViewAdapter2<TermVO> {
             Log.d(TAG, "TermViewHolder onBindView(): ");
 
             getBinding().cb.setText(item.getTermNm());
-            //todo cb리스너 떼고, 체크여부 반영하고, 리스너 달기 : 안 떼고 해도 되나? 재귀무한호출할 거 같아서 이 짓을 하는건데.....
-
             getBinding().cb.setChecked(selectedItems.get(pos));
 
             getBinding().cb.setOnCheckedChangeListener((buttonView, isChecked) -> {
