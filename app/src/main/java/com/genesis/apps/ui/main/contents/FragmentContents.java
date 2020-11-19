@@ -202,7 +202,7 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
         if(contentsAdapter.getPageNo()==0)
             cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(),"","",(contentsAdapter.getPageNo()+1)+"","20"));
 
-        ((MainActivity)getActivity()).setGNB(false, true, 0, View.VISIBLE);
+        ((MainActivity)getActivity()).setGNB(true, 0, View.VISIBLE);
     }
 
 

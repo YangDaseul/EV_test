@@ -54,6 +54,7 @@ import com.genesis.apps.comm.model.api.gra.MYP_2006;
 import com.genesis.apps.comm.model.api.gra.MYP_8001;
 import com.genesis.apps.comm.model.api.gra.MYP_8005;
 import com.genesis.apps.comm.model.api.gra.NOT_0001;
+import com.genesis.apps.comm.model.api.gra.NOT_0003;
 import com.genesis.apps.comm.model.api.gra.PUB_1001;
 import com.genesis.apps.comm.model.api.gra.PUB_1002;
 import com.genesis.apps.comm.model.api.gra.PUB_1003;
@@ -2209,6 +2210,12 @@ public class TestCode {
             "  ]\n" +
             "}", NOT_0001.Response.class);
 
+    public static NOT_0003.Response NOT_0003 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"newNotiCnt\": \"3\",\n" +
+            "  \"rtMsg\": \"Success\"\n" +
+            "}",NOT_0003.Response.class);
+    
 
     public static STO_1001.Response STO_1001 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +

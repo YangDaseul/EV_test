@@ -31,7 +31,6 @@ public class BARRepo {
             @Override
             public void onSuccess(String object) {
                 RES_BAR_1001.setValue(NetUIResponse.success(new Gson().fromJson(object, BAR_1001.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override

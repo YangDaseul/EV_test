@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,15 +12,20 @@ import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.NOT_0003;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityMainBinding;
 import com.genesis.apps.databinding.ItemTabBinding;
@@ -35,6 +41,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     private final int pageNum = 4;
     public FragmentStateAdapter pagerAdapter;
     private LGNViewModel lgnViewModel;
+    private CMNViewModel cmnViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,10 +136,28 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     @Override
     public void setViewModel() {
         lgnViewModel = new ViewModelProvider(this).get(LGNViewModel.class);
+        cmnViewModel = new ViewModelProvider(this).get(CMNViewModel.class);
     }
 
     @Override
     public void setObserver() {
+
+        cmnViewModel.getRES_NOT_0003().observe(this, result -> {
+
+
+
+            switch (result.status){
+                case SUCCESS:
+                    if(result.data!=null){
+                        setGnB();
+                    }
+                    break;
+                default:
+                    //실패시는 무시
+                    break;
+            }
+
+        });
 
     }
 
@@ -146,6 +171,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         super.onResume();
         Log.e("onResume","onReusme Mainactivity");
         checkPushCode();
+        reqNewNotiCnt();
 //        setGNBColor(1);
 //        for (Fragment fragment: getSupportFragmentManager().getFragments()) {
 //            if (fragment.isVisible()) {
@@ -160,6 +186,20 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         //TODO 이것은 테스트 액티비티 호출
 //        startActivitySingleTop(new Intent(this, MapSearchMyPositionActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 //        FirebaseMessagingService.notifyMessageTest(this, new PushVO(), PushCode.CAT_0E);
+    }
+
+    private void reqNewNotiCnt() {
+        String custGbCd="";
+        try{
+            custGbCd = lgnViewModel.getUserInfoFromDB().getCustGbCd();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            //고객구분코드가 0000(비회원)이 아니면 신규 알림 갯수 요청
+            if(!TextUtils.isEmpty(custGbCd)&&!custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)){
+                cmnViewModel.reqNOT0003(new NOT_0003.Request(APPIAInfo.GM03.getId()));
+            }
+        }
     }
 
     @Override
@@ -231,15 +271,41 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     }
 
 
-    public void setGNB(boolean isAlarm, boolean isSearch, int value, int isVisibility) {
+    public void setGNB(boolean isSearch, int value, int isVisibility) {
         try {
-            ui.lGnb.setIsAlarm(isAlarm);
+            ui.lGnb.setIsAlarm(isNewAlarm());
             ui.lGnb.setIsSearch(isSearch);
             ui.lGnb.setCustGbCd(lgnViewModel.getUserInfoFromDB().getCustGbCd());
             ui.lGnb.setBackground(value);
             ui.lGnb.lWhole.setVisibility(isVisibility);
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    private void setGnB(){
+        try {
+            ui.lGnb.setIsAlarm(isNewAlarm());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    private boolean isNewAlarm(){
+        String newNotiCnt = "";
+        int newNotiCnt_i=0;
+        try{
+            newNotiCnt = cmnViewModel.getRES_NOT_0003().getValue().data.getNewNotiCnt();
+            newNotiCnt_i = Integer.parseInt(newNotiCnt);
+        }catch (Exception e){
+            newNotiCnt_i = 0;
+        }finally{
+            if(newNotiCnt_i>0){
+                return true;
+            }else{
+                return false;
+            }
         }
     }
 

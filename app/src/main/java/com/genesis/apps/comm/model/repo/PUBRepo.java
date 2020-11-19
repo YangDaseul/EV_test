@@ -35,7 +35,6 @@ public class PUBRepo {
             @Override
             public void onSuccess(String object) {
                 RES_PUB_1001.setValue(NetUIResponse.success(new Gson().fromJson(object, PUB_1001.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -60,7 +59,6 @@ public class PUBRepo {
             @Override
             public void onSuccess(String object) {
                 RES_PUB_1002.setValue(NetUIResponse.success(new Gson().fromJson(object, PUB_1002.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -84,7 +82,6 @@ public class PUBRepo {
             @Override
             public void onSuccess(String object) {
                 RES_PUB_1003.setValue(NetUIResponse.success(new Gson().fromJson(object, PUB_1003.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override

@@ -160,7 +160,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding>{
 
         lgnViewModel.reqLGN0002(new LGN_0002.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
         lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
-        ((MainActivity)getActivity()).setGNB(false, false, 1, View.GONE);
+        ((MainActivity)getActivity()).setGNB(false, 1, View.GONE);
     }
 
 }

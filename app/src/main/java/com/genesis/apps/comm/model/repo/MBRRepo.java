@@ -31,7 +31,6 @@ public class MBRRepo {
             @Override
             public void onSuccess(String object) {
                 RES_MBR_0001.setValue(NetUIResponse.success(new Gson().fromJson(object, MBR_0001.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override

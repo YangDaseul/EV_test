@@ -31,7 +31,6 @@ public class WRTRepo {
             @Override
             public void onSuccess(String object) {
                 RES_WRT_1001.setValue(NetUIResponse.success(new Gson().fromJson(object, WRT_1001.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override

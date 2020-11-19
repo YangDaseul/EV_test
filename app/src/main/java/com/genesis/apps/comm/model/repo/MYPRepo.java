@@ -63,7 +63,6 @@ public class MYPRepo {
             @Override
             public void onSuccess(String object) {
                 RES_MYP_0001.setValue(NetUIResponse.success(new Gson().fromJson(object, MYP_0001.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -87,7 +86,6 @@ public class MYPRepo {
             @Override
             public void onSuccess(String object) {
                 RES_MYP_0004.setValue(NetUIResponse.success(new Gson().fromJson(object, MYP_0004.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -111,7 +109,6 @@ public class MYPRepo {
             @Override
             public void onSuccess(String object) {
                 RES_MYP_0005.setValue(NetUIResponse.success(new Gson().fromJson(object, MYP_0005.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -134,7 +131,6 @@ public class MYPRepo {
             @Override
             public void onSuccess(String object) {
                 RES_MYP_1003.setValue(NetUIResponse.success(new Gson().fromJson(object, MYP_1003.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -156,7 +152,6 @@ public class MYPRepo {
             @Override
             public void onSuccess(String object) {
                 RES_MYP_1005.setValue(NetUIResponse.success(new Gson().fromJson(object, MYP_1005.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -179,7 +174,6 @@ public class MYPRepo {
             @Override
             public void onSuccess(String object) {
                 RES_MYP_1006.setValue(NetUIResponse.success(new Gson().fromJson(object, MYP_1006.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -206,7 +200,6 @@ public class MYPRepo {
             @Override
             public void onSuccess(String object) {
                 RES_MYP_2001.setValue(NetUIResponse.success(new Gson().fromJson(object, MYP_2001.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -229,7 +222,6 @@ public class MYPRepo {
             @Override
             public void onSuccess(String object) {
                 RES_MYP_2002.setValue(NetUIResponse.success(new Gson().fromJson(object, MYP_2002.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -251,7 +243,6 @@ public class MYPRepo {
             @Override
             public void onSuccess(String object) {
                 RES_MYP_2003.setValue(NetUIResponse.success(new Gson().fromJson(object, MYP_2003.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -274,7 +265,6 @@ public class MYPRepo {
             @Override
             public void onSuccess(String object) {
                 RES_MYP_2004.setValue(NetUIResponse.success(new Gson().fromJson(object, MYP_2004.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -296,7 +286,6 @@ public class MYPRepo {
             @Override
             public void onSuccess(String object) {
                 RES_MYP_2005.setValue(NetUIResponse.success(new Gson().fromJson(object, MYP_2005.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -318,7 +307,6 @@ public class MYPRepo {
             @Override
             public void onSuccess(String object) {
                 RES_MYP_2006.setValue(NetUIResponse.success(new Gson().fromJson(object, MYP_2006.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -386,7 +374,6 @@ public class MYPRepo {
             @Override
             public void onSuccess(String object) {
                 RES_MYP_8004.setValue(NetUIResponse.success(new Gson().fromJson(object, MYP_8004.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override

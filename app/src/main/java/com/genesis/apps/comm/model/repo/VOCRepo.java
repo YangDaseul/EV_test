@@ -65,7 +65,6 @@ public class VOCRepo {
             @Override
             public void onSuccess(String object) {
                 RES_VOC_1002.setValue(NetUIResponse.success(new Gson().fromJson(object, VOC_1002.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -90,7 +89,6 @@ public class VOCRepo {
             @Override
             public void onSuccess(String object) {
                 RES_VOC_1003.setValue(NetUIResponse.success(new Gson().fromJson(object, VOC_1003.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override

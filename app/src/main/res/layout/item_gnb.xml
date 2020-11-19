@@ -51,7 +51,7 @@
             android:id="@+id/iv_badge"
             android:layout_width="4dp"
             android:layout_height="4dp"
-            android:background="@{background==0 ? @drawable/bg_000000_round_15 : @drawable/bg_33000000_round_15}"
+            android:background="@drawable/badge_ba544d"
             android:layout_marginRight="6dp"
             android:layout_marginTop="6dp"
             android:visibility="@{isAlarm ? View.VISIBLE : View.GONE}"

@@ -67,7 +67,6 @@ public class SOSRepo {
             @Override
             public void onSuccess(String object) {
                 RES_SOS_1002.setValue(NetUIResponse.success(new Gson().fromJson(object, SOS_1002.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override

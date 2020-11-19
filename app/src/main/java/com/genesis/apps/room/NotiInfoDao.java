@@ -23,6 +23,8 @@ public abstract class NotiInfoDao implements BaseDao<NotiInfoVO> {
     @Query("DELETE from NotiInfoVO")
     public abstract void deleteAll();
 
+    @Query("UPDATE NotiInfoVO SET readYn=:readYN WHERE notiNo=:notiNo")
+    public abstract void updateReadYN(String readYN, String notiNo);
 
     @Transaction
     public void insertAndDeleteInTransaction(List<NotiInfoVO> list){

@@ -41,7 +41,6 @@ public class CBKRepo {
             @Override
             public void onSuccess(String object) {
                 RES_CBK_1001.setValue(NetUIResponse.success(new Gson().fromJson(object, CBK_1001.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -65,7 +64,6 @@ public class CBKRepo {
             @Override
             public void onSuccess(String object) {
                 RES_CBK_1002.setValue(NetUIResponse.success(new Gson().fromJson(object, CBK_1002.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -90,7 +88,6 @@ public class CBKRepo {
             @Override
             public void onSuccess(String object) {
                 RES_CBK_1005.setValue(NetUIResponse.success(new Gson().fromJson(object, CBK_1005.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -116,7 +113,6 @@ public class CBKRepo {
             @Override
             public void onSuccess(String object) {
                 RES_CBK_1006.setValue(NetUIResponse.success(new Gson().fromJson(object, CBK_1006.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -141,7 +137,6 @@ public class CBKRepo {
             @Override
             public void onSuccess(String object) {
                 RES_CBK_1007.setValue(NetUIResponse.success(new Gson().fromJson(object, CBK_1007.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override

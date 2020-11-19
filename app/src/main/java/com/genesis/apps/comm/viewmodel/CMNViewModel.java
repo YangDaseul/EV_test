@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
+import com.genesis.apps.comm.model.api.gra.NOT_0003;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.constants.WeatherCodes;
@@ -75,6 +76,7 @@ class CMNViewModel extends ViewModel {
 
     private MutableLiveData<NetUIResponse<NOT_0001.Response>> RES_NOT_0001;
     private MutableLiveData<NetUIResponse<NOT_0002.Response>> RES_NOT_0002;
+    private MutableLiveData<NetUIResponse<NOT_0003.Response>> RES_NOT_0003;
 
     private MutableLiveData<NetUIResponse<MBR_0001.Response>> RES_MBR_0001;
 
@@ -108,6 +110,7 @@ class CMNViewModel extends ViewModel {
 
         RES_NOT_0001 = notRepo.RES_NOT_0001;
         RES_NOT_0002 = notRepo.RES_NOT_0002;
+        RES_NOT_0003 = notRepo.RES_NOT_0003;
 
         RES_MBR_0001 = mbrRepo.RES_MBR_0001;
 
@@ -145,6 +148,10 @@ class CMNViewModel extends ViewModel {
 
     public void reqNOT0002(final NOT_0002.Request reqData) {
         notRepo.REQ_NOT_0002(reqData);
+    }
+
+    public void reqNOT0003(final NOT_0003.Request reqData) {
+        notRepo.REQ_NOT_0003(reqData);
     }
 
     public void updateNotiDt(String notiDt) {
@@ -317,6 +324,24 @@ class CMNViewModel extends ViewModel {
             boolean isUpdate=false;
             try {
                 isUpdate = notRepo.updateNotiInfoToDB(list);
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+            }
+            return isUpdate;
+        });
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
+    }
+
+    public boolean updateNotiInfoReadYN(NotiInfoVO item) throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<Boolean> future = es.getListeningExecutorService().submit(()->{
+            boolean isUpdate=false;
+            try {
+                isUpdate = notRepo.updateNotiInfoReadYN(item);
             } catch (Exception ignore) {
                 ignore.printStackTrace();
             }

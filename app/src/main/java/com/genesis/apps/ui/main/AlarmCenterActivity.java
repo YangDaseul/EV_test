@@ -6,11 +6,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.PushCodes;
-import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.NOT_0001;
+import com.genesis.apps.comm.model.api.gra.NOT_0002;
+import com.genesis.apps.comm.model.constants.PushCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.NotiInfoVO;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.databinding.ActivityAlarmCenterBinding;
@@ -19,10 +24,6 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
-
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 /**
  * @author hjpark
@@ -101,6 +102,49 @@ public class AlarmCenterActivity extends SubActivity<ActivityAlarmCenterBinding>
             case R.id.iv_titlebar_img_btn:
                 startActivitySingleTop(new Intent(this, AlarmCenterSearchActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
+            case R.id.l_title:
+                NotiInfoVO item=null;
+                int pos=0;
+
+                try{
+                    item = (NotiInfoVO)v.getTag(R.id.noti_info);
+                    pos = Integer.parseInt(v.getTag(R.id.position).toString());
+
+                    //아이템을 선택했는데 읽음상태가 "읽지 않음인 경우"
+                    if(item!=null&&item.getReadYn().equalsIgnoreCase(VariableType.COMMON_MEANS_NO)){
+                        //읽음상태 변경 요청
+                        cmnViewModel.reqNOT0002(new NOT_0002.Request(APPIAInfo.ALRM01.getId(), item.getNotiNo()));
+                        //일시적으로 해당페이지에서 읽음 상태로 처리하기 위해서 아래와 같이 데이터 변경
+                        //읽음 요청 처리 응답이 성공이 아닐 경우 (서버에서 처리 못한 경우) 해당 페이지에 재 진입 시 새글알림 마크가 다시 보일 수 있음
+                        ((NotiInfoVO)adapter.getItem(pos)).setReadYn(VariableType.COMMON_MEANS_YES);
+                        cmnViewModel.updateNotiInfoReadYN(item);
+                    }
+                }catch (Exception e){
+
+                }finally{
+                    if(item!=null) {
+                        switch (AlarmCenterRecyclerAdapter.getAccordionType(item)) {
+                            case AlarmCenterRecyclerAdapter.ALARM_TYPE_NORMAL_NATIVE:
+                                //TODO 클릭 시 상세페이지 이동 / getMsgLnkUri가 메뉴면 네이티브, 링크면 WEBVIEW로 이동시켜야하는데 확인 필요
+                                adapter.notifyItemChanged(pos);
+                                break;
+                            case AlarmCenterRecyclerAdapter.ALARM_TYPE_NORMAL_WEBVIEW:
+                                //TODO 클릭 시 외부 링크로 이동
+                                adapter.notifyItemChanged(pos);
+                                break;
+                            case AlarmCenterRecyclerAdapter.ALARM_TYPE_ACCORDION:
+                            default:
+                                adapter.eventAccordion(pos);
+                                break;
+                        }
+                    }
+                }
+
+
+
+
+                break;
+
 
         }
 
@@ -114,7 +158,6 @@ public class AlarmCenterActivity extends SubActivity<ActivityAlarmCenterBinding>
 
     @Override
     public void setObserver() {
-
         cmnViewModel.getRES_NOT_0001().observe(this, result -> {
 
             switch (result.status) {

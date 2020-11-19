@@ -228,7 +228,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         videoPauseAndResume(true);
         setViewVehicle();
         recordUtil.regReceiver();
-        ((MainActivity)getActivity()).setGNB(false, false, 1, View.VISIBLE);
+        ((MainActivity)getActivity()).setGNB(false, 1, View.VISIBLE);
 
         startTimer();
 

@@ -6,6 +6,7 @@ import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.gra.NOT_0001;
 import com.genesis.apps.comm.model.api.gra.NOT_0002;
 import com.genesis.apps.comm.model.api.gra.NOT_0003;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.NotiInfoVO;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
@@ -40,7 +41,6 @@ public class NOTRepo {
             @Override
             public void onSuccess(String object) {
                 RES_NOT_0001.setValue(NetUIResponse.success(new Gson().fromJson(object, NOT_0001.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -65,7 +65,6 @@ public class NOTRepo {
             @Override
             public void onSuccess(String object) {
                 RES_NOT_0002.setValue(NetUIResponse.success(new Gson().fromJson(object, NOT_0002.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -89,12 +88,12 @@ public class NOTRepo {
             @Override
             public void onSuccess(String object) {
                 RES_NOT_0003.setValue(NetUIResponse.success(new Gson().fromJson(object, NOT_0003.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
             public void onFail(NetResult e) {
-                RES_NOT_0003.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_NOT_0003.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_NOT_0003.setValue(NetUIResponse.success(TestCode.NOT_0003));
             }
 
             @Override
@@ -119,6 +118,19 @@ public class NOTRepo {
         return isUpdate;
     }
 
+    public boolean updateNotiInfoReadYN(NotiInfoVO item){
+        boolean isUpdate = false;
+        try{
+            databaseHolder.getDatabase().notiInfoDao().updateReadYN(VariableType.COMMON_MEANS_YES, item.getNotiNo());
+            isUpdate = true;
+        }catch (Exception e){
+            isUpdate = false;
+        }finally{
+            return isUpdate;
+        }
+    }
+
+
     public List<NotiInfoVO> getNotiInfoListAll(){
         return databaseHolder.getDatabase().notiInfoDao().selectAll();
     }
@@ -130,5 +142,6 @@ public class NOTRepo {
     public List<NotiInfoVO> searchNotiInfoList(String search){
         return databaseHolder.getDatabase().notiInfoDao().selectSearch(search);
     }
+
 
 }

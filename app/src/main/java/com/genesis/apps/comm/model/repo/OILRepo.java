@@ -39,7 +39,6 @@ public class OILRepo {
             @Override
             public void onSuccess(String object) {
                 RES_OIL_0001.setValue(NetUIResponse.success(new Gson().fromJson(object, OIL_0001.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -62,7 +61,6 @@ public class OILRepo {
             @Override
             public void onSuccess(String object) {
                 RES_OIL_0002.setValue(NetUIResponse.success(new Gson().fromJson(object, OIL_0002.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
@@ -85,7 +83,6 @@ public class OILRepo {
             @Override
             public void onSuccess(String object) {
                 RES_OIL_0003.setValue(NetUIResponse.success(new Gson().fromJson(object, OIL_0003.Response.class)));
-                //TODO SINGLETON VO에 값 저장?
             }
 
             @Override
