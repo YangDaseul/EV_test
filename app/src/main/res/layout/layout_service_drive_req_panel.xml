@@ -24,7 +24,10 @@
         <TextView
             android:id="@+id/tv_service_req_car_model"
             style="@style/ServiceDrive.RegularHead"
+            android:layout_width="0dp"
+            android:maxLines="1"
             app:layout_constraintBottom_toTopOf="@id/tv_service_req_car_number"
+            app:layout_constraintEnd_toStartOf="@id/l_service_drive_req_info"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
@@ -34,8 +37,11 @@
         <TextView
             android:id="@+id/tv_service_req_car_number"
             style="@style/ServiceReq.Light"
+            android:layout_width="0dp"
+            android:maxLines="1"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/l_service_drive_req_info"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_service_req_car_model"
             app:layout_constraintVertical_chainStyle="packed"
@@ -44,6 +50,7 @@
         <!-- 로딩중/예상가격/에러표시
              visibility 조작으로 이들 중 한 개만 보이도록 선별함. -->
         <LinearLayout
+            android:id="@+id/l_service_drive_req_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
