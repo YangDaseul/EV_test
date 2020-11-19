@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.main.service;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
@@ -11,29 +12,26 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.vo.VOCInfoVO;
+import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.VOCViewModel;
 import com.genesis.apps.databinding.ActivityServiceRelapseApply3Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 
 public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseApply3Binding> {
     private static final String TAG = ServiceRelapse3Activity.class.getSimpleName();
 
     private static final int STATE_INIT = 0;
     private static final int STATE_OPEN_DEFECT_HISOTY = 1;
-    private static final int STATE_2 = 2;
-    private static final int STATE_3 = 3;
-    private static final int STATE_4 = 4;
-
-    private BottomListDialog defectListDialog;
+    private static final int STATE_ASK_OVER_4 = 2;
+    private static final int STATE_ASK_PERIOD = 3;
 
     private VOCViewModel viewModel;
     private VOCInfoVO vocInfoVO;
     private ServiceRelapse3Adapter adapter;
 
-    public boolean more4;
-    public int dummyLineVisibility = View.GONE;
+    public boolean over4;
+    private String period;
 
     private int currentState = STATE_INIT;
 
@@ -59,6 +57,13 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
             //수리 횟수 추가
             case R.id.tv_relapse_3_repair_add_btn:
                 onClickAddRepairHistory();
+                break;
+
+            case R.id.tv_relapse_3_yes:
+                selectOver4(true);
+                break;
+            case R.id.tv_relapse_3_no:
+                selectOver4(false);
                 break;
 
             //다음 버튼
@@ -139,10 +144,29 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         switch (currentState) {
             case STATE_OPEN_DEFECT_HISOTY:
                 if (adapter.validateInputData()) {
-                    //todo 다음 단계 이름 짓고 뷰 갱신
-                    currentState = STATE_2;
+                    changeStatusToAskOver4();
                 }
                 break;
+
+            case STATE_ASK_OVER_4:
+                if (adapter.validateInputData() &&
+                        //↓ "4회이상?" 질문에 아니오 눌렀거나 예 누르고 값을 넣어야 통과
+                        // 근데 기껏 값을 받아놓고 api에 송신하는 정보는 Y/N임 ㅡㅡ;; 사용자가 적은 숫자가 몇인지는 무시(2020.11.19)
+                        (!over4 || !TextUtils.isEmpty(ui.etRelapse3TotalCount.getText().toString()))) {
+                    changeStatusToAskPeriod();
+                }
+                break;
+
+            case STATE_ASK_PERIOD:
+                if (adapter.validateInputData()) {
+                    period = ui.etRelapse3Period.getText().toString();
+                    if (!TextUtils.isEmpty(period)) {
+                        return;
+                    }
+
+                    askAgreeTermsOfService();
+                }
+
 
             default:
                 //do nothing
@@ -150,8 +174,9 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         }
     }
 
-
     public void changeStatusToDefectHistory() {
+        //여기로 오는 트리거는 단계 변경 후에도 원래 기능을 유지하므로
+        // 상태 변경 기능 실행 전에 한 번 더 검사 (해당 기능 최초 실행이 상태 변경 트리거)
         if (currentState == STATE_INIT) {
             ui.tvRelapse3Desc.setText(R.string.relapse_3_msg_02);
             ui.tvRelapse3NextBtn.setVisibility(View.VISIBLE);
@@ -161,6 +186,43 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         }
     }
 
+    private void changeStatusToAskOver4() {
+        currentState = STATE_ASK_OVER_4;
+        ui.tvRelapse3Desc.setText(R.string.relapse_3_msg_03);
+
+        InteractionUtil.expand(ui.lRelapse3YesNoContainer, null);
+        ui.ivDummy.setVisibility(View.VISIBLE);
+    }
+
+    private void selectOver4(boolean over) {
+        if (over4 == over) {
+            return;
+        }
+
+        over4 = over;
+        ui.setActivity(this);
+
+        if (over) {
+            InteractionUtil.expand(ui.lRelapse3TotalCountContainer, null);
+        } else {
+            InteractionUtil.collapse(ui.lRelapse3TotalCountContainer, null);
+        }
+    }
+
+    private void changeStatusToAskPeriod() {
+        currentState = STATE_ASK_PERIOD;
+        ui.tvRelapse3Desc.setText(R.string.relapse_3_msg_04);
+        ui.tvRelapse3NextBtn.setText(R.string.relapse_3_req_btn_text);
+
+        InteractionUtil.collapse(ui.lRelapse3YesNoContainer, null);
+        InteractionUtil.collapse(ui.lRelapse3TotalCountContainer, null);
+
+        InteractionUtil.expand(ui.lRelapse3PeriodContainer, null);
+    }
+
+    private void askAgreeTermsOfService() {
+
+    }
 
     //TODO 1,2단계 입력정보 및 그 앞 단계인 회원정보 집어넣기
     // 특히 mainVehicle 아직 처리 안 한 상태라 null임
@@ -224,7 +286,7 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
 ////                repairHistory[THIRD].getDefectDetail(),
 ////                repairHistory[THIRD].getRepairDetail(),
 ////
-////                "",//수리시도회수4회이상여부 "Y" "N"
+////                over4? "Y" : "N"
 ////                "누적수리기간",
 ////                "개인정보취급동의",//"Y" "N"
 ////                "",//미사용
