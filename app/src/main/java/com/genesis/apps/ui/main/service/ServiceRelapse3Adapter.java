@@ -76,6 +76,7 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
 
         //새로 들어온 첫 칸은 열림 상태로 설정
         selectedItems.put(0, true);
+        Log.d(TAG, "add: selected : " + selectedItems);
         notifyDataSetChanged();
     }
 
@@ -89,6 +90,7 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
             selectedItems.put(i, selectedItems.get(i + 1));
         }
 
+        Log.d(TAG, "remove: selected : " + selectedItems);
         notifyDataSetChanged();
     }
 
@@ -111,7 +113,7 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
 
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
-        Log.d(TAG, "serviceDriveHistoryAdapter onBindViewHolder position : " + position);
+        Log.d(TAG, "ServiceRelapse3Adapter onBindViewHolder position : " + position);
         holder.onBindView(getItem(position), position, selectedItems);
     }
 
@@ -122,7 +124,7 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
 
         for (RepairData data : getItems()) {
             if (data != null) {
-                if (!data.validateData()) {
+                if (!data.validateData(false)) {
                     valid = false;
                 }
             }
@@ -137,8 +139,10 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
         private static final int DATE_FINISH = 2;
 
         private View detailView;
-        public int iconCloseBtn;
-        public int iconOpenBtn;
+        private int iconCloseBtn;
+        private int iconOpenBtn;
+        private int normalColor;
+        private int errorColor;
 
         private TextWatcher mechanicWatcher;
         private TextWatcher defectDetailWatcher;
@@ -175,8 +179,7 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
                         break;
                 }
 
-                getBinding().tvRelapse3RepairReqDateError.setVisibility(View.GONE);
-                getBinding().tvRelapse3RepairFinishDateError.setVisibility(View.GONE);
+                setDateErrorEnabled(false);
             }
         };
 
@@ -191,6 +194,8 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
             detailView = getBinding().lRelapse3RepairHistoryDetail;
             iconOpenBtn = R.drawable.btn_arrow_open;
             iconCloseBtn = R.drawable.btn_arrow_close;
+            normalColor = getContext().getColor(R.color.x_000000);
+            errorColor = getContext().getColor(R.color.x_ba544d);
 
             initTextChangeListener();
             initDatePicker();
@@ -325,7 +330,7 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
 
         @Override
         public void onBindView(RepairData item, int pos, SparseBooleanArray selectedItems) {
-            Log.d(TAG, "onBindView(finished): ");
+            Log.d(TAG, "onBindView{item}: " + selectedItems + " / " + pos);
 
             position = pos;
 
@@ -363,39 +368,46 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
 
             //입력 검사할 때 오류표시를 하기 위해 데이터에도 홀더 인스턴스를 저장
             item.setHolder(this);
+
+            //입력 유효성 검사
+            item.validateData(true);
         }
 
         //접기/펴기 리스너 붙이기 :
         private void setOpenListener(int pos, SparseBooleanArray selectedItems) {
-            getBinding().tvRelapse3RepairHistoryTitle.setOnClickListener(v -> {
-                Log.d(TAG, "recyclerView onClick position : " + pos);
+            getBinding().tvRelapse3RepairHistoryTitle.setOnClickListener(this::onClickViewOpener);
+        }
 
-                //클릭하면 상태 변경을 저장하고
-                if (selectedItems.get(pos)) {
-                    selectedItems.delete(pos);  // 펼쳐진 Item 클릭하면 열림 목록에서 삭제
-                } else {
-                    selectedItems.put(pos, true);// 닫힌 거 클릭하면 열림 목록에 추가
-                }
+        private void onClickViewOpener(View v) {
+            Log.d(TAG, "recyclerView onClick position : " + selectedItems + " / " + position);
 
-                //변경된 상태를 반영
-                changeViewStatus(selectedItems.get(pos));
-            });
+            //클릭하면 상태 변경을 저장하고
+            if (selectedItems.get(position)) {
+                selectedItems.delete(position);  // 펼쳐진 Item 클릭하면 열림 목록에서 삭제
+            } else {
+                selectedItems.put(position, true);// 닫힌 거 클릭하면 열림 목록에 추가
+            }
+
+            //변경된 상태를 반영
+            changeViewStatus(selectedItems.get(position));
         }
 
         //세부사항 뷰의 개폐 상태를 처리
         // (화면 밖에 있다가 스크롤되어서 화면 안에 들어오는 경우 호출됨)
         private void setViewStatus(boolean opened) {
+            Log.d(TAG, "setViewStatus: " + opened);
             setIcon(opened ? iconCloseBtn : iconOpenBtn);
-            detailView.setVisibility(opened ? View.VISIBLE : View.GONE);
+            detailView.setVisibility(opened ? View.VISIBLE : View.GONE);//TODO 이거 도대체 왜 반영 안 되냐
         }
 
         //세부사항 뷰의 개폐 상태가 변경되는 애니메이션을 처리
         // (클릭해서 상태를 토글할 때 호출됨)
         private void changeViewStatus(boolean opened) {
+            Log.d(TAG, "changeViewStatus: " + opened);
             setIcon(opened ? iconCloseBtn : iconOpenBtn);
             changeVisibility(
                     detailView, //개폐 애니메이션 대상 뷰
-                    (View) detailView.getParent().getParent(), //애니 재생동안 스크롤 막아야되는 뷰
+                    activity.ui.rvRelapse3RepairHistoryList,//null,// (View) detailView.getParent().getParent(), //애니 재생동안 스크롤 막아야되는 뷰
                     opened); //개폐 상태
         }
 
@@ -407,6 +419,20 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
                     null,
                     getContext().getDrawable(icon),
                     null);
+        }
+
+        //날짜 표시 뷰 오류 표시 on/off
+        public void setDateErrorEnabled(boolean enabled) {
+            getBinding().tvRelapse3RepairReqDateTitle.setTextColor(enabled ? errorColor : normalColor);
+            getBinding().tvRelapse3RepairFinishDateTitle.setTextColor(enabled ? errorColor : normalColor);
+
+            getBinding().tvRelapse3RepairReqDateBtn.setTextColor(enabled ? errorColor : normalColor);
+            getBinding().tvRelapse3RepairFinishDateBtn.setTextColor(enabled ? errorColor : normalColor);
+            getBinding().tvRelapse3RepairReqDateBtn.setBackgroundResource(enabled ? R.drawable.ripple_bg_ffffff_stroke_ba544d : R.drawable.ripple_bg_ffffff_stroke_141414);
+            getBinding().tvRelapse3RepairFinishDateBtn.setBackgroundResource(enabled ? R.drawable.ripple_bg_ffffff_stroke_ba544d : R.drawable.ripple_bg_ffffff_stroke_141414);
+
+            getBinding().tvRelapse3RepairReqDateError.setVisibility(enabled ? View.VISIBLE : View.GONE);
+            getBinding().tvRelapse3RepairFinishDateError.setVisibility(enabled ? View.VISIBLE : View.GONE);
         }
     }
 
@@ -512,9 +538,21 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
 
         //입력 창 전체 검사해서 미비한 게 하나라도 있으면 return false
         // 중간에 입력 미비를 발견해도 검사는 끝까지 하면서 어디가 틀렸는지 뷰에 표시함
-        public boolean validateData() {
+        // 홀더 없으면 false가 맞나?
+        public boolean validateData(boolean isNew) {
             if (holder == null) {
                 return false;
+            }
+
+            if (isNew) { //인스턴스 갱신할 때 전부 빈칸인 건 봐줌
+                if (TextUtils.isEmpty(mechanic) &&
+                        TextUtils.isEmpty(defectDetail) &&
+                        TextUtils.isEmpty(repairDetail) &&
+                        TextUtils.isEmpty(reqDate) &&
+                        TextUtils.isEmpty(finishDate)) {
+                    holder.setDateErrorEnabled(false);
+                    return false;
+                }
             }
 
             boolean valid = true;
@@ -534,10 +572,11 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
                 valid = false;
             }
 
-            //수리 완료일이 요청일보다 미래로 적혀있지 않으면 오류(같은 건 ㅇㅋ 당일에 해결했나보지)
-            if (0 < reqDate.compareTo(finishDate)) {
-                holder.getBinding().tvRelapse3RepairReqDateError.setVisibility(View.VISIBLE);
-                holder.getBinding().tvRelapse3RepairFinishDateError.setVisibility(View.VISIBLE);
+            //날짜 입력 안 했거나
+            // 수리 완료일이 요청일보다 미래가 아니면 오류(같은 건 ㅇㅋ 당일에 해결했나보지)
+            if (TextUtils.isEmpty(reqDate) || TextUtils.isEmpty(finishDate) ||
+                    0 < reqDate.compareTo(finishDate)) {
+                holder.setDateErrorEnabled(true);
                 valid = false;
             }
 

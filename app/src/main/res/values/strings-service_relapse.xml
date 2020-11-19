@@ -34,7 +34,7 @@
     <string name="relapse_3_repair_count">회</string>
     <string name="relapse_3_repair_day">일</string>
 
-    <string name="relapse_3_repair_term">누적 수리 기간</string>
+    <string name="relapse_3_repair_period">누적 수리 기간</string>
     <string name="relapse_3_repair_term_error">누적 수리 기간을 입력해주세요</string>
     <string name="relapse_3_repair_total_count">추가 수리 횟수</string>
     <string name="relapse_3_repair_total_count_error">추가 수리 횟수를 입력해주세요</string>
@@ -53,6 +53,5 @@
     <string name="relapse_3_repair_more">· 수리한 횟수가 더 있으신가요?</string>
     <string name="relapse_3_repair_add">수리 횟수 추가</string>
 
-
-    <!--    <string name="relapse_history_">하자신청</string>-->
+    <string name="relapse_3_req_btn_text">신청하기</string>
 </resources>

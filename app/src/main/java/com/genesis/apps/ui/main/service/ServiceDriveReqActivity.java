@@ -570,7 +570,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         //검색 버튼에 주소 입력하고 '값 있음' 스타일로 변경
         addressBtn.setText(TextUtils.concat(address[0], " ", address[1]));
         addressBtn.setTextAppearance(R.style.ServiceDrive_SearchAddress_HasData);
-        addressBtn.setBackground(getDrawable(R.drawable.ripple_bg_ffffff_stroke_141414));
+        addressBtn.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
 
         //세부주소 입력 창에 포커스 주기
         addressDetail.requestFocus();

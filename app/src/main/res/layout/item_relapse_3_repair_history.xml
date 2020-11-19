@@ -75,6 +75,7 @@
 
             <!-- 수리 요청일 -->
             <TextView
+                android:id="@+id/tv_relapse_3_repair_req_date_title"
                 style="@style/Relapse3RepairHistoryDatePickTitle"
                 android:text="@string/relapse_3_repair_req_date" />
 
@@ -91,6 +92,7 @@
 
             <!-- 수리 완료일 -->
             <TextView
+                android:id="@+id/tv_relapse_3_repair_finish_date_title"
                 style="@style/Relapse3RepairHistoryDatePickTitle"
                 android:layout_marginTop="20dp"
                 android:text="@string/relapse_3_repair_finish_date" />
