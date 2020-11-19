@@ -93,8 +93,9 @@ class BaseRequest extends BaseData {
         this.custNo = userVO.getCustNo();
 
         if((userVO.getCustGbCd().equalsIgnoreCase("0000")||(userVO.getCustGbCd().equalsIgnoreCase(""))) //UserVO DB의 값이 0000혹은 빈값일 때
-                && !TextUtils.isEmpty(compInterface.getLoginInfoDTO().getAccessToken())){ //엑세스 토큰이 있으면
-            this.custGbCd = VariableType.MAIN_VEHICLE_TYPE_NV; //(엑세스 토큰이 있을때 nv로 요청해야함)
+                && !TextUtils.isEmpty(compInterface.getLoginInfoDTO().getAccessToken())  //엑세스 토큰이 있고
+                && ifCd.equalsIgnoreCase(APIInfo.GRA_LGN_0001.getIfCd())){ // LGN-0001 전문이면
+            this.custGbCd = VariableType.MAIN_VEHICLE_TYPE_NV; //nv(소유차량없음)으로 요청
         }else{
             this.custGbCd = userVO.getCustGbCd();
         }

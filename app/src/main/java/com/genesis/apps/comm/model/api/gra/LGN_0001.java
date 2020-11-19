@@ -5,7 +5,7 @@ import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.BaseRequest;
 import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.vo.CcspVO;
+import com.genesis.apps.comm.model.vo.CCSVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.PackageUtil;
@@ -130,7 +130,7 @@ public class LGN_0001 extends BaseData {
         private List<VehicleVO> dftVhclInfo;
         @Expose
         @SerializedName("ccsUserInfo")
-        private CcspVO ccsUserInfo;
+        private CCSVO ccsUserInfo;
 
 
     }

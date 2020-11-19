@@ -1071,7 +1071,7 @@ public class TestCode {
             "  \"rtMsg\": \"성공\",\n" +
             "  \"custNo\": \"0000\",\n" +
             "  \"custGbCd\": \"OV\",\n" +
-            "  \"pushIdChgYn\": \"Y\",\n" +
+            "  \"pushIdChgYn\": \"N\",\n" +
             "  \"custMgmtNo\": \"12345612341\",\n" +
             "  \"custNm\": \"박현준\",\n" +
             "  \"celphNo\": \"01086029612\",\n" +

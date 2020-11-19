@@ -101,7 +101,6 @@ public class LGNRepo {
 
 
     public MutableLiveData<NetUIResponse<LGN_0004.Response>> REQ_LGN_0004(final LGN_0004.Request reqData){
-
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {

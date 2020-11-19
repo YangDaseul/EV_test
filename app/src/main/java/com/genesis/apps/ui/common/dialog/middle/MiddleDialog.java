@@ -410,6 +410,30 @@ public class MiddleDialog {
     }
 
 
+    /**
+     * @brief 중복 로그인 안내 팝업
+     * @param activity
+     * @param ok
+     * @param cancel
+     */
+    public static void dialogDuplicateLogin(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        R.string.pop03_1,
+                        R.string.pop03_2,
+                        R.string.dialog_common_1,
+                        R.string.dialog_common_2
+                ).show()
+        );
+    }
+
+
+
     public static void dialogInsightInputCancel(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
         if (activity.isFinishing()) {
             return;

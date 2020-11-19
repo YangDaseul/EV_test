@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.gra.LGN_0004;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.api.APPIAInfo;
@@ -15,6 +16,7 @@ import com.genesis.apps.comm.model.api.gra.CMN_0002;
 import com.genesis.apps.comm.model.api.gra.LGN_0001;
 import com.genesis.apps.comm.model.vo.DeviceDTO;
 import com.genesis.apps.comm.model.vo.NotiVO;
+import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -29,6 +31,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -142,15 +145,21 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
                 case SUCCESS:
                     lgnViewModel.setLGN0001ToDB(result.data, new ResultCallback() {
                         @Override
-                        public void onSuccess(Object result) {
-                            if (((Boolean) result)) {
-                                new moveToMainTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                        public void onSuccess(Object retv) {
+                            if (((Boolean) retv)) {
+                                if(!TextUtils.isEmpty(result.data.getPushIdChgYn())&&result.data.getPushIdChgYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES)){
+                                    MiddleDialog.dialogDuplicateLogin(IntroActivity.this, () -> {
+                                        lgnViewModel.reqLGN0004(new LGN_0004.Request(APPIAInfo.INT01.getId()));
+                                    }, goToMain);
+
+                                }else{
+                                    goToMain.run();
+                                }
                             } else {
                                 //TODO ERROR팝업 추가 필요
                                 finish();
                             }
                         }
-
                         @Override
                         public void onError(Object e) {
                             //TODO ERROR팝업 추가 필요
@@ -167,6 +176,11 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
                     break;
             }
         });
+
+        lgnViewModel.getRES_LGN_0004().observe(this, result -> {
+            //결과에 상관없이 메인화면으로 이동
+            goToMain.run();
+        });
     }
 
     @Override
@@ -178,6 +192,9 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
     public void onClickCommon(View v) {
 
     }
+
+
+    private Runnable goToMain = () -> new moveToMainTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
     @Override

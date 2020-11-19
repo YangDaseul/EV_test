@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * @brief CCSP 사용자 정보
+ * @brief CCS 가입 정보
  * @author hjpark
  * @see #rgstYn 가입여부 Y: 가입  N: 미가입
  * @see #userId 사용자ID ex) cac8cbf9-7ae7-493e-87f0-bbffe623ebe4
@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
-class CcspVO extends BaseData {
+class CCSVO extends BaseData {
     @Expose
     @SerializedName("rgstYn")
     private String rgstYn;
