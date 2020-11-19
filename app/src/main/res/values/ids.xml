@@ -17,4 +17,5 @@
     <item name="tag_wash_item" type="id"/>
     <item name="tag_wash_history" type="id"/>
     <item name="tag_relapse_history" type="id"/>
+    <item name="tag_term_vo" type="id"/>
 </resources>

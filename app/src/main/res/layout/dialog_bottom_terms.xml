@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="40dp">
+
+        <!-- 타이틀 -->
+        <include
+            android:id="@+id/l_dia_bottom_sonax_branch_title"
+            layout="@layout/layout_titlebar_dialog"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:value="@{@string/terms_title}" />
+
+        <!-- 전체동의 체크박스 -->
+        <CheckBox
+            android:id="@+id/cb_agree_all"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="30dp"
+            android:bufferType="spannable"
+            android:button="@null"
+            android:drawableStart="@drawable/checkbox_selector"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:text="@string/terms_all_agree"
+            android:textColor="@color/x_000000"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/l_dia_bottom_sonax_branch_title" />
+
+        <!-- 윗부분과 아래 부분 사이에 회색영역을 위한 더미 뷰-->
+        <ImageView
+            android:id="@+id/iv_dummy"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="20dp"
+            android:src="@color/x_e2e2e2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cb_agree_all" />
+
+        <!-- 약관 목록 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_dia_bottom_terms_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/tv_bottom_terms_ok_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_dummy" />
+
+        <TextView
+            android:id="@+id/tv_bottom_terms_ok_btn"
+            style="@style/BigBtn.Black"
+            android:text="@string/gm_carlst_p01_3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_dia_bottom_terms_list" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

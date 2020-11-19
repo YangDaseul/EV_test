@@ -59,5 +59,9 @@
     <string name="sm_emgc03_p01_11">기사님과 통화하기</string>
 
 
+    <!-- 약관 -->
+    <string name="terms_title">약관에 모두 동의해 주세요.</string>
+    <string name="terms_all_agree">모두 동의</string>
+
 
 </resources>
