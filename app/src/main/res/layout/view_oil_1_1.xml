@@ -55,6 +55,7 @@
             android:paddingRight="15dp"
             android:paddingBottom="20dp"
             android:visibility="gone"
+            tools:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title_oil">
@@ -131,11 +132,12 @@
             android:id="@+id/l_ho"
             android:layout_width="0dp"
             android:layout_height="80dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="60dp"
             android:background="@drawable/item_323a3d_round_10"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingBottom="20dp"
+            app:layout_goneMarginTop="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/l_gs">
@@ -294,7 +296,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_soil"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:layout_marginTop="60dp"
             android:background="@drawable/item_82898b_round_10"
             android:paddingLeft="15dp"

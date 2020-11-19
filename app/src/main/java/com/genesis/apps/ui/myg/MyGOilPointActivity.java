@@ -13,11 +13,11 @@ import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.OilCodes;
-import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.MYP_1006;
 import com.genesis.apps.comm.model.api.gra.OIL_0003;
+import com.genesis.apps.comm.model.constants.OilCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.util.BarcodeUtil;
 import com.genesis.apps.comm.util.PackageUtil;
@@ -71,6 +71,49 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
             changeBounds.setInterpolator(new OvershootInterpolator());
             TransitionManager.beginDelayedTransition(ui.lOil.lParent);
             constraintSets[pos].applyTo(ui.lOil.lParent);
+
+            switch (pos){
+                case 0:
+                    ui.lOil.lHo.setElevation(1);
+                    ui.lOil.lSk.setElevation(2);
+                    ui.lOil.lSoil.setElevation(3);
+
+                    ui.lOil.lHo.setPadding(15,0,15,20);
+                    ui.lOil.lSk.setPadding(15,0,15,20);
+                    ui.lOil.lSoil.setPadding(15,0,15,0);
+
+                    break;
+                case 1:
+                    ui.lOil.lSk.setElevation(1);
+                    ui.lOil.lSoil.setElevation(2);
+                    ui.lOil.lGs.setElevation(3);
+
+                    ui.lOil.lSk.setPadding(15,0,15,20);
+                    ui.lOil.lSoil.setPadding(15,0,15,20);
+                    ui.lOil.lGs.setPadding(15,0,15,0);
+
+                    break;
+                case 2:
+                    ui.lOil.lSoil.setElevation(1);
+                    ui.lOil.lGs.setElevation(2);
+                    ui.lOil.lHo.setElevation(3);
+
+                    ui.lOil.lSoil.setPadding(15,0,15,20);
+                    ui.lOil.lGs.setPadding(15,0,15,20);
+                    ui.lOil.lHo.setPadding(15,0,15,0);
+                    break;
+                case 3:
+                    ui.lOil.lGs.setElevation(1);
+                    ui.lOil.lHo.setElevation(2);
+                    ui.lOil.lSk.setElevation(3);
+
+                    ui.lOil.lGs.setPadding(15,0,15,20);
+                    ui.lOil.lHo.setPadding(15,0,15,20);
+                    ui.lOil.lSk.setPadding(15,0,15,0);
+                    break;
+
+
+            }
     }
 
 

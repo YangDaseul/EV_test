@@ -37,7 +37,6 @@ public class DialogAutocareService extends BaseBottomDialog<DialogBottomAutocare
         ui.setCouponList(list);
         ui.lAutoSvc1.cbAutoSvc1.setTypeface(ResourcesCompat.getFont(getContext(), R.font.regular_genesissansheadglobal));
 
-
 //        ui.lAutoSvc1.setRemCnt(getRemCnt(list.get(0).getRemCnt()));
 //        ui.lAutoSvc1.cbAutoSvc1.setChecked(true);
 //        ui.lAutoSvc1.cbAutoSvc1.setTypeface(ResourcesCompat.getFont(getContext(), R.font.regular_genesissansheadglobal));

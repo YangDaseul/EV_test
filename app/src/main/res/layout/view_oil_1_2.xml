@@ -139,6 +139,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingBottom="20dp"
+            android:elevation="1dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/l_ho">
@@ -221,6 +222,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingBottom="20dp"
+            android:elevation="2dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/l_sk">
@@ -299,11 +301,12 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_gs"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:layout_marginTop="60dp"
             android:background="@drawable/item_000000_round_10"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
+            android:elevation="3dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/l_soil">
