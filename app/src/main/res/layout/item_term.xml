@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="listener"
             type="com.genesis.apps.ui.common.view.listener.OnSingleClickListener" />
@@ -21,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
+            android:bufferType="spannable"
             android:button="@null"
             android:drawableStart="@drawable/checkbox_selector"
             android:drawablePadding="8dp"
@@ -29,7 +31,6 @@
             android:lineSpacingExtra="3sp"
             android:textColor="@color/x_000000"
             android:textSize="15sp"
-            android:bufferType="spannable"
             app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
@@ -41,14 +42,23 @@
             android:id="@+id/iv_arrow"
             android:layout_width="40dp"
             android:layout_height="0dp"
+            android:onClick="@{(view)->listener.onClick(view)}"
             android:scaleType="centerInside"
             android:src="@drawable/btn_open_r"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cb"
-            app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{(view)->listener.onClick(view)}"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
 
+        <!-- 경계선 뷰-->
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:src="@color/x_e2e2e2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -69,20 +69,10 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
+            style="@style/BigBtn.Black"
             android:id="@+id/btn_ok"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@drawable/ripple_bg_000000"
-            android:fontFamily="@font/light_genesissansheadglobal"
-            android:gravity="center"
-            android:letterSpacing="-0.01"
-            android:lineSpacingExtra="0sp"
-            android:paddingTop="18dp"
-            android:paddingBottom="18dp"
             android:text="@string/gm_carlst_p01_3"
-            android:textColor="@color/x_ffffff"
-            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/l_dia_bottom_sonax_branch_edit" />
