@@ -109,7 +109,10 @@ public class TestCode {
             "  ]\n" +
             "}", VOC_1001.Response.class);
 
-    public static VOC_1002.Response VOC_1002 = new Gson().fromJson("", VOC_1002.Response.class);
+    public static VOC_1002.Response VOC_1002 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\"\n" +
+            "}", VOC_1002.Response.class);
 
     public static VOC_1003.Response VOC_1003 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
@@ -154,7 +157,30 @@ public class TestCode {
             "  ]\n" +
             "}", VOC_1003.Response.class);
 
-    public static VOC_1004.Response VOC_1004 = new Gson().fromJson("", VOC_1004.Response.class);
+    public static VOC_1004.Response VOC_1004 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"termList\": [\n" +
+            "    {\n" +
+            "      \"termVer\": \"01.00\",\n" +
+            "      \"termCd\": \"2000\",\n" +
+            "      \"termNm\": \"약관 1호\",\n" +
+            "      \"termEsnAgmtYn\": \"Y\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"termVer\": \"01.00\",\n" +
+            "      \"termCd\": \"3000\",\n" +
+            "      \"termNm\": \"약관 2호\",\n" +
+            "      \"termEsnAgmtYn\": \"Y\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"termVer\": \"01.00\",\n" +
+            "      \"termCd\": \"2000\",\n" +
+            "      \"termNm\": \"약관 3호\",\n" +
+            "      \"termEsnAgmtYn\": \"Y\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}", VOC_1004.Response.class);
     public static VOC_1005.Response VOC_1005 = new Gson().fromJson("", VOC_1005.Response.class);
 
     public static WSH_1001.Response WSH_1001 = new Gson().fromJson("{\n" +

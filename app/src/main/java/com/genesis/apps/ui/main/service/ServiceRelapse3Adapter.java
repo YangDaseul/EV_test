@@ -371,6 +371,8 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
 
             //입력 유효성 검사
             item.validateData(true);
+
+            item.setTurn(turn);
         }
 
         //접기/펴기 리스너 붙이기 :
@@ -527,6 +529,7 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
         private String finishDate;  //YYYYMMDD
         private String defectDetail;
         private String repairDetail;
+        private int turn;
 
         public RepairData() {
             mechanic = "";
@@ -629,6 +632,14 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
 
         public void setRepairDetail(String repairDetail) {
             this.repairDetail = repairDetail;
+        }
+
+        public void setTurn(int turn) {
+            this.turn = turn;
+        }
+
+        public int getTurn() {
+            return turn;
         }
     }
 }

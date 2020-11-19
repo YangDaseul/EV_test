@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -14,6 +15,7 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.VOC_1003;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.VOCInfoVO;
@@ -46,15 +48,21 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ResultCodes.REQ_CODE_NORMAL.getCode()) {
+            if (requestCode == RequestCodes.REQ_CODE_RELAPSE_REQ.getCode()) {
+                SnackBarUtil.show(this, getString(R.string.relapse_succ));
+                reqNextPage();
+            }
+        }
+    }
+
+    @Override
     public void onClickCommon(View v) {
         Log.d(TAG, "onClickCommon: ");
 
         switch (v.getId()) {
-            //todo 임시 진입점. 개발 완료 후 삭제(레이아웃 가서도 관련 코드 삭제)
-            case R.id.tv_relapse_history_list_title:
-                startActivitySingleTop(new Intent(this, ServiceRelapse3Activity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                break;
-
             //신청 내역 목록에서 [접수중] 상태인 아이템
             case R.id.l_relapse_history_item:
 
@@ -64,7 +72,7 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
 
             //신청 버튼
             case R.id.tv_relapse_history_req_btn:
-                startActivitySingleTop(new Intent(this, ServiceRelapseApply1Activity.class).putExtra(KeyNames.KEY_NAME_ADDR, addressVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                startActivitySingleTop(new Intent(this, ServiceRelapseApply1Activity.class).putExtra(KeyNames.KEY_NAME_ADDR, addressVO), RequestCodes.REQ_CODE_RELAPSE_REQ.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
 
             default:
@@ -97,9 +105,9 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
                         //수신된 데이터를 꺼내고
                         List<VOCInfoVO> list = result.data.getDfctList();
 
-                        //받은 목록의 길이가 1 이상이면 어댑터에 추가
+                        //받은 목록의 길이가 1 이상이면 어댑터에 넣는다
                         if (list.size() > 0) {
-                            adapter.addRows(list);
+                            adapter.setRows(list);
                         }
                         //데이터가 없으면 '내역 없음'뷰를 출력할 더미 추가
                         else {
@@ -131,7 +139,7 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
     @Override
     public void getDataFromIntent() {
         try {
-            addressVO =(AddressVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_ADDR);
+            addressVO = (AddressVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_ADDR);
         } catch (Exception e) {
             e.printStackTrace();
         }

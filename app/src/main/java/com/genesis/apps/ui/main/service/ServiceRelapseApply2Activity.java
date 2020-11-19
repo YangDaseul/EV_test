@@ -24,6 +24,7 @@ import com.genesis.apps.comm.model.api.gra.PUB_1003;
 import com.genesis.apps.comm.model.api.gra.VOC_1001;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.VOCInfoVO;
 import com.genesis.apps.comm.util.DateUtil;
@@ -98,10 +99,10 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(!TextUtils.isEmpty(validVin) && charSequence.toString().equalsIgnoreCase(validVin)){
-                    isValidVin=true;
-                }else{
-                    isValidVin=false;
+                if (!TextUtils.isEmpty(validVin) && charSequence.toString().equalsIgnoreCase(validVin)) {
+                    isValidVin = true;
+                } else {
+                    isValidVin = false;
                 }
             }
 
@@ -114,13 +115,13 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
     }
 
     private void setViewVin() {
-        String vin="";
+        String vin = "";
 
         try {
             vin = reqViewModel.getMainVehicle().getVin();
-        }catch (Exception e){
+        } catch (Exception e) {
 
-        }finally{
+        } finally {
             ui.etVin.setText(vin);
             ui.etVin.setSelection(ui.etVin.length());
         }
@@ -130,19 +131,19 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
 
     @Override
     public void onClickCommon(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_vin:
                 String vin = ui.etVin.getText().toString().trim();
-                if(TextUtils.isEmpty(vin)){
+                if (TextUtils.isEmpty(vin)) {
                     ui.etVin.requestFocus();
                     ui.tvErrorVin.setVisibility(View.VISIBLE);
                     ui.tvErrorVin.setText(getString(R.string.r_flaw05_28));
-                }else if(vin.length()!=17) {
+                } else if (vin.length() != 17) {
                     ui.etVin.requestFocus();
                     ui.tvErrorVin.setVisibility(View.VISIBLE);
                     ui.tvErrorVin.setText(getString(R.string.r_flaw05_29));
-                }else if(!isValidVin){
-                    vocViewModel.reqVOC1001(new VOC_1001.Request(APPIAInfo.SM_FLAW05.getId(),vin));
+                } else if (!isValidVin) {
+                    vocViewModel.reqVOC1001(new VOC_1001.Request(APPIAInfo.SM_FLAW05.getId(), vin));
                 }
                 break;
 
@@ -164,19 +165,19 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
         }
     }
 
-    private void clearKeypad(){
-        for(View view : edits){
+    private void clearKeypad() {
+        for (View view : edits) {
             view.clearFocus();
         }
         SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
 
-    private void doNext(){
-        if(isValid()){
+    private void doNext() {
+        if (isValid()) {
             clearKeypad();
             vocInfoVO.setVin(ui.etVin.getText().toString().trim());
             vocInfoVO.setCarNo(ui.etVrn.getText().toString().trim());
-            vocInfoVO.setTrvgDist(ui.etTrvgDist.getText().toString().trim().replaceAll(",",""));
+            vocInfoVO.setTrvgDist(ui.etTrvgDist.getText().toString().trim().replaceAll(",", ""));
             startActivitySingleTop(new Intent(this, ServiceRelapse3Activity.class).putExtra(KeyNames.KEY_NAME_SERVICE_VOC_INFO_VO, vocInfoVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
         }
     }
@@ -196,13 +197,13 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
     public void setObserver() {
 
         vocViewModel.getRES_VOC_1001().observe(this, result -> {
-            switch (result.status){
+            switch (result.status) {
                 case LOADING:
                     showProgressDialog(true);
 
                     break;
                 case SUCCESS:
-                    if(result.data!=null&&result.data.getVhclList()!=null&&result.data.getVhclList().size()>0){
+                    if (result.data != null && result.data.getVhclList() != null && result.data.getVhclList().size() > 0) {
                         showProgressDialog(false);
                         vocInfoVO.setCarNm(result.data.getVhclList().get(0).getMdlNm());
                         vocInfoVO.setRecvDt(result.data.getVhclList().get(0).getRecvYmd());
@@ -296,12 +297,12 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
         }
     }
 
-    private void selectSido(){
+    private void selectSido() {
         List<String> listSidoNm = pubViewModel.getAddrNm();
         showMapDialog(R.id.tv_wpa, listSidoNm, R.string.r_flaw05_32);
     }
 
-    private void selectSiGunGu(){
+    private void selectSiGunGu() {
         List<String> listGuNm = pubViewModel.getAddrGuNm();
         showMapDialog(R.id.tv_admz, listGuNm, R.string.r_flaw05_33);
     }
@@ -309,7 +310,7 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
     @Override
     public void getDataFromIntent() {
         try {
-            vocInfoVO =(VOCInfoVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SERVICE_VOC_INFO_VO);
+            vocInfoVO = (VOCInfoVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SERVICE_VOC_INFO_VO);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -341,7 +342,7 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
             constraintSets[pos].applyTo(ui.container);
             ui.tvMsg.setText(textMsgId[pos]);
 
-            if (edits[pos-1] instanceof TextInputEditText) {
+            if (edits[pos - 1] instanceof TextInputEditText) {
                 edits[pos].clearFocus();
             }
 
@@ -349,34 +350,34 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
                 edits[pos].requestFocus();
             }
 
-            if(pos==2) {
+            if (pos == 2) {
                 selectCalendar();
-            }else if(pos==4){
+            } else if (pos == 4) {
                 selectSido();
-            }else if(pos==5){
+            } else if (pos == 5) {
                 selectSiGunGu();
             }
         }
     }
 
-    private boolean checkValidVin(){
+    private boolean checkValidVin() {
         String vin = ui.etVin.getText().toString().trim();
-        if(TextUtils.isEmpty(vin)){
+        if (TextUtils.isEmpty(vin)) {
             ui.etVin.requestFocus();
             ui.tvErrorVin.setVisibility(View.VISIBLE);
             ui.tvErrorVin.setText(getString(R.string.r_flaw05_28));
             return false;
-        }else if(vin.length()!=17) {
+        } else if (vin.length() != 17) {
             ui.etVin.requestFocus();
             ui.tvErrorVin.setVisibility(View.VISIBLE);
             ui.tvErrorVin.setText(getString(R.string.r_flaw05_29));
             return false;
-        }else if(!isValidVin){
+        } else if (!isValidVin) {
             ui.etVin.requestFocus();
             ui.tvErrorVin.setVisibility(View.VISIBLE);
             ui.tvErrorVin.setText(getString(R.string.r_flaw05_30));
             return false;
-        }else{
+        } else {
             ui.tvErrorVin.setVisibility(View.INVISIBLE);
             doTransition(1);
             return true;
@@ -405,7 +406,7 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
     private boolean checkValidMdYyyy() {
         String mdyyyy = vocInfoVO.getMdYyyy();
 
-        if(TextUtils.isEmpty(mdyyyy)){
+        if (TextUtils.isEmpty(mdyyyy)) {
             ui.tvMdYyyy.setText(R.string.r_flaw05_10);
             ui.tvMdYyyy.setTextColor(getColor(R.color.x_aaabaf));
             ui.tvMdYyyy.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
@@ -413,7 +414,7 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
             ui.tvErrorMdYyyy.setVisibility(View.VISIBLE);
             ui.tvErrorMdYyyy.setText(R.string.r_flaw05_24);
             return false;
-        }else{
+        } else {
             String date = DateUtil.getDate(DateUtil.getDefaultDateFormat(mdyyyy, DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot);
             ui.tvMdYyyy.setText(date);
             ui.tvMdYyyy.setTextColor(getColor(R.color.x_000000));
@@ -431,7 +432,7 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
         DialogCalendar dialogCalendar = new DialogCalendar(this, R.style.BottomSheetDialogTheme);
         dialogCalendar.setOnDismissListener(dialogInterface -> {
             Calendar calendar = dialogCalendar.calendar;
-            if(calendar!=null){
+            if (calendar != null) {
                 vocInfoVO.setMdYyyy(DateUtil.getDate(calendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd));
                 checkValidMdYyyy();
             }
@@ -443,13 +444,13 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
 
 
     private boolean checkValidTrvgDist() {
-        String trvgDist = ui.etTrvgDist.getText().toString().replaceAll(",","").trim();
+        String trvgDist = ui.etTrvgDist.getText().toString().replaceAll(",", "").trim();
 
         if (TextUtils.isEmpty(trvgDist)) {
             ui.etTrvgDist.requestFocus();
             ui.lTrvgDist.setError(getString(R.string.r_flaw05_25));
             return false;
-        }  else {
+        } else {
             ui.lTrvgDist.setError(null);
             ui.etTrvgDist.setText(StringUtil.getDigitGroupingString(trvgDist));
             doTransition(4);
@@ -461,7 +462,7 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
     private boolean checkValidWpa() {
         String wpa = vocInfoVO.getWpa();
 
-        if(TextUtils.isEmpty(wpa)){
+        if (TextUtils.isEmpty(wpa)) {
             ui.tvWpa.setText(R.string.r_flaw05_12);
             ui.tvWpa.setTextColor(getColor(R.color.x_aaabaf));
             ui.tvWpa.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
@@ -469,7 +470,7 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
             ui.tvErrorWpa.setVisibility(View.VISIBLE);
             ui.tvErrorWpa.setText(R.string.r_flaw05_26);
             return false;
-        }else{
+        } else {
             ui.tvWpa.setText(wpa);
             ui.tvWpa.setTextColor(getColor(R.color.x_000000));
             ui.tvWpa.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
@@ -484,7 +485,7 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
     private boolean checkValidAdmz() {
         String admz = vocInfoVO.getAdmz();
 
-        if(TextUtils.isEmpty(admz)){
+        if (TextUtils.isEmpty(admz)) {
             ui.tvAdmz.setText(R.string.r_flaw05_12);
             ui.tvAdmz.setTextColor(getColor(R.color.x_aaabaf));
             ui.tvAdmz.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
@@ -492,7 +493,7 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
             ui.tvErrorAdmz.setVisibility(View.VISIBLE);
             ui.tvErrorAdmz.setText(R.string.r_flaw05_26);
             return false;
-        }else{
+        } else {
             ui.tvAdmz.setText(admz);
             ui.tvAdmz.setTextColor(getColor(R.color.x_000000));
             ui.tvAdmz.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
@@ -503,34 +504,33 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
     }
 
 
-
-    private boolean isValid(){
-        for(View view : views){
-            if(view.getVisibility()==View.GONE) {
+    private boolean isValid() {
+        for (View view : views) {
+            if (view.getVisibility() == View.GONE) {
                 switch (view.getId()) {
                     case R.id.l_vin:
                         return false;
                     case R.id.l_vrn:
-                        return checkValidVin()&&false;
+                        return checkValidVin() && false;
                     case R.id.l_md_yyyy:
-                        return checkValidVin()&&checkValidCarRegNo()&&false;
+                        return checkValidVin() && checkValidCarRegNo() && false;
                     case R.id.l_trvg_dist:
-                        return checkValidVin()&&checkValidCarRegNo()&&checkValidMdYyyy()&&false;
+                        return checkValidVin() && checkValidCarRegNo() && checkValidMdYyyy() && false;
                     case R.id.l_wpa:
-                        return checkValidVin()&&checkValidCarRegNo()&&checkValidMdYyyy()&&checkValidTrvgDist()&&false;
+                        return checkValidVin() && checkValidCarRegNo() && checkValidMdYyyy() && checkValidTrvgDist() && false;
                     case R.id.l_admz:
-                        return checkValidVin()&&checkValidCarRegNo()&&checkValidMdYyyy()&&checkValidTrvgDist()&&checkValidWpa()&&false;
+                        return checkValidVin() && checkValidCarRegNo() && checkValidMdYyyy() && checkValidTrvgDist() && checkValidWpa() && false;
                     default:
                         break;
                 }
             }
         }
-        return checkValidVin()&&checkValidCarRegNo()&&checkValidMdYyyy()&&checkValidTrvgDist()&&checkValidWpa()&&checkValidAdmz();
+        return checkValidVin() && checkValidCarRegNo() && checkValidMdYyyy() && checkValidTrvgDist() && checkValidWpa() && checkValidAdmz();
     }
 
 
     EditText.OnEditorActionListener editorActionListener = (textView, actionId, keyEvent) -> {
-        if(actionId== EditorInfo.IME_ACTION_DONE){
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
             doNext();
         }
         return false;
@@ -548,11 +548,11 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
     }
 
     @Override
-    public void onBackButton(){
+    public void onBackButton() {
         dialogExit();
     }
 
-    private void dialogExit(){
+    private void dialogExit() {
         List<SubFragment> fragments = getFragments();
         if (fragments != null && fragments.size() > 0) {
             hideFragment(fragments.get(0));
@@ -570,5 +570,8 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ResultCodes.REQ_CODE_NORMAL.getCode()) {
+            exitPage(getString(R.string.relapse_succ), ResultCodes.REQ_CODE_NORMAL.getCode());
+        }
     }
 }
