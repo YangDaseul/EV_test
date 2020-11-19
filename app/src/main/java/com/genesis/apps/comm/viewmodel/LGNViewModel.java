@@ -155,7 +155,7 @@ class LGNViewModel extends ViewModel {
             try {
                 isSuccess = dbVehicleRepository.setVehicleList(data.getOwnVhclList(), MAIN_VEHICLE_TYPE_OV)
                         &&dbVehicleRepository.setVehicleList(data.getCtrctVhclList(), MAIN_VEHICLE_TYPE_CV)
-                        &&dbVehicleRepository.setVehicleList(data.getDftVhclInfo(), MAIN_VEHICLE_TYPE_0000)
+                        &&dbVehicleRepository.setVehicle(data.getDftVhclInfo(), MAIN_VEHICLE_TYPE_0000)
                         &&dbUserRepo.setUserVO(new Gson().fromJson(new Gson().toJson(data),UserVO.class));
             } catch (Exception e1) {
                 e1.printStackTrace();

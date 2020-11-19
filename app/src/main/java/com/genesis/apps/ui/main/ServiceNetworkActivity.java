@@ -504,7 +504,13 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                             break;
                         case PAGE_TYPE_SERVICE:
                         default:
-                            bottomSelectBinding.tvMapSelectBtn1.setText(R.string.map_btn_3);
+                            String custGbCd = lgnViewModel.getDbUserRepo().getUserVO().getCustGbCd();
+                            if(!TextUtils.isEmpty(custGbCd)&&custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)){//서비스네트워크에서는 차량 소유 고객에게만 예약버튼 제공
+                                bottomSelectBinding.tvMapSelectBtn1.setVisibility(View.VISIBLE);
+                                bottomSelectBinding.tvMapSelectBtn1.setText(R.string.map_btn_3);
+                            }else{
+                                bottomSelectBinding.tvMapSelectBtn1.setVisibility(View.INVISIBLE);
+                            }
                             break;
                     }
                     bottomSelectBinding.setData(btrVO);

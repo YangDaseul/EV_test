@@ -45,4 +45,10 @@ public abstract class VehicleDao implements BaseDao<VehicleVO> {
         deleteCustGbCd(custGbCd);
         insert(list);
     }
+
+    @Transaction
+    public void insertAndDeleteInTransaction(VehicleVO vehicleVO, String custGbCd){
+        deleteCustGbCd(custGbCd);
+        insert(vehicleVO);
+    }
 }

@@ -2,6 +2,7 @@ package com.genesis.apps.ui.main.service;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +19,14 @@ import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.FragmentServiceCarWashBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
+import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
 
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -86,7 +89,17 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
 
                 default:
                     ((MainActivity) getActivity()).showProgressDialog(false);
-                    SnackBarUtil.show(getActivity(), getString(result.message));
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if (TextUtils.isEmpty(serverMsg)){
+                            serverMsg = getString(R.string.instability_network);
+                        }
+                        SnackBarUtil.show(getActivity(), serverMsg);
+                    }
                     //todo : 구체적인 예외처리
                     break;
             }

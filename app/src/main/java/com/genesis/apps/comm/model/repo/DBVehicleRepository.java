@@ -46,6 +46,24 @@ public class DBVehicleRepository {
         return isUpdate;
     }
 
+
+    public boolean setVehicle(VehicleVO vehicleVO, String custGbCd){
+        boolean isUpdate = false;
+        try{
+            if(vehicleVO!=null) {
+                vehicleVO.setCustGbCd(custGbCd);
+                databaseHolder.getDatabase().vehicleDao().insertAndDeleteInTransaction(vehicleVO, custGbCd);
+            }else{
+                databaseHolder.getDatabase().vehicleDao().deleteCustGbCd(custGbCd);
+            }
+            isUpdate=true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return isUpdate;
+    }
+
+
     /**
      * @brief 주 이용 차량 확인
      * 지정된 리스트에서 주 이용 차량을 확인

@@ -25,8 +25,10 @@ import com.genesis.apps.comm.util.RecordUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentHome1Binding;
+import com.genesis.apps.ui.common.activity.WebviewActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
+import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.main.MainActivity;
 import com.genesis.apps.ui.main.home.view.HomeInsightHorizontalAdapter;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -107,24 +109,31 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             }
         });
         lgnViewModel.getRES_LGN_0005().observe(getViewLifecycleOwner(), result -> {
-            switch (result.status){
-                case SUCCESS:
-                    if(result.data!=null){
-                        try {
-                            WeatherCodes weatherCodes = WeatherCodes.decideCode(result.data.getLgt(), result.data.getPty(), result.data.getSky());
-                            MessageVO weather = cmnViewModel.getHomeWeatherInsight(weatherCodes);
-                            if(weather!=null) adapter.addRow(weather);
-                            adapter.addRow(cmnViewModel.getTmpInsight());
-                            adapter.notifyDataSetChanged();
-                            me.setActivity((MainActivity)getActivity());
-                            me.setWeatherCode(weatherCodes);
-                        }catch (Exception e){
+            //날씨 정보 요청 전문에서는 에러가 발생되어도 기본 값으로 표시
+            //todo 2020-11-20 park 날씨에 대한 리소스를 받으면 디폴트 값을  SKY_1 로 변경 필요
+            WeatherCodes weatherCodes = WeatherCodes.PTY1;
 
-                        }
-                    }
-                    break;
-                default:
-                    break;
+            if (result.data != null) {
+                try {
+                    weatherCodes = WeatherCodes.decideCode(result.data.getLgt(), result.data.getPty(), result.data.getSky());
+                }catch (Exception e){
+                    weatherCodes = WeatherCodes.PTY1;
+                }
+            }
+
+            try {
+                MessageVO weather = cmnViewModel.getHomeWeatherInsight(weatherCodes);
+                if (weather != null) {
+                    adapter.addRow(weather);
+                    adapter.setRealItemCnt(adapter.getRealItemCnt()+1);
+                }
+                adapter.addRow(cmnViewModel.getTmpInsight());
+                adapter.setRealItemCnt(adapter.getRealItemCnt()+1);
+                adapter.notifyDataSetChanged();
+                me.setActivity((MainActivity) getActivity());
+                me.setWeatherCode(weatherCodes);
+            }catch (Exception e){
+
             }
 
         });
@@ -142,9 +151,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         adapter = new HomeInsightHorizontalAdapter(onSingleClickListener);
         me.vpInsight.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         me.vpInsight.setAdapter(adapter);
-
-
-
     }
 
     private void setViewWeather() {
@@ -170,6 +176,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             Log.v("test","test finish");
             ((MainActivity)getActivity()).showProgressDialog(false);
             if (location == null) {
+                Log.v("location","location null");
                 return;
             }
 
@@ -237,23 +244,25 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     }
 
     private void startTimer() {
+        if(adapter.getRealItemCnt()>1) {
 
-        if(timer==null)
-            timer = new Timer();
+            if (timer == null)
+                timer = new Timer();
 
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                getActivity().runOnUiThread(() -> {
-                    try{
-                        me.vpInsight.setCurrentItem(me.vpInsight.getCurrentItem()+1, true);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
-                });
-            }
-        },6000,5000);
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    getActivity().runOnUiThread(() -> {
+                        try {
+                            me.vpInsight.setCurrentItem(me.vpInsight.getCurrentItem() + 1, true);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
+                }
+            }, 6000, 5000);
 
+        }
     }
 
     private void pauseTimer(){
@@ -269,8 +278,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         try{
             vehicleVO = lgnViewModel.getMainVehicleFromDB();
             if(vehicleVO!=null){
-                me.tvCarCode.setText(vehicleVO.getMdlCd());
-                me.tvCarModel.setText(vehicleVO.getMdlNm());
+                me.tvCarCode.setText(vehicleVO.getMdlNm());
+                me.tvCarModel.setText(vehicleVO.getSaleMdlNm());
                 me.tvCarVrn.setText(vehicleVO.getCarRgstNo());
                 Glide
                         .with(getContext())
@@ -301,7 +310,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 //                                ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), SimilarCarActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 //                            }
 //                        });
-                        //TODO LGN-0003 요청을 여기서 해야할듯
                         //TODO 위치정보 확인 요청
                         //TODO 거리 확인 요청 등 다 여기서 해야함..
                         break;
@@ -342,17 +350,44 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             me.btnFloating1.setVisibility(View.GONE);
             me.btnFloating2.setVisibility(View.GONE);
             me.btnFloating3.setVisibility(View.GONE);
-            for(int i=0; i<list.size(); i++){
+            int menuSize = list.size()>3 ? 3 : list.size();
+
+            for(int i=0; i<menuSize; i++){
                 floatingBtns[i].setVisibility(View.VISIBLE);
                 floatingBtns[i].setText(list.get(i).getMenuNm());
-                floatingBtns[i].setTag(R.id.menu_id, list.get(i).getMenuId());
+                floatingBtns[i].setTag(R.id.menu_id, list.get(i));
+                floatingBtns[i].setOnClickListener(new OnSingleClickListener() {
+                    @Override
+                    public void onSingleClick(View v) {
+                        FloatingMenuVO floatingMenuVO = (FloatingMenuVO)v.getTag(R.id.menu_id);
+                        if(floatingMenuVO!=null){
+                            String menuTypCd = floatingMenuVO.getMenuTypCd();
+                            String lnkUri = floatingMenuVO.getLnkUri();
+                            if(!TextUtils.isEmpty(menuTypCd)&&!TextUtils.isEmpty(lnkUri)){
+                                if(menuTypCd.equalsIgnoreCase("NA")){
+                                    //네이티브 링크로 이동
+                                    //TODO 네이티브로 이동하는 부분은 처리 필요
+                                }else{
+                                    ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), WebviewActivity.class).putExtra(KeyNames.KEY_NAME_URL, lnkUri),RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                                    //외부 링크로 이동
+                                }
+                            }
+                        }
+                    }
+                });
             }
 
+            if(list.size()<2){
+                me.ivFloatingMark1.setVisibility(View.GONE);
+                me.ivFloatingMark2.setVisibility(View.GONE);
+            }else if(list.size()==2){
+                me.ivFloatingMark1.setVisibility(View.VISIBLE);
+                me.ivFloatingMark2.setVisibility(View.GONE);
+            }else{
+                me.ivFloatingMark1.setVisibility(View.VISIBLE);
+                me.ivFloatingMark2.setVisibility(View.VISIBLE);
+            }
         }
-
-
-
-
     }
 
     @Override
@@ -442,5 +477,4 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-
 }

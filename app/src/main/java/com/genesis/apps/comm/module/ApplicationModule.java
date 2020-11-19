@@ -62,8 +62,8 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    public GA getGA(CCSP ccsp, HttpRequestUtil httpRequestUtil, LoginInfoDTO loginInfoDTO){
-        return new GA(ccsp, httpRequestUtil, loginInfoDTO);
+    public GA getGA(HttpRequestUtil httpRequestUtil, LoginInfoDTO loginInfoDTO){
+        return new GA(httpRequestUtil, loginInfoDTO);
     }
 
     @Provides

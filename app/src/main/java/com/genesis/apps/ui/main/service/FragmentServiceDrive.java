@@ -2,6 +2,7 @@ package com.genesis.apps.ui.main.service;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -130,7 +131,17 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
 
                 default:
                     ((MainActivity) getActivity()).showProgressDialog(false);
-                    SnackBarUtil.show(getActivity(), getString(result.message));
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if (TextUtils.isEmpty(serverMsg)){
+                            serverMsg = getString(R.string.instability_network);
+                        }
+                        SnackBarUtil.show(getActivity(), serverMsg);
+                    }
                     //todo : 구체적인 예외처리
                     break;
             }

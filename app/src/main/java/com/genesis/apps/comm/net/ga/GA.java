@@ -34,13 +34,11 @@ import static com.genesis.apps.comm.model.constants.GAInfo.HTTP_HEADER_VALUE;
 public class GA {
     private static final String TAG=GA.class.getSimpleName();
     private String csrf;
-    private CCSP ccsp;
     private HttpRequestUtil httpRequestUtil;
     private int retryCount=0;
     private LoginInfoDTO loginInfoDTO;
     @Inject
-    public GA(CCSP ccsp, HttpRequestUtil httpRequestUtil, LoginInfoDTO loginInfoDTO) {
-        this.ccsp = ccsp;
+    public GA(HttpRequestUtil httpRequestUtil, LoginInfoDTO loginInfoDTO) {
         this.httpRequestUtil = httpRequestUtil;
         this.loginInfoDTO = loginInfoDTO;
     }
@@ -138,7 +136,7 @@ public class GA {
         String url = GA_URL + "/api/account/ccsp/user/oauth2/token?grant_type=refresh_token";
 
         Map<String, Object> params = new HashMap<>();
-        params.put("refresh_token", ccsp.getLoginInfo().getRefreshToken());
+        params.put("refresh_token", loginInfoDTO.getRefreshToken());
         params.put("redirect_uri", GA_CALLBACK_URL);
 
         HttpRequest request = httpRequestUtil.getPostRequest(url)
@@ -153,8 +151,9 @@ public class GA {
                 accessToken = ret.get("access_token").getAsString();
             }
         }
-        ccsp.getLoginInfo().setAccessToken(accessToken);
-        ccsp.updateLoginInfo();
+        loginInfoDTO.setAccessToken(accessToken);
+        loginInfoDTO.updateLoginInfo(loginInfoDTO);
+//        ccsp.updateLoginInfo(); //todo 2020-11-19 logininfodto는 singleton이라 여기에서 진행.
 
         request.disconnect();
     }
@@ -186,7 +185,8 @@ public class GA {
 //                    LoginInfoDTO loginInfo = new LoginInfoDTO(accessToken, refreshToken, currentTime + (expiresIn * 1000), null, currentTime + 31557600000L, httpRequestUtil.getJson(data2, "tokenCode"));
                     if(!getProfile(accessToken, loginInfoDTO)) {
                         data = null;
-                        ccsp.clearLoginInfo();
+//                        ccsp.clearLoginInfo();
+                        loginInfoDTO.clearLoginInfo(); //todo 2020-11-19 park ga logininfodto에서 클리어 진행
                     }
                 }
             }
@@ -230,7 +230,8 @@ public class GA {
                             ""
                     ));
 
-                    ccsp.setGaLoginInfo(loginInfoDTO);
+                    loginInfoDTO.updateLoginInfo(loginInfoDTO);
+//                    ccsp.setGaLoginInfo(loginInfoDTO);//todo 2020-11-19 변경
                     return true;
                 }
             }
@@ -385,17 +386,17 @@ public class GA {
 
 
     public String getTokenCode() {
-        return ccsp.getLoginInfo() == null ? "" : ccsp.getLoginInfo().getTokenCode();
+        return loginInfoDTO == null ? "" : loginInfoDTO.getTokenCode();
     }
     public String getAccessToken() {
-        return ccsp.getLoginInfo() == null ? "" : ccsp.getLoginInfo().getAccessToken();
+        return loginInfoDTO == null ? "" : loginInfoDTO.getAccessToken();
     }
 
     public String getCustomerNumber() {
-        if(ccsp.getLoginInfo() == null||ccsp.getLoginInfo().getProfile()==null)
+        if(loginInfoDTO == null||loginInfoDTO.getProfile()==null)
             return "";
         else
-            return ccsp.getLoginInfo().getProfile().getCustomerNumber();
+            return loginInfoDTO.getProfile().getCustomerNumber();
     }
 //    public String getHmcCustNo(Context context) {
 //        if(CCSP.getInstance().getLoginInfo(context) == null) return "";

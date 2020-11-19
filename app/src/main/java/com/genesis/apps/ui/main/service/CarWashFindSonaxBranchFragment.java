@@ -1,12 +1,14 @@
 package com.genesis.apps.ui.main.service;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
+import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -23,6 +25,7 @@ import com.genesis.apps.databinding.FragmentCarWashFindSonaxBranchBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
+import com.genesis.apps.ui.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,8 +97,18 @@ public class CarWashFindSonaxBranchFragment extends SubFragment<FragmentCarWashF
 
                 default:
                     setAreaList(null);
-                    ((SubActivity) getActivity()).showProgressDialog(false);
-                    SnackBarUtil.show(getActivity(), getString(result.message));
+                    ((MainActivity) getActivity()).showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if (TextUtils.isEmpty(serverMsg)){
+                            serverMsg = getString(R.string.instability_network);
+                        }
+                        SnackBarUtil.show(getActivity(), serverMsg);
+                    }
                     //todo : 구체적인 예외처리
                     break;
             }
@@ -129,7 +142,17 @@ public class CarWashFindSonaxBranchFragment extends SubFragment<FragmentCarWashF
 
                 default:
                     ((SubActivity) getActivity()).showProgressDialog(false);
-                    SnackBarUtil.show(getActivity(), getString(result.message));
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if (TextUtils.isEmpty(serverMsg)){
+                            serverMsg = getString(R.string.instability_network);
+                        }
+                        SnackBarUtil.show(getActivity(), serverMsg);
+                    }
                     //todo : 구체적인 예외처리
                     break;
             }

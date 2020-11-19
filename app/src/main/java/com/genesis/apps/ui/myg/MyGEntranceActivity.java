@@ -11,16 +11,20 @@ import androidx.annotation.Nullable;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.LGN_0001;
+import com.genesis.apps.comm.model.api.gra.LGN_0004;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.net.ga.GA;
 import com.genesis.apps.comm.util.PackageUtil;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.DDSViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityMygEntranceBinding;
+import com.genesis.apps.room.ResultCallback;
 import com.genesis.apps.ui.common.activity.LoginActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.intro.IntroActivity;
 import com.genesis.apps.ui.main.ServiceJoinActivity;
 
@@ -77,21 +81,50 @@ public class MyGEntranceActivity extends SubActivity<ActivityMygEntranceBinding>
                     break;
 
                 case SUCCESS:
-                    showProgressDialog(false);
-                    if(result.data!=null&& (TextUtils.isEmpty(result.data.getCustGbCd())||result.data.getCustGbCd().equalsIgnoreCase("0000"))){
+                    if(result.data!=null
+                            &&(TextUtils.isEmpty(result.data.getCustGbCd())||result.data.getCustGbCd().equalsIgnoreCase("0000"))
+                            &&(result.data.getRtCd().equalsIgnoreCase("2002")||result.data.getRtCd().equalsIgnoreCase("2001"))){
+                        showProgressDialog(false);
                         startActivitySingleTop(new Intent(this, ServiceJoinActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                    }else{
-                        restart(); //todo 테스트필요
+                        break;
+                    }else if(result.data!=null
+                            &&result.data.getRtCd().equalsIgnoreCase("0000")
+                            &&!result.data.getCustGbCd().equalsIgnoreCase("0000")){
+
+                        lgnViewModel.setLGN0001ToDB(result.data, new ResultCallback() {
+                            @Override
+                            public void onSuccess(Object retv) {
+                                if (((Boolean) retv)) {
+                                    restart(); //todo 테스트필요
+                                } else {
+                                    SnackBarUtil.show(MyGEntranceActivity.this, "데이터가 저장되지 않았습니다.\n잠시 후 다시 시도해 주세요.");
+                                    //TODO ERROR팝업 추가 필요
+                                }
+                                showProgressDialog(false);
+                            }
+                            @Override
+                            public void onError(Object e) {
+                                showProgressDialog(false);
+                                SnackBarUtil.show(MyGEntranceActivity.this, "데이터가 저장되지 않았습니다.\n잠시 후 다시 시도해 주세요.\nErrCode:2");
+                            }
+                        });
+
+                        break;
+                    }
+                default:
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
+                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                        showProgressDialog(false);
                     }
                     break;
-
-                default:
-                    showProgressDialog(false);
-                    break;
-
-
-
-
             }
 
         });

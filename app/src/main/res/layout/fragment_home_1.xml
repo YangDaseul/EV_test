@@ -143,7 +143,7 @@
             android:layout_marginLeft="6dp"
             android:src="@drawable/ic_carinfo"
             android:scaleType="centerInside"
-            android:visibility="visible"
+            android:visibility="gone"
             android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
             app:layout_constraintTop_toTopOf="@+id/tv_car_code"
             app:layout_constraintBottom_toBottomOf="@+id/tv_car_code"
@@ -254,7 +254,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="100dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:gravity="center_vertical"
@@ -334,7 +334,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_distance_total"

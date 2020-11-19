@@ -143,9 +143,6 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     public void setObserver() {
 
         cmnViewModel.getRES_NOT_0003().observe(this, result -> {
-
-
-
             switch (result.status){
                 case SUCCESS:
                     if(result.data!=null){
@@ -156,7 +153,6 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                     //실패시는 무시
                     break;
             }
-
         });
 
     }
@@ -172,17 +168,6 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         Log.e("onResume","onReusme Mainactivity");
         checkPushCode();
         reqNewNotiCnt();
-//        setGNBColor(1);
-//        for (Fragment fragment: getSupportFragmentManager().getFragments()) {
-//            if (fragment.isVisible()) {
-//                if(fragment instanceof FragmentInsight){
-//                    setGNBColor(0);
-//                    break;
-//                }
-//            }
-//        }
-
-
         //TODO 이것은 테스트 액티비티 호출
 //        startActivitySingleTop(new Intent(this, MapSearchMyPositionActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 //        FirebaseMessagingService.notifyMessageTest(this, new PushVO(), PushCode.CAT_0E);

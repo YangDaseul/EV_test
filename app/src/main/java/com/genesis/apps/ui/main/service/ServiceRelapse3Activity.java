@@ -25,6 +25,7 @@ import com.genesis.apps.comm.viewmodel.VOCViewModel;
 import com.genesis.apps.databinding.ActivityServiceRelapseApply3Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomDialogAskAgreeTerms;
+import com.genesis.apps.ui.main.MainActivity;
 import com.genesis.apps.ui.main.ServiceTermDetailActivity;
 import com.genesis.apps.ui.myg.MyGOilTermDetailActivity;
 
@@ -146,7 +147,17 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
 
                 default:
                     showProgressDialog(false);
-                    SnackBarUtil.show(this, getString(result.message));
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if (TextUtils.isEmpty(serverMsg)){
+                            serverMsg = getString(R.string.instability_network);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                    }
                     //todo : 구체적인 예외처리
                     break;
             }
@@ -174,7 +185,17 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
 
                 default:
                     showProgressDialog(false);
-                    SnackBarUtil.show(this, getString(result.message));
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if (TextUtils.isEmpty(serverMsg)){
+                            serverMsg = getString(R.string.instability_network);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                    }
                     //todo : 구체적인 예외처리
                     break;
             }

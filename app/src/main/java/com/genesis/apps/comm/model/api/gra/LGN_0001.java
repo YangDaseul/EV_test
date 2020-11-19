@@ -127,7 +127,7 @@ public class LGN_0001 extends BaseData {
         private List<VehicleVO> ctrctVhclList;
         @Expose
         @SerializedName("dftVhclInfo")
-        private List<VehicleVO> dftVhclInfo;
+        private VehicleVO dftVhclInfo;
         @Expose
         @SerializedName("ccsUserInfo")
         private CCSVO ccsUserInfo;

@@ -41,7 +41,7 @@ public class CCSP {
     interface GAInterface {
         GA getGA();
     }
-
+    //todo 앱 실행 시 토큰 확인하는 부분은 추가 필요..
     public boolean isLoggedIn() {
         LoginInfoDTO loginInfoDTO = getLoginInfo();
         if (loginInfoDTO != null && loginInfoDTO.getProfile() != null) {
@@ -78,55 +78,54 @@ public class CCSP {
         }
     }
 
-    public JsonObject getControlToken(String pin) throws NetException {
-        String url = CCSP_URL + "/user/pin";
+//    public JsonObject getControlToken(String pin) throws NetException {
+//        String url = CCSP_URL + "/user/pin";
+//
+//        Map<String, Object> params = new HashMap<>();
+//        params.put("pin", pin);
+//        params.put("deviceId", "");
+//
+//        HttpRequest request = httpRequestUtil.getPutRequest(url);
+//        request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + loginInfoDTO.getAccessToken());
+//        request.contentType(HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8);
+//
+//        return httpRequestUtil.send(request, params);
+//    }
 
-        Map<String, Object> params = new HashMap<>();
-        params.put("pin", pin);
-        params.put("deviceId", "");
-
-        HttpRequest request = httpRequestUtil.getPutRequest(url);
-        request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + loginInfoDTO.getAccessToken());
-        request.contentType(HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8);
-
-        return httpRequestUtil.send(request, params);
-    }
-
-    public void changePin(String currentPin, String changedPin) throws NetException {
-        String url = CCSP_URL + "/user/profile";
-
-        Map<String, Object> pinParams = new HashMap<>();
-        pinParams.put("current", currentPin);
-        pinParams.put("change", changedPin);
-
-        Map<String, Object> params = new HashMap<>();
-        params.put("pin", pinParams);
-
-        HttpRequest request = httpRequestUtil.getPutRequest(url);
-        request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + loginInfoDTO.getAccessToken());
-        request.contentType(HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8);
-
-        httpRequestUtil.send(request, params);
-    }
-
-    public void resetPin() throws NetException {
-        String url = CCSP_URL + "/user/profile/pin";
-
-        HttpRequest request = httpRequestUtil.getDeleteRequest(url);
-        request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + loginInfoDTO.getAccessToken());
-        request.contentType(HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8);
-
-        try {
-            httpRequestUtil.getData(request);
-        }catch (NetException e) {
-            throw e;
-        }
-    }
-
-    public void setCustomerNumber(String customerNumber) {
-        getLoginInfo().getProfile().setCustomerNumber(customerNumber);
-        updateLoginInfo();
-    }
+//    public void changePin(String currentPin, String changedPin) throws NetException {
+//        String url = CCSP_URL + "/user/profile";
+//
+//        Map<String, Object> pinParams = new HashMap<>();
+//        pinParams.put("current", currentPin);
+//        pinParams.put("change", changedPin);
+//
+//        Map<String, Object> params = new HashMap<>();
+//        params.put("pin", pinParams);
+//
+//        HttpRequest request = httpRequestUtil.getPutRequest(url);
+//        request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + loginInfoDTO.getAccessToken());
+//        request.contentType(HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8);
+//
+//        httpRequestUtil.send(request, params);
+//    }
+//
+//    public void resetPin() throws NetException {
+//        String url = CCSP_URL + "/user/profile/pin";
+//
+//        HttpRequest request = httpRequestUtil.getDeleteRequest(url);
+//        request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + loginInfoDTO.getAccessToken());
+//        request.contentType(HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8);
+//
+//        try {
+//            httpRequestUtil.getData(request);
+//        }catch (NetException e) {
+//            throw e;
+//        }
+//    }
+//    public void setCustomerNumber(String customerNumber) {
+//        getLoginInfo().getProfile().setCustomerNumber(customerNumber);
+//        updateLoginInfo();
+//    }
 
     public LoginInfoDTO getLoginInfo() {
         loginInfoDTO = (loginInfoDTO.getProfile() !=null ? loginInfoDTO : loginInfoDTO.loadLoginInfo());

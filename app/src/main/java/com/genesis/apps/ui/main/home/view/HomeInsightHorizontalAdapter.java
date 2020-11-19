@@ -24,6 +24,7 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
     private static OnSingleClickListener onSingleClickListener;
     private static int ITEM_WEATHER=0;
     private static int ITEM_ETC=1;
+    private int realItemCnt=0;
     public HomeInsightHorizontalAdapter(OnSingleClickListener onSingleClickListener) {
         this.onSingleClickListener = onSingleClickListener;
     }
@@ -69,6 +70,14 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
     @Override
     public int getItemCount() {
         return Integer.MAX_VALUE; //무한스크롤을 위한 설정
+    }
+
+    public int getRealItemCnt() {
+        return realItemCnt;
+    }
+
+    public void setRealItemCnt(int realItemCnt) {
+        this.realItemCnt = realItemCnt;
     }
 
     private static class ItemHomeInsightEtc extends BaseViewHolder<MessageVO, ItemHomeInsightEtcBinding> {
