@@ -45,8 +45,8 @@ public class NOTRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_NOT_0001.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_NOT_0001.setValue(NetUIResponse.success(TestCode.NOT_0001));
+                RES_NOT_0001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_NOT_0001.setValue(NetUIResponse.success(TestCode.NOT_0001));
             }
 
             @Override
@@ -92,8 +92,8 @@ public class NOTRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_NOT_0003.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_NOT_0003.setValue(NetUIResponse.success(TestCode.NOT_0003));
+                RES_NOT_0003.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_NOT_0003.setValue(NetUIResponse.success(TestCode.NOT_0003));
             }
 
             @Override

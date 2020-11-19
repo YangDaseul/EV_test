@@ -72,7 +72,7 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
             public void run() {
                 runOnUiThread(() -> {
                     try{
-                        TestCode.SOS_1006 = TestCode.SOS_1006_2;
+//                        TestCode.SOS_1006 = TestCode.SOS_1006_2;
                         sosViewModel.reqSOS1006(new SOS_1006.Request(APPIAInfo.SM_EMGC03.getId(),tmpAcptNo));
                     }catch (Exception e){
                         e.printStackTrace();

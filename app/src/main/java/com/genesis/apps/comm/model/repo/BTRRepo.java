@@ -53,28 +53,28 @@ public class BTRRepo {
             @Override
             public void onFail(NetResult e) {
 
-                String json = "{\n" +
-                        "  \"rtCd\": \"0000\",\n" +
-                        "  \"rtMsg\": \"Success\",\n" +
-                        "  \"vin\": \"VIN_000001\",\n" +
-                        "  \"custMgmtNo\": \"CSMR_000001\",\n" +
-                        "  \"asnCd\": \"블루핸즈 의왕\",\n" +
-                        "  \"asnNm\": \"블루핸즈 의왕\",\n" +
-                        "  \"repTn\": \"02-111-1111\",\n" +
-                        "  \"pbzAdr\": \"인천광역시부평구\",\n" +
-                        "  \"mapXcooNm\": \"37.463936\",\n" +
-                        "  \"mapYcooNm\": \"127.042953\",\n" +
-                        "  \"btlrNm\": \"박문수\",\n" +
-                        "  \"celphNo\": \"01022223333\",\n" +
-                        "  \"bltrChgYn\": \"C\",\n" +
-                        "  \"cnsltBdgYn\": \"N\"\n" +
-                        "}";
-                BTR_1001.Response response = TestCode.BTR_1001;
-                response.setBtrVO(new Gson().fromJson(json, BtrVO.class)); //btr 데이터 저장
-                RES_BTR_1001.setValue(NetUIResponse.success(response));
+//                String json = "{\n" +
+//                        "  \"rtCd\": \"0000\",\n" +
+//                        "  \"rtMsg\": \"Success\",\n" +
+//                        "  \"vin\": \"VIN_000001\",\n" +
+//                        "  \"custMgmtNo\": \"CSMR_000001\",\n" +
+//                        "  \"asnCd\": \"블루핸즈 의왕\",\n" +
+//                        "  \"asnNm\": \"블루핸즈 의왕\",\n" +
+//                        "  \"repTn\": \"02-111-1111\",\n" +
+//                        "  \"pbzAdr\": \"인천광역시부평구\",\n" +
+//                        "  \"mapXcooNm\": \"37.463936\",\n" +
+//                        "  \"mapYcooNm\": \"127.042953\",\n" +
+//                        "  \"btlrNm\": \"박문수\",\n" +
+//                        "  \"celphNo\": \"01022223333\",\n" +
+//                        "  \"bltrChgYn\": \"C\",\n" +
+//                        "  \"cnsltBdgYn\": \"N\"\n" +
+//                        "}";
+//                BTR_1001.Response response = TestCode.BTR_1001;
+//                response.setBtrVO(new Gson().fromJson(json, BtrVO.class)); //btr 데이터 저장
+//                RES_BTR_1001.setValue(NetUIResponse.success(response));
 
 
-//                RES_BTR_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_BTR_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override
@@ -100,8 +100,8 @@ public class BTRRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_BTR_1008.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_BTR_1008.setValue(NetUIResponse.success(TestCode.BTR_1008));
+                RES_BTR_1008.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_BTR_1008.setValue(NetUIResponse.success(TestCode.BTR_1008));
             }
 
             @Override
@@ -124,8 +124,8 @@ public class BTRRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_BTR_1009.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_BTR_1009.setValue(NetUIResponse.success(TestCode.BTR_1009));
+                RES_BTR_1009.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_BTR_1009.setValue(NetUIResponse.success(TestCode.BTR_1009));
             }
 
             @Override
@@ -171,22 +171,22 @@ public class BTRRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_BTR_2001.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_BTR_2001.setValue(NetUIResponse.error(e.getMseeage(), null));
 
-                switch (reqData.getCdReqCd()){
-                    case VariableType.BTR_CNSL_CODE_CNSL:
-                        RES_BTR_2001.setValue(NetUIResponse.success(TestCode.BTR_2001_1));
-                        break;
-                    case VariableType.BTR_CNSL_CODE_LARGE:
-                        RES_BTR_2001.setValue(NetUIResponse.success(TestCode.BTR_2001_2));
-                        break;
-                    case VariableType.BTR_CNSL_CODE_MEDIUM:
-                        RES_BTR_2001.setValue(NetUIResponse.success(TestCode.BTR_2001_3));
-                        break;
-                    case VariableType.BTR_CNSL_CODE_SMALL:
-                        RES_BTR_2001.setValue(NetUIResponse.success(TestCode.BTR_2001_4));
-                        break;
-                }
+//                switch (reqData.getCdReqCd()){
+//                    case VariableType.BTR_CNSL_CODE_CNSL:
+//                        RES_BTR_2001.setValue(NetUIResponse.success(TestCode.BTR_2001_1));
+//                        break;
+//                    case VariableType.BTR_CNSL_CODE_LARGE:
+//                        RES_BTR_2001.setValue(NetUIResponse.success(TestCode.BTR_2001_2));
+//                        break;
+//                    case VariableType.BTR_CNSL_CODE_MEDIUM:
+//                        RES_BTR_2001.setValue(NetUIResponse.success(TestCode.BTR_2001_3));
+//                        break;
+//                    case VariableType.BTR_CNSL_CODE_SMALL:
+//                        RES_BTR_2001.setValue(NetUIResponse.success(TestCode.BTR_2001_4));
+//                        break;
+//                }
             }
 
             @Override
@@ -209,8 +209,8 @@ public class BTRRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_BTR_2002.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_BTR_2002.setValue(NetUIResponse.success(TestCode.BTR_2002));
+                RES_BTR_2002.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_BTR_2002.setValue(NetUIResponse.success(TestCode.BTR_2002));
             }
 
             @Override
@@ -233,8 +233,8 @@ public class BTRRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_BTR_2003.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_BTR_2003.setValue(NetUIResponse.success(TestCode.BTR_2003));
+                RES_BTR_2003.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_BTR_2003.setValue(NetUIResponse.success(TestCode.BTR_2003));
 
             }
 

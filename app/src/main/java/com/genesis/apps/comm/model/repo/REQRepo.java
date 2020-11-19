@@ -62,8 +62,8 @@ public class REQRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_REQ_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
-                                RES_REQ_1001.setValue(NetUIResponse.success(TestCode.REQ_1001));
+                RES_REQ_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                                RES_REQ_1001.setValue(NetUIResponse.success(TestCode.REQ_1001));
                 
             }
 
@@ -87,8 +87,8 @@ public class REQRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_REQ_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_REQ_1002.setValue(NetUIResponse.success(TestCode.REQ_1002));
+                RES_REQ_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_REQ_1002.setValue(NetUIResponse.success(TestCode.REQ_1002));
             }
 
             @Override
@@ -111,8 +111,8 @@ public class REQRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_REQ_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_REQ_1003.setValue(NetUIResponse.success(TestCode.REQ_1003));
+                RES_REQ_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_REQ_1003.setValue(NetUIResponse.success(TestCode.REQ_1003));
             }
 
             @Override
@@ -135,8 +135,8 @@ public class REQRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_REQ_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_REQ_1004.setValue(NetUIResponse.success(TestCode.REQ_1004));
+                RES_REQ_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_REQ_1004.setValue(NetUIResponse.success(TestCode.REQ_1004));
             }
 
             @Override
@@ -163,13 +163,8 @@ public class REQRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_REQ_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_REQ_1005.setValue(NetUIResponse.success(TestCode.REQ_1005));
-
-
-//                String json = TestCode.REQ_1005;
-//                REQ_1005.Response response = new Gson().fromJson(json, REQ_1005.Response.class);
-//                response.setREQStateVO(new Gson().fromJson(json, REQStateVO.class));
+                RES_REQ_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_REQ_1005.setValue(NetUIResponse.success(TestCode.REQ_1005));
             }
 
             @Override
@@ -192,8 +187,8 @@ public class REQRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_REQ_1007.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_REQ_1007.setValue(NetUIResponse.success(TestCode.REQ_1007));
+                RES_REQ_1007.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_REQ_1007.setValue(NetUIResponse.success(TestCode.REQ_1007));
             }
 
             @Override
@@ -238,8 +233,8 @@ public class REQRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_REQ_1009.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_REQ_1009.setValue(NetUIResponse.success(TestCode.REQ_1009));
+                RES_REQ_1009.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_REQ_1009.setValue(NetUIResponse.success(TestCode.REQ_1009));
             }
 
             @Override
@@ -261,8 +256,8 @@ public class REQRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_REQ_1010.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_REQ_1010.setValue(NetUIResponse.success(TestCode.REQ_1010));
+                RES_REQ_1010.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_REQ_1010.setValue(NetUIResponse.success(TestCode.REQ_1010));
             }
 
             @Override
@@ -284,8 +279,8 @@ public class REQRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_REQ_1011.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_REQ_1011.setValue(NetUIResponse.success(TestCode.REQ_1011));
+                RES_REQ_1011.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_REQ_1011.setValue(NetUIResponse.success(TestCode.REQ_1011));
             }
 
             @Override
@@ -307,8 +302,8 @@ public class REQRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_REQ_1012.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_REQ_1012.setValue(NetUIResponse.success(TestCode.REQ_1012));
+                RES_REQ_1012.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_REQ_1012.setValue(NetUIResponse.success(TestCode.REQ_1012));
             }
 
             @Override
@@ -330,8 +325,8 @@ public class REQRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_REQ_1013.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_REQ_1013.setValue(NetUIResponse.success(TestCode.REQ_1013));
+                RES_REQ_1013.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_REQ_1013.setValue(NetUIResponse.success(TestCode.REQ_1013));
             }
 
             @Override
@@ -353,8 +348,8 @@ public class REQRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_REQ_1014.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_REQ_1014.setValue(NetUIResponse.success(TestCode.REQ_1014));
+                RES_REQ_1014.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_REQ_1014.setValue(NetUIResponse.success(TestCode.REQ_1014));
             }
 
             @Override
@@ -376,8 +371,8 @@ public class REQRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_REQ_1015.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_REQ_1015.setValue(NetUIResponse.success(TestCode.REQ_1015));
+                RES_REQ_1015.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_REQ_1015.setValue(NetUIResponse.success(TestCode.REQ_1015));
             }
 
             @Override

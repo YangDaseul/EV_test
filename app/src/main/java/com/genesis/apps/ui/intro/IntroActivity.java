@@ -264,6 +264,8 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
 
         try {
             notiVO = cmnViewModel.getNoti(list);
+            //TODO 임시로 NULL로 변경
+            notiVO = null;
         } catch (Exception ignore) {
             ignore.printStackTrace();
         } finally {
@@ -291,58 +293,6 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
         }
 
         return notiVO == null ? false : true;
-
-//        NotiVO notiVO = null;
-//
-//        try {
-//            //NOTI 우선순위 결정
-//            for (int i = 0; i < list.size(); i++) {
-//                switch (list.get(i).getNotiCd()) {
-//                    case VariableType.NOTI_CODE_EMGR:
-//                        notiVO = list.get(i);
-//                        break;
-//                    case VariableType.NOTI_CODE_ANNC:
-//                        if (notiVO == null
-//                                || !notiVO.getNotiCd().equalsIgnoreCase(VariableType.NOTI_CODE_EMGR)) {
-//                            notiVO = list.get(i);
-//                        }
-//                        break;
-//                    default:
-////                        if (notiVO == null
-////                                || !notiVO.getNotiCd().equalsIgnoreCase(VariableType.NOTI_CODE_EMGR)
-////                                || !notiVO.getNotiCd().equalsIgnoreCase(VariableType.NOTI_CODE_ANNC)) {
-////                            notiVO = list.get(i);
-////                        }
-//                        break;
-//                }
-//            }
-//        } catch (Exception ignore) {
-//            ignore.printStackTrace();
-//        } finally {
-//            //노티팝업활성화
-//            if (notiVO != null) {
-//                switch (notiVO.getNotiCd()) {
-//                    case VariableType.NOTI_CODE_EMGR:
-//                        MiddleDialog.dialogNoti(this, new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                finish();
-//                            }
-//                        }, notiVO.getNotiTtl(), notiVO.getNotiCont());
-//
-//                        break;
-//                    case VariableType.NOTI_CODE_ANNC:
-//                        MiddleDialog.dialogNoti(this, runnable, notiVO.getNotiTtl(), notiVO.getNotiCont());
-//                        break;
-//                    default:
-//
-//                        break;
-//
-//                }
-//            }
-//        }
-//
-//        return notiVO == null ? false : true;
     }
 
     private ProgressbarTask progressbarTask = null;

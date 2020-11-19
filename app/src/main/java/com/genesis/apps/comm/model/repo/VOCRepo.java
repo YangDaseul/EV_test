@@ -45,8 +45,8 @@ public class VOCRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_VOC_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_VOC_1001.setValue(NetUIResponse.success(TestCode.VOC_1001));
+                RES_VOC_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_VOC_1001.setValue(NetUIResponse.success(TestCode.VOC_1001));
             }
 
             @Override
@@ -69,8 +69,8 @@ public class VOCRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_VOC_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_VOC_1002.setValue(NetUIResponse.success(TestCode.VOC_1002));
+                RES_VOC_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_VOC_1002.setValue(NetUIResponse.success(TestCode.VOC_1002));
             }
 
             @Override
@@ -93,8 +93,8 @@ public class VOCRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_VOC_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_VOC_1003.setValue(NetUIResponse.success(TestCode.VOC_1003));
+                RES_VOC_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_VOC_1003.setValue(NetUIResponse.success(TestCode.VOC_1003));
             }
 
             @Override
@@ -117,8 +117,8 @@ public class VOCRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_VOC_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_VOC_1004.setValue(NetUIResponse.success(TestCode.VOC_1004));
+                RES_VOC_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_VOC_1004.setValue(NetUIResponse.success(TestCode.VOC_1004));
             }
 
             @Override
@@ -144,8 +144,8 @@ public class VOCRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_VOC_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_VOC_1005.setValue(NetUIResponse.success(TestCode.VOC_1005));
+                RES_VOC_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_VOC_1005.setValue(NetUIResponse.success(TestCode.VOC_1005));
             }
 
             @Override

@@ -65,8 +65,8 @@ public class GNSRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_GNS_1001.setValue(NetUIResponse.success(TestCode.GNS_1001));
-//                RES_GNS_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_GNS_1001.setValue(NetUIResponse.success(TestCode.GNS_1001));
+                RES_GNS_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override
@@ -88,8 +88,8 @@ public class GNSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_GNS_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_GNS_1002.setValue(NetUIResponse.success(TestCode.GNS_1002));
+                RES_GNS_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_GNS_1002.setValue(NetUIResponse.success(TestCode.GNS_1002));
             }
 
             @Override
@@ -111,8 +111,8 @@ public class GNSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_GNS_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_GNS_1003.setValue(NetUIResponse.success(TestCode.GNS_1003));
+                RES_GNS_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_GNS_1003.setValue(NetUIResponse.success(TestCode.GNS_1003));
             }
 
             @Override
@@ -134,8 +134,8 @@ public class GNSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_GNS_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_GNS_1004.setValue(NetUIResponse.success(TestCode.GNS_1004));
+                RES_GNS_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_GNS_1004.setValue(NetUIResponse.success(TestCode.GNS_1004));
             }
 
             @Override
@@ -157,8 +157,8 @@ public class GNSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_GNS_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_GNS_1005.setValue(NetUIResponse.success(TestCode.GNS_1005));
+                RES_GNS_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_GNS_1005.setValue(NetUIResponse.success(TestCode.GNS_1005));
             }
 
             @Override
@@ -180,8 +180,8 @@ public class GNSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_GNS_1006.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_GNS_1006.setValue(NetUIResponse.success(TestCode.GNS_1006));
+                RES_GNS_1006.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_GNS_1006.setValue(NetUIResponse.success(TestCode.GNS_1006));
             }
 
             @Override
@@ -203,8 +203,8 @@ public class GNSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_GNS_1007.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_GNS_1007.setValue(NetUIResponse.success(TestCode.GNS_1007));
+                RES_GNS_1007.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_GNS_1007.setValue(NetUIResponse.success(TestCode.GNS_1007));
             }
 
             @Override
@@ -226,8 +226,8 @@ public class GNSRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_GNS_1008.setValue(NetUIResponse.success(TestCode.GNS_1008));
-//                RES_GNS_1008.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_GNS_1008.setValue(NetUIResponse.success(TestCode.GNS_1008));
+                RES_GNS_1008.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override
@@ -249,8 +249,8 @@ public class GNSRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_GNS_1009.setValue(NetUIResponse.success(TestCode.GNS_1009));
-//                RES_GNS_1009.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_GNS_1009.setValue(NetUIResponse.success(TestCode.GNS_1009));
+                RES_GNS_1009.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override
@@ -273,8 +273,8 @@ public class GNSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_GNS_1010.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_GNS_1010.setValue(NetUIResponse.success(TestCode.GNS_1010));
+                RES_GNS_1010.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_GNS_1010.setValue(NetUIResponse.success(TestCode.GNS_1010));
             }
 
             @Override
@@ -296,8 +296,8 @@ public class GNSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_GNS_1011.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_GNS_1011.setValue(NetUIResponse.success(TestCode.GNS_1011));
+                RES_GNS_1011.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_GNS_1011.setValue(NetUIResponse.success(TestCode.GNS_1011));
             }
 
             @Override
@@ -321,11 +321,11 @@ public class GNSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_GNS_1012.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_GNS_1012.setValue(NetUIResponse.error(e.getMseeage(), null));
 
-                GNS_1012.Response response = TestCode.GNS_1012; //결과코드 및 결과메시지 저장
-                response.setRentStatusVO(reqData.getSeqNo().equalsIgnoreCase("3") ? TestCode.GNS_1012_REJECT : TestCode.GNS_1012_WAIT); //btr 데이터 저장
-                RES_GNS_1012.setValue(NetUIResponse.success(response));
+//                GNS_1012.Response response = TestCode.GNS_1012; //결과코드 및 결과메시지 저장
+//                response.setRentStatusVO(reqData.getSeqNo().equalsIgnoreCase("3") ? TestCode.GNS_1012_REJECT : TestCode.GNS_1012_WAIT); //btr 데이터 저장
+//                RES_GNS_1012.setValue(NetUIResponse.success(response));
             }
 
             @Override
@@ -349,9 +349,9 @@ public class GNSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_GNS_1013.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_GNS_1013.setValue(NetUIResponse.error(e.getMseeage(), null));
 
-                RES_GNS_1013.setValue(NetUIResponse.success(TestCode.GNS_1013));
+//                RES_GNS_1013.setValue(NetUIResponse.success(TestCode.GNS_1013));
             }
 
             @Override
@@ -372,9 +372,8 @@ public class GNSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_GNS_1014.setValue(NetUIResponse.error(e.getMseeage(), null));
-
-                RES_GNS_1014.setValue(NetUIResponse.success(TestCode.GNS_1014));
+                RES_GNS_1014.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_GNS_1014.setValue(NetUIResponse.success(TestCode.GNS_1014));
             }
 
             @Override
@@ -395,8 +394,8 @@ public class GNSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_GNS_1015.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_GNS_1015.setValue(NetUIResponse.success(TestCode.GNS_1015));
+                RES_GNS_1015.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_GNS_1015.setValue(NetUIResponse.success(TestCode.GNS_1015));
                 
             }
 

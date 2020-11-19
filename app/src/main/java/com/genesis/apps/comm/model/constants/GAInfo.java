@@ -20,7 +20,7 @@ public interface GAInfo {
             // 0: 제네시스 검증계 접속 (ccSP:검증, DKC:검증, GA:검증)
             {
                     "/G/"
-                    , "https://stg-kr-ccapi.genesis.com:8081/api/v", "/api/authorize/ccsp/redirect", "a18aa0f3-11a6-45ba-ba4c-52c54e68ab62", "Jp6nvjppZ8RFX7A4sRxFmU4U5PCT3y9KdvMtPjDgPPTLAy2g"
+                    , "https://stg-kr-ccapi.genesis.com:8081/api/v1", "/api/authorize/ccsp/redirect", "a18aa0f3-11a6-45ba-ba4c-52c54e68ab62", "Jp6nvjppZ8RFX7A4sRxFmU4U5PCT3y9KdvMtPjDgPPTLAy2g"
                     , "https://t-accounts.genesis.com", "/api/cmmn/message", "/api/test/redirect.do"
             }
             // 1: 제네시스 운영계 접속 (ccSP:운영, DKC:운영, GA:운영)

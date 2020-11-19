@@ -42,8 +42,8 @@ public class CMNRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_CMN_0001.setValue(NetUIResponse.success(TestCode.CMN_0001));
-//                RES_CMN_0001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CMN_0001.setValue(NetUIResponse.success(TestCode.CMN_0001));
+                RES_CMN_0001.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override
@@ -65,8 +65,8 @@ public class CMNRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_CMN_0002.setValue(NetUIResponse.success(TestCode.CMN_0002));
-//              RES_CMN_0002.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CMN_0002.setValue(NetUIResponse.success(TestCode.CMN_0002));
+              RES_CMN_0002.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override
@@ -88,8 +88,8 @@ public class CMNRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_CMN_0003.setValue(NetUIResponse.success(TestCode.CMN_0003));
-//                RES_CMN_0003.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CMN_0003.setValue(NetUIResponse.success(TestCode.CMN_0003));
+                RES_CMN_0003.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override

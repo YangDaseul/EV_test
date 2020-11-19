@@ -35,8 +35,8 @@ public class WRTRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_WRT_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_WRT_1001.setValue(NetUIResponse.success(TestCode.WRT_1001));
+                RES_WRT_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_WRT_1001.setValue(NetUIResponse.success(TestCode.WRT_1001));
             }
 
             @Override

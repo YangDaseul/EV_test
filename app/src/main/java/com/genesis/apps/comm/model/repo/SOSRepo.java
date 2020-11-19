@@ -47,8 +47,8 @@ public class SOSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_SOS_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_SOS_1001.setValue(NetUIResponse.success(TestCode.SOS_1001));
+                RES_SOS_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_SOS_1001.setValue(NetUIResponse.success(TestCode.SOS_1001));
             }
 
             @Override
@@ -71,8 +71,8 @@ public class SOSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_SOS_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_SOS_1002.setValue(NetUIResponse.success(TestCode.SOS_1002));
+                RES_SOS_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_SOS_1002.setValue(NetUIResponse.success(TestCode.SOS_1002));
             }
 
             @Override
@@ -119,8 +119,8 @@ public class SOSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_SOS_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_SOS_1004.setValue(NetUIResponse.success(TestCode.SOS_1004));
+                RES_SOS_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_SOS_1004.setValue(NetUIResponse.success(TestCode.SOS_1004));
             }
 
             @Override
@@ -145,11 +145,11 @@ public class SOSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_SOS_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
-                String json = TestCode.SOS_1005;
-                SOS_1005.Response response = new Gson().fromJson(json, SOS_1005.Response.class);
-                response.setSosStateVO(new Gson().fromJson(json, SOSStateVO.class));
-                RES_SOS_1005.setValue(NetUIResponse.success(response));
+                RES_SOS_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                String json = TestCode.SOS_1005;
+//                SOS_1005.Response response = new Gson().fromJson(json, SOS_1005.Response.class);
+//                response.setSosStateVO(new Gson().fromJson(json, SOSStateVO.class));
+//                RES_SOS_1005.setValue(NetUIResponse.success(response));
             }
 
             @Override
@@ -175,11 +175,11 @@ public class SOSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_SOS_1006.setValue(NetUIResponse.error(e.getMseeage(), null));
-                String json = TestCode.SOS_1006;
-                SOS_1006.Response response = new Gson().fromJson(json, SOS_1006.Response.class);
-                response.setSosDriverVO(new Gson().fromJson(json, SOSDriverVO.class));
-                RES_SOS_1006.setValue(NetUIResponse.success(response));
+                RES_SOS_1006.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                String json = TestCode.SOS_1006;
+//                SOS_1006.Response response = new Gson().fromJson(json, SOS_1006.Response.class);
+//                response.setSosDriverVO(new Gson().fromJson(json, SOSDriverVO.class));
+//                RES_SOS_1006.setValue(NetUIResponse.success(response));
             }
 
             @Override

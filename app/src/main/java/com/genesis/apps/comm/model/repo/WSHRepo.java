@@ -52,9 +52,8 @@ public class WSHRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_WSH_1001.setValue(NetUIResponse.success(TestCode.WSH_1001));
-//                RES_WSH_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
-                //TODO 예외처리
+//                RES_WSH_1001.setValue(NetUIResponse.success(TestCode.WSH_1001));
+                RES_WSH_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override
@@ -77,9 +76,8 @@ public class WSHRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_WSH_1002.setValue(NetUIResponse.success(TestCode.WSH_1002));
-//                RES_WSH_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
-                //TODO 예외처리
+//                RES_WSH_1002.setValue(NetUIResponse.success(TestCode.WSH_1002));
+                RES_WSH_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override
@@ -102,9 +100,8 @@ public class WSHRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_WSH_1003.setValue(NetUIResponse.success(TestCode.WSH_1003));
-//                RES_WSH_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
-                //TODO 예외처리
+//                RES_WSH_1003.setValue(NetUIResponse.success(TestCode.WSH_1003));
+                RES_WSH_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override
@@ -127,9 +124,8 @@ public class WSHRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_WSH_1004.setValue(NetUIResponse.success(TestCode.WSH_1004));
-//                RES_WSH_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
-                //TODO 예외처리
+//                RES_WSH_1004.setValue(NetUIResponse.success(TestCode.WSH_1004));
+                RES_WSH_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override
@@ -152,9 +148,8 @@ public class WSHRepo {
 
             @Override
             public void onFail(NetResult e) {
-                //TODO 예외처리
-                RES_WSH_1005.setValue(NetUIResponse.success(TestCode.WSH_1005));
-//                RES_WSH_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_WSH_1005.setValue(NetUIResponse.success(TestCode.WSH_1005));
+                RES_WSH_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override
@@ -177,9 +172,8 @@ public class WSHRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_WSH_1006.setValue(NetUIResponse.success(TestCode.WSH_1006));
-//                RES_WSH_1006.setValue(NetUIResponse.error(e.getMseeage(), null));
-                //TODO 예외처리
+//                RES_WSH_1006.setValue(NetUIResponse.success(TestCode.WSH_1006));
+                RES_WSH_1006.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override
@@ -202,9 +196,8 @@ public class WSHRepo {
 
             @Override
             public void onFail(NetResult e) {
-                //TODO 예외처리
-                RES_WSH_1007.setValue(NetUIResponse.success(TestCode.WSH_1007));
-//                RES_WSH_1007.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_WSH_1007.setValue(NetUIResponse.success(TestCode.WSH_1007));
+                RES_WSH_1007.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override
@@ -227,9 +220,8 @@ public class WSHRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_WSH_1008.setValue(NetUIResponse.success(TestCode.WSH_1008));
-//                RES_WSH_1008.setValue(NetUIResponse.error(e.getMseeage(), null));
-                //TODO 예외처리
+//                RES_WSH_1008.setValue(NetUIResponse.success(TestCode.WSH_1008));
+                RES_WSH_1008.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override

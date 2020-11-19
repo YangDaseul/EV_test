@@ -46,8 +46,8 @@ public class LGNRepo {
             }
             @Override
             public void onFail(NetResult e) {
-                RES_LGN_0001.setValue(NetUIResponse.success(TestCode.LGN_0001));
-//                RES_LGN_0001.setValue(NetUIResponse.error(e.getMseeage(),null));
+//                RES_LGN_0001.setValue(NetUIResponse.success(TestCode.LGN_0001));
+                RES_LGN_0001.setValue(NetUIResponse.error(e.getMseeage(),null));
             }
             @Override
             public void onError(NetResult e) {
@@ -87,8 +87,8 @@ public class LGNRepo {
             }
             @Override
             public void onFail(NetResult e) {
-//                RES_LGN_0003.setValue(NetUIResponse.error(e.getMseeage(),null));
-                RES_LGN_0003.setValue(NetUIResponse.success(TestCode.LGN_0003));
+                RES_LGN_0003.setValue(NetUIResponse.error(e.getMseeage(),null));
+//                RES_LGN_0003.setValue(NetUIResponse.success(TestCode.LGN_0003));
             }
             @Override
             public void onError(NetResult e) {
@@ -129,8 +129,8 @@ public class LGNRepo {
             }
             @Override
             public void onFail(NetResult e) {
-//                RES_LGN_0005.setValue(NetUIResponse.error(e.getMseeage(),null));
-                RES_LGN_0005.setValue(NetUIResponse.success(TestCode.LGN_0005));
+                RES_LGN_0005.setValue(NetUIResponse.error(e.getMseeage(),null));
+//                RES_LGN_0005.setValue(NetUIResponse.success(TestCode.LGN_0005));
             }
             @Override
             public void onError(NetResult e) {

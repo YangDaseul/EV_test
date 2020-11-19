@@ -35,8 +35,8 @@ public class MBRRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_MBR_0001.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_MBR_0001.setValue(NetUIResponse.success(TestCode.MBR_0001));
+                RES_MBR_0001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_MBR_0001.setValue(NetUIResponse.success(TestCode.MBR_0001));
             }
 
             @Override

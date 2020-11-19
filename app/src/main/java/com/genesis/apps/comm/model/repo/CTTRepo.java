@@ -42,8 +42,8 @@ public class CTTRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_CTT_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_CTT_1001.setValue(NetUIResponse.success(TestCode.CTT_1001));
+                RES_CTT_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CTT_1001.setValue(NetUIResponse.success(TestCode.CTT_1001));
             }
 
             @Override
@@ -66,8 +66,8 @@ public class CTTRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_CTT_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_CTT_1002.setValue(NetUIResponse.success(TestCode.CTT_1002));
+                RES_CTT_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CTT_1002.setValue(NetUIResponse.success(TestCode.CTT_1002));
             }
 
             @Override
@@ -90,8 +90,8 @@ public class CTTRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_CTT_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_CTT_1004.setValue(NetUIResponse.success(TestCode.CTT_1004));
+                RES_CTT_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CTT_1004.setValue(NetUIResponse.success(TestCode.CTT_1004));
             }
 
             @Override

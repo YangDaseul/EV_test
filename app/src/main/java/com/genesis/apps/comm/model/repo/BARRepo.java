@@ -35,8 +35,8 @@ public class BARRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_BAR_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_BAR_1001.setValue(NetUIResponse.success(TestCode.BAR_1001));
+                RES_BAR_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_BAR_1001.setValue(NetUIResponse.success(TestCode.BAR_1001));
             }
 
             @Override

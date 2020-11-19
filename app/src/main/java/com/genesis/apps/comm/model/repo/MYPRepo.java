@@ -67,8 +67,8 @@ public class MYPRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_MYP_0001.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_MYP_0001.setValue(NetUIResponse.success(TestCode.MYP_0001));
+                RES_MYP_0001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_MYP_0001.setValue(NetUIResponse.success(TestCode.MYP_0001));
             }
 
             @Override
@@ -156,8 +156,8 @@ public class MYPRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_MYP_1005.setValue(NetUIResponse.success(TestCode.MYP_1005));
-//                RES_MYP_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_MYP_1005.setValue(NetUIResponse.success(TestCode.MYP_1005));
+                RES_MYP_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override
@@ -178,9 +178,8 @@ public class MYPRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_MYP_1006.setValue(NetUIResponse.error(e.getMseeage(), null));
-
-                RES_MYP_1006.setValue(NetUIResponse.success(TestCode.MYP_1006));
+                RES_MYP_1006.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_MYP_1006.setValue(NetUIResponse.success(TestCode.MYP_1006));
             }
 
             @Override
@@ -311,8 +310,8 @@ public class MYPRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_MYP_2006.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_MYP_2006.setValue(NetUIResponse.success(TestCode.MYP_2006));
+                RES_MYP_2006.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_MYP_2006.setValue(NetUIResponse.success(TestCode.MYP_2006));
             }
 
             @Override
@@ -335,25 +334,25 @@ public class MYPRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_MYP_8001.setValue(NetUIResponse.error(e.getMseeage(), null));
-                switch (reqData.getTermCd()){
-                    case MyGTermsActivity.TERMS_1000:
-                        RES_MYP_8001.setValue(NetUIResponse.success(TestCode.MYP_8001_1000));
-                        break;
-                    case MyGTermsActivity.TERMS_2000:
-                        RES_MYP_8001.setValue(NetUIResponse.success(TestCode.MYP_8001_2000));
-                        break;
-                    case MyGTermsActivity.TERMS_3000:
-                        RES_MYP_8001.setValue(NetUIResponse.success(TestCode.MYP_8001_3000));
-                        break;
-                    case MyGTermsActivity.TERMS_4000:
-                        RES_MYP_8001.setValue(NetUIResponse.success(TestCode.MYP_8001_4000));
-                        break;
-                    case MyGTermsActivity.TERMS_5000:
-                    default:
-                        RES_MYP_8001.setValue(NetUIResponse.success(TestCode.MYP_8001_5000));
-
-                }
+                RES_MYP_8001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                switch (reqData.getTermCd()){
+//                    case MyGTermsActivity.TERMS_1000:
+//                        RES_MYP_8001.setValue(NetUIResponse.success(TestCode.MYP_8001_1000));
+//                        break;
+//                    case MyGTermsActivity.TERMS_2000:
+//                        RES_MYP_8001.setValue(NetUIResponse.success(TestCode.MYP_8001_2000));
+//                        break;
+//                    case MyGTermsActivity.TERMS_3000:
+//                        RES_MYP_8001.setValue(NetUIResponse.success(TestCode.MYP_8001_3000));
+//                        break;
+//                    case MyGTermsActivity.TERMS_4000:
+//                        RES_MYP_8001.setValue(NetUIResponse.success(TestCode.MYP_8001_4000));
+//                        break;
+//                    case MyGTermsActivity.TERMS_5000:
+//                    default:
+//                        RES_MYP_8001.setValue(NetUIResponse.success(TestCode.MYP_8001_5000));
+//
+//                }
 
 
             }
@@ -401,8 +400,8 @@ public class MYPRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_MYP_8005.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_MYP_8005.setValue(NetUIResponse.success(TestCode.MYP_8005));
+                RES_MYP_8005.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_MYP_8005.setValue(NetUIResponse.success(TestCode.MYP_8005));
             }
 
             @Override

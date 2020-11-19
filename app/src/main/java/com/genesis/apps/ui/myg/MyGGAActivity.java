@@ -7,6 +7,7 @@ import android.widget.CompoundButton;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.MYP_0001;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.databinding.ActivityMygGaBinding;
@@ -26,8 +27,6 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
         getDataFromIntent();
         setViewModel();
         setObserver();
-        mypViewModel.reqMYP0001(new MYP_0001.Request(APPIAInfo.MG_GA01.getId()));
-        //TODO 처리 필요
         ui.setActivity(this);
         ui.cbEmail.setOnCheckedChangeListener(listener);
         ui.cbPhone.setOnCheckedChangeListener(listener);
@@ -35,6 +34,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
         ui.cbPost.setOnCheckedChangeListener(listener);
         ui.cbAd.setOnCheckedChangeListener(listenerAll);
         ui.vBlock.setOnTouchListener((view, motionEvent) -> true);
+        mypViewModel.reqMYP0001(new MYP_0001.Request(APPIAInfo.MG_GA01.getId()));
     }
 
     @Override
@@ -46,38 +46,55 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
     @Override
     public void setObserver() {
         mypViewModel.getRES_MYP_0001().observe(this, result -> {
-            String test ="{\n" +
-                    "  \"rtCd\": \"0000\",\n" +
-                    "  \"rtMsg\": \"Success\",\n" +
-                    "  \"mbrStustCd\": \"1000\",\n" +
-                    "  \"ccspEmail\": \"kim.genesis@email.com\",\n" +
-                    "  \"mbrNm\": \"김수현\",\n" +
-                    "  \"brtdy\": \"19800102\",\n" +
-                    "  \"sexDiv\": \"M\",\n" +
-                    "  \"celphNo\": \"01099990001\",\n" +
-                    "  \"mrktYn\": \"Y\",\n" +
-                    "  \"mrktDate\": \"20200824155819\",\n" +
-                    "  \"mrktCd\": \"1111\"\n" +
-                    "}";
-            MYP_0001.Response sample = new Gson().fromJson(test, MYP_0001.Response.class);
-            if(sample!=null) {
-                ui.setData(sample);
-                ui.cbAd.setChecked(sample.getMrktYn().equalsIgnoreCase("Y") ? true : false);
-                ui.cbSms.setChecked(sample.getMrktCd().substring(0,1).equalsIgnoreCase("1") ? true : false);
-                ui.cbEmail.setChecked(sample.getMrktCd().substring(1,2).equalsIgnoreCase("1") ? true : false);
-                ui.cbPost.setChecked(sample.getMrktCd().substring(2,3).equalsIgnoreCase("1") ? true : false);
-                ui.cbPhone.setChecked(sample.getMrktCd().substring(3,4).equalsIgnoreCase("1") ? true : false);
-            }
+//            String test ="{\n" +
+//                    "  \"rtCd\": \"0000\",\n" +
+//                    "  \"rtMsg\": \"Success\",\n" +
+//                    "  \"mbrStustCd\": \"1000\",\n" +
+//                    "  \"ccspEmail\": \"kim.genesis@email.com\",\n" +
+//                    "  \"mbrNm\": \"김수현\",\n" +
+//                    "  \"brtdy\": \"19800102\",\n" +
+//                    "  \"sexDiv\": \"M\",\n" +
+//                    "  \"celphNo\": \"01099990001\",\n" +
+//                    "  \"mrktYn\": \"Y\",\n" +
+//                    "  \"mrktDate\": \"20200824155819\",\n" +
+//                    "  \"mrktCd\": \"1111\"\n" +
+//                    "}";
+//            MYP_0001.Response sample = new Gson().fromJson(test, MYP_0001.Response.class);
+//            if(sample!=null) {
+//                ui.setData(sample);
+//                ui.cbAd.setChecked(sample.getMrktYn().equalsIgnoreCase("Y") ? true : false);
+//                ui.cbSms.setChecked(sample.getMrktCd().substring(0,1).equalsIgnoreCase("1") ? true : false);
+//                ui.cbEmail.setChecked(sample.getMrktCd().substring(1,2).equalsIgnoreCase("1") ? true : false);
+//                ui.cbPost.setChecked(sample.getMrktCd().substring(2,3).equalsIgnoreCase("1") ? true : false);
+//                ui.cbPhone.setChecked(sample.getMrktCd().substring(3,4).equalsIgnoreCase("1") ? true : false);
+//            }
 
 
             switch (result.status){
-                case SUCCESS:
-                    break;
                 case LOADING:
-
+                    showProgressDialog(true);
                     break;
-                case ERROR:
-
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if(result.data!=null){
+                        ui.setData(result.data);
+                        ui.cbAd.setChecked(result.data.getMrktYn().equalsIgnoreCase("Y") ? true : false);
+                        ui.cbSms.setChecked(result.data.getMrktCd().substring(0,1).equalsIgnoreCase("1") ? true : false);
+                        ui.cbEmail.setChecked(result.data.getMrktCd().substring(1,2).equalsIgnoreCase("1") ? true : false);
+                        ui.cbPost.setChecked(result.data.getMrktCd().substring(2,3).equalsIgnoreCase("1") ? true : false);
+                        ui.cbPhone.setChecked(result.data.getMrktCd().substring(3,4).equalsIgnoreCase("1") ? true : false);
+                        break;
+                    }
+                default:
+                    showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        exitPage(serverMsg , ResultCodes.RES_CODE_NETWORK.getCode());
+                    }
                     break;
             }
 

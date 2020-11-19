@@ -68,8 +68,8 @@ public class CBKRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_CBK_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_CBK_1002.setValue(NetUIResponse.success(TestCode.CBK_1002));
+                RES_CBK_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CBK_1002.setValue(NetUIResponse.success(TestCode.CBK_1002));
             }
 
             @Override
@@ -92,8 +92,8 @@ public class CBKRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_CBK_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_CBK_1005.setValue(NetUIResponse.success(TestCode.CBK_1005));
+                RES_CBK_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CBK_1005.setValue(NetUIResponse.success(TestCode.CBK_1005));
                 
             }
 
@@ -117,8 +117,8 @@ public class CBKRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_CBK_1006.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_CBK_1006.setValue(NetUIResponse.success(TestCode.CBK_1006));
+                RES_CBK_1006.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CBK_1006.setValue(NetUIResponse.success(TestCode.CBK_1006));
             }
 
             @Override
@@ -141,8 +141,8 @@ public class CBKRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_CBK_1007.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_CBK_1007.setValue(NetUIResponse.success(TestCode.CBK_1007));
+                RES_CBK_1007.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CBK_1007.setValue(NetUIResponse.success(TestCode.CBK_1007));
                 
             }
 
@@ -165,8 +165,8 @@ public class CBKRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_CBK_1008.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_CBK_1008.setValue(NetUIResponse.success(TestCode.CBK_1008));
+                RES_CBK_1008.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_CBK_1008.setValue(NetUIResponse.success(TestCode.CBK_1008));
             }
 
             @Override

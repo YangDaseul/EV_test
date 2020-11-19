@@ -37,8 +37,8 @@ public class STORepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_STO_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_STO_1001.setValue(NetUIResponse.success(TestCode.STO_1001));
+                RES_STO_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_STO_1001.setValue(NetUIResponse.success(TestCode.STO_1001));
             }
 
             @Override
@@ -60,8 +60,8 @@ public class STORepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_STO_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_STO_1002.setValue(NetUIResponse.success(TestCode.STO_1002));
+                RES_STO_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_STO_1002.setValue(NetUIResponse.success(TestCode.STO_1002));
             }
 
             @Override

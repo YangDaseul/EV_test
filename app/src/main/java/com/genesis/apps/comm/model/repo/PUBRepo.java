@@ -39,8 +39,8 @@ public class PUBRepo {
 
             @Override
             public void onFail(NetResult e) {
-                RES_PUB_1001.setValue(NetUIResponse.success(TestCode.PUB_1001));
-//                RES_PUB_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_PUB_1001.setValue(NetUIResponse.success(TestCode.PUB_1001));
+                RES_PUB_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
             }
 
             @Override
@@ -63,8 +63,8 @@ public class PUBRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_PUB_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_PUB_1002.setValue(NetUIResponse.success(TestCode.PUB_1002));
+                RES_PUB_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_PUB_1002.setValue(NetUIResponse.success(TestCode.PUB_1002));
             }
 
             @Override
@@ -86,8 +86,8 @@ public class PUBRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_PUB_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_PUB_1003.setValue(NetUIResponse.success(TestCode.PUB_1003));
+                RES_PUB_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_PUB_1003.setValue(NetUIResponse.success(TestCode.PUB_1003));
             }
 
             @Override

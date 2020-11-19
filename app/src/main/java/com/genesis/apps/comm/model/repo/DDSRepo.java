@@ -45,8 +45,8 @@ public class DDSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_DDS_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_DDS_1001.setValue(NetUIResponse.success(TestCode.DDS_1001));
+                RES_DDS_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_DDS_1001.setValue(NetUIResponse.success(TestCode.DDS_1001));
             }
 
             @Override
@@ -68,8 +68,8 @@ public class DDSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_DDS_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_DDS_1002.setValue(NetUIResponse.success(TestCode.DDS_1002));
+                RES_DDS_1002.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_DDS_1002.setValue(NetUIResponse.success(TestCode.DDS_1002));
             }
 
             @Override
@@ -91,8 +91,8 @@ public class DDSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_DDS_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_DDS_1003.setValue(NetUIResponse.success(TestCode.DDS_1003));
+                RES_DDS_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_DDS_1003.setValue(NetUIResponse.success(TestCode.DDS_1003));
             }
 
             @Override
@@ -114,8 +114,8 @@ public class DDSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_DDS_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_DDS_1004.setValue(NetUIResponse.success(TestCode.DDS_1004));
+                RES_DDS_1004.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_DDS_1004.setValue(NetUIResponse.success(TestCode.DDS_1004));
             }
 
             @Override
@@ -137,8 +137,8 @@ public class DDSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_DDS_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_DDS_1005.setValue(NetUIResponse.success(TestCode.DDS_1005));
+                RES_DDS_1005.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_DDS_1005.setValue(NetUIResponse.success(TestCode.DDS_1005));
             }
 
             @Override
@@ -160,8 +160,8 @@ public class DDSRepo {
 
             @Override
             public void onFail(NetResult e) {
-//                RES_DDS_1006.setValue(NetUIResponse.error(e.getMseeage(), null));
-                RES_DDS_1006.setValue(NetUIResponse.success(TestCode.DDS_1006));
+                RES_DDS_1006.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_DDS_1006.setValue(NetUIResponse.success(TestCode.DDS_1006));
             }
 
             @Override
