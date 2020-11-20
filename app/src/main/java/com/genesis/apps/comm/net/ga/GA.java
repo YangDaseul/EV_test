@@ -40,7 +40,7 @@ public class GA {
     @Inject
     public GA(HttpRequestUtil httpRequestUtil, LoginInfoDTO loginInfoDTO) {
         this.httpRequestUtil = httpRequestUtil;
-        this.loginInfoDTO = loginInfoDTO;
+        this.loginInfoDTO = loginInfoDTO.loadLoginInfo();
     }
 
     public String getCsrf(){

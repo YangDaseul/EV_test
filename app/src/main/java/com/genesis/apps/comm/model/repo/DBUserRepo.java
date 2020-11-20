@@ -20,6 +20,7 @@ public class DBUserRepo {
     public boolean setUserVO(UserVO data){
         boolean isUpdate = false;
         try{
+            databaseHolder.getDatabase().userDao().deleteAll();
             databaseHolder.getDatabase().userDao().insert(data);
             isUpdate=true;
         }catch (Exception e){
