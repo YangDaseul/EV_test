@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.main.service.ServiceRelapseReqResultActivity" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/x_ffffff"
+        android:orientation="vertical">
+
+        <!-- 타이틀바-->
+        <include
+            android:id="@+id/l_service_drive_req_result_titlebar"
+            layout="@layout/layout_titlebar"
+            app:value="@{@string/relapse_req_result_title}" />
+
+        <!--  전범위 스크롤 -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- 타이틀바 빼고 전체 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- 접수일 / 상태 -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+                    android:padding="10dp">
+
+                    <!-- 가운데 막대 -->
+                    <ImageView
+                        android:id="@+id/iv_top_center_line"
+                        android:layout_width="1dp"
+                        android:layout_height="0dp"
+                        android:src="@color/x_e2e2e2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <!-- "접수일" -->
+                    <TextView
+                        android:id="@+id/tv_relapse_req_result_date_title"
+                        style="@style/RelapseReqResultTopTitle"
+                        android:text="@string/relapse_req_result_req_date"
+                        app:layout_constraintEnd_toStartOf="@id/iv_top_center_line"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/iv_top_center_line" />
+
+                    <!-- "상태" -->
+                    <TextView
+                        style="@style/RelapseReqResultTopTitle"
+                        android:text="@string/relapse_req_result_status"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/iv_top_center_line"
+                        app:layout_constraintTop_toTopOf="@id/iv_top_center_line" />
+
+                    <!-- 접수일 데이터 -->
+                    <TextView
+                        android:id="@+id/tv_relapse_req_result_date_data"
+                        style="@style/TextBasic"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:textColor="@color/x_000000"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_top_center_line"
+                        app:layout_constraintEnd_toStartOf="@id/iv_top_center_line"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_relapse_req_result_date_title"
+                        tools:text="2020.13.32" />
+
+                    <!-- 상태 데이터 -->
+                    <TextView
+                        android:id="@+id/tv_relapse_req_result_status_data"
+                        style="@style/TextBasic"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:text="@{activity.status}"
+                        android:textColor="@color/x_cd9a81"
+                        android:textSize="16sp"
+                        app:layout_constraintBaseline_toBaselineOf="@id/tv_relapse_req_result_date_data"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/iv_top_center_line"
+                        tools:text="접수중" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- 소유자 -->
+                <TextView
+                    style="@style/RelapseReqResultSubTitle"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/relapse_req_result_owner" />
+
+                <!-- "고객명" -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Title"
+                    android:text="@string/relapse_req_result_customer_name" />
+
+                <!-- 고객명 값 -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Desc"
+                    android:text="@{activity.vocInfoVO.getCsmrNm()}"
+                    tools:text="울랄라맨" />
+
+                <!-- "주소" -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Title"
+                    android:text="@string/relapse_req_result_customer_address" />
+
+                <!-- 주소 값 -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Desc"
+                    android:text="@{activity.address}"
+                    tools:text="(05485) 서울특별시 금천구 가산동 440-4\n우림 라이온스밸리 A동 1205호" />
+
+                <!-- "연락처" -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Title"
+                    android:text="@string/relapse_req_result_customer_phone" />
+
+                <!-- 연락처 값 -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Desc"
+                    android:text="@{activity.phoneNo}"
+                    tools:text="010-12312-231" />
+
+                <!-- "생년월일" -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Title"
+                    android:text="@string/relapse_req_result_customer_birthday" />
+
+                <!-- 생년월일 값 -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Desc"
+                    android:text="@{activity.vocInfoVO.getCsmrTymd()}"
+                    tools:text="1899.01.01" />
+
+                <!-- "전자우편주소" -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Title"
+                    android:text="@string/relapse_req_result_customer_email" />
+
+                <!-- 전자우편주소 값 -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Desc"
+                    android:text="@{activity.vocInfoVO.getEmlAdr()}"
+                    tools:text="genesis@nemesis.com" />
+
+
+                <!-- 소유자/대상 자동차 사이 회색 줄-->
+                <ImageView
+                    style="@style/DummyGrayLineHorizontal" />
+
+
+                <!-- 대상 자동차 -->
+                <TextView
+                    style="@style/RelapseReqResultSubTitle"
+                    android:text="@string/relapse_req_result_car_title" />
+
+                <!-- "차명" -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Title"
+                    android:text="@string/relapse_req_result_car_name" />
+
+                <!-- 차명 값 -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Desc"
+                    android:text="@{activity.vocInfoVO.getCsmrNm()}"
+                    tools:text="울랄라맨" />
+
+
+
+
+
+            </LinearLayout><!-- 타이틀바 빼고 전체 -->
+
+
+        </ScrollView>
+
+    </LinearLayout>
+</layout>

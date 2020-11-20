@@ -276,4 +276,47 @@
     </style>
 
 
+    <!-- 하자재발 현황 조회 상단 "접수일" "상태" -->
+    <style name="RelapseReqResultTopTitle" parent="TextBasic">
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <!-- 하자재발 현황조회 구간별 제목  -->
+    <style name="RelapseReqResultSubTitle" parent="TextBasic">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">40dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:background">@drawable/bg_00000000_underline_000000</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!-- 하자재발 현황조회 항목 공통  -->
+    <style name="RelapseReqResultItem" parent="TextBasic">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:textColor">@color/x_000000</item>
+    </style>
+
+    <!-- 하자재발 현황조회 항목 제목  -->
+    <style name="RelapseReqResultItem.Title" parent="RelapseReqResultItem">
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+    </style>
+
+    <!-- 하자재발 현황조회 항목 값 -->
+    <style name="RelapseReqResultItem.Desc" parent="RelapseReqResultItem">
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:textSize">15sp</item>
+
+    </style>
+
 </resources>
