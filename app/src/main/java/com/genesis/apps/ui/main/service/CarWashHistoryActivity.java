@@ -1,7 +1,6 @@
 package com.genesis.apps.ui.main.service;
 
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,12 +10,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.api.gra.WSH_1004;
 import com.genesis.apps.comm.model.api.gra.WSH_1005;
 import com.genesis.apps.comm.model.api.gra.WSH_1006;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.WashReserveVO;
 import com.genesis.apps.comm.util.PhoneUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -96,12 +95,6 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
                         this,
                         () -> viewModel.reqWSH1006(new WSH_1006.Request(APPIAInfo.SM_CW01_P01.getId(), rsvtSeqNo, brnhCd)));
 
-                break;
-
-            //TODO : 평가하기 임시 진입점 우선 여기다 붙임.
-            //이용 완료
-            case R.id.tv_car_wash_history_service_end:
-                startActivitySingleTop(new Intent(this, ServiceReviewActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
 
             default:
