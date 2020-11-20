@@ -125,9 +125,9 @@ public enum APIInfo {
     GRA_REQ_1014("service + 정비 이력", "REQ-1014", HttpRequest.METHOD_POST, "/graapi/req/rparHist.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_REQ_1015("service + 예약 취소", "REQ-1015", HttpRequest.METHOD_POST, "/graapi/req/reservCancel.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
-    GRA_PUB_1001("Home + 우편번호 조회", "PUB-1001", HttpRequest.METHOD_POST, "/graapi/pub/epost.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_PUB_1002("Home + 시도조회", "PUB-1002", HttpRequest.METHOD_POST, "/graapi/pub/sido.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_PUB_1003("Home + 구군조회", "PUB-1003", HttpRequest.METHOD_POST, "/graapi/pub/gugun.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_PUB_1001("Home + 우편번호 조회", "PUB-1001", HttpRequest.METHOD_POST, "/graapi/nl/pub/epost.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_PUB_1002("Home + 시도조회", "PUB-1002", HttpRequest.METHOD_POST, "/graapi/nl/pub/sido.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_PUB_1003("Home + 구군조회", "PUB-1003", HttpRequest.METHOD_POST, "/graapi/nl/pub/gugun.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
 
     GRA_STO_1001("Genesis + 유사재고차량", "STO-1001", HttpRequest.METHOD_POST, "/graapi/sto/smlrStckVhcl.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
@@ -158,7 +158,7 @@ public enum APIInfo {
 
 
     GRA_WSH_1001("service + 소낙스 세차이용권 조회", "WSH-1001", HttpRequest.METHOD_POST, "/graapi/nl/wsh/godsInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_WSH_1002("service + 소낙스 세차이용권 선택(지점찾기)", "WSH-1002", HttpRequest.METHOD_POST, "/graapi/wsh/brnhInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_WSH_1002("service + 소낙스 세차이용권 선택(지점찾기)", "WSH-1002", HttpRequest.METHOD_POST, "/graapi/nl/wsh/brnhInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_WSH_1003("service + 소낙스 세차예약", "WSH-1003", HttpRequest.METHOD_POST, "/graapi/wsh/makeRsvt.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_WSH_1004("service + 소낙스 세차예약 내역", "WSH-1004", HttpRequest.METHOD_POST, "/graapi/wsh/rsvtInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_WSH_1005("service + 소낙스 직원에게 확인받기", "WSH-1005", HttpRequest.METHOD_POST, "/graapi/wsh/getCfrmByStaff.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
