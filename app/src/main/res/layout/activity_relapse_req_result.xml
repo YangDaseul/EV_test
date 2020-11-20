@@ -179,11 +179,77 @@
                     style="@style/RelapseReqResultItem.Title"
                     android:text="@string/relapse_req_result_car_name" />
 
-                <!-- 차명 값 -->
+                <!-- 차명 값 TODO 이건 도대체 뭘 조립하면 나오는 값인가.... -->
                 <TextView
                     style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{activity.vocInfoVO.getCsmrNm()}"
-                    tools:text="울랄라맨" />
+                    android:text="@{activity.vocInfoVO.get()}"
+                    tools:text="G90 자가용 가솔린 3.3 뤆쎠뤼 오토" />
+
+                <!-- "등록번호" -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Title"
+                    android:text="@string/relapse_req_result_car_reg_no" />
+
+                <!-- 등록번호 값  -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Desc"
+                    android:text="@{activity.vocInfoVO.getCarNo()}"
+                    tools:text="123가 1234" />
+
+                <!-- "차대번호" -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Title"
+                    android:text="@string/relapse_req_result_car_vin" />
+
+                <!-- 차대번호 값  -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Desc"
+                    android:text="@{activity.vocInfoVO.getVin()}"
+                    tools:text="15487ABD45782" />
+
+                <!-- "운행지역" -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Title"
+                    android:text="@string/relapse_req_result_car_location" />
+
+                <!-- 운행지역 값  -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Desc"
+                    android:text="@{activity.vocInfoVO.get()}"
+                    tools:text="경기도 분당시" />
+
+                <!-- "인도날짜" -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Title"
+                    android:text="@string/relapse_req_result_car_receive_date" />
+
+                <!-- 인도날짜 값  -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Desc"
+                    android:text="@{activity.vocInfoVO.get()}"
+                    tools:text="2022.13.32" />
+
+                <!-- "등록연월일" -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Title"
+                    android:text="@string/relapse_req_result_car_reg_date" />
+
+                <!-- 등록연월일 값  -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Desc"
+                    android:text="@{activity.vocInfoVO.get()}"
+                    tools:text="2023.01.34" />
+
+                <!-- "주행거리" -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Title"
+                    android:text="@string/relapse_req_result_car_distance" />
+
+                <!-- 주행거리 값  -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Desc"
+                    android:text="@{activity.vocInfoVO.get()}"
+                    tools:text="93,999 km" />
 
 
 

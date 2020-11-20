@@ -22,6 +22,15 @@ public class ServiceRelapseReqResultActivity extends SubActivity<ActivityRelapse
     public String status;
     public String address;
     public String phoneNo;
+    public String birthday;
+    public String carReceiveDate;
+    public String carRegistDate;
+    public String repairReqDate1;
+    public String repairFinishDate1;
+    public String repairReqDate2;
+    public String repairFinishDate2;
+    public String repairReqDate3;
+    public String repairFinishDate3;
 
 
     @Override

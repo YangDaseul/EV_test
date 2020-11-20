@@ -69,7 +69,7 @@
     <string name="relapse_req_result_car_title">대상자동차</string>
     <string name="relapse_req_result_car_name">차명</string>
     <string name="relapse_req_result_car_reg_no">등록번호</string>
-    <string name="relapse_req_result_vin">차대번호</string>
+    <string name="relapse_req_result_car_vin">차대번호</string>
     <string name="relapse_req_result_car_location">운행지역</string>
     <string name="relapse_req_result_car_receive_date">인도날짜</string>
     <string name="relapse_req_result_car_reg_date">등록연월일</string>
