@@ -194,15 +194,15 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
      */
     private void reqServiceInfoToServer() {
         VehicleVO mainVehicle=null;
+        String custGbCd="";
         try{
             mainVehicle = reqViewModel.getMainVehicle();
+            custGbCd=lgnViewModel.getUserInfoFromDB().getCustGbCd();
         }catch (Exception e){
             mainVehicle = null;
         }finally{
-            if(mainVehicle!=null){
+            if(mainVehicle!=null&&!TextUtils.isEmpty(custGbCd)&&custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)){
                 reqViewModel.reqREQ1001(new REQ_1001.Request(APPIAInfo.SM01.getId(), mainVehicle.getVin()));
-            }else{
-
             }
         }
     }
@@ -216,9 +216,14 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
     public void onClickCommon(View v) {
         int id = v.getId();
         Log.d(TAG, "onClickCommon: view id :" + id);
+        try {
+            if (!((FragmentService) getParentFragment()).checkCustGbCd(id, lgnViewModel.getUserInfoFromDB().getCustGbCd()))
+                return;
+        } catch (Exception e) {
 
-        if(!checkCustGbCd(id))
-            return;
+        }
+//        if(!checkCustGbCd(id))
+//            return;
 
         switch (id) {
             //서비스 네트워크 찾기
@@ -276,52 +281,5 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
                 //do nothing
                 break;
         }
-    }
-
-    private boolean checkCustGbCd(int viewId){
-        boolean isAllow=true;
-
-        try {
-            switch (viewId) {
-                case R.id.l_service_maintenance_reservation_btn://정비예약
-                case R.id.l_service_maintenance_history_btn: //정비 현황/예약 내역
-                case R.id.l_service_maintenance_emergency_btn: //긴급출동
-                case R.id.l_service_maintenance_customercenter_btn://원격진단 신청
-                case R.id.l_service_maintenance_defect_btn: //하자재발통보
-                    String custGbCd=lgnViewModel.getUserInfoFromDB().getCustGbCd();
-                    switch (custGbCd) {
-                        //소유차량인 경우 기존 메뉴 정상 이용
-                        case VariableType.MAIN_VEHICLE_TYPE_OV:
-                            isAllow=true;
-                            break;
-                        case VariableType.MAIN_VEHICLE_TYPE_CV:
-                        case VariableType.MAIN_VEHICLE_TYPE_NV:
-                            //계약 혹은 차량 미 보유 고객인 경우 스낵바 알림 메시지 노출
-                            isAllow=false;
-                            SnackBarUtil.show(getActivity(), getString(R.string.sm01_snack_bar));
-                            break;
-                        case VariableType.MAIN_VEHICLE_TYPE_0000:
-                        default:
-                            //미로그인 고객인 경우 로그인 유도
-                            isAllow=false;
-
-                            MiddleDialog.dialogLogin(getActivity(), () -> {
-                                ((SubActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                            }, () -> {
-
-                            });
-                            break;
-                    }
-                    break;
-                default:
-                    //그 외 버튼
-                    isAllow=true;
-                    break;
-            }
-        }catch (Exception ignore){
-
-        }
-
-        return isAllow;
     }
 }

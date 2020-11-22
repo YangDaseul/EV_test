@@ -21,10 +21,13 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.RepairReserveVO;
 import com.genesis.apps.comm.model.vo.RepairTypeVO;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.databinding.FragmentServiceBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
+import com.genesis.apps.ui.myg.MyGEntranceActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 
@@ -183,6 +186,55 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+
+    public boolean checkCustGbCd(int viewId, String custGbCd){
+        boolean isAllow=true;
+
+        try {
+            switch (viewId) {
+                case R.id.l_service_maintenance_reservation_btn://정비예약
+                case R.id.l_service_maintenance_history_btn: //정비 현황/예약 내역
+                case R.id.l_service_maintenance_emergency_btn: //긴급출동
+                case R.id.l_service_maintenance_customercenter_btn://원격진단 신청
+                case R.id.l_service_maintenance_defect_btn: //하자재발통보
+                case R.id.l_service_car_wash_history_btn: //세차 서비스 예약내역 버튼
+                case R.id.tv_service_drive_req_btn: //대리운전 신청 버튼
+                    switch (custGbCd) {
+                        //소유차량인 경우 기존 메뉴 정상 이용
+                        case VariableType.MAIN_VEHICLE_TYPE_OV:
+                            isAllow=true;
+                            break;
+                        case VariableType.MAIN_VEHICLE_TYPE_CV:
+                        case VariableType.MAIN_VEHICLE_TYPE_NV:
+                            //계약 혹은 차량 미 보유 고객인 경우 스낵바 알림 메시지 노출
+                            isAllow=false;
+                            SnackBarUtil.show(getActivity(), getString(R.string.sm01_snack_bar));
+                            break;
+                        case VariableType.MAIN_VEHICLE_TYPE_0000:
+                        default:
+                            //미로그인 고객인 경우 로그인 유도
+                            isAllow=false;
+
+                            MiddleDialog.dialogLogin(getActivity(), () -> {
+                                ((SubActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                            }, () -> {
+
+                            });
+                            break;
+                    }
+                    break;
+                default:
+                    //그 외 버튼
+                    isAllow=true;
+                    break;
+            }
+        }catch (Exception ignore){
+
+        }
+
+        return isAllow;
     }
 
 
