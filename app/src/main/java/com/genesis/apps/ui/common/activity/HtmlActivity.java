@@ -1,24 +1,30 @@
 package com.genesis.apps.ui.common.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewStub;
 import android.webkit.WebView;
 
-import androidx.fragment.app.FragmentTransaction;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.hybrid.core.WebViewFragment;
 import com.genesis.apps.comm.model.vo.TermVO;
+import com.genesis.apps.comm.util.FileUtil;
+import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.databinding.ActivityHtmlBinding;
-import com.genesis.apps.databinding.ActivityTermBinding;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+
+import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+
+import androidx.fragment.app.FragmentTransaction;
 
 public class HtmlActivity extends SubActivity<ActivityHtmlBinding>  {
     @Override
@@ -114,6 +120,80 @@ public class HtmlActivity extends SubActivity<ActivityHtmlBinding>  {
         ViewStub stub = findViewById(R.id.vs_contents);
         stub.setLayoutResource(layout);
         stub.inflate();
+    }
+
+
+    public void loadTermVo(TermVO termVO) {
+        showProgressDialog(true);
+        ExecutorService es = new ExecutorService("");
+        Futures.addCallback(es.getListeningExecutorService().submit(() -> {
+
+            boolean isSuccess = false;
+            String termCont="";
+            try {
+                if (!TextUtils.isEmpty(termVO.getTermCont())&&!TextUtils.isEmpty(termVO.getTermCd())) {
+                    termCont = unescapeHtml(termVO.getTermCont());
+                    isSuccess = saveTermInfo(this, termVO.getTermCd(), termCont);
+                }
+            } catch (Exception e1) {
+                e1.printStackTrace();
+                isSuccess = false;
+            }
+            return isSuccess;
+        }), new FutureCallback<Boolean>() {
+            @Override
+            public void onSuccess(@NullableDecl Boolean isSuccess) {
+                if(isSuccess) loadTermsUrl("file://"+loadTermPath(HtmlActivity.this, termVO.getTermCd()));
+                showProgressDialog(false);
+                es.shutDownExcutor();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                showProgressDialog(false);
+                es.shutDownExcutor();
+            }
+        }, es.getUiThreadExecutor());
+    }
+
+
+    /**
+     * @brief 이용약관/개인정보 처리방침 등을 파일에서 로드
+     * @param context
+     * @param code 불러온 파일명 (코드)
+     * @return 이용약관/개인정보 처리방침
+     */
+    public String loadTermInfo(Context context, String code) {
+        return FileUtil.ReadFileString(context.getFilesDir() + "/terms/term_"+code+".html");
+    }
+
+    public String loadTermPath(Context context, String code) {
+        return context.getFilesDir() + "/terms/term_"+code+".html";
+    }
+
+
+    /**
+     * @brief 이용약관/개인정보 처리방침 등을 파일에 저장
+     * @param context
+     * @param code 저장할 파일명 (코드)
+     * @param msg 저장할 내용
+     */
+    public boolean saveTermInfo(Context context, String code, String msg) {
+        return FileUtil.WriteFile(context.getFilesDir() + "/terms/term_"+code+".html", msg.getBytes());
+    }
+
+    /**
+     * 더블쿼테이션 표기 방법 변경
+     * @param str 치환 대상이되는 문자열
+     * @return
+     */
+    public String unescapeHtml(String str) {
+        if(TextUtils.isEmpty(str)) return "";
+        return str.replaceAll("&quot;", "\"");
+        /*.addEscape('\'', "&#39;")
+        .addEscape('&', "&amp;")
+        .addEscape('<', "&lt;")
+        .addEscape('>', "&gt;")*/
     }
 
 

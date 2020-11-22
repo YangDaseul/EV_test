@@ -16,6 +16,7 @@ import com.genesis.apps.databinding.DialogServiceCantReserveInfoBinding;
 import com.genesis.apps.databinding.DialogServiceRemoteInfoBinding;
 import com.genesis.apps.databinding.DialogUpdateBinding;
 import com.genesis.apps.databinding.DialogUsedCarInfoBinding;
+import com.genesis.apps.ui.main.ServiceMembershipJoinFragment;
 import com.genesis.apps.ui.main.service.FragmentMaintenance;
 
 import androidx.annotation.NonNull;
@@ -792,6 +793,23 @@ public class MiddleDialog {
                         ok,
                         R.string.sm01_p02_1,
                         R.string.sm01_p02_2,
+                        R.string.dialog_common_4
+                ).show()
+        );
+    }
+
+    /**
+     * @brief 서비스 가입 성공 팝업
+     */
+    public static void dialogJoin(@NonNull Activity activity, final Runnable ok) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getOneButtonDialog(activity,
+                        ok,
+                        R.string.pop01_8,
+                        R.string.pop01_9,
                         R.string.dialog_common_4
                 ).show()
         );

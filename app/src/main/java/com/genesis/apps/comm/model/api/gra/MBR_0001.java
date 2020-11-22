@@ -89,7 +89,7 @@ public class MBR_0001 extends BaseData {
         private List<VehicleVO> ctrctVhclList;
         @Expose
         @SerializedName("dftVhclInfo")
-        private List<VehicleVO> dftVhclInfo;
+        private VehicleVO dftVhclInfo;
     }
 
 }

@@ -12,34 +12,35 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
-import androidx.core.content.ContextCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.CMN_0003;
+import com.genesis.apps.comm.model.api.gra.CMN_0004;
+import com.genesis.apps.comm.model.api.gra.MBR_0001;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.CMN_0003;
-import com.genesis.apps.comm.model.api.gra.MBR_0001;
 import com.genesis.apps.comm.model.vo.AgreeMeansVO;
 import com.genesis.apps.comm.model.vo.AgreeTermVO;
 import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.InteractionUtil;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.databinding.ActivityServiceJoinBinding;
 import com.genesis.apps.databinding.ItemTermBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.view.TermView;
-import com.genesis.apps.ui.myg.MyGOilTermDetailActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0005;
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_MYP0004;
@@ -97,7 +98,7 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
                             InteractionUtil.expand(ui.lAdInfo, null);
                         }
                     }else{
-                        startActivitySingleTop(new Intent(this, ServiceTermDetailActivity.class).putExtra(MyGOilTermDetailActivity.TERMS_CODE,termVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        cmnViewModel.reqCMN0004(new CMN_0004.Request(APPIAInfo.INT04.getId(),termVO.getTermVer(),termVO.getTermCd()));
                     }
 
                 }catch (Exception e){
@@ -141,11 +142,46 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
                     break;
             }
         });
+
+
+        cmnViewModel.getRES_CMN_0004().observe(this, result -> {
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    if (result.data != null&&result.data.getTermVO()!=null) {
+                        startActivitySingleTop(new Intent(this, ServiceTermDetailActivity.class).putExtra(VariableType.KEY_NAME_TERM_VO, result.data.getTermVO()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        showProgressDialog(false);
+                        break;
+                    }
+                default:
+                    showProgressDialog(false);
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
+                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                    }
+                    break;
+            }
+
+        });
     }
 
     @Override
     public void getDataFromIntent() {
+        try{
+            tokenCode = getIntent().getStringExtra(VariableType.KEY_NAME_LOGIN_TOKEN_CODE);
+            authUuid = getIntent().getStringExtra(VariableType.KEY_NAME_LOGIN_AUTH_UUID);
+        }catch (Exception e){
 
+        }
     }
 
     private void checkAgree() {
@@ -171,7 +207,7 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
         for(int i=0; i<checkBoxs.size(); i++){
             AgreeMeansVO agreeMeansVO = null;
             if(checkBoxs.get(i).getTermVO().getTermCd().equalsIgnoreCase(TERM_SERVICE_JOIN_GRA0005)){
-                agreeMeansVO = new AgreeMeansVO((ui.cbSms.isChecked() ? "Y" : "N"), (ui.cbEmail.isChecked() ? "Y" : "N"),"",(ui.cbPhone.isChecked() ? "Y" : "N"));
+                agreeMeansVO = new AgreeMeansVO((ui.cbSms.isChecked() ? "Y" : "N"), (ui.cbEmail.isChecked() ? "Y" : "N"),null,(ui.cbPhone.isChecked() ? "Y" : "N"),null,null);
             }
             terms.add(new AgreeTermVO(checkBoxs.get(i).getTermVO().getTermCd(), (checkBoxs.get(i).getCheckBox().isChecked() ? "Y" : "N"),checkBoxs.get(i).getTermVO().getTermNm(),agreeDate,agreeMeansVO));
         }
@@ -181,7 +217,7 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
         for(int i=0; i<oriMyGTerms.size(); i++){
             AgreeMeansVO agreeMeansVO = null;
             if(oriMyGTerms.get(i).getTermCd().equalsIgnoreCase(TERM_SERVICE_JOIN_MYP0004)){
-                agreeMeansVO = new AgreeMeansVO((ui.cbSms.isChecked() ? "Y" : "N"), (ui.cbEmail.isChecked() ? "Y" : "N"),"",(ui.cbPhone.isChecked() ? "Y" : "N"));
+                agreeMeansVO = new AgreeMeansVO((ui.cbSms.isChecked() ? "Y" : "N"), (ui.cbEmail.isChecked() ? "Y" : "N"),null,(ui.cbPhone.isChecked() ? "Y" : "N"),null,(ui.cbSms.isChecked() ? "Y" : "N"));
             }
             mypgTerms.add(new AgreeTermVO(oriMyGTerms.get(i).getTermCd(),"Y", oriMyGTerms.get(i).getTermNm(), agreeDate, agreeMeansVO));
         }
