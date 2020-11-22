@@ -162,7 +162,7 @@ public class LoginActivity extends WebviewActivity {
             return true;
         }else if (!currentUrl.startsWith(GA_URL) && !currentUrl.startsWith(CCSP_URL)) {
             //if(currentUrl.startsWith("https://nice.checkplus.co.kr")) {
-            ccsp.clearLoginInfo();
+            ga.clearLoginInfo();
             fragment.loadUrl(url);
             setClearHistory(true);
             return true;
