@@ -114,7 +114,6 @@ public class TestCode {
             "  \"rtMsg\": \"성공\"\n" +
             "}", VOC_1002.Response.class);
 
-    //맨 앞에 것만 '현황조회'까지 테스트할 수 있도록 전체 데이터 넣었고 나머지는 내역목록에 보이는 만큼만 데이터 갖고있음
     public static VOC_1003.Response VOC_1003 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
             "  \"rtMsg\": \"성공\",\n" +
@@ -1115,14 +1114,7 @@ public class TestCode {
             "      \"ctrctNo\": \"21234\"\n" +
             "    }\n" +
             "  ],\n" +
-            "  \"dftVhclInfo\": [\n" +
-            "    {\n" +
-            "      \"mdlCd\": \"GV80\",\n" +
-            "      \"mdlNm\": \"디젤 3.0 5인승 19인치\",\n" +
-            "      \"saleMdlNm\": \"GV80 디젤 3.0 5인승 19인치 기본디자인 2WD 오토\",\n" +
-            "      \"xrclCtyNo\": \"12345678\",\n" +
-            "      \"vhclImgUri\": \"\"\n" +
-            "    },\n" +
+            "  \"dftVhclInfo\": \n" +
             "    {\n" +
             "      \"mdlCd\": \"GV90\",\n" +
             "      \"mdlNm\": \"디젤 3.0 5인승 19인치\",\n" +
@@ -1130,7 +1122,6 @@ public class TestCode {
             "      \"xrclCtyNo\": \"99999999\",\n" +
             "      \"vhclImgUri\": \"\"\n" +
             "    }\n" +
-            "  ]\n" +
             "}",MBR_0001.Response.class);
 
 
@@ -1195,14 +1186,7 @@ public class TestCode {
             "      \"ctrctNo\": \"21234\"\n" +
             "    }\n" +
             "  ],\n" +
-            "  \"dftVhclInfo\": [\n" +
-            "    {\n" +
-            "      \"mdlCd\": \"GV80\",\n" +
-            "      \"mdlNm\": \"디젤 3.0 5인승 19인치\",\n" +
-            "      \"saleMdlNm\": \"GV80 디젤 3.0 5인승 19인치 기본디자인 2WD 오토\",\n" +
-            "      \"xrclCtyNo\": \"12345678\",\n" +
-            "      \"vhclImgUri\": \"\"\n" +
-            "    },\n" +
+            "  \"dftVhclInfo\":\n"+
             "    {\n" +
             "      \"mdlCd\": \"GV90\",\n" +
             "      \"mdlNm\": \"디젤 3.0 5인승 19인치\",\n" +
@@ -1210,7 +1194,7 @@ public class TestCode {
             "      \"xrclCtyNo\": \"99999999\",\n" +
             "      \"vhclImgUri\": \"\"\n" +
             "    }\n" +
-            "  ]\n" +
+
             "}", LGN_0001.Response.class);
 
     public static LGN_0003.Response LGN_0003 = new Gson().fromJson("{\n" +
