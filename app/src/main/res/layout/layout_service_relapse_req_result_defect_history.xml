@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.genesis.apps.ui.main.service.ServiceRelapseReqResultActivity.DefectHistoryData" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_f9f9f9_stroke_e2e2e2"
+        android:orientation="vertical">
+
+        <!-- n"회차 수리내역" -->
+        <TextView
+            style="@style/TextBasic"
+            android:layout_width="match_parent"
+            android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:paddingStart="15dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:text="@{data.title}"
+            android:textColor="@color/x_000000"
+            android:textSize="16sp"
+            tools:text="n회차 수리내역" />
+
+        <!-- "수리업자명" -->
+        <TextView
+            style="@style/RelapseReqResultItem.Title"
+            android:text="@string/relapse_3_repair_mechanic" />
+
+        <!-- 수리업자명 값-->
+        <TextView
+            style="@style/RelapseReqResultItem.Desc"
+            android:text="@{data.mechanic}"
+            tools:text="울랄라자동차" />
+
+        <!-- "수리 요청일" -->
+        <TextView
+            style="@style/RelapseReqResultItem.Title"
+            android:text="@string/relapse_3_repair_req_date" />
+
+        <!-- 수리 요청일 값-->
+        <TextView
+            style="@style/RelapseReqResultItem.Desc"
+            android:text="@{data.repairReqDate}"
+            tools:text="2020.10.10" />
+
+        <!-- "수리 완료일" -->
+        <TextView
+            style="@style/RelapseReqResultItem.Title"
+            android:text="@string/relapse_3_repair_finish_date" />
+
+        <!-- 수리 완료일 값-->
+        <TextView
+            style="@style/RelapseReqResultItem.Desc"
+            android:text="@{data.repairFinishDate}"
+            tools:text="2020.13.10." />
+
+        <!-- "하자 증상" -->
+        <TextView
+            style="@style/RelapseReqResultItem.Title"
+            android:text="@string/relapse_3_repair_defect" />
+
+        <!-- 하자 증상 값-->
+        <TextView
+            style="@style/RelapseReqResultItem.Desc"
+            android:text="@{data.defectDetail}"
+            tools:text="범퍼 납작해짐" />
+
+        <!-- "수리 내용" -->
+        <TextView
+            style="@style/RelapseReqResultItem.Title"
+            android:text="@string/relapse_3_repair_detail" />
+
+        <!-- 수리 내용 값-->
+        <TextView
+            style="@style/RelapseReqResultItem.Desc"
+            android:layout_marginBottom="20dp"
+            android:text="@{data.repairDetail}"
+            tools:text="범퍼 방어력 복원" />
+
+    </LinearLayout>
+</layout>

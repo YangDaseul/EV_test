@@ -76,6 +76,8 @@
     <string name="relapse_req_result_car_distance">주행거리</string>
     <string name="relapse_req_result_relapse_title">동일한 하자 수리내역</string>
     <string name="relapse_req_result_relapse_kind">하자 구분</string>
+    <string name="relapse_req_result_defect_high">중대한 하자</string>
+    <string name="relapse_req_result_defect_low">일반 하자</string>
     <string name="relapse_req_result_repair_detail_title">회차 수리내역</string>
     <string name="relapse_req_result_repair_count_title">수리내역 횟수 및 기간</string>
     <string name="relapse_req_result_try">수리 시도 횟수</string>

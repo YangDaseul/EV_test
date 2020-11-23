@@ -61,18 +61,28 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
     @Override
     public void onClickCommon(View v) {
         Log.d(TAG, "onClickCommon: ");
-
+        Intent intent;
         switch (v.getId()) {
             //신청 내역 목록에서 [접수중] 상태인 아이템
             case R.id.l_relapse_history_item:
+                intent = new Intent(this, ServiceRelapseReqResultActivity.class)
+                        .putExtra(KeyNames.KEY_NAME_SERVICE_VOC_INFO_VO, (VOCInfoVO) v.getTag(R.id.tag_relapse_history));
 
-                //todo impl
-
+                startActivitySingleTop(
+                        intent,
+                        RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                        VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
 
             //신청 버튼
             case R.id.tv_relapse_history_req_btn:
-                startActivitySingleTop(new Intent(this, ServiceRelapseApply1Activity.class).putExtra(KeyNames.KEY_NAME_ADDR, addressVO), RequestCodes.REQ_CODE_RELAPSE_REQ.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                intent = new Intent(this, ServiceRelapseApply1Activity.class)
+                        .putExtra(KeyNames.KEY_NAME_ADDR, addressVO);
+
+                startActivitySingleTop(
+                        intent,
+                        RequestCodes.REQ_CODE_RELAPSE_REQ.getCode(),
+                        VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
 
             default:

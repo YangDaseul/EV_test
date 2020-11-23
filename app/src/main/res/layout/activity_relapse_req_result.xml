@@ -165,8 +165,7 @@
 
 
                 <!-- 소유자/대상 자동차 사이 회색 줄-->
-                <ImageView
-                    style="@style/DummyGrayLineHorizontal" />
+                <ImageView style="@style/DummyGrayLineHorizontal" />
 
 
                 <!-- 대상 자동차 -->
@@ -179,10 +178,10 @@
                     style="@style/RelapseReqResultItem.Title"
                     android:text="@string/relapse_req_result_car_name" />
 
-                <!-- 차명 값 TODO 이건 도대체 뭘 조립하면 나오는 값인가.... -->
+                <!-- 차명 값 -->
                 <TextView
                     style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{activity.vocInfoVO.get()}"
+                    android:text="@{activity.carInfo}"
                     tools:text="G90 자가용 가솔린 3.3 뤆쎠뤼 오토" />
 
                 <!-- "등록번호" -->
@@ -215,7 +214,7 @@
                 <!-- 운행지역 값  -->
                 <TextView
                     style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{activity.vocInfoVO.get()}"
+                    android:text="@{activity.vocInfoVO.getWpa()}"
                     tools:text="경기도 분당시" />
 
                 <!-- "인도날짜" -->
@@ -226,7 +225,7 @@
                 <!-- 인도날짜 값  -->
                 <TextView
                     style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{activity.vocInfoVO.get()}"
+                    android:text="@{activity.carReceiveDate}"
                     tools:text="2022.13.32" />
 
                 <!-- "등록연월일" -->
@@ -237,7 +236,7 @@
                 <!-- 등록연월일 값  -->
                 <TextView
                     style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{activity.vocInfoVO.get()}"
+                    android:text="@{activity.carRegistDate}"
                     tools:text="2023.01.34" />
 
                 <!-- "주행거리" -->
@@ -248,12 +247,99 @@
                 <!-- 주행거리 값  -->
                 <TextView
                     style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{activity.vocInfoVO.get()}"
+                    android:text="@{activity.carDistance}"
                     tools:text="93,999 km" />
 
 
+                <!-- 대상 차/동일하자 사이 회색 줄-->
+                <ImageView style="@style/DummyGrayLineHorizontal" />
 
 
+                <!-- 동일한 하자 수리 내역 -->
+                <TextView
+                    style="@style/RelapseReqResultSubTitle"
+                    android:text="@string/relapse_req_result_relapse_title" />
+
+                <!-- "하자구분" -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Title"
+                    android:text="@string/relapse_req_result_relapse_kind" />
+
+                <!-- 하자 구분 값 -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Desc"
+                    android:text="@{activity.defectLevel}"
+                    tools:text="일반 보증 기간" />
+
+                <!-- 동일하자 /123회차 내역 사이 회색 줄-->
+                <ImageView style="@style/DummyGrayLineHorizontal" />
+
+                <!-- 1회차 수리 내역 -->
+                <include
+                    layout="@layout/layout_service_relapse_req_result_defect_history"
+                    android:layout_width="match_parent"
+                    android:visibility="@{activity.history[0].visibility}"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp" />
+
+                <!-- 2회차 수리 내역 -->
+                <include
+                    layout="@layout/layout_service_relapse_req_result_defect_history"
+                    android:layout_width="match_parent"
+                    android:visibility="@{activity.history[1].visibility}"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp" />
+
+                <!-- 3회차 수리 내역 -->
+                <include
+                    layout="@layout/layout_service_relapse_req_result_defect_history"
+                    android:layout_width="match_parent"
+                    android:visibility="@{activity.history[2].visibility}"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp" />
+
+
+                <!-- 123회차 /휫수,기간 사이 회색 줄-->
+                <ImageView style="@style/DummyGrayLineHorizontal" />
+
+
+                <!-- "수리내역 횟수 및 기간" -->
+                <TextView
+                    style="@style/RelapseReqResultSubTitle"
+                    android:text="@string/relapse_req_result_repair_count_title" />
+
+                <!-- "수리 시도 횟수" -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Title"
+                    android:text="@string/relapse_req_result_relapse_kind" />
+
+                <!-- 수리 시도 횟수 값 -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Desc"
+                    android:text="@{activity.tryCount}"
+                    tools:text="99회" />
+
+                <!-- "누적 수리 기간" -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Title"
+                    android:text="@string/relapse_3_repair_period" />
+
+                <!-- 누적 수리 기간 값 -->
+                <TextView
+                    style="@style/RelapseReqResultItem.Desc"
+                    android:text="@{activity.tryPeriod}"
+                    tools:text="99일" />
+
+                <TextView
+                    android:id="@+id/tv_relapse_req_result_ok_btn"
+                    android:text="@string/dialog_common_4"
+                    style="@style/BigBtn.Black"/>
 
             </LinearLayout><!-- 타이틀바 빼고 전체 -->
 

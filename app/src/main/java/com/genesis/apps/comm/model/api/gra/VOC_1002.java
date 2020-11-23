@@ -145,6 +145,9 @@ public class VOC_1002 extends BaseData {
         @SerializedName("wkCntFth")
         private String wkCntFth;
         @Expose
+        @SerializedName("wkCnt")
+        private String wkCnt;
+        @Expose
         @SerializedName("wkPeriod")
         private String wkPeriod;
         @Expose

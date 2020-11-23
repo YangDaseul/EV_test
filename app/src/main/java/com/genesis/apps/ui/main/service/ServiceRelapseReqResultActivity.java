@@ -8,11 +8,15 @@ import android.util.Log;
 import android.view.View;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.vo.VOCInfoVO;
+import com.genesis.apps.comm.util.DateUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ActivityRelapseReqResultBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class ServiceRelapseReqResultActivity extends SubActivity<ActivityRelapseReqResultBinding> {
@@ -23,14 +27,14 @@ public class ServiceRelapseReqResultActivity extends SubActivity<ActivityRelapse
     public String address;
     public String phoneNo;
     public String birthday;
+    public String carInfo;
     public String carReceiveDate;
     public String carRegistDate;
-    public String repairReqDate1;
-    public String repairFinishDate1;
-    public String repairReqDate2;
-    public String repairFinishDate2;
-    public String repairReqDate3;
-    public String repairFinishDate3;
+    public String carDistance;
+    public String defectLevel;
+    public String tryCount;
+    public String tryPeriod;
+    public DefectHistoryData[] history;
 
 
     @Override
@@ -40,8 +44,6 @@ public class ServiceRelapseReqResultActivity extends SubActivity<ActivityRelapse
 
         getDataFromIntent();//데이터 제대로 안 들어있으면 액티비티 종료처리까지 함
         extractData();
-
-        initView();//getDataFromIntent()가 성공해야 실행가능
 
         ui.setActivity(this);
     }
@@ -70,6 +72,71 @@ public class ServiceRelapseReqResultActivity extends SubActivity<ActivityRelapse
                 vocInfoVO.getFrtDgtTn(), "-",   //1234
                 vocInfoVO.getRealDgtTn(), "-"   //5678
         );
+
+        //생년월일
+        birthday = parseDate(vocInfoVO.getCsmrTymd());
+
+        //차명 : todo 이거 맞나?
+        carInfo = vocInfoVO.getCrnVehlCd() + " " + vocInfoVO.getCarNm();
+
+        //인도날짜
+        carReceiveDate = parseDate(vocInfoVO.getRecvDt());
+
+        //등록연월일
+        carRegistDate = parseDate(vocInfoVO.getMdYyyy());
+
+        //주행거리
+        carDistance = StringUtil.getDigitGroupingString(vocInfoVO.getTrvgDist()) + " km";
+
+        //하자 구분
+        defectLevel = vocInfoVO.getFlawCd();
+        if (Objects.equals(defectLevel, VOCInfoVO.DEFECT_LEVEL_HIGH)) {
+            defectLevel = getString(R.string.relapse_req_result_defect_high);
+        } else if (Objects.equals(defectLevel, VOCInfoVO.DEFECT_LEVEL_LOW)) {
+            defectLevel = getString(R.string.relapse_req_result_defect_low);
+        }
+
+        extractHistory();
+
+        //수리 시도 횟수, 누적 수리 기간
+        tryCount = vocInfoVO.getWkCnt() + getString(R.string.relapse_3_repair_count);
+        tryPeriod = vocInfoVO.getWkPeriod() + getString(R.string.relapse_3_repair_day);
+
+    }
+
+    private void extractHistory() {
+        //서버가 배열로 안 줘서 포기함 몰라 그냥 하드코딩 박아OTL
+        history = new DefectHistoryData[3];
+
+        history[0] = new DefectHistoryData();
+        if (!TextUtils.isEmpty(vocInfoVO.getWkr1Nm())) {
+            history[0].visibility = View.VISIBLE;
+            history[0].mechanic = vocInfoVO.getWkr1Nm();
+            history[0].repairReqDate = parseDate(vocInfoVO.getWk1StrtDt());
+            history[0].repairFinishDate = parseDate(vocInfoVO.getWk1Dt());
+            history[0].defectDetail = vocInfoVO.getWk1Caus();
+            history[0].repairDetail = vocInfoVO.getWk1Dtl();
+        }
+
+        history[1] = new DefectHistoryData();
+        if (!TextUtils.isEmpty(vocInfoVO.getWkr2Nm())) {
+            history[1].visibility = View.VISIBLE;
+            history[1].mechanic = vocInfoVO.getWkr2Nm();
+            history[1].repairReqDate = parseDate(vocInfoVO.getWk2StrtDt());
+            history[1].repairFinishDate = parseDate(vocInfoVO.getWk2Dt());
+            history[1].defectDetail = vocInfoVO.getWk2Caus();
+            history[1].repairDetail = vocInfoVO.getWk2Dtl();
+        }
+
+        history[2] = new DefectHistoryData();
+        if (!TextUtils.isEmpty(vocInfoVO.getWkr3Nm())) {
+            history[2].visibility = View.VISIBLE;
+            history[2].mechanic = vocInfoVO.getWkr3Nm();
+            history[2].repairReqDate = parseDate(vocInfoVO.getWk3StrtDt());
+            history[2].repairFinishDate = parseDate(vocInfoVO.getWk3Dt());
+            history[2].defectDetail = vocInfoVO.getWk3Caus();
+            history[2].repairDetail = vocInfoVO.getWk3Dtl();
+        }
     }
 
     @Override
@@ -81,8 +148,8 @@ public class ServiceRelapseReqResultActivity extends SubActivity<ActivityRelapse
     public void onClickCommon(View v) {
         switch (v.getId()) {
             //확인버튼
-            case R.id.tv_titlebar_text_btn:
-                //tood impl 종료처리
+            case R.id.tv_relapse_req_result_ok_btn:
+                exitPage("", ResultCodes.REQ_CODE_NORMAL.getCode());
                 break;
 
             default:
@@ -107,8 +174,7 @@ public class ServiceRelapseReqResultActivity extends SubActivity<ActivityRelapse
         Log.d(TAG, "getDataFromIntent: ");
 
         try {
-            //todo get
-//            vocInfoVO =
+            vocInfoVO = (VOCInfoVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SERVICE_VOC_INFO_VO);
         } catch (NullPointerException e) {
             e.printStackTrace();
             exitPage("인텐트 데이터 이상", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
@@ -120,8 +186,18 @@ public class ServiceRelapseReqResultActivity extends SubActivity<ActivityRelapse
         super.onDestroy();
     }
 
-    private void initView() {
-
+    private String parseDate(String dateOriginal) {
+        Date date = DateUtil.getDefaultDateFormat(dateOriginal, DateUtil.DATE_FORMAT_yyyyMMddHHmm);
+        return DateUtil.getDate(date, DateUtil.DATE_FORMAT_yyyy_mm_dd_dot);
     }
 
+    public class DefectHistoryData {
+        public int visibility = View.GONE;
+        public String title = "";
+        public String mechanic = "";
+        public String repairReqDate = "";
+        public String repairFinishDate = "";
+        public String defectDetail = "";
+        public String repairDetail = "";
+    }
 }
