@@ -158,7 +158,7 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
-                    list = result.data.getRparTypList();
+                    list.addAll(result.data.getRparTypList());
                     showDialogRepairType(list);
                 default:
                     showProgressDialog(false);

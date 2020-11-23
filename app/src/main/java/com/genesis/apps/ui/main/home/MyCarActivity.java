@@ -22,6 +22,7 @@ import com.genesis.apps.room.ResultCallback;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.main.home.view.CarHorizontalAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -76,7 +77,8 @@ public class MyCarActivity extends SubActivity<ActivityMyCarBinding> {
                         public void onSuccess(Object object) {
                             try {
                                 if (Boolean.parseBoolean(object.toString())) {
-                                    List<VehicleVO> list = gnsViewModel.getVehicleList();
+                                    List<VehicleVO> list = new ArrayList<>();
+                                    list.addAll(gnsViewModel.getVehicleList());
                                     ui.vpCar.setOffscreenPageLimit(list.size());
                                     adapter.setRows(list);
                                     adapter.notifyDataSetChanged();

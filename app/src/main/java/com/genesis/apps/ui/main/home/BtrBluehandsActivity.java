@@ -79,9 +79,11 @@ public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBi
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
+                    try {
+                        btrVO = (BtrVO)result.data.getBtrVO().clone();
+                    }catch (Exception e){
 
-                    btrVO = result.data.getBtrVO();
-
+                    }
                     if(btrVO!=null) {
                         setViewBtrInfo();
                     }else{

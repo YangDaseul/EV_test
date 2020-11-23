@@ -24,6 +24,7 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.Nullable;
@@ -79,9 +80,7 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
 
                 case SUCCESS:
                     if (result.data != null && result.data.getGodsList() != null) {
-                        List<WashGoodsVO> list = result.data.getGodsList();
-
-                        adapter.setRows(list);
+                        adapter.setRows(result.data.getGodsList());
                         adapter.notifyDataSetChanged();
 
                         //성공 후 데이터 로딩까지 다 되면 로딩 치우고 break;

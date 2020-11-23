@@ -11,6 +11,7 @@ import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivitySimilarCarBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.core.content.res.ResourcesCompat;
@@ -67,7 +68,8 @@ public class SimilarCarActivity extends SubActivity<ActivitySimilarCarBinding> {
                 case SUCCESS:
                     showProgressDialog(false);
                     if(result.data!=null&&result.data.getEstmVhclList()!=null&&result.data.getSmlrVhclList()!=null){
-                        List<SimilarVehicleVO> list = result.data.getSmlrVhclList();
+                        List<SimilarVehicleVO> list = new ArrayList<>();
+                        list.addAll(result.data.getSmlrVhclList());
                         list.add(0, result.data.getEstmVhclList());
                         adapter.setRows(list);
                         adapter.notifyDataSetChanged();

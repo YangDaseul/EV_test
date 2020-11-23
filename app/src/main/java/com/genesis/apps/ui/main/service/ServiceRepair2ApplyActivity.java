@@ -241,10 +241,8 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
-                    List<RepairReserveDateVO> list = new ArrayList<>();
                     if(result.data!=null&&result.data.getRsvtDtList()!=null&&result.data.getRsvtDtList().size()>0){
-                        list = result.data.getRsvtDtList();
-                        selectCalendar(list);
+                        selectCalendar(result.data.getRsvtDtList());
                         break;
                     }
                 default:
@@ -272,10 +270,8 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
-                    List<RepairGroupVO> list = new ArrayList<>();
                     if(result.data!=null&&result.data.getRpshGrpList()!=null&&result.data.getRpshGrpList().size()>0){
-                        list = result.data.getRpshGrpList();
-                        selectRepairGroup(list);
+                        selectRepairGroup(result.data.getRpshGrpList());
 
 
                         break;

@@ -73,7 +73,8 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding>{
         lgnViewModel.getRES_LGN_0003().observe(getViewLifecycleOwner(), result -> {
             switch (result.status){
                 case SUCCESS:
-                    List<MainHistVO> list = result.data.getAsnHistList();
+                    List<MainHistVO> list = new ArrayList<>();
+                    list.addAll(result.data.getAsnHistList());
 
                     if(list!=null&&list.size()>0){
 

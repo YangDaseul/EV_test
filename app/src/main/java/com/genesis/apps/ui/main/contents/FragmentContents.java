@@ -64,7 +64,7 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
                     List<ContentsVO> list = new ArrayList<>();
 
                     if(result.data!=null&&result.data.getTtlList()!=null){
-                        list = result.data.getTtlList();
+                        list.addAll(result.data.getTtlList());
                     }
 
                     int itemSizeBefore = contentsAdapter.getItemCount();
