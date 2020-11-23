@@ -117,7 +117,8 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
 
         switch (v.getId()){
             case R.id.btn_my_position://선택
-                ui.pmvMapView.initMap(myPosition[0], myPosition[1], 17);
+//                ui.pmvMapView.initMap(myPosition[0], myPosition[1], 17);
+                ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(myPosition[0], myPosition[1]), 500);
                 break;
         }
 
@@ -126,10 +127,10 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
     /**
      * drawMarkerItem 지도에 마커를 그린다.
      */
-    public void drawMarkerItem(String mapXcooNm, String mapYcooNm) {
+    public void drawMarkerItem(String mapYcooNm, String mapXcooNm) {
         PlayMapMarker markerItem = new PlayMapMarker();
 //        PlayMapPoint point = mapView.getMapCenterPoint();
-        PlayMapPoint point = new PlayMapPoint(Double.parseDouble(mapXcooNm), Double.parseDouble(mapYcooNm));
+        PlayMapPoint point = new PlayMapPoint(Double.parseDouble(mapYcooNm), Double.parseDouble(mapXcooNm));
         markerItem.setMapPoint(point);
 //        markerItem.setCalloutTitle("제목");
 //        markerItem.setCalloutSubTitle("내용");

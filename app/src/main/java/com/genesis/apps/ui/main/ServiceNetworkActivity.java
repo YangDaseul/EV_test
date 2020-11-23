@@ -250,7 +250,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     switch (pageType) {
                         case PAGE_TYPE_BTR:
                         case PAGE_TYPE_RENT:
-                            btrViewModel.reqBTR1008(new BTR_1008.Request(APPIAInfo.GM_CARLST_01_B01.getId(), String.valueOf(lgnViewModel.getPosition().getValue().get(0)), String.valueOf(lgnViewModel.getPosition().getValue().get(1)), addr, addrDtl, fillerCd));
+                            btrViewModel.reqBTR1008(new BTR_1008.Request(APPIAInfo.GM_CARLST_01_B01.getId(), String.valueOf(lgnViewModel.getPosition().getValue().get(1)), String.valueOf(lgnViewModel.getPosition().getValue().get(0)), addr, addrDtl, fillerCd));
                             break;
                         case PAGE_TYPE_REPAIR:
                         case PAGE_TYPE_SERVICE:

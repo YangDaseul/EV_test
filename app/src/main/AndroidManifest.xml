@@ -218,10 +218,10 @@
             android:name=".ui.main.home.BtrBluehandsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.main.home.BtrBluehandsMapActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+<!--        <activity-->
+<!--            android:name=".ui.main.home.BtrBluehandsMapActivity"-->
+<!--            android:exported="false"-->
+<!--            android:screenOrientation="portrait" />-->
 
         <activity
             android:name=".ui.main.home.BtrConsultTypeActivity"
