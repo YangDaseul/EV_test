@@ -461,6 +461,12 @@
             android:exported="false"
             android:screenOrientation="portrait"/>
 
+        <!-- 하자 재발 현황 조회 -->
+        <activity
+            android:name=".ui.main.service.ServiceRelapseReqResultActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+
         <!-- 하자 재발 신청 1단계 -->
         <activity
             android:name=".ui.main.service.ServiceRelapseApply1Activity"
