@@ -110,13 +110,13 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
                     break;
 
                 case SUCCESS:
-                    if (result.data != null && result.data.getDfctList() != null) {
+                    if (result.data != null) {
 
                         //수신된 데이터를 꺼내고
                         List<VOCInfoVO> list = result.data.getDfctList();
 
                         //받은 목록의 길이가 1 이상이면 어댑터에 넣는다
-                        if (list.size() > 0) {
+                        if (list != null && list.size() > 0) {
                             adapter.setRows(list);
                         }
                         //데이터가 없으면 '내역 없음'뷰를 출력할 더미 추가
@@ -129,7 +129,7 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
                         adapter.notifyDataSetChanged();
 
                         //이용 내역 수를 표시
-                        ui.setItemCount("" + list.size());
+                        ui.setItemCount("" + (list == null ? "0" : list.size()));
 
                         //성공 후 데이터 로딩까지 다 되면 로딩 치우고 break;
                         showProgressDialog(false);
