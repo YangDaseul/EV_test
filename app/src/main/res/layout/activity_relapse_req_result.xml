@@ -79,6 +79,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:text="@{activity.reqDate}"
                         android:textColor="@color/x_000000"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="@id/iv_top_center_line"
@@ -278,31 +279,34 @@
                 <include
                     layout="@layout/layout_service_relapse_req_result_defect_history"
                     android:layout_width="match_parent"
-                    android:visibility="@{activity.history[0].visibility}"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="40dp"
-                    android:layout_marginEnd="20dp" />
+                    android:layout_marginEnd="20dp"
+                    android:visibility="@{activity.history[0].visibility}"
+                    app:data="@{activity.history[0]}" />
 
                 <!-- 2회차 수리 내역 -->
                 <include
                     layout="@layout/layout_service_relapse_req_result_defect_history"
                     android:layout_width="match_parent"
-                    android:visibility="@{activity.history[1].visibility}"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginEnd="20dp" />
+                    android:layout_marginEnd="20dp"
+                    android:visibility="@{activity.history[1].visibility}"
+                    app:data="@{activity.history[1]}" />
 
                 <!-- 3회차 수리 내역 -->
                 <include
                     layout="@layout/layout_service_relapse_req_result_defect_history"
                     android:layout_width="match_parent"
-                    android:visibility="@{activity.history[2].visibility}"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginEnd="20dp" />
+                    android:layout_marginEnd="20dp"
+                    android:visibility="@{activity.history[2].visibility}"
+                    app:data="@{activity.history[2]}" />
 
 
                 <!-- 123회차 /휫수,기간 사이 회색 줄-->
@@ -338,8 +342,8 @@
 
                 <TextView
                     android:id="@+id/tv_relapse_req_result_ok_btn"
-                    android:text="@string/dialog_common_4"
-                    style="@style/BigBtn.Black"/>
+                    style="@style/BigBtn.Black"
+                    android:text="@string/dialog_common_4" />
 
             </LinearLayout><!-- 타이틀바 빼고 전체 -->
 

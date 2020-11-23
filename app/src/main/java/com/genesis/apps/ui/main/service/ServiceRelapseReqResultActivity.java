@@ -23,6 +23,7 @@ public class ServiceRelapseReqResultActivity extends SubActivity<ActivityRelapse
     private static final String TAG = ServiceRelapseReqResultActivity.class.getSimpleName();
 
     public VOCInfoVO vocInfoVO;
+    public String reqDate;
     public String status;
     public String address;
     public String phoneNo;
@@ -50,6 +51,8 @@ public class ServiceRelapseReqResultActivity extends SubActivity<ActivityRelapse
 
     //서버에서 이상하게 집어던진 값들 가공
     private void extractData() {
+        //접수일
+        reqDate = parseDate(vocInfoVO.getInpDate());
 
         //접수상태 코드
         status = vocInfoVO.getInpSt();
@@ -68,9 +71,9 @@ public class ServiceRelapseReqResultActivity extends SubActivity<ActivityRelapse
 
         //폰번 제정신인가...
         phoneNo = (String) TextUtils.concat(
-                vocInfoVO.getRegnTn(),   //010
-                vocInfoVO.getFrtDgtTn(), "-",   //1234
-                vocInfoVO.getRealDgtTn(), "-"   //5678
+                vocInfoVO.getRegnTn(), "-", //010
+                vocInfoVO.getFrtDgtTn(), "-",      //1234
+                vocInfoVO.getRealDgtTn()           //5678
         );
 
         //생년월일
@@ -111,6 +114,7 @@ public class ServiceRelapseReqResultActivity extends SubActivity<ActivityRelapse
         history[0] = new DefectHistoryData();
         if (!TextUtils.isEmpty(vocInfoVO.getWkr1Nm())) {
             history[0].visibility = View.VISIBLE;
+            history[0].title = "1" + getString(R.string.relapse_req_result_repair_detail_title);
             history[0].mechanic = vocInfoVO.getWkr1Nm();
             history[0].repairReqDate = parseDate(vocInfoVO.getWk1StrtDt());
             history[0].repairFinishDate = parseDate(vocInfoVO.getWk1Dt());
@@ -123,6 +127,7 @@ public class ServiceRelapseReqResultActivity extends SubActivity<ActivityRelapse
             history[1].visibility = View.VISIBLE;
             history[1].mechanic = vocInfoVO.getWkr2Nm();
             history[1].repairReqDate = parseDate(vocInfoVO.getWk2StrtDt());
+            history[1].title = "2" + getString(R.string.relapse_req_result_repair_detail_title);
             history[1].repairFinishDate = parseDate(vocInfoVO.getWk2Dt());
             history[1].defectDetail = vocInfoVO.getWk2Caus();
             history[1].repairDetail = vocInfoVO.getWk2Dtl();
@@ -133,6 +138,7 @@ public class ServiceRelapseReqResultActivity extends SubActivity<ActivityRelapse
             history[2].visibility = View.VISIBLE;
             history[2].mechanic = vocInfoVO.getWkr3Nm();
             history[2].repairReqDate = parseDate(vocInfoVO.getWk3StrtDt());
+            history[2].title = "3" + getString(R.string.relapse_req_result_repair_detail_title);
             history[2].repairFinishDate = parseDate(vocInfoVO.getWk3Dt());
             history[2].defectDetail = vocInfoVO.getWk3Caus();
             history[2].repairDetail = vocInfoVO.getWk3Dtl();
@@ -187,7 +193,7 @@ public class ServiceRelapseReqResultActivity extends SubActivity<ActivityRelapse
     }
 
     private String parseDate(String dateOriginal) {
-        Date date = DateUtil.getDefaultDateFormat(dateOriginal, DateUtil.DATE_FORMAT_yyyyMMddHHmm);
+        Date date = DateUtil.getDefaultDateFormat(dateOriginal, DateUtil.DATE_FORMAT_yyyyMMdd);
         return DateUtil.getDate(date, DateUtil.DATE_FORMAT_yyyy_mm_dd_dot);
     }
 
