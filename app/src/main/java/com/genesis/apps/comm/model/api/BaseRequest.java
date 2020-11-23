@@ -88,6 +88,7 @@ class BaseRequest extends BaseData {
 
         this.ifCd = ifCd;
         this.menuID = menuID;
+        this.menuID = "";//TODO 2020-11-20 server 요청으로 임시 블락
         this.appGbCd = "GRA";
 
         this.custNo = userVO.getCustNo();

@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.CMN_0004;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
@@ -33,6 +36,7 @@ import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.databinding.ActivityMembershipJoinBinding;
 import com.genesis.apps.databinding.ItemTermBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.view.TermView;
 import com.genesis.apps.ui.myg.MyGOilTermDetailActivity;
@@ -83,9 +87,11 @@ public class ServiceMembershipJoinFragment extends SubFragment<ActivityMembershi
                     break;
                 case SUCCESS:
                     ((SubActivity)getActivity()).showProgressDialog(false);
-
-                    if(result.data!=null&&!TextUtils.isEmpty(result.data.getCustGbCd())&&!result.data.getCustGbCd().equalsIgnoreCase("0000")){
-                        ((SubActivity)getActivity()).restart();
+                    if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")&&!TextUtils.isEmpty(result.data.getCustGbCd())&&!result.data.getCustGbCd().equalsIgnoreCase("0000")){
+                        MiddleDialog.dialogJoin(getActivity(), () -> {
+                            getActivity().setResult(Activity.RESULT_OK);
+                            getActivity().finish();
+                        });
                         break;
                     }
                 default:
@@ -101,6 +107,36 @@ public class ServiceMembershipJoinFragment extends SubFragment<ActivityMembershi
                     break;
             }
         });
+
+//        cmnViewModel.getRES_CMN_0004().observe(getViewLifecycleOwner(), result -> {
+//            switch (result.status) {
+//                case LOADING:
+//                    ((SubActivity)getActivity()).showProgressDialog(true);
+//                    break;
+//                case SUCCESS:
+//                    if (result.data != null&&result.data.getTermVO()!=null) {
+//                        ((SubActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceTermDetailActivity.class).putExtra(VariableType.KEY_NAME_TERM_VO, result.data.getTermVO()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                        ((SubActivity)getActivity()).showProgressDialog(false);
+//                        break;
+//                    }
+//                default:
+//                    ((SubActivity)getActivity()).showProgressDialog(false);
+//                    String serverMsg = "";
+//                    try {
+//                        serverMsg = result.data.getRtMsg();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    } finally {
+//                        if (TextUtils.isEmpty(serverMsg)) {
+//                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+//                        }
+//                        SnackBarUtil.show(getActivity(), serverMsg);
+//                    }
+//                    break;
+//            }
+//
+//        });
+
 
         checkBoxsAd = new CheckBox[]{me.cbSms,me.cbEmail,me.cbPost,me.cbPhone};
         me.cbSms.setOnCheckedChangeListener(listenerAd);
@@ -151,7 +187,8 @@ public class ServiceMembershipJoinFragment extends SubFragment<ActivityMembershi
                             InteractionUtil.expand(me.lAdInfo, null);
                         }
                     }else{
-                        ((SubActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceTermDetailActivity.class).putExtra(MyGOilTermDetailActivity.TERMS_CODE,termVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        cmnViewModel.reqCMN0004(new CMN_0004.Request(APPIAInfo.INT04.getId(),termVO.getTermVer(),termVO.getTermCd()));
+//                        ((SubActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceTermDetailActivity.class).putExtra(MyGOilTermDetailActivity.TERMS_CODE,termVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     }
 
                 }catch (Exception e){
@@ -205,7 +242,7 @@ public class ServiceMembershipJoinFragment extends SubFragment<ActivityMembershi
         for(int i=0; i<checkBoxs.size(); i++){
             AgreeMeansVO agreeMeansVO = null;
             if(checkBoxs.get(i).getTermVO().getTermCd().equalsIgnoreCase(TERM_SERVICE_JOIN_BLM0003)){
-                agreeMeansVO = new AgreeMeansVO((me.cbSms.isChecked() ? "Y" : "N"), (me.cbEmail.isChecked() ? "Y" : "N"),(me.cbPost.isChecked() ? "Y" : "N"),(me.cbPhone.isChecked() ? "Y" : "N"));
+                agreeMeansVO = new AgreeMeansVO((me.cbSms.isChecked() ? "Y" : "N"), (me.cbEmail.isChecked() ? "Y" : "N"),(me.cbPost.isChecked() ? "Y" : "N"),(me.cbPhone.isChecked() ? "Y" : "N"),(checkBoxs.get(i).getCheckBox().isChecked() ? "Y" : "N"),null);
             }
             blueTerms.add(new AgreeTermVO(checkBoxs.get(i).getTermVO().getTermCd(), (checkBoxs.get(i).getCheckBox().isChecked() ? "Y" : "N"),checkBoxs.get(i).getTermVO().getTermNm(),agreeDate,agreeMeansVO));
         }

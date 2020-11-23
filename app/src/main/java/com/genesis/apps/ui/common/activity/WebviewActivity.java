@@ -75,7 +75,7 @@ public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
 
     @Override
     public void onBackPressed() {
-        if (!fragment.onBackPressed()) {
+        if (!fragment.onBackPressed()||fragment.getUrl().equalsIgnoreCase("about:blank")) {
             super.onBackPressed();
         }
     }

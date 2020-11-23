@@ -6,31 +6,24 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import androidx.annotation.Nullable;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.LGN_0001;
-import com.genesis.apps.comm.model.api.gra.LGN_0004;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.net.ga.GA;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
-import com.genesis.apps.comm.viewmodel.DDSViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityMygEntranceBinding;
 import com.genesis.apps.room.ResultCallback;
 import com.genesis.apps.ui.common.activity.LoginActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
-import com.genesis.apps.ui.intro.IntroActivity;
 import com.genesis.apps.ui.main.ServiceJoinActivity;
 
 import javax.inject.Inject;
 
-import androidx.lifecycle.Observer;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -39,6 +32,9 @@ public class MyGEntranceActivity extends SubActivity<ActivityMygEntranceBinding>
     @Inject
     public GA ga;
     private LGNViewModel lgnViewModel;
+
+    private String tokenCode;
+    private String authUuid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +79,10 @@ public class MyGEntranceActivity extends SubActivity<ActivityMygEntranceBinding>
                 case SUCCESS:
                     if(result.data!=null
                             &&(TextUtils.isEmpty(result.data.getCustGbCd())||result.data.getCustGbCd().equalsIgnoreCase("0000"))
-                            &&(result.data.getRtCd().equalsIgnoreCase("2002")||result.data.getRtCd().equalsIgnoreCase("2001"))){
+//                            &&(result.data.getRtCd().equalsIgnoreCase("2002")||result.data.getRtCd().equalsIgnoreCase("2001"))){
+                            &&(result.data.getRtCd().equalsIgnoreCase("0000"))){
                         showProgressDialog(false);
-                        startActivitySingleTop(new Intent(this, ServiceJoinActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        startActivitySingleTop(new Intent(this, ServiceJoinActivity.class).putExtra(VariableType.KEY_NAME_LOGIN_TOKEN_CODE, tokenCode).putExtra(VariableType.KEY_NAME_LOGIN_AUTH_UUID, authUuid), RequestCodes.REQ_CODE_JOIN_SERVICE.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                         break;
                     }else if(result.data!=null
                             &&result.data.getRtCd().equalsIgnoreCase("0000")
@@ -97,6 +94,7 @@ public class MyGEntranceActivity extends SubActivity<ActivityMygEntranceBinding>
                                 if (((Boolean) retv)) {
                                     restart(); //todo 테스트필요
                                 } else {
+                                    ga.clearLoginInfo();
                                     SnackBarUtil.show(MyGEntranceActivity.this, "데이터가 저장되지 않았습니다.\n잠시 후 다시 시도해 주세요.");
                                     //TODO ERROR팝업 추가 필요
                                 }
@@ -105,6 +103,7 @@ public class MyGEntranceActivity extends SubActivity<ActivityMygEntranceBinding>
                             @Override
                             public void onError(Object e) {
                                 showProgressDialog(false);
+                                ga.clearLoginInfo();
                                 SnackBarUtil.show(MyGEntranceActivity.this, "데이터가 저장되지 않았습니다.\n잠시 후 다시 시도해 주세요.\nErrCode:2");
                             }
                         });
@@ -121,6 +120,7 @@ public class MyGEntranceActivity extends SubActivity<ActivityMygEntranceBinding>
                         if (TextUtils.isEmpty(serverMsg)) {
                             serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
                         }
+                        ga.clearLoginInfo();
                         SnackBarUtil.show(this, serverMsg);
                         showProgressDialog(false);
                     }
@@ -152,8 +152,20 @@ public class MyGEntranceActivity extends SubActivity<ActivityMygEntranceBinding>
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==Activity.RESULT_OK){
             if(requestCode==RequestCodes.REQ_CODE_LOGIN.getCode()||requestCode==RequestCodes.REQ_CODE_JOIN.getCode()){
+                try {
+                    tokenCode = data.getStringExtra(VariableType.KEY_NAME_LOGIN_TOKEN_CODE);
+                    authUuid = data.getStringExtra(VariableType.KEY_NAME_LOGIN_AUTH_UUID);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }finally {
+                    if(!TextUtils.isEmpty(tokenCode)) lgnViewModel.reqLGN0001(new LGN_0001.Request(APPIAInfo.INT01.getId(), PackageUtil.getApplicationVersionName(MyGEntranceActivity.this, getPackageName()),""));
+                }
+            }else if(requestCode==RequestCodes.REQ_CODE_JOIN_SERVICE.getCode()){
+                //서비스 가입 완료 시
                 lgnViewModel.reqLGN0001(new LGN_0001.Request(APPIAInfo.INT01.getId(), PackageUtil.getApplicationVersionName(MyGEntranceActivity.this, getPackageName()),""));
             }
+        }else{
+            ga.clearLoginInfo();
         }
     }
 }

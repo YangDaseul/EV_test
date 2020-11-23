@@ -143,7 +143,6 @@ public class CCSP {
     public void clearLoginInfo() {
         try {
             loginInfoDTO.clearLoginInfo();
-            loginInfoDTO = null;
         }catch (Exception ignore){
 
         }

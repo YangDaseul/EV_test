@@ -9,6 +9,9 @@ public class VariableType {
     public static final String COMMON_MEANS_YES = "Y";
     public static final String COMMON_MEANS_NO = "N";
 
+    public static final String KEY_NAME_TERM_VO="termVO";
+    public static final String KEY_NAME_LOGIN_AUTH_UUID="authUuid";
+    public static final String KEY_NAME_LOGIN_TOKEN_CODE="tokenCode";
     public static final String TERM_SERVICE_JOIN_GRA0001 = "GRA0001"; //제네시스 앱 이용 약관
     public static final String TERM_SERVICE_JOIN_GRA0002 = "GRA0002"; //제네시스 앱 개인정보 처리 방침
     public static final String TERM_SERVICE_JOIN_GRA0003 = "GRA0003"; //개인정보 수집/이용에 대한 동의

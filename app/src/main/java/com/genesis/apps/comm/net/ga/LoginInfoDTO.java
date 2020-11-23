@@ -267,6 +267,13 @@ class LoginInfoDTO extends BaseData {
         if (dataFile.exists()) {
             dataFile.delete();
         }
+
+        this.accessToken ="";
+        this.refreshToken = "";
+        this.expiresDate = 0;
+        this.profile = null;
+        this.refreshTokenExpriesDate = 0;
+        this.tokenCode = "";
     }
 
 }

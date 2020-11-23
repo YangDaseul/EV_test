@@ -36,4 +36,12 @@ class AgreeMeansVO extends BaseData {
     @Expose
     @SerializedName("agreeTel")
     private String agreeTel;
+
+    @Expose
+    @SerializedName("agreePush")
+    private String agreePush;//블루멤버스 약관정보에서만 사용
+    @Expose
+    @SerializedName("agreeMkt")
+    private String agreeMkt;//마이페이지약관정보에서만 사용
+
 }

@@ -7,16 +7,17 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.api.gra.LGN_0004;
-import com.genesis.apps.comm.model.constants.RequestCodes;
-import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CMN_0001;
 import com.genesis.apps.comm.model.api.gra.CMN_0002;
 import com.genesis.apps.comm.model.api.gra.LGN_0001;
+import com.genesis.apps.comm.model.api.gra.LGN_0004;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.DeviceDTO;
 import com.genesis.apps.comm.model.vo.NotiVO;
-import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.model.vo.UserVO;
+import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -25,13 +26,11 @@ import com.genesis.apps.room.ResultCallback;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.main.MainActivity;
-import com.genesis.apps.ui.myg.MyGVersioniActivity;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -40,6 +39,8 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
 
     @Inject
     public DeviceDTO deviceDTO;
+    @Inject
+    public LoginInfoDTO loginInfoDTO;
 
     private CMNViewModel cmnViewModel;
     private LGNViewModel lgnViewModel;
@@ -215,7 +216,28 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
         setViewModel();
         setObserver();
         updateProgressBar(progressValue.INTRO.getProgress());
+        initData();
         cmnViewModel.reqCMN0001(new CMN_0001.Request(APPIAInfo.INT01.getId(), PackageUtil.getApplicationVersionName(this, getPackageName())));
+    }
+
+    /**
+     * @brief 기 로그인된 정보 초기화
+     * CCSP 로그인 정보는 있으나 DB에 유저 정보가 없을 경우
+     * CCSP 로그인 정보 초기화
+     */
+    private void initData() {
+        if(loginInfoDTO.loadLoginInfo()!=null){
+            UserVO userVO = null;
+            try {
+                userVO = lgnViewModel.getUserInfoFromDB();
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                if(userVO==null||TextUtils.isEmpty(userVO.getCustNo())||userVO.getCustNo().equalsIgnoreCase("0000")){
+                    loginInfoDTO.clearLoginInfo();
+                }
+            }
+        }
     }
 
 

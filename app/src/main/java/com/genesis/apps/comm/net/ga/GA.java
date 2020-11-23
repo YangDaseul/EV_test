@@ -40,7 +40,11 @@ public class GA {
     @Inject
     public GA(HttpRequestUtil httpRequestUtil, LoginInfoDTO loginInfoDTO) {
         this.httpRequestUtil = httpRequestUtil;
-        this.loginInfoDTO = loginInfoDTO;
+        if(loginInfoDTO.loadLoginInfo()!=null){
+            this.loginInfoDTO = loginInfoDTO.loadLoginInfo();
+        }else{
+            this.loginInfoDTO = loginInfoDTO;
+        }
     }
 
     public String getCsrf(){
@@ -186,7 +190,7 @@ public class GA {
                     if(!getProfile(accessToken, loginInfoDTO)) {
                         data = null;
 //                        ccsp.clearLoginInfo();
-                        loginInfoDTO.clearLoginInfo(); //todo 2020-11-19 park ga logininfodto에서 클리어 진행
+                        clearLoginInfo(); //todo 2020-11-19 park ga logininfodto에서 클리어 진행
                     }
                 }
             }
@@ -197,6 +201,10 @@ public class GA {
         request.disconnect();
 
         return data;
+    }
+
+    public void clearLoginInfo(){
+        loginInfoDTO.clearLoginInfo();
     }
 
     private boolean getProfile(String accessToken, LoginInfoDTO loginInfoDTO) {

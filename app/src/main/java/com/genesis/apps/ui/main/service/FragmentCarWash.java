@@ -16,6 +16,7 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.WSH_1001;
 import com.genesis.apps.comm.model.vo.WashGoodsVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.FragmentServiceCarWashBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
@@ -34,6 +35,7 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
     private static final String TAG = FragmentCarWash.class.getSimpleName();
 
     private WSHViewModel viewModel;
+    private LGNViewModel lgnViewModel;
     private FragmentCarWashAdapter adapter;
 
 
@@ -62,8 +64,9 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
     }
 
     private void setViewModel() {
-        viewModel = new ViewModelProvider(getActivity()).get(WSHViewModel.class);
         me.setLifecycleOwner(getViewLifecycleOwner());
+        viewModel = new ViewModelProvider(getActivity()).get(WSHViewModel.class);
+        lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
     }
 
     private void setObserver() {
@@ -121,6 +124,13 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
     public void onClickCommon(View v) {
         int id = v.getId();
         Log.d(TAG, "onClickCommon: view id :" + id);
+
+        try {
+            if (!((FragmentService) getParentFragment()).checkCustGbCd(id, lgnViewModel.getUserInfoFromDB().getCustGbCd()))
+                return;
+        } catch (Exception e) {
+
+        }
 
         switch (id) {
             //세차 서비스 예약내역 버튼

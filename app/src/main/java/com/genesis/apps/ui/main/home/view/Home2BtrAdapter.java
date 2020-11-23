@@ -55,7 +55,7 @@ public class Home2BtrAdapter extends BaseRecyclerViewAdapter2<LGN_0003.Response>
 
             getBinding().setListener(onSingleClickListener);
 
-            if(item!=null) {
+            if(item != null && item.getButlSubsCd() != null) {
                 switch (item.getButlSubsCd()) {
                     case VariableType.BTR_APPLY_CODE_2000:
                         getBinding().tvBtrApply.setVisibility(View.GONE);
@@ -63,12 +63,14 @@ public class Home2BtrAdapter extends BaseRecyclerViewAdapter2<LGN_0003.Response>
                         getBinding().ivBtrArrow.setVisibility(View.VISIBLE);
                         getBinding().lBtr.setOnClickListener(view -> onSingleClickListener.onClick(view));
                         break;
+
                     case VariableType.BTR_APPLY_CODE_3000:
                         getBinding().tvBtrApply.setVisibility(View.GONE);
                         getBinding().tvBtrStatus.setVisibility(View.VISIBLE);
                         getBinding().ivBtrArrow.setVisibility(View.VISIBLE);
                         getBinding().lBtr.setOnClickListener(view -> onSingleClickListener.onClick(view));
                         break;
+
                     case VariableType.BTR_APPLY_CODE_1000:
                     default:
                         getBinding().tvBtrApply.setVisibility(View.VISIBLE);
@@ -77,7 +79,7 @@ public class Home2BtrAdapter extends BaseRecyclerViewAdapter2<LGN_0003.Response>
                         getBinding().lBtr.setOnClickListener(null);
                         break;
                 }
-            }else{
+            } else {
                 getBinding().tvBtrApply.setVisibility(View.VISIBLE);
                 getBinding().tvBtrStatus.setVisibility(View.GONE);
                 getBinding().ivBtrArrow.setVisibility(View.GONE);
