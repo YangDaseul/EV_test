@@ -27,6 +27,7 @@ import com.genesis.apps.comm.model.vo.SOSDriverVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.ISTViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentInsightBinding;
@@ -197,7 +198,19 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
             case R.id.l_car_expn_graph:
             case R.id.chart:
                 //차계부 클릭 시
-                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), InsightExpnMainActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                try {
+                    switch (lgnViewModel.getUserInfoFromDB().getCustGbCd()) {
+                        case VariableType.MAIN_VEHICLE_TYPE_OV://소유
+                            ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), InsightExpnMainActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                            break;
+                        default:
+                            SnackBarUtil.show(getActivity(), getString(R.string.sm01_snack_bar));
+                            break;
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
                 break;
 
         }
