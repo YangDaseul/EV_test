@@ -345,6 +345,7 @@
                     style="@style/BigBtn.Black"
                     android:layout_width="match_parent"
                     android:layout_marginTop="30dp"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     android:text="@string/dialog_common_4" />
 
             </LinearLayout><!-- 타이틀바 빼고 전체 -->
