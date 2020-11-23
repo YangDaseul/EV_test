@@ -19,7 +19,7 @@ public class LGN_0004 extends BaseData {
     /**
      * @brief LGN_0004의 요청 항목
      * @author hjpark
-     * @see #etrmOSGbCd 단말OS구분코드
+     * @see #etrmOsDivCd 단말OS구분코드
      * 단말 OS 구분 코드
      * A: 안드로이드  I:아이폰 : E:기타
      */
@@ -27,10 +27,10 @@ public class LGN_0004 extends BaseData {
     public @Data
     static class Request extends BaseRequest {
         @Expose
-        @SerializedName("etrmOSGbCd")
-        private String etrmOSGbCd;
+        @SerializedName("etrmOsDivCd")
+        private String etrmOsDivCd;
         public Request(String menuId){
-            this.etrmOSGbCd = "A";
+            this.etrmOsDivCd = "A";
             setData(APIInfo.GRA_LGN_0004.getIfCd(), menuId);
         }
     }

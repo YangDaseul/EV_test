@@ -15,7 +15,6 @@ import com.genesis.apps.comm.model.api.gra.CBK_1008;
 import com.genesis.apps.comm.model.api.gra.CMN_0001;
 import com.genesis.apps.comm.model.api.gra.CMN_0002;
 import com.genesis.apps.comm.model.api.gra.CMN_0003;
-import com.genesis.apps.comm.model.api.gra.CTT_1001;
 import com.genesis.apps.comm.model.api.gra.CTT_1002;
 import com.genesis.apps.comm.model.api.gra.CTT_1004;
 import com.genesis.apps.comm.model.api.gra.DDS_1001;
@@ -2672,7 +2671,7 @@ public class TestCode {
             "}",IST_1005.Response.class);
 
 
-    public static CTT_1001.Response CTT_1001= new Gson().fromJson("{\n" +
+    public static String CTT_1001= "{\n" +
             "  \"rtCd\": \"0000\",\n" +
             "  \"rtMsg\": \"성공\",\n" +
             "  \"ttlList\": [\n" +
@@ -2701,7 +2700,40 @@ public class TestCode {
             "      \"dtlViewCd\": \"1000\"\n" +
             "    }\n" +
             "  ]\n" +
-            "}",CTT_1001.Response.class);
+            "}";
+
+
+//    public static CTT_1001.Response CTT_1001= new Gson().fromJson("{\n" +
+//            "  \"rtCd\": \"0000\",\n" +
+//            "  \"rtMsg\": \"성공\",\n" +
+//            "  \"ttlList\": [\n" +
+//            "    {\n" +
+//            "      \"listSeqNo\": \"1\",\n" +
+//            "      \"catCd\": \"1000\",\n" +
+//            "      \"ttImgUri\": \"https://dive.hyundaicard.com/web/content/contentView.hdc?contentId=2741\",\n" +
+//            "      \"dtlViewCd\": \"1000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"listSeqNo\": \"2\",\n" +
+//            "      \"catCd\": \"1000\",\n" +
+//            "      \"ttImgUri\": \"https://dive.hyundaicard.com/web/content/contentView.hdc?contentId=2749&cookieDiveWeb=Y\",\n" +
+//            "      \"dtlViewCd\": \"1000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"listSeqNo\": \"3\",\n" +
+//            "      \"catCd\": \"1000\",\n" +
+//            "      \"ttImgUri\": \"https://dive.hyundaicard.com/web/content/contentView.hdc?contentId=2414&cookieDiveWeb=Y\",\n" +
+//            "      \"dtlViewCd\": \"1000\"\n" +
+//            "    },\n" +
+//            "    {\n" +
+//            "      \"listSeqNo\": \"4\",\n" +
+//            "      \"catCd\": \"2000\",\n" +
+//            "      \"ttImgUri\": \"https://dive.hyundaicard.com/web/content/contentView.hdc?contentId=2652&cookieDiveWeb=Y\",\n" +
+//            "      \"dtlViewCd\": \"1000\"\n" +
+//            "    }\n" +
+//            "  ]\n" +
+//            "}",CTT_1001.Response.class);
+
     public static CTT_1002.Response CTT_1002 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
             "  \"rtMsg\": \"성공\"\n" +

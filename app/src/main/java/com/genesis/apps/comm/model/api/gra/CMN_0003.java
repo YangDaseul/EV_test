@@ -36,7 +36,6 @@ public class CMN_0003 extends BaseData {
      * @author hjpark
      * @see #termList 제네시스 앱 약관리스트
      * @see #blueTermList 블루멤버스 약관리스트
-     * @see #mypgTermList 마이제네시스 약관리스트
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -44,14 +43,12 @@ public class CMN_0003 extends BaseData {
         @Expose
         @SerializedName("termList")
         private List<TermVO> termList;
-
         @Expose
         @SerializedName("blueTermList")
         private List<TermVO> blueTermList;
-
-        @Expose
-        @SerializedName("mypgTermList")
-        private List<TermVO> mypgTermList;
+//        @Expose
+//        @SerializedName("mypgTermList")
+//        private List<TermVO> mypgTermList;
     }
 
 }

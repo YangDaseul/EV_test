@@ -1,5 +1,7 @@
 package com.genesis.apps.comm.viewmodel;
 
+import android.text.TextUtils;
+
 import androidx.hilt.Assisted;
 import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
@@ -21,6 +23,7 @@ import com.genesis.apps.comm.util.excutor.ExecutorService;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -37,14 +40,14 @@ class CBKViewModel extends ViewModel {
     private final DBVehicleRepository dbVehicleRepository;
     private final SavedStateHandle savedStateHandle;
 
-    private MutableLiveData<NetUIResponse<CBK_1001.Response>> RES_CBK_1001;
+    private MutableLiveData<NetUIResponse<CBK_1001.Response>> RES_CBK_1001;//서버로부터 전달받은 차량 데이터로 별도 가공되어있지 않음
     private MutableLiveData<NetUIResponse<CBK_1002.Response>> RES_CBK_1002;
     private MutableLiveData<NetUIResponse<CBK_1005.Response>> RES_CBK_1005;
     private MutableLiveData<NetUIResponse<CBK_1006.Response>> RES_CBK_1006;
     private MutableLiveData<NetUIResponse<CBK_1007.Response>> RES_CBK_1007;
     private MutableLiveData<NetUIResponse<CBK_1008.Response>> RES_CBK_1008;
 
-
+    //CBK-1001로부터 전달받은 차량 데이터를 주 이용차량을 가장 앞으로 가공시킨 리스트, 차계부 메인 및 수정 페이지에서 해당 데이터 참조함
     private MutableLiveData<List<VehicleVO>> vehicleList;
 
 
@@ -91,19 +94,27 @@ class CBKViewModel extends ViewModel {
     }
 
 
-    public List<String> getInsightVehicleList() throws ExecutionException, InterruptedException{
+    public List<String> getInsightVehicleList(List<VehicleVO> vehicleVOList) throws ExecutionException, InterruptedException{
         ExecutorService es = new ExecutorService("");
         Future<List<String>> future = es.getListeningExecutorService().submit(()->{
             List<String> list = new ArrayList<>();
-
             try {
-                List<VehicleVO> vehicleVOList = dbVehicleRepository.getInsightVehicleList();
-                vehicleList.postValue(vehicleVOList);
+                //db에서 주 이용차량 확인
+                VehicleVO mainVehicle = getDbVehicleRepository().getMainVehicleSimplyFromDB();
+                //주이용차량이 있고 차대번호가 정상적으로 있으면
+                if(mainVehicle!=null&&!TextUtils.isEmpty(mainVehicle.getVin())){
+                    for(int i=0; i<vehicleVOList.size(); i++){
+                        if(vehicleVOList.get(i).getVin().equalsIgnoreCase(mainVehicle.getVin())){ //주 이용 차량을
+                            if(i>0) Collections.swap(vehicleVOList, 0, i); //제일 앞으로 이동
+                            break;
+                        }
+                    }
+                }
 
+                vehicleList.postValue(vehicleVOList);
                 for(VehicleVO vehicleVO : vehicleVOList){
                     list.add(vehicleVO.getMdlCd() +" "+vehicleVO.getCarRgstNo());
                 }
-
             } catch (Exception ignore) {
                 ignore.printStackTrace();
             }

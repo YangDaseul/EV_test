@@ -165,7 +165,7 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
                     fltCd,
                     areaClsCd,
                     ui.tvAddrInfo1.getText().toString().trim() +" "+ui.tvAddrInfo2.getText().toString().trim()+" "+ui.etAddrDtl.getText().toString().trim(),
-                    addressVO.getCenterLat()+"",addressVO.getCenterLon()+"",ui.etCelPhNo.getText().toString().trim(),ui.etMemo.getText().toString().trim()));
+                    addressVO.getCenterLon()+"",addressVO.getCenterLat()+"",ui.etCelPhNo.getText().toString().trim(),ui.etMemo.getText().toString().trim()));
 //            cbkViewModel.reqCBK1006(new CBK_1006.Request(APPIAInfo.TM_EXPS01_01.getId(), vin, expnDivCd, ui.etExpnAmt.getText().toString().replaceAll(",", ""), ui.tvExpnDtm.getText().toString().replaceAll(".", ""), ui.etExpnPlc.getText().toString(), ui.etAccmMilg.getText().toString().replaceAll(",", "")));
         }
     }

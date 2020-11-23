@@ -268,7 +268,7 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
 
 
 
-
+    //todo 2020-11-23 사용안함
     private static class ItemInsightCarEmpty extends BaseViewHolder<ISTAmtVO, ItemInsightCarEmptyBinding> {
         public ItemInsightCarEmpty(View itemView) {
             super(itemView);
@@ -281,13 +281,7 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
 
         @Override
         public void onBindView(ISTAmtVO item, final int pos) {
-
             getBinding().lCarExpnGraph.setOnClickListener(onSingleClickListener);
-            if(pos==0){
-                getBinding().ivEmpty.setImageResource(R.drawable.item_insight_car_empty_1);
-            }else{
-                getBinding().ivEmpty.setImageResource(R.drawable.item_insight_car_empty_2);
-            }
         }
 
         @Override

@@ -61,7 +61,6 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
                 case SUCCESS:
                     ((MainActivity)getActivity()).showProgressDialog(false);
 
-
                     List<ContentsVO> list = new ArrayList<>();
 
                     if(result.data!=null&&result.data.getTtlList()!=null){

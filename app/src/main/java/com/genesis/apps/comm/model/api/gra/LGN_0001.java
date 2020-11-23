@@ -106,8 +106,6 @@ public class LGN_0001 extends BaseData {
         @Expose
         @SerializedName("pushIdChgYn")
         private String pushIdChgYn;
-
-
         @Expose
         @SerializedName("custMgmtNo")
         private String custMgmtNo;

@@ -90,4 +90,48 @@ class BtrVO extends BaseData {
     @Expose
     @SerializedName("firmScnCd")
     private String firmScnCd;
+
+
+    @Expose
+    @SerializedName("pntgXclYn")
+    private String pntgXclYn;
+    @Expose
+    @SerializedName("pntgXclSvcSbc")
+    private String pntgXclSvcSbc;
+    @Expose
+    @SerializedName("primCsYn")
+    private String primCsYn;
+    @Expose
+    @SerializedName("primCsSvcSbc")
+    private String primCsSvcSbc;
+    @Expose
+    @SerializedName("hdgnEvYn")
+    private String hdgnEvYn;
+    @Expose
+    @SerializedName("hdgnEvSvcSbc")
+    private String hdgnEvSvcSbc;
+    @Expose
+    @SerializedName("evYn")
+    private String evYn;
+    @Expose
+    @SerializedName("evSvcSbc")
+    private String evSvcSbc;
+    @Expose
+    @SerializedName("primTechYn")
+    private String primTechYn;
+    @Expose
+    @SerializedName("primTechSvcSbc")
+    private String primTechSvcSbc;
+    @Expose
+    @SerializedName("genLngYn")
+    private String genLngYn;
+    @Expose
+    @SerializedName("healZnYn")
+    private String healZnYn;
+    @Expose
+    @SerializedName("fmRronYn")
+    private String fmRronYn;
+    @Expose
+    @SerializedName("csmrPcYn")
+    private String csmrPcYn;
 }

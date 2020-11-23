@@ -165,13 +165,13 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             switch (pageType) {
                 case PAGE_TYPE_BTR:
                 case PAGE_TYPE_RENT:
-                    btrViewModel.reqBTR1008(new BTR_1008.Request(APPIAInfo.GM_CARLST_01_B01.getId(), String.valueOf(doubles.get(0)), String.valueOf(doubles.get(1)), "", "", fillerCd));
+                    btrViewModel.reqBTR1008(new BTR_1008.Request(APPIAInfo.GM_CARLST_01_B01.getId(), String.valueOf(doubles.get(1)), String.valueOf(doubles.get(0)), "", "", fillerCd));
                     break;
                 case PAGE_TYPE_REPAIR:
                     if(btrVO!=null) {
                         try {
                             mainVehicle = reqViewModel.getMainVehicle();
-                            reqViewModel.reqREQ1002(new REQ_1002.Request(APPIAInfo.SM_SNFIND01.getId(), mainVehicle.getVin(), mainVehicle.getMdlCd(), String.valueOf(doubles.get(0)), String.valueOf(doubles.get(1)),"", "", "", ""));
+                            reqViewModel.reqREQ1002(new REQ_1002.Request(APPIAInfo.SM_SNFIND01.getId(), mainVehicle.getVin(), mainVehicle.getMdlCd(), String.valueOf(doubles.get(1)), String.valueOf(doubles.get(0)),"", "", "", ""));
                         } catch (Exception e) {
 
                         }
@@ -181,7 +181,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 default:
                     try {
                         mainVehicle = reqViewModel.getMainVehicle();
-                        reqViewModel.reqREQ1002(new REQ_1002.Request(APPIAInfo.SM_SNFIND01.getId(), mainVehicle.getVin(), mainVehicle.getMdlCd(), String.valueOf(doubles.get(0)), String.valueOf(doubles.get(1)), "", "", "", ""));
+                        reqViewModel.reqREQ1002(new REQ_1002.Request(APPIAInfo.SM_SNFIND01.getId(), mainVehicle.getVin(), mainVehicle.getMdlCd(), String.valueOf(doubles.get(1)), String.valueOf(doubles.get(0)), "", "", "", ""));
                     }catch (Exception e){
 
                     }
@@ -255,7 +255,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         case PAGE_TYPE_REPAIR:
                         case PAGE_TYPE_SERVICE:
                         default:
-                            reqViewModel.reqREQ1002(new REQ_1002.Request(APPIAInfo.SM_SNFIND01.getId(), reqViewModel.getMainVehicle().getVin(), reqViewModel.getMainVehicle().getMdlCd(), String.valueOf(lgnViewModel.getPosition().getValue().get(0)), String.valueOf(lgnViewModel.getPosition().getValue().get(1)), addr, addrDtl, fillerCd, "" ));
+                            reqViewModel.reqREQ1002(new REQ_1002.Request(APPIAInfo.SM_SNFIND01.getId(), reqViewModel.getMainVehicle().getVin(), reqViewModel.getMainVehicle().getMdlCd(), String.valueOf(lgnViewModel.getPosition().getValue().get(1)), String.valueOf(lgnViewModel.getPosition().getValue().get(0)), addr, addrDtl, fillerCd, "" ));
                             break;
                     }
                 }catch (Exception e){
@@ -290,8 +290,9 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
-                    List<RepairTypeVO> list = result.data.getRparTypList();
-                    if(result.data.getPrctYn().equalsIgnoreCase("Y")&&list.size()>0){
+                    List<RepairTypeVO> list = new ArrayList<>();
+                    if(result.data.getPrctYn().equalsIgnoreCase("Y")&&result.data.getRparTypList()!=null&&result.data.getRparTypList().size()>0){
+                        list.addAll(result.data.getRparTypList());
                         showDialogRepairType(list);
                         break;
                     }
@@ -401,7 +402,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     public void drawMarkerItem(BtrVO btrVO, int iconId) {
         PlayMapMarker markerItem = new PlayMapMarker();
 //        PlayMapPoint point = mapView.getMapCenterPoint();
-        PlayMapPoint point = new PlayMapPoint(Double.parseDouble(btrVO.getMapXcooNm()), Double.parseDouble(btrVO.getMapYcooNm()));
+        PlayMapPoint point = new PlayMapPoint(Double.parseDouble(btrVO.getMapYcooNm()),Double.parseDouble(btrVO.getMapXcooNm()) );
         markerItem.setMapPoint(point);
 //        markerItem.setCalloutTitle("제목");
 //        markerItem.setCalloutSubTitle("내용");
@@ -430,7 +431,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     lgnViewModel.setPosition(location.getLatitude(), location.getLongitude());
                 } else {
                     //버틀러 정보가 잇으면 버틀러 블루핸즈 위치를 기본값으로 사용
-                    lgnViewModel.setPosition(Double.parseDouble(btrVO.getMapXcooNm()), Double.parseDouble(btrVO.getMapYcooNm()));
+                    lgnViewModel.setPosition(Double.parseDouble(btrVO.getMapYcooNm()), Double.parseDouble(btrVO.getMapXcooNm()) );
                 }
                 //내위치는 항상 저장
                 lgnViewModel.setMyPosition(location.getLatitude(), location.getLongitude());
@@ -527,7 +528,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 drawMarkerItem(list.get(i), R.drawable.ic_pin);
             }
         }
-        ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(Double.parseDouble(btrVO.getMapXcooNm()), Double.parseDouble(btrVO.getMapYcooNm())), 500);
+        ui.pmvMapView.setMapCenterPoint(new PlayMapPoint( Double.parseDouble(btrVO.getMapYcooNm()), Double.parseDouble(btrVO.getMapXcooNm())), 500);
 //        ui.pmvMapView.initMap(Double.parseDouble(btrVO.getMapXcooNm()), Double.parseDouble(btrVO.getMapYcooNm()), 17);
     }
 

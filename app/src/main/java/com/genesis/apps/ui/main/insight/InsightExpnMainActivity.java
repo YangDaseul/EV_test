@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.gra.CBK_1001;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
@@ -16,6 +17,7 @@ import com.genesis.apps.comm.model.api.gra.CBK_1002;
 import com.genesis.apps.comm.model.api.gra.CBK_1007;
 import com.genesis.apps.comm.model.vo.ExpnVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -40,6 +42,7 @@ import java.util.List;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -62,23 +65,18 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
         setViewModel();
         setObserver();
         initView();
+        cbkViewModel.reqCBK1001(new CBK_1001.Request(APPIAInfo.TM_EXPS01_P03.getId()));
     }
 
     private void initView() {
-        try {
-            vehicleList = cbkViewModel.getInsightVehicleList();
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            initGraph();
-            adapter = new InsightExpnAdapter(onSingleClickListener);
-            ui.rv.setLayoutManager(new LinearLayoutManager(this));
-            ui.rv.addItemDecoration(new RecyclerViewDecoration((int) DeviceUtil.dip2Pixel(this,4.0f)));
-            ui.rv.setHasFixedSize(true);
-            ui.rv.setAdapter(adapter);
-            ui.lTitle.setBtnText(getString(R.string.tm_exps01_2));
-            ui.lTitle.setTextBtnListener(onSingleClickListener);
-        }
+        initGraph();
+        adapter = new InsightExpnAdapter(onSingleClickListener);
+        ui.rv.setLayoutManager(new LinearLayoutManager(this));
+        ui.rv.addItemDecoration(new RecyclerViewDecoration((int) DeviceUtil.dip2Pixel(this, 4.0f)));
+        ui.rv.setHasFixedSize(true);
+        ui.rv.setAdapter(adapter);
+        ui.lTitle.setBtnText(getString(R.string.tm_exps01_2));
+        ui.lTitle.setTextBtnListener(onSingleClickListener);
     }
 
     private void initVehicleBtnStatus() {
@@ -229,15 +227,50 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
     @Override
     public void setObserver() {
 
-        //최초 진입 후 차량
-        cbkViewModel.getVehicleList().observe(this, vehicleVOList -> {
-            selectVehicle = vehicleVOList.get(0);
-            basYymm = cbkViewModel.getCurrentDateyyyyMM();
-            ui.btnMonth.setText(cbkViewModel.getCurrentMM());
-            initVehicleBtnStatus();
+        cbkViewModel.getRES_CBK_1001().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    if(result.data!=null
+                            &&result.data.getRtCd().equalsIgnoreCase("0000")
+                            &&result.data.getVhclList()!=null
+                            &&result.data.getVhclList().size()>0){
+
+                        try {
+                            vehicleList.addAll(cbkViewModel.getInsightVehicleList(result.data.getVhclList()));
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }finally{
+                            showProgressDialog(false);
+                        }
+                        break;
+                    }
+
+                default:
+                    showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        SnackBarUtil.show(this, serverMsg);
+                    }
+                    break;
+            }
         });
 
-
+        //최초 진입 후 차량
+        cbkViewModel.getVehicleList().observe(this, vehicleVOList -> {
+            if(vehicleVOList!=null&&vehicleVOList.size()>0) {
+                selectVehicle = vehicleVOList.get(0);
+                basYymm = cbkViewModel.getCurrentDateyyyyMM();
+                ui.btnMonth.setText(cbkViewModel.getCurrentMM());
+                initVehicleBtnStatus();
+            }
+        });
 
         cbkViewModel.getRES_CBK_1002().observe(this, result -> {
 

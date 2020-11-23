@@ -90,7 +90,6 @@ class BaseRequest extends BaseData {
         this.menuID = menuID;
         this.menuID = "";//TODO 2020-11-20 server 요청으로 임시 블락
         this.appGbCd = "GRA";
-
         this.custNo = userVO.getCustNo();
 
         if((userVO.getCustGbCd().equalsIgnoreCase("0000")||(userVO.getCustGbCd().equalsIgnoreCase(""))) //UserVO DB의 값이 0000혹은 빈값일 때

@@ -139,7 +139,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         });
 
         lgnViewModel.getPosition().observe(getViewLifecycleOwner(), doubles -> {
-            lgnViewModel.reqLGN0005(new LGN_0005.Request(APPIAInfo.GM01.getId(), String.valueOf(doubles.get(0)), String.valueOf(doubles.get(1))));
+            lgnViewModel.reqLGN0005(new LGN_0005.Request(APPIAInfo.GM01.getId(), String.valueOf(doubles.get(1)), String.valueOf(doubles.get(0))));
         });
 
 

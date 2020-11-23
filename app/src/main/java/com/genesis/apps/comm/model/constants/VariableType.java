@@ -23,9 +23,9 @@ public class VariableType {
     public static final String TERM_SERVICE_JOIN_MYP0003 = "MYP0003"; //제네시스사이트약관
     public static final String TERM_SERVICE_JOIN_MYP0004 = "MYP0004"; //선택적개인정보수집에대한안내
 
-    public static final String TERM_SERVICE_JOIN_BLM0001 = "BLM0001"; //블루멤버스 회원약관
-    public static final String TERM_SERVICE_JOIN_BLM0002 = "BLM0002"; //블루멤버스 개인정보 처리 방침
-    public static final String TERM_SERVICE_JOIN_BLM0003 = "BLM0003"; //블루멤버스 광고성 정보 수신에 대한 안내
+    public static final String TERM_SERVICE_JOIN_BLM0001 = "GRA0006"; //블루멤버스 회원약관
+    public static final String TERM_SERVICE_JOIN_BLM0002 = "GRA0007"; //블루멤버스 개인정보 처리 방침
+    public static final String TERM_SERVICE_JOIN_BLM0003 = "GRA0008"; //블루멤버스 광고성 정보 수신에 대한 안내
 
 
     public static final String NOTI_CODE_NOTI = "NOTI"; //일반공지

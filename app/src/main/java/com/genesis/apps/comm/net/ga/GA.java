@@ -437,6 +437,11 @@ public class GA {
         return postDataWithToken(url, data, getAccessToken());
     }
 
+    public JsonObject testAccessToken(String url, String data) throws NetException {
+        return postDataWithToken(url, data, "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaWQiOiI1YmIyYzcyMDlhOTk0MzA0MTk0MzZlYzQiLCJ1aWQiOiI1OTRkMDQ1MC02MDI2LTQ0ZjktYTdkMi1hYjI4ODhhY2Q5NzgiLCJzaWQiOiJhMThhYTBmMy0xMWE2LTQ1YmEtYmE0Yy01MmM1NGU2OGFiNjIiLCJleHAiOjE2MDU5Mjg0MzEsImlhdCI6MTYwNTg0MjAzMSwiaXNzIjoiZ2NzIn0.aRdfcVlswreeKxOwokVZU3YGoqgwV5abFgKrE8go_tPR5WRZtaQgBJqKrbVFp0ipPfvCRPdoCrgfs3yxQKChJCGoIGwEzdgGLf2LIbAwPJn2kQcxcM-IiM0Zfqwrs6uNeiJd4nskdO8Nd9C_-Zj6TtUfpek_cH0EFW4MtMHeAAreBG7NDyrNRtzZ6OLMdhKUE8AXEyc1dfKyY_1DstaBD9WaF7g8h5xRZqycLDi485oWylYQtKqvIgm5Jao5d8bkrATcpiWdDf47RAbIG6OACxx6vnfpfJhN9W22NNGUYXe70cg10KT03W1pkJ8mmLmEa_90UtP5gPeVUq2e-Ae4FA");
+    }
+
+
     public JsonObject postDataWithToken(String url, String data, String token) throws NetException {
         HttpRequest request = httpRequestUtil.getPostRequest(url);
         request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + token);

@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -13,8 +14,10 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.BAR_1001;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.VibratorUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.databinding.ActivityBarcodeBinding;
@@ -149,7 +152,6 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
         cmnViewModel.getRES_BAR_1001().observe(this, result -> {
 
             switch (result.status){
-
                 case LOADING:
                     showProgressDialog(true);
                     break;
@@ -163,12 +165,19 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
                         }finally {
                             showProgressDialog(false);
                         }
-                    }else{
-                        showProgressDialog(false);
+                        break;
                     }
-                    break;
                 default:
                     showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        SnackBarUtil.show(this, serverMsg);
+                        ui.btnSettings.setEnabled(false);
+                    }
                     break;
 
             }

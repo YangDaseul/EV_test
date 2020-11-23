@@ -124,8 +124,9 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
                 case SUCCESS:
                     showProgressDialog(false);
                     if(result.data!=null&&result.data.getTermList()!=null&&result.data.getTermList().size()>0
-                            &&result.data.getBlueTermList()!=null&&result.data.getBlueTermList().size()>0
-                            &&result.data.getMypgTermList()!=null&&result.data.getMypgTermList().size()>0){
+                            &&result.data.getBlueTermList()!=null&&result.data.getBlueTermList().size()>0)
+//                            &&result.data.getMypgTermList()!=null&&result.data.getMypgTermList().size()>0)
+                    {
                         addTermToLayout(result.data.getTermList());
                         break;
                     }
@@ -212,16 +213,16 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
             terms.add(new AgreeTermVO(checkBoxs.get(i).getTermVO().getTermCd(), (checkBoxs.get(i).getCheckBox().isChecked() ? "Y" : "N"),checkBoxs.get(i).getTermVO().getTermNm(),agreeDate,agreeMeansVO));
         }
 
-        //마이페이지 약관에 대한 데이터 구조 생성 //todo 추후 oriMyGTerms을 지우고 checkboxs 리스트 만들어서 재 처리 필요
-        List<TermVO> oriMyGTerms = cmnViewModel.getRES_CMN_0003().getValue().data.getMypgTermList();
-        for(int i=0; i<oriMyGTerms.size(); i++){
-            AgreeMeansVO agreeMeansVO = null;
-            if(oriMyGTerms.get(i).getTermCd().equalsIgnoreCase(TERM_SERVICE_JOIN_MYP0004)){
-                agreeMeansVO = new AgreeMeansVO((ui.cbSms.isChecked() ? "Y" : "N"), (ui.cbEmail.isChecked() ? "Y" : "N"),null,(ui.cbPhone.isChecked() ? "Y" : "N"),null,(ui.cbSms.isChecked() ? "Y" : "N"));
-            }
-            mypgTerms.add(new AgreeTermVO(oriMyGTerms.get(i).getTermCd(),"Y", oriMyGTerms.get(i).getTermNm(), agreeDate, agreeMeansVO));
-        }
-        MBR_0001.Request mbrRequest = new MBR_0001.Request(APPIAInfo.INT03.getId(), tokenCode, authUuid, terms, null, mypgTerms);
+//        //마이페이지 약관에 대한 데이터 구조 생성 //todo 추후 oriMyGTerms을 지우고 checkboxs 리스트 만들어서 재 처리 필요
+//        List<TermVO> oriMyGTerms = cmnViewModel.getRES_CMN_0003().getValue().data.getMypgTermList();
+//        for(int i=0; i<oriMyGTerms.size(); i++){
+//            AgreeMeansVO agreeMeansVO = null;
+//            if(oriMyGTerms.get(i).getTermCd().equalsIgnoreCase(TERM_SERVICE_JOIN_MYP0004)){
+//                agreeMeansVO = new AgreeMeansVO((ui.cbSms.isChecked() ? "Y" : "N"), (ui.cbEmail.isChecked() ? "Y" : "N"),null,(ui.cbPhone.isChecked() ? "Y" : "N"),null,(ui.cbSms.isChecked() ? "Y" : "N"));
+//            }
+//            mypgTerms.add(new AgreeTermVO(oriMyGTerms.get(i).getTermCd(),"Y", oriMyGTerms.get(i).getTermNm(), agreeDate, agreeMeansVO));
+//        }
+        MBR_0001.Request mbrRequest = new MBR_0001.Request(APPIAInfo.INT03.getId(), tokenCode, authUuid, terms, null);
         cmnViewModel.getREQ_MBR_0001().setValue(mbrRequest);
     }
 

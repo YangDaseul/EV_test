@@ -1,6 +1,7 @@
 package com.genesis.apps.comm.net;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APIInfo;
@@ -175,6 +176,7 @@ public class NetCaller {
                         jsonObject = httpRequestUtil.sendPut(serverUrl, new Gson().toJson(reqVO));
                         break;
                     case HttpRequest.METHOD_POST:
+                        Log.e("HttpReqeusetUtil","HttpReqeusetUtil ifcd:"+apiInfo.getIfCd() +"  send data :   "+new Gson().toJson(reqVO));
                         jsonObject = ga.postDataWithAccessToken(serverUrl, new Gson().toJson(reqVO));
 //                       jsonObject = httpRequestUtil.send(serverUrl, new Gson().toJson(reqVO));
                         break;
@@ -183,6 +185,7 @@ public class NetCaller {
                 }
 
                 if (jsonObject != null && !TextUtils.isEmpty(jsonObject.toString())) {
+                    Log.e("HttpReqeusetUtil","HttpReqeusetUtil ifcd:"+apiInfo.getIfCd() +"  receive data :   "+jsonObject.toString());
                     return new NetResult(NetStatusCode.SUCCESS, 0, jsonObject);
                 } else {
                     return new NetResult(NetStatusCode.ERR_DATA_NULL, R.string.error_msg_1, null);

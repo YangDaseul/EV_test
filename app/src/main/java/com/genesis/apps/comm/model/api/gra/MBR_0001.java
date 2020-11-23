@@ -46,16 +46,16 @@ public class MBR_0001 extends BaseData {
         @Expose
         @SerializedName("blueTerms")
         private List<AgreeTermVO> blueTerms;
-        @Expose
-        @SerializedName("mypgTerms")
-        private List<AgreeTermVO> mypgTerms;
+//        @Expose
+//        @SerializedName("mypgTerms")
+//        private List<AgreeTermVO> mypgTerms;
 
-        public Request(String menuId, String tokenCode, String authUuid, List<AgreeTermVO> terms, List<AgreeTermVO> blueTerms, List<AgreeTermVO> mypgTerms){
+        public Request(String menuId, String tokenCode, String authUuid, List<AgreeTermVO> terms, List<AgreeTermVO> blueTerms){
             this.tokenCode = tokenCode;
             this.authUuid = authUuid;
             this.terms = terms;
             this.blueTerms = blueTerms;
-            this.mypgTerms = mypgTerms;
+//            this.mypgTerms = mypgTerms;
             setData(APIInfo.GRA_MBR_0001.getIfCd(), menuId);
         }
     }

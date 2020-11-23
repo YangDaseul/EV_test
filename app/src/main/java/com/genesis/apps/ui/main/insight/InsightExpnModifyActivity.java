@@ -12,11 +12,12 @@ import android.widget.EditText;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.CBK_1001;
+import com.genesis.apps.comm.model.api.gra.CBK_1008;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.CBK_1008;
 import com.genesis.apps.comm.model.vo.ExpnVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.DateUtil;
@@ -61,66 +62,65 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
         setViewModel();
         setObserver();
         initView();
+        cbkViewModel.reqCBK1001(new CBK_1001.Request(APPIAInfo.TM_EXPS01_02.getId()));
     }
 
     private void initView() {
-        try {
-            vehicleList = cbkViewModel.getInsightVehicleList();
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally{
-            initConstraintSets();
-            ui.etAccmMilg.setOnEditorActionListener(editorActionListener);
-            ui.etExpnAmt.setOnEditorActionListener(editorActionListener);
-            ui.etExpnPlc.setOnEditorActionListener(editorActionListener);
-            ui.etAccmMilg.setOnFocusChangeListener(focusChangeListener);
-            ui.etExpnAmt.setOnFocusChangeListener(focusChangeListener);
-            ui.etExpnPlc.setOnFocusChangeListener(focusChangeListener);
+        initConstraintSets();
+        ui.etAccmMilg.setOnEditorActionListener(editorActionListener);
+        ui.etExpnAmt.setOnEditorActionListener(editorActionListener);
+        ui.etExpnPlc.setOnEditorActionListener(editorActionListener);
+        ui.etAccmMilg.setOnFocusChangeListener(focusChangeListener);
+        ui.etExpnAmt.setOnFocusChangeListener(focusChangeListener);
+        ui.etExpnPlc.setOnFocusChangeListener(focusChangeListener);
 
-            ui.etExpnAmt.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        ui.etExpnAmt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                String value = charSequence.toString().replace(",", "");
+
+                if (value.length() > 10) {
+                    ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(value.substring(0, 10)));
+                    ui.etExpnAmt.setSelection(ui.etExpnAmt.length());
                 }
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                    String value = charSequence.toString().replace(",","");
+            }
 
-                    if(value.length()>10){
-                        ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(value.substring(0,10)));
-                        ui.etExpnAmt.setSelection(ui.etExpnAmt.length());
-                    }
+            @Override
+            public void afterTextChanged(Editable editable) {
 
+            }
+        });
+
+
+        ui.etAccmMilg.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                String value = charSequence.toString().replace(",", "");
+
+                if (value.length() > 10) {
+                    ui.etAccmMilg.setText(StringUtil.getDigitGroupingString(value.substring(0, 10)));
+                    ui.etAccmMilg.setSelection(ui.etAccmMilg.length());
                 }
-                @Override
-                public void afterTextChanged(Editable editable) {
+            }
 
-                }
-            });
+            @Override
+            public void afterTextChanged(Editable editable) {
 
+            }
+        });
 
-            ui.etAccmMilg.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                }
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                    String value = charSequence.toString().replace(",","");
-
-                    if(value.length()>10){
-                        ui.etAccmMilg.setText(StringUtil.getDigitGroupingString(value.substring(0,10)));
-                        ui.etAccmMilg.setSelection(ui.etAccmMilg.length());
-                    }
-                }
-                @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
-            });
-
-            updateView();
-        }
+        updateView();
     }
 
     private void updateView() {
@@ -281,6 +281,40 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
 
     @Override
     public void setObserver() {
+        cbkViewModel.getRES_CBK_1001().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    if(result.data!=null
+                            &&result.data.getRtCd().equalsIgnoreCase("0000")
+                            &&result.data.getVhclList()!=null
+                            &&result.data.getVhclList().size()>0){
+
+                        try {
+                            vehicleList.addAll(cbkViewModel.getInsightVehicleList(result.data.getVhclList()));
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }finally{
+                            showProgressDialog(false);
+                        }
+                        break;
+                    }
+
+                default:
+                    showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        SnackBarUtil.show(this, serverMsg);
+                    }
+                    break;
+            }
+        });
 
         //최초 진입 후 차량
         cbkViewModel.getVehicleList().observe(this, vehicleVOList -> {

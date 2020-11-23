@@ -54,8 +54,8 @@ public class BTR_1009 extends BaseData {
         @SerializedName("asnNm")
         private String asnNm;
         @Expose
-        @SerializedName("repnTn")
-        private String repnTn;
+        @SerializedName("repTn")
+        private String repTn;
         @Expose
         @SerializedName("pbzAdr")
         private String pbzAdr;
