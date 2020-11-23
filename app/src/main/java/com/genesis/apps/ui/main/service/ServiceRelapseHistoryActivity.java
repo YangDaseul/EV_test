@@ -61,18 +61,28 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
     @Override
     public void onClickCommon(View v) {
         Log.d(TAG, "onClickCommon: ");
-
+        Intent intent;
         switch (v.getId()) {
             //신청 내역 목록에서 [접수중] 상태인 아이템
             case R.id.l_relapse_history_item:
+                intent = new Intent(this, ServiceRelapseReqResultActivity.class)
+                        .putExtra(KeyNames.KEY_NAME_SERVICE_VOC_INFO_VO, (VOCInfoVO) v.getTag(R.id.tag_relapse_history));
 
-                //todo impl
-
+                startActivitySingleTop(
+                        intent,
+                        RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                        VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
 
             //신청 버튼
             case R.id.tv_relapse_history_req_btn:
-                startActivitySingleTop(new Intent(this, ServiceRelapseApply1Activity.class).putExtra(KeyNames.KEY_NAME_ADDR, addressVO), RequestCodes.REQ_CODE_RELAPSE_REQ.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                intent = new Intent(this, ServiceRelapseApply1Activity.class)
+                        .putExtra(KeyNames.KEY_NAME_ADDR, addressVO);
+
+                startActivitySingleTop(
+                        intent,
+                        RequestCodes.REQ_CODE_RELAPSE_REQ.getCode(),
+                        VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
 
             default:
@@ -100,13 +110,13 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
                     break;
 
                 case SUCCESS:
-                    if (result.data != null && result.data.getDfctList() != null) {
+                    if (result.data != null) {
 
                         //수신된 데이터를 꺼내고
                         List<VOCInfoVO> list = result.data.getDfctList();
 
                         //받은 목록의 길이가 1 이상이면 어댑터에 넣는다
-                        if (list.size() > 0) {
+                        if (list != null && list.size() > 0) {
                             adapter.setRows(list);
                         }
                         //데이터가 없으면 '내역 없음'뷰를 출력할 더미 추가
@@ -119,7 +129,7 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
                         adapter.notifyDataSetChanged();
 
                         //이용 내역 수를 표시
-                        ui.setItemCount("" + list.size());
+                        ui.setItemCount("" + (list == null ? "0" : list.size()));
 
                         //성공 후 데이터 로딩까지 다 되면 로딩 치우고 break;
                         showProgressDialog(false);

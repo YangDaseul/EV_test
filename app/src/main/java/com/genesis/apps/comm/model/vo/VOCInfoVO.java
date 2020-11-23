@@ -60,6 +60,7 @@ import lombok.EqualsAndHashCode;
  * @see #wk3Dtl 수리내용(3회차)
  *
  * @see #wkCntFth 수리시도회수4회이상여부 (4회 이상일 경우만 입력)
+ * @see #wkCnt 수리시도회수
  * @see #wkPeriod 누적수리기간
  * @see #prnInfoAgreeFlg 개인정보 취급 동의
  *
@@ -208,6 +209,9 @@ class VOCInfoVO extends BaseData {
     @Expose
     @SerializedName("wkCntFth")
     private String wkCntFth;
+    @Expose
+    @SerializedName("wkCnt")
+    private String wkCnt;
     @Expose
     @SerializedName("wkPeriod")
     private String wkPeriod;

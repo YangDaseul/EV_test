@@ -47,6 +47,7 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
     private BottomDialogAskAgreeTerms termsDialog;
 
     public boolean over4;
+    private String count;
     private String period;
 
     private int currentState = STATE_INIT;
@@ -148,13 +149,13 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
 
                 default:
                     showProgressDialog(false);
-                    String serverMsg="";
+                    String serverMsg = "";
                     try {
                         serverMsg = result.data.getRtMsg();
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    }finally{
-                        if (TextUtils.isEmpty(serverMsg)){
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
                             serverMsg = getString(R.string.instability_network);
                         }
                         SnackBarUtil.show(this, serverMsg);
@@ -186,13 +187,13 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
 
                 default:
                     showProgressDialog(false);
-                    String serverMsg="";
+                    String serverMsg = "";
                     try {
                         serverMsg = result.data.getRtMsg();
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    }finally{
-                        if (TextUtils.isEmpty(serverMsg)){
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
                             serverMsg = getString(R.string.instability_network);
                         }
                         SnackBarUtil.show(this, serverMsg);
@@ -305,6 +306,11 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         ui.tvRelapse3Desc.setText(R.string.relapse_3_msg_04);
         ui.tvRelapse3NextBtn.setText(R.string.relapse_3_req_btn_text);
 
+        //앞 단계에서 4회 넘었다고 했으면 입력값 저장
+        if (over4) {
+            count = ui.etRelapse3TotalCount.getText().toString();
+        }
+
         InteractionUtil.collapse(ui.lRelapse3YesNoContainer, null);
         InteractionUtil.collapse(ui.lRelapse3TotalCountContainer, null);
 
@@ -354,7 +360,7 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
     private void reqVOC1002() {
         VOC_1002.Request param = new VOC_1002.Request(APPIAInfo.SM_FLAW06.getId());
 
-        // 앞 단계에서 가져온 거 + 어댑터가 들고있는 거 + over4 + period
+        // 앞 단계에서 가져온 거 + 어댑터가 들고있는 거 + over4 + count + period
         param.setCsmrNm(vocInfoVO.getCsmrNm());
         param.setCsmrTymd(vocInfoVO.getCsmrTymd());
         param.setEmlAdr(vocInfoVO.getEmlAdr());
@@ -384,6 +390,7 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         }
 
         param.setWkCntFth(over4 ? "Y" : "N");
+        param.setWkCnt(count);
         param.setWkPeriod("" + period);
         param.setPrnInfoAgreeFlg("Y");
 

@@ -121,7 +121,47 @@ public class TestCode {
             "      \"inpSt\": \"1\",\n" +
             "      \"inpDate\": \"20201212\",\n" +
             "      \"inpDesc\": \"울랄라뾰롱뾰롱\",\n" +
-            "      \"vin\": \"TESTVIN0011111\"\n" +
+            "      \"csmrNm\": \"홍길동\",\n" +
+            "      \"csmrTymd\": \"18180101\",\n" +
+            "      \"emlAdr\": \"asdfad3n@fenew.com\",\n" +
+            "      \"rdwNmZip\": \"123678\",\n" +
+            "      \"rdwNmAdr\": \"도로명주소\",\n" +
+            "      \"rdwNmDtlAdr\": \"도로명상세주소\",\n" +
+            "      \"regnTn\": \"010\",\n" +
+            "      \"frtDgtTn\": \"3245\",\n" +
+            "      \"realDgtTn\": \"6554\",\n" +
+            "      \"recvDt\": \"20201010\",\n" +
+            "      \"carNm\": \"그니까 차량이름이 도대체 뭔ㄷ데\",\n" +
+            "      \"crnVehlCd\": \"GV30\",\n" +
+            "      \"mdYyyy\": \"20201020\",\n" +
+            "      \"trvgDist\": \"24422\",\n" +
+            "      \"carNo\": \"234구32423\",\n" +
+            "      \"vin\": \"TESTVIN0011111\",\n" +
+            "      \"wpa\": \"서울시\",\n" +
+            "      \"admz\": \"마포구\",\n" +
+            "      \"flawCd\": \"A\",\n" +
+            "      \"wkr1Nm\": \"아이언맨\",\n" +
+            "      \"wk1StrtDt\": \"20201003\",\n" +
+            "      \"wk1Dt\": \"20201004\",\n" +
+            "      \"wk1TrvgDist\": \"9087\",\n" +
+            "      \"wk1Caus\": \"차축부러짐\",\n" +
+            "      \"wk1Dtl\": \"비브라늄으로 교체\",\n" +
+            "      \"wkr2Nm\": \"센트럴도그마\",\n" +
+            "      \"wk2StrtDt\": \"20201101\",\n" +
+            "      \"wk2Dt\": \"20201111\",\n" +
+            "      \"wk2TrvgDist\": \"99999\",\n" +
+            "      \"wk2Caus\": \"완전히침묵\",\n" +
+            "      \"wk2Dtl\": \"엔진오버홀\",\n" +
+            "      \"wkr3Nm\": \"\",\n" +
+            "      \"wk3StrtDt\": \"\",\n" +
+            "      \"wk3Dt\": \"\",\n" +
+            "      \"wk32TrvgDist\": \"\",\n" +
+            "      \"wk3Caus\": \"\",\n" +
+            "      \"wk3Dtl\": \"\",\n" +
+            "      \"wkCntFth\": \"Y\",\n" +
+            "      \"wkCnt\": \"9\",\n" +
+            "      \"wkPeriod\": \"87\",\n" +
+            "      \"prnInfoAgreeFlg\": \"Y\"\n" +
             "    },\n" +
             "    {\n" +
             "      \"inpSt\": \"2\",\n" +
@@ -1073,14 +1113,7 @@ public class TestCode {
             "      \"ctrctNo\": \"21234\"\n" +
             "    }\n" +
             "  ],\n" +
-            "  \"dftVhclInfo\": [\n" +
-            "    {\n" +
-            "      \"mdlCd\": \"GV80\",\n" +
-            "      \"mdlNm\": \"디젤 3.0 5인승 19인치\",\n" +
-            "      \"saleMdlNm\": \"GV80 디젤 3.0 5인승 19인치 기본디자인 2WD 오토\",\n" +
-            "      \"xrclCtyNo\": \"12345678\",\n" +
-            "      \"vhclImgUri\": \"\"\n" +
-            "    },\n" +
+            "  \"dftVhclInfo\": \n" +
             "    {\n" +
             "      \"mdlCd\": \"GV90\",\n" +
             "      \"mdlNm\": \"디젤 3.0 5인승 19인치\",\n" +
@@ -1088,7 +1121,6 @@ public class TestCode {
             "      \"xrclCtyNo\": \"99999999\",\n" +
             "      \"vhclImgUri\": \"\"\n" +
             "    }\n" +
-            "  ]\n" +
             "}",MBR_0001.Response.class);
 
 
@@ -1153,14 +1185,7 @@ public class TestCode {
             "      \"ctrctNo\": \"21234\"\n" +
             "    }\n" +
             "  ],\n" +
-            "  \"dftVhclInfo\": [\n" +
-            "    {\n" +
-            "      \"mdlCd\": \"GV80\",\n" +
-            "      \"mdlNm\": \"디젤 3.0 5인승 19인치\",\n" +
-            "      \"saleMdlNm\": \"GV80 디젤 3.0 5인승 19인치 기본디자인 2WD 오토\",\n" +
-            "      \"xrclCtyNo\": \"12345678\",\n" +
-            "      \"vhclImgUri\": \"\"\n" +
-            "    },\n" +
+            "  \"dftVhclInfo\":\n"+
             "    {\n" +
             "      \"mdlCd\": \"GV90\",\n" +
             "      \"mdlNm\": \"디젤 3.0 5인승 19인치\",\n" +
@@ -1168,7 +1193,7 @@ public class TestCode {
             "      \"xrclCtyNo\": \"99999999\",\n" +
             "      \"vhclImgUri\": \"\"\n" +
             "    }\n" +
-            "  ]\n" +
+
             "}", LGN_0001.Response.class);
 
     public static LGN_0003.Response LGN_0003 = new Gson().fromJson("{\n" +
