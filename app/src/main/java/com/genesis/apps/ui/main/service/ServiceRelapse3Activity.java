@@ -26,7 +26,8 @@ import com.genesis.apps.comm.viewmodel.VOCViewModel;
 import com.genesis.apps.databinding.ActivityServiceRelapseApply3Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomDialogAskAgreeTerms;
-import com.genesis.apps.ui.main.MainActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
+import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.ServiceTermDetailActivity;
 import com.genesis.apps.ui.main.service.ServiceRelapse3Adapter.RepairData;
 import com.genesis.apps.ui.myg.MyGOilTermDetailActivity;
@@ -114,6 +115,30 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
             default:
                 //do nothing
                 break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        dialogExit();
+    }
+
+    @Override
+    public void onBackButton() {
+        dialogExit();
+    }
+
+    private void dialogExit() {
+        List<SubFragment> fragments = getFragments();
+        if (fragments != null && fragments.size() > 0) {
+            hideFragment(fragments.get(0));
+        } else {
+            MiddleDialog.dialogServiceRelapseApplyExit(this, () -> {
+                finish();
+                closeTransition();
+            }, () -> {
+
+            });
         }
     }
 
@@ -327,18 +352,16 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
     private void showTermsDialog(List<TermVO> termList) {
         Log.d(TAG, "showTermsDialog: " + termsDialog);
 
-        if (termsDialog == null) {
-            termsDialog = new BottomDialogAskAgreeTerms(
-                    this,
-                    R.style.BottomSheetDialogTheme,
-                    onSingleClickListener);
+        termsDialog = new BottomDialogAskAgreeTerms(
+                this,
+                R.style.BottomSheetDialogTheme,
+                onSingleClickListener);
 
-            termsDialog.setOnDismissListener(dialog -> {
-                if (termsDialog.isInputConfirmed()) {
-                    reqVOC1002();
-                }
-            });
-        }
+        termsDialog.setOnDismissListener(dialog -> {
+            if (termsDialog.isInputConfirmed()) {
+                reqVOC1002();
+            }
+        });
 
         termsDialog.init(termList);
         termsDialog.show();

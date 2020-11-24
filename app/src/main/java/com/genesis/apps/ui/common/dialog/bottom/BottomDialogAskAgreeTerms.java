@@ -62,7 +62,6 @@ public class BottomDialogAskAgreeTerms extends BaseBottomDialog<DialogBottomTerm
     }
 
     //전체동의를 사용자가 누르면 각 약관 항목 전체에 동의여부 전파
-    //tODO 이거 또 t/f 반대로 가는 거 아닌가 의심스럽다
     private void setAllClickListener() {
         ui.cbAgreeAll.setOnClickListener((view) -> adapter.setAllCheck(ui.cbAgreeAll.isChecked()));
     }

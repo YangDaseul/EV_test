@@ -137,7 +137,6 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         }
         // 대리운전 결제
         else if (requestCode == RequestCodes.REQ_CODE_PAYMENT_WEB_VIEW.getCode()) {
-            //todo 이거 스낵 바 띄워봤자 또 읽기 전에 증발할 거 같은데 ㅡㅡ;;
             int paymentResultId = INVALID_ID;
 
             //결제 성공
