@@ -113,7 +113,7 @@ class CBKViewModel extends ViewModel {
 
                 vehicleList.postValue(vehicleVOList);
                 for(VehicleVO vehicleVO : vehicleVOList){
-                    list.add(vehicleVO.getMdlCd() +" "+vehicleVO.getCarRgstNo());
+                    list.add(vehicleVO.getMdlCd() + (TextUtils.isEmpty(vehicleVO.getCarRgstNo()) ? "" : " "+vehicleVO.getCarRgstNo()));
                 }
             } catch (Exception ignore) {
                 ignore.printStackTrace();
