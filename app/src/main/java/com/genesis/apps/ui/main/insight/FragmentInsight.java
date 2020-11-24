@@ -236,15 +236,6 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
 
         });
 
-
-
-
-
-
-
-
-
-
         sosViewModel.getRES_SOS_1001().observe(getViewLifecycleOwner(), result -> {
             switch (result.status){
                 case LOADING:
