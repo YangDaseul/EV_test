@@ -14,11 +14,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.WSH_1003;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.WSH_1003;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.model.vo.WashBrnVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -37,8 +37,8 @@ import java.util.concurrent.ExecutionException;
 
 public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> {
     private static final String TAG = CarWashSearchActivity.class.getSimpleName();
-    public static final int X = 0;
-    public static final int Y = 1;
+    public static final int LATITUDE = 0;
+    public static final int LONGITUDE = 1;
 
     private static final int DEFAULT_ZOOM = 17;
 
@@ -228,11 +228,11 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 
             runOnUiThread(() -> {
                 //내 위치 저장
-                myPosition[X] = location.getLatitude();
-                myPosition[Y] = location.getLongitude();
+                myPosition[LATITUDE] = location.getLatitude();
+                myPosition[LONGITUDE] = location.getLongitude();
 
                 //지도 초기화
-                ui.pmvMapView.initMap(myPosition[X], myPosition[Y], DEFAULT_ZOOM);
+                ui.pmvMapView.initMap(myPosition[LATITUDE], myPosition[LONGITUDE], DEFAULT_ZOOM);
             });
 
         }, 5000);
@@ -240,7 +240,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 
     //초기 위치로 지도 이동
     private void moveMapToInitPosition() {
-        ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(myPosition[X], myPosition[Y]), 500);
+        ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(myPosition[LATITUDE], myPosition[LONGITUDE]), 500);
     }
 
     //ViewStub을 inflate하고 지점 정보 세팅
@@ -273,7 +273,10 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
     private void setBranchData(WashBrnVO branchData, boolean moveMapFocus) {
         //지도 뷰를 해당 위치로 이동
         if (moveMapFocus) {
-            ui.pmvMapView.initMap(Double.parseDouble(branchData.getBrnhX()), Double.parseDouble(branchData.getBrnhY()), ui.pmvMapView.getZoomLevel());
+            ui.pmvMapView.initMap(
+                    Double.parseDouble(branchData.getBrnhY()),
+                    Double.parseDouble(branchData.getBrnhX()),
+                    ui.pmvMapView.getZoomLevel());
         }
 
         //지점 정보 뷰에 데이터 바인딩
@@ -296,7 +299,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
         //작은 마커 그리다가 선택된 놈 찾으면 걔만 큰 마커
         for (WashBrnVO branch : searchedBranchList) {
             PlayMapMarker markerItem = new PlayMapMarker();
-            PlayMapPoint point = new PlayMapPoint(Double.parseDouble(branch.getBrnhX()), Double.parseDouble(branch.getBrnhY()));
+            PlayMapPoint point = new PlayMapPoint(Double.parseDouble(branch.getBrnhY()), Double.parseDouble(branch.getBrnhX()));
             markerItem.setMapPoint(point);
             markerItem.setCanShowCallout(false);
             markerItem.setAutoCalloutVisible(false);

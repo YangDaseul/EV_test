@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
-import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -30,8 +29,8 @@ import com.genesis.apps.ui.main.MainActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.genesis.apps.ui.main.service.CarWashSearchActivity.X;
-import static com.genesis.apps.ui.main.service.CarWashSearchActivity.Y;
+import static com.genesis.apps.ui.main.service.CarWashSearchActivity.LATITUDE;
+import static com.genesis.apps.ui.main.service.CarWashSearchActivity.LONGITUDE;
 
 public class CarWashFindSonaxBranchFragment extends SubFragment<FragmentCarWashFindSonaxBranchBinding> {
     private static final String TAG = CarWashFindSonaxBranchFragment.class.getSimpleName();
@@ -270,8 +269,8 @@ public class CarWashFindSonaxBranchFragment extends SubFragment<FragmentCarWashF
                         APPIAInfo.SM_CW01_A02.getId(),
                         godsSeqNo,
                         WSHViewModel.SONAX,
-                        "" + gps[X],
-                        "" + gps[Y],
+                        "" + gps[LONGITUDE],
+                        "" + gps[LATITUDE],
                         area));
     }
 }

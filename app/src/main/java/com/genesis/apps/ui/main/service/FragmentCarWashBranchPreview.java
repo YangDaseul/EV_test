@@ -2,6 +2,7 @@ package com.genesis.apps.ui.main.service;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,17 +58,17 @@ public class FragmentCarWashBranchPreview extends SubFragment<FragmentCarWashBra
 
         //... 아무리 생각해도 서버가 이걸 처음부터 리스트로 주는 게 맞는 거 같은데 ㅡㅡ;;
         String temp = pickedBranch.getBrnhImgUri1();//1번
-        if (temp != null && !temp.equals("")) {
+        if (!TextUtils.isEmpty(temp)) {
             urlList.add(temp);
         }
 
         temp = pickedBranch.getBrnhImgUri2();//2번
-        if (temp != null && !temp.equals("")) {
+        if (!TextUtils.isEmpty(temp)) {
             urlList.add(temp);
         }
 
         temp = pickedBranch.getBrnhImgUri3();//3번
-        if (temp != null && !temp.equals("")) {
+        if (!TextUtils.isEmpty(temp)) {
             urlList.add(temp);
         }
     }
