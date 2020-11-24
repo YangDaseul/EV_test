@@ -352,18 +352,16 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
     private void showTermsDialog(List<TermVO> termList) {
         Log.d(TAG, "showTermsDialog: " + termsDialog);
 
-        if (termsDialog == null) {
-            termsDialog = new BottomDialogAskAgreeTerms(
-                    this,
-                    R.style.BottomSheetDialogTheme,
-                    onSingleClickListener);
+        termsDialog = new BottomDialogAskAgreeTerms(
+                this,
+                R.style.BottomSheetDialogTheme,
+                onSingleClickListener);
 
-            termsDialog.setOnDismissListener(dialog -> {
-                if (termsDialog.isInputConfirmed()) {
-                    reqVOC1002();
-                }
-            });
-        }
+        termsDialog.setOnDismissListener(dialog -> {
+            if (termsDialog.isInputConfirmed()) {
+                reqVOC1002();
+            }
+        });
 
         termsDialog.init(termList);
         termsDialog.show();
