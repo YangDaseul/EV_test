@@ -306,9 +306,10 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         ui.tvRelapse3Desc.setText(R.string.relapse_3_msg_04);
         ui.tvRelapse3NextBtn.setText(R.string.relapse_3_req_btn_text);
 
-        //앞 단계에서 4회 넘었다고 했으면 입력값 저장
+        //앞 단계에서 4회 이상이라고 했으면 값 저장
         if (over4) {
             count = ui.etRelapse3TotalCount.getText().toString();
+            count = "" + (Integer.parseInt(count) + 3);//세부사항 입력한 3건도 더해서 셈
         }
 
         InteractionUtil.collapse(ui.lRelapse3YesNoContainer, null);
