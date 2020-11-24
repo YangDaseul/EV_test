@@ -15,28 +15,38 @@ import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.RequestCodes;
-import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.IST_1002;
 import com.genesis.apps.comm.model.api.gra.IST_1003;
 import com.genesis.apps.comm.model.api.gra.IST_1004;
 import com.genesis.apps.comm.model.api.gra.IST_1005;
+import com.genesis.apps.comm.model.api.gra.SOS_1001;
+import com.genesis.apps.comm.model.api.gra.SOS_1006;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.ISTAmtVO;
 import com.genesis.apps.comm.model.vo.SOSDriverVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.model.vo.map.FindPathReqVO;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.ISTViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
+import com.genesis.apps.comm.viewmodel.MapViewModel;
+import com.genesis.apps.comm.viewmodel.SOSViewModel;
 import com.genesis.apps.databinding.FragmentInsightBinding;
+import com.genesis.apps.ui.common.activity.BaseActivity;
+import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
 import com.genesis.apps.ui.main.insight.view.InsightArea1Adapter;
 import com.genesis.apps.ui.main.insight.view.InsightArea2Adapter;
 import com.genesis.apps.ui.main.insight.view.InsightArea3Adapter;
 import com.genesis.apps.ui.main.insight.view.InsightCarAdapter;
+import com.genesis.apps.ui.main.service.ServiceSOSRouteInfoActivity;
+import com.hmns.playmap.PlayMapPoint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +54,8 @@ import java.util.List;
 public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
     private ISTViewModel istViewModel;
     private LGNViewModel lgnViewModel;
+    private SOSViewModel sosViewModel;
+    private MapViewModel mapViewModel;
 
     private ConcatAdapter concatAdapter;
     private InsightCarAdapter insightCarAdapter;
@@ -51,6 +63,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
     private InsightArea2Adapter insightArea2Adapter;
     private InsightArea3Adapter insightArea3Adapter;
     private VehicleVO mainVehicleInfo;
+    private String tmpAcptNo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -78,6 +91,9 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
 
         istViewModel = new ViewModelProvider(getActivity()).get(ISTViewModel.class);
         lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
+        sosViewModel = new ViewModelProvider(this).get(SOSViewModel.class);
+        mapViewModel = new ViewModelProvider(this).get(MapViewModel.class);
+
         setObserve();
     }
 
@@ -169,13 +185,14 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                     break;
                 case SUCCESS:
                     ((MainActivity) getActivity()).showProgressDialog(false);
-                    if (result.data != null) {
-                        List<SOSDriverVO> list = new ArrayList<>();
-                        if (result.data.getSosStatus() != null) {
-                            list.add(result.data.getSosStatus());
+                    if (result.data != null&&result.data.getSosStatus()!=null) {
+                        SOSDriverVO sosDriverVO = null;
+                        try{
+                            sosDriverVO = (SOSDriverVO) result.data.getSosStatus().clone();
+                            mapViewModel.reqFindPathResVo(new FindPathReqVO("0","0","0","2","0",new PlayMapPoint(Double.parseDouble(sosDriverVO.getGYpos()),Double.parseDouble(sosDriverVO.getGXpos())),new ArrayList(), new PlayMapPoint(Double.parseDouble(sosDriverVO.getGCustY()),Double.parseDouble(sosDriverVO.getGCustX()))));
+                        }catch (Exception e){
+
                         }
-                        insightArea2Adapter.setRows(list);
-                        insightArea2Adapter.notifyDataSetChanged();
                     }
                     break;
                 default:
@@ -184,6 +201,85 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
             }
         });
 
+        mapViewModel.getFindPathResVo().observe(getViewLifecycleOwner(), result -> {
+            if(result!=null&&result.status!=null) {
+                switch (result.status) {
+                    case LOADING:
+                        ((SubActivity) getActivity()).showProgressDialog(true);
+                        break;
+                    case SUCCESS:
+                        if(result.data!=null&&result.data.getSummary()!=null) {
+
+                            int minute=0;
+                            List<SOSDriverVO> list = new ArrayList<>();
+                            try {
+                                minute = result.data.getSummary().getTotalTime()/60;
+                                SOSDriverVO sosDriverVO = (SOSDriverVO) istViewModel.getRES_IST_1004().getValue().data.getSosStatus().clone();
+                                if (sosDriverVO != null) {
+                                    sosDriverVO.setMinute(minute+"");
+                                    list.add(sosDriverVO);
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }finally {
+                                insightArea2Adapter.setRows(list);
+                                insightArea2Adapter.notifyDataSetChanged();
+                                ((SubActivity) getActivity()).showProgressDialog(false);
+                            }
+                            break;
+                        }
+                    default:
+                        ((SubActivity) getActivity()).showProgressDialog(false);
+                        break;
+                }
+            }
+
+        });
+
+
+
+
+
+
+
+
+
+
+        sosViewModel.getRES_SOS_1001().observe(getViewLifecycleOwner(), result -> {
+            switch (result.status){
+                case LOADING:
+                    ((SubActivity)getActivity()).showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    ((SubActivity)getActivity()).showProgressDialog(false);
+                    tmpAcptNo = result.data.getTmpAcptNo();
+                    if(result.data!=null&&!TextUtils.isEmpty(tmpAcptNo)){
+                        sosViewModel.reqSOS1006(new SOS_1006.Request(APPIAInfo.SM01.getId(),tmpAcptNo));
+                        break;
+                    }
+                default:
+                    ((SubActivity)getActivity()).showProgressDialog(false);
+                    SnackBarUtil.show(getActivity(), getString(R.string.r_flaw06_p02_snackbar_1)+(" code:1"));
+                    break;
+            }
+        });
+        sosViewModel.getRES_SOS_1006().observe(getViewLifecycleOwner(), result -> {
+            switch (result.status){
+                case LOADING:
+                    ((SubActivity)getActivity()).showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    ((SubActivity)getActivity()).showProgressDialog(false);
+                    if(result.data!=null&&result.data.getSosDriverVO()!=null&&!TextUtils.isEmpty(tmpAcptNo)){
+                        ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceSOSRouteInfoActivity.class).putExtra(KeyNames.KEY_NAME_SOS_DRIVER_VO, result.data), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        break;
+                    }
+                default:
+                    ((SubActivity)getActivity()).showProgressDialog(false);
+                    SnackBarUtil.show(getActivity(), getString(R.string.r_flaw06_p02_snackbar_1));
+                    break;
+            }
+        });
     }
 
     @Override
@@ -212,24 +308,28 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                 }
 
                 break;
+            case R.id.btn_driver_position:
+                //긴급출동
+                sosViewModel.reqSOS1001(new SOS_1001.Request(APPIAInfo.TM01.getId()));
+                break;
 
         }
-    }
+   }
 
 
     @Override
     public void onRefresh() {
         Log.e("onResume", "onReusme FragmentInsight");
         try {
-            mainVehicleInfo = lgnViewModel.getMainVehicleFromDB();
+            mainVehicleInfo = lgnViewModel.getMainVehicleSimplyFromDB();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            initView();
+            ((MainActivity) getActivity()).setGNB(false, 0, View.VISIBLE);
         }
-        initView();
-        ((MainActivity) getActivity()).setGNB(false, 0, View.VISIBLE);
     }
 
-    //TODO 로그인 되었을 때 상태 처리 전체적으로 필요
     private void initView() {
         try {
             switch (lgnViewModel.getUserInfoFromDB().getCustGbCd()) {
@@ -245,12 +345,10 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                     break;
                 case VariableType.MAIN_VEHICLE_TYPE_0000: //미로그인
                 default:
-                    //TODO 미로그인 처리
                     me.ivInfo1.setVisibility(View.VISIBLE);
                     me.ivInfo2.setVisibility(View.VISIBLE);
                     break;
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

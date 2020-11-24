@@ -18,4 +18,5 @@
     <item name="tag_wash_history" type="id"/>
     <item name="tag_relapse_history" type="id"/>
     <item name="tag_term_vo" type="id"/>
+    <item name="item_sos" type="id"/>
 </resources>

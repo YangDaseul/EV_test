@@ -72,4 +72,7 @@ class SOSDriverVO extends BaseData {
     @Expose
     @SerializedName("finishY")
     private String finishY;
+
+    //인사이트 메인 긴급출동 기사도착예정시간 UI 출력시에만 사용
+    private String minute;
 }

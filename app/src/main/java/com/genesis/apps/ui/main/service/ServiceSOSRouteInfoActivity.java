@@ -41,7 +41,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Binding> {
-//    private String tmpAcptNo;
     private MapViewModel mapViewModel;
     private SOSViewModel sosViewModel;
     private LayoutMapOverlayUiTopMsgBinding topBinding;
@@ -96,18 +95,18 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
         //내 위치로 이동 버튼 제거
         ui.btnMyPosition.setVisibility(View.GONE);
         //기본위치 갱신 시 맵 초기화
-        ui.pmvMapView.initMap(Double.parseDouble(sosDriverVO.getGCustX()), Double.parseDouble(sosDriverVO.getGCustY()),17);
+        ui.pmvMapView.initMap(Double.parseDouble(sosDriverVO.getGCustY()), Double.parseDouble(sosDriverVO.getGCustX()),17);
 //        mapViewModel.reqFindPathPolyLine("0","0","0","2",new PlayMapPoint(Double.parseDouble(sosDriverVO.getGXpos()), Double.parseDouble(sosDriverVO.getGYpos())), new PlayMapPoint(Double.parseDouble(sosDriverVO.getGCustX()), Double.parseDouble(sosDriverVO.getGCustY())));
         reqFindPath();
     }
 
     private void reqFindPath() {
-        mapViewModel.reqFindPathResVo(new FindPathReqVO("0","0","0","2","0",new PlayMapPoint(Double.parseDouble(sosDriverVO.getGXpos()), Double.parseDouble(sosDriverVO.getGYpos())),new ArrayList(),new PlayMapPoint(Double.parseDouble(sosDriverVO.getGCustX()), Double.parseDouble(sosDriverVO.getGCustY()))));
+        mapViewModel.reqFindPathResVo(new FindPathReqVO("0","0","0","2","0",new PlayMapPoint(Double.parseDouble(sosDriverVO.getGYpos()),Double.parseDouble(sosDriverVO.getGXpos())),new ArrayList(), new PlayMapPoint(Double.parseDouble(sosDriverVO.getGCustY()),Double.parseDouble(sosDriverVO.getGCustX()))));
     }
 
     private void drawMaker(boolean isFit){
         //운전자 마커 생성
-        PlayMapPoint point1 = new PlayMapPoint(Double.parseDouble(sosDriverVO.getGXpos()), Double.parseDouble(sosDriverVO.getGYpos()));
+        PlayMapPoint point1 = new PlayMapPoint(Double.parseDouble(sosDriverVO.getGYpos()), Double.parseDouble(sosDriverVO.getGXpos()));
         PlayMapMarker driverMarker = new PlayMapMarker();
         driverMarker.setMapPoint(point1);
         driverMarker.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_pin_driver));
@@ -118,7 +117,7 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
 
         //고객 위치 마커는 null일 경우에만 1회 생성
         if(!ui.pmvMapView.markeritems.containsKey("end")) {
-            PlayMapPoint point2 = new PlayMapPoint(Double.parseDouble(sosDriverVO.getGCustX()), Double.parseDouble(sosDriverVO.getGCustY()));
+            PlayMapPoint point2 = new PlayMapPoint(Double.parseDouble(sosDriverVO.getGCustY()),Double.parseDouble(sosDriverVO.getGCustX()));
             PlayMapMarker customerMarker = new PlayMapMarker();
             customerMarker.setMapPoint(point2);
             customerMarker.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_pin_mycar));
@@ -184,26 +183,6 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
 
     @Override
     public void setObserver() {
-
-//        mapViewModel.getPlayMapPolyLine().observe(this, result -> {
-//            if(result!=null&&result.status!=null) {
-//                switch (result.status) {
-//                    case LOADING:
-//                        showProgressDialog(true);
-//                        break;
-//                    case SUCCESS:
-//                        showProgressDialog(false);
-//                        if(result.data!=null) {
-//                            drawPath(result.data);
-//                            drawMaker(true);
-//                        }
-//                        break;
-//                    default:
-//                        showProgressDialog(false);
-//                        break;
-//                }
-//            }
-//        });
 
         sosViewModel.getRES_SOS_1006().observe(this, result -> {
             switch (result.status){
@@ -309,16 +288,6 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
                 dialogSOSDriverInfo.show();
 
                 break;
-
-//            case R.id.tv_map_address_btn://선택
-//                if(selectAddressVO!=null){
-//                    exitPage(new Intent().putExtra(KeyNames.KEY_NAME_ADDR, selectAddressVO), ResultCodes.REQ_CODE_SERVICE_SOS_MAP.getCode());
-//                }
-//                break;
-//            case R.id.btn_my_position:
-//                lgnViewModel.setPosition(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1));
-//                ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)), 500);
-//                break;
         }
 
     }

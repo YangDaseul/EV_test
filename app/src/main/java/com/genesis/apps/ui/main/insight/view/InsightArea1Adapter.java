@@ -52,86 +52,77 @@ public class InsightArea1Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
         @Override
         public void onBindView(MessageVO item, final int pos) {
 
+            //todo 2020-11-24 park 인사이트1 및 3영역은 링크 이동 및 이미지 처리에 대한 부분을 서버에 재 확인 요청 후 적용 필요.
+
             getBinding().tvTitle.setVisibility(View.GONE);
             getBinding().tvMsg.setVisibility(View.GONE);
             getBinding().tvLinkNm.setVisibility(View.GONE);
             getBinding().ivIcon.setVisibility(View.GONE);
             getBinding().lWhole.setOnClickListener(null);
 
-
-
-            ///////////////////////////////////////////////////////////////////여기서부터 제출용 하드 코딩
-
-            int iconId=0;
-
-            switch (item.getImgUri()){
-                case "1":
-                    iconId = R.drawable.ic_service_repair;
-                    break;
-                case "2":
-                    iconId = R.drawable.ic_service_potentiometer;
-                    break;
+            if (!TextUtils.isEmpty(item.getIconImgUri())) {
+                getBinding().ivIcon.setVisibility(View.VISIBLE);
+                Glide
+                        .with(getContext())
+                        .load(item.getIconImgUri())
+                        .format(DecodeFormat.PREFER_ARGB_8888)
+                        .error(R.drawable.ic_service_membership)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(getBinding().ivIcon);
+            } else {
+                getBinding().ivIcon.setVisibility(View.INVISIBLE);
             }
 
 
-            getBinding().ivIcon.setVisibility(View.VISIBLE);
-            Glide
-                    .with(getContext())
-                    .load(item.getImgUri())
-                    .format(DecodeFormat.PREFER_ARGB_8888)
-                    .error(iconId)
-                    .placeholder(iconId)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(getBinding().ivIcon);
-            //////////////////////////////////////////////////////////////////
+            if (!TextUtils.isEmpty(item.getMsgTypCd())) {
+                switch (item.getMsgTypCd()) {
+                    case VariableType.MAIN_HOME_INSIGHT_TXT:
+                        if (TextUtils.isEmpty(item.getTtl())) {
+                            getBinding().tvTitle.setVisibility(View.GONE);
+                        } else {
+                            getBinding().tvTitle.setVisibility(View.VISIBLE);
+                            getBinding().tvTitle.setText(item.getTtl());
+                        }
 
-            switch (item.getMsgTypCd()) {
-                case VariableType.MAIN_HOME_INSIGHT_TXT:
-                    if (TextUtils.isEmpty(item.getTtl())) {
-                        getBinding().tvTitle.setVisibility(View.GONE);
-                    } else {
-                        getBinding().tvTitle.setVisibility(View.VISIBLE);
-                        getBinding().tvTitle.setText(item.getTtl());
-                    }
+                        if (TextUtils.isEmpty(item.getTxtMsg())) {
+                            getBinding().tvMsg.setVisibility(View.GONE);
+                        } else {
+                            getBinding().tvMsg.setVisibility(View.VISIBLE);
+                            getBinding().tvMsg.setText(item.getTxtMsg());
+                        }
 
-                    if (TextUtils.isEmpty(item.getTxtMsg())) {
-                        getBinding().tvMsg.setVisibility(View.GONE);
-                    } else {
-                        getBinding().tvMsg.setVisibility(View.VISIBLE);
-                        getBinding().tvMsg.setText(item.getTxtMsg());
-                    }
+                        break;
+                    case VariableType.MAIN_HOME_INSIGHT_TXL:
+                    default:
+                        if (TextUtils.isEmpty(item.getTtl())) {
+                            getBinding().tvTitle.setVisibility(View.GONE);
+                        } else {
+                            getBinding().tvTitle.setVisibility(View.VISIBLE);
+                            getBinding().tvTitle.setText(item.getTtl());
+                        }
 
-                    break;
-                case VariableType.MAIN_HOME_INSIGHT_TXL:
-                default:
-                    if (TextUtils.isEmpty(item.getTtl())) {
-                        getBinding().tvTitle.setVisibility(View.GONE);
-                    } else {
-                        getBinding().tvTitle.setVisibility(View.VISIBLE);
-                        getBinding().tvTitle.setText(item.getTtl());
-                    }
+                        if (TextUtils.isEmpty(item.getTxtMsg())) {
+                            getBinding().tvMsg.setVisibility(View.GONE);
+                        } else {
+                            getBinding().tvMsg.setVisibility(View.VISIBLE);
+                            getBinding().tvMsg.setText(item.getTxtMsg());
+                        }
 
-                    if (TextUtils.isEmpty(item.getTxtMsg())) {
-                        getBinding().tvMsg.setVisibility(View.GONE);
-                    } else {
-                        getBinding().tvMsg.setVisibility(View.VISIBLE);
-                        getBinding().tvMsg.setText(item.getTxtMsg());
-                    }
+                        if (TextUtils.isEmpty(item.getLnkNm())) {
+                            getBinding().tvLinkNm.setVisibility(View.GONE);
+                        } else {
+                            getBinding().tvLinkNm.setVisibility(View.VISIBLE);
+                            getBinding().tvLinkNm.setText(item.getLnkNm());
+                        }
 
-                    if (TextUtils.isEmpty(item.getLnkNm())) {
-                        getBinding().tvLinkNm.setVisibility(View.GONE);
-                    } else {
-                        getBinding().tvLinkNm.setVisibility(View.VISIBLE);
-                        getBinding().tvLinkNm.setText(item.getLnkNm());
-                    }
-
-                    if (TextUtils.isEmpty(item.getLnkUri())) {
-                        getBinding().lWhole.setOnClickListener(null);
-                    } else {
-                        getBinding().lWhole.setOnClickListener(onSingleClickListener);
-                        getBinding().lWhole.setTag(R.id.url, item.getLnkUri());
-                    }
-                    break;
+                        if (TextUtils.isEmpty(item.getLnkUri())) {
+                            getBinding().lWhole.setOnClickListener(null);
+                        } else {
+                            getBinding().lWhole.setOnClickListener(onSingleClickListener);
+                            getBinding().lWhole.setTag(R.id.url, item.getLnkUri());
+                        }
+                        break;
+                }
             }
 
 

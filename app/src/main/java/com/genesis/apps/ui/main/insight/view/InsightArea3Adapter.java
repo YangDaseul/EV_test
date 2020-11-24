@@ -52,119 +52,77 @@ public class InsightArea3Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
         @Override
         public void onBindView(MessageVO item, final int pos) {
 
+            //todo 2020-11-24 park 인사이트1 및 3영역은 링크 이동 및 이미지 처리에 대한 부분을 서버에 재 확인 요청 후 적용 필요.
+
             getBinding().tvTitle.setVisibility(View.GONE);
             getBinding().tvMsg.setVisibility(View.INVISIBLE);
             getBinding().tvLinkNm.setVisibility(View.GONE);
             getBinding().ivIcon.setVisibility(View.GONE);
             getBinding().lWhole.setOnClickListener(null);
 
-
-
-
-
-            ///////////////////////////////////////////////////////////////////여기서부터 제출용 하드 코딩
-
-            int iconId=0;
-
-            switch (item.getImgUri()){
-                case "1":
-                    iconId = R.drawable.ic_service_birthday;
-                    break;
-                case "2":
-                    iconId = R.drawable.ic_service_airport;
-                    break;
-                case "3":
-                    iconId = R.drawable.ic_service_curfew;
-                    break;
-                case "4":
-                    iconId = R.drawable.ic_service_hometohome;
-                    break;
-                case "5":
-                    iconId = R.drawable.ic_service_autocare;
-                    break;
-                case "6":
-                    iconId = R.drawable.ic_service_membership;
-                    break;
-                case "7":
-                    iconId = R.drawable.ic_service_refueling;
-                    break;
-                case "8":
-                    iconId = R.drawable.ic_service_tire;
-                    break;
-                case "9":
-                    iconId = R.drawable.ic_service_wash;
-                    break;
+            if (!TextUtils.isEmpty(item.getIconImgUri())) {
+                getBinding().ivIcon.setVisibility(View.VISIBLE);
+                Glide
+                        .with(getContext())
+                        .load(item.getIconImgUri())
+                        .format(DecodeFormat.PREFER_ARGB_8888)
+                        .error(R.drawable.ic_service_membership)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(getBinding().ivIcon);
+            } else {
+                getBinding().ivIcon.setVisibility(View.INVISIBLE);
             }
 
 
-            getBinding().ivIcon.setVisibility(View.VISIBLE);
-            Glide
-                    .with(getContext())
-                    .load(item.getImgUri())
-                    .format(DecodeFormat.PREFER_ARGB_8888)
-                    .error(iconId)
-                    .placeholder(iconId)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(getBinding().ivIcon);
-            //////////////////////////////////////////////////////////////////
+            if (!TextUtils.isEmpty(item.getMsgTypCd())) {
+                switch (item.getMsgTypCd()) {
+                    case VariableType.MAIN_HOME_INSIGHT_TXT:
+                        if (TextUtils.isEmpty(item.getTtl())) {
+                            getBinding().tvTitle.setVisibility(View.GONE);
+                        } else {
+                            getBinding().tvTitle.setVisibility(View.VISIBLE);
+                            getBinding().tvTitle.setText(item.getTtl());
+                        }
 
+                        if (TextUtils.isEmpty(item.getTxtMsg())) {
+                            getBinding().tvMsg.setVisibility(View.INVISIBLE);
+                        } else {
+                            getBinding().tvMsg.setVisibility(View.VISIBLE);
+                            getBinding().tvMsg.setText(item.getTxtMsg());
+                        }
 
+                        break;
+                    case VariableType.MAIN_HOME_INSIGHT_TXL:
+                    default:
+                        if (TextUtils.isEmpty(item.getTtl())) {
+                            getBinding().tvTitle.setVisibility(View.GONE);
+                        } else {
+                            getBinding().tvTitle.setVisibility(View.VISIBLE);
+                            getBinding().tvTitle.setText(item.getTtl());
+                        }
 
+                        if (TextUtils.isEmpty(item.getTxtMsg())) {
+                            getBinding().tvMsg.setVisibility(View.INVISIBLE);
+                        } else {
+                            getBinding().tvMsg.setVisibility(View.VISIBLE);
+                            getBinding().tvMsg.setText(item.getTxtMsg());
+                        }
 
+                        if (TextUtils.isEmpty(item.getLnkNm())) {
+                            getBinding().tvLinkNm.setVisibility(View.GONE);
+                        } else {
+                            getBinding().tvLinkNm.setVisibility(View.VISIBLE);
+                            getBinding().tvLinkNm.setText(item.getLnkNm());
+                        }
 
-
-
-
-
-
-
-            switch (item.getMsgTypCd()) {
-                case VariableType.MAIN_HOME_INSIGHT_TXT:
-                    if (TextUtils.isEmpty(item.getTtl())) {
-                        getBinding().tvTitle.setVisibility(View.GONE);
-                    } else {
-                        getBinding().tvTitle.setVisibility(View.VISIBLE);
-                        getBinding().tvTitle.setText(item.getTtl());
-                    }
-
-                    if (TextUtils.isEmpty(item.getTxtMsg())) {
-                        getBinding().tvMsg.setVisibility(View.INVISIBLE);
-                    } else {
-                        getBinding().tvMsg.setVisibility(View.VISIBLE);
-                        getBinding().tvMsg.setText(item.getTxtMsg());
-                    }
-
-                    break;
-                case VariableType.MAIN_HOME_INSIGHT_TXL:
-                default:
-                    if (TextUtils.isEmpty(item.getTtl())) {
-                        getBinding().tvTitle.setVisibility(View.GONE);
-                    } else {
-                        getBinding().tvTitle.setVisibility(View.VISIBLE);
-                        getBinding().tvTitle.setText(item.getTtl());
-                    }
-
-                    if (TextUtils.isEmpty(item.getTxtMsg())) {
-                        getBinding().tvMsg.setVisibility(View.INVISIBLE);
-                    } else {
-                        getBinding().tvMsg.setVisibility(View.VISIBLE);
-                        getBinding().tvMsg.setText(item.getTxtMsg());
-                    }
-
-                    if (TextUtils.isEmpty(item.getLnkNm())) {
-                        getBinding().tvLinkNm.setVisibility(View.GONE);
-                    } else {
-                        getBinding().tvLinkNm.setVisibility(View.VISIBLE);
-                        getBinding().tvLinkNm.setText(item.getLnkNm());
-                    }
-
-                    if (TextUtils.isEmpty(item.getImgUri())) {
-                        getBinding().lWhole.setOnClickListener(null);
-                    } else {
-                        getBinding().lWhole.setOnClickListener(onSingleClickListener);
-                        getBinding().lWhole.setTag(R.id.url, item.getImgUri());
-                    }
-                    break;
+                        if (TextUtils.isEmpty(item.getImgUri())) {
+                            getBinding().lWhole.setOnClickListener(null);
+                        } else {
+                            getBinding().lWhole.setOnClickListener(onSingleClickListener);
+                            getBinding().lWhole.setTag(R.id.url, item.getImgUri());
+                        }
+                        break;
+                }
             }
 
 

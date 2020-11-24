@@ -49,6 +49,11 @@ class MessageVO extends BaseData {
     @SerializedName("lnkNm")
     private String lnkNm;
     @Expose
+    @SerializedName("iconImgUri")
+    private String iconImgUri;
+
+
+    @Expose
     @SerializedName("lnkTypCd")
     private String lnkTypCd;
     @Expose
@@ -57,6 +62,9 @@ class MessageVO extends BaseData {
     @Expose
     @SerializedName("bnrNm")
     private String bnrNm;
+
+
+
 
     @Ignore
     private WeatherCodes weatherCodes;//로컬에서만 사용

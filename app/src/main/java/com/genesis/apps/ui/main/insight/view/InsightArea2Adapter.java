@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.insight.view;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
@@ -37,6 +38,7 @@ public class InsightArea2Adapter extends BaseRecyclerViewAdapter2<SOSDriverVO> {
     private static class ItemInsightArea2 extends BaseViewHolder<SOSDriverVO, ItemInsightArea2Binding> {
         public ItemInsightArea2(View itemView) {
             super(itemView);
+            getBinding().btnDriverPosition.setOnClickListener(onSingleClickListener);
         }
 
         @Override
@@ -46,17 +48,20 @@ public class InsightArea2Adapter extends BaseRecyclerViewAdapter2<SOSDriverVO> {
 
         @Override
         public void onBindView(SOSDriverVO item, final int pos) {
-
-            //todo 처리가 필요한데 데이터가 하나도 일치하지 않음..
-
+            //FIX 2020-11-24 긴급출동은 메시지 하드코딩으로 결정
+            getBinding().btnDriverPosition.setTag(R.id.item_sos, item);
+            if(!TextUtils.isEmpty(item.getMinute())){
+                getBinding().tvMsg.setVisibility(View.VISIBLE);
+                getBinding().tvMsg.setText(String.format(getContext().getString(R.string.tm01_9), item.getMinute()));
+            }else{
+                getBinding().tvMsg.setVisibility(View.GONE);
+            }
         }
 
         @Override
         public void onBindView(SOSDriverVO item, int pos, SparseBooleanArray selectedItems) {
 
         }
-
-
     }
 
 }
