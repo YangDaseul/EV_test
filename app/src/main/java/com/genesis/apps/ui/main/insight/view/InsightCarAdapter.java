@@ -204,38 +204,51 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
             getBinding().chart.invalidate();
             getBinding().chart.animateY(1500);
 
-
-
-
-
-
-
-            Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.regular_genesissansheadglobal);
-            if(TextUtils.isEmpty(prvsToUseAmt)||prvsToUseAmt.equalsIgnoreCase("0")){
-                getBinding().tvPrvsMthAmt.setVisibility(View.GONE);
-            }else{
-                String prvsMthAmt = StringUtil.getDigitGrouping(Integer.parseInt(prvsToUseAmt));
-                getBinding().tvPrvsMthAmt.setVisibility(View.VISIBLE);
-                getBinding().tvPrvsMthAmt.setText(String.format(getContext().getString(R.string.tm01_2), prvsMthAmt));
-                String total = getBinding().tvPrvsMthAmt.getText().toString();
-                int start = total.indexOf(prvsMthAmt.charAt(0));
-                int end = start + prvsMthAmt.length();
-                Spannable span = (Spannable)getBinding().tvPrvsMthAmt.getText();
-//                span.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.x_ffffff)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                span.setSpan(new AbsoluteSizeSpan((int)DeviceUtil.dip2Pixel(getContext(),14)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                span.setSpan(new CustomTypefaceSpan(typeface), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //이전달 금액표시
+            String prvsMthAmt = "0";
+            try {
+                prvsMthAmt = StringUtil.getDigitGrouping(Integer.parseInt(prvsToUseAmt));
+            } catch (Exception e) {
+                prvsMthAmt = "0";
+            } finally {
+                if (TextUtils.isEmpty(prvsMthAmt)) prvsMthAmt = "0";
+                getBinding().tvPrvsMthAmt.setText(prvsMthAmt);
             }
-            if(!TextUtils.isEmpty(item.getTotUseAmt())){
-                String currentAmt = StringUtil.getDigitGrouping(Integer.parseInt(item.getTotUseAmt()));
-                getBinding().tvCurrMthAmt.setText(String.format(getContext().getString(R.string.tm01_1), currentAmt));
-                String total = getBinding().tvCurrMthAmt.getText().toString();
-                int start = total.indexOf(currentAmt.charAt(0));
-                int end = start + currentAmt.length();
-                Spannable span = (Spannable)getBinding().tvCurrMthAmt.getText();
-                span.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.x_cd9a81)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                span.setSpan(new AbsoluteSizeSpan((int)DeviceUtil.dip2Pixel(getContext(),24)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                span.setSpan(new CustomTypefaceSpan(typeface), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+//            Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.regular_genesissansheadglobal);
+//            if(TextUtils.isEmpty(prvsToUseAmt)){
+//                getBinding().tvPrvsMthAmt.setVisibility(View.GONE);
+//            }else{
+//                String prvsMthAmt = StringUtil.getDigitGrouping(Integer.parseInt(prvsToUseAmt));
+//                getBinding().tvPrvsMthAmt.setVisibility(View.VISIBLE);
+//                getBinding().tvPrvsMthAmt.setText(String.format(getContext().getString(R.string.tm01_2), prvsMthAmt));
+//                String total = getBinding().tvPrvsMthAmt.getText().toString();
+//                int start = total.indexOf(prvsMthAmt.charAt(0));
+//                int end = start + prvsMthAmt.length();
+//                Spannable span = (Spannable)getBinding().tvPrvsMthAmt.getText();
+//                span.setSpan(new AbsoluteSizeSpan((int)DeviceUtil.dip2Pixel(getContext(),14)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//                span.setSpan(new CustomTypefaceSpan(typeface), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            }
+
+            //이번달 금액 표시
+            String currentAmt = "0";
+            try {
+                currentAmt = StringUtil.getDigitGrouping(Integer.parseInt(item.getTotUseAmt()));
+            } catch (Exception e) {
+                currentAmt = "0";
+            } finally {
+                if (TextUtils.isEmpty(currentAmt)) currentAmt = "0";
+                getBinding().tvCurrMthAmt.setText(currentAmt);
             }
+
+//            getBinding().tvCurrMthAmt.setText(String.format(getContext().getString(R.string.tm01_1), currentAmt));
+//            String total = getBinding().tvCurrMthAmt.getText().toString();
+//            int start = total.indexOf(currentAmt.charAt(0));
+//            int end = start + currentAmt.length();
+//            Spannable span = (Spannable) getBinding().tvCurrMthAmt.getText();
+//            span.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.x_cd9a81)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            span.setSpan(new AbsoluteSizeSpan((int) DeviceUtil.dip2Pixel(getContext(), 24)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            span.setSpan(new CustomTypefaceSpan(typeface), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
 
         @Override

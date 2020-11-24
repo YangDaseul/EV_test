@@ -105,34 +105,29 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                     break;
                 case SUCCESS:
                     ((MainActivity) getActivity()).showProgressDialog(false);
-                    if (result.data != null) {
-
+                    List<ISTAmtVO> list = new ArrayList<>();
+                    if (result.data != null&&result.data.getRtCd().equalsIgnoreCase("0000")) {
                         String preUseAmt = "0";
-                        String curUseAmt = "0";
+
                         try {
-                            preUseAmt = result.data.getPrvsMthAmt().getTotUseAmt();
+                            preUseAmt = result.data.getPrvsMthAmt().get(0).getTotUseAmt()==null ? "0" : result.data.getPrvsMthAmt().get(0).getTotUseAmt();
                         } catch (Exception e) {
                             preUseAmt = "0";
                         }
 
-                        try {
-                            curUseAmt = result.data.getCurrMthAmt().getTotUseAmt();
-                        } catch (Exception e) {
-                            curUseAmt = "0";
-                        }
-                        List<ISTAmtVO> list = new ArrayList<>();
-                        if (!TextUtils.isEmpty(curUseAmt) && !curUseAmt.equalsIgnoreCase("0")) {
-                            insightCarAdapter.setPrvsToUseAmt(preUseAmt);
-                            list.add(result.data.getCurrMthAmt());
-                            insightCarAdapter.setViewType(InsightCarAdapter.TYPE_CAR);
-                        } else {
+                        insightCarAdapter.setPrvsToUseAmt(preUseAmt);
+                        if(result.data.getCurrMthAmt()==null||result.data.getCurrMthAmt().size()<1){ //정책으로 데이터가 없을 때도 그래프를 정상적으로 출력
                             list.add(new ISTAmtVO("0", "0", "0", "0", "0"));
-//                            list.add(new ISTAmtVO("0", "0", "0", "0", "0"));
-                            insightCarAdapter.setViewType(InsightCarAdapter.TYPE_EMPTY);
+                        }else{
+                            list.add(result.data.getCurrMthAmt().get(0));
                         }
-                        insightCarAdapter.setRows(list);
-                        insightCarAdapter.notifyDataSetChanged();
+                        insightCarAdapter.setViewType(InsightCarAdapter.TYPE_CAR);
+                    }else{
+                        list.add(new ISTAmtVO("0", "0", "0", "0", "0"));
+                        insightCarAdapter.setViewType(InsightCarAdapter.TYPE_EMPTY);
                     }
+                    insightCarAdapter.setRows(list);
+                    insightCarAdapter.notifyDataSetChanged();
                     break;
                 default:
                     ((MainActivity) getActivity()).showProgressDialog(false);

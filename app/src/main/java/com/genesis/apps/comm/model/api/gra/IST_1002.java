@@ -8,6 +8,8 @@ import com.genesis.apps.comm.model.vo.ISTAmtVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -53,16 +55,16 @@ public class IST_1002 extends BaseData {
      * @author hjpark
      * @brief IST_1002 응답 항목
      * @see #currMthAmt 금월사용금액
-     * @see #prvsMthAmt 전월사용금액
+     * @see #prvsMthAmt 전월사용금액  //TIP 서버 설계오류. List 형태일 필요가 없는데 List로 설계뙴
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse {
         @Expose
         @SerializedName("currMthAmt")
-        private ISTAmtVO currMthAmt;
+        private List<ISTAmtVO> currMthAmt;
         @Expose
         @SerializedName("prvsMthAmt")
-        private ISTAmtVO prvsMthAmt;
+        private List<ISTAmtVO> prvsMthAmt;
     }
 }
