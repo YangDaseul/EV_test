@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -105,47 +106,24 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
                     break;
 
                 case SUCCESS:
-                    if (result.data != null && result.data.getSvcStusCd() != null) {
+                    if (result.data != null) {
                         ((MainActivity) getActivity()).showProgressDialog(false);
 
-                        switch (result.data.getSvcStusCd()) {
-                            //신청 현황 액티비티 호출
-                            case DDS_1001.STATUS_DRIVER_MATCH_WAIT:
-                            case DDS_1001.STATUS_RESERVED:
-                            case DDS_1001.STATUS_DRIVER_MATCHED:
-                            case DDS_1001.STATUS_DRIVER_REMATCHED:
-                            case DDS_1001.STATUS_DRIVE_NOW:
-                            case DDS_1001.STATUS_NO_DRIVER:
-                                //현황 데이터를 현황 액티비티로 가져감
-                                startReqResultActivity(result.data);
-                                break;
-
-                            //대리운전 신청 액티비티 호출
-                            case DDS_1001.STATUS_REQ:
-                            case DDS_1001.STATUS_SERVICE_FINISHED:
-                            case DDS_1001.STATUS_CANCEL_BY_USER:
-                            case DDS_1001.STATUS_CANCEL_CAUSE_NO_DRIVER:
-                                startReqActivity();
-                                break;
-
-                            default:
-                                Log.d(TAG, "getRES_DDS_1001: unknown svcStusCd ");
-                                break;
-                        }
-
-                        return;
+                        //신청하기 또는 신청 현황 조회 액티비티 호출
+                        startServiceDriveActivity(result.data);
+                        break;
                     }
                     //not break; 데이터 이상하면 default로 진입시킴
 
                 default:
                     ((MainActivity) getActivity()).showProgressDialog(false);
-                    String serverMsg="";
+                    String serverMsg = "";
                     try {
                         serverMsg = result.data.getRtMsg();
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    }finally{
-                        if (TextUtils.isEmpty(serverMsg)){
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
                             serverMsg = getString(R.string.instability_network);
                         }
                         SnackBarUtil.show(getActivity(), serverMsg);
@@ -174,6 +152,42 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
                 new DDS_1001.Request(
                         APPIAInfo.SM_DRV02.getId(),
                         mainVehicle.getVin()));
+    }
+
+    //신청하기 또는 신청 현황 조회 액티비티 호출
+    private void startServiceDriveActivity(@NonNull DDS_1001.Response data) {
+        Log.d(TAG, "startServiceDriveActivity: ");
+
+        if (data.getSvcStusCd() == null) {
+            //대리운전 신청 액티비티 호출
+            startReqActivity();
+            return;
+        }
+
+        switch (data.getSvcStusCd()) {
+            //신청 현황 액티비티 호출
+            case DDS_1001.STATUS_DRIVER_MATCH_WAIT:
+            case DDS_1001.STATUS_RESERVED:
+            case DDS_1001.STATUS_DRIVER_MATCHED:
+            case DDS_1001.STATUS_DRIVER_REMATCHED:
+            case DDS_1001.STATUS_DRIVE_NOW:
+            case DDS_1001.STATUS_NO_DRIVER:
+                //현황 데이터를 현황 액티비티로 가져감
+                startReqResultActivity(data);
+                break;
+
+            //대리운전 신청 액티비티 호출
+            case DDS_1001.STATUS_REQ:
+            case DDS_1001.STATUS_SERVICE_FINISHED:
+            case DDS_1001.STATUS_CANCEL_BY_USER:
+            case DDS_1001.STATUS_CANCEL_CAUSE_NO_DRIVER:
+                startReqActivity();
+                break;
+
+            default:
+                Log.d(TAG, "getRES_DDS_1001: unknown svcStusCd ");
+                break;
+        }
     }
 
     //신청 현황 액티비티 호출
