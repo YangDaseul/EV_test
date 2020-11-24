@@ -1,29 +1,24 @@
 package com.genesis.apps.ui.main.service;
 
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.util.Pair;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
-import com.appeaser.sublimepickerlibrary.datepicker.SelectedDate;
-import com.appeaser.sublimepickerlibrary.helpers.SublimeOptions;
-import com.appeaser.sublimepickerlibrary.recurrencepicker.SublimeRecurrencePicker;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.BaseData;
-import com.genesis.apps.comm.util.CalenderUtil;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.databinding.ItemRelapse3BottomBinding;
 import com.genesis.apps.databinding.ItemRelapse3RepairHistoryBinding;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
+import com.genesis.apps.ui.common.dialog.bottom.DialogCalendar;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
@@ -148,40 +143,6 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
         private TextWatcher defectDetailWatcher;
         private TextWatcher repairDetailWatcher;
         private int position;
-        private int datePickWhich;
-
-        private CalenderUtil.Callback calendarCallback = new CalenderUtil.Callback() {
-            @Override
-            public void onCancelled() {
-                //do nothing
-            }
-
-            @Override
-            public void onDateTimeRecurrenceSet(SelectedDate selectedDate,
-                                                int hourOfDay, int minute,
-                                                SublimeRecurrencePicker.RecurrenceOption recurrenceOption,
-                                                String recurrenceRule) {
-                Log.d(TAG, "onDateTimeRecurrenceSet: ");
-
-                String date = DateUtil.getDate(selectedDate.getEndDate().getTime(), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot);
-
-                switch (datePickWhich) {
-                    case DATE_REQ:
-                        getBinding().tvRelapse3RepairReqDateBtn.setText(date);
-                        ((RepairData) getItem(position)).setReqDate(date);
-                        break;
-                    case DATE_FINISH:
-                        getBinding().tvRelapse3RepairFinishDateBtn.setText(date);
-                        ((RepairData) getItem(position)).setFinishDate(date);
-                        break;
-                    default:
-                        //do nothing
-                        break;
-                }
-
-                setDateErrorEnabled(false);
-            }
-        };
 
         public ServiceRelapse3DefectHistoryViewHolder(View itemView) {
             super(itemView);
@@ -293,29 +254,36 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
         }
 
         private void showDatePicker(int which) {
-            datePickWhich = which;
+            DialogCalendar dialogCalendar = new DialogCalendar(getContext(), R.style.BottomSheetDialogTheme);
+            dialogCalendar.setOnDismissListener(dialogInterface -> setDate(which, dialogCalendar.calendar));
+            dialogCalendar.setCalendarMaximum(Calendar.getInstance(Locale.getDefault()));
+            dialogCalendar.setTitle(getContext().getString(which == DATE_REQ ? R.string.relapse_3_repair_pick_req_date : R.string.relapse_3_repair_pick_finish_date));
+            dialogCalendar.show();
+        }
 
-            CalenderUtil datePicker = new CalenderUtil();
-            datePicker.setCallback(calendarCallback);
+        private void setDate(int which, Calendar calendar) {
+            if (calendar == null) {
+                return;
+            }
 
-            Calendar now = Calendar.getInstance(Locale.getDefault());
+            setDateErrorEnabled(false);
 
-            Pair<Boolean, SublimeOptions> optionsPair = datePicker.getOptions(
-                    SublimeOptions.ACTIVATE_DATE_PICKER,
-                    false,
-                    0L,
-                    now.getTimeInMillis(),
-                    now
-            );
+            String date = DateUtil.getDate(calendar.getTime(), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot);
+            switch (which) {
+                case DATE_REQ:
+                    getBinding().tvRelapse3RepairReqDateBtn.setText(date);
+                    ((RepairData) getItem(position)).setReqDate(date);
+                    break;
 
-            // Options
-            // Valid options
-            Bundle bundle = new Bundle();
-            bundle.putParcelable("SUBLIME_OPTIONS", optionsPair.second);
-            datePicker.setArguments(bundle);
+                case DATE_FINISH:
+                    getBinding().tvRelapse3RepairFinishDateBtn.setText(date);
+                    ((RepairData) getItem(position)).setFinishDate(date);
+                    break;
 
-            datePicker.setStyle(CalenderUtil.STYLE_NO_TITLE, 0);
-            datePicker.show(activity.getSupportFragmentManager(), "SUBLIME_PICKER");
+                default:
+                    //do nothing
+                    break;
+            }
         }
 
         @Override

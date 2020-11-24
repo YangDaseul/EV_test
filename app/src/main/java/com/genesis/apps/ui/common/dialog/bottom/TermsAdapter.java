@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.common.dialog.bottom;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
@@ -9,10 +10,13 @@ import androidx.annotation.NonNull;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.TermVO;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ItemTermBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
+
+import java.util.Objects;
 
 public class TermsAdapter extends BaseRecyclerViewAdapter2<TermVO> {
     private static final String TAG = TermsAdapter.class.getSimpleName();
@@ -82,7 +86,11 @@ public class TermsAdapter extends BaseRecyclerViewAdapter2<TermVO> {
         public void onBindView(TermVO item, int pos, SparseBooleanArray selectedItems) {
             Log.d(TAG, "TermViewHolder onBindView(): ");
 
-            getBinding().cb.setText(item.getTermNm());
+            String termName = item.getTermNm();
+            if (Objects.equals(item.getTermEsnAgmtYn(), "Y")) {
+                termName += getContext().getString(R.string.terms_essential);
+            }
+            getBinding().cb.setText(termName);
             getBinding().cb.setChecked(selectedItems.get(pos));
 
             getBinding().cb.setOnCheckedChangeListener((buttonView, isChecked) -> {

@@ -43,7 +43,9 @@
     <string name="relapse_3_repair_mechanic">수리 업자명</string>
     <string name="relapse_3_repair_mechanic_error">수리업자명을 입력해주세요</string>
     <string name="relapse_3_repair_req_date">수리 요청일</string>
+    <string name="relapse_3_repair_pick_req_date">수리 요청일 선택</string>
     <string name="relapse_3_repair_finish_date">수리 완료일</string>
+    <string name="relapse_3_repair_pick_finish_date">수리 완료일 선택</string>
     <string name="relapse_3_repair_date_error">수리 요청 및 완료 날짜를 확인해주세요</string>
     <string name="relapse_3_repair_defect">하자내용 (증상)</string>
     <string name="relapse_3_repair_defect_error">하자내용(증상)을 입력해주세요</string>
