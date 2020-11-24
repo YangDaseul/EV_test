@@ -102,7 +102,7 @@ public class ServiceRelapseReqResultActivity extends SubActivity<ActivityRelapse
         extractHistory();
 
         //수리 시도 횟수, 누적 수리 기간
-        tryCount = vocInfoVO.getWkCnt() + getString(R.string.relapse_3_repair_count);
+        tryCount = vocInfoVO.getWkCnt() + getString(R.string.relapse_3_repair_count);//하자재발통보 때, 3회 추가해서 보냈으니 여기선 그대로 출력
         tryPeriod = vocInfoVO.getWkPeriod() + getString(R.string.relapse_3_repair_day);
 
     }
