@@ -106,7 +106,13 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                 case SUCCESS:
                     ((MainActivity) getActivity()).showProgressDialog(false);
                     List<ISTAmtVO> list = new ArrayList<>();
+                    ISTAmtVO current = null;
                     if (result.data != null&&result.data.getRtCd().equalsIgnoreCase("0000")) {
+                        try {
+                            current = ((ISTAmtVO)result.data.getCurrMthAmt().get(0).clone());
+                        }catch (Exception e){
+
+                        }
                         String preUseAmt = "0";
 
                         try {
@@ -119,7 +125,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                         if(result.data.getCurrMthAmt()==null||result.data.getCurrMthAmt().size()<1){ //정책으로 데이터가 없을 때도 그래프를 정상적으로 출력
                             list.add(new ISTAmtVO("0", "0", "0", "0", "0"));
                         }else{
-                            list.add(result.data.getCurrMthAmt().get(0));
+                            list.add(current);
                         }
                         insightCarAdapter.setViewType(InsightCarAdapter.TYPE_CAR);
                     }else{
@@ -127,7 +133,11 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                         insightCarAdapter.setViewType(InsightCarAdapter.TYPE_EMPTY);
                     }
                     insightCarAdapter.setRows(list);
-                    insightCarAdapter.notifyDataSetChanged();
+                    //todo 뷰홀더자체가 변경될 때 갱신이 되지 않아서 원인 파악 중
+//                    insightCarAdapter.notifyDataSetChanged();
+//                    concatAdapter.notifyDataSetChanged();
+                    concatAdapter.removeAdapter(insightCarAdapter);
+                    concatAdapter.addAdapter(0, insightCarAdapter);
                     break;
                 default:
                     ((MainActivity) getActivity()).showProgressDialog(false);
@@ -145,7 +155,14 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                     ((MainActivity) getActivity()).showProgressDialog(false);
                     if (result.data != null && result.data.getAdmMsgList() != null) {
                         insightArea1Adapter.setRows(result.data.getAdmMsgList());
-                        insightArea1Adapter.notifyDataSetChanged();
+
+
+                        //todo 뷰홀더자체가 변경될 때 갱신이 되지 않아서 원인 파악 중
+//                        insightArea1Adapter.notifyDataSetChanged();
+
+                        concatAdapter.removeAdapter(insightArea1Adapter);
+                        concatAdapter.addAdapter(1, insightArea1Adapter);
+
                     }
                     break;
                 default:
@@ -164,7 +181,13 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                     ((MainActivity) getActivity()).showProgressDialog(false);
                     if (result.data != null && result.data.getMsgList() != null) {
                         insightArea3Adapter.setRows(result.data.getMsgList());
-                        insightArea3Adapter.notifyDataSetChanged();
+
+
+                        //todo 뷰홀더자체가 변경될 때 갱신이 되지 않아서 원인 파악 중
+//                      insightArea3Adapter.notifyDataSetChanged();
+
+                        concatAdapter.removeAdapter(insightArea3Adapter);
+                        concatAdapter.addAdapter(3, insightArea3Adapter);
                     }
                     break;
                 default:
@@ -183,7 +206,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                     if (result.data != null&&result.data.getSosStatus()!=null) {
                         SOSDriverVO sosDriverVO = null;
                         try{
-                            sosDriverVO = (SOSDriverVO) result.data.getSosStatus().clone();
+                            sosDriverVO = ((SOSDriverVO) result.data.getSosStatus().clone());
                             mapViewModel.reqFindPathResVo(new FindPathReqVO("0","0","0","2","0",new PlayMapPoint(Double.parseDouble(sosDriverVO.getGYpos()),Double.parseDouble(sosDriverVO.getGXpos())),new ArrayList(), new PlayMapPoint(Double.parseDouble(sosDriverVO.getGCustY()),Double.parseDouble(sosDriverVO.getGCustX()))));
                         }catch (Exception e){
 
@@ -209,7 +232,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                             List<SOSDriverVO> list = new ArrayList<>();
                             try {
                                 minute = result.data.getSummary().getTotalTime()/60;
-                                SOSDriverVO sosDriverVO = (SOSDriverVO) istViewModel.getRES_IST_1004().getValue().data.getSosStatus().clone();
+                                SOSDriverVO sosDriverVO = ((SOSDriverVO) istViewModel.getRES_IST_1004().getValue().data.getSosStatus().clone());
                                 if (sosDriverVO != null) {
                                     sosDriverVO.setMinute(minute+"");
                                     list.add(sosDriverVO);
@@ -218,7 +241,17 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                                 e.printStackTrace();
                             }finally {
                                 insightArea2Adapter.setRows(list);
-                                insightArea2Adapter.notifyDataSetChanged();
+
+                                //todo 뷰홀더자체가 변경될 때 갱신이 되지 않아서 원인 파악 중
+//                              insightArea2Adapter.notifyDataSetChanged();
+
+                                concatAdapter.removeAdapter(insightArea2Adapter);
+                                concatAdapter.addAdapter(2, insightArea2Adapter);
+
+
+
+
+
                                 ((SubActivity) getActivity()).showProgressDialog(false);
                             }
                             break;

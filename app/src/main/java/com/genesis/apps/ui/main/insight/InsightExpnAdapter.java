@@ -155,23 +155,23 @@ public class InsightExpnAdapter extends BaseRecyclerViewAdapter2<ExpnVO> {
                     break;
                 case VariableType.INSIGHT_EXPN_DIV_CODE_4000:
                     expnDivNmId = R.string.tm_exps01_16;
-                    iconId = R.drawable.ic_service_hometohome; //주차 아이콘으로 변경 필요
+                    iconId = R.drawable.ic_service_hometohome; //TODO 주차 아이콘으로 변경 필요
                     break;
                 case VariableType.INSIGHT_EXPN_DIV_CODE_5000:
                     expnDivNmId = R.string.tm_exps01_17;
-                    iconId = R.drawable.ic_service_hometohome; //통행 아이콘으로 변경 필요
+                    iconId = R.drawable.ic_service_hometohome; //TODO 통행 아이콘으로 변경 필요
                     break;
                 case VariableType.INSIGHT_EXPN_DIV_CODE_6000:
                     expnDivNmId = R.string.tm_exps01_18;
-                    iconId = R.drawable.ic_service_hometohome; //보험 아이콘으로 변경 필요
+                    iconId = R.drawable.ic_service_hometohome; //TODO 보험 아이콘으로 변경 필요
                     break;
                 case VariableType.INSIGHT_EXPN_DIV_CODE_7000:
                     expnDivNmId = R.string.tm_exps01_19;
-                    iconId = R.drawable.ic_service_hometohome; //세금 아이콘으로 변경 필요
+                    iconId = R.drawable.ic_service_hometohome; //TODO 세금 아이콘으로 변경 필요
                     break;
                 case VariableType.INSIGHT_EXPN_DIV_CODE_8000:
                     expnDivNmId = R.string.tm_exps01_20;
-                    iconId = R.drawable.ic_service_hometohome; //용품 아이콘으로 변경 필요
+                    iconId = R.drawable.ic_service_hometohome; //TODO 용품 아이콘으로 변경 필요
                     break;
                 case VariableType.INSIGHT_EXPN_DIV_CODE_9000:
                 default:

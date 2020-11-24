@@ -46,7 +46,7 @@
 
         <TextView
             android:id="@+id/tv_curr_mth_amt"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:fontFamily="@font/regular_genesissansheadglobal"
@@ -89,7 +89,7 @@
 
         <TextView
             android:id="@+id/tv_prvs_mth_amt"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginStart="5dp"

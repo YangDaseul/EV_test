@@ -57,6 +57,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
     private List<String> vehicleList = new ArrayList<>();
     private VehicleVO selectVehicle=null;
     private String basYymm;
+    private final int PAGE_UNIT=11;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,7 +136,6 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                 showMapDialog(yearList, R.string.tm_exps01_23, dialogInterface -> {
                     String year = bottomListDialog.getSelectItem();
                     if(!TextUtils.isEmpty(year)){
-                        //todo 궘색된 해 로컬 변수로 저장 필요
                         openDialogMonth(year);
                     }
                 });
@@ -155,24 +155,21 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                 break;
 
             case R.id.btn_more:
-
-
-                    cbkViewModel.reqCBK1002(new CBK_1002.Request(APPIAInfo.TM_EXPS01_P03.getId(), selectVehicle.getVin(), basYymm, adapter.getPageNo()+1+"", "11"));
-
-//                if(adapter.getItemCount()>=list.size()){
-//                    adapter.setMore(false);
-////                    adapter.notifyItemChanged(list.size()-1);
-//                }else{
-//                    if(list.size()-adapter.getItemCount()==1){
-//                        adapter.setMore(false);
-//                        adapter.addRow(list.get(list.size()-1));
-//                    } else{
-//                        adapter.setMore(true);
-//                        adapter.addRows(list.subList(adapter.getItemCount(),adapter.getItemCount()+2));
-//                    }
-//                }
-//
-//                adapter.notifyDataSetChanged();
+                int totalCnt = 0;
+                try{
+                    totalCnt = Integer.parseInt(cbkViewModel.getRES_CBK_1002().getValue().data.getTotCnt());
+                }catch (Exception e){
+                    totalCnt = 0;
+                }finally{
+                    if(totalCnt>0){
+                        if (adapter.getItemCount()>=totalCnt) {
+                            adapter.setMore(false);
+                            adapter.notifyItemChanged(adapter.getItemCount()-1);
+                        } else {
+                            cbkViewModel.reqCBK1002(new CBK_1002.Request(APPIAInfo.TM_EXPS01_P03.getId(), selectVehicle.getVin(), basYymm, adapter.getPageNo()+1+"", "11"));
+                        }
+                    }
+                }
                 break;
         }
 
@@ -192,7 +189,10 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
 
     private void reqCBKData(){
         if(selectVehicle!=null) {
-            cbkViewModel.reqCBK1002(new CBK_1002.Request(APPIAInfo.TM_EXPS01_P03.getId(), selectVehicle.getVin(), basYymm, "1", "11"));
+            adapter.clear();
+            adapter.setPageNo(0);
+            adapter.setMore(false);
+            cbkViewModel.reqCBK1002(new CBK_1002.Request(APPIAInfo.TM_EXPS01_P03.getId(), selectVehicle.getVin(), basYymm, "1", PAGE_UNIT+""));
         }
     }
 
@@ -281,16 +281,13 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                 case SUCCESS:
                     if(result.data!=null&&result.data.getExpnList()!=null&&result.data.getExpnList().size()>0){
                         List<ExpnVO> list = new ArrayList<>();
-                        int itemSizeBefore=0;
                         try{
                             list.addAll(cbkViewModel.getExpnList(result.data.getExpnList()));
-                            itemSizeBefore = adapter.getItemCount();
                             if (adapter.getPageNo() == 0) {
                                 adapter.setRows(list);
                             } else {
                                 adapter.addRows(list);
                             }
-
                             adapter.setPageNo(adapter.getPageNo() + 1);
 
                             //더보기 셋팅
@@ -300,14 +297,16 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                             }catch (Exception e){
                                 totalCnt=0;
                             }finally{
-                                 adapter.setMore(adapter.getItemCount()<totalCnt);
+                                adapter.setMore((adapter.getItemCount() < totalCnt) //현재 아이템 수가 총 카운트보다 적거나
+                                        || (adapter.getItemCount() % PAGE_UNIT == 0));//11번째 아이템일 경우 더보기 활성화
                             }
 
-                            //그래프 셋팅
-                            setGraph(result.data);
+                            //그래프 셋팅. 첫번째 페이지 로드시에만
+                            if(adapter.getPageNo()==1) {
+                                setGraph(result.data);
+                            }
                         }catch (Exception e){
                             e.printStackTrace();
-                            list = new ArrayList<>();
                         }finally{
                             adapter.notifyDataSetChanged();
                             ui.tvEmpty.setVisibility(adapter.getItemCount()==0 ? View.VISIBLE : View.GONE);
@@ -317,6 +316,9 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                     }
                 default:
                     ui.tvEmpty.setVisibility(adapter.getItemCount()==0 ? View.VISIBLE : View.GONE);
+                    adapter.clear();
+                    adapter.notifyDataSetChanged();
+                    setGraph(new CBK_1002.Response());
                     showProgressDialog(false);
                     break;
             }
@@ -355,15 +357,13 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                     break;
             }
         });
-
     }
 
     @Override
     public void getDataFromIntent() {
+
     }
-    
-    
-    
+
     private void initGraph(){
         //최초 로드 시
         //차트 속성 정의
@@ -412,8 +412,9 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
         //데이터에 따른 max값 정의
         float maxValue = getMaxValue(item);
         if(maxValue==0){
-            ui.tvEmptyChart.setVisibility(View.VISIBLE);
-            return;
+            maxValue = 100000;
+//            ui.tvEmptyChart.setVisibility(View.VISIBLE);
+//            return;
         }
         ui.tvEmptyChart.setVisibility(View.GONE);
 

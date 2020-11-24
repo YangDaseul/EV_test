@@ -11,15 +11,15 @@ import android.webkit.WebView;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.OilCodes;
-import com.genesis.apps.comm.model.constants.RequestCodes;
-import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.MYP_0001;
 import com.genesis.apps.comm.model.api.gra.MYP_1003;
 import com.genesis.apps.comm.model.api.gra.MYP_1005;
 import com.genesis.apps.comm.model.api.gra.MYP_1006;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.OilCodes;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.model.vo.PrivilegeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
@@ -31,7 +31,6 @@ import com.genesis.apps.databinding.ActivityMygHomeBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
 import com.genesis.apps.ui.myg.view.OilView;
-import com.google.gson.Gson;
 
 import java.util.Locale;
 
@@ -82,7 +81,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                 case LOADING:
                     break;
                 case SUCCESS:
-                    ui.tvPoint.setText(String.format(Locale.getDefault(), getString(R.string.word_home_24), StringUtil.getDigitGrouping(Integer.parseInt(result.data.getBludMbrPoint()))));
+                    ui.tvPoint.setText(String.format(Locale.getDefault(), getString(R.string.word_home_24), StringUtil.getDigitGroupingString(result.data.getBludMbrPoint())));
                     break;
                 default:
                     break;
@@ -104,59 +103,59 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
         mypViewModel.getRES_MYP_1006().observe(this, result -> {
 
-            String test = "{\n" +
-                    "  \"rsltCd\": \"0000\",\n" +
-                    "  \"rsltMsg\": \"성공\",\n" +
-                    "  \"oilRfnPontList\": [\n" +
-                    "    {\n" +
-                    "      \"oilRfnCd\": \"HDOL\",\n" +
-                    "      \"oilRfnNm\": \"현대오일뱅크\",\n" +
-                    "      \"rgstYn\": \"N\",\n" +
-                    "      \"cardNo\": \"1111111111111111\",\n" +
-                    "      \"pont\": \"1000000\",\n" +
-                    "      \"errMsg\": \"\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"oilRfnCd\": \"GSCT\",\n" +
-                    "      \"oilRfnNm\": \"GS칼텍스\",\n" +
-                    "      \"rgstYn\": \"N\",\n" +
-                    "      \"cardNo\": \"2222222222222222\",\n" +
-                    "      \"pont\": \"2000000\",\n" +
-                    "      \"errMsg\": \"\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"oilRfnCd\": \"SOIL\",\n" +
-                    "      \"oilRfnNm\": \"S-OIL\",\n" +
-                    "      \"rgstYn\": \"Y\",\n" +
-                    "      \"cardNo\": \"3333333333333333\",\n" +
-                    "      \"pont\": \"3000000\",\n" +
-                    "      \"errMsg\": \"\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"oilRfnCd\": \"SKNO\",\n" +
-                    "      \"oilRfnNm\": \"SK 이노베이션\",\n" +
-                    "      \"rgstYn\": \"Y\",\n" +
-                    "      \"cardNo\": \"4444444444444444\",\n" +
-                    "      \"pont\": \"4000000\",\n" +
-                    "      \"errMsg\": \"\"\n" +
-                    "    }\n" +
-                    "  ]\n" +
-                    "}";
+//            String test = "{\n" +
+//                    "  \"rsltCd\": \"0000\",\n" +
+//                    "  \"rsltMsg\": \"성공\",\n" +
+//                    "  \"oilRfnPontList\": [\n" +
+//                    "    {\n" +
+//                    "      \"oilRfnCd\": \"HDOL\",\n" +
+//                    "      \"oilRfnNm\": \"현대오일뱅크\",\n" +
+//                    "      \"rgstYn\": \"N\",\n" +
+//                    "      \"cardNo\": \"1111111111111111\",\n" +
+//                    "      \"pont\": \"1000000\",\n" +
+//                    "      \"errMsg\": \"\"\n" +
+//                    "    },\n" +
+//                    "    {\n" +
+//                    "      \"oilRfnCd\": \"GSCT\",\n" +
+//                    "      \"oilRfnNm\": \"GS칼텍스\",\n" +
+//                    "      \"rgstYn\": \"N\",\n" +
+//                    "      \"cardNo\": \"2222222222222222\",\n" +
+//                    "      \"pont\": \"2000000\",\n" +
+//                    "      \"errMsg\": \"\"\n" +
+//                    "    },\n" +
+//                    "    {\n" +
+//                    "      \"oilRfnCd\": \"SOIL\",\n" +
+//                    "      \"oilRfnNm\": \"S-OIL\",\n" +
+//                    "      \"rgstYn\": \"Y\",\n" +
+//                    "      \"cardNo\": \"3333333333333333\",\n" +
+//                    "      \"pont\": \"3000000\",\n" +
+//                    "      \"errMsg\": \"\"\n" +
+//                    "    },\n" +
+//                    "    {\n" +
+//                    "      \"oilRfnCd\": \"SKNO\",\n" +
+//                    "      \"oilRfnNm\": \"SK 이노베이션\",\n" +
+//                    "      \"rgstYn\": \"Y\",\n" +
+//                    "      \"cardNo\": \"4444444444444444\",\n" +
+//                    "      \"pont\": \"4000000\",\n" +
+//                    "      \"errMsg\": \"\"\n" +
+//                    "    }\n" +
+//                    "  ]\n" +
+//                    "}";
+//
+//            MYP_1006.Response sample = new Gson().fromJson(test, MYP_1006.Response.class);
+//
+//            oilView.setOilLayout(sample);
 
-            MYP_1006.Response sample = new Gson().fromJson(test, MYP_1006.Response.class);
 
-            oilView.setOilLayout(sample);
-
-
-//            switch (result.status){
-//                case SUCCESS:
-//                    oilView.setOilLayout(result.data);
-//                    break;
-//                case LOADING:
-//                    break;
-//                case ERROR:
-//                    break;
-//            }
+            switch (result.status){
+                case SUCCESS:
+                    oilView.setOilLayout(result.data);
+                    break;
+                case LOADING:
+                    break;
+                case ERROR:
+                    break;
+            }
         });
 
 

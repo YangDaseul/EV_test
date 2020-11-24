@@ -93,7 +93,7 @@ public class OilView {
             case OilPointVO.OIL_JOIN_CODE_Y:
                 barcode.setVisibility(View.VISIBLE);
                 point.setVisibility(View.VISIBLE);
-                point.setText(String.format(Locale.getDefault(),context.getString(R.string.word_home_24), StringUtil.getDigitGrouping(Integer.parseInt(data.getPont()))));
+                point.setText(String.format(Locale.getDefault(),context.getString(R.string.word_home_24), StringUtil.getDigitGroupingString(data.getPont())));
                 integration.setVisibility(View.GONE);
                 break;
             case OilPointVO.OIL_JOIN_CODE_R:

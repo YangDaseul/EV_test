@@ -47,7 +47,7 @@ public class ExtncPlanPontAdapter extends BaseRecyclerViewAdapter2<MembershipPoi
         @Override
         public void onBindView(MembershipPointVO item, int pos) {
             getBinding().tvDate.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(item.getExtncPlanDt(),DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot));
-            getBinding().tvExtncPont.setText(StringUtil.getDigitGrouping(Integer.parseInt(item.getExtncPlanPont())));
+            getBinding().tvExtncPont.setText(StringUtil.getDigitGroupingString(item.getExtncPlanPont()));
         }
 
         @Override

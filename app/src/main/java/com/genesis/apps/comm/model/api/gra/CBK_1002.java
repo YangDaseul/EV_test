@@ -8,6 +8,7 @@ import com.genesis.apps.comm.model.vo.ExpnVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
@@ -71,6 +72,7 @@ public class CBK_1002 extends BaseData {
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
+    static
     class Response extends BaseResponse {
         @Expose
         @SerializedName("totCnt")
@@ -93,5 +95,15 @@ public class CBK_1002 extends BaseData {
         @Expose
         @SerializedName("expnList")
         private List<ExpnVO> expnList;
+
+        public Response(){
+            this.totCnt="0";
+            this.delYn="0";
+            this.refulSumAmt="0";
+            this.rparSumAmt="0";
+            this.carWshSumAmt="0";
+            this.etcSumAmt="0";
+            this.expnList=new ArrayList<>();
+        }
     }
 }

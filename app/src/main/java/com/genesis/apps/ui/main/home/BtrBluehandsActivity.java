@@ -80,7 +80,7 @@ public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBi
                 case SUCCESS:
                     showProgressDialog(false);
                     try {
-                        btrVO = (BtrVO)result.data.getBtrVO().clone();
+                        btrVO = ((BtrVO)result.data.getBtrVO().clone());
                     }catch (Exception e){
 
                     }

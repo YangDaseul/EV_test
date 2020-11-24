@@ -124,7 +124,7 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
         for(OilPointVO pointVO : list){
             if(pointVO.getOilRfnCd().equalsIgnoreCase(oilRfnCd)){
                 ui.ivCi.setImageResource(OilCodes.findCode(oilRfnCd).getSmallSrc());
-                ui.tvPoint.setText(StringUtil.getDigitGrouping(TextUtils.isEmpty(pointVO.getPont()) ? 0 : Integer.parseInt(pointVO.getPont())));
+                ui.tvPoint.setText(StringUtil.getDigitGroupingString(TextUtils.isEmpty(pointVO.getPont()) ? "0" : pointVO.getPont()));
                 ui.tvCardNo.setText(StringRe2j.replaceAll(pointVO.getCardNo(), getString(R.string.card_original), getString(R.string.card_mask)));
                 setBarcode(pointVO.getCardNo());
                 break;

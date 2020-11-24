@@ -106,6 +106,11 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
 
             //데이터에 따른 max값 정의
             float maxValue = getMaxValue(item);
+
+            if(maxValue==0){//데이터가 없어도 표시되도록 하기 위해서 임의로 최대값 지정
+                maxValue=100000;
+            }
+
             getBinding().chart.getAxisRight().setAxisMaximum(maxValue);
             getBinding().chart.getAxisLeft().setAxisMaximum(maxValue);
 
@@ -207,7 +212,7 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
             //이전달 금액표시
             String prvsMthAmt = "0";
             try {
-                prvsMthAmt = StringUtil.getDigitGrouping(Integer.parseInt(prvsToUseAmt));
+                prvsMthAmt = StringUtil.getDigitGroupingString(prvsToUseAmt);
             } catch (Exception e) {
                 prvsMthAmt = "0";
             } finally {
@@ -233,7 +238,7 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
             //이번달 금액 표시
             String currentAmt = "0";
             try {
-                currentAmt = StringUtil.getDigitGrouping(Integer.parseInt(item.getTotUseAmt()));
+                currentAmt = StringUtil.getDigitGroupingString((item.getTotUseAmt()));
             } catch (Exception e) {
                 currentAmt = "0";
             } finally {
@@ -273,15 +278,6 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
 
     }
 
-
-
-
-
-
-
-
-
-    //todo 2020-11-23 사용안함
     private static class ItemInsightCarEmpty extends BaseViewHolder<ISTAmtVO, ItemInsightCarEmptyBinding> {
         public ItemInsightCarEmpty(View itemView) {
             super(itemView);
