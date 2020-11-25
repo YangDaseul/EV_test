@@ -334,7 +334,11 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         //앞 단계에서 4회 이상이라고 했으면 값 저장
         if (over4) {
             count = ui.etRelapse3TotalCount.getText().toString();
-            count = "" + (Integer.parseInt(count) + 3);//세부사항 입력한 3건도 더해서 셈
+            count = "" + (Integer.parseInt(count) + ServiceRelapse3Adapter.REPAIR_HISTORY_MAX_SIZE - 1);//세부사항 입력한 3건도 더해서 셈 -1은 마지막 게 ui 더미 칸이니까
+        }
+        //아니면 입력 칸 3개 중에 몇 개나 채웠나 셈
+        else {
+            count = "" + (adapter.getItemCount() - 1);//-1은 마지막 게 ui 더미 칸이니까
         }
 
         InteractionUtil.collapse(ui.lRelapse3YesNoContainer, null);
@@ -416,7 +420,8 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         param.setWkCntFth(over4 ? "Y" : "N");
         param.setWkCnt(count);
         param.setWkPeriod("" + period);
-        param.setPrnInfoAgreeFlg("Y");
+        param.setPrnInfoAgreeFlg(VariableType.COMMON_MEANS_YES);
+        param.setPrnInfoAgreeFlg(VariableType.COMMON_MEANS_YES);//todo 두 번째 약관
 
         viewModel.reqVOC1002(param);
     }

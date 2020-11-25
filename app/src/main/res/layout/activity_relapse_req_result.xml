@@ -321,7 +321,7 @@
                 <!-- "수리 시도 횟수" -->
                 <TextView
                     style="@style/RelapseReqResultItem.Title"
-                    android:text="@string/relapse_req_result_relapse_kind" />
+                    android:text="@string/relapse_req_result_try" />
 
                 <!-- 수리 시도 횟수 값 -->
                 <TextView
