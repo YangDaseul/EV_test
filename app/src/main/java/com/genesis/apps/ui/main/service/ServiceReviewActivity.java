@@ -162,7 +162,7 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
     private void onClickOkBtn() {
         Log.d(TAG, "onClickOkBtn: " + reviewType);
         //사용자가 입력한 별점, 기타의견 가져오기
-        String starRating = String.valueOf(ui.rbServiceReviewRatingbar.getRating());
+        String starRating = String.valueOf((int) ui.rbServiceReviewRatingbar.getRating());
         String reviewInput = ui.etServiceReviewInput.getText().toString();
 
         //입력이 너무 길면 자르...는 걸로 일단 코드에서 처리
