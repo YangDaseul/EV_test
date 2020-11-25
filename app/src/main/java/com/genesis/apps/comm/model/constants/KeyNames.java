@@ -44,8 +44,11 @@ public interface KeyNames {
     String KEY_NAME_SERVICE_DRIVE_REQ_START_MSG = "StartMsg";
     String KEY_NAME_SERVICE_DRIVE_REQ_COMPLETE_MSG_ID = "sdComplete";
 
-
     String KEY_NAME_SERVICE_RESERVE_INFO="repairReserveVO";
     String KEY_NAME_SERVICE_VOC_INFO_VO="VocInfoVO";
+
+    String KEY_NAME_REVIEW_RSVT_SEQ_NO = "rsvtSeqNo";
+    String KEY_NAME_REVIEW_TRANS_ID = "transId";
+    String KEY_NAME_REVIEW_VIN = "vin";
 
 }

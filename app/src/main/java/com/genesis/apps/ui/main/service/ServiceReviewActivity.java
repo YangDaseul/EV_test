@@ -1,12 +1,16 @@
 package com.genesis.apps.ui.main.service;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.gra.WSH_1007;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.DDS_1005;
@@ -28,7 +32,10 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
 
     private WSHViewModel wshViewModel;
     private DDSViewModel ddsViewModel;
-    int reviewType;
+    private int reviewType;
+    private String rsvtSeqNo;
+    private String transId;
+    private String vin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +43,12 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
         setContentView(R.layout.activity_service_review);
         ui.setActivity(this);
 
-        //todo 세차 리뷰인지 대리운전 리뷰인지 알아내기
-        // 리뷰 송신할 때, 세차는 예약번호, 대리운전은 transId, vin도 있어야 함
-        reviewType = REVIEW_WASH;
 
+        getDataFromIntent();
         setViewModel();
         setObserver();
+
+        setTitleMsg();
     }
 
     @Override
@@ -73,6 +80,36 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
     }
 
     @Override
+    public void getDataFromIntent() {
+        Intent intent = getIntent();
+
+        //세차
+        try {
+            rsvtSeqNo = intent.getStringExtra(KeyNames.KEY_NAME_REVIEW_RSVT_SEQ_NO);
+            if (!TextUtils.isEmpty(rsvtSeqNo)) {
+                reviewType = REVIEW_WASH;
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //대리운전
+        try {
+            transId = intent.getStringExtra(KeyNames.KEY_NAME_REVIEW_TRANS_ID);
+            vin = intent.getStringExtra(KeyNames.KEY_NAME_REVIEW_VIN);
+            if (!TextUtils.isEmpty(transId) && !TextUtils.isEmpty(vin)) {
+                reviewType = REVIEW_DRIVE;
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        exitPage("", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+    }
+
+    @Override
     public void setViewModel() {
         ui.setLifecycleOwner(this);
 
@@ -99,8 +136,35 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
         switch (reviewType) {
             case REVIEW_WASH:
                 //세차 리뷰 옵저버
+                wshViewModel.getRES_WSH_1007().observe(this, result -> {
+                    Log.d(TAG, "wash review title obs: " + result.status);
+                    switch (result.status) {
+                        case LOADING:
+                            showProgressDialog(true);
+                            break;
+
+                        case SUCCESS:
+                            if (result.data != null && result.data.getEvalQst() != null) {
+                                showProgressDialog(false);
+//                                if(  todo 이미 평가 한 건수인지 검사  ){
+//                                    rejectReview();
+//                                }
+
+                                ui.tvServiceReviewTitleMsg.setText(result.data.getEvalQst());
+                                break;
+                            }
+                            //not break; 데이터 이상하면 default로 진입시킴
+
+                        default:
+                            showProgressDialog(false);
+                            SnackBarUtil.show(this, "" + result.message);
+                            //todo : 구체적인 예외처리
+                            break;
+                    }
+                });
+
                 wshViewModel.getRES_WSH_1008().observe(this, result -> {
-                    Log.d(TAG, "getRES_WSH_1008 wash review obs: " + result.status);
+                    Log.d(TAG, " wash review obs: " + result.status);
                     switch (result.status) {
                         case LOADING:
                             showProgressDialog(true);
@@ -136,6 +200,10 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
                         case SUCCESS:
                             if (result.data != null && result.data.getRtCd() != null) {
                                 showProgressDialog(false);
+//                                if(  todo 이미 평가 한 건수인지 검사  ){
+//                                    rejectReview();
+//                                    return;
+//                                }
 
                                 finishReview();
                                 break;
@@ -156,6 +224,20 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
                 break;
         }
 
+    }
+
+
+    private void setTitleMsg() {
+        Log.d(TAG, "setTitleMsg: ");
+        if (reviewType == REVIEW_DRIVE) {
+            //대리운전 리뷰 메시지는 항상 고정(xml에 박은 값 그냥 사용)
+            return;
+        }
+
+        wshViewModel.reqWSH1007(new WSH_1007.Request(
+                APPIAInfo.SM_REVIEW01.getId(),
+                rsvtSeqNo
+        ));
     }
 
     //확인버튼 처리
@@ -187,37 +269,32 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
         }
     }
 
-    //세차 리뷰 전송 TODO : 예약 번호 알아내기
+    //세차 리뷰 전송
     private void reqCarWashReview(String starRating, String reviewInput) {
         wshViewModel.reqWSH1008(
                 new WSH_1008.Request(APPIAInfo.SM_REVIEW01.getId(),
-                        "예약번호",
+                        rsvtSeqNo,
                         starRating,
                         reviewInput));
     }
 
-    //대리운전 리뷰 전송 TODO :  transId 및 Vin 알아내기
+    //대리운전 리뷰 전송
     private void reqServiceDriveReview(String starRating, String reviewInput) {
         ddsViewModel.reqDDS1005(
                 new DDS_1005.Request(APPIAInfo.SM_REVIEW01.getId(),
-                        "vin",// TODO 이거 현재 메인 차량일 거라는 보장이 없네... 이것도 푸시 알림에 포함되어있나?
-                        "transId",
+                        vin,
+                        transId,
                         starRating,
                         reviewInput));
     }
 
-    //작성한 리뷰 전달 성공시 처리
-    //안내 띄우고
-    // TODO : [메인 화면으로 보냄]으로 돼 있는데 기획 확인 후 처리 방침 확정하여 반영
-    //  임시로 리뷰 액티비티만 종료하도록 해 둠.
+    //작성한 리뷰 전달 성공
     private void finishReview() {
-        SnackBarUtil.show(this, getString(R.string.service_review_finish));
-        exitPage(getString(R.string.service_review_finish), ResultCodes.RES_CODE_NETWORK.getCode());
+        exitPage(getString(R.string.service_review_finish), ResultCodes.REQ_CODE_NORMAL.getCode());
     }
 
-    @Override
-    public void getDataFromIntent() {
-
+    private void rejectReview(){
+        exitPage(getString(R.string.service_review_duplicate), ResultCodes.REQ_CODE_NORMAL.getCode());
     }
 
     @Override

@@ -24,7 +24,7 @@
 
         <!-- "어디가 맘에 들었나요?" -->
         <TextView
-            android:id="@+id/tv_service_review_desc"
+            android:id="@+id/tv_service_review_title_msg"
             style="@style/TextBasic"
             android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
@@ -45,8 +45,8 @@
             android:text="@string/service_review_03"
             android:textColor="@color/x_525252"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@id/tv_service_review_desc"
-            app:layout_constraintTop_toBottomOf="@id/tv_service_review_desc" />
+            app:layout_constraintStart_toStartOf="@id/tv_service_review_title_msg"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_review_title_msg" />
 
         <!-- 별점 -->
         <RatingBar
