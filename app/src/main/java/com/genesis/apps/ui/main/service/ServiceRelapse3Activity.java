@@ -417,11 +417,11 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
             }
         }
 
-        param.setWkCntFth(over4 ? "Y" : "N");
+        param.setWkCntFth(over4 ? VariableType.COMMON_MEANS_YES : VariableType.COMMON_MEANS_NO);
         param.setWkCnt(count);
         param.setWkPeriod("" + period);
         param.setPrnInfoAgreeFlg(VariableType.COMMON_MEANS_YES);
-        param.setPrnInfoAgreeFlg(VariableType.COMMON_MEANS_YES);//todo 두 번째 약관
+        param.setCarMgmtAgreeFlg(VariableType.COMMON_MEANS_YES);
 
         viewModel.reqVOC1002(param);
     }

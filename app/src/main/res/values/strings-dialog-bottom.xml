@@ -31,6 +31,7 @@
     <string name="cw_branch_code_error">지점 코드가 유효하지 않습니다.</string>
 
     <string name="service_review_finish">리뷰를 작성해주셔서 감사합니다.</string>
+    <string name="service_review_duplicate">이미 리뷰를 작성하셨습니다.</string>
 
     <string name="sm_emgc01_p01_1">무엇을 도와드릴까요?</string>
     <string name="sm_emgc01_p01_2">차량 시동이 걸리지 않아요.</string>
