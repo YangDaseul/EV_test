@@ -19,8 +19,8 @@ import lombok.EqualsAndHashCode;
  * TXL : 텍스트 + 링크  IML : 이미지 + 링크
  * TIL : 텍스트 + 이미지 + 링크
  * SYS: 고정된 메시지 유형(서버는 APP에 항목값만 전달)
- * @see #ttl	    제목
- * @see #txtMsg	    텍스트메시지
+ * @see #txtMsg1        제목
+ * @see #txtMsg2        텍스트메시지
  * @see #imgUri	    이미지Uri
  * @see #lnkNm	    링크명
  * 링크버튼명(상세에서 보여주는 정보)
@@ -37,11 +37,11 @@ class MessageVO extends BaseData {
     @SerializedName("msgTypCd")
     private String msgTypCd;
     @Expose
-    @SerializedName("ttl")
-    private String ttl;
+    @SerializedName("txtMsg1")
+    private String txtMsg1;
     @Expose
-    @SerializedName("txtMsg")
-    private String txtMsg;
+    @SerializedName("txtMsg2")
+    private String txtMsg2;
     @Expose
     @SerializedName("imgUri")
     private String imgUri;
@@ -52,7 +52,6 @@ class MessageVO extends BaseData {
     @SerializedName("iconImgUri")
     private String iconImgUri;
 
-
     @Expose
     @SerializedName("lnkTypCd")
     private String lnkTypCd;
@@ -62,9 +61,6 @@ class MessageVO extends BaseData {
     @Expose
     @SerializedName("bnrNm")
     private String bnrNm;
-
-
-
 
     @Ignore
     private WeatherCodes weatherCodes;//로컬에서만 사용

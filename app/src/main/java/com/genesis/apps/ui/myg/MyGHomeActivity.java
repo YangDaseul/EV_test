@@ -62,28 +62,29 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     public void setObserver() {
 
         mypViewModel.getRES_MYP_0001().observe(this, result -> {
-            //TODO 예외처리 및 로딩처리 필요
+            //TODO 예외처리 및 뷰별 로딩처리 필요
             switch (result.status) {
                 case LOADING:
                     break;
                 case SUCCESS:
-                    ui.tvName.setText(String.format(Locale.getDefault(), getString(R.string.word_home_23), result.data.getMbrNm()));
-                    ui.tvMail.setText(result.data.getCcspEmail());
-                    break;
                 default:
+                    ui.tvName.setText((result.data==null||TextUtils.isEmpty(result.data.getMbrNm()))
+                            ? "--" : String.format(Locale.getDefault(), getString(R.string.word_home_23), result.data.getMbrNm()));
+                    ui.tvMail.setText((result.data==null||TextUtils.isEmpty(result.data.getCcspEmail()))
+                            ? "--" : result.data.getCcspEmail());
                     break;
             }
         });
 
         mypViewModel.getRES_MYP_1003().observe(this, result -> {
-            //TODO 예외처리 및 로딩처리 필요
+            //TODO 예외처리 및 뷰별 로딩처리 필요
             switch (result.status) {
                 case LOADING:
                     break;
                 case SUCCESS:
-                    ui.tvPoint.setText(String.format(Locale.getDefault(), getString(R.string.word_home_24), StringUtil.getDigitGroupingString(result.data.getBludMbrPoint())));
-                    break;
                 default:
+                    ui.tvPoint.setText((result.data==null||TextUtils.isEmpty(result.data.getBludMbrPoint()))
+                            ? "--" : String.format(Locale.getDefault(), getString(R.string.word_home_24), StringUtil.getDigitGroupingString(result.data.getBludMbrPoint())));
                     break;
             }
         });
@@ -190,7 +191,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
     private void setPrivilegeLayout(MYP_1005.Response data) {
 
-        if (data.getMbrshJoinYn().equalsIgnoreCase("N") || data.getPvilList().size() < 1) {
+        if (data==null || data.getMbrshJoinYn().equalsIgnoreCase("N") || data.getPvilList().size() < 1) {
             ui.lPrivilege.setVisibility(View.GONE);
         } else {
             ui.lPrivilege.setVisibility(View.VISIBLE);

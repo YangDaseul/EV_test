@@ -43,7 +43,7 @@ public class IST_1002 extends BaseData {
         private String vin;
 
 
-        public Request(String menuId, String lgrCatAreaCd, String smlCatAreaCd,String vin){
+        public Request(String menuId, String lgrCatAreaCd, String smlCatAreaCd, String vin){
             this.lgrCatAreaCd = lgrCatAreaCd;
             this.smlCatAreaCd = smlCatAreaCd;
             this.vin = vin;

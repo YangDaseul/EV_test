@@ -19,7 +19,6 @@ public class MYP_2005 extends BaseData {
     /**
      * @author hjpark
      * @brief MYP_2002 요청 항목
-     * @see #currPwd 현재비밀번호
      * @see #newPwd 신규비밀번호
      */
     @EqualsAndHashCode(callSuper = true)
@@ -27,15 +26,11 @@ public class MYP_2005 extends BaseData {
     static
     class Request extends BaseRequest {
         @Expose
-        @SerializedName("currPwd")
-        private String currPwd;
-        @Expose
         @SerializedName("newPwd")
         private String newPwd;
 
 
-        public Request(String menuId, String currPwd, String newPwd){
-            this.currPwd = currPwd;
+        public Request(String menuId, String newPwd){
             this.newPwd = newPwd;
             setData(APIInfo.GRA_MYP_2005.getIfCd(), menuId);
         }

@@ -178,7 +178,7 @@ public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMe
                     case STEP_2_2:
                         if (newPwd.equalsIgnoreCase(charSequence.toString())) {
                             //신규비밀번호가 일치하는 경우
-                            mypViewModel.reqMYP2005(new MYP_2005.Request(APPIAInfo.MG_MEMBER03.getId(), currPwd, newPwd));
+                            mypViewModel.reqMYP2005(new MYP_2005.Request(APPIAInfo.MG_MEMBER03.getId(), newPwd));
                             break;
                         } else {
                             //일치하지 않는 경우

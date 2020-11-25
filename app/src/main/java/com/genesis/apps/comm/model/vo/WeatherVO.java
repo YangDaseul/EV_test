@@ -4,7 +4,6 @@ import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import lombok.AllArgsConstructor;
@@ -22,7 +21,7 @@ import lombok.EqualsAndHashCode;
  * SYS: 고정된 메시지 유형(서버는 APP에 항목값만 전달)
  * @see #wthrCdNm	날씨코드명
  * @see #txtMsg	    텍스트메시지
- * @see #imgUri	    이미지Uri
+ * @see #iconImgUri        이미지Uri
  * @see #lnkUseYn	링크사용여부
  * Y: 사용 N:미사용 (상세에서 보여주는 정보)
  * @see #lnkNm	    링크명
@@ -58,8 +57,8 @@ class WeatherVO extends BaseData {
     @SerializedName("txtMsg")
     private String txtMsg;
     @Expose
-    @SerializedName("imgUri")
-    private String imgUri;
+    @SerializedName("iconImgUri")
+    private String iconImgUri;
     @Expose
     @SerializedName("lnkUseYn")
     private String lnkUseYn;

@@ -100,7 +100,7 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
             switch (item.getMsgTypCd()) {
                 case VariableType.MAIN_HOME_INSIGHT_TXT://텍스트만 노출
                     getBinding().tvMsg.setVisibility(View.VISIBLE);
-                    getBinding().tvMsg.setText(item.getTxtMsg());
+                    getBinding().tvMsg.setText(item.getTxtMsg2());
                     break;
                 case VariableType.MAIN_HOME_INSIGHT_IMG://이미지만 노출
                     getBinding().ivImg.setVisibility(View.VISIBLE);
@@ -115,7 +115,7 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
                     break;
                 case VariableType.MAIN_HOME_INSIGHT_TXL://텍스트 + 링크
                     getBinding().tvMsg.setVisibility(View.VISIBLE);
-                    getBinding().tvMsg.setText(item.getTxtMsg());
+                    getBinding().tvMsg.setText(item.getTxtMsg2());
                     getBinding().lWhole.setTag(R.id.item_link, item.getLnkUri());
                     getBinding().lWhole.setOnClickListener(onSingleClickListener);
                     break;
@@ -134,7 +134,7 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
                     break;
                 case VariableType.MAIN_HOME_INSIGHT_TIL://텍스트 + 이미지 + 링크
                     getBinding().tvMsg.setVisibility(View.VISIBLE);
-                    getBinding().tvMsg.setText(item.getTxtMsg());
+                    getBinding().tvMsg.setText(item.getTxtMsg2());
                     getBinding().ivImg.setVisibility(View.VISIBLE);
                     Glide
                             .with(getContext())
@@ -188,7 +188,7 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
             switch (item.getMsgTypCd()) {
                 case VariableType.MAIN_HOME_INSIGHT_TXT://텍스트만 노출
                     getBinding().tvMsg.setVisibility(View.VISIBLE);
-                    getBinding().tvMsg.setText(item.getTxtMsg());
+                    getBinding().tvMsg.setText(item.getTxtMsg2());
                     getBinding().ivIcon.setImageResource(WeatherCodes.getIconResource(item.getWeatherCodes()));
                     break;
 //                case VariableType.MAIN_HOME_INSIGHT_IMG://이미지만 노출
@@ -196,7 +196,7 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
 //                    break;
                 case VariableType.MAIN_HOME_INSIGHT_TXL://텍스트 + 링크
                     getBinding().tvMsg.setVisibility(View.VISIBLE);
-                    getBinding().tvMsg.setText(item.getTxtMsg());
+                    getBinding().tvMsg.setText(item.getTxtMsg2());
                     getBinding().lWhole.setTag(R.id.item_link, item.getLnkUri());
                     getBinding().lWhole.setOnClickListener(onSingleClickListener);
                     break;

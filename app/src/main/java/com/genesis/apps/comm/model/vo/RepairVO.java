@@ -38,6 +38,14 @@ class RepairVO extends BaseData {
     @SerializedName("asnAddr")
     private String asnAddr;
 
+    @Expose
+    @SerializedName("wrhsNo")
+    private String wrhsNo;
+    @Expose
+    @SerializedName("vhclInoutNo")
+    private String vhclInoutNo;
+
+
     //adapter에서만 사용
     private String stusCd;
 }

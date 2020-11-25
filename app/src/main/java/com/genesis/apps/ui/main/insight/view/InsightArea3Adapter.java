@@ -77,35 +77,35 @@ public class InsightArea3Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
             if (!TextUtils.isEmpty(item.getMsgTypCd())) {
                 switch (item.getMsgTypCd()) {
                     case VariableType.MAIN_HOME_INSIGHT_TXT:
-                        if (TextUtils.isEmpty(item.getTtl())) {
+                        if (TextUtils.isEmpty(item.getTxtMsg1())) {
                             getBinding().tvTitle.setVisibility(View.GONE);
                         } else {
                             getBinding().tvTitle.setVisibility(View.VISIBLE);
-                            getBinding().tvTitle.setText(item.getTtl());
+                            getBinding().tvTitle.setText(item.getTxtMsg1());
                         }
 
-                        if (TextUtils.isEmpty(item.getTxtMsg())) {
+                        if (TextUtils.isEmpty(item.getTxtMsg2())) {
                             getBinding().tvMsg.setVisibility(View.INVISIBLE);
                         } else {
                             getBinding().tvMsg.setVisibility(View.VISIBLE);
-                            getBinding().tvMsg.setText(item.getTxtMsg());
+                            getBinding().tvMsg.setText(item.getTxtMsg2());
                         }
 
                         break;
                     case VariableType.MAIN_HOME_INSIGHT_TXL:
                     default:
-                        if (TextUtils.isEmpty(item.getTtl())) {
+                        if (TextUtils.isEmpty(item.getTxtMsg1())) {
                             getBinding().tvTitle.setVisibility(View.GONE);
                         } else {
                             getBinding().tvTitle.setVisibility(View.VISIBLE);
-                            getBinding().tvTitle.setText(item.getTtl());
+                            getBinding().tvTitle.setText(item.getTxtMsg1());
                         }
 
-                        if (TextUtils.isEmpty(item.getTxtMsg())) {
+                        if (TextUtils.isEmpty(item.getTxtMsg2())) {
                             getBinding().tvMsg.setVisibility(View.INVISIBLE);
                         } else {
                             getBinding().tvMsg.setVisibility(View.VISIBLE);
-                            getBinding().tvMsg.setText(item.getTxtMsg());
+                            getBinding().tvMsg.setText(item.getTxtMsg2());
                         }
 
                         if (TextUtils.isEmpty(item.getLnkNm())) {
