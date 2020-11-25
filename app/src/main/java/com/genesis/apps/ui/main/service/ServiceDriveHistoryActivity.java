@@ -66,16 +66,18 @@ public class ServiceDriveHistoryActivity extends SubActivity<ActivityServiceDriv
                 case SUCCESS:
                     if (result.data != null && result.data.getSvcInfo() != null) {
                         //수신 성공했으니 페이지 카운트 증가
+                        // (목록이 비었어도 상관없음, 그러면 어차피 더는 없는 거니까 다음 페이지 요청도 더 이상 안 하게 됨)
                         adapter.incPageNo();
 
                         //수신된 데이터를 꺼내고
                         List<DriveServiceVO> list = result.data.getSvcInfo();
 
-                        //첫 번째 아이템을 검사
-                        DriveServiceVO item = list.get(0);
                         //완료 또는 취소가 확정된 건수가 아니면 '이용내역' 목록에 표시하지 않으므로 목록에서 제거
-                        if (adapter.findItemType(item.getSvcStusCd()) == ServiceDriveHistoryAdapter.TYPE_NOT_HISTORY) {
-                            list.remove(0);
+                        for (int i = list.size() - 1; i >= 0; i--) {
+                            DriveServiceVO item = list.get(i);
+                            if (adapter.findItemType(item.getSvcStusCd()) == ServiceDriveHistoryAdapter.TYPE_NOT_HISTORY) {
+                                list.remove(i);
+                            }
                         }
 
                         //받은 목록(에서 현재 진행형인 건수 제거하고 남은 것)의 길이가 1 이상이면 데이터 추가
@@ -96,7 +98,7 @@ public class ServiceDriveHistoryActivity extends SubActivity<ActivityServiceDriv
 
                 default:
                     showProgressDialog(false);
-                    SnackBarUtil.show(this, ""+result.message);
+                    SnackBarUtil.show(this, "" + result.message);
                     //todo : 구체적인 예외처리
                     break;
             }
