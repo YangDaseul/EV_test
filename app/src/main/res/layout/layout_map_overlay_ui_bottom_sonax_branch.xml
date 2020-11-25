@@ -7,6 +7,8 @@
 
         <import type="android.telephony.PhoneNumberUtils" />
 
+        <import type="android.view.View" />
+
         <variable
             name="activity"
             type="com.genesis.apps.ui.main.service.CarWashSearchActivity" />
@@ -14,6 +16,10 @@
         <variable
             name="data"
             type="com.genesis.apps.comm.model.vo.WashBrnVO" />
+
+        <variable
+            name="reserveEnable"
+            type="boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -113,6 +119,7 @@
             style="@style/MapOverlay.Btn"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:text="@string/map_btn_3"
+            android:visibility="@{reserveEnable?View.VISIBLE:View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="@id/tv_map_sonax_branch_phone"
             app:layout_constraintEnd_toEndOf="parent" />
 

@@ -52,16 +52,6 @@ public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveSe
 
         //상태 코드는 DDS_1001과 같은 값을 공유
         switch (statusCode) {
-            //현재 진행중
-            case DDS_1001.STATUS_REQ:
-            case DDS_1001.STATUS_RESERVED:
-            case DDS_1001.STATUS_DRIVER_MATCH_WAIT:
-            case DDS_1001.STATUS_DRIVER_MATCHED:
-            case DDS_1001.STATUS_DRIVER_REMATCHED:
-            case DDS_1001.STATUS_DRIVE_NOW:
-            case DDS_1001.STATUS_NO_DRIVER:
-                return TYPE_NOT_HISTORY;
-
             //이용완료
             case DDS_1001.STATUS_SERVICE_FINISHED:
                 return TYPE_FINISHED;
@@ -71,6 +61,14 @@ public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveSe
             case DDS_1001.STATUS_CANCEL_CAUSE_NO_DRIVER:
                 return TYPE_CANCELED;
 
+            //현재 진행중
+            case DDS_1001.STATUS_REQ:
+            case DDS_1001.STATUS_RESERVED:
+            case DDS_1001.STATUS_DRIVER_MATCH_WAIT:
+            case DDS_1001.STATUS_DRIVER_MATCHED:
+            case DDS_1001.STATUS_DRIVER_REMATCHED:
+            case DDS_1001.STATUS_DRIVE_NOW:
+            case DDS_1001.STATUS_NO_DRIVER:
             //이상한 값
             default:
                 return TYPE_NOT_HISTORY;
