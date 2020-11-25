@@ -305,7 +305,7 @@ public class GA {
 //    }
 
 
-    private String getAuthUrl() {
+    public String getAuthUrl() {
         csrf = getRandomString(10);
         Log.d("GA", "csrf string : " + csrf);
 

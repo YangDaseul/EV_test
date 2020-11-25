@@ -6,6 +6,7 @@ public enum RequestCodes {
     REQ_CODE_ACTIVITY(1000,"일반 페이지 진입"),
     REQ_CODE_LOGIN(1001,"로그인 결과"),
     REQ_CODE_JOIN(1002,"회원 가입 결과"),
+    REQ_CODE_AUTHUUID(1003,"번호 인증 결과"),
     REQ_CODE_JOIN_SERVICE(1003,"서비스 가입 완료"),
     REQ_CODE_PERMISSIONS_CAPTURE(100,"화면 녹화 권한"),
     REQ_CODE_PERMISSIONS_MEDIAPROJECTION(101,"화면 녹화"),

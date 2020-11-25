@@ -28,6 +28,7 @@ import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.databinding.ActivityMygHomeBinding;
+import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
 import com.genesis.apps.ui.myg.view.OilView;
@@ -268,17 +269,10 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                 case R.id.l_mobility_care: //혜택 쿠폰
                     break;
                 case R.id.btn_benefit:
-                    //TODO 프리빌리지 혜택
                 case R.id.btn_status:
-                    //TODO 프리빌리지 현황
                 case R.id.btn_apply:
-                    //TODO 프리빌리지 신청하기
                     String url = v.getTag(R.id.url).toString();
-                    if(!TextUtils.isEmpty(url)){
-                        //todo webview 이동
-                    }else{
-                        SnackBarUtil.show(this, "페이지 정보가 존재하지 않습니다.\n잠시 후 다시 시도해 주십시오.");
-                    }
+                    goPrivilege(v.getId(), url);
                     break;
 
                 case R.id.btn_car_list: //프리빌리지 차량목록
@@ -354,5 +348,26 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
             }
         }
 
+    }
+
+
+    private void goPrivilege(int id, String url) {
+        if(!TextUtils.isEmpty(url.trim())){
+            int titleId=0;
+            switch (id){
+                case R.id.btn_status:
+                    titleId = R.string.mg_prvi01_word_1_2;
+                    break;
+                case R.id.btn_benefit:
+                    titleId = R.string.mg_prvi01_word_1_3;
+                    break;
+                case R.id.btn_apply:
+                    titleId = R.string.mg_prvi01_word_1;
+                    break;
+            }
+            startActivitySingleTop(new Intent(this, GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, url).putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, titleId), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        }else{
+            SnackBarUtil.show(this, "페이지 정보가 존재하지 않습니다.\n잠시 후 다시 시도해 주십시오.");
+        }
     }
 }

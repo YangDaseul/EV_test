@@ -57,4 +57,7 @@
 
     <string name="relapse_succ">하자재발통보 신청이 완료되었습니다.</string>
 
+    <string name="snackbar_etc_1">마케팅 수신 동의 내용이 변경되었습니다.</string>
+    <string name="snackbar_etc_2">번호가 변경되었습니다.</string>
+
 </resources>

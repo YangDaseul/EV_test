@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.net.ga.CCSP;
@@ -32,12 +33,11 @@ public class LoginActivity extends WebviewActivity {
     private boolean isLogin=false;
     private String tokenCode;
     private String authUuid;
+    private String requestCode="";
     @Inject
     public GA ga;
     @Inject
     public CCSP ccsp;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +56,15 @@ public class LoginActivity extends WebviewActivity {
     public void getDataFromIntent() {
         super.getDataFromIntent();
         Intent intent = getIntent();
-        if(intent!=null&&intent.getStringExtra("url").equalsIgnoreCase(ga.getLoginUrl())){
-            isLogin=true;
-        }else{
-            isLogin=false;
+        try {
+            if (intent != null && intent.getStringExtra(KeyNames.KEY_NAME_URL).equalsIgnoreCase(ga.getLoginUrl())) {
+                isLogin = true;
+            } else {
+                isLogin = false;
+            }
+            requestCode = intent.getStringExtra(KeyNames.KEY_NAME_AUTHUUID);
+        }catch (Exception e){
+            requestCode = "";
         }
     }
 
@@ -91,8 +96,10 @@ public class LoginActivity extends WebviewActivity {
         if (csrf != null && csrf.equals(ga.getCsrf()) && !TextUtils.isEmpty(authUuid)) {
             Log.v("TEST LoginActivity", "LOGIN ACTIVITY DEPTH2:" +authUuid );
             this.authUuid = authUuid;
-//            setResult(Activity.RESULT_OK, new Intent().putExtra(VariableType.KEY_NAME_LOGIN_AUTH_UUID,authUuid));
-//            finish();
+            if(requestCode.equalsIgnoreCase(KeyNames.KEY_NAME_AUTHUUID)){ //폰번호 변경으로 본인인증 결과 값 요청 시
+                setResult(Activity.RESULT_OK, new Intent().putExtra(VariableType.KEY_NAME_LOGIN_AUTH_UUID, authUuid));
+                finish();
+            }
         }
         return true;
     }

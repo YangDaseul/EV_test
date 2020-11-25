@@ -1,22 +1,37 @@
 package com.genesis.apps.ui.myg;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
+
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.MYP_0001;
+import com.genesis.apps.comm.model.api.gra.MYP_0004;
+import com.genesis.apps.comm.model.api.gra.MYP_0005;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.net.ga.GA;
 import com.genesis.apps.comm.util.InteractionUtil;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.databinding.ActivityMygGaBinding;
+import com.genesis.apps.ui.common.activity.LoginActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.google.gson.Gson;
 
-import androidx.lifecycle.ViewModelProvider;
+import javax.inject.Inject;
 
 public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
+    @Inject
+    private GA ga;
 
     private MYPViewModel mypViewModel;
 
@@ -46,30 +61,6 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
     @Override
     public void setObserver() {
         mypViewModel.getRES_MYP_0001().observe(this, result -> {
-//            String test ="{\n" +
-//                    "  \"rtCd\": \"0000\",\n" +
-//                    "  \"rtMsg\": \"Success\",\n" +
-//                    "  \"mbrStustCd\": \"1000\",\n" +
-//                    "  \"ccspEmail\": \"kim.genesis@email.com\",\n" +
-//                    "  \"mbrNm\": \"김수현\",\n" +
-//                    "  \"brtdy\": \"19800102\",\n" +
-//                    "  \"sexDiv\": \"M\",\n" +
-//                    "  \"celphNo\": \"01099990001\",\n" +
-//                    "  \"mrktYn\": \"Y\",\n" +
-//                    "  \"mrktDate\": \"20200824155819\",\n" +
-//                    "  \"mrktCd\": \"1111\"\n" +
-//                    "}";
-//            MYP_0001.Response sample = new Gson().fromJson(test, MYP_0001.Response.class);
-//            if(sample!=null) {
-//                ui.setData(sample);
-//                ui.cbAd.setChecked(sample.getMrktYn().equalsIgnoreCase("Y") ? true : false);
-//                ui.cbSms.setChecked(sample.getMrktCd().substring(0,1).equalsIgnoreCase("1") ? true : false);
-//                ui.cbEmail.setChecked(sample.getMrktCd().substring(1,2).equalsIgnoreCase("1") ? true : false);
-//                ui.cbPost.setChecked(sample.getMrktCd().substring(2,3).equalsIgnoreCase("1") ? true : false);
-//                ui.cbPhone.setChecked(sample.getMrktCd().substring(3,4).equalsIgnoreCase("1") ? true : false);
-//            }
-
-
             switch (result.status){
                 case LOADING:
                     showProgressDialog(true);
@@ -97,8 +88,61 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
                     }
                     break;
             }
+        });
 
 
+        mypViewModel.getRES_MYP_0004().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if(result.data!=null){
+                        SnackBarUtil.show(this, getString(R.string.snackbar_etc_1));
+                        break;
+                    }
+                default:
+                    showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if(TextUtils.isEmpty(serverMsg)) serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+
+                        SnackBarUtil.show(this, serverMsg);
+                    }
+                    break;
+            }
+        });
+
+        mypViewModel.getRES_MYP_0005().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if(result.data!=null){
+                        SnackBarUtil.show(this, getString(R.string.snackbar_etc_2));
+                        mypViewModel.reqMYP0001(new MYP_0001.Request(APPIAInfo.MG_GA01.getId()));
+                        break;
+                    }
+                default:
+                    showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if(TextUtils.isEmpty(serverMsg)) serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        SnackBarUtil.show(this, serverMsg);
+                    }
+                    break;
+            }
         });
     }
 
@@ -119,16 +163,17 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
                     InteractionUtil.expand(ui.tvAdInfo, null);
                 }
                 break;
-
-//            case R.id.cb_email:
-//            case R.id.cb_sms:
-//            case R.id.cb_phone:
-//                setAllCheckBox();
-//                break;
-//            case R.id.cb_all:
-//
-//                Log.v("checkbox","checkbox:"+ui.cbAll.isChecked());
-//                break;
+            case R.id.btn_save_agree:
+                String mrktYn = ui.cbAd.isChecked() ? "Y" : "N";
+                String mrktCd = (ui.cbSms.isChecked() ? "1" : "0")
+                            + (ui.cbEmail.isChecked() ? "1" : "0")
+                             + (ui.cbPost.isChecked() ? "1" : "0")
+                            + (ui.cbPhone.isChecked() ? "1" : "0");
+                mypViewModel.reqMYP0004(new MYP_0004.Request(APPIAInfo.MG_GA01.getId(), mrktYn, mrktCd));
+                break;
+            case R.id.btn_change_phone:
+                startActivitySingleTop(new Intent(this, LoginActivity.class).putExtra(KeyNames.KEY_NAME_URL, ga.getAuthUrl()).putExtra(KeyNames.KEY_NAME_AUTHUUID, KeyNames.KEY_NAME_AUTHUUID), RequestCodes.REQ_CODE_AUTHUUID.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
         }
     }
 
@@ -148,5 +193,23 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
         }
         ui.vBlock.setVisibility(b ? View.GONE : View.VISIBLE);
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == RequestCodes.REQ_CODE_AUTHUUID.getCode()) {
+            String authUuid = "";
+            try {
+                authUuid = data.getStringExtra(VariableType.KEY_NAME_LOGIN_AUTH_UUID);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (!TextUtils.isEmpty(authUuid))
+                    mypViewModel.reqMYP0005(new MYP_0005.Request(APPIAInfo.MG_GA01.getId(), authUuid));
+                else
+                    SnackBarUtil.show(this, "본인인증이 정상적으로 진행되지 않았습니다.\n잠시 후 다시 시도해 주세요.");
+            }
+        }
+    }
 
 }

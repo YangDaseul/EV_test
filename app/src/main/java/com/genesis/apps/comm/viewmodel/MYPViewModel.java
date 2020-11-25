@@ -7,6 +7,8 @@ import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 import com.genesis.apps.comm.model.api.gra.MYP_0001;
+import com.genesis.apps.comm.model.api.gra.MYP_0004;
+import com.genesis.apps.comm.model.api.gra.MYP_0005;
 import com.genesis.apps.comm.model.api.gra.MYP_1003;
 import com.genesis.apps.comm.model.api.gra.MYP_1005;
 import com.genesis.apps.comm.model.api.gra.MYP_1006;
@@ -47,6 +49,8 @@ class MYPViewModel extends ViewModel {
     private final SavedStateHandle savedStateHandle;
 
     private MutableLiveData<NetUIResponse<MYP_0001.Response>> RES_MYP_0001;
+    private MutableLiveData<NetUIResponse<MYP_0004.Response>> RES_MYP_0004;
+    private MutableLiveData<NetUIResponse<MYP_0005.Response>> RES_MYP_0005;
 
     private MutableLiveData<NetUIResponse<MYP_1003.Response>> RES_MYP_1003;
     private MutableLiveData<NetUIResponse<MYP_1005.Response>> RES_MYP_1005;
@@ -91,6 +95,9 @@ class MYPViewModel extends ViewModel {
 
         this.repository = repository;
         RES_MYP_0001 = repository.RES_MYP_0001;
+        RES_MYP_0004 = repository.RES_MYP_0004;
+        RES_MYP_0005 = repository.RES_MYP_0005;
+
         RES_MYP_1003 = repository.RES_MYP_1003;
         RES_MYP_1005 = repository.RES_MYP_1005;
         RES_MYP_1006 = repository.RES_MYP_1006;
@@ -117,6 +124,14 @@ class MYPViewModel extends ViewModel {
 
     public void reqMYP0001(final MYP_0001.Request reqData){
         repository.REQ_MYP_0001(reqData);
+    }
+
+    public void reqMYP0004(final MYP_0004.Request reqData){
+        repository.REQ_MYP_0004(reqData);
+    }
+
+    public void reqMYP0005(final MYP_0005.Request reqData){
+        repository.REQ_MYP_0005(reqData);
     }
 
     public void reqMYP1003(final MYP_1003.Request reqData){
