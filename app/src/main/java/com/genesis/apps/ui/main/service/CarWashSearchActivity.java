@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main.service;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.WSH_1002;
 import com.genesis.apps.comm.model.api.gra.WSH_1003;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
@@ -37,8 +39,8 @@ import java.util.concurrent.ExecutionException;
 
 public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> {
     private static final String TAG = CarWashSearchActivity.class.getSimpleName();
-    public static final int LATITUDE = 0;
-    public static final int LONGITUDE = 1;
+    public static final int LATITUDE = 0;   //Y 소낙스만 xy 뒤집힌 모양이랬던가...LATITUDE
+    public static final int LONGITUDE = 1;  //X LONGITUDE
 
     private static final int DEFAULT_ZOOM = 17;
 
@@ -69,7 +71,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
         setObserver();
         initView();
         initMainVehicle();
-        reqMyLocation();
+        showNearestBranch();
     }
 
     private boolean initDataFromIntent() {
@@ -126,6 +128,48 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
             }
         });
 
+
+        //지점 목록 옵저버
+        wshViewModel.getRES_WSH_1002().observe(this, result -> {
+            Log.d(TAG, "setObserver branchObs: " + result.status);
+
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+
+                case SUCCESS:
+                    if (result.data != null && result.data.getBrnhList() != null) {
+                        List<WashBrnVO> list = result.data.getBrnhList();
+
+                        //최근거리 지점을 찾아서 정보 표시
+                        showBranchInfo(findNearest(list), true);
+
+                        //성공 후 데이터 로딩까지 다 되면 로딩 치우고 break;
+                        showProgressDialog(false);
+                        break;
+                    }
+
+                    //not break; 데이터 이상하면 default로 진입시킴
+
+                default:
+                    showProgressDialog(false);
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
+                            serverMsg = getString(R.string.instability_network);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                    }
+                    //todo : 구체적인 예외처리
+                    break;
+            }
+
+        });
     }
 
     @Override
@@ -215,8 +259,8 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
     }
 
     //gps로 내 위치 찾아서 지도에 표시
-    private void reqMyLocation() {
-        Log.d(TAG, "reqMyLocation: ");
+    private void showNearestBranch() {
+        Log.d(TAG, "showNearestBranch: ");
 
         showProgressDialog(true);
         findMyLocation(location -> {
@@ -233,9 +277,59 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 
                 //지도 초기화
                 ui.pmvMapView.initMap(myPosition[LATITUDE], myPosition[LONGITUDE], DEFAULT_ZOOM);
+
+                //최근거리 지점을 기본값으로 보여주기 위해 지점 목록 정보를 요청
+                reqBranchList();
             });
 
         }, 5000);
+    }
+
+    //지점 목록 요청
+    private void reqBranchList() {
+        Log.d(TAG, "reqBranchList: ");
+
+        wshViewModel.reqWSH1002(
+                new WSH_1002.Request(
+                        APPIAInfo.SM_CW01_A02.getId(),
+                        godsSeqNo,
+                        WSHViewModel.SONAX,
+                        "" + myPosition[LONGITUDE],
+                        "" + myPosition[LATITUDE],
+                        ""));
+    }
+
+    //최근거리 지점 찾기
+    private WashBrnVO findNearest(List<WashBrnVO> list) {
+        //전체 목록을 저장(선택 안 된 지점도 지도에 표시하기 위함)
+        searchedBranchList = list;
+
+        double nearestDistance;
+        double tempDistance;
+
+        //목록 첫째를 기준으로 두고
+        WashBrnVO nearest = list.get(0);
+
+        //목록 전수조사
+        for (WashBrnVO cmp : list) {
+            nearestDistance = getDistance(nearest);
+            tempDistance = getDistance(cmp);
+
+            //더 가까운 지점이 발견되면 기준을 교체
+            if (tempDistance < nearestDistance) {
+                nearest = cmp;
+            }
+        }
+
+        return nearest;
+    }
+
+    //대상 지점과 현재 위치의 거리를 계산
+    private double getDistance(WashBrnVO cmp) {
+        double dx = myPosition[LONGITUDE] - Double.parseDouble(cmp.getBrnhX());
+        double dy = myPosition[LATITUDE] - Double.parseDouble(cmp.getBrnhY());
+
+        return Math.sqrt(dx * dx + dy * dy);
     }
 
     //초기 위치로 지도 이동
@@ -282,6 +376,9 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
         //지점 정보 뷰에 데이터 바인딩
         sonaxBranchBinding.setData(branchData);
 
+        //차량 소유자에게만 예약버튼 해금
+        sonaxBranchBinding.setReserveEnable(isVehicleOwner());
+
         Glide.with(CarWashSearchActivity.this)
                 .load(branchData.getBrnhImgUri1())
                 .format(DecodeFormat.PREFER_ARGB_8888)
@@ -289,6 +386,18 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
                 .placeholder(R.drawable.img_car_339_2) //todo 에러시 대체 이미지 필요
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(sonaxBranchBinding.ivMapSonaxBranchImg);
+    }
+
+    private boolean isVehicleOwner() {
+        try {
+            return lgnViewModel.getUserInfoFromDB()
+                    .getCustGbCd()
+                    .equals(VariableType.MAIN_VEHICLE_TYPE_OV);
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     // 지도에 마커를 그린다.
