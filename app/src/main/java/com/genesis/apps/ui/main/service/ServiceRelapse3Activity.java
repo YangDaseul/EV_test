@@ -421,7 +421,7 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         param.setWkCnt(count);
         param.setWkPeriod("" + period);
         param.setPrnInfoAgreeFlg(VariableType.COMMON_MEANS_YES);
-        param.setPrnInfoAgreeFlg(VariableType.COMMON_MEANS_YES);//todo 두 번째 약관
+        param.setCarMgmtAgreeFlg(VariableType.COMMON_MEANS_YES);
 
         viewModel.reqVOC1002(param);
     }
