@@ -41,6 +41,8 @@ import com.genesis.apps.ui.common.dialog.bottom.BottomDialogReqNowOrReserve;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Arrays;
+
 public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReqBinding> {
     private static final String TAG = ServiceDriveReqActivity.class.getSimpleName();
     private static final int INVALID_ID = 0;
@@ -646,7 +648,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         address = getAddress(addressVO[TO]);
         route[TO] =
                 new PositionVO(
-                        DDS_1002.REQ_POSITION_FROM,
+                        DDS_1002.REQ_POSITION_TO,
                         "" + addressVO[TO].getCenterLat(),
                         "" + addressVO[TO].getCenterLon(),
                         address[0],
@@ -661,7 +663,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                         reserveDate,
                         msg,
                         priceMaybe,
-                        route));
+                        Arrays.asList(route)));
     }
 
     public void showStatus(int newStatus) {

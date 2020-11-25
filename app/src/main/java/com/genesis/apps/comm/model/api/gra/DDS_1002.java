@@ -8,6 +8,8 @@ import com.genesis.apps.comm.model.vo.PositionVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -57,10 +59,9 @@ public class DDS_1002 extends BaseData {
         private String expPrice;
         @Expose
         @SerializedName("posInfo")
-        private PositionVO[] posInfo;
+        private List<PositionVO> posInfo;
 
-
-        public Request(String menuId, String vin, String reqDivCd, String rsvDt, String reqMemo, String expPrice, PositionVO[] posInfo) {
+        public Request(String menuId, String vin, String reqDivCd, String rsvDt, String reqMemo, String expPrice, List<PositionVO> posInfo) {
             this.vin = vin;
             this.reqDivCd = reqDivCd;
             this.rsvDt = rsvDt;
