@@ -30,7 +30,7 @@ import java.util.Locale;
 
 public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRelapse3Adapter.RepairData> {
     private static final String TAG = ServiceRelapse3Adapter.class.getSimpleName();
-    private static final int REPAIR_HISTORY_MAX_SIZE = 4;//입력창 3개 제공 + 아래쪽 UI용 한 칸
+    public static final int REPAIR_HISTORY_MAX_SIZE = 4;//입력창 3개 제공 + 아래쪽 UI용 한 칸
 
     private static final int VIEW_TYPE_DEFECT_HISTORY = 1;
     private static final int VIEW_TYPE_BOTTOM = 2;

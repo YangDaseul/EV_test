@@ -96,6 +96,14 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
                         () -> viewModel.reqWSH1006(new WSH_1006.Request(APPIAInfo.SM_CW01_P01.getId(), rsvtSeqNo, brnhCd)));
 
                 break;
+            //TODO : 평가하기 임시 진입점 우선 여기다 붙임.
+            //이용 완료
+//            case R.id.tv_car_wash_history_service_end:
+//                startActivitySingleTop(
+//                        new Intent(this, ServiceReviewActivity.class)
+//                        .putExtra("transId", tag.getRsvtSeqNo()),
+//                        0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                break;
 
             default:
                 //do nothing
