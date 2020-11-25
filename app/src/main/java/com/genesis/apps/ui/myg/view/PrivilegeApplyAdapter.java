@@ -84,11 +84,4 @@ public class PrivilegeApplyAdapter extends BaseRecyclerViewAdapter2<PrivilegeVO>
         }
 
     }
-    public void removeUnableApplyVehicle(){
-        for(int i=0; i<getItemCount(); i++){
-            if(((PrivilegeVO)getItem(i)).getJoinPsblCd().equalsIgnoreCase(JOIN_CODE_UNABLE_APPLY)){
-                remove(i);
-            }
-        }
-    }
 }

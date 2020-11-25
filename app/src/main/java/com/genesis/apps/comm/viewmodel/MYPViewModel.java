@@ -26,11 +26,17 @@ import com.genesis.apps.comm.model.repo.MYPRepo;
 import com.genesis.apps.comm.model.repo.OILRepo;
 import com.genesis.apps.comm.model.repo.CardRepository;
 import com.genesis.apps.comm.model.vo.CardVO;
+import com.genesis.apps.comm.model.vo.OilPointVO;
+import com.genesis.apps.comm.model.vo.PrivilegeVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.Data;
+
+import static com.genesis.apps.comm.model.vo.PrivilegeVO.JOIN_CODE_UNABLE_APPLY;
 
 public @Data
 class MYPViewModel extends ViewModel {
@@ -178,5 +184,19 @@ class MYPViewModel extends ViewModel {
         if(cardRepository.updateCard(cardNo))
             cardRepository.getNewCardList(cardVOList);
     }
+
+    public List<PrivilegeVO> getPossibleApplyPrivilegeList(List<PrivilegeVO> list){
+
+        List<PrivilegeVO> applyList;
+
+        try{
+            applyList = list.stream().filter(data -> !data.getJoinPsblCd().equalsIgnoreCase(JOIN_CODE_UNABLE_APPLY)).collect(Collectors.toList());
+        }catch (Exception e){
+            applyList = new ArrayList<>();
+        }
+
+        return applyList;
+    }
+
 
 }

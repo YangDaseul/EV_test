@@ -1,16 +1,25 @@
 package com.genesis.apps.ui.myg;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.MYP_1005;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.databinding.ActivityPrivilegeApplyBinding;
+import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.activity.WebviewActivity;
+import com.genesis.apps.ui.main.MainActivity;
 import com.genesis.apps.ui.myg.view.PrivilegeApplyAdapter;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -45,7 +54,34 @@ public class MyGPrivilegeApplyActivity extends SubActivity<ActivityPrivilegeAppl
 
     @Override
     public void onClickCommon(View v) {
+        switch (v.getId()){
+            case R.id.btn_status:
+            case R.id.btn_benefit:
+            case R.id.btn_apply:
+                String url = v.getTag(R.id.url).toString();
+                goPrivilege(v.getId(), url);
+                break;
+        }
+    }
 
+    private void goPrivilege(int id, String url) {
+        if(!TextUtils.isEmpty(url.trim())){
+            int titleId=0;
+            switch (id){
+                case R.id.btn_status:
+                    titleId = R.string.mg_prvi01_word_1_2;
+                    break;
+                case R.id.btn_benefit:
+                    titleId = R.string.mg_prvi01_word_1_3;
+                    break;
+                case R.id.btn_apply:
+                    titleId = R.string.mg_prvi01_word_1;
+                    break;
+            }
+            startActivitySingleTop(new Intent(this, GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, url).putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, titleId), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        }else{
+            SnackBarUtil.show(this, "이동 가능한 URL이 없습니다.");
+        }
     }
 
     @Override
@@ -62,17 +98,14 @@ public class MyGPrivilegeApplyActivity extends SubActivity<ActivityPrivilegeAppl
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    showProgressDialog(false);
                     if(result.data!=null&&result.data.getPvilList()!=null){
-                        adapter.setRows(result.data.getPvilList());
-                        adapter.removeUnableApplyVehicle();
+                        adapter.setRows(mypViewModel.getPossibleApplyPrivilegeList(result.data.getPvilList()));
                         adapter.notifyDataSetChanged();
-                    }else{
-                        //todo 에러처리
                     }
                     setListData();
+                    showProgressDialog(false);
                     break;
-                case ERROR:
+                default:
                     showProgressDialog(false);
                     setListData();
                     break;

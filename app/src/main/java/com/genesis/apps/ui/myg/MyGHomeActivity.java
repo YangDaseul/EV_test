@@ -191,7 +191,11 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
     private void setPrivilegeLayout(MYP_1005.Response data) {
 
-        if (data==null || data.getMbrshJoinYn().equalsIgnoreCase("N") || data.getPvilList().size() < 1) {
+        if (data==null
+                || TextUtils.isEmpty(data.getMbrshJoinYn())
+                || data.getMbrshJoinYn().equalsIgnoreCase("N")
+                || data.getPvilList()==null
+                || data.getPvilList().size() < 1) {
             ui.lPrivilege.setVisibility(View.GONE);
         } else {
             ui.lPrivilege.setVisibility(View.VISIBLE);

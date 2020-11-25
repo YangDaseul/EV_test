@@ -103,6 +103,8 @@
 
     <string name="mg_prvi01_word_0">프리빌리지 차량 목록</string>
     <string name="mg_prvi01_word_1">프리빌리지 신청</string>
+    <string name="mg_prvi01_word_1_2">프리빌리지 현황</string>
+    <string name="mg_prvi01_word_1_3">프리빌리지 혜택</string>
     <string name="mg_prvi01_word_2">보유 차량</string>
     <string name="mg_prvi01_word_3">차대번호</string>
     <string name="mg_prvi01_word_4">혜택</string>

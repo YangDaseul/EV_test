@@ -3,18 +3,14 @@ package com.genesis.apps.ui.common.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.webkit.WebChromeClient;
-import android.widget.TextView;
-
-import com.genesis.apps.comm.model.constants.RequestCodes;
-import com.genesis.apps.comm.util.SnackBarUtil;
-import com.genesis.apps.comm.util.SoftKeyboardUtil;
 
 import androidx.annotation.Nullable;
+
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -25,36 +21,14 @@ public class GAWebActivity extends WebviewActivity {
 //    public static final String URL_MEMBERSHIP="https://www.genesis.com/kr/ko/genesis-membership/life-service.html";
     public static final String URL_MEMBERSHIP="https://www.genesis.com/kr/ko/genesis-membership/benefit-service.html";
     public static final String URL_BTO_MAIN="https://www.genesis.com/kr/ko/build-your-genesis-gate.html";
-
     private final String TAG = getClass().getSimpleName();
+    private int titleId=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
-//        ui.lEdit.setEndIconOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                goUrl();
-//            }
-//        });
-//
-//        ui.edit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-//                switch (actionId) {
-//                    case EditorInfo.IME_ACTION_DONE:
-//                        goUrl();
-//                        break;
-//                    default:
-//                        // 기본 엔터키 동작
-//                        return false;
-//                }
-//                return true;
-//            }
-//        });
-//
-//    }
 //
 //    private void goUrl(){
 //        if(ui.edit.hasFocus()) {
@@ -76,6 +50,23 @@ public class GAWebActivity extends WebviewActivity {
 //                fragment.loadUrl(url);
 //            }
 //        }
+    }
+
+    public void getDataFromIntent(){
+        try {
+            url = getIntent().getStringExtra(KeyNames.KEY_NAME_URL);
+            titleId = getIntent().getIntExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, 0);
+        }catch (Exception e){
+            e.printStackTrace();
+            titleId = 0;
+        }finally{
+            if(titleId==0){
+                ui.lTitle.lTitleBar.setVisibility(View.GONE);
+            }else{
+                ui.lTitle.setValue(getString(titleId));
+                ui.lTitle.lTitleBar.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @Override
