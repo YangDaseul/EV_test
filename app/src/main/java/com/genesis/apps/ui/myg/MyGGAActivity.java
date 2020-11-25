@@ -29,9 +29,12 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
     @Inject
-    private GA ga;
+    public GA ga;
 
     private MYPViewModel mypViewModel;
 
