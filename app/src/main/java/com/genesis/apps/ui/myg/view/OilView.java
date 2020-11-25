@@ -37,6 +37,9 @@ public class OilView {
     public void setOilLayout(MYP_1006.Response data) {
 
         this.data = data;
+
+        ui.tvOil.setText( (data!=null&&data.getOilRfnPontList()!=null) ? data.getOilRfnPontList().size()+"" : "0");
+
         if(data==null||data.getOilRfnPontList()==null||data.getOilRfnPontList().size()<1){
             ui.btnBarcodeGs.setVisibility(View.GONE);
             ui.tvPointGs.setVisibility(View.GONE);
