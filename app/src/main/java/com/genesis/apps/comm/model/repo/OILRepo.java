@@ -34,7 +34,7 @@ public class OILRepo {
     }
 
     public MutableLiveData<NetUIResponse<OIL_0001.Response>> REQ_OIL_0001(final OIL_0001.Request reqData) {
-
+        RES_OIL_0001.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -56,7 +56,7 @@ public class OILRepo {
     }
 
     public MutableLiveData<NetUIResponse<OIL_0002.Response>> REQ_OIL_0002(final OIL_0002.Request reqData) {
-
+        RES_OIL_0002.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -78,7 +78,7 @@ public class OILRepo {
     }
 
     public MutableLiveData<NetUIResponse<OIL_0003.Response>> REQ_OIL_0003(final OIL_0003.Request reqData) {
-
+        RES_OIL_0003.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -128,7 +128,7 @@ public class OILRepo {
 
 
     public MutableLiveData<NetUIResponse<OIL_0005.Response>> REQ_OIL_0005(final OIL_0005.Request reqData) {
-
+        RES_OIL_0005.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {

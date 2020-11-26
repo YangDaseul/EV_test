@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.myg;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.MYP_2006;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.MembershipPointVO;
 import com.genesis.apps.comm.util.StringUtil;
@@ -56,9 +58,9 @@ public class MyGMembershipExtncActivity extends SubActivity<ActivityMygMembershi
 
     @Override
     public void setObserver() {
-        mypViewModel.getRES_MYP_2006().observe(this, responseNetUI -> {
+        mypViewModel.getRES_MYP_2006().observe(this, result -> {
 
-//            if(responseNetUI.status == NetUIResponse.Status.LOADING)
+//            if(result.status == NetUIResponse.Status.LOADING)
 //                return;
 //
 //            adapter.setRows(getListData());
@@ -66,25 +68,34 @@ public class MyGMembershipExtncActivity extends SubActivity<ActivityMygMembershi
 //            setEmptyView(adapter.getItemCount());
 //            setExtncPlanPont();
 
-            switch (responseNetUI.status) {
-                case SUCCESS:
-                    showProgressDialog(false);
-                    //추가할 아이템이 있을 경우만 adaper 갱신
-                    if (responseNetUI.data != null && responseNetUI.data.getExtncPlanList() != null) {
-                        adapter.setRows(responseNetUI.data.getExtncPlanList());
-                        adapter.notifyDataSetChanged();
-                    }
-                    break;
+            switch (result.status) {
                 case LOADING:
                     showProgressDialog(true);
                     return;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    //추가할 아이템이 있을 경우만 adaper 갱신
+                    if (result.data != null && result.data.getExtncPlanList() != null) {
+                        adapter.setRows(result.data.getExtncPlanList());
+                    }
+                    adapter.notifyDataSetChanged();
+                    setExtncPlanPont();
+                    setEmptyView(adapter.getItemCount());
+                    break;
                 default:
                     showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if(TextUtils.isEmpty(serverMsg)) serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        SnackBarUtil.show(this, serverMsg);
+                    }
                     break;
             }
 
-            setExtncPlanPont();
-            setEmptyView(adapter.getItemCount());
         });
     }
 

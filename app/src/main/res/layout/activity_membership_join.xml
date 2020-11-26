@@ -334,6 +334,8 @@
             android:layout_height="0dp"
             android:background="@color/x_88ffffff"
             android:visibility="visible"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="@+id/btn_next"
             app:layout_constraintEnd_toEndOf="@+id/btn_next"
             app:layout_constraintStart_toStartOf="@+id/btn_next"

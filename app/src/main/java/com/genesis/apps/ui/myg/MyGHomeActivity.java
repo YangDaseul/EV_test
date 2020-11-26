@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
@@ -16,28 +18,36 @@ import com.genesis.apps.comm.model.api.gra.MYP_0001;
 import com.genesis.apps.comm.model.api.gra.MYP_1003;
 import com.genesis.apps.comm.model.api.gra.MYP_1005;
 import com.genesis.apps.comm.model.api.gra.MYP_1006;
+import com.genesis.apps.comm.model.api.gra.OIL_0005;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.OilCodes;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.model.vo.PrivilegeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
+import com.genesis.apps.comm.viewmodel.OILViewModel;
 import com.genesis.apps.databinding.ActivityMygHomeBinding;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
 import com.genesis.apps.ui.myg.view.OilView;
 
+import java.util.ArrayList;
 import java.util.Locale;
+
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
 public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
     private MYPViewModel mypViewModel;
+    private OILViewModel oilViewModel;
     private OilView oilView;
     private VehicleVO mainVehicle;
 
@@ -57,6 +67,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     public void setViewModel() {
         ui.setLifecycleOwner(this);
         mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
+        oilViewModel = new ViewModelProvider(this).get(OILViewModel.class);
     }
 
     @Override
@@ -105,61 +116,43 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
         mypViewModel.getRES_MYP_1006().observe(this, result -> {
 
-//            String test = "{\n" +
-//                    "  \"rsltCd\": \"0000\",\n" +
-//                    "  \"rsltMsg\": \"성공\",\n" +
-//                    "  \"oilRfnPontList\": [\n" +
-//                    "    {\n" +
-//                    "      \"oilRfnCd\": \"HDOL\",\n" +
-//                    "      \"oilRfnNm\": \"현대오일뱅크\",\n" +
-//                    "      \"rgstYn\": \"N\",\n" +
-//                    "      \"cardNo\": \"1111111111111111\",\n" +
-//                    "      \"pont\": \"1000000\",\n" +
-//                    "      \"errMsg\": \"\"\n" +
-//                    "    },\n" +
-//                    "    {\n" +
-//                    "      \"oilRfnCd\": \"GSCT\",\n" +
-//                    "      \"oilRfnNm\": \"GS칼텍스\",\n" +
-//                    "      \"rgstYn\": \"N\",\n" +
-//                    "      \"cardNo\": \"2222222222222222\",\n" +
-//                    "      \"pont\": \"2000000\",\n" +
-//                    "      \"errMsg\": \"\"\n" +
-//                    "    },\n" +
-//                    "    {\n" +
-//                    "      \"oilRfnCd\": \"SOIL\",\n" +
-//                    "      \"oilRfnNm\": \"S-OIL\",\n" +
-//                    "      \"rgstYn\": \"Y\",\n" +
-//                    "      \"cardNo\": \"3333333333333333\",\n" +
-//                    "      \"pont\": \"3000000\",\n" +
-//                    "      \"errMsg\": \"\"\n" +
-//                    "    },\n" +
-//                    "    {\n" +
-//                    "      \"oilRfnCd\": \"SKNO\",\n" +
-//                    "      \"oilRfnNm\": \"SK 이노베이션\",\n" +
-//                    "      \"rgstYn\": \"Y\",\n" +
-//                    "      \"cardNo\": \"4444444444444444\",\n" +
-//                    "      \"pont\": \"4000000\",\n" +
-//                    "      \"errMsg\": \"\"\n" +
-//                    "    }\n" +
-//                    "  ]\n" +
-//                    "}";
-//
-//            MYP_1006.Response sample = new Gson().fromJson(test, MYP_1006.Response.class);
-//
-//            oilView.setOilLayout(sample);
-
-
             switch (result.status){
+                case LOADING:
+                    break;
                 case SUCCESS:
                     oilView.setOilLayout(result.data);
                     break;
-                case LOADING:
-                    break;
-                case ERROR:
+                default:
                     break;
             }
         });
 
+        oilViewModel.getRES_OIL_0005().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)){
+                        mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
+                        SnackBarUtil.show(this, "연동이 완료되었습니다.");
+                        break;
+                    }
+                default:
+                    showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if(TextUtils.isEmpty(serverMsg)) serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        SnackBarUtil.show(this, serverMsg);
+                    }
+                    break;
+            }
+        });
 
     }
 
@@ -174,7 +167,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     }
 
     private void initView() {
-        oilView = new OilView(ui.lOil, v -> onSingleClickListener.onClick(v));
+        oilView = new OilView(ui.lOil, v -> onSingleClickListener.onClick(v), oilViewModel);
         ui.setActivity(this);
         ui.setOilView(oilView);
         setCallCenter();
@@ -370,4 +363,11 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
             SnackBarUtil.show(this, "페이지 정보가 존재하지 않습니다.\n잠시 후 다시 시도해 주십시오.");
         }
     }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if(resultCode == ResultCodes.REQ_CODE_OIL_INTEGRATION_SUCCESS.getCode()){
+//            exitPage(data, resultCode);
+//        }
+//    }
 }

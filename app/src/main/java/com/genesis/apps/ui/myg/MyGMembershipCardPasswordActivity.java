@@ -2,6 +2,7 @@ package com.genesis.apps.ui.myg;
 
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,6 +10,8 @@ import android.widget.ImageView;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.MYP_2005;
+import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.VibratorUtil;
@@ -16,6 +19,10 @@ import com.genesis.apps.databinding.ActivityMygMembershipCardPasswordBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 
 import androidx.lifecycle.ViewModelProvider;
+
+import java.util.ArrayList;
+
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
 public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMembershipCardPasswordBinding> {
 
@@ -57,18 +64,29 @@ public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMe
     @Override
     public void setObserver() {
         mypViewModel.getRES_MYP_2005().observe(this, result -> {
-            switch (result.status) {
-                case SUCCESS:
-                    //TODO  종료 및 이전 액티비티에서 알림메시지가 활성화 될 수 있도록 처리 필요
-                    break;
-                case LOADING:
-                    showProgressDialog(true);
-                    break;
-                case ERROR:
-                    showProgressDialog(false);
-                    //TODO 에러메시지 확인 및 처리 필요
-                    break;
-            }
+                switch (result.status){
+                    case LOADING:
+                        showProgressDialog(true);
+                        break;
+                    case SUCCESS:
+                        showProgressDialog(false);
+                        if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)){
+                            exitPage("비밀번호가 정상적으로 변경되었습니다.", ResultCodes.REQ_CODE_NORMAL.getCode());
+                            break;
+                        }
+                    default:
+                        showProgressDialog(false);
+                        String serverMsg="";
+                        try {
+                            serverMsg = result.data.getRtMsg();
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }finally{
+                            if(TextUtils.isEmpty(serverMsg)) serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                            SnackBarUtil.show(this, serverMsg);
+                        }
+                        break;
+                }
         });
     }
 
@@ -178,7 +196,7 @@ public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMe
                     case STEP_2_2:
                         if (newPwd.equalsIgnoreCase(charSequence.toString())) {
                             //신규비밀번호가 일치하는 경우
-                            mypViewModel.reqMYP2005(new MYP_2005.Request(APPIAInfo.MG_MEMBER03.getId(), newPwd));
+                            mypViewModel.reqMYP2005(new MYP_2005.Request(APPIAInfo.MG_MEMBER03.getId(), currPwd, newPwd));
                             break;
                         } else {
                             //일치하지 않는 경우

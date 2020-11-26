@@ -53,5 +53,7 @@ public interface KeyNames {
 
     String KEY_ANME_CCSP_TYPE="ccspType";
 
+    String KEY_NAME_MEMBERSHIP_MBR_MGMT_NO="mbrshMbrMgmtNo";
+
 
 }

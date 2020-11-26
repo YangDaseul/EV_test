@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.TermVO;
@@ -63,8 +64,10 @@ public class ServiceTermDetailActivity extends HtmlActivity {
 
     @Override
     public void getDataFromIntent() {
+        int titleId = 0;
         try {
             termVO = (TermVO)getIntent().getSerializableExtra(VariableType.KEY_NAME_TERM_VO);
+            titleId = getIntent().getIntExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, 0);
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
@@ -73,7 +76,11 @@ public class ServiceTermDetailActivity extends HtmlActivity {
                     || TextUtils.isEmpty(termVO.getTermVer())) {
                 exitPage("약관정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }else{
-                ui.setValue("자세히 보기");
+                if(titleId==0) {
+                    ui.setValue("자세히 보기");
+                }else{
+                    ui.setValue(getString(titleId));
+                }
             }
         }
     }

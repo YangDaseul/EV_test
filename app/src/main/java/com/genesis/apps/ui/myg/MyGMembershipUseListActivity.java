@@ -9,6 +9,7 @@ import com.appeaser.sublimepickerlibrary.datepicker.SelectedDate;
 import com.appeaser.sublimepickerlibrary.helpers.SublimeOptions;
 import com.appeaser.sublimepickerlibrary.recurrencepicker.SublimeRecurrencePicker;
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.MYP_2002;
@@ -28,6 +29,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Calendar;
 import java.util.Locale;
+
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
 public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembershipUseListBinding> {
     private static final int PAGE_SIZE = 20;
@@ -75,6 +78,8 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
                 }
             }
         });
+        ui.r1.performClick();
+        setDateAuto(ui.r1);
     }
 
 
@@ -104,68 +109,87 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
     public void setObserver() {
         mypViewModel.getRES_MYP_2002().observe(this, result -> {
 
-            String test = "{\n" +
-                    "  \"rsltCd\": \"0000\",\n" +
-                    "  \"rsltMsg\": \"성공\",\n" +
-                    "  \"blueMbrYn\": \"Y\",\n" +
-                    "  \"mbrshMbrMgmtNo\": \"1000000\",\n" +
-                    "  \"transTotCnt\": \"3\",\n" +
-                    "  \"transList\": [\n" +
-                    "    {\n" +
-                    "      \"seqNo\": \"1\",\n" +
-                    "      \"transDtm\": \"20200901111111\",\n" +
-                    "      \"frchsNm\": \"가맹점1\",\n" +
-                    "      \"transTypNm\": \"사용\",\n" +
-                    "      \"useMlg\": \"124574\",\n" +
-                    "      \"rmndPont\": \"1111111\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"seqNo\": \"2\",\n" +
-                    "      \"transDtm\": \"20200902222222\",\n" +
-                    "      \"frchsNm\": \"가맹점2\",\n" +
-                    "      \"transTypNm\": \"사용\",\n" +
-                    "      \"useMlg\": \"222222\",\n" +
-                    "      \"rmndPont\": \"333333\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"seqNo\": \"3\",\n" +
-                    "      \"transDtm\": \"20200920000000\",\n" +
-                    "      \"frchsNm\": \"가맹점3\",\n" +
-                    "      \"transTypNm\": \"적립\",\n" +
-                    "      \"useMlg\": \"222222\",\n" +
-                    "      \"rmndPont\": \"333333\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"seqNo\": \"4\",\n" +
-                    "      \"transDtm\": \"20200930000000\",\n" +
-                    "      \"frchsNm\": \"가맹점4\",\n" +
-                    "      \"transTypNm\": \"취소\",\n" +
-                    "      \"useMlg\": \"2222221\",\n" +
-                    "      \"rmndPont\": \"3333331\"\n" +
-                    "    }\n" +
-                    "  ]\n" +
-                    "}";
-            MYP_2002.Response sample = new Gson().fromJson(test, MYP_2002.Response.class);
+//            String test = "{\n" +
+//                    "  \"rsltCd\": \"0000\",\n" +
+//                    "  \"rsltMsg\": \"성공\",\n" +
+//                    "  \"blueMbrYn\": \"Y\",\n" +
+//                    "  \"mbrshMbrMgmtNo\": \"1000000\",\n" +
+//                    "  \"transTotCnt\": \"3\",\n" +
+//                    "  \"transList\": [\n" +
+//                    "    {\n" +
+//                    "      \"seqNo\": \"1\",\n" +
+//                    "      \"transDtm\": \"20200901111111\",\n" +
+//                    "      \"frchsNm\": \"가맹점1\",\n" +
+//                    "      \"transTypNm\": \"사용\",\n" +
+//                    "      \"useMlg\": \"124574\",\n" +
+//                    "      \"rmndPont\": \"1111111\"\n" +
+//                    "    },\n" +
+//                    "    {\n" +
+//                    "      \"seqNo\": \"2\",\n" +
+//                    "      \"transDtm\": \"20200902222222\",\n" +
+//                    "      \"frchsNm\": \"가맹점2\",\n" +
+//                    "      \"transTypNm\": \"사용\",\n" +
+//                    "      \"useMlg\": \"222222\",\n" +
+//                    "      \"rmndPont\": \"333333\"\n" +
+//                    "    },\n" +
+//                    "    {\n" +
+//                    "      \"seqNo\": \"3\",\n" +
+//                    "      \"transDtm\": \"20200920000000\",\n" +
+//                    "      \"frchsNm\": \"가맹점3\",\n" +
+//                    "      \"transTypNm\": \"적립\",\n" +
+//                    "      \"useMlg\": \"222222\",\n" +
+//                    "      \"rmndPont\": \"333333\"\n" +
+//                    "    },\n" +
+//                    "    {\n" +
+//                    "      \"seqNo\": \"4\",\n" +
+//                    "      \"transDtm\": \"20200930000000\",\n" +
+//                    "      \"frchsNm\": \"가맹점4\",\n" +
+//                    "      \"transTypNm\": \"취소\",\n" +
+//                    "      \"useMlg\": \"2222221\",\n" +
+//                    "      \"rmndPont\": \"3333331\"\n" +
+//                    "    }\n" +
+//                    "  ]\n" +
+//                    "}";
+//            MYP_2002.Response sample = new Gson().fromJson(test, MYP_2002.Response.class);
 
-            if (sample != null && sample.getTransList() != null && sample.getTransList().size() > 0) {
-                int itemSizeBefore = adapter.getItemCount();
-                if (adapter.getPageNo() == 0) {
-                    adapter.setRows(sample.getTransList());
-                } else {
-                    adapter.addRows(sample.getTransList());
-                }
-                adapter.setPageNo(adapter.getPageNo() + 1);
-//                      adapter.notifyDataSetChanged();
-                adapter.notifyItemRangeInserted(itemSizeBefore, adapter.getItemCount());
+            switch (result.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if (result.data != null && result.data.getTransList() != null && result.data.getTransList().size() > 0) {
+                        int itemSizeBefore = adapter.getItemCount();
+                        if (adapter.getPageNo() == 0) {
+                            adapter.setRows(result.data.getTransList());
+                        } else {
+                            adapter.addRows(result.data.getTransList());
+                        }
+                        adapter.setPageNo(adapter.getPageNo() + 1);
+                        adapter.notifyItemRangeInserted(itemSizeBefore, adapter.getItemCount());
 
-                ui.tvPointSave.setText(StringUtil.getDigitGrouping(adapter.getTotalSavePoint()));
-                ui.tvPointUse.setText(StringUtil.getDigitGrouping(adapter.getTotalUsePoint()));
-            }
+                        ui.tvPointSave.setText(StringUtil.getDigitGrouping(adapter.getTotalSavePoint()));
+                        ui.tvPointUse.setText(StringUtil.getDigitGrouping(adapter.getTotalUsePoint()));
+                    }
 
-            if (adapter != null && adapter.getItemCount() < 1) {
-                ui.tvEmpty.setVisibility(View.VISIBLE);
-            } else {
-                ui.tvEmpty.setVisibility(View.GONE);
+                    if (adapter != null && adapter.getItemCount() < 1) {
+                        ui.tvEmpty.setVisibility(View.VISIBLE);
+                    } else {
+                        ui.tvEmpty.setVisibility(View.GONE);
+                    }
+                    break;
+                default:
+                    showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if(TextUtils.isEmpty(serverMsg)) serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        SnackBarUtil.show(this, serverMsg);
+                    }
+                    break;
             }
         });
     }
@@ -173,7 +197,7 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
     @Override
     public void getDataFromIntent() {
         try {
-            mbrshMbrMgmtNo = getIntent().getStringExtra("mbrshMbrMgmtNo");
+            mbrshMbrMgmtNo = getIntent().getStringExtra(KeyNames.KEY_NAME_MEMBERSHIP_MBR_MGMT_NO);
             if (TextUtils.isEmpty(mbrshMbrMgmtNo)) {
                 exitPage("블루멤버스 회원번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }

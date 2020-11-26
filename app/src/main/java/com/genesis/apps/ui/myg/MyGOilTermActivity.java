@@ -11,26 +11,44 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.gra.MYP_1006;
+import com.genesis.apps.comm.model.api.gra.OIL_0002;
+import com.genesis.apps.comm.model.api.gra.OIL_0004;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.OilCodes;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.OIL_0001;
+import com.genesis.apps.comm.model.vo.AgreeMeansVO;
+import com.genesis.apps.comm.model.vo.AgreeTermVO;
+import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.DateUtil;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.OILViewModel;
 import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.databinding.ActivityMygOilTermBinding;
 import com.genesis.apps.databinding.ItemTermBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.view.TermView;
+import com.genesis.apps.ui.main.ServiceTermDetailActivity;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
+import static com.genesis.apps.comm.model.constants.VariableType.TERM_OIL_JOIN_GSCT0007;
+import static com.genesis.apps.comm.model.constants.VariableType.TERM_OIL_JOIN_HDOL0005;
+import static com.genesis.apps.comm.model.constants.VariableType.TERM_OIL_JOIN_SOIL0003;
+import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0005;
 import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_GSCT;
 import static com.genesis.apps.comm.model.vo.TermVO.TERM_ESN_AGMT_N;
 
@@ -64,18 +82,37 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
     public void onClickCommon(View v) {
         switch (v.getId()){
             case R.id.btn_next:
-                //TODO 약관동의 페이지로 이동 및 데이터 실패에 대한 스낵바 정의를 여기서 해줘야함.
+                reqJoin();
                 break;
             case R.id.iv_arrow:
                 try{
                     TermVO termVO = (TermVO)v.getTag(R.id.oil_term);
                     Log.v("test","test:"+termVO.getTermCd());
-                    startActivitySingleTop(new Intent(this, MyGOilTermDetailActivity.class).putExtra(MyGOilTermDetailActivity.OIL_CODE,oilRfnCd).putExtra(MyGOilTermDetailActivity.TERMS_CODE,termVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    oilViewModel.reqOIL0004(new OIL_0004.Request(APPIAInfo.MG_CON02_01.getId(), oilRfnCd,termVO.getTermVer(),termVO.getTermCd()));
+//                    startActivitySingleTop(new Intent(this, MyGOilTermDetailActivity.class).putExtra(MyGOilTermDetailActivity.OIL_CODE,oilRfnCd).putExtra(MyGOilTermDetailActivity.TERMS_CODE,termVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
                 break;
         }
+    }
+
+    private void reqJoin() {
+        List<AgreeTermVO> terms = new ArrayList<>();
+        String agreeDate = DateUtil.getDate(Calendar.getInstance(Locale.getDefault()).getTime(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss);
+
+        //정유소 약관에 대한 데이터구조 생성
+        for(int i=0; i<checkBoxs.size(); i++){
+            AgreeMeansVO agreeMeansVO = null;
+            if(checkBoxs.get(i).getTermVO().getTermCd().equalsIgnoreCase(TERM_OIL_JOIN_SOIL0003)
+                    ||checkBoxs.get(i).getTermVO().getTermCd().equalsIgnoreCase(TERM_OIL_JOIN_HDOL0005)
+                    ||checkBoxs.get(i).getTermVO().getTermCd().equalsIgnoreCase(TERM_OIL_JOIN_GSCT0007)){
+                agreeMeansVO = new AgreeMeansVO((ui.cbSms.isChecked() ? "Y" : "N"), (ui.cbMail.isChecked() ? "Y" : "N"),(ui.cbDm.isChecked() ? "Y" : "N"),(ui.cbPhone.isChecked() ? "Y" : "N"),null,null);
+            }
+            terms.add(new AgreeTermVO(checkBoxs.get(i).getTermVO().getTermCd(), (checkBoxs.get(i).getCheckBox().isChecked() ? "Y" : "N"),checkBoxs.get(i).getTermVO().getTermNm(),agreeDate,agreeMeansVO));
+        }
+
+        oilViewModel.reqOIL0002(new OIL_0002.Request(APPIAInfo.MG_CON02_01.getId(), oilRfnCd, terms));
     }
 
     @Override
@@ -87,136 +124,89 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
     @Override
     public void setObserver() {
         oilViewModel.getRES_OIL_0001().observe(this, result -> {
-
-            String test="{\n" +
-                    "  \"rsltCd\": \"0000\",\n" +
-                    "  \"rsltMsg\": \"성공\",\n" +
-                    "  \"termList\": [\n" +
-//                    "    {\n" +
-//                    "      \"termVer\": \"00.00.01\",\n" +
-//                    "      \"termCd\": \"1000\",\n" +
-//                    "      \"termNm\": \"모바일 멤버십 발급을 위한 제3자 제공\",\n" +
-//                    "      \"termEsnAgmtYn\": \"Y\"\n" +
-//                    "    },\n" +
-//                    "    {\n" +
-//                    "      \"termVer\": \"00.00.01\",\n" +
-//                    "      \"termCd\": \"1001\",\n" +
-//                    "      \"termNm\": \"'제네시스 앱' 서비스 이용을 위한 제3자 제공\",\n" +
-//                    "      \"termEsnAgmtYn\": \"Y\"\n" +
-//                    "    },\n" +
-                    "    {\n" +
-                    "      \"termVer\": \"00.00.01\",\n" +
-                    "      \"termCd\": \"2000\",\n" +
-                    "      \"termNm\": \"GS&POINT 서비스 약관\",\n" +
-                    "      \"termEsnAgmtYn\": \"Y\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"termVer\": \"00.00.01\",\n" +
-                    "      \"termCd\": \"2001\",\n" +
-                    "      \"termNm\": \"GS&POINT 개인정보 수집 및 활용\",\n" +
-                    "      \"termEsnAgmtYn\": \"Y\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"termVer\": \"00.00.01\",\n" +
-                    "      \"termCd\": \"2002\",\n" +
-                    "      \"termNm\": \"마케팅 목적 개인정보 수집 및 활용에 대한 동\",\n" +
-                    "      \"termEsnAgmtYn\": \"N\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"termVer\": \"00.00.01\",\n" +
-                    "      \"termCd\": \"2003\",\n" +
-                    "      \"termNm\": \"GS&POINT 서비스 제공을 위한 제3자 제공\\n(GS리테일, GS홈쇼핑)\",\n" +
-                    "      \"termEsnAgmtYn\": \"Y\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"termVer\": \"00.00.01\",\n" +
-                    "      \"termCd\": \"2004\",\n" +
-                    "      \"termNm\": \"\tGS&POINT 참여사의 상품/서비스 마케팅 및 고객응대를 위한 제3자 제공\n(GS리테일, GS 홈쇼핑) \",\n" +
-                    "      \"termEsnAgmtYn\": \"N\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"termVer\": \"00.00.01\",\n" +
-                    "      \"termCd\": \"2005\",\n" +
-                    "      \"termNm\": \"\tGS&POINT 제휴 상품/서비스 홍보를 위한 제3자 제공\n(GS엠비즈) \",\n" +
-                    "      \"termEsnAgmtYn\": \"N\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"termVer\": \"00.00.01\",\n" +
-                    "      \"termCd\": \"2006\",\n" +
-                    "      \"termNm\": \"\tGS&POINT 개인정보의 처리위탁\",\n" +
-                    "      \"termEsnAgmtYn\": \"N\"\n" +
-                    "    }\n" +
-                    "  ]\n" +
-                    "}";
-
-            if(!oilRfnCd.equalsIgnoreCase(OIL_CODE_GSCT)){
-                test="{\n" +
-                        "  \"rsltCd\": \"0000\",\n" +
-                        "  \"rsltMsg\": \"성공\",\n" +
-                        "  \"termList\": [\n" +
-//                    "    {\n" +
-//                    "      \"termVer\": \"00.00.01\",\n" +
-//                    "      \"termCd\": \"1000\",\n" +
-//                    "      \"termNm\": \"모바일 멤버십 발급을 위한 제3자 제공\",\n" +
-//                    "      \"termEsnAgmtYn\": \"Y\"\n" +
-//                    "    },\n" +
-//                    "    {\n" +
-//                    "      \"termVer\": \"00.00.01\",\n" +
-//                    "      \"termCd\": \"1001\",\n" +
-//                    "      \"termNm\": \"'제네시스 앱' 서비스 이용을 위한 제3자 제공\",\n" +
-//                    "      \"termEsnAgmtYn\": \"Y\"\n" +
-//                    "    },\n" +
-                        "    {\n" +
-                        "      \"termVer\": \"00.00.01\",\n" +
-                        "      \"termCd\": \"3000\",\n" +
-                        "      \"termNm\": \"회원약관\",\n" +
-                        "      \"termEsnAgmtYn\": \"Y\"\n" +
-                        "    },\n" +
-                        "    {\n" +
-                        "      \"termVer\": \"00.00.01\",\n" +
-                        "      \"termCd\": \"3001\",\n" +
-                        "      \"termNm\": \"보너스카드 이용약관\",\n" +
-                        "      \"termEsnAgmtYn\": \"Y\"\n" +
-                        "    },\n" +
-                        "    {\n" +
-                        "      \"termVer\": \"00.00.01\",\n" +
-                        "      \"termCd\": \"3002\",\n" +
-                        "      \"termNm\": \"가입화면 내 개인정보수집이용동의\",\n" +
-                        "      \"termEsnAgmtYn\": \"Y\"\n" +
-                        "    },\n" +
-                        "    {\n" +
-                        "      \"termVer\": \"00.00.01\",\n" +
-                        "      \"termCd\": \"3003\",\n" +
-                        "      \"termNm\": \"가입화면 내 개인정보수집이용동의\",\n" +
-                        "      \"termEsnAgmtYn\": \"N\"\n" +
-                        "    },\n" +
-                        "    {\n" +
-                        "      \"termVer\": \"00.00.01\",\n" +
-                        "      \"termCd\": \"3004\",\n" +
-                        "      \"termNm\": \"\t마케팅정보활용동의\",\n" +
-                        "      \"termEsnAgmtYn\": \"N\"\n" +
-                        "    }\n" +
-                        "  ]\n" +
-                        "}";
+            switch (result.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    if(result.data!=null&&result.data.getTermList()!=null&&result.data.getTermList().size()>0) {
+                        showProgressDialog(false);
+                        addTermToLayout(result.data.getTermList());
+                        break;
+                    }
+                default:
+                    showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if(TextUtils.isEmpty(serverMsg)) serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        SnackBarUtil.show(this, serverMsg);
+                    }
+                    break;
             }
 
+        });
+
+        oilViewModel.getRES_OIL_0002().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)) {
+                        exitPage(getString(R.string.mg_con02_p01_3), ResultCodes.REQ_CODE_OIL_INTEGRATION_SUCCESS.getCode());
+                        showProgressDialog(false);
+                        break;
+                    }
+                default:
+                    showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if(TextUtils.isEmpty(serverMsg)) serverMsg = getString(R.string.mg_con01_p01_snackbar_3);
+                        SnackBarUtil.show(this, serverMsg);
+                    }
+                    break;
+            }
+        });
 
 
-            OIL_0001.Response sample = new Gson().fromJson(test, OIL_0001.Response.class);
-            addTermToLayout(sample.getTermList());
-//            //TODO ERROR 및 메시지 처리 필요
-//            switch (result.status){
-//                case SUCCESS:
-//                    showProgressDialog(false);
-//                    addTermToLayout(result.data.getTermList());
-//                    break;
-//                case LOADING:
-//                    showProgressDialog(true);
-//                    break;
-//                case ERROR:
-//                    showProgressDialog(false);
-//                    break;
-//            }
+        oilViewModel.getRES_OIL_0004().observe(this, result -> {
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    if (result.data != null&&result.data.getTermVO()!=null) {
+                        startActivitySingleTop(new Intent(this, ServiceTermDetailActivity.class)
+                                .putExtra(VariableType.KEY_NAME_TERM_VO, result.data.getTermVO())
+                                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.mg_con02_1)
+                                , RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        showProgressDialog(false);
+                        break;
+                    }
+                default:
+                    showProgressDialog(false);
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
+                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                    }
+                    break;
+            }
+
         });
     }
 
@@ -236,7 +226,7 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
     private void checkAgree() {
 
         for(int i=0; i<checkBoxs.size(); i++){
-            if(checkBoxs.get(i).termVO.getTermEsnAgmtYn().equalsIgnoreCase(TermVO.TERM_ESN_AGMT_Y)&&!checkBoxs.get(i).checkBox.isChecked()){
+            if(checkBoxs.get(i).getTermVO().getTermEsnAgmtYn().equalsIgnoreCase(TermVO.TERM_ESN_AGMT_Y)&&!checkBoxs.get(i).getCheckBox().isChecked()){
                 ui.btnBlock.setVisibility(View.VISIBLE);
                 ui.btnNext.setEnabled(false);
                 return;
@@ -256,33 +246,36 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
 
             itemTermBinding.setListener(onSingleClickListener);
             itemTermBinding.cb.setOnCheckedChangeListener(listener);
-            itemTermBinding.cb.setText(termVO.getTermNm() + (termVO.getTermEsnAgmtYn().equalsIgnoreCase(TERM_ESN_AGMT_N) ? getString(R.string.mg_con02_01_13) : getString(R.string.mg_con02_01_14)));
+//            itemTermBinding.cb.setText(termVO.getTermNm() + (termVO.getTermEsnAgmtYn().equalsIgnoreCase(TERM_ESN_AGMT_N) ? getString(R.string.mg_con02_01_13) : getString(R.string.mg_con02_01_14)));
+            itemTermBinding.cb.setText(termVO.getTermNm());
             itemTermBinding.ivArrow.setTag(R.id.oil_term, termVO);
             checkBoxs.add(new TermView(termVO, itemTermBinding.cb));
 //            view.setId(Integer.parseInt(termVO.getTermCd()));
-            view.setId(Integer.parseInt(termVO.getTermCd()));
-            //TODO 수정필요
-            switch (termVO.getTermCd()){
-                case "1000":
-                case "1001":
-                    ui.lTermTop.addView(itemTermBinding.getRoot());
-                    break;
-                default:
-                    ui.lTermBottom.addView(itemTermBinding.getRoot());
-                    break;
-            }
+//            view.setId(Integer.parseInt(termVO.getTermCd()));
+
+            //정책이 변경되어 TOP AREA가 사라짐
+            ui.lTermBottom.addView(itemTermBinding.getRoot());
+//            switch (termVO.getTermCd()){
+//                case "1000":
+//                case "1001":
+//                    ui.lTermTop.addView(itemTermBinding.getRoot());
+//                    break;
+//                default:
+//                    ui.lTermBottom.addView(itemTermBinding.getRoot());
+//                    break;
+//            }
         }
     }
 
     private void setCheckBoxsAll(boolean check){
         for(int i=0; i<checkBoxs.size();i++){
-            checkBoxs.get(i).checkBox.setChecked(check);
+            checkBoxs.get(i).getCheckBox().setChecked(check);
         }
     }
 
     private void setCheckBoxsAll(){
         for(int i=0; i<checkBoxs.size();i++){
-            if(!checkBoxs.get(i).checkBox.isChecked()){
+            if(!checkBoxs.get(i).getCheckBox().isChecked()){
                 ui.cbAll.setChecked(false);
                 return;
             }
@@ -304,26 +297,5 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
             checkAgree();
         }
     };
-
-
-    class TermView{
-        private TermVO termVO;
-        private CheckBox checkBox;
-
-        TermView(TermVO termVO, CheckBox checkBox){
-            this.termVO = termVO;
-            this.checkBox = checkBox;
-        }
-
-        public CheckBox getCheckBox() {
-            return checkBox;
-        }
-
-        public void setCheckBox(CheckBox checkBox) {
-            this.checkBox = checkBox;
-        }
-    }
-
-
 
 }

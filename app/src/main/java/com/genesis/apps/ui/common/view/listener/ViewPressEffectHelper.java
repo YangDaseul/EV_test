@@ -48,6 +48,14 @@ public class ViewPressEffectHelper {
         }
     }
 
+    public static void attaches(View... views) {
+        for(View view : views){
+            if (view != null) {
+                view.setOnTouchListener(new ASetOnTouchListener(view));
+            }
+        }
+    }
+
     private static class ASetOnTouchListener implements View.OnTouchListener {
 
         float VIEW_ALPHA = 1.0f;

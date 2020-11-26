@@ -273,6 +273,8 @@
             android:layout_height="0dp"
             android:background="@color/x_88ffffff"
             android:visibility="visible"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintTop_toTopOf="@+id/btn_next"
             app:layout_constraintBottom_toBottomOf="@+id/btn_next"
             app:layout_constraintStart_toStartOf="@+id/btn_next"

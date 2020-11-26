@@ -14,6 +14,8 @@ import com.genesis.apps.comm.model.api.gra.MYP_1005;
 import com.genesis.apps.comm.model.api.gra.MYP_1006;
 import com.genesis.apps.comm.model.api.gra.MYP_2001;
 import com.genesis.apps.comm.model.api.gra.MYP_2002;
+import com.genesis.apps.comm.model.api.gra.MYP_2003;
+import com.genesis.apps.comm.model.api.gra.MYP_2004;
 import com.genesis.apps.comm.model.api.gra.MYP_2005;
 import com.genesis.apps.comm.model.api.gra.MYP_2006;
 import com.genesis.apps.comm.model.api.gra.MYP_8001;
@@ -62,18 +64,11 @@ class MYPViewModel extends ViewModel {
 
     private MutableLiveData<NetUIResponse<MYP_2001.Response>> RES_MYP_2001;
     private MutableLiveData<NetUIResponse<MYP_2002.Response>> RES_MYP_2002;
+    private MutableLiveData<NetUIResponse<MYP_2003.Response>> RES_MYP_2003;
+    private MutableLiveData<NetUIResponse<MYP_2004.Response>> RES_MYP_2004;
     private MutableLiveData<NetUIResponse<MYP_2005.Response>> RES_MYP_2005;
     
     private MutableLiveData<NetUIResponse<MYP_2006.Response>> RES_MYP_2006;
-
-//    public final LiveData<VehicleVO> carVO = Transformations.map(RES_LGN_0001, input -> input.data.getCarVO());
-//    public final LiveData<VehicleVO> carVO =
-//            Transformations.switchMap(RES_LGN_0001, new Function<NetUIResponse<LGN_0001.Response>, LiveData<VehicleVO>>() {
-//                @Override
-//                public LiveData<VehicleVO> apply(NetUIResponse<LGN_0001.Response> input) {
-//                    return input.data.getCarVO(); repo에서 getcarvo로 가저올수있는.. 다른걸 요청 가능
-//                }
-//            });
 
     private MutableLiveData<NetUIResponse<OIL_0001.Response>> RES_OIL_0001;
     private MutableLiveData<NetUIResponse<OIL_0002.Response>> RES_OIL_0002;
@@ -106,6 +101,8 @@ class MYPViewModel extends ViewModel {
         RES_MYP_8005 = repository.RES_MYP_8005;
         RES_MYP_2001 = repository.RES_MYP_2001;
         RES_MYP_2002 = repository.RES_MYP_2002;
+        RES_MYP_2003 = repository.RES_MYP_2003;
+        RES_MYP_2004 = repository.RES_MYP_2004;
         RES_MYP_2005 = repository.RES_MYP_2005;
         RES_MYP_2006 = repository.RES_MYP_2006;
 
@@ -165,7 +162,12 @@ class MYPViewModel extends ViewModel {
     public void reqMYP2002(final MYP_2002.Request reqData){
         repository.REQ_MYP_2002(reqData);
     }
-
+    public void reqMYP2003(final MYP_2003.Request reqData){
+        repository.REQ_MYP_2003(reqData);
+    }
+    public void reqMYP2004(final MYP_2004.Request reqData){
+        repository.REQ_MYP_2004(reqData);
+    }
     public void reqMYP2005(final MYP_2005.Request reqData){
         repository.REQ_MYP_2005(reqData);
     }

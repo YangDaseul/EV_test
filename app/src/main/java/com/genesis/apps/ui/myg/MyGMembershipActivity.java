@@ -1,13 +1,16 @@
 package com.genesis.apps.ui.myg;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.api.APPIAInfo;
@@ -17,6 +20,7 @@ import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.databinding.ActivityMygMembershipBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
 import com.genesis.apps.ui.myg.view.CardHorizontalAdapter;
 import com.google.gson.Gson;
 
@@ -70,6 +74,8 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
             }
 
         });
+
+        ViewPressEffectHelper.attach(ui.btnPassword);
     }
 
     @Override
@@ -106,58 +112,6 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
                     }
                     break;
             }
-
-
-
-
-
-//            String test = "{\n" +
-//                    "  \"rsltCd\": \"0000\",\n" +
-//                    "  \"rsltMsg\": \"성공\",\n" +
-//                    "  \"blueMbrYn\": \"Y\",\n" +
-//                    "  \"bludMbrPoint\": \"1000000\",\n" +
-//                    "  \"usedBlueMbrPoint\": \"2000\",\n" +
-//                    "  \"savgPlanPont\": \"30000\",\n" +
-//                    "  \"extncDtm\": \"20200930\",\n" +
-//                    "  \"extncPont\": \"215487\",\n" +
-//                    "  \"extncPont6mm\": \"15481512\",\n" +
-//                    "  \"blueMbrCrdCnt\": \"3\",\n" +
-//                    "  \"blueMbrCrdList\": [\n" +
-//                    "    {\n" +
-//                    "      \"cardNo\": \"1234567890123456\",\n" +
-//                    "      \"cardNm\": \"블루멤버스\",\n" +
-//                    "      \"cardStusNm\": \"발급완료\",\n" +
-//                    "      \"cardClsNm\": \"신용카드\",\n" +
-//                    "      \"cardKindNm\": \"현대가상화카드1\",\n" +
-//                    "      \"cardIsncSubspDt\": \"20200901\"\n" +
-//                    "    },\n" +
-//                    "    {\n" +
-//                    "      \"cardNo\": \"5555555550123456\",\n" +
-//                    "      \"cardNm\": \"블루멤버스\",\n" +
-//                    "      \"cardStusNm\": \"발급완료\",\n" +
-//                    "      \"cardClsNm\": \"신용카드\",\n" +
-//                    "      \"cardKindNm\": \"현대가상화카드2\",\n" +
-//                    "      \"cardIsncSubspDt\": \"20200802\"\n" +
-//                    "    },\n" +
-//                    "    {\n" +
-//                    "      \"cardNo\": \"2222222220123456\",\n" +
-//                    "      \"cardNm\": \"블루멤버스\",\n" +
-//                    "      \"cardStusNm\": \"발급중\",\n" +
-//                    "      \"cardClsNm\": \"신용카드\",\n" +
-//                    "      \"cardKindNm\": \"현대가상화카드2\",\n" +
-//                    "      \"cardIsncSubspDt\": \"20200902\"\n" +
-//                    "    },\n" +
-//                    "    {\n" +
-//                    "      \"cardNo\": \"\",\n" +
-//                    "      \"cardNm\": \"블루멤버스\",\n" +
-//                    "      \"cardStusNm\": \"발급완료\",\n" +
-//                    "      \"cardClsNm\": \"신용카드\",\n" +
-//                    "      \"cardKindNm\": \"현대가상화카드3\",\n" +
-//                    "      \"cardIsncSubspDt\": \"20200903\"\n" +
-//                    "    }\n" +
-//                    "  ]\n" +
-//                    "}";
-//            MYP_2001.Response sample = new Gson().fromJson(test, MYP_2001.Response.class);
         });
 
         mypViewModel.getCardVoList().observe(this, result -> {
@@ -191,14 +145,12 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
             case R.id.l_whole:
 
                 if(pos>-1){
-
                     CardVO cardVO = ((CardVO) adapter.getItem(pos));
                     if(cardVO.getCardStusNm().equalsIgnoreCase(CardVO.CARD_STATUS_99)){
-                        //일반 카드드
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + getString(R.string.word_membership_4))));
                     }else{
-
+                        //일반카드
                    }
-
                 }
 
 
@@ -210,16 +162,19 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
 
                 break;
             case R.id.btn_use_list://TODO 멤버십고유번호는 임시로
-                startActivitySingleTop(new Intent(this, MyGMembershipUseListActivity.class).putExtra("mbrshMbrMgmtNo", "1"), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                startActivitySingleTop(new Intent(this, MyGMembershipUseListActivity.class).putExtra(KeyNames.KEY_NAME_MEMBERSHIP_MBR_MGMT_NO, "1"), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.btn_password:
                 startActivitySingleTop(new Intent(this, MyGMembershipCardPasswordActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.tv_extnc_point:
-                startActivitySingleTop(new Intent(this, MyGMembershipExtncActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                startActivitySingleTop(new Intent(this, MyGMembershipExtncActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
                 break;
             case R.id.btn_question:
                 startActivitySingleTop(new Intent(this, MyGMembershipInfoActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+                break;
+            case R.id.btn_use_case_info://사용처 안내
+                startActivitySingleTop(new Intent(this, MyGMembershipUseCaseActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
         }
 

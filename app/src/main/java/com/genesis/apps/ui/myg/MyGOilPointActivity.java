@@ -21,9 +21,11 @@ import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.util.BarcodeUtil;
 import com.genesis.apps.comm.util.PackageUtil;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringRe2j;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
+import com.genesis.apps.comm.viewmodel.OILViewModel;
 import com.genesis.apps.databinding.ActivityMygOilPointBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
@@ -33,6 +35,7 @@ import com.google.zxing.WriterException;
 
 import java.util.List;
 
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_GSCT;
 import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_HDOL;
 import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_SKNO;
@@ -41,6 +44,7 @@ import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_JOIN_CODE_Y;
 
 public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding> {
     private MYPViewModel mypViewModel;
+    private OILViewModel oilViewModel;
     private OilView oilView;
     private String oilRfnCd;
     private ConstraintSet[] constraintSets = new ConstraintSet[OilCodes.values().length];
@@ -53,7 +57,7 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
         setViewModel();
         setObserver();
         initConstraintSets();
-        oilView = new OilView(ui.lOil, v -> onSingleClickListener.onClick(v));
+        oilView = new OilView(ui.lOil, v -> onSingleClickListener.onClick(v), oilViewModel);
         ui.setView(oilView);
         mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG_CON01.getId()));
     }
@@ -190,15 +194,6 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
                 doTransition(OilCodes.findCode(oilRfnCd).ordinal());
                 setOilDetailView(mypViewModel.getRES_MYP_1006().getValue().data.getOilRfnPontList());
                 break;
-
-//            case R.id.btn_barcode_soil:
-//            case R.id.btn_barcode_ho:
-//            case R.id.btn_barcode_sk:
-//            case R.id.btn_barcode_gs:
-//                oilRfnCd = v.getTag().toString();
-//                mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG_CON01.getId()));
-//                break;
-
         }
 
     }
@@ -208,6 +203,7 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
         ui.setLifecycleOwner(this);
         ui.setActivity(this);
         mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
+        oilViewModel = new ViewModelProvider(this).get(OILViewModel.class);
     }
 
     @Override
@@ -243,6 +239,35 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
                     break;
             }
         });
+
+        oilViewModel.getRES_OIL_0005().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)){
+                        mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
+                        SnackBarUtil.show(this, "연동이 완료되었습니다.");
+                        break;
+                    }
+                default:
+                    showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if(TextUtils.isEmpty(serverMsg)) serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        SnackBarUtil.show(this, serverMsg);
+                    }
+                    break;
+            }
+        });
+
+
     }
 
     @Override
