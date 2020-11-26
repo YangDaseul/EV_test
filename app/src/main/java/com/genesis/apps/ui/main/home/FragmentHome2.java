@@ -125,9 +125,9 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
             responseList.add(null);
         }
         home2BtrAdapter.setRows(responseList);
-//        home2BtrAdapter.notifyDataSetChanged();
-        concatAdapter.removeAdapter(home2BtrAdapter);
-        concatAdapter.addAdapter(ADAPTER_ORDER_3, home2BtrAdapter);
+        home2BtrAdapter.notifyDataSetChanged();
+//        concatAdapter.removeAdapter(home2BtrAdapter);
+//        concatAdapter.addAdapter(ADAPTER_ORDER_3, home2BtrAdapter);
     }
 
     /**
@@ -137,9 +137,9 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
         List<VehicleVO> vehicleVOS = new ArrayList<>();
         vehicleVOS.add(vehicleVO);
         home2WarrantyAdapter.setRows(vehicleVOS);
-//        home2WarrantyAdapter.notifyDataSetChanged();
-        concatAdapter.removeAdapter(home2WarrantyAdapter);
-        concatAdapter.addAdapter(ADAPTER_ORDER_2, home2WarrantyAdapter);
+        home2WarrantyAdapter.notifyDataSetChanged();
+//        concatAdapter.removeAdapter(home2WarrantyAdapter);
+//        concatAdapter.addAdapter(ADAPTER_ORDER_2, home2WarrantyAdapter);
     }
 
     /**
@@ -157,9 +157,9 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
         }
 
         home2AsanAdapter.setRows(list);
-//        home2AsanAdapter.notifyDataSetChanged();
-        concatAdapter.removeAdapter(home2AsanAdapter);
-        concatAdapter.addAdapter(ADAPTER_ORDER_1, home2AsanAdapter);
+        home2AsanAdapter.notifyDataSetChanged();
+//        concatAdapter.removeAdapter(home2AsanAdapter);
+//        concatAdapter.addAdapter(ADAPTER_ORDER_1, home2AsanAdapter);
     }
 
 

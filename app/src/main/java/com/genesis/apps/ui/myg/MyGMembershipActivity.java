@@ -12,6 +12,7 @@ import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.MYP_2001;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.databinding.ActivityMygMembershipBinding;
@@ -21,6 +22,8 @@ import com.google.gson.Gson;
 
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
+
+import java.util.ArrayList;
 
 public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBinding> {
 
@@ -79,55 +82,82 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
     @Override
     public void setObserver() {
         mypViewModel.getRES_MYP_2001().observe(this, result -> {
-            String test = "{\n" +
-                    "  \"rsltCd\": \"0000\",\n" +
-                    "  \"rsltMsg\": \"성공\",\n" +
-                    "  \"blueMbrYn\": \"Y\",\n" +
-                    "  \"bludMbrPoint\": \"1000000\",\n" +
-                    "  \"usedBlueMbrPoint\": \"2000\",\n" +
-                    "  \"savgPlanPont\": \"30000\",\n" +
-                    "  \"extncDtm\": \"20200930\",\n" +
-                    "  \"extncPont\": \"215487\",\n" +
-                    "  \"extncPont6mm\": \"15481512\",\n" +
-                    "  \"blueMbrCrdCnt\": \"3\",\n" +
-                    "  \"blueMbrCrdList\": [\n" +
-                    "    {\n" +
-                    "      \"cardNo\": \"1234567890123456\",\n" +
-                    "      \"cardNm\": \"블루멤버스\",\n" +
-                    "      \"cardStusNm\": \"발급완료\",\n" +
-                    "      \"cardClsNm\": \"신용카드\",\n" +
-                    "      \"cardKindNm\": \"현대가상화카드1\",\n" +
-                    "      \"cardIsncSubspDt\": \"20200901\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"cardNo\": \"5555555550123456\",\n" +
-                    "      \"cardNm\": \"블루멤버스\",\n" +
-                    "      \"cardStusNm\": \"발급완료\",\n" +
-                    "      \"cardClsNm\": \"신용카드\",\n" +
-                    "      \"cardKindNm\": \"현대가상화카드2\",\n" +
-                    "      \"cardIsncSubspDt\": \"20200802\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"cardNo\": \"2222222220123456\",\n" +
-                    "      \"cardNm\": \"블루멤버스\",\n" +
-                    "      \"cardStusNm\": \"발급중\",\n" +
-                    "      \"cardClsNm\": \"신용카드\",\n" +
-                    "      \"cardKindNm\": \"현대가상화카드2\",\n" +
-                    "      \"cardIsncSubspDt\": \"20200902\"\n" +
-                    "    },\n" +
-                    "    {\n" +
-                    "      \"cardNo\": \"\",\n" +
-                    "      \"cardNm\": \"블루멤버스\",\n" +
-                    "      \"cardStusNm\": \"발급완료\",\n" +
-                    "      \"cardClsNm\": \"신용카드\",\n" +
-                    "      \"cardKindNm\": \"현대가상화카드3\",\n" +
-                    "      \"cardIsncSubspDt\": \"20200903\"\n" +
-                    "    }\n" +
-                    "  ]\n" +
-                    "}";
-            MYP_2001.Response sample = new Gson().fromJson(test, MYP_2001.Response.class);
-            ui.setData(sample);
-            mypViewModel.reqNewCardList(sample.getBlueMbrCrdList());
+            switch (result.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if(result.data!=null){
+                        ui.setData(result.data);
+                        mypViewModel.reqNewCardList(result.data.getBlueMbrCrdList()==null ? new ArrayList<>() : result.data.getBlueMbrCrdList());
+                        break;
+                    }
+                default:
+                    showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if(TextUtils.isEmpty(serverMsg)) serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        SnackBarUtil.show(this, serverMsg);
+                    }
+                    break;
+            }
+
+
+
+
+
+//            String test = "{\n" +
+//                    "  \"rsltCd\": \"0000\",\n" +
+//                    "  \"rsltMsg\": \"성공\",\n" +
+//                    "  \"blueMbrYn\": \"Y\",\n" +
+//                    "  \"bludMbrPoint\": \"1000000\",\n" +
+//                    "  \"usedBlueMbrPoint\": \"2000\",\n" +
+//                    "  \"savgPlanPont\": \"30000\",\n" +
+//                    "  \"extncDtm\": \"20200930\",\n" +
+//                    "  \"extncPont\": \"215487\",\n" +
+//                    "  \"extncPont6mm\": \"15481512\",\n" +
+//                    "  \"blueMbrCrdCnt\": \"3\",\n" +
+//                    "  \"blueMbrCrdList\": [\n" +
+//                    "    {\n" +
+//                    "      \"cardNo\": \"1234567890123456\",\n" +
+//                    "      \"cardNm\": \"블루멤버스\",\n" +
+//                    "      \"cardStusNm\": \"발급완료\",\n" +
+//                    "      \"cardClsNm\": \"신용카드\",\n" +
+//                    "      \"cardKindNm\": \"현대가상화카드1\",\n" +
+//                    "      \"cardIsncSubspDt\": \"20200901\"\n" +
+//                    "    },\n" +
+//                    "    {\n" +
+//                    "      \"cardNo\": \"5555555550123456\",\n" +
+//                    "      \"cardNm\": \"블루멤버스\",\n" +
+//                    "      \"cardStusNm\": \"발급완료\",\n" +
+//                    "      \"cardClsNm\": \"신용카드\",\n" +
+//                    "      \"cardKindNm\": \"현대가상화카드2\",\n" +
+//                    "      \"cardIsncSubspDt\": \"20200802\"\n" +
+//                    "    },\n" +
+//                    "    {\n" +
+//                    "      \"cardNo\": \"2222222220123456\",\n" +
+//                    "      \"cardNm\": \"블루멤버스\",\n" +
+//                    "      \"cardStusNm\": \"발급중\",\n" +
+//                    "      \"cardClsNm\": \"신용카드\",\n" +
+//                    "      \"cardKindNm\": \"현대가상화카드2\",\n" +
+//                    "      \"cardIsncSubspDt\": \"20200902\"\n" +
+//                    "    },\n" +
+//                    "    {\n" +
+//                    "      \"cardNo\": \"\",\n" +
+//                    "      \"cardNm\": \"블루멤버스\",\n" +
+//                    "      \"cardStusNm\": \"발급완료\",\n" +
+//                    "      \"cardClsNm\": \"신용카드\",\n" +
+//                    "      \"cardKindNm\": \"현대가상화카드3\",\n" +
+//                    "      \"cardIsncSubspDt\": \"20200903\"\n" +
+//                    "    }\n" +
+//                    "  ]\n" +
+//                    "}";
+//            MYP_2001.Response sample = new Gson().fromJson(test, MYP_2001.Response.class);
         });
 
         mypViewModel.getCardVoList().observe(this, result -> {
@@ -159,6 +189,19 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
 
         switch (v.getId()) {
             case R.id.l_whole:
+
+                if(pos>-1){
+
+                    CardVO cardVO = ((CardVO) adapter.getItem(pos));
+                    if(cardVO.getCardStusNm().equalsIgnoreCase(CardVO.CARD_STATUS_99)){
+                        //일반 카드드
+                    }else{
+
+                   }
+
+                }
+
+
                 break;
             case R.id.iv_favorite:
                 if (!((CardVO) adapter.getItem(pos)).isFavorite() && !TextUtils.isEmpty(((CardVO) adapter.getItem(pos)).getCardNo())) {

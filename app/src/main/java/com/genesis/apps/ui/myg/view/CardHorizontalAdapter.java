@@ -16,6 +16,7 @@ import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.StringRe2j;
 import com.genesis.apps.databinding.ItemCardBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
+import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 import com.google.zxing.BarcodeFormat;
@@ -80,17 +81,19 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
                 case CardVO.CARD_STATUS_99://추가
                     getBinding().tvCardName.setVisibility(View.INVISIBLE);
                     getBinding().tvCardNo2.setVisibility(View.INVISIBLE);
-                    getBinding().tvCardNo.setVisibility(View.INVISIBLE);
+                    getBinding().tvCardNo.setVisibility(View.GONE);
                     getBinding().tvCardDate.setVisibility(View.INVISIBLE);
-                    getBinding().ivBarcode.setVisibility(View.INVISIBLE);
+                    getBinding().ivBarcode.setVisibility(View.GONE);
                     getBinding().ivFavorite.setVisibility(View.INVISIBLE);
                     getBinding().ivCard.setImageResource(0);
                     getBinding().ivCard.setImageResource(R.drawable.img_box_addcard);
                     getBinding().ivAdd.setVisibility(View.VISIBLE);
                     getBinding().tvAdd.setVisibility(View.VISIBLE);
                     getBinding().lWhole.setElevation(0);
-                    getBinding().lWhole.setBackgroundColor(getContext().getColor(R.color.x_00000000));
+                    getBinding().lWhole.setBackgroundResource(R.drawable.ripple_bg_00000000);
+//                    getBinding().lWhole.setBackgroundColor(getContext().getColor(R.color.x_00000000));
                     getBinding().lWhole.setOnClickListener(onSingleClickListener);
+//                    ViewPressEffectHelper.attach(getBinding().ivCard);
                     return;
                 case CardVO.CARD_STATUS_10://정상
                     getBinding().ivFavorite.setBackgroundResource(item.isFavorite() ? R.drawable.ic_star_l_s : R.drawable.ic_star_l_b2);
@@ -141,21 +144,4 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
         }
 
     }
-
-    //소멸 및 정지상태 아이템은 제거
-    public void applyFilter() {
-        for (int i = 0; i < getItems().size(); i++) {
-            if (getItems().get(i).getCardStusNm().equalsIgnoreCase(CARD_STATUS_20)
-                    || getItems().get(i).getCardStusNm().equalsIgnoreCase(CARD_STATUS_30)) {
-                remove(i);
-            }
-        }
-    }
-
-    //카드 추가 레이아웃 생성
-    public void addCard() {
-        CardVO cardVO = new CardVO(0,"", "", "", CardVO.CARD_STATUS_99, "", "", "", 0, false);
-        addRow(cardVO);
-    }
-
 }

@@ -51,16 +51,25 @@ public class CardRepository {
         Futures.addCallback(es.getListeningExecutorService().submit(() -> {
             List<CardVO> newList = new ArrayList<>();
             String cardNo="";
+
             try {
                 final String cardNoFromDB = databaseHolder.getDatabase().globalDataDao().get("card");
                 //DB에 저장된 카드번호와 서버로 부터 받은 카드 리스트 중 카드번호가 일치하는 것이 1개인지 확인
                 long count = cardVOList.stream().filter(data -> data.getCardNo().equalsIgnoreCase(cardNoFromDB)).count();
                 if(count!=1){//1개가 아닐 경우 서버 리스트에서
                     //카드 상태가 정상이고 카드번호가 있는 것 중에서 발급일자가 가장 최신인 카드의 카드번호 추출
-                    cardNo = cardVOList.stream().filter(data -> data.getCardStusNm().equalsIgnoreCase(CardVO.CARD_STATUS_10) && !TextUtils.isEmpty(data.getCardNo())).max(Comparator.comparingInt(data -> Integer.parseInt(data.getCardIsncSubspDt()))).get().getCardNo();
-                    if(TextUtils.isEmpty(cardNo)) cardNo="";
+                    try {
+                        cardNo = cardVOList.stream().filter(data -> data.getCardStusNm().equalsIgnoreCase(CardVO.CARD_STATUS_10) && !TextUtils.isEmpty(data.getCardNo())).max(Comparator.comparingInt(data -> Integer.parseInt(data.getCardIsncSubspDt()))).get().getCardNo();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
 
-                    updateCard(cardNo);
+                    if(TextUtils.isEmpty(cardNo)) {
+                        cardNo = "";
+                    }else{
+                        updateCard(cardNo);
+                    }
+
                 }else{
                     cardNo = cardNoFromDB;
                 }

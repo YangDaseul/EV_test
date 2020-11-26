@@ -26,6 +26,7 @@ import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.databinding.ActivityMygGaBinding;
 import com.genesis.apps.ui.common.activity.LoginActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
 
 import javax.inject.Inject;
 
@@ -46,6 +47,11 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
         getDataFromIntent();
         setViewModel();
         setObserver();
+        initView();
+        mypViewModel.reqMYP0001(new MYP_0001.Request(APPIAInfo.MG_GA01.getId()));
+    }
+
+    private void initView() {
         ui.setActivity(this);
         ui.cbEmail.setOnCheckedChangeListener(listener);
         ui.cbPhone.setOnCheckedChangeListener(listener);
@@ -53,7 +59,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
         ui.cbPost.setOnCheckedChangeListener(listener);
         ui.cbAd.setOnCheckedChangeListener(listenerAll);
         ui.vBlock.setOnTouchListener((view, motionEvent) -> true);
-        mypViewModel.reqMYP0001(new MYP_0001.Request(APPIAInfo.MG_GA01.getId()));
+        ViewPressEffectHelper.attach(ui.btnWithdrawal);
     }
 
     @Override
@@ -181,6 +187,10 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
                                 .putExtra(KeyNames.KEY_ANME_CCSP_TYPE, LoginActivity.TYPE_AUTHUUID)
                         , RequestCodes.REQ_CODE_AUTHUUID.getCode()
                         , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
+            case R.id.btn_withdrawal:
+
+
                 break;
         }
     }
