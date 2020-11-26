@@ -18,6 +18,7 @@ import com.genesis.apps.comm.model.api.gra.LGN_0002;
 import com.genesis.apps.comm.model.api.gra.LGN_0003;
 import com.genesis.apps.comm.model.vo.MainHistVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -38,7 +39,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-public class FragmentHome2 extends SubFragment<FragmentHome2Binding>{
+public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
+
+    private final int ADAPTER_ORDER_1 = 0;
+    private final int ADAPTER_ORDER_2 = 1;
+    private final int ADAPTER_ORDER_3 = 2;
+    private final int ADAPTER_ORDER_4 = 3;
+    private final int ADAPTER_ORDER_5 = 4;
+    private final int ADAPTER_ORDER_6 = 5;
 
     private ConcatAdapter concatAdapter;
     private Home2AsanAdapter home2AsanAdapter;
@@ -46,6 +54,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding>{
     private Home2BtrAdapter home2BtrAdapter;
     private LGNViewModel lgnViewModel;
     private VehicleVO vehicleVO;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return super.setContentView(inflater, R.layout.fragment_home_2);
@@ -59,60 +68,99 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding>{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initView();
+        setViewModel();
+        setObserver();
+    }
 
-        me.rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        me.rv.setHasFixedSize(true);
-        me.rv.addItemDecoration(new RecyclerViewDecoration((int) DeviceUtil.dip2Pixel(getContext(),4.0f)));
-        home2AsanAdapter = new Home2AsanAdapter(onSingleClickListener);
-        home2WarrantyAdapter = new Home2WarrantyAdapter(onSingleClickListener);
-        home2BtrAdapter = new Home2BtrAdapter(onSingleClickListener);
-        concatAdapter = new ConcatAdapter(home2AsanAdapter, home2WarrantyAdapter, home2BtrAdapter);
-        me.rv.setAdapter(concatAdapter);
-
-        lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
+    private void setObserver() {
         lgnViewModel.getRES_LGN_0003().observe(getViewLifecycleOwner(), result -> {
-            switch (result.status){
+            switch (result.status) {
                 case SUCCESS:
-                    List<MainHistVO> list = new ArrayList<>();
-                    list.addAll(result.data.getAsnHistList());
-
-                    if(list!=null&&list.size()>0){
-
-                    }else {
-                        list = new ArrayList<>();
-                        list.add(new MainHistVO("","","","","","","",""));
-                    }
-                    home2AsanAdapter.setRows(list);
-                    home2AsanAdapter.notifyDataSetChanged();
-
-
-                    List<VehicleVO> vehicleVOS = new ArrayList<>();
-                    vehicleVOS.add(vehicleVO);
-                    home2WarrantyAdapter.setRows(vehicleVOS);
-                    home2WarrantyAdapter.notifyDataSetChanged();
-
-                    List<LGN_0003.Response> responseList = new ArrayList<>();
-                    if(result.data!=null) {
-                        responseList.add(result.data);
-                    }else{
-                        responseList.add(null);
-                    }
-                    home2BtrAdapter.setRows(responseList);
-                    home2BtrAdapter.notifyDataSetChanged();
-
+                    setViewAsanList(result);
+                    setViewWarranty();
+                    setViewBtrInfo(result);
                     break;
             }
         });
 
         lgnViewModel.getRES_LGN_0002().observe(getViewLifecycleOwner(), result -> {
-            switch (result.status){
+            switch (result.status) {
                 case SUCCESS:
 
 
                     break;
             }
         });
-     }
+    }
+
+    private void setViewModel() {
+        lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
+    }
+
+    /**
+     * @biref 뷰 초기화
+     * 리사이클러 뷰 및 어댑터 초기화
+     */
+    private void initView() {
+        me.rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        me.rv.setHasFixedSize(true);
+        me.rv.addItemDecoration(new RecyclerViewDecoration((int) DeviceUtil.dip2Pixel(getContext(), 4.0f)));
+        home2AsanAdapter = new Home2AsanAdapter(onSingleClickListener);
+        home2WarrantyAdapter = new Home2WarrantyAdapter(onSingleClickListener);
+        home2BtrAdapter = new Home2BtrAdapter(onSingleClickListener);
+        concatAdapter = new ConcatAdapter(home2AsanAdapter, home2WarrantyAdapter, home2BtrAdapter);
+        me.rv.setAdapter(concatAdapter);
+    }
+
+    /**
+     * @param result
+     * @brief 버틀러 정보 표시
+     */
+    private void setViewBtrInfo(NetUIResponse<LGN_0003.Response> result) {
+        List<LGN_0003.Response> responseList = new ArrayList<>();
+        if (result.data != null) {
+            responseList.add(result.data);
+        } else {
+            responseList.add(null);
+        }
+        home2BtrAdapter.setRows(responseList);
+//        home2BtrAdapter.notifyDataSetChanged();
+        concatAdapter.removeAdapter(home2BtrAdapter);
+        concatAdapter.addAdapter(ADAPTER_ORDER_3, home2BtrAdapter);
+    }
+
+    /**
+     * @biref 보증수리안내 표시
+     */
+    private void setViewWarranty() {
+        List<VehicleVO> vehicleVOS = new ArrayList<>();
+        vehicleVOS.add(vehicleVO);
+        home2WarrantyAdapter.setRows(vehicleVOS);
+//        home2WarrantyAdapter.notifyDataSetChanged();
+        concatAdapter.removeAdapter(home2WarrantyAdapter);
+        concatAdapter.addAdapter(ADAPTER_ORDER_2, home2WarrantyAdapter);
+    }
+
+    /**
+     * @param result
+     * @brief 정비 내역 표시
+     */
+    private void setViewAsanList(NetUIResponse<LGN_0003.Response> result) {
+        List<MainHistVO> list = new ArrayList<>();
+        if (result.data != null && result.data.getAsnHistList() != null)
+            list.addAll(result.data.getAsnHistList());
+
+        if (list == null || list.size() == 0) {
+            list = new ArrayList<>();
+            list.add(new MainHistVO("", "", "", "", "", "", "", ""));
+        }
+
+        home2AsanAdapter.setRows(list);
+//        home2AsanAdapter.notifyDataSetChanged();
+        concatAdapter.removeAdapter(home2AsanAdapter);
+        concatAdapter.addAdapter(ADAPTER_ORDER_1, home2AsanAdapter);
+    }
 
 
     @Override
@@ -133,18 +181,27 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding>{
                 break;
             case R.id.tv_title_btr_term:
                 String annMgmtCd;
-                try{
-                    annMgmtCd = "BTR_"+vehicleVO.getMdlNm();
-                    ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), BtrServiceInfoActivity.class).putExtra(KeyNames.KEY_NAME_ADMIN_CODE, annMgmtCd), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
-                }catch (Exception e){
+                try {
+                    annMgmtCd = "BTR_" + vehicleVO.getMdlNm();
+                    ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), BtrServiceInfoActivity.class)
+                                    .putExtra(KeyNames.KEY_NAME_ADMIN_CODE, annMgmtCd)
+                            , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                            , VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case R.id.l_btr:
-                ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), BtrBluehandsActivity.class).putExtra(KeyNames.KEY_NAME_VIN, vehicleVO.getVin()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), BtrBluehandsActivity.class)
+                                .putExtra(KeyNames.KEY_NAME_VIN, vehicleVO.getVin())
+                        , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                        , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.l_warranty:
-                ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), WarrantyRepairGuideActivity.class).putExtra(KeyNames.KEY_NAME_VIN, vehicleVO.getVin()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), WarrantyRepairGuideActivity.class)
+                                .putExtra(KeyNames.KEY_NAME_VIN, vehicleVO.getVin())
+                        , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                        , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
         }
     }
@@ -152,16 +209,16 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding>{
 
     @Override
     public void onRefresh() {
-        Log.e("onResume","onReusme FragmentHome2");
+        Log.e("onResume", "onReusme FragmentHome2");
         try {
             vehicleVO = lgnViewModel.getMainVehicleFromDB();
-        }catch (Exception e){
-            e.printStackTrace();;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         lgnViewModel.reqLGN0002(new LGN_0002.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
         lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
-        ((MainActivity)getActivity()).setGNB(false, 1, View.GONE);
+        ((MainActivity) getActivity()).setGNB(false, 1, View.GONE);
     }
 
 }

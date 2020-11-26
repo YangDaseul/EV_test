@@ -56,7 +56,7 @@ import static com.google.android.exoplayer2.Player.REPEAT_MODE_ALL;
 
 @AndroidEntryPoint
 public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
-    private SimpleExoPlayer simpleExoPlayer;
+    private SimpleExoPlayer player;
     private LGNViewModel lgnViewModel;
     private CMNViewModel cmnViewModel;
     private HomeInsightHorizontalAdapter adapter=null;
@@ -398,11 +398,11 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     }
 
     private void releaseVideo(){
-        if(simpleExoPlayer!=null){
+        if(player !=null){
             me.exoPlayerView.getOverlayFrameLayout().removeAllViews();
             me.exoPlayerView.setPlayer(null);
-            simpleExoPlayer.release();
-            simpleExoPlayer=null;
+            player.release();
+            player =null;
         }
     }
 
@@ -410,12 +410,12 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     private void setVideo() {
         try {
 //            String path = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
-            DataSpec dataSpec = new DataSpec(RawResourceDataSource.buildRawResourceUri(R.raw.rain_mob));
-            final RawResourceDataSource rawResourceDataSource = new RawResourceDataSource(getContext());
-            rawResourceDataSource.open(dataSpec);
-            com.google.android.exoplayer2.upstream.DataSource.Factory factory = () -> rawResourceDataSource;
-            MediaSource audioSource = new ProgressiveMediaSource.Factory(factory).createMediaSource(rawResourceDataSource.getUri());
-            LoopingMediaSource mediaSource = new LoopingMediaSource(audioSource);
+//            DataSpec dataSpec = new DataSpec(RawResourceDataSource.buildRawResourceUri(R.raw.rain_mob));
+//            final RawResourceDataSource rawResourceDataSource = new RawResourceDataSource(getContext());
+//            rawResourceDataSource.open(dataSpec);
+//            com.google.android.exoplayer2.upstream.DataSource.Factory factory = () -> rawResourceDataSource;
+//            MediaSource audioSource = new ProgressiveMediaSource.Factory(factory).createMediaSource(rawResourceDataSource.getUri());
+//            LoopingMediaSource mediaSource = new LoopingMediaSource(audioSource);
 
 
 //            String path = "android_asset://sky.mp4";
@@ -423,15 +423,15 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 //            MediaSource mediaSource = new ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.parse(path));
 
 
-            simpleExoPlayer = new SimpleExoPlayer.Builder(getContext()).build();
-            simpleExoPlayer.setPlayWhenReady(true);
-            simpleExoPlayer.setVolume(0);
-            simpleExoPlayer.setRepeatMode(REPEAT_MODE_ALL);
-            simpleExoPlayer.setSeekParameters(null);
-            me.exoPlayerView.setPlayer(simpleExoPlayer);
-            simpleExoPlayer.prepare(mediaSource);
-            me.exoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
-            me.exoPlayerView.setUseController(false);
+//            player = new SimpleExoPlayer.Builder(getContext()).build();
+//            player.setPlayWhenReady(true);
+//            player.setVolume(0);
+//            player.setRepeatMode(REPEAT_MODE_ALL);
+//            player.setSeekParameters(null);
+//            me.exoPlayerView.setPlayer(player);
+//            me.exoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
+//            me.exoPlayerView.setUseController(false);
+//            player.prepare(mediaSource);
 
 //        ui.vVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.rain));
 //        ui.vVideo.setVideoURI(Uri.parse(path));
@@ -444,26 +444,41 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 //            }
 //        });
 
+
+            if(player==null){
+                player = new SimpleExoPlayer.Builder(getContext()).build();
+                player.setVolume(0);
+                player.setRepeatMode(REPEAT_MODE_ALL);
+                player.setSeekParameters(null);
+                me.exoPlayerView.setPlayer(player);
+                me.exoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
+                me.exoPlayerView.setUseController(false);
+
+
+                DataSpec dataSpec = new DataSpec(RawResourceDataSource.buildRawResourceUri(R.raw.rain_mob));
+                final RawResourceDataSource rawResourceDataSource = new RawResourceDataSource(getContext());
+                rawResourceDataSource.open(dataSpec);
+                com.google.android.exoplayer2.upstream.DataSource.Factory factory = () -> rawResourceDataSource;
+                MediaSource audioSource = new ProgressiveMediaSource.Factory(factory).createMediaSource(rawResourceDataSource.getUri());
+                LoopingMediaSource mediaSource = new LoopingMediaSource(audioSource);
+                player.prepare(mediaSource);
+            }
+
+
         }catch (Exception e){
 
         }
     }
 
     private void videoPauseAndResume(boolean isResume){
-//        simpleExoPlayer.setPlayWhenReady(isResume);
-//        simpleExoPlayer.getPlaybackState();
+        Log.v("video player status","isResume:"+isResume);
+        player.setPlayWhenReady(isResume);
     }
 
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        if(requestCode == RequestCodes.REQ_CODE_GPS.getCode() && resultCode == RESULT_OK){
-//          reqMyLocation();
-//        }else{
-//            super.onActivityResult(requestCode, resultCode, data);
-//        }
-
         if(requestCode == RequestCodes.REQ_CODE_GPS.getCode() && resultCode == RESULT_OK){
             reqMyLocation();
         }else if (requestCode == RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode() && resultCode == RESULT_OK) {
