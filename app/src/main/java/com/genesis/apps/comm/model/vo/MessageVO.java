@@ -45,6 +45,18 @@ class MessageVO extends BaseData {
     @Expose
     @SerializedName("imgUri")
     private String imgUri;
+
+    @Expose
+    @SerializedName("imgUri1")
+    private String imgUri1;
+    @Expose
+    @SerializedName("imgUri2")
+    private String imgUri2;
+    @Expose
+    @SerializedName("imgUri3")
+    private String imgUri3;
+
+
     @Expose
     @SerializedName("lnkNm")
     private String lnkNm;

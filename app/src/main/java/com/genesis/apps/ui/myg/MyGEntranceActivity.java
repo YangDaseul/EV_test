@@ -9,6 +9,7 @@ import android.view.View;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.LGN_0001;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.net.ga.GA;
@@ -137,10 +138,18 @@ public class MyGEntranceActivity extends SubActivity<ActivityMygEntranceBinding>
     }
 
     public void moveToLogin(){
-        startActivitySingleTop(new Intent(this, LoginActivity.class).putExtra("url",ga.getLoginUrl()), RequestCodes.REQ_CODE_LOGIN.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        startActivitySingleTop(new Intent(this, LoginActivity.class)
+                        .putExtra(KeyNames.KEY_NAME_URL,ga.getLoginUrl())
+                        .putExtra(KeyNames.KEY_ANME_CCSP_TYPE, LoginActivity.TYPE_LOGIN)
+                , RequestCodes.REQ_CODE_LOGIN.getCode()
+                , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
     public void moveToJoin(){
-        startActivitySingleTop(new Intent(this, LoginActivity.class).putExtra("url",ga.getEnrollUrl()), RequestCodes.REQ_CODE_JOIN.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        startActivitySingleTop(new Intent(this, LoginActivity.class)
+                        .putExtra(KeyNames.KEY_NAME_URL,ga.getEnrollUrl())
+                        .putExtra(KeyNames.KEY_ANME_CCSP_TYPE, LoginActivity.TYPE_JOIN)
+                , RequestCodes.REQ_CODE_JOIN.getCode()
+                , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
     public void moveToFind(){
 

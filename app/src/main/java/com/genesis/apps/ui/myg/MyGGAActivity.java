@@ -33,6 +33,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
+
     @Inject
     public GA ga;
 
@@ -70,13 +71,13 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
-                    if(result.data!=null){
+                    if(result.data!=null&&!TextUtils.isEmpty(result.data.getMrktYn())&&!TextUtils.isEmpty(result.data.getMrktCd())){
                         ui.setData(result.data);
-                        ui.cbAd.setChecked(result.data.getMrktYn().equalsIgnoreCase("Y") ? true : false);
-                        ui.cbSms.setChecked(result.data.getMrktCd().substring(0,1).equalsIgnoreCase("1") ? true : false);
-                        ui.cbEmail.setChecked(result.data.getMrktCd().substring(1,2).equalsIgnoreCase("1") ? true : false);
-                        ui.cbPost.setChecked(result.data.getMrktCd().substring(2,3).equalsIgnoreCase("1") ? true : false);
-                        ui.cbPhone.setChecked(result.data.getMrktCd().substring(3,4).equalsIgnoreCase("1") ? true : false);
+                        ui.cbAd.setChecked(result.data.getMrktYn().equalsIgnoreCase("Y"));
+                        ui.cbSms.setChecked(result.data.getMrktCd().substring(0, 1).equalsIgnoreCase("1"));
+                        ui.cbEmail.setChecked(result.data.getMrktCd().substring(1, 2).equalsIgnoreCase("1"));
+                        ui.cbPost.setChecked(result.data.getMrktCd().substring(2, 3).equalsIgnoreCase("1"));
+                        ui.cbPhone.setChecked(result.data.getMrktCd().substring(3, 4).equalsIgnoreCase("1"));
                         break;
                     }
                 default:
@@ -175,7 +176,11 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
                 mypViewModel.reqMYP0004(new MYP_0004.Request(APPIAInfo.MG_GA01.getId(), mrktYn, mrktCd));
                 break;
             case R.id.btn_change_phone:
-                startActivitySingleTop(new Intent(this, LoginActivity.class).putExtra(KeyNames.KEY_NAME_URL, ga.getAuthUrl()).putExtra(KeyNames.KEY_NAME_AUTHUUID, KeyNames.KEY_NAME_AUTHUUID), RequestCodes.REQ_CODE_AUTHUUID.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                startActivitySingleTop(new Intent(this, LoginActivity.class)
+                                .putExtra(KeyNames.KEY_NAME_URL, ga.getAuthUrl())
+                                .putExtra(KeyNames.KEY_ANME_CCSP_TYPE, LoginActivity.TYPE_AUTHUUID)
+                        , RequestCodes.REQ_CODE_AUTHUUID.getCode()
+                        , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
         }
     }

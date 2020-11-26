@@ -51,7 +51,7 @@ public interface KeyNames {
     String KEY_NAME_REVIEW_TRANS_ID = "transId";
     String KEY_NAME_REVIEW_VIN = "vin";
 
-    String KEY_NAME_AUTHUUID="authUuid";
+    String KEY_ANME_CCSP_TYPE="ccspType";
 
 
 }

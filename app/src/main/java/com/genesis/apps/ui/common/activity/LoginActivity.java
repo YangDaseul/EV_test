@@ -22,7 +22,6 @@ import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static com.genesis.apps.comm.model.constants.GAInfo.CCSP_URL;
-import static com.genesis.apps.comm.model.constants.GAInfo.GA_AUTH_UUID_CHECK_URL;
 import static com.genesis.apps.comm.model.constants.GAInfo.GA_CALLBACK_URL;
 import static com.genesis.apps.comm.model.constants.GAInfo.GA_REDIRECT_URL;
 import static com.genesis.apps.comm.model.constants.GAInfo.GA_URL;
@@ -30,10 +29,13 @@ import static com.genesis.apps.comm.model.constants.GAInfo.GA_URL;
 @AndroidEntryPoint
 public class LoginActivity extends WebviewActivity {
     private final String TAG = getClass().getSimpleName();
-    private boolean isLogin=false;
+    public static final String TYPE_AUTHUUID="authUuid";
+    public static final String TYPE_LOGIN="login";
+    public static final String TYPE_JOIN="join";
+
     private String tokenCode;
     private String authUuid;
-    private String requestCode="";
+    private String ccspType ="";
     @Inject
     public GA ga;
     @Inject
@@ -57,14 +59,9 @@ public class LoginActivity extends WebviewActivity {
         super.getDataFromIntent();
         Intent intent = getIntent();
         try {
-            if (intent != null && intent.getStringExtra(KeyNames.KEY_NAME_URL).equalsIgnoreCase(ga.getLoginUrl())) {
-                isLogin = true;
-            } else {
-                isLogin = false;
-            }
-            requestCode = intent.getStringExtra(KeyNames.KEY_NAME_AUTHUUID);
+            ccspType = intent.getStringExtra(KeyNames.KEY_ANME_CCSP_TYPE);
         }catch (Exception e){
-            requestCode = "";
+            ccspType = TYPE_LOGIN;
         }
     }
 
@@ -92,11 +89,11 @@ public class LoginActivity extends WebviewActivity {
         }
         String csrf = uri.getQueryParameter("state");
         String authUuid = uri.getQueryParameter("authUuid");
-        Log.v("TEST LoginActivity", "LOGIN ACTIVITY:" +authUuid);
+        Log.e("TEST LoginActivity", "LOGIN ACTIVITY:" +authUuid + "        state:"+csrf);
         if (csrf != null && csrf.equals(ga.getCsrf()) && !TextUtils.isEmpty(authUuid)) {
             Log.v("TEST LoginActivity", "LOGIN ACTIVITY DEPTH2:" +authUuid );
             this.authUuid = authUuid;
-            if(requestCode.equalsIgnoreCase(KeyNames.KEY_NAME_AUTHUUID)){ //폰번호 변경으로 본인인증 결과 값 요청 시
+            if(ccspType.equalsIgnoreCase(TYPE_AUTHUUID)){ //폰번호 변경으로 본인인증 결과 값 요청 시
                 setResult(Activity.RESULT_OK, new Intent().putExtra(VariableType.KEY_NAME_LOGIN_AUTH_UUID, authUuid));
                 finish();
             }
@@ -107,7 +104,7 @@ public class LoginActivity extends WebviewActivity {
     private boolean loginResult(Uri uri) {
         String result = uri.getQueryParameter("result");
         //0000: 정상, 1126: GA가입ok & 서비스 미가입
-        if ("0000".equals(result) || (isLogin && "1126".equals(result))) {
+        if ("0000".equals(result) || (ccspType.equalsIgnoreCase(TYPE_LOGIN) && "1126".equals(result))) {
             final String scope = uri.getQueryParameter("scope"); //로그인 혹은 회원가입 확인 가능
             final String tokenCode = uri.getQueryParameter("code");
             Log.d(TAG, "shouldOverrideUrlLoading: scope = " + scope + ", tokenCode=" + tokenCode);
@@ -169,7 +166,8 @@ public class LoginActivity extends WebviewActivity {
             return true;
         }else if (!currentUrl.startsWith(GA_URL) && !currentUrl.startsWith(CCSP_URL)) {
             //if(currentUrl.startsWith("https://nice.checkplus.co.kr")) {
-            ga.clearLoginInfo();
+//            if(!ccspType.equalsIgnoreCase(TYPE_AUTHUUID)) ga.clearLoginInfo();
+//            ga.clearLoginInfo();
             fragment.loadUrl(url);
             setClearHistory(true);
             return true;

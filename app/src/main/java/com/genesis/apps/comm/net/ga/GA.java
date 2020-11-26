@@ -53,7 +53,7 @@ public class GA {
 
     public String getEnrollUrl() {
         csrf = getRandomString(10);
-        Log.d("GA", "csrf string : " + csrf);
+        Log.e("GA", "enroll csrf string : " + csrf);
 
         QueryString q = new QueryString();
         q.add("clientId", CCSP_CLIENT_ID);
@@ -67,6 +67,7 @@ public class GA {
 
     public String getLoginUrl() {
         csrf = getRandomString(10);
+        Log.e("GA", "login csrf string : " + csrf);
         QueryString q = new QueryString();
         q.add("clientId", CCSP_CLIENT_ID);
         q.add("host", GA_URL);
@@ -307,7 +308,7 @@ public class GA {
 
     public String getAuthUrl() {
         csrf = getRandomString(10);
-        Log.d("GA", "csrf string : " + csrf);
+        Log.e("GA", "auth csrf string : " + csrf);
 
         QueryString q = new QueryString();
         q.add("clientId", CCSP_CLIENT_ID);
@@ -429,6 +430,9 @@ public class GA {
                     (random.nextFloat() * (rightLimit - leftLimit + 1));
             buffer.append((char) randomLimitedInt);
         }
+
+        Log.e("GA", "request csrf string : " + buffer.toString());
+
         return buffer.toString();
     }
 
