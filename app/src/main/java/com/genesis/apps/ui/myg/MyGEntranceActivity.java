@@ -20,6 +20,7 @@ import com.genesis.apps.databinding.ActivityMygEntranceBinding;
 import com.genesis.apps.room.ResultCallback;
 import com.genesis.apps.ui.common.activity.LoginActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
 import com.genesis.apps.ui.main.ServiceJoinActivity;
 
 import javax.inject.Inject;
@@ -44,6 +45,11 @@ public class MyGEntranceActivity extends SubActivity<ActivityMygEntranceBinding>
         getDataFromIntent();
         setViewModel();
         setObserver();
+        initView();
+    }
+
+    private void initView() {
+        ViewPressEffectHelper.attach(ui.btnFind);
     }
 
     @Override
@@ -56,7 +62,7 @@ public class MyGEntranceActivity extends SubActivity<ActivityMygEntranceBinding>
                 moveToJoin();
                 break;
             case R.id.btn_find:
-
+                moveToFind();
                 break;
         }
     }
@@ -152,7 +158,11 @@ public class MyGEntranceActivity extends SubActivity<ActivityMygEntranceBinding>
                 , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
     public void moveToFind(){
-
+        startActivitySingleTop(new Intent(this, LoginActivity.class)
+                        .putExtra(KeyNames.KEY_NAME_URL,ga.getFindUrl())
+                        .putExtra(KeyNames.KEY_ANME_CCSP_TYPE, LoginActivity.TYPE_FIND)
+                , RequestCodes.REQ_CODE_JOIN.getCode()
+                , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
 

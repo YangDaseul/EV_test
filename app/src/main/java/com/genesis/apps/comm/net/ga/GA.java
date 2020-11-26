@@ -51,6 +51,11 @@ public class GA {
         return csrf;
     }
 
+    public String getFindUrl() {
+        return getLoginUrl().replaceAll("url.login", "url.find");
+    }
+
+
     public String getEnrollUrl() {
         csrf = getRandomString(10);
         Log.e("GA", "enroll csrf string : " + csrf);

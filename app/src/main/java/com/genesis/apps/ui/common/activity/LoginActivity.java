@@ -32,6 +32,7 @@ public class LoginActivity extends WebviewActivity {
     public static final String TYPE_AUTHUUID="authUuid";
     public static final String TYPE_LOGIN="login";
     public static final String TYPE_JOIN="join";
+    public static final String TYPE_FIND="find";
 
     private String tokenCode;
     private String authUuid;
@@ -160,8 +161,8 @@ public class LoginActivity extends WebviewActivity {
 
     @Override
     public boolean back(String currentUrl) {
-        if(currentUrl.endsWith("/web/v1/user/signin")){
-            //로그인화면
+        if(currentUrl.endsWith("/web/v1/user/signin")||currentUrl.endsWith("password-search")){
+            //로그인화면이거나 아이디찾기 및 비밀번호 초기화 화면일 경우
             finish();
             return true;
         }else if (!currentUrl.startsWith(GA_URL) && !currentUrl.startsWith(CCSP_URL)) {
