@@ -175,7 +175,7 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
                 break;
             case R.id.btn_release:
                 MiddleDialog.dialogOilDisconnect(this, () -> {
-                    mypViewModel.reqOIL0003(new OIL_0003.Request(APPIAInfo.MG_CON01.getId(), oilRfnCd)); //연동해제 요청
+                    oilViewModel.reqOIL0003(new OIL_0003.Request(APPIAInfo.MG_CON01.getId(), oilRfnCd)); //연동해제 요청
                 }, () -> {
 
                 });
@@ -224,18 +224,28 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
                     break;
             }
         });
-        mypViewModel.getRES_OIL_0003().observe(this, responseNetUI -> {
-            switch (responseNetUI.status){
+        oilViewModel.getRES_OIL_0003().observe(this, result -> {
+            switch (result.status){
                 case LOADING:
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    //TODO 연동 해지 완료 후 처리.. 스낵바를 띄워야하는데 이전 페이지에. .넘기면서 띄워야할듯
-                    //BASEACTIVITY의 ONACTIVITYTRESULT에 스낵바 처리하는 부분을 공통을 넣어놓는게 나을듯..
+                    if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)){
+                        showProgressDialog(false);
+                        exitPage(getString(R.string.mg_con01_p01_snackbar_1), ResultCodes.REQ_CODE_NORMAL.getCode());
+                        break;
+                    }
+                default:
                     showProgressDialog(false);
-                    break;
-                case ERROR:
-                    showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if(TextUtils.isEmpty(serverMsg)) serverMsg = getString(R.string.mg_con01_p01_snackbar_2);
+                        SnackBarUtil.show(this, serverMsg);
+                    }
                     break;
             }
         });

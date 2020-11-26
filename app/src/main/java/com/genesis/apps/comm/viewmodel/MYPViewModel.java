@@ -46,7 +46,6 @@ public @Data
 class MYPViewModel extends ViewModel {
 
     private final MYPRepo repository;
-    private final OILRepo oIlRepository;
     private final CardRepository cardRepository;
     private final SavedStateHandle savedStateHandle;
 
@@ -70,19 +69,11 @@ class MYPViewModel extends ViewModel {
     
     private MutableLiveData<NetUIResponse<MYP_2006.Response>> RES_MYP_2006;
 
-    private MutableLiveData<NetUIResponse<OIL_0001.Response>> RES_OIL_0001;
-    private MutableLiveData<NetUIResponse<OIL_0002.Response>> RES_OIL_0002;
-    private MutableLiveData<NetUIResponse<OIL_0003.Response>> RES_OIL_0003;
-    private MutableLiveData<NetUIResponse<OIL_0004.Response>> RES_OIL_0004;
-    private MutableLiveData<NetUIResponse<OIL_0005.Response>> RES_OIL_0005;
-
-
     private MutableLiveData<NetUIResponse<List<CardVO>>> cardVoList;
 
     @ViewModelInject
     MYPViewModel(
             MYPRepo repository,
-            OILRepo oIlRepository,
             CardRepository cardRepository,
             @Assisted SavedStateHandle savedStateHandle)
     {
@@ -105,14 +96,6 @@ class MYPViewModel extends ViewModel {
         RES_MYP_2004 = repository.RES_MYP_2004;
         RES_MYP_2005 = repository.RES_MYP_2005;
         RES_MYP_2006 = repository.RES_MYP_2006;
-
-        this.oIlRepository = oIlRepository;
-        RES_OIL_0001 = oIlRepository.RES_OIL_0001;
-        RES_OIL_0002 = oIlRepository.RES_OIL_0002;
-        RES_OIL_0003 = oIlRepository.RES_OIL_0003;
-        RES_OIL_0004 = oIlRepository.RES_OIL_0004;
-        RES_OIL_0005 = oIlRepository.RES_OIL_0005;
-
 
         this.cardRepository = cardRepository;
         cardVoList = cardRepository.cardVoList;
@@ -174,23 +157,6 @@ class MYPViewModel extends ViewModel {
 
     public void reqMYP2006(final MYP_2006.Request reqData){
        repository.REQ_MYP_2006(reqData);
-    }
-
-
-    public void reqOIL0001(final OIL_0001.Request reqData){
-        oIlRepository.REQ_OIL_0001(reqData);
-    }
-    public void reqOIL0002(final OIL_0002.Request reqData){
-        oIlRepository.REQ_OIL_0002(reqData);
-    }
-    public void reqOIL0003(final OIL_0003.Request reqData){
-        oIlRepository.REQ_OIL_0003(reqData);
-    }
-    public void reqOIL0004(final OIL_0004.Request reqData){
-        oIlRepository.REQ_OIL_0004(reqData);
-    }
-    public void reqOIL0005(final OIL_0005.Request reqData){
-        oIlRepository.REQ_OIL_0005(reqData);
     }
 
     public void reqNewCardList(final List<CardVO> cardVOList){

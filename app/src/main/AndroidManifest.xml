@@ -200,10 +200,10 @@
             android:name=".ui.myg.MyGOilTermActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.myg.MyGOilTermDetailActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+<!--        <activity-->
+<!--            android:name=".ui.myg.MyGOilTermDetailActivity"-->
+<!--            android:exported="false"-->
+<!--            android:screenOrientation="portrait" />-->
 
         <activity
             android:name=".ui.main.home.MyCarActivity"

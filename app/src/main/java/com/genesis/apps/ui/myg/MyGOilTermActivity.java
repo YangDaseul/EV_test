@@ -186,7 +186,7 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
                     if (result.data != null&&result.data.getTermVO()!=null) {
                         startActivitySingleTop(new Intent(this, ServiceTermDetailActivity.class)
                                 .putExtra(VariableType.KEY_NAME_TERM_VO, result.data.getTermVO())
-                                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.mg_con02_1)
+                                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, getString(R.string.mg_con02_1))
                                 , RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                         showProgressDialog(false);
                         break;

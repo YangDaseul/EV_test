@@ -6,14 +6,12 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.api.gra.VOC_1002;
 import com.genesis.apps.comm.model.api.gra.VOC_1004;
+import com.genesis.apps.comm.model.api.gra.VOC_1005;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
@@ -30,9 +28,11 @@ import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.ServiceTermDetailActivity;
 import com.genesis.apps.ui.main.service.ServiceRelapse3Adapter.RepairData;
-import com.genesis.apps.ui.myg.MyGOilTermDetailActivity;
 
 import java.util.List;
+
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseApply3Binding> {
     private static final String TAG = ServiceRelapse3Activity.class.getSimpleName();
@@ -227,6 +227,50 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
                     break;
             }
         });
+
+
+        //약관 상세 조회
+        viewModel.getRES_VOC_1005().observe(this, result -> {
+
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+
+                case SUCCESS:
+                    if (result.data != null && result.data.getTermVO() != null) {
+                        Intent intent = new Intent(this, ServiceTermDetailActivity.class)
+                                .putExtra(VariableType.KEY_NAME_TERM_VO, result.data.getTermVO())
+                                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, result.data.getTermVO().getTermNm());
+
+                        startActivitySingleTop(
+                                intent,
+                                RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                                VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
+                        showProgressDialog(false);
+                        break;
+                    }
+                    //not break; 데이터 이상하면 default로 진입시킴
+
+                default:
+                    showProgressDialog(false);
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
+                            serverMsg = getString(R.string.instability_network);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                    }
+                    //todo : 구체적인 예외처리
+                    break;
+            }
+        });
+
     }
 
     @Override
@@ -376,13 +420,9 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         TermVO termVO = (TermVO) v.getTag(R.id.tag_term_vo);
         Log.d(TAG, "showTerm: " + termVO);
 
-        Intent intent = new Intent(this, ServiceTermDetailActivity.class)
-                .putExtra(MyGOilTermDetailActivity.TERMS_CODE, termVO);
-
-        startActivitySingleTop(
-                intent,
-                RequestCodes.REQ_CODE_ACTIVITY.getCode(),
-                VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        if (termVO != null) {
+            viewModel.reqVOC1005(new VOC_1005.Request(APPIAInfo.SM_FLAW06.getId(), termVO.getTermCd(), termVO.getTermVer()));
+        }
     }
 
     private void reqVOC1002() {

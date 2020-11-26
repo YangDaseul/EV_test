@@ -64,10 +64,10 @@ public class ServiceTermDetailActivity extends HtmlActivity {
 
     @Override
     public void getDataFromIntent() {
-        int titleId = 0;
+        String title = "";
         try {
             termVO = (TermVO)getIntent().getSerializableExtra(VariableType.KEY_NAME_TERM_VO);
-            titleId = getIntent().getIntExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, 0);
+            title = getIntent().getStringExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID);
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
@@ -76,10 +76,10 @@ public class ServiceTermDetailActivity extends HtmlActivity {
                     || TextUtils.isEmpty(termVO.getTermVer())) {
                 exitPage("약관정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }else{
-                if(titleId==0) {
+                if(TextUtils.isEmpty(title)) {
                     ui.setValue("자세히 보기");
                 }else{
-                    ui.setValue(getString(titleId));
+                    ui.setValue(title);
                 }
             }
         }
