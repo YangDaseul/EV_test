@@ -89,6 +89,13 @@ public class ApplicationModule {
     @Provides
     @Singleton
     public LoginInfoDTO provideLoginInfo(Application application){
-        return new LoginInfoDTO(application);
+
+        LoginInfoDTO loginInfoDTO = new LoginInfoDTO(application);
+
+        if(loginInfoDTO.loadLoginInfo()!=null){
+            loginInfoDTO = loginInfoDTO.loadLoginInfo();
+        }
+
+        return loginInfoDTO;
     }
 }

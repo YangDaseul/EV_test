@@ -17,31 +17,23 @@ import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.SOS_1002;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.VOCInfoVO;
-import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
-import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringRe2j;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
-import com.genesis.apps.comm.viewmodel.SOSViewModel;
 import com.genesis.apps.databinding.ActivityServiceRelapseApply11Binding;
-import com.genesis.apps.databinding.ActivityServiceSosApply1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.security.Key;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -104,8 +96,12 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
 
         if(TextUtils.isEmpty(phoneNumber)){
             ui.etRegnTn.requestFocus();
-        }else{
-            ui.etRegnTn.setText(PhoneNumberUtils.formatNumber(phoneNumber.replaceAll("-",""), Locale.getDefault().getCountry()));
+        } else {
+            ui.etRegnTn.setText(
+                    StringUtil.parsingPhoneNumber(
+                            PhoneNumberUtils.formatNumber(
+                            phoneNumber.replaceAll("-",""), Locale.getDefault().getCountry()
+                    )));
         }
     }
 

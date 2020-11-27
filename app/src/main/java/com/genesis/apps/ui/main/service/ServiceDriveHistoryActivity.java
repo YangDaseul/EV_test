@@ -128,8 +128,10 @@ public class ServiceDriveHistoryActivity extends SubActivity<ActivityServiceDriv
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
-                if (!ui.rvServiceDriveHistoryList.canScrollVertically(1) &&//scroll end
-                        adapter.getItemCount() >= PAGE_SIZE * adapter.getPageNo()) {      //페이지 포화
+                //scroll end
+                // 페이지 포화 검사해서 데이터가 더 없는 것 같으면 다음 거 달라고 안 할 생각이었는데
+                // 서버에서 받은 것 중에 버리는 데이터가 있어서 단순히 목록 길이만 보고 판단이 안 돼서 그냥 스크롤만 보고 판단
+                if (!ui.rvServiceDriveHistoryList.canScrollVertically(1)) {
                     reqNextPage();
                 }
             }

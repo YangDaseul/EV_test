@@ -154,7 +154,7 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
 
         //신청
         viewModel.getRES_VOC_1002().observe(this, result -> {
-            Log.d(TAG, "setObserver VOC 1002: " + result.status);
+            Log.d(TAG, "VOC 1002 (req) obs: " + result.status);
 
             switch (result.status) {
                 case LOADING:
@@ -192,7 +192,7 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
 
         //약관 목록 조회
         viewModel.getRES_VOC_1004().observe(this, result -> {
-            Log.d(TAG, "setObserver VOC 1004: " + result.status);
+            Log.d(TAG, "VOC 1004(terms list) obs: " + result.status);
 
             switch (result.status) {
                 case LOADING:
@@ -231,6 +231,7 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
 
         //약관 상세 조회
         viewModel.getRES_VOC_1005().observe(this, result -> {
+            Log.d(TAG, "VOC 1005(term detail) obs: " + result.status);
 
             switch (result.status) {
                 case LOADING:
