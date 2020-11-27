@@ -125,7 +125,7 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
                 break;
 
             default:
-                //do nothing
+                exitPage("서비스 세부사항을 확인할 수 없습니다.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
                 break;
         }
     }
@@ -293,7 +293,7 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
         exitPage(getString(R.string.service_review_finish), ResultCodes.REQ_CODE_NORMAL.getCode());
     }
 
-    private void rejectReview(){
+    private void rejectReview() {
         exitPage(getString(R.string.service_review_duplicate), ResultCodes.REQ_CODE_NORMAL.getCode());
     }
 
