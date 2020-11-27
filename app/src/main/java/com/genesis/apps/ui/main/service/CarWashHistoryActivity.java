@@ -15,6 +15,7 @@ import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.api.gra.WSH_1004;
 import com.genesis.apps.comm.model.api.gra.WSH_1005;
 import com.genesis.apps.comm.model.api.gra.WSH_1006;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.WashReserveVO;
 import com.genesis.apps.comm.util.PhoneUtil;
@@ -101,7 +102,7 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
 //            case R.id.tv_car_wash_history_service_end:
 //                startActivitySingleTop(
 //                        new Intent(this, ServiceReviewActivity.class)
-//                        .putExtra("transId", tag.getRsvtSeqNo()),
+//                        .putExtra(KeyNames.KEY_NAME_REVIEW_RSVT_SEQ_NO, tag.getRsvtSeqNo()),
 //                        0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 //                break;
 
