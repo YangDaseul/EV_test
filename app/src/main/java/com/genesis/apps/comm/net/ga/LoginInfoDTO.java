@@ -63,136 +63,134 @@ class LoginInfoDTO extends BaseData {
     public LoginInfoDTO loadLoginInfo() {
         LoginInfoDTO loginInfoDTO = null;
 
-        File dir = context.getFilesDir();
-        File dataDir = new File(dir, "/data");
-        if (!dataDir.exists()) dataDir.mkdirs();
+        try {
 
-        // added by mkpark
-        // 정보파일 마이그레이션(암호화 저장)
-        // 기존 암호화 되지 않은 정보가 있다면 암호화 저장 후 로딩
-        File encDataFile = new File(dataDir, "cLoginInfo.json");
-        if (!encDataFile.exists()) {
-            // 암호화된 파일이 존재하지 않음
+            File dir = context.getFilesDir();
+            File dataDir = new File(dir, "/data");
+            if (!dataDir.exists()) dataDir.mkdirs();
 
-            // 이전에 암호화 되지 않은 파일이 있는지 확인
-            File dataFile = new File(dataDir, "loginInfo.json");
-            byte[] bytes;
+            // added by mkpark
+            // 정보파일 마이그레이션(암호화 저장)
+            // 기존 암호화 되지 않은 정보가 있다면 암호화 저장 후 로딩
+            File encDataFile = new File(dataDir, "cLoginInfo.json");
+            if (!encDataFile.exists()) {
+                // 암호화된 파일이 존재하지 않음
 
-            if (dataFile.exists()) {
+                // 이전에 암호화 되지 않은 파일이 있는지 확인
+                File dataFile = new File(dataDir, "loginInfo.json");
+                byte[] bytes;
 
-                // 파일을 읽음
-                BufferedInputStream buf = null;
-                try {
-                    int size = (int) dataFile.length();
-                    bytes = new byte[size];
-                    buf = new BufferedInputStream(new FileInputStream(dataFile));
-                    buf.read(bytes, 0, bytes.length);
-                    buf.close();
-                    buf = null;
-                } catch (FileNotFoundException e) {
-                    bytes = null;
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    bytes = null;
-                    e.printStackTrace();
-                } finally {
-                    if (buf  != null) {
-                        try {
-                            buf.close();
-                        } catch (IOException ignored) {
-                        }
-                    }
-                }
+                if (dataFile.exists()) {
 
-                byte[] result = null;
-                if( bytes != null && bytes.length > 0 )
-                {
+                    // 파일을 읽음
+                    BufferedInputStream buf = null;
                     try {
-                        result = AesUtils.encryptAES128_CTR(key, new byte[16], bytes);
-                    }
-                    catch (Exception e)
-                    {
+                        int size = (int) dataFile.length();
+                        bytes = new byte[size];
+                        buf = new BufferedInputStream(new FileInputStream(dataFile));
+                        buf.read(bytes, 0, bytes.length);
+                        buf.close();
+                        buf = null;
+                    } catch (FileNotFoundException e) {
+                        bytes = null;
                         e.printStackTrace();
-                    }
-                }
-
-                if( result != null && result.length > 0 )
-                {
-                    FileOutputStream fos = null;
-                    try {
-                        fos = new FileOutputStream(encDataFile);
-                        fos.write(result);
-                        fos.close();
-                        fos = null;
-                    } catch (Exception e) {
+                    } catch (IOException e) {
+                        bytes = null;
                         e.printStackTrace();
                     } finally {
-                        if (fos != null) {
+                        if (buf != null) {
                             try {
-                                fos.close();
+                                buf.close();
                             } catch (IOException ignored) {
                             }
                         }
                     }
 
-                    dataFile.delete();
-                }
-            }
-        }else {   // 이미 암호화된 파일이 있는 상황에서 이전 파일이 존재하면 삭제
-            File dataFile = new File(dataDir, "loginInfo.json");
-            if (dataFile.exists()) dataFile.delete();
-        }
+                    byte[] result = null;
+                    if (bytes != null && bytes.length > 0) {
+                        try {
+                            result = AesUtils.encryptAES128_CTR(key, new byte[16], bytes);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-        if (encDataFile.exists()) {
-            Gson gson = new Gson();
-            //Reader reader = null;
-            BufferedInputStream buf = null;
-            try {
-                byte[] bytes = null;
+                    if (result != null && result.length > 0) {
+                        FileOutputStream fos = null;
+                        try {
+                            fos = new FileOutputStream(encDataFile);
+                            fos.write(result);
+                            fos.close();
+                            fos = null;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        } finally {
+                            if (fos != null) {
+                                try {
+                                    fos.close();
+                                } catch (IOException ignored) {
+                                }
+                            }
+                        }
+
+                        dataFile.delete();
+                    }
+                }
+            } else {   // 이미 암호화된 파일이 있는 상황에서 이전 파일이 존재하면 삭제
+                File dataFile = new File(dataDir, "loginInfo.json");
+                if (dataFile.exists()) dataFile.delete();
+            }
+
+            if (encDataFile.exists()) {
+                Gson gson = new Gson();
+                //Reader reader = null;
+                BufferedInputStream buf = null;
                 try {
-                    int size = (int) encDataFile.length();
-                    bytes = new byte[size];
-                    buf = new BufferedInputStream(new FileInputStream(encDataFile));
-                    buf.read(bytes, 0, bytes.length);
-                    buf.close();
-                    buf = null;
-                } catch (FileNotFoundException e) {
-                    bytes = null;
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    bytes = null;
-                    e.printStackTrace();
-                } finally {
-                    if (buf != null) {
+                    byte[] bytes = null;
+                    try {
+                        int size = (int) encDataFile.length();
+                        bytes = new byte[size];
+                        buf = new BufferedInputStream(new FileInputStream(encDataFile));
+                        buf.read(bytes, 0, bytes.length);
                         buf.close();
                         buf = null;
-                    }
-                }
-
-                byte[] result = null;
-                if( bytes != null && bytes.length > 0 )
-                {
-                    try {
-                        result = AesUtils.decryptAES128_CTR(key, new byte[16], bytes);
-                    }
-                    catch (Exception e)
-                    {
+                    } catch (FileNotFoundException e) {
+                        bytes = null;
                         e.printStackTrace();
+                    } catch (IOException e) {
+                        bytes = null;
+                        e.printStackTrace();
+                    } finally {
+                        if (buf != null) {
+                            buf.close();
+                            buf = null;
+                        }
                     }
-                }
 
-                if( result != null && result.length > 0 ) {
+                    byte[] result = null;
+                    if (bytes != null && bytes.length > 0) {
+                        try {
+                            result = AesUtils.decryptAES128_CTR(key, new byte[16], bytes);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    if (result != null && result.length > 0) {
 //                reader = new FileReader(new String(result));
-                    //loginInfo = gson.fromJson(reader, LoginInfo.class);
-                    loginInfoDTO = gson.fromJson( new String(result), LoginInfoDTO.class);
-                    //reader.close();
-                    //reader = null;
+                        //loginInfo = gson.fromJson(reader, LoginInfo.class);
+                        loginInfoDTO = gson.fromJson(new String(result), LoginInfoDTO.class);
+                        //reader.close();
+                        //reader = null;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-        }
 
+        }catch (Exception ignore){
+
+        }
 
         Log.d(TAG, TAG_MSG_LOGININFO + (loginInfoDTO !=null ? loginInfoDTO.toString() : "null"));
         return loginInfoDTO;
