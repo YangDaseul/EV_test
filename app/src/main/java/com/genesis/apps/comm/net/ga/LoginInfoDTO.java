@@ -252,20 +252,24 @@ class LoginInfoDTO extends BaseData {
     }
 
     public void clearLoginInfo() {
-        File dir = context.getFilesDir();
-        File dataDir = new File(dir, "/data");
-        if (!dataDir.exists()) {
-            dataDir.mkdirs();
-        }
-        File dataFile = new File(dataDir, "cLoginInfo.json");
-        if (dataFile.exists()) {
-            dataFile.delete();
-        }
+        try {
+            File dir = context.getFilesDir();
+            File dataDir = new File(dir, "/data");
+            if (!dataDir.exists()) {
+                dataDir.mkdirs();
+            }
+            File dataFile = new File(dataDir, "cLoginInfo.json");
+            if (dataFile.exists()) {
+                dataFile.delete();
+            }
 
-        // 추후 삭제
-        dataFile = new File(dataDir, "loginInfo.json");
-        if (dataFile.exists()) {
-            dataFile.delete();
+            // 추후 삭제
+            dataFile = new File(dataDir, "loginInfo.json");
+            if (dataFile.exists()) {
+                dataFile.delete();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
         this.accessToken ="";

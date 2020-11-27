@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.MYP_8005;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.NotiVO;
 import com.genesis.apps.databinding.ActivityNotiListBinding;
@@ -78,49 +79,43 @@ public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
 
     @Override
     public void setObserver() {
-        mypViewModel.getRES_MYP_8005().observe(this, responseNetUIResponse -> {
-
-            switch (responseNetUIResponse.status) {
+        mypViewModel.getRES_MYP_8005().observe(this, result -> {
+            switch (result.status) {
                 case LOADING:
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
                     //추가할 아이템이 있을 경우만 adaper 갱신
-                    if (responseNetUIResponse.data != null && responseNetUIResponse.data.getNotiList() != null && responseNetUIResponse.data.getNotiList().size() > 0) {
+                    if (result.data != null && result.data.getNotiList() != null) {
                         int itemSizeBefore = adapter.getItemCount();
                         if (adapter.getPageNo() == 0) {
-                            adapter.setRows(responseNetUIResponse.data.getNotiList());
+                            adapter.setRows(result.data.getNotiList());
 //                            adapter.setRows(getListData());
                         } else {
-                            adapter.addRows(responseNetUIResponse.data.getNotiList());
+                            adapter.addRows(result.data.getNotiList());
 //                          adapter.addRows(getListData());
 //                          Log.e(TAG, "itemSizeBefore:"+itemSizeBefore +"   currentSize:"+adapter.getItemCount());
                         }
                         adapter.setPageNo(adapter.getPageNo() + 1);
 //                      adapter.notifyDataSetChanged();
                         adapter.notifyItemRangeInserted(itemSizeBefore, adapter.getItemCount());
-                        ui.tvEmpty.setVisibility(View.GONE);
+                        ui.tvEmpty.setVisibility(result.data.getNotiList().size()==0 ? View.VISIBLE : View.GONE);
                         break;
                     }
                 default:
                     ui.tvEmpty.setVisibility(View.VISIBLE);
                     showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        SnackBarUtil.show(this, serverMsg);
+                    }
                     break;
             }
-
-//                int itemSizeBefore = adapter.getItemCount();
-//                if(adapter.getPageNo()==0) {
-////                    adapter.setRows(responseNetUIResponse.data.getNotiList());
-//                    adapter.setRows(getListData());
-//                }else{
-////                    adapter.addRows(responseNetUIResponse.data.getNotiList());
-//                    adapter.addRows(getListData());
-////                    Log.e(TAG, "itemSizeBefore:"+itemSizeBefore +"   currentSize:"+adapter.getItemCount());
-//                }
-//                adapter.setPageNo(adapter.getPageNo()+1);
-////                adapter.notifyDataSetChanged();
-//                adapter.notifyItemRangeInserted(itemSizeBefore, adapter.getItemCount());
         });
     }
 

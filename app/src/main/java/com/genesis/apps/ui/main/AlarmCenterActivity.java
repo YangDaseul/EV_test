@@ -134,7 +134,9 @@ public class AlarmCenterActivity extends SubActivity<ActivityAlarmCenterBinding>
                                 break;
                             case AlarmCenterRecyclerAdapter.ALARM_TYPE_ACCORDION:
                             default:
-                                adapter.eventAccordion(pos);
+                                adapter.notifyItemChanged(pos);
+                                //todo 테스트 필요.
+                                //뷰홀더에서 이미 처리 진행됨
                                 break;
                         }
                     }

@@ -56,7 +56,7 @@ public class InteractionUtil {
             });
         }
 
-        a.setDuration((int) (targtetHeight / v.getContext().getResources().getDisplayMetrics().density));
+        a.setDuration(((int) (targtetHeight / v.getContext().getResources().getDisplayMetrics().density))*3);
         v.startAnimation(a);
     }
 
@@ -152,7 +152,7 @@ public class InteractionUtil {
             });
         }
 
-        a.setDuration((int) (initialHeight / v.getContext().getResources().getDisplayMetrics().density));
+        a.setDuration( ((int) (initialHeight / v.getContext().getResources().getDisplayMetrics().density))*3);
         v.startAnimation(a);
     }
 }

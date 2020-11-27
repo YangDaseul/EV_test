@@ -7,6 +7,8 @@ import android.view.View;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.genesis.apps.comm.util.InteractionUtil;
+
 public abstract class BaseViewHolder<D,B> extends RecyclerView.ViewHolder{
 
     private final B binding;
@@ -33,5 +35,18 @@ public abstract class BaseViewHolder<D,B> extends RecyclerView.ViewHolder{
 
     public void setContext(Context context) {
         this.context = context;
+    }
+
+
+    public void changeVisibility(View targetView, View scrollView, boolean visible) {
+        if (visible) {
+            if (targetView.getVisibility() != View.VISIBLE) {
+                InteractionUtil.expand(targetView, scrollView);
+            }
+        } else {
+            if (targetView.getVisibility() == View.VISIBLE) {
+                InteractionUtil.collapse(targetView, scrollView);
+            }
+        }
     }
 }

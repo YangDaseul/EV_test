@@ -1,6 +1,5 @@
 package com.genesis.apps.ui.main;
 
-import android.animation.ValueAnimator;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -22,7 +21,7 @@ import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 public class AlarmCenterRecyclerAdapter extends BaseRecyclerViewAdapter2<NotiInfoVO> {
 
     // Item의 클릭 상태를 저장할 array 객체
-    private static SparseBooleanArray selectedItems = new SparseBooleanArray();
+    private SparseBooleanArray selectedItems = new SparseBooleanArray();
     private int pageNo = 0;
     private static OnSingleClickListener onSingleClickListener;
     public AlarmCenterRecyclerAdapter(OnSingleClickListener onSingleClickListener) {
@@ -32,30 +31,12 @@ public class AlarmCenterRecyclerAdapter extends BaseRecyclerViewAdapter2<NotiInf
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.v("recyclerview test2", "create :");
-        return new ItemAlarmCenter(getView(parent, R.layout.item_accodian_alarm));
+        return new ItemAlarmCenter(getView(parent, R.layout.item_accodian_alarm), selectedItems);
     }
 
     @Override
     public void onBindViewHolder(final BaseViewHolder holder, int position) {
-        Log.v("recyclerview onBindViewHolder", "position pos:" + position);
-//                super.onBindViewHolder(holder, position);
-//        ItemAlarmCenter viewHolder = ((ItemAlarmCenter) holder);
-        holder.onBindView(getItem(position), position, selectedItems);
-
-//        viewHolder.getBinding().lTitle.setOnClickListener(view -> {
-//            Log.v("recyclerview onclick", "position pos:" + position);
-//            if (selectedItems.get(position)) {
-//                // 펼쳐진 Item을 클릭 시
-//                selectedItems.delete(position);
-//            } else {
-//                // 클릭한 Item의 position을 저장
-//                selectedItems.put(position, true);
-//            }
-//            notifyItemChanged(position);
-//
-//        });
-
-
+        holder.onBindView(getItem(position), position);
     }
 
     public int getPageNo() {
@@ -66,29 +47,36 @@ public class AlarmCenterRecyclerAdapter extends BaseRecyclerViewAdapter2<NotiInf
         this.pageNo = pageNo;
     }
 
-//        public interface AutoScroll{
-//                void updateScroll(final int position);
-//        }
-
-    public void eventAccordion(int position){
-        Log.v("recyclerview onclick", "position pos:" + position);
-        if (selectedItems.get(position)) {
-            // 펼쳐진 Item을 클릭 시
-            selectedItems.delete(position);
-        } else {
-            // 클릭한 Item의 position을 저장
-            selectedItems.put(position, true);
-        }
-        notifyItemChanged(position);
-    }
-
-
     private static class ItemAlarmCenter extends BaseViewHolder<NotiInfoVO, ItemAccodianAlarmBinding> {
 
+        private SparseBooleanArray selectedItems;
 
-        public ItemAlarmCenter(View itemView) {
+        public ItemAlarmCenter(View itemView, SparseBooleanArray selectedItems) {
             super(itemView);
-            getBinding().lTitle.setOnClickListener(onSingleClickListener);
+
+            this.selectedItems = selectedItems;
+
+            getBinding().lTitle.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+
+                    NotiInfoVO item = (NotiInfoVO)v.getTag(R.id.noti_info);
+                    //아코디언 형태의 아이템인 경우 펼침/접음 처리 진행
+                    if (item != null && getAccordionType(item).equalsIgnoreCase(AlarmCenterRecyclerAdapter.ALARM_TYPE_ACCORDION)) {
+                        int position = Integer.parseInt(v.getTag(R.id.position).toString());
+
+                        if (selectedItems.get(position)) {
+                            // 펼쳐진 Item을 클릭 시
+                            selectedItems.delete(position);
+                        } else {
+                            // 클릭한 Item의 position을 저장
+                            selectedItems.put(position, true);
+                        }
+                        changeViewStatus(selectedItems.get(position));
+                    }
+                    onSingleClickListener.onSingleClick(v);
+                }
+            });
         }
 
         @Override
@@ -98,11 +86,6 @@ public class AlarmCenterRecyclerAdapter extends BaseRecyclerViewAdapter2<NotiInf
 
         @Override
         public void onBindView(NotiInfoVO item, int pos) {
-
-        }
-
-        @Override
-        public void onBindView(NotiInfoVO item, int pos, SparseBooleanArray selectedItems) {
             getBinding().btnDetail.setOnClickListener(null);
             getBinding().lTitle.setTag(R.id.noti_info, item);
             getBinding().lTitle.setTag(R.id.position, pos);
@@ -155,42 +138,27 @@ public class AlarmCenterRecyclerAdapter extends BaseRecyclerViewAdapter2<NotiInf
 
                     getBinding().ivArrow.setBackgroundResource(selectedItems.get(pos) ? R.drawable.g_list_icon_close : R.drawable.g_list_icon_open);
                     getBinding().lContents.setVisibility(selectedItems.get(pos) ? View.VISIBLE : View.GONE);
-                    changeVisibility(selectedItems.get(pos), pos);
                     break;
             }
         }
 
+        @Override
+        public void onBindView(NotiInfoVO item, int pos, SparseBooleanArray selectedItems) {
 
-        private void changeVisibility(final boolean isExpanded, final int position) {
-            if (isExpanded) {
-                getBinding().lContents.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                getBinding().lContents.requestLayout();
-            }
+        }
 
-            if (getBinding().lContents.getVisibility() == View.VISIBLE && isExpanded)
-                return;
 
-            // ValueAnimator.ofInt(int... values)는 View가 변할 값을 지정, 인자는 int 배열
-            ValueAnimator va = isExpanded ? ValueAnimator.ofInt(0, getBinding().lContents.getHeight()) : ValueAnimator.ofInt(getBinding().lContents.getHeight(), 0);
-            // Animation이 실행되는 시간, n/1000초
-            va.setDuration(500);
-            va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    // imageView의 높이 변경
-                    getBinding().lContents.getLayoutParams().height = (int) animation.getAnimatedValue();
-                    getBinding().lContents.requestLayout();
-                    // imageView가 실제로 사라지게하는 부분
-                    getBinding().lContents.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
-                }
-            });
-            // Animation start
-            va.start();
+        //세부사항 뷰의 개폐 상태가 변경되는 애니메이션을 처리
+        // (클릭해서 상태를 토글할 때 호출됨)
+        private void changeViewStatus(boolean opened) {
+            getBinding().ivArrow.setBackgroundResource(opened ? R.drawable.g_list_icon_close : R.drawable.g_list_icon_open);
+            changeVisibility(
+                    getBinding().lContents, //개폐 애니메이션 대상 뷰
+                    getBinding().lWhole, //애니 재생동안 스크롤 막아야되는 뷰
+                    opened); //개폐 상태
         }
 
     }
-
-
 
     public static final String ALARM_TYPE_NORMAL_NATIVE="NORMAL_NATIVE";
     public static final String ALARM_TYPE_NORMAL_WEBVIEW="NORMAL_WEBVIEW";

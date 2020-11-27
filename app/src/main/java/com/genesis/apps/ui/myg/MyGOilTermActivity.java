@@ -7,11 +7,14 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.api.gra.MYP_1006;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.OIL_0001;
 import com.genesis.apps.comm.model.api.gra.OIL_0002;
 import com.genesis.apps.comm.model.api.gra.OIL_0004;
 import com.genesis.apps.comm.model.constants.KeyNames;
@@ -19,38 +22,27 @@ import com.genesis.apps.comm.model.constants.OilCodes;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.OIL_0001;
 import com.genesis.apps.comm.model.vo.AgreeMeansVO;
 import com.genesis.apps.comm.model.vo.AgreeTermVO;
-import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.OILViewModel;
-import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.databinding.ActivityMygOilTermBinding;
 import com.genesis.apps.databinding.ItemTermBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.view.TermView;
 import com.genesis.apps.ui.main.ServiceTermDetailActivity;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_OIL_JOIN_GSCT0007;
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_OIL_JOIN_HDOL0005;
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_OIL_JOIN_SOIL0003;
-import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0005;
-import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_GSCT;
-import static com.genesis.apps.comm.model.vo.TermVO.TERM_ESN_AGMT_N;
 
 public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
 
