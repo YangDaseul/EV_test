@@ -121,12 +121,13 @@ public class MyCarDetailActivity extends SubActivity<ActivityMyCarDetailBinding>
                 default:
                     showProgressDialog(false);
                     //TODO 예외처리 필요
+
+
                     break;
             }
         });
 
         gnsViewModel.getRES_GNS_1002().observe(this, result -> {
-
             switch (result.status){
                 case LOADING:
                     showProgressDialog(true);
@@ -138,14 +139,21 @@ public class MyCarDetailActivity extends SubActivity<ActivityMyCarDetailBinding>
                         tmpCarRgstNo="";
                         initView();
                         SnackBarUtil.show(this, getString(R.string.gm_carlst01_snackbar_2));
-                    }else{
-                        SnackBarUtil.show(this, TextUtils.isEmpty(result.data.getRtMsg()) ? "네트워크 상태 불안정" : result.data.getRtMsg());
+                        break;
                     }
-
-                    break;
                 default:
                     showProgressDialog(false);
-                    //TODO 예외처리필요
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
+                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                    }
                     break;
             }
         });
@@ -167,13 +175,21 @@ public class MyCarDetailActivity extends SubActivity<ActivityMyCarDetailBinding>
                         //TODO UPDATE VEHICLE VO TO DB 진행 필요
                         initView();
                         SnackBarUtil.show(this, getString(R.string.gm_carlst01_snackbar_4));
-                    }else{
-                        SnackBarUtil.show(this, TextUtils.isEmpty(result.data.getRtMsg()) ? "네트워크 상태 불안정" : result.data.getRtMsg());
+                        break;
                     }
-                    break;
                 default:
                     showProgressDialog(false);
-                    //TODO 예외처리필요
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
+                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                    }
                     break;
             }
         });
@@ -254,16 +270,24 @@ public class MyCarDetailActivity extends SubActivity<ActivityMyCarDetailBinding>
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
-                    if(result.data.getRtCd().equalsIgnoreCase("0000")&&result.data.getCpnList()!=null&&result.data.getCpnList().size()>0){
+                    if(result.data.getCpnList()!=null&&result.data.getCpnList().size()>0) {
                         setViewCoupon(result.data.getCpnList());
-//                        SnackBarUtil.show(this, getString(R.string.gm_carlst01_snackbar_4));
-                    }else{
-//                        SnackBarUtil.show(this, TextUtils.isEmpty(result.data.getRtMsg()) ? "네트워크 상태 불안정" : result.data.getRtMsg());
+                        break;
                     }
-                    break;
                 default:
                     showProgressDialog(false);
-                    //TODO 예외처리필요
+                    setViewCoupon(null);
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
+                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                    }
                     break;
             }
         });
@@ -271,40 +295,54 @@ public class MyCarDetailActivity extends SubActivity<ActivityMyCarDetailBinding>
     }
 
     private void setViewCoupon(List<CouponVO> list) {
-        for(CouponVO couponVO : list){
-            String cnt = (TextUtils.isEmpty(couponVO.getRemCnt()) ? "--" : couponVO.getRemCnt())+getString(R.string.gm_carlst_04_16);
-            switch (couponVO.getItemDivCd()){
-                case VariableType.COUPON_CODE_ENGINE:
-                    ui.tvPartEngineOilCnt.setText(cnt);
-                    ui.tvPartOilFilterCnt.setText(cnt);
-                    ui.tvPartAirCleanerCnt.setText(cnt);
-                    ui.tvTitlePartEngine.setText((TextUtils.isEmpty(couponVO.getItemNm()) ? getString(R.string.gm_carlst_04_7) : couponVO.getItemNm()));
-                    break;
-                case VariableType.COUPON_CODE_FILTER:
-                    ui.tvPartAirConditionerFilterCnt.setText(cnt);
-                    ui.tvTitlePartAirConditionerFilter.setText((TextUtils.isEmpty(couponVO.getItemNm()) ? getString(R.string.gm_carlst_04_11) : couponVO.getItemNm()));
-                    break;
-                case VariableType.COUPON_CODE_BREAK_PAD:
-                    ui.tvPartBreakPadCnt.setText(cnt);
-                    ui.tvTitlePartBreakPad.setText((TextUtils.isEmpty(couponVO.getItemNm()) ? getString(R.string.gm_carlst_04_12) : couponVO.getItemNm()));
-                    break;
-                case VariableType.COUPON_CODE_WIPER:
-                    ui.tvPartWiperCnt.setText(cnt);
-                    ui.tvTitlePartWiper.setText((TextUtils.isEmpty(couponVO.getItemNm()) ? getString(R.string.gm_carlst_04_13) : couponVO.getItemNm()));
-                    break;
-                case VariableType.COUPON_CODE_BREAK_OIL:
-                    ui.tvPartBreakCnt.setText(cnt);
-                    ui.tvTitlePartBreak.setText((TextUtils.isEmpty(couponVO.getItemNm()) ? getString(R.string.gm_carlst_04_14) : couponVO.getItemNm()));
-                    break;
-                case VariableType.COUPON_CODE_PICKUP_DELIVERY:
-                    ui.tvPartHomeCnt.setText(cnt);
-                    ui.tvTitlePartHome.setText((TextUtils.isEmpty(couponVO.getItemNm()) ? getString(R.string.gm_carlst_04_15) : couponVO.getItemNm()));
-                    break;
-                case VariableType.COUPON_CODE_SONAKS:
-                default:
-                    //처리안함
-                    break;
+
+        if(list!=null&&list.size()>0) {
+
+            for (CouponVO couponVO : list) {
+                String cnt = (TextUtils.isEmpty(couponVO.getRemCnt()) ? "0" : couponVO.getRemCnt()) +" "+getString(R.string.gm_carlst_04_16);
+                switch (couponVO.getItemDivCd()) {
+                    case VariableType.COUPON_CODE_ENGINE:
+                        ui.tvPartEngineOilCnt.setText(cnt);
+                        ui.tvPartOilFilterCnt.setText(cnt);
+                        ui.tvPartAirCleanerCnt.setText(cnt);
+                        ui.tvTitlePartEngine.setText((TextUtils.isEmpty(couponVO.getItemNm()) ? getString(R.string.gm_carlst_04_7) : couponVO.getItemNm()));
+                        break;
+                    case VariableType.COUPON_CODE_FILTER:
+                        ui.tvPartAirConditionerFilterCnt.setText(cnt);
+                        ui.tvTitlePartAirConditionerFilter.setText((TextUtils.isEmpty(couponVO.getItemNm()) ? getString(R.string.gm_carlst_04_11) : couponVO.getItemNm()));
+                        break;
+                    case VariableType.COUPON_CODE_BREAK_PAD:
+                        ui.tvPartBreakPadCnt.setText(cnt);
+                        ui.tvTitlePartBreakPad.setText((TextUtils.isEmpty(couponVO.getItemNm()) ? getString(R.string.gm_carlst_04_12) : couponVO.getItemNm()));
+                        break;
+                    case VariableType.COUPON_CODE_WIPER:
+                        ui.tvPartWiperCnt.setText(cnt);
+                        ui.tvTitlePartWiper.setText((TextUtils.isEmpty(couponVO.getItemNm()) ? getString(R.string.gm_carlst_04_13) : couponVO.getItemNm()));
+                        break;
+                    case VariableType.COUPON_CODE_BREAK_OIL:
+                        ui.tvPartBreakCnt.setText(cnt);
+                        ui.tvTitlePartBreak.setText((TextUtils.isEmpty(couponVO.getItemNm()) ? getString(R.string.gm_carlst_04_14) : couponVO.getItemNm()));
+                        break;
+                    case VariableType.COUPON_CODE_PICKUP_DELIVERY:
+                        ui.tvPartHomeCnt.setText(cnt);
+                        ui.tvTitlePartHome.setText((TextUtils.isEmpty(couponVO.getItemNm()) ? getString(R.string.gm_carlst_04_15) : couponVO.getItemNm()));
+                        break;
+                    case VariableType.COUPON_CODE_SONAKS:
+                    default:
+                        //처리안함
+                        break;
+                }
             }
+        }else{
+            String cnt = "0 "+getString(R.string.gm_carlst_04_16);
+            ui.tvPartEngineOilCnt.setText(cnt);
+            ui.tvPartOilFilterCnt.setText(cnt);
+            ui.tvPartAirCleanerCnt.setText(cnt);
+            ui.tvPartAirConditionerFilterCnt.setText(cnt);
+            ui.tvPartBreakPadCnt.setText(cnt);
+            ui.tvPartWiperCnt.setText(cnt);
+            ui.tvPartBreakCnt.setText(cnt);
+            ui.tvPartHomeCnt.setText(cnt);
         }
     }
 

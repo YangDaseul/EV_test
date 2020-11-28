@@ -70,35 +70,46 @@ public class MyCarActivity extends SubActivity<ActivityMyCarBinding> {
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    showProgressDialog(false);
-
-                    gnsViewModel.setGNS1001ToDB(result.data, new ResultCallback() {
-                        @Override
-                        public void onSuccess(Object object) {
-                            try {
-                                if (Boolean.parseBoolean(object.toString())) {
-                                    List<VehicleVO> list = new ArrayList<>();
-                                    list.addAll(gnsViewModel.getVehicleList());
-                                    ui.vpCar.setOffscreenPageLimit(list.size());
-                                    adapter.setRows(list);
-                                    adapter.notifyDataSetChanged();
-                                    //이동효과를 주는데 노티파이체인지와 딜레이없이 콜하면 효과가 중첩되어 사라저서 100ms 후 처리 진행
-                                    new Handler().postDelayed(() -> ui.vpCar.setCurrentItem(0, true), 100);
+                    if(result.data!=null){
+                        gnsViewModel.setGNS1001ToDB(result.data, new ResultCallback() {
+                            @Override
+                            public void onSuccess(Object object) {
+                                try {
+                                    if (Boolean.parseBoolean(object.toString())) {
+                                        List<VehicleVO> list = new ArrayList<>();
+                                        list.addAll(gnsViewModel.getVehicleList());
+                                        ui.vpCar.setOffscreenPageLimit(list.size());
+                                        adapter.setRows(list);
+                                        adapter.notifyDataSetChanged();
+                                        //이동효과를 주는데 노티파이체인지와 딜레이없이 콜하면 효과가 중첩되어 사라저서 100ms 후 처리 진행
+                                        new Handler().postDelayed(() -> ui.vpCar.setCurrentItem(0, true), 100);
+                                    }
+                                }catch (Exception e){
+                                    //TODO 예외처리 필요
                                 }
-                            }catch (Exception e){
-                                //TODO 예외처리 필요
+                                showProgressDialog(false);
                             }
-                        }
 
-                        @Override
-                        public void onError(Object e) {
-                        //TODO 예외처리 필요
-                        }
-                    });
-                    break;
+                            @Override
+                            public void onError(Object e) {
+                                showProgressDialog(false);
+                            }
+                        });
+                        break;
+                    }
                 default:
                     showProgressDialog(false);
-                    //TODO 예외처리 필요
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
+                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                    }
                     break;
             }
         });
@@ -174,9 +185,8 @@ public class MyCarActivity extends SubActivity<ActivityMyCarBinding> {
             case R.id.iv_car:
                 VehicleVO vehicleVO1 = (VehicleVO)v.getTag(R.id.vehicle);
                 if(vehicleVO1!=null
-                        &&!vehicleVO1.getDelExpYn().equalsIgnoreCase(VariableType.DELETE_EXPIRE_Y) //삭제 예정 차량이 아니고
+//                        &&!vehicleVO1.getDelExpYn().equalsIgnoreCase(VariableType.DELETE_EXPIRE_Y) //삭제 예정 차량이 아니고 //todo 삭제 예정차량 클릭못했었나 ?
                         &&vehicleVO1.getCustGbCd().equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)){//소유 차량이면
-                    //TODO 차고 상세페이지로 이동
                     startActivitySingleTop(new Intent(this, MyCarDetailActivity.class).putExtra(KeyNames.KEY_NAME_VEHICLE, vehicleVO1).putExtra(KeyNames.KEY_NAME_VEHICLE_OWNER_COUNT, adapter.getVehicleOwnerCnt()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_ZOON);
                 }
 
@@ -209,7 +219,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarBinding> {
                     actoprRgstYn = "N";
                 }finally{
 
-                    if(actoprRgstYn.equalsIgnoreCase("N")){
+                    if(actoprRgstYn==null||actoprRgstYn.equalsIgnoreCase("N")){
                         //등록확인메뉴로 이동
                         startActivitySingleTop(new Intent(this, LeasingCarVinRegisterActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     }else{

@@ -14,7 +14,6 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.LGN_0002;
 import com.genesis.apps.comm.model.api.gra.LGN_0003;
 import com.genesis.apps.comm.model.vo.MainHistVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
@@ -84,14 +83,6 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
             }
         });
 
-        lgnViewModel.getRES_LGN_0002().observe(getViewLifecycleOwner(), result -> {
-            switch (result.status) {
-                case SUCCESS:
-
-
-                    break;
-            }
-        });
     }
 
     private void setViewModel() {
@@ -216,7 +207,6 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
             e.printStackTrace();
         }
 
-        lgnViewModel.reqLGN0002(new LGN_0002.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
         lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
         ((MainActivity) getActivity()).setGNB(false, 1, View.GONE);
     }

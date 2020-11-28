@@ -44,6 +44,8 @@ public class CarHorizontalAdapter extends BaseRecyclerViewAdapter2<VehicleVO> {
     private static class ItemCar extends BaseViewHolder<VehicleVO, ItemMyCarBinding> {
         public ItemCar(View itemView) {
             super(itemView);
+            getBinding().ivCar.setOnClickListener(onSingleClickListener);
+            ViewPressEffectHelper.attach(getBinding().ivCar);
         }
 
         @Override
@@ -55,8 +57,7 @@ public class CarHorizontalAdapter extends BaseRecyclerViewAdapter2<VehicleVO> {
         public void onBindView(VehicleVO item, final int pos) {
             getBinding().tvModel.setVisibility(View.VISIBLE);
             getBinding().ivCar.setVisibility(View.VISIBLE);
-            getBinding().ivCar.setOnClickListener(null);
-            getBinding().ivCar.setOnTouchListener(null);
+            getBinding().ivCar.setTag(R.id.vehicle, item);
             getBinding().tvCarRgstNo.setVisibility(View.GONE);
             getBinding().ivFavorite.setVisibility(View.GONE);
             getBinding().tvCarStatus.setVisibility(View.GONE);
@@ -87,9 +88,6 @@ public class CarHorizontalAdapter extends BaseRecyclerViewAdapter2<VehicleVO> {
                     case VariableType.MAIN_VEHICLE_TYPE_OV:
                         getBinding().ivFavorite.setVisibility(View.VISIBLE);
                         getBinding().ivFavorite.setImageResource(item.getMainVhclYn().equalsIgnoreCase(VariableType.MAIN_VEHICLE_N) ? R.drawable.ic_star_s : R.drawable.ic_star_l_s);
-                        getBinding().ivCar.setOnClickListener(onSingleClickListener);
-                        getBinding().ivCar.setTag(R.id.vehicle, item);
-                        ViewPressEffectHelper.attach(getBinding().ivCar);
                         break;
                     case VariableType.MAIN_VEHICLE_TYPE_CV:
                         getBinding().tvCarStatus.setVisibility(View.VISIBLE);
