@@ -139,7 +139,7 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
                 selectfltCd();
                 break;
             case R.id.btn_question:
-                //TODO HTML 웹뷰 페이지로 이동.. 전문 호출 필요
+                startActivitySingleTop(new Intent(this, ServiceSOSPayInfoActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.btn_next://다음
                 doNext();

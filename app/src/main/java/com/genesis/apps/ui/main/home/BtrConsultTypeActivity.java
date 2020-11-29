@@ -37,15 +37,14 @@ public class BtrConsultTypeActivity extends SubActivity<ActivityBtrConsultType1B
     private TextView[] textTitleViews;
     private ConstraintSet[] constraintSets = new ConstraintSet[layouts.length];
     private String[] selectCdValId = new String[layouts.length];
-    private List<CounselCodeVO> listCnsl;
-    private List<CounselCodeVO> listLgct;
-    private List<CounselCodeVO> listMdct;
-    private List<CounselCodeVO> listSmct;
+    private List<CounselCodeVO> listCnsl = new ArrayList<>();
+    private List<CounselCodeVO> listLgct = new ArrayList<>();
+    private List<CounselCodeVO> listMdct = new ArrayList<>();
+    private List<CounselCodeVO> listSmct = new ArrayList<>();
     private String vin;
 
     private BTRViewModel btrViewModel;
-//    private String vin;
-//    private BtrVO btrVO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,12 +92,24 @@ public class BtrConsultTypeActivity extends SubActivity<ActivityBtrConsultType1B
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
-                    if(result.data!=null){
-                        initSelectCdValid(result.data);
+                    if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
+                        try {
+                            initSelectCdValid(result.data);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        break;
                     }
-                    break;
                 default:
                     showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        SnackBarUtil.show(this, serverMsg);
+                    }
                     break;
             }
         });
@@ -119,7 +130,7 @@ public class BtrConsultTypeActivity extends SubActivity<ActivityBtrConsultType1B
                 selectCdValId[1]="";
                 selectCdValId[2]="";
                 selectCdValId[3]="";
-                listCnsl = result.getCdList();
+                listCnsl.addAll(result.getCdList());
                 msg = String.format(getString(R.string.gm_bt04_2),"");
                 break;
             case VariableType.BTR_CNSL_CODE_LARGE:
@@ -128,7 +139,7 @@ public class BtrConsultTypeActivity extends SubActivity<ActivityBtrConsultType1B
                 selectCdValId[1]="";
                 selectCdValId[2]="";
                 selectCdValId[3]="";
-                listLgct = result.getCdList();
+                listLgct.addAll(result.getCdList());
                 msg = String.format(getString(R.string.gm_bt04_2),getString(R.string.gm_bt04_7));
                 break;
             case VariableType.BTR_CNSL_CODE_MEDIUM:
@@ -136,14 +147,14 @@ public class BtrConsultTypeActivity extends SubActivity<ActivityBtrConsultType1B
                 selectCdValId[1]=result.getLgrCatCd();
                 selectCdValId[2]="";
                 selectCdValId[3]="";
-                listMdct = result.getCdList();
+                listMdct.addAll(result.getCdList());
                 msg = String.format(getString(R.string.gm_bt04_2),getString(R.string.gm_bt04_8));
                 break;
             case VariableType.BTR_CNSL_CODE_SMALL:
                 nextPos=3;
                 selectCdValId[2]=result.getMdlCatCd();
                 selectCdValId[3]="";
-                listSmct = result.getCdList();
+                listSmct.addAll(result.getCdList());
                 msg = String.format(getString(R.string.gm_bt04_2),getString(R.string.gm_bt04_9));
                 break;
         }

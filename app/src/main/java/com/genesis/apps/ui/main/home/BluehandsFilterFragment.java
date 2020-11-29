@@ -71,6 +71,14 @@ public class BluehandsFilterFragment extends SubFragment<FragmentBluehandsFilter
                     break;
                 default:
                     ((SubActivity)getActivity()).showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        SnackBarUtil.show(getActivity(), serverMsg);
+                    }
                     break;
             }
         });

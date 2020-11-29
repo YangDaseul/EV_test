@@ -140,7 +140,6 @@ public class BTRRepo {
 
     public MutableLiveData<NetUIResponse<BTR_1010.Response>> REQ_BTR_1010(final BTR_1010.Request reqData) {
         RES_BTR_1010.setValue(NetUIResponse.loading(null));
-
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {

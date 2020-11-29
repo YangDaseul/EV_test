@@ -151,18 +151,24 @@ public class LeasingCarVinRegisterActivity extends SubActivity<ActivityLeasingCa
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
-
-                    if(result.data.getRgstPsblYn().equalsIgnoreCase("Y")){
+                    if(!TextUtils.isEmpty(result.data.getRgstPsblYn())&&result.data.getRgstPsblYn().equalsIgnoreCase("Y")){
                         startActivitySingleTop(new Intent(this, LeasingCarRegisterInputActivity.class).putExtra(KEY_NAME_VIN, ui.etVin.getText().toString().trim()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                         finish();
-                    }else{
+                        break;
+                    }else if(!TextUtils.isEmpty(result.data.getRgstPsblYn())&&result.data.getRgstPsblYn().equalsIgnoreCase("N")) {
                         SnackBarUtil.show(this, getString(R.string.gm_carlst_01_snackbar_3));
+                        break;
                     }
-
-
-                    break;
                 default:
                     showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        SnackBarUtil.show(this, serverMsg);
+                    }
                     break;
 
 

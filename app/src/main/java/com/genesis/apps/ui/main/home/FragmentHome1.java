@@ -53,6 +53,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 import static android.app.Activity.RESULT_OK;
 import static com.google.android.exoplayer2.Player.REPEAT_MODE_ALL;
+import static com.google.android.exoplayer2.Player.STATE_IDLE;
 
 @AndroidEntryPoint
 public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
@@ -472,6 +473,11 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     private void videoPauseAndResume(boolean isResume){
         Log.v("video player status","isResume:"+isResume);
+
+        if(isResume&&player!=null&&player.getPlaybackState()==STATE_IDLE){
+            setVideo();
+        }
+
         player.setPlayWhenReady(isResume);
     }
 

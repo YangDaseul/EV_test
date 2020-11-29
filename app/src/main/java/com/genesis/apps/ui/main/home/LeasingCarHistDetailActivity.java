@@ -31,7 +31,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 /**
  * @author hjpark
- * @brief 렌트/리스 실 운행자 등록 (차대번호 입력)
  */
 public class LeasingCarHistDetailActivity extends SubActivity<ActivityLeasingCarHistDetailBinding> {
     private GNSViewModel gnsViewModel;

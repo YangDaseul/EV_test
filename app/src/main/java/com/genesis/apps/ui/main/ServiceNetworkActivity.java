@@ -111,8 +111,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                                     setPosition(reqViewModel.getRES_REQ_1002().getValue().data.getAsnList(), btrVO);
                                     break;
                             }
-
-
                         }
                         break;
                     default:
@@ -222,7 +220,14 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     }
                 default:
                     showProgressDialog(false);
-                    SnackBarUtil.show(this, getString(R.string.gm_bt06_snackbar_2));
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.gm_bt06_snackbar_2) : serverMsg);
+                    }
                     break;
             }
         });

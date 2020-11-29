@@ -1,7 +1,6 @@
 package com.genesis.apps.comm.model.repo;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.gra.STO_1001;
 import com.genesis.apps.comm.model.api.gra.STO_1002;

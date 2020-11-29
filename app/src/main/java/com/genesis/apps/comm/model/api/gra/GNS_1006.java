@@ -93,10 +93,11 @@ public class GNS_1006 extends BaseData {
         @SerializedName("empCertiImgYn")
         private String empCertiImgYn;
 
-        public Request(String menuId, String vin, String csmrScnCd, String rentPeriod, String crdRcvScnCd, String crdRcvZip, String crdRcvAdr, String crdRcvDtlAdr, String cnttImgYn, String empCertiImgYn){
+        public Request(String menuId, String vin, String csmrScnCd, String rentPeriod, String asnCd, String crdRcvScnCd, String crdRcvZip, String crdRcvAdr, String crdRcvDtlAdr, String cnttImgYn, String empCertiImgYn){
             this.vin = vin;
             this.csmrScnCd = csmrScnCd;
             this.rentPeriod = rentPeriod;
+            this.asnCd = asnCd;
             this.crdRcvScnCd = crdRcvScnCd;
             this.crdRcvZip = crdRcvZip;
             this.crdRcvAdr = crdRcvAdr;

@@ -80,9 +80,11 @@ class BTRViewModel extends ViewModel {
 
     public BtrVO getBtrVO(String asnCd){
 
-        for(BtrVO btrVO : RES_BTR_1008.getValue().data.getAsnList()){
-            if(btrVO.getAsnCd().equalsIgnoreCase(asnCd)){
-                return btrVO;
+        if(RES_BTR_1008.getValue()!=null&&RES_BTR_1008.getValue().data!=null&&RES_BTR_1008.getValue().data.getAsnList()!=null) {
+            for (BtrVO btrVO : RES_BTR_1008.getValue().data.getAsnList()) {
+                if (btrVO.getAsnCd().equalsIgnoreCase(asnCd)) {
+                    return btrVO;
+                }
             }
         }
 

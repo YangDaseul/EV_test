@@ -53,12 +53,12 @@ public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBi
     public void getDataFromIntent() {
         try {
             vin = getIntent().getStringExtra(KeyNames.KEY_NAME_VIN);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
             if (TextUtils.isEmpty(vin)) {
                 exitPage("차대번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            exitPage("차대번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
         }
     }
 
@@ -72,29 +72,34 @@ public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBi
     @Override
     public void setObserver() {
         btrViewModel.getRES_BTR_1001().observe(this, result -> {
-
             switch (result.status){
                 case LOADING:
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    showProgressDialog(false);
-                    try {
-                        btrVO = ((BtrVO)result.data.getBtrVO().clone());
-                    }catch (Exception e){
+                    if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")&&result.data.getBtrVO()!=null){
+                        try {
+                            btrVO = ((BtrVO)result.data.getBtrVO().clone());
+                        }catch (Exception e){
 
+                        }finally {
+                            if(btrVO!=null) {
+                                setViewBtrInfo();
+                                showProgressDialog(false);
+                                break;
+                            }
+                        }
                     }
-                    if(btrVO!=null) {
-                        setViewBtrInfo();
-                    }else{
-                        //todo 예외처리 확인 필요
-                    }
-
-
-                    break;
                 default:
                     showProgressDialog(false);
-                    //TODO 예외처리 필요
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    }
                     break;
             }
         });

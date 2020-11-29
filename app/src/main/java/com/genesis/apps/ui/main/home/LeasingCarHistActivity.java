@@ -120,32 +120,42 @@ public class LeasingCarHistActivity extends SubActivity<ActivityLeasingCarHistBi
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    showProgressDialog(false);
 
-                    if(result.data!=null&&result.data.getSubspList()!=null&&result.data.getSubspList().size()>0){
-                        List<RentStatusVO> list;
-                        adapter.clear();
-                        if(result.data.getSubspList().size()>2){
-                            list = new ArrayList<>( result.data.getSubspList().subList(0,3));
-                            adapter.setMore(true);
+                    if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
+                        if(result.data.getSubspList()!=null&&result.data.getSubspList().size()>0) {
+                            List<RentStatusVO> list = new ArrayList<>();
+                            adapter.clear();
+                            if (result.data.getSubspList().size() > 2) {
+                                list = new ArrayList<>(result.data.getSubspList().subList(0, 3));
+                                adapter.setMore(true);
+                            } else {
+                                list.addAll(result.data.getSubspList());
+                                adapter.setMore(false);
+                            }
+                            adapter.setRows(list);
+                            adapter.notifyDataSetChanged();
+                            ui.tvEmpty.setVisibility(View.GONE);
+
                         }else{
-                            list = result.data.getSubspList();
-                            adapter.setMore(false);
-                        }
-                        adapter.setRows(list);
-                        adapter.notifyDataSetChanged();
-                        ui.tvEmpty.setVisibility(View.GONE);
-
-                        if (isApply) {
-                            SnackBarUtil.show(this, getString(R.string.gm_carlist_01_01_snackbar_1));
+                            ui.tvEmpty.setVisibility(View.VISIBLE);
                         }
 
+                        if (isApply) SnackBarUtil.show(this, getString(R.string.gm_carlist_01_01_snackbar_1));
+                        showProgressDialog(false);
                         break;
                     }
 
                 default:
-                    showProgressDialog(false);
                     ui.tvEmpty.setVisibility(View.VISIBLE);
+                    showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        SnackBarUtil.show(this, serverMsg);
+                    }
                     break;
             }
         });

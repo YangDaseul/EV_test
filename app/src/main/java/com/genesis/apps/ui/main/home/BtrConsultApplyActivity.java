@@ -82,16 +82,21 @@ public class BtrConsultApplyActivity extends SubActivity<ActivityBtrConsultApply
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    showProgressDialog(false);
-                    if(result.data.getRtCd().equalsIgnoreCase("0000")){
+                    if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
                         exitPage(getString(R.string.gm_bt04_snackbar_1), ResultCodes.REQ_CODE_NORMAL.getCode());
-                    }else{
-                        SnackBarUtil.show(this, getString(R.string.gm_bt04_snackbar_2));
+                        showProgressDialog(false);
+                        break;
                     }
-                    break;
-                case ERROR:
+                default:
                     showProgressDialog(false);
-                    SnackBarUtil.show(this, getString(R.string.gm_bt04_snackbar_2));
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        SnackBarUtil.show(this, serverMsg);
+                    }
                     break;
             }
 

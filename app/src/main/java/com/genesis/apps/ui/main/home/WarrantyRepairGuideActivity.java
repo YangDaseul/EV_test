@@ -16,6 +16,7 @@ import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.WRT_1001;
 import com.genesis.apps.comm.model.vo.WarrantyVO;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.WRTViewModel;
 import com.genesis.apps.databinding.ActivityWarrantyRepairGuideBinding;
 import com.genesis.apps.databinding.ItemTabAlarmBinding;
@@ -32,10 +33,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
-public class WarrantyRepairGuideActivity extends SubActivity<ActivityWarrantyRepairGuideBinding>  {
+public class WarrantyRepairGuideActivity extends SubActivity<ActivityWarrantyRepairGuideBinding> {
     private WRTViewModel wrtViewModel;
-    private final int[] titleId={R.string.gm01_02_3,R.string.gm01_02_4};
+    private final int[] titleId = {R.string.gm01_02_3, R.string.gm01_02_4};
     private String vin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,22 +61,28 @@ public class WarrantyRepairGuideActivity extends SubActivity<ActivityWarrantyRep
 
     @Override
     public void setObserver() {
-
         wrtViewModel.getRES_WRT_1001().observe(this, result -> {
-
-            switch (result.status){
+            switch (result.status) {
                 case LOADING:
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    showProgressDialog(false);
-                    if(result.data!=null&&result.data.getContList()!=null&&result.data.getContList().size()>0){
+                    if (result.data != null && result.data.getContList() != null && result.data.getContList().size() > 0) {
                         initTabView(result.data.getContList());
                         loadTerms(getUrl(result.data.getContList(), R.string.gm01_02_3));
+                        showProgressDialog(false);
                         break;
                     }
                 default:
                     showProgressDialog(false);
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    }
                     break;
             }
         });
@@ -86,7 +94,7 @@ public class WarrantyRepairGuideActivity extends SubActivity<ActivityWarrantyRep
             vin = getIntent().getStringExtra(KeyNames.KEY_NAME_VIN);
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             if (TextUtils.isEmpty(vin)) {
                 exitPage("차대번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }
@@ -106,7 +114,7 @@ public class WarrantyRepairGuideActivity extends SubActivity<ActivityWarrantyRep
         ui.tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                loadTerms(((ItemTabAlarmBinding)DataBindingUtil.bind(tab.getCustomView())).tvTab.getTag(R.id.url).toString());
+                loadTerms(((ItemTabAlarmBinding) DataBindingUtil.bind(tab.getCustomView())).tvTab.getTag(R.id.url).toString());
             }
 
             @Override
@@ -121,12 +129,12 @@ public class WarrantyRepairGuideActivity extends SubActivity<ActivityWarrantyRep
         });
     }
 
-    private String getUrl(List<WarrantyVO> warrantyVOList, int id){
+    private String getUrl(List<WarrantyVO> warrantyVOList, int id) {
 
-        for(WarrantyVO warrantyVO : warrantyVOList){
-            if(id==R.string.gm01_02_3&&warrantyVO.getType().equalsIgnoreCase("1010")){
+        for (WarrantyVO warrantyVO : warrantyVOList) {
+            if (id == R.string.gm01_02_3 && warrantyVO.getType().equalsIgnoreCase("1010")) {
                 return warrantyVO.getContents();
-            }else if(id==R.string.gm01_02_4&&warrantyVO.getType().equalsIgnoreCase("1011")){
+            } else if (id == R.string.gm01_02_4 && warrantyVO.getType().equalsIgnoreCase("1011")) {
                 return warrantyVO.getContents();
             }
         }
@@ -134,14 +142,10 @@ public class WarrantyRepairGuideActivity extends SubActivity<ActivityWarrantyRep
         return "";
     }
 
-    public void loadTerms(String url){
-        if(!TextUtils.isEmpty(url)){
-            //todo 추후 htmle로 변경되면 아래 주석으로 변경
-//            Bundle bundle = new Bundle();
-//            bundle.putString(WebViewFragment.EXTRA_HTML_BODY, data.getTermCont());
-
+    public void loadTerms(String html) {
+        if (!TextUtils.isEmpty(html)) {
             Bundle bundle = new Bundle();
-            bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
+            bundle.putString(WebViewFragment.EXTRA_HTML_BODY, html);
 
             MyWebViewFrament fragment = new MyWebViewFrament();
             fragment.setArguments(bundle);
@@ -151,7 +155,6 @@ public class WarrantyRepairGuideActivity extends SubActivity<ActivityWarrantyRep
             ft.add(R.id.fm_holder, fragment);
             ft.commitAllowingStateLoss();
         }
-
     }
 
 
@@ -160,40 +163,19 @@ public class WarrantyRepairGuideActivity extends SubActivity<ActivityWarrantyRep
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             return false;
         }
+
         @Override
-        public void onPageFinished(String url) { }
+        public void onPageFinished(String url) {
+        }
+
         @Override
         public boolean onBackPressed() {
             return false;
         }
+
         @Override
-        public void onCloseWindow(WebView window) { }
-    };
-
-
-    /**
-     * @brief 오픈소스 라이선스와 같은 html 파일을 asset 폴더에서 (local) 로드 시 사용
-     * @return
-     */
-    public String getStringFromAssetsFile(String termsCd){
-        StringBuilder sb = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(getAssets().open(termsCd+".html"), StandardCharsets.UTF_8 ))){
-            String str;
-            while ((str = br.readLine()) != null) {
-                sb.append(str);
-            }
-        } catch (IOException e) {
-            sb=null;
+        public void onCloseWindow(WebView window) {
         }
-
-        return sb!=null?sb.toString():"";
-    }
-
-    public void setTopView(int layout){
-        ViewStub stub = findViewById(R.id.vs_contents);
-        stub.setLayoutResource(layout);
-        stub.inflate();
-    }
-
+    };
 
 }

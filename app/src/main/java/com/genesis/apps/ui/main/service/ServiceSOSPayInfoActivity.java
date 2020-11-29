@@ -1,24 +1,27 @@
-package com.genesis.apps.ui.main.home;
+package com.genesis.apps.ui.main.service;
 
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.BTR_1010;
+import com.genesis.apps.comm.model.api.gra.SOS_1003;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.BTRViewModel;
+import com.genesis.apps.comm.viewmodel.SOSViewModel;
 import com.genesis.apps.ui.common.activity.HtmlActivity;
 
-public class BtrServiceInfoActivity extends HtmlActivity {
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
-    private BTRViewModel btrViewModel;
-    private String annMgmtCd;
+public class ServiceSOSPayInfoActivity extends HtmlActivity {
+
+    private SOSViewModel sosViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,31 +30,24 @@ public class BtrServiceInfoActivity extends HtmlActivity {
         setViewModel();
         setObserver();
         initView();
-        btrViewModel.reqBTR1010(new BTR_1010.Request(APPIAInfo.GM_BT01_P01.getId(),annMgmtCd));
+        sosViewModel.reqSOS1003(new SOS_1003.Request(APPIAInfo.SM_EMGC01_P04.getId()));
     }
 
     @Override
     public void getDataFromIntent() {
-        try {
-            annMgmtCd = getIntent().getStringExtra(KeyNames.KEY_NAME_ADMIN_CODE);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            if (TextUtils.isEmpty(annMgmtCd)) {
-                exitPage("안내 관리 코드가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
-            }
-        }
+
     }
 
     @Override
     public void setViewModel() {
         ui.setLifecycleOwner(this);
-        btrViewModel = new ViewModelProvider(this).get(BTRViewModel.class);
+        sosViewModel = new ViewModelProvider(this).get(SOSViewModel.class);
     }
 
     @Override
     public void setObserver() {
-        btrViewModel.getRES_BTR_1010().observe(this, result -> {
+
+        sosViewModel.getRES_SOS_1003().observe(this, result -> {
             switch (result.status) {
                 case LOADING:
                     showProgressDialog(true);
@@ -75,12 +71,10 @@ public class BtrServiceInfoActivity extends HtmlActivity {
                     break;
             }
         });
-
     }
 
     private void initView() {
-        ui.setValue(getString(R.string.gm_bt01_p01_1));
-        setTopView(R.layout.layout_btr_service_info);
+
     }
 
 
