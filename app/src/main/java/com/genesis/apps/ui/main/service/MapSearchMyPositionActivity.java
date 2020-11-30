@@ -47,7 +47,9 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
     private int titleId;
     private int msgId;
     //true면 주소 검색 창을 바로 오픈
-    private boolean isDirect = false;
+    // 요구사항 변경에 따라 true가 되는 시나리오 없어짐 (2020.11.30.)
+    // TODO 관련 코드 전부 주석처리했으니 또 바뀌면 isDirect로 검색해보기
+//    private boolean isDirect = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +61,13 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
         reqMyLocation();
     }
 
-    private void checkIsDirect() {
-        if (isDirect) {
-            isDirect = false;
-            openSearchAddress();
-        }
-    }
+    //요구사항 변경에 따라 비활성화
+//    private void checkIsDirect() {
+//        if (isDirect) {
+//            isDirect = false;
+//            openSearchAddress();
+//        }
+//    }
 
     private void initView(final double latitude, final double longitude) {
         ui.ivCenterMaker.setVisibility(View.VISIBLE);
@@ -92,7 +95,7 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
 
         });
 
-        checkIsDirect();
+//        checkIsDirect();
     }
 
     private int getTitleAddressMsg() {
@@ -118,7 +121,7 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
             selectAddressVO = (AddressVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_ADDR);
             titleId = getIntent().getIntExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, 0);
             msgId = getIntent().getIntExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, 0);
-            isDirect = getIntent().getBooleanExtra(KeyNames.KEY_NAME_MAP_SEARCH_DIRECT_OPEN, false);
+//            isDirect = getIntent().getBooleanExtra(KeyNames.KEY_NAME_MAP_SEARCH_DIRECT_OPEN, false);
         } catch (Exception e) {
             e.printStackTrace();
             selectAddressVO = null;
