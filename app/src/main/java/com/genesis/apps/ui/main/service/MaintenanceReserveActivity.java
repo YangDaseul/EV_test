@@ -29,6 +29,7 @@ import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceReserveBinding> {
@@ -36,7 +37,7 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
 
     private REQViewModel reqViewModel;
     private RepairTypeVO selectRepairTypeVO;
-    private List<RepairTypeVO> list;
+    private List<RepairTypeVO> list = new ArrayList<>();
     private List<CouponVO> couponList;
     private VehicleVO mainVehicle;
     @Override
@@ -157,11 +158,22 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    showProgressDialog(false);
-                    list.addAll(result.data.getRparTypList());
-                    showDialogRepairType(list);
+                    if(result.data!=null&&result.data.getRparTypList()!=null){
+                        list.addAll(result.data.getRparTypList());
+                        showDialogRepairType(list);
+                        showProgressDialog(false);
+                        break;
+                    }
                 default:
-                    showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        SnackBarUtil.show(this, TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                        showProgressDialog(false);
+                    }
                     break;
             }
         });
@@ -184,10 +196,7 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
                     }catch (Exception e){
                         e.printStackTrace();
                     }finally{
-                        if (TextUtils.isEmpty(serverMsg)){
-                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
-                        }
-                        SnackBarUtil.show(this, serverMsg);
+                        SnackBarUtil.show(this, TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
                         showProgressDialog(false);
                     }
                     break;

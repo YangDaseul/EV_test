@@ -2,6 +2,7 @@ package com.genesis.apps.ui.main.contents;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +15,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.gra.CTT_1004;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CTT_1001;
 import com.genesis.apps.comm.model.vo.ContentsVO;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CTTViewModel;
 import com.genesis.apps.databinding.FragmentContentsBinding;
 import com.genesis.apps.ui.common.activity.WebviewActivity;
@@ -48,10 +51,16 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        intViewModel();
+        initViewPager();
+    }
+
+    private void intViewModel() {
         cttViewModel = new ViewModelProvider(getActivity()).get(CTTViewModel.class);
         me.setLifecycleOwner(getViewLifecycleOwner());
         me.setFragment(this);
-        initViewPager();
+
         cttViewModel.getRES_CTT_1001().observe(getViewLifecycleOwner(), result -> {
 
             switch (result.status){
@@ -78,10 +87,58 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
                     me.lEmpty.setVisibility(contentsAdapter.getItemCount()==0 ? View.VISIBLE : View.GONE);
                     break;
                 default:
-                    ((MainActivity)getActivity()).showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        SnackBarUtil.show(getActivity(), TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                        ((MainActivity)getActivity()).showProgressDialog(false);
+                    }
                     break;
             }
         });
+
+
+
+        cttViewModel.getRES_CTT_1004().observe(getViewLifecycleOwner(), result -> {
+
+            switch (result.status){
+                case LOADING:
+                    ((MainActivity)getActivity()).showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    ((MainActivity)getActivity()).showProgressDialog(false);
+                    if(result.data!=null
+                            &&result.data.getRtCd().equalsIgnoreCase("0000")
+                            &&!TextUtils.isEmpty(result.data.getDtlViewCd())
+                            &&result.data.getDtlList()!=null
+                            &&result.data.getDtlList().size()>0){
+
+                        String linkUrl = result.data.getDtlViewCd().equalsIgnoreCase("3000") ? result.data.getDtlList().get(0).getHtmlFilUri() : result.data.getDtlList().get(0).getImgFilUri() ;
+
+                        //TODO 2020-11-30 임시조치. 구현 필요
+                        if(!TextUtils.isEmpty(linkUrl)){
+                            ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), WebviewActivity.class).putExtra(KeyNames.KEY_NAME_URL, linkUrl),RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        }
+                        break;
+                    }
+                default:
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        SnackBarUtil.show(getActivity(), TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                        ((MainActivity)getActivity()).showProgressDialog(false);
+                    }
+                    break;
+            }
+        });
+
+        
     }
 
     private void initViewPager(){
@@ -186,9 +243,12 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
                 break;
 
             case R.id.iv_image:
-                //todo 컨텐츠에 대한 임시조치
-                String url = v.getTag(R.id.url).toString();
-                ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), WebviewActivity.class).putExtra(KeyNames.KEY_NAME_URL, url),RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                ContentsVO item = ((ContentsVO)v.getTag(R.id.item));
+                if(item!=null){
+                    cttViewModel.reqCTT1004(new CTT_1004.Request(APPIAInfo.CM01.getId(), item.getListSeqNo()));
+                }
+//                String url = v.getTag(R.id.url).toString();
+//                ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), WebviewActivity.class).putExtra(KeyNames.KEY_NAME_URL, url),RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
         }
     }
