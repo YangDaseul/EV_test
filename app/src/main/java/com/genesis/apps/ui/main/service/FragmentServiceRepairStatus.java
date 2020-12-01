@@ -181,7 +181,9 @@ public class FragmentServiceRepairStatus extends SubFragment<FragmentServiceRepa
                     if (result.data != null) {
 
                         List<RepairReserveVO> rsvtStatList = new ArrayList<>();
-                        rsvtStatList.addAll(result.data.getRsvtStatList());
+                        if (result.data.getRsvtStatList() != null)
+                            rsvtStatList.addAll(result.data.getRsvtStatList());
+
                         RepairVO currentData = null;
                         try {
                             currentData = ((RepairVO) result.data.getRparStatus().clone());

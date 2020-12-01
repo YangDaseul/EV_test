@@ -46,7 +46,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * @author hjpark
- * @brief 차계부 입력
  */
 
 @AndroidEntryPoint
@@ -314,7 +313,7 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
                     //checkValidCarRegNo 에서는 포커스를 제거하거나 키보드를 내리는 부분을 넣지않음. 최초로 뷰 활성화 시에만 유효
                     ui.etCarRegNo.clearFocus();
                     SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
-                    ui.tvMsg.setVisibility(View.GONE);
+//                    ui.tvMsg.setVisibility(View.GONE);
                     ///////////////////////////////
                     checkValidCarRegNo();
                 }

@@ -286,8 +286,6 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
 
         try {
             notiVO = cmnViewModel.getNoti(list);
-            //TODO 임시로 NULL로 변경
-            notiVO = null;
         } catch (Exception ignore) {
             ignore.printStackTrace();
         } finally {

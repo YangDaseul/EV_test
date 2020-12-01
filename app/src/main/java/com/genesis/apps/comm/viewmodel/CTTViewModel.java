@@ -40,11 +40,11 @@ class CTTViewModel extends ViewModel {
         repository.REQ_CTT_1001(reqData);
     }
 
-    public void reqCTT1008(final CTT_1002.Request reqData) {
+    public void reqCTT1002(final CTT_1002.Request reqData) {
         repository.REQ_CTT_1002(reqData);
     }
 
-    public void reqCTT1009(final CTT_1004.Request reqData) {
+    public void reqCTT1004(final CTT_1004.Request reqData) {
         repository.REQ_CTT_1004(reqData);
     }
 

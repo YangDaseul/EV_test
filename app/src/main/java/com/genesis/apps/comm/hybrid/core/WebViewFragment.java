@@ -201,7 +201,8 @@ public abstract class WebViewFragment extends Fragment {
 		if(getActivity() == null) return;
 		getActivity().runOnUiThread(() -> {
 			if(webView != null) {
-				webView.loadData(data, "text/html", ENC_TYPE_UTF8);
+				//https://featherwing.tistory.com/73 원인은 알 수 없으나 html데이터가 일부 os에서 로드되지 않아서 아래와 같이 loadDataWithBaseURL을 사용하는것으로 변경.
+				webView. loadDataWithBaseURL("",data, "text/html", ENC_TYPE_UTF8,"");
 			}
 		});
 	}
