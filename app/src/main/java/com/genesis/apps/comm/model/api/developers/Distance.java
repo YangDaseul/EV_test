@@ -10,32 +10,43 @@ import lombok.EqualsAndHashCode;
 
 /**
  * @author hjpark
- * @file Dte
- * @Brief 주행가능거리 조회
+ * @file ParkLocation
+ * @Brief 최종 주차 위치 조회
  */
-public class Odometer extends BaseData {
+public class Distance extends BaseData {
     /**
      * @author hjpark
-     * @brief Dte 요청 항목
+     * @brief ParkLocation 요청 항목
      * @see #carId 차량 고유 ID
+     * @see #startDate 조회 시작일(YYYYMMDD)
+     * @see #endDate 조회 종료일(YYYYMMDD)
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     static
     class Request extends BaseData {
+
         @Expose
         @SerializedName("carId")
         private String carId;
+        @Expose
+        @SerializedName("startDate")
+        private String startDate;
+        @Expose
+        @SerializedName("endDate")
+        private String endDate;
 
-        public Request(String carId) {
+        public Request(String carId, String startDate, String endDate) {
             this.carId = carId;
+            this.startDate = startDate;
+            this.endDate = endDate;
         }
     }
 
     /**
      * @author hjpark
-     * @brief Dte 응답 항목
-     * @see #odometers 누적 운행 거리
+     * @brief ParkLocation 응답 항목
+     * @see #distances 일별 운행 거리 리스트
      * @see #msgId 요청 결과 확인을 위한 메시지 ID
      */
     @EqualsAndHashCode(callSuper = true)
@@ -43,8 +54,8 @@ public class Odometer extends BaseData {
     abstract
     class Response extends BaseData {
         @Expose
-        @SerializedName("odometers")
-        private OdometerVO odometers;
+        @SerializedName("distances")
+        private OdometerVO distances;
         @Expose
         @SerializedName("msgId")
         private String msgId;

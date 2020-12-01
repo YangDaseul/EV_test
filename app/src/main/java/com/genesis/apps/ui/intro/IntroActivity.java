@@ -17,9 +17,11 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.DeviceDTO;
 import com.genesis.apps.comm.model.vo.NotiVO;
 import com.genesis.apps.comm.model.vo.UserVO;
+import com.genesis.apps.comm.model.vo.developers.CarConnectVO;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
+import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityIntroBinding;
 import com.genesis.apps.room.ResultCallback;
@@ -44,6 +46,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
 
     private CMNViewModel cmnViewModel;
     private LGNViewModel lgnViewModel;
+    private DevelopersViewModel developersViewModel;
 
     private Runnable reqDownloadCarInfo;
     private Runnable reqContentsDownload;
@@ -64,6 +67,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
         deviceDTO.initData();
         cmnViewModel = new ViewModelProvider(this).get(CMNViewModel.class);
         lgnViewModel = new ViewModelProvider(this).get(LGNViewModel.class);
+        developersViewModel = new ViewModelProvider(this).get(DevelopersViewModel.class);
     }
 
     @Override
@@ -196,7 +200,6 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
 
 
     private Runnable goToMain = () -> new moveToMainTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

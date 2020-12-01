@@ -228,6 +228,54 @@ public class NetCaller {
 
 
 
+
+    /**
+     * @brief ETC API Request
+     * ETC 서버에 데이터 요청 시 사용되며
+     * 데이터 결과는 JsonObject를 String으로 변환해서 callback에 전달
+     * @param apiInfo request API Infomation
+     * @param reqVO request data
+     * @param <REQ> request data format
+     */
+    public <REQ> JsonObject reqDataFromAnonymous(String serverDomain, APIInfo apiInfo, REQ reqVO) {
+        JsonObject jsonObject = null;
+        String serverUrl = serverDomain + apiInfo.getURI();
+        try {
+            switch (apiInfo.getReqType()) {
+                case HttpRequest.METHOD_GET:
+                    if (reqVO != null) {
+                        Map<String, Object> map = new Gson().fromJson(
+                                new Gson().toJson(reqVO), new TypeToken<HashMap<String, Object>>() {
+                                }.getType());
+                        jsonObject = httpRequestUtil.getData(serverUrl, map);
+                    } else {
+                        jsonObject = httpRequestUtil.getData(serverUrl);
+                    }
+                    break;
+                case HttpRequest.METHOD_PUT:
+                    jsonObject = httpRequestUtil.sendPut(serverUrl, new Gson().toJson(reqVO));
+                    break;
+                case HttpRequest.METHOD_POST:
+                    jsonObject = ga.postDataWithAccessToken(serverUrl, new Gson().toJson(reqVO));
+                    break;
+                default:
+                    break;
+            }
+        }catch (Exception e){
+            jsonObject = null;
+        }
+        return jsonObject;
+    }
+
+
+
+
+
+
+
+
+
+
     /**
      * @brief ETC API Request
      * ETC 서버에 데이터 요청 시 사용되며

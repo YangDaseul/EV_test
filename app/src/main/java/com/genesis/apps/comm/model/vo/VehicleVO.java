@@ -5,6 +5,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -50,7 +51,7 @@ import lombok.EqualsAndHashCode;
  * @see #csmrCarRelCd 고객차량관계코드
  * 1:단독소유, 2:주계약자, 3:공동계약, 4:실운행자, 5:렌트리스
  */
-@Entity
+@Entity(indices = {@Index(value = {"vin"}, unique = true)})
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
@@ -70,7 +71,7 @@ class VehicleVO extends BaseData {
     @SerializedName("vin")
     private String vin;
     @Expose
-    @SerializedName("carRgstNo")//
+    @SerializedName("carRgstNo")
     private String carRgstNo;
     @Expose
     @SerializedName("mdlCd")

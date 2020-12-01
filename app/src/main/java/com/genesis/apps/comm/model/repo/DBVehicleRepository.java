@@ -2,6 +2,7 @@ package com.genesis.apps.comm.model.repo;
 
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.model.vo.developers.CarConnectVO;
 import com.genesis.apps.room.DatabaseHolder;
 
 import java.util.List;
@@ -124,6 +125,10 @@ public class DBVehicleRepository {
 
     public void updateVehicle(VehicleVO vehicleVO){
         databaseHolder.getDatabase().vehicleDao().update(vehicleVO);
+    }
+
+    public CarConnectVO getCarConnect(String vin){
+        return databaseHolder.getDatabase().carConnectDao().select(vin);
     }
 
 }

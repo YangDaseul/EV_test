@@ -19,6 +19,15 @@ public interface BaseDao<T> {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(List<T> obj);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertOrUpdate(T obj);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertOrUpdate(T... obj);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertOrUpdate(List<T> obj);
+
     @Update
     void update(T obj);
 

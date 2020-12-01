@@ -12,13 +12,13 @@ import lombok.EqualsAndHashCode;
 
 /**
  * @author hjpark
- * @file CarList
+ * @file CarCheck
  * @Brief 내 차량 리스트 조회
  */
-public class CarList extends BaseData {
+public class CarCheck extends BaseData {
     /**
      * @author hjpark
-     * @brief CarList 요청 항목
+     * @brief CarCheck 요청 항목
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -30,7 +30,7 @@ public class CarList extends BaseData {
 
     /**
      * @author hjpark
-     * @brief CarList 응답 항목
+     * @brief CarCheck 응답 항목
      * @see #cars 차량리스트
      * @see #msgId 요청 결과 확인을 위한 메시지 ID
      */

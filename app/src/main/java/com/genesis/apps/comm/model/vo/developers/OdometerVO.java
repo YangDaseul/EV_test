@@ -15,6 +15,8 @@ import lombok.EqualsAndHashCode;
  * @see #value 거리 수치
  * @see #unit 단위
  * (0: feet, 1: km, 2: meter, 3: miles)
+ * @see #date 조회일자
+ * (YYYYMMDD)
  */
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
@@ -29,4 +31,7 @@ class OdometerVO extends BaseData {
     @Expose
     @SerializedName("unit")
     private int unit;
+    @Expose
+    @SerializedName("date")
+    private String date;
 }
