@@ -142,19 +142,11 @@ public enum APIInfo {
     GRA_DDS_1005("Genesis + 대리운전 평가 등록", "DDS-1005", HttpRequest.METHOD_POST, "/graapi/dds/ddsCommentRgist.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_DDS_1006("Genesis + 수동 배정 요청", "DDS-1006", HttpRequest.METHOD_POST, "/graapi/dds/ddsAssignReqst.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
-
-    ROADWIN_SERVICE_AREA_CHECK("서비스 가능 지역 확인", "", HttpRequest.METHOD_GET, "/serviceAreaCheck.php", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    ROADWIN_WORK("기사 위치 확인", "", HttpRequest.METHOD_GET, "/work/w.php", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    ROADWIN_CHECK_PRICE("가격 정보 확인", "", HttpRequest.METHOD_GET, "/checkPrice.php", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-
-
     GRA_IST_1001("홈상단 영역", "IST-1001", HttpRequest.METHOD_POST, "/graapi/nl/ist/homeTopInsgt.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_IST_1002("인사이트 – 차계부 인사이트", "IST-1002", HttpRequest.METHOD_POST, "/graapi/ist/inscbk.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_IST_1003("인사이트 – 인사이트 1 영역", "IST-1003", HttpRequest.METHOD_POST, "/graapi/ist/insgt1.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_IST_1004("인사이트 – 인사이트 2 영역", "IST-1004", HttpRequest.METHOD_POST, "/graapi/ist/insgt2.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_IST_1005("인사이트 – 인사이트 3 영역", "IST-1005", HttpRequest.METHOD_POST, "/graapi/ist/insgt3.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-
-
 
     GRA_WSH_1001("service + 소낙스 세차이용권 조회", "WSH-1001", HttpRequest.METHOD_POST, "/graapi/nl/wsh/godsInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_WSH_1002("service + 소낙스 세차이용권 선택(지점찾기)", "WSH-1002", HttpRequest.METHOD_POST, "/graapi/nl/wsh/brnhInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
@@ -163,7 +155,29 @@ public enum APIInfo {
     GRA_WSH_1005("service + 소낙스 직원에게 확인받기", "WSH-1005", HttpRequest.METHOD_POST, "/graapi/wsh/getCfrmByStaff.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_WSH_1006("service + 소낙스 예약취소", "WSH-1006", HttpRequest.METHOD_POST, "/graapi/wsh/cnclRsvt.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_WSH_1007("service + 소낙스 평가지 요청", "WSH-1007", HttpRequest.METHOD_POST, "/graapi/wsh/evlpFormsInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_WSH_1008("service + 소낙스 평가 요청", "WSH-1008", HttpRequest.METHOD_POST, "/graapi/wsh/rqstEvlp.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8);
+    GRA_WSH_1008("service + 소낙스 평가 요청", "WSH-1008", HttpRequest.METHOD_POST, "/graapi/wsh/rqstEvlp.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+
+    //DEVELOPERS API에서는 ifCd를 url 파라미터 형태로 사용
+    DEVELOPERS_DTC("고장 코드 조회", "carId", HttpRequest.METHOD_GET, "/api/v1/car/status/%s/dtc", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    DEVELOPERS_REPLACEMENTS("소모품 교환 정보 조회", "carId", HttpRequest.METHOD_GET, "/api/v1/car/care/%s/replacements", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    DEVELOPERS_TARGET("안전운전점수 가입여부 조회", "carId", HttpRequest.METHOD_GET, "/api/v1/car/model/%s/ubi/target", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    DEVELOPERS_DETAIL("안전운전점수 상세 조회", "carId", HttpRequest.METHOD_GET, "/api/v1/car/model/%s/ubi/detail", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    DEVELOPERS_CARLIST("내 차량 리스트 조회", "", HttpRequest.METHOD_GET, "/api/v1/car/profile/carlist", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    DEVELOPERS_DTE("주행 가능 거리 조회", "carId", HttpRequest.METHOD_GET, "/api/v1/car/status/%s/dte", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    DEVELOPERS_ODOMETER("누적 운행 거리 조회", "carId", HttpRequest.METHOD_GET, "/api/v1/car/status/%s/odometer", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    DEVELOPERS_PARKLOCATION("최종 주차 위치 조회", "carId", HttpRequest.METHOD_GET, "/api/v1/car/status/%s/parklocation", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    DEVELOPERS_DISTANCE("일별 운행 거리 조회", "carId", HttpRequest.METHOD_GET, "/api/v1/car/trip/%s/distance", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    DEVELOPERS_CAR_LIST("GCS 차량 목록 조회(대상 차량 존재 유무 확인)", "", HttpRequest.METHOD_GET, "/api/v1/user/cars", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    DEVELOPERS_CAR_ID("CAR ID 조회(대상 차량 등록 여부 확인)", "userId", HttpRequest.METHOD_GET, "/api/v1/profile/users/%s/cars", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    DEVELOPERS_CAR_CONNECT("GCS 차량 연결", "userId", HttpRequest.METHOD_POST, "/api/v1/profile/users/%s/cars", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    DEVELOPERS_CAR_SAVE("CAR ID 조회 및 저장", "userId", HttpRequest.METHOD_GET, "/api/v1/profile/users/%s/cars", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+
+
+
+
+    ROADWIN_SERVICE_AREA_CHECK("서비스 가능 지역 확인", "", HttpRequest.METHOD_GET, "/serviceAreaCheck.php", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    ROADWIN_WORK("기사 위치 확인", "", HttpRequest.METHOD_GET, "/work/w.php", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    ROADWIN_CHECK_PRICE("가격 정보 확인", "", HttpRequest.METHOD_GET, "/checkPrice.php", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8);
 
 
     private String description;

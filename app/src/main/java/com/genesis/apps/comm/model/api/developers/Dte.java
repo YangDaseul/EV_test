@@ -1,0 +1,68 @@
+package com.genesis.apps.comm.model.api.developers;
+
+import com.genesis.apps.comm.model.BaseData;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+/**
+ * @author hjpark
+ * @file Dte
+ * @Brief 주행가능거리 조회
+ */
+public class Dte extends BaseData {
+    /**
+     * @author hjpark
+     * @brief Dte 요청 항목
+     * @see #carId 차량 고유 ID
+     */
+    @EqualsAndHashCode(callSuper = true)
+    public @Data
+    static
+    class Request extends BaseData {
+        @Expose
+        @SerializedName("carId")
+        private String carId;
+
+        public Request(String carId) {
+            this.carId = carId;
+        }
+    }
+
+    /**
+     * @author hjpark
+     * @brief Dte 응답 항목
+     * @see #timestamp 차량 전송 시간(YYYYMMDDHHmmSS)
+     * @see #value 거리 수치
+     * @see #unit 단위(0: feet, 1: km, 2: meter, 3: miles)
+     * @see #phevTotalValue PHEV 차량의 Battery + Engine 주행가능거리 거리 수치 //todo double 일것 같은 느낌이..
+     * @see #phevTotalUnit  PHEV 차량의 Battery + Engine 주행가능거리
+     * 단위(0: feet, 1: km, 2: meter, 3: miles)
+     * @see #msgId 요청 결과 확인을 위한 메시지 ID
+     */
+    @EqualsAndHashCode(callSuper = true)
+    public @Data
+    abstract
+    class Response extends BaseData {
+        @Expose
+        @SerializedName("timestamp")
+        private String timestamp;
+        @Expose
+        @SerializedName("value")
+        private double value;
+        @Expose
+        @SerializedName("unit")
+        private int unit;
+        @Expose
+        @SerializedName("phevTotalValue")
+        private int phevTotalValue;
+        @Expose
+        @SerializedName("phevTotalUnit")
+        private int phevTotalUnit;
+        @Expose
+        @SerializedName("msgId")
+        private String msgId;
+    }
+}
