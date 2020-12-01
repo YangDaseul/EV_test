@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--데이터 마일스 관련 Stryle-->
+    <style name="DataMiles">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="DataMiles.TextView_Black">
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="DataMiles.TextView_Black.Title">
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="DataMiles.TextView_Black.Rank">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="DataMiles.TextView_757575">
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:textColor">@color/x_757575</item>
+    </style>
+
+    <style name="DataMiles.TextView_757575.Update">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="DataMiles.TextView_757575.ScoreProgressBar">
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+</resources>

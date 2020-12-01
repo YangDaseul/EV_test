@@ -27,9 +27,12 @@ import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
 import com.genesis.apps.ui.main.home.view.Home2AsanAdapter;
 import com.genesis.apps.ui.main.home.view.Home2BtrAdapter;
+import com.genesis.apps.ui.main.home.view.Home2DataMilesAdapter;
 import com.genesis.apps.ui.main.home.view.Home2WarrantyAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -48,6 +51,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
     private final int ADAPTER_ORDER_6 = 5;
 
     private ConcatAdapter concatAdapter;
+    private Home2DataMilesAdapter home2DataMilesAdapter;
     private Home2AsanAdapter home2AsanAdapter;
     private Home2WarrantyAdapter home2WarrantyAdapter;
     private Home2BtrAdapter home2BtrAdapter;
@@ -96,12 +100,17 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
     private void initView() {
         me.rv.setLayoutManager(new LinearLayoutManager(getContext()));
         me.rv.setHasFixedSize(true);
-        me.rv.addItemDecoration(new RecyclerViewDecoration((int) DeviceUtil.dip2Pixel(getContext(), 4.0f)));
+        me.rv.addItemDecoration(new RecyclerViewDecoration((int) DeviceUtil.dip2Pixel(getContext(), 0.0f)));
+        home2DataMilesAdapter = new Home2DataMilesAdapter();
         home2AsanAdapter = new Home2AsanAdapter(onSingleClickListener);
         home2WarrantyAdapter = new Home2WarrantyAdapter(onSingleClickListener);
         home2BtrAdapter = new Home2BtrAdapter(onSingleClickListener);
-        concatAdapter = new ConcatAdapter(home2AsanAdapter, home2WarrantyAdapter, home2BtrAdapter);
+        concatAdapter = new ConcatAdapter(home2DataMilesAdapter, home2AsanAdapter, home2WarrantyAdapter, home2BtrAdapter);
         me.rv.setAdapter(concatAdapter);
+
+        // TODO :: TEST 코드
+        home2DataMilesAdapter.setRows(Collections.singletonList(new MainHistVO("", "", "", "", "", "", "", "")));
+        home2DataMilesAdapter.notifyDataSetChanged();
     }
 
     /**

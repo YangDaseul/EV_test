@@ -182,6 +182,11 @@ dependencies {
     //graph
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
+    /**
+     * Custom UI - DataMiles
+     */
+    implementation 'com.github.marcinmoskala:ArcSeekBar:0.31'
+
     //multi permission library
     implementation 'com.karumi:dexter:6.2.1'
 
