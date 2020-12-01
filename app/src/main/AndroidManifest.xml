@@ -49,13 +49,17 @@
         <activity
             android:name=".ui.common.activity.WebviewActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" /> <!-- 결제 웹뷰 -->
 
-        <!-- 결제 웹뷰 -->
         <activity
             android:name=".ui.common.activity.PaymentWebViewActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.main.contents.ContentsDetailWebActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".ui.myg.MyGEntranceActivity"
@@ -76,14 +80,17 @@
             android:name=".comm.util.graph.AnotherBarActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".comm.util.graph.PieChartActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".comm.util.graph.StackedBarActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.common.activity.GAWebActivity"
             android:exported="false"
@@ -101,23 +108,22 @@
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" />
 
-
         <activity
             android:name=".ui.main.BarcodeActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/CardViewTheme" />
-
-
         <activity
             android:name=".ui.common.activity.CardViewActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/CardViewTheme" />
+
         <activity
             android:name=".ui.myg.MyGNotiActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.myg.MyGPrivilegeApplyActivity"
             android:exported="false"
@@ -127,7 +133,6 @@
             android:name=".ui.myg.MyGVersioniActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.myg.MyGMembershipInfoActivity"
             android:exported="false"
@@ -199,11 +204,10 @@
         <activity
             android:name=".ui.myg.MyGOilTermActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
-<!--        <activity-->
-<!--            android:name=".ui.myg.MyGOilTermDetailActivity"-->
-<!--            android:exported="false"-->
-<!--            android:screenOrientation="portrait" />-->
+            android:screenOrientation="portrait" /> <!-- <activity -->
+        <!-- android:name=".ui.myg.MyGOilTermDetailActivity" -->
+        <!-- android:exported="false" -->
+        <!-- android:screenOrientation="portrait" /> -->
 
         <activity
             android:name=".ui.main.home.MyCarActivity"
@@ -215,14 +219,17 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout" />
+
         <activity
             android:name=".ui.main.home.BtrServiceInfoActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.main.home.BtrBluehandsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.main.home.BtrBluehandsMapActivity"
             android:exported="false"
@@ -253,12 +260,10 @@
         <activity
             android:name=".ui.main.home.BtrBluehandsListActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <!--        <activity-->
-        <!--            android:name=".ui.main.home.BtrBluehandsFilterActivity"-->
-        <!--            android:screenOrientation="portrait"-->
-        <!--            android:exported="false"/>-->
+            android:screenOrientation="portrait" /> <!-- <activity -->
+        <!-- android:name=".ui.main.home.BtrBluehandsFilterActivity" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- android:exported="false"/> -->
 
         <activity
             android:name=".ui.main.AlarmCenterActivity"
@@ -282,11 +287,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".ui.main.home.WarrantyRepairGuideActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-
 
         <activity
             android:name=".ui.main.home.LeasingCarInfoActivity"
@@ -299,7 +304,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" />
-
 
         <activity
             android:name=".ui.main.ServiceNetworkActivity"
@@ -317,7 +321,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" />
-
 
         <activity
             android:name=".ui.main.insight.InsightExpnMainActivity"
@@ -345,7 +348,6 @@
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" />
 
-
         <activity
             android:name=".ui.main.service.ServiceSOSApplyActivity"
             android:exported="false"
@@ -362,6 +364,7 @@
             android:name=".ui.main.service.ServiceSOSRouteInfoActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.main.service.ServiceSOSPayInfoActivity"
             android:exported="false"
@@ -371,7 +374,6 @@
             android:name=".ui.main.service.MapSearchMyPositionActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-
 
         <activity
             android:name=".ui.main.ServiceJoinActivity"
@@ -396,6 +398,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".ui.main.service.ServiceAutocare4ResultActivity"
             android:exported="false"
@@ -419,7 +422,6 @@
             android:name=".ui.main.service.ServiceHomeToHome4ResultActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-
 
         <activity
             android:name=".ui.main.service.ServiceRepair2ApplyActivity"
@@ -448,7 +450,6 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
-
         <activity
             android:name=".ui.common.activity.test.TestActivity"
             android:exported="false"
@@ -462,89 +463,76 @@
         <activity
             android:name=".ui.common.activity.test.TestLayoutActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" /> <!-- 하자 재발 신청 내역 -->
 
-        <!-- 하자 재발 신청 내역 -->
         <activity
             android:name=".ui.main.service.ServiceRelapseHistoryActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" /> <!-- 하자 재발 현황 조회 -->
 
-        <!-- 하자 재발 현황 조회 -->
         <activity
             android:name=".ui.main.service.ServiceRelapseReqResultActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" /> <!-- 하자 재발 신청 1단계 -->
 
-        <!-- 하자 재발 신청 1단계 -->
         <activity
             android:name=".ui.main.service.ServiceRelapseApply1Activity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize" /> <!-- 하자 재발 신청 2단계 -->
 
-        <!-- 하자 재발 신청 2단계 -->
         <activity
             android:name=".ui.main.service.ServiceRelapseApply2Activity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize" /> <!-- 하자 재발 3단계 -->
 
-        <!-- 하자 재발 3단계 -->
         <activity
             android:name=".ui.main.service.ServiceRelapse3Activity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout" />
+            android:theme="@style/TextInputLayout" /> <!-- 하자 재발 신청 예시) -->
 
-        <!-- 하자 재발 신청 예시) -->
         <activity
             android:name=".ui.main.service.ServiceRelapseApplyExampleActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" /> <!-- 세차 지점검색 -->
 
-        <!-- 세차 지점검색 -->
         <activity
             android:name=".ui.main.service.CarWashSearchActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout" />
+            android:theme="@style/TextInputLayout" /> <!-- 세차 예약내역 -->
 
-        <!-- 세차 예약내역 -->
         <activity
             android:name=".ui.main.service.CarWashHistoryActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout" />
+            android:theme="@style/TextInputLayout" /> <!-- 대리운전 신청 -->
 
-        <!-- 대리운전 신청 -->
         <activity
             android:name=".ui.main.service.ServiceDriveReqActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout" />
+            android:theme="@style/TextInputLayout" /> <!-- 대리운전 신청 완료 (신청하고 결제 성공하면 나오는 거) -->
 
-        <!-- 대리운전 신청 완료 (신청하고 결제 성공하면 나오는 거) -->
         <activity
             android:name=".ui.main.service.ServiceDriveReqCompleteActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" /> <!-- 대리운전 신청 결과 (현황 조회하면 나오는 거) -->
 
-        <!-- 대리운전 신청 결과 (현황 조회하면 나오는 거) -->
         <activity
             android:name=".ui.main.service.ServiceDriveReqResultActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" /> <!-- 대리운전 이용내역 -->
 
-        <!-- 대리운전 이용내역 -->
         <activity
             android:name=".ui.main.service.ServiceDriveHistoryActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" /> <!-- 세차, 대리운전 리뷰 -->
 
-        <!-- 세차, 대리운전 리뷰 -->
         <activity
             android:name=".ui.main.service.ServiceReviewActivity"
             android:exported="false"
