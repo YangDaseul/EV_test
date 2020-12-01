@@ -131,4 +131,8 @@ public class DBVehicleRepository {
         return databaseHolder.getDatabase().carConnectDao().select(vin);
     }
 
+    public void insertOrUpdateCarConnect(List<CarConnectVO> list){
+        databaseHolder.getDatabase().carConnectDao().insertOrUpdate(list);
+    }
+
 }

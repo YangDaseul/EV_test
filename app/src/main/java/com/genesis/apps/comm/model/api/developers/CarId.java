@@ -19,18 +19,18 @@ public class CarId extends BaseData {
     /**
      * @author hjpark
      * @brief CarId 요청 항목
-     * @see #carId 차량 고유 ID
+     * @see #userId
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     static
     class Request extends BaseData {
         @Expose
-        @SerializedName("carId")
-        private String carId;
+        @SerializedName("userId")
+        private String userId;
 
-        public Request(String carId) {
-            this.carId = carId;
+        public Request(String userId) {
+            this.userId = userId;
         }
     }
 
