@@ -18,7 +18,7 @@ import com.genesis.apps.comm.model.constants.WeatherCodes;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.LGN_0003;
 import com.genesis.apps.comm.model.api.gra.LGN_0005;
-import com.genesis.apps.comm.model.vo.FloatingMenuVO;
+import com.genesis.apps.comm.model.vo.DownMenuVO;
 import com.genesis.apps.comm.model.vo.MessageVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.RecordUtil;
@@ -316,15 +316,15 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         break;
                     case VariableType.MAIN_VEHICLE_TYPE_CV:
                         me.btnCarinfo.setVisibility(View.VISIBLE);
-                        makeFloatingMenu(vehicleVO.getCustGbCd());
+                        makeDownMenu(vehicleVO.getCustGbCd());
                         //TODO QUICKMENU 만드는 로직 넣어야함
                         break;
                     case VariableType.MAIN_VEHICLE_TYPE_NV:
-                        makeFloatingMenu(vehicleVO.getCustGbCd());
+                        makeDownMenu(vehicleVO.getCustGbCd());
                         //TODO QUICKMENU 만드는 로직 넣어야함
                         break;
                     default:
-                        makeFloatingMenu(vehicleVO.getCustGbCd());
+                        makeDownMenu(vehicleVO.getCustGbCd());
                         break;
                 }
             }
@@ -341,9 +341,9 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         recordUtil.unRegReceiver();
     }
 
-    private void makeFloatingMenu(String custGbCd){
+    private void makeDownMenu(String custGbCd){
         final TextView[] floatingBtns={me.btnFloating1, me.btnFloating2, me.btnFloating3};
-        List<FloatingMenuVO> list = cmnViewModel.getFloatingMenuList(custGbCd);
+        List<DownMenuVO> list = cmnViewModel.getDownMenuList(custGbCd);
         if(list==null||list.size()==0){
             me.lFloating.setVisibility(View.GONE);
         }else{
@@ -360,12 +360,12 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 floatingBtns[i].setOnClickListener(new OnSingleClickListener() {
                     @Override
                     public void onSingleClick(View v) {
-                        FloatingMenuVO floatingMenuVO = (FloatingMenuVO)v.getTag(R.id.menu_id);
-                        if(floatingMenuVO!=null){
-                            String menuTypCd = floatingMenuVO.getMenuTypCd();
-                            String lnkUri = floatingMenuVO.getLnkUri();
-                            if(!TextUtils.isEmpty(menuTypCd)&&!TextUtils.isEmpty(lnkUri)){
-                                if(menuTypCd.equalsIgnoreCase("NA")){
+                        DownMenuVO downMenuVO = (DownMenuVO)v.getTag(R.id.menu_id);
+                        if(downMenuVO !=null){
+                            String qckMenuDivCd = downMenuVO.getQckMenuDivCd();
+                            String lnkUri = downMenuVO.getLnkUri();
+                            if(!TextUtils.isEmpty(qckMenuDivCd)&&!TextUtils.isEmpty(lnkUri)){
+                                if(qckMenuDivCd.equalsIgnoreCase("IM")){
                                     //네이티브 링크로 이동
                                     //TODO 네이티브로 이동하는 부분은 처리 필요
                                 }else{

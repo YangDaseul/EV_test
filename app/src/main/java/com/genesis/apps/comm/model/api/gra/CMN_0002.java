@@ -4,7 +4,7 @@ import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.BaseRequest;
 import com.genesis.apps.comm.model.api.BaseResponse;
-import com.genesis.apps.comm.model.vo.FloatingMenuVO;
+import com.genesis.apps.comm.model.vo.DownMenuVO;
 import com.genesis.apps.comm.model.vo.QuickMenuVO;
 import com.genesis.apps.comm.model.vo.WeatherVO;
 import com.google.gson.annotations.Expose;
@@ -66,8 +66,8 @@ public class CMN_0002 extends BaseData {
         @SerializedName("qckMenuList")
         private List<QuickMenuVO> qckMenuList;
         @Expose
-        @SerializedName("menuList")
-        private List<FloatingMenuVO> menuList;
+        @SerializedName("downMenuList")
+        private List<DownMenuVO> downMenuList;
     }
 
 }

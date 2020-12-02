@@ -28,7 +28,7 @@ import com.genesis.apps.comm.model.repo.DBGlobalDataRepository;
 import com.genesis.apps.comm.model.repo.MBRRepo;
 import com.genesis.apps.comm.model.repo.NOTRepo;
 import com.genesis.apps.comm.model.vo.CardVO;
-import com.genesis.apps.comm.model.vo.FloatingMenuVO;
+import com.genesis.apps.comm.model.vo.DownMenuVO;
 import com.genesis.apps.comm.model.vo.MessageVO;
 import com.genesis.apps.comm.model.vo.NotiInfoVO;
 import com.genesis.apps.comm.model.vo.NotiVO;
@@ -166,12 +166,12 @@ class CMNViewModel extends ViewModel {
         return dbContentsRepository.setQuickMenu(list, type);
     }
 
-    public boolean setFloatingMenu(List<FloatingMenuVO> list, String type) {
-        return dbContentsRepository.setFloatingMenu(list, type);
+    public boolean setDownMenuList(List<DownMenuVO> list, String type) {
+        return dbContentsRepository.setDownMenu(list, type);
     }
 
-    public List<FloatingMenuVO> getFloatingMenuList(String custGbCd){
-        return dbContentsRepository.getFloatingMenu(custGbCd);
+    public List<DownMenuVO> getDownMenuList(String custGbCd){
+        return dbContentsRepository.getDownMenu(custGbCd);
     }
 
     public void setContents(CMN_0002.Response data, ResultCallback callback) {
@@ -183,13 +183,13 @@ class CMNViewModel extends ViewModel {
             try {
                 isSuccess = setWeatherList(data.getWthrInsgtList())
                         && setQuickMenu(data.getMenu0000().getQckMenuList(), MAIN_VEHICLE_TYPE_0000)
-                        && setFloatingMenu(data.getMenu0000().getMenuList(), MAIN_VEHICLE_TYPE_0000)
+                        && setDownMenuList(data.getMenu0000().getDownMenuList(), MAIN_VEHICLE_TYPE_0000)
                         && setQuickMenu(data.getMenuCV().getQckMenuList(), MAIN_VEHICLE_TYPE_CV)
-                        && setFloatingMenu(data.getMenuCV().getMenuList(), MAIN_VEHICLE_TYPE_CV)
+                        && setDownMenuList(data.getMenuCV().getDownMenuList(), MAIN_VEHICLE_TYPE_CV)
                         && setQuickMenu(data.getMenuNV().getQckMenuList(), MAIN_VEHICLE_TYPE_NV)
-                        && setFloatingMenu(data.getMenuNV().getMenuList(), MAIN_VEHICLE_TYPE_NV)
+                        && setDownMenuList(data.getMenuNV().getDownMenuList(), MAIN_VEHICLE_TYPE_NV)
                         && setQuickMenu(data.getMenuOV().getQckMenuList(), MAIN_VEHICLE_TYPE_OV)
-                        && setFloatingMenu(data.getMenuOV().getMenuList(), MAIN_VEHICLE_TYPE_OV);
+                        && setDownMenuList(data.getMenuOV().getDownMenuList(), MAIN_VEHICLE_TYPE_OV);
             } catch (Exception e1) {
                 e1.printStackTrace();
                 isSuccess = false;

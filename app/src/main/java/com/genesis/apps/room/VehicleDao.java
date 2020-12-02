@@ -4,8 +4,6 @@ import androidx.room.Dao;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import com.genesis.apps.comm.model.vo.FloatingMenuVO;
-import com.genesis.apps.comm.model.vo.MenuVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 
 import java.util.List;

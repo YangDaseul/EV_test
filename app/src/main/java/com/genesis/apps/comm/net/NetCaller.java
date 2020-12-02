@@ -292,6 +292,14 @@ public class NetCaller {
             JsonObject jsonObject = null;
             try {
                 String serverUrl = serverDomain + apiInfo.getURI();
+
+                if(apiInfo.getIfCd().equalsIgnoreCase("carId")){
+
+                }else if(apiInfo.getIfCd().equalsIgnoreCase("userId")){
+
+                }
+
+
                 switch (apiInfo.getReqType()) {
                     case HttpRequest.METHOD_GET:
                         if(reqVO!=null) {

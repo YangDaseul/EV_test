@@ -41,7 +41,6 @@ class QuickMenuVO extends BaseData {
     @Expose
     @SerializedName("menuId")
     private String menuId;
-
     @Expose
     @SerializedName("qckMenuDivCd")
     private String qckMenuDivCd;

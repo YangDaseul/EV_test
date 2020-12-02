@@ -237,7 +237,7 @@ class DevelopersViewModel extends ViewModel {
                             if (TextUtils.isEmpty(carVO.getCarId())) {
                                 //car id가 비어있으면 가입 신청 필요
                                 CarConnectVO carConnectVO = new CarConnectVO("", targetList.get(i).getMasterCarId(), "", "2", targetList.get(i).getCarName());
-                                CarConnect.Response carConnectRes = repository.REQ_SYNC_CAR_CONNECT(new CarConnect.Request(carConnectVO));
+                                CarConnect.Response carConnectRes = repository.REQ_SYNC_CAR_CONNECT(new CarConnect.Request(carConnectVO,userId));
                             }
 //                                    else{
 //                                        //car id가 있으면 해당 값을 저장
