@@ -14,6 +14,7 @@
         android:paddingEnd="20dp"
         android:paddingBottom="40dp">
 
+        <!--타이틀 : 안전운전 점수-->
         <TextView
             android:id="@+id/tv_datamiles_driving_score_title"
             style="@style/DataMiles.TextView_Black.Title"
@@ -23,6 +24,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!--업데이트 일자-->
         <TextView
             android:id="@+id/tv_datamiles_driving_score_update_date"
             style="@style/DataMiles.TextView_757575.Update"

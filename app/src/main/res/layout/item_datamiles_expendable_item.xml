@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp">
+
+        <!--소모품 항목 이름-->
+        <TextView
+            android:id="@+id/tv_datamiles_expendables_item_name"
+            style="@style/DataMiles.TextView_Black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="엔진오일/필터"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_expendables_need_change"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_datamiles_expendables_need_change" />
+
+        <!--교체 필요 아이콘-->
+        <TextView
+            android:id="@+id/tv_datamiles_expendables_need_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:background="@color/x_ce2d2d"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:includeFontPadding="false"
+            android:paddingStart="6dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="6dp"
+            android:paddingBottom="3dp"
+            android:text="@string/gm01_need_change"
+            android:textColor="@color/x_f8f8f8"
+            android:textSize="10sp"
+            app:layout_constraintStart_toEndOf="@id/tv_datamiles_expendables_item_name"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--잔여 거리-->
+        <TextView
+            android:id="@+id/tv_datamiles_expendables_distance"
+            style="@style/DataMiles.TextView_757575"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:text="전여 거리 0km /"
+            app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_expendables_need_change"
+            app:layout_constraintEnd_toStartOf="@id/tv_datamiles_expendables_coupon"
+            app:layout_constraintTop_toTopOf="@id/tv_datamiles_expendables_need_change" />
+
+        <!--잔여 쿠폰 횟수-->
+        <TextView
+            android:id="@+id/tv_datamiles_expendables_coupon"
+            style="@style/DataMiles.TextView_757575"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="잔여 쿠폰 1회"
+            app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_expendables_need_change"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_datamiles_expendables_need_change" />
+
+        <!--소모품 가용 거리 그래프-->
+        <ProgressBar
+            android:id="@+id/progress_datamiles_expendables"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_marginTop="14dp"
+            android:progress="60"
+            android:progressDrawable="@drawable/sel_datamiles_expendables_progress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_datamiles_expendables_item_name" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -23,7 +23,6 @@
             android:layout_height="match_parent"
             android:background="@color/x_f4f4f4"
             android:layout_marginTop="40dp"
-            android:paddingTop="40dp"
             android:paddingBottom="100dp">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv"
