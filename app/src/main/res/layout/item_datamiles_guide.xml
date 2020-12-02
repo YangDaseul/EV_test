@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -12,7 +12,7 @@
 
         <TextView
             android:id="@+id/tv_datamiles_driving_score_error"
-            style="@style/DataMiles.TextView_Black"
+            style="@style/DataMiles.TextView_Font_RGSHG.Black"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/x_f8f8f8"
@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@null"
             android:src="@drawable/datamiles_service_guide"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

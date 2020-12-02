@@ -17,7 +17,7 @@
         <!--타이틀 : 안전운전 점수-->
         <TextView
             android:id="@+id/tv_datamiles_driving_score_title"
-            style="@style/DataMiles.TextView_Black.Title"
+            style="@style/DataMiles.TextView_Font_RGSHG.Black.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/gm01_driving_score"
@@ -27,7 +27,7 @@
         <!--업데이트 일자-->
         <TextView
             android:id="@+id/tv_datamiles_driving_score_update_date"
-            style="@style/DataMiles.TextView_757575.Update"
+            style="@style/DataMiles.TextView_Font_RGSTG.757575.Update"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2020.10.30 14:20 업데이트"
@@ -63,7 +63,7 @@
 
             <!--최소 점수-->
             <TextView
-                style="@style/DataMiles.TextView_757575.ScoreProgressBar"
+                style="@style/DataMiles.TextView_Font_RGSTG.757575"
                 android:layout_width="22dp"
                 android:layout_height="wrap_content"
                 android:text="0"
@@ -72,7 +72,7 @@
 
             <!--최대 점수-->
             <TextView
-                style="@style/DataMiles.TextView_757575.ScoreProgressBar"
+                style="@style/DataMiles.TextView_Font_RGSTG.757575"
                 android:layout_width="22dp"
                 android:layout_height="wrap_content"
                 android:text="100"
@@ -82,7 +82,7 @@
             <!--현재 점수-->
             <TextView
                 android:id="@+id/tv_datamiles_driving_score"
-                style="@style/DataMiles.TextView_Black"
+                style="@style/DataMiles.TextView_Font_MGSTG.Black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
@@ -98,7 +98,7 @@
             <!--전월 대비-->
             <TextView
                 android:id="@+id/tv_datamiles_before_score_title"
-                style="@style/DataMiles.TextView_757575"
+                style="@style/DataMiles.TextView_Font_RGSTG.757575"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
@@ -111,7 +111,7 @@
             <!--전월 대비 점수-->
             <TextView
                 android:id="@+id/tv_datamiles_before_score"
-                style="@style/DataMiles.TextView_Black"
+                style="@style/DataMiles.TextView_Font_MGSTG.Black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -136,7 +136,7 @@
             <!--점수 산정 가이드 문구-->
             <TextView
                 android:id="@+id/tv_datamiles_driving_score_guide"
-                style="@style/DataMiles.TextView_757575"
+                style="@style/DataMiles.TextView_Font_RGSTG.757575"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="110dp"
@@ -149,7 +149,7 @@
             <!--점수 전체 랭킹 : 타이틀-->
             <TextView
                 android:id="@+id/tv_datamiles_driving_score_rank_all_title"
-                style="@style/DataMiles.TextView_757575"
+                style="@style/DataMiles.TextView_Font_RGSTG.757575"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/gm01_all"
@@ -162,12 +162,11 @@
             <!--점수 전체 랭킹 : 퍼센트-->
             <TextView
                 android:id="@+id/tv_datamiles_driving_score_rank_all"
-                style="@style/DataMiles.TextView_Black.Rank"
+                style="@style/DataMiles.TextView_Font_MGSTG.Black.Rank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="상위 100%"
-                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/v_datamiles_verticalline"
                 app:layout_constraintEnd_toStartOf="@id/v_datamiles_verticalline"
                 app:layout_constraintStart_toEndOf="@id/tv_datamiles_driving_score_rank_all_title"
@@ -189,7 +188,7 @@
             <!--점수 동일차종 랭킹 : 타이틀-->
             <TextView
                 android:id="@+id/tv_datamiles_driving_score_rank_category_title"
-                style="@style/DataMiles.TextView_757575"
+                style="@style/DataMiles.TextView_Font_RGSTG.757575"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/gm01_same_car"
@@ -201,12 +200,11 @@
             <!--점수 동일차종 랭킹 : 퍼센트-->
             <TextView
                 android:id="@+id/tv_datamiles_driving_score_rank_category"
-                style="@style/DataMiles.TextView_Black.Rank"
+                style="@style/DataMiles.TextView_Font_MGSTG.Black.Rank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="상위 100%"
-                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_driving_score_rank_category_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_datamiles_driving_score_rank_category_title"
@@ -215,7 +213,7 @@
             <!--운전 점수 평가-->
             <TextView
                 android:id="@+id/tv_datamiles_driving_score_description"
-                style="@style/DataMiles.TextView_Black"
+                style="@style/DataMiles.TextView_Font_RGSTG.Black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"

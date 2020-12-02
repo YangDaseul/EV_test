@@ -5,31 +5,66 @@
         <item name="android:textSize">10sp</item>
     </style>
 
-    <style name="DataMiles.TextView_Black">
+    <!--폰트 구분 Style-->
+    <style name="DataMiles.TextView_Font_RGSHG">
         <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
-        <item name="android:textColor">@android:color/black</item>
     </style>
 
-    <style name="DataMiles.TextView_Black.Title">
-        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@android:color/black</item>
-    </style>
-
-    <style name="DataMiles.TextView_Black.Rank">
-        <item name="android:textSize">12sp</item>
-    </style>
-
-    <style name="DataMiles.TextView_757575">
+    <style name="DataMiles.TextView_Font_RGSTG">
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+    </style>
+
+    <style name="DataMiles.TextView_Font_BGSTG">
+        <item name="android:fontFamily">@font/bold_genesissanstextglobal</item>
+    </style>
+
+    <style name="DataMiles.TextView_Font_LGSHG">
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+    </style>
+
+    <style name="DataMiles.TextView_Font_MGSTG">
+        <item name="android:fontFamily">@font/medium_genesissanstextglobal</item>
+    </style>
+
+    <!--색상 구분 Style-->
+    <style name="DataMiles.TextView_Font_RGSHG.White">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="DataMiles.TextView_Font_RGSHG.Black">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="DataMiles.TextView_Font_MGSTG.Black">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="DataMiles.TextView_Font_RGSTG.Black">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="DataMiles.TextView_Font_RGSTG.757575">
         <item name="android:textColor">@color/x_757575</item>
     </style>
 
-    <style name="DataMiles.TextView_757575.Update">
+    <style name="DataMiles.TextView_Font_MGSTG.757575">
+        <item name="android:textColor">@color/x_757575</item>
+    </style>
+
+    <style name="DataMiles.TextView_Font_MGSTG.AD7B61">
+        <item name="android:textColor">#AD7B61</item>
+    </style>
+
+    <!--중복 사용 요소 구분 Style-->
+    <style name="DataMiles.TextView_Font_RGSHG.Black.Title">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="DataMiles.TextView_Font_RGSTG.757575.Update">
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="DataMiles.TextView_757575.ScoreProgressBar">
-        <item name="android:gravity">center_horizontal</item>
+    <style name="DataMiles.TextView_Font_MGSTG.Black.Rank">
+        <item name="android:textSize">12sp</item>
     </style>
 </resources>

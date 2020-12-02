@@ -15,7 +15,7 @@
         <!--소모품 항목 이름-->
         <TextView
             android:id="@+id/tv_datamiles_expendables_item_name"
-            style="@style/DataMiles.TextView_Black"
+            style="@style/DataMiles.TextView_Font_RGSHG.Black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="엔진오일/필터"
@@ -27,6 +27,7 @@
         <!--교체 필요 아이콘-->
         <TextView
             android:id="@+id/tv_datamiles_expendables_need_change"
+            style="@style/DataMiles.TextView_Font_RGSHG.White"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
@@ -38,19 +39,17 @@
             android:paddingEnd="6dp"
             android:paddingBottom="3dp"
             android:text="@string/gm01_need_change"
-            android:textColor="@color/x_f8f8f8"
-            android:textSize="10sp"
             app:layout_constraintStart_toEndOf="@id/tv_datamiles_expendables_item_name"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!--잔여 거리-->
         <TextView
             android:id="@+id/tv_datamiles_expendables_distance"
-            style="@style/DataMiles.TextView_757575"
+            style="@style/DataMiles.TextView_Font_RGSTG.757575"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="3dp"
-            android:text="전여 거리 0km /"
+            android:text="잔여 거리 0km /"
             app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_expendables_need_change"
             app:layout_constraintEnd_toStartOf="@id/tv_datamiles_expendables_coupon"
             app:layout_constraintTop_toTopOf="@id/tv_datamiles_expendables_need_change" />
@@ -58,7 +57,7 @@
         <!--잔여 쿠폰 횟수-->
         <TextView
             android:id="@+id/tv_datamiles_expendables_coupon"
-            style="@style/DataMiles.TextView_757575"
+            style="@style/DataMiles.TextView_Font_MGSTG.757575"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="잔여 쿠폰 1회"
