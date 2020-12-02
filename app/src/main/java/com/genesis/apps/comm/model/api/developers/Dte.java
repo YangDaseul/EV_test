@@ -45,7 +45,7 @@ public class Dte extends BaseData {
     @EqualsAndHashCode(callSuper = true)
     public @Data
     abstract
-    class Response extends BaseData {
+    class Response extends DevelopersBaseResponse {
         @Expose
         @SerializedName("timestamp")
         private String timestamp;

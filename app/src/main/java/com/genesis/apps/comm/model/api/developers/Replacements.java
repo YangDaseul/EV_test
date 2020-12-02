@@ -44,7 +44,7 @@ public class Replacements extends BaseData {
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
-    class Response extends BaseData {
+    class Response extends DevelopersBaseResponse {
         @Expose
         @SerializedName("sests")
         private List<SestVO> sests;
