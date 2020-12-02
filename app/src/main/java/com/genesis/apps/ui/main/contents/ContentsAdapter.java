@@ -61,18 +61,22 @@ public class ContentsAdapter extends BaseRecyclerViewAdapter2<ContentsVO> {
 
         @Override
         public void onBindView(ContentsVO item, final int pos) {
-                Glide
-                        .with(getContext())
-                        .load(item.getTtImgUri())
-                        .format(DecodeFormat.PREFER_ARGB_8888)
-                        .error(getDefaultImg(pos))
-                        .placeholder(getDefaultImg(pos))
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(getBinding().ivImage);
+            Glide
+                    .with(getContext())
+                    .load(item.getTtImgUri())
+                    .format(DecodeFormat.PREFER_ARGB_8888)
+                    .error(getDefaultImg(pos))
+                    .placeholder(getDefaultImg(pos))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(getBinding().ivImage);
 
 
-                getBinding().ivImage.setOnClickListener(onSingleClickListener);
-                getBinding().ivImage.setTag(R.id.url, item.getTtImgUri());
+            getBinding().ivImage.setOnClickListener(onSingleClickListener);
+            getBinding().ivImage.setTag(R.id.item, item);
+
+
+//                getBinding().ivImage.setOnClickListener(onSingleClickListener);
+//                getBinding().ivImage.setTag(R.id.url, item.getTtImgUri());
         }
 
         @Override

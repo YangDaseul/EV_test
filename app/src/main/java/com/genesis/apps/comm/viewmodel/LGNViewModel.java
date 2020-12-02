@@ -1,5 +1,7 @@
 package com.genesis.apps.comm.viewmodel;
 
+import android.text.TextUtils;
+
 import androidx.hilt.Assisted;
 import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.LiveData;
@@ -8,6 +10,7 @@ import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
+import com.genesis.apps.comm.model.api.developers.CarConnect;
 import com.genesis.apps.comm.model.api.gra.LGN_0001;
 import com.genesis.apps.comm.model.api.gra.LGN_0002;
 import com.genesis.apps.comm.model.api.gra.LGN_0003;
@@ -17,12 +20,14 @@ import com.genesis.apps.comm.model.api.gra.LGN_0006;
 import com.genesis.apps.comm.model.api.gra.LGN_0007;
 import com.genesis.apps.comm.model.api.gra.STO_1001;
 import com.genesis.apps.comm.model.api.gra.STO_1002;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.repo.DBUserRepo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.LGNRepo;
 import com.genesis.apps.comm.model.repo.STORepo;
 import com.genesis.apps.comm.model.vo.UserVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.model.vo.developers.CarConnectVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.room.ResultCallback;
@@ -176,6 +181,7 @@ class LGNViewModel extends ViewModel {
             }
         }, es.getUiThreadExecutor());
     }
+
 
     public VehicleVO getMainVehicleFromDB() throws ExecutionException, InterruptedException {
         ExecutorService es = new ExecutorService("");

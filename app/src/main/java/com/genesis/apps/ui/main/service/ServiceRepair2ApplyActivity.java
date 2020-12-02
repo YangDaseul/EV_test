@@ -44,6 +44,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.ChangeBounds;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 /**
@@ -64,7 +65,7 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
 
     private RepairTypeVO repairTypeVO; //정비내용코드
     private String rsvtHopeDt; //예약희망일자
-    private String rsvtHopeTm=""; //예약희망시간
+    private String rsvtHopeTm = ""; //예약희망시간
     private BtrVO btrVO;
     private RepairGroupVO repairGroupVO;
 
@@ -85,37 +86,37 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
         try {
             //주 이용 차량 정보를 DB에서 GET
             mainVehicle = reqViewModel.getMainVehicle();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             initConstraintSets();
             setViewRparTypCd();
-            MiddleDialog.dialogServiceCantReserveInfo(this, () ->{
+            MiddleDialog.dialogServiceCantReserveInfo(this, () -> {
                 initChoiceView();
             });
         }
     }
 
     private void initChoiceView() {
-        if(btrVO==null){
+        if (btrVO == null) {
             startMapView();
-        }else{
+        } else {
             checkValidRepair();
         }
     }
 
     private void setViewRparTypCd() {
-        if(repairTypeVO!=null)
+        if (repairTypeVO != null)
             ui.tvRpartypnm.setText(repairTypeVO.getRparTypNm());
     }
 
-    private void startMapView(){
+    private void startMapView() {
         startActivitySingleTop(new Intent(this, ServiceNetworkActivity.class).putExtra(KeyNames.KEY_NAME_BTR, btrVO).putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_REPAIR), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
     @Override
     public void onClickCommon(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             //TODO 주소검색 변경필요
             case R.id.tv_repair:
                 startMapView();
@@ -128,7 +129,7 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
                 doNext();
                 break;
 
-            case R .id.tv_repair_group:
+            case R.id.tv_repair_group:
                 requestRepairGroup();
 
                 break;
@@ -143,7 +144,7 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
     /**
      * @brief 예약 가능 시간 요청
      */
-    private void requestPossibleTime(){
+    private void requestPossibleTime() {
         Calendar minCalendar = Calendar.getInstance(Locale.getDefault());
         minCalendar.add(Calendar.DATE, 2);
         Calendar maxCalendar = Calendar.getInstance(Locale.getDefault());
@@ -155,7 +156,7 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
                 repairTypeVO.getRparTypCd(),
                 btrVO.getAcps1Cd(),
                 btrVO.getFirmScnCd(),
-                DateUtil.getDate(minCalendar.getTime(),DateUtil.DATE_FORMAT_yyyyMMdd),
+                DateUtil.getDate(minCalendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd),
                 DateUtil.getDate(maxCalendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd)
         ));
     }
@@ -165,10 +166,10 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
         dialogCalendarRepair = new DialogCalendarRepair(this, R.style.BottomSheetDialogTheme, onSingleClickListener);
         dialogCalendarRepair.setOnDismissListener(dialogInterface -> {
             Calendar calendar = dialogCalendarRepair.calendar;
-            if(calendar!=null){
+            if (calendar != null) {
                 rsvtHopeDt = DateUtil.getDate(calendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd);
                 rsvtHopeTm = dialogCalendarRepair.getSelectReserveDate().getRsvtTm();
-                repairGroupVO= dialogCalendarRepair.getRepairGroupVO();
+                repairGroupVO = dialogCalendarRepair.getRepairGroupVO();
                 checkValidRsvtHopeDt();
             }
         });
@@ -186,8 +187,8 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
     }
 
 
-    private void doNext(){
-        if(isValid()){
+    private void doNext() {
+        if (isValid()) {
             moveToNextPage();
         }
     }
@@ -205,7 +206,7 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
                 mainVehicle.getMdlNm(),
                 rsvtHopeDt,
                 rsvtHopeTm,
-                loginInfoDTO.getProfile()!=null ? loginInfoDTO.getProfile().getMobileNum() : "",
+                loginInfoDTO.getProfile() != null ? loginInfoDTO.getProfile().getMobileNum() : "",
                 btrVO.getAcps1Cd(),
                 btrVO.getAsnCd(), //엔진은 항상 선택
                 btrVO.getAsnNm(),
@@ -214,13 +215,13 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
                 repairGroupVO.getRpshGrpCd(),
                 repairGroupVO.getRpshGrpNm(),
                 "",
-                loginInfoDTO.getProfile()!=null ? loginInfoDTO.getProfile().getName() : "");
+                loginInfoDTO.getProfile() != null ? loginInfoDTO.getProfile().getName() : "");
 
         startActivitySingleTop(new Intent(this
-                        ,ServiceRepair3CheckActivity.class)
+                        , ServiceRepair3CheckActivity.class)
                         .putExtra(KeyNames.KEY_NAME_SERVICE_RESERVE_INFO, repairReserveVO)
-                ,RequestCodes.REQ_CODE_ACTIVITY.getCode()
-                ,VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
 
@@ -235,24 +236,24 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
     public void setObserver() {
 
         reqViewModel.getRES_REQ_1010().observe(this, result -> {
-            switch (result.status){
+            switch (result.status) {
                 case LOADING:
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
-                    if(result.data!=null&&result.data.getRsvtDtList()!=null&&result.data.getRsvtDtList().size()>0){
+                    if (result.data != null && result.data.getRsvtDtList() != null && result.data.getRsvtDtList().size() > 0) {
                         selectCalendar(result.data.getRsvtDtList());
                         break;
                     }
                 default:
-                    String serverMsg="";
+                    String serverMsg = "";
                     try {
                         serverMsg = result.data.getRtMsg();
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    }finally{
-                        if (TextUtils.isEmpty(serverMsg)){
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
                             serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
                         }
                         SnackBarUtil.show(this, serverMsg);
@@ -264,26 +265,24 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
 
 
         reqViewModel.getRES_REQ_1011().observe(this, result -> {
-            switch (result.status){
+            switch (result.status) {
                 case LOADING:
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
-                    if(result.data!=null&&result.data.getRpshGrpList()!=null&&result.data.getRpshGrpList().size()>0){
+                    if (result.data != null && result.data.getRpshGrpList() != null && result.data.getRpshGrpList().size() > 0) {
                         selectRepairGroup(result.data.getRpshGrpList());
-
-
                         break;
                     }
                 default:
-                    String serverMsg="";
+                    String serverMsg = "";
                     try {
                         serverMsg = result.data.getRtMsg();
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    }finally{
-                        if (TextUtils.isEmpty(serverMsg)){
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
                             serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
                         }
                         SnackBarUtil.show(this, serverMsg);
@@ -341,10 +340,9 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
             bottomListDialog.setDatas(reqViewModel.getRpshGrpNmList(list));
             bottomListDialog.setTitle(getString(R.string.sm_r_rsv02_04_12));
             bottomListDialog.show();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
-
 
 
     }
@@ -352,12 +350,12 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
     @Override
     public void getDataFromIntent() {
         try {
-            repairTypeVO = (RepairTypeVO)getIntent().getSerializableExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE);
+            repairTypeVO = (RepairTypeVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE);
             btrVO = (BtrVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_BTR);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (repairTypeVO==null) {
+            if (repairTypeVO == null) {
                 exitPage("정비소 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }
         }
@@ -387,23 +385,22 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
             constraintSets[pos].applyTo(ui.container);
             ui.tvMsg.setText(textMsgId[pos]);
 
-            if(pos==1){
+            if (pos == 1) {
                 requestPossibleTime();
             }
         }
     }
 
 
-
     private boolean checkValidRsvtHopeDt() {
-        if(TextUtils.isEmpty(rsvtHopeDt)){
+        if (TextUtils.isEmpty(rsvtHopeDt)) {
             ui.tvRsvtHopeDt.setText(R.string.sm_r_rsv02_04_8);
             ui.tvRsvtHopeDt.setTextColor(getColor(R.color.x_aaabaf));
             ui.tvRsvtHopeDt.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
             ui.tvErrorRsvtHopeDt.setVisibility(View.VISIBLE);
             ui.tvErrorRsvtHopeDt.setText(R.string.sm_r_rsv02_01_14);
             return false;
-        }else{
+        } else {
             String date = DateUtil.getDate(DateUtil.getDefaultDateFormat(rsvtHopeDt, DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)
                     + " / "
                     + DateUtil.getDate(DateUtil.getDefaultDateFormat(rsvtHopeTm, DateUtil.DATE_FORMAT_HHmm), DateUtil.DATE_FORMAT_HH_mm);
@@ -417,9 +414,8 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
     }
 
 
-
-    private boolean checkValidRepair(){
-        if(btrVO==null){
+    private boolean checkValidRepair() {
+        if (btrVO == null) {
             ui.tvErrorRepair.setVisibility(View.VISIBLE);
             ui.tvErrorRepair.setText(getString(R.string.sm_r_rsv02_01_14));
             ui.tvRepair.setTextColor(getColor(R.color.x_aaabaf));
@@ -427,7 +423,7 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
             ui.tvRepair.setText(R.string.sm_r_rsv02_04_3);
             ui.tvTitleRepair.setVisibility(View.GONE);
             return false;
-        }else{
+        } else {
             ui.tvErrorRepair.setVisibility(View.INVISIBLE);
             ui.tvRepair.setTextColor(getColor(R.color.x_000000));
             ui.tvRepair.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
@@ -439,20 +435,19 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
     }
 
 
+    private boolean isValid() {
 
-    private boolean isValid(){
-
-        for(View view : views){
-            if(view.getVisibility()==View.GONE) {
+        for (View view : views) {
+            if (view.getVisibility() == View.GONE) {
                 switch (view.getId()) {
                     case R.id.l_repair:
                         return false;
                     case R.id.l_rsvt_hope_dt:
-                        return checkValidRepair()&&false;
+                        return checkValidRepair() && false;
                 }
             }
         }
-        return checkValidRepair()&&checkValidRsvtHopeDt();
+        return checkValidRepair() && checkValidRsvtHopeDt();
     }
 
     @Override
@@ -461,11 +456,11 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
     }
 
     @Override
-    public void onBackButton(){
+    public void onBackButton() {
         dialogExit();
     }
 
-    private void dialogExit(){
+    private void dialogExit() {
         MiddleDialog.dialogServiceBack(this, () -> {
             finish();
             closeTransition();
@@ -478,10 +473,10 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REPAIR.getCode()){
+        if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REPAIR.getCode()) {
             exitPage(data, ResultCodes.REQ_CODE_SERVICE_RESERVE_REPAIR.getCode());
-        } else if(resultCode == ResultCodes.REQ_CODE_BTR.getCode()){
-            btrVO = (BtrVO)data.getSerializableExtra(KeyNames.KEY_NAME_BTR);
+        } else if (resultCode == ResultCodes.REQ_CODE_BTR.getCode()) {
+            btrVO = (BtrVO) data.getSerializableExtra(KeyNames.KEY_NAME_BTR);
             checkValidRepair();
         }
     }

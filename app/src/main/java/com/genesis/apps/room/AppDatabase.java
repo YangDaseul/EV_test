@@ -10,11 +10,12 @@ import com.genesis.apps.comm.model.vo.QuickMenuVO;
 import com.genesis.apps.comm.model.vo.UserVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.model.vo.WeatherVO;
+import com.genesis.apps.comm.model.vo.developers.CarConnectVO;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {GlobalData.class, UserVO.class, MenuVO.class, WeatherVO.class, QuickMenuVO.class, FloatingMenuVO.class, VehicleVO.class, CardVO.class, NotiInfoVO.class, ContentsVO.class, AddressVO.class}, version = 1)
+@Database(entities = {GlobalData.class, UserVO.class, MenuVO.class, WeatherVO.class, QuickMenuVO.class, FloatingMenuVO.class, VehicleVO.class, CardVO.class, NotiInfoVO.class, ContentsVO.class, AddressVO.class, CarConnectVO.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract GlobalDataDao globalDataDao();
     public abstract UserDao userDao();
@@ -27,4 +28,5 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract NotiInfoDao notiInfoDao();
     public abstract ContentsDao contentsDao();
     public abstract AddressDao addressDao();
+    public abstract CarConnectDao carConnectDao();
 }

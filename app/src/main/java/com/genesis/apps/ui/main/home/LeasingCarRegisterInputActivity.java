@@ -337,15 +337,15 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                 //계약 기간 선택 자동 활성화
                 selectRentPeriod();
             } else if (pos == 2) {
-                targetImgId = R.id.btn_cnt_img;
-                CropImage.startPickImageActivity(this);
+//                targetImgId = R.id.btn_cnt_img;
+//                CropImage.startPickImageActivity(this);
             } else if (pos == 3) {
-                targetImgId = R.id.btn_emp_certi_img;
-                CropImage.startPickImageActivity(this);
+//                targetImgId = R.id.btn_emp_certi_img;
+//                CropImage.startPickImageActivity(this);
             } else if (pos == 4) {
-                selectBtrInfo();
+//                selectBtrInfo();
             } else if (pos == 5) {
-                selectPostNo();
+//                selectPostNo();
             }
 
         }

@@ -213,9 +213,9 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                 .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, where == FROM ? R.string.service_drive_address_search_from_title : R.string.service_drive_address_search_to_title)
                 .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, where == FROM ? R.string.service_drive_address_search_from_msg : R.string.service_drive_address_search_to_msg);
 
-        if (addressVO[where] == null) {
-            intent.putExtra(KeyNames.KEY_NAME_MAP_SEARCH_DIRECT_OPEN, true);//바로 다음 화면 넘기기
-        }
+//        if (addressVO[where] == null) {
+//            intent.putExtra(KeyNames.KEY_NAME_MAP_SEARCH_DIRECT_OPEN, true);//바로 다음 화면 넘기기
+//        }
 
         startActivitySingleTop(
                 intent,
