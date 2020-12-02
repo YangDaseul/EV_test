@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.main.home;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -364,12 +365,30 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         if(downMenuVO !=null){
                             String qckMenuDivCd = downMenuVO.getQckMenuDivCd();
                             String lnkUri = downMenuVO.getLnkUri();
+                            String wvYn = downMenuVO.getWvYn();
                             if(!TextUtils.isEmpty(qckMenuDivCd)&&!TextUtils.isEmpty(lnkUri)){
                                 if(qckMenuDivCd.equalsIgnoreCase("IM")){
+
+                                    if(lnkUri.startsWith(KeyNames.KEY_NAME_INTERNAL_LINK)){
+                                        lnkUri = lnkUri.replaceAll(KeyNames.KEY_NAME_INTERNAL_LINK, "");
+                                        if(!TextUtils.isEmpty(lnkUri)){
+                                            switch (lnkUri){
+                                                //todo 공통 메뉴 이동 처리필요 BT02는 예외하드코딩
+                                            }
+                                        }
+                                    }
+
                                     //네이티브 링크로 이동
                                     //TODO 네이티브로 이동하는 부분은 처리 필요
                                 }else{
-                                    ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), WebviewActivity.class).putExtra(KeyNames.KEY_NAME_URL, lnkUri),RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                                    if(TextUtils.isEmpty(wvYn)||wvYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES)){
+                                        ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), WebviewActivity.class).putExtra(KeyNames.KEY_NAME_URL, lnkUri),RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                                    }else{
+                                        Intent intent = new Intent(Intent.ACTION_VIEW);
+//            intent.setData(QueryString.encode(uri.getQueryParameter("url")));
+                                        intent.setData(Uri.parse(lnkUri));
+                                        startActivity(intent); //TODO 테스트 필요 0002
+                                    }
                                     //외부 링크로 이동
                                 }
                             }

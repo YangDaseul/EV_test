@@ -14,6 +14,7 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
@@ -21,6 +22,7 @@ import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 import java.io.File;
 import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
@@ -240,10 +242,17 @@ public class NetCaller {
     public <REQ> JsonObject reqDataFromAnonymous(String serverDomain, APIInfo apiInfo, REQ reqVO) {
         JsonObject jsonObject = null;
         String serverUrl = serverDomain + apiInfo.getURI();
+
+        if(apiInfo.getIfCd().equalsIgnoreCase("carId")||apiInfo.getIfCd().equalsIgnoreCase("userId")){
+            serverUrl = String.format(Locale.getDefault(), serverUrl, getUriInfo(apiInfo.getIfCd(),new Gson().toJson(reqVO)));
+        }
+
         try {
             switch (apiInfo.getReqType()) {
                 case HttpRequest.METHOD_GET:
-                    if (reqVO != null) {
+                    if (reqVO != null
+                            &&apiInfo!=APIInfo.DEVELOPERS_CAR_ID //TODO 확인필요
+                            &&apiInfo!=APIInfo.DEVELOPERS_CAR_CHECK) {
                         Map<String, Object> map = new Gson().fromJson(
                                 new Gson().toJson(reqVO), new TypeToken<HashMap<String, Object>>() {
                                 }.getType());
@@ -293,12 +302,9 @@ public class NetCaller {
             try {
                 String serverUrl = serverDomain + apiInfo.getURI();
 
-                if(apiInfo.getIfCd().equalsIgnoreCase("carId")){
-
-                }else if(apiInfo.getIfCd().equalsIgnoreCase("userId")){
-
+                if(apiInfo.getIfCd().equalsIgnoreCase("carId")||apiInfo.getIfCd().equalsIgnoreCase("userId")){
+                    serverUrl = String.format(Locale.getDefault(), serverUrl, getUriInfo(apiInfo.getIfCd(),new Gson().toJson(reqVO)));
                 }
-
 
                 switch (apiInfo.getReqType()) {
                     case HttpRequest.METHOD_GET:
@@ -363,10 +369,23 @@ public class NetCaller {
         }, es.getUiThreadExecutor());
     }
 
+    private String getUriInfo(String key, String reqData) {
+        String uriInfo="";
 
+        try {
+            JsonElement element = new Gson().fromJson(reqData, JsonElement.class);
+            JsonObject json = element.getAsJsonObject();
+            uriInfo = json.get(key).getAsString();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            if(TextUtils.isEmpty(uriInfo)){
+               uriInfo="";
+            }
+        }
 
-
-
+        return uriInfo;
+    }
 
 
     public <REQ>void sendFileToGRA(NetResultCallback callback, APIInfo apiInfo, REQ reqVO, File file, String name) {

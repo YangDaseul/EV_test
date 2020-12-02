@@ -55,5 +55,6 @@ public interface KeyNames {
 
     String KEY_NAME_MEMBERSHIP_MBR_MGMT_NO="mbrshMbrMgmtNo";
 
+    String KEY_NAME_INTERNAL_LINK="genesisapp://menu?id=";
 
 }
