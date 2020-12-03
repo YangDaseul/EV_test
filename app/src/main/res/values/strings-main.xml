@@ -22,10 +22,13 @@
     <string name="gm01_bottom_11">차량의 보증 기간에 따른\n수리 안내입니다.</string>
 
 
-    <string name="gm02_1">차량정보설정</string>
+    <string name="gm02_1">차량 정보 설정</string>
     <string name="gm02_2">계약서 조회</string>
     <string name="gm02_3">유사 재고 조회</string>
     <string name="gm02_4">견적 내기</string>
+    <string name="gm02_5">차량 위치</string>
+    <string name="gm02_6">My 차고</string>
+    <string name="gm02_7">SNS 자랑하기</string>
 
     <string name="gm03_1">렌트/리스\n실 운행자 등록</string>
     <string name="gm03_2">중고차 등록</string>

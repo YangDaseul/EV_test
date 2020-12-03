@@ -26,7 +26,7 @@ import lombok.EqualsAndHashCode;
  * Y:웹뷰, N:아님
  * @see #lnkUri 링크URI
  */
-@Entity
+@Entity(primaryKeys = {"menuId","custGbCd"})
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
@@ -36,7 +36,6 @@ class QuickMenuVO extends BaseData {
 
     }
 
-    @PrimaryKey
     @NonNull
     @Expose
     @SerializedName("menuId")
@@ -57,6 +56,7 @@ class QuickMenuVO extends BaseData {
     @SerializedName("lnkUri")
     private String lnkUri;
 
+    @NonNull
     @Expose
     @SerializedName("custGbCd")
     private String custGbCd; //로컬db에서만 사용

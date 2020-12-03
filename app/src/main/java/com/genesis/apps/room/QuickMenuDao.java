@@ -10,7 +10,7 @@ import androidx.room.Transaction;
 
 @Dao
 public abstract class QuickMenuDao implements BaseDao<QuickMenuVO> {
-    @Query("SELECT * FROM QuickMenuVO WHERE custGbCd=:custGbCd")
+    @Query("SELECT * FROM QuickMenuVO WHERE custGbCd=:custGbCd order by nttOrd desc")
     public abstract List<QuickMenuVO> select(String custGbCd);
 
     @Query("DELETE from QuickMenuVO")

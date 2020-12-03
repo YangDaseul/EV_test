@@ -85,7 +85,7 @@
             android:padding="5dp"
             android:scaleType="centerInside"
             android:src="@drawable/ic_barcode"
-            android:visibility="@{TextUtils.isEmpty(custGbCd)||custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000) ? View.GONE : View.VISIBLE}"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/btn_profile"
             app:layout_constraintTop_toTopOf="parent"

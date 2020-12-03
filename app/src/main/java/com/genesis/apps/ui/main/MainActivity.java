@@ -19,6 +19,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.BAR_1001;
 import com.genesis.apps.comm.model.api.gra.NOT_0003;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
@@ -52,9 +53,23 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         getDataFromIntent();
         setViewModel();
         setObserver();
-
         initView();
+        initBarcode();
     }
+
+    private void initBarcode() {
+        String custGbCd="";
+        try {
+            custGbCd = lgnViewModel.getUserInfoFromDB().getCustGbCd();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            if(!TextUtils.isEmpty(custGbCd)&&!custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)){
+                cmnViewModel.reqBAR1001(new BAR_1001.Request(APPIAInfo.GM01.getId()));
+            }
+        }
+    }
+
     private void initView() {
         pagerAdapter = new MainViewpagerAdapter(this, pageNum);
         ui.viewpager.setAdapter(pagerAdapter);
@@ -159,6 +174,21 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             }
         });
 
+        cmnViewModel.getRES_BAR_1001().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    if(result.data!=null&&result.data.getCardList()!=null&&result.data.getCardList().size()>0){
+                        ui.lGnb.btnBarcode.setVisibility(View.VISIBLE);
+                        break;
+                    }
+                default:
+                    ui.lGnb.btnBarcode.setVisibility(View.GONE);
+                    break;
+            }
+        });
+
     }
 
     @Override
@@ -202,20 +232,18 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if ( (requestCode == RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode() && resultCode == RESULT_OK)
-                ||(requestCode == RequestCodes.REQ_CODE_PLAY_VIDEO.getCode())
+        if ( (requestCode == RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode())
+                ||requestCode == RequestCodes.REQ_CODE_PLAY_VIDEO.getCode()
+                ||(requestCode == RequestCodes.REQ_CODE_GPS.getCode() && resultCode == RESULT_OK)
         ) {
-            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-                if (fragment instanceof FragmentHome1) {
-                    fragment.onActivityResult(requestCode, resultCode, data);
-                    return;
-                }
-            }
-        }else if(requestCode == RequestCodes.REQ_CODE_GPS.getCode() && resultCode == RESULT_OK){
-            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-                if (fragment instanceof FragmentHome1) {
-                    fragment.onActivityResult(requestCode, resultCode, data);
-                    return;
+            for (Fragment fragmentParent : getSupportFragmentManager().getFragments()) {
+                if (fragmentParent instanceof FragmentHome) {
+                    for(Fragment fragmentChild : fragmentParent.getChildFragmentManager().getFragments()){
+                        if (fragmentChild instanceof FragmentHome1) {
+                            fragmentChild.onActivityResult(requestCode, resultCode, data);
+                            return;
+                        }
+                    }
                 }
             }
         }else if(resultCode==ResultCodes.REQ_CODE_SERVICE_RESERVE_AUTOCARE.getCode()

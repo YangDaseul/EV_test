@@ -166,6 +166,10 @@ class CMNViewModel extends ViewModel {
         return dbContentsRepository.setQuickMenu(list, type);
     }
 
+    public List<QuickMenuVO> getQuickMenuList(String custGbCd){
+        return dbContentsRepository.getQuickMenu(custGbCd);
+    }
+
     public boolean setDownMenuList(List<DownMenuVO> list, String type) {
         return dbContentsRepository.setDownMenu(list, type);
     }
