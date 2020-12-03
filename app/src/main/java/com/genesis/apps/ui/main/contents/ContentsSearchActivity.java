@@ -4,71 +4,88 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.CTT_1001;
 import com.genesis.apps.comm.model.api.gra.CTT_1004;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.CTT_1001;
 import com.genesis.apps.comm.model.vo.ContentsVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.viewmodel.CTTViewModel;
-import com.genesis.apps.databinding.FragmentContentsBinding;
-import com.genesis.apps.ui.common.activity.WebviewActivity;
-import com.genesis.apps.ui.common.fragment.SubFragment;
-import com.genesis.apps.ui.main.MainActivity;
+import com.genesis.apps.databinding.ActivityContentsSearchBinding;
+import com.genesis.apps.ui.common.activity.SubActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentContents extends SubFragment<FragmentContentsBinding> {
-
+public class ContentsSearchActivity extends SubActivity<ActivityContentsSearchBinding> {
+    private final String TAG = getClass().getSimpleName();
+    private ContentsSearchActivity mActivity = this;
     private CTTViewModel cttViewModel;
     private ContentsAdapter contentsAdapter;
-    private boolean isEvent=false;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return super.setContentView(inflater, R.layout.fragment_contents);
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_contents_search);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        ui.etSearch.setOnEditorActionListener(editorActionListener);
 
         intViewModel();
         initViewPager();
     }
 
-    private void intViewModel() {
-        cttViewModel = new ViewModelProvider(getActivity()).get(CTTViewModel.class);
-        me.setLifecycleOwner(getViewLifecycleOwner());
-        me.setFragment(this);
+    @Override
+    public void onClickCommon(View v) {
+        switch (v.getId()){
+            case R.id.iv_image:
+                ContentsVO item = ((ContentsVO)v.getTag(R.id.item));
+                if(item!=null){
+                    cttViewModel.reqCTT1004(new CTT_1004.Request(APPIAInfo.CM01.getId(), item.getListSeqNo()));
+                }
 
-        cttViewModel.getRES_CTT_1001().observe(getViewLifecycleOwner(), result -> {
+                break;
+        }
+    }
+
+    @Override
+    public void setViewModel() {
+
+    }
+
+    @Override
+    public void setObserver() {
+
+    }
+
+    @Override
+    public void getDataFromIntent() {
+
+    }
+
+    private void intViewModel() {
+        cttViewModel = new ViewModelProvider(mActivity).get(CTTViewModel.class);
+        ui.setLifecycleOwner(mActivity);
+
+        cttViewModel.getRES_CTT_1001().observe(mActivity, result -> {
 
             switch (result.status){
                 case LOADING:
-                    ((MainActivity)getActivity()).showProgressDialog(true);
+                    showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    ((MainActivity)getActivity()).showProgressDialog(false);
+                    showProgressDialog(false);
 
                     List<ContentsVO> list = new ArrayList<>();
 
@@ -78,13 +95,15 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
 
                     int itemSizeBefore = contentsAdapter.getItemCount();
                     if (contentsAdapter.getPageNo() == 0) {
+                        ui.vp.setCurrentItem(0);
                         contentsAdapter.setRows(list);
                     } else {
                         contentsAdapter.addRows(list);
                     }
                     contentsAdapter.setPageNo(contentsAdapter.getPageNo() + 1);
                     contentsAdapter.notifyItemRangeInserted(itemSizeBefore, contentsAdapter.getItemCount());
-                    me.lEmpty.setVisibility(contentsAdapter.getItemCount()==0 ? View.VISIBLE : View.GONE);
+
+                    ui.tvEmpty.setVisibility(contentsAdapter.getItemCount()==0 ? View.VISIBLE : View.GONE);
                     break;
                 default:
                     String serverMsg="";
@@ -93,23 +112,21 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
                     }catch (Exception e){
                         e.printStackTrace();
                     }finally{
-                        SnackBarUtil.show(getActivity(), TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
-                        ((MainActivity)getActivity()).showProgressDialog(false);
+                        SnackBarUtil.show(mActivity, TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                        showProgressDialog(false);
                     }
                     break;
             }
         });
 
-
-
-        cttViewModel.getRES_CTT_1004().observe(getViewLifecycleOwner(), result -> {
+        cttViewModel.getRES_CTT_1004().observe(mActivity, result -> {
 
             switch (result.status){
                 case LOADING:
-                    ((MainActivity)getActivity()).showProgressDialog(true);
+                    showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    ((MainActivity)getActivity()).showProgressDialog(false);
+                    showProgressDialog(false);
                     if(result.data!=null
                             &&result.data.getRtCd().equalsIgnoreCase("0000")
                             &&!TextUtils.isEmpty(result.data.getDtlViewCd())
@@ -119,7 +136,7 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
                         String linkUrl = result.data.getDtlViewCd().equalsIgnoreCase("3000") ? result.data.getDtlList().get(0).getHtmlFilUri() : result.data.getDtlList().get(0).getImgFilUri() ;
                         CTT_1004.Response contentsVO = result.data;
 
-                        ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), ContentsDetailWebActivity.class).putExtra(KeyNames.KEY_NAME_CONTENTS_VO, contentsVO),RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        startActivitySingleTop(new Intent(mActivity, ContentsDetailWebActivity.class).putExtra(KeyNames.KEY_NAME_CONTENTS_VO, contentsVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 
                         break;
                     }
@@ -130,30 +147,28 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
                     }catch (Exception e){
                         e.printStackTrace();
                     }finally{
-                        SnackBarUtil.show(getActivity(), TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
-                        ((MainActivity)getActivity()).showProgressDialog(false);
+                        SnackBarUtil.show(mActivity, TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                        showProgressDialog(false);
                     }
                     break;
             }
         });
-
-        
     }
 
     private void initViewPager(){
         //ViewPager Setting
         contentsAdapter = new ContentsAdapter(onSingleClickListener);
-        me.vp.setAdapter(contentsAdapter);
-        me.vp.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
-        me.vp.setCurrentItem(0);
-        me.vp.setOffscreenPageLimit(3);
+        ui.vp.setAdapter(contentsAdapter);
+        ui.vp.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
+        ui.vp.setCurrentItem(0);
+        ui.vp.setOffscreenPageLimit(3);
 
-        me.vp.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        ui.vp.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
                 if (positionOffsetPixels == 0) {
-                    me.vp.setCurrentItem(position);
+                    ui.vp.setCurrentItem(position);
                 }
             }
 
@@ -166,7 +181,7 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
 
         final float pageMargin= getResources().getDimensionPixelOffset(R.dimen.vpMargin);
 
-        me.vp.setPageTransformer((view, position) -> {
+        ui.vp.setPageTransformer((view, position) -> {
             float myOffset = position * -(pageMargin);
 //                page.setScaleX(1 - (0.25f * abs(position)));
 //                page.setTranslationY(pageTranslationY * position);
@@ -207,60 +222,22 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
                 view.setAlpha(0);
             }
         });
-
     }
 
-    @Override
-    public boolean onBackPressed() {
-        return false;
-    }
-
-    @Override
-    public void onClickCommon(View v) {
-
-        switch (v.getId()){
-            //다시시도
-            case R.id.btn_retry:
-                contentsAdapter.setPageNo(0);
-                cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(),"","",(contentsAdapter.getPageNo()+1)+"","20"));
-                break;
-
-            //이벤트 버튼
-            case R.id.btn_event:
-                if(isEvent){
-                    //일반목록요청
-                    isEvent=false;
-                    me.btnEvent.setBackgroundResource(R.drawable.bg_00000000_underline_6f6f6f);
-                }else{
-                    //이벤트목록요청
-                    isEvent=true;
-                    me.btnEvent.setBackgroundResource(R.drawable.ripple_bg_000000);
-                }
-
-                contentsAdapter.setPageNo(0);
-                cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(),isEvent ? "1000" :"0","",(contentsAdapter.getPageNo()+1)+"","20"));
-                break;
-
-            case R.id.iv_image:
-                ContentsVO item = ((ContentsVO)v.getTag(R.id.item));
-                if(item!=null){
-                    cttViewModel.reqCTT1004(new CTT_1004.Request(APPIAInfo.CM01.getId(), item.getListSeqNo()));
-                }
-
-                break;
+    EditText.OnEditorActionListener editorActionListener = (textView, actionId, keyEvent) -> {
+        if(actionId== EditorInfo.IME_ACTION_SEARCH){
+            searchContents();
         }
+        return false;
+    };
+
+    private void searchContents(){
+        //end
+        String keyword = ui.etSearch.getText().toString().trim();
+
+        contentsAdapter.setPageNo(0);
+        cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(),"",keyword,(contentsAdapter.getPageNo()+1)+"","20"));
+
+        SoftKeyboardUtil.hideKeyboard(mActivity, mActivity.getWindow().getDecorView().getWindowToken());
     }
-
-    @Override
-    public void onRefresh() {
-
-        Log.e("onResume","onReusme contents");
-
-        if(contentsAdapter.getPageNo()==0)
-            cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(),"","",(contentsAdapter.getPageNo()+1)+"","20"));
-
-        ((MainActivity)getActivity()).setGNB(true, 0, View.VISIBLE);
-    }
-
-
 }

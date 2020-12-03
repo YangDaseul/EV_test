@@ -113,7 +113,23 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
 
     @Override
     public void setObserver() {
+        cttViewModel.getRES_CTT_1002().observe(mActivity, result -> {
 
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+
+                    break;
+                default:
+                    showProgressDialog(false);
+
+                    break;
+            }
+        });
     }
 
     @Override
@@ -144,11 +160,11 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
 
         ratingViews = new View[] {ui.includeLayout.llRate1, ui.includeLayout.llRate2, ui.includeLayout.llRate3, ui.includeLayout.llRate4, ui.includeLayout.llRate5};
 
-//        if("Y".equals(contentsVO.getEvalYn())) {
-//            ui.includeLayout.llRate.setVisibility(View.VISIBLE);
-//        } else {
-//            ui.includeLayout.llRate.setVisibility(View.GONE);
-//        }
+        if("Y".equals(contentsVO.getEvalYn())) {
+            ui.includeLayout.llRate.setVisibility(View.VISIBLE);
+        } else {
+            ui.includeLayout.llRate.setVisibility(View.GONE);
+        }
 
         if("Y".equals(contentsVO.getLnkUseYn())) {
 

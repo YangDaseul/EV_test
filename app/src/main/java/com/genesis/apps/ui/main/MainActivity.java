@@ -30,6 +30,7 @@ import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityMainBinding;
 import com.genesis.apps.databinding.ItemTabBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
+import com.genesis.apps.ui.main.contents.ContentsSearchActivity;
 import com.genesis.apps.ui.main.home.FragmentHome1;
 import com.genesis.apps.ui.main.service.FragmentService;
 import com.genesis.apps.ui.main.service.MapSearchMyPositionActivity;
@@ -129,6 +130,9 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                     ignore.printStackTrace();
                 }
                 break;
+                case R.id.btn_search:
+                    startActivitySingleTop(new Intent(this, ContentsSearchActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    break;
         }
 
     }
