@@ -117,11 +117,10 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
                             &&result.data.getDtlList().size()>0){
 
                         String linkUrl = result.data.getDtlViewCd().equalsIgnoreCase("3000") ? result.data.getDtlList().get(0).getHtmlFilUri() : result.data.getDtlList().get(0).getImgFilUri() ;
+                        CTT_1004.Response contentsVO = result.data;
 
-                        //TODO 2020-11-30 임시조치. 구현 필요
-                        if(!TextUtils.isEmpty(linkUrl)){
-                            ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), ContentsDetailWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, linkUrl),RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                        }
+                        ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), ContentsDetailWebActivity.class).putExtra(KeyNames.KEY_NAME_CONTENTS_VO, contentsVO),RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
                         break;
                     }
                 default:
