@@ -37,7 +37,7 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
     private LGNViewModel lgnViewModel;
     private CTT_1004.Response contentsVO;
     private View[] ratingViews;
-    private int mRate = 3;
+    private int mRate = 1;
     public MyWebViewFrament fragment;
     public ContentsVO item;
     public String url = ""; //초기 접속 URL

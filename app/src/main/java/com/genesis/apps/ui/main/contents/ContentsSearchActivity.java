@@ -47,6 +47,13 @@ public class ContentsSearchActivity extends SubActivity<ActivityContentsSearchBi
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        SoftKeyboardUtil.hideKeyboard(mActivity, mActivity.getWindow().getDecorView().getWindowToken());
+    }
+
+    @Override
     public void onClickCommon(View v) {
         switch (v.getId()){
             case R.id.iv_image:
