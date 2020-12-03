@@ -27,7 +27,7 @@ class OdometerVO extends BaseData {
     private String timestamp;
     @Expose
     @SerializedName("value")
-    private double value;
+    private int value;
     @Expose
     @SerializedName("unit")
     private int unit;

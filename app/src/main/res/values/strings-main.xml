@@ -5,7 +5,7 @@
     <string name="main_word_4">CONTENTS</string>
 
     <string name="gm01_1">총 주행 거리</string>
-    <string name="gm01_2">최근 주행거리</string>
+    <string name="gm01_2">일별 주행 거리</string>
     <string name="gm01_3">주행 가능 거리</string>
     <string name="gm01_repair_status_1">긴급 출동 신청 중</string>
     <string name="gm01_repair_status_2">차량 정비 중</string>

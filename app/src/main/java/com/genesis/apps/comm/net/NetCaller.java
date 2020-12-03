@@ -49,7 +49,7 @@ public class NetCaller {
             try {
                 switch (beanReqParm.getType()) {
                     case HttpRequest.METHOD_GET:
-                        jsonObject = httpRequestUtil.getData(beanReqParm.getUrl());
+                        jsonObject = httpRequestUtil.getData(beanReqParm.getUrl(), ga.getAccessToken());
                         break;
                     case HttpRequest.METHOD_PUT:
                         jsonObject = httpRequestUtil.sendPut(beanReqParm.getUrl(), beanReqParm.getData());
@@ -172,7 +172,7 @@ public class NetCaller {
                 String serverUrl = GAInfo.CCSP_URL+apiInfo.getURI();
                 switch (apiInfo.getReqType()) {
                     case HttpRequest.METHOD_GET:
-                        jsonObject = httpRequestUtil.getData(serverUrl);
+                        jsonObject = httpRequestUtil.getData(serverUrl, ga.getAccessToken());
                         break;
                     case HttpRequest.METHOD_PUT:
                         jsonObject = httpRequestUtil.sendPut(serverUrl, new Gson().toJson(reqVO));
@@ -256,9 +256,9 @@ public class NetCaller {
                         Map<String, Object> map = new Gson().fromJson(
                                 new Gson().toJson(reqVO), new TypeToken<HashMap<String, Object>>() {
                                 }.getType());
-                        jsonObject = httpRequestUtil.getData(serverUrl, map);
+                        jsonObject = httpRequestUtil.getData(serverUrl, map, ga.getAccessToken());
                     } else {
-                        jsonObject = httpRequestUtil.getData(serverUrl);
+                        jsonObject = httpRequestUtil.getData(serverUrl, ga.getAccessToken());
                     }
                     break;
                 case HttpRequest.METHOD_PUT:
@@ -312,9 +312,9 @@ public class NetCaller {
                             Map<String, Object> map = new Gson().fromJson(
                                     new Gson().toJson(reqVO), new TypeToken<HashMap<String, Object>>() {
                                     }.getType());
-                            jsonObject = httpRequestUtil.getData(serverUrl, map);
+                            jsonObject = httpRequestUtil.getData(serverUrl, map, ga.getAccessToken());
                         }else{
-                            jsonObject = httpRequestUtil.getData(serverUrl);
+                            jsonObject = httpRequestUtil.getData(serverUrl, ga.getAccessToken());
                         }
                         break;
                     case HttpRequest.METHOD_PUT:

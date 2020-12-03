@@ -12,18 +12,25 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.developers.Distance;
+import com.genesis.apps.comm.model.api.developers.Dte;
+import com.genesis.apps.comm.model.api.developers.Odometer;
+import com.genesis.apps.comm.model.api.developers.ParkLocation;
+import com.genesis.apps.comm.model.api.gra.LGN_0003;
+import com.genesis.apps.comm.model.api.gra.LGN_0005;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.constants.WeatherCodes;
-import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.LGN_0003;
-import com.genesis.apps.comm.model.api.gra.LGN_0005;
 import com.genesis.apps.comm.model.vo.DownMenuVO;
 import com.genesis.apps.comm.model.vo.MessageVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.model.vo.developers.OdometerVO;
 import com.genesis.apps.comm.util.RecordUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
+import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentHome1Binding;
 import com.genesis.apps.ui.common.activity.WebviewActivity;
@@ -42,6 +49,7 @@ import com.google.android.exoplayer2.upstream.RawResourceDataSource;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -61,6 +69,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     private SimpleExoPlayer player;
     private LGNViewModel lgnViewModel;
     private CMNViewModel cmnViewModel;
+    private DevelopersViewModel developersViewModel;
     private HomeInsightHorizontalAdapter adapter=null;
     private RecordUtil recordUtil;
     private Timer timer = null;
@@ -78,27 +87,19 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initViewModel();
+        initView();
+        setVideo();
+        setViewWeather();
+    }
+
+    private void initViewModel() {
         me.setLifecycleOwner(getViewLifecycleOwner());
         me.setFragment(this);
-        initView();
-        recordUtil = new RecordUtil(this, visibility -> {
-            ((MainActivity)getActivity()).ui.lGnb.lWhole.setVisibility(visibility);
-            ((MainActivity)getActivity()).ui.tabs.setVisibility(visibility);
-            me.vpInsight.setVisibility(visibility);
-            me.tvCarCode.setVisibility(visibility);
-            me.tvCarModel.setVisibility(visibility);
-            me.tvRepairStatus.setVisibility(visibility);
-            me.tvCarVrn.setVisibility(visibility);
-            me.btnCarinfo.setVisibility(visibility);
-            me.btnLocation.setVisibility(visibility);
-            me.btnShare.setVisibility(visibility);
-            //TODO 배경 및 차량 리소스가 결정되면 녹화해야할 VIEW가 요건 정의 된 후 여기에서 해당 뷰 셋팅 정의 필요
-            //EX ui.layout.setVisibility(visibility);
-        });
         lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
         cmnViewModel = new ViewModelProvider(getActivity()).get(CMNViewModel.class);
+        developersViewModel= new ViewModelProvider(getActivity()).get(DevelopersViewModel.class);
 
-        //TODO 뱃지 알람을 여기에서 처리하면안됨. 수정필요
         lgnViewModel.getRES_LGN_0003().observe(getViewLifecycleOwner(), result -> {
             switch (result.status){
                 case SUCCESS:
@@ -144,15 +145,90 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             lgnViewModel.reqLGN0005(new LGN_0005.Request(APPIAInfo.GM01.getId(), String.valueOf(doubles.get(1)), String.valueOf(doubles.get(0))));
         });
 
+        //주행가능거리표기
+        developersViewModel.getRES_DTE().observe(getViewLifecycleOwner(), result -> {
+            switch (result.status){
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    if(result.data!=null){
+                        me.tvDistancePossible.setText(StringUtil.getDigitGrouping(result.data.getValue()) +developersViewModel.getDistanceUnit(result.data.getUnit()));
+                    }
+                default:
+                    me.tvDistancePossible.setText("--");
+                    break;
+            }
+        });
 
-        setVideo();
-        setViewWeather();
+        //총주행거리표기
+        developersViewModel.getRES_ODOMETER().observe(getViewLifecycleOwner(), result -> {
+            switch (result.status){
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    if(result.data!=null&&result.data.getOdometers()!=null){
+                        me.tvDistanceTotal.setText(StringUtil.getDigitGrouping(result.data.getOdometers().getValue())+developersViewModel.getDistanceUnit(result.data.getOdometers().getUnit()));
+                        break;
+                    }
+                default:
+                    me.tvDistanceTotal.setText("--");
+                    break;
+            }
+        });
+
+        //최근주행거리표기
+        developersViewModel.getRES_DISTANCE().observe(getViewLifecycleOwner(), result -> {
+            switch (result.status){
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    if(result.data!=null&&result.data.getDistances()!=null&&result.data.getDistances().size()>0){
+                        OdometerVO odometerVO = result.data.getDistances().stream().max(Comparator.comparingInt(data -> Integer.parseInt(data.getDate()))).get();
+                        me.tvDistanceRecently.setText(StringUtil.getDigitGrouping(odometerVO.getValue())+developersViewModel.getDistanceUnit(odometerVO.getUnit()));
+                        break;
+                    }
+                default:
+                    me.tvDistanceRecently.setText("--");
+                    break;
+            }
+        });
+
+        developersViewModel.getRES_PARKLOCATION().observe(getViewLifecycleOwner(), result -> {
+            switch (result.status){
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    if(result.data!=null&&result.data.getLat()!=0&&result.data.getLon()!=0){
+                        me.btnLocation.setVisibility(View.VISIBLE);
+                        break;
+                    }
+                default:
+                    me.btnLocation.setVisibility(View.GONE);
+                    break;
+            }
+        });
+
     }
 
     private void initView() {
         adapter = new HomeInsightHorizontalAdapter(onSingleClickListener);
         me.vpInsight.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         me.vpInsight.setAdapter(adapter);
+
+        recordUtil = new RecordUtil(this, visibility -> {
+            ((MainActivity)getActivity()).ui.lGnb.lWhole.setVisibility(visibility);
+            ((MainActivity)getActivity()).ui.tabs.setVisibility(visibility);
+            me.vpInsight.setVisibility(visibility);
+            me.tvCarCode.setVisibility(visibility);
+            me.tvCarModel.setVisibility(visibility);
+            me.tvRepairStatus.setVisibility(visibility);
+            me.tvCarVrn.setVisibility(visibility);
+            me.btnCarinfo.setVisibility(visibility);
+            me.btnLocation.setVisibility(visibility);
+            me.btnShare.setVisibility(visibility);
+            //TODO 배경 및 차량 리소스가 결정되면 녹화해야할 VIEW가 요건 정의 된 후 여기에서 해당 뷰 셋팅 정의 필요
+            //EX ui.layout.setVisibility(visibility);
+        });
     }
 
     private void setViewWeather() {
@@ -217,13 +293,15 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         //TODO 확인 클릭
                     });
                 }else{
-                    //todo 현재 강제로 하드코딩한 주소값. 제네시스 디벨로퍼에서 가저오도록 수정 필요
-                    List<String> position = new ArrayList<>();
-                    position.add("37.463936");
-                    position.add("127.042953");
-                    ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), MyLocationActivity.class).putExtra(KeyNames.KEY_NAME_VEHICLE_LOCATION, new Gson().toJson(position)), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    try {
+                        List<Double> position = new ArrayList<>();
+                        position.add(developersViewModel.getRES_PARKLOCATION().getValue().data.getLat());
+                        position.add(developersViewModel.getRES_PARKLOCATION().getValue().data.getLon());
+                        ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MyLocationActivity.class).putExtra(KeyNames.KEY_NAME_VEHICLE_LOCATION, new Gson().toJson(position)), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
-
                 break;
         }
     }
@@ -305,6 +383,10 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         me.ivMore.setVisibility(View.VISIBLE);
                         me.lDistance.setVisibility(View.VISIBLE);
                         lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
+                        reqCarInfoToDevelopers(vehicleVO.getVin());
+                        
+
+
 
 //                        me.lDistance.setOnClickListener(new View.OnClickListener() {
 //                            @Override
@@ -331,6 +413,19 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             }
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    private void reqCarInfoToDevelopers(String vin) {
+        String carId = developersViewModel.getCarId(vin);
+
+        if(TextUtils.isEmpty(carId)){
+
+        }else{
+            developersViewModel.reqDte(new Dte.Request(carId));
+            developersViewModel.reqOdometer(new Odometer.Request(carId));
+            developersViewModel.reqDistance(new Distance.Request(carId, developersViewModel.getDateYyyyMMdd(-7), developersViewModel.getDateYyyyMMdd(0)));
+            developersViewModel.reqParkLocation(new ParkLocation.Request(carId));
         }
     }
 

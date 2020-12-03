@@ -26,10 +26,13 @@ import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.model.vo.developers.CarConnectVO;
 import com.genesis.apps.comm.model.vo.developers.CarVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -153,7 +156,6 @@ class DevelopersViewModel extends ViewModel {
         try {
             return future.get();
         }finally {
-            //todo 테스트 필요
             es.shutDownExcutor();
         }
     }
@@ -192,7 +194,7 @@ class DevelopersViewModel extends ViewModel {
                                 && !TextUtils.isEmpty(vehicleVO.getVin())) {//로컬 db에 등록된 차대번호에 해당하는 carId가 있는지 확인
 
                             //carId가 없는 차량을 리스트에 추가
-                            targetList.add(new CarConnectVO("", "", "", "", vehicleVO.getVin()));
+                            targetList.add(new CarConnectVO(vehicleVO.getVin(), "", "", "", ""));
                         }
                     } catch (Exception ignore) {
 
@@ -247,12 +249,65 @@ class DevelopersViewModel extends ViewModel {
                     }
                 }
             }
-
         }
-
-
     }
 
 
+    /**
+     * @brief 거리 단위 확인
+     * @param value
+     * @return
+     */
+    public String getDistanceUnit(int value) {
+        String unit = "km";
+        switch (value) {
+            case 0:
+                unit = " feet";
+                break;
+            case 2:
+                unit = " meter";
+                break;
+            case 3:
+                unit = " miles";
+                break;
+            case 1:
+            default:
+                unit = " km";
+                break;
+        }
+        return unit;
+    }
+
+    public String getCarId(String vin) {
+        CarConnectVO carConnectVO;
+        String carId="";
+        try{
+            carConnectVO = dbVehicleRepository.getCarConnect(vin);
+
+            if(carConnectVO!=null)
+                carId = carConnectVO.getCarId();
+
+        }catch (Exception e){
+
+        }finally{
+            return carId;
+        }
+    }
+
+    public String getDateYyyyMMdd(int day){
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+
+        if(day!=0) calendar.add(Calendar.DATE, day);
+
+        String date = "";
+
+        try{
+            date = DateUtil.getDate(calendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            return date;
+        }
+    }
 
 }
