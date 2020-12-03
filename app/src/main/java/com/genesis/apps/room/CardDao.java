@@ -1,7 +1,6 @@
 package com.genesis.apps.room;
 
 import com.genesis.apps.comm.model.vo.CardVO;
-import com.genesis.apps.comm.model.vo.FloatingMenuVO;
 
 import java.util.List;
 

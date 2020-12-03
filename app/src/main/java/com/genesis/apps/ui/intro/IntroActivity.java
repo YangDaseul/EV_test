@@ -14,6 +14,7 @@ import com.genesis.apps.comm.model.api.gra.LGN_0001;
 import com.genesis.apps.comm.model.api.gra.LGN_0004;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.CCSVO;
 import com.genesis.apps.comm.model.vo.DeviceDTO;
 import com.genesis.apps.comm.model.vo.NotiVO;
 import com.genesis.apps.comm.model.vo.UserVO;
@@ -152,6 +153,9 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
                         @Override
                         public void onSuccess(Object retv) {
                             if (((Boolean) retv)) {
+
+                                checkVehicleCarId(result.data.getCcsUserInfo());
+
                                 if(!TextUtils.isEmpty(result.data.getPushIdChgYn())&&result.data.getPushIdChgYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES)){
                                     MiddleDialog.dialogDuplicateLogin(IntroActivity.this, () -> {
                                         lgnViewModel.reqLGN0004(new LGN_0004.Request(APPIAInfo.INT01.getId()));
@@ -186,6 +190,22 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
             //결과에 상관없이 메인화면으로 이동
             goToMain.run();
         });
+    }
+
+    /**
+     * @brief Developers에 소유 차량에 대한 carId 확인 요청
+     * @param ccsUserInfo
+     */
+    private void checkVehicleCarId(CCSVO ccsUserInfo) {
+        try {
+            if (ccsUserInfo != null
+                    && !TextUtils.isEmpty(ccsUserInfo.getRgstYn())
+                    && !TextUtils.isEmpty(ccsUserInfo.getUserId())
+                    && ccsUserInfo.getRgstYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
+                developersViewModel.checkCarId(ccsUserInfo.getUserId());
+            }
+        }catch (Exception ignore){
+        }
     }
 
     @Override

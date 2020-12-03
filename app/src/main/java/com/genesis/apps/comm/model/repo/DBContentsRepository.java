@@ -1,17 +1,13 @@
 package com.genesis.apps.comm.model.repo;
 
-import com.genesis.apps.comm.model.vo.FloatingMenuVO;
+import com.genesis.apps.comm.model.vo.DownMenuVO;
 import com.genesis.apps.comm.model.vo.QuickMenuVO;
 import com.genesis.apps.comm.model.vo.WeatherVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.room.DatabaseHolder;
-import com.genesis.apps.room.GlobalData;
 
 import java.util.List;
 
 import javax.inject.Inject;
-
-import androidx.lifecycle.MutableLiveData;
 
 public class DBContentsRepository {
     private DatabaseHolder databaseHolder;
@@ -61,17 +57,17 @@ public class DBContentsRepository {
     }
 
 
-    public List<FloatingMenuVO> getFloatingMenu(String custGbCd){
-        return databaseHolder.getDatabase().floatingMenuDao().select(custGbCd);
+    public List<DownMenuVO> getDownMenu(String custGbCd){
+        return databaseHolder.getDatabase().downMenuDao().select(custGbCd);
     }
 
-    public boolean setFloatingMenu(List<FloatingMenuVO> list, String custGbCd){
+    public boolean setDownMenu(List<DownMenuVO> list, String custGbCd){
         boolean isUpdate = false;
         try{
             for(int i=0; i<list.size();i++){
                 list.get(i).setCustGbCd(custGbCd);
             }
-            databaseHolder.getDatabase().floatingMenuDao().insertAndDeleteInTransaction(list, custGbCd);
+            databaseHolder.getDatabase().downMenuDao().insertAndDeleteInTransaction(list, custGbCd);
             isUpdate=true;
         }catch (Exception e){
             e.printStackTrace();

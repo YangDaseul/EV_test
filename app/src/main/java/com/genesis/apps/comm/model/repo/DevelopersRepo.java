@@ -318,7 +318,7 @@ public class DevelopersRepo {
     public CarCheck.Response REQ_SYNC_CAR_CHECK(final CarCheck.Request reqData) {
         CarCheck.Response response;
         try{
-            response = new Gson().fromJson(netCaller.reqDataFromAnonymous(GAInfo.CCSP_URL, APIInfo.DEVELOPERS_CAR_CHECK, reqData), CarCheck.Response.class);
+            response = new Gson().fromJson(netCaller.reqDataFromAnonymous(GAInfo.CCSP_URL, APIInfo.DEVELOPERS_CAR_CHECK, null), CarCheck.Response.class);
         }catch (Exception e){
             response = null;
         }

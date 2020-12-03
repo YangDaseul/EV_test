@@ -15,8 +15,6 @@ import lombok.EqualsAndHashCode;
  * @brief 소모폼 교환 정보
  * @author hjpark
  * @see #menuId 메뉴ID
- * @see #upMenuId 상위메뉴ID
- * IM:제네시스앱메뉴, OW:외부링크메뉴
  * @see #menuNm 메뉴명
  * @see #menuTypCd 메뉴유형코드
  * NA: native, WV:webview
@@ -29,9 +27,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
-class FloatingMenuVO extends BaseData {
+class DownMenuVO extends BaseData {
 
-    public FloatingMenuVO(){
+    public DownMenuVO(){
 
     }
 
@@ -41,20 +39,21 @@ class FloatingMenuVO extends BaseData {
     @SerializedName("menuId")
     private String menuId;
     @Expose
-    @SerializedName("upMenuId")
-    private String upMenuId;
-    @Expose
     @SerializedName("menuNm")
     private String menuNm;
     @Expose
-    @SerializedName("menuTypCd")
-    private String menuTypCd;
+    @SerializedName("qckMenuDivCd")
+    private String qckMenuDivCd;
     @Expose
-    @SerializedName("scrnTypCd")
-    private String scrnTypCd;
+    @SerializedName("wvYn")
+    private String wvYn;
     @Expose
     @SerializedName("lnkUri")
     private String lnkUri;
+    @Expose
+    @SerializedName("nttOrd")
+    private String nttOrd;
+
     @Expose
     @SerializedName("custGbCd")
     private String custGbCd; //로컬db에서만 사용

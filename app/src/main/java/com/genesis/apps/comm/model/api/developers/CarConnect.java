@@ -25,9 +25,14 @@ public class CarConnect extends BaseData {
         @Expose
         @SerializedName("cars")
         private CarConnectVO cars;
+        //여기서 userId는.. url 생성 용도로만 사용. 실제로 해당 규격서에서 해당 데이터를 요청하지 않음
+        @Expose
+        @SerializedName("userId")
+        private String userId;
 
-        public Request(CarConnectVO cars) {
+        public Request(CarConnectVO cars, String userId) {
             this.cars = cars;
+            this.userId = userId;
         }
     }
 
@@ -38,7 +43,7 @@ public class CarConnect extends BaseData {
     @EqualsAndHashCode(callSuper = true)
     public @Data
     abstract
-    class Response extends BaseData {
+    class Response extends DevelopersBaseResponse {
 
     }
 }

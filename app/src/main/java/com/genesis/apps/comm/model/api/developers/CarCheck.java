@@ -36,7 +36,7 @@ public class CarCheck extends BaseData {
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
-    class Response extends BaseData {
+    class Response extends DevelopersBaseResponse {
         @Expose
         @SerializedName("cars")
         private List<CarVO> cars;

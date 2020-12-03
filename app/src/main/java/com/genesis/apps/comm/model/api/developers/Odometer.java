@@ -41,7 +41,7 @@ public class Odometer extends BaseData {
     @EqualsAndHashCode(callSuper = true)
     public @Data
     abstract
-    class Response extends BaseData {
+    class Response extends DevelopersBaseResponse {
         @Expose
         @SerializedName("odometers")
         private OdometerVO odometers;
