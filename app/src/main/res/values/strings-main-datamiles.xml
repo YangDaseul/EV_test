@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--데이터 마일스 : 공통-->
+    <string name="gm01_datamiles_title">datamiles</string>
+    <string name="gm01_more">더보기</string>
+
     <!--데이터 마일스 : 안전운전 점수-->
     <string name="gm01_driving_score">안전운전 점수</string>
     <string name="gm01_driving_before_score_title">전월 대비</string>
