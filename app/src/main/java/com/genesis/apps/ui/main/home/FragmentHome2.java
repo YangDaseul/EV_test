@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main.home;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,16 +11,22 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.developers.Detail;
+import com.genesis.apps.comm.model.api.developers.Dtc;
+import com.genesis.apps.comm.model.api.developers.Replacements;
+import com.genesis.apps.comm.model.api.developers.Target;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.LGN_0003;
+import com.genesis.apps.comm.model.vo.DataMilesVO;
 import com.genesis.apps.comm.model.vo.MainHistVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
+import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentHome2Binding;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
@@ -29,14 +36,18 @@ import com.genesis.apps.ui.main.home.view.Home2AsanAdapter;
 import com.genesis.apps.ui.main.home.view.Home2BtrAdapter;
 import com.genesis.apps.ui.main.home.view.Home2DataMilesAdapter;
 import com.genesis.apps.ui.main.home.view.Home2WarrantyAdapter;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -57,6 +68,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
     private Home2BtrAdapter home2BtrAdapter;
     private LGNViewModel lgnViewModel;
     private VehicleVO vehicleVO;
+    private DevelopersViewModel developersViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -77,7 +89,10 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
     }
 
     private void setObserver() {
-        lgnViewModel.getRES_LGN_0003().observe(getViewLifecycleOwner(), result -> {
+        Log.d("FID", "test :: setObserver ::");
+        LifecycleOwner lifecycleOwner = getViewLifecycleOwner();
+
+        lgnViewModel.getRES_LGN_0003().observe(lifecycleOwner, result -> {
             switch (result.status) {
                 case SUCCESS:
                     setViewAsanList(result);
@@ -87,10 +102,54 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
             }
         });
 
+        developersViewModel.getRES_TARGET().observe(lifecycleOwner, result -> {
+            Log.d("FID", "test :: RES_TARGET :: result=" + result);
+            Log.d("FID", "test :: RES_TARGET :: data=" + result.data);
+            String targetYn = "Y";// UBI 가입 여부 더미 값.
+            String supportedTargetYn = "Y"; // UBI 가입 가능 여부 더미값.
+
+            String carId = developersViewModel.getCarId(vehicleVO.getVin());
+            home2DataMilesAdapter.setRows(Collections.singletonList(new DataMilesVO(carId)));
+            if ("Y".equals(targetYn)) {
+                // UBI 가입한 상태
+                // 안전 운전 정보 조회
+                developersViewModel.reqDetail(new Detail.Request(carId));
+            } else {
+                // UBI를 가입하지 않은 상태
+                if ("Y".equals(supportedTargetYn)) {
+                    // UBI 가입 가능한 상태
+                    // 안전 운전 점수 서비스 가이드 UI 표시.
+                }
+            }
+            // 소모품 현황 데이터 조회
+//            developersViewModel.reqReplacements(new Replacements.Request(carId));
+            // 고장 코드 데이터 조회
+//            developersViewModel.reqDtc(new Dtc.Request(carId));
+        });
+
+        // 데이터 마일스 : 안전운전 점수 옵저버 등록
+        developersViewModel.getRES_DETAIL().observe(lifecycleOwner, result -> {
+            Log.d("FID", "test :: RES_DETAIL :: result=" + result);
+            setDatamilesDetail(result);
+        });
+
+        // 데이터 마일스 : 소모품 현황 옵저버 등록
+        developersViewModel.getRES_REPLACEMENTS().observe(lifecycleOwner, result -> {
+            Log.d("FID", "test :: getRES_REPLACEMENTS :: result=" + result);
+        });
+
+        // 데이터 마일스 : 고장 코드 데이터 옵저버 등록
+        developersViewModel.getRES_DTC().observe(lifecycleOwner, result -> {
+            Log.d("FID", "test :: getRES_DTC :: result=" + result);
+        });
     }
 
     private void setViewModel() {
-        lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
+        FragmentActivity activity = getActivity();
+        if (activity != null) {
+            lgnViewModel = new ViewModelProvider(activity).get(LGNViewModel.class);
+            developersViewModel = new ViewModelProvider(activity).get(DevelopersViewModel.class);
+        }
     }
 
     /**
@@ -107,10 +166,19 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
         home2BtrAdapter = new Home2BtrAdapter(onSingleClickListener);
         concatAdapter = new ConcatAdapter(home2DataMilesAdapter, home2AsanAdapter, home2WarrantyAdapter, home2BtrAdapter);
         me.rv.setAdapter(concatAdapter);
+    }
 
-        // TODO :: TEST 코드
-        home2DataMilesAdapter.setRows(Collections.singletonList(new MainHistVO("", "", "", "", "", "", "", "")));
-        home2DataMilesAdapter.notifyDataSetChanged();
+    /**
+     *
+     */
+    private void setDatamilesDetail(NetUIResponse<Detail.Response> result) {
+        Detail.Response data = result.data;
+
+        String carId = developersViewModel.getCarId(vehicleVO.getVin());
+//        if (data != null) {
+            home2DataMilesAdapter.setDetail(carId, result);
+            home2DataMilesAdapter.notifyDataSetChanged();
+//        }
     }
 
     /**
@@ -217,6 +285,11 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
         }
 
         lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
+        String carId = developersViewModel.getCarId(vehicleVO.getVin());
+        // Car ID 값이 있는 경우에만 데이터 마일스 정보를 노출.
+        if (!TextUtils.isEmpty(carId)) {
+            developersViewModel.reqTarget(new Target.Request(developersViewModel.getCarId(vehicleVO.getVin())));
+        }
         ((MainActivity) getActivity()).setGNB(false, 1, View.GONE);
     }
 

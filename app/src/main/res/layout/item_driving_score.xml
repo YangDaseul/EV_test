@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="safetyDrvScore"
+            type="String" />
     </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:paddingBottom="40dp">
@@ -88,9 +88,9 @@
                 android:layout_marginTop="50dp"
                 android:layout_marginEnd="100dp"
                 android:gravity="top"
+                android:text="@{safetyDrvScore}"
                 android:includeFontPadding="false"
                 android:lineSpacingExtra="0dp"
-                android:text="100"
                 android:textSize="44sp"
                 app:layout_constraintEnd_toEndOf="@id/asb_datamiles_driving_score"
                 app:layout_constraintTop_toTopOf="@id/asb_datamiles_driving_score" />
