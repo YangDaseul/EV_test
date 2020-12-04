@@ -1,6 +1,7 @@
 package com.genesis.apps.comm.util;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -18,15 +19,17 @@ public class InteractionUtil {
      */
     public static void expand(final View v, @Nullable final View scrollView) {
         v.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        final int targtetHeight = v.getMeasuredHeight();
-
+        final int targetHeight = v.getMeasuredHeight();
         v.getLayoutParams().height = 0;
         v.setVisibility(View.VISIBLE);
         Animation a = new Animation() {
             @Override
             protected void applyTransformation(float interpolatedTime, Transformation t) {
-                v.getLayoutParams().height = (interpolatedTime == 1) ? ViewGroup.LayoutParams.WRAP_CONTENT : (int) (targtetHeight * interpolatedTime);
-                v.requestLayout();
+                if(v.getLayoutParams().height!=ViewGroup.LayoutParams.WRAP_CONTENT) {
+                    v.getLayoutParams().height = (interpolatedTime == 1) ? ViewGroup.LayoutParams.WRAP_CONTENT : (int) (targetHeight * interpolatedTime);
+                    Log.v("expandtest", "expand:" + v.getLayoutParams().height);
+                    v.requestLayout();
+                }
             }
 
             @Override
@@ -56,7 +59,7 @@ public class InteractionUtil {
             });
         }
 
-        a.setDuration(((int) (targtetHeight / v.getContext().getResources().getDisplayMetrics().density))*3);
+        a.setDuration(((int) (targetHeight / v.getContext().getResources().getDisplayMetrics().density))*2);
         v.startAnimation(a);
     }
 
@@ -152,7 +155,7 @@ public class InteractionUtil {
             });
         }
 
-        a.setDuration( ((int) (initialHeight / v.getContext().getResources().getDisplayMetrics().density))*3);
+        a.setDuration( ((int) (initialHeight / v.getContext().getResources().getDisplayMetrics().density)));
         v.startAnimation(a);
     }
 }

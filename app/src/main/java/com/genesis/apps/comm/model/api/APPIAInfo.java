@@ -1,6 +1,10 @@
 package com.genesis.apps.comm.model.api;
 
 import com.genesis.apps.comm.model.vo.MenuVO;
+import com.genesis.apps.ui.main.SimilarCarActivity;
+import com.genesis.apps.ui.main.home.LeasingCarVinRegisterActivity;
+import com.genesis.apps.ui.main.home.MyCarActivity;
+import com.genesis.apps.ui.main.home.RegisterUsedCarActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public enum APPIAInfo {
+    DEFAULT("default", null, false, "기본"),
     INT01("INT01", null, false, "스플래시"),
     INT02("INT02", null, false, "접근 권한 알림"), //TODO 로그인/회원가입과 IA 아이디가 같음..
     INT02_P01("INT02_P01", null, false, "접근권한 설정 팝업"),
@@ -31,7 +36,7 @@ public enum APPIAInfo {
     GM_BTO1("GM_BTO1", null, true, "BTO 차량 목록"),
     GM_BTO2("GM_BTO2", null, false, "BTO"),
     GM02_CTR01("GM02_CTR01", null, false, "계약서 / 견적서 조회 / 계약진행현황"),
-    GM02_INV01("GM02_INV01", null, false, "유사 재고 조회 / 예약"),
+    GM02_INV01("GM02_INV01", SimilarCarActivity.class, false, "유사 재고 조회 / 예약"),
     GM02_BF01("GM02_BF01", null, false, "대기고객 혜택"),
 
     GM_BT01_P01("GM_BT01_P01", null, false, "버틀러 서비스 안내 팝업"),
@@ -46,10 +51,10 @@ public enum APPIAInfo {
     GM_BT06_01("GM_BT06_01", null, false, "블루핸즈 필터"),
     GM_BT06_02("GM_BT06_02", null, false, "블루핸즈 목록 보기"),
 
-    GM_CARLST01("GM_CARLST01", null, true, "My 차고"),
+    GM_CARLST01("GM_CARLST01", MyCarActivity.class, true, "My 차고"),
     GM_CARLST_P01("GM_CARLST_P01", null, false, "차량 번호 수정 팝업"),
     GM_CARLST_P02("GM_CARLST_P02", null, false, "차량 삭제 팝업"),
-    GM_CARLST_01("GM_CARLST_01", null, true, "렌트/리스 실 운행자 등록 확인"),
+    GM_CARLST_01("GM_CARLST_01", LeasingCarVinRegisterActivity.class, true, "렌트/리스 실 운행자 등록 확인"),
     GM_CARLST_01_01("GM_CARLST_01_01", null, false, "등록 신청"),
     GM_CARLST_01_B01("GM_CARLST_01_B01", null, false, "전담블루핸즈/버틀러 선택 팝업"),
     GM_CARLST_01_B02("GM_CARLST_01_B02", null, false, "블루핸즈 필터"),
@@ -63,7 +68,7 @@ public enum APPIAInfo {
     GM_CARLST_01_P05("GM_CARLST_01_P05", null, false, "신청 취소 팝업"),
 
     GM_CARLST_02("GM_CARLST_02", null, false, "렌트/리스 실 운행자 등록 내역"),
-    GM_CARLST_03("GM_CARLST_03", null, true, "중고차 등록"),
+    GM_CARLST_03("GM_CARLST_03", RegisterUsedCarActivity.class, true, "중고차 등록"),
     GM_CARLST_03_P01("GM_CARLST_03_P01", null, false, "중고차 안내사항"),
     GM_CARLST_04("GM_CARLST_04", null, false, "차량 상세"),
 
@@ -284,5 +289,9 @@ public enum APPIAInfo {
 
     public void setActivity(Class activity) {
         this.activity = activity;
+    }
+
+    public static APPIAInfo findCode(String id){
+        return Arrays.asList(APPIAInfo.values()).stream().filter(data->data.getId().equalsIgnoreCase(id)).findAny().orElse(DEFAULT);
     }
 }

@@ -10,13 +10,13 @@ import lombok.EqualsAndHashCode;
 
 /**
  * @author hjpark
- * @file Dte
- * @Brief 주행가능거리 조회
+ * @file Odometer
+ * @Brief 총 주행거리
  */
 public class Odometer extends BaseData {
     /**
      * @author hjpark
-     * @brief Dte 요청 항목
+     * @brief Odometer 요청 항목
      * @see #carId 차량 고유 ID
      */
     @EqualsAndHashCode(callSuper = true)
@@ -34,7 +34,7 @@ public class Odometer extends BaseData {
 
     /**
      * @author hjpark
-     * @brief Dte 응답 항목
+     * @brief Odometer 응답 항목
      * @see #odometers 누적 운행 거리
      * @see #msgId 요청 결과 확인을 위한 메시지 ID
      */

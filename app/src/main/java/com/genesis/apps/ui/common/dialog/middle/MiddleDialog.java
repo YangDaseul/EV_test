@@ -428,7 +428,7 @@ public class MiddleDialog {
                         R.string.pop03_1,
                         R.string.pop03_2,
                         R.string.dialog_common_1,
-                        R.string.dialog_common_2
+                        R.string.dialog_common_4
                 ).show()
         );
     }

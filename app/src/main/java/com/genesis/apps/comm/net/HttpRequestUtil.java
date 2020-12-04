@@ -80,10 +80,32 @@ public class HttpRequestUtil {
     }
 
 
-    public JsonObject getData(String url) throws NetException{
-        Log.d(TAG_LOG, "getData:"+url);
+    public JsonObject getData(String url, String accessToken) throws NetException{
+        Log.d(TAG_LOG, "getDataw:"+url);
         HttpRequest request = getRequest(url);
+
+        if(!TextUtils.isEmpty(accessToken)) request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + accessToken);
+
         return request!=null&&request.ok() ? toJsonObject(request.code(), request.body()) : null;
+    }
+
+    public JsonObject getData(HttpRequest request) throws NetException {
+        Log.v(TAG_LOG, "getData request : " + request.toString());
+        int statusCode = request.code();
+        Log.v(TAG_LOG, "getData statusCode [" + statusCode + "]");
+        String body = request.body();
+        Log.v(TAG_LOG, "getData body [" + body + "]");
+        request.disconnect();
+        return toJsonObject(statusCode, body);
+    }
+
+    public JsonObject getData(String url, Map<String, Object> params, String accessToken) throws NetException {
+        HttpRequest request = params == null ? getRequest(url) : getRequest(url, params);
+
+        if(!TextUtils.isEmpty(accessToken)) request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + accessToken);
+
+        JsonObject ret = getData(request);
+        return ret;
     }
 
     public JsonObject sendPut(String url, String data) throws NetException {
@@ -176,17 +198,6 @@ public class HttpRequestUtil {
         }
     }
 
-
-    public JsonObject getData(HttpRequest request) throws NetException {
-        Log.v(TAG_LOG, "getData request : " + request.toString());
-        int statusCode = request.code();
-        Log.v(TAG_LOG, "getData statusCode [" + statusCode + "]");
-        String body = request.body();
-        Log.v(TAG_LOG, "getData body [" + body + "]");
-        request.disconnect();
-        return toJsonObject(statusCode, body);
-    }
-
     public JsonObject send(HttpRequest request, Map<String, Object> params) throws NetException {
         Log.v(TAG_LOG, "send request : " + request.toString());
         String jsonStr = null;
@@ -258,12 +269,6 @@ public class HttpRequestUtil {
     public JsonObject postData(String url, Map<String, Object> params) throws NetException {
         HttpRequest request = getPostRequest(url);
         JsonObject ret = send(request, params);
-        return ret;
-    }
-
-    public JsonObject getData(String url, Map<String, Object> params) throws NetException {
-        HttpRequest request = params == null ? getRequest(url) : getRequest(url, params);
-        JsonObject ret = getData(request);
         return ret;
     }
 
