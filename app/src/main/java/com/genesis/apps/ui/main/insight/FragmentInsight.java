@@ -107,7 +107,10 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                     ((MainActivity) getActivity()).showProgressDialog(false);
                     List<ISTAmtVO> list = new ArrayList<>();
                     ISTAmtVO current = null;
-                    if (result.data != null&&result.data.getRtCd().equalsIgnoreCase("0000")) {
+                    if (result.data != null
+                            &&result.data.getRtCd().equalsIgnoreCase("0000")
+                            &&result.data.getCurrMthAmt()!=null
+                            &&result.data.getCurrMthAmt().size()>0) {
                         try {
                             current = ((ISTAmtVO)result.data.getCurrMthAmt().get(0).clone());
                         }catch (Exception e){
@@ -122,7 +125,8 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                         }
 
                         insightCarAdapter.setPrvsToUseAmt(preUseAmt);
-                        if(result.data.getCurrMthAmt()==null||result.data.getCurrMthAmt().size()<1){ //정책으로 데이터가 없을 때도 그래프를 정상적으로 출력
+                        if(result.data.getCurrMthAmt()==null||result.data.getCurrMthAmt().size()<1){
+                            //정책으로 데이터가 없을 때도 그래프를 정상적으로 출력 -> 2020-12-04 현재월 데이터가 없으면 출력하지 않도록 정책 재 변경
                             list.add(new ISTAmtVO("0", "0", "0", "0", "0"));
                         }else{
                             list.add(current);

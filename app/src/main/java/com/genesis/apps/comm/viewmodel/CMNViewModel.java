@@ -8,10 +8,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
-import com.genesis.apps.comm.model.api.gra.NOT_0003;
-import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.constants.WeatherCodes;
 import com.genesis.apps.comm.model.api.gra.BAR_1001;
 import com.genesis.apps.comm.model.api.gra.CMN_0001;
 import com.genesis.apps.comm.model.api.gra.CMN_0002;
@@ -20,6 +16,10 @@ import com.genesis.apps.comm.model.api.gra.CMN_0004;
 import com.genesis.apps.comm.model.api.gra.MBR_0001;
 import com.genesis.apps.comm.model.api.gra.NOT_0001;
 import com.genesis.apps.comm.model.api.gra.NOT_0002;
+import com.genesis.apps.comm.model.api.gra.NOT_0003;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.constants.WeatherCodes;
 import com.genesis.apps.comm.model.repo.BARRepo;
 import com.genesis.apps.comm.model.repo.CMNRepo;
 import com.genesis.apps.comm.model.repo.CardRepository;
@@ -27,8 +27,10 @@ import com.genesis.apps.comm.model.repo.DBContentsRepository;
 import com.genesis.apps.comm.model.repo.DBGlobalDataRepository;
 import com.genesis.apps.comm.model.repo.MBRRepo;
 import com.genesis.apps.comm.model.repo.NOTRepo;
+import com.genesis.apps.comm.model.vo.BtoVO;
 import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.comm.model.vo.DownMenuVO;
+import com.genesis.apps.comm.model.vo.FamilyAppVO;
 import com.genesis.apps.comm.model.vo.MessageVO;
 import com.genesis.apps.comm.model.vo.NotiInfoVO;
 import com.genesis.apps.comm.model.vo.NotiVO;
@@ -156,6 +158,22 @@ class CMNViewModel extends ViewModel {
 
     public void updateNotiDt(String notiDt) {
         dbGlobalDataRepository.update(KeyNames.KEY_NAME_DB_GLOBAL_DATA_NOTIDT, notiDt);
+    }
+
+    public void updateFamilyApp(List<FamilyAppVO> familyAppVOList) {
+        dbContentsRepository.setFamilyApp(familyAppVOList);
+    }
+
+    public List<FamilyAppVO> getFamilyApp(){
+        return dbContentsRepository.getFamilyApp();
+    }
+
+    public void updateBto(List<BtoVO> list) {
+        dbContentsRepository.setBto(list);
+    }
+
+    public BtoVO getBtoVO(String mdlNm){
+        return dbContentsRepository.getBto(mdlNm);
     }
 
     public boolean setWeatherList(List<WeatherVO> list) {

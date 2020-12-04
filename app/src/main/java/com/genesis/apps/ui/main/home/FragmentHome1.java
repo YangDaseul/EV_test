@@ -24,6 +24,7 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.constants.WeatherCodes;
+import com.genesis.apps.comm.model.vo.BtoVO;
 import com.genesis.apps.comm.model.vo.DownMenuVO;
 import com.genesis.apps.comm.model.vo.MessageVO;
 import com.genesis.apps.comm.model.vo.QuickMenuVO;
@@ -62,6 +63,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static android.app.Activity.RESULT_OK;
@@ -74,10 +76,11 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     private LGNViewModel lgnViewModel;
     private CMNViewModel cmnViewModel;
     private DevelopersViewModel developersViewModel;
-    private HomeInsightHorizontalAdapter adapter=null;
+    private HomeInsightHorizontalAdapter adapter = null;
     private RecordUtil recordUtil;
     private Timer timer = null;
-    private boolean isRecord=false;
+    private boolean isRecord = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return super.setContentView(inflater, R.layout.fragment_home_1);
@@ -103,27 +106,27 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         me.setFragment(this);
         lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
         cmnViewModel = new ViewModelProvider(getActivity()).get(CMNViewModel.class);
-        developersViewModel= new ViewModelProvider(getActivity()).get(DevelopersViewModel.class);
+        developersViewModel = new ViewModelProvider(getActivity()).get(DevelopersViewModel.class);
 
         lgnViewModel.getRES_STO_1002().observe(getViewLifecycleOwner(), result -> {
-            switch (result.status){
+            switch (result.status) {
                 case LOADING:
-                    ((MainActivity)getActivity()).showProgressDialog(true);
+                    ((MainActivity) getActivity()).showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    if(result.data!=null&&!TextUtils.isEmpty(result.data.getHtmlFilUri())){
-                        ((MainActivity)getActivity()).showProgressDialog(false);
+                    if (result.data != null && !TextUtils.isEmpty(result.data.getHtmlFilUri())) {
+                        ((MainActivity) getActivity()).showProgressDialog(false);
                         ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, result.data.getHtmlFilUri()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                         break;
                     }
                 default:
-                    ((MainActivity)getActivity()).showProgressDialog(false);
-                    String serverMsg="";
+                    ((MainActivity) getActivity()).showProgressDialog(false);
+                    String serverMsg = "";
                     try {
                         serverMsg = result.data.getRtMsg();
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    }finally{
+                    } finally {
                         SnackBarUtil.show(getActivity(), serverMsg);
                     }
                     break;
@@ -132,9 +135,9 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
 
         lgnViewModel.getRES_LGN_0003().observe(getViewLifecycleOwner(), result -> {
-            switch (result.status){
+            switch (result.status) {
                 case SUCCESS:
-                    if(result.data!=null&&!TextUtils.isEmpty(result.data.getAsnStatsNm())){
+                    if (result.data != null && !TextUtils.isEmpty(result.data.getAsnStatsNm())) {
                         me.tvRepairStatus.setVisibility(View.VISIBLE);
                         me.tvRepairStatus.setText(result.data.getAsnStatsNm());
                     }
@@ -150,7 +153,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             if (result.data != null) {
                 try {
                     weatherCodes = WeatherCodes.decideCode(result.data.getLgt(), result.data.getPty(), result.data.getSky());
-                }catch (Exception e){
+                } catch (Exception e) {
                     weatherCodes = WeatherCodes.PTY1;
                 }
             }
@@ -159,14 +162,14 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 MessageVO weather = cmnViewModel.getHomeWeatherInsight(weatherCodes);
                 if (weather != null) {
                     adapter.addRow(weather);
-                    adapter.setRealItemCnt(adapter.getRealItemCnt()+1);
+                    adapter.setRealItemCnt(adapter.getRealItemCnt() + 1);
                 }
                 adapter.addRow(cmnViewModel.getTmpInsight());
-                adapter.setRealItemCnt(adapter.getRealItemCnt()+1);
+                adapter.setRealItemCnt(adapter.getRealItemCnt() + 1);
                 adapter.notifyDataSetChanged();
                 me.setActivity((MainActivity) getActivity());
                 me.setWeatherCode(weatherCodes);
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
 
@@ -178,12 +181,12 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
         //주행가능거리표기
         developersViewModel.getRES_DTE().observe(getViewLifecycleOwner(), result -> {
-            switch (result.status){
+            switch (result.status) {
                 case LOADING:
                     break;
                 case SUCCESS:
-                    if(result.data!=null){
-                        me.tvDistancePossible.setText(StringUtil.getDigitGrouping(result.data.getValue()) +developersViewModel.getDistanceUnit(result.data.getUnit()));
+                    if (result.data != null) {
+                        me.tvDistancePossible.setText(StringUtil.getDigitGrouping(result.data.getValue()) + developersViewModel.getDistanceUnit(result.data.getUnit()));
                     }
                 default:
                     me.tvDistancePossible.setText("--");
@@ -193,12 +196,12 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
         //총주행거리표기
         developersViewModel.getRES_ODOMETER().observe(getViewLifecycleOwner(), result -> {
-            switch (result.status){
+            switch (result.status) {
                 case LOADING:
                     break;
                 case SUCCESS:
-                    if(result.data!=null&&result.data.getOdometers()!=null){
-                        me.tvDistanceTotal.setText(StringUtil.getDigitGrouping(result.data.getOdometers().getValue())+developersViewModel.getDistanceUnit(result.data.getOdometers().getUnit()));
+                    if (result.data != null && result.data.getOdometers() != null) {
+                        me.tvDistanceTotal.setText(StringUtil.getDigitGrouping(result.data.getOdometers().getValue()) + developersViewModel.getDistanceUnit(result.data.getOdometers().getUnit()));
                         break;
                     }
                 default:
@@ -209,13 +212,13 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
         //최근주행거리표기
         developersViewModel.getRES_DISTANCE().observe(getViewLifecycleOwner(), result -> {
-            switch (result.status){
+            switch (result.status) {
                 case LOADING:
                     break;
                 case SUCCESS:
-                    if(result.data!=null&&result.data.getDistances()!=null&&result.data.getDistances().size()>0){
+                    if (result.data != null && result.data.getDistances() != null && result.data.getDistances().size() > 0) {
                         OdometerVO odometerVO = result.data.getDistances().stream().max(Comparator.comparingInt(data -> Integer.parseInt(data.getDate()))).get();
-                        me.tvDistanceRecently.setText(StringUtil.getDigitGrouping(odometerVO.getValue())+developersViewModel.getDistanceUnit(odometerVO.getUnit()));
+                        me.tvDistanceRecently.setText(StringUtil.getDigitGrouping(odometerVO.getValue()) + developersViewModel.getDistanceUnit(odometerVO.getUnit()));
                         break;
                     }
                 default:
@@ -225,11 +228,11 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         });
 
         developersViewModel.getRES_PARKLOCATION().observe(getViewLifecycleOwner(), result -> {
-            switch (result.status){
+            switch (result.status) {
                 case LOADING:
                     break;
                 case SUCCESS:
-                    if(result.data!=null&&result.data.getLat()!=0&&result.data.getLon()!=0){
+                    if (result.data != null && result.data.getLat() != 0 && result.data.getLon() != 0) {
                         me.btnLocation.setVisibility(View.VISIBLE);
                         break;
                     }
@@ -247,8 +250,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         me.vpInsight.setAdapter(adapter);
 
         recordUtil = new RecordUtil(this, visibility -> {
-            ((MainActivity)getActivity()).ui.lGnb.lWhole.setVisibility(visibility);
-            ((MainActivity)getActivity()).ui.tabs.setVisibility(visibility);
+            ((MainActivity) getActivity()).ui.lGnb.lWhole.setVisibility(visibility);
+            ((MainActivity) getActivity()).ui.tabs.setVisibility(visibility);
             me.vpInsight.setVisibility(visibility);
             me.tvCarCode.setVisibility(visibility);
             me.tvCarModel.setVisibility(visibility);
@@ -266,36 +269,36 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     private void setViewWeather() {
 
-        if(!((MainActivity)getActivity()).isGpsEnable()) {
-            MiddleDialog.dialogGPS(getActivity(), () -> ((MainActivity)getActivity()).turnGPSOn(isGPSEnable -> {
+        if (!((MainActivity) getActivity()).isGpsEnable()) {
+            MiddleDialog.dialogGPS(getActivity(), () -> ((MainActivity) getActivity()).turnGPSOn(isGPSEnable -> {
             }), () -> {
                 //TODO 확인 클릭
             });
 
             //현대양재사옥위치
-            lgnViewModel.setPosition(37.463936,127.042953);
-        }else{
+            lgnViewModel.setPosition(37.463936, 127.042953);
+        } else {
             reqMyLocation();
         }
 
     }
 
-    private void reqMyLocation(){
-        Log.v("test","test start");
-        ((MainActivity)getActivity()).showProgressDialog(true);
-        ((MainActivity)getActivity()).findMyLocation(location -> {
-            Log.v("test","test finish");
-            ((MainActivity)getActivity()).showProgressDialog(false);
+    private void reqMyLocation() {
+        Log.v("test", "test start");
+        ((MainActivity) getActivity()).showProgressDialog(true);
+        ((MainActivity) getActivity()).findMyLocation(location -> {
+            Log.v("test", "test finish");
+            ((MainActivity) getActivity()).showProgressDialog(false);
             if (location == null) {
-                Log.v("location","location null");
+                Log.v("location", "location null");
                 return;
             }
 
             getActivity().runOnUiThread(() -> {
                 //TODO 테스트 필요
-                lgnViewModel.setPosition(location.getLatitude(),location.getLongitude());
+                lgnViewModel.setPosition(location.getLatitude(), location.getLongitude());
             });
-        },5000);
+        }, 5000);
     }
 
     @Override
@@ -305,31 +308,39 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     @Override
     public void onClickCommon(View v) {
-        switch (v.getId()){
-            case R.id.btn_carinfo://차량정보설정
-                ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), MyCarActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                break;
-            case R.id.btn_share:
-                recordUtil.checkRecordPermission();
-                break;
+        switch (v.getId()) {
+//            case R.id.btn_carinfo://차량정보설정
+//                ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), MyCarActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                break;
+//            case R.id.btn_share:
+//                recordUtil.checkRecordPermission();
+//                break;
             case R.id.btn_quick:
                 toggleQuickMenu();
                 break;
             case R.id.btn_location:
-
-                if(!((MainActivity)getActivity()).isGpsEnable()) {
-                    MiddleDialog.dialogGPS(getActivity(), () -> ((MainActivity)getActivity()).turnGPSOn(isGPSEnable -> {
+                if (!((MainActivity) getActivity()).isGpsEnable()) {
+                    MiddleDialog.dialogGPS(getActivity(), () -> ((MainActivity) getActivity()).turnGPSOn(isGPSEnable -> {
                     }), () -> {
                         //TODO 확인 클릭
                     });
-                }else{
+                } else {
                     try {
-                        List<Double> position = new ArrayList<>();
-                        position.add(developersViewModel.getRES_PARKLOCATION().getValue().data.getLat());
-                        position.add(developersViewModel.getRES_PARKLOCATION().getValue().data.getLon());
-                        ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MyLocationActivity.class).putExtra(KeyNames.KEY_NAME_VEHICLE_LOCATION, new Gson().toJson(position)), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                    }catch (Exception e){
+                        if (developersViewModel.getRES_PARKLOCATION().getValue() != null
+                                && developersViewModel.getRES_PARKLOCATION().getValue().data != null
+                                && developersViewModel.getRES_PARKLOCATION().getValue().data.getLat() != 0
+                                && developersViewModel.getRES_PARKLOCATION().getValue().data.getLon() != 0) {
+                            List<Double> position = new ArrayList<>();
+                            position.add(developersViewModel.getRES_PARKLOCATION().getValue().data.getLat());
+                            position.add(developersViewModel.getRES_PARKLOCATION().getValue().data.getLon());
+                            ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MyLocationActivity.class).putExtra(KeyNames.KEY_NAME_VEHICLE_LOCATION, new Gson().toJson(position)), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                            return;
+                        }
+                    } catch (Exception e) {
                         e.printStackTrace();
+                    }finally {
+                        //todo 20201204 메시지 정의 필요
+                        SnackBarUtil.show(getActivity(), "주차 위치 정보가 존재하지 않습니다.");
                     }
                 }
                 break;
@@ -341,39 +352,39 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     }
 
     private void toggleQuickMenu() {
-        if(me.lQuickMenu.getVisibility()==View.VISIBLE){
+        if (me.lQuickMenu.getVisibility() == View.VISIBLE) {
             goneQuickMenu();
-        }else{
+        } else {
             visibleQuickMenu();
         }
     }
 
-    private void visibleQuickMenu(){
+    private void visibleQuickMenu() {
         me.lQuickMenu.setVisibility(View.VISIBLE);
         me.flDim.setVisibility(View.VISIBLE);
     }
 
-    private void goneQuickMenu(){
+    private void goneQuickMenu() {
         me.lQuickMenu.setVisibility(View.GONE);
         me.flDim.setVisibility(View.GONE);
     }
 
     @Override
     public void onRefresh() {
-        if(isRecord)
+        if (isRecord)
             return;
 
         videoPauseAndResume(true);
         setViewVehicle();
 //        recordUtil.regReceiver();
-        ((MainActivity)getActivity()).setGNB(false, 1, View.VISIBLE);
+        ((MainActivity) getActivity()).setGNB(false, 1, View.VISIBLE);
 
         startTimer();
         goneQuickMenu();
     }
 
     private void startTimer() {
-        if(adapter.getRealItemCnt()>1) {
+        if (adapter.getRealItemCnt() > 1) {
 
             if (timer == null)
                 timer = new Timer();
@@ -394,41 +405,37 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         }
     }
 
-    private void pauseTimer(){
-        if(timer!=null){
+    private void pauseTimer() {
+        if (timer != null) {
             timer.cancel();
-            timer=null;
+            timer = null;
         }
     }
 
 
     private void setViewVehicle() {
         VehicleVO vehicleVO = null;
-        try{
+        try {
             vehicleVO = lgnViewModel.getMainVehicleFromDB();
-            if(vehicleVO!=null){
+            if (vehicleVO != null) {
                 me.tvCarCode.setText(vehicleVO.getMdlNm());
                 me.tvCarModel.setText(vehicleVO.getSaleMdlNm());
                 me.tvCarVrn.setText(vehicleVO.getCarRgstNo());
                 Glide
                         .with(getContext())
-                        .load(vehicleVO.getVhclImgUri())
+                        .load(vehicleVO.getVhclImgUri() + (VariableType.isHardCoding ? "empty" : ""))
                         .centerInside()
                         .error(R.drawable.car_new_44)
                         .placeholder(R.drawable.car_new_44)
                         .into(me.ivCar);
 
-                me.btnShare.setVisibility(View.GONE);
-                me.btnCarinfo.setVisibility(View.GONE);
                 me.ivMore.setVisibility(View.GONE);
                 me.tvRepairStatus.setVisibility(View.GONE);
                 me.lDistance.setVisibility(View.GONE);
                 me.lFloating.setVisibility(View.GONE);
 
-                switch (vehicleVO.getCustGbCd()){
+                switch (vehicleVO.getCustGbCd()) {
                     case VariableType.MAIN_VEHICLE_TYPE_OV:
-                        me.btnShare.setVisibility(View.VISIBLE);
-                        me.btnCarinfo.setVisibility(View.VISIBLE);
                         me.ivMore.setVisibility(View.VISIBLE);
                         me.lDistance.setVisibility(View.VISIBLE);
                         lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
@@ -436,7 +443,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         makeQuickMenu(vehicleVO.getCustGbCd());
                         break;
                     case VariableType.MAIN_VEHICLE_TYPE_CV:
-                        me.btnCarinfo.setVisibility(View.VISIBLE);
                         makeDownMenu(vehicleVO.getCustGbCd());
                         makeQuickMenu(vehicleVO.getCustGbCd());
                         break;
@@ -450,14 +456,14 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         break;
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void reqCarInfoToDevelopers(String vin) {
         String carId = developersViewModel.getCarId(vin);
-        if(!TextUtils.isEmpty(carId)){
+        if (!TextUtils.isEmpty(carId)) {
             developersViewModel.reqDte(new Dte.Request(carId));
             developersViewModel.reqOdometer(new Odometer.Request(carId));
             developersViewModel.reqDistance(new Distance.Request(carId, developersViewModel.getDateYyyyMMdd(-7), developersViewModel.getDateYyyyMMdd(0)));
@@ -473,38 +479,38 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     }
 
     private void makeQuickMenu(String custGbCd) {
-        final TextView[] quickBtn={me.btnQuick1, me.btnQuick2};
+        final TextView[] quickBtn = {me.btnQuick1, me.btnQuick2};
         List<QuickMenuVO> list = cmnViewModel.getQuickMenuList(custGbCd);
         quickBtn[0].setVisibility(View.GONE);
         quickBtn[1].setVisibility(View.GONE);
 
-        int menuSize = list.size()>quickBtn.length ? quickBtn.length : list.size();
+        int menuSize = list.size() > quickBtn.length ? quickBtn.length : list.size();
 
-        for(int i=0; i<menuSize; i++){
+        for (int i = 0; i < menuSize; i++) {
             quickBtn[i].setVisibility(View.VISIBLE);
             quickBtn[i].setText(list.get(i).getMenuNm());
             quickBtn[i].setTag(R.id.menu_id, list.get(i));
             quickBtn[i].setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
-                    QuickMenuVO quickMenuVO = (QuickMenuVO)v.getTag(R.id.menu_id);
-                    if(quickMenuVO !=null){
+                    QuickMenuVO quickMenuVO = (QuickMenuVO) v.getTag(R.id.menu_id);
+                    if (quickMenuVO != null) {
                         String qckMenuDivCd = quickMenuVO.getQckMenuDivCd();
                         String lnkUri = quickMenuVO.getLnkUri();
                         String wvYn = quickMenuVO.getWvYn();
-                        if(!TextUtils.isEmpty(qckMenuDivCd)&&!TextUtils.isEmpty(lnkUri)){
-                            if(qckMenuDivCd.equalsIgnoreCase("IM")){
-                                if(lnkUri.startsWith(KeyNames.KEY_NAME_INTERNAL_LINK)){
-                                    if(!TextUtils.isEmpty(lnkUri)){
+                        if (!TextUtils.isEmpty(qckMenuDivCd) && !TextUtils.isEmpty(lnkUri)) {
+                            if (qckMenuDivCd.equalsIgnoreCase("IM")) {
+                                if (lnkUri.startsWith(KeyNames.KEY_NAME_INTERNAL_LINK)) {
+                                    if (!TextUtils.isEmpty(lnkUri)) {
                                         moveToNativePage(lnkUri);
                                     }
                                 }
                                 //네이티브 링크로 이동
                                 //TODO 네이티브로 이동하는 부분은 처리 필요
-                            }else{
-                                if(TextUtils.isEmpty(wvYn)||wvYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES)){
-                                    ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), WebviewActivity.class).putExtra(KeyNames.KEY_NAME_URL, lnkUri),RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                                }else{
+                            } else {
+                                if (TextUtils.isEmpty(wvYn) || wvYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
+                                    ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), WebviewActivity.class).putExtra(KeyNames.KEY_NAME_URL, lnkUri), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                                } else {
                                     Intent intent = new Intent(Intent.ACTION_VIEW);
                                     intent.setData(Uri.parse(lnkUri));
                                     startActivity(intent); //TODO 테스트 필요 0002
@@ -521,69 +527,117 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     private void moveToNativePage(String lnkUri) {
         lnkUri = lnkUri.replace(KeyNames.KEY_NAME_INTERNAL_LINK, "");
-        switch (APPIAInfo.findCode(lnkUri)){
+        switch (APPIAInfo.findCode(lnkUri)) {
+            case GM01_01://주차위치 확인
+                if (!((MainActivity) getActivity()).isGpsEnable()) {
+                    MiddleDialog.dialogGPS(getActivity(), () -> ((MainActivity) getActivity()).turnGPSOn(isGPSEnable -> {
+                    }), () -> {
+                        //TODO 확인 클릭
+                    });
+                } else {
+                    try {
+                        if (developersViewModel.getRES_PARKLOCATION().getValue() != null
+                                && developersViewModel.getRES_PARKLOCATION().getValue().data != null
+                                && developersViewModel.getRES_PARKLOCATION().getValue().data.getLat() != 0
+                                && developersViewModel.getRES_PARKLOCATION().getValue().data.getLon() != 0) {
+                            List<Double> position = new ArrayList<>();
+                            position.add(developersViewModel.getRES_PARKLOCATION().getValue().data.getLat());
+                            position.add(developersViewModel.getRES_PARKLOCATION().getValue().data.getLon());
+                            ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MyLocationActivity.class).putExtra(KeyNames.KEY_NAME_VEHICLE_LOCATION, new Gson().toJson(position)), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                            return;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }finally {
+                        //todo 20201204 메시지 정의 필요
+                        SnackBarUtil.show(getActivity(), "주차 위치 정보가 존재하지 않습니다.");
+                    }
+                }
+                break;
+            case GM01_03://sns 공유하기
+                recordUtil.checkRecordPermission();
+                break;
             case GM_BTO1://BTO
-            case GM_BTO2://견적내기
-                //todo 견적내기 처리 방안 확인 필요.
                 lgnViewModel.reqSTO1002(new STO_1002.Request(APPIAInfo.GM01.getId()));
+                break;
+            case GM_BTO2://견적내기
+                VehicleVO vehicleVO = null;
+                BtoVO btoVO = null;
+                try {
+                    vehicleVO = lgnViewModel.getMainVehicleFromDB();
+
+                    if (vehicleVO != null && !TextUtils.isEmpty(vehicleVO.getMdlNm())) {
+                        btoVO = cmnViewModel.getBtoVO(vehicleVO.getMdlNm());
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }finally {
+                    if (btoVO == null) {
+                        //todo 메시지 재 정의 필요
+                        SnackBarUtil.show(getActivity(), "BTO 정보가 존재하지 않습니다.");
+                    } else {
+                        ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, btoVO.getHtmlFilUri()+btoVO.getMdlNm()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        //                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, url).putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, titleId), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    }
+                }
                 break;
             case GM02_CTR01://계약서 조회
                 //todo 전문 확인 필요
                 break;
             case GM02_INV01://유사 재고 조회
-                ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM02_INV01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM02_INV01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case GM_CARLST_01://렌트/리스 실 운행자 등록
-                ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM_CARLST_01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM_CARLST_01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case GM_CARLST_03://중고차 등록
-                ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM_CARLST_03.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM_CARLST_03.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case GM_CARLST01://MY 차고
-                ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM_CARLST01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM_CARLST01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
         }
     }
 
-    private void makeDownMenu(String custGbCd){
-        final TextView[] floatingBtns={me.btnFloating1, me.btnFloating2, me.btnFloating3};
+    private void makeDownMenu(String custGbCd) {
+        final TextView[] floatingBtns = {me.btnFloating1, me.btnFloating2, me.btnFloating3};
         List<DownMenuVO> list = cmnViewModel.getDownMenuList(custGbCd);
-        if(list==null||list.size()==0){
+        if (list == null || list.size() == 0) {
             me.lFloating.setVisibility(View.GONE);
-        }else{
+        } else {
             me.lFloating.setVisibility(View.VISIBLE);
             me.btnFloating1.setVisibility(View.GONE);
             me.btnFloating2.setVisibility(View.GONE);
             me.btnFloating3.setVisibility(View.GONE);
-            int menuSize = list.size()>3 ? 3 : list.size();
+            int menuSize = list.size() > 3 ? 3 : list.size();
 
-            for(int i=0; i<menuSize; i++){
+            for (int i = 0; i < menuSize; i++) {
                 floatingBtns[i].setVisibility(View.VISIBLE);
                 floatingBtns[i].setText(list.get(i).getMenuNm());
                 floatingBtns[i].setTag(R.id.menu_id, list.get(i));
                 floatingBtns[i].setOnClickListener(new OnSingleClickListener() {
                     @Override
                     public void onSingleClick(View v) {
-                        DownMenuVO downMenuVO = (DownMenuVO)v.getTag(R.id.menu_id);
-                        if(downMenuVO !=null){
+                        DownMenuVO downMenuVO = (DownMenuVO) v.getTag(R.id.menu_id);
+                        if (downMenuVO != null) {
                             String qckMenuDivCd = downMenuVO.getQckMenuDivCd();
                             String lnkUri = downMenuVO.getLnkUri();
                             String wvYn = downMenuVO.getWvYn();
-                            if(!TextUtils.isEmpty(qckMenuDivCd)&&!TextUtils.isEmpty(lnkUri)){
-                                if(qckMenuDivCd.equalsIgnoreCase("IM")){
+                            if (!TextUtils.isEmpty(qckMenuDivCd) && !TextUtils.isEmpty(lnkUri)) {
+                                if (qckMenuDivCd.equalsIgnoreCase("IM")) {
 
-                                    if(lnkUri.startsWith(KeyNames.KEY_NAME_INTERNAL_LINK)){
-                                        if(!TextUtils.isEmpty(lnkUri)){
+                                    if (lnkUri.startsWith(KeyNames.KEY_NAME_INTERNAL_LINK)) {
+                                        if (!TextUtils.isEmpty(lnkUri)) {
                                             moveToNativePage(lnkUri);
                                         }
                                     }
 
                                     //네이티브 링크로 이동
                                     //TODO 네이티브로 이동하는 부분은 처리 필요
-                                }else{
-                                    if(TextUtils.isEmpty(wvYn)||wvYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES)){
-                                        ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), WebviewActivity.class).putExtra(KeyNames.KEY_NAME_URL, lnkUri),RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                                    }else{
+                                } else {
+                                    if (TextUtils.isEmpty(wvYn) || wvYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
+                                        ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), WebviewActivity.class).putExtra(KeyNames.KEY_NAME_URL, lnkUri), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                                    } else {
                                         Intent intent = new Intent(Intent.ACTION_VIEW);
                                         intent.setData(Uri.parse(lnkUri));
                                         startActivity(intent); //TODO 테스트 필요 0002
@@ -596,13 +650,13 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 });
             }
 
-            if(list.size()<2){
+            if (list.size() < 2) {
                 me.ivFloatingMark1.setVisibility(View.GONE);
                 me.ivFloatingMark2.setVisibility(View.GONE);
-            }else if(list.size()==2){
+            } else if (list.size() == 2) {
                 me.ivFloatingMark1.setVisibility(View.VISIBLE);
                 me.ivFloatingMark2.setVisibility(View.GONE);
-            }else{
+            } else {
                 me.ivFloatingMark1.setVisibility(View.VISIBLE);
                 me.ivFloatingMark2.setVisibility(View.VISIBLE);
             }
@@ -616,12 +670,12 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         recordUtil.unRegReceiver();
     }
 
-    private void releaseVideo(){
-        if(player !=null){
+    private void releaseVideo() {
+        if (player != null) {
             me.exoPlayerView.getOverlayFrameLayout().removeAllViews();
             me.exoPlayerView.setPlayer(null);
             player.release();
-            player =null;
+            player = null;
         }
     }
 
@@ -629,7 +683,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     private void setVideo() {
         try {
 
-            if(player==null){
+            if (player == null) {
                 player = new SimpleExoPlayer.Builder(getContext()).build();
                 player.setVolume(0);
                 player.setRepeatMode(REPEAT_MODE_ALL);
@@ -649,15 +703,15 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             }
 
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
 
-    private void videoPauseAndResume(boolean isResume){
-        Log.v("video player status","isResume:"+isResume);
+    private void videoPauseAndResume(boolean isResume) {
+        Log.v("video player status", "isResume:" + isResume);
 
-        if(isResume&&player!=null&&player.getPlaybackState()==STATE_IDLE){
+        if (isResume && player != null && player.getPlaybackState() == STATE_IDLE) {
             setVideo();
         }
 
@@ -665,20 +719,19 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     }
 
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == RequestCodes.REQ_CODE_GPS.getCode() && resultCode == RESULT_OK){
+        if (requestCode == RequestCodes.REQ_CODE_GPS.getCode() && resultCode == RESULT_OK) {
             reqMyLocation();
-        }else if (requestCode == RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode() && resultCode == RESULT_OK) {
-            Log.v("testRecord","testRecord:resultOk");
-            isRecord=true;
+        } else if (requestCode == RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode() && resultCode == RESULT_OK) {
+            Log.v("testRecord", "testRecord:resultOk");
+            isRecord = true;
             recordUtil.doRecordService(me.vClickReject, resultCode, data);
             return;
-        }else if (requestCode == RequestCodes.REQ_CODE_PLAY_VIDEO.getCode()){
-            isRecord=false;
+        } else if (requestCode == RequestCodes.REQ_CODE_PLAY_VIDEO.getCode()) {
+            isRecord = false;
             recordUtil.requestShare();
-        }else{
+        } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
 

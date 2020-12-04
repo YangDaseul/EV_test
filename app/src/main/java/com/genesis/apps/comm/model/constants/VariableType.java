@@ -1,6 +1,8 @@
 package com.genesis.apps.comm.model.constants;
 
 public class VariableType {
+    public static final boolean isHardCoding = true;
+
     public static final int ACTIVITY_TRANSITION_ANIMATION_NONE = 0;
     public static final int ACTIVITY_TRANSITION_ANIMATION_ZOON = 1;
     public static final int ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE = 3;

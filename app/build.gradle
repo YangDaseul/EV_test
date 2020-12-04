@@ -12,7 +12,7 @@ android {
         minSdkVersion 24
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -41,6 +41,22 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            //APK Auto File Name
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    def project = "myGenesis"
+                    def SEP = "_"
+                    def flavor = "debug"
+                    def version = variant.versionName
+                    def date = new Date();
+                    def formattedDate = date.format('yyMMddHHmm')
+                    def newApkName = project + SEP + flavor + SEP + version + SEP + formattedDate + ".apk"
+                    outputFileName = new File(newApkName)
+                }
+            }
         }
     }
 

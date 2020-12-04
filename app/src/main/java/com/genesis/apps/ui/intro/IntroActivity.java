@@ -83,6 +83,11 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
                     if (!TextUtils.isEmpty(result.data.getNotiDt()))
                         cmnViewModel.updateNotiDt(result.data.getNotiDt());
 
+                    if(result.data.getBtoVhclList()!=null)
+                        cmnViewModel.updateBto(result.data.getBtoVhclList());
+
+                    if(result.data.getFmlyAppList()!=null)
+                        cmnViewModel.updateFamilyApp(result.data.getFmlyAppList());
 
                     reqDownloadCarInfo = () -> {
                         updateProgressBar(progressValue.VEHICLE.getProgress());

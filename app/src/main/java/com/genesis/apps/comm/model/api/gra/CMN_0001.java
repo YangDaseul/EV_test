@@ -4,6 +4,8 @@ import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.BaseRequest;
 import com.genesis.apps.comm.model.api.BaseResponse;
+import com.genesis.apps.comm.model.vo.BtoVO;
+import com.genesis.apps.comm.model.vo.FamilyAppVO;
 import com.genesis.apps.comm.model.vo.NotiVO;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.google.gson.annotations.Expose;
@@ -75,6 +77,12 @@ public class CMN_0001 extends BaseData {
         @Expose
         @SerializedName("notiList")
         private List<NotiVO> notiList;
+        @Expose
+        @SerializedName("fmlyAppList")
+        private List<FamilyAppVO> fmlyAppList;
+        @Expose
+        @SerializedName("btoVhclList")
+        private List<BtoVO> btoVhclList;
     }
 
 }
