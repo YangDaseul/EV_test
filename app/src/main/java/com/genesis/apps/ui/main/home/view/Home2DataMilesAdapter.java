@@ -63,13 +63,17 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
 
         @Override
         public void onBindView(DataMilesVO item) {
-            Log.d("FID", "test :: onBindView :: 1111");
             ItemDatamilesBinding binding = getBinding();
             Detail.Response detail = item.getDrivingScoreDetail();
-            if(detail != null) {
-                Log.d("FID", "test :: 222222 :: " + detail.getSafetyDrvScore());
-                binding.lDrivingScore.setSafetyDrvScore(String.valueOf(detail.getSafetyDrvScore()));
-//                ObjectAnimator.ofInt(binding.lDrivingScore, "setSafetyDrvScore", 0, detail.getSafetyDrvScore());
+            if (detail != null) {
+                ValueAnimator scoreAni = ValueAnimator.ofInt(detail.getSafetyDrvScore())
+                        .setDuration(ANI_DURATION);
+                scoreAni.addUpdateListener(animation -> {
+                    int score = (int) animation.getAnimatedValue();
+                    binding.tvDatamilesDrivingScore.setText(String.valueOf(score));
+                    binding.asbDatamilesDrivingScore.setProgress(score);
+                });
+                scoreAni.start();
             }
         }
 
