@@ -428,9 +428,12 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
         @Override
         public void onBindView(RepairData item, int pos, SparseBooleanArray selectedItems) {
             setListener();
-//            setViewStatus(determineAddBtnVisibility());
-            //todo 항상 말고 add/remove에만 반응하도록
-            setAddBtnContainerVisibility();
+            setViewStatus(determineAddBtnVisibility());
+
+            //아이템이 하단 UI뿐인 상태이면 하자 구분 대화상자 즉시 호출
+            if (getBindingAdapter().getItemCount() == 1) {
+                showDefectListDialog(null);
+            }
         }
 
         private void setListener() {
@@ -470,17 +473,8 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
         }
 
         //세부사항 뷰의 개폐 상태를 처리
-        // (화면 밖에 있다가 스크롤되어서 화면 안에 들어오는 경우 호출됨)
         private void setViewStatus(boolean opened) {
             getBinding().lRelapse3RepairAddContainer.setVisibility(opened ? View.VISIBLE : View.GONE);
-        }
-
-        private void setAddBtnContainerVisibility() {
-            if (determineAddBtnVisibility()) {
-                InteractionUtil.expand(getBinding().lRelapse3RepairAddContainer, null);
-            } else {
-                InteractionUtil.collapse(getBinding().lRelapse3RepairAddContainer, null);
-            }
         }
 
         public boolean determineAddBtnVisibility() {
