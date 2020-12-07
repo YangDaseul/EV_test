@@ -1,15 +1,11 @@
 package com.genesis.apps.ui.common.view.viewholder;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.util.SparseBooleanArray;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.genesis.apps.comm.util.InteractionUtil;
 
 public abstract class BaseViewHolder<D,B> extends RecyclerView.ViewHolder{
 

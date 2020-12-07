@@ -76,4 +76,7 @@ class MessageVO extends BaseData {
 
     @Ignore
     private WeatherCodes weatherCodes;//로컬에서만 사용
+
+    @Ignore
+    private String txtMsg;
 }
