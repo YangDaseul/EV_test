@@ -3,12 +3,16 @@
     <!--데이터 마일스 : 공통-->
     <string name="gm01_datamiles_title">datamiles</string>
     <string name="gm01_more">더보기</string>
+    <string name="gm01_update">업데이트</string>
 
     <!--데이터 마일스 : 안전운전 점수-->
     <string name="gm01_driving_score">안전운전 점수</string>
     <string name="gm01_driving_before_score_title">전월 대비</string>
     <string name="gm01_all">전체</string>
     <string name="gm01_same_car">동일차종</string>
+    <string name="gm01_rank">상위</string>
+    <string name="gm01_format_driving_score_guide">90일간 %,3dkm 주행 기준</string>
+    <string name="gm01_format_rank">%d%%</string>
 
     <string name="gm01_error_response_fail">정보를 불러 올 수 없습니다.\n잠시 후 새로 고침 해주세요.</string>
 
