@@ -20,6 +20,7 @@
     <string name="gm01_expendables">소모품 현황</string>
     <string name="gm01_total_driving_distance">총 주행거리</string>
     <string name="gm01_need_change">교체 필요</string>
+    <string name="gm01_format_distance">잔여 거리 %d km</string>
 
     <!--데이터 마일스 : 차량 진단-->
     <string name="gm01_vehicle_diagnostic">차량 진단</string>

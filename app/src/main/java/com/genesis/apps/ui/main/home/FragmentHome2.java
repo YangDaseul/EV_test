@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.ReplacementTransformationMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -122,7 +123,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
                 }
             }
             // 소모품 현황 데이터 조회
-//            developersViewModel.reqReplacements(new Replacements.Request(carId));
+            developersViewModel.reqReplacements(new Replacements.Request(carId));
             // 고장 코드 데이터 조회
 //            developersViewModel.reqDtc(new Dtc.Request(carId));
         });
@@ -136,6 +137,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
         // 데이터 마일스 : 소모품 현황 옵저버 등록
         developersViewModel.getRES_REPLACEMENTS().observe(lifecycleOwner, result -> {
             Log.d("FID", "test :: getRES_REPLACEMENTS :: result=" + result);
+            setDatemilesReplacements(result);
         });
 
         // 데이터 마일스 : 고장 코드 데이터 옵저버 등록
@@ -169,7 +171,9 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
     }
 
     /**
+     * 데이터 마일스 안전 운전 정보 표시
      *
+     * @param result 안전 운전 정보 데이터.
      */
     private void setDatamilesDetail(NetUIResponse<Detail.Response> result) {
         Detail.Response data = result.data;
@@ -179,6 +183,13 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
             home2DataMilesAdapter.setDetail(carId, result);
             home2DataMilesAdapter.notifyDataSetChanged();
 //        }
+    }
+
+    private void setDatemilesReplacements(NetUIResponse<Replacements.Response> result) {
+        String carId = developersViewModel.getCarId(vehicleVO.getVin());
+
+        home2DataMilesAdapter.setReplacements(carId);
+        home2DataMilesAdapter.notifyDataSetChanged();
     }
 
     /**

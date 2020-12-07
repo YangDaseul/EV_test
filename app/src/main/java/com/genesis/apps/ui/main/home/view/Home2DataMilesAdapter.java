@@ -3,19 +3,26 @@ package com.genesis.apps.ui.main.home.view;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.Context;
 import android.util.Log;
 import android.util.SparseBooleanArray;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.developers.Detail;
+import com.genesis.apps.comm.model.api.developers.Replacements;
 import com.genesis.apps.comm.model.vo.DataMilesVO;
+import com.genesis.apps.comm.model.vo.developers.SestVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.DateUtil;
+import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.databinding.ItemDatamilesBinding;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
@@ -47,6 +54,16 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
         }
     }
 
+    public void setReplacements(String carId) {
+        DataMilesVO item = findVOByCarId(carId);
+
+        if (item != null) {
+            // TODO : 더미데이터이므로 실제로는 삭제 필요.
+            String dummyData = "{\"sests\":[{\"sestCode\":1,\"sestName\":\"엔진오일/필터\",\"stdDistance\":10000,\"lastInfo\":{\"replacementDate\":\"20200701101011\",\"updateDate\":\"20200701101011\",\"odometer\":\"25420\"}},{\"sestCode\":2,\"sestName\":\"에어클리너\",\"stdDistance\":20000,\"lastInfo\":{\"replacementDate\":\"20200701101011\",\"updateDate\":\"20200701101011\",\"odometer\":\"25420\"}}],\"odometer\":{\"timestamp\":\"20200114152139\",\"value\":12320,\"unit\":1},\"msgId\":\"5db9fc02-1b36-448e-9307-52761fd9ad92\"}";
+            item.setReplacements(new Gson().fromJson(dummyData, Replacements.Response.class));
+        }
+    }
+
     private DataMilesVO findVOByCarId(String carId) {
         DataMilesVO result = null;
         try {
@@ -67,8 +84,10 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
 
         @Override
         public void onBindView(DataMilesVO item) {
+            Context context = getContext();
             ItemDatamilesBinding binding = getBinding();
             Detail.Response detail = item.getDrivingScoreDetail();
+            Replacements.Response replacements = item.getReplacements();
 
             // 안전운전 점수 그래프 터치 비활성화 처리.
             binding.asbDatamilesDrivingScore.setOnTouchListener((view, event) -> {
@@ -112,7 +131,6 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                 binding.ivDatamilesDrivingScoreIcon.setVisibility(prevScore == currentScore ? View.INVISIBLE : View.VISIBLE);
                 binding.ivDatamilesDrivingScoreIcon.setEnabled(prevScore < currentScore);
 
-
                 String rankTemplate = getContext().getString(R.string.gm01_format_rank);
                 // 전체 차량 대비 상위 %
                 ValueAnimator distributionAni = ValueAnimator.ofInt(detail.getDistribution())
@@ -140,6 +158,61 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                 // 운전 점수의 일괄 애니메이션 처리.
                 animatorSet.playTogether(scoreAni, distributionAni, modelDistributionAni);
                 animatorSet.start();
+            }
+
+            if (replacements != null) {
+                try {
+                    binding.tvDatamilesExpendablesUpdateDate.setText(
+                            DateUtil.getDate(
+                                    DateUtil.getDefaultDateFormat(replacements.getOdometer().getTimestamp(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss),
+                                    DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm
+                            ) + " " + getContext().getString(R.string.gm01_update)
+                    );
+                } catch (Exception e) {
+                    // Date 파싱 에러.
+                    // TODO 필요에 따라 에러 예외 처리 필요.
+                }
+
+                binding.tvDatamilesExpendablesTotalDistance.setText(DevelopersViewModel.getDistanceFormatByUnit(
+                        replacements.getOdometer().getValue(),
+                        replacements.getOdometer().getUnit()
+                ));
+
+                try {
+                    for (SestVO sestVO : replacements.getSests()) {
+                        // 평균 교체 필요 거리
+                        int stdDistance = sestVO.getStdDistance();
+                        // 최종 교체 후 주행 거리
+                        int odoMeter = Integer.parseInt(sestVO.getLastInfo().getOdometer());
+
+                        int diff = stdDistance - odoMeter;
+                        int progress = 0;
+
+                        if(diff > 0) {
+                            progress = diff / stdDistance * 100;
+                        }
+
+                        View view = LayoutInflater.from(context).inflate(R.layout.item_datamiles_expendable_item, binding.lDatamilesExpenablesList, false);
+                        // 소모품 이름
+                        TextView txtNme = view.findViewById(R.id.tv_datamiles_expendables_item_name);
+                        txtNme.setText(sestVO.getSestName());
+                        // 교체 필요 아이콘
+                        view.findViewById(R.id.tv_datamiles_expendables_need_change).setVisibility(stdDistance <= odoMeter ? View.VISIBLE : View.INVISIBLE);
+
+                        // 잔여 거리. 마이너스 남은 거리는 0으로 처리.
+                        TextView txtDistance = view.findViewById(R.id.tv_datamiles_expendables_distance);
+                        txtDistance.setText(String.format(context.getString(R.string.gm01_format_distance), Math.max(diff, 0)));
+
+                        // TODO 쿠폰 연동은 추가로 진행이 필요.
+                        TextView txtCoupon = view.findViewById(R.id.tv_datamiles_expendables_coupon);
+
+                        ProgressBar progDistance = view.findViewById(R.id.progress_datamiles_expendables);
+
+
+                    }
+                } catch (Exception e) {
+
+                }
             }
         }
 

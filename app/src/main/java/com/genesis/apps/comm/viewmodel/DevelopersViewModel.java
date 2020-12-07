@@ -60,7 +60,7 @@ class DevelopersViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<CarCheck.Response>> RES_CAR_CHECK;
     private MutableLiveData<NetUIResponse<CarId.Response>> RES_CAR_ID;
     private MutableLiveData<NetUIResponse<CarConnect.Response>> RES_CAR_CONNECT;
-    
+
 
     @ViewModelInject
     DevelopersViewModel(
@@ -310,4 +310,30 @@ class DevelopersViewModel extends ViewModel {
         }
     }
 
+    /**
+     * 주행거리 단위 포함 Foramt String 변환 함수.
+     *
+     * @param distance 거리
+     * @param unit Developers 에서 정의된 거리 단위 ID
+     * @return 변환된 거리 단위 포함 String.
+     */
+    public static String getDistanceFormatByUnit(int distance, int unit) {
+        String format;
+        switch (unit) {
+            case 0:
+                format = "%,3d feet";
+                break;
+            case 2:
+                format = "%,3d meter";
+                break;
+            case 3:
+                format = "%,3d miles";
+                break;
+            case 1:
+            default:
+                format = "%,3d km";
+                break;
+        }
+        return String.format(format, distance);
+    }
 }

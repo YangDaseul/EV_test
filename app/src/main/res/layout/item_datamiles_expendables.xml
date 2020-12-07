@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,11 +54,13 @@
             app:layout_constraintStart_toEndOf="@id/tv_datamiles_expendables_total_distance_title"
             app:layout_constraintTop_toTopOf="@id/tv_datamiles_expendables_total_distance_title" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:id="@+id/l_datamiles_expenables_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@color/x_f8f8f8"
+            android:orientation="vertical"
             android:paddingStart="20dp"
             android:paddingTop="15dp"
             android:paddingEnd="20dp"
@@ -72,8 +69,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_datamiles_expendables_total_distance_title">
 
-            <include layout="@layout/item_datamiles_expendable_item" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
