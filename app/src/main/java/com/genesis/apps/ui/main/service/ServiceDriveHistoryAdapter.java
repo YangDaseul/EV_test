@@ -179,7 +179,7 @@ public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveSe
                 }
 
                 //변경된 상태를 반영
-                changeViewStatus(selectedItems.get(pos));
+                notifyItemChanged(pos);
             });
         }
 
@@ -221,15 +221,15 @@ public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveSe
             detailView.setVisibility(opened ? View.VISIBLE : View.GONE);
         }
 
-        //세부사항 뷰의 개폐 상태가 변경되는 애니메이션을 처리
-        // (클릭해서 상태를 토글할 때 호출됨)
-        private void changeViewStatus(boolean opened) {
-            setIcon(opened ? iconCloseBtn : iconOpenBtn);
-            changeVisibility(
-                    detailView, //개폐 애니메이션 대상 뷰
-                    (View) detailView.getParent().getParent(), //애니 재생동안 스크롤 막아야되는 뷰
-                    opened); //개폐 상태
-        }
+//        //세부사항 뷰의 개폐 상태가 변경되는 애니메이션을 처리
+//        // (클릭해서 상태를 토글할 때 호출됨)
+//        private void changeViewStatus(boolean opened) {
+//            setIcon(opened ? iconCloseBtn : iconOpenBtn);
+//            changeVisibility(
+//                    detailView, //개폐 애니메이션 대상 뷰
+//                    (View) detailView.getParent().getParent(), //애니 재생동안 스크롤 막아야되는 뷰
+//                    opened); //개폐 상태
+//        }
 
         //드롭다운 아이콘의 개폐 상태를 변경
         private void setIcon(int icon) {
