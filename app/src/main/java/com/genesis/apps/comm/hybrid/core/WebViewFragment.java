@@ -73,6 +73,8 @@ public abstract class WebViewFragment extends Fragment {
 
 	public List<WebView> openWindows = new ArrayList<>();
 
+	private Object javaInterface=null;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -96,6 +98,10 @@ public abstract class WebViewFragment extends Fragment {
 		createWebView();
 		webViewSetting();
 		enableCookies(webView);
+	}
+
+	public WebView getWebView(){
+		return webView;
 	}
 
 	@Override
@@ -398,6 +404,9 @@ public abstract class WebViewFragment extends Fragment {
 			settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
 		}
 
+		if(javaInterface!=null)
+			webView.addJavascriptInterface(javaInterface, "Android");
+
 		//settings.setUserAgentString(getString(R.string.app_full_name));
 	}
 
@@ -458,6 +467,11 @@ public abstract class WebViewFragment extends Fragment {
 	public abstract ViewGroup getWebViewContainer();
 
 	public abstract void onCloseWindow(WebView window);
+
+
+	public void setJavaInterface(Object javaInterface) {
+		this.javaInterface = javaInterface;
+	}
 
 	/**
 	 * WebChromeClient 구현
