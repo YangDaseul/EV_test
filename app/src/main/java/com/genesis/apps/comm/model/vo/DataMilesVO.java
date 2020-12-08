@@ -25,14 +25,24 @@ class DataMilesVO extends BaseData {
      * 데이터 상태를 표시하는 Enum Class.
      */
     public enum STATUS {
+        NONE,
         SUCCESS,
-        FAIL,
-        NOT_SUPPORTED,
-        NONE
+        FAIL
+    }
+
+    public enum UBI_STATUS {
+        NONE,           // 상태값 없음.
+        JOIN,           // 가입 상태
+        NOT_JOIN,       // 가입 안된 상태, 가입 가능
+        NOT_SUPPORTED   // 가입 안된 상태, 가입 불가
     }
 
     private String carId;
 
+    /**
+     * 해당 차량의 UBI 가입 상태 값.
+     */
+    private UBI_STATUS ubiStatus = UBI_STATUS.NONE;
 
     /**
      * 안전운점 점수 데이터 상태.

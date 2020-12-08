@@ -27,14 +27,30 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tv_datamiles_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:drawableRight="@drawable/ic_btn_arrow_open_r"
             android:paddingBottom="30dp"
             android:text="@string/gm01_more"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iv_datamiles_arrow"
             app:layout_constraintTop_toTopOf="@id/tv_datamiles_title" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@android:color/black"
+            app:layout_constraintEnd_toEndOf="@id/tv_datamiles_more"
+            app:layout_constraintStart_toStartOf="@id/tv_datamiles_more"
+            app:layout_constraintTop_toBottomOf="@id/iv_datamiles_arrow" />
+
+        <ImageView
+            android:id="@+id/iv_datamiles_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/ic_btn_arrow_open_r"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <!--안전 운전 점수-->
@@ -57,8 +73,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/gm01_driving_score"
+                app:layout_constraintBottom_toTopOf="@id/l_datamiles_guide_container"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
 
             <!--업데이트 일자-->
             <TextView
@@ -70,6 +88,46 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_datamiles_driving_score_title" />
 
+            <!--안내 가이드 영역-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/l_datamiles_guide_container"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:layout_marginTop="17dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_datamiles_driving_score_title">
+
+                <TextView
+                    android:id="@+id/tv_datamiles_driving_score_error"
+                    style="@style/DataMiles.TextView_Font_RGSHG.Black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/x_f8f8f8"
+                    android:gravity="center"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="6sp"
+                    android:text="@string/gm01_error_response_fail"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_datamiles_service_guide"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@null"
+                    android:src="@drawable/datamiles_service_guide"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--안전 운전 점수 Container-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/l_driving_score_container"
                 android:layout_width="match_parent"
@@ -78,9 +136,10 @@
                 android:background="@color/x_f8f8f8"
                 android:paddingTop="30dp"
                 android:paddingBottom="30dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_datamiles_driving_score_title">
+                app:layout_constraintTop_toBottomOf="@id/l_datamiles_guide_container">
 
                 <com.marcinmoskala.arcseekbar.ArcSeekBar
                     android:id="@+id/asb_datamiles_driving_score"
@@ -351,6 +410,7 @@
                 app:layout_constraintStart_toEndOf="@id/tv_datamiles_expendables_total_distance_title"
                 app:layout_constraintTop_toTopOf="@id/tv_datamiles_expendables_total_distance_title" />
 
+            <!--소모품 목록-->
             <LinearLayout
                 android:id="@+id/l_datamiles_expenables_list"
                 android:layout_width="match_parent"
@@ -366,6 +426,24 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_datamiles_expendables_total_distance_title">
 
+                <TextView
+                    android:id="@+id/tv_datamiles_expenables_error"
+                    style="@style/DataMiles.TextView_Font_RGSHG.Black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="50dp"
+                    android:background="@color/x_f8f8f8"
+                    android:gravity="center"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="6sp"
+                    android:text="@string/gm01_error_response_fail"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
