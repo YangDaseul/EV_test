@@ -125,7 +125,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
             // 소모품 현황 데이터 조회
             developersViewModel.reqReplacements(new Replacements.Request(carId));
             // 고장 코드 데이터 조회
-//            developersViewModel.reqDtc(new Dtc.Request(carId));
+            developersViewModel.reqDtc(new Dtc.Request(carId));
         });
 
         // 데이터 마일스 : 안전운전 점수 옵저버 등록
@@ -137,12 +137,13 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
         // 데이터 마일스 : 소모품 현황 옵저버 등록
         developersViewModel.getRES_REPLACEMENTS().observe(lifecycleOwner, result -> {
             Log.d("FID", "test :: getRES_REPLACEMENTS :: result=" + result);
-            setDatemilesReplacements(result);
+            setDatamilesReplacements(result);
         });
 
         // 데이터 마일스 : 고장 코드 데이터 옵저버 등록
         developersViewModel.getRES_DTC().observe(lifecycleOwner, result -> {
             Log.d("FID", "test :: getRES_DTC :: result=" + result);
+            setDatamilesDtc(result);
         });
     }
 
@@ -180,15 +181,22 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
 
         String carId = developersViewModel.getCarId(vehicleVO.getVin());
 //        if (data != null) {
-            home2DataMilesAdapter.setDetail(carId, result);
-            home2DataMilesAdapter.notifyDataSetChanged();
+        home2DataMilesAdapter.setDetail(carId, result.data);
+        home2DataMilesAdapter.notifyDataSetChanged();
 //        }
     }
 
-    private void setDatemilesReplacements(NetUIResponse<Replacements.Response> result) {
+    private void setDatamilesReplacements(NetUIResponse<Replacements.Response> result) {
         String carId = developersViewModel.getCarId(vehicleVO.getVin());
 
-        home2DataMilesAdapter.setReplacements(carId);
+        home2DataMilesAdapter.setReplacements(carId, result.data);
+        home2DataMilesAdapter.notifyDataSetChanged();
+    }
+
+    private void setDatamilesDtc(NetUIResponse<Dtc.Response> result) {
+        String carId = developersViewModel.getCarId(vehicleVO.getVin());
+
+        home2DataMilesAdapter.setDtc(carId, result.data);
         home2DataMilesAdapter.notifyDataSetChanged();
     }
 

@@ -398,7 +398,6 @@
                 style="@style/DataMiles.TextView_Font_RGSTG.757575.Update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2020.10.30 14:20 업데이트"
                 app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_vehicle_diagnostic_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_datamiles_vehicle_diagnostic_title" />
@@ -434,7 +433,6 @@
                     style="@style/DataMiles.TextView_Font_MGSTG.AD7B61"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1건"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
