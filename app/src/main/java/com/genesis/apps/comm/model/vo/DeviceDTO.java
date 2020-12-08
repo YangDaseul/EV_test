@@ -5,9 +5,6 @@ import android.app.Application;
 import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.fcm.FirebaseMessagingService;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

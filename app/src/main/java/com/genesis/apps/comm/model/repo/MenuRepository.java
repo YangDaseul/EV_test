@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.MenuVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.SoundSearcher;
@@ -42,8 +43,21 @@ public class MenuRepository {
      * @return
      */
     public MutableLiveData<NetUIResponse<List<MenuVO>>> getMenuList(){
-        menuList.setValue(NetUIResponse.success(APPIAInfo.getQuickMenus()));
+        menuList.setValue(NetUIResponse.success(APPIAInfo.getQuickMenus(VariableType.getQuickMenuCode(getCustGbCd()))));
         return menuList;
+    }
+
+    private String getCustGbCd(){
+        String custGbCd="";
+        try {
+            custGbCd = databaseHolder.getDatabase().userDao().select().getCustGbCd();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(TextUtils.isEmpty(custGbCd))
+                custGbCd = VariableType.MAIN_VEHICLE_TYPE_0000;
+        }
+        return custGbCd;
     }
 
 
@@ -238,7 +252,7 @@ public class MenuRepository {
         if(TextUtils.isEmpty(keyword)){
 //            temps = databaseHolder.getDatabase().menuDao().selectAll();
         }else{
-            List<MenuVO> menuList = APPIAInfo.getQuickMenus();
+            List<MenuVO> menuList = APPIAInfo.getQuickMenus(VariableType.getQuickMenuCode(getCustGbCd()));
             for(MenuVO data : menuList){
                 String[] compares = {data.getName()};
                 for (String compare : compares) {
