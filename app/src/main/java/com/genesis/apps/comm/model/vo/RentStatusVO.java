@@ -42,6 +42,25 @@ import lombok.EqualsAndHashCode;
  * @see #crdRcvDtlAdr 상세주소
  * @see #attachFilName 계약서파일명
  * @see #cnttUrl 계약서파일url
+ *
+ *
+ * @see #ctrctNo 계약번호
+ * 렌트리스 등록 가능한 차량인 경우 필수
+ * @see #godsId 상품ID
+ * 렌트리스 등록 가능한 차량(G80, G90)인 경우 필수
+ * @see #godsNm 상품명
+ * 렌트리스 등록 가능한 차량(G80, G90)인 경우 필수
+ * @see #godsRcvZip 상품수령지우편번호
+ * 선택한 특화상품에 주소입력 필수인 경우는 필수 입력
+ * @see #godsRcvAdr 상품수령지주소
+ * 선택한 특화상품에 주소입력 필수인 경우는 필수 입력
+ * @see #godsRcvDtlAdr 상품수령지상세주소
+ * 선택한 특화상품에 주소입력 필수인 경우는 필수 입력
+ * @see #godsRcvTelNo 상품수령지전화번호
+ * 선택한 특화상품에 주소입력 필수인 경우는 필수 입력
+ *
+ * @see #adrYn 주소정보필수여부
+ * Y: 상품수령지주소 필수 입력, N: 주소입력 없음
  */
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
@@ -109,4 +128,37 @@ class RentStatusVO extends BaseData {
     @Expose
     @SerializedName("cnttUrl")
     private String cnttUrl;
+
+    //2020-12-08추가
+    @Expose
+    @SerializedName("mdlNm")
+    private String mdlNm;
+    @Expose
+    @SerializedName("godsId")
+    private String godsId;
+    @Expose
+    @SerializedName("godsNm")
+    private String godsNm;
+    @Expose
+    @SerializedName("godsRcvZip")
+    private String godsRcvZip;
+    @Expose
+    @SerializedName("godsRcvAdr")
+    private String godsRcvAdr;
+    @Expose
+    @SerializedName("godsRcvDtlAdr")
+    private String godsRcvDtlAdr;
+    @Expose
+    @SerializedName("godsRcvTelNo")
+    private String godsRcvTelNo;
+
+    //GNS_1016만 사용
+    @Expose
+    @SerializedName("adrYn")
+    private String adrYn;
+
+
+
+
+
 }

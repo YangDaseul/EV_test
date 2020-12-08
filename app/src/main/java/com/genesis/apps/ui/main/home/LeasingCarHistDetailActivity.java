@@ -101,8 +101,8 @@ public class LeasingCarHistDetailActivity extends SubActivity<ActivityLeasingCar
                     String crdRcvZip = newAddressZipVO!=null ? newAddressZipVO.getZipNo() : rentStatusVO.getCrdRcvZip();
                     String crdRcvAdr = newAddressZipVO!=null ? newAddressZipVO.getRoadAddr() : rentStatusVO.getCrdRcvAdr();
                     String crdRcvDtlAdr = ui.etAddrDetail.getText().toString().trim();
-                    //TODO 수정 전문 요청 진행
-                    gnsViewModel.reqGNS1013(new GNS_1013.Request(APPIAInfo.GM_CARLST_01_result.getId(), rentStatusVO.getVin(), rentStatusVO.getSeqNo(),"3",crdRcvZip, crdRcvAdr, crdRcvDtlAdr));
+                    //TODO 2020-12-08 데이터 추가로 수정 필요
+                    gnsViewModel.reqGNS1013(new GNS_1013.Request(APPIAInfo.GM_CARLST_01_result.getId(), rentStatusVO.getVin(), rentStatusVO.getSeqNo(),"3",crdRcvZip, crdRcvAdr, crdRcvDtlAdr,"","","","","","",""));
                 }else{
                     SnackBarUtil.show(this, "수정할 주소 정보가 없습니다.\n확인 후 다시 시도해 주세요.");
                 }

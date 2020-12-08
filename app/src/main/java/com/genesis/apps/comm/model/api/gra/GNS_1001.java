@@ -48,7 +48,7 @@ public class GNS_1001 extends BaseData {
         private String ownVhclCnt;
         @Expose
         @SerializedName("ownVhclList")
-        private List<VehicleVO> ownVhclList;//TODO 항목명 변경 상태에 따라 수정 여지 있음
+        private List<VehicleVO> ownVhclList;
         @Expose
         @SerializedName("ctrctVhclList")
         private List<VehicleVO> ctrctVhclList;

@@ -15,6 +15,7 @@ import com.genesis.apps.comm.model.api.gra.GNS_1012;
 import com.genesis.apps.comm.model.api.gra.GNS_1013;
 import com.genesis.apps.comm.model.api.gra.GNS_1014;
 import com.genesis.apps.comm.model.api.gra.GNS_1015;
+import com.genesis.apps.comm.model.api.gra.GNS_1016;
 import com.genesis.apps.comm.model.repo.DBUserRepo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.GNSRepo;
@@ -71,6 +72,7 @@ class GNSViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<GNS_1013.Response>> RES_GNS_1013;
     private MutableLiveData<NetUIResponse<GNS_1014.Response>> RES_GNS_1014;
     private MutableLiveData<NetUIResponse<GNS_1015.Response>> RES_GNS_1015;
+    private MutableLiveData<NetUIResponse<GNS_1016.Response>> RES_GNS_1016;
 
     @ViewModelInject
     GNSViewModel(
@@ -105,6 +107,8 @@ class GNSViewModel extends ViewModel {
         RES_GNS_1013 = repository.RES_GNS_1013;
         RES_GNS_1014 = repository.RES_GNS_1014;
         RES_GNS_1015 = repository.RES_GNS_1015;
+        RES_GNS_1016 = repository.RES_GNS_1016;
+        
     }
 
     public void reqGNS1001(final GNS_1001.Request reqData){
@@ -165,6 +169,10 @@ class GNSViewModel extends ViewModel {
 
     public void reqGNS1015(final GNS_1015.Request reqData){
         repository.REQ_GNS_1015(reqData);
+    }
+
+    public void reqGNS1016(final GNS_1016.Request reqData){
+        repository.REQ_GNS_1016(reqData);
     }
 
     public void setGNS1001ToDB(GNS_1001.Response data, ResultCallback callback){
@@ -264,9 +272,6 @@ class GNSViewModel extends ViewModel {
             es.shutDownExcutor();
         }
     }
-
-
-
 
     public VehicleVO getVehicle(String vin) throws ExecutionException, InterruptedException{
         ExecutorService es = new ExecutorService("");

@@ -55,6 +55,22 @@ public class GNS_1006 extends BaseData {
      * 이미지 필수
      * @see #empCertiImgYn 재직증명서이미지유무
      * 개인(법인임직원) 인 경우 필수
+     *
+     *
+     * @see #ctrctNo 계약번호
+     * 렌트리스 등록 가능한 차량인 경우 필수
+     * @see #godsId 상품ID
+     * 렌트리스 등록 가능한 차량(G80, G90)인 경우 필수
+     * @see #godsNm 상품명
+     * 렌트리스 등록 가능한 차량(G80, G90)인 경우 필수
+     * @see #godsRcvZip 상품수령지우편번호
+     * 선택한 특화상품에 주소입력 필수인 경우는 필수 입력
+     * @see #godsRcvAdr 상품수령지주소
+     * 선택한 특화상품에 주소입력 필수인 경우는 필수 입력
+     * @see #godsRcvDtlAdr 상품수령지상세주소
+     * 선택한 특화상품에 주소입력 필수인 경우는 필수 입력
+     * @see #godsRcvTelNo 상품수령지전화번호
+     * 선택한 특화상품에 주소입력 필수인 경우는 필수 입력
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -64,7 +80,6 @@ public class GNS_1006 extends BaseData {
         @Expose
         @SerializedName("vin")
         private String vin;
-
         @Expose
         @SerializedName("csmrScnCd")
         private String csmrScnCd;
@@ -92,6 +107,30 @@ public class GNS_1006 extends BaseData {
         @Expose
         @SerializedName("empCertiImgYn")
         private String empCertiImgYn;
+
+
+        //2020-12-08 추가
+        @Expose
+        @SerializedName("ctrctNo")
+        private String ctrctNo;
+        @Expose
+        @SerializedName("godsId")
+        private String godsId;
+        @Expose
+        @SerializedName("godsNm")
+        private String godsNm;
+        @Expose
+        @SerializedName("godsRcvZip")
+        private String godsRcvZip;
+        @Expose
+        @SerializedName("godsRcvAdr")
+        private String godsRcvAdr;
+        @Expose
+        @SerializedName("godsRcvDtlAdr")
+        private String godsRcvDtlAdr;
+        @Expose
+        @SerializedName("godsRcvTelNo")
+        private String godsRcvTelNo;
 
         public Request(String menuId, String vin, String csmrScnCd, String rentPeriod, String asnCd, String crdRcvScnCd, String crdRcvZip, String crdRcvAdr, String crdRcvDtlAdr, String cnttImgYn, String empCertiImgYn){
             this.vin = vin;
