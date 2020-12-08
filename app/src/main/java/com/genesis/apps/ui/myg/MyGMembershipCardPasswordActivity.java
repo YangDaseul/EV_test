@@ -27,16 +27,16 @@ import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMembershipCardPasswordBinding> {
 
     private MYPViewModel mypViewModel;
-    private final int STEP_1_1 = 1;
-    private final int STEP_1_2 = 2;
+//    private final int STEP_1_1 = 1;
+//    private final int STEP_1_2 = 2;
     private final int STEP_2_1 = 3;
     private final int STEP_2_2 = 4;
     private final int STEP_2_3 = 5;
-    private int step = STEP_1_1;
+    private int step = STEP_2_1;
     private ImageView[] ivList;
 
     private String newPwd = "";
-    private String currPwd = "";
+//    private String currPwd = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMe
     private void initView() {
         ivList = new ImageView[]{ui.ivInput1, ui.ivInput2, ui.ivInput3, ui.ivInput4};
         ui.etHidden.addTextChangedListener(textWatcher);
-        setView(STEP_1_1);
+        setView(STEP_2_1);
     }
 
     @Override
@@ -107,28 +107,28 @@ public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMe
     private void setView(int step) {
         this.step = step;
         switch (step) {
-            case STEP_1_1:
-                ui.etHidden.setTag(R.id.et_reject, true);
-                ui.etHidden.setText("");
-                ui.tvMsg1.setText(R.string.mg_member03_2);
-                ui.ivInput1.setImageResource(R.drawable.ic_password);
-                ui.ivInput2.setImageResource(R.drawable.ic_password);
-                ui.ivInput3.setImageResource(R.drawable.ic_password);
-                ui.ivInput4.setImageResource(R.drawable.ic_password);
-                ui.tvMsgError.setVisibility(View.INVISIBLE);
-                break;
-            case STEP_1_2:
-                ui.etHidden.setTag(R.id.et_reject, true);
-                ui.etHidden.setText("");
-                ui.tvMsg1.setText(R.string.mg_member03_2);
-                ui.ivInput1.setImageResource(R.drawable.ic_password_error);
-                ui.ivInput2.setImageResource(R.drawable.ic_password_error);
-                ui.ivInput3.setImageResource(R.drawable.ic_password_error);
-                ui.ivInput4.setImageResource(R.drawable.ic_password_error);
-                ui.tvMsgError.setVisibility(View.VISIBLE);
-                ui.tvMsgError.setText(R.string.mg_member03_3);
-                VibratorUtil.makeMeShake(ui.tvMsgError, 20, 5);
-                break;
+//            case STEP_1_1:
+//                ui.etHidden.setTag(R.id.et_reject, true);
+//                ui.etHidden.setText("");
+//                ui.tvMsg1.setText(R.string.mg_member03_2);
+//                ui.ivInput1.setImageResource(R.drawable.ic_password);
+//                ui.ivInput2.setImageResource(R.drawable.ic_password);
+//                ui.ivInput3.setImageResource(R.drawable.ic_password);
+//                ui.ivInput4.setImageResource(R.drawable.ic_password);
+//                ui.tvMsgError.setVisibility(View.INVISIBLE);
+//                break;
+//            case STEP_1_2:
+//                ui.etHidden.setTag(R.id.et_reject, true);
+//                ui.etHidden.setText("");
+//                ui.tvMsg1.setText(R.string.mg_member03_2);
+//                ui.ivInput1.setImageResource(R.drawable.ic_password_error);
+//                ui.ivInput2.setImageResource(R.drawable.ic_password_error);
+//                ui.ivInput3.setImageResource(R.drawable.ic_password_error);
+//                ui.ivInput4.setImageResource(R.drawable.ic_password_error);
+//                ui.tvMsgError.setVisibility(View.VISIBLE);
+//                ui.tvMsgError.setText(R.string.mg_member03_3);
+//                VibratorUtil.makeMeShake(ui.tvMsgError, 20, 5);
+//                break;
             case STEP_2_1:
                 ui.etHidden.setTag(R.id.et_reject, true);
                 ui.etHidden.setText("");
@@ -183,11 +183,11 @@ public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMe
 
             if (charSequence.length() == ivList.length) {
                 switch (step) {
-                    case STEP_1_1:
-                    case STEP_1_2:
-                        currPwd = charSequence.toString();
-                        setView(STEP_2_1);
-                        return;
+//                    case STEP_1_1:
+//                    case STEP_1_2:
+//                        currPwd = charSequence.toString();
+//                        setView(STEP_2_1);
+//                        return;
                     case STEP_2_1:
                     case STEP_2_3:
                         newPwd = charSequence.toString();
@@ -196,7 +196,7 @@ public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMe
                     case STEP_2_2:
                         if (newPwd.equalsIgnoreCase(charSequence.toString())) {
                             //신규비밀번호가 일치하는 경우
-                            mypViewModel.reqMYP2005(new MYP_2005.Request(APPIAInfo.MG_MEMBER03.getId(), currPwd, newPwd));
+                            mypViewModel.reqMYP2005(new MYP_2005.Request(APPIAInfo.MG_MEMBER03.getId(), newPwd));
                             break;
                         } else {
                             //일치하지 않는 경우
@@ -209,7 +209,7 @@ public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMe
                 }
             } else {
                 switch (step) {
-                    case STEP_1_2:
+//                    case STEP_1_2:
                     case STEP_2_3:
                         ui.tvMsgError.setVisibility(View.INVISIBLE);
                         break;
