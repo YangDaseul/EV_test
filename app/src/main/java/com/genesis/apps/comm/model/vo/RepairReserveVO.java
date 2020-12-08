@@ -162,8 +162,8 @@ class RepairReserveVO extends BaseData {
             , String pbzAdr
             , String rpshGrpCd
             , String rpshGrpNm
-            , String rqrm
-            , String userNm){
+            , String userNm
+            , SurveyVO svyInfo){
 
         this.rsvtTypCd = rsvtTypCd;
         this.rparTypCd = rparTypCd;
@@ -181,8 +181,8 @@ class RepairReserveVO extends BaseData {
         this.pbzAdr = pbzAdr;
         this.rpshGrpCd = rpshGrpCd;
         this.rpshGrpNm = rpshGrpNm;
-        this.rqrm = rqrm;
         this.userNm = userNm;
+        this.svyInfo = svyInfo;
     }
 
     @Expose
@@ -279,6 +279,10 @@ class RepairReserveVO extends BaseData {
     @Expose
     @SerializedName("rpshGrpNm")
     private String rpshGrpNm;
+
+    @Expose
+    @SerializedName("svyInfo")
+    private SurveyVO svyInfo;
 
 
 
