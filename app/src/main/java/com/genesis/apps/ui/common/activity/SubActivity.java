@@ -1,8 +1,10 @@
 package com.genesis.apps.ui.common.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,13 +19,28 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.PushCodes;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.databinding.ActivityBaseBinding;
+import com.genesis.apps.fcm.PushVO;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
+import com.genesis.apps.ui.main.MainActivity;
+import com.genesis.apps.ui.main.home.MyLocationActivity;
+import com.genesis.apps.ui.main.service.ServiceReviewActivity;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.genesis.apps.comm.model.api.APPIAInfo.GM_BTO1;
+import static com.genesis.apps.comm.model.api.APPIAInfo.GM_BTO2;
 
 
 public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivity {
@@ -268,5 +285,6 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
 
         return address;
     }
+
 
 }

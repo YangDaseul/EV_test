@@ -103,9 +103,10 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
             case R.id.btn_link:
                 if(!TextUtils.isEmpty(contentsVO.getLnkUri())) {
                     if("I".equals(contentsVO.getLnkTypCd())) {
-
+                        moveToNativePage(contentsVO.getLnkUri(), false);
                     } else {
-                        startActivitySingleTop(new Intent(mActivity, WebviewActivity.class).putExtra(KeyNames.KEY_NAME_URL, contentsVO.getLnkUri()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        moveToExternalPage(contentsVO.getLnkUri(), "");
+//                        startActivitySingleTop(new Intent(mActivity, WebviewActivity.class).putExtra(KeyNames.KEY_NAME_URL, contentsVO.getLnkUri()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     }
                 }
 

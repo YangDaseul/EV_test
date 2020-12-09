@@ -19,7 +19,7 @@ public class PushDummyActivity extends BaseActivity {
         if(!isForeground()) {
             //push notification
             if (!isExcuteApp && isPushData()) {
-                startActivity(moveToPush(IntroActivity.class));
+                startActivity(getPushIntent(IntroActivity.class));
             } else {
                 checkPushCode();
             }

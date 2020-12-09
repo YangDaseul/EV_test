@@ -21,6 +21,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.PushCodes;
 import com.genesis.apps.ui.common.activity.PushDummyActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.RemoteMessage;
@@ -30,8 +31,6 @@ import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.net.URL;
 
-import static com.genesis.apps.comm.model.constants.KeyNames.PUSH_CODE;
-import static com.genesis.apps.fcm.PushCode.findCode;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 
@@ -55,42 +54,49 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             pushVO.setData(data);
             pushVO.setNotification(noti);
 
-
-            switch (findCode(pushVO.getData().getDtlLnkCd())) {
-                case CAT_00:
-                case CAT_01:
-                case CAT_02:
-                case CAT_03:
-                case CAT_05:
-                case CAT_06:
-                case CAT_07:
-                case CAT_08:
-                case CAT_09:
-                case CAT_0A:
-                case CAT_0B:
-                case CAT_0C:
-                case CAT_0D:
-                case CAT_0E:
-                case CAT_0Z:
-                case CAT_21:
-                case CAT_22:
-                case CAT_23:
-                case CAT_50:
-                case CAT_0X:
-                case CAT_0K:
-                default:
-                    if (pushVO != null) {
-                        notifyMessage(pushVO, findCode(pushVO.getData().getDtlLnkCd()));
-                    } else {
-                        // 메시지 없음... 오류
-                        Log.e(TAG, "category is " + pushVO.getData().getDtlLnkCd() + " but message object is null!");
-                    }
-                    break;
+            if (pushVO != null) {
+                notifyMessage(pushVO, PushCodes.findCodeByCd(pushVO.getData().getLgrCatCd()));
+            } else {
+                // 메시지 없음... 오류
+                Log.e(TAG, "category is " + pushVO.getData().getDtlLnkCd() + " but message object is null!");
             }
+
+
+//            switch (findCode(pushVO.getData().getDtlLnkCd())) {
+//                case CAT_00:
+//                case CAT_01:
+//                case CAT_02:
+//                case CAT_03:
+//                case CAT_05:
+//                case CAT_06:
+//                case CAT_07:
+//                case CAT_08:
+//                case CAT_09:
+//                case CAT_0A:
+//                case CAT_0B:
+//                case CAT_0C:
+//                case CAT_0D:
+//                case CAT_0E:
+//                case CAT_0Z:
+//                case CAT_21:
+//                case CAT_22:
+//                case CAT_23:
+//                case CAT_50:
+//                case CAT_0X:
+//                case CAT_0K:
+//                default:
+//                    if (pushVO != null) {
+//                        notifyMessage(pushVO, findCode(pushVO.getData().getDtlLnkCd()));
+//                    } else {
+//                        // 메시지 없음... 오류
+//                        Log.e(TAG, "category is " + pushVO.getData().getDtlLnkCd() + " but message object is null!");
+//                    }
+//                    break;
+//            }
         }
     }
 
-    private void notifyMessage(PushVO pushVO, PushCode code) {
+    private void notifyMessage(PushVO pushVO, PushCodes code) {
         Log.d(TAG, "push test2: " + code);
         if (pushVO.getNotification() != null) {
             String head = pushVO.getNotification().getTitle();
@@ -102,7 +108,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                     | Intent.FLAG_ACTIVITY_CLEAR_TOP
                     | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            intent.putExtra(PUSH_CODE, code);
+            intent.putExtra(KeyNames.PUSH_VO, pushVO);
             intent.putExtra(KeyNames.NOTIFICATION_ID, NOTIFICATION_ID);
             PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -211,7 +217,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                     | Intent.FLAG_ACTIVITY_CLEAR_TOP
                     | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            intent.putExtra(PUSH_CODE, code);
+            intent.putExtra(KeyNames.PUSH_VO, pushVO);
             intent.putExtra(KeyNames.NOTIFICATION_ID, NOTIFICATION_ID);
             PendingIntent pIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 

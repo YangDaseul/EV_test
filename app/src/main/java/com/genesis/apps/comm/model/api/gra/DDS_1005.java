@@ -20,7 +20,6 @@ public class DDS_1005 extends BaseData {
      * @author hjpark
      * @brief DDS_1005 요청 항목
      * 제네시스 CRM에서 발급되는 고객관리번호
-     * @see #vin 차대번호
      * @see #transId 트랜젝션ID
      * @see #userRate 사용자평점
      * 사용자평점(별점)은 1~5 의 값.
@@ -31,9 +30,6 @@ public class DDS_1005 extends BaseData {
     static
     class Request extends BaseRequest {
         @Expose
-        @SerializedName("vin")
-        private String vin;
-        @Expose
         @SerializedName("transId")
         private String transId;
         @Expose
@@ -43,8 +39,7 @@ public class DDS_1005 extends BaseData {
         @SerializedName("userComment")
         private String userComment;
 
-        public Request(String menuId,  String vin, String transId, String userRate, String userComment){
-            this.vin = vin;
+        public Request(String menuId, String transId, String userRate, String userComment){
             this.transId = transId;
             this.userRate = userRate;
             this.userComment = userComment;

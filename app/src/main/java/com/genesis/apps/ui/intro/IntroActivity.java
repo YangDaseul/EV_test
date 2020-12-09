@@ -18,7 +18,6 @@ import com.genesis.apps.comm.model.vo.CCSVO;
 import com.genesis.apps.comm.model.vo.DeviceDTO;
 import com.genesis.apps.comm.model.vo.NotiVO;
 import com.genesis.apps.comm.model.vo.UserVO;
-import com.genesis.apps.comm.model.vo.developers.CarConnectVO;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
@@ -424,7 +423,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
 
             if(!isExit) {
                 if (isPushData()) {
-                    startActivity(moveToPush(MainActivity.class));
+                    startActivitySingleTop(getPushIntent(MainActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 } else {
                     startActivitySingleTop(new Intent(IntroActivity.this, MainActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }

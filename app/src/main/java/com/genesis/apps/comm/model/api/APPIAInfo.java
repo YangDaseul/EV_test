@@ -18,6 +18,7 @@ import com.genesis.apps.ui.main.home.WarrantyRepairGuideActivity;
 import com.genesis.apps.ui.main.insight.InsightExpnInputActivity;
 import com.genesis.apps.ui.main.insight.InsightExpnMainActivity;
 import com.genesis.apps.ui.main.service.ServiceRelapseHistoryActivity;
+import com.genesis.apps.ui.main.service.ServiceReviewActivity;
 import com.genesis.apps.ui.main.service.ServiceSOSApplyActivity;
 import com.genesis.apps.ui.myg.MyGGAActivity;
 import com.genesis.apps.ui.myg.MyGMembershipActivity;
@@ -212,8 +213,9 @@ public enum APPIAInfo {
 
     SM_REVIEW01("SM_REVIEW01", null, VariableType.QUICK_MENU_CODE_NONE, "서비스 리뷰"),
 
-    SM_REVIEW01_P01("SM_REVIEW01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "이용후기 팝업"),
+    SM_REVIEW01_P01("SM_REVIEW01_P01", ServiceReviewActivity.class, VariableType.QUICK_MENU_CODE_NONE, "이용후기 (세차)"),
     SM_REVIEW01_P02("SM_REVIEW01_P02", null, VariableType.QUICK_MENU_CODE_NONE, "서비스 리뷰 종료 팝업"),
+    SM_REVIEW01_P03("SM_REVIEW01_P03", ServiceReviewActivity.class, VariableType.QUICK_MENU_CODE_NONE, "이용후기 (대리)"),
 
     CM01("CM01", null, VariableType.QUICK_MENU_CODE_NONE, "메인 4 Contents (로그인/차량보유)"),
     CM02("CM02", null, VariableType.QUICK_MENU_CODE_NONE, "메인 4 Contents (로그인/예약대기)"),

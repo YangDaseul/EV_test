@@ -26,6 +26,7 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.ISTAmtVO;
+import com.genesis.apps.comm.model.vo.MessageVO;
 import com.genesis.apps.comm.model.vo.SOSDriverVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.model.vo.map.FindPathReqVO;
@@ -334,6 +335,23 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
             case R.id.btn_driver_position:
                 //긴급출동
                 sosViewModel.reqSOS1001(new SOS_1001.Request(APPIAInfo.TM01.getId()));
+                break;
+            case R.id.tv_link_nm:
+
+                MessageVO messageVO = null;
+                try{
+                    messageVO = ((MessageVO)v.getTag(R.id.item));
+
+                    if(messageVO.getLnkTypCd().equalsIgnoreCase("I")){
+                        ((MainActivity)getActivity()).moveToNativePage(messageVO.getLnkUri(), false);
+                    }else{
+                        ((MainActivity)getActivity()).moveToExternalPage(messageVO.getLnkUri(), "");
+                    }
+                }catch (Exception e){
+
+                }finally{
+
+                }
                 break;
 
         }

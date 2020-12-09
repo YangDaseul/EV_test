@@ -28,6 +28,11 @@ public enum PushCodes {
         return Arrays.asList(PushCodes.values()).stream().filter(data->data.getCateNm().equalsIgnoreCase(cateNm)).findAny().orElse(PUSH_CODE_APP);
     }
 
+    public static PushCodes findCodeByCd(String cateCd){
+        return Arrays.asList(PushCodes.values()).stream().filter(data->data.getCateCd().equalsIgnoreCase(cateCd)).findAny().orElse(PUSH_CODE_APP);
+    }
+
+
     public static List<String> getPushListNm(){
         return Arrays.asList(PushCodes.values()).stream().map(PushCodes::getCateNm).collect(toList());
     }

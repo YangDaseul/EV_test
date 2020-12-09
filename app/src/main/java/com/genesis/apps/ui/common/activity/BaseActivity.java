@@ -4,16 +4,21 @@ import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.text.TextUtils;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
-import com.genesis.apps.fcm.PushCode;
+import com.genesis.apps.fcm.PushVO;
 import com.genesis.apps.ui.intro.IntroActivity;
+import com.genesis.apps.ui.main.AlarmCenterActivity;
+import com.genesis.apps.ui.main.service.ServiceReviewActivity;
 
 import javax.inject.Inject;
 
@@ -21,8 +26,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import dagger.hilt.android.AndroidEntryPoint;
 
+import static com.genesis.apps.comm.model.api.APPIAInfo.SM_REVIEW01_P03;
 import static com.genesis.apps.comm.model.constants.KeyNames.NOTIFICATION_ID;
-import static com.genesis.apps.comm.model.constants.KeyNames.PUSH_CODE;
+import static com.genesis.apps.comm.model.constants.KeyNames.PUSH_VO;
 
 @AndroidEntryPoint
 public class BaseActivity extends AppCompatActivity {
@@ -31,7 +37,7 @@ public class BaseActivity extends AppCompatActivity {
     ExecutorService executorService;
 
     //About PUSH
-    public PushCode pushCode;
+    public PushVO pushVO;
     public int notificationId;
     public boolean isForeground=false;
     public Intent intent = null;
@@ -88,8 +94,8 @@ public class BaseActivity extends AppCompatActivity {
         builder.show();
     }
 
-    public Intent moveToPush(Class className){
-        intent = new Intent(this, className).putExtra(PUSH_CODE, pushCode).putExtra(NOTIFICATION_ID, notificationId);
+    public Intent getPushIntent(Class className){
+        intent = new Intent(this, className).putExtra(PUSH_VO, pushVO).putExtra(NOTIFICATION_ID, notificationId);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         return intent;
     }
@@ -98,44 +104,89 @@ public class BaseActivity extends AppCompatActivity {
     public boolean isPushData() {
         boolean isPush=false;
         try {
-            pushCode = (PushCode) getIntent().getSerializableExtra(PUSH_CODE);
+            pushVO = (PushVO) getIntent().getSerializableExtra(PUSH_VO);
             notificationId = getIntent().getIntExtra(NOTIFICATION_ID, 0);
-            if(pushCode!=null&&pushCode!=PushCode.CAT_DEFAULT) isPush=true;
+            if(pushVO!=null) isPush=true;
         }catch (Exception e){
-            pushCode = PushCode.CAT_DEFAULT;
+
         }
         return isPush;
     }
 
     public void checkPushCode() {
-        if(isPushData()) {
-            switch (pushCode) {
-                case CAT_50:
-                    //TODO EXCUTE ACTIVITY
-                    break;
-                case CAT_G1:
-                    //TODO EXCUTE ACTIVITY
-                    break;
-                case CAT_40:
-                case CAT_41:
-                case CAT_42:
-                case CAT_43:
-                    //TODO EXCUTE ACTIVITY
-                    break;
-                default:
-                    //TODO EXCUTE ACTIVITY
-                    break;
+        if (isPushData()) {
+
+            try {
+                String url = !TextUtils.isEmpty(pushVO.getData().getMsgLnkUri()) ? pushVO.getData().getMsgLnkUri() : pushVO.getData().getDtlLnkUri();
+                if (!TextUtils.isEmpty(url))
+                    moveToNativePage(url, true);
+            } catch (Exception e) {
+
             }
 
-            if (intent != null) {
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(intent);
-            }
-            this.getIntent().removeExtra(PUSH_CODE);
+            this.getIntent().removeExtra(PUSH_VO);
             this.getIntent().removeExtra(NOTIFICATION_ID);
             ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancel(notificationId);
         }
     }
+
+    public void moveToNativePage(String lnkUri, boolean isPush) {
+        Uri uri = null;
+        String id = "";
+        String PI = "";
+        try {
+            uri = Uri.parse(lnkUri);
+            id = uri.getQueryParameter(KeyNames.KEY_NAME_URI_PARSER_ID);
+            PI = uri.getQueryParameter(KeyNames.KEY_NAME_URI_PARSER_PI);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(TextUtils.isEmpty(id))
+                return;
+        }
+
+        switch (APPIAInfo.findCode(id)) {
+            case SM_REVIEW01_P01:
+                if (!TextUtils.isEmpty(PI)) {
+                    startActivitySingleTop(new Intent(this, ServiceReviewActivity.class).putExtra(KeyNames.KEY_NAME_REVIEW_RSVT_SEQ_NO, PI), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                }else{
+                    SnackBarUtil.show(this, "예약번호가 존재하지 않습니다.");
+                }
+                break;
+            case SM_REVIEW01_P03:
+                if (!TextUtils.isEmpty(PI)) {
+                    startActivitySingleTop(new Intent(this, ServiceReviewActivity.class).putExtra(KeyNames.KEY_NAME_REVIEW_TRANS_ID, PI), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                }else{
+                    SnackBarUtil.show(this, "트랜잭션 ID가 존재하지 않습니다.");
+                }
+                break;
+            default:
+                if(!isPush) {
+                    APPIAInfo appiaInfo = APPIAInfo.findCode(id);
+                    if (appiaInfo != null && appiaInfo.getActivity() != null) {
+                        startActivitySingleTop(new Intent(this, appiaInfo.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    }else{
+                        SnackBarUtil.show(this, "화면 ID가 올바르지 않습니다.");
+                    }
+                }else{
+                    startActivitySingleTop(new Intent(this, AlarmCenterActivity.class).putExtra(PUSH_VO, pushVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                }
+                break;
+        }
+    }
+
+    public void moveToExternalPage(String lnkUri, String wvYn){
+
+        if (TextUtils.isEmpty(wvYn) || wvYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
+            startActivitySingleTop(new Intent(this, GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, lnkUri), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        } else {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(lnkUri));
+            startActivity(intent); //TODO 테스트 필요 0002
+        }
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

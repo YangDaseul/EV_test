@@ -56,5 +56,12 @@ public @Data class PushVO extends BaseData {
         @Expose
         @SerializedName("imgFilUri3")
         private String imgFilUri3;
+
+        @Expose
+        @SerializedName("smlCatCd")
+        private String smlCatCd;
+        @Expose
+        @SerializedName("lgrCatCd")
+        private String lgrCatCd;
     }
 }

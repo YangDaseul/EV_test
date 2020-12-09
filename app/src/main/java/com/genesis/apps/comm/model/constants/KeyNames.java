@@ -3,6 +3,7 @@ package com.genesis.apps.comm.model.constants;
 public interface KeyNames {
     String SHARED_PREFERENCES_NAME = "AppData";
     String PUSH_CODE ="code";
+    String PUSH_VO ="pushVO";
     String NOTIFICATION_ID ="NOTIFICATION_ID";
     String IS_FOREGROUND_SERVICE="IS_FOREGROUND_SERVICE";
 
@@ -58,5 +59,7 @@ public interface KeyNames {
     String KEY_NAME_MEMBERSHIP_MBR_MGMT_NO="mbrshMbrMgmtNo";
 
     String KEY_NAME_INTERNAL_LINK="genesisapp://menu?id=";
+    String KEY_NAME_URI_PARSER_ID="id";
+    String KEY_NAME_URI_PARSER_PI="PI";
 
 }

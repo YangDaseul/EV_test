@@ -527,6 +527,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     }
 
+    //todo baseactivity의 함수로 대체가능한지 확인 필요. (주차위치확인)
     private void moveToNativePage(String lnkUri) {
         lnkUri = lnkUri.replace(KeyNames.KEY_NAME_INTERNAL_LINK, "");
         switch (APPIAInfo.findCode(lnkUri)) {
@@ -565,25 +566,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 break;
             case GM_BTO2://견적내기
                 ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_APP_IA_INFO, GM_BTO2), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                VehicleVO vehicleVO = null;
-//                BtoVO btoVO = null;
-//                try {
-//                    vehicleVO = lgnViewModel.getMainVehicleFromDB();
-//
-//                    if (vehicleVO != null && !TextUtils.isEmpty(vehicleVO.getMdlNm())) {
-//                        btoVO = cmnViewModel.getBtoVO(vehicleVO.getMdlNm());
-//                    }
-//                }catch (Exception e){
-//                    e.printStackTrace();
-//                }finally {
-//                    if (btoVO == null) {
-//                        //todo 메시지 재 정의 필요
-//                        SnackBarUtil.show(getActivity(), "BTO 정보가 존재하지 않습니다.");
-//                    } else {
-//                        ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, btoVO.getHtmlFilUri()+btoVO.getMdlNm()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                        //                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, url).putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, titleId), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                    }
-//                }
                 break;
             case GM02_CTR01://계약서 조회
                 //todo 전문 확인 필요
@@ -639,13 +621,14 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                                     //네이티브 링크로 이동
                                     //TODO 네이티브로 이동하는 부분은 처리 필요
                                 } else {
-                                    if (TextUtils.isEmpty(wvYn) || wvYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
-                                        ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), WebviewActivity.class).putExtra(KeyNames.KEY_NAME_URL, lnkUri), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                                    } else {
-                                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                                        intent.setData(Uri.parse(lnkUri));
-                                        startActivity(intent); //TODO 테스트 필요 0002
-                                    }
+                                    ((MainActivity) getActivity()).moveToExternalPage(lnkUri, wvYn);
+//                                    if (TextUtils.isEmpty(wvYn) || wvYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
+//                                        ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), WebviewActivity.class).putExtra(KeyNames.KEY_NAME_URL, lnkUri), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                                    } else {
+//                                        Intent intent = new Intent(Intent.ACTION_VIEW);
+//                                        intent.setData(Uri.parse(lnkUri));
+//                                        startActivity(intent); //TODO 테스트 필요 0002
+//                                    }
                                     //외부 링크로 이동
                                 }
                             }

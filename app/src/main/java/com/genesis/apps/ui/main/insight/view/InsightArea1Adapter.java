@@ -113,14 +113,16 @@ public class InsightArea1Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
                         } else {
                             getBinding().tvLinkNm.setVisibility(View.VISIBLE);
                             getBinding().tvLinkNm.setText(item.getLnkNm());
+                            getBinding().tvLinkNm.setTag(R.id.item, item);
+                            getBinding().tvLinkNm.setOnClickListener(onSingleClickListener);
                         }
 
-                        if (TextUtils.isEmpty(item.getLnkUri())) {
-                            getBinding().lWhole.setOnClickListener(null);
-                        } else {
-                            getBinding().lWhole.setOnClickListener(onSingleClickListener);
-                            getBinding().lWhole.setTag(R.id.url, item.getLnkUri());
-                        }
+//                        if (TextUtils.isEmpty(item.getLnkUri())) {
+//                            getBinding().lWhole.setOnClickListener(null);
+//                        } else {
+//                            getBinding().lWhole.setOnClickListener(onSingleClickListener);
+//                            getBinding().lWhole.setTag(R.id.url, item.getLnkUri());
+//                        }
                         break;
                 }
             }
