@@ -76,7 +76,11 @@ public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
 
     @Override
     public void onBackPressed() {
-        if (!fragment.onBackPressed()||fragment.getUrl().equalsIgnoreCase("about:blank")) {
+        try {
+            if (!fragment.onBackPressed() || TextUtils.isEmpty(fragment.getUrl()) || fragment.getUrl().equalsIgnoreCase("about:blank")) {
+                super.onBackPressed();
+            }
+        }catch (Exception e){
             super.onBackPressed();
         }
     }
@@ -87,18 +91,20 @@ public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
     }
 
     public void initWebview(String url) {
-        Bundle bundle = new Bundle();
-        bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
+        if(!TextUtils.isEmpty(url)) {
+            Bundle bundle = new Bundle();
+            bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
 
-        fragment = new MyWebViewFrament();
-        fragment.setWebViewListener(webViewListener);
-        fragment.setArguments(bundle);
-        if(javaInterface!=null)
-            fragment.setJavaInterface(javaInterface);
+            fragment = new MyWebViewFrament();
+            fragment.setWebViewListener(webViewListener);
+            fragment.setArguments(bundle);
+            if (javaInterface != null)
+                fragment.setJavaInterface(javaInterface);
 
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.fm_holder, fragment);
-        ft.commitAllowingStateLoss();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.add(R.id.fm_holder, fragment);
+            ft.commitAllowingStateLoss();
+        }
     }
 
     public void loadTerms(TermVO data){

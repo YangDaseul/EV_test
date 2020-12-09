@@ -56,8 +56,8 @@ public class FragmentHome extends SubFragment<FragmentHomeBinding> {
         }catch (Exception e){
             custGbCd = VariableType.MAIN_VEHICLE_TYPE_0000;
         }finally {
-            //비회원고객은 하단으로 스크롤 불가하도록 설정
-            if(TextUtils.isEmpty(custGbCd)||custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)){
+            //소유차량이 아닌 고객은
+            if(TextUtils.isEmpty(custGbCd)||!custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)){
                 me.vpVehicle.setUserInputEnabled(false);
             }else{
                 me.vpVehicle.setUserInputEnabled(true);

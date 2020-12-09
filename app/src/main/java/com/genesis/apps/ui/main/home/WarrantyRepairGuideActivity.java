@@ -86,7 +86,8 @@ public class WarrantyRepairGuideActivity extends SubActivity<ActivityWarrantyRep
     @Override
     public void getDataFromIntent() {
         try {
-            vin = getIntent().getStringExtra(KeyNames.KEY_NAME_VIN);
+//            vin = getIntent().getStringExtra(KeyNames.KEY_NAME_VIN);
+            vin = wrtViewModel.getMainVehicleSimplyFromDB().getVin();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

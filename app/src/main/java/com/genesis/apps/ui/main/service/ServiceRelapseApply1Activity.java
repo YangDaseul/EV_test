@@ -191,6 +191,12 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
             myPosition =(AddressVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_ADDR);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            if(myPosition==null||myPosition.getCenterLat()==0||myPosition.getCenterLon()==0){
+                myPosition = new AddressVO();
+                myPosition.setCenterLat(37.463936);
+                myPosition.setCenterLon(127.042953);
+            }
         }
     }
 

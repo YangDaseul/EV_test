@@ -37,8 +37,8 @@ public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_btr_bluehands);
-        getDataFromIntent();
         setViewModel();
+        getDataFromIntent();
         setObserver();
         initView();
         btrViewModel.reqBTR1001(new BTR_1001.Request(APPIAInfo.GM_BT02.getId(),vin));
@@ -52,7 +52,7 @@ public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBi
     @Override
     public void getDataFromIntent() {
         try {
-            vin = getIntent().getStringExtra(KeyNames.KEY_NAME_VIN);
+            vin = btrViewModel.getMainVehicleSimplyFromDB().getVin();
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
@@ -98,7 +98,8 @@ public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBi
                     }catch (Exception e){
                         e.printStackTrace();
                     }finally{
-                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                        exitPage((TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg, ResultCodes.RES_CODE_NETWORK.getCode());
+//                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
                     }
                     break;
             }
@@ -138,7 +139,7 @@ public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBi
                 startActivitySingleTop(new Intent(this, BtrConslHistActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.btn_cnsl://1:!문의하기
-                startActivitySingleTop(new Intent(this, BtrConsultTypeActivity.class).putExtra(KeyNames.KEY_NAME_VIN, vin), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                startActivitySingleTop(new Intent(this, BtrConsultTypeActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.btn_call://통화하기
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + btrVO.getCelphNo())));

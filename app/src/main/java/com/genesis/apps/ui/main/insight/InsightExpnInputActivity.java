@@ -62,8 +62,8 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
         super.onCreate(savedInstanceState);
         setResizeScreen();
         setContentView(layouts[0]);
-        getDataFromIntent();
         setViewModel();
+        getDataFromIntent();
         setObserver();
         initView();
         cbkViewModel.reqCBK1005(new CBK_1005.Request(APPIAInfo.TM_EXPS01_01.getId(),vin));
@@ -244,37 +244,15 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
             }
         });
 
-        //렌트 리스 신청하기 결과
-//        gnsViewModel.getRES_GNS_1006().observe(this, result -> {
-//            switch (result.status){
-//                case LOADING:
-//                    showProgressDialog(true);
-//                    break;
-//
-//                case SUCCESS:
-//                    if(result.data.getRtCd().equalsIgnoreCase("0000")){
-//                        if(csmrScnCd.equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14)){
-//                            File file = new File(FileUtil.getRealPathFromURI(this, cntImagPath));
-//                            gnsViewModel.reqGNS1008(new GNS_1008.Request(APPIAInfo.GM_CARLST_01_01.getId(), vin, file.getName(), file ));
-//                        }else{
-//                            File file = new File(FileUtil.getRealPathFromURI(this, empCertImagPath));
-//                            gnsViewModel.reqGNS1009(new GNS_1009.Request(APPIAInfo.GM_CARLST_01_01.getId(), vin, file.getName(), file ));
-//                        }
-//                    }
-//                    break;
-//                default:
-//                    showProgressDialog(false);
-//                    break;
-//            }
-//        });
-
-
     }
 
     @Override
     public void getDataFromIntent() {
         try {
             vin = getIntent().getStringExtra(KeyNames.KEY_NAME_VIN);
+            if (TextUtils.isEmpty(vin))
+                vin = cbkViewModel.getMainVehicleSimplyFromDB().getVin();
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

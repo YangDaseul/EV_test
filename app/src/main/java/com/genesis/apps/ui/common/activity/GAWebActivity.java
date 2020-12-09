@@ -3,59 +3,127 @@ package com.genesis.apps.ui.common.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebChromeClient;
 
 import androidx.annotation.Nullable;
 
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.STO_1002;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.BtoVO;
+import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.viewmodel.CMNViewModel;
+import com.genesis.apps.comm.viewmodel.LGNViewModel;
+import com.genesis.apps.ui.main.MainActivity;
 
+import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class GAWebActivity extends WebviewActivity {
+    //todo 제거 예정
     public static final String URL_PURCHASE_CONSULTING="https://mypage.genesis.com/kr/ko/mypage/guide/purchase-consulting-step1.html";
     public static final String URL_TEST_DRIVE="https://www.genesis.com/kr/ko/genesis-test-drive.html";
     public static final String URL_SIMILAR_STOCKS="https://www.genesis.com/content/genesis_owners/kr/ko/shopping/similar-stocks.html";
-//    public static final String URL_MEMBERSHIP="https://www.genesis.com/kr/ko/genesis-membership/life-service.html";
     public static final String URL_MEMBERSHIP="https://www.genesis.com/kr/ko/genesis-membership/benefit-service.html";
     public static final String URL_BTO_MAIN="https://www.genesis.com/kr/ko/build-your-genesis-gate.html";
+
     private final String TAG = getClass().getSimpleName();
     private int titleId=0;
+    private APPIAInfo appiaInfo;
+    private LGNViewModel lgnViewModel;
+    private CMNViewModel cmnViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-//
-//    private void goUrl(){
-//        if(ui.edit.hasFocus()) {
-//            SoftKeyboardUtil.hideKeyboard(getApplication());
-//            ui.edit.clearFocus();
-//        }
-//
-//        String url = ui.edit.getText().toString().trim();
-//        if(TextUtils.isEmpty(url)){
-//            SnackBarUtil.show(GAWebActivity.this, "주소를 입력해 주세요.");
-//        }else{
-//            if(!url.contains("http://")){
-//                url = "http://"+url;
-//            }
-//
-//            if(fragment.openWindows!=null&&fragment.openWindows.size()>0){
-//                fragment.openWindows.get(0).loadUrl(url);
-//            }else{
-//                fragment.loadUrl(url);
-//            }
-//        }
+        reqHTML();
     }
 
+    private void reqHTML() {
+        if(appiaInfo!=null){
+            switch (appiaInfo){
+                case GM_BTO1://BTO
+                    lgnViewModel.reqSTO1002(new STO_1002.Request(APPIAInfo.GM01.getId()));
+                    break;
+                case GM_BTO2://견적내기
+                    VehicleVO vehicleVO = null;
+                    BtoVO btoVO = null;
+                    try {
+                        vehicleVO = lgnViewModel.getMainVehicleFromDB();
+                        if (vehicleVO != null && !TextUtils.isEmpty(vehicleVO.getMdlNm())) {
+                            btoVO = cmnViewModel.getBtoVO(vehicleVO.getMdlNm());
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally {
+                        if (btoVO == null) {
+                            //todo 메시지 재 정의 필요
+                            SnackBarUtil.show(this, "BTO 정보가 존재하지 않습니다.");
+                        } else {
+                            initWebview(btoVO.getHtmlFilUri()+btoVO.getMdlNm());
+                        }
+                    }
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void setViewModel() {
+        ui.setLifecycleOwner(this);
+        lgnViewModel = new ViewModelProvider(this).get(LGNViewModel.class);
+        cmnViewModel = new ViewModelProvider(this).get(CMNViewModel.class);
+    }
+
+    @Override
+    public void setObserver() {
+        //BTO
+        lgnViewModel.getRES_STO_1002().observe(this, result -> {
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    if (result.data != null && !TextUtils.isEmpty(result.data.getHtmlFilUri())) {
+                        showProgressDialog(false);
+                        initWebview(result.data.getHtmlFilUri());
+                        break;
+                    }
+                default:
+                    showProgressDialog(false);
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(this, serverMsg);
+                    }
+                    break;
+            }
+        });
+
+
+    }
+
+    /**
+     * @brief
+     * url이 있으면 해당 url로 웹뷰를 띄우고
+     * url이 없고 appiaInfo가 있으면 화면 ia에 맞는 url 혹은 html data를 확인 후 웹뷰 오픈
+     *
+     */
+    @Override
     public void getDataFromIntent(){
         try {
             url = getIntent().getStringExtra(KeyNames.KEY_NAME_URL);
             titleId = getIntent().getIntExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, 0);
+            appiaInfo = (APPIAInfo) getIntent().getSerializableExtra(KeyNames.KEY_NAME_APP_IA_INFO);
         }catch (Exception e){
             e.printStackTrace();
             titleId = 0;

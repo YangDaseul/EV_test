@@ -31,6 +31,7 @@ public interface KeyNames {
     String KEY_NAME_MAINTENANCE_AVL_RSR_YN="AvlRsrYn";
     String KEY_NAME_MAINTENANCE_REPAIR_TYPE="repairTypeVO";
 
+    String KEY_NAME_APP_IA_INFO="APPIAInfo";
     String KEY_NAME_MAP_SEARCH_TITLE_ID="titleId";
     String KEY_NAME_MAP_SEARCH_MSG_ID="msgId";
     String KEY_NAME_MAP_SEARCH_DIRECT_OPEN="directOpen";

@@ -14,8 +14,14 @@ import com.genesis.apps.comm.model.api.gra.BTR_2001;
 import com.genesis.apps.comm.model.api.gra.BTR_2002;
 import com.genesis.apps.comm.model.api.gra.BTR_2003;
 import com.genesis.apps.comm.model.repo.BTRRepo;
+import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.vo.BtrVO;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.excutor.ExecutorService;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import lombok.Data;
 
@@ -24,6 +30,7 @@ class BTRViewModel extends ViewModel {
 
     private final BTRRepo repository;
     private final SavedStateHandle savedStateHandle;
+    private final DBVehicleRepository dbVehicleRepository;
 
     private MutableLiveData<NetUIResponse<BTR_1001.Response>> RES_BTR_1001;
     private MutableLiveData<NetUIResponse<BTR_1008.Response>> RES_BTR_1008;
@@ -36,9 +43,12 @@ class BTRViewModel extends ViewModel {
     @ViewModelInject
     BTRViewModel(
             BTRRepo repository,
+            DBVehicleRepository dbVehicleRepository,
             @Assisted SavedStateHandle savedStateHandle) {
         this.repository = repository;
+        this.dbVehicleRepository = dbVehicleRepository;
         this.savedStateHandle = savedStateHandle;
+
 
         RES_BTR_1001 = repository.RES_BTR_1001;
         RES_BTR_1008 = repository.RES_BTR_1008;
@@ -91,5 +101,24 @@ class BTRViewModel extends ViewModel {
         return null;
     }
 
+    public VehicleVO getMainVehicleSimplyFromDB() throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<VehicleVO> future = es.getListeningExecutorService().submit(()->{
+            VehicleVO vehicleVO = null;
+            try {
+                vehicleVO = dbVehicleRepository.getMainVehicleSimplyFromDB();
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+                vehicleVO = null;
+            }
+            return vehicleVO;
+        });
+
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
+    }
 
 }

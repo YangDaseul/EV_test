@@ -67,6 +67,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static android.app.Activity.RESULT_OK;
+import static com.genesis.apps.comm.model.api.APPIAInfo.GM_BTO1;
+import static com.genesis.apps.comm.model.api.APPIAInfo.GM_BTO2;
 import static com.google.android.exoplayer2.Player.REPEAT_MODE_ALL;
 import static com.google.android.exoplayer2.Player.STATE_IDLE;
 
@@ -108,30 +110,30 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         cmnViewModel = new ViewModelProvider(getActivity()).get(CMNViewModel.class);
         developersViewModel = new ViewModelProvider(getActivity()).get(DevelopersViewModel.class);
 
-        lgnViewModel.getRES_STO_1002().observe(getViewLifecycleOwner(), result -> {
-            switch (result.status) {
-                case LOADING:
-                    ((MainActivity) getActivity()).showProgressDialog(true);
-                    break;
-                case SUCCESS:
-                    if (result.data != null && !TextUtils.isEmpty(result.data.getHtmlFilUri())) {
-                        ((MainActivity) getActivity()).showProgressDialog(false);
-                        ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, result.data.getHtmlFilUri()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                        break;
-                    }
-                default:
-                    ((MainActivity) getActivity()).showProgressDialog(false);
-                    String serverMsg = "";
-                    try {
-                        serverMsg = result.data.getRtMsg();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        SnackBarUtil.show(getActivity(), serverMsg);
-                    }
-                    break;
-            }
-        });
+//        lgnViewModel.getRES_STO_1002().observe(getViewLifecycleOwner(), result -> {
+//            switch (result.status) {
+//                case LOADING:
+//                    ((MainActivity) getActivity()).showProgressDialog(true);
+//                    break;
+//                case SUCCESS:
+//                    if (result.data != null && !TextUtils.isEmpty(result.data.getHtmlFilUri())) {
+//                        ((MainActivity) getActivity()).showProgressDialog(false);
+//                        ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, result.data.getHtmlFilUri()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                        break;
+//                    }
+//                default:
+//                    ((MainActivity) getActivity()).showProgressDialog(false);
+//                    String serverMsg = "";
+//                    try {
+//                        serverMsg = result.data.getRtMsg();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    } finally {
+//                        SnackBarUtil.show(getActivity(), serverMsg);
+//                    }
+//                    break;
+//            }
+//        });
 
 
         lgnViewModel.getRES_LGN_0003().observe(getViewLifecycleOwner(), result -> {
@@ -558,28 +560,30 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 recordUtil.checkRecordPermission();
                 break;
             case GM_BTO1://BTO
-                lgnViewModel.reqSTO1002(new STO_1002.Request(APPIAInfo.GM01.getId()));
+                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_APP_IA_INFO, GM_BTO1), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                lgnViewModel.reqSTO1002(new STO_1002.Request(APPIAInfo.GM01.getId()));
                 break;
             case GM_BTO2://견적내기
-                VehicleVO vehicleVO = null;
-                BtoVO btoVO = null;
-                try {
-                    vehicleVO = lgnViewModel.getMainVehicleFromDB();
-
-                    if (vehicleVO != null && !TextUtils.isEmpty(vehicleVO.getMdlNm())) {
-                        btoVO = cmnViewModel.getBtoVO(vehicleVO.getMdlNm());
-                    }
-                }catch (Exception e){
-                    e.printStackTrace();
-                }finally {
-                    if (btoVO == null) {
-                        //todo 메시지 재 정의 필요
-                        SnackBarUtil.show(getActivity(), "BTO 정보가 존재하지 않습니다.");
-                    } else {
-                        ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, btoVO.getHtmlFilUri()+btoVO.getMdlNm()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                        //                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, url).putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, titleId), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                    }
-                }
+                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_APP_IA_INFO, GM_BTO2), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                VehicleVO vehicleVO = null;
+//                BtoVO btoVO = null;
+//                try {
+//                    vehicleVO = lgnViewModel.getMainVehicleFromDB();
+//
+//                    if (vehicleVO != null && !TextUtils.isEmpty(vehicleVO.getMdlNm())) {
+//                        btoVO = cmnViewModel.getBtoVO(vehicleVO.getMdlNm());
+//                    }
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }finally {
+//                    if (btoVO == null) {
+//                        //todo 메시지 재 정의 필요
+//                        SnackBarUtil.show(getActivity(), "BTO 정보가 존재하지 않습니다.");
+//                    } else {
+//                        ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, btoVO.getHtmlFilUri()+btoVO.getMdlNm()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                        //                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, url).putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, titleId), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                    }
+//                }
                 break;
             case GM02_CTR01://계약서 조회
                 //todo 전문 확인 필요

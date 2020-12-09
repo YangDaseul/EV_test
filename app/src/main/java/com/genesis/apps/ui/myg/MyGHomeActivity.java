@@ -8,27 +8,19 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 
-import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.MYP_0001;
 import com.genesis.apps.comm.model.api.gra.MYP_1003;
 import com.genesis.apps.comm.model.api.gra.MYP_1005;
 import com.genesis.apps.comm.model.api.gra.MYP_1006;
-import com.genesis.apps.comm.model.api.gra.MYP_8001;
-import com.genesis.apps.comm.model.api.gra.OIL_0005;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.OilCodes;
 import com.genesis.apps.comm.model.constants.RequestCodes;
-import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.model.vo.PrivilegeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
@@ -38,11 +30,11 @@ import com.genesis.apps.databinding.ActivityMygHomeBinding;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
-import com.genesis.apps.ui.main.ServiceTermDetailActivity;
 import com.genesis.apps.ui.myg.view.OilView;
 
-import java.util.ArrayList;
 import java.util.Locale;
+
+import androidx.lifecycle.ViewModelProvider;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0001;
@@ -159,36 +151,36 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         });
 
 
-        mypViewModel.getRES_MYP_8001().observe(this, result -> {
-            switch (result.status) {
-                case LOADING:
-                    showProgressDialog(true);
-                    break;
-                case SUCCESS:
-                    if (result.data != null&&result.data.getTermList()!=null&&result.data.getTermList().size()>0) {
-                        startActivitySingleTop(new Intent(this, ServiceTermDetailActivity.class)
-                                        .putExtra(VariableType.KEY_NAME_TERM_VO, result.data.getTermList().get(0))
-                                        .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, result.data.getTermList().get(0).getTermNm())
-                                , RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                        showProgressDialog(false);
-                        break;
-                    }
-                default:
-                    showProgressDialog(false);
-                    String serverMsg = "";
-                    try {
-                        serverMsg = result.data.getRtMsg();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        if (TextUtils.isEmpty(serverMsg)) {
-                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
-                        }
-                        SnackBarUtil.show(this, serverMsg);
-                    }
-                    break;
-            }
-        });
+//        mypViewModel.getRES_MYP_8001().observe(this, result -> {
+//            switch (result.status) {
+//                case LOADING:
+//                    showProgressDialog(true);
+//                    break;
+//                case SUCCESS:
+//                    if (result.data != null&&result.data.getTermList()!=null&&result.data.getTermList().size()>0) {
+//                        startActivitySingleTop(new Intent(this, ServiceTermDetailActivity.class)
+//                                        .putExtra(VariableType.KEY_NAME_TERM_VO, result.data.getTermList().get(0))
+//                                        .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, result.data.getTermList().get(0).getTermNm())
+//                                , RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                        showProgressDialog(false);
+//                        break;
+//                    }
+//                default:
+//                    showProgressDialog(false);
+//                    String serverMsg = "";
+//                    try {
+//                        serverMsg = result.data.getRtMsg();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    } finally {
+//                        if (TextUtils.isEmpty(serverMsg)) {
+//                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+//                        }
+//                        SnackBarUtil.show(this, serverMsg);
+//                    }
+//                    break;
+//            }
+//        });
 
     }
 
@@ -285,7 +277,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         if (v != null) {
             switch (v.getId()) {
                 case R.id.btn_search:
-                    startActivitySingleTop(new Intent(this, MyGMenuActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    startActivitySingleTop(new Intent(this, MyGMenuActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.btn_my_info: //내정보보기
                     startActivitySingleTop(new Intent(this, MyGGAActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
@@ -351,18 +343,18 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + ui.tvCenterMsg4.getText().toString())));
                     break;
                 case R.id.l_terms_1://공지사항
-                    startActivitySingleTop(new Intent(this, MyGNotiActivity.class), 0,VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    startActivitySingleTop(new Intent(this, MyGNotiActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.l_terms_2://이용약관
-                    mypViewModel.reqMYP8001(new MYP_8001.Request(APPIAInfo.MG01.getId(), TERM_SERVICE_JOIN_GRA0001));
-//                    startActivitySingleTop(new Intent(this, MyGTermsActivity.class).putExtra(MyGTermsActivity.TERMS_CODE, MyGTermsActivity.TERMS_1000), 0,VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                    mypViewModel.reqMYP8001(new MYP_8001.Request(APPIAInfo.MG01.getId(), TERM_SERVICE_JOIN_GRA0001));
+                    startActivitySingleTop(new Intent(this, MyGTermsActivity.class).putExtra(MyGTermsActivity.TERMS_CODE, TERM_SERVICE_JOIN_GRA0001), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.l_terms_3://개인정보처리방침
-                    mypViewModel.reqMYP8001(new MYP_8001.Request(APPIAInfo.MG01.getId(), TERM_SERVICE_JOIN_GRA0002));
-//                    startActivitySingleTop(new Intent(this, MyGTermsActivity.class).putExtra(MyGTermsActivity.TERMS_CODE, MyGTermsActivity.TERMS_2000), 0,VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                    mypViewModel.reqMYP8001(new MYP_8001.Request(APPIAInfo.MG01.getId(), TERM_SERVICE_JOIN_GRA0002));
+                    startActivitySingleTop(new Intent(this, MyGTermsActivity.class).putExtra(MyGTermsActivity.TERMS_CODE, TERM_SERVICE_JOIN_GRA0002), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.l_terms_4://오픈소스 라이선스
-                    startActivitySingleTop(new Intent(this, MyGTermsActivity.class).putExtra(MyGTermsActivity.TERMS_CODE, MyGTermsActivity.TERMS_6000), 0,VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    startActivitySingleTop(new Intent(this, MyGTermsActivity.class).putExtra(MyGTermsActivity.TERMS_CODE, MyGTermsActivity.TERMS_6000), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.l_terms_5://버전 정보
                     startActivitySingleTop(new Intent(this, MyGVersioniActivity.class), 0,VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
