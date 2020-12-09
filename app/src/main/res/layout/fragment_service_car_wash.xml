@@ -13,6 +13,10 @@
             android:id="@+id/l_service_car_wash_history_btn"
             layout="@layout/layout_service_car_wash_top_panel" />
 
+        <include
+            android:id="@+id/l_service_car_wash_cost_btn"
+            layout="@layout/layout_service_car_wash_cost_top_panel" />
+
         <!--  아이템으로 사용되는 뷰 파일 : item_service_car_wash -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_service_car_wash_item_list"
