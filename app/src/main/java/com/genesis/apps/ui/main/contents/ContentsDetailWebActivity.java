@@ -22,6 +22,7 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CTT_1002;
 import com.genesis.apps.comm.model.api.gra.CTT_1004;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.ContentsVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
@@ -29,6 +30,7 @@ import com.genesis.apps.comm.viewmodel.CTTViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityContentsDetailWebBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.activity.WebviewActivity;
 import com.genesis.apps.ui.main.MainActivity;
 
 import java.util.concurrent.ExecutionException;
@@ -105,7 +107,7 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
                     if("I".equals(contentsVO.getLnkTypCd())) {
 
                     } else {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(contentsVO.getLnkUri())));
+                        startActivitySingleTop(new Intent(mActivity, WebviewActivity.class).putExtra(KeyNames.KEY_NAME_URL, contentsVO.getLnkUri()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     }
                 }
 
