@@ -35,7 +35,7 @@ android {
         }
     }
 
-    
+
     buildTypes {
         release {
             signingConfig signingConfigs.release
@@ -67,6 +67,10 @@ android {
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude  'META-INF/lib_release.kotlin_module'
     }
 }
 
@@ -135,7 +139,7 @@ dependencies {
     implementation "com.google.android.exoplayer:exoplayer-ui:2.11.7"
 
     //socket.io chat
-    implementation ('io.socket:socket.io-client:1.0.0') {
+    implementation('io.socket:socket.io-client:1.0.0') {
         exclude group: 'org.json', module: 'json'
     }
 
@@ -153,7 +157,6 @@ dependencies {
     implementation 'android.arch.persistence.room:runtime:1.1.1'
     annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
     testImplementation 'android.arch.persistence.room:testing:1.1.1'
-
 
 
     implementation platform('com.google.firebase:firebase-bom:26.1.0')
