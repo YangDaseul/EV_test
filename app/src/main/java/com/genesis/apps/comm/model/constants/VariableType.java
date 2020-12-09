@@ -1,6 +1,8 @@
 package com.genesis.apps.comm.model.constants;
 
 public class VariableType {
+    public static final boolean isHardCoding = true;
+
     public static final int ACTIVITY_TRANSITION_ANIMATION_NONE = 0;
     public static final int ACTIVITY_TRANSITION_ANIMATION_ZOON = 1;
     public static final int ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE = 3;
@@ -50,6 +52,29 @@ public class VariableType {
     public static final String MAIN_VEHICLE_TYPE_CV = "CV"; //계약차량소유
     public static final String MAIN_VEHICLE_TYPE_NV = "NV"; //소유차량없음
     public static final String MAIN_VEHICLE_TYPE_OV = "OV";  //차량소유
+    //퀵메뉴
+    public static final int QUICK_MENU_CODE_OV=4;
+    public static final int QUICK_MENU_CODE_CV=3;
+    public static final int QUICK_MENU_CODE_NV=2;
+    public static final int QUICK_MENU_CODE_0000=1;
+    public static final int QUICK_MENU_CODE_NONE=0;
+    public static int getQuickMenuCode(String custGbCd){
+        switch (custGbCd){
+            case MAIN_VEHICLE_TYPE_OV:
+                return QUICK_MENU_CODE_OV;
+            case MAIN_VEHICLE_TYPE_CV:
+                return QUICK_MENU_CODE_CV;
+            case MAIN_VEHICLE_TYPE_NV:
+                return QUICK_MENU_CODE_NV;
+            case MAIN_VEHICLE_TYPE_0000:
+                return QUICK_MENU_CODE_0000;
+            default:
+                return QUICK_MENU_CODE_NONE;
+        }
+    }
+
+
+
     //주 이용차량 유무
     public static final String MAIN_VEHICLE_Y = "Y";  //주 이용 차량
     public static final String MAIN_VEHICLE_N = "N";  //주 이용 차량 X

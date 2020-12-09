@@ -102,8 +102,10 @@ public class ContentsSearchActivity extends SubActivity<ActivityContentsSearchBi
 
                     int itemSizeBefore = contentsAdapter.getItemCount();
                     if (contentsAdapter.getPageNo() == 0) {
-                        ui.vp.setCurrentItem(0);
+                        contentsAdapter = new ContentsAdapter(onSingleClickListener);
+                        ui.vp.setAdapter(contentsAdapter);
                         contentsAdapter.setRows(list);
+                        contentsAdapter.notifyDataSetChanged();
                     } else {
                         contentsAdapter.addRows(list);
                     }

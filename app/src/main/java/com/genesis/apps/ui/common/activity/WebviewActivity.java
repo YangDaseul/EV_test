@@ -21,6 +21,7 @@ public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
     public MyWebViewFrament fragment;
     public String url = ""; //초기 접속 URL
     public String fn=""; //javascript 함수
+    private Object javaInterface;
     private boolean isClearHistory=false;
 
     @Override
@@ -61,10 +62,10 @@ public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
     public void setObserver() {
 
     }
-//    public void reload() {
-//        Log.d(TAG, "reload:" + url);
-//        if(fragment != null) fragment.loadUrl(url);
-//    }
+    public void reload() {
+        Log.d(TAG, "reload:" + url);
+        if(fragment != null) fragment.loadUrl(url);
+    }
 
     @Override
     protected void onRestart() {
@@ -92,6 +93,8 @@ public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
         fragment = new MyWebViewFrament();
         fragment.setWebViewListener(webViewListener);
         fragment.setArguments(bundle);
+        if(javaInterface!=null)
+            fragment.setJavaInterface(javaInterface);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.fm_holder, fragment);
@@ -233,5 +236,9 @@ public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
 
     public void clearHistory(){
         if(fragment!=null) fragment.clearHistory();
+    }
+
+    public void setJavaInterface(Object javaInterface) {
+        this.javaInterface = javaInterface;
     }
 }

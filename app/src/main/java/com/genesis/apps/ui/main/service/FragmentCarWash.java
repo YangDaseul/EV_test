@@ -9,26 +9,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.WSH_1001;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.WSH_1001;
 import com.genesis.apps.comm.model.vo.WashGoodsVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.FragmentServiceCarWashBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
-import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.annotation.Nullable;
-import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -79,6 +74,7 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
                     break;
 
                 case SUCCESS:
+                    //TODO 2020-12-08 가격표 URI가 추가되어 수정 필요
                     if (result.data != null && result.data.getGodsList() != null) {
                         adapter.setRows(result.data.getGodsList());
                         adapter.notifyDataSetChanged();

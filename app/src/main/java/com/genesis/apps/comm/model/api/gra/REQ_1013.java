@@ -32,7 +32,7 @@ public class REQ_1013 extends BaseData {
         @SerializedName("vin")
         private String vin;
 
-        public Request(String menuId, String vin){
+        public Request(String menuId, String vin) {
             this.vin = vin;
             setData(APIInfo.GRA_REQ_1013.getIfCd(), menuId);
         }
@@ -57,9 +57,6 @@ public class REQ_1013 extends BaseData {
      * 딜리버리중	6400	7400	8400
      * 딜리버리완료	6500	7500	8500
      * 예약취소	    6800	7800	8800	9800
-     *
-     *
-     *
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -71,7 +68,6 @@ public class REQ_1013 extends BaseData {
         @Expose
         @SerializedName("rparStatus")
         private RepairVO rparStatus;
-
 
         @Expose
         @SerializedName("rsvtStatList")

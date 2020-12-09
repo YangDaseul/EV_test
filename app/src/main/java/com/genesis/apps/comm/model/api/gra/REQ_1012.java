@@ -4,6 +4,7 @@ import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.BaseRequest;
 import com.genesis.apps.comm.model.api.BaseResponse;
+import com.genesis.apps.comm.model.vo.SurveyVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -54,9 +55,9 @@ public class REQ_1012 extends BaseData {
         @Expose
         @SerializedName("acps1Cd")
         private String acps1Cd;
-        @Expose
-        @SerializedName("rqrm")
-        private String rqrm;
+//        @Expose
+//        @SerializedName("rqrm")
+//        private String rqrm;
 
 
         //TODO 아래는 REPAIR VO와 REPAIRGROUP VO를 넣어줘야함
@@ -78,6 +79,12 @@ public class REQ_1012 extends BaseData {
         @Expose
         @SerializedName("rpshGrpNm")
         private String rpshGrpNm;
+
+        @Expose
+        @SerializedName("svyInfo")
+        private SurveyVO svyInfo;
+
+
 
 
         public Request(String menuId){

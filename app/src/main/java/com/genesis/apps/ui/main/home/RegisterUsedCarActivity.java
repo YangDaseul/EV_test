@@ -53,39 +53,6 @@ public class RegisterUsedCarActivity extends SubActivity<ActivityRegUsedCar1Bind
         ui.tvName.setText(gnsViewModel.getDbUserRepo().getUserVO().getCustNm());
         ui.etVin.setOnEditorActionListener(editorActionListener);
         ui.etVrn.setOnEditorActionListener(editorActionListener);
-//        ui.etRentPeriodEtc.setOnFocusChangeListener((view, hasFocus) -> {
-//
-//            if (!hasFocus) {
-//                SoftKeyboardUtil.hideKeyboard(RegisterUsedCarActivity.this);
-//            }else{
-//                SoftKeyboardUtil.showKeyboard(getApplicationContext());
-//            }
-//
-//        });
-
-
-
-//        ui.etVin.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//
-//                if(!TextUtils.isEmpty(editable.toString().trim())){
-//                    ui.lVin.setError(null);
-//                }
-//
-//            }
-//        });
-
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.genesis.apps.comm.model.repo;
 
+import com.genesis.apps.comm.model.vo.BtoVO;
 import com.genesis.apps.comm.model.vo.DownMenuVO;
+import com.genesis.apps.comm.model.vo.FamilyAppVO;
 import com.genesis.apps.comm.model.vo.QuickMenuVO;
 import com.genesis.apps.comm.model.vo.WeatherVO;
 import com.genesis.apps.room.DatabaseHolder;
@@ -74,6 +76,35 @@ public class DBContentsRepository {
         }
         return isUpdate;
     }
-    
-    
+
+    public List<FamilyAppVO> getFamilyApp(){
+        return databaseHolder.getDatabase().familyAppDao().select();
+    }
+
+    public boolean setFamilyApp(List<FamilyAppVO> list){
+        boolean isUpdate = false;
+        try{
+            databaseHolder.getDatabase().familyAppDao().insertAndDeleteInTransaction(list);
+            isUpdate=true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return isUpdate;
+    }
+
+    public BtoVO getBto(String mdlNm){
+        return databaseHolder.getDatabase().btoDao().select(mdlNm);
+    }
+
+    public boolean setBto(List<BtoVO> list){
+        boolean isUpdate = false;
+        try{
+            databaseHolder.getDatabase().btoDao().insertAndDeleteInTransaction(list);
+            isUpdate=true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return isUpdate;
+    }
+
 }

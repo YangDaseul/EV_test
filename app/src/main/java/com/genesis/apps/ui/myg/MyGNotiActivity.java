@@ -44,7 +44,7 @@ public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
     }
 
     private void initView() {
-        adapter = new NotiAccodianRecyclerAdapter();
+        adapter = new NotiAccodianRecyclerAdapter(onSingleClickListener);
 //        ((SimpleItemAnimator) ui.rvNoti.getItemAnimator()).setSupportsChangeAnimations(true);
         ui.rvNoti.setLayoutManager(new LinearLayoutManager(this));
         ui.rvNoti.setHasFixedSize(true);
@@ -68,6 +68,13 @@ public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
 
     @Override
     public void onClickCommon(View v) {
+
+        switch (v.getId()){
+            case R.id.l_title:
+                int position = Integer.parseInt(v.getTag(R.id.position).toString());
+                adapter.eventAccordion(position);
+                break;
+        }
 
     }
 

@@ -86,13 +86,13 @@ public class DDSRepo {
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
+//                RES_DDS_1003.setValue(NetUIResponse.success(TestCode.DDS_1003));
                 RES_DDS_1003.setValue(NetUIResponse.success(new Gson().fromJson(object, DDS_1003.Response.class)));
             }
 
             @Override
             public void onFail(NetResult e) {
                 RES_DDS_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
-//                RES_DDS_1003.setValue(NetUIResponse.success(TestCode.DDS_1003));
             }
 
             @Override

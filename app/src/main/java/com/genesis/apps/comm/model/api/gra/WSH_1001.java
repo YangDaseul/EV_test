@@ -49,5 +49,9 @@ public class WSH_1001 extends BaseData {
         @Expose
         @SerializedName("godsList")
         private List<WashGoodsVO> godsList;
+        //2020-12-08 추가
+        @Expose
+        @SerializedName("godsCostUri")
+        private String godsCostUri;
     }
 }

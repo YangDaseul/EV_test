@@ -75,7 +75,7 @@ public class LeasingCarVinRegisterActivity extends SubActivity<ActivityLeasingCa
                 }else if(ui.etVin.getText().toString().trim().length()!=17){
                     ui.lVin.setError(getString(R.string.gm_carlst_01_45));
                 }else{
-                   gnsViewModel.reqGNS1011(new GNS_1011.Request(APPIAInfo.GM_CARLST_01.getId(), ui.etVin.getText().toString().trim()));
+                   gnsViewModel.reqGNS1011(new GNS_1011.Request(APPIAInfo.GM_CARLST_01.getId(), ui.etVin.getText().toString().trim(), "")); //todo 2020-12-08 추가된 코드 넣어줘야함
                 }
                 break;
             case R.id.btn_info:
@@ -151,6 +151,7 @@ public class LeasingCarVinRegisterActivity extends SubActivity<ActivityLeasingCa
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
+                    //todo 2020-12-08 기준으로 응답데이터가 추가되었기 떄문에 반영 필요
                     if(!TextUtils.isEmpty(result.data.getRgstPsblYn())&&result.data.getRgstPsblYn().equalsIgnoreCase("Y")){
                         startActivitySingleTop(new Intent(this, LeasingCarRegisterInputActivity.class).putExtra(KEY_NAME_VIN, ui.etVin.getText().toString().trim()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                         finish();

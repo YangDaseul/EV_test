@@ -35,8 +35,9 @@ public class NetCaller {
 
     private HttpRequestUtil httpRequestUtil;
     private GA ga;
+
     @Inject
-    public NetCaller(HttpRequestUtil httpRequestUtil, GA ga){
+    public NetCaller(HttpRequestUtil httpRequestUtil, GA ga) {
         this.httpRequestUtil = httpRequestUtil;
         this.ga = ga;
     }
@@ -103,8 +104,7 @@ public class NetCaller {
     }
 
 
-
-    public <RESPONSE,FORMAT> void reqDataFromAnonymous(Callable<RESPONSE> callable, NetCallback callback) {
+    public <RESPONSE, FORMAT> void reqDataFromAnonymous(Callable<RESPONSE> callable, NetCallback callback) {
         ExecutorService es = new ExecutorService("");
         Futures.addCallback(es.getListeningExecutorService().submit(() -> {
             RESPONSE reponseData = null;
@@ -154,22 +154,20 @@ public class NetCaller {
 
 
     /**
+     * @param callback network result callback
+     * @param apiInfo  request API Infomation
+     * @param reqVO    request data
+     * @param <REQ>    request data format
      * @brief GRA API Request
      * GRA에 데이터 요청 시 사용되며
      * 데이터 결과는 JsonObject를 String으로 변환해서 callback에 전달
-     *
-     *
-     * @param callback network result callback
-     * @param apiInfo request API Infomation
-     * @param reqVO request data
-     * @param <REQ> request data format
      */
-    public <REQ>void reqDataToGRA(NetResultCallback callback, APIInfo apiInfo, REQ reqVO) {
+    public <REQ> void reqDataToGRA(NetResultCallback callback, APIInfo apiInfo, REQ reqVO) {
         ExecutorService es = new ExecutorService("");
         Futures.addCallback(es.getListeningExecutorService().submit(() -> {
             JsonObject jsonObject = null;
             try {
-                String serverUrl = GAInfo.CCSP_URL+apiInfo.getURI();
+                String serverUrl = GAInfo.CCSP_URL + apiInfo.getURI();
                 switch (apiInfo.getReqType()) {
                     case HttpRequest.METHOD_GET:
                         jsonObject = httpRequestUtil.getData(serverUrl, ga.getAccessToken());
@@ -178,7 +176,7 @@ public class NetCaller {
                         jsonObject = httpRequestUtil.sendPut(serverUrl, new Gson().toJson(reqVO));
                         break;
                     case HttpRequest.METHOD_POST:
-                        Log.e("HttpReqeusetUtil","HttpReqeusetUtil ifcd:"+apiInfo.getIfCd() +"  send data :   "+new Gson().toJson(reqVO));
+                        Log.e("HttpReqeusetUtil", "HttpReqeusetUtil ifcd:" + apiInfo.getIfCd() + "  send data :   " + new Gson().toJson(reqVO));
                         jsonObject = ga.postDataWithAccessToken(serverUrl, new Gson().toJson(reqVO));
 //                       jsonObject = httpRequestUtil.send(serverUrl, new Gson().toJson(reqVO));
                         break;
@@ -187,7 +185,7 @@ public class NetCaller {
                 }
 
                 if (jsonObject != null && !TextUtils.isEmpty(jsonObject.toString())) {
-                    Log.e("HttpReqeusetUtil","HttpReqeusetUtil ifcd:"+apiInfo.getIfCd() +"  receive data :   "+jsonObject.toString());
+                    Log.e("HttpReqeusetUtil", "HttpReqeusetUtil ifcd:" + apiInfo.getIfCd() + "  receive data :   " + jsonObject.toString());
                     return new NetResult(NetStatusCode.SUCCESS, 0, jsonObject);
                 } else {
                     return new NetResult(NetStatusCode.ERR_DATA_NULL, R.string.error_msg_1, null);
@@ -229,30 +227,28 @@ public class NetCaller {
     }
 
 
-
-
     /**
+     * @param apiInfo request API Infomation
+     * @param reqVO   request data
+     * @param <REQ>   request data format
      * @brief ETC API Request
      * ETC 서버에 데이터 요청 시 사용되며
      * 데이터 결과는 JsonObject를 String으로 변환해서 callback에 전달
-     * @param apiInfo request API Infomation
-     * @param reqVO request data
-     * @param <REQ> request data format
      */
     public <REQ> JsonObject reqDataFromAnonymous(String serverDomain, APIInfo apiInfo, REQ reqVO) {
         JsonObject jsonObject = null;
         String serverUrl = serverDomain + apiInfo.getURI();
 
-        if(apiInfo.getIfCd().equalsIgnoreCase("carId")||apiInfo.getIfCd().equalsIgnoreCase("userId")){
-            serverUrl = String.format(Locale.getDefault(), serverUrl, getUriInfo(apiInfo.getIfCd(),new Gson().toJson(reqVO)));
+        if (apiInfo.getIfCd().equalsIgnoreCase("carId") || apiInfo.getIfCd().equalsIgnoreCase("userId")) {
+            serverUrl = String.format(Locale.getDefault(), serverUrl, getUriInfo(apiInfo.getIfCd(), new Gson().toJson(reqVO)));
         }
 
         try {
             switch (apiInfo.getReqType()) {
                 case HttpRequest.METHOD_GET:
                     if (reqVO != null
-                            &&apiInfo!=APIInfo.DEVELOPERS_CAR_ID //TODO 확인필요
-                            &&apiInfo!=APIInfo.DEVELOPERS_CAR_CHECK) {
+                            && apiInfo != APIInfo.DEVELOPERS_CAR_ID //TODO 확인필요
+                            && apiInfo != APIInfo.DEVELOPERS_CAR_CHECK) {
                         Map<String, Object> map = new Gson().fromJson(
                                 new Gson().toJson(reqVO), new TypeToken<HashMap<String, Object>>() {
                                 }.getType());
@@ -270,50 +266,41 @@ public class NetCaller {
                 default:
                     break;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             jsonObject = null;
         }
         return jsonObject;
     }
 
 
-
-
-
-
-
-
-
-
     /**
+     * @param callback network result callback
+     * @param apiInfo  request API Infomation
+     * @param reqVO    request data
+     * @param <REQ>    request data format
      * @brief ETC API Request
      * ETC 서버에 데이터 요청 시 사용되며
      * 데이터 결과는 JsonObject를 String으로 변환해서 callback에 전달
-     *
-     * @param callback network result callback
-     * @param apiInfo request API Infomation
-     * @param reqVO request data
-     * @param <REQ> request data format
      */
-    public <REQ>void reqDataFromAnonymous(NetResultCallback callback,String serverDomain, APIInfo apiInfo, REQ reqVO) {
+    public <REQ> void reqDataFromAnonymous(NetResultCallback callback, String serverDomain, APIInfo apiInfo, REQ reqVO) {
         ExecutorService es = new ExecutorService("");
         Futures.addCallback(es.getListeningExecutorService().submit(() -> {
             JsonObject jsonObject = null;
             try {
                 String serverUrl = serverDomain + apiInfo.getURI();
 
-                if(apiInfo.getIfCd().equalsIgnoreCase("carId")||apiInfo.getIfCd().equalsIgnoreCase("userId")){
-                    serverUrl = String.format(Locale.getDefault(), serverUrl, getUriInfo(apiInfo.getIfCd(),new Gson().toJson(reqVO)));
+                if (apiInfo.getIfCd().equalsIgnoreCase("carId") || apiInfo.getIfCd().equalsIgnoreCase("userId")) {
+                    serverUrl = String.format(Locale.getDefault(), serverUrl, getUriInfo(apiInfo.getIfCd(), new Gson().toJson(reqVO)));
                 }
 
                 switch (apiInfo.getReqType()) {
                     case HttpRequest.METHOD_GET:
-                        if(reqVO!=null) {
+                        if (reqVO != null) {
                             Map<String, Object> map = new Gson().fromJson(
                                     new Gson().toJson(reqVO), new TypeToken<HashMap<String, Object>>() {
                                     }.getType());
                             jsonObject = httpRequestUtil.getData(serverUrl, map, ga.getAccessToken());
-                        }else{
+                        } else {
                             jsonObject = httpRequestUtil.getData(serverUrl, ga.getAccessToken());
                         }
                         break;
@@ -370,17 +357,17 @@ public class NetCaller {
     }
 
     private String getUriInfo(String key, String reqData) {
-        String uriInfo="";
+        String uriInfo = "";
 
         try {
             JsonElement element = new Gson().fromJson(reqData, JsonElement.class);
             JsonObject json = element.getAsJsonObject();
             uriInfo = json.get(key).getAsString();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            if(TextUtils.isEmpty(uriInfo)){
-               uriInfo="";
+        } finally {
+            if (TextUtils.isEmpty(uriInfo)) {
+                uriInfo = "";
             }
         }
 
@@ -388,13 +375,14 @@ public class NetCaller {
     }
 
 
-    public <REQ>void sendFileToGRA(NetResultCallback callback, APIInfo apiInfo, REQ reqVO, File file, String name) {
+    public <REQ> void sendFileToGRA(NetResultCallback callback, APIInfo apiInfo, REQ reqVO, File file, String name) {
         ExecutorService es = new ExecutorService("");
         Futures.addCallback(es.getListeningExecutorService().submit(() -> {
             JsonObject jsonObject = null;
             try {
-                String serverUrl = GAInfo.CCSP_URL+apiInfo.getURI();
-                Type type = new TypeToken<HashMap<String, String>>() { }.getType();
+                String serverUrl = GAInfo.CCSP_URL + apiInfo.getURI();
+                Type type = new TypeToken<HashMap<String, String>>() {
+                }.getType();
                 Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create(); //expose처리되어 있는 필드에 대해서만 파싱 진행
                 HashMap<String, String> params = new Gson().fromJson(gson.toJson(reqVO), type);
                 jsonObject = httpRequestUtil.upload(ga.getAccessToken(), serverUrl, params, name, file.getName(), file);

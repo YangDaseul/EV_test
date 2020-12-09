@@ -359,7 +359,8 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
             }
 
             //변경된 상태를 반영
-            changeViewStatus(selectedItems.get(position));
+            notifyItemChanged(position);
+//            changeViewStatus(selectedItems.get(position));
         }
 
         //세부사항 뷰의 개폐 상태를 처리
@@ -370,16 +371,16 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
             detailView.setVisibility(opened ? View.VISIBLE : View.GONE);//TODO 이거 도대체 왜 반영 안 되냐
         }
 
-        //세부사항 뷰의 개폐 상태가 변경되는 애니메이션을 처리
-        // (클릭해서 상태를 토글할 때 호출됨)
-        private void changeViewStatus(boolean opened) {
-            Log.d(TAG, "changeViewStatus: " + opened);
-            setIcon(opened ? iconCloseBtn : iconOpenBtn);
-            changeVisibility(
-                    detailView, //개폐 애니메이션 대상 뷰
-                    activity.ui.rvRelapse3RepairHistoryList,//null,// (View) detailView.getParent().getParent(), //애니 재생동안 스크롤 막아야되는 뷰
-                    opened); //개폐 상태
-        }
+//        //세부사항 뷰의 개폐 상태가 변경되는 애니메이션을 처리
+//        // (클릭해서 상태를 토글할 때 호출됨)
+//        private void changeViewStatus(boolean opened) {
+//            Log.d(TAG, "changeViewStatus: " + opened);
+//            setIcon(opened ? iconCloseBtn : iconOpenBtn);
+//            changeVisibility(
+//                    detailView, //개폐 애니메이션 대상 뷰
+//                    activity.ui.rvRelapse3RepairHistoryList,//null,// (View) detailView.getParent().getParent(), //애니 재생동안 스크롤 막아야되는 뷰
+//                    opened); //개폐 상태
+//        }
 
         //드롭다운 아이콘의 개폐 상태를 변경
         private void setIcon(int icon) {
@@ -427,9 +428,12 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
         @Override
         public void onBindView(RepairData item, int pos, SparseBooleanArray selectedItems) {
             setListener();
-//            setViewStatus(determineAddBtnVisibility());
-            //todo 항상 말고 add/remove에만 반응하도록
-            setAddBtnContainerVisibility();
+            setViewStatus(determineAddBtnVisibility());
+
+            //아이템이 하단 UI뿐인 상태이면 하자 구분 대화상자 즉시 호출
+            if (getBindingAdapter().getItemCount() == 1) {
+                showDefectListDialog(null);
+            }
         }
 
         private void setListener() {
@@ -469,17 +473,8 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
         }
 
         //세부사항 뷰의 개폐 상태를 처리
-        // (화면 밖에 있다가 스크롤되어서 화면 안에 들어오는 경우 호출됨)
         private void setViewStatus(boolean opened) {
             getBinding().lRelapse3RepairAddContainer.setVisibility(opened ? View.VISIBLE : View.GONE);
-        }
-
-        private void setAddBtnContainerVisibility() {
-            if (determineAddBtnVisibility()) {
-                InteractionUtil.expand(getBinding().lRelapse3RepairAddContainer, null);
-            } else {
-                InteractionUtil.collapse(getBinding().lRelapse3RepairAddContainer, null);
-            }
         }
 
         public boolean determineAddBtnVisibility() {

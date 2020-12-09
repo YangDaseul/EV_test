@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.main.contents;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.Target;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.hybrid.core.WebViewFragment;
@@ -20,12 +22,15 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CTT_1002;
 import com.genesis.apps.comm.model.api.gra.CTT_1004;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.ContentsVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.viewmodel.CTTViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityContentsDetailWebBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.activity.WebviewActivity;
 import com.genesis.apps.ui.main.MainActivity;
 
 import java.util.concurrent.ExecutionException;
@@ -84,7 +89,6 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
 
                 break;
             case R.id.btn_rate:
-                Log.d(TAG, "Button Click");
                 VehicleVO vehicleVO = null;
                 try {
                     vehicleVO = lgnViewModel.getMainVehicleSimplyFromDB();
@@ -93,7 +97,19 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
                     e.printStackTrace();
                 }
 
+                Log.d(TAG, "mdlNm : " + vehicleVO.getMdlNm());
+                Log.d(TAG, "vin : " + vehicleVO.getVin());
                 cttViewModel.reqCTT1002(new CTT_1002.Request(APPIAInfo.CM01.getId(), contentsVO.getListSeqNo(), String.valueOf(mRate), vehicleVO.getMdlNm(), vehicleVO.getVin()));
+
+                break;
+            case R.id.btn_link:
+                if(!TextUtils.isEmpty(contentsVO.getLnkUri())) {
+                    if("I".equals(contentsVO.getLnkTypCd())) {
+
+                    } else {
+                        startActivitySingleTop(new Intent(mActivity, WebviewActivity.class).putExtra(KeyNames.KEY_NAME_URL, contentsVO.getLnkUri()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    }
+                }
 
                 break;
             case R.id.iv_close:
@@ -147,6 +163,8 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
     public void initView() {
         ui.setActivity(mActivity);
 
+        Log.d(TAG, "url : " + url);
+
         Bundle bundle = new Bundle();
         bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
 
@@ -160,16 +178,22 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
 
         ratingViews = new View[] {ui.includeLayout.llRate1, ui.includeLayout.llRate2, ui.includeLayout.llRate3, ui.includeLayout.llRate4, ui.includeLayout.llRate5};
 
-        if("Y".equals(contentsVO.getEvalYn())) {
-            ui.includeLayout.llRate.setVisibility(View.VISIBLE);
-        } else {
-            ui.includeLayout.llRate.setVisibility(View.GONE);
+        try {
+            if("Y".equals(contentsVO.getEvalYn()) && !VariableType.MAIN_VEHICLE_TYPE_0000.equals(lgnViewModel.getUserInfoFromDB().getCustGbCd())) {
+                ui.includeLayout.llRate.setVisibility(View.VISIBLE);
+                ui.includeLayout.tvRateContent.setText(contentsVO.getEvalQst());
+            } else {
+                ui.includeLayout.llRate.setVisibility(View.GONE);
+            }
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
         }
 
         if("Y".equals(contentsVO.getLnkUseYn())) {
-
+            ui.includeLayout.llLink.setVisibility(View.VISIBLE);
+            ui.includeLayout.btnLink.setText(contentsVO.getLnkNm());
         } else {
-
+            ui.includeLayout.llLink.setVisibility(View.GONE);
         }
     }
 

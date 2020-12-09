@@ -25,18 +25,19 @@ public class AlarmCenterRecyclerAdapter extends BaseRecyclerViewAdapter2<NotiInf
     private int pageNo = 0;
     private static OnSingleClickListener onSingleClickListener;
     public AlarmCenterRecyclerAdapter(OnSingleClickListener onSingleClickListener) {
-            this.onSingleClickListener = onSingleClickListener;
+        this.onSingleClickListener = onSingleClickListener;
     }
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.v("recyclerview test2", "create :");
-        return new ItemAlarmCenter(getView(parent, R.layout.item_accodian_alarm), selectedItems);
+        return new ItemAlarmCenter(getView(parent, R.layout.item_accodian_alarm));
     }
 
     @Override
     public void onBindViewHolder(final BaseViewHolder holder, int position) {
-        holder.onBindView(getItem(position), position);
+        Log.v("recyclerview onBindViewHolder", "position pos:" + position);
+        holder.onBindView(getItem(position), position, selectedItems);
     }
 
     public int getPageNo() {
@@ -47,36 +48,23 @@ public class AlarmCenterRecyclerAdapter extends BaseRecyclerViewAdapter2<NotiInf
         this.pageNo = pageNo;
     }
 
+    public void eventAccordion(int position){
+        Log.v("recyclerview onclick", "position pos:" + position);
+        if (selectedItems.get(position)) {
+            // 펼쳐진 Item을 클릭 시
+            selectedItems.delete(position);
+        } else {
+            // 클릭한 Item의 position을 저장
+            selectedItems.put(position, true);
+        }
+        notifyItemChanged(position);
+    }
+
     private static class ItemAlarmCenter extends BaseViewHolder<NotiInfoVO, ItemAccodianAlarmBinding> {
 
-        private SparseBooleanArray selectedItems;
-
-        public ItemAlarmCenter(View itemView, SparseBooleanArray selectedItems) {
+        public ItemAlarmCenter(View itemView) {
             super(itemView);
-
-            this.selectedItems = selectedItems;
-
-            getBinding().lTitle.setOnClickListener(new OnSingleClickListener() {
-                @Override
-                public void onSingleClick(View v) {
-
-                    NotiInfoVO item = (NotiInfoVO)v.getTag(R.id.noti_info);
-                    //아코디언 형태의 아이템인 경우 펼침/접음 처리 진행
-                    if (item != null && getAccordionType(item).equalsIgnoreCase(AlarmCenterRecyclerAdapter.ALARM_TYPE_ACCORDION)) {
-                        int position = Integer.parseInt(v.getTag(R.id.position).toString());
-
-                        if (selectedItems.get(position)) {
-                            // 펼쳐진 Item을 클릭 시
-                            selectedItems.delete(position);
-                        } else {
-                            // 클릭한 Item의 position을 저장
-                            selectedItems.put(position, true);
-                        }
-                        changeViewStatus(selectedItems.get(position));
-                    }
-                    onSingleClickListener.onSingleClick(v);
-                }
-            });
+            getBinding().lTitle.setOnClickListener(onSingleClickListener);
         }
 
         @Override
@@ -86,6 +74,11 @@ public class AlarmCenterRecyclerAdapter extends BaseRecyclerViewAdapter2<NotiInf
 
         @Override
         public void onBindView(NotiInfoVO item, int pos) {
+
+        }
+
+        @Override
+        public void onBindView(NotiInfoVO item, int pos, SparseBooleanArray selectedItems) {
             getBinding().btnDetail.setOnClickListener(null);
             getBinding().lTitle.setTag(R.id.noti_info, item);
             getBinding().lTitle.setTag(R.id.position, pos);
@@ -141,32 +134,17 @@ public class AlarmCenterRecyclerAdapter extends BaseRecyclerViewAdapter2<NotiInf
                     break;
             }
         }
-
-        @Override
-        public void onBindView(NotiInfoVO item, int pos, SparseBooleanArray selectedItems) {
-
-        }
-
-
-        //세부사항 뷰의 개폐 상태가 변경되는 애니메이션을 처리
-        // (클릭해서 상태를 토글할 때 호출됨)
-        private void changeViewStatus(boolean opened) {
-            getBinding().ivArrow.setBackgroundResource(opened ? R.drawable.g_list_icon_close : R.drawable.g_list_icon_open);
-            changeVisibility(
-                    getBinding().lContents, //개폐 애니메이션 대상 뷰
-                    getBinding().lWhole, //애니 재생동안 스크롤 막아야되는 뷰
-                    opened); //개폐 상태
-        }
-
     }
+
+
 
     public static final String ALARM_TYPE_NORMAL_NATIVE="NORMAL_NATIVE";
     public static final String ALARM_TYPE_NORMAL_WEBVIEW="NORMAL_WEBVIEW";
     public static final String ALARM_TYPE_ACCORDION="ACCORDION";
     public static String getAccordionType(NotiInfoVO item){
-        if (item.getMsgLnkCd().equalsIgnoreCase("I") && !TextUtils.isEmpty(item.getMsgLnkUri())) { //메시지 링크 코드가 대표앱이고 네이티브로 이동 가능한 URI가 있을 경우
-           return ALARM_TYPE_NORMAL_NATIVE;
-        } else if (item.getMsgLnkCd().equalsIgnoreCase("O") && !TextUtils.isEmpty(item.getMsgLnkUri())) {//메시지 링크 코드가 외부링크이고 웹뷰로 이동 가능한 URI가 있을 경우
+        if (!TextUtils.isEmpty(item.getMsgLnkCd())&&item.getMsgLnkCd().equalsIgnoreCase("I") && !TextUtils.isEmpty(item.getMsgLnkUri())) { //메시지 링크 코드가 대표앱이고 네이티브로 이동 가능한 URI가 있을 경우
+            return ALARM_TYPE_NORMAL_NATIVE;
+        } else if (!TextUtils.isEmpty(item.getMsgLnkCd())&&item.getMsgLnkCd().equalsIgnoreCase("O") && !TextUtils.isEmpty(item.getMsgLnkUri())) {//메시지 링크 코드가 외부링크이고 웹뷰로 이동 가능한 URI가 있을 경우
             return ALARM_TYPE_NORMAL_WEBVIEW;
         } else {
             return ALARM_TYPE_ACCORDION;

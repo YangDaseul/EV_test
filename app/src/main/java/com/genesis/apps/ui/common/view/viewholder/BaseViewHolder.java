@@ -7,8 +7,6 @@ import android.view.View;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.genesis.apps.comm.util.InteractionUtil;
-
 public abstract class BaseViewHolder<D,B> extends RecyclerView.ViewHolder{
 
     private final B binding;
@@ -37,16 +35,31 @@ public abstract class BaseViewHolder<D,B> extends RecyclerView.ViewHolder{
         this.context = context;
     }
 
-
-    public void changeVisibility(View targetView, View scrollView, boolean visible) {
-        if (visible) {
-            if (targetView.getVisibility() != View.VISIBLE) {
-                InteractionUtil.expand(targetView, scrollView);
-            }
-        } else {
-            if (targetView.getVisibility() == View.VISIBLE) {
-                InteractionUtil.collapse(targetView, scrollView);
-            }
-        }
-    }
+//    public void changeVisibility(View targetView, final boolean isExpanded) {
+//        if (isExpanded) {
+//            targetView.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+//            targetView.requestLayout();
+//        }
+//
+//        if (targetView.getVisibility() == View.VISIBLE && isExpanded)
+//            return;
+//
+//        // ValueAnimator.ofInt(int... values)는 View가 변할 값을 지정, 인자는 int 배열
+//        ValueAnimator va = isExpanded ? ValueAnimator.ofInt(0, targetView.getHeight()) : ValueAnimator.ofInt(targetView.getHeight(), 0);
+//        // Animation이 실행되는 시간, n/1000초
+//        va.setDuration(500);
+//        va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator animation) {
+//                // imageView의 높이 변경
+//                targetView.getLayoutParams().height = (int) animation.getAnimatedValue();
+//                targetView.requestLayout();
+//                // imageView가 실제로 사라지게하는 부분
+//                targetView.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+//            }
+//        });
+//        // Animation start
+//        va.start();
+//    }
+    
 }

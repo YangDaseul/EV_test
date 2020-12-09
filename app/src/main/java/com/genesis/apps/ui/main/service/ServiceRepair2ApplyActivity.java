@@ -214,8 +214,8 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
                 btrVO.getPbzAdr(),
                 repairGroupVO.getRpshGrpCd(),
                 repairGroupVO.getRpshGrpNm(),
-                "",
-                loginInfoDTO.getProfile() != null ? loginInfoDTO.getProfile().getName() : "");
+                loginInfoDTO.getProfile() != null ? loginInfoDTO.getProfile().getName() : "",
+                null);
 
         startActivitySingleTop(new Intent(this
                         , ServiceRepair3CheckActivity.class)
