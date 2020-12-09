@@ -1,7 +1,6 @@
 package com.genesis.apps.ui.main.contents;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,7 +13,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.Target;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.hybrid.core.WebViewFragment;
@@ -26,12 +24,12 @@ import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.ContentsVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CTTViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityContentsDetailWebBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.activity.WebviewActivity;
-import com.genesis.apps.ui.main.MainActivity;
 
 import java.util.concurrent.ExecutionException;
 
@@ -138,6 +136,8 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
+
+                    SnackBarUtil.show(mActivity, "평점 제출이 완료 되었습니다.");
 
                     break;
                 default:
