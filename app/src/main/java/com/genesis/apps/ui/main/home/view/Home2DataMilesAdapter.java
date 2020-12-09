@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main.home.view;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.developers.Detail;
 import com.genesis.apps.comm.model.api.developers.Dtc;
 import com.genesis.apps.comm.model.api.developers.Replacements;
+import com.genesis.apps.comm.model.vo.CouponVO;
 import com.genesis.apps.comm.model.vo.DataMilesVO;
 import com.genesis.apps.comm.model.vo.developers.DtcVO;
 import com.genesis.apps.comm.model.vo.developers.SestVO;
@@ -27,9 +29,16 @@ import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Class Name : Home2DataMilesAdapter
+ * 데이터 마일스 화면을 표시할 {@link com.genesis.apps.ui.common.view.listview.test.BaseRecyclerViewAdapter} Class.
+ * <p>
+ * 표시하는 화면
+ * 1. 안전 운전 점수
+ * 2. 소모품 현황
+ * 3. 차량진단
  *
  * @author Ki-man Kim
  * @since 2020-11-30
@@ -47,6 +56,12 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
         return new ItemDataMilesAdapter(getView(parent, R.layout.item_datamiles));
     }
 
+    /**
+     * 운전자 점수 데이터 설정 함수.
+     *
+     * @param carId  데이터 설정할 Car ID.
+     * @param detail 운전자 점수 데이터.
+     */
     public void setDetail(String carId, Detail.Response detail) {
         DataMilesVO item = findVOByCarId(carId);
         if (item != null) {
@@ -55,6 +70,12 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
         }
     }
 
+    /**
+     * 소모품 현황 데이터 설정 함수.
+     *
+     * @param carId        데이터 설정할 Car ID.
+     * @param replacements 소모품 현황 데이터.
+     */
     public void setReplacements(String carId, Replacements.Response replacements) {
         DataMilesVO item = findVOByCarId(carId);
 
@@ -64,6 +85,26 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
         }
     }
 
+    /**
+     * 잔여 쿠폰 정보 데이터 설정 함수.
+     *
+     * @param carId   데이터 설정할 Car ID.
+     * @param coupons 잔여 쿠폰 정보 데이터.
+     */
+    public void setCoupons(String carId, List<CouponVO> coupons) {
+        DataMilesVO item = findVOByCarId(carId);
+
+        if (item != null) {
+            item.setServiceCouponList(coupons);
+        }
+    }
+
+    /**
+     * 차량 고장 코드 데이터 설정 함수.
+     *
+     * @param carId 데이터 설정할 Car ID.
+     * @param dtc   차량 고장 코드 데이터.
+     */
     public void setDtc(String carId, Dtc.Response dtc) {
         DataMilesVO item = findVOByCarId(carId);
 
@@ -72,6 +113,12 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
         }
     }
 
+    /**
+     * Car ID에 따른 {@link DataMilesVO} 객체를 조회하는 함수.
+     *
+     * @param carId 조회할 Car ID
+     * @return 조회된 {@link DataMilesVO} Object.
+     */
     public DataMilesVO findVOByCarId(String carId) {
         DataMilesVO result = null;
         try {
@@ -156,7 +203,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                     binding.tvDatamilesExpendablesTotalDistanceTitle.setVisibility(View.VISIBLE);
                     binding.tvDatamilesExpendablesTotalDistance.setVisibility(View.VISIBLE);
                     binding.tvDatamilesExpenablesError.setVisibility(View.GONE);
-                    bindReplacements(context, binding, replacements);
+                    bindReplacements(context, binding, replacements, item.getServiceCouponList());
                     break;
                 }
                 case FAIL: {
@@ -261,7 +308,16 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             animatorSet.playTogether(scoreAni, distributionAni, modelDistributionAni);
         }
 
-        private void bindReplacements(Context context, ItemDatamilesBinding binding, Replacements.Response replacements) {
+        /**
+         * 소모품 현황 View 처리 함수.
+         *
+         * @param context
+         * @param binding
+         * @param replacements 소모품 현황 데이터
+         * @param coupons      잔여 쿠폰 데이터.
+         */
+        private void bindReplacements(Context context, ItemDatamilesBinding binding, Replacements.Response replacements, List<CouponVO> coupons) {
+            Log.d("FID", "test :: 1111 :: replacements=" + replacements);
             if (replacements == null) {
                 return;
             }
@@ -332,8 +388,12 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                     });
                     animatorSet.playTogether(progressAni);
 
-                    // TODO 쿠폰 연동은 추가로 진행이 필요.
+                    // 쿠폰 갯수
                     TextView txtCoupon = view.findViewById(R.id.tv_datamiles_expendables_coupon);
+                    txtCoupon.setText(
+                            String.format(context.getString(R.string.gm01_format_coupon_count),
+                                    getCouponCount(coupons, DevelopersViewModel.getServiceCodeBySestCode(sestVO.getSestCode())))
+                    );
 
                     binding.lDatamilesExpenablesList.addView(view);
                 }
@@ -342,6 +402,37 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             }
         }
 
+        /**
+         * 쿠폰 잔여 개수 조회 함수.
+         *
+         * @param coupons    쿠폰 잔여 데이터 목록.
+         * @param couponCode 조회할 쿠폰 코드
+         * @return 잔여 개수.
+         */
+        private String getCouponCount(List<CouponVO> coupons, String couponCode) {
+            if (coupons == null) {
+                return "0";
+            }
+
+            String count = "0";
+            try {
+                CouponVO findItem = coupons.stream().filter(couponVO -> couponVO.getItemDivCd().equals(couponCode)).findFirst().get();
+                if (findItem != null) {
+                    count = findItem.getRemCnt();
+                }
+            } catch (Exception e) {
+                // Nothing
+            }
+
+            return count;
+        }
+
+        /**
+         * 차량 진단 View 처리 함수.
+         *
+         * @param binding
+         * @param dtc     차량 코드 데이터.
+         */
         private void bindDtc(ItemDatamilesBinding binding, Dtc.Response dtc) {
             if (dtc != null && dtc.getDtcList() != null && !dtc.getDtcList().isEmpty()) {
                 // 차량 진단 데이터가 있고, 고장 코드가 하나라도 있는 경우.

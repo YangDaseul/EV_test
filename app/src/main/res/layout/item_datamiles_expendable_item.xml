@@ -49,7 +49,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="3dp"
-            android:text="잔여 거리 0km /"
             app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_expendables_need_change"
             app:layout_constraintEnd_toStartOf="@id/tv_datamiles_expendables_coupon"
             app:layout_constraintTop_toTopOf="@id/tv_datamiles_expendables_need_change" />
@@ -60,7 +59,6 @@
             style="@style/DataMiles.TextView_Font_MGSTG.757575"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="잔여 쿠폰 1회"
             app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_expendables_need_change"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_datamiles_expendables_need_change" />

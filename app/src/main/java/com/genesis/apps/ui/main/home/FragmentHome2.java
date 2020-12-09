@@ -46,7 +46,6 @@ import com.genesis.apps.ui.main.home.view.Home2AsanAdapter;
 import com.genesis.apps.ui.main.home.view.Home2BtrAdapter;
 import com.genesis.apps.ui.main.home.view.Home2DataMilesAdapter;
 import com.genesis.apps.ui.main.home.view.Home2WarrantyAdapter;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -107,13 +106,13 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
             Target.Response data = result.data;
 
             // TODO 더미 데이터. 삭제 필요.
-            status = NetUIResponse.Status.SUCCESS;
+//            status = NetUIResponse.Status.SUCCESS;
 
             switch (status) {
                 case SUCCESS: {
                     // TODO 데미 데이터 삭제 필요.
-                    String dummyData = "{\"targetYn\":\"Y\",\"supportedYn\":\"Y\",\"msgId\":\"11e77efa-aff0-4b3c-a5a0-c4cde4674963\"}";
-                    data = new Gson().fromJson(dummyData, Target.Response.class);
+//                    String dummyData = "{\"targetYn\":\"Y\",\"supportedYn\":\"Y\",\"msgId\":\"11e77efa-aff0-4b3c-a5a0-c4cde4674963\"}";
+//                    data = new Gson().fromJson(dummyData, Target.Response.class);
 
                     String carId = developersViewModel.getCarId(vehicleVO.getVin());
                     DataMilesVO dataMilesVO = new DataMilesVO(carId);
@@ -197,7 +196,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
             NetUIResponse.Status status = result.status;
 
             // TODO 더미 데이터. 삭제 필요.
-            status = NetUIResponse.Status.SUCCESS;
+//            status = NetUIResponse.Status.SUCCESS;
 
             switch (status) {
                 case SUCCESS: {
@@ -211,16 +210,14 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
             NetUIResponse.Status status = result.status;
 
             // TODO 더미 데이터. 삭제 필요.
-            status = NetUIResponse.Status.SUCCESS;
+//            status = NetUIResponse.Status.SUCCESS;
 
-//            switch (status) {
-//                case ERROR: {
-//                    break;
-//                }
-//                case SUCCESS: {
-//                    break;
-//                }
-//            }
+            switch (status) {
+                case SUCCESS: {
+                    setServiceCoupons(result);
+                    break;
+                }
+            }
         });
     }
 
@@ -283,11 +280,30 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
                 "{\"replacementDate\":\"20200701101011\",\"updateDate\":\"20200701101011\",\"odometer\":\"25420\"}}" +
                 "],\"odometer\":{\"timestamp\":\"20200114152139\",\"value\":12320,\"unit\":1},\"msgId\":\"5db9fc02-1b36-448e-9307-52761fd9ad92\"}";
         home2DataMilesAdapter.setReplacements(carId, new Gson().fromJson(dummyData, Replacements.Response.class));
-        */
+        home2DataMilesAdapter.notifyDataSetChanged();
+         */
 
         if (data != null) {
             home2DataMilesAdapter.setReplacements(carId, result.data);
             home2DataMilesAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void setServiceCoupons(NetUIResponse<GNS_1010.Response> result) {
+        GNS_1010.Response data = result.data;
+        String carId = developersViewModel.getCarId(vehicleVO.getVin());
+
+        /*
+        // TODO : 더미데이터이므로 실제로는 삭제 필요.
+        String dummyData = "{\"rtCd\":\"0000\",\"rtMsg\":\"msg\",\"cpnList\":[" +
+                "{\"itemDivCd\":\"11\",\"itemNm\":\"엔진오일세트\",\"totCnt\":\"0\",\"remCnt\":\"2\",\"useCnt\":\"0\"}," +
+                "{\"itemDivCd\":\"13\",\"itemNm\":\"에어컨필터\",\"totCnt\":\"0\",\"remCnt\":\"11\",\"useCnt\":\"0\"}," +
+                "{\"itemDivCd\":\"34\",\"itemNm\":\"브레이크 오일\",\"totCnt\":\"0\",\"remCnt\":\"7\",\"useCnt\":\"0\"}]}";
+        data = new Gson().fromJson(dummyData, GNS_1010.Response.class);
+         */
+
+        if (data != null) {
+            home2DataMilesAdapter.setCoupons(carId, data.getCpnList());
         }
     }
 

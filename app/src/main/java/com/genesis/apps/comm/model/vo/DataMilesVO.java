@@ -5,6 +5,8 @@ import com.genesis.apps.comm.model.api.developers.Detail;
 import com.genesis.apps.comm.model.api.developers.Dtc;
 import com.genesis.apps.comm.model.api.developers.Replacements;
 
+import java.util.List;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -63,6 +65,11 @@ class DataMilesVO extends BaseData {
      * 소모품 현황 데이터.
      */
     private Replacements.Response replacements;
+
+    /**
+     * GRA-GNS-1010 서비스 쿠폰 데이터 리스트.
+     */
+    private List<CouponVO> serviceCouponList;
 
     /**
      * 고장 코드 데이터.
