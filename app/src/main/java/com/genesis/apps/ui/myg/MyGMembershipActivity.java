@@ -10,24 +10,23 @@ import android.view.View;
 import android.webkit.WebView;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.MYP_2001;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.MYP_2001;
+import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
-import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.databinding.ActivityMygMembershipBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
 import com.genesis.apps.ui.myg.view.CardHorizontalAdapter;
-import com.google.gson.Gson;
+
+import java.util.ArrayList;
 
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
-
-import java.util.ArrayList;
 
 public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBinding> {
 
@@ -161,8 +160,8 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
                 }
 
                 break;
-            case R.id.btn_use_list://TODO 멤버십고유번호는 임시로
-                startActivitySingleTop(new Intent(this, MyGMembershipUseListActivity.class).putExtra(KeyNames.KEY_NAME_MEMBERSHIP_MBR_MGMT_NO, "1"), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+            case R.id.btn_use_list:
+                startActivitySingleTop(new Intent(this, MyGMembershipUseListActivity.class).putExtra(KeyNames.KEY_NAME_MEMBERSHIP_MBR_MGMT_NO, ""), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.btn_password:
                 startActivitySingleTop(new Intent(this, MyGMembershipCardPasswordActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);

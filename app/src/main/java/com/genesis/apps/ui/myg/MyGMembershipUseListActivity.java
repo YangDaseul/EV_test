@@ -9,28 +9,25 @@ import com.appeaser.sublimepickerlibrary.datepicker.SelectedDate;
 import com.appeaser.sublimepickerlibrary.helpers.SublimeOptions;
 import com.appeaser.sublimepickerlibrary.recurrencepicker.SublimeRecurrencePicker;
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.MYP_2002;
-import com.genesis.apps.comm.viewmodel.MYPViewModel;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.util.CalenderUtil;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
+import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.databinding.ActivityMygMembershipUseListBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.myg.view.PointUseListAdapter;
-import com.google.gson.Gson;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Calendar;
 import java.util.Locale;
 
-import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembershipUseListBinding> {
     private static final int PAGE_SIZE = 20;
@@ -198,12 +195,12 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
     public void getDataFromIntent() {
         try {
             mbrshMbrMgmtNo = getIntent().getStringExtra(KeyNames.KEY_NAME_MEMBERSHIP_MBR_MGMT_NO);
-            if (TextUtils.isEmpty(mbrshMbrMgmtNo)) {
-                exitPage("블루멤버스 회원번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
-            }
+//            if (TextUtils.isEmpty(mbrshMbrMgmtNo)) {
+//                exitPage("블루멤버스 회원번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+//            }
         } catch (Exception e) {
             e.printStackTrace();
-            exitPage("블루멤버스 회원번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+//            exitPage("블루멤버스 회원번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
         }
     }
 
