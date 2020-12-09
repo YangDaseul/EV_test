@@ -137,7 +137,9 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
                 case SUCCESS:
                     showProgressDialog(false);
 
-                    SnackBarUtil.show(mActivity, "평점 제출이 완료 되었습니다.");
+                    if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
+                        SnackBarUtil.show(mActivity, "평점 제출이 완료 되었습니다.");
+                    }
 
                     break;
                 default:
