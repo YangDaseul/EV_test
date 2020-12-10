@@ -4,7 +4,7 @@ import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.BaseRequest;
 import com.genesis.apps.comm.model.api.BaseResponse;
-import com.genesis.apps.comm.model.vo.TermVO;
+import com.genesis.apps.comm.model.vo.TermOilVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -53,6 +53,6 @@ public class OIL_0001 extends BaseData {
     class Response extends BaseResponse {
         @Expose
         @SerializedName("termList")
-        private List<TermVO> termList; //약관내용(termCont)은 0004전문에서 수신
+        private List<TermOilVO> termList; //약관내용(termCont)은 0004전문에서 수신
     }
 }

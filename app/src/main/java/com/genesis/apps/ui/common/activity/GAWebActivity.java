@@ -129,7 +129,7 @@ public class GAWebActivity extends WebviewActivity {
             titleId = 0;
         }finally{
             if(titleId==0){
-                ui.lTitle.lTitleBar.setVisibility(View.VISIBLE);//TODO 타이틀바 자체를 감추는 케이스 확인 필요
+                ui.lTitle.lTitleBar.setVisibility(View.GONE);
             }else{
                 ui.lTitle.setValue(getString(titleId));
                 ui.lTitle.lTitleBar.setVisibility(View.VISIBLE);
