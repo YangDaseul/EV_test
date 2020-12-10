@@ -19,12 +19,10 @@ import com.genesis.apps.comm.model.api.developers.Odometer;
 import com.genesis.apps.comm.model.api.developers.ParkLocation;
 import com.genesis.apps.comm.model.api.gra.LGN_0003;
 import com.genesis.apps.comm.model.api.gra.LGN_0005;
-import com.genesis.apps.comm.model.api.gra.STO_1002;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.constants.WeatherCodes;
-import com.genesis.apps.comm.model.vo.BtoVO;
 import com.genesis.apps.comm.model.vo.DownMenuVO;
 import com.genesis.apps.comm.model.vo.MessageVO;
 import com.genesis.apps.comm.model.vo.QuickMenuVO;
@@ -63,7 +61,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
-
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static android.app.Activity.RESULT_OK;
@@ -386,25 +383,25 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     }
 
     private void startTimer() {
-        if (adapter.getRealItemCnt() > 1) {
 
-            if (timer == null)
-                timer = new Timer();
+        if (timer == null)
+            timer = new Timer();
 
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    getActivity().runOnUiThread(() -> {
-                        try {
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                getActivity().runOnUiThread(() -> {
+                    try {
+                        if (adapter.getRealItemCnt() > 1) {
                             me.vpInsight.setCurrentItem(me.vpInsight.getCurrentItem() + 1, true);
-                        } catch (Exception e) {
-                            e.printStackTrace();
                         }
-                    });
-                }
-            }, 6000, 5000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+        }, 6000, 5000);
 
-        }
     }
 
     private void pauseTimer() {
