@@ -5,20 +5,28 @@ import com.genesis.apps.comm.model.api.gra.RMT_1002;
 import com.genesis.apps.comm.model.api.gra.RMT_1003;
 import com.genesis.apps.comm.model.api.gra.RMT_1004;
 import com.genesis.apps.comm.model.api.gra.RMT_1005;
+import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.RMTRepo;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.excutor.ExecutorService;
 
 import androidx.hilt.Assisted;
 import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
 import lombok.Data;
 
 public @Data
 class RMTViewModel extends ViewModel {
 
     private final RMTRepo repository;
+    private final DBVehicleRepository dbVehicleRepository;
     private final SavedStateHandle savedStateHandle;
 
     private MutableLiveData<NetUIResponse<RMT_1001.Response>> RES_RMT_1001;
@@ -30,8 +38,10 @@ class RMTViewModel extends ViewModel {
     @ViewModelInject
     RMTViewModel(
             RMTRepo repository,
+            DBVehicleRepository dbVehicleRepository,
             @Assisted SavedStateHandle savedStateHandle) {
         this.repository = repository;
+        this.dbVehicleRepository = dbVehicleRepository;
         this.savedStateHandle = savedStateHandle;
 
         RES_RMT_1001 = repository.RES_RMT_1001;
@@ -59,5 +69,25 @@ class RMTViewModel extends ViewModel {
 
     public void reqRMT1005(final RMT_1005.Request reqData) {
         repository.REQ_RMT_1005(reqData);
+    }
+
+    public VehicleVO getMainVehicle() throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<VehicleVO> future = es.getListeningExecutorService().submit(()->{
+            VehicleVO vehicleVO = null;
+            try {
+                vehicleVO = dbVehicleRepository.getMainVehicleSimplyFromDB();
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+                vehicleVO = null;
+            }
+            return vehicleVO;
+        });
+
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
     }
 }

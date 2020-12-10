@@ -211,6 +211,21 @@ public class MiddleDialog {
         );
     }
 
+    public static void dialogServiceRemoteRegisterErr(@NonNull Activity activity, String message, Runnable ok) {
+        if (activity.isFinishing()) {
+            return;
+        }
+
+        activity.runOnUiThread(() ->
+                getOneButtonDialog(activity,
+                        ok,
+                        activity.getString(R.string.sm_remote01_dialog_title_error),
+                        message,
+                        R.string.dialog_common_4
+                ).show()
+        );
+    }
+
 
     public static void dialogLeasingCarApplyCancel(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
         if (activity.isFinishing()) {
@@ -346,15 +361,15 @@ public class MiddleDialog {
                     binding.lExpn.tvExpnDtm.setVisibility(View.GONE);
 
                     binding.lExpn.tvExpnPlc.setText(item.getExpnPlc());
-                    binding.lExpn.tvAccmMilg.setText(StringUtil.getDigitGroupingString(item.getAccmMilg())+"km");
-                    binding.lExpn.tvExpnAmt.setText(StringUtil.getDigitGroupingString(item.getExpnAmt())+"원");
+                    binding.lExpn.tvAccmMilg.setText(StringUtil.getDigitGroupingString(item.getAccmMilg()) + "km");
+                    binding.lExpn.tvExpnAmt.setText(StringUtil.getDigitGroupingString(item.getExpnAmt()) + "원");
                     binding.lExpn.btnDelete.setVisibility(View.GONE);
                     binding.lExpn.btnModify.setVisibility(View.GONE);
 
-                    int iconId=R.drawable.ic_service_potentiometer; //기타 이미지 변경 필요
+                    int iconId = R.drawable.ic_service_potentiometer; //기타 이미지 변경 필요
                     int expnDivNmId = R.string.tm_exps01_21;
 
-                    switch (item.getExpnDivNm()){
+                    switch (item.getExpnDivNm()) {
                         case VariableType.INSIGHT_EXPN_DIV_CODE_1000:
                             expnDivNmId = R.string.tm_exps01_13;
                             iconId = R.drawable.ic_service_refueling;
@@ -412,10 +427,10 @@ public class MiddleDialog {
 
 
     /**
-     * @brief 중복 로그인 안내 팝업
      * @param activity
      * @param ok
      * @param cancel
+     * @brief 중복 로그인 안내 팝업
      */
     public static void dialogDuplicateLogin(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
         if (activity.isFinishing()) {
@@ -432,7 +447,6 @@ public class MiddleDialog {
                 ).show()
         );
     }
-
 
 
     public static void dialogInsightInputCancel(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
@@ -469,11 +483,10 @@ public class MiddleDialog {
     }
 
     /**
-     * @brief 하자재발 신청 종료 팝업
-     *
      * @param activity
      * @param ok
      * @param cancel
+     * @brief 하자재발 신청 종료 팝업
      */
     public static void dialogServiceRelapseApplyExit(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
         if (activity.isFinishing()) {
@@ -492,11 +505,10 @@ public class MiddleDialog {
     }
 
     /**
-     * @brief 긴급출동 신청 종료 팝업
-     *
      * @param activity
      * @param ok
      * @param cancel
+     * @brief 긴급출동 신청 종료 팝업
      */
     public static void dialogServiceSOSApplyExit(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
         if (activity.isFinishing()) {
@@ -513,11 +525,12 @@ public class MiddleDialog {
                 ).show()
         );
     }
+
     /**
-     * @brief 긴급출동 취소 안내 팝업
      * @param activity
      * @param ok
      * @param cancel
+     * @brief 긴급출동 취소 안내 팝업
      */
     public static void dialogServiceSOSApplyCancel(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
         if (activity.isFinishing()) {
@@ -536,11 +549,10 @@ public class MiddleDialog {
     }
 
     /**
-     * @brief 정비예약 뒤로가기 경고 팝업
-     *
      * @param activity
      * @param ok
      * @param cancel
+     * @brief 정비예약 뒤로가기 경고 팝업
      */
     public static void dialogServiceBack(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
         if (activity.isFinishing()) {
@@ -559,10 +571,10 @@ public class MiddleDialog {
     }
 
     /**
-     * @brief 로그인 안내 팝업
      * @param activity
      * @param ok
      * @param cancel
+     * @brief 로그인 안내 팝업
      */
     public static void dialogLogin(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
         if (activity.isFinishing()) {
@@ -717,28 +729,6 @@ public class MiddleDialog {
             });
         });
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     private static CustomDialog getOneButtonDialog(

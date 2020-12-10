@@ -21,4 +21,6 @@
     <string name="sm_romte01_p01_19">VDC / ESP 경고등</string>
 
 
+    <!--원격진단-->
+    <string name="sm_remote01_dialog_title_error">원격진단 신청 불가</string>
 </resources>
