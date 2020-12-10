@@ -17,10 +17,15 @@ import androidx.databinding.ViewDataBinding;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.util.GpsUtils;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -63,12 +68,25 @@ public abstract class GpsBaseActivity<T extends ViewDataBinding> extends SubActi
 
     private static boolean isDrawAnimation = false;
 
+    private FusedLocationProviderClient mFusedLocationClient;
+    private LocationRequest locationRequest;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         gpsUtils = new GpsUtils(this);
         mLocationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+
+        locationRequest = new LocationRequest()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(1000)
+                .setFastestInterval(500);
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
+        builder.addLocationRequest(locationRequest);
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
     }
 
     @Override
@@ -106,59 +124,62 @@ public abstract class GpsBaseActivity<T extends ViewDataBinding> extends SubActi
 
     @SuppressLint("MissingPermission")
     public void findMyLocation(OnGpsMyLocGetListener locListener, OnGpsMyLocAniListener AniListener, GpsRetType retType, long searchTime, boolean dontShowGpsPopup) {
-        if (mLocationManager != null) {
-            mLocationManager.removeUpdates(mLocationListener);
-        }
+        if(mFusedLocationClient != null) mFusedLocationClient.removeLocationUpdates(locationCallback);
 
-        mMinAccuracy = 9999;
-
+        mFusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null);
+//        if (mLocationManager != null) {
+//            mLocationManager.removeUpdates(mLocationListener);
+//        }
+//
+//        mMinAccuracy = 9999;
+//
         mMyLocGetListener = locListener;
         mMyLocAniListener = AniListener;
-        mSearchTime = searchTime;
+//        mSearchTime = searchTime;
         mLocRetType = retType;
-
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,100, 1, mLocationListener);
-        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,100, 1, mLocationListener);
-
-        FusedLocationProviderClient locationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        locationProviderClient.getLastLocation()
-                .addOnSuccessListener(new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        if (location == null) {
-                            Log.e(TAG, "locationProviderClient location is null");
-                            return;
-                        }
-
-                        mMinAccuracy = location.getAccuracy();
-                        mFirstLocation = location;
-                        mLocation = location;
-
-                        Log.d(TAG, "get Location Accuracy:" + mMinAccuracy + ", lat:" + mLocation.getLatitude() + ", lon:" + mLocation.getLongitude());
-                        if (mLocRetType != GpsRetType.GPS_RETURN_ONCE) {
-                            mMyLocGetListener.onGpsMyLocGet(mLocation);
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        e.printStackTrace();
-                    }
-                });
-
-        if (mGpsTimer != null) {
-            mGpsTimer.cancel();
-            mGpsTimer = null;
-        }
-
-        if (mLocationAniTimer != null) {
-            mLocationAniTimer.cancel();
-            mLocationAniTimer = null;
-        }
-
-        mGpsTimer = new Timer();
-        mGpsTimer.schedule(new CustomTimer(), mSearchTime);
+//
+//        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,100, 1, mLocationListener);
+//        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,100, 1, mLocationListener);
+//
+//        FusedLocationProviderClient locationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+//        locationProviderClient.getLastLocation()
+//                .addOnSuccessListener(new OnSuccessListener<Location>() {
+//                    @Override
+//                    public void onSuccess(Location location) {
+//                        if (location == null) {
+//                            Log.e(TAG, "locationProviderClient location is null");
+//                            return;
+//                        }
+//
+//                        mMinAccuracy = location.getAccuracy();
+//                        mFirstLocation = location;
+//                        mLocation = location;
+//
+//                        Log.d(TAG, "get Location Accuracy:" + mMinAccuracy + ", lat:" + mLocation.getLatitude() + ", lon:" + mLocation.getLongitude());
+//                        if (mLocRetType != GpsRetType.GPS_RETURN_ONCE) {
+//                            mMyLocGetListener.onGpsMyLocGet(mLocation);
+//                        }
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                });
+//
+//        if (mGpsTimer != null) {
+//            mGpsTimer.cancel();
+//            mGpsTimer = null;
+//        }
+//
+//        if (mLocationAniTimer != null) {
+//            mLocationAniTimer.cancel();
+//            mLocationAniTimer = null;
+//        }
+//
+//        mGpsTimer = new Timer();
+//        mGpsTimer.schedule(new CustomTimer(), mSearchTime);
     }
 
     public void stopGpsSearch() {
@@ -369,6 +390,30 @@ public abstract class GpsBaseActivity<T extends ViewDataBinding> extends SubActi
         stub.setOnInflateListener(listener);
         stub.inflate();
     }
+
+    LocationCallback locationCallback = new LocationCallback() {
+        @Override
+        public void onLocationResult(LocationResult locationResult) {
+            super.onLocationResult(locationResult);
+
+            List<Location> locationList = locationResult.getLocations();
+
+            if(locationList.size() > 0) {
+                mLocation = locationList.get(locationList.size() - 1);
+
+                Log.d(TAG, "lat : " + mLocation.getLatitude() + ", lng : " + mLocation.getLongitude());
+//                if (mLocRetType == GpsRetType.GPS_RETURN_ONCE) {
+                    mMyLocGetListener.onGpsMyLocGet(mLocation);
+//                } else if (mLocRetType == GpsRetType.GPS_RETURN_TWICE) {
+//                    if (mFirstLocation != null && mLocation != null) {
+//                        if (mFirstLocation.getAccuracy() > mLocation.getAccuracy()) {
+//                            mMyLocGetListener.onGpsMyLocGet(mLocation);
+//                        }
+//                    }
+//                }
+            }
+        }
+    };
 
 
 }
