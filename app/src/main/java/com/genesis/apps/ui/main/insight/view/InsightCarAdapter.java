@@ -1,22 +1,13 @@
 package com.genesis.apps.ui.main.insight.view;
 
-import android.graphics.Typeface;
-import android.text.Spannable;
 import android.text.TextUtils;
-import android.text.style.AbsoluteSizeSpan;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.ISTAmtVO;
-import com.genesis.apps.comm.util.CustomTypefaceSpan;
-import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.graph.AxisValueFormatter;
 import com.genesis.apps.comm.util.graph.RoundedBarChartRenderer;
@@ -33,6 +24,9 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 
 public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
@@ -59,7 +53,7 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.v("recyclerview test2", "create :");
-        switch (getViewType()){
+        switch (viewType){
             case TYPE_EMPTY:
                 return new ItemInsightCarEmpty(getView(parent, R.layout.item_insight_car_empty));
             default:
@@ -76,6 +70,10 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
 
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return VIEW_TYPE;
+    }
 
     public void setPrvsToUseAmt(String prvsToUseAmt) {
         if(TextUtils.isEmpty(prvsToUseAmt))
