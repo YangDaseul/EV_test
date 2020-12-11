@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:variable="http://schemas.android.com/tools">
 
     <data />
 
@@ -15,6 +16,66 @@
             app:value="@{@string/sm_romte01_p01_1}" />
 
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/l_service_drive_req_result_titlebar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <TextView
+                        android:id="@+id/tv_service_remote_register_guide"
+                        style="@style/ServiceRemote.TextView_Font_LGSHG.Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="8sp"
+                        android:text="상담 시간을\n선택해 주세요."
+                        android:textSize="22sp"
+                        android:textStyle="normal"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <!--차량 번호-->
+                    <include
+                        layout="@layout/item_service_remote_register_step"
+                        app:inputGuideMessage="@{@string/sm_remote01_input_car_number}"
+                        app:inputHintText="@{@string/sm_remote01_car_number}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_service_remote_register_guide"
+                        app:title="@{@string/sm_remote01_car_number}" />
+
+                    <!--휴대폰 번호-->
+                    <include
+                        layout="@layout/item_service_remote_register_step"
+                        app:inputGuideMessage="@{@string/sm_remote01_input_phone_number}"
+                        app:inputHintText="@{@string/sm_remote01_phone_number}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_service_remote_register_guide"
+                        app:title="@{@string/sm_remote01_phone_number}" />
+
+                    <!--서비스 안내 가이드 문구-->
+                    <include
+                        layout="@layout/item_service_remote_register_guide"
+                        app:guide="@{@string/sm_remote01_guide_0}"
+                        app:guideColor="@{@color/x_666666}" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

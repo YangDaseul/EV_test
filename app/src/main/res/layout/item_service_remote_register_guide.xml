@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="guide"
+            type="String" />
+
+        <variable
+            name="guideColor"
+            type="Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--점 표시-->
+        <TextView
+            android:id="@+id/v_service_remote_register_guide_dot"
+            style="@style/ServiceRemote.TextView_Font_RGSTG"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sm_remote01_guide_dot"
+            android:textColor="@{guideColor == 0 ? @color/x_666666 : guideColor}"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_service_remote_register_guide" />
+
+        <!--안내 문구-->
+        <TextView
+            android:id="@+id/tv_service_remote_register_guide"
+            style="@style/ServiceRemote.TextView_Font_RGSTG"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="@{guide}"
+            android:textColor="@{guideColor == 0 ? @color/x_666666 : guideColor}"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/v_service_remote_register_guide_dot"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

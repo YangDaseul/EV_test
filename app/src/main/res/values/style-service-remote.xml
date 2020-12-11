@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    // 원격 진단 관련 스타일 목록.
+    <!--원격 진단 관련 Stryle-->
+    <style name="ServiceRemote">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <!--폰트 구분 Style-->
+    <style name="ServiceRemote.TextView_Font_RGSHG">
+        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+    </style>
+
+    <style name="ServiceRemote.TextView_Font_RGSTG">
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+    </style>
+
+    <style name="ServiceRemote.TextView_Font_BGSTG">
+        <item name="android:fontFamily">@font/bold_genesissanstextglobal</item>
+    </style>
+
+    <style name="ServiceRemote.TextView_Font_LGSHG">
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+    </style>
+
+    <style name="ServiceRemote.TextView_Font_MGSTG">
+        <item name="android:fontFamily">@font/medium_genesissanstextglobal</item>
+    </style>
+
+    <!--색상 구분 Style-->
+    <style name="ServiceRemote.TextView_Font_LGSHG.Black">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="ServiceRemote.TextView_Font_RGSTG.CE2D2D">
+        <item name="android:textColor">#CE2D2D</item>
+    </style>
+
+    <style name="ServiceRemote.TextView_Font_RGSTG.262626">
+        <item name="android:textColor">#262626</item>
+    </style>
+
+    <style name="ServiceRemote.TextView_Font_RGSTG.757575">
+        <item name="android:textColor">#757575</item>
+    </style>
+
+    <style name="ServiceRemote.TextView_Font_RGSTG.Black">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+</resources>

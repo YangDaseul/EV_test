@@ -17,6 +17,7 @@ import com.genesis.apps.comm.viewmodel.SOSViewModel;
 import com.genesis.apps.databinding.ActivityServiceRemoteRegisterBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
+import com.google.gson.Gson;
 
 import java.util.concurrent.ExecutionException;
 
@@ -82,6 +83,17 @@ public class ServiceRemoteRegisterActivity extends SubActivity<ActivityServiceRe
                         Log.d("FID", "test :: getRES_RMT_1001 :: rtCd=" + response.getRtCd());
                         Log.d("FID", "test :: getRES_RMT_1001 :: rmtExitYn=" + response.getRmtExitYn());
                         Log.d("FID", "test :: getRES_RMT_1001 :: message=" + response.getRtMsg());
+
+                        String dummyData = "{" +
+                                "\"rtCd\":\"0000\"," +
+                                "\"rtMsg\":\"Success\",\"rmtExitYn\":\"Y\",\"carRgstNo\":" +
+                                "\"test Car Num\"," +
+                                "\"celphNo\":\"000-1234-5678\"," +
+                                "\"sosStusCd\":\"\"," +
+                                "\"tmpAcptNo\":\"\"" +
+                                "}";
+                        response = new Gson().fromJson(dummyData, RMT_1001.Response.class);
+
                         if (BaseResponse.RETURN_CODE_SUCC.equals(response.getRtCd())) {
                             // 성공.
                         } else {
