@@ -92,7 +92,7 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
                     TermOilVO termVO = (TermOilVO)v.getTag(R.id.oil_term);
                     Log.v("test","test:"+termVO.getTermCd());
 
-                    if(termVO.getTermCd().equalsIgnoreCase(OilPointVO.OIL_CODE_HDOL)){
+                    if(oilRfnCd.equalsIgnoreCase(OilPointVO.OIL_CODE_HDOL)){
 
                         if(hoTermLayout.getVisibility()==View.VISIBLE){
                             hoTermArrow.setImageResource(R.drawable.btn_accodian_open);
@@ -287,10 +287,18 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
             if(termVO.getAgreeMeansNm()==null){
                 itemTermOilBinding.lAgree.setVisibility(View.GONE);
             }else{
-                itemTermOilBinding.ivArrow.setImageResource(R.drawable.btn_accodian_open);
                 itemTermOilBinding.lAgree.setVisibility(View.VISIBLE);
                 //오일뱅크일 경우 수신동의 시에 대한 안내 문구 제거
-                itemTermOilBinding.tvAgreeInfo.setVisibility(termVO.getTermCd().equalsIgnoreCase(OilPointVO.OIL_CODE_HDOL) ? View.GONE : View.VISIBLE);
+                if(oilRfnCd.equalsIgnoreCase(OilPointVO.OIL_CODE_HDOL)){
+                    itemTermOilBinding.tvAgreeInfo.setVisibility(View.GONE);
+                    itemTermOilBinding.ivArrow.setImageResource(R.drawable.btn_accodian_open);
+                }else{
+                    itemTermOilBinding.tvAgreeInfo.setVisibility(View.VISIBLE);
+                    itemTermOilBinding.ivArrow.setVisibility(View.INVISIBLE);
+                }
+//                itemTermOilBinding.tvAgreeInfo.setVisibility(oilRfnCd.equalsIgnoreCase(OilPointVO.OIL_CODE_HDOL) ? View.GONE : View.VISIBLE);
+//                itemTermOilBinding.ivArrow.setImageResource(oilRfnCd.equalsIgnoreCase(OilPointVO.OIL_CODE_HDOL) ? R.drawable.btn_accodian_open : null);
+
                 hoTermLayout = itemTermOilBinding.lHoTerm;
                 hoTermArrow = itemTermOilBinding.ivArrow;
                 marketingCb = itemTermOilBinding.cb;
@@ -304,10 +312,10 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
                     itemTermOilBinding.cbMail.setText(TextUtils.isEmpty(email) ? "" : email);
                     itemTermOilBinding.cbDm.setText(TextUtils.isEmpty(dm) ? "" : dm);
                     itemTermOilBinding.cbPhone.setText(TextUtils.isEmpty(phone) ? "" : phone);
-                    itemTermOilBinding.cbSms.setVisibility(TextUtils.isEmpty(sms) ? View.GONE : View.VISIBLE);
-                    itemTermOilBinding.cbMail.setVisibility(TextUtils.isEmpty(email) ? View.GONE : View.VISIBLE);
-                    itemTermOilBinding.cbDm.setVisibility(TextUtils.isEmpty(dm) ? View.GONE : View.VISIBLE);
-                    itemTermOilBinding.cbPhone.setVisibility(TextUtils.isEmpty(phone) ? View.GONE : View.VISIBLE);
+                    itemTermOilBinding.cbSms.setVisibility(TextUtils.isEmpty(sms) ? View.INVISIBLE : View.VISIBLE);
+                    itemTermOilBinding.cbMail.setVisibility(TextUtils.isEmpty(email) ? View.INVISIBLE : View.VISIBLE);
+                    itemTermOilBinding.cbDm.setVisibility(TextUtils.isEmpty(dm) ? View.INVISIBLE : View.VISIBLE);
+                    itemTermOilBinding.cbPhone.setVisibility(TextUtils.isEmpty(phone) ? View.INVISIBLE : View.VISIBLE);
                     itemTermOilBinding.cbSms.setOnCheckedChangeListener(TextUtils.isEmpty(sms) ? null : marketingListener);
                     itemTermOilBinding.cbMail.setOnCheckedChangeListener(TextUtils.isEmpty(email) ? null : marketingListener);
                     itemTermOilBinding.cbDm.setOnCheckedChangeListener(TextUtils.isEmpty(dm) ? null : marketingListener);
@@ -321,7 +329,7 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
             }
 
 //            //현대오일뱅크일 경우 예외처리
-//            if(termVO.getTermCd().equalsIgnoreCase(OilPointVO.OIL_CODE_HDOL)) {
+//            if(oilRfnCd.equalsIgnoreCase(OilPointVO.OIL_CODE_HDOL)) {
 //                //arrow 드랍 형태로 수정
 //                itemTermOilBinding.ivArrow.setImageResource(R.drawable.btn_arrow_down);
 //            }
@@ -451,12 +459,15 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
     };
 
     CompoundButton.OnCheckedChangeListener marketingListenerAll = (compoundButton, b) -> {
-        if(compoundButton.isPressed()) {
+//        if(compoundButton.isPressed()) {
             marketingCheckBox.setCheckEmail(b);
             marketingCheckBox.setCheckDm(b);
             marketingCheckBox.setCheckSms(b);
             marketingCheckBox.setCheckPhone(b);
-        }
+
+            setCheckBoxsAll();
+            checkAgree();
+//        }
     };
 
 }
