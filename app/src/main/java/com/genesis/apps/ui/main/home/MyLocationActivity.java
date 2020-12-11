@@ -205,7 +205,7 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
                 mapViewModel.reqPlayMapGeoItem(new ReverseGeocodingReqVO(Double.parseDouble(vehiclePosition.get(0)),Double.parseDouble(vehiclePosition.get(1)),0));
             });
 
-        }, 5000);
+        }, 5000, GpsRetType.GPS_RETURN_HIGH, false);
     }
 
 

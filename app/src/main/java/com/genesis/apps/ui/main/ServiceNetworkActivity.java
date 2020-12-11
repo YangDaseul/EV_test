@@ -442,7 +442,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 lgnViewModel.setMyPosition(location.getLatitude(), location.getLongitude());
             });
 
-        }, 5000);
+        }, 5000, GpsRetType.GPS_RETURN_HIGH, false);
     }
 
 

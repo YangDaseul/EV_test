@@ -215,7 +215,7 @@ public class ServiceRelapseHistoryActivity extends GpsBaseActivity<ActivityServi
                 addressVO = new AddressVO();
                 addressVO.setCenterLat(location.getLatitude());
                 addressVO.setCenterLon(location.getLongitude());
-            }, 5000);
+            }, 5000,GpsRetType.GPS_RETURN_FIRST, false);
         }
     }
 }

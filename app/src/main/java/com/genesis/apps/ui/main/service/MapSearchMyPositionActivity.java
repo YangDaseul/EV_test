@@ -337,7 +337,7 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
                 lgnViewModel.setMyPosition(location.getLatitude(), location.getLongitude());
             });
 
-        }, 5000);
+        }, 5000, GpsRetType.GPS_RETURN_HIGH, false);
     }
 
 

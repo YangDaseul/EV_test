@@ -282,7 +282,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
                 reqBranchList();
             });
 
-        }, 5000);
+        }, 5000, GpsRetType.GPS_RETURN_HIGH, false);
     }
 
     //지점 목록 요청

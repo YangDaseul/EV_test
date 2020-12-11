@@ -36,6 +36,7 @@ import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentHome1Binding;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
+import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.activity.WebviewActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
@@ -95,7 +96,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         super.onActivityCreated(savedInstanceState);
         initViewModel();
         initView();
-        setVideo();
+        setVideo(false);
         setViewWeather();
         recordUtil.regReceiver();
     }
@@ -297,7 +298,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 //TODO 테스트 필요
                 lgnViewModel.setPosition(location.getLatitude(), location.getLongitude());
             });
-        }, 5000);
+        }, 5000, GpsBaseActivity.GpsRetType.GPS_RETURN_FIRST, false);
     }
 
     @Override
@@ -664,10 +665,10 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     }
 
 
-    private void setVideo() {
+    private void setVideo(boolean isForce) {
         try {
 
-            if (player == null) {
+            if (player == null||isForce) {
                 player = new SimpleExoPlayer.Builder(getContext()).build();
                 player.setVolume(0);
                 player.setRepeatMode(REPEAT_MODE_ALL);
@@ -696,7 +697,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         Log.v("video player status", "isResume:" + isResume);
 
         if (isResume && player != null && player.getPlaybackState() == STATE_IDLE) {
-            setVideo();
+            setVideo(true);
         }
 
         player.setPlayWhenReady(isResume);
