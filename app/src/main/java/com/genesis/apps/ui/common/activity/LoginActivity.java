@@ -33,6 +33,7 @@ public class LoginActivity extends WebviewActivity {
     public static final String TYPE_LOGIN="login";
     public static final String TYPE_JOIN="join";
     public static final String TYPE_FIND="find";
+    public static final String TYPE_RELEASE="release";
 
     private String tokenCode;
     private String authUuid;
@@ -79,7 +80,6 @@ public class LoginActivity extends WebviewActivity {
     }
 
     private boolean certifyResult(Uri uri) {
-
         //https://t-accounts.genesis.com/api/test/redirect.do?state=xjnweledme&authUuid=8266ce77-1705-4785-9551-98d5047dcd89
         // GaRedirect URL은 APP에서 리턴 받을때 사용하는 url <-- App에서만 사용함.
         String result = uri.getQueryParameter("result");
@@ -88,6 +88,14 @@ public class LoginActivity extends WebviewActivity {
             finish();
             return true;
         }
+
+        //서비스 탈퇴 시
+        if(ccspType.equalsIgnoreCase(TYPE_RELEASE)) {
+            setResult(Activity.RESULT_OK);
+            finish();
+            return true;
+        }
+
         String csrf = uri.getQueryParameter("state");
         String authUuid = uri.getQueryParameter("authUuid");
         Log.e("TEST LoginActivity", "LOGIN ACTIVITY:" +authUuid + "        state:"+csrf);
@@ -161,9 +169,9 @@ public class LoginActivity extends WebviewActivity {
 
     @Override
     public boolean back(String currentUrl) {
-        if(currentUrl.endsWith("/web/v1/user/signin")||currentUrl.endsWith("password-search")){
+        if(currentUrl.endsWith("/web/v1/user/signin")||currentUrl.endsWith("password-search")||currentUrl.contains("web/v1/user/signout?sid")){
             //로그인화면이거나 아이디찾기 및 비밀번호 초기화 화면일 경우
-            finish();
+            exitPage("", 0);
             return true;
         }else if (!currentUrl.startsWith(GA_URL) && !currentUrl.startsWith(CCSP_URL)) {
             //if(currentUrl.startsWith("https://nice.checkplus.co.kr")) {
@@ -174,7 +182,7 @@ public class LoginActivity extends WebviewActivity {
             return true;
         }else if (currentUrl.startsWith(GA_URL)) {
             if(!fragment.canGoBack()) {
-                finish();
+                exitPage("", 0);
                 return true;
             }
         }

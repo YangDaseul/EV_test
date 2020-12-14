@@ -29,4 +29,15 @@ public class DBUserRepo {
         return isUpdate;
     }
 
+    public boolean clearUserInfo(){
+        boolean isClear = false;
+        try{
+            databaseHolder.getDatabase().userDao().deleteAll();
+            isClear=true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return isClear;
+    }
+
 }

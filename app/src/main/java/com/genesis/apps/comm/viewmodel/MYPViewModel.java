@@ -26,16 +26,22 @@ import com.genesis.apps.comm.model.api.gra.OIL_0002;
 import com.genesis.apps.comm.model.api.gra.OIL_0003;
 import com.genesis.apps.comm.model.api.gra.OIL_0004;
 import com.genesis.apps.comm.model.api.gra.OIL_0005;
+import com.genesis.apps.comm.model.repo.DBUserRepo;
 import com.genesis.apps.comm.model.repo.MYPRepo;
 import com.genesis.apps.comm.model.repo.OILRepo;
 import com.genesis.apps.comm.model.repo.CardRepository;
 import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.model.vo.PrivilegeVO;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.net.ga.GA;
+import com.genesis.apps.comm.util.excutor.ExecutorService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 import lombok.Data;
@@ -46,6 +52,7 @@ public @Data
 class MYPViewModel extends ViewModel {
 
     private final MYPRepo repository;
+    private final DBUserRepo dbUserRepo;
     private final CardRepository cardRepository;
     private final SavedStateHandle savedStateHandle;
 
@@ -74,12 +81,14 @@ class MYPViewModel extends ViewModel {
     @ViewModelInject
     MYPViewModel(
             MYPRepo repository,
+            DBUserRepo dbUserRepo,
             CardRepository cardRepository,
             @Assisted SavedStateHandle savedStateHandle)
     {
         this.savedStateHandle = savedStateHandle;
 
         this.repository = repository;
+        this.dbUserRepo = dbUserRepo;
         RES_MYP_0001 = repository.RES_MYP_0001;
         RES_MYP_0004 = repository.RES_MYP_0004;
         RES_MYP_0005 = repository.RES_MYP_0005;
@@ -181,5 +190,28 @@ class MYPViewModel extends ViewModel {
         return applyList;
     }
 
+    public String reqSingOut(GA ga) throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<String> future = es.getListeningExecutorService().submit(()->{
+            String result = null;
+            try {
+                result = ga.getSignoutUrl();
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+                result = null;
+            }
+            return result;
+        });
+
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
+    }
+
+    public boolean clearUserInfo(){
+        return dbUserRepo.clearUserInfo();
+    }
 
 }
