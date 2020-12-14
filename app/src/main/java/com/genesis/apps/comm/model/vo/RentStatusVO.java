@@ -152,7 +152,7 @@ class RentStatusVO extends BaseData {
     @SerializedName("godsRcvTelNo")
     private String godsRcvTelNo;
 
-    //GNS_1016만 사용
+    //GNS_1016/1011만 사용
     @Expose
     @SerializedName("adrYn")
     private String adrYn;
