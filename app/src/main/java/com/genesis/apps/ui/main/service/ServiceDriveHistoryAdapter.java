@@ -210,8 +210,8 @@ public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveSe
             to = item.getPosInfo().get(1);
 
             // TODO : 서버 수정되면 반영
-            driverName = "운전맨";
-            driverPhone = PhoneNumberUtils.formatNumber("01020104214", Locale.getDefault().getCountry());
+            driverName = item.getDriverNm();
+            driverPhone = PhoneNumberUtils.formatNumber(item.getDriverMdn(), Locale.getDefault().getCountry());
         }
 
         //세부사항 뷰의 개폐 상태를 처리

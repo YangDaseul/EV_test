@@ -104,10 +104,11 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         setObserver();
         initView();
 
+        //2020-12-01 화면 전체를 덮는 입력 페이지는 자동 진입 안하도록 수정
         //플래그를 보고 출발지 검색 지도 호출을 즉시 실행
-        if (isDirect) {
-            onClickSearchAddressBtn(FROM);
-        }
+//        if (isDirect) {
+//            onClickSearchAddressBtn(FROM);
+//        }
     }
 
     @Override
@@ -464,7 +465,8 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                 openToAddressBtn();
                 //not break
             case NEXT_BTN_NEED_TO_ADDRESS:
-                onClickSearchAddressBtn(TO);
+                //2020-12-01 화면 전체를 덮는 입력 페이지는 자동 진입 안하도록 수정
+//                onClickSearchAddressBtn(TO);
                 break;
 
             //예상 가격 조회
