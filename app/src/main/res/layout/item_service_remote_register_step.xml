@@ -28,10 +28,12 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_service_remote_register_step_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp">
+        android:paddingBottom="10dp"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_service_remote_register_step_title"
@@ -71,6 +73,7 @@
             app:layout_constraintTop_toTopOf="@id/et_service_remote_register_step_input" />
 
         <TextView
+            android:id="@+id/tv_service_remote_register_step_guide"
             style="@style/ServiceRemote.TextView_Font_RGSTG.CE2D2D"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

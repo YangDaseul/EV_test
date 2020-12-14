@@ -44,28 +44,27 @@
                     android:layout_height="wrap_content"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="8sp"
-                    android:text="상담 시간을\n선택해 주세요."
                     android:textSize="22sp"
                     android:textStyle="normal" />
 
                 <!--상담 시간-->
                 <include
+                    android:id="@+id/l_service_remote_step_4"
                     layout="@layout/item_service_remote_register_step"
-                    android:visibility="gone"
                     app:isShowArrow="@{true}"
                     app:title="@{@string/sm_remote01_service_time}" />
 
                 <!--차량 문제-->
                 <include
+                    android:id="@+id/l_service_remote_step_3"
                     layout="@layout/item_service_remote_register_step"
-                    android:visibility="gone"
                     app:isShowArrow="@{true}"
                     app:title="@{@string/sm_remote01_service_type}" />
 
                 <!--차량 번호-->
                 <include
+                    android:id="@+id/l_service_remote_step_2"
                     layout="@layout/item_service_remote_register_step"
-                    android:visibility="gone"
                     app:inputGuideMessage="@{@string/sm_remote01_input_car_number}"
                     app:inputHintText="@{@string/sm_remote01_car_number}"
                     app:inputType="@{InputType.TYPE_CLASS_TEXT}"
@@ -73,8 +72,8 @@
 
                 <!--휴대폰 번호-->
                 <include
+                    android:id="@+id/l_service_remote_step_1"
                     layout="@layout/item_service_remote_register_step"
-                    android:visibility="gone"
                     app:inputGuideMessage="@{@string/sm_remote01_input_phone_number}"
                     app:inputHintText="@{@string/sm_remote01_phone_number}"
                     app:inputType="@{InputType.TYPE_CLASS_TEXT}"

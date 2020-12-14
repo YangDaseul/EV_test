@@ -1,9 +1,12 @@
 package com.genesis.apps.ui.main.service;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.StringRes;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
@@ -26,9 +29,26 @@ import java.util.concurrent.ExecutionException;
  */
 public class ServiceRemoteRegisterActivity extends SubActivity<ActivityServiceRemoteRegisterBinding> {
 
+
+    enum REGISTER_STEP {
+        INPUT_PHONE(R.string.sm_remote01_phone_number_guide),
+        INPUT_CAR_NUM(R.string.sm_remote01_car_number_guide),
+        SERVICE_TYPE(R.string.sm_remote01_service_type_guide),
+        SERVICE_TIME(R.string.sm_remote01_service_time_guide),
+        COMPLETE(R.string.sm_remote01_input_complete);
+
+        private @StringRes
+        final int guideResId;
+
+        REGISTER_STEP(@StringRes int guideResId) {
+            this.guideResId = guideResId;
+        }
+    } // end of enum class REGISTER_STEP
+
     private RMTViewModel rmtViewModel;
     private SOSViewModel sosViewModel;
 
+    private REGISTER_STEP currentStep = REGISTER_STEP.INPUT_PHONE;
 
     /****************************************************************************************************
      * Override Method - LifeCycle
@@ -40,7 +60,6 @@ public class ServiceRemoteRegisterActivity extends SubActivity<ActivityServiceRe
         getDataFromIntent();
         setViewModel();
         setObserver();
-        initView();
 
         try {
             rmtViewModel.reqRMT1001(new RMT_1001.Request(APPIAInfo.R_REMOTE01.getId(), rmtViewModel.getMainVehicle().getVin()));
@@ -75,47 +94,49 @@ public class ServiceRemoteRegisterActivity extends SubActivity<ActivityServiceRe
                     showProgressDialog(true);
                     break;
                 }
+                case ERROR:
                 case SUCCESS: {
                     showProgressDialog(false);
                     RMT_1001.Response response = result.data;
 
+                    String dummyData = "{" +
+                            "\"rtCd\":\"0000\"," +
+                            "\"rtMsg\":\"Success\"," +
+                            "\"rmtExitYn\":\"N\"," +
+                            "\"carRgstNo\":\"\"," +
+                            "\"celphNo\":\"\"," +
+                            "\"sosStusCd\":\"\"," +
+                            "\"tmpAcptNo\":\"\"" +
+                            "}";
+                    response = new Gson().fromJson(dummyData, RMT_1001.Response.class);
+
+                    Log.d("FID", "test :: getRES_RMT_1001 :: rtCd=" + response.getRtCd());
+                    Log.d("FID", "test :: getRES_RMT_1001 :: rmtExitYn=" + response.getRmtExitYn());
+                    Log.d("FID", "test :: getRES_RMT_1001 :: message=" + response.getRtMsg());
+
                     if (response != null) {
-                        Log.d("FID", "test :: getRES_RMT_1001 :: rtCd=" + response.getRtCd());
-                        Log.d("FID", "test :: getRES_RMT_1001 :: rmtExitYn=" + response.getRmtExitYn());
-                        Log.d("FID", "test :: getRES_RMT_1001 :: message=" + response.getRtMsg());
-
-                        String dummyData = "{" +
-                                "\"rtCd\":\"0000\"," +
-                                "\"rtMsg\":\"Success\",\"rmtExitYn\":\"Y\",\"carRgstNo\":" +
-                                "\"test Car Num\"," +
-                                "\"celphNo\":\"000-1234-5678\"," +
-                                "\"sosStusCd\":\"\"," +
-                                "\"tmpAcptNo\":\"\"" +
-                                "}";
-                        response = new Gson().fromJson(dummyData, RMT_1001.Response.class);
-
                         if (BaseResponse.RETURN_CODE_SUCC.equals(response.getRtCd())) {
                             // 성공.
+                            if ("N".equalsIgnoreCase(response.getRmtExitYn())) {
+                                // 신청건이 없는 경우. - 신청 프로세스 진행.
+                                initView(response);
+                            } else {
+                                // 신청건이 있는 경우. - 안내 팝업 표시.
+                            }
                         } else {
                             // 실패.
                             // 사유에 대해 서버에서 온 메시지를 표시.
                             MiddleDialog.dialogServiceRemoteRegisterErr(this, response.getRtMsg(), () -> finish());
-                        }
-                        if ("N".equalsIgnoreCase(response.getRmtExitYn())) {
-                            // 신청건이 없는 경우.
-                        } else {
-                            // 신청건이 있는 경우.
-                            //
                         }
                     } else {
                         // TODO : 조회된 데이터가 없어 예외처리 필요.
                     }
                     break;
                 }
-                case ERROR: {
-                    showProgressDialog(false);
-                    break;
-                }
+//                case ERROR: {
+//                    showProgressDialog(false);
+//                    break;
+//                }
             }
         });
     }
@@ -128,7 +149,70 @@ public class ServiceRemoteRegisterActivity extends SubActivity<ActivityServiceRe
     /****************************************************************************************************
      * Method - Private
      ****************************************************************************************************/
-    private void initView() {
+    private void initView(RMT_1001.Response data) {
+        String phoneNum = data.getCelphNo();
 
+        if (TextUtils.isEmpty(phoneNum)) {
+            // 휴대폰 번호가 없는 경우.
+            executeStep(REGISTER_STEP.INPUT_PHONE);
+            return;
+        } else {
+            // 휴대폰 번호가 있는 경우.
+            ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.setText(phoneNum);
+            ui.lServiceRemoteStep1.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);
+        }
+
+        String carNum = data.getCarRgstNo();
+        if (!TextUtils.isEmpty(carNum)) {
+            // 차량 번호가 있는 경우.
+            ui.lServiceRemoteStep2.etServiceRemoteRegisterStepInput.setText(carNum);
+            ui.lServiceRemoteStep2.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);
+        }
+
+        executeStep(checkStep());
+    }
+
+    private void executeStep(REGISTER_STEP step) {
+        switch (step) {
+            case INPUT_PHONE: {
+                ui.lServiceRemoteStep1.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);
+                ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.requestFocusFromTouch();
+                ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.setSelected(true);
+                ui.lServiceRemoteStep1.tvServiceRemoteRegisterStepGuide.setVisibility(View.VISIBLE);
+                break;
+            }
+            case INPUT_CAR_NUM: {
+                break;
+            }
+            case SERVICE_TYPE: {
+                break;
+            }
+            case SERVICE_TIME: {
+                break;
+            }
+            case COMPLETE: {
+                break;
+            }
+        }
+
+        showStepGuide(step.guideResId);
+    }
+
+    private REGISTER_STEP checkStep() {
+        String phoneNum = ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.getText().toString();
+        if (TextUtils.isEmpty(phoneNum)) {
+            return REGISTER_STEP.INPUT_PHONE;
+        }
+
+        String carNum = ui.lServiceRemoteStep2.etServiceRemoteRegisterStepInput.getText().toString();
+        if (TextUtils.isEmpty(carNum)) {
+            return REGISTER_STEP.INPUT_CAR_NUM;
+        }
+
+        return REGISTER_STEP.COMPLETE;
+    }
+
+    private void showStepGuide(@StringRes int guide) {
+        ui.tvServiceRemoteRegisterGuide.setText(guide);
     }
 } // end of class ServiceREmoteRegisterActivity

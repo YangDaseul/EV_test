@@ -24,11 +24,16 @@
     <!--원격진단-->
     <string name="sm_remote01_dialog_title_error">원격진단 신청 불가</string>
     <string name="sm_remote01_service_time">상담 시간</string>
+    <string name="sm_remote01_service_time_guide">상담 시간을\n선택해 주세요.</string>
     <string name="sm_remote01_service_type">차량 문제</string>
+    <string name="sm_remote01_service_type_guide">차량 문제를\n선택해 주세요.</string>
     <string name="sm_remote01_car_number">차량 번호</string>
-    <string name="sm_remote01_input_car_number">차량 번호를 입력해주세요.</string>
+    <string name="sm_remote01_car_number_guide">차량 번호를\n입력해 주세요.</string>
+    <string name="sm_remote01_input_car_number">차량 번호를 입력해 주세요.</string>
     <string name="sm_remote01_phone_number">휴대폰 번호</string>
-    <string name="sm_remote01_input_phone_number">휴대폰 번호를 입력해주세요.</string>
+    <string name="sm_remote01_phone_number_guide">휴대폰 번호를\n입력해 주세요.</string>
+    <string name="sm_remote01_input_phone_number">휴대폰 번호를 입력해 주세요.</string>
+    <string name="sm_remote01_input_complete">원격 진단을\n신청해주세요.</string>
 
     <string name="sm_remote01_guide_dot">ㆍ</string>
     <string name="sm_remote01_guide_0">원격진단 서비스를 신청하시면, 지정한 시간에 전화드리겠습니다.</string>
