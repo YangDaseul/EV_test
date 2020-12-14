@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -97,13 +98,29 @@ public class AlarmCenterActivity extends SubActivity<ActivityAlarmCenterBinding>
 
     @Override
     public void onClickCommon(View v) {
+        NotiInfoVO item = null;
         switch (v.getId()) {
             //todo 어댑터 이벤트 정의 필요
             case R.id.iv_titlebar_img_btn:
                 startActivitySingleTop(new Intent(this, AlarmCenterSearchActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
+            case R.id.btn_detail:
+                try {
+                    item = (NotiInfoVO) v.getTag(R.id.noti_info);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }finally{
+                    if(item!=null&&!TextUtils.isEmpty(item.getDtlLnkUri())&&!TextUtils.isEmpty(item.getDtlLnkCd())){
+                        if(item.getDtlLnkCd().equalsIgnoreCase("I")){
+                            moveToNativePage(item.getDtlLnkUri(), false);
+                        }else{
+                            moveToExternalPage(item.getDtlLnkUri(), "");
+                        }
+                    }
+                }
+                break;
+
             case R.id.l_title:
-                NotiInfoVO item = null;
                 int pos = 0;
 
                 try {
@@ -127,10 +144,12 @@ public class AlarmCenterActivity extends SubActivity<ActivityAlarmCenterBinding>
                             case AlarmCenterRecyclerAdapter.ALARM_TYPE_NORMAL_NATIVE:
                                 //TODO 클릭 시 상세페이지 이동 / getMsgLnkUri가 메뉴면 네이티브, 링크면 WEBVIEW로 이동시켜야하는데 확인 필요
                                 adapter.notifyItemChanged(pos);
+                                moveToNativePage(item.getMsgLnkUri(), false);
                                 break;
                             case AlarmCenterRecyclerAdapter.ALARM_TYPE_NORMAL_WEBVIEW:
                                 //TODO 클릭 시 외부 링크로 이동
                                 adapter.notifyItemChanged(pos);
+                                moveToExternalPage(item.getMsgLnkUri(), "");
                                 break;
                             case AlarmCenterRecyclerAdapter.ALARM_TYPE_ACCORDION:
                             default:
@@ -192,6 +211,7 @@ public class AlarmCenterActivity extends SubActivity<ActivityAlarmCenterBinding>
 
     @Override
     public void getDataFromIntent() {
+        //todo push로 실행되는 경우 pushVo를 받고 대분류 카테고리 일치하는 쪽으로 자동 이동?
 
     }
 }

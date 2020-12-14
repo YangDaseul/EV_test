@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main.service;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
@@ -19,14 +20,15 @@ import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.VOCInfoVO;
+import com.genesis.apps.comm.model.vo.map.ReverseGeocodingReqVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.VOCViewModel;
 import com.genesis.apps.databinding.ActivityServiceRelapseHistoryBinding;
-import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 
 import java.util.List;
 
-public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRelapseHistoryBinding> {
+public class ServiceRelapseHistoryActivity extends GpsBaseActivity<ActivityServiceRelapseHistoryBinding> {
     private static final String TAG = ServiceRelapseHistoryActivity.class.getSimpleName();
 //    private static final int PAGE_SIZE = 20;
 
@@ -42,7 +44,6 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
         setAdapter();
         setViewModel();
         setObserver();
-
         ui.setActivity(this);
         reqNextPage();//페이징 처리 없어서 그냥 한번에 전체가 다 온다
     }
@@ -133,14 +134,25 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
 
                         //성공 후 데이터 로딩까지 다 되면 로딩 치우고 break;
                         showProgressDialog(false);
+                        reqMyLocation();
                         break;
                     }
                     //not break; 데이터 이상하면 default로 진입시킴
 
                 default:
                     showProgressDialog(false);
-                    SnackBarUtil.show(this, "" + result.message);
-                    //todo : 구체적인 예외처리
+                    reqMyLocation();
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
+                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                    }
                     break;
             }
         });
@@ -189,5 +201,21 @@ public class ServiceRelapseHistoryActivity extends SubActivity<ActivityServiceRe
                 new VOC_1003.Request(
                         APPIAInfo.SM_FLAW01.getId()
                 ));
+    }
+
+
+    private void reqMyLocation() {
+        if(addressVO==null) {
+            showProgressDialog(true);
+            findMyLocation(location -> {
+                showProgressDialog(false);
+                if (location == null) {
+                    return;
+                }
+                addressVO = new AddressVO();
+                addressVO.setCenterLat(location.getLatitude());
+                addressVO.setCenterLon(location.getLongitude());
+            }, 5000,GpsRetType.GPS_RETURN_FIRST, false);
+        }
     }
 }

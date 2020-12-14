@@ -20,6 +20,7 @@ import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.FragmentServiceCarWashBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
+import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
 
@@ -52,11 +53,9 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
         setObserver();
     }
 
-    //TODO : 이중 클릭 방지 클릭 리스너 붙이기. 세차 서비스 예약내역 버튼인데
-    // 이 버튼이 리사이클러 뷰에 들어가서 어댑터가 이걸 처리할지, 현행 그대로 둘지 고려
-    // 스크롤 범위 지정이 아직도 기획에서 안 내려옴
     private void setOnSingleClickListener() {
         me.lServiceCarWashHistoryBtn.lServiceCarWash.setOnClickListener(onSingleClickListener);
+        me.lServiceCarWashCostBtn.lServiceCarWashCost.setOnClickListener(onSingleClickListener);
     }
 
     private void setViewModel() {
@@ -132,7 +131,20 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
             case R.id.l_service_car_wash_history_btn:
                 ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), CarWashHistoryActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
-
+            case R.id.l_service_car_wash_cost_btn:
+                String url = "";
+                try{
+                    url = viewModel.getRES_WSH_1001().getValue().data.getGodsCostUri();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }finally {
+                    if(TextUtils.isEmpty(url)){
+                        SnackBarUtil.show(getActivity(), "가격 정보가 존재하지 않습니다.");
+                    }else{
+                        ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, url).putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.sm_cw02_1), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    }
+                }
+                break;
             //세차 쿠폰 선택(지점 검색(지도) 액티비티 열기)
             case R.id.l_service_car_wash_item:
                 //선택한 쿠폰 정보를 새 액티비티에 가지고 가야 한다

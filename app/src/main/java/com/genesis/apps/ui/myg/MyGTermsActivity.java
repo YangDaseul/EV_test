@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.myg;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.webkit.WebView;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -18,6 +19,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
+import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0001;
+import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0002;
+import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0003;
+import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0004;
+import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0005;
+
 /**
  * 앱 이용약관 : 1000
  * 개인정보처리방침 : 2000
@@ -27,11 +34,6 @@ import java.nio.charset.StandardCharsets;
  */
 public class MyGTermsActivity extends WebviewActivity {
     public static final String TERMS_CODE="termsCd";
-    public static final String TERMS_1000="1000";
-    public static final String TERMS_2000="2000";
-    public static final String TERMS_3000="3000";
-    public static final String TERMS_4000="4000";
-    public static final String TERMS_5000="5000";
     public static final String TERMS_6000="6000"; //오픈소스 라이선스
     private String termsCd;
     private int titleId;
@@ -44,23 +46,24 @@ public class MyGTermsActivity extends WebviewActivity {
         setObserver();
         String menuId="";
         switch (termsCd){
-            case TERMS_1000:
+            case TERM_SERVICE_JOIN_GRA0001:
                 titleId = R.string.title_terms_1;
                 menuId = APPIAInfo.MG_MENU01.getId();
                 break;
-            case TERMS_2000:
+            case TERM_SERVICE_JOIN_GRA0002:
                 titleId = R.string.title_terms_2;
                 menuId = APPIAInfo.MG_MENU02.getId();
                 break;
-            case TERMS_3000:
+            case TERM_SERVICE_JOIN_GRA0003:
                 titleId = R.string.title_terms_3;
                 break;
-            case TERMS_4000:
+            case TERM_SERVICE_JOIN_GRA0005:
                 titleId = R.string.title_terms_4;
                 break;
-            case TERMS_5000:
+            case TERM_SERVICE_JOIN_GRA0004:
                 titleId = R.string.title_terms_5;
                 break;
+            default:
             case TERMS_6000:
                 titleId = R.string.title_terms_6;
                 break;
@@ -76,8 +79,7 @@ public class MyGTermsActivity extends WebviewActivity {
                     case SUCCESS:
                         showProgressDialog(false);
                         if (responseNetUI.data != null&&responseNetUI.data.getTermList()!=null&&responseNetUI.data.getTermList().size()>0) {
-//                            loadTerms(responseNetUI.data.getTermList().get(0)); <---2020-10-26 검수용 버전으로 임시 삭선처리됨
-                            initWebview(responseNetUI.data.getTermList().get(0).getTermCont());//임시코드
+                            loadTerms(responseNetUI.data.getTermList().get(0));
                             return;
                         }
                     default:
@@ -85,7 +87,6 @@ public class MyGTermsActivity extends WebviewActivity {
                         break;
                 }
             });
-            //TODO LOADING에 대한 처리 해야함
             mypViewModel.reqMYP8001(new MYP_8001.Request(menuId, termsCd));
         }else{
             loadTerms(new TermVO("",TERMS_6000,getString(R.string.title_terms_6),getStringFromAssetsFile(),""));
@@ -145,7 +146,13 @@ public class MyGTermsActivity extends WebviewActivity {
 
     @Override
     public void getDataFromIntent() {
-        termsCd = getIntent().getStringExtra(TERMS_CODE);
+        try {
+            termsCd = getIntent().getStringExtra(TERMS_CODE);
+        }catch (Exception e){
+
+        }finally {
+            if(TextUtils.isEmpty(termsCd)) termsCd = TERMS_6000;
+        }
     }
 
     @Override

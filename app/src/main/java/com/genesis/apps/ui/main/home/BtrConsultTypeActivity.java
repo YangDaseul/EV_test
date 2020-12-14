@@ -49,8 +49,8 @@ public class BtrConsultTypeActivity extends SubActivity<ActivityBtrConsultType1B
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layouts[0]);
-        getDataFromIntent();
         setViewModel();
+        getDataFromIntent();
         setObserver();
         initView();
         btrViewModel.reqBTR2001(new BTR_2001.Request(APPIAInfo.GM_BT04.getId(), VariableType.BTR_CNSL_CODE_CNSL,"","",""));
@@ -64,7 +64,7 @@ public class BtrConsultTypeActivity extends SubActivity<ActivityBtrConsultType1B
     @Override
     public void getDataFromIntent() {
         try {
-            vin = getIntent().getStringExtra(KeyNames.KEY_NAME_VIN);
+            vin = btrViewModel.getMainVehicleSimplyFromDB().getVin();
             if (TextUtils.isEmpty(vin)) {
                 exitPage("차대번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }

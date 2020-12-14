@@ -188,4 +188,26 @@ class CBKViewModel extends ViewModel {
         }
     }
 
+
+    public VehicleVO getMainVehicleSimplyFromDB() throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<VehicleVO> future = es.getListeningExecutorService().submit(()->{
+            VehicleVO vehicleVO = null;
+            try {
+                vehicleVO = dbVehicleRepository.getMainVehicleSimplyFromDB();
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+                vehicleVO = null;
+            }
+            return vehicleVO;
+        });
+
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
+    }
+
+
 }

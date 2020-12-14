@@ -37,8 +37,8 @@ public class WarrantyRepairGuideActivity extends SubActivity<ActivityWarrantyRep
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_warranty_repair_guide);
-        getDataFromIntent();
         setViewModel();
+        getDataFromIntent();
         setObserver();
         wrtViewModel.reqWRT1001(new WRT_1001.Request(APPIAInfo.GM01_02.getId(), vin));
     }
@@ -86,7 +86,8 @@ public class WarrantyRepairGuideActivity extends SubActivity<ActivityWarrantyRep
     @Override
     public void getDataFromIntent() {
         try {
-            vin = getIntent().getStringExtra(KeyNames.KEY_NAME_VIN);
+//            vin = getIntent().getStringExtra(KeyNames.KEY_NAME_VIN);
+            vin = wrtViewModel.getMainVehicleSimplyFromDB().getVin();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

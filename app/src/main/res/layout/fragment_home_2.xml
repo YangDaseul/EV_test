@@ -23,14 +23,11 @@
             android:layout_height="match_parent"
             android:background="@color/x_f4f4f4"
             android:layout_marginTop="40dp"
-            android:paddingTop="40dp"
             android:paddingBottom="100dp">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"/>
+                android:layout_height="match_parent" />
         </com.genesis.apps.ui.common.view.NestedScrollableHost>
     </FrameLayout>
 

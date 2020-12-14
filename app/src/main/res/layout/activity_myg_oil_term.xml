@@ -108,36 +108,6 @@
 
                 </LinearLayout>
 
-                <View
-                    android:id="@+id/v_line_1"
-                    android:layout_width="0dp"
-                    android:layout_height="10dp"
-                    android:background="@color/x_f4f4f4"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/l_term_top" />
-
-
-                <TextView
-                    android:id="@+id/tv_3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:background="@drawable/bg_ffffff_underline_e2e2e2"
-                    android:fontFamily="@font/regular_genesissansheadglobal"
-                    android:gravity="left|center_vertical"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="4sp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="15dp"
-                    android:textColor="@color/x_000000"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/v_line_1"
-                    tools:text="GSPOINT 이용약관" />
-
 
                 <LinearLayout
                     android:id="@+id/l_term_bottom"
@@ -145,109 +115,109 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_ffffff_topline_e2e2e2"
                     android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_1"
-                    app:layout_constraintStart_toStartOf="@+id/tv_1"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_3">
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/l_term_top">
 
 
                 </LinearLayout>
 
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/l_agree"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="@color/x_f4f4f4"
-                    android:padding="20dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/l_term_bottom">
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:id="@+id/l_agree"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@color/x_f4f4f4"-->
+<!--                    android:padding="20dp"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintRight_toRightOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/l_term_bottom">-->
 
-                    <TextView
-                        android:id="@+id/tv_agree_info"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:gravity="left|center_vertical"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="6sp"
-                        android:text="@string/mg_con02_01_7"
-                        android:textColor="@color/x_141414"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <CheckBox
-                        android:id="@+id/cb_phone"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:button="@null"
-                        android:drawableStart="@drawable/checkbox_selector"
-                        android:drawablePadding="8dp"
-                        android:fontFamily="@font/light_genesissansheadglobal"
-                        android:text="@string/mg_con02_01_8"
-                        android:textColor="@color/x_000000"
-                        android:textSize="15sp"
-                        app:layout_constraintEnd_toStartOf="@+id/cb_sms"
-                        app:layout_constraintHorizontal_chainStyle="spread_inside"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_agree_info" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_agree_info"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:fontFamily="@font/regular_genesissanstextglobal"-->
+<!--                        android:gravity="left|center_vertical"-->
+<!--                        android:letterSpacing="-0.01"-->
+<!--                        android:lineSpacingExtra="6sp"-->
+<!--                        android:text="@string/mg_con02_01_7"-->
+<!--                        android:textColor="@color/x_141414"-->
+<!--                        android:textSize="14sp"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
 
 
-                    <CheckBox
-                        android:id="@+id/cb_sms"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:button="@null"
-                        android:drawableStart="@drawable/checkbox_selector"
-                        android:drawablePadding="8dp"
-                        android:fontFamily="@font/light_genesissansheadglobal"
-                        android:text="@string/mg_con02_01_9"
-                        android:textColor="@color/x_000000"
-                        android:textSize="15sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/cb_phone"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_agree_info" />
+<!--                    <CheckBox-->
+<!--                        android:id="@+id/cb_phone"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:button="@null"-->
+<!--                        android:drawableStart="@drawable/checkbox_selector"-->
+<!--                        android:drawablePadding="8dp"-->
+<!--                        android:fontFamily="@font/light_genesissansheadglobal"-->
+<!--                        android:text="@string/mg_con02_01_8"-->
+<!--                        android:textColor="@color/x_000000"-->
+<!--                        android:textSize="15sp"-->
+<!--                        app:layout_constraintEnd_toStartOf="@+id/cb_sms"-->
+<!--                        app:layout_constraintHorizontal_chainStyle="spread_inside"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/tv_agree_info" />-->
 
 
-                    <CheckBox
-                        android:id="@+id/cb_mail"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:button="@null"
-                        android:drawableStart="@drawable/checkbox_selector"
-                        android:drawablePadding="8dp"
-                        android:fontFamily="@font/light_genesissansheadglobal"
-                        android:text="@string/mg_con02_01_10"
-                        android:textColor="@color/x_000000"
-                        android:textSize="15sp"
-                        app:layout_constraintEnd_toStartOf="@+id/cb_dm"
-                        app:layout_constraintHorizontal_chainStyle="spread_inside"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/cb_phone" />
+<!--                    <CheckBox-->
+<!--                        android:id="@+id/cb_sms"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:button="@null"-->
+<!--                        android:drawableStart="@drawable/checkbox_selector"-->
+<!--                        android:drawablePadding="8dp"-->
+<!--                        android:fontFamily="@font/light_genesissansheadglobal"-->
+<!--                        android:text="@string/mg_con02_01_9"-->
+<!--                        android:textColor="@color/x_000000"-->
+<!--                        android:textSize="15sp"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toEndOf="@+id/cb_phone"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/tv_agree_info" />-->
 
 
-                    <CheckBox
-                        android:id="@+id/cb_dm"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:button="@null"
-                        android:drawableStart="@drawable/checkbox_selector"
-                        android:drawablePadding="8dp"
-                        android:fontFamily="@font/light_genesissansheadglobal"
-                        android:text="@string/mg_con02_01_11"
-                        android:textColor="@color/x_000000"
-                        android:textSize="15sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/cb_mail"
-                        app:layout_constraintTop_toTopOf="@+id/cb_mail" />
+<!--                    <CheckBox-->
+<!--                        android:id="@+id/cb_mail"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="15dp"-->
+<!--                        android:button="@null"-->
+<!--                        android:drawableStart="@drawable/checkbox_selector"-->
+<!--                        android:drawablePadding="8dp"-->
+<!--                        android:fontFamily="@font/light_genesissansheadglobal"-->
+<!--                        android:text="@string/mg_con02_01_10"-->
+<!--                        android:textColor="@color/x_000000"-->
+<!--                        android:textSize="15sp"-->
+<!--                        app:layout_constraintEnd_toStartOf="@+id/cb_dm"-->
+<!--                        app:layout_constraintHorizontal_chainStyle="spread_inside"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/cb_phone" />-->
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--                    <CheckBox-->
+<!--                        android:id="@+id/cb_dm"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:button="@null"-->
+<!--                        android:drawableStart="@drawable/checkbox_selector"-->
+<!--                        android:drawablePadding="8dp"-->
+<!--                        android:fontFamily="@font/light_genesissansheadglobal"-->
+<!--                        android:text="@string/mg_con02_01_11"-->
+<!--                        android:textColor="@color/x_000000"-->
+<!--                        android:textSize="15sp"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toEndOf="@+id/cb_mail"-->
+<!--                        app:layout_constraintTop_toTopOf="@+id/cb_mail" />-->
+
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 

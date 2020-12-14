@@ -35,7 +35,6 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
     private int reviewType;
     private String rsvtSeqNo;
     private String transId;
-    private String vin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,8 +96,8 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
         //대리운전
         try {
             transId = intent.getStringExtra(KeyNames.KEY_NAME_REVIEW_TRANS_ID);
-            vin = intent.getStringExtra(KeyNames.KEY_NAME_REVIEW_VIN);
-            if (!TextUtils.isEmpty(transId) && !TextUtils.isEmpty(vin)) {
+//            vin = intent.getStringExtra(KeyNames.KEY_NAME_REVIEW_VIN);
+            if (!TextUtils.isEmpty(transId)) {
                 reviewType = REVIEW_DRIVE;
                 return;
             }
@@ -282,7 +281,6 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
     private void reqServiceDriveReview(String starRating, String reviewInput) {
         ddsViewModel.reqDDS1005(
                 new DDS_1005.Request(APPIAInfo.SM_REVIEW01.getId(),
-                        vin,
                         transId,
                         starRating,
                         reviewInput));

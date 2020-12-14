@@ -6,8 +6,11 @@
         android:id="@+id/l_service_car_wash"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@drawable/ripple_bg_000000_round_10"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/ripple_bg_000000"
         android:clickable="true"
         android:elevation="5dp"
         android:focusable="true"
@@ -20,7 +23,8 @@
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:text="@string/sm01_car_wash_1"
             android:textColor="@color/x_ffffff"
-            android:textSize="20sp"
+            android:textSize="16sp"
+            android:lineSpacingExtra="8sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,6 +38,7 @@
             android:text="@string/sm01_car_wash_2"
             android:textColor="@color/x_aaabaf"
             android:textSize="14sp"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_service_car_wash_reserv_history_title" />
 

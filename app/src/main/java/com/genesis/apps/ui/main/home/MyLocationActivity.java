@@ -6,9 +6,14 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.developers.Distance;
+import com.genesis.apps.comm.model.api.developers.Dte;
+import com.genesis.apps.comm.model.api.developers.Odometer;
+import com.genesis.apps.comm.model.api.developers.ParkLocation;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.vo.map.ReverseGeocodingReqVO;
+import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.MapViewModel;
 import com.genesis.apps.databinding.ActivityMap2Binding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomAddressBinding;
@@ -19,12 +24,14 @@ import com.hmns.playmap.PlayMapPoint;
 import com.hmns.playmap.extension.PlayMapGeoItem;
 import com.hmns.playmap.shape.PlayMapMarker;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
+    private DevelopersViewModel developersViewModel;
     private MapViewModel mapViewModel;
     private List<String> vehiclePosition;
     private Double[] myPosition = new Double[2];
@@ -32,10 +39,9 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map2);
-        getDataFromIntent();
         setViewModel();
         setObserver();
-        reqMyLocation();
+        getDataFromIntent();
     }
 
     @Override
@@ -52,20 +58,59 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
             e.printStackTrace();
         }finally{
             if(vehiclePosition==null||vehiclePosition.size()!=2){
-                exitPage("위치 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                reqCarInfoToDevelopers(getVin());
+            }else{
+                reqMyLocation();
             }
         }
     }
+
+    private String getVin(){
+        String vin="";
+
+        try{
+            vin = developersViewModel.getMainVehicleSimplyFromDB().getVin();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            if(TextUtils.isEmpty(vin)){
+                exitPage("위치 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+            }
+
+            return vin;
+        }
+    }
+
 
     @Override
     public void setViewModel() {
         ui.setLifecycleOwner(this);
         mapViewModel = new ViewModelProvider(this).get(MapViewModel.class);
-
+        developersViewModel = new ViewModelProvider(this).get(DevelopersViewModel.class);
     }
 
     @Override
     public void setObserver() {
+
+        developersViewModel.getRES_PARKLOCATION().observe(this, result -> {
+            switch (result.status) {
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    if (result.data != null && result.data.getLat() != 0 && result.data.getLon() != 0) {
+                        showProgressDialog(false);
+                        vehiclePosition = new ArrayList<>();
+                        vehiclePosition.add(result.data.getLat()+"");
+                        vehiclePosition.add(result.data.getLon()+"");
+                        reqMyLocation();
+                        break;
+                    }
+                default:
+                    showProgressDialog(false);
+                    exitPage("위치 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.RES_CODE_NETWORK.getCode());
+                    break;
+            }
+        });
 
         mapViewModel.getPlayMapGeoItem().observe(this, result -> {
 
@@ -160,7 +205,16 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
                 mapViewModel.reqPlayMapGeoItem(new ReverseGeocodingReqVO(Double.parseDouble(vehiclePosition.get(0)),Double.parseDouble(vehiclePosition.get(1)),0));
             });
 
-        }, 5000);
+        }, 5000, GpsRetType.GPS_RETURN_HIGH, false);
     }
 
+
+    private void reqCarInfoToDevelopers(String vin) {
+        String carId = developersViewModel.getCarId(vin);
+        if (!TextUtils.isEmpty(carId)) {
+            developersViewModel.reqParkLocation(new ParkLocation.Request(carId));
+        }else{
+            exitPage("위치 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+        }
+    }
 }

@@ -19,12 +19,10 @@ import com.genesis.apps.comm.model.api.developers.Odometer;
 import com.genesis.apps.comm.model.api.developers.ParkLocation;
 import com.genesis.apps.comm.model.api.gra.LGN_0003;
 import com.genesis.apps.comm.model.api.gra.LGN_0005;
-import com.genesis.apps.comm.model.api.gra.STO_1002;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.constants.WeatherCodes;
-import com.genesis.apps.comm.model.vo.BtoVO;
 import com.genesis.apps.comm.model.vo.DownMenuVO;
 import com.genesis.apps.comm.model.vo.MessageVO;
 import com.genesis.apps.comm.model.vo.QuickMenuVO;
@@ -38,6 +36,7 @@ import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentHome1Binding;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
+import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.activity.WebviewActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
@@ -63,10 +62,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
-
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static android.app.Activity.RESULT_OK;
+import static com.genesis.apps.comm.model.api.APPIAInfo.GM_BTO1;
+import static com.genesis.apps.comm.model.api.APPIAInfo.GM_BTO2;
 import static com.google.android.exoplayer2.Player.REPEAT_MODE_ALL;
 import static com.google.android.exoplayer2.Player.STATE_IDLE;
 
@@ -96,7 +96,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         super.onActivityCreated(savedInstanceState);
         initViewModel();
         initView();
-        setVideo();
+        setVideo(false);
         setViewWeather();
         recordUtil.regReceiver();
     }
@@ -108,30 +108,30 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         cmnViewModel = new ViewModelProvider(getActivity()).get(CMNViewModel.class);
         developersViewModel = new ViewModelProvider(getActivity()).get(DevelopersViewModel.class);
 
-        lgnViewModel.getRES_STO_1002().observe(getViewLifecycleOwner(), result -> {
-            switch (result.status) {
-                case LOADING:
-                    ((MainActivity) getActivity()).showProgressDialog(true);
-                    break;
-                case SUCCESS:
-                    if (result.data != null && !TextUtils.isEmpty(result.data.getHtmlFilUri())) {
-                        ((MainActivity) getActivity()).showProgressDialog(false);
-                        ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, result.data.getHtmlFilUri()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                        break;
-                    }
-                default:
-                    ((MainActivity) getActivity()).showProgressDialog(false);
-                    String serverMsg = "";
-                    try {
-                        serverMsg = result.data.getRtMsg();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        SnackBarUtil.show(getActivity(), serverMsg);
-                    }
-                    break;
-            }
-        });
+//        lgnViewModel.getRES_STO_1002().observe(getViewLifecycleOwner(), result -> {
+//            switch (result.status) {
+//                case LOADING:
+//                    ((MainActivity) getActivity()).showProgressDialog(true);
+//                    break;
+//                case SUCCESS:
+//                    if (result.data != null && !TextUtils.isEmpty(result.data.getHtmlFilUri())) {
+//                        ((MainActivity) getActivity()).showProgressDialog(false);
+//                        ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, result.data.getHtmlFilUri()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                        break;
+//                    }
+//                default:
+//                    ((MainActivity) getActivity()).showProgressDialog(false);
+//                    String serverMsg = "";
+//                    try {
+//                        serverMsg = result.data.getRtMsg();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    } finally {
+//                        SnackBarUtil.show(getActivity(), serverMsg);
+//                    }
+//                    break;
+//            }
+//        });
 
 
         lgnViewModel.getRES_LGN_0003().observe(getViewLifecycleOwner(), result -> {
@@ -298,7 +298,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 //TODO 테스트 필요
                 lgnViewModel.setPosition(location.getLatitude(), location.getLongitude());
             });
-        }, 5000);
+        }, 5000, GpsBaseActivity.GpsRetType.GPS_RETURN_FIRST, false);
     }
 
     @Override
@@ -384,25 +384,25 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     }
 
     private void startTimer() {
-        if (adapter.getRealItemCnt() > 1) {
 
-            if (timer == null)
-                timer = new Timer();
+        if (timer == null)
+            timer = new Timer();
 
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    getActivity().runOnUiThread(() -> {
-                        try {
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                getActivity().runOnUiThread(() -> {
+                    try {
+                        if (adapter.getRealItemCnt() > 1) {
                             me.vpInsight.setCurrentItem(me.vpInsight.getCurrentItem() + 1, true);
-                        } catch (Exception e) {
-                            e.printStackTrace();
                         }
-                    });
-                }
-            }, 6000, 5000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+        }, 6000, 5000);
 
-        }
     }
 
     private void pauseTimer() {
@@ -525,6 +525,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     }
 
+    //todo baseactivity의 함수로 대체가능한지 확인 필요. (주차위치확인)
     private void moveToNativePage(String lnkUri) {
         lnkUri = lnkUri.replace(KeyNames.KEY_NAME_INTERNAL_LINK, "");
         switch (APPIAInfo.findCode(lnkUri)) {
@@ -558,28 +559,11 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 recordUtil.checkRecordPermission();
                 break;
             case GM_BTO1://BTO
-                lgnViewModel.reqSTO1002(new STO_1002.Request(APPIAInfo.GM01.getId()));
+                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_APP_IA_INFO, GM_BTO1), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                lgnViewModel.reqSTO1002(new STO_1002.Request(APPIAInfo.GM01.getId()));
                 break;
             case GM_BTO2://견적내기
-                VehicleVO vehicleVO = null;
-                BtoVO btoVO = null;
-                try {
-                    vehicleVO = lgnViewModel.getMainVehicleFromDB();
-
-                    if (vehicleVO != null && !TextUtils.isEmpty(vehicleVO.getMdlNm())) {
-                        btoVO = cmnViewModel.getBtoVO(vehicleVO.getMdlNm());
-                    }
-                }catch (Exception e){
-                    e.printStackTrace();
-                }finally {
-                    if (btoVO == null) {
-                        //todo 메시지 재 정의 필요
-                        SnackBarUtil.show(getActivity(), "BTO 정보가 존재하지 않습니다.");
-                    } else {
-                        ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, btoVO.getHtmlFilUri()+btoVO.getMdlNm()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                        //                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, url).putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, titleId), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                    }
-                }
+                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_APP_IA_INFO, GM_BTO2), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case GM02_CTR01://계약서 조회
                 //todo 전문 확인 필요
@@ -635,13 +619,14 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                                     //네이티브 링크로 이동
                                     //TODO 네이티브로 이동하는 부분은 처리 필요
                                 } else {
-                                    if (TextUtils.isEmpty(wvYn) || wvYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
-                                        ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), WebviewActivity.class).putExtra(KeyNames.KEY_NAME_URL, lnkUri), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                                    } else {
-                                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                                        intent.setData(Uri.parse(lnkUri));
-                                        startActivity(intent); //TODO 테스트 필요 0002
-                                    }
+                                    ((MainActivity) getActivity()).moveToExternalPage(lnkUri, wvYn);
+//                                    if (TextUtils.isEmpty(wvYn) || wvYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
+//                                        ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), WebviewActivity.class).putExtra(KeyNames.KEY_NAME_URL, lnkUri), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                                    } else {
+//                                        Intent intent = new Intent(Intent.ACTION_VIEW);
+//                                        intent.setData(Uri.parse(lnkUri));
+//                                        startActivity(intent); //TODO 테스트 필요 0002
+//                                    }
                                     //외부 링크로 이동
                                 }
                             }
@@ -680,10 +665,10 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     }
 
 
-    private void setVideo() {
+    private void setVideo(boolean isForce) {
         try {
 
-            if (player == null) {
+            if (player == null||isForce) {
                 player = new SimpleExoPlayer.Builder(getContext()).build();
                 player.setVolume(0);
                 player.setRepeatMode(REPEAT_MODE_ALL);
@@ -712,7 +697,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         Log.v("video player status", "isResume:" + isResume);
 
         if (isResume && player != null && player.getPlaybackState() == STATE_IDLE) {
-            setVideo();
+            setVideo(true);
         }
 
         player.setPlayWhenReady(isResume);

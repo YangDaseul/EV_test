@@ -18,8 +18,6 @@ import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.databinding.ActivityPrivilegeApplyBinding;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.common.activity.WebviewActivity;
-import com.genesis.apps.ui.main.MainActivity;
 import com.genesis.apps.ui.myg.view.PrivilegeApplyAdapter;
 
 import androidx.lifecycle.ViewModelProvider;

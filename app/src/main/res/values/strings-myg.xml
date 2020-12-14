@@ -170,7 +170,7 @@
     <string name="mg_con02_01_4">아래의 약관에 동의해 주세요.</string>
     <string name="mg_con02_01_5">전체 약관에 동의합니다.</string>
     <string name="mg_con02_01_6">%s 이용약관</string>
-    <string name="mg_con02_01_7">포인트와 관련된 이벤트 정보, 이벤트, 상품/서비스 안내 등의 정보 수신 방법 선택 (선택)</string>
+    <string name="mg_con02_01_7">수신동의 시 다양한 멤버십 혜택, 이벤트 안내 등을 받으실 수 있습니다. (선택)</string>
     <string name="mg_con02_01_8">전화</string>
     <string name="mg_con02_01_9">메시지 서비스</string>
     <string name="mg_con02_01_10">전자우편 (EM)</string>
@@ -178,6 +178,14 @@
     <string name="mg_con02_01_12">다음</string>
     <string name="mg_con02_01_13">(선택)</string>
     <string name="mg_con02_01_14">(필수)</string>
+
+    <string name="mg_con02_01_15">현대오일뱅크는 고객님의 명시적인 수신동의에 의해서만 영리목적의 광고성 정보를 전송합니다.</string>
+    <string name="mg_con02_01_16">개인정보의 수집 ● 이용 목적</string>
+    <string name="mg_con02_01_17">마케팅 목적 : 신규 서비스 및 신상품 안내, 기타 이벤트 정보 안내와 마케팅 활동</string>
+    <string name="mg_con02_01_18">수집하는 개인정보의 항목 및 수집방법</string>
+    <string name="mg_con02_01_19">성명, 휴대폰번호, 생년월일, 성별, 이메일, 주소, 아이디 (온라인/오프라인 회원가입)</string>
+    <string name="mg_con02_01_20">개인정보의 보유 및 이용기간</string>
+    <string name="mg_con02_01_21">회원 탈퇴 시까지 혹은 동의 철회 시까지</string>
 
 
 
