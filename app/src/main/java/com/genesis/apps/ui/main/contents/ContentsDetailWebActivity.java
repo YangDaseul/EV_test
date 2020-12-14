@@ -24,6 +24,7 @@ import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.ContentsVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CTTViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -184,7 +185,7 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
         try {
             if("Y".equals(contentsVO.getEvalYn()) && !VariableType.MAIN_VEHICLE_TYPE_0000.equals(lgnViewModel.getUserInfoFromDB().getCustGbCd())) {
                 ui.includeLayout.llRate.setVisibility(View.VISIBLE);
-                ui.includeLayout.tvRateContent.setText(contentsVO.getEvalQst());
+                ui.includeLayout.tvRateContent.setText(DeviceUtil.fromHtml(contentsVO.getEvalQst()));
             } else {
                 ui.includeLayout.llRate.setVisibility(View.GONE);
             }

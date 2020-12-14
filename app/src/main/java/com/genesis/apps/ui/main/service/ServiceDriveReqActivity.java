@@ -31,6 +31,7 @@ import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.PositionVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.DDSViewModel;
 import com.genesis.apps.comm.viewmodel.RoadWinViewModel;
@@ -178,6 +179,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         if (!buttonEnable) {
             return;
         }
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
 
         switch (v.getId()) {
             //이용 내역
@@ -583,6 +585,8 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
         //다음 단게 뷰 해금
         for (View v : views) {
+            if(v.getVisibility() == View.GONE) SoftKeyboardUtil.showKeyboard(this);
+
             v.setVisibility(View.VISIBLE);
         }
 
