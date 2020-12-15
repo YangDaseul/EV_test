@@ -45,6 +45,7 @@
 
     <color name="x_161616">#161616</color>
     <color name="x_141414">#141414</color>
+    <color name="x_111111">#111111</color>
     <!--  TODO : 색 이름이랑 값이 다름-->
     <color name="x_cc141414">#ee141414</color>
     <color name="x_e6141414">#e6141414</color>

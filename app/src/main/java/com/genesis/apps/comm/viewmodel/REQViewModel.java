@@ -23,6 +23,7 @@ import com.genesis.apps.comm.model.api.gra.REQ_1014;
 import com.genesis.apps.comm.model.api.gra.REQ_1015;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.REQRepo;
+import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.CouponVO;
 import com.genesis.apps.comm.model.vo.ExpnVO;
 import com.genesis.apps.comm.model.vo.RepairGroupVO;
@@ -395,7 +396,18 @@ class REQViewModel extends ViewModel {
         }
     }
 
+    public BtrVO getBtrVO(String asnCd){
 
+        if(RES_REQ_1002.getValue()!=null&&RES_REQ_1002.getValue().data!=null&&RES_REQ_1002.getValue().data.getAsnList()!=null) {
+            for (BtrVO btrVO : RES_REQ_1002.getValue().data.getAsnList()) {
+                if (btrVO.getAsnCd().equalsIgnoreCase(asnCd)) {
+                    return btrVO;
+                }
+            }
+        }
+
+        return null;
+    }
     
     
     

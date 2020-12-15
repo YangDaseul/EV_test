@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.TextView;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
@@ -21,6 +22,7 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.BTRViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -28,6 +30,7 @@ import com.genesis.apps.comm.viewmodel.PUBViewModel;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.ActivityMap2Binding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomSelectBinding;
+import com.genesis.apps.databinding.LayoutMapOverlayUiBottomSelectNewBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
@@ -41,6 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 /**
@@ -63,7 +67,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     private PUBViewModel pubViewModel;
     private REQViewModel reqViewModel;
     private BtrVO btrVO = null;
-    private LayoutMapOverlayUiBottomSelectBinding bottomSelectBinding;
+    private LayoutMapOverlayUiBottomSelectNewBinding bottomSelectBinding;
     private String fillerCd = "";
     private String addr = "";
     private String addrDtl = "";
@@ -97,19 +101,28 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     case MotionEvent.ACTION_DOWN:
                         break;
                     case MotionEvent.ACTION_UP:
-                        BtrVO btrVO = btrViewModel.getBtrVO(makerList.get(0).getId());
-                        if (btrVO != null) {
-                            ui.pmvMapView.removeAllMarkerItem();
+                        BtrVO btrVO=null;
+                        List<BtrVO> list=new ArrayList<>();
+                        try {
                             switch (pageType) {
                                 case PAGE_TYPE_BTR:
                                 case PAGE_TYPE_RENT:
-                                    setPosition(btrViewModel.getRES_BTR_1008().getValue().data.getAsnList(), btrVO);
+                                    btrVO = btrViewModel.getBtrVO(makerList.get(0).getId());
+                                    list = btrViewModel.getRES_BTR_1008().getValue().data.getAsnList();
                                     break;
                                 case PAGE_TYPE_SERVICE:
                                 case PAGE_TYPE_REPAIR:
                                 default:
-                                    setPosition(reqViewModel.getRES_REQ_1002().getValue().data.getAsnList(), btrVO);
+                                    btrVO = reqViewModel.getBtrVO(makerList.get(0).getId());
+                                    list = reqViewModel.getRES_REQ_1002().getValue().data.getAsnList();
                                     break;
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }finally {
+                            if (btrVO != null) {
+                                ui.pmvMapView.removeAllMarkerItem();
+                                setPosition(list, btrVO);
                             }
                         }
                         break;
@@ -338,7 +351,22 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     public void onClickCommon(View v) {
 
         switch (v.getId()) {
-            case R.id.tv_map_select_btn1://선택
+            case R.id.tv_auth_1:
+            case R.id.tv_auth_2:
+            case R.id.tv_auth_3:
+            case R.id.tv_auth_4:
+                //todo 안내메시지 표시 tag넣어야함
+
+                break;
+            case R.id.btn_left_white:
+                switch (pageType){
+                    case PAGE_TYPE_REPAIR:
+                    case PAGE_TYPE_SERVICE:
+                        //todo 대표가격보기
+                        break;
+                }
+                break;
+            case R.id.btn_right_black://선택
                 switch (pageType){
                     case PAGE_TYPE_BTR:
                         //todo 아래 vin정보와 asncd가 유효한 값인지 확인 필요
@@ -358,22 +386,9 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         //todo 예약 시 이펙트..
                         break;
                 }
-//
-//                switch (btnStrId){
-//                    case R.string.bt06_14:
-//                        //버틀러 신청 서비스인 경우
-//                        //todo 아래 vin정보와 asncd가 유효한 값인지 확인 필요
-//                        btrViewModel.reqBTR1009(new BTR_1009.Request(APPIAInfo.GM_BT06.getId(), btrVO.getVin(), btrVO.getAsnCd()));
-//                        break;
-//                    default:
-//                        //기타 렌트리스.
-//                        setResult(ResultCodes.REQ_CODE_BTR.getCode(), new Intent().putExtra(KeyNames.KEY_NAME_BTR, btrVO));
-//                        finish();
-//                        break;
-//                }
                 break;
             case R.id.tv_map_select_btn2://목록
-
+                //todo id 변경 필요
                 List<BtrVO> list = new ArrayList<>();
 
                 switch (pageType){
@@ -504,40 +519,106 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
         }
     }
 
+//    private void setPosition(List<BtrVO> list, BtrVO btrVO) {
+//
+//        if(list==null)
+//            return;
+//
+//        this.btrVO = btrVO;
+//        if (bottomSelectBinding == null) {
+//            setViewStub(R.id.vs_map_overlay_bottom_box, R.layout.layout_map_overlay_ui_bottom_select, new ViewStub.OnInflateListener() {
+//                @Override
+//                public void onInflate(ViewStub viewStub, View inflated) {
+//                    bottomSelectBinding = DataBindingUtil.bind(inflated);
+//                    bottomSelectBinding.setActivity(ServiceNetworkActivity.this);
+//                    switch (pageType){
+//                        case PAGE_TYPE_BTR:
+//                            bottomSelectBinding.tvMapSelectBtn1.setText(R.string.bt06_14);
+//                            break;
+//                        case PAGE_TYPE_RENT:
+//                            bottomSelectBinding.tvMapSelectBtn1.setText(R.string.bt06_15);
+//                            break;
+//                        case PAGE_TYPE_REPAIR:
+//                            bottomSelectBinding.tvMapSelectBtn1.setText(R.string.map_btn_1);
+//                            break;
+//                        case PAGE_TYPE_SERVICE:
+//                        default:
+//                            String custGbCd = lgnViewModel.getDbUserRepo().getUserVO().getCustGbCd();
+//                            if(!TextUtils.isEmpty(custGbCd)&&custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)){//서비스네트워크에서는 차량 소유 고객에게만 예약버튼 제공
+//                                bottomSelectBinding.tvMapSelectBtn1.setVisibility(View.VISIBLE);
+//                                bottomSelectBinding.tvMapSelectBtn1.setText(R.string.map_btn_3);
+//                            }else{
+//                                bottomSelectBinding.tvMapSelectBtn1.setVisibility(View.INVISIBLE);
+//                            }
+//                            break;
+//                    }
+//                    bottomSelectBinding.setData(btrVO);
+//                }
+//            });
+//        } else {
+//            bottomSelectBinding.setData(btrVO);
+//        }
+//
+//        for (int i = 0; i < list.size(); i++) {
+//            if (btrVO.getAsnCd().equalsIgnoreCase(list.get(i).getAsnCd())) {
+//                drawMarkerItem(list.get(i), R.drawable.ic_pin_carcenter);
+//            } else {
+//                drawMarkerItem(list.get(i), R.drawable.ic_pin);
+//            }
+//        }
+//        ui.pmvMapView.setMapCenterPoint(new PlayMapPoint( Double.parseDouble(btrVO.getMapYcooNm()), Double.parseDouble(btrVO.getMapXcooNm())), 500);
+//    }
+
+
     private void setPosition(List<BtrVO> list, BtrVO btrVO) {
+
+        if(list==null)
+            return;
+
         this.btrVO = btrVO;
         if (bottomSelectBinding == null) {
-            setViewStub(R.id.vs_map_overlay_bottom_box, R.layout.layout_map_overlay_ui_bottom_select, new ViewStub.OnInflateListener() {
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams)findViewById(R.id.vs_map_overlay_bottom_box).getLayoutParams();
+            params.setMargins(0,0,0,0);
+            findViewById(R.id.vs_map_overlay_bottom_box).setLayoutParams(params);
+            setViewStub(R.id.vs_map_overlay_bottom_box, R.layout.layout_map_overlay_ui_bottom_select_new, new ViewStub.OnInflateListener() {
                 @Override
                 public void onInflate(ViewStub viewStub, View inflated) {
                     bottomSelectBinding = DataBindingUtil.bind(inflated);
                     bottomSelectBinding.setActivity(ServiceNetworkActivity.this);
                     switch (pageType){
                         case PAGE_TYPE_BTR:
-                            bottomSelectBinding.tvMapSelectBtn1.setText(R.string.bt06_14);
-                            break;
                         case PAGE_TYPE_RENT:
-                            bottomSelectBinding.tvMapSelectBtn1.setText(R.string.bt06_15);
+                            bottomSelectBinding.btnLeftWhite.setVisibility(View.GONE);
+                            bottomSelectBinding.btnRightBlack.setVisibility(View.VISIBLE);
+                            bottomSelectBinding.btnRightBlack.setText(R.string.bt06_24);
                             break;
                         case PAGE_TYPE_REPAIR:
-                            bottomSelectBinding.tvMapSelectBtn1.setText(R.string.map_btn_1);
+                            bottomSelectBinding.btnLeftWhite.setVisibility(View.VISIBLE);
+                            bottomSelectBinding.btnLeftWhite.setText(R.string.bt06_25);
+                            bottomSelectBinding.btnRightBlack.setVisibility(View.VISIBLE);
+                            bottomSelectBinding.btnRightBlack.setText(R.string.bt06_26);
                             break;
                         case PAGE_TYPE_SERVICE:
                         default:
+                            bottomSelectBinding.btnLeftWhite.setVisibility(View.VISIBLE);
+                            bottomSelectBinding.btnLeftWhite.setText(R.string.bt06_25);
+
                             String custGbCd = lgnViewModel.getDbUserRepo().getUserVO().getCustGbCd();
                             if(!TextUtils.isEmpty(custGbCd)&&custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)){//서비스네트워크에서는 차량 소유 고객에게만 예약버튼 제공
-                                bottomSelectBinding.tvMapSelectBtn1.setVisibility(View.VISIBLE);
-                                bottomSelectBinding.tvMapSelectBtn1.setText(R.string.map_btn_3);
+                                bottomSelectBinding.btnRightBlack.setVisibility(View.VISIBLE);
+                                bottomSelectBinding.btnRightBlack.setText(R.string.bt06_26);
                             }else{
-                                bottomSelectBinding.tvMapSelectBtn1.setVisibility(View.INVISIBLE);
+                                bottomSelectBinding.btnRightBlack.setVisibility(View.GONE);
                             }
                             break;
                     }
                     bottomSelectBinding.setData(btrVO);
+                    setAuthView(btrVO);
                 }
             });
         } else {
             bottomSelectBinding.setData(btrVO);
+            setAuthView(btrVO);
         }
 
         for (int i = 0; i < list.size(); i++) {
@@ -548,8 +629,63 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             }
         }
         ui.pmvMapView.setMapCenterPoint(new PlayMapPoint( Double.parseDouble(btrVO.getMapYcooNm()), Double.parseDouble(btrVO.getMapXcooNm())), 500);
-//        ui.pmvMapView.initMap(Double.parseDouble(btrVO.getMapXcooNm()), Double.parseDouble(btrVO.getMapYcooNm()), 17);
     }
+
+
+    private void setAuthView(BtrVO btrVO) {
+
+        if(btrVO==null||TextUtils.isEmpty(btrVO.getAcps1Cd()))
+            return;
+
+        TextView[] textViews = {bottomSelectBinding.tvAuth1, bottomSelectBinding.tvAuth2, bottomSelectBinding.tvAuth3, bottomSelectBinding.tvAuth4};
+//        String[] authNM = {
+//                !TextUtils.isEmpty(  pntgXclYn) && pntgXclYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? getString(R.string.bt06_17) : ""
+//                , !TextUtils.isEmpty(primTechYn) && primTechYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? getString(R.string.bt06_18) : ""
+//                , !TextUtils.isEmpty(primCsYn) && primCsYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? getString(R.string.bt06_23) : ""
+//        };
+
+        String[] authNM;
+
+        if(btrVO.getAcps1Cd().equalsIgnoreCase("2")){
+            //서비스 네트워크인 경우
+            authNM = new String[]{
+                    !TextUtils.isEmpty(btrVO.getGenLngYn()) && btrVO.getGenLngYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? getString(R.string.bt06_27) : ""
+                    , !TextUtils.isEmpty(btrVO.getFmRronYn()) && btrVO.getFmRronYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? getString(R.string.bt06_28) : ""
+                    , !TextUtils.isEmpty(btrVO.getHealZnYn()) && btrVO.getHealZnYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? getString(R.string.bt06_29) : ""
+                    , !TextUtils.isEmpty(btrVO.getCsmrPcYn()) && btrVO.getCsmrPcYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? getString(R.string.bt06_30) : ""
+            };
+        }else{
+            //특화 서비스인 경우
+            authNM = new String[]{
+                    !TextUtils.isEmpty(btrVO.getPntgXclYn()) && btrVO.getPntgXclYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? getString(R.string.bt06_17) : ""
+                    , !TextUtils.isEmpty(btrVO.getPrimTechYn()) && btrVO.getPrimTechYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? getString(R.string.bt06_18) : ""
+                    , !TextUtils.isEmpty(btrVO.getPrimCsYn()) && btrVO.getPrimCsYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? getString(R.string.bt06_23) : ""
+            };
+        }
+        //인증 뷰 초기화
+        for(TextView textView : textViews){
+            textView.setVisibility(View.GONE);
+            textView.setText("");
+        }
+        //인증 뷰 SET
+        for(String auth : authNM){
+            if(!TextUtils.isEmpty(auth)) {
+                for (TextView textView : textViews) {
+                    if(TextUtils.isEmpty(textView.getText().toString())){
+                        textView.setVisibility(View.VISIBLE);
+                        textView.setText(auth);
+                        if(textView==bottomSelectBinding.tvAuth1){
+                            bottomSelectBinding.tvAuth2.setVisibility(View.INVISIBLE);
+                        }else if(textView==bottomSelectBinding.tvAuth3){
+                            bottomSelectBinding.tvAuth4.setVisibility(View.INVISIBLE);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
 
 
     @Override

@@ -27,7 +27,7 @@
             android:background="@color/x_ffffff"
             android:elevation="5dp"
             android:outlineSpotShadowColor="#33000000"
-            android:src="@drawable/btn_back2"
+            android:src="@drawable/btn_back"
             app:backgroundTint="@color/x_ffffff"
             app:fabSize="normal"
             app:layout_constraintStart_toStartOf="parent"

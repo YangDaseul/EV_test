@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
+        <import type="android.telephony.PhoneNumberUtils" />
+
+        <import type="java.util.Locale" />
+
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.common.activity.GpsBaseActivity" />
+
+        <variable
+            name="data"
+            type="com.genesis.apps.comm.model.vo.BtrVO" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/MapOverlayBoxWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_width="match_parent">
+
+        <!-- 지점명 -->
+        <TextView
+            android:id="@+id/tv_map_select_title"
+            style="@style/MapOverlayWhite.RegularHead"
+            android:text="@{data.asnNm}"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toStartOf="@+id/tv_map_select_distance"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="가산모터스" />
+
+        <!-- 거리 -->
+        <TextView
+            android:id="@+id/tv_map_select_distance"
+            style="@style/MapOverlayWhite.RegularText"
+            android:layout_marginStart="10dp"
+            android:text="@{data.dist+`km`}"
+            android:visibility="@{TextUtils.isEmpty(data.dist) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_map_select_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/tv_map_select_title"
+            tools:text="1.7km" />
+
+        <!-- 주소 -->
+        <TextView
+            android:id="@+id/tv_map_select_address"
+            style="@style/MapOverlayWhite.Light"
+            android:layout_width="0dp"
+            android:layout_marginTop="6dp"
+            android:text="@{data.pbzAdr}"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toTopOf="@id/tv_map_select_phone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_map_select_title"
+            app:layout_constraintVertical_bias="1"
+            tools:text="서울특별시 금천구 어딘가에  333 (가산동)" />
+
+        <!-- 전화번호 -->
+        <TextView
+            android:id="@+id/tv_map_select_phone"
+            style="@style/MapOverlayWhite.Light"
+            android:layout_width="0dp"
+            android:text="@{PhoneNumberUtils.formatNumber( (data.repTn ?? ``), Locale.getDefault().getCountry())}"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_map_select_address"
+            tools:text="02-982-0222" />
+
+
+        <TextView
+            android:id="@+id/tv_acps1_cd_c"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="@color/x_333333"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="11sp"
+            android:paddingLeft="5dp"
+            android:paddingTop="3dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="4dp"
+            android:text="@string/bt06_8"
+            android:textColor="@color/x_ffffff"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_map_select_phone"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tv_acps1_cd_d"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="14dp"
+            android:background="@color/x_000000"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="11sp"
+            android:paddingLeft="5dp"
+            android:paddingTop="3dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="4dp"
+            android:text="@string/bt06_9"
+            android:textColor="@color/x_ffffff"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toEndOf="@+id/tv_acps1_cd_c"
+            app:layout_constraintTop_toBottomOf="@+id/tv_map_select_phone"
+            app:layout_goneMarginStart="0dp"
+            tools:visibility="visible" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="tv_acps1_cd_c,tv_acps1_cd_d" />
+
+        <TextView
+            android:id="@+id/tv_auth_1"
+            style="@style/MapOverlayServiceNetwork"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="@{(view)->activity.onClickCommon(view)}"
+            app:layout_constraintEnd_toStartOf="@+id/tv_auth_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/barrier"
+            tools:text="차체/도장수리 우수"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tv_auth_2"
+            style="@style/MapOverlayServiceNetwork"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:onClick="@{(view)->activity.onClickCommon(view)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/tv_auth_1"
+            app:layout_constraintTop_toTopOf="@+id/tv_auth_1"
+            tools:text="차체/도장수리 우수"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tv_auth_3"
+            style="@style/MapOverlayServiceNetwork"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:onClick="@{(view)->activity.onClickCommon(view)}"
+            app:layout_constraintEnd_toStartOf="@+id/tv_auth_4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_auth_1"
+            tools:text="차체/도장수리 우수"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tv_auth_4"
+            style="@style/MapOverlayServiceNetwork"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:onClick="@{(view)->activity.onClickCommon(view)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/tv_auth_3"
+            app:layout_constraintTop_toTopOf="@+id/tv_auth_3"
+            tools:text="차체/도장수리 우수"
+            tools:visibility="visible" />
+
+
+        <TextView
+            android:id="@+id/btn_left_white"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/ripple_bg_ffffff_stroke_111111"
+            android:gravity="center"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="6sp"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:paddingTop="17dp"
+            android:paddingBottom="17dp"
+            android:textColor="@color/x_000000"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_right_black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_auth_3"
+            tools:text="대표 가격 보기" />
+
+        <TextView
+            android:id="@+id/btn_right_black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/ripple_bg_111111"
+            android:gravity="center"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="6sp"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:paddingTop="17dp"
+            android:paddingBottom="17dp"
+            android:textColor="@color/x_ffffff"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_left_white"
+            app:layout_constraintTop_toBottomOf="@+id/tv_auth_3"
+            app:layout_goneMarginStart="0dp"
+            tools:text="정비 예약하기" />
+
+        <!--        &lt;!&ndash; 선택 버튼 &ndash;&gt;-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/tv_map_select_btn1"-->
+        <!--            style="@style/MapOverlay.Btn"-->
+        <!--            android:layout_marginBottom="5dp"-->
+        <!--            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"-->
+        <!--            android:text="@string/map_btn_1"-->
+        <!--            app:layout_constraintBottom_toTopOf="@id/tv_map_select_btn2"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <!--        &lt;!&ndash; 선택 목록 &ndash;&gt;-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/tv_map_select_btn2"-->
+        <!--            style="@style/MapOverlay.Btn"-->
+        <!--            android:background="@drawable/ripple_bg_6f6f6f_stroke_dbdbdb"-->
+        <!--            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"-->
+        <!--            android:text="@string/map_btn_2"-->
+        <!--            android:textColor="@color/x_dbdbdb"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/tv_map_select_btn1" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
