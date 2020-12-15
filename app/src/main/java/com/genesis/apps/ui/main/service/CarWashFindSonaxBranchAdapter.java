@@ -4,14 +4,14 @@ import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.WashBrnVO;
 import com.genesis.apps.databinding.ItemMapFindResultBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
+
+import androidx.annotation.NonNull;
 
 public class CarWashFindSonaxBranchAdapter extends BaseRecyclerViewAdapter2<WashBrnVO> {
     private static OnSingleClickListener singleClickListener;
@@ -48,7 +48,7 @@ public class CarWashFindSonaxBranchAdapter extends BaseRecyclerViewAdapter2<Wash
             //지점명
             getBinding().tvMapFindResultBranchName.setText(item.getBrnhNm());
             //거리
-            getBinding().tvMapFindResultBranchDistance.setText(item.getDist());
+            getBinding().tvMapFindResultBranchDistance.setText(item.getDist()+"km");
             //주소
             getBinding().tvMapFindResultBranchAddress.setText(item.getBrnhAddr());
             //전화번호
