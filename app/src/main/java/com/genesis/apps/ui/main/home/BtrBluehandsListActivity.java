@@ -79,8 +79,10 @@ public class BtrBluehandsListActivity extends SubActivity<ActivityBtrBluehandsHi
     @Override
     public void getDataFromIntent() {
         List<BtrVO> list = null;
+        int titleId=0;
         try {
             list = new Gson().fromJson(getIntent().getStringExtra(KeyNames.KEY_NAME_BTR), new TypeToken<List<BtrVO>>(){}.getType());
+            titleId = getIntent().getIntExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, 0);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -88,6 +90,7 @@ public class BtrBluehandsListActivity extends SubActivity<ActivityBtrBluehandsHi
                 exitPage("블루핸즈 정보가 존재하지 않습니다.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }else{
                 initView(list);
+                if(titleId!=0) ui.lTitle.setValue(getString(titleId));
             }
         }
 

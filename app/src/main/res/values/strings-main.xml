@@ -44,6 +44,7 @@
     <string name="sm01_snack_bar">차량 보유 고객용 서비스 입니다.</string>
 
     <!-- SERVICE 탭 정비 -->
+    <string name="sm01_maintenance_0">블루핸즈 목록</string>
     <string name="sm01_maintenance_1">서비스 네트워크 찾기</string>
     <string name="sm01_maintenance_2">정비예약</string>
     <string name="sm01_maintenance_3">원하는 시간,\n원하는 장소에서\n정비 서비스를 받으세요!</string>

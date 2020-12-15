@@ -388,7 +388,21 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         break;
                 }
                 if (list != null && list.size() > 0) {
-                    startActivitySingleTop(new Intent(this, BtrBluehandsListActivity.class).putExtra(KeyNames.KEY_NAME_BTR,  new Gson().toJson(list)), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
+                    int titleId=0;
+                    switch (pageType){
+                        case PAGE_TYPE_BTR://버틀러 변경
+                        case PAGE_TYPE_RENT://렌트리스 등록
+                            titleId = R.string.sm01_maintenance_0;
+                            break;
+                        case PAGE_TYPE_SERVICE://서비스 네트워크
+                        case PAGE_TYPE_REPAIR://정비소예약
+                        default:
+                            titleId = R.string.sm01_maintenance_1;
+                            break;
+                    }
+
+                    startActivitySingleTop(new Intent(this, BtrBluehandsListActivity.class).putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, titleId).putExtra(KeyNames.KEY_NAME_BTR,  new Gson().toJson(list)), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }
                 break;
             case R.id.btn_my_position:
