@@ -4,6 +4,7 @@ package com.genesis.apps.ui.main.service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
@@ -154,8 +155,14 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
 
                 default:
                     showProgressDialog(false);
-                    SnackBarUtil.show(this, "" + result.message);
-                    //todo : 구체적인 예외처리
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    }
                     break;
             }
         });
@@ -181,8 +188,14 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
 
                 default:
                     showProgressDialog(false);
-                    SnackBarUtil.show(this, "" + result.message);
-                    //todo : 구체적인 예외처리
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    }
                     break;
             }
         });

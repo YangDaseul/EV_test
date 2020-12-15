@@ -108,7 +108,6 @@ public class CarWashFindSonaxBranchFragment extends SubFragment<FragmentCarWashF
                         }
                         SnackBarUtil.show(getActivity(), serverMsg);
                     }
-                    //todo : 구체적인 예외처리
                     break;
             }
         });
@@ -152,7 +151,6 @@ public class CarWashFindSonaxBranchFragment extends SubFragment<FragmentCarWashF
                         }
                         SnackBarUtil.show(getActivity(), serverMsg);
                     }
-                    //todo : 구체적인 예외처리
                     break;
             }
 

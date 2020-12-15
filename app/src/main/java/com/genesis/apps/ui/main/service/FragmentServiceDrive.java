@@ -128,7 +128,6 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
                         }
                         SnackBarUtil.show(getActivity(), serverMsg);
                     }
-                    //todo : 구체적인 예외처리
                     break;
             }
         });

@@ -122,8 +122,14 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 
                 default:
                     showProgressDialog(false);
-                    SnackBarUtil.show(this, "" + result.message);
-                    //todo : 구체적인 예외처리
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    }
                     break;
             }
         });
@@ -165,7 +171,6 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
                         }
                         SnackBarUtil.show(this, serverMsg);
                     }
-                    //todo : 구체적인 예외처리
                     break;
             }
 

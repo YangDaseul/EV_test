@@ -41,6 +41,7 @@ import lombok.EqualsAndHashCode;
  * 신청 구분 코드가 예약(RS) 일 경우 필수
  * 예약일시 형식 : YYYYMMDDHH24MI 형식
  * @see #rgstDt	    서비스신청일시   서비스신청일시(YYYYMMDDHH24MISS 형식)
+ * @see #cnclChe    Y : 취소가능 , N : 취소불가능
  * @see #posInfo	위치정보
  */
 @EqualsAndHashCode(callSuper = false)
@@ -104,6 +105,9 @@ class DriveServiceVO extends BaseData {
     @Expose
     @SerializedName("driverMdn")
     private String driverMdn;
+    @Expose
+    @SerializedName("cnclChe")
+    private String cnclChe;
     @Expose
     @SerializedName("posInfo")
     private List<PositionVO> posInfo;

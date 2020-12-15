@@ -263,8 +263,15 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
                 default://[★]
                     showStatus(STATUS_ERROR);
-                    SnackBarUtil.show(this, "" + result.message);
-                    //todo : 구체적인 예외처리
+                    showProgressDialog(false);
+                    String serverMsg = "";
+                    try {
+                        serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    }
                     break;
             }
         });
@@ -301,8 +308,14 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
                 default:
                     showProgressDialog(false);
-                    SnackBarUtil.show(this, "" + result.message);
-                    //todo : 구체적인 예외처리
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    }
                     break;
             }
         });
