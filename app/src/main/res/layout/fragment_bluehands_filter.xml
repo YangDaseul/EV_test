@@ -48,6 +48,7 @@
                 android:layout_height="match_parent"
                 android:paddingLeft="20dp"
                 android:paddingTop="30dp"
+                android:paddingBottom="30dp"
                 android:paddingRight="20dp">
 
 
@@ -72,6 +73,7 @@
                     android:id="@+id/tv_title_position"
                     style="@style/BtrConsultTypeTitle"
                     android:text="@string/bt06_3"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_msg" />
@@ -101,68 +103,95 @@
                     style="@style/BtrConsultTypeTitle"
                     android:text="@string/bt06_1"
                     android:layout_marginTop="20dp"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_position_2" />
 
                 <TextView
                     android:id="@+id/tv_category_1"
-                    style="@style/BtrFilterDisable"
+                    style="@style/BtrFilterDisable2"
                     android:layout_marginTop="6dp"
                     android:onClick="@{(view)->fragment.onClickListener.onClick(view)}"
-                    android:text="@string/bt06_6"
-                    android:tag="A"
+                    android:text="@string/bt06_8"
+                    android:tag="C"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tv_category_2"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_filter" />
 
                 <TextView
                     android:id="@+id/tv_category_2"
-                    style="@style/BtrFilterDisable"
+                    style="@style/BtrFilterDisable2"
                     android:onClick="@{(view)->fragment.onClickListener.onClick(view)}"
-                    android:text="@string/bt06_7"
-                    android:tag="P"
+                    android:text="@string/bt06_9"
+                    android:tag="D"
+                    android:layout_marginStart="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tv_category_1"
                     app:layout_constraintTop_toTopOf="@+id/tv_category_1" />
 
                 <TextView
                     android:id="@+id/tv_category_3"
-                    style="@style/BtrFilterDisable"
+                    style="@style/BtrFilterDisable2"
                     android:onClick="@{(view)->fragment.onClickListener.onClick(view)}"
-                    android:text="@string/bt06_8"
-                    android:tag="C"
+                    android:text="@string/bt06_6"
+                    android:tag="A"
+                    android:layout_marginTop="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tv_category_4"
                     app:layout_constraintTop_toBottomOf="@+id/tv_category_1" />
 
                 <TextView
                     android:id="@+id/tv_category_4"
-                    style="@style/BtrFilterDisable"
+                    style="@style/BtrFilterDisable2"
                     android:onClick="@{(view)->fragment.onClickListener.onClick(view)}"
-                    android:text="@string/bt06_9"
-                    android:tag="D"
+                    android:text="@string/bt06_16"
+                    android:tag="S"
+                    android:layout_marginStart="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tv_category_3"
                     app:layout_constraintTop_toTopOf="@+id/tv_category_3" />
+
+
+                <TextView
+                    android:id="@+id/tv_category_5"
+                    style="@style/BtrFilterDisable2"
+                    android:onClick="@{(view)->fragment.onClickListener.onClick(view)}"
+                    android:text="@string/bt06_17"
+                    android:tag="X"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_category_6"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_category_3" />
+
+                <TextView
+                    android:id="@+id/tv_category_6"
+                    style="@style/BtrFilterDisable2"
+                    android:onClick="@{(view)->fragment.onClickListener.onClick(view)}"
+                    android:text="@string/bt06_18"
+                    android:tag="T"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_category_5"
+                    app:layout_constraintTop_toTopOf="@+id/tv_category_5" />
 
                 <TextView
                     android:id="@+id/tv_title_bluehands_info"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:drawableLeft="@drawable/mark_aaabaf"
+                    android:drawableLeft="@drawable/mark_666666"
                     android:drawablePadding="6dp"
-                    android:fontFamily="@font/bold_genesissanstextglobal"
+                    android:fontFamily="@font/medium_genesissanstextglobal"
                     android:gravity="left|center_vertical"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="6sp"
-                    android:text="@string/bt06_8"
-                    android:textColor="@color/x_aaabaf"
+                    android:text="@string/bt06_21"
+                    android:textColor="@color/x_666666"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_category_3" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_category_5" />
 
                 <TextView
                     android:id="@+id/tv_msg_bluehands_info_1"
@@ -172,7 +201,7 @@
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="6sp"
                     android:text="@string/bt06_10"
-                    android:textColor="@color/x_aaabaf"
+                    android:textColor="@color/x_666666"
                     android:textSize="14sp"
                     android:paddingLeft="7dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -185,15 +214,15 @@
                     android:id="@+id/tv_title_bluehands_info_2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:drawableLeft="@drawable/mark_aaabaf"
+                    android:layout_marginTop="12dp"
+                    android:drawableLeft="@drawable/mark_666666"
                     android:drawablePadding="6dp"
-                    android:fontFamily="@font/bold_genesissanstextglobal"
+                    android:fontFamily="@font/medium_genesissanstextglobal"
                     android:gravity="left|center_vertical"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="6sp"
-                    android:text="@string/bt06_9"
-                    android:textColor="@color/x_aaabaf"
+                    android:text="@string/bt06_22"
+                    android:textColor="@color/x_666666"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -207,41 +236,80 @@
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="6sp"
                     android:text="@string/bt06_11"
-                    android:textColor="@color/x_aaabaf"
+                    android:textColor="@color/x_666666"
                     android:textSize="14sp"
                     android:paddingLeft="7dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_bluehands_info_2" />
 
-
-
                 <TextView
-                    android:id="@+id/tv_dot_1"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_title_bluehands_info_3"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:drawableLeft="@drawable/mark_aaabaf"
-                    android:textColor="@color/x_aaabaf"
+                    android:layout_marginTop="12dp"
+                    android:drawableLeft="@drawable/mark_666666"
+                    android:drawablePadding="6dp"
+                    android:fontFamily="@font/medium_genesissanstextglobal"
+                    android:gravity="left|center_vertical"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="6sp"
+                    android:text="@string/bt06_6"
+                    android:textColor="@color/x_666666"
                     android:textSize="14sp"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_msg_bluehands_info_3"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_msg_bluehands_info_3"/>
+                    app:layout_constraintTop_toBottomOf="@+id/tv_msg_bluehands_info_2" />
 
                 <TextView
                     android:id="@+id/tv_msg_bluehands_info_3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="6sp"
-                    android:text="@string/bt06_12"
-                    android:textColor="@color/x_aaabaf"
+                    android:text="@string/bt06_20"
+                    android:textColor="@color/x_666666"
+                    android:textSize="14sp"
+                    android:paddingLeft="7dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_bluehands_info_3" />
+
+
+                <TextView
+                    android:id="@+id/tv_title_bluehands_info_4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:drawableLeft="@drawable/mark_666666"
+                    android:drawablePadding="6dp"
+                    android:fontFamily="@font/medium_genesissanstextglobal"
+                    android:gravity="left|center_vertical"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="6sp"
+                    android:text="@string/bt06_17"
+                    android:textColor="@color/x_666666"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tv_dot_1"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_msg_bluehands_info_2" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_msg_bluehands_info_3" />
+
+                <TextView
+                    android:id="@+id/tv_msg_bluehands_info_4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="6sp"
+                    android:text="@string/bt06_19"
+                    android:textColor="@color/x_666666"
+                    android:textSize="14sp"
+                    android:paddingLeft="7dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_bluehands_info_4" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
@@ -255,6 +323,7 @@
             android:layout_marginBottom="20dp"
             android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
             android:text="@string/bt06_13"
+            android:fontFamily="@font/regular_genesissanstextglobal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

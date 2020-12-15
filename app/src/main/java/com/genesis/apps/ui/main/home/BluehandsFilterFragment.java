@@ -31,8 +31,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class BluehandsFilterFragment extends SubFragment<FragmentBluehandsFilterBinding> {
     private PUBViewModel pubViewModel;
-    private final int[] filterIds = {R.id.tv_category_1, R.id.tv_category_3, R.id.tv_category_4, R.id.tv_category_2};
-    private final boolean[] isSelectFilter = {false, false, false, false};
+    private final int[] filterIds = {R.id.tv_category_3, R.id.tv_category_1, R.id.tv_category_2, R.id.tv_category_4, R.id.tv_category_6, R.id.tv_category_5};
+    private final boolean[] isSelectFilter = {false, false, false, false, false, false};
     private String fillerCd = "";
     private String addr = "";
     private String addrDtl = "";
@@ -157,6 +157,8 @@ public class BluehandsFilterFragment extends SubFragment<FragmentBluehandsFilter
             case R.id.tv_category_2:
             case R.id.tv_category_3:
             case R.id.tv_category_4:
+            case R.id.tv_category_5:
+            case R.id.tv_category_6:
                 setFilter(v.getId());
                 break;
             case R.id.tv_position_1:
@@ -223,13 +225,12 @@ public class BluehandsFilterFragment extends SubFragment<FragmentBluehandsFilter
 
             if(fillerCd.contains(filterCd)){
                 isSelectFilter[i]=true;
-                ((TextView) getActivity().findViewById(filterIds[i])).setTextAppearance(R.style.BtrFilterEnable);
-                ((TextView) getActivity().findViewById(filterIds[i])).setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414_2dp);
+                ((TextView) getActivity().findViewById(filterIds[i])).setTextAppearance(R.style.BtrFilterEnable2);
+                ((TextView) getActivity().findViewById(filterIds[i])).setBackgroundColor(getContext().getColor(R.color.x_996449));
             }
         }
 
     }
-
 
     private void setFilter(int selectId) {
         for (int i = 0; i < filterIds.length; i++) {
@@ -237,12 +238,12 @@ public class BluehandsFilterFragment extends SubFragment<FragmentBluehandsFilter
             if(selectId == filterIds[i]){
                 if(isSelectFilter[i]){
                     isSelectFilter[i]=false;
-                    ((TextView) getActivity().findViewById(filterIds[i])).setTextAppearance(R.style.BtrFilterDisable);
-                    ((TextView) getActivity().findViewById(filterIds[i])).setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_4d141414);
+                    ((TextView) getActivity().findViewById(filterIds[i])).setTextAppearance(R.style.BtrFilterDisable2);
+                    ((TextView) getActivity().findViewById(filterIds[i])).setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_757575);
                 }else{
                     isSelectFilter[i]=true;
-                    ((TextView) getActivity().findViewById(filterIds[i])).setTextAppearance(R.style.BtrFilterEnable);
-                    ((TextView) getActivity().findViewById(filterIds[i])).setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414_2dp);
+                    ((TextView) getActivity().findViewById(filterIds[i])).setTextAppearance(R.style.BtrFilterEnable2);
+                    ((TextView) getActivity().findViewById(filterIds[i])).setBackgroundColor(getContext().getColor(R.color.x_996449));
                 }
                 break;
             }
@@ -281,7 +282,5 @@ public class BluehandsFilterFragment extends SubFragment<FragmentBluehandsFilter
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     }
-
-
 
 }

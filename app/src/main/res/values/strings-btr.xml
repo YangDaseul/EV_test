@@ -55,14 +55,21 @@
     <string name="bt06_5">시/군/구</string>
     <string name="bt06_6">제네시스 전담</string>
     <string name="bt06_7">일반 블루핸즈</string>
-    <string name="bt06_8">종합 블루핸즈</string>
-    <string name="bt06_9">전문 블루핸즈</string>
-    <string name="bt06_10">일반적인 차량 점검 수리 및 판금 도장 작업이 가능한 블루핸즈 입니다.</string>
-    <string name="bt06_11">일반적인 차량 점검 수리가 가능한 블루핸즈 입니다.</string>
+    <string name="bt06_8">종합</string>
+    <string name="bt06_9">전문</string>
+    <string name="bt06_10">건설기계를 제외한 모든 차량의 보증 수리 및 일반 정비가 가능한 블루핸즈</string>
+    <string name="bt06_11">판금/도색, 엔진/미션 작업 등을 제외한 보증 수리 및 일반 정비가 가능한 블루핸즈</string>
     <string name="bt06_12">일반 블루핸즈를 전담 업체로 선택할 경우, 1:1 차량 관리 서비스인 제네시스 버틀러 서비스를 받으실 수 없습니다.</string>
     <string name="bt06_13">적용</string>
     <string name="bt06_14">신청</string>
     <string name="bt06_15">설정</string>
+    <string name="bt06_16">이더넷 &amp; GDS-M</string>
+    <string name="bt06_17">차체/도장 수리 우수</string>
+    <string name="bt06_18">기술력 우수</string>
+    <string name="bt06_19">차별화된 차체/도장 수리를 위한 인력/장비/시설/매뉴얼정비 역량을 보유한 우수 블루핸즈</string>
+    <string name="bt06_20">제네시스 정비 기술력을 가진 제네시스 전담 버틀러 및 장비/시설을 보유한 우수 블루핸즈</string>
+    <string name="bt06_21">종합 블루핸즈</string>
+    <string name="bt06_22">전문 블루핸즈</string>
 
     <string name="bt06_02_1">블루핸즈 찾기</string>
     <string name="bt06_02_2">검색 결과</string>
