@@ -6,11 +6,16 @@
     <data>
 
         <import type="android.text.InputType" />
+
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.main.service.ServiceRemoteRegisterActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
 
         <!-- 타이틀바-->
         <include
@@ -20,9 +25,10 @@
 
 
         <ScrollView
+            android:id="@+id/sv_service_remote_register"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btn_service_remote_register_step"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/l_service_remote_register_titlebar">
@@ -50,21 +56,21 @@
                 <!--상담 시간-->
                 <include
                     android:id="@+id/l_service_remote_step_4"
-                    layout="@layout/item_service_remote_register_step"
-                    app:isShowArrow="@{true}"
+                    layout="@layout/item_service_remote_register_step_1"
+                    app:inputHintText="@{@string/sm_remote01_service_time}"
                     app:title="@{@string/sm_remote01_service_time}" />
 
                 <!--차량 문제-->
                 <include
                     android:id="@+id/l_service_remote_step_3"
-                    layout="@layout/item_service_remote_register_step"
-                    app:isShowArrow="@{true}"
+                    layout="@layout/item_service_remote_register_step_1"
+                    app:inputHintText="@{@string/sm_remote01_service_type}"
                     app:title="@{@string/sm_remote01_service_type}" />
 
                 <!--차량 번호-->
                 <include
                     android:id="@+id/l_service_remote_step_2"
-                    layout="@layout/item_service_remote_register_step"
+                    layout="@layout/item_service_remote_register_step_0"
                     app:inputGuideMessage="@{@string/sm_remote01_input_car_number}"
                     app:inputHintText="@{@string/sm_remote01_car_number}"
                     app:inputType="@{InputType.TYPE_CLASS_TEXT}"
@@ -73,10 +79,10 @@
                 <!--휴대폰 번호-->
                 <include
                     android:id="@+id/l_service_remote_step_1"
-                    layout="@layout/item_service_remote_register_step"
+                    layout="@layout/item_service_remote_register_step_0"
                     app:inputGuideMessage="@{@string/sm_remote01_input_phone_number}"
                     app:inputHintText="@{@string/sm_remote01_phone_number}"
-                    app:inputType="@{InputType.TYPE_CLASS_TEXT}"
+                    app:inputType="@{InputType.TYPE_CLASS_PHONE}"
                     app:title="@{@string/sm_remote01_phone_number}" />
 
                 <!--서비스 안내 가이드 문구-->
@@ -185,6 +191,23 @@
             </LinearLayout>
         </ScrollView>
 
+        <!--다음 & 신청 버튼-->
+        <Button
+            android:id="@+id/btn_service_remote_register_step"
+            style="@style/ServiceRemote.TextView_Font_RGSTG.White"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/x_111111"
+            android:stateListAnimator="@null"
+            android:text="@string/sm_remote01_next"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sv_service_remote_register" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.StringRes;
 import androidx.lifecycle.ViewModelProvider;
@@ -13,16 +12,18 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.api.gra.RMT_1001;
-import com.genesis.apps.comm.model.api.gra.SOS_1001;
-import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.viewmodel.RMTViewModel;
 import com.genesis.apps.comm.viewmodel.SOSViewModel;
 import com.genesis.apps.databinding.ActivityServiceRemoteRegisterBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Stream;
 
 /**
  * Created by Ki-man, Kim on 12/10/20
@@ -45,10 +46,49 @@ public class ServiceRemoteRegisterActivity extends SubActivity<ActivityServiceRe
         }
     } // end of enum class REGISTER_STEP
 
+    enum FLT_CODE {
+        CODE_1000("1000", R.string.sm_remote01_remote_sos_fit_code_1000),
+        CODE_2000("2000", R.string.sm_remote01_remote_sos_fit_code_2000),
+        CODE_3000("3000", R.string.sm_remote01_remote_sos_fit_code_3000),
+        CODE_4000("4000", R.string.sm_remote01_remote_sos_fit_code_4000),
+        CODE_5000("5000", R.string.sm_remote01_remote_sos_fit_code_5000),
+        CODE_6000("6000", R.string.sm_remote01_remote_sos_fit_code_6000),
+        CODE_7000("7000", R.string.sm_remote01_remote_sos_fit_code_7000),
+        CODE_8000("8000", R.string.sm_remote01_remote_sos_fit_code_8000);
+
+        private final String code;
+        private @StringRes
+        final int messageResId;
+
+        FLT_CODE(String code, @StringRes int messageResId) {
+            this.code = code;
+            this.messageResId = messageResId;
+        }
+
+        public int messageResId() {
+            return this.messageResId;
+        }
+    } // end of enum class FLT_CODE
+
     private RMTViewModel rmtViewModel;
     private SOSViewModel sosViewModel;
 
     private REGISTER_STEP currentStep = REGISTER_STEP.INPUT_PHONE;
+
+    /**
+     * 차량 문제 코드.
+     */
+    private FLT_CODE fltCd = null;
+
+    /**
+     * 경고등 코드.
+     */
+    private String wrnLghtCd;
+
+    /**
+     * 예약 시간.
+     */
+    private String rsrvMiss;
 
     /****************************************************************************************************
      * Override Method - LifeCycle
@@ -75,7 +115,13 @@ public class ServiceRemoteRegisterActivity extends SubActivity<ActivityServiceRe
      ****************************************************************************************************/
     @Override
     public void onClickCommon(View v) {
-
+        Log.d("FID", "test :: onClickCommon :: view=" + v);
+        if (v == ui.lServiceRemoteStep3.lServiceRemoteRegisterStepContainer) {
+            // 차량 문제 선택.
+            showSelectFltCd();
+        } else if (v == ui.lServiceRemoteStep4.lServiceRemoteRegisterStepContainer) {
+            // 서비스 시간 선택.
+        }
     }
 
     @Override
@@ -103,8 +149,8 @@ public class ServiceRemoteRegisterActivity extends SubActivity<ActivityServiceRe
                             "\"rtCd\":\"0000\"," +
                             "\"rtMsg\":\"Success\"," +
                             "\"rmtExitYn\":\"N\"," +
-                            "\"carRgstNo\":\"\"," +
-                            "\"celphNo\":\"\"," +
+                            "\"carRgstNo\":\"123가4565\"," +
+                            "\"celphNo\":\"010-1234-5678\"," +
                             "\"sosStusCd\":\"\"," +
                             "\"tmpAcptNo\":\"\"" +
                             "}";
@@ -151,23 +197,27 @@ public class ServiceRemoteRegisterActivity extends SubActivity<ActivityServiceRe
      ****************************************************************************************************/
     private void initView(RMT_1001.Response data) {
         String phoneNum = data.getCelphNo();
-
-        if (TextUtils.isEmpty(phoneNum)) {
-            // 휴대폰 번호가 없는 경우.
-            executeStep(REGISTER_STEP.INPUT_PHONE);
-            return;
-        } else {
+        // 휴대폰 번호 입력항목은 기본 노출
+        ui.lServiceRemoteStep1.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);
+        if (!TextUtils.isEmpty(phoneNum)) {
             // 휴대폰 번호가 있는 경우.
             ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.setText(phoneNum);
-            ui.lServiceRemoteStep1.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);
+
+            // 차량 입력 영역을 활성화
+            ui.lServiceRemoteStep2.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);
         }
 
         String carNum = data.getCarRgstNo();
         if (!TextUtils.isEmpty(carNum)) {
             // 차량 번호가 있는 경우.
             ui.lServiceRemoteStep2.etServiceRemoteRegisterStepInput.setText(carNum);
-            ui.lServiceRemoteStep2.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);
+
+            // 고장 선택 항목을 활성화.
+            ui.lServiceRemoteStep3.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);
         }
+
+        ui.lServiceRemoteStep3.lServiceRemoteRegisterStepContainer.setOnClickListener(view -> this.onSingleClickListener.onClick(view));
+        ui.lServiceRemoteStep4.lServiceRemoteRegisterStepContainer.setOnClickListener(view -> this.onSingleClickListener.onClick(view));
 
         executeStep(checkStep());
     }
@@ -177,17 +227,19 @@ public class ServiceRemoteRegisterActivity extends SubActivity<ActivityServiceRe
             case INPUT_PHONE: {
                 ui.lServiceRemoteStep1.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);
                 ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.requestFocusFromTouch();
-                ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.setSelected(true);
-                ui.lServiceRemoteStep1.tvServiceRemoteRegisterStepGuide.setVisibility(View.VISIBLE);
                 break;
             }
             case INPUT_CAR_NUM: {
+                ui.lServiceRemoteStep2.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);
+                ui.lServiceRemoteStep2.etServiceRemoteRegisterStepInput.requestFocusFromTouch();
                 break;
             }
             case SERVICE_TYPE: {
+                ui.lServiceRemoteStep3.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);
                 break;
             }
             case SERVICE_TIME: {
+                ui.lServiceRemoteStep4.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);
                 break;
             }
             case COMPLETE: {
@@ -199,20 +251,59 @@ public class ServiceRemoteRegisterActivity extends SubActivity<ActivityServiceRe
     }
 
     private REGISTER_STEP checkStep() {
-        String phoneNum = ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.getText().toString();
-        if (TextUtils.isEmpty(phoneNum)) {
+        boolean isEmptyPhoneNum = TextUtils.isEmpty(ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.getText().toString());
+        ui.lServiceRemoteStep1.tvServiceRemoteRegisterStepGuide.setVisibility(isEmptyPhoneNum ? View.VISIBLE : View.INVISIBLE);
+        ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.setSelected(isEmptyPhoneNum);
+
+        boolean isEmptyCarNum = TextUtils.isEmpty(ui.lServiceRemoteStep2.etServiceRemoteRegisterStepInput.getText().toString());
+        ui.lServiceRemoteStep2.tvServiceRemoteRegisterStepGuide.setVisibility(isEmptyCarNum ? View.VISIBLE : View.INVISIBLE);
+        ui.lServiceRemoteStep2.etServiceRemoteRegisterStepInput.setSelected(isEmptyCarNum);
+
+        boolean isEmptyErrorCode = fltCd == null;
+        ui.lServiceRemoteStep3.tvServiceRemoteRegisterStepInput.setEnabled(isEmptyErrorCode);
+
+        boolean isServiceTime = TextUtils.isEmpty(rsrvMiss);
+        ui.lServiceRemoteStep3.tvServiceRemoteRegisterStepInput.setEnabled(isServiceTime);
+
+        if (isEmptyPhoneNum) {
             return REGISTER_STEP.INPUT_PHONE;
-        }
-
-        String carNum = ui.lServiceRemoteStep2.etServiceRemoteRegisterStepInput.getText().toString();
-        if (TextUtils.isEmpty(carNum)) {
+        } else if (isEmptyPhoneNum) {
             return REGISTER_STEP.INPUT_CAR_NUM;
+        } else if (isEmptyErrorCode) {
+            return REGISTER_STEP.SERVICE_TYPE;
+        } else if (isServiceTime) {
+            return REGISTER_STEP.SERVICE_TIME;
         }
-
         return REGISTER_STEP.COMPLETE;
     }
 
     private void showStepGuide(@StringRes int guide) {
         ui.tvServiceRemoteRegisterGuide.setText(guide);
+    }
+
+    private void showSelectFltCd() {
+        Log.d("FID", "test :: showSelectFltCd");
+        ArrayList<String> fltCodes = new ArrayList<>();
+        Stream.of(FLT_CODE.values())
+                .map(FLT_CODE::messageResId)
+                .forEach(id -> fltCodes.add(getString(id)));
+        final BottomListDialog bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
+        bottomListDialog.setOnDismissListener(dialogInterface -> {
+            String result = bottomListDialog.getSelectItem();
+
+            if (!TextUtils.isEmpty(result)) {
+                fltCd = Stream.of(FLT_CODE.values()).filter(item -> result.equals(getString(item.messageResId))).findFirst().get();
+                ui.lServiceRemoteStep3.tvServiceRemoteRegisterStepInput.setText(result);
+            }
+
+            if (fltCd == FLT_CODE.CODE_3000) {
+                // 경고등 점등인 경우 - 경고등 선택 다이얼로그 추가 표시.
+            } else {
+                executeStep(checkStep());
+            }
+        });
+        bottomListDialog.setDatas(fltCodes);
+        bottomListDialog.setTitle(getString(R.string.sm_emgc01_23));
+        bottomListDialog.show();
     }
 } // end of class ServiceREmoteRegisterActivity
