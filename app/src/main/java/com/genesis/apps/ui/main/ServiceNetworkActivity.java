@@ -22,14 +22,12 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
-import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.BTRViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.PUBViewModel;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.ActivityMap2Binding;
-import com.genesis.apps.databinding.LayoutMapOverlayUiBottomSelectBinding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomSelectNewBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
@@ -640,12 +638,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             return;
 
         TextView[] textViews = {bottomSelectBinding.tvAuth1, bottomSelectBinding.tvAuth2, bottomSelectBinding.tvAuth3, bottomSelectBinding.tvAuth4};
-//        String[] authNM = {
-//                !TextUtils.isEmpty(  pntgXclYn) && pntgXclYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? getString(R.string.bt06_17) : ""
-//                , !TextUtils.isEmpty(primTechYn) && primTechYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? getString(R.string.bt06_18) : ""
-//                , !TextUtils.isEmpty(primCsYn) && primCsYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? getString(R.string.bt06_23) : ""
-//        };
-
         String[] authNM;
 
         if(btrVO.getAcps1Cd().equalsIgnoreCase("2")){

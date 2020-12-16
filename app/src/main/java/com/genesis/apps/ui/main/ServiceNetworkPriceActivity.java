@@ -46,7 +46,7 @@ public class ServiceNetworkPriceActivity extends SubActivity<ActivityServiceNetw
         getDataFromIntent();
         setViewModel();
         setObserver();
-        reqViewModel.reqREQ1017(new REQ_1017.Request(APPIAInfo.MG_MEMBER01_P01.getId(), asnCd));
+        reqViewModel.reqREQ1017(new REQ_1017.Request(APPIAInfo.SM_SNFIND01.getId(), asnCd));
     }
 
     @Override
@@ -105,17 +105,6 @@ public class ServiceNetworkPriceActivity extends SubActivity<ActivityServiceNetw
             }
         }
     }
-
-//    private void setEmptyView(int itemCount){
-//        if(itemCount>0){
-//            ui.rv.setVisibility(View.VISIBLE);
-//            ui.tvEmpty.setText("");
-//        }else{
-//            ui.rv.setVisibility(View.GONE);
-//            ui.tvEmpty.setText(R.string.msg_membership_11);
-//        }
-//    }
-
 
     private void addTermToLayout(List<RepCostVO> repCostList) {
         for (RepCostVO repCostVO : repCostList) {
