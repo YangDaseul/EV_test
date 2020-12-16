@@ -69,7 +69,7 @@ public class CarHorizontalAdapter extends BaseRecyclerViewAdapter2<VehicleVO> {
 
             Glide
                     .with(getContext())
-                    .load(item.getVhclImgUri())
+                    .load(item.getMygImgUri())
                     .format(DecodeFormat.PREFER_ARGB_8888)
                     .error(R.drawable.img_car_339_2)
                     .placeholder(R.drawable.img_car_339_2)

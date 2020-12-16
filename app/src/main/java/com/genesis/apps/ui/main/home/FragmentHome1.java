@@ -423,7 +423,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 me.tvCarVrn.setText(vehicleVO.getCarRgstNo());
                 Glide
                         .with(getContext())
-                        .load(vehicleVO.getVhclImgUri() + (VariableType.isHardCoding ? "empty" : ""))
+                        .load(vehicleVO.getMainImgUri() + (VariableType.isHardCoding ? "empty" : ""))
                         .centerInside()
                         .error(R.drawable.car_new_44)
                         .placeholder(R.drawable.car_new_44)

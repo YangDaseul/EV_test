@@ -15,6 +15,7 @@ import lombok.Data;
  * @author hjpark
  * @see #appNm APP명
  * @see #nttOrd 표기순서
+ * @see #schmNm 스키마명
  * @see #imgUri 이미지Uri
  * @see #dnldUri 다운로드Uri
  */
@@ -34,6 +35,9 @@ class FamilyAppVO extends BaseData {
     @Expose
     @SerializedName("nttOrd")
     private String nttOrd;
+    @Expose
+    @SerializedName("schmNm")
+    private String schmNm;
     @Expose
     @SerializedName("imgUri")
     private String imgUri;
