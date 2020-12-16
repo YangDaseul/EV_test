@@ -52,4 +52,13 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="ServiceRemote.TextView_Font_RGSTG.WRN_LGHT_CODE">
+        <item name="android:textColor">@drawable/selector_wrg_lght_text_color</item>
+        <item name="android:background">@drawable/selector_wrg_lght_text_bg</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:drawablePadding">5dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center</item>
+    </style>
 </resources>

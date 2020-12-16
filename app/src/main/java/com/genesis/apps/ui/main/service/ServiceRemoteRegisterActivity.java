@@ -5,24 +5,27 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.api.gra.RMT_1001;
-import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.viewmodel.RMTViewModel;
 import com.genesis.apps.comm.viewmodel.SOSViewModel;
 import com.genesis.apps.databinding.ActivityServiceRemoteRegisterBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
+import com.genesis.apps.ui.common.dialog.bottom.BottomRecyclerDialog;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -46,15 +49,18 @@ public class ServiceRemoteRegisterActivity extends SubActivity<ActivityServiceRe
         }
     } // end of enum class REGISTER_STEP
 
+    /**
+     * 고장 코드 Enum Class.
+     */
     enum FLT_CODE {
-        CODE_1000("1000", R.string.sm_remote01_remote_sos_fit_code_1000),
-        CODE_2000("2000", R.string.sm_remote01_remote_sos_fit_code_2000),
-        CODE_3000("3000", R.string.sm_remote01_remote_sos_fit_code_3000),
-        CODE_4000("4000", R.string.sm_remote01_remote_sos_fit_code_4000),
-        CODE_5000("5000", R.string.sm_remote01_remote_sos_fit_code_5000),
-        CODE_6000("6000", R.string.sm_remote01_remote_sos_fit_code_6000),
-        CODE_7000("7000", R.string.sm_remote01_remote_sos_fit_code_7000),
-        CODE_8000("8000", R.string.sm_remote01_remote_sos_fit_code_8000);
+        CODE_1000("1000", R.string.sm_remote01_fit_code_1000),
+        CODE_2000("2000", R.string.sm_remote01_fit_code_2000),
+        CODE_3000("3000", R.string.sm_remote01_fit_code_3000),
+        CODE_4000("4000", R.string.sm_remote01_fit_code_4000),
+        CODE_5000("5000", R.string.sm_remote01_fit_code_5000),
+        CODE_6000("6000", R.string.sm_remote01_fit_code_6000),
+        CODE_7000("7000", R.string.sm_remote01_fit_code_7000),
+        CODE_8000("8000", R.string.sm_remote01_fit_code_8000);
 
         private final String code;
         private @StringRes
@@ -70,6 +76,36 @@ public class ServiceRemoteRegisterActivity extends SubActivity<ActivityServiceRe
         }
     } // end of enum class FLT_CODE
 
+    public enum WRN_LGHT_CODE {
+        CODE_3100("3100", R.string.sm_remote01_wrn_lght_code_3100, R.drawable.selector_ic_eps),
+        CODE_3300("3300", R.string.sm_remote01_wrn_lght_code_3300, R.drawable.selector_ic_brake),
+        CODE_3400("3400", R.string.sm_remote01_wrn_lght_code_3400, R.drawable.selector_ic_water),
+        CODE_3500("3500", R.string.sm_remote01_wrn_lght_code_3500, R.drawable.selector_ic_tpms),
+        CODE_3600("3600", R.string.sm_remote01_wrn_lght_code_3600, R.drawable.selector_ic_engine),
+        CODE_3700("3700", R.string.sm_remote01_wrn_lght_code_3700, R.drawable.selector_ic_battery),
+        CODE_3200("3200", R.string.sm_remote01_wrn_lght_code_3200, R.drawable.selector_ic_brake_esp);
+
+        private final String code;
+        private @StringRes
+        final int messageResId;
+        private @DrawableRes
+        final int iconResId;
+
+        WRN_LGHT_CODE(String code, @StringRes int messageResId, @DrawableRes int iconResId) {
+            this.code = code;
+            this.messageResId = messageResId;
+            this.iconResId = iconResId;
+        }
+
+        public int messageResId() {
+            return this.messageResId;
+        }
+
+        public int iconResId() {
+            return this.iconResId;
+        }
+    }
+
     private RMTViewModel rmtViewModel;
     private SOSViewModel sosViewModel;
 
@@ -83,7 +119,7 @@ public class ServiceRemoteRegisterActivity extends SubActivity<ActivityServiceRe
     /**
      * 경고등 코드.
      */
-    private String wrnLghtCd;
+    private WRN_LGHT_CODE wrnLghtCd = null;
 
     /**
      * 예약 시간.
@@ -298,6 +334,7 @@ public class ServiceRemoteRegisterActivity extends SubActivity<ActivityServiceRe
 
             if (fltCd == FLT_CODE.CODE_3000) {
                 // 경고등 점등인 경우 - 경고등 선택 다이얼로그 추가 표시.
+                showSelectWrnLghtCd();
             } else {
                 executeStep(checkStep());
             }
@@ -305,5 +342,21 @@ public class ServiceRemoteRegisterActivity extends SubActivity<ActivityServiceRe
         bottomListDialog.setDatas(fltCodes);
         bottomListDialog.setTitle(getString(R.string.sm_emgc01_23));
         bottomListDialog.show();
+    }
+
+    private void showSelectWrnLghtCd() {
+        Log.d("FID", "test :: showSelectWrnLghtCd");
+        WrnLghtCodeListAdapter adapter = new WrnLghtCodeListAdapter(Stream.of(WRN_LGHT_CODE.values()).collect(Collectors.toList()));
+        final BottomRecyclerDialog dialog = new BottomRecyclerDialog.Builder(this)
+                .setTitle(R.string.sm_romte01_p01_12)
+                .setAdapter(adapter)
+                .setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false))
+                .build();
+        adapter.setListener(selectItem -> {
+            Log.d("FID", "test :: item select :: " + selectItem);
+            wrnLghtCd = selectItem;
+            dialog.dismiss();
+        });
+        dialog.show();
     }
 } // end of class ServiceREmoteRegisterActivity
