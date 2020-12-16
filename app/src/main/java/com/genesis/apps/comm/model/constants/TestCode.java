@@ -70,6 +70,7 @@ import com.genesis.apps.comm.model.api.gra.REQ_1012;
 import com.genesis.apps.comm.model.api.gra.REQ_1013;
 import com.genesis.apps.comm.model.api.gra.REQ_1014;
 import com.genesis.apps.comm.model.api.gra.REQ_1015;
+import com.genesis.apps.comm.model.api.gra.REQ_1017;
 import com.genesis.apps.comm.model.api.gra.SOS_1001;
 import com.genesis.apps.comm.model.api.gra.SOS_1002;
 import com.genesis.apps.comm.model.api.gra.SOS_1004;
@@ -93,6 +94,42 @@ import com.genesis.apps.comm.model.vo.RentStatusVO;
 import com.google.gson.Gson;
 
 public class TestCode {
+
+    public static REQ_1017.Response REQ_1017 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"repCostList\": [\n" +
+            "    {\n" +
+            "      \"mdlNm\": \"GV80\",\n" +
+            "      \"costList\": [\n" +
+            "        {\n" +
+            "          \"wkNm\": \"오토미션 오일 (장비 사용)\",\n" +
+            "          \"rprAmt\": \"23,000\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"wkNm\": \"윈드쉴드 와이퍼블레이드\",\n" +
+            "          \"rprAmt\": \"40,000\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"mdlNm\": \"G90\",\n" +
+            "      \"costList\": [\n" +
+            "        {\n" +
+            "          \"wkNm\": \"윈드쉴드 와이퍼블레이드\",\n" +
+            "          \"rprAmt\": \"23,000\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"wkNm\": \"와이퍼 블레이드교환 \",\n" +
+            "          \"rprAmt\": \"40,000\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",REQ_1017.Response.class);
+    
+    
+    
     public static VOC_1001.Response VOC_1001 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
             "  \"rtMsg\": \"성공\",\n" +

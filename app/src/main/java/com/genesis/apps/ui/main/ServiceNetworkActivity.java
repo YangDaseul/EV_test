@@ -358,11 +358,13 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 //todo 안내메시지 표시 tag넣어야함
 
                 break;
-            case R.id.btn_left_white:
+            case R.id.btn_left_white: //대표가격보기
                 switch (pageType){
                     case PAGE_TYPE_REPAIR:
                     case PAGE_TYPE_SERVICE:
-                        //todo 대표가격보기
+                        if(btrVO!=null) {
+                            startActivitySingleTop(new Intent(this, ServiceNetworkPriceActivity.class).putExtra(KeyNames.KEY_NAME_ASNCD, btrVO.getAsnCd()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+                        }
                         break;
                 }
                 break;

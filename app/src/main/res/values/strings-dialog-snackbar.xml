@@ -3,6 +3,8 @@
     <string name="r_flaw06_p02_snackbar_1">죄송합니다.\n일시적인 오류가 발생하였습니다.\n네트워크 연결 확인 후 다시 시도해 주세요.</string>
     <string name="r_flaw06_p02_snackbar_2">하자재발통보 신청이 완료되었습니다.</string>
 
+    <string name="sm_snfind01_snackbar_1">등록된 제네시스 차종 대표 가격이 없습니다.</string>
+
     <string name="sm_emgc02_p01_snackbar_1">긴급 출동 서비스 취소가 불가합니다.</string>
     <string name="sm_emgc02_p01_snackbar_2">긴급 출동 서비스 신청이 정상적으로 취소되었습니다.</string>
     <string name="gm_carlst_p02_snackbar">차량정보가 삭제됐습니다.\n7일이 지나면 최종  삭제 처리되며,\n차량 리스트에서 복원이 가능합니다.</string>
@@ -60,5 +62,7 @@
 
     <string name="snackbar_etc_1">마케팅 수신 동의 내용이 변경되었습니다.</string>
     <string name="snackbar_etc_2">번호가 변경되었습니다.</string>
+
+
 
 </resources>

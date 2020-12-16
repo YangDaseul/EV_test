@@ -6,6 +6,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
+import com.genesis.apps.comm.model.api.gra.REQ_1016;
+import com.genesis.apps.comm.model.api.gra.REQ_1017;
+import com.genesis.apps.comm.model.api.gra.REQ_1018;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.api.gra.REQ_1001;
 import com.genesis.apps.comm.model.api.gra.REQ_1002;
@@ -65,6 +68,9 @@ class REQViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<REQ_1013.Response>> RES_REQ_1013;
     private MutableLiveData<NetUIResponse<REQ_1014.Response>> RES_REQ_1014;
     private MutableLiveData<NetUIResponse<REQ_1015.Response>> RES_REQ_1015;
+    private MutableLiveData<NetUIResponse<REQ_1016.Response>> RES_REQ_1016;
+    private MutableLiveData<NetUIResponse<REQ_1017.Response>> RES_REQ_1017;
+    private MutableLiveData<NetUIResponse<REQ_1018.Response>> RES_REQ_1018;
 
 
     private MutableLiveData<List<VehicleVO>> vehicleList;
@@ -92,6 +98,9 @@ class REQViewModel extends ViewModel {
         RES_REQ_1013 = repository.RES_REQ_1013;
         RES_REQ_1014 = repository.RES_REQ_1014;
         RES_REQ_1015 = repository.RES_REQ_1015;
+        RES_REQ_1016 = repository.RES_REQ_1016;
+        RES_REQ_1017 = repository.RES_REQ_1017;
+        RES_REQ_1018 = repository.RES_REQ_1018;
 
         vehicleList = new MutableLiveData<>();
     }
@@ -150,6 +159,18 @@ class REQViewModel extends ViewModel {
 
     public void reqREQ1015(final REQ_1015.Request reqData) {
         repository.REQ_REQ_1015(reqData);
+    }
+
+    public void reqREQ1016(final REQ_1016.Request reqData) {
+        repository.REQ_REQ_1016(reqData);
+    }
+
+    public void reqREQ1017(final REQ_1017.Request reqData) {
+        repository.REQ_REQ_1017(reqData);
+    }
+
+    public void reqREQ1018(final REQ_1018.Request reqData) {
+        repository.REQ_REQ_1018(reqData);
     }
 
 

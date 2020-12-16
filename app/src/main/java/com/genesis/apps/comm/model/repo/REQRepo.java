@@ -3,6 +3,9 @@ package com.genesis.apps.comm.model.repo;
 import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.gra.REQ_1016;
+import com.genesis.apps.comm.model.api.gra.REQ_1017;
+import com.genesis.apps.comm.model.api.gra.REQ_1018;
 import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.gra.REQ_1001;
@@ -45,6 +48,9 @@ public class REQRepo {
     public final MutableLiveData<NetUIResponse<REQ_1013.Response>> RES_REQ_1013 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<REQ_1014.Response>> RES_REQ_1014 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<REQ_1015.Response>> RES_REQ_1015 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<REQ_1016.Response>> RES_REQ_1016 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<REQ_1017.Response>> RES_REQ_1017 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<REQ_1018.Response>> RES_REQ_1018 = new MutableLiveData<>();
 
 
     @Inject
@@ -382,6 +388,75 @@ public class REQRepo {
         }, APIInfo.GRA_REQ_1015, reqData);
 
         return RES_REQ_1015;
+    }
+
+    public MutableLiveData<NetUIResponse<REQ_1016.Response>> REQ_REQ_1016(final REQ_1016.Request reqData) {
+        RES_REQ_1016.setValue(NetUIResponse.loading(null));
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_REQ_1016.setValue(NetUIResponse.success(new Gson().fromJson(object, REQ_1016.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_REQ_1016.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_REQ_1016.setValue(NetUIResponse.success(TestCode.REQ_1016));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_REQ_1016.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_REQ_1016, reqData);
+
+        return RES_REQ_1016;
+    }
+
+    public MutableLiveData<NetUIResponse<REQ_1017.Response>> REQ_REQ_1017(final REQ_1017.Request reqData) {
+        RES_REQ_1017.setValue(NetUIResponse.loading(null));
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_REQ_1017.setValue(NetUIResponse.success(new Gson().fromJson(object, REQ_1017.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_REQ_1017.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_REQ_1017.setValue(NetUIResponse.success(TestCode.REQ_1017));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_REQ_1017.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_REQ_1017, reqData);
+
+        return RES_REQ_1017;
+    }
+
+    public MutableLiveData<NetUIResponse<REQ_1018.Response>> REQ_REQ_1018(final REQ_1018.Request reqData) {
+        RES_REQ_1018.setValue(NetUIResponse.loading(null));
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_REQ_1018.setValue(NetUIResponse.success(new Gson().fromJson(object, REQ_1018.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_REQ_1018.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_REQ_1018.setValue(NetUIResponse.success(TestCode.REQ_1018));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_REQ_1018.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_REQ_1018, reqData);
+
+        return RES_REQ_1018;
     }
 
 }

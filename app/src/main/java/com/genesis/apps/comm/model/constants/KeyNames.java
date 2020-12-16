@@ -62,4 +62,6 @@ public interface KeyNames {
     String KEY_NAME_URI_PARSER_ID="id";
     String KEY_NAME_URI_PARSER_PI="PI";
 
+    String KEY_NAME_ASNCD="asnCd";
+
 }
