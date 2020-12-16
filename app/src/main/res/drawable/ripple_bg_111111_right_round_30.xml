@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/x_88ffffff"> <!-- Ripple color :: BLACK (눌린 상태 색상) -->
+
+    <!-- Normal bg (누르기 전) -->
+    <item android:drawable="@drawable/bg_111111_right_round_30"/>
+
+    <!-- Make sure the ripple doesn't exceed the bounds -->
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <solid android:color="?android:colorAccent" />
+            <corners
+                android:topRightRadius="30dp"
+                android:bottomRightRadius="30dp"/>
+        </shape>
+    </item>
+
+</ripple>

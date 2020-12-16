@@ -14,6 +14,7 @@ import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
 import com.genesis.apps.databinding.ActivityBtrBluehandsHistBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.main.ServiceNetworkPopUpView;
 import com.genesis.apps.ui.main.home.view.BtrBluehandsAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -26,6 +27,7 @@ import java.util.List;
  */
 public class BtrBluehandsListActivity extends SubActivity<ActivityBtrBluehandsHistBinding> {
     private BtrBluehandsAdapter adapter;
+    private ServiceNetworkPopUpView serviceNetworkPopUpView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class BtrBluehandsListActivity extends SubActivity<ActivityBtrBluehandsHi
     }
 
     private void initView(List<BtrVO> list) {
+        serviceNetworkPopUpView = new ServiceNetworkPopUpView(ui.lPopup);
         adapter = new BtrBluehandsAdapter(onSingleClickListener);
         ui.rvBtr.setLayoutManager(new LinearLayoutManager(this));
         ui.rvBtr.setHasFixedSize(true);
@@ -57,12 +60,22 @@ public class BtrBluehandsListActivity extends SubActivity<ActivityBtrBluehandsHi
     @Override
     public void onClickCommon(View v) {
         //todo 목록에서 선택했을 때 액티비티 종료 및 데이터 전달 액션 정의 필요.\
-
+        BtrVO btrVO = null;
         switch (v.getId()){
             case R.id.l_whole:
-                BtrVO btrVO = (BtrVO)v.getTag(R.id.btr);
+                btrVO = (BtrVO)v.getTag(R.id.btr);
                 setResult(ResultCodes.REQ_CODE_BTR.getCode(), new Intent().putExtra(KeyNames.KEY_NAME_BTR,btrVO));
                 finish();
+                break;
+            case R.id.tv_auth_1:
+            case R.id.tv_auth_2:
+            case R.id.tv_auth_3:
+            case R.id.tv_auth_4:
+                int authId = Integer.parseInt(v.getTag(R.id.item).toString());
+                btrVO = (BtrVO)v.getTag(R.id.btr);
+                if(serviceNetworkPopUpView!=null&&btrVO!=null&&authId!=0){
+                    serviceNetworkPopUpView.showPopUp(btrVO, authId);
+                }
                 break;
         }
     }

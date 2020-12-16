@@ -70,6 +70,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     private String addr = "";
     private String addrDtl = "";
     private VehicleVO mainVehicle=null;
+    private ServiceNetworkPopUpView serviceNetworkPopUpView;
 
     public final static int PAGE_TYPE_BTR=0;//버틀러 변경
     public final static int PAGE_TYPE_RENT=1;//렌트리스 등록
@@ -89,7 +90,12 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     }
 
     private void initView() {
-        ui.lMapOverlayTitle.tvMapTitleText.setOnClickListener(onSingleClickListener);
+        serviceNetworkPopUpView = new ServiceNetworkPopUpView(ui.lPopup);
+
+        ui.lMapOverlayTitle.tvMapTitleText.setVisibility(View.GONE);
+        ui.lMapOverlayTitle.lServiceNetworkTitle.setVisibility(View.VISIBLE);
+        ui.lMapOverlayTitle.btnSearch.setOnClickListener(onSingleClickListener);
+        ui.lMapOverlayTitle.btnSearchList.setOnClickListener(onSingleClickListener);
         ui.btnMyPosition.setOnClickListener(onSingleClickListener);
         ui.pmvMapView.onMapTouchUpListener((motionEvent, makerList) -> {
 
@@ -353,8 +359,10 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             case R.id.tv_auth_2:
             case R.id.tv_auth_3:
             case R.id.tv_auth_4:
-                //todo 안내메시지 표시 tag넣어야함
-
+                int authId = Integer.parseInt(v.getTag(R.id.item).toString());
+                if(serviceNetworkPopUpView!=null&&btrVO!=null&&authId!=0){
+                    serviceNetworkPopUpView.showPopUp(btrVO, authId);
+                }
                 break;
             case R.id.btn_left_white: //대표가격보기
                 switch (pageType){
@@ -387,7 +395,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         break;
                 }
                 break;
-            case R.id.tv_map_select_btn2://목록
+            case R.id.btn_search_list://목록
                 //todo id 변경 필요
                 List<BtrVO> list = new ArrayList<>();
 
@@ -423,7 +431,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             case R.id.btn_my_position:
                 ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)), 500);
                 break;
-            case R.id.tv_map_title_text:
+            case R.id.btn_search:
                 showFragment(new BluehandsFilterFragment());
                 break;
         }
@@ -634,26 +642,29 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
 
     private void setAuthView(BtrVO btrVO) {
 
+        bottomSelectBinding.tvAcps1CdC.setVisibility(!TextUtils.isEmpty(btrVO.getAcps1Cd())&&btrVO.getAcps1Cd().contains("C") ? View.VISIBLE : View.GONE);
+        bottomSelectBinding.tvAcps1CdD.setVisibility(!TextUtils.isEmpty(btrVO.getAcps1Cd())&&btrVO.getAcps1Cd().contains("D") ? View.VISIBLE : View.GONE);
+
         if(btrVO==null||TextUtils.isEmpty(btrVO.getAcps1Cd()))
             return;
 
         TextView[] textViews = {bottomSelectBinding.tvAuth1, bottomSelectBinding.tvAuth2, bottomSelectBinding.tvAuth3, bottomSelectBinding.tvAuth4};
-        String[] authNM;
+        Integer[] authNM;
 
         if(btrVO.getAcps1Cd().equalsIgnoreCase("2")){
             //서비스 네트워크인 경우
-            authNM = new String[]{
-                    !TextUtils.isEmpty(btrVO.getGenLngYn()) && btrVO.getGenLngYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? getString(R.string.bt06_27) : ""
-                    , !TextUtils.isEmpty(btrVO.getFmRronYn()) && btrVO.getFmRronYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? getString(R.string.bt06_28) : ""
-                    , !TextUtils.isEmpty(btrVO.getHealZnYn()) && btrVO.getHealZnYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? getString(R.string.bt06_29) : ""
-                    , !TextUtils.isEmpty(btrVO.getCsmrPcYn()) && btrVO.getCsmrPcYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? getString(R.string.bt06_30) : ""
+            authNM = new Integer[]{
+                    !TextUtils.isEmpty(btrVO.getGenLngYn()) && btrVO.getGenLngYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? R.string.bt06_27 : 0
+                    , !TextUtils.isEmpty(btrVO.getFmRronYn()) && btrVO.getFmRronYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? R.string.bt06_28 : 0
+                    , !TextUtils.isEmpty(btrVO.getHealZnYn()) && btrVO.getHealZnYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? R.string.bt06_29 : 0
+                    , !TextUtils.isEmpty(btrVO.getCsmrPcYn()) && btrVO.getCsmrPcYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? R.string.bt06_30 : 0
             };
         }else{
             //특화 서비스인 경우
-            authNM = new String[]{
-                    !TextUtils.isEmpty(btrVO.getPntgXclYn()) && btrVO.getPntgXclYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? getString(R.string.bt06_17) : ""
-                    , !TextUtils.isEmpty(btrVO.getPrimTechYn()) && btrVO.getPrimTechYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? getString(R.string.bt06_18) : ""
-                    , !TextUtils.isEmpty(btrVO.getPrimCsYn()) && btrVO.getPrimCsYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? getString(R.string.bt06_23) : ""
+            authNM = new Integer[]{
+                    !TextUtils.isEmpty(btrVO.getPntgXclYn()) && btrVO.getPntgXclYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? R.string.bt06_17 : 0
+                    , !TextUtils.isEmpty(btrVO.getPrimTechYn()) && btrVO.getPrimTechYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? R.string.bt06_18 : 0
+                    , !TextUtils.isEmpty(btrVO.getPrimCsYn()) && btrVO.getPrimCsYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? R.string.bt06_23 : 0
             };
         }
         //인증 뷰 초기화
@@ -662,12 +673,13 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             textView.setText("");
         }
         //인증 뷰 SET
-        for(String auth : authNM){
-            if(!TextUtils.isEmpty(auth)) {
+        for(Integer auth : authNM){
+            if(auth!=0) {
                 for (TextView textView : textViews) {
                     if(TextUtils.isEmpty(textView.getText().toString())){
                         textView.setVisibility(View.VISIBLE);
-                        textView.setText(auth);
+                        textView.setText(getString(auth));
+                        textView.setTag(R.id.item, auth);
                         if(textView==bottomSelectBinding.tvAuth1){
                             bottomSelectBinding.tvAuth2.setVisibility(View.INVISIBLE);
                         }else if(textView==bottomSelectBinding.tvAuth3){
