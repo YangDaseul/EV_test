@@ -11,7 +11,7 @@ import java.util.List;
 
 @Dao
 public abstract class FamilyAppDao implements BaseDao<FamilyAppVO> {
-    @Query("SELECT * FROM FamilyAppVO order by nttOrd desc")
+    @Query("SELECT * FROM FamilyAppVO order by nttOrd asc")
     public abstract List<FamilyAppVO> select();
 
     @Query("DELETE FROM FamilyAppVO")

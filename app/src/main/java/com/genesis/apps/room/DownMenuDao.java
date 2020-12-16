@@ -11,7 +11,7 @@ import androidx.room.Transaction;
 
 @Dao
 public abstract class DownMenuDao implements BaseDao<DownMenuVO> {
-    @Query("SELECT * FROM DownMenuVO WHERE custGbCd=:custGbCd order by nttOrd desc")
+    @Query("SELECT * FROM DownMenuVO WHERE custGbCd=:custGbCd order by nttOrd asc")
     public abstract List<DownMenuVO> select(String custGbCd);
 
     @Query("DELETE from DownMenuVO")

@@ -1,11 +1,5 @@
 package com.genesis.apps.comm.viewmodel;
 
-import androidx.hilt.Assisted;
-import androidx.hilt.lifecycle.ViewModelInject;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.SavedStateHandle;
-import androidx.lifecycle.ViewModel;
-
 import com.genesis.apps.comm.model.api.gra.MYP_0001;
 import com.genesis.apps.comm.model.api.gra.MYP_0004;
 import com.genesis.apps.comm.model.api.gra.MYP_0005;
@@ -21,19 +15,13 @@ import com.genesis.apps.comm.model.api.gra.MYP_2006;
 import com.genesis.apps.comm.model.api.gra.MYP_8001;
 import com.genesis.apps.comm.model.api.gra.MYP_8004;
 import com.genesis.apps.comm.model.api.gra.MYP_8005;
-import com.genesis.apps.comm.model.api.gra.OIL_0001;
-import com.genesis.apps.comm.model.api.gra.OIL_0002;
-import com.genesis.apps.comm.model.api.gra.OIL_0003;
-import com.genesis.apps.comm.model.api.gra.OIL_0004;
-import com.genesis.apps.comm.model.api.gra.OIL_0005;
+import com.genesis.apps.comm.model.repo.CardRepository;
+import com.genesis.apps.comm.model.repo.DBContentsRepository;
 import com.genesis.apps.comm.model.repo.DBUserRepo;
 import com.genesis.apps.comm.model.repo.MYPRepo;
-import com.genesis.apps.comm.model.repo.OILRepo;
-import com.genesis.apps.comm.model.repo.CardRepository;
 import com.genesis.apps.comm.model.vo.CardVO;
-import com.genesis.apps.comm.model.vo.OilPointVO;
+import com.genesis.apps.comm.model.vo.FamilyAppVO;
 import com.genesis.apps.comm.model.vo.PrivilegeVO;
-import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.net.ga.GA;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
@@ -44,6 +32,11 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
+import androidx.hilt.Assisted;
+import androidx.hilt.lifecycle.ViewModelInject;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
+import androidx.lifecycle.ViewModel;
 import lombok.Data;
 
 import static com.genesis.apps.comm.model.vo.PrivilegeVO.JOIN_CODE_UNABLE_APPLY;
@@ -54,6 +47,7 @@ class MYPViewModel extends ViewModel {
     private final MYPRepo repository;
     private final DBUserRepo dbUserRepo;
     private final CardRepository cardRepository;
+    private final DBContentsRepository dbContentsRepository;
     private final SavedStateHandle savedStateHandle;
 
     private MutableLiveData<NetUIResponse<MYP_0001.Response>> RES_MYP_0001;
@@ -73,7 +67,6 @@ class MYPViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<MYP_2003.Response>> RES_MYP_2003;
     private MutableLiveData<NetUIResponse<MYP_2004.Response>> RES_MYP_2004;
     private MutableLiveData<NetUIResponse<MYP_2005.Response>> RES_MYP_2005;
-    
     private MutableLiveData<NetUIResponse<MYP_2006.Response>> RES_MYP_2006;
 
     private MutableLiveData<NetUIResponse<List<CardVO>>> cardVoList;
@@ -83,10 +76,11 @@ class MYPViewModel extends ViewModel {
             MYPRepo repository,
             DBUserRepo dbUserRepo,
             CardRepository cardRepository,
+            DBContentsRepository dbContentsRepository,
             @Assisted SavedStateHandle savedStateHandle)
     {
         this.savedStateHandle = savedStateHandle;
-
+        this.dbContentsRepository = dbContentsRepository;
         this.repository = repository;
         this.dbUserRepo = dbUserRepo;
         RES_MYP_0001 = repository.RES_MYP_0001;
@@ -175,6 +169,10 @@ class MYPViewModel extends ViewModel {
     public void reqChangeFavoriteCard(String cardNo, final List<CardVO> cardVOList){
         if(cardRepository.updateCard(cardNo))
             cardRepository.getNewCardList(cardVOList);
+    }
+
+    public List<FamilyAppVO> getFamilyAppList(){
+        return dbContentsRepository.getFamilyApp();
     }
 
     public List<PrivilegeVO> getPossibleApplyPrivilegeList(List<PrivilegeVO> list){

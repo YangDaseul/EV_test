@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="data"
+            type="com.genesis.apps.comm.model.vo.FamilyAppVO" />
+
+        <variable
+            name="listener"
+            type="com.genesis.apps.ui.common.view.listener.OnSingleClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/iv_app"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="14dp"
+                android:scaleType="centerInside"
+                android:onClick="@{(view)->listener.onClick(view)}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:src="@drawable/logo_app_connected"/>
+
+            <TextView
+                android:id="@+id/tv_app"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:textColor="@color/x_101010"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:text="@{data.appNm}"
+                android:maxLines="1"
+                android:ellipsize="end"
+                app:layout_constraintTop_toBottomOf="@+id/iv_app"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                tools:text="패밀리앱"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
