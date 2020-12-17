@@ -9,6 +9,7 @@ import android.webkit.WebView;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.databinding.ActivityServiceAirport2ApplyBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -19,6 +20,8 @@ import com.genesis.apps.ui.common.activity.SubActivity;
  */
 public class ServiceAirport2ApplyActivity extends SubActivity<ActivityServiceAirport2ApplyBinding> {
 
+    private RepairTypeVO repairTypeVO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +29,11 @@ public class ServiceAirport2ApplyActivity extends SubActivity<ActivityServiceAir
         getDataFromIntent();
         setViewModel();
         setObserver();
+        initView();
+    }
+
+    private void initView() {
+        ui.tvRparTypNm.setText(repairTypeVO!=null&&!TextUtils.isEmpty(repairTypeVO.getRparTypNm()) ? repairTypeVO.getRparTypNm() : "--");
     }
 
     @Override
@@ -53,6 +61,7 @@ public class ServiceAirport2ApplyActivity extends SubActivity<ActivityServiceAir
         VehicleVO mainVehicle=null;
         try {
             mainVehicle = (VehicleVO)getIntent().getSerializableExtra(KeyNames.KEY_NAME_VEHICLE_VO);
+            repairTypeVO = (RepairTypeVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

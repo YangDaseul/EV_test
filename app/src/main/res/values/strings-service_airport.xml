@@ -13,4 +13,7 @@
     <string name="sm_r_rsv02_02_11">기본점검 15종</string>
     <string name="sm_r_rsv02_02_12">사전점검 (SW 업데이트)</string>
     <string name="sm_r_rsv02_02_13">고객센터로 통화하기</string>
+    <string name="sm_r_rsv02_02_14">정비내용</string>
+
+
 </resources>

@@ -85,6 +85,7 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
             case R.id.l_maintenance_airport:
                 startActivitySingleTop(new Intent(this, ServiceAirport2ApplyActivity.class)
                         .putExtra(KeyNames.KEY_NAME_VEHICLE_VO, mainVehicle)
+                        .putExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE, selectRepairTypeVO)
                         , RequestCodes.REQ_CODE_ACTIVITY.getCode()
                         , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;

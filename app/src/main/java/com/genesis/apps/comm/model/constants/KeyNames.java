@@ -37,6 +37,7 @@ public interface KeyNames {
     String KEY_NAME_MAP_SEARCH_MSG_ID="msgId";
     String KEY_NAME_MAP_SEARCH_DIRECT_OPEN="directOpen";
     String KEY_NAME_SERVICE_REPAIR_TYPE_CODE="rparTypCd";
+    String KEY_NAME_SERVICE_REPAIR_TYPE_NM="rparTypNm";
     String KEY_NAME_SERVICE_COUPON_LIST="couponList";
 
     String KEY_NAME_VEHICLE_VO = "VehicleVO";
