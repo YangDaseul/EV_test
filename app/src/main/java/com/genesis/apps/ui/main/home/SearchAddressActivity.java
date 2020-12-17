@@ -44,6 +44,7 @@ public class SearchAddressActivity extends SubActivity<ActivitySearchAddressBind
 
     private void initView() {
         adapter = new SearchAddressAdapter(onSingleClickListener);
+        ui.setActivity(this);
         ui.lSearchParent.rv.setLayoutManager(new LinearLayoutManager(this));
         ui.lSearchParent.rv.setHasFixedSize(true);
         ui.lSearchParent.rv.setAdapter(adapter);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewStub;
@@ -290,6 +291,16 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
                 break;
             case R.id.tv_map_title_address:
                 openSearchAddress();
+                break;
+            case R.id.btn_my_addr_position:
+                List<SubFragment> fragments = getFragments();
+                if (fragments != null && fragments.size() > 0) {
+                    hideFragment(fragments.get(0));
+                }
+
+                lgnViewModel.setPosition(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1));
+                ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)), 500);
+
                 break;
         }
 
