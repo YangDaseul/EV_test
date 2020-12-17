@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:background="@drawable/selector_service_remote_register_et_bg"
+            android:background="@drawable/selector_service_remote_register_step_bg_1"
             android:clickable="false"
             android:drawableRight="@drawable/ic_btn_dropdown"
             android:hint="@{inputHintText}"
