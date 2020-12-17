@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 
+import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.REQ_1010;
@@ -108,7 +109,7 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
 
     private void setViewRparTypCd() {
         if (repairTypeVO != null)
-            ui.tvRpartypnm.setText(repairTypeVO.getRparTypNm());
+            ui.lRpar.tvRparTypNm.setText(repairTypeVO.getRparTypNm());
     }
 
     private void startMapView() {
@@ -396,8 +397,7 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
     private boolean checkValidRsvtHopeDt() {
         if (TextUtils.isEmpty(rsvtHopeDt)) {
             ui.tvRsvtHopeDt.setText(R.string.sm_r_rsv02_04_8);
-            ui.tvRsvtHopeDt.setTextColor(getColor(R.color.x_aaabaf));
-            ui.tvRsvtHopeDt.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
+            Paris.style(ui.tvRsvtHopeDt).apply(R.style.CommonSpinnerItemCalendarError);
             ui.tvErrorRsvtHopeDt.setVisibility(View.VISIBLE);
             ui.tvErrorRsvtHopeDt.setText(R.string.sm_r_rsv02_01_14);
             return false;
@@ -407,8 +407,7 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
                     + DateUtil.getDate(DateUtil.getDefaultDateFormat(rsvtHopeTm, DateUtil.DATE_FORMAT_HHmm), DateUtil.DATE_FORMAT_HH_mm);
 
             ui.tvRsvtHopeDt.setText(date);
-            ui.tvRsvtHopeDt.setTextColor(getColor(R.color.x_000000));
-            ui.tvRsvtHopeDt.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
+            Paris.style(ui.tvRsvtHopeDt).apply(R.style.CommonSpinnerItemCalendar);
             ui.tvErrorRsvtHopeDt.setVisibility(View.INVISIBLE);
             return true;
         }
@@ -419,15 +418,13 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
         if (btrVO == null) {
             ui.tvErrorRepair.setVisibility(View.VISIBLE);
             ui.tvErrorRepair.setText(getString(R.string.sm_r_rsv02_01_14));
-            ui.tvRepair.setTextColor(getColor(R.color.x_aaabaf));
-            ui.tvRepair.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
-            ui.tvRepair.setText(R.string.sm_r_rsv02_04_3);
+            Paris.style(ui.tvRepair).apply(R.style.CommonInputItemError);
+            ui.tvRepair.setText(R.string.sm_r_rsv02_04_17);
             ui.tvTitleRepair.setVisibility(View.GONE);
             return false;
         } else {
             ui.tvErrorRepair.setVisibility(View.INVISIBLE);
-            ui.tvRepair.setTextColor(getColor(R.color.x_000000));
-            ui.tvRepair.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
+            Paris.style(ui.tvRepair).apply(R.style.CommonInputItemEnable);
             ui.tvRepair.setText(btrVO.getAsnNm());
             ui.tvTitleRepair.setVisibility(View.VISIBLE);
             doTransition(1);

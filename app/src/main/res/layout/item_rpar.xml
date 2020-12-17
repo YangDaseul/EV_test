@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="data"
+            type="com.genesis.apps.comm.model.vo.RepairTypeVO" />
+
+        <variable
+            name="listener"
+            type="com.genesis.apps.ui.common.view.listener.OnSingleClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_top_line_1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/x_e5e5e5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_title_rpar_typ"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:text="@string/sm_r_rsv02_02_14"
+            android:textSize="14sp"
+            android:textColor="@color/x_000000"
+            android:gravity="center"
+            android:background="@color/x_f8f8f8"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:lineSpacingExtra="4sp"
+            android:letterSpacing="-0.01"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_top_line_1" />
+
+        <TextView
+            android:id="@+id/tv_rpar_typ_nm"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:textSize="14sp"
+            android:textColor="@color/x_262626"
+            android:paddingLeft="15dp"
+            android:gravity="center"
+            android:background="@color/x_ffffff"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:lineSpacingExtra="4sp"
+            android:letterSpacing="-0.01"
+            app:layout_constraintStart_toEndOf="@+id/tv_title_rpar_typ"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_top_line_1" />
+
+        <ImageView
+            android:id="@+id/iv_top_line_2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/x_e5e5e5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_rpar_typ"/>
+        
+        
+        
+        
+
+<!--            <ImageView-->
+<!--                android:id="@+id/iv_app"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="14dp"-->
+<!--                android:layout_marginEnd="14dp"-->
+<!--                android:scaleType="centerInside"-->
+<!--                android:onClick="@{(view)->listener.onClick(view)}"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                tools:src="@drawable/logo_app_connected"/>-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tv_app"-->
+<!--                android:layout_width="80dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:gravity="center"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textColor="@color/x_101010"-->
+<!--                android:fontFamily="@font/regular_genesissanstextglobal"-->
+<!--                android:text="@{data.appNm}"-->
+<!--                android:maxLines="1"-->
+<!--                android:ellipsize="end"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/iv_app"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                tools:text="패밀리앱"/>-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -33,7 +33,7 @@ public class ServiceAirport2ApplyActivity extends SubActivity<ActivityServiceAir
     }
 
     private void initView() {
-        ui.tvRparTypNm.setText(repairTypeVO!=null&&!TextUtils.isEmpty(repairTypeVO.getRparTypNm()) ? repairTypeVO.getRparTypNm() : "--");
+        ui.lRpar.tvRparTypNm.setText(repairTypeVO!=null&&!TextUtils.isEmpty(repairTypeVO.getRparTypNm()) ? repairTypeVO.getRparTypNm() : "--");
     }
 
     @Override
