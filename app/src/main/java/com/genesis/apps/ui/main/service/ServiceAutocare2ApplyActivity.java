@@ -307,8 +307,8 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
             }
 
             if(pos==1){
-                startMapView();
-//                new Handler().postDelayed(() -> startMapView(),700);
+                //2020-12-01 화면 전체를 덮는 입력 페이지는 자동 진입 안하도록 수정
+//                startMapView();
             }else if(pos==2){
 
             }else if(pos==3){

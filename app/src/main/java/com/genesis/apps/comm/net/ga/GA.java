@@ -100,10 +100,9 @@ public class GA {
 //    }
 
     //null : 잘못된 접근,  http 또는 에러 메시지
-    public String getSignoutUrl(Activity activity, String accessToken) {
-        if(activity == null) return null;
-
-        String msg = activity.getString(R.string.instability_network);
+    public String getSignoutUrl() {
+        String msg = "";
+        String accessToken = getAccessToken();
         if(TextUtils.isEmpty(accessToken)) return msg;
 
         String url = GA_URL + "/api/account/ccsp/user/signout?url=" + GA_REDIRECT_URL;

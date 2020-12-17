@@ -190,6 +190,32 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
                 break;
             case R.id.btn_withdrawal:
 
+                String retv="";
+                try {
+                    showProgressDialog(true);
+                    retv = mypViewModel.reqSingOut(ga);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }finally {
+                    showProgressDialog(false);
+                    if(!TextUtils.isEmpty(retv)&&retv.toUpperCase().startsWith("HTTP")){
+                        startActivitySingleTop(new Intent(this, LoginActivity.class)
+                                        .putExtra(KeyNames.KEY_NAME_URL, retv)
+                                        .putExtra(KeyNames.KEY_ANME_CCSP_TYPE, LoginActivity.TYPE_RELEASE)
+                                , RequestCodes.REQ_CODE_RELEASE.getCode()
+                                , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    }else{
+                        try {
+                            if(TextUtils.isEmpty(retv))
+                                retv = getString(R.string.r_flaw06_p02_snackbar_1);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }finally{
+                            SnackBarUtil.show(this, retv);
+                        }
+                    }
+                }
+
 
                 break;
         }
@@ -226,6 +252,13 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
                     mypViewModel.reqMYP0005(new MYP_0005.Request(APPIAInfo.MG_GA01.getId(), authUuid));
                 else
                     SnackBarUtil.show(this, "본인인증이 정상적으로 진행되지 않았습니다.\n잠시 후 다시 시도해 주세요.");
+            }
+        }else if(resultCode == Activity.RESULT_OK && requestCode == RequestCodes.REQ_CODE_RELEASE.getCode()){
+            if(mypViewModel.clearUserInfo()) {
+                ga.clearLoginInfo();
+                restart();
+            }else{
+                SnackBarUtil.show(this, "회원정보 삭제 중 예기치 못한 에러가 발생됬습니다.\n앱 재실행 후 다시 시도해 주십시오.");
             }
         }
     }

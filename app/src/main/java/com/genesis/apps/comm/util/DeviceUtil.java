@@ -8,6 +8,8 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
@@ -200,6 +202,14 @@ public class DeviceUtil {
         float density = context.getResources().getDisplayMetrics().densityDpi;
         float dpi = pixel / (density / (float) DisplayMetrics.DENSITY_DEFAULT);
         return dpi;
+    }
+
+    public static Spanned fromHtml(String text) {
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            return Html.fromHtml(text);
+        }
+
+        return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
     }
 
 }

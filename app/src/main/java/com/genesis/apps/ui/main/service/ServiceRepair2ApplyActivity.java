@@ -99,7 +99,8 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
 
     private void initChoiceView() {
         if (btrVO == null) {
-            startMapView();
+            //2020-12-01 화면 전체를 덮는 입력 페이지는 자동 진입 안하도록 수정
+//            startMapView();
         } else {
             checkValidRepair();
         }

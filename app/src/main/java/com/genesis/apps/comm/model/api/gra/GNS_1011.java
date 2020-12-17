@@ -4,8 +4,11 @@ import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.BaseRequest;
 import com.genesis.apps.comm.model.api.BaseResponse;
+import com.genesis.apps.comm.model.vo.RentStatusVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -52,6 +55,13 @@ public class GNS_1011 extends BaseData {
      * 렌트리스 등록 가능한 차량인 경우 필수
      * @see #mdlNm 차량모델명
      * 프리빌리지 특화상품 신청가능한 차량인 경우 필수(ex : G90, G80)
+     * @see #svcIntroUri 서비스안내Uri
+     * 외부 웹뷰 이동
+     * EQ900 : https://www.genesis.com/kr/ko/members/genesis-membership/privilege/eq900.html
+     * G80 : https://www.genesis.com/kr/ko/members/genesis-membership/privilege/g80.html
+     * G90 : https://www.genesis.com/kr/ko/members/genesis-membership/privilege/g90.html
+     * @see #godsList 상품리스트
+     * 프리빌리지 특화상품 신청가능한 차량인 경우 필수
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -65,5 +75,11 @@ public class GNS_1011 extends BaseData {
         @Expose
         @SerializedName("mdlNm")
         private String mdlNm;
+        @Expose
+        @SerializedName("svcIntroUri")
+        private String svcIntroUri;
+        @Expose
+        @SerializedName("godsList")
+        private List<RentStatusVO> godsList;
     }
 }

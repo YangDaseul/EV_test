@@ -99,6 +99,12 @@ class DriveServiceVO extends BaseData {
     @SerializedName("rgstDt")
     private String rgstDt;
     @Expose
+    @SerializedName("driverNm")
+    private String driverNm;
+    @Expose
+    @SerializedName("driverMdn")
+    private String driverMdn;
+    @Expose
     @SerializedName("posInfo")
     private List<PositionVO> posInfo;
 }

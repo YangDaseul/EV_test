@@ -31,6 +31,7 @@ import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.PositionVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.DDSViewModel;
 import com.genesis.apps.comm.viewmodel.RoadWinViewModel;
@@ -104,10 +105,11 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         setObserver();
         initView();
 
+        //2020-12-01 화면 전체를 덮는 입력 페이지는 자동 진입 안하도록 수정
         //플래그를 보고 출발지 검색 지도 호출을 즉시 실행
-        if (isDirect) {
-            onClickSearchAddressBtn(FROM);
-        }
+//        if (isDirect) {
+//            onClickSearchAddressBtn(FROM);
+//        }
     }
 
     @Override
@@ -177,6 +179,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         if (!buttonEnable) {
             return;
         }
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
 
         switch (v.getId()) {
             //이용 내역
@@ -464,7 +467,8 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                 openToAddressBtn();
                 //not break
             case NEXT_BTN_NEED_TO_ADDRESS:
-                onClickSearchAddressBtn(TO);
+                //2020-12-01 화면 전체를 덮는 입력 페이지는 자동 진입 안하도록 수정
+//                onClickSearchAddressBtn(TO);
                 break;
 
             //예상 가격 조회
@@ -581,6 +585,8 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
         //다음 단게 뷰 해금
         for (View v : views) {
+            if(v.getVisibility() == View.GONE) SoftKeyboardUtil.showKeyboard(this);
+
             v.setVisibility(View.VISIBLE);
         }
 

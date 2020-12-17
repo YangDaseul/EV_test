@@ -281,9 +281,11 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
             }
 
             if (pos == 1) {
-                startMapView(true);
+                //2020-12-01 화면 전체를 덮는 입력 페이지는 자동 진입 안하도록 수정
+//                startMapView(true);
             } else if (pos == 3) {
-                startMapView(false);
+                //2020-12-01 화면 전체를 덮는 입력 페이지는 자동 진입 안하도록 수정
+//                startMapView(false);
             } else if (pos == views.length - 1) {
                 selectCalendar();
             }
