@@ -26,14 +26,17 @@
         <TextView
             android:id="@+id/tv_service_review_title_msg"
             style="@style/TextBasic"
+            android:layout_width="0dp"
             android:layout_marginStart="20dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/light_genesissansheadglobal"
             android:lineSpacingExtra="8sp"
             android:text="@string/service_review_02"
             android:textColor="@color/x_000000"
             android:textSize="22sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/l_service_review_titlebar" />
 
         <!-- 별점 주세요 -->
@@ -49,21 +52,97 @@
             app:layout_constraintTop_toBottomOf="@id/tv_service_review_title_msg" />
 
         <!-- 별점 -->
-        <RatingBar
-            android:id="@+id/rb_service_review_ratingbar"
+        <LinearLayout
+            android:id="@+id/ll_rate"
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="20dp"
-            android:max="5"
-            android:numStars="5"
-            android:progressDrawable="@drawable/ic_rating_bar_star"
-            android:rating="5"
-            android:stepSize="1"
+            android:layout_height="34dp"
             app:layout_constraintBottom_toTopOf="@id/et_service_review_input"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_service_review_please_star" />
+            app:layout_constraintTop_toBottomOf="@id/tv_service_review_please_star">
+
+            <LinearLayout
+                android:id="@+id/ll_rate_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:onClick="@{(v) -> activity.onClickCommon(v)}">
+
+                <ImageView
+                    android:id="@+id/iv_rate_1"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_star_l_s" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_rate_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:onClick="@{(v) -> activity.onClickCommon(v)}">
+
+                <ImageView
+                    android:id="@+id/iv_rate_2"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_star_l_n" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_rate_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:onClick="@{(v) -> activity.onClickCommon(v)}">
+
+                <ImageView
+                    android:id="@+id/iv_rate_3"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_star_l_n" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_rate_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:onClick="@{(v) -> activity.onClickCommon(v)}">
+
+                <ImageView
+                    android:id="@+id/iv_rate_4"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_star_l_n"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_rate_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:onClick="@{(v) -> activity.onClickCommon(v)}">
+
+                <ImageView
+                    android:id="@+id/iv_rate_5"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_star_l_n"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <!--  기타의견 -->
         <EditText
@@ -81,7 +160,7 @@
             app:layout_constraintBottom_toTopOf="@id/tv_service_review_ok_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rb_service_review_ratingbar" />
+            app:layout_constraintTop_toBottomOf="@id/ll_rate" />
 
         <!--  확인버튼  -->
         <TextView
