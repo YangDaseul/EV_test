@@ -205,6 +205,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         ui.setOilView(oilView);
         setCallCenter();
         initFamilyApp();
+        ui.tvVersion.setText("V"+PackageUtil.changeVersionToAppFormat(PackageUtil.getApplicationVersionName(this, getPackageName())));
     }
 
     private void initFamilyApp(){
@@ -215,8 +216,6 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         ui.rcFamilyApp.setLayoutManager(layoutManager);
         ui.rcFamilyApp.setHasFixedSize(true);
         ui.rcFamilyApp.setAdapter(adapter);
-//        adapter.setRows(mypViewModel.getFamilyAppList());
-//        adapter.notifyDataSetChanged();
     }
 
     //TODO 로딩 처리 필요..

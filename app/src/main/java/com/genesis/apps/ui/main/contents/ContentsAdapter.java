@@ -48,10 +48,9 @@ public class ContentsAdapter extends BaseRecyclerViewAdapter2<ContentsVO> {
 
     private static class ItemContents extends BaseViewHolder<ContentsVO, ItemContentsBinding> {
 
-        private final int[] defaultBannerImg = {R.drawable.banner_contents_1, R.drawable.banner_contents_2, R.drawable.banner_contents_3, R.drawable.banner_contents_4};
-
         public ItemContents(View itemView) {
             super(itemView);
+            getBinding().ivImage.setOnClickListener(onSingleClickListener);
         }
 
         @Override
@@ -65,18 +64,12 @@ public class ContentsAdapter extends BaseRecyclerViewAdapter2<ContentsVO> {
                     .with(getContext())
                     .load(item.getTtImgUri())
                     .format(DecodeFormat.PREFER_ARGB_8888)
-                    .error(getDefaultImg(pos))
-                    .placeholder(getDefaultImg(pos))
+//                    .error(getDefaultImg(pos)) //todo 정의 필요
+//                    .placeholder(getDefaultImg(pos)) //todo 정의 필요
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(getBinding().ivImage);
 
-
-            getBinding().ivImage.setOnClickListener(onSingleClickListener);
             getBinding().ivImage.setTag(R.id.item, item);
-
-
-//                getBinding().ivImage.setOnClickListener(onSingleClickListener);
-//                getBinding().ivImage.setTag(R.id.url, item.getTtImgUri());
         }
 
         @Override
@@ -85,14 +78,14 @@ public class ContentsAdapter extends BaseRecyclerViewAdapter2<ContentsVO> {
         }
 
 
-        private int getDefaultImg(int position){
-            int pos = position % defaultBannerImg.length;
-
-            if (pos > defaultBannerImg.length-1)
-                pos = 3;
-
-            return defaultBannerImg[pos];
-        }
+//        private int getDefaultImg(int position){
+//            int pos = position % defaultBannerImg.length;
+//
+//            if (pos > defaultBannerImg.length-1)
+//                pos = 3;
+//
+//            return defaultBannerImg[pos];
+//        }
     }
 
 }

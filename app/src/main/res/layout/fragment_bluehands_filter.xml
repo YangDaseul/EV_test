@@ -311,6 +311,40 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_bluehands_info_4" />
 
 
+                <TextView
+                    android:id="@+id/tv_title_bluehands_info_5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:drawableLeft="@drawable/mark_666666"
+                    android:drawablePadding="6dp"
+                    android:fontFamily="@font/medium_genesissanstextglobal"
+                    android:gravity="left|center_vertical"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="6sp"
+                    android:text="@string/bt06_18"
+                    android:textColor="@color/x_666666"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_msg_bluehands_info_4" />
+
+                <TextView
+                    android:id="@+id/tv_msg_bluehands_info_5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="6sp"
+                    android:text="@string/bt06_31"
+                    android:textColor="@color/x_666666"
+                    android:textSize="14sp"
+                    android:paddingLeft="7dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_bluehands_info_5" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 

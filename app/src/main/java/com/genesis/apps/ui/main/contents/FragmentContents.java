@@ -75,14 +75,26 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
                         list.addAll(result.data.getTtlList());
                     }
 
-                    int itemSizeBefore = contentsAdapter.getItemCount();
+                    int itemSizeBefore = 0;
                     if (contentsAdapter.getPageNo() == 0) {
                         contentsAdapter.setRows(list);
                     } else {
+                        itemSizeBefore = contentsAdapter.getItemCount();
                         contentsAdapter.addRows(list);
                     }
+//                    if(list.size()>0) {
+//                        contentsAdapter.notifyItemRangeInserted(itemSizeBefore, contentsAdapter.getItemCount());
+//                    }else{
+//                        contentsAdapter.notifyDataSetChanged();
+//                    }
+
+                    contentsAdapter.notifyDataSetChanged();
+                    if (contentsAdapter.getPageNo() == 0) {
+                        me.vp.setCurrentItem(0);
+                    }
+
+
                     contentsAdapter.setPageNo(contentsAdapter.getPageNo() + 1);
-                    contentsAdapter.notifyItemRangeInserted(itemSizeBefore, contentsAdapter.getItemCount());
                     me.lEmpty.setVisibility(contentsAdapter.getItemCount()==0 ? View.VISIBLE : View.GONE);
                     break;
                 default:
@@ -237,7 +249,7 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
                 }
 
                 contentsAdapter.setPageNo(0);
-                cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(),isEvent ? "1000" :"0","",(contentsAdapter.getPageNo()+1)+"","20"));
+                cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(),isEvent ? "1000" : "","",(contentsAdapter.getPageNo()+1)+"","20"));
                 break;
 
             case R.id.iv_image:
