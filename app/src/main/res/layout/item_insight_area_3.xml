@@ -18,7 +18,7 @@
 
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/light_genesissansheadglobal"
             android:lineSpacingExtra="8sp"
@@ -28,25 +28,26 @@
             app:layout_constrainedWidth="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/iv_icon"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:text="HAPPY GV80 DAY!"/>
 
         <TextView
             android:id="@+id/tv_msg"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/light_genesissansheadglobal"
             android:lineSpacingExtra="6sp"
             android:letterSpacing="-0.01"
             android:textColor="@color/x_000000"
             android:textSize="16sp"
+            android:gravity="center_vertical"
+            app:layout_constraintHeight_min="60dp"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constrainedWidth="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
             app:layout_constraintEnd_toStartOf="@+id/iv_icon"
-            app:layout_constraintBottom_toTopOf="@+id/tv_link_nm"
             app:layout_goneMarginBottom="18dp"
             tools:text="오늘은 GV80 구입하신지\n2년 되는 날이예요!\n오래오래 안전하게 운행하세요:)"/>
 
@@ -55,7 +56,7 @@
             android:id="@+id/tv_link_nm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="23dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:lineSpacingExtra="29sp"
             android:textColor="@color/x_6f6f6f"
@@ -72,11 +73,11 @@
 
         <ImageView
             android:id="@+id/iv_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:scaleType="centerInside"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_msg"
             tools:src="@drawable/ic_service_emergency"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
