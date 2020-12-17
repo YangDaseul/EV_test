@@ -141,7 +141,7 @@ public enum APIInfo {
 
     GRA_STO_1001("Genesis + 유사재고차량", "STO-1001", HttpRequest.METHOD_POST, "/graapi/sto/smlrStckVhcl.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_STO_1002("Genesis + BTO 웹뷰", "STO-1002", HttpRequest.METHOD_POST, "/graapi/nl/sto/btoWebview.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_STO_1003("Genesis + 계약서 조회", "STO-1003", HttpRequest.METHOD_POST, "/graapi/nl/sto/", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8), //todo url 결정 필요
+    GRA_STO_1003("Genesis + 계약서 조회", "STO-1003", HttpRequest.METHOD_POST, "/graapi/sto/contractLookup.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     GRA_DDS_1001("Genesis + 대리운전 진행상태 확인", "DDS-1001", HttpRequest.METHOD_POST, "/graapi/dds/ddsProgsCheck.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_DDS_1002("Genesis + 대리운전 신청 정보 등록", "DDS-1002", HttpRequest.METHOD_POST, "/graapi/dds/ddsInfoRgist.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
