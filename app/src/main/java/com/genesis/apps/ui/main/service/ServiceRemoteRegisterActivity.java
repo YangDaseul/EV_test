@@ -288,11 +288,11 @@ public class ServiceRemoteRegisterActivity extends SubActivity<ActivityServiceRe
 
     private REGISTER_STEP checkStep() {
         boolean isEmptyPhoneNum = TextUtils.isEmpty(ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.getText().toString());
-        ui.lServiceRemoteStep1.tvServiceRemoteRegisterStepGuide.setVisibility(isEmptyPhoneNum ? View.VISIBLE : View.INVISIBLE);
+        ui.lServiceRemoteStep1.tvServiceRemoteRegisterStepGuide.setVisibility(isEmptyPhoneNum ? View.VISIBLE : View.GONE);
         ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.setSelected(isEmptyPhoneNum);
 
         boolean isEmptyCarNum = TextUtils.isEmpty(ui.lServiceRemoteStep2.etServiceRemoteRegisterStepInput.getText().toString());
-        ui.lServiceRemoteStep2.tvServiceRemoteRegisterStepGuide.setVisibility(isEmptyCarNum ? View.VISIBLE : View.INVISIBLE);
+        ui.lServiceRemoteStep2.tvServiceRemoteRegisterStepGuide.setVisibility(isEmptyCarNum ? View.VISIBLE : View.GONE);
         ui.lServiceRemoteStep2.etServiceRemoteRegisterStepInput.setSelected(isEmptyCarNum);
 
         boolean isEmptyErrorCode = fltCd == null;

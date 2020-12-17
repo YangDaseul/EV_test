@@ -38,7 +38,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -48,6 +49,8 @@
                     style="@style/ServiceRemote.TextView_Font_LGSHG.Black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="8sp"
                     android:textSize="22sp"
@@ -92,13 +95,21 @@
                     app:guide="@{@string/sm_remote01_guide_0}"
                     app:guideColor="@{@color/x_666666}" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="28dp"
+                    android:background="@color/x_f8f8f8" />
+
                 <!--원격진단 서비스 정보 타이틀-->
                 <TextView
                     android:id="@+id/tv_service_remote_register_info_title"
                     style="@style/ServiceRemote.TextView_Font_LGSHG.Black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="78dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp"
                     android:text="@string/sm_remote01_info_title"
                     android:textSize="22sp" />
 
@@ -108,7 +119,9 @@
                     style="@style/ServiceRemote.TextView_Font_RGSTG.262626"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="18dp"
+                    android:layout_marginEnd="20dp"
                     android:text="@string/sm_remote01_info_0"
                     android:textSize="16sp" />
 
@@ -118,6 +131,7 @@
                     style="@style/ServiceRemote.TextView_Font_LGSHG.Black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="40dp"
                     android:text="@string/sm_remote01_info_1"
                     android:textSize="18sp" />
@@ -125,7 +139,9 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp">
                     <!--점 표시-->
                     <TextView
                         android:id="@+id/v_service_remote_register_guide_dot"
@@ -167,8 +183,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_margin="20dp"
                     android:background="@color/x_e5e5e5" />
 
                 <!--이용안내 : 가능 모델-->
