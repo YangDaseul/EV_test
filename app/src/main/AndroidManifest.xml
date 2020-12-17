@@ -385,6 +385,12 @@
             android:name=".ui.main.service.ServiceAirport2ApplyActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+
+        <!--원격 진단 : 신청-->
+        <activity android:name=".ui.main.service.ServiceRemoteRegisterActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.common.activity.test.TestActivity"
             android:exported="false"

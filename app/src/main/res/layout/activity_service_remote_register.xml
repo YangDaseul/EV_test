@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:variable="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.text.InputType" />
+
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.main.service.ServiceRemoteRegisterActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <!-- 타이틀바-->
+        <include
+            android:id="@+id/l_service_remote_register_titlebar"
+            layout="@layout/layout_titlebar"
+            app:value="@{@string/sm_romte01_p01_1}" />
+
+
+        <ScrollView
+            android:id="@+id/sv_service_remote_register"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/btn_service_remote_register_step"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/l_service_remote_register_titlebar">
+
+            <LinearLayout
+                android:id="@+id/l_service_remote_register_step_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <TextView
+                    android:id="@+id/tv_service_remote_register_guide"
+                    style="@style/ServiceRemote.TextView_Font_LGSHG.Black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="8sp"
+                    android:textSize="22sp"
+                    android:textStyle="normal" />
+
+                <!--상담 시간-->
+                <include
+                    android:id="@+id/l_service_remote_step_4"
+                    layout="@layout/item_service_remote_register_step_1"
+                    app:inputHintText="@{@string/sm_remote01_service_time}"
+                    app:title="@{@string/sm_remote01_service_time}" />
+
+                <!--차량 문제-->
+                <include
+                    android:id="@+id/l_service_remote_step_3"
+                    layout="@layout/item_service_remote_register_step_1"
+                    app:inputHintText="@{@string/sm_remote01_service_type}"
+                    app:title="@{@string/sm_remote01_service_type}" />
+
+                <!--차량 번호-->
+                <include
+                    android:id="@+id/l_service_remote_step_2"
+                    layout="@layout/item_service_remote_register_step_0"
+                    app:inputGuideMessage="@{@string/sm_remote01_input_car_number}"
+                    app:inputHintText="@{@string/sm_remote01_car_number}"
+                    app:inputType="@{InputType.TYPE_CLASS_TEXT}"
+                    app:title="@{@string/sm_remote01_car_number}" />
+
+                <!--휴대폰 번호-->
+                <include
+                    android:id="@+id/l_service_remote_step_1"
+                    layout="@layout/item_service_remote_register_step_0"
+                    app:inputGuideMessage="@{@string/sm_remote01_input_phone_number}"
+                    app:inputHintText="@{@string/sm_remote01_phone_number}"
+                    app:inputType="@{InputType.TYPE_CLASS_PHONE}"
+                    app:title="@{@string/sm_remote01_phone_number}" />
+
+                <!--서비스 안내 가이드 문구-->
+                <include
+                    android:id="@+id/l_service_remote_register_guide"
+                    layout="@layout/item_service_remote_register_guide"
+                    app:guide="@{@string/sm_remote01_guide_0}"
+                    app:guideColor="@{@color/x_666666}" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="28dp"
+                    android:background="@color/x_f8f8f8" />
+
+                <!--원격진단 서비스 정보 타이틀-->
+                <TextView
+                    android:id="@+id/tv_service_remote_register_info_title"
+                    style="@style/ServiceRemote.TextView_Font_LGSHG.Black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/sm_remote01_info_title"
+                    android:textSize="22sp" />
+
+                <!--서비스 설명 문구.-->
+                <TextView
+                    android:id="@+id/tv_service_remote_register_info_0"
+                    style="@style/ServiceRemote.TextView_Font_RGSTG.262626"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/sm_remote01_info_0"
+                    android:textSize="16sp" />
+
+                <!--이용 안내-->
+                <TextView
+                    android:id="@+id/tv_service_remote_register_info_1"
+                    style="@style/ServiceRemote.TextView_Font_LGSHG.Black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/sm_remote01_info_1"
+                    android:textSize="18sp" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp">
+                    <!--점 표시-->
+                    <TextView
+                        android:id="@+id/v_service_remote_register_guide_dot"
+                        style="@style/ServiceRemote.TextView_Font_RGSTG.Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sm_remote01_guide_dot"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_service_remote_register_using_time_title" />
+
+                    <!--이용시간 타이틀-->
+                    <TextView
+                        android:id="@+id/tv_service_remote_register_using_time_title"
+                        style="@style/ServiceRemote.TextView_Font_RGSTG.Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:text="@string/sm_remote01_info_2"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toEndOf="@id/v_service_remote_register_guide_dot"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <!--이용 시간 정보-->
+                    <TextView
+                        android:id="@+id/tv_service_remote_register_info3"
+                        style="@style/ServiceRemote.TextView_Font_RGSTG.Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="@string/sm_remote01_info_3"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toEndOf="@id/tv_service_remote_register_using_time_title"
+                        app:layout_constraintTop_toTopOf="@id/tv_service_remote_register_using_time_title" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--이용 안내 가로줄-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="20dp"
+                    android:background="@color/x_e5e5e5" />
+
+                <!--이용안내 : 가능 모델-->
+                <include
+                    layout="@layout/item_service_remote_register_guide"
+                    app:guide="@{@string/sm_remote01_info_4}"
+                    app:guideColor="@{@color/x_757575}" />
+
+                <!--이용안내 : 예약-->
+                <include
+                    layout="@layout/item_service_remote_register_guide"
+                    app:guide="@{@string/sm_remote01_info_5}"
+                    app:guideColor="@{@color/x_757575}" />
+
+                <!--이용안내 : 방문-->
+                <include
+                    layout="@layout/item_service_remote_register_guide"
+                    app:guide="@{@string/sm_remote01_info_6}"
+                    app:guideColor="@{@color/x_757575}" />
+            </LinearLayout>
+        </ScrollView>
+
+        <!--다음 & 신청 버튼-->
+        <Button
+            android:id="@+id/btn_service_remote_register_step"
+            style="@style/ServiceRemote.TextView_Font_RGSTG.White"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/x_111111"
+            android:stateListAnimator="@null"
+            android:onClick="@{(view) -> activity.onClickCommon(view)}"
+            android:text="@string/sm_remote01_next"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sv_service_remote_register" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

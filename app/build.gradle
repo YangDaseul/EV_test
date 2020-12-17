@@ -52,7 +52,8 @@ android {
                     def flavor = "debug"
                     def version = variant.versionName
                     def date = new Date();
-                    def formattedDate = date.format('yyMMddHHmm')
+//                    def formattedDate = date.format('yyMMddHHmm')
+                    def formattedDate = '2012171800'
                     def newApkName = project + SEP + flavor + SEP + version + SEP + formattedDate + ".apk"
                     outputFileName = new File(newApkName)
                 }

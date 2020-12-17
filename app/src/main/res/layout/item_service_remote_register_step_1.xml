@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="inputHintText"
+            type="String" />
+
+        <variable
+            name="inputGuideMessage"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_service_remote_register_step_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_service_remote_register_step_title"
+            style="@style/ServiceRemote.TextView_Font_RGSTG.262626"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{title}"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_service_remote_register_step_input"
+            style="@style/ServiceRemote.TextView_Font_RGSTG.Black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/selector_service_remote_register_step_bg_1"
+            android:clickable="false"
+            android:drawableRight="@drawable/ic_btn_dropdown"
+            android:hint="@{inputHintText}"
+            android:padding="16dp"
+            android:textColorHint="@color/x_a2a2a2"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_remote_register_step_title" />
+
+        <TextView
+            android:id="@+id/tv_service_remote_register_step_guide"
+            style="@style/ServiceRemote.TextView_Font_RGSTG.CE2D2D"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="7dp"
+            android:text="@{inputGuideMessage}"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/tv_service_remote_register_step_input"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_remote_register_step_input" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -257,8 +257,13 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
             case R.id.l_service_maintenance_customercenter_btn:
 
                 MiddleDialog.dialogServiceRemoteInfo(getActivity(), () -> {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL+"080-700-6000"));
-                    startActivity(intent);
+//                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL+"080-700-6000"));
+//                    startActivity(intent);
+                    ((BaseActivity) getActivity()).startActivitySingleTop(
+                            new Intent(getActivity(), ServiceRemoteRegisterActivity.class),
+                            RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                            VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
+                    );
                 }, () -> {
 
                 });
