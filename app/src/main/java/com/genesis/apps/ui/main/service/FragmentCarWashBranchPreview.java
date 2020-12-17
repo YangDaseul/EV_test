@@ -144,8 +144,8 @@ public class FragmentCarWashBranchPreview extends SubFragment<FragmentCarWashBra
                 Glide.with(context)
                         .load(item)
                         .format(DecodeFormat.PREFER_ARGB_8888)
-                        .error(R.drawable.img_car_339_2) //todo 대체 이미지 필요
-                        .placeholder(R.drawable.img_car_339_2) //todo 에러시 대체 이미지 필요
+                        .error(R.drawable.img_sonax)
+                        .placeholder(R.drawable.img_sonax)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(imageView);
             }

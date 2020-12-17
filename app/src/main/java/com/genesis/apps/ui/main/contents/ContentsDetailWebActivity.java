@@ -13,6 +13,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.hybrid.core.WebViewFragment;
@@ -73,9 +75,21 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
 
                     if(linearLayout.getChildCount() != 0) {
                         if(isSelect) {
-                            Glide.with(mActivity).asBitmap().load(R.drawable.ic_star_l_n).into((ImageView) linearLayout.getChildAt(0));
+                            Glide.with(this)
+                                    .load(R.drawable.ic_star_l_n)
+                                    .format(DecodeFormat.PREFER_ARGB_8888)
+                                    .error(R.drawable.ic_star_l_n)
+                                    .placeholder(R.drawable.ic_star_l_n)
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .into((ImageView) linearLayout.getChildAt(0));
                         } else {
-                            Glide.with(mActivity).asBitmap().load(R.drawable.ic_star_l_s).into((ImageView) linearLayout.getChildAt(0));
+                            Glide.with(this)
+                                    .load(R.drawable.ic_star_l_s)
+                                    .format(DecodeFormat.PREFER_ARGB_8888)
+                                    .error(R.drawable.ic_star_l_s)
+                                    .placeholder(R.drawable.ic_star_l_s)
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .into((ImageView) linearLayout.getChildAt(0));
                         }
                     }
 

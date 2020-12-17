@@ -205,7 +205,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 
             //지점 사진
             case R.id.iv_map_sonax_branch_img:
-                showFragment(new FragmentCarWashBranchPreview());
+                if(!TextUtils.isEmpty(pickedBranch.getBrnhImgUri1()) || !TextUtils.isEmpty(pickedBranch.getBrnhImgUri2()) || !TextUtils.isEmpty(pickedBranch.getBrnhImgUri3())) showFragment(new FragmentCarWashBranchPreview());
                 break;
 
             //예약
@@ -387,8 +387,8 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
         Glide.with(CarWashSearchActivity.this)
                 .load(branchData.getBrnhImgUri1())
                 .format(DecodeFormat.PREFER_ARGB_8888)
-                .error(R.drawable.img_car_339_2) //todo 대체 이미지 필요
-                .placeholder(R.drawable.img_car_339_2) //todo 에러시 대체 이미지 필요
+                .error(R.drawable.img_sonax)
+                .placeholder(R.drawable.img_sonax)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(sonaxBranchBinding.ivMapSonaxBranchImg);
     }

@@ -1,6 +1,8 @@
 <resources>
     <string name="service_drive_01">신청 내역</string>
 
+    <string name="service_drive_position">현재위치</string>
+
     <!-- 지도 -->
     <string name="service_drive_map_from_title">대리운전 출발지를 검색하세요.</string>
     <string name="service_drive_address_search_from_title">대리운전 출발지 입력</string>

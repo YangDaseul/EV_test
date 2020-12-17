@@ -2,12 +2,18 @@ package com.genesis.apps.ui.main.service;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.gra.WSH_1007;
 import com.genesis.apps.comm.model.constants.KeyNames;
@@ -21,6 +27,7 @@ import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.ActivityServiceReviewBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
+import com.genesis.apps.ui.main.home.LeasingCarRegisterInputActivity;
 
 public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBinding> {
     private static final String TAG = ServiceReviewActivity.class.getSimpleName();
@@ -30,9 +37,11 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
     //서버 측 제한 2048바이트라서 한글 utf-8기준으로 넘치지 않도록
     private static final int REVIEW_MAX_LENGTH = 680;
 
+    private View[] ratingViews;
     private WSHViewModel wshViewModel;
     private DDSViewModel ddsViewModel;
     private int reviewType;
+    private int mRate = 1;
     private String rsvtSeqNo;
     private String transId;
 
@@ -42,6 +51,7 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
         setContentView(R.layout.activity_service_review);
         ui.setActivity(this);
 
+        ratingViews = new View[] {ui.llRate1, ui.llRate2, ui.llRate3, ui.llRate4, ui.llRate5};
 
         getDataFromIntent();
         setViewModel();
@@ -66,6 +76,43 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
         Log.d(TAG, "onClickCommon: " + v.getId());
 
         switch (v.getId()) {
+            case R.id.ll_rate_1:
+            case R.id.ll_rate_2:
+            case R.id.ll_rate_3:
+            case R.id.ll_rate_4:
+            case R.id.ll_rate_5:
+                boolean isSelect = false;
+                for(int i=0; i<ratingViews.length; i++) {
+                    LinearLayout linearLayout = (LinearLayout) ratingViews[i];
+
+                    if(linearLayout.getChildCount() != 0) {
+                        if(isSelect) {
+                            Glide.with(this)
+                                    .load(R.drawable.ic_star_l_n)
+                                    .format(DecodeFormat.PREFER_ARGB_8888)
+                                    .error(R.drawable.ic_star_l_n)
+                                    .placeholder(R.drawable.ic_star_l_n)
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .into((ImageView) linearLayout.getChildAt(0));
+                        } else {
+                            Glide.with(this)
+                                    .load(R.drawable.ic_star_l_s)
+                                    .format(DecodeFormat.PREFER_ARGB_8888)
+                                    .error(R.drawable.ic_star_l_s)
+                                    .placeholder(R.drawable.ic_star_l_s)
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .into((ImageView) linearLayout.getChildAt(0));
+                        }
+                    }
+
+                    if(v.getId() == ratingViews[i].getId()) {
+                        isSelect = true;
+                        mRate = i + 1;
+                        Log.d(TAG, "Click : " + mRate);
+                    }
+                }
+
+                break;
             //확인버튼
             case R.id.tv_service_review_ok_btn:
                 onClickOkBtn();
@@ -143,14 +190,19 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
                             break;
 
                         case SUCCESS:
-                            if (result.data != null && result.data.getEvalQst() != null) {
+                            if (result.data != null) {
                                 showProgressDialog(false);
-//                                if(  todo 이미 평가 한 건수인지 검사  ){
-//                                    rejectReview();
-//                                }
 
-                                ui.tvServiceReviewTitleMsg.setText(result.data.getEvalQst());
-                                break;
+                                if("0000".equals(result.data.getRtCd()) && result.data.getEvalQst() != null) {
+                                    ui.tvServiceReviewTitleMsg.setText(result.data.getEvalQst());
+
+                                    break;
+                                } else if("9030".equals(result.data.getRtCd())) {
+                                    SnackBarUtil.show(this, getString(R.string.service_review_duplicate));
+                                    new Handler().postDelayed(() -> finish(), 2000);
+
+                                    break;
+                                }
                             }
                             //not break; 데이터 이상하면 default로 진입시킴
 
@@ -261,7 +313,7 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
     private void onClickOkBtn() {
         Log.d(TAG, "onClickOkBtn: " + reviewType);
         //사용자가 입력한 별점, 기타의견 가져오기
-        String starRating = String.valueOf((int) ui.rbServiceReviewRatingbar.getRating());
+        String starRating = String.valueOf(mRate);
         String reviewInput = ui.etServiceReviewInput.getText().toString();
 
         //입력이 너무 길면 자르...는 걸로 일단 코드에서 처리
