@@ -20,6 +20,7 @@ import com.genesis.apps.ui.main.ServiceMembershipJoinFragment;
 import com.genesis.apps.ui.main.service.FragmentMaintenance;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import androidx.databinding.DataBindingUtil;
 
 public class MiddleDialog {
@@ -211,6 +212,13 @@ public class MiddleDialog {
         );
     }
 
+    /**
+     * 원격 진단 신청 불가 팝업.
+     *
+     * @param activity
+     * @param message
+     * @param ok
+     */
     public static void dialogServiceRemoteRegisterErr(@NonNull Activity activity, String message, Runnable ok) {
         if (activity.isFinishing()) {
             return;
@@ -222,6 +230,61 @@ public class MiddleDialog {
                         activity.getString(R.string.sm_remote01_dialog_title_error),
                         message,
                         R.string.dialog_common_4
+                ).show()
+        );
+    }
+
+    /**
+     * 원격 진단 신청 이용 시간이 아닌 안내 팝업.
+     * @param activity
+     * @param ok
+     */
+    public static void dialogServiceRemoteNotServiceTime(@NonNull Activity activity, Runnable ok) {
+        if (activity.isFinishing()) {
+            return;
+        }
+
+        activity.runOnUiThread(() ->
+                new CustomDialog(activity, dialog -> {
+                    DialogServiceCantReserveInfoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_service_remote_not_time, null, false);
+                    dialog.setContentView(binding.getRoot());
+
+                    binding.btnOk.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (ok != null) ok.run();
+                    });
+                }).show()
+        );
+    }
+
+    public static void dialogServiceRemoteOneButton(@NonNull Activity activity, @StringRes int titleResId, @StringRes int messageResId, Runnable ok) {
+        if (activity.isFinishing()) {
+            return;
+        }
+
+        activity.runOnUiThread(() ->
+                getOneButtonDialog(activity,
+                        ok,
+                        activity.getString(titleResId),
+                        activity.getString(messageResId),
+                        R.string.dialog_common_4
+                ).show()
+        );
+    }
+
+    public static void dialogServiceRemoteTwoButton(@NonNull Activity activity, @StringRes int titleResId, @StringRes int messageResId, Runnable ok, Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        titleResId,
+                        messageResId,
+                        R.string.dialog_common_1,
+                        R.string.dialog_common_2
                 ).show()
         );
     }

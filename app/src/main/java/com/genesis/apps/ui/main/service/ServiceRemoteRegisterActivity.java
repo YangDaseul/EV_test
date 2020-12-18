@@ -17,6 +17,7 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.api.gra.RMT_1001;
 import com.genesis.apps.comm.model.api.gra.RMT_1002;
+import com.genesis.apps.comm.model.api.gra.SOS_1004;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.RMTViewModel;
@@ -34,6 +35,15 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_REMOTE_RES_CODE_2401;
+import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_REMOTE_RES_CODE_2402;
+import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_REMOTE_RES_CODE_2403;
+import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_REMOTE_RES_CODE_2404;
+import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_REMOTE_RES_CODE_2405;
+import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_SOS_STATUS_CODE_R;
+import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_SOS_STATUS_CODE_S;
+import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_SOS_STATUS_CODE_W;
 
 /**
  * Created by Ki-man, Kim on 12/10/20
@@ -129,6 +139,9 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
             new ServiceRemoteTimeGridAdapter.TimeVO(15, 0), new ServiceRemoteTimeGridAdapter.TimeVO(15, 30)
     );
 
+    // 원격 신청을 위한 가능 여부 데이터.
+    private RMT_1001.Response data;
+
     // 현재 모바일 기기 위치.
     private Double[] myPosition = new Double[2];
 
@@ -180,7 +193,6 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
      ****************************************************************************************************/
     @Override
     public void onClickCommon(View v) {
-        Log.d("FID", "test :: onClickCommon :: view=" + v);
         if (v == ui.lServiceRemoteStep3.lServiceRemoteRegisterStepContainer) {
             // 차량 문제 선택.
             showSelectFltCd();
@@ -228,49 +240,96 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                     showProgressDialog(true);
                     break;
                 }
-                case ERROR:
                 case SUCCESS: {
                     showProgressDialog(false);
-                    RMT_1001.Response response = result.data;
+                    data = result.data;
 
-//                    // TODO : 더미 데이터. 실제 빌드시 삭제 필요.
-//                    String dummyData = "{" +
-//                            "\"rtCd\":\"0000\"," +
-//                            "\"rtMsg\":\"Success\"," +
-//                            "\"rmtExitYn\":\"N\"," +
-//                            "\"carRgstNo\":\"123가4565\"," +
-//                            "\"celphNo\":\"010-1234-5678\"," +
-//                            "\"sosStusCd\":\"\"," +
-//                            "\"tmpAcptNo\":\"\"" +
-//                            "}";
-//                    response = new Gson().fromJson(dummyData, RMT_1001.Response.class);
-//                    Log.d("FID", "test :: getRES_RMT_1001 :: rtCd=" + response.getRtCd());
-//                    Log.d("FID", "test :: getRES_RMT_1001 :: rmtExitYn=" + response.getRmtExitYn());
-//                    Log.d("FID", "test :: getRES_RMT_1001 :: message=" + response.getRtMsg());
+                    // TODO : 더미 데이터. 실제 빌드시 삭제 필요.
+                    String dummyData = "{" +
+                            "\"rtCd\":\"0000\"," +
+                            "\"rtMsg\":\"Success\"," +
+                            "\"rmtExitYn\":\"N\"," +
+                            "\"carRgstNo\":\"123가4565\"," +
+                            "\"celphNo\":\"010-1234-5678\"," +
+                            "\"sosStusCd\":\"S\"," +
+                            "\"tmpAcptNo\":\"testno11\"" +
+                            "}";
+                    data = new Gson().fromJson(dummyData, RMT_1001.Response.class);
 
-                    if (response != null) {
-                        if (BaseResponse.RETURN_CODE_SUCC.equals(response.getRtCd())) {
+                    if (data != null) {
+                        if (BaseResponse.RETURN_CODE_SUCC.equals(data.getRtCd())) {
                             // 성공.
-                            if ("N".equalsIgnoreCase(response.getRmtExitYn())) {
-                                // 신청건이 없는 경우. - 신청 프로세스 진행.
-                                initView(response);
+                            if ("N".equalsIgnoreCase(data.getRmtExitYn())) {
+                                // 신청건이 없는 경우.
+                                initView();
                             } else {
                                 // 신청건이 있는 경우. - 안내 팝업 표시.
+                            }
+                        } else if (SERVICE_REMOTE_RES_CODE_2401.equals(data.getRtCd())) {
+                            // 원격 신청이 되어 있거나 진단 진행 중인경우.
+
+                        } else if (SERVICE_REMOTE_RES_CODE_2402.equals(data.getRtCd())) {
+                            // 원격 진단 이용 대상 차량이 아닌 경우.
+
+                        } else if (SERVICE_REMOTE_RES_CODE_2403.equals(data.getRtCd())) {
+                            // 원격 진단 이용 가능 시간이 아님.
+                            MiddleDialog.dialogServiceRemoteNotServiceTime(
+                                    this,
+                                    () -> {
+                                        finish();
+                                    });
+                        } else if (SERVICE_REMOTE_RES_CODE_2404.equals(data.getRtCd())) {
+                            // GCS 서비스 가입 회원이 아닌 경우.
+                            MiddleDialog.dialogServiceRemoteOneButton(
+                                    this,
+                                    R.string.sm_remote01_dialog_title_error,
+                                    R.string.sm_remote01_msg_error_2404,
+                                    () -> {
+                                        finish();
+                                    });
+                        } else if (SERVICE_REMOTE_RES_CODE_2405.equals(data.getRtCd())) {
+                            // 긴급 출동이 접수 또는 진행중인 경우.
+                            // 긴급 출동 여부 체크.
+                            String sosStatusCd = data.getSosStusCd();
+                            if (SERVICE_SOS_STATUS_CODE_R.equals(sosStatusCd) || SERVICE_SOS_STATUS_CODE_W.equals(sosStatusCd)) {
+                                // 긴급 출동 신청, 접수 상태. - 팝업 표시.
+                                final String tmpAcpNo = data.getTmpAcptNo();
+                                MiddleDialog.dialogServiceRemoteTwoButton(
+                                        this,
+                                        R.string.sm_emg01_p04_1_1,
+                                        R.string.sm_emg01_p04_1_2,
+                                        () -> {
+                                            // 긴급 출동 접수 취소 처리.
+                                            sosViewModel.reqSOS1004(new SOS_1004.Request(APPIAInfo.R_REMOTE01.getId(), tmpAcpNo));
+                                        }, null);
+                            } else if (SERVICE_SOS_STATUS_CODE_S.equals(sosStatusCd)) {
+                                // 긴급 출동 출동 상태. - 출동 상태 팝업 표시.
+                                MiddleDialog.dialogServiceRemoteOneButton(
+                                        this,
+                                        R.string.sm_emg01_p04_1_1,
+                                        R.string.sm_emgc01_p05_2,
+                                        () -> {
+                                            finish();
+                                        });
                             }
                         } else {
                             // 실패.
                             // 사유에 대해 서버에서 온 메시지를 표시.
-                            MiddleDialog.dialogServiceRemoteRegisterErr(this, response.getRtMsg(), () -> finish());
+                            MiddleDialog.dialogServiceRemoteRegisterErr(this, data.getRtMsg(), () -> finish());
                         }
                     } else {
-                        // TODO : 조회된 데이터가 없어 예외처리 필요.
+                        // 조회된 데이터가 없어 예외처리 필요.
+                        // 통신 오류 안내.
+                        exitPage(getString(R.string.r_flaw06_p02_snackbar_1), ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
                     }
                     break;
                 }
-//                case ERROR: {
-//                    showProgressDialog(false);
-//                    break;
-//                }
+                case ERROR: {
+                    showProgressDialog(false);
+                    // 통신 오류 안내.
+                    exitPage(getString(R.string.r_flaw06_p02_snackbar_1), ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                    break;
+                }
             }
         });
 
@@ -290,7 +349,47 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                 }
                 case ERROR: {
                     showProgressDialog(false);
-                    // TODO : 통신 오류 안내 처리.
+                    // 통신 오류 안내.
+                    exitPage(getString(R.string.r_flaw06_p02_snackbar_1), ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                    break;
+                }
+            }
+        });
+
+        sosViewModel.getRES_SOS_1004().observe(this, result -> {
+            Log.d("FID", "test :: getRES_SOS_1004 :: status=" + result.status);
+            switch (result.status) {
+                case LOADING: {
+                    showProgressDialog(true);
+                    break;
+                }
+                case SUCCESS: {
+                    showProgressDialog(false);
+                    // 긴급 출동 취소 처리 성공. 안내 표시 및 원격 진단 서비스 시작.
+                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000")) {
+                        if (result.data.getSuccYn().equalsIgnoreCase("Y")) {
+                            SnackBarUtil.show(this, getString(R.string.sm_emgc01_p04_snackbar_2));
+                            initView();
+                        } else {
+                            exitPage(getString(R.string.sm_emgc01_p04_snackbar_1), ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                        }
+                    } else {
+                        showProgressDialog(false);
+                        String serverMsg = "";
+                        try {
+                            serverMsg = result.data.getRtMsg();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        } finally {
+                            exitPage((TextUtils.isEmpty(serverMsg) ? getString(R.string.sm_emgc02_p01_snackbar_1) : serverMsg), ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                        }
+                    }
+                    break;
+                }
+                case ERROR: {
+                    showProgressDialog(false);
+                    // 통신 오류 안내.
+                    exitPage(getString(R.string.r_flaw06_p02_snackbar_1), ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
                     break;
                 }
             }
@@ -312,7 +411,11 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
     /****************************************************************************************************
      * Method - Private
      ****************************************************************************************************/
-    private void initView(RMT_1001.Response data) {
+    private void initView() {
+        if (data == null) {
+            return;
+        }
+
         String phoneNum = data.getCelphNo();
         // 휴대폰 번호 입력항목은 기본 노출
         ui.lServiceRemoteStep1.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);

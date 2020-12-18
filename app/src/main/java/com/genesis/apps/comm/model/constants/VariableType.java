@@ -227,6 +227,14 @@ public class VariableType {
     public static final String SERVICE_SOS_STATUS_CODE_E = "E"; //완료
     public static final String SERVICE_SOS_STATUS_CODE_C = "C"; //취소
 
+    /**
+     * 원격 진단 가능 여부 결과 코드.
+     */
+    public static final String SERVICE_REMOTE_RES_CODE_2401 = "2401"; // 원격 신청이 되어 있거나 진단 진행 중인경우.
+    public static final String SERVICE_REMOTE_RES_CODE_2402 = "2402"; // 원격 진단 이용 대상 차량이 아닌 경우.
+    public static final String SERVICE_REMOTE_RES_CODE_2403 = "2403"; // 원격 진단 이용 가능 시간이 아님.
+    public static final String SERVICE_REMOTE_RES_CODE_2404 = "2404"; // GCS 서비스 가입 회원이 아닌 경우.
+    public static final String SERVICE_REMOTE_RES_CODE_2405 = "2405"; // 긴급 출동이 접수 또는 진행중인 경우.
 
     //서비스 카케어 쿠폰 리스트 (REQ-1005 응답)
     public static final String SERVICE_CAR_CARE_COUPON_CODE_ENGINE = "11"; //엔진오일
