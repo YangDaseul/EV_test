@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.BtrVO;
@@ -21,7 +23,10 @@ public class ServiceNetworkPopUpView {
             super.handleMessage(msg);
 
             if(ui!=null&&ui.tvPopup!=null){
+                Animation animation = new AlphaAnimation(1, 0);
+                animation.setDuration(500);
                 ui.tvPopup.setVisibility(View.GONE);
+                ui.tvPopup.setAnimation(animation);
             }
 
         }
@@ -53,7 +58,10 @@ public class ServiceNetworkPopUpView {
 
         if(!TextUtils.isEmpty(msg)) {
             handler.removeMessages(REMOVE_POPUP);
+            Animation animation = new AlphaAnimation(0, 1);
+            animation.setDuration(500);
             ui.tvPopup.setVisibility(View.VISIBLE);
+            ui.tvPopup.setAnimation(animation);
             ui.tvPopup.setText(msg);
             handler.sendEmptyMessageDelayed(REMOVE_POPUP, 5000);
         }

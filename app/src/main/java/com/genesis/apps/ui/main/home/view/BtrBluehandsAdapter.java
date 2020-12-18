@@ -68,6 +68,9 @@ public class BtrBluehandsAdapter extends BaseRecyclerViewAdapter2<BtrVO> {
 
         private void setAuthView(BtrVO btrVO) {
 
+            btrVO.setPntgXclYn("Y");
+            btrVO.setPntgXclSvcSbc("tesakldajlkdjawkdlkwajdkawdlkajlkdksdjklasjdkajwdiawdjlakwdj wakdlwadawlkdaw");
+
             getBinding().tvAcps1CdC.setVisibility(!TextUtils.isEmpty(btrVO.getAcps1Cd())&&btrVO.getAcps1Cd().contains("C") ? View.VISIBLE : View.GONE);
             getBinding().tvAcps1CdD.setVisibility(!TextUtils.isEmpty(btrVO.getAcps1Cd())&&btrVO.getAcps1Cd().contains("D") ? View.VISIBLE : View.GONE);
 

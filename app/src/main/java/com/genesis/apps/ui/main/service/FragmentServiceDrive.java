@@ -202,8 +202,8 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
     //신청 액티비티 호출
     private void startReqActivity() {
         //주 차량 정보를 가져감
-        Intent intent = new Intent(getActivity(), ServiceDriveReqActivity.class)
-                .putExtra(KeyNames.KEY_NAME_VEHICLE_VO, mainVehicle);
+        Intent intent = new Intent(getActivity(), ServiceDriveReqActivity.class);
+//                .putExtra(KeyNames.KEY_NAME_VEHICLE_VO, mainVehicle);
 
         ((BaseActivity) getActivity()).startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }

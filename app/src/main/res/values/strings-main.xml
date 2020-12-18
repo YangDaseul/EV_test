@@ -53,7 +53,7 @@
     <string name="sm01_maintenance_6">긴급 출동 서비스</string>
     <string name="sm01_maintenance_7">출동 중</string>
     <string name="sm01_maintenance_8">서비스 센터를 방문하지 않고\n차량 진단을\n받으실 수 있습니다.</string>
-    <string name="sm01_maintenance_9">원격 진단 신청 (전화 예약)</string>
+    <string name="sm01_maintenance_9">원격 진단 신청</string>
     <string name="sm01_maintenance_10">서비스 센터를 방문하지 않고\n원격으로 차량 진단을\n받으실 수 있습니다.</string>
     <string name="sm01_maintenance_11">하자 재발 통보</string>
     <string name="sm01_maintenance_12">같은 증상의\n하자가 재발 됐나요?</string>

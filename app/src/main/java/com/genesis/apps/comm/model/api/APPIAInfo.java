@@ -17,6 +17,7 @@ import com.genesis.apps.ui.main.home.RegisterUsedCarActivity;
 import com.genesis.apps.ui.main.home.WarrantyRepairGuideActivity;
 import com.genesis.apps.ui.main.insight.InsightExpnInputActivity;
 import com.genesis.apps.ui.main.insight.InsightExpnMainActivity;
+import com.genesis.apps.ui.main.service.ServiceDriveReqActivity;
 import com.genesis.apps.ui.main.service.ServiceRelapseHistoryActivity;
 import com.genesis.apps.ui.main.service.ServiceReviewActivity;
 import com.genesis.apps.ui.main.service.ServiceSOSApplyActivity;
@@ -195,7 +196,7 @@ public enum APPIAInfo {
     SM_CW01_P01("SM_CW01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "예약 취소 팝업"),
     SM_CW01_P02("SM_CW01_P02", null, VariableType.QUICK_MENU_CODE_NONE, "서비스 지점 코드 입력 팝업"),
 
-    SM_DRV01("SM_DRV01", null, VariableType.QUICK_MENU_CODE_NONE, "대리운전"),
+    SM_DRV01("SM_DRV01", ServiceDriveReqActivity.class, VariableType.QUICK_MENU_CODE_OV, "대리운전"),
     SM_DRV01_A01("SM_DRV01_A01", null, VariableType.QUICK_MENU_CODE_NONE, "대리운전 출발지 선택 지도"),
     SM_DRV01_A02("SM_DRV01_A02", null, VariableType.QUICK_MENU_CODE_NONE, "대리운전 출발지 검색"),
     SM_DRV01_A03("SM_DRV01_A03", null, VariableType.QUICK_MENU_CODE_NONE, "대리운전 도착지 검색"),

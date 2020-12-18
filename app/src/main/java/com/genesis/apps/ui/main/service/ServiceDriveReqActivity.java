@@ -96,12 +96,10 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        getDataFromIntent();//데이터 제대로 안 들어있으면 액티비티 종료처리까지 함
-        setResizeScreen();
         setContentView(R.layout.activity_service_drive_req);
-
+        setResizeScreen();
         setViewModel();
+        getDataFromIntent();//데이터 제대로 안 들어있으면 액티비티 종료처리까지 함
         setObserver();
         initView();
 
@@ -337,10 +335,15 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
             isDirect = true;
         }
 
-        mainVehicle = (VehicleVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_VEHICLE_VO);
-        if (mainVehicle == null) {
-            Log.d(TAG, "getDataFromIntent: 주차량 정보 없음");
-            exitPage("", ResultCodes.REQ_CODE_NORMAL.getCode());
+        try {
+            mainVehicle = ddsViewModel.getMainVehicle();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            if (mainVehicle == null) {
+                Log.d(TAG, "getDataFromIntent: 주차량 정보 없음");
+                exitPage("", ResultCodes.REQ_CODE_NORMAL.getCode());
+            }
         }
     }
 

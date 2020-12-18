@@ -12,8 +12,14 @@ import com.genesis.apps.comm.model.api.gra.DDS_1003;
 import com.genesis.apps.comm.model.api.gra.DDS_1004;
 import com.genesis.apps.comm.model.api.gra.DDS_1005;
 import com.genesis.apps.comm.model.api.gra.DDS_1006;
+import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.DDSRepo;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.excutor.ExecutorService;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import lombok.Data;
 
@@ -22,6 +28,7 @@ class DDSViewModel extends ViewModel {
 
     private final DDSRepo repository;
     private final SavedStateHandle savedStateHandle;
+    private final DBVehicleRepository dbVehicleRepository;
 
     private MutableLiveData<NetUIResponse<DDS_1001.Response>> RES_DDS_1001;
     private MutableLiveData<NetUIResponse<DDS_1002.Response>> RES_DDS_1002;
@@ -40,8 +47,10 @@ class DDSViewModel extends ViewModel {
     @ViewModelInject
     DDSViewModel(
             DDSRepo repository,
+            DBVehicleRepository dbVehicleRepository,
             @Assisted SavedStateHandle savedStateHandle) {
         this.repository = repository;
+        this.dbVehicleRepository = dbVehicleRepository;
         this.savedStateHandle = savedStateHandle;
 
         RES_DDS_1001 = repository.RES_DDS_1001;
@@ -74,5 +83,25 @@ class DDSViewModel extends ViewModel {
 
     public void reqDDS1006(final DDS_1006.Request reqData) {
         repository.REQ_DDS_1006(reqData);
+    }
+
+    public VehicleVO getMainVehicle() throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<VehicleVO> future = es.getListeningExecutorService().submit(()->{
+            VehicleVO vehicleVO = null;
+            try {
+                vehicleVO = dbVehicleRepository.getMainVehicleSimplyFromDB();
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+                vehicleVO = null;
+            }
+            return vehicleVO;
+        });
+
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
     }
 }

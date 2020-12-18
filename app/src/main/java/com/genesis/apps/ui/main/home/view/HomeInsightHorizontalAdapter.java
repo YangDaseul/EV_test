@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.home.view;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
@@ -93,68 +94,104 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
         @Override
         public void onBindView(MessageVO item, final int pos) {
             getBinding().tvMsg.setVisibility(View.GONE);
+            getBinding().tvMsg2.setVisibility(View.GONE);
             getBinding().ivImg.setVisibility(View.GONE);
             getBinding().lWhole.setOnClickListener(null);
-            getBinding().lWhole.setTag(R.id.item_link,null);
-            //TODO GLIDE 처리 부분에 대한 임시 이미지 수령 해야함..
-            switch (item.getMsgTypCd()) {
-                case VariableType.MAIN_HOME_INSIGHT_TXT://텍스트만 노출
-                    getBinding().tvMsg.setVisibility(View.VISIBLE);
-                    getBinding().tvMsg.setText(item.getTxtMsg2());
-                    break;
-                case VariableType.MAIN_HOME_INSIGHT_IMG://이미지만 노출
-                    getBinding().ivImg.setVisibility(View.VISIBLE);
-                    Glide
-                            .with(getContext())
-                            .load(item.getImgUri())
-                            .format(DecodeFormat.PREFER_ARGB_8888)
-                            .error(R.drawable.banner_home_960x480)
-                            .placeholder(R.drawable.banner_home_960x480)
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .into(getBinding().ivImg);
-                    break;
-                case VariableType.MAIN_HOME_INSIGHT_TXL://텍스트 + 링크
-                    getBinding().tvMsg.setVisibility(View.VISIBLE);
-                    getBinding().tvMsg.setText(item.getTxtMsg2());
-                    getBinding().lWhole.setTag(R.id.item_link, item.getLnkUri());
-                    getBinding().lWhole.setOnClickListener(onSingleClickListener);
-                    break;
-                case VariableType.MAIN_HOME_INSIGHT_IML://이미지 + 링크
-                    getBinding().ivImg.setVisibility(View.VISIBLE);
-                    Glide
-                            .with(getContext())
-                            .load(item.getImgUri())
-                            .format(DecodeFormat.PREFER_ARGB_8888)
-                            .error(R.drawable.banner_home_960x480)
-                            .placeholder(R.drawable.banner_home_960x480)
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .into(getBinding().ivImg);
-                    getBinding().lWhole.setTag(R.id.item_link, item.getLnkUri());
-                    getBinding().lWhole.setOnClickListener(onSingleClickListener);
-                    break;
-                case VariableType.MAIN_HOME_INSIGHT_TIL://텍스트 + 이미지 + 링크
-                    getBinding().tvMsg.setVisibility(View.VISIBLE);
-                    getBinding().tvMsg.setText(item.getTxtMsg2());
-                    getBinding().ivImg.setVisibility(View.VISIBLE);
-                    Glide
-                            .with(getContext())
-                            .load(item.getImgUri())
-                            .format(DecodeFormat.PREFER_ARGB_8888)
-                            .error(R.drawable.banner_home_960x480)
-                            .placeholder(R.drawable.banner_home_960x480)
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .into(getBinding().ivImg);
-                    getBinding().lWhole.setTag(R.id.item_link, item.getLnkUri());
-                    getBinding().lWhole.setOnClickListener(onSingleClickListener);
-                    break;
-                case VariableType.MAIN_HOME_INSIGHT_SYS://고정된 메시지 유형?
+            getBinding().lWhole.setTag(R.id.item, null);
 
-                    break;
-
-                default:
-
-                    break;
+            if(item.isBanner()){
+                //배너메시지
+                getBinding().ivImg.setVisibility(View.VISIBLE);
+                Glide
+                        .with(getContext())
+                        .load(item.getImgUri())
+                        .format(DecodeFormat.PREFER_ARGB_8888)
+//                        .error(R.drawable.banner_home_960x480) //todo 기본이미지 적용 필요
+//                        .placeholder(R.drawable.banner_home_960x480) //todo 기본이미지 적용 필요
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(getBinding().ivImg);
+            }else{
+                //admin 메시지
+                if(!TextUtils.isEmpty(item.getTxtMsg1())){
+                    getBinding().tvMsg.setVisibility(View.VISIBLE);
+                    getBinding().tvMsg.setText(item.getTxtMsg1());
+                }
+                if(!TextUtils.isEmpty(item.getTxtMsg2())){
+                    getBinding().tvMsg2.setVisibility(View.VISIBLE);
+                    getBinding().tvMsg2.setText(item.getTxtMsg2());
+                }
             }
+
+            if(!TextUtils.isEmpty(item.getLnkTypCd())&&!TextUtils.isEmpty(item.getLnkUri())){
+                getBinding().lWhole.setTag(R.id.item, item);
+                getBinding().lWhole.setOnClickListener(onSingleClickListener);
+            }
+
+
+//            switch (item.getMsgTypCd()) {
+//                case VariableType.MAIN_HOME_INSIGHT_TXT://텍스트만 노출
+//                    getBinding().tvMsg.setVisibility(View.VISIBLE);
+//                    getBinding().tvMsg.setText(item.getTxtMsg1());
+//                    getBinding().tvMsg2.setVisibility(View.VISIBLE);
+//                    getBinding().tvMsg2.setText(item.getTxtMsg2());
+//                    break;
+//                case VariableType.MAIN_HOME_INSIGHT_IMG://이미지만 노출
+//                    getBinding().ivImg.setVisibility(View.VISIBLE);
+//                    Glide
+//                            .with(getContext())
+//                            .load(item.getImgUri())
+//                            .format(DecodeFormat.PREFER_ARGB_8888)
+//                            .error(R.drawable.banner_home_960x480)
+//                            .placeholder(R.drawable.banner_home_960x480)
+//                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                            .into(getBinding().ivImg);
+//                    break;
+//                case VariableType.MAIN_HOME_INSIGHT_TXL://텍스트 + 링크
+//                    getBinding().tvMsg.setVisibility(View.VISIBLE);
+//                    getBinding().tvMsg.setText(item.getTxtMsg1());
+//                    getBinding().tvMsg2.setVisibility(View.VISIBLE);
+//                    getBinding().tvMsg2.setText(item.getTxtMsg2());
+//                    getBinding().lWhole.setTag(R.id.item, item);
+//                    getBinding().lWhole.setOnClickListener(onSingleClickListener);
+//                    break;
+//                case VariableType.MAIN_HOME_INSIGHT_IML://이미지 + 링크
+//                    getBinding().ivImg.setVisibility(View.VISIBLE);
+//                    Glide
+//                            .with(getContext())
+//                            .load(item.getImgUri())
+//                            .format(DecodeFormat.PREFER_ARGB_8888)
+//                            .error(R.drawable.banner_home_960x480)
+//                            .placeholder(R.drawable.banner_home_960x480)
+//                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                            .into(getBinding().ivImg);
+//                    getBinding().lWhole.setTag(R.id.item, item);
+//                    getBinding().lWhole.setOnClickListener(onSingleClickListener);
+//                    break;
+//                case VariableType.MAIN_HOME_INSIGHT_TIL://텍스트 + 이미지 + 링크
+//                    getBinding().tvMsg.setVisibility(View.VISIBLE);
+//                    getBinding().tvMsg.setText(item.getTxtMsg1());
+//                    getBinding().tvMsg2.setVisibility(View.VISIBLE);
+//                    getBinding().tvMsg2.setText(item.getTxtMsg2());
+//                    getBinding().ivImg.setVisibility(View.VISIBLE);
+//                    Glide
+//                            .with(getContext())
+//                            .load(item.getImgUri())
+//                            .format(DecodeFormat.PREFER_ARGB_8888)
+//                            .error(R.drawable.banner_home_960x480)
+//                            .placeholder(R.drawable.banner_home_960x480)
+//                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                            .into(getBinding().ivImg);
+//                    getBinding().lWhole.setTag(R.id.item, item);
+//                    getBinding().lWhole.setOnClickListener(onSingleClickListener);
+//                    break;
+//                case VariableType.MAIN_HOME_INSIGHT_SYS://고정된 메시지 유형?
+//
+//                    break;
+//
+//                default:
+//
+//                    break;
+//            }
 
         }
 
@@ -178,49 +215,7 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
 
         @Override
         public void onBindView(MessageVO item, final int pos) {
-
-            getBinding().tvMsg.setVisibility(View.GONE);
-//            getBinding().ivImg.setVisibility(View.GONE);
-            getBinding().lWhole.setOnClickListener(null);
-            getBinding().lWhole.setTag(R.id.item_link,null);
-            getBinding().ivIcon.setImageResource(0);
-
-            switch (item.getMsgTypCd()) {
-                case VariableType.MAIN_HOME_INSIGHT_TXT://텍스트만 노출
-                    getBinding().tvMsg.setVisibility(View.VISIBLE);
-                    getBinding().tvMsg.setText(item.getTxtMsg());
-                    getBinding().ivIcon.setImageResource(WeatherCodes.getIconResource(item.getWeatherCodes()));
-                    break;
-//                case VariableType.MAIN_HOME_INSIGHT_IMG://이미지만 노출
-//                    getBinding().ivImg.setVisibility(View.VISIBLE);
-//                    break;
-                case VariableType.MAIN_HOME_INSIGHT_TXL://텍스트 + 링크
-                    getBinding().tvMsg.setVisibility(View.VISIBLE);
-                    getBinding().tvMsg.setText(item.getTxtMsg());
-                    getBinding().lWhole.setTag(R.id.item_link, item.getLnkUri());
-                    getBinding().lWhole.setOnClickListener(onSingleClickListener);
-                    break;
-//                case VariableType.MAIN_HOME_INSIGHT_IML://이미지 + 링크
-//                    getBinding().ivImg.setVisibility(View.VISIBLE);
-//                    getBinding().lWhole.setTag(R.id.item_link, item.getLnkUri());
-//                    getBinding().lWhole.setOnClickListener(onSingleClickListener);
-//                    break;
-//                case VariableType.MAIN_HOME_INSIGHT_TIL://텍스트 + 이미지 + 링크
-//                    getBinding().tvMsg.setVisibility(View.VISIBLE);
-//                    getBinding().tvMsg.setText(item.getTxtMsg());
-//                    getBinding().ivImg.setVisibility(View.VISIBLE);
-//                    getBinding().lWhole.setTag(R.id.item_link, item.getLnkUri());
-//                    getBinding().lWhole.setOnClickListener(onSingleClickListener);
-//                    break;
-                case VariableType.MAIN_HOME_INSIGHT_SYS://고정된 메시지 유형?
-
-                    break;
-
-                default:
-
-                    break;
-            }
-
+            getBinding().tvMsg.setText(item.getTxtMsg());
         }
 
         @Override

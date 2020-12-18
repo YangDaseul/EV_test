@@ -59,8 +59,7 @@ public class BtrBluehandsListActivity extends SubActivity<ActivityBtrBluehandsHi
 
     @Override
     public void onClickCommon(View v) {
-        //todo 목록에서 선택했을 때 액티비티 종료 및 데이터 전달 액션 정의 필요.\
-        BtrVO btrVO = null;
+        BtrVO btrVO;
         switch (v.getId()){
             case R.id.l_whole:
                 btrVO = (BtrVO)v.getTag(R.id.btr);
