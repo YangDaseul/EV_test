@@ -56,29 +56,29 @@ public class InsightArea1Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
             getBinding().vpImage.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
 //            getBinding().vpImage.setCurrentItem(0);
             getBinding().indicator.setViewPager(getBinding().vpImage);
-            final float pageMargin = getContext().getResources().getDimensionPixelOffset(R.dimen.offset2);
-            final float pageOffset = getContext().getResources().getDimensionPixelOffset(R.dimen.offset2);
-            getBinding().vpImage.setPageTransformer((page, position) -> {
-                float myOffset = position * -(2 * pageOffset + pageMargin);
-                if (position < -1) {
-                    page.setTranslationX(-myOffset);
-
-                    Log.v("viewpager bug1","offset:"+myOffset);
-                } else if (position <= 1) {
-                    float scaleFactor = Math.max(1f, 1 - Math.abs(position - 0.14285715f));
-                    page.setTranslationX(myOffset);
-                    page.setScaleY(scaleFactor);
-                    page.setScaleX(scaleFactor);
-                    page.setAlpha(scaleFactor);
-
-                    Log.v("viewpager bug2","offset:"+myOffset+ " Scale factor:"+scaleFactor);
-                } else {
-                    page.setAlpha(0f);
-                    page.setTranslationX(myOffset);
-                    Log.v("viewpager bug3","offset:"+myOffset);
-                }
-
-            });
+//            final float pageMargin = getContext().getResources().getDimensionPixelOffset(R.dimen.offset2);
+//            final float pageOffset = getContext().getResources().getDimensionPixelOffset(R.dimen.offset2);
+//            getBinding().vpImage.setPageTransformer((page, position) -> {
+//                float myOffset = position * -(2 * pageOffset + pageMargin);
+//                if (position < -1) {
+//                    page.setTranslationX(-myOffset);
+//
+//                    Log.v("viewpager bug1","offset:"+myOffset);
+//                } else if (position <= 1) {
+//                    float scaleFactor = Math.max(1f, 1 - Math.abs(position - 0.14285715f));
+//                    page.setTranslationX(myOffset);
+//                    page.setScaleY(scaleFactor);
+//                    page.setScaleX(scaleFactor);
+//                    page.setAlpha(scaleFactor);
+//
+//                    Log.v("viewpager bug2","offset:"+myOffset+ " Scale factor:"+scaleFactor);
+//                } else {
+//                    page.setAlpha(0f);
+//                    page.setTranslationX(myOffset);
+//                    Log.v("viewpager bug3","offset:"+myOffset);
+//                }
+//
+//            });
 
         }
 
@@ -112,54 +112,79 @@ public class InsightArea1Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
                 getBinding().ivIcon.setVisibility(View.INVISIBLE);
             }
 
-
-            if (!TextUtils.isEmpty(item.getMsgTypCd())) {
-                switch (item.getMsgTypCd()) {
-                    case VariableType.MAIN_HOME_INSIGHT_TXT:
-                        if (TextUtils.isEmpty(item.getTxtMsg1())) {
-                            getBinding().tvTitle.setVisibility(View.GONE);
-                        } else {
-                            getBinding().tvTitle.setVisibility(View.VISIBLE);
-                            getBinding().tvTitle.setText(item.getTxtMsg1());
-                        }
-
-                        if (TextUtils.isEmpty(item.getTxtMsg2())) {
-                            getBinding().tvMsg.setVisibility(View.INVISIBLE);
-                        } else {
-                            getBinding().tvMsg.setVisibility(View.VISIBLE);
-                            getBinding().tvMsg.setText(item.getTxtMsg2());
-                        }
-
-                        break;
-                    case VariableType.MAIN_HOME_INSIGHT_TXL:
-                    default:
-                        if (TextUtils.isEmpty(item.getTxtMsg1())) {
-                            getBinding().tvTitle.setVisibility(View.GONE);
-                        } else {
-                            getBinding().tvTitle.setVisibility(View.VISIBLE);
-                            getBinding().tvTitle.setText(item.getTxtMsg1());
-                        }
-
-                        if (TextUtils.isEmpty(item.getTxtMsg2())) {
-                            getBinding().tvMsg.setVisibility(View.INVISIBLE);
-                        } else {
-                            getBinding().tvMsg.setVisibility(View.VISIBLE);
-                            getBinding().tvMsg.setText(item.getTxtMsg2());
-                        }
-
-                        if (TextUtils.isEmpty(item.getLnkNm())) {
-                            getBinding().tvLinkNm.setVisibility(View.GONE);
-                        } else {
-                            getBinding().tvLinkNm.setVisibility(View.VISIBLE);
-                            getBinding().tvLinkNm.setText(item.getLnkNm());
-                            getBinding().tvLinkNm.setTag(R.id.item, item);
-                            getBinding().tvLinkNm.setOnClickListener(onSingleClickListener);
-                        }
-
-                        setImageViewPager(item);
-                        break;
-                }
+            if (TextUtils.isEmpty(item.getTxtMsg1())) {
+                getBinding().tvTitle.setVisibility(View.GONE);
+            } else {
+                getBinding().tvTitle.setVisibility(View.VISIBLE);
+                getBinding().tvTitle.setText(item.getTxtMsg1());
             }
+
+            if (TextUtils.isEmpty(item.getTxtMsg2())) {
+                getBinding().tvMsg.setVisibility(View.INVISIBLE);
+            } else {
+                getBinding().tvMsg.setVisibility(View.VISIBLE);
+                getBinding().tvMsg.setText(item.getTxtMsg2());
+            }
+
+            if (TextUtils.isEmpty(item.getLnkNm())) {
+                getBinding().tvLinkNm.setVisibility(View.GONE);
+            } else {
+                getBinding().tvLinkNm.setVisibility(View.VISIBLE);
+                getBinding().tvLinkNm.setText(item.getLnkNm());
+                getBinding().tvLinkNm.setTag(R.id.item, item);
+                getBinding().tvLinkNm.setOnClickListener(onSingleClickListener);
+            }
+
+            setImageViewPager(item);
+
+
+
+//            if (!TextUtils.isEmpty(item.getMsgTypCd())) {
+//                switch (item.getMsgTypCd()) {
+//                    case VariableType.MAIN_HOME_INSIGHT_TXT:
+//                        if (TextUtils.isEmpty(item.getTxtMsg1())) {
+//                            getBinding().tvTitle.setVisibility(View.GONE);
+//                        } else {
+//                            getBinding().tvTitle.setVisibility(View.VISIBLE);
+//                            getBinding().tvTitle.setText(item.getTxtMsg1());
+//                        }
+//
+//                        if (TextUtils.isEmpty(item.getTxtMsg2())) {
+//                            getBinding().tvMsg.setVisibility(View.INVISIBLE);
+//                        } else {
+//                            getBinding().tvMsg.setVisibility(View.VISIBLE);
+//                            getBinding().tvMsg.setText(item.getTxtMsg2());
+//                        }
+//                        break;
+//                    case VariableType.MAIN_HOME_INSIGHT_TXL:
+//                    default:
+//                        if (TextUtils.isEmpty(item.getTxtMsg1())) {
+//                            getBinding().tvTitle.setVisibility(View.GONE);
+//                        } else {
+//                            getBinding().tvTitle.setVisibility(View.VISIBLE);
+//                            getBinding().tvTitle.setText(item.getTxtMsg1());
+//                        }
+//
+//                        if (TextUtils.isEmpty(item.getTxtMsg2())) {
+//                            getBinding().tvMsg.setVisibility(View.INVISIBLE);
+//                        } else {
+//                            getBinding().tvMsg.setVisibility(View.VISIBLE);
+//                            getBinding().tvMsg.setText(item.getTxtMsg2());
+//                        }
+//
+//                        if (TextUtils.isEmpty(item.getLnkNm())) {
+//                            getBinding().tvLinkNm.setVisibility(View.GONE);
+//                        } else {
+//                            getBinding().tvLinkNm.setVisibility(View.VISIBLE);
+//                            getBinding().tvLinkNm.setText(item.getLnkNm());
+//                            getBinding().tvLinkNm.setTag(R.id.item, item);
+//                            getBinding().tvLinkNm.setOnClickListener(onSingleClickListener);
+//                        }
+//
+//                        setImageViewPager(item);
+//                        break;
+//                }
+//            }
 
 
         }

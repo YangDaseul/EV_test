@@ -42,7 +42,6 @@
             android:textColor="@color/x_000000"
             android:textSize="16sp"
             android:gravity="center_vertical"
-            app:layout_constraintHeight_min="60dp"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constrainedWidth="true"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,10 +65,9 @@
             app:layout_constrainedWidth="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_msg"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/iv_icon"
             tools:text="@string/tm01_10"
-            tools:visibility="gone"/>
+            tools:visibility="visible"/>
 
         <ImageView
             android:id="@+id/iv_icon"
@@ -80,27 +78,31 @@
             app:layout_constraintTop_toTopOf="@+id/tv_msg"
             tools:src="@drawable/ic_service_emergency"/>
 
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="iv_icon,tv_link_nm" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_image"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
             android:clipChildren="false"
             android:clipToPadding="false"
             android:visibility="gone"
             app:constraintSet="@layout/item_insight_image"
-            app:layout_constraintTop_toBottomOf="@+id/iv_icon"
+            app:layout_constraintTop_toBottomOf="@+id/barrier"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintDimensionRatio="2:1"
             tools:visibility="visible"/>
 
         <me.relex.circleindicator.CircleIndicator3
             android:id="@+id/indicator"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/vp_image"
