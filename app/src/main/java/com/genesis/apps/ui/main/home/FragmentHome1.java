@@ -29,7 +29,7 @@ import com.genesis.apps.comm.model.vo.MessageVO;
 import com.genesis.apps.comm.model.vo.QuickMenuVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.model.vo.developers.OdometerVO;
-import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecordUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
@@ -63,7 +63,7 @@ import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -168,10 +168,10 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 MessageVO weather = cmnViewModel.getHomeWeatherInsight(weatherCodes);
                 if (weather != null) {
                     adapter.addRow(weather);
-                    adapter.setRealItemCnt(adapter.getRealItemCnt() + 1);
+//                    adapter.setRealItemCnt(adapter.getRealItemCnt() + 1);
                 }
 
-                adapter.notifyDataSetChanged();
+//                adapter.notifyDataSetChanged();
                 me.setActivity((MainActivity) getActivity());
                 me.setWeatherCode(weatherCodes);
             } catch (Exception e) {
@@ -261,7 +261,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                                 messageVO.setBanner(false);
                             }
                             adapter.addRows(result.data.getAdmMsgList());
-                            adapter.setRealItemCnt(adapter.getRealItemCnt() + result.data.getAdmMsgList().size());
+//                            adapter.setRealItemCnt(adapter.getRealItemCnt() + result.data.getAdmMsgList().size());
                         }
 
                         if (result.data.getBnrMsgList()!=null&&result.data.getBnrMsgList().size()>0) {
@@ -270,13 +270,13 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                             }
 
                             adapter.addRows(result.data.getBnrMsgList());
-                            adapter.setRealItemCnt(adapter.getRealItemCnt() + result.data.getBnrMsgList().size());
+//                            adapter.setRealItemCnt(adapter.getRealItemCnt() + result.data.getBnrMsgList().size());
                         }
-
-                        adapter.notifyDataSetChanged();
+                        adapter.notifyItemRangeChanged(0, adapter.getRealItemCnt());
                         break;
                     }
                 default:
+                    adapter.notifyItemRangeChanged(0, adapter.getRealItemCnt());
                     break;
             }
 
@@ -483,14 +483,14 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         .placeholder(R.drawable.car_new_44)
                         .into(me.ivCar);
 
-                me.ivMore.setVisibility(View.GONE);
+//                me.ivMore.setVisibility(View.GONE);
                 me.tvRepairStatus.setVisibility(View.GONE);
                 me.lDistance.setVisibility(View.GONE);
                 me.lFloating.setVisibility(View.GONE);
 
                 switch (vehicleVO.getCustGbCd()) {
                     case VariableType.MAIN_VEHICLE_TYPE_OV:
-                        me.ivMore.setVisibility(View.VISIBLE);
+//                        me.ivMore.setVisibility(View.VISIBLE);
                         me.lDistance.setVisibility(View.VISIBLE);
                         lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
                         reqCarInfoToDevelopers(vehicleVO.getVin());
@@ -648,6 +648,22 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             me.btnFloating2.setVisibility(View.GONE);
             me.btnFloating3.setVisibility(View.GONE);
             int menuSize = list.size() > 3 ? 3 : list.size();
+
+            //차량이 없는 고객인 경우 흰색배경의 검은글씨 활성화
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams)me.lFloating.getLayoutParams();
+            int margin = (int)DeviceUtil.dip2Pixel(getContext(),20);
+            if(menuSize==1){
+                //메뉴가 하나일 때 (보통 미로그인, 미소유 사용자)
+                params.setMargins(margin,0,margin,margin);
+            }else{
+                //메뉴가 하나 이상일 때
+                params.setMargins(0,0, 0 ,margin);
+            }
+            me.lFloating.setLayoutParams(params);
+
+
+            me.lFloating.setBackgroundColor(menuSize==1 ? getContext().getColor(R.color.x_ffffff) : 0);
+            me.btnFloating1.setTextColor(menuSize==1 ? getContext().getColor(R.color.x_000000) : getContext().getColor(R.color.x_ffffff));
 
             for (int i = 0; i < menuSize; i++) {
                 floatingBtns[i].setVisibility(View.VISIBLE);

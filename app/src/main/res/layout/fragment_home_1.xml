@@ -35,6 +35,17 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/iv_bg_top"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="74dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/black_bg_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <ImageView
             android:id="@+id/iv_car_bottom"
@@ -46,16 +57,16 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
-        <ImageView
-            android:id="@+id/iv_car_bottom_shade"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/car_bottom_shadow_2"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_car_bottom"
-            app:layout_constraintLeft_toLeftOf="@+id/iv_car_bottom"
-            app:layout_constraintRight_toRightOf="@+id/iv_car_bottom"
-            app:layout_constraintTop_toTopOf="@+id/iv_car_bottom" />
+        <!--        <ImageView-->
+        <!--            android:id="@+id/iv_car_bottom_shade"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:adjustViewBounds="true"-->
+        <!--            android:src="@drawable/car_bottom_shadow_2"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/iv_car_bottom"-->
+        <!--            app:layout_constraintLeft_toLeftOf="@+id/iv_car_bottom"-->
+        <!--            app:layout_constraintRight_toRightOf="@+id/iv_car_bottom"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/iv_car_bottom" />-->
 
         <ImageView
             android:id="@+id/iv_car"
@@ -67,24 +78,35 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:src="@drawable/new_car_4" />
 
-        <ImageView
-            android:id="@+id/iv_car_light"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/new_car_3_light"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_car"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/iv_car" />
+        <!--        <ImageView-->
+        <!--            android:id="@+id/iv_car_light"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:adjustViewBounds="true"-->
+        <!--            android:src="@drawable/new_car_3_light"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/iv_car"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/iv_car" />-->
+
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/iv_car_shadow"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:adjustViewBounds="true"-->
+        <!--            android:src="@drawable/new_car_2_shadow"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent" />-->
 
 
         <ImageView
-            android:id="@+id/iv_car_shadow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
             android:adjustViewBounds="true"
-            android:src="@drawable/new_car_2_shadow"
+            android:src="@drawable/black_bg_bottom"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -103,202 +125,157 @@
             app:lottie_rawRes="@raw/rainfall_project2"
             app:lottie_speed="0.6" />
 
+
+        <ImageView
+            android:id="@+id/iv_teduri"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="90dp"
+            android:background="@drawable/bg_00000000_except_topline_ad7b61"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_insight"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginRight="20dp"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            app:constraintSet="@layout/item_home_insight_weather"
-            app:layout_constraintDimensionRatio="2:1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_car_code"
-            android:layout_width="wrap_content"
-            android:layout_height="52dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="23dp"
-            android:layout_marginRight="30dp"
-            android:ellipsize="end"
-            android:fontFamily="@font/light_genesissansheadglobal"
-            android:letterSpacing="-0.01"
-            android:lineSpacingExtra="-10sp"
-            android:maxLines="1"
-            android:textColor="@{activity.getColor(weatherCode.textColor)}"
-            android:textSize="40sp"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vp_insight"
-            tools:text="GV80" />
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_teduri"
+            app:layout_constraintStart_toStartOf="@+id/iv_teduri"
+            app:layout_constraintTop_toTopOf="@+id/iv_bg_top"
+            app:layout_constraintDimensionRatio="4.6:1"/>
 
 
-        <ImageView
-            android:id="@+id/btn_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
-            android:src="@drawable/ic_carinfo"
-            android:scaleType="centerInside"
-            android:visibility="gone"
-            android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
-            app:layout_constraintTop_toTopOf="@+id/tv_car_code"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_car_code"
-            app:layout_constraintLeft_toRightOf="@+id/tv_car_code"/>
-
-
-        <TextView
-            android:id="@+id/tv_car_model"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
-            android:ellipsize="end"
-            android:fontFamily="@font/light_genesissansheadglobal"
-            android:letterSpacing="-0.01"
-            android:lineSpacingExtra="8sp"
-            android:maxLines="1"
-            android:textColor="@{activity.getColor(weatherCode.textColor)}"
-            android:textSize="22sp"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_car_code"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_car_code"
-            tools:text="가솔린 2.5 터보 2WD" />
-
-        <TextView
-            android:id="@+id/tv_repair_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/bg_ccba544d_round_13"
-            android:drawableLeft="@drawable/round_99ffffff"
-            android:drawablePadding="5dp"
-            android:fontFamily="@font/regular_genesissansheadglobal"
-            android:lineSpacingExtra="20sp"
-            android:paddingLeft="10dp"
-            android:paddingTop="6dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="6dp"
-            android:textColor="@color/x_99ffffff"
-            android:textSize="10sp"
-            android:visibility="gone"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toStartOf="@+id/tv_car_vrn"
-            app:layout_constraintTop_toBottomOf="@+id/tv_car_vrn"
-            tools:text="긴급 출동 신청 중"
-            tools:visibility="visible" />
-
-
-        <TextView
-            android:id="@+id/tv_car_vrn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
-            android:ellipsize="end"
-            android:fontFamily="@font/light_genesissansheadglobal"
-            android:letterSpacing="-0.01"
-            android:lineSpacingExtra="12sp"
-            android:maxLines="1"
-            android:textColor="@{activity.getColor(weatherCode.textColor)}"
-            android:textSize="18sp"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_car_model"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_car_model"
-            tools:text="129차 2916" />
-
-
-        <LinearLayout
-            android:id="@+id/l_floating"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_car_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="100dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_car"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            tools:visibility="gone">
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/iv_car"
+            app:layout_constraintEnd_toEndOf="@+id/iv_teduri"
+            app:layout_constraintStart_toStartOf="@+id/iv_teduri"
+            app:layout_constraintTop_toBottomOf="@+id/vp_insight"
+            app:layout_constraintVertical_bias=".7">
 
             <TextView
-                android:id="@+id/btn_floating_1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/regular_genesissansheadglobal"
-                android:gravity="center"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="3sp"
-                android:textColor="@color/x_bfffffff"
-                tools:text="렌트/리스\n실 운행자 등록" />
-
-            <ImageView
-                android:id="@+id/iv_floating_mark_1"
+                android:id="@+id/tv_genesis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_dotline"
-                android:visibility="@{btnFloating2.getVisibility() == View.VISIBLE ? View.VISIBLE : View.GONE}" />
+                android:fontFamily="@font/light_genesissansheadglobal"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="2dp"
+                android:text="GENESIS"
+                android:textColor="@{activity.getColor(weatherCode.textColor)}"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/btn_floating_2"
-                android:layout_width="0dp"
+                android:id="@+id/tv_car_code"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/regular_genesissansheadglobal"
-                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/light_genesissansheadglobal"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="3sp"
-                android:textColor="@color/x_bfffffff"
-                tools:text="중고차 등록" />
+                android:lineSpacingExtra="-6dp"
+                android:maxLines="1"
+                android:paddingBottom="10dp"
+                android:textColor="@{activity.getColor(weatherCode.textColor)}"
+                android:textSize="70dp"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_genesis"
+                tools:text="GV80" />
 
 
             <ImageView
-                android:id="@+id/iv_floating_mark_2"
+                android:id="@+id/btn_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_dotline"
-                android:visibility="@{btnFloating3.getVisibility() == View.VISIBLE ? View.VISIBLE : View.GONE}" />
+                android:src="@drawable/ic_carinfo"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_genesis"
+                app:layout_constraintStart_toEndOf="@+id/tv_genesis"
+                app:layout_constraintTop_toTopOf="@+id/tv_genesis"
+                tools:visibility="visible" />
+
 
             <TextView
-                android:id="@+id/btn_floating_3"
-                android:layout_width="0dp"
+                android:id="@+id/tv_car_model"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/regular_genesissansheadglobal"
-                android:gravity="center"
+                android:ellipsize="end"
+                android:fontFamily="@font/light_genesissansheadglobal"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="3sp"
-                android:textColor="@color/x_bfffffff"
-                tools:text="견적 내기" />
-        </LinearLayout>
+                android:lineSpacingExtra="5dp"
+                android:maxLines="1"
+                android:textColor="@{activity.getColor(weatherCode.textColor)}"
+                android:textSize="16dp"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_car_code"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_car_code"
+                tools:text="가솔린 2.5 터보 2WD" />
+
+
+            <TextView
+                android:id="@+id/tv_car_vrn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="5dp"
+                android:maxLines="1"
+                android:textColor="@{activity.getColor(weatherCode.textColor)}"
+                android:textSize="16dp"
+                app:layout_constraintStart_toEndOf="@+id/tv_car_model"
+                app:layout_constraintTop_toTopOf="@+id/tv_car_model"
+                tools:text="129차 2916" />
+
+
+            <TextView
+                android:id="@+id/tv_repair_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="6dp"
+                android:textColor="@color/x_ad7b61"
+                android:textSize="12dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/tv_car_code"
+                app:layout_constraintTop_toBottomOf="@+id/tv_car_vrn"
+                tools:text="긴급 출동 신청 중"
+                tools:visibility="visible" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_distance"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="20dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_teduri"
+            app:layout_constraintEnd_toEndOf="@+id/iv_teduri"
+            app:layout_constraintStart_toStartOf="@+id/iv_teduri"
             tools:visibility="gone">
 
             <TextView
@@ -306,13 +283,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:fontFamily="@font/regular_genesissanstextglobal"
                 android:gravity="center"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="3sp"
+                android:lineSpacingExtra="7dp"
                 android:maxLines="1"
                 android:text="--"
                 android:textColor="@color/x_ffffff"
+                android:textSize="14dp"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toTopOf="@+id/tv_title_distance_total"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -324,12 +302,13 @@
                 android:id="@+id/tv_title_distance_total"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:fontFamily="@font/light_genesissansheadglobal"
                 android:gravity="center"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="3sp"
+                android:lineSpacingExtra="9dp"
                 android:text="@string/gm01_1"
-                android:textColor="@color/x_bfffffff"
+                android:textColor="@color/x_ffffff"
+                android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintWidth_percent=".333" />
@@ -359,13 +338,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:fontFamily="@font/regular_genesissanstextglobal"
                 android:gravity="center"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="3sp"
+                android:lineSpacingExtra="7dp"
                 android:maxLines="1"
                 android:text="--"
                 android:textColor="@color/x_ffffff"
+                android:textSize="14dp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_title_distance_recently"
                 app:layout_constraintLeft_toLeftOf="@+id/tv_title_distance_recently"
                 app:layout_constraintRight_toRightOf="@+id/tv_title_distance_recently"
@@ -376,12 +356,13 @@
                 android:id="@+id/tv_title_distance_recently"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:fontFamily="@font/light_genesissansheadglobal"
                 android:gravity="center"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="3sp"
+                android:lineSpacingExtra="9dp"
                 android:text="@string/gm01_2"
-                android:textColor="@color/x_bfffffff"
+                android:textColor="@color/x_ffffff"
+                android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/barrier_distance_1"
                 app:layout_constraintWidth_percent=".333" />
@@ -411,13 +392,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:fontFamily="@font/regular_genesissanstextglobal"
                 android:gravity="center"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="3sp"
+                android:lineSpacingExtra="7dp"
                 android:maxLines="1"
                 android:text="--"
                 android:textColor="@color/x_ffffff"
+                android:textSize="14dp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_title_distance_possible"
                 app:layout_constraintLeft_toLeftOf="@+id/tv_title_distance_possible"
                 app:layout_constraintRight_toRightOf="@+id/tv_title_distance_possible"
@@ -428,12 +410,13 @@
                 android:id="@+id/tv_title_distance_possible"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:fontFamily="@font/light_genesissansheadglobal"
                 android:gravity="center"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="3sp"
+                android:lineSpacingExtra="9dp"
                 android:text="@string/gm01_3"
-                android:textColor="@color/x_bfffffff"
+                android:textColor="@color/x_ffffff"
+                android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/barrier_distance_2"
                 app:layout_constraintRight_toRightOf="parent"
@@ -441,16 +424,75 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <ImageView
-            android:id="@+id/iv_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_main_more"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_car"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+        <LinearLayout
+            android:id="@+id/l_floating"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_teduri"
+            app:layout_constraintEnd_toEndOf="@+id/iv_teduri"
+            app:layout_constraintStart_toStartOf="@+id/iv_teduri"
+            tools:visibility="gone">
+
+            <TextView
+                android:id="@+id/btn_floating_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                android:gravity="center"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="5dp"
+                android:textColor="@color/x_ffffff"
+                android:textSize="12dp"
+                tools:text="렌트/리스\n실 운행자 등록" />
+
+            <ImageView
+                android:id="@+id/iv_floating_mark_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_dotline"
+                android:visibility="@{btnFloating2.getVisibility() == View.VISIBLE ? View.VISIBLE : View.GONE}" />
+
+            <TextView
+                android:id="@+id/btn_floating_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                android:gravity="center"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="5dp"
+                android:textColor="@color/x_ffffff"
+                android:textSize="12dp"
+                tools:text="중고차 등록" />
+
+
+            <ImageView
+                android:id="@+id/iv_floating_mark_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_dotline"
+                android:visibility="@{btnFloating3.getVisibility() == View.VISIBLE ? View.VISIBLE : View.GONE}" />
+
+            <TextView
+                android:id="@+id/btn_floating_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                android:gravity="center"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="5dp"
+                android:textColor="@color/x_ffffff"
+                android:textSize="12dp"
+                tools:text="견적 내기" />
+        </LinearLayout>
 
 
         <FrameLayout
@@ -465,41 +507,39 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
+            tools:visibility="gone" />
 
         <ImageView
             android:id="@+id/btn_quick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
+            android:layout_marginEnd="20dp"
             android:onClick="@{(view)->fragment.onClickCommon(view)}"
             android:scaleType="centerInside"
             android:src="@drawable/ic_quick"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_car_code"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_car_code" />
+            app:layout_constraintEnd_toEndOf="@+id/iv_teduri"
+            app:layout_constraintTop_toTopOf="@+id/l_car_info" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_quick_menu"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:visibility="gone"
             android:layout_marginEnd="20dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_quick"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <ImageView
                 android:id="@+id/iv_arrow"
-                android:src="@drawable/bubble_point"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
-                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/bubble_point"
                 app:layout_constraintEnd_toEndOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -507,9 +547,9 @@
                 android:background="@color/x_ffffff"
                 android:orientation="vertical"
                 android:padding="10dp"
-                app:layout_constraintTop_toBottomOf="@+id/iv_arrow"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/iv_arrow">
 
                 <TextView
                     android:id="@+id/btn_quick_1"
@@ -519,10 +559,10 @@
                     android:fontFamily="@font/regular_genesissansheadglobal"
                     android:gravity="center_vertical"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="17sp"
+                    android:lineSpacingExtra="17dp"
                     android:padding="10dp"
                     android:textColor="@color/x_000000"
-                    android:textSize="13sp"
+                    android:textSize="13dp"
                     android:visibility="gone"
                     tools:text="Quick 1"
                     tools:visibility="visible" />
@@ -535,10 +575,10 @@
                     android:fontFamily="@font/regular_genesissansheadglobal"
                     android:gravity="center_vertical"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="17sp"
+                    android:lineSpacingExtra="17dp"
                     android:padding="10dp"
                     android:textColor="@color/x_000000"
-                    android:textSize="13sp"
+                    android:textSize="13dp"
                     android:visibility="gone"
                     tools:text="Quick 2"
                     tools:visibility="visible" />
@@ -552,10 +592,10 @@
                     android:fontFamily="@font/regular_genesissansheadglobal"
                     android:gravity="center_vertical"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="17sp"
+                    android:lineSpacingExtra="17dp"
                     android:padding="10dp"
                     android:textColor="@color/x_000000"
-                    android:textSize="13sp"
+                    android:textSize="13dp"
                     android:visibility="gone"
                     tools:text="Quick 3"
                     tools:visibility="visible" />
@@ -568,10 +608,10 @@
                     android:fontFamily="@font/regular_genesissansheadglobal"
                     android:gravity="center_vertical"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="17sp"
+                    android:lineSpacingExtra="17dp"
                     android:padding="10dp"
                     android:textColor="@color/x_000000"
-                    android:textSize="13sp"
+                    android:textSize="13dp"
                     android:visibility="gone"
                     tools:text="Quick 4"
                     tools:visibility="visible" />
@@ -584,10 +624,10 @@
                     android:fontFamily="@font/regular_genesissansheadglobal"
                     android:gravity="center_vertical"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="17sp"
+                    android:lineSpacingExtra="17dp"
                     android:padding="10dp"
                     android:textColor="@color/x_000000"
-                    android:textSize="13sp"
+                    android:textSize="13dp"
                     android:visibility="gone"
                     tools:text="Quick 5"
                     tools:visibility="visible" />

@@ -27,10 +27,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:paddingTop="40dp">
+        android:layout_height="74dp"
+        android:background="@drawable/bg_000000_underline_262626"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="24dp">
 
         <ImageView
             android:id="@+id/btn_alarm"
@@ -39,12 +40,12 @@
             android:layout_marginLeft="10dp"
             android:background="@{background==0 ? @drawable/bg_000000_round_15 : @drawable/bg_33000000_round_15}"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-            android:padding="5dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_alarm"
             android:visibility="@{TextUtils.isEmpty(custGbCd)||custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000) ? View.GONE : View.VISIBLE}"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:visibility="visible"/>
 
         <ImageView
@@ -67,9 +68,9 @@
             android:layout_marginRight="10dp"
             android:background="@{background==0 ? @drawable/bg_000000_round_15 : @drawable/bg_33000000_round_15}"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-            android:padding="5dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_profile"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/btn_alarm"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_goneMarginRight="0dp" />
@@ -82,7 +83,6 @@
             android:layout_marginRight="10dp"
             android:background="@{background==0 ? @drawable/bg_000000_round_15 : @drawable/bg_33000000_round_15}"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-            android:padding="5dp"
             android:scaleType="centerInside"
             android:src="@drawable/ic_barcode"
             android:visibility="gone"
