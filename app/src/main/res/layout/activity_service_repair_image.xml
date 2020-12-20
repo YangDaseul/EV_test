@@ -15,33 +15,58 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:value="@{@string/sm_r_rsv05_1}" />
+            app:value="@{@string/sm_r_history02_1}" />
+
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_tabs"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
+            android:visibility="visible"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:background="@color/x_ffffff"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/l_title"
-            app:tabIndicatorColor="@color/x_141414"
-            app:tabIndicatorHeight="2dp"
-            app:tabMode="fixed" />
+            app:tabGravity="fill"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="fixed"
+            tools:background="@color/x_000000"/>
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vp_contents"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:clipChildren="false"
-            android:clipToPadding="false"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tl_tabs" />
+
+
+        <TextView
+            android:id="@+id/tv_empty"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="30dp"
+            android:background="@color/x_f8f8f8"
+            android:text="@string/sm_r_history02_5"
+            android:textSize="18sp"
+            android:textColor="@color/x_262626"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="10sp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            app:layout_constraintTop_toBottomOf="@+id/tl_tabs"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:visibility="visible"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

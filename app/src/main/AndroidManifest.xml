@@ -382,6 +382,10 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.main.service.ServiceRepairImageActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.main.service.ServiceAirport2ApplyActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

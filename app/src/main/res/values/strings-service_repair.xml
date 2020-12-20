@@ -100,7 +100,14 @@
     <string name="sm_r_history01_13"></string>
     <string name="sm_r_history01_14"></string>
 
-
+    <string name="sm_r_history02_1">수리 사진</string>
+    <string name="sm_r_history02_2">수리 전</string>
+    <string name="sm_r_history02_3">수리 중</string>
+    <string name="sm_r_history02_4">수리 후</string>
+    <string name="sm_r_history02_5">등록된 사진이 없습니다.</string>
+    <string name="sm_r_history02_6"></string>
+    <string name="sm_r_history02_7"></string>
+    <string name="sm_r_history02_8"></string>
 
 
 

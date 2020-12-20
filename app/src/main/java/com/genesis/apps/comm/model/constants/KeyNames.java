@@ -64,5 +64,7 @@ public interface KeyNames {
     String KEY_NAME_URI_PARSER_PI="PI";
 
     String KEY_NAME_ASNCD="asnCd";
+    String KEY_NAME_VEHICLE_IN_OUT_NO="vhclInoutNo";
+    String KEY_NAME_WRHS_NO ="wrhsNo";
 
 }

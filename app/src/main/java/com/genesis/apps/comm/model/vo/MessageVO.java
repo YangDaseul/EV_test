@@ -82,4 +82,7 @@ class MessageVO extends BaseData {
 
     @Ignore
     private boolean isBanner;//로컬 메인 홈 인사이트에서 배너메시지인지 어드민메시지인지 확인 시 사용
+
+    @Ignore
+    private int currentPos;//인사이트 영역1에서 현재 이미지 위치 확인 시 사용
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+        <TextView
+            android:id="@+id/tv_tab"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="center"
+            android:lineSpacingExtra="4sp"
+            android:letterSpacing="-0.01"
+            android:background="@drawable/bg_ffffff_stroke_e5e5e5"
+            android:textColor="@drawable/selector_tab_repair_image"
+            android:textSize="14sp"
+            tools:text="수리 전" />
+</layout>
