@@ -256,7 +256,7 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
             //원격진단 신청
             case R.id.l_service_maintenance_customercenter_btn:
 
-//                MiddleDialog.dialogServiceRemoteInfo(getActivity(), () -> {
+                MiddleDialog.dialogServiceRemoteInfo(getActivity(), () -> {
 //                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL+"080-700-6000"));
 //                    startActivity(intent);
                 ((BaseActivity) getActivity()).startActivitySingleTop(
@@ -264,9 +264,9 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
                         RequestCodes.REQ_CODE_ACTIVITY.getCode(),
                         VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
                 );
-//                }, () -> {
-//
-//                });
+                }, () -> {
+
+                });
 
 
                 break;

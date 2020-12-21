@@ -46,16 +46,37 @@ import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_SOS_STA
 import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_SOS_STATUS_CODE_W;
 
 /**
+ * Class Name : ServiceRemoteRegisterActivity
+ * 원격 진단 신청 화면 Activity.
+ * <p>
  * Created by Ki-man, Kim on 12/10/20
  */
 public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServiceRemoteRegisterBinding> {
 
 
+    /**
+     * 원격 진단 신청 단계.
+     */
     enum REGISTER_STEP {
+        /**
+         * 휴대폰 번호 입력.
+         */
         INPUT_PHONE(R.string.sm_remote01_phone_number_guide),
+        /**
+         * 차량 번호 입력.
+         */
         INPUT_CAR_NUM(R.string.sm_remote01_car_number_guide),
+        /**
+         * 차량 문제 선택.
+         */
         SERVICE_TYPE(R.string.sm_remote01_service_type_guide),
+        /**
+         * 원격 진단 이용 시간 선택.
+         */
         SERVICE_TIME(R.string.sm_remote01_service_time_guide),
+        /**
+         * 신청을 위한 정보 입력 완료 상태.
+         */
         COMPLETE(R.string.sm_remote01_input_complete);
 
         private @StringRes
@@ -70,16 +91,46 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
      * 고장 코드 Enum Class.
      */
     enum FLT_CODE {
+        /**
+         * 차량 문제 : 차량 시동이 걸리지 않아요.
+         */
         CODE_1000("1000", R.string.sm_remote01_fit_code_1000),
+        /**
+         * 차량 문제 : 가속이 너무 느려요.
+         */
         CODE_2000("2000", R.string.sm_remote01_fit_code_2000),
+        /**
+         * 차량 문제 : 계기판에 경고등 켜졌어요
+         */
         CODE_3000("3000", R.string.sm_remote01_fit_code_3000),
+        /**
+         * 차량 문제 : 기어가 작동하지 않아요.
+         */
         CODE_4000("4000", R.string.sm_remote01_fit_code_4000),
+        /**
+         * 차량 문제 : 주차 브레이크가 풀리지 않아요.
+         */
         CODE_5000("5000", R.string.sm_remote01_fit_code_5000),
+        /**
+         * 차량 문제 : 엔진이 과열되었어요.
+         */
         CODE_6000("6000", R.string.sm_remote01_fit_code_6000),
+        /**
+         * 차량 문제 : 엔진 떨림이 심해요.
+         */
         CODE_7000("7000", R.string.sm_remote01_fit_code_7000),
+        /**
+         * 차량 문제 : 차량을 주행할 수 없어요.
+         */
         CODE_8000("8000", R.string.sm_remote01_fit_code_8000);
 
+        /**
+         * 차량 문제 코드.
+         */
         private final String code;
+        /**
+         * 차량 문제 표시 문자열 String Resource ID.
+         */
         private @StringRes
         final int messageResId;
 
@@ -93,18 +144,51 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
         }
     } // end of enum class FLT_CODE
 
+    /**
+     * 차량 문제 중 경고등 코드.
+     */
     public enum WRN_LGHT_CODE {
+        /**
+         * 경코등 코드 : EPS 경고등
+         */
         CODE_3100("3100", R.string.sm_remote01_wrn_lght_code_3100, R.drawable.selector_ic_eps),
+        /**
+         * 경코등 코드 : 브레이크 경고등
+         */
         CODE_3300("3300", R.string.sm_remote01_wrn_lght_code_3300, R.drawable.selector_ic_brake),
+        /**
+         * 경코등 코드 : 수분분리 경고등
+         */
         CODE_3400("3400", R.string.sm_remote01_wrn_lght_code_3400, R.drawable.selector_ic_water),
+        /**
+         * 경코등 코드 : TPMS 경고등
+         */
         CODE_3500("3500", R.string.sm_remote01_wrn_lght_code_3500, R.drawable.selector_ic_tpms),
+        /**
+         * 경코등 코드 : 엔진체크 경고등
+         */
         CODE_3600("3600", R.string.sm_remote01_wrn_lght_code_3600, R.drawable.selector_ic_engine),
+        /**
+         * 경코등 코드 : 충전 경고등
+         */
         CODE_3700("3700", R.string.sm_remote01_wrn_lght_code_3700, R.drawable.selector_ic_battery),
+        /**
+         * 경코등 코드 : VDC/ESP 경고등
+         */
         CODE_3200("3200", R.string.sm_remote01_wrn_lght_code_3200, R.drawable.selector_ic_brake_esp);
 
+        /**
+         * 경고등 코드
+         */
         private final String code;
+        /**
+         * 경고등 표시 문자열 String Resource ID.
+         */
         private @StringRes
         final int messageResId;
+        /**
+         * 경고등 표시 아이콘 Drawable Resource ID.
+         */
         private @DrawableRes
         final int iconResId;
 
@@ -126,8 +210,10 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
     private RMTViewModel rmtViewModel;
     private SOSViewModel sosViewModel;
 
-    private REGISTER_STEP currentStep = REGISTER_STEP.INPUT_PHONE;
-
+    /**
+     * 시간 선택을 위한 {@link com.genesis.apps.ui.main.service.ServiceRemoteTimeGridAdapter.TimeVO} 목록 정의 Field.
+     * 08:30 ~ 15:30 사이의 시간을 정의.
+     */
     private final List<ServiceRemoteTimeGridAdapter.TimeVO> ServiceTimes = Arrays.asList(
             new ServiceRemoteTimeGridAdapter.TimeVO(8, 30),
             new ServiceRemoteTimeGridAdapter.TimeVO(9, 0), new ServiceRemoteTimeGridAdapter.TimeVO(9, 30),
@@ -420,6 +506,9 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
     /****************************************************************************************************
      * Method - Private
      ****************************************************************************************************/
+    /**
+     * View 초기화 함수.
+     */
     private void initView() {
         if (data == null) {
             return;
@@ -453,6 +542,9 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
         executeStep(checkStep());
     }
 
+    /**
+     * 나의 위치 GPS 조회 함수.
+     */
     private void reqMyLocation() {
         showProgressDialog(true);
         findMyLocation(location -> {
@@ -470,6 +562,11 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
         }, 5000, GpsRetType.GPS_RETURN_HIGH, false);
     }
 
+    /**
+     * 원격 진단 신청 단계별 실행 함수.
+     *
+     * @param step 실행할 단계 {@link REGISTER_STEP}
+     */
     private void executeStep(REGISTER_STEP step) {
         switch (step) {
             case INPUT_PHONE: {
@@ -500,6 +597,13 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
         showStepGuide(step.guideResId);
     }
 
+    /**
+     * 원격 진단 신청을 위한 정보 체크 함수.
+     * 체크에 따라 입력이 필요한 단계의 {@link REGISTER_STEP} 객체 반환.
+     * 모두 입력이 되었을 경우 {@link REGISTER_STEP#COMPLETE} 반환.
+     *
+     * @return 체크 결과 {@link REGISTER_STEP}
+     */
     private REGISTER_STEP checkStep() {
         // 휴대폰 번호가 입력되어 있는지 체크.
         boolean isEmptyPhoneNum = TextUtils.isEmpty(ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.getText().toString());
@@ -535,10 +639,18 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
         return REGISTER_STEP.COMPLETE;
     }
 
+    /**
+     * 상단 입력이 필요한 내용을 변경해주는 함수.
+     *
+     * @param guide 가이드 문구 String Resource ID.
+     */
     private void showStepGuide(@StringRes int guide) {
         ui.tvServiceRemoteRegisterGuide.setText(guide);
     }
 
+    /**
+     * 차량 문제 선택 하단 리스트형 다이얼로그 표시 함수.
+     */
     private void showSelectFltCd() {
         ArrayList<String> fltCodes = new ArrayList<>();
         Stream.of(FLT_CODE.values())
@@ -564,6 +676,9 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
         bottomListDialog.show();
     }
 
+    /**
+     * 경고등 선택 하단 리스트형 다이얼로그 표시 함수.
+     */
     private void showSelectWrnLghtCd() {
         WrnLghtCodeListAdapter adapter = new WrnLghtCodeListAdapter(Stream.of(WRN_LGHT_CODE.values()).collect(Collectors.toList()));
         BottomRecyclerDialog dialog = new BottomRecyclerDialog.Builder(this)
@@ -579,6 +694,9 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
         dialog.show();
     }
 
+    /**
+     * 원격 진단 시간 선택 그리드형 다이얼로그 표시 함수.
+     */
     private void showSelectTime() {
         ServiceRemoteTimeGridAdapter adapter = new ServiceRemoteTimeGridAdapter(ServiceTimes);
         BottomRecyclerDialog dialog = new BottomRecyclerDialog.Builder(this)

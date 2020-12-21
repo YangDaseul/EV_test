@@ -23,7 +23,7 @@
 
     <string name="sm_remote01_fit_code_1000">차량 시동이 걸리지 않아요.</string>
     <string name="sm_remote01_fit_code_2000">가속이 너무 느려요.</string>
-    <string name="sm_remote01_fit_code_3000">계기판에 경고등 켜졌어요</string>
+    <string name="sm_remote01_fit_code_3000">계기판에 경고등 켜졌어요.</string>
     <string name="sm_remote01_fit_code_4000">기어가 작동하지 않아요.</string>
     <string name="sm_remote01_fit_code_5000">주차 브레이크가 풀리지 않아요.</string>
     <string name="sm_remote01_fit_code_6000">엔진이 과열되었어요.</string>
