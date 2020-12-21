@@ -20,17 +20,17 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_tabs"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:background="@color/x_ffffff"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/l_title"
-            app:tabIndicatorColor="@color/x_141414"
-            app:tabIndicatorHeight="2dp"
-            app:tabMode="fixed" />
+            app:tabGravity="fill"
+            app:tabIndicatorHeight="0dp"
+            app:tabBackground="@drawable/selector_tab_repair_image_bg"
+            app:tabMode="fixed"/>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_contents"

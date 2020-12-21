@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.service;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.REQ_1013;
 import com.genesis.apps.comm.model.api.gra.REQ_1015;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.RepairReserveVO;
 import com.genesis.apps.comm.model.vo.RepairVO;
@@ -23,10 +26,13 @@ import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.FragmentServiceRepairStatusBinding;
+import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
+import com.genesis.apps.ui.main.MainActivity;
+import com.genesis.apps.ui.main.home.WarrantyRepairGuideActivity;
 import com.genesis.apps.ui.main.service.view.ServiceRepairCurrentStatusAdapter;
 import com.genesis.apps.ui.main.service.view.ServiceRepairReserveStatusAdapter;
 
@@ -64,7 +70,7 @@ public class FragmentServiceRepairStatus extends SubFragment<FragmentServiceRepa
 
     private void initView() {
         me.rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        serviceRepairCurrentStatusAdapter = new ServiceRepairCurrentStatusAdapter(getActivity());
+        serviceRepairCurrentStatusAdapter = new ServiceRepairCurrentStatusAdapter(getActivity(), onSingleClickListener);
         serviceRepairReserveStatusAdapter = new ServiceRepairReserveStatusAdapter(onSingleClickListener);
         concatAdapter = new ConcatAdapter(serviceRepairCurrentStatusAdapter, serviceRepairReserveStatusAdapter);
         me.rv.setHasFixedSize(true);
@@ -102,6 +108,17 @@ public class FragmentServiceRepairStatus extends SubFragment<FragmentServiceRepa
                             selectRsvtCnclCd(repairReserveVO.getRparRsvtSeqNo(), repairReserveVO.getRsvtTypCd());
                         }
                     }
+                }
+                break;
+            case R.id.btn_repair_image:
+                RepairVO item = ((RepairVO)v.getTag(R.id.item));
+                if(item!=null){
+                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRepairImageActivity.class)
+                                    .putExtra(KeyNames.KEY_NAME_ASNCD, item.getAsnCd())
+                                    .putExtra(KeyNames.KEY_NAME_VEHICLE_IN_OUT_NO, item.getVhclInoutNo())
+                                    .putExtra(KeyNames.KEY_NAME_WRHS_NO, item.getWrhsNo())
+                            , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                            , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }
                 break;
         }

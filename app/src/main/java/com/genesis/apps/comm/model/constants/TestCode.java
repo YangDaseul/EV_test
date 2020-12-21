@@ -71,6 +71,7 @@ import com.genesis.apps.comm.model.api.gra.REQ_1013;
 import com.genesis.apps.comm.model.api.gra.REQ_1014;
 import com.genesis.apps.comm.model.api.gra.REQ_1015;
 import com.genesis.apps.comm.model.api.gra.REQ_1017;
+import com.genesis.apps.comm.model.api.gra.REQ_1018;
 import com.genesis.apps.comm.model.api.gra.SOS_1001;
 import com.genesis.apps.comm.model.api.gra.SOS_1002;
 import com.genesis.apps.comm.model.api.gra.SOS_1004;
@@ -3630,7 +3631,7 @@ public class TestCode {
             "  ]\n" +
             "}",REQ_1011.Response.class);
 
-
+    
 
 
     public static REQ_1013.Response REQ_1013 = new Gson().fromJson("{\n" +
@@ -3641,6 +3642,8 @@ public class TestCode {
             "    \"asnCd\": \"B08000\",\n" +
             "    \"asnNm\": \"고양서비스센터\",\n" +
             "    \"asnAddr\": \"경기도 고양시 일산서구 킨텍스로 217-6(대화동)\",\n" +
+            "      \"wrhsNo\": \"111111\",\n" +
+            "      \"vhclInoutNo\": \"111111\",\n" +
             "    \"asnTelNo\": \"18996611\"\n" +
             "  },\n" +
             "  \"rsvtStatList\": [\n" +
@@ -3655,9 +3658,11 @@ public class TestCode {
             "      \"rsvtHopeDt\": \"20200916\",\n" +
             "      \"pckpAddr\": \"서울특별시 금천구 가산디지털1로 168, A동 1207호 &#40;가산동&#41; 우림라이온스밸리\",\n" +
             "      \"dlvryAddr\": \"\",\n" +
-            "      \"asnCd\": \"\",\n" +
+            "      \"asnCd\": \"11111\",\n" +
             "      \"asnNm\": \"\",\n" +
             "      \"pbzAdr\": \"\",\n" +
+            "      \"wrhsNo\": \"111111\",\n" +
+            "      \"vhclInoutNo\": \"111111\",\n" +
             "      \"repTn\": \"\"\n" +
             "    },\n" +
             "    {\n" +
@@ -3672,9 +3677,11 @@ public class TestCode {
             "      \"rsvtHopeTm\": \"\",\n" +
             "      \"pckpAddr\": \"서울특별시 금천구 가산디지털1로 168, A동 1207호 &#40;가산동&#41; 우림라이온스밸리\",\n" +
             "      \"dlvryAddr\": \"\",\n" +
-            "      \"asnCd\": \"\",\n" +
+            "      \"asnCd\": \"11111\",\n" +
             "      \"asnNm\": \"\",\n" +
             "      \"pbzAdr\": \"\",\n" +
+            "      \"wrhsNo\": \"111111\",\n" +
+            "      \"vhclInoutNo\": \"111111\",\n" +
             "      \"repTn\": \"\"\n" +
             "    },\n" +
             "    {\n" +
@@ -3689,9 +3696,11 @@ public class TestCode {
             "      \"rsvtHopeTm\": \"\",\n" +
             "      \"pckpAddr\": \"서울특별시 금천구 가산디지털1로 168, A동 1207호 &#40;가산동&#41; 우림라이온스밸리\",\n" +
             "      \"dlvryAddr\": \"\",\n" +
-            "      \"asnCd\": \"\",\n" +
+            "      \"asnCd\": \"11111\",\n" +
             "      \"asnNm\": \"\",\n" +
             "      \"pbzAdr\": \"\",\n" +
+            "      \"wrhsNo\": \"111111\",\n" +
+            "      \"vhclInoutNo\": \"111111\",\n" +
             "      \"repTn\": \"\"\n" +
             "    },\n" +
             "    {\n" +
@@ -3709,6 +3718,8 @@ public class TestCode {
             "      \"asnCd\": \"12231\",\n" +
             "      \"asnNm\": \"현대정비소\",\n" +
             "      \"pbzAdr\": \"정비소주소2222\",\n" +
+            "      \"wrhsNo\": \"111111\",\n" +
+            "      \"vhclInoutNo\": \"111111\",\n" +
             "      \"repTn\": \"020000000\"\n" +
             "    },\n" +
             "    {\n" +
@@ -3723,9 +3734,11 @@ public class TestCode {
             "      \"rsvtHopeTm\": \"\",\n" +
             "      \"pckpAddr\": \"서울특별시 금천구 가산디지털1로 168, A동 1207호 &#40;가산동&#41; 우림라이온스밸리\",\n" +
             "      \"dlvryAddr\": \"서울특별시 금천구 가산디지털1로 테스트\",\n" +
-            "      \"asnCd\": \"\",\n" +
+            "      \"asnCd\": \"11111\",\n" +
             "      \"asnNm\": \"\",\n" +
             "      \"pbzAdr\": \"\",\n" +
+            "      \"wrhsNo\": \"111111\",\n" +
+            "      \"vhclInoutNo\": \"111111\",\n" +
             "      \"repTn\": \"\"\n" +
             "    },\n" +
             "    {\n" +
@@ -3743,6 +3756,8 @@ public class TestCode {
             "      \"asnCd\": \"122312\",\n" +
             "      \"asnNm\": \"제네시스정비소\",\n" +
             "      \"pbzAdr\": \"정비소주소3\",\n" +
+            "      \"wrhsNo\": \"111111\",\n" +
+            "      \"vhclInoutNo\": \"111111\",\n" +
             "      \"repTn\": \"031000000\"\n" +
             "    }\n" +
             "  ]\n" +
@@ -3758,6 +3773,8 @@ public class TestCode {
             "      \"asnCd\": \"D01000\",\n" +
             "      \"asnNm\": \"인천서비스센터2\",\n" +
             "      \"milg\": \"83367\",\n" +
+            "      \"wrhsNo\": \"111111\",\n" +
+            "      \"vhclInoutNo\": \"111111\",\n" +
             "      \"rparWorkNm\": \"진단점검 점검2\"\n" +
             "    },\n" +
             "    {\n" +
@@ -3765,6 +3782,8 @@ public class TestCode {
             "      \"asnCd\": \"D01000\",\n" +
             "      \"asnNm\": \"인천서비스센터2\",\n" +
             "      \"milg\": \"83367\",\n" +
+            "      \"wrhsNo\": \"111111\",\n" +
+            "      \"vhclInoutNo\": \"111111\",\n" +
             "      \"rparWorkNm\": \"진단점검 점검2\"\n" +
             "    },\n" +
             "    {\n" +
@@ -3772,6 +3791,8 @@ public class TestCode {
             "      \"asnCd\": \"D01000\",\n" +
             "      \"asnNm\": \"인천서비스센터2\",\n" +
             "      \"milg\": \"83367\",\n" +
+            "      \"wrhsNo\": \"111111\",\n" +
+            "      \"vhclInoutNo\": \"111111\",\n" +
             "      \"rparWorkNm\": \"진단점검 점검2\"\n" +
             "    },\n" +
             "    {\n" +
@@ -3779,6 +3800,8 @@ public class TestCode {
             "      \"asnCd\": \"D01000\",\n" +
             "      \"asnNm\": \"인천서비스센터2\",\n" +
             "      \"milg\": \"83367\",\n" +
+            "      \"wrhsNo\": \"111111\",\n" +
+            "      \"vhclInoutNo\": \"111111\",\n" +
             "      \"rparWorkNm\": \"진단점검 점검2\"\n" +
             "    },\n" +
             "    {\n" +
@@ -3786,6 +3809,8 @@ public class TestCode {
             "      \"asnCd\": \"D01000\",\n" +
             "      \"asnNm\": \"인천서비스센터2\",\n" +
             "      \"milg\": \"83367\",\n" +
+            "      \"wrhsNo\": \"111111\",\n" +
+            "      \"vhclInoutNo\": \"111111\",\n" +
             "      \"rparWorkNm\": \"진단점검 점검2\"\n" +
             "    },\n" +
             "    {\n" +
@@ -3793,6 +3818,8 @@ public class TestCode {
             "      \"asnCd\": \"D01000\",\n" +
             "      \"asnNm\": \"인천서비스센터2\",\n" +
             "      \"milg\": \"83367\",\n" +
+            "      \"wrhsNo\": \"111111\",\n" +
+            "      \"vhclInoutNo\": \"111111\",\n" +
             "      \"rparWorkNm\": \"진단점검 점검2\"\n" +
             "    },\n" +
             "    {\n" +
@@ -3800,6 +3827,8 @@ public class TestCode {
             "      \"asnCd\": \"D01000\",\n" +
             "      \"asnNm\": \"인천서비스센터2\",\n" +
             "      \"milg\": \"83367\",\n" +
+            "      \"wrhsNo\": \"111111\",\n" +
+            "      \"vhclInoutNo\": \"111111\",\n" +
             "      \"rparWorkNm\": \"진단점검 점검2\"\n" +
             "    },\n" +
             "    {\n" +
@@ -3807,6 +3836,8 @@ public class TestCode {
             "      \"asnCd\": \"D01000\",\n" +
             "      \"asnNm\": \"인천서비스센터2\",\n" +
             "      \"milg\": \"83367\",\n" +
+            "      \"wrhsNo\": \"111111\",\n" +
+            "      \"vhclInoutNo\": \"111111\",\n" +
             "      \"rparWorkNm\": \"진단점검 점검2\"\n" +
             "    },\n" +
             "    {\n" +
@@ -3814,6 +3845,8 @@ public class TestCode {
             "      \"asnCd\": \"D01000\",\n" +
             "      \"asnNm\": \"인천서비스센터2\",\n" +
             "      \"milg\": \"83367\",\n" +
+            "      \"wrhsNo\": \"111111\",\n" +
+            "      \"vhclInoutNo\": \"111111\",\n" +
             "      \"rparWorkNm\": \"진단점검 점검2\"\n" +
             "    },\n" +
             "    {\n" +
@@ -3821,6 +3854,8 @@ public class TestCode {
             "      \"asnCd\": \"D01000\",\n" +
             "      \"asnNm\": \"인천서비스센터1\",\n" +
             "      \"milg\": \"73367\",\n" +
+            "      \"wrhsNo\": \"111111\",\n" +
+            "      \"vhclInoutNo\": \"111111\",\n" +
             "      \"rparWorkNm\": \"진단점검 점검1\"\n" +
             "    }\n" +
             "  ]\n" +
@@ -3831,5 +3866,56 @@ public class TestCode {
             "  \"rtCd\": \"0000\",\n" +
             "  \"rtMsg\": \"Success\"\n" +
             "}",REQ_1015.Response.class);
+
+    public static REQ_1018.Response REQ_1018 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"imgList\": [\n" +
+            "    {\n" +
+            "      \"imgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/B08000B08000AI2017021302901.jpg\",\n" +
+            "      \"thumImgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/thnB08000B08000AI2017021302901.jpg\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"imgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/B08000B08000AI2017021302902.jpg\",\n" +
+            "      \"thumImgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/thnB08000B08000AI2017021302902.jpg\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"imgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/B08000B08000AI2017021302903.jpg\",\n" +
+            "      \"thumImgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/thnB08000B08000AI2017021302903.jpg\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"imgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/B08000B08000AI2017021302904.jpg\",\n" +
+            "      \"thumImgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/thnB08000B08000AI2017021302904.jpg\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"imgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/B08000B08000AI2017021302905.jpg\",\n" +
+            "      \"thumImgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/thnB08000B08000AI2017021302905.jpg\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"imgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/B08000B08000AI2017021302906.jpg\",\n" +
+            "      \"thumImgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/thnB08000B08000AI2017021302906.jpg\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"imgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/B08000B08000AI2017021302907.jpg\",\n" +
+            "      \"thumImgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/thnB08000B08000AI2017021302907.jpg\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"imgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/B08000B08000AI2017021302908.jpg\",\n" +
+            "      \"thumImgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/thnB08000B08000AI2017021302908.jpg\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"imgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/B08000B08000AI2017021302909.jpg\",\n" +
+            "      \"thumImgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/thnB08000B08000AI2017021302909.jpg\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"imgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/B08000B08000AI20170213029010.jpg\",\n" +
+            "      \"thumImgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/thnB08000B08000AI20170213029010.jpg\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"imgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/B08000B08000AI20170213029011.jpg\",\n" +
+            "      \"thumImgUri\": \"http://stg.graapi.genesis.com/wasapp/as/uploadfile/moca/201702/thnB08000B08000AI20170213029011.jpg\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",REQ_1018.Response.class);
 
 }

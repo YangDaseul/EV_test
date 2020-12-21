@@ -14,6 +14,10 @@
         <import type="android.view.View" />
 
         <variable
+            name="listener"
+            type="com.genesis.apps.ui.common.view.listener.OnSingleClickListener" />
+
+        <variable
             name="data"
             type="com.genesis.apps.comm.model.vo.RepairHistVO" />
 
@@ -30,104 +34,98 @@
             android:id="@+id/tv_wrhs_dtm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="33dp"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:letterSpacing="-0.01"
-            android:lineSpacingExtra="10sp"
+            android:lineSpacingExtra="4sp"
             android:text="@{data.isFirst ? (DateUtil.getDate(DateUtil.getDefaultDateFormat((data.wrhsDtm ?? ``), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)) : ``}"
-            android:textColor="@color/x_000000"
+            android:textColor="@color/x_262626"
             android:textSize="14sp"
             android:visibility="@{data.isFirst ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="2020.07.25" />
 
+
+        <TextView
+            android:id="@+id/btn_repair_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:paddingBottom="5dp"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="30sp"
+            android:text="@string/sm_r_rsv05_39"
+            android:textColor="@color/x_000000"
+            android:textSize="14sp"
+            android:background="@drawable/bg_00000000_underline_000000"
+            android:onClick="@{(view)->listener.onClick(view)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_wrhs_dtm"/>
+
+        <ImageView
+            android:id="@+id/iv_arrow_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btn_arrow_open_r"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_repair_image"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_repair_image"
+            app:tint="@color/x_996449" />
+
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_sub"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/bg_ffffff_stroke_e2e2e2"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/x_e5e5e5"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_wrhs_dtm">
 
-            <TextView
-                android:id="@+id/tv_title_asn_nm"
-                style="@style/LeasingCarTextViewTitle"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:text="@string/sm_r_history01_1"
-                android:textColor="@color/x_525252"
+            <include
+                android:id="@+id/l_asn_nm"
+                layout="@layout/item_rpar_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:title="@{@string/sm_r_history01_1}"
+                app:msg="@{data.asnNm ?? `--`}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
-            <TextView
-                android:id="@+id/tv_asn_nm"
-                style="@style/LeasingCarTextView"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="20dp"
-                android:text="@{data.asnNm ?? `--`}"
+            <include
+                android:id="@+id/l_rpar_work_nm"
+                layout="@layout/item_rpar_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                app:title="@{@string/sm_r_history01_2}"
+                app:msg="@{data.rparWorkNm ?? `--`}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_asn_nm"
-                tools:text="금천 제네시스 센터" />
+                app:layout_constraintTop_toBottomOf="@+id/l_asn_nm"/>
 
-
-            <TextView
-                android:id="@+id/tv_title_rpar_work_nm"
-                style="@style/LeasingCarTextViewTitle"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:text="@string/sm_r_history01_2"
-                android:textColor="@color/x_525252"
+            <include
+                android:id="@+id/l_milg"
+                layout="@layout/item_rpar_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                app:title="@{@string/sm_r_history01_3}"
+                app:msg="@{TextUtils.isEmpty(data.milg) ? (`-- km`) : (StringUtil.getDigitGroupingString(data.milg)+`km`)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_asn_nm" />
-
-            <TextView
-                android:id="@+id/tv_rpar_work_nm"
-                style="@style/LeasingCarTextView"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="20dp"
-                android:text="@{data.rparWorkNm ?? `--`}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_rpar_work_nm"
-                tools:text="엔진오일 / 필터 / 에어크리너 교환" />
-
-
-            <TextView
-                android:id="@+id/tv_title_milg"
-                style="@style/LeasingCarTextViewTitle"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:text="@string/sm_r_history01_3"
-                android:textColor="@color/x_525252"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_rpar_work_nm" />
-
-            <TextView
-                android:id="@+id/tv_milg"
-                style="@style/LeasingCarTextView"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="20dp"
-                android:text="@{TextUtils.isEmpty(data.milg) ? (`-- km`) : (StringUtil.getDigitGroupingString(data.milg)+`km`)}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_milg"
-                tools:text="100,000km" />
-
+                app:layout_constraintTop_toBottomOf="@+id/l_rpar_work_nm"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

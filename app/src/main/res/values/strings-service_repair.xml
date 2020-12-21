@@ -65,7 +65,7 @@
     <string name="sm_r_rsv05_17">정비 현황</string>
     <string name="sm_r_rsv05_18">업체명</string>
     <string name="sm_r_rsv05_19">주소</string>
-    <string name="sm_r_rsv05_20">연락처</string>
+    <string name="sm_r_rsv05_20">전화번호</string>
     <string name="sm_r_rsv05_21">예약 내역</string>
     <string name="sm_r_rsv05_22">정비소</string>
     <string name="sm_r_rsv05_23">오토케어</string>
@@ -84,6 +84,7 @@
     <string name="sm_r_rsv05_36">픽업</string>
     <string name="sm_r_rsv05_37">딜리버리</string>
     <string name="sm_r_rsv05_38">딜리버리\n중</string>
+    <string name="sm_r_rsv05_39">수리 사진</string>
 
     <string name="sm_r_history01_1">업체명</string>
     <string name="sm_r_history01_2">작업내역</string>

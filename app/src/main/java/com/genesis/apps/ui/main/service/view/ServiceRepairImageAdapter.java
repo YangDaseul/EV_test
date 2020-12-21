@@ -55,7 +55,7 @@ public class ServiceRepairImageAdapter extends BaseRecyclerViewAdapter2<RepImage
                     .with(getContext())
                     .load(item.getImgUri())
                     .format(DecodeFormat.PREFER_ARGB_8888)
-//                    .error(R.drawable.ic_service_membership)
+//                    .error(R.color.x_00000000) //todo 이미지
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(getBinding().ivImage);
         }
