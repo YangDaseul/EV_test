@@ -292,10 +292,10 @@ class CMNViewModel extends ViewModel {
     }
 
 
-    public MessageVO getTmpInsight(){
-        MessageVO insight = new MessageVO(VariableType.MAIN_HOME_INSIGHT_IML,"","","","","","","", "","","https://www.genesis.com/kr/ko/support/genesis-events/detail.html?seq=0507","",null,"");
-        return insight;
-    }
+//    public MessageVO getTmpInsight(){
+//        MessageVO insight = new MessageVO(VariableType.MAIN_HOME_INSIGHT_IML,"","","","","","","", "","","https://www.genesis.com/kr/ko/support/genesis-events/detail.html?seq=0507","",null,"", true);
+//        return insight;
+//    }
 
 
 

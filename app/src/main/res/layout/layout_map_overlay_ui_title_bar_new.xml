@@ -27,7 +27,7 @@
             android:background="@color/x_ffffff"
             android:elevation="5dp"
             android:outlineSpotShadowColor="#33000000"
-            android:src="@drawable/btn_back2"
+            android:src="@drawable/btn_back"
             app:backgroundTint="@color/x_ffffff"
             app:fabSize="normal"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,6 +59,57 @@
             app:layout_constraintStart_toEndOf="@id/back"
             app:layout_constraintTop_toTopOf="@id/back"
             tools:text="@string/map_title_1"
-            tools:visibility="visible" />
+            tools:visibility="gone" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_service_network_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/back">
+
+            <ImageView
+                android:id="@+id/btn_search"
+                android:layout_width="60dp"
+                android:layout_height="58dp"
+                android:background="@drawable/ripple_bg_111111_left_round_30"
+                android:elevation="5dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ico_search"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/iv_line"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_line"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="@color/x_4d4d4d"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_search_list"
+                app:layout_constraintStart_toEndOf="@+id/btn_search"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/btn_search_list"
+                android:layout_width="60dp"
+                android:layout_height="58dp"
+                android:background="@drawable/ripple_bg_111111_right_round_30"
+                android:elevation="5dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ico_search_list"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_line"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

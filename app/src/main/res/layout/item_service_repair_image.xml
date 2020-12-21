@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_f8f8f8_stroke_e5e5e5"
+        android:adjustViewBounds="true"
+        tools:src="@drawable/banner_contents_3"/>
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/bg_f8f8f8_stroke_e5e5e5">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_empty"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:background="@drawable/bg_ffffff_stroke_e2e2e2"-->
+<!--            android:fontFamily="@font/regular_genesissansheadglobal"-->
+<!--            android:gravity="center"-->
+<!--            android:letterSpacing="-0.01"-->
+<!--            android:lineSpacingExtra="2sp"-->
+<!--            android:text="@string/sm_r_rsv05_33"-->
+<!--            android:textColor="@color/x_141414"-->
+<!--            android:textSize="16sp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+</layout>

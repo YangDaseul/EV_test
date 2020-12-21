@@ -108,7 +108,6 @@ public class CarWashFindSonaxBranchFragment extends SubFragment<FragmentCarWashF
                         }
                         SnackBarUtil.show(getActivity(), serverMsg);
                     }
-                    //todo : 구체적인 예외처리
                     break;
             }
         });
@@ -152,7 +151,6 @@ public class CarWashFindSonaxBranchFragment extends SubFragment<FragmentCarWashF
                         }
                         SnackBarUtil.show(getActivity(), serverMsg);
                     }
-                    //todo : 구체적인 예외처리
                     break;
             }
 
@@ -247,6 +245,7 @@ public class CarWashFindSonaxBranchFragment extends SubFragment<FragmentCarWashF
             areaListDialog.setOnDismissListener(
                     dialog -> {
                         if (areaListDialog.getSelectItem() != null) {
+                            me.tvCarWashFindBranchLocationSelect.setText(areaListDialog.getSelectItem());
                             reqBranchListInArea(areaListDialog.getSelectItem());
                         }
                     }

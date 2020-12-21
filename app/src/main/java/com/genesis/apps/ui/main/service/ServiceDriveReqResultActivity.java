@@ -4,6 +4,7 @@ package com.genesis.apps.ui.main.service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
@@ -124,6 +125,7 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
                         showProgressDialog(false);
 
                         if (result.data.getRtCd().equals(BaseResponse.RETURN_CODE_SUCC)) {
+                            setBlockCancelBtn(true);
                             //취소 성공
                             //자동취소 타이머 끄기
                             cancelTimer();
@@ -140,13 +142,29 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
 
                                     Intent intent = new Intent(this, ServiceDriveReqActivity.class);
                                     intent.putExtra(KeyNames.KEY_NAME_SERVICE_DRIVE_REQ_START_MSG, R.string.sd_cancel_succ);
-                                    intent.putExtra(KeyNames.KEY_NAME_VEHICLE_VO, mainVehicle); //주 차량 정보도 가져감
+//                                    intent.putExtra(KeyNames.KEY_NAME_VEHICLE_VO, mainVehicle); //주 차량 정보도 가져감
                                     startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                                     break;
                             }
                         } else {
+
+                            String errMsg="";
+
+                            switch (result.data.getRtCd()){
+                                case "9029":
+                                    errMsg = "기사님이 배정되어 취소를 할 수 없습니다.";
+                                    setBlockCancelBtn(false);
+                                    break;
+                                case "9031":
+                                    errMsg = "예약시간 3시간 전에만 취소할 수 있습니다.";
+                                    setBlockCancelBtn(false);
+                                    break;
+                                default:
+                                    errMsg = getString(R.string.sd_cancel_fail);
+                                    break;
+                            }
                             //취소 실패
-                            SnackBarUtil.show(this, getString(R.string.sd_cancel_fail));
+                            SnackBarUtil.show(this, errMsg);
                         }
                         break;
                     }
@@ -154,8 +172,14 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
 
                 default:
                     showProgressDialog(false);
-                    SnackBarUtil.show(this, "" + result.message);
-                    //todo : 구체적인 예외처리
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    }
                     break;
             }
         });
@@ -181,11 +205,22 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
 
                 default:
                     showProgressDialog(false);
-                    SnackBarUtil.show(this, "" + result.message);
-                    //todo : 구체적인 예외처리
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    }
                     break;
             }
         });
+    }
+
+    private void setBlockCancelBtn(boolean b) {
+        ui.tvServiceDriveCancelBtn.setEnabled(b);
+        ui.btnBlock.setVisibility(!b ? View.VISIBLE : View.GONE);
     }
 
     //인텐트 까서 데이터를 뷰에 뿌림. 실패하면 액티비티 종료(뷰에 데이터 없어서 화면 다 깨짐)

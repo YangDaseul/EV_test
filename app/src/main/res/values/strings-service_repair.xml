@@ -17,6 +17,7 @@
     <string name="sm_r_rsv02_04_14">예약 가능 시간이 없습니다.</string>
     <string name="sm_r_rsv02_04_15">10:00</string>
     <string name="sm_r_rsv02_04_16">14:00</string>
+    <string name="sm_r_rsv02_04_17">정비소 선택</string>
 
     <string name="sm_r_rsv03_04_1">정비소 예약 정보를\n확인해 주세요.</string>
     <string name="sm_r_rsv03_04_2">예약 내역을 확인하고,\n아래 다음 버튼을 누르시면,\n정비소 에약이 완료됩니다.</string>
@@ -99,7 +100,14 @@
     <string name="sm_r_history01_13"></string>
     <string name="sm_r_history01_14"></string>
 
-
+    <string name="sm_r_history02_1">수리 사진</string>
+    <string name="sm_r_history02_2">수리 전</string>
+    <string name="sm_r_history02_3">수리 중</string>
+    <string name="sm_r_history02_4">수리 후</string>
+    <string name="sm_r_history02_5">등록된 사진이 없습니다.</string>
+    <string name="sm_r_history02_6"></string>
+    <string name="sm_r_history02_7"></string>
+    <string name="sm_r_history02_8"></string>
 
 
 

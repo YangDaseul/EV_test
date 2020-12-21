@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
  * @author hjpark
  * @Brief 차량정보 (소유차량, 미로그인시, 계약차량 등)
  * 미로그인/미회원의 경우 아래 4개 정보만 의미가 있음
- * {@link #mdlCd#mdlNm#xrclCtyNo#vhclImgUri}
+ * {@link #mdlCd#mdlNm#xrclCtyNo#mainImgUri}
  *
  *
  * 계약차량인 경우 아래 정보만 의미가 있음
@@ -33,10 +33,8 @@ import lombok.EqualsAndHashCode;
  * @see #mainVhclYn 기본차량여부
  * 주차량여부 (Y: 주차량, N: 주차량이 아님)
  * 차량 1대인 경우는 기본차량으로 설정하지 않아도 주차량으로 간주
- * @see #vhclImgUri 차량이미지URI
- * 고객이 차량을 등록한 경우는 TGRA_CAR_OWN_REL의 VHCL_IMG_FIL_NM
- * 등록된 이미지가 없는 경우는 TGRA_VHCL_IMG_INFO 참조
- *
+ * @see #mainImgUri 메인차량이미지URI
+ * @see #mygImgUri MYG이미지URI
  *
  * @see #saleMdlCd 판매모델코드
  * @see #ieclCtyNo 내장컬러상품번호
@@ -85,9 +83,15 @@ class VehicleVO extends BaseData {
     @Expose
     @SerializedName("mainVhclYn")
     private String mainVhclYn;
+//    @Expose
+//    @SerializedName("vhclImgUri")
+//    private String vhclImgUri;
     @Expose
-    @SerializedName("vhclImgUri")
-    private String vhclImgUri;
+    @SerializedName("mainImgUri")
+    private String mainImgUri;
+    @Expose
+    @SerializedName("mygImgUri")
+    private String mygImgUri;
 
     //아래는 계약차량용..
     @Expose

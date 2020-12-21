@@ -13,6 +13,7 @@
     <color name="x_99ffffff">#99ffffff</color>
     <color name="x_11000000">#11000000</color>
     <color name="x_cd9a81">#cd9a81</color>
+    <color name="x_ad7b61">#ad7b61</color>
     <color name="x_f4f4f4">#f4f4f4</color>
     <color name="x_bfbfbf">#bfbfbf</color>
     <color name="x_bf000000">#bf000000</color>
@@ -21,9 +22,11 @@
     <color name="x_f0f0f0">#f0f0f0</color>
     <color name="x_4Df0f0f0">#4Df0f0f0</color>
     <color name="x_4d141414">#4d141414</color>
+    <color name="x_4d4d4d">#4d4d4d</color>
     <color name="x_e9e9e9">#e9e9e9</color>
     <color name="x_bb162b">#bb162b</color>
     <color name="x_ba544d">#ba544d</color>
+    <color name="x_ce2d2d">#ce2d2d</color>
     <color name="x_ccba544d">#ccba544d</color>
     <color name="x_ff5d47">#ff5d47</color>
     <color name="x_a36b4f">#a36b4f</color>
@@ -45,10 +48,12 @@
 
     <color name="x_161616">#161616</color>
     <color name="x_141414">#141414</color>
+    <color name="x_111111">#111111</color>
     <!--  TODO : 색 이름이랑 값이 다름-->
     <color name="x_cc141414">#ee141414</color>
     <color name="x_e6141414">#e6141414</color>
     <color name="x_1a141414">#1a141414</color>
+    <color name="x_1a1a1a">#1a1a1a</color>
     <color name="x_252831">#252831</color>
     <color name="x_525252">#525252</color>
     <color name="x_131313">#131313</color>
@@ -81,17 +86,17 @@
     <color name="x_4f585b">#4f585b</color>
     <color name="x_82898b">#82898b</color>
     <color name="x_f5f6f8">#f5f6f8</color>
-    <color name="x_ce2d2d">#ce2d2d</color>
     <color name="x_a2a2a2">#a2a2a2</color>
     <color name="x_757575">#757575</color>
     <color name="x_666666">#666666</color>
     <color name="x_f8f8f8">#f8f8f8</color>
     <color name="x_996449">#996449</color>
+    <color name="x_999999">#999999</color>
     <color name="x_b8bdbb">#b8bdbb</color>
     <color name="x_e5e5e5">#e5e5e5</color>
     <color name="x_8dbdbb">#b8bdbb</color>
+    <color name="x_333333">#333333</color>
 
-    <color name="x_111111">#111111</color>
     <color name="x_cccccc">#cccccc</color>
 
 

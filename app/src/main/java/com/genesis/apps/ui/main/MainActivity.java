@@ -40,7 +40,7 @@ import com.genesis.apps.ui.myg.MyGHomeActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
-    private final int pageNum = 4;
+    private final int pageNum = 5;
     public FragmentStateAdapter pagerAdapter;
     private LGNViewModel lgnViewModel;
     private CMNViewModel cmnViewModel;
@@ -269,6 +269,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             {R.string.main_word_1, R.drawable.ic_tabbar_home},
             {R.string.main_word_2, R.drawable.ic_tabbar_insight},
             {R.string.main_word_3, R.drawable.ic_tabbar_service},
+            {R.string.main_word_5, R.drawable.ic_tabbar_store},
             {R.string.main_word_4, R.drawable.ic_tabbar_contents}
     };
 

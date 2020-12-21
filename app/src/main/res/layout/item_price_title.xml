@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+        <TextView
+            android:id="@+id/tv_price_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="30dp"
+            android:paddingBottom="21dp"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:gravity="left|center_vertical"
+            android:lineSpacingExtra="12sp"
+            android:letterSpacing="-0.01"
+            android:textColor="@color/x_000000"
+            android:textSize="18sp"
+            tools:text="GENESIS GV80" />
+</layout>

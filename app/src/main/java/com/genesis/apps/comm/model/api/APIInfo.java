@@ -38,7 +38,7 @@ public enum APIInfo {
 
 
     GRA_MYP_8001("MyG+ 이용약관", "MYP-8001", HttpRequest.METHOD_POST, "/graapi/myp/trmsInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-//    GRA_MYP_8002("MyG+ 개인정보처리방침", "MYP-8002", HttpRequest.METHOD_POST, "/graapi/myp/privacyPolicy.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    //    GRA_MYP_8002("MyG+ 개인정보처리방침", "MYP-8002", HttpRequest.METHOD_POST, "/graapi/myp/privacyPolicy.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 //    GRA_MYP_8003("MyG+ 오픈소스라이센스", "MYP-8003", HttpRequest.METHOD_POST, "/graapi/myp/openLicense.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_MYP_8004("MyG+ 버전정보", "MYP-8004", HttpRequest.METHOD_POST, "/graapi/myp/verInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_MYP_8005("MyG+ 공지사항", "MYP-8005", HttpRequest.METHOD_POST, "/graapi/myp/notiList.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
@@ -139,12 +139,9 @@ public enum APIInfo {
     GRA_PUB_1002("Home + 시도조회", "PUB-1002", HttpRequest.METHOD_POST, "/graapi/nl/pub/sido.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_PUB_1003("Home + 구군조회", "PUB-1003", HttpRequest.METHOD_POST, "/graapi/nl/pub/gugun.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
-
     GRA_STO_1001("Genesis + 유사재고차량", "STO-1001", HttpRequest.METHOD_POST, "/graapi/sto/smlrStckVhcl.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_STO_1002("Genesis + BTO 웹뷰", "STO-1002", HttpRequest.METHOD_POST, "/graapi/nl/sto/btoWebview.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-
-
-
+    GRA_STO_1003("Genesis + 계약서 조회", "STO-1003", HttpRequest.METHOD_POST, "/graapi/sto/contractLookup.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     GRA_DDS_1001("Genesis + 대리운전 진행상태 확인", "DDS-1001", HttpRequest.METHOD_POST, "/graapi/dds/ddsProgsCheck.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_DDS_1002("Genesis + 대리운전 신청 정보 등록", "DDS-1002", HttpRequest.METHOD_POST, "/graapi/dds/ddsInfoRgist.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
@@ -168,6 +165,8 @@ public enum APIInfo {
     GRA_WSH_1007("service + 소낙스 평가지 요청", "WSH-1007", HttpRequest.METHOD_POST, "/graapi/wsh/evlpFormsInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_WSH_1008("service + 소낙스 평가 요청", "WSH-1008", HttpRequest.METHOD_POST, "/graapi/wsh/rqstEvlp.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
+    GRA_CMS_1001("MyG+ 커머스연동", "CMS-1001", HttpRequest.METHOD_POST, "/graapi/cms/sso.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+
     //DEVELOPERS API에서는 ifCd를 url 파라미터 형태로 사용
     DEVELOPERS_DTC("고장 코드 조회", "carId", HttpRequest.METHOD_GET, "/car/status/%s/dtc", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     DEVELOPERS_REPLACEMENTS("소모품 교환 정보 조회", "carId", HttpRequest.METHOD_GET, "/car/care/%s/replacements", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
@@ -182,8 +181,6 @@ public enum APIInfo {
     DEVELOPERS_CAR_ID("CAR ID 조회(대상 차량 등록 여부 확인) (저장 시에도 요청 및 사용)", "userId", HttpRequest.METHOD_GET, "/profile/users/%s/cars", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     DEVELOPERS_CAR_CONNECT("GCS 차량 연결(등록)", "userId", HttpRequest.METHOD_POST, "/profile/users/%s/cars", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 //    DEVELOPERS_CAR_SAVE("CAR ID 조회 및 저장", "userId", HttpRequest.METHOD_GET, "/profile/users/%s/cars", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-
-
 
 
     ROADWIN_SERVICE_AREA_CHECK("서비스 가능 지역 확인", "", HttpRequest.METHOD_GET, "/serviceAreaCheck.php", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),

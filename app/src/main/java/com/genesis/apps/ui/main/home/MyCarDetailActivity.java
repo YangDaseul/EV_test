@@ -389,7 +389,7 @@ public class MyCarDetailActivity extends SubActivity<ActivityMyCarDetailBinding>
         ui.lCar.btnRecovery.setVisibility(View.GONE);
         Glide
                 .with(this)
-                .load(vehicleVO.getVhclImgUri())
+                .load(vehicleVO.getMygImgUri())
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .error(R.drawable.img_car_339_2)
                 .placeholder(R.drawable.img_car_339_2)

@@ -8,6 +8,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.genesis.apps.ui.main.service.FragmentService;
 import com.genesis.apps.ui.main.contents.FragmentContents;
 import com.genesis.apps.ui.main.insight.FragmentInsight;
+import com.genesis.apps.ui.main.store.FragmentStore;
 
 
 public class MainViewpagerAdapter extends FragmentStateAdapter {
@@ -31,6 +32,8 @@ public class MainViewpagerAdapter extends FragmentStateAdapter {
                 return new FragmentInsight();
             case 2:
                 return new FragmentService();
+            case 3:
+                return new FragmentStore();
             default:
                 return new FragmentContents();
         }

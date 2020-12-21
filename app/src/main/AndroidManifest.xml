@@ -266,6 +266,10 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.main.ServiceNetworkPriceActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.main.home.LeasingCarHistActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -375,6 +379,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.service.ServiceRepairReserveHistoryActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.service.ServiceRepairImageActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

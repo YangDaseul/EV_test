@@ -70,6 +70,7 @@ import com.genesis.apps.comm.model.api.gra.REQ_1012;
 import com.genesis.apps.comm.model.api.gra.REQ_1013;
 import com.genesis.apps.comm.model.api.gra.REQ_1014;
 import com.genesis.apps.comm.model.api.gra.REQ_1015;
+import com.genesis.apps.comm.model.api.gra.REQ_1017;
 import com.genesis.apps.comm.model.api.gra.SOS_1001;
 import com.genesis.apps.comm.model.api.gra.SOS_1002;
 import com.genesis.apps.comm.model.api.gra.SOS_1004;
@@ -93,6 +94,42 @@ import com.genesis.apps.comm.model.vo.RentStatusVO;
 import com.google.gson.Gson;
 
 public class TestCode {
+
+    public static REQ_1017.Response REQ_1017 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\",\n" +
+            "  \"repCostList\": [\n" +
+            "    {\n" +
+            "      \"mdlNm\": \"GV80\",\n" +
+            "      \"costList\": [\n" +
+            "        {\n" +
+            "          \"wkNm\": \"오토미션 오일 (장비 사용)\",\n" +
+            "          \"rprAmt\": \"23,000\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"wkNm\": \"윈드쉴드 와이퍼블레이드\",\n" +
+            "          \"rprAmt\": \"40,000\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"mdlNm\": \"G90\",\n" +
+            "      \"costList\": [\n" +
+            "        {\n" +
+            "          \"wkNm\": \"윈드쉴드 와이퍼블레이드\",\n" +
+            "          \"rprAmt\": \"23,000\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"wkNm\": \"와이퍼 블레이드교환 \",\n" +
+            "          \"rprAmt\": \"40,000\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",REQ_1017.Response.class);
+    
+    
+    
     public static VOC_1001.Response VOC_1001 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
             "  \"rtMsg\": \"성공\",\n" +
@@ -2397,56 +2434,132 @@ public class TestCode {
 //            "}", IST_1002.Response.class);
 //
 //    public static IST_1003.Response IST_1003 = new Gson().fromJson("{\n" +
-//            "  \"rtCd\": \"0000\",\n" +
-//            "  \"rtMsg\": \"성공\",\n" +
-//            "  \"admMsgList\": [\n" +
-//            "    {\n" +
-//            "      \"msgTypCd\": \"TXL\",\n" +
-//            "      \"ttl\": \"25일 뒤에\n정기점검을 받으세요.\",\n" +
-//            "      \"txtMsg\": \"최근 점검일 2020.04.20\",\n" +
-//            "      \"imgUri\": \"1\",\n" +
-//            "      \"lnkNm\": \"정비 예약하기\",\n" +
-//            "      \"lnkTypCd\": \"\",\n" +
-//            "      \"lnkUri\": \"\"\n" +
-//            "    },\n" +
-//            "    {\n" +
-//            "      \"msgTypCd\": \"TXL\",\n" +
-//            "      \"ttl\": \"엔진오일의 교환 주기가\n만료 되었습니다.\",\n" +
-//            "      \"txtMsg\": \"4일 초과\",\n" +
-//            "      \"imgUri\": \"1\",\n" +
-//            "      \"lnkNm\": \"정비 예약하기\",\n" +
-//            "      \"lnkTypCd\": \"\",\n" +
-//            "      \"lnkUri\": \"\"\n" +
-//            "    },\n" +
-//            "    {\n" +
-//            "      \"msgTypCd\": \"TXL\",\n" +
-//            "      \"ttl\": \"고객님의 차량은\n리콜 대상입니다.\",\n" +
-//            "      \"txtMsg\": \"\",\n" +
-//            "      \"imgUri\": \"1\",\n" +
-//            "      \"lnkNm\": \"정비소 입고하기\",\n" +
-//            "      \"lnkTypCd\": \"\",\n" +
-//            "      \"lnkUri\": \"\"\n" +
-//            "    },\n" +
-//            "    {\n" +
-//            "      \"msgTypCd\": \"TXL\",\n" +
-//            "      \"ttl\": \"아직 디지털 키를 안써보셨네요.\",\n" +
-//            "      \"txtMsg\": \"디지털 키로 차문을 열고, 시동을 걸 수 있어요.\",\n" +
-//            "      \"imgUri\": \"2\",\n" +
-//            "      \"lnkNm\": \"자세히 보기\",\n" +
-//            "      \"lnkTypCd\": \"\",\n" +
-//            "      \"lnkUri\": \"\"\n" +
-//            "    },\n" +
-//            "    {\n" +
-//            "      \"msgTypCd\": \"TXL\",\n" +
-//            "      \"ttl\": \"제네시스 카페이에 대한 꿀팁을 알려드려요!\",\n" +
-//            "      \"txtMsg\": \"테스트22222222\",\n" +
-//            "      \"imgUri\": \"2\",\n" +
-//            "      \"lnkNm\": \"자세히 보기\",\n" +
-//            "      \"lnkTypCd\": \"O\",\n" +
-//            "      \"lnkUri\": \"www.naver.com\"\n" +
-//            "    }\n" +
-//            "  ]\n" +
-//            "}", IST_1003.Response.class);
+//        "  \"rtCd\": \"0000\",\n" +
+//        "  \"rtMsg\": \"Success\",\n" +
+//        "  \"admMsgList\": [\n" +
+//        "    {\n" +
+//        "      \"msgTypCd\": \"TIL\",\n" +
+//        "      \"txtMsg1\": \"1영역테스트메시지입니다.\",\n" +
+//        "      \"txtMsg2\": \"테스트 샘플입니다.\",\n" +
+//        "      \"imgUri1\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495.png\",\n" +
+//        "      \"imgUri2\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_01.png\",\n" +
+//        "      \"imgUri3\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_02.png\",\n" +
+//        "      \"lnkNm\": \"바로가기\",\n" +
+//        "      \"lnkTypCd\": \"O\",\n" +
+//        "      \"lnkUri\": \"https://www.genesis.com/kr/ko/main.html\"\n" +
+//        "    },\n" +
+//        "    {\n" +
+//        "      \"msgTypCd\": \"TIL\",\n" +
+//        "      \"txtMsg1\": \"2영역테스트메시지입니다.\",\n" +
+//        "      \"txtMsg2\": \"테스트 샘플입니다.\",\n" +
+//        "      \"imgUri1\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495.png\",\n" +
+//        "      \"imgUri2\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_01.png\",\n" +
+//        "      \"imgUri3\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_02.png\",\n" +
+//        "      \"lnkNm\": \"바로가기\",\n" +
+//        "      \"lnkTypCd\": \"O\",\n" +
+//        "      \"lnkUri\": \"https://www.genesis.com/kr/ko/main.html\"\n" +
+//        "    },\n" +
+//        "    {\n" +
+//        "      \"msgTypCd\": \"TIL\",\n" +
+//        "      \"txtMsg1\": \"3영역테스트메시지입니다.\",\n" +
+//        "      \"txtMsg2\": \"테스트 샘플입니다.\",\n" +
+//        "      \"imgUri1\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495.png\",\n" +
+//        "      \"imgUri2\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_01.png\",\n" +
+//        "      \"imgUri3\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_02.png\",\n" +
+//        "      \"lnkNm\": \"바로가기\",\n" +
+//        "      \"lnkTypCd\": \"O\",\n" +
+//        "      \"lnkUri\": \"https://www.genesis.com/kr/ko/main.html\"\n" +
+//        "    },\n" +
+//        "    {\n" +
+//        "      \"msgTypCd\": \"TIL\",\n" +
+//        "      \"txtMsg1\": \"4영역테스트메시지입니다.\",\n" +
+//        "      \"txtMsg2\": \"테스트 샘플입니다.\",\n" +
+//        "      \"imgUri1\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495.png\",\n" +
+//        "      \"imgUri2\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_01.png\",\n" +
+//        "      \"imgUri3\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_02.png\",\n" +
+//        "      \"lnkNm\": \"바로가기\",\n" +
+//        "      \"lnkTypCd\": \"O\",\n" +
+//        "      \"lnkUri\": \"https://www.genesis.com/kr/ko/main.html\"\n" +
+//        "    },\n" +
+//        "    {\n" +
+//        "      \"msgTypCd\": \"TIL\",\n" +
+//        "      \"txtMsg1\": \"5영역테스트메시지입니다.\",\n" +
+//        "      \"txtMsg2\": \"테스트 샘플입니다.\",\n" +
+//        "      \"imgUri1\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495.png\",\n" +
+//        "      \"imgUri2\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_01.png\",\n" +
+//        "      \"imgUri3\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_02.png\",\n" +
+//        "      \"lnkNm\": \"바로가기\",\n" +
+//        "      \"lnkTypCd\": \"O\",\n" +
+//        "      \"lnkUri\": \"https://www.genesis.com/kr/ko/main.html\"\n" +
+//        "    },\n" +
+//        "    {\n" +
+//        "      \"msgTypCd\": \"TIL\",\n" +
+//        "      \"txtMsg1\": \"6영역테스트메시지입니다.\",\n" +
+//        "      \"txtMsg2\": \"테스트 샘플입니다.\",\n" +
+//        "      \"imgUri1\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495.png\",\n" +
+//        "      \"imgUri2\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_01.png\",\n" +
+//        "      \"imgUri3\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_02.png\",\n" +
+//        "      \"lnkNm\": \"바로가기\",\n" +
+//        "      \"lnkTypCd\": \"O\",\n" +
+//        "      \"lnkUri\": \"https://www.genesis.com/kr/ko/main.html\"\n" +
+//        "    },\n" +
+//        "    {\n" +
+//        "      \"msgTypCd\": \"TIL\",\n" +
+//        "      \"txtMsg1\": \"7영역테스트메시지입니다.\",\n" +
+//        "      \"txtMsg2\": \"테스트 샘플입니다.\",\n" +
+//        "      \"imgUri1\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495.png\",\n" +
+//        "      \"imgUri2\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_01.png\",\n" +
+//        "      \"imgUri3\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_02.png\",\n" +
+//        "      \"lnkNm\": \"바로가기\",\n" +
+//        "      \"lnkTypCd\": \"O\",\n" +
+//        "      \"lnkUri\": \"https://www.genesis.com/kr/ko/main.html\"\n" +
+//        "    },\n" +
+//        "    {\n" +
+//        "      \"msgTypCd\": \"TIL\",\n" +
+//        "      \"txtMsg1\": \"8영역테스트메시지입니다.\",\n" +
+//        "      \"txtMsg2\": \"테스트 샘플입니다.\",\n" +
+//        "      \"imgUri1\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495.png\",\n" +
+//        "      \"imgUri2\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_01.png\",\n" +
+//        "      \"imgUri3\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_02.png\",\n" +
+//        "      \"lnkNm\": \"바로가기\",\n" +
+//        "      \"lnkTypCd\": \"O\",\n" +
+//        "      \"lnkUri\": \"https://www.genesis.com/kr/ko/main.html\"\n" +
+//        "    },\n" +
+//        "    {\n" +
+//        "      \"msgTypCd\": \"TIL\",\n" +
+//        "      \"txtMsg1\": \"9영역테스트메시지입니다.\",\n" +
+//        "      \"txtMsg2\": \"테스트 샘플입니다.\",\n" +
+//        "      \"imgUri1\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495.png\",\n" +
+//        "      \"imgUri2\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_01.png\",\n" +
+//        "      \"imgUri3\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_02.png\",\n" +
+//        "      \"lnkNm\": \"바로가기\",\n" +
+//        "      \"lnkTypCd\": \"O\",\n" +
+//        "      \"lnkUri\": \"https://www.genesis.com/kr/ko/main.html\"\n" +
+//        "    },\n" +
+//        "    {\n" +
+//        "      \"msgTypCd\": \"TIL\",\n" +
+//        "      \"txtMsg1\": \"10영역테스트메시지입니다.\",\n" +
+//        "      \"txtMsg2\": \"테스트 샘플입니다.\",\n" +
+//        "      \"imgUri1\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495.png\",\n" +
+//        "      \"imgUri2\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_01.png\",\n" +
+//        "      \"imgUri3\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_02.png\",\n" +
+//        "      \"lnkNm\": \"바로가기\",\n" +
+//        "      \"lnkTypCd\": \"O\",\n" +
+//        "      \"lnkUri\": \"https://www.genesis.com/kr/ko/main.html\"\n" +
+//        "    },\n" +
+//        "    {\n" +
+//        "      \"msgTypCd\": \"TIL\",\n" +
+//        "      \"txtMsg1\": \"11영역테스트메시지입니다.\",\n" +
+//        "      \"txtMsg2\": \"테스트 샘플입니다.\",\n" +
+//        "      \"imgUri1\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495.png\",\n" +
+//        "      \"imgUri2\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_01.png\",\n" +
+//        "      \"imgUri3\": \"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl/granas/insight/admin/KakaoTalk_20201218_092622495_02.png\",\n" +
+//        "      \"lnkNm\": \"바로가기\",\n" +
+//        "      \"lnkTypCd\": \"O\",\n" +
+//        "      \"lnkUri\": \"https://www.genesis.com/kr/ko/main.html\"\n" +
+//        "    }\n" +
+//        "  ]\n" +
+//        "}", IST_1003.Response.class);
 //
 //
 //

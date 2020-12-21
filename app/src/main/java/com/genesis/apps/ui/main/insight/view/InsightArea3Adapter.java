@@ -57,7 +57,7 @@ public class InsightArea3Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
             getBinding().tvTitle.setVisibility(View.GONE);
             getBinding().tvMsg.setVisibility(View.INVISIBLE);
             getBinding().tvLinkNm.setVisibility(View.GONE);
-            getBinding().ivIcon.setVisibility(View.GONE);
+            getBinding().ivIcon.setVisibility(View.INVISIBLE);
             getBinding().lWhole.setOnClickListener(null);
 
             if (!TextUtils.isEmpty(item.getIconImgUri())) {

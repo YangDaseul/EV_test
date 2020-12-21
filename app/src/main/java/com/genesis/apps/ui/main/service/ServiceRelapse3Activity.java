@@ -185,7 +185,6 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
                         }
                         SnackBarUtil.show(this, serverMsg);
                     }
-                    //todo : 구체적인 예외처리
                     break;
             }
         });
@@ -223,7 +222,6 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
                         }
                         SnackBarUtil.show(this, serverMsg);
                     }
-                    //todo : 구체적인 예외처리
                     break;
             }
         });
@@ -267,7 +265,6 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
                         }
                         SnackBarUtil.show(this, serverMsg);
                     }
-                    //todo : 구체적인 예외처리
                     break;
             }
         });

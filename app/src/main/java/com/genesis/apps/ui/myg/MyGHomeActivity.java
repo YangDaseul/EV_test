@@ -30,11 +30,15 @@ import com.genesis.apps.databinding.ActivityMygHomeBinding;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
+import com.genesis.apps.ui.main.home.view.CarHorizontalAdapter;
+import com.genesis.apps.ui.myg.view.FamilyAppHorizontalAdapter;
 import com.genesis.apps.ui.myg.view.OilView;
 
 import java.util.Locale;
 
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0001;
@@ -46,6 +50,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     private OILViewModel oilViewModel;
     private OilView oilView;
     private VehicleVO mainVehicle;
+    private FamilyAppHorizontalAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -199,6 +204,18 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         ui.setActivity(this);
         ui.setOilView(oilView);
         setCallCenter();
+        initFamilyApp();
+        ui.tvVersion.setText("V"+PackageUtil.changeVersionToAppFormat(PackageUtil.getApplicationVersionName(this, getPackageName())));
+    }
+
+    private void initFamilyApp(){
+        adapter = new FamilyAppHorizontalAdapter(onSingleClickListener);
+        adapter.setRows(mypViewModel.getFamilyAppList());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        ui.rcFamilyApp.setLayoutManager(layoutManager);
+        ui.rcFamilyApp.setHasFixedSize(true);
+        ui.rcFamilyApp.setAdapter(adapter);
     }
 
     //TODO 로딩 처리 필요..
@@ -359,11 +376,15 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                 case R.id.l_terms_5://버전 정보
                     startActivitySingleTop(new Intent(this, MyGVersioniActivity.class), 0,VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
-                case R.id.l_app_connected://커넥티트 아이콘
-                case R.id.l_app_digitalkey://디지털 키 아이콘
-                case R.id.l_app_carpay://카페이 아이콘
-                case R.id.l_app_cam://빌트인캠 아이콘
-                    PackageUtil.runApp(this, v.getTag().toString());
+//                case R.id.l_app_connected://커넥티트 아이콘
+//                case R.id.l_app_digitalkey://디지털 키 아이콘
+//                case R.id.l_app_carpay://카페이 아이콘
+//                case R.id.l_app_cam://빌트인캠 아이콘
+//                    PackageUtil.runApp(this, v.getTag().toString());
+//                    break;
+
+                case R.id.iv_app:
+                    PackageUtil.runApp(this, v.getTag(R.id.url).toString());
                     break;
 
             }

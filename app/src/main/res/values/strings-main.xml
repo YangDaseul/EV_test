@@ -3,6 +3,7 @@
     <string name="main_word_2">INSIGHT</string>
     <string name="main_word_3">SERVICE</string>
     <string name="main_word_4">CONTENTS</string>
+    <string name="main_word_5">STORE</string>
 
     <string name="gm01_1">총 주행 거리</string>
     <string name="gm01_2">일별 주행 거리</string>
@@ -44,6 +45,7 @@
     <string name="sm01_snack_bar">차량 보유 고객용 서비스 입니다.</string>
 
     <!-- SERVICE 탭 정비 -->
+    <string name="sm01_maintenance_0">블루핸즈 목록</string>
     <string name="sm01_maintenance_1">서비스 네트워크 찾기</string>
     <string name="sm01_maintenance_2">정비예약</string>
     <string name="sm01_maintenance_3">원하는 시간,\n원하는 장소에서\n정비 서비스를 받으세요!</string>
@@ -52,7 +54,7 @@
     <string name="sm01_maintenance_6">긴급 출동 서비스</string>
     <string name="sm01_maintenance_7">출동 중</string>
     <string name="sm01_maintenance_8">서비스 센터를 방문하지 않고\n차량 진단을\n받으실 수 있습니다.</string>
-    <string name="sm01_maintenance_9">원격 진단 신청 (전화 예약)</string>
+    <string name="sm01_maintenance_9">원격 진단 신청</string>
     <string name="sm01_maintenance_10">서비스 센터를 방문하지 않고\n원격으로 차량 진단을\n받으실 수 있습니다.</string>
     <string name="sm01_maintenance_11">하자 재발 통보</string>
     <string name="sm01_maintenance_12">같은 증상의\n하자가 재발 됐나요?</string>

@@ -17,6 +17,7 @@ import com.genesis.apps.comm.model.api.developers.Distance;
 import com.genesis.apps.comm.model.api.developers.Dte;
 import com.genesis.apps.comm.model.api.developers.Odometer;
 import com.genesis.apps.comm.model.api.developers.ParkLocation;
+import com.genesis.apps.comm.model.api.gra.IST_1001;
 import com.genesis.apps.comm.model.api.gra.LGN_0003;
 import com.genesis.apps.comm.model.api.gra.LGN_0005;
 import com.genesis.apps.comm.model.constants.KeyNames;
@@ -28,11 +29,13 @@ import com.genesis.apps.comm.model.vo.MessageVO;
 import com.genesis.apps.comm.model.vo.QuickMenuVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.model.vo.developers.OdometerVO;
+import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecordUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
+import com.genesis.apps.comm.viewmodel.ISTViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentHome1Binding;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
@@ -60,6 +63,7 @@ import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -75,6 +79,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     private SimpleExoPlayer player;
     private LGNViewModel lgnViewModel;
     private CMNViewModel cmnViewModel;
+    private ISTViewModel istViewModel;
     private DevelopersViewModel developersViewModel;
     private HomeInsightHorizontalAdapter adapter = null;
     private RecordUtil recordUtil;
@@ -106,6 +111,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         me.setFragment(this);
         lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
         cmnViewModel = new ViewModelProvider(getActivity()).get(CMNViewModel.class);
+        istViewModel = new ViewModelProvider(getActivity()).get(ISTViewModel.class);
         developersViewModel = new ViewModelProvider(getActivity()).get(DevelopersViewModel.class);
 
 //        lgnViewModel.getRES_STO_1002().observe(getViewLifecycleOwner(), result -> {
@@ -162,15 +168,16 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 MessageVO weather = cmnViewModel.getHomeWeatherInsight(weatherCodes);
                 if (weather != null) {
                     adapter.addRow(weather);
-                    adapter.setRealItemCnt(adapter.getRealItemCnt() + 1);
+//                    adapter.setRealItemCnt(adapter.getRealItemCnt() + 1);
                 }
-                adapter.addRow(cmnViewModel.getTmpInsight());
-                adapter.setRealItemCnt(adapter.getRealItemCnt() + 1);
-                adapter.notifyDataSetChanged();
+
+//                adapter.notifyDataSetChanged();
                 me.setActivity((MainActivity) getActivity());
                 me.setWeatherCode(weatherCodes);
             } catch (Exception e) {
 
+            } finally{
+                istViewModel.reqIST1001(new IST_1001.Request(APPIAInfo.GM01.getId(), "HOME", "TOP"));
             }
 
         });
@@ -242,6 +249,39 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             }
         });
 
+        istViewModel.getRES_IST_1001().observe(getViewLifecycleOwner(), result -> {
+
+            switch (result.status) {
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    if (result.data != null) {
+                        if(result.data.getAdmMsgList()!=null&&result.data.getAdmMsgList().size()>0){
+                            for(MessageVO messageVO : result.data.getAdmMsgList()){
+                                messageVO.setBanner(false);
+                            }
+                            adapter.addRows(result.data.getAdmMsgList());
+//                            adapter.setRealItemCnt(adapter.getRealItemCnt() + result.data.getAdmMsgList().size());
+                        }
+
+                        if (result.data.getBnrMsgList()!=null&&result.data.getBnrMsgList().size()>0) {
+                            for(MessageVO messageVO : result.data.getBnrMsgList()){
+                                messageVO.setBanner(true);
+                            }
+
+                            adapter.addRows(result.data.getBnrMsgList());
+//                            adapter.setRealItemCnt(adapter.getRealItemCnt() + result.data.getBnrMsgList().size());
+                        }
+                        adapter.notifyItemRangeChanged(0, adapter.getRealItemCnt());
+                        break;
+                    }
+                default:
+                    adapter.notifyItemRangeChanged(0, adapter.getRealItemCnt());
+                    break;
+            }
+
+        });
+
     }
 
     private void initView() {
@@ -309,6 +349,20 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     @Override
     public void onClickCommon(View v) {
         switch (v.getId()) {
+            case R.id.l_whole:
+                MessageVO messageVO = null;
+                try{
+                    messageVO = ((MessageVO)v.getTag(R.id.item));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }finally{
+                    if(messageVO!=null&&messageVO.getLnkTypCd().equalsIgnoreCase("I")){
+                        ((MainActivity)getActivity()).moveToNativePage(messageVO.getLnkUri(), false);
+                    }else if (messageVO!=null&&messageVO.getLnkTypCd().equalsIgnoreCase("O")){
+                        ((MainActivity)getActivity()).moveToExternalPage(messageVO.getLnkUri(), "");
+                    }
+                }
+                break;
 //            case R.id.btn_carinfo://차량정보설정
 //                ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), MyCarActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 //                break;
@@ -423,20 +477,20 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 me.tvCarVrn.setText(vehicleVO.getCarRgstNo());
                 Glide
                         .with(getContext())
-                        .load(vehicleVO.getVhclImgUri() + (VariableType.isHardCoding ? "empty" : ""))
+                        .load(vehicleVO.getMainImgUri() + (VariableType.isHardCoding ? "empty" : ""))
                         .centerInside()
                         .error(R.drawable.car_new_44)
                         .placeholder(R.drawable.car_new_44)
                         .into(me.ivCar);
 
-                me.ivMore.setVisibility(View.GONE);
+//                me.ivMore.setVisibility(View.GONE);
                 me.tvRepairStatus.setVisibility(View.GONE);
                 me.lDistance.setVisibility(View.GONE);
                 me.lFloating.setVisibility(View.GONE);
 
                 switch (vehicleVO.getCustGbCd()) {
                     case VariableType.MAIN_VEHICLE_TYPE_OV:
-                        me.ivMore.setVisibility(View.VISIBLE);
+//                        me.ivMore.setVisibility(View.VISIBLE);
                         me.lDistance.setVisibility(View.VISIBLE);
                         lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
                         reqCarInfoToDevelopers(vehicleVO.getVin());
@@ -594,6 +648,22 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             me.btnFloating2.setVisibility(View.GONE);
             me.btnFloating3.setVisibility(View.GONE);
             int menuSize = list.size() > 3 ? 3 : list.size();
+
+            //차량이 없는 고객인 경우 흰색배경의 검은글씨 활성화
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams)me.lFloating.getLayoutParams();
+            int margin = (int)DeviceUtil.dip2Pixel(getContext(),20);
+            if(menuSize==1){
+                //메뉴가 하나일 때 (보통 미로그인, 미소유 사용자)
+                params.setMargins(margin,0,margin,margin);
+            }else{
+                //메뉴가 하나 이상일 때
+                params.setMargins(0,0, 0 ,margin);
+            }
+            me.lFloating.setLayoutParams(params);
+
+
+            me.lFloating.setBackgroundColor(menuSize==1 ? getContext().getColor(R.color.x_ffffff) : 0);
+            me.btnFloating1.setTextColor(menuSize==1 ? getContext().getColor(R.color.x_000000) : getContext().getColor(R.color.x_ffffff));
 
             for (int i = 0; i < menuSize; i++) {
                 floatingBtns[i].setVisibility(View.VISIBLE);

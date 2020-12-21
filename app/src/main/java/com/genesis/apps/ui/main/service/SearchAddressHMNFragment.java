@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main.service;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,8 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        me.setActivity((SubActivity) getActivity());
+
         setViewArgument();
     }
 
@@ -61,6 +64,17 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
         try {
              titleId = getArguments().getInt(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, 0);
              msgId = getArguments().getInt(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, 0);
+
+            switch (titleId) {
+                case R.string.service_drive_address_search_from_title://대리운전 출발지
+                    me.llMyPosition.setVisibility(View.VISIBLE);
+
+                    break;
+                case R.string.service_drive_address_search_to_title://대리운전 도착지
+                case 0:
+                default://그 외
+                    me.llMyPosition.setVisibility(View.GONE);
+            }
         }catch (Exception ignore){
 
         }
