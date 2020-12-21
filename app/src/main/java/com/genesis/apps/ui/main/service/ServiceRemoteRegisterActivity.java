@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.service;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,11 +19,14 @@ import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.api.gra.RMT_1001;
 import com.genesis.apps.comm.model.api.gra.RMT_1002;
 import com.genesis.apps.comm.model.api.gra.SOS_1004;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.RMTViewModel;
 import com.genesis.apps.comm.viewmodel.SOSViewModel;
 import com.genesis.apps.databinding.ActivityServiceRemoteRegisterBinding;
+import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.bottom.BottomRecyclerDialog;
@@ -264,14 +268,17 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
         setObserver();
         reqMyLocation();
 
-        try {
-            vin = rmtViewModel.getMainVehicle().getVin();
-            rmtViewModel.reqRMT1001(new RMT_1001.Request(APPIAInfo.R_REMOTE01.getId(), vin));
-        } catch (ExecutionException ee) {
-            // TODO : 차대번호 조회 오류 처리 필요.
-        } catch (InterruptedException ie) {
-            // TODO : 차대번호 조회 오류 처리 필요.
-        }
+        MiddleDialog.dialogServiceRemoteInfo(this, () -> {
+            try {
+                vin = rmtViewModel.getMainVehicle().getVin();
+                rmtViewModel.reqRMT1001(new RMT_1001.Request(APPIAInfo.R_REMOTE01.getId(), vin));
+            } catch (ExecutionException ee) {
+                // TODO : 차대번호 조회 오류 처리 필요.
+            } catch (InterruptedException ie) {
+                // TODO : 차대번호 조회 오류 처리 필요.
+            }
+        }, null);
+
     }
 
     /****************************************************************************************************
@@ -291,7 +298,6 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
 
             if (step == REGISTER_STEP.COMPLETE) {
                 // 입력이 완료 되었다면 신청처리.
-                Log.d("FID", "test :: myposition :: " + String.valueOf(myPosition[0]) + ", " + String.valueOf(myPosition[1]));
                 rmtViewModel.reqRMT1002(new RMT_1002.Request(
                         APPIAInfo.R_REMOTE01.getId(),
                         vin,
@@ -310,6 +316,9 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
         }
     }
 
+    /****************************************************************************************************
+     * Override Method
+     ****************************************************************************************************/
     @Override
     public void setViewModel() {
         ui.setLifecycleOwner(this);
@@ -320,7 +329,6 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
     @Override
     public void setObserver() {
         rmtViewModel.getRES_RMT_1001().observe(this, result -> {
-            Log.d("FID", "test :: getRES_RMT_1001 :: status=" + result.status);
             switch (result.status) {
                 case LOADING: {
                     showProgressDialog(true);
@@ -334,7 +342,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                     String dummyData = "{" +
                             "\"rtCd\":\"0000\"," +
                             "\"rtMsg\":\"Success\"," +
-                            "\"rmtExitYn\":\"Y\"," +
+                            "\"rmtExitYn\":\"N\"," +
                             "\"carRgstNo\":\"123가4565\"," +
                             "\"celphNo\":\"010-1234-5678\"," +
                             "\"sosStusCd\":\"S\"," +
@@ -427,7 +435,6 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
         });
 
         rmtViewModel.getRES_RMT_1002().observe(this, result -> {
-            Log.d("FID", "test :: getRES_RMT_1002 :: status=" + result.status);
             switch (result.status) {
                 case LOADING: {
                     showProgressDialog(true);
@@ -436,8 +443,11 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                 case SUCCESS: {
                     showProgressDialog(false);
                     SnackBarUtil.show(this, getString(R.string.sm_remote01_msg_register_success));
-                    // TODO : 신청 내역 화면으로 이동 코드 추가 예정 - 우선 자연스러운 처리를 위해 해당 화면 종료.
-                    finish();
+                    startActivitySingleTop(
+                            new Intent(this, ServiceRemoteListActivity.class),
+                            RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                            VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
+                    );
                     break;
                 }
                 case ERROR: {
@@ -450,7 +460,6 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
         });
 
         sosViewModel.getRES_SOS_1004().observe(this, result -> {
-            Log.d("FID", "test :: getRES_SOS_1004 :: status=" + result.status);
             switch (result.status) {
                 case LOADING: {
                     showProgressDialog(true);
