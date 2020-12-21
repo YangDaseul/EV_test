@@ -39,6 +39,7 @@
     <string name="sm_remote01_wrn_lght_code_3700">충전 경고등</string>
 
     <!--원격진단-->
+    <string name="sm_remote01_list_title">원격진단 신청내역</string>
     <string name="sm_remote01_dialog_title_error">원격진단 신청 불가</string>
     <string name="sm_remote01_service_time">상담 시간</string>
     <string name="sm_remote01_service_time_guide">상담 시간을\n선택해 주세요.</string>
@@ -54,6 +55,11 @@
     <string name="sm_remote01_input_complete">원격 진단을\n신청해주세요.</string>
     <string name="sm_remote01_next">다음</string>
     <string name="sm_remote01_submit">신청</string>
+    <string name="sm_remote01_cancel">예약 취소</string>
+    <string name="sm_remote01_detail_title_0">고장내용</string>
+    <string name="sm_remote01_detail_title_1">요청 항목</string>
+    <string name="sm_remote01_detail_title_2">기본 점검 항목</string>
+    <string name="sm_remote01_result">원격 진단 결과</string>
 
     <string name="sm_remote01_guide_dot">ㆍ</string>
     <string name="sm_remote01_guide_0">원격진단 서비스를 신청하시면, 지정한 시간에 전화드리겠습니다.</string>

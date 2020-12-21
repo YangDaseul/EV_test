@@ -60,6 +60,8 @@
     <string name="sm01_maintenance_12">같은 증상의\n하자가 재발 됐나요?</string>
     <string name="sm01_maintenance_13">접수 중</string>
     <string name="sm01_maintenance_14">정비 중</string>
+    <string name="sm01_maintenance_15">원격 진단 내역</string>
+    <string name="sm01_maintenance_16">원격진단 예약 및 신청내역과\n결과를 볼 수 있습니다.</string>
 
     <!-- SERVICE 탭 세차 -->
     <string name="sm01_car_wash_1">세차 서비스 예약 내역</string>

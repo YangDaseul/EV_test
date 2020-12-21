@@ -198,6 +198,7 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
                 case R.id.l_service_maintenance_history_btn: //정비 현황/예약 내역
                 case R.id.l_service_maintenance_emergency_btn: //긴급출동
                 case R.id.l_service_maintenance_customercenter_btn://원격진단 신청
+                case R.id.l_service_maintenance_remote_servie_list_btn:// 원격 진단 내역
                 case R.id.l_service_maintenance_defect_btn: //하자재발통보
                 case R.id.l_service_car_wash_history_btn: //세차 서비스 예약내역 버튼
                 case R.id.tv_service_drive_req_btn: //대리운전 신청 버튼
