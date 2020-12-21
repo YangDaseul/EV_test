@@ -126,24 +126,24 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             case R.id.btn_alarm:
                 startActivitySingleTop(new Intent(this, AlarmCenterActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
+            case R.id.btn_login:
+                startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
             case R.id.btn_profile:
-//                startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                startActivitySingleTop(new Intent(this, ServiceJoinActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                return;
-
-                try {
-                    switch (lgnViewModel.getUserInfoFromDB().getCustGbCd()){
-                        case VariableType.MAIN_VEHICLE_TYPE_0000:
-                            startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                            break;
-                        case VariableType.MAIN_VEHICLE_TYPE_OV:
-                        default:
-                            startActivitySingleTop(new Intent(this, MyGHomeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                            break;
-                    }
-                }catch (Exception ignore){
-                    ignore.printStackTrace();
-                }
+                startActivitySingleTop(new Intent(this, MyGHomeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                try {
+//                    switch (lgnViewModel.getUserInfoFromDB().getCustGbCd()){
+//                        case VariableType.MAIN_VEHICLE_TYPE_0000:
+//                            startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                            break;
+//                        case VariableType.MAIN_VEHICLE_TYPE_OV:
+//                        default:
+//                            startActivitySingleTop(new Intent(this, MyGHomeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                            break;
+//                    }
+//                }catch (Exception ignore){
+//                    ignore.printStackTrace();
+//                }
                 break;
                 case R.id.btn_search:
                     startActivitySingleTop(new Intent(this, ContentsSearchActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
