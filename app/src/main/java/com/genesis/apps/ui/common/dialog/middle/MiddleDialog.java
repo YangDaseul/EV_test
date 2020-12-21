@@ -14,6 +14,7 @@ import com.genesis.apps.databinding.DialogInsightExpnDeleteBinding;
 import com.genesis.apps.databinding.DialogMiddleTwoButtonBinding;
 import com.genesis.apps.databinding.DialogServiceCantReserveInfoBinding;
 import com.genesis.apps.databinding.DialogServiceRemoteInfoBinding;
+import com.genesis.apps.databinding.DialogServiceRemoteNotTimeBinding;
 import com.genesis.apps.databinding.DialogUpdateBinding;
 import com.genesis.apps.databinding.DialogUsedCarInfoBinding;
 import com.genesis.apps.ui.main.ServiceMembershipJoinFragment;
@@ -246,7 +247,7 @@ public class MiddleDialog {
 
         activity.runOnUiThread(() ->
                 new CustomDialog(activity, dialog -> {
-                    DialogServiceCantReserveInfoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_service_remote_not_time, null, false);
+                    DialogServiceRemoteNotTimeBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_service_remote_not_time, null, false);
                     dialog.setContentView(binding.getRoot());
 
                     binding.btnOk.setOnClickListener(v -> {

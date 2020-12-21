@@ -248,7 +248,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                     String dummyData = "{" +
                             "\"rtCd\":\"0000\"," +
                             "\"rtMsg\":\"Success\"," +
-                            "\"rmtExitYn\":\"N\"," +
+                            "\"rmtExitYn\":\"Y\"," +
                             "\"carRgstNo\":\"123가4565\"," +
                             "\"celphNo\":\"010-1234-5678\"," +
                             "\"sosStusCd\":\"S\"," +
@@ -264,29 +264,38 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                                 initView();
                             } else {
                                 // 신청건이 있는 경우. - 안내 팝업 표시.
+                                MiddleDialog.dialogServiceRemoteOneButton(
+                                        this,
+                                        R.string.sm_remote01_dialog_title_error,
+                                        R.string.sm_remote01_msg_error_2401,
+                                        () -> finish());
                             }
                         } else if (SERVICE_REMOTE_RES_CODE_2401.equals(data.getRtCd())) {
                             // 원격 신청이 되어 있거나 진단 진행 중인경우.
-
+                            MiddleDialog.dialogServiceRemoteOneButton(
+                                    this,
+                                    R.string.sm_remote01_dialog_title_error,
+                                    R.string.sm_remote01_msg_error_2401,
+                                    () -> finish());
                         } else if (SERVICE_REMOTE_RES_CODE_2402.equals(data.getRtCd())) {
                             // 원격 진단 이용 대상 차량이 아닌 경우.
-
+                            MiddleDialog.dialogServiceRemoteOneButton(
+                                    this,
+                                    R.string.sm_remote01_dialog_title_error,
+                                    R.string.sm_remote01_msg_error_2402,
+                                    () -> finish());
                         } else if (SERVICE_REMOTE_RES_CODE_2403.equals(data.getRtCd())) {
                             // 원격 진단 이용 가능 시간이 아님.
                             MiddleDialog.dialogServiceRemoteNotServiceTime(
                                     this,
-                                    () -> {
-                                        finish();
-                                    });
+                                    () -> finish());
                         } else if (SERVICE_REMOTE_RES_CODE_2404.equals(data.getRtCd())) {
                             // GCS 서비스 가입 회원이 아닌 경우.
                             MiddleDialog.dialogServiceRemoteOneButton(
                                     this,
                                     R.string.sm_remote01_dialog_title_error,
                                     R.string.sm_remote01_msg_error_2404,
-                                    () -> {
-                                        finish();
-                                    });
+                                    () -> finish());
                         } else if (SERVICE_REMOTE_RES_CODE_2405.equals(data.getRtCd())) {
                             // 긴급 출동이 접수 또는 진행중인 경우.
                             // 긴급 출동 여부 체크.
@@ -308,9 +317,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                                         this,
                                         R.string.sm_emg01_p04_1_1,
                                         R.string.sm_emgc01_p05_2,
-                                        () -> {
-                                            finish();
-                                        });
+                                        () -> finish());
                             }
                         } else {
                             // 실패.
@@ -403,9 +410,11 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
 
     @Override
     public void onBackPressed() {
-        MiddleDialog.dialogRemoteExit(this, () -> {
-            finish();
-        }, null);
+        MiddleDialog.dialogRemoteExit(
+                this,
+                () -> finish()
+                , null
+        );
     }
 
     /****************************************************************************************************

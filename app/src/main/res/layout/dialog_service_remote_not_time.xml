@@ -77,6 +77,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="8sp"
                 android:text="@string/sm_remote01_info_3"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@id/tv_service_remote_register_using_time_title"
