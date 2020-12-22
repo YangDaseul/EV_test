@@ -108,6 +108,8 @@ public class NotiAccodianRecyclerAdapter extends BaseRecyclerViewAdapter2<NotiVO
             getBinding().tvContents.setText(item.getNotiCont());
             getBinding().ivArrow.setBackgroundResource(selectedItems.get(pos) ? R.drawable.g_list_icon_close : R.drawable.g_list_icon_open);
             getBinding().ivBadge.setVisibility(DateUtil.getDiffMillis(item.getTrmsSrtDtm(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss) > DateUtils.WEEK_IN_MILLIS ? View.GONE : View.VISIBLE);
+
+
 //            changeVisibility(getBinding().tvContents, selectedItems.get(pos));
         }
     }

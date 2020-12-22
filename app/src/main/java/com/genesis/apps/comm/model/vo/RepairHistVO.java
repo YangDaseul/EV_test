@@ -48,5 +48,8 @@ class RepairHistVO extends BaseData {
 
     //LOCAL 에서만 사용
     //yyyyMMdd를 기준으로 가장 빠른 데이터 확인
+    //2020-12-22 기준 사용안함 (쩡책변경)
     private boolean isFirst;
+
+    private boolean isRepairImage;
 }

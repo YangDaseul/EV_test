@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.service;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -15,11 +16,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.REQ_1014;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.RepairHistVO;
+import com.genesis.apps.comm.model.vo.RepairVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.FragmentServiceRepairHistoryBinding;
+import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.service.view.ServiceRepairReserveHistoryAdapter;
@@ -59,6 +65,19 @@ public class FragmentServiceRepairHistory extends SubFragment<FragmentServiceRep
 
     @Override
     public void onClickCommon(View v) {
+        switch (v.getId()){
+            case R.id.btn_repair_image:
+                RepairHistVO item = ((RepairHistVO)v.getTag(R.id.item));
+                if(item!=null){
+                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRepairImageActivity.class)
+                                    .putExtra(KeyNames.KEY_NAME_ASNCD, item.getAsnCd())
+                                    .putExtra(KeyNames.KEY_NAME_VEHICLE_IN_OUT_NO, item.getVhclInoutNo())
+                                    .putExtra(KeyNames.KEY_NAME_WRHS_NO, item.getWrhsNo())
+                            , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                            , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                }
+                break;
+        }
 
     }
 
@@ -134,7 +153,7 @@ public class FragmentServiceRepairHistory extends SubFragment<FragmentServiceRep
 
     private void initView() {
         me.rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ServiceRepairReserveHistoryAdapter();
+        adapter = new ServiceRepairReserveHistoryAdapter(onSingleClickListener);
         me.rv.setHasFixedSize(true);
         me.rv.setAdapter(adapter);
         me.rv.addOnScrollListener(new RecyclerView.OnScrollListener() {

@@ -1,12 +1,6 @@
 package com.genesis.apps.comm.model.repo;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.api.gra.REQ_1016;
-import com.genesis.apps.comm.model.api.gra.REQ_1017;
-import com.genesis.apps.comm.model.api.gra.REQ_1018;
-import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.gra.REQ_1001;
 import com.genesis.apps.comm.model.api.gra.REQ_1002;
@@ -22,6 +16,9 @@ import com.genesis.apps.comm.model.api.gra.REQ_1012;
 import com.genesis.apps.comm.model.api.gra.REQ_1013;
 import com.genesis.apps.comm.model.api.gra.REQ_1014;
 import com.genesis.apps.comm.model.api.gra.REQ_1015;
+import com.genesis.apps.comm.model.api.gra.REQ_1016;
+import com.genesis.apps.comm.model.api.gra.REQ_1017;
+import com.genesis.apps.comm.model.api.gra.REQ_1018;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.net.NetResultCallback;
@@ -29,6 +26,8 @@ import com.genesis.apps.comm.net.NetUIResponse;
 import com.google.gson.Gson;
 
 import javax.inject.Inject;
+
+import androidx.lifecycle.MutableLiveData;
 
 public class REQRepo {
 
@@ -70,7 +69,7 @@ public class REQRepo {
             public void onFail(NetResult e) {
                 RES_REQ_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
 //                                RES_REQ_1001.setValue(NetUIResponse.success(TestCode.REQ_1001));
-                
+
             }
 
             @Override
@@ -161,7 +160,7 @@ public class REQRepo {
             @Override
             public void onSuccess(String object) {
                 RES_REQ_1005.setValue(NetUIResponse.success(new Gson().fromJson(object, REQ_1005.Response.class)));
-                
+
 //                REQ_1005.Response response = new Gson().fromJson(object, REQ_1005.Response.class);
 //                response.setREQStateVO(new Gson().fromJson(object, REQStateVO.class));
 //                RES_REQ_1005.setValue(NetUIResponse.success(response));
@@ -328,8 +327,8 @@ public class REQRepo {
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
-//                RES_REQ_1013.setValue(NetUIResponse.success(new Gson().fromJson(object, REQ_1013.Response.class)));
-                RES_REQ_1013.setValue(NetUIResponse.success(TestCode.REQ_1013));
+                RES_REQ_1013.setValue(NetUIResponse.success(new Gson().fromJson(object, REQ_1013.Response.class)));
+//                RES_REQ_1013.setValue(NetUIResponse.success(TestCode.REQ_1013));
             }
 
             @Override
@@ -352,8 +351,8 @@ public class REQRepo {
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
-//                RES_REQ_1014.setValue(NetUIResponse.success(new Gson().fromJson(object, REQ_1014.Response.class)));
-                RES_REQ_1014.setValue(NetUIResponse.success(TestCode.REQ_1014));
+                RES_REQ_1014.setValue(NetUIResponse.success(new Gson().fromJson(object, REQ_1014.Response.class)));
+//                RES_REQ_1014.setValue(NetUIResponse.success(TestCode.REQ_1014));
             }
 
             @Override
@@ -376,8 +375,8 @@ public class REQRepo {
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
-//                RES_REQ_1015.setValue(NetUIResponse.success(new Gson().fromJson(object, REQ_1015.Response.class)));
-                RES_REQ_1015.setValue(NetUIResponse.success(TestCode.REQ_1015));
+                RES_REQ_1015.setValue(NetUIResponse.success(new Gson().fromJson(object, REQ_1015.Response.class)));
+//                RES_REQ_1015.setValue(NetUIResponse.success(TestCode.REQ_1015));
             }
 
             @Override

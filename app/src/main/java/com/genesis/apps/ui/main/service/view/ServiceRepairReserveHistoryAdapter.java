@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.RepairHistVO;
+import com.genesis.apps.comm.model.vo.RepairVO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ItemInsightExpnBinding;
@@ -20,13 +21,15 @@ import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 public class ServiceRepairReserveHistoryAdapter extends BaseRecyclerViewAdapter2<RepairHistVO> {
 
     private int pageNo = 0;
+    private OnSingleClickListener onSingleClickListener;
 
-    public ServiceRepairReserveHistoryAdapter() {
+    public ServiceRepairReserveHistoryAdapter(OnSingleClickListener onSingleClickListener) {
+        this.onSingleClickListener = onSingleClickListener;
     }
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ItemServiceRepairHistory(getView(parent, R.layout.item_service_repair_history));
+        return new ItemServiceRepairHistory(getView(parent, R.layout.item_service_repair_history), onSingleClickListener);
     }
 
     @Override
@@ -43,8 +46,10 @@ public class ServiceRepairReserveHistoryAdapter extends BaseRecyclerViewAdapter2
     }
 
     private static class ItemServiceRepairHistory extends BaseViewHolder<RepairHistVO, ItemServiceRepairHistoryBinding> {
-        public ItemServiceRepairHistory(View itemView) {
+        private OnSingleClickListener onSingleClickListener;
+        public ItemServiceRepairHistory(View itemView, OnSingleClickListener onSingleClickListener) {
             super(itemView);
+            this.onSingleClickListener = onSingleClickListener;
         }
 
         @Override
@@ -55,7 +60,8 @@ public class ServiceRepairReserveHistoryAdapter extends BaseRecyclerViewAdapter2
         @Override
         public void onBindView(RepairHistVO item, int pos) {
             getBinding().setData(item);
-            getBinding().setPos(pos);
+            getBinding().setListener(onSingleClickListener);
+            getBinding().btnRepairImage.setTag(R.id.item, item);
         }
 
         @Override

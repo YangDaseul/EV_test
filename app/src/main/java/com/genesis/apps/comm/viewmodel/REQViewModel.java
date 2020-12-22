@@ -1,5 +1,9 @@
 package com.genesis.apps.comm.viewmodel;
 
+import android.text.TextUtils;
+import android.text.format.DateUtils;
+import android.view.View;
+
 import androidx.hilt.Assisted;
 import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
@@ -34,6 +38,7 @@ import com.genesis.apps.comm.model.vo.RepairHistVO;
 import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 
 import java.util.ArrayList;
@@ -375,37 +380,63 @@ class REQViewModel extends ViewModel {
     }
 
 
+//    public List<RepairHistVO> getRepairHistList(List<RepairHistVO> oriList) throws ExecutionException, InterruptedException {
+//        ExecutorService es = new ExecutorService("");
+//        Future<List<RepairHistVO>> future = es.getListeningExecutorService().submit(() -> {
+//
+//            //날짜 sort 값 초기화
+//            for(int i=0; i<oriList.size(); i++){
+//                oriList.get(i).setFirst(false);
+//            }
+//
+//            final List<String> wrhsDtmList = oriList.stream().map(x -> x.getWrhsDtm().substring(0, 8)).distinct().sorted().collect(Collectors.toList());
+//            try {
+//
+//                for (int i = 0; i < wrhsDtmList.size(); i++) {
+//                    for (int n = 0; n < oriList.size(); n++) {
+//                        String subWrhsDtm = "";
+//                        try {
+//                            subWrhsDtm = oriList.get(n).getWrhsDtm().substring(0, 8);
+//                        } catch (Exception e) {
+//                            subWrhsDtm = "";
+//                        } finally {
+//                            if (subWrhsDtm.equalsIgnoreCase(wrhsDtmList.get(i))) {
+//                                oriList.get(n).setFirst(true);
+//                                break;
+//                            }
+//                        }
+//                    }
+//                }
+//            } catch (Exception ignore) {
+//                ignore.printStackTrace();
+//            }
+//            oriList.sort(Comparator.comparing(RepairHistVO::getWrhsDtm).reversed());
+//            return oriList;
+//        });
+//
+//        try {
+//            return future.get();
+//        } finally {
+//            //todo 테스트 필요
+//            es.shutDownExcutor();
+//        }
+//    }
+
     public List<RepairHistVO> getRepairHistList(List<RepairHistVO> oriList) throws ExecutionException, InterruptedException {
         ExecutorService es = new ExecutorService("");
         Future<List<RepairHistVO>> future = es.getListeningExecutorService().submit(() -> {
-
-            //날짜 sort 값 초기화
-            for(int i=0; i<oriList.size(); i++){
-                oriList.get(i).setFirst(false);
-            }
-
-            final List<String> wrhsDtmList = oriList.stream().map(x -> x.getWrhsDtm().substring(0, 8)).distinct().sorted().collect(Collectors.toList());
             try {
-
-                for (int i = 0; i < wrhsDtmList.size(); i++) {
-                    for (int n = 0; n < oriList.size(); n++) {
-                        String subWrhsDtm = "";
-                        try {
-                            subWrhsDtm = oriList.get(n).getWrhsDtm().substring(0, 8);
-                        } catch (Exception e) {
-                            subWrhsDtm = "";
-                        } finally {
-                            if (subWrhsDtm.equalsIgnoreCase(wrhsDtmList.get(i))) {
-                                oriList.get(n).setFirst(true);
-                                break;
-                            }
-                        }
-                    }
+                for(int i=0; i<oriList.size(); i++){
+                    oriList.get(i).setRepairImage(
+                            !TextUtils.isEmpty(oriList.get(i).getVhclInoutNo())
+                                    &&!TextUtils.isEmpty(oriList.get(i).getWrhsNo())
+                                    &&!TextUtils.isEmpty(oriList.get(i).getWrhsDtm())
+                                    &&(DateUtil.getDiffMillis(oriList.get(i).getWrhsDtm(), DateUtil.DATE_FORMAT_yyyyMMdd) < DateUtils.DAY_IN_MILLIS*90));
                 }
+                oriList.sort(Comparator.comparing(RepairHistVO::getWrhsDtm).reversed());
             } catch (Exception ignore) {
                 ignore.printStackTrace();
             }
-            oriList.sort(Comparator.comparing(RepairHistVO::getWrhsDtm).reversed());
             return oriList;
         });
 
@@ -416,6 +447,17 @@ class REQViewModel extends ViewModel {
             es.shutDownExcutor();
         }
     }
+
+
+
+
+
+
+
+
+
+
+
 
     public BtrVO getBtrVO(String asnCd){
 

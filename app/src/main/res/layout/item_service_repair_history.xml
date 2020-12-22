@@ -21,9 +21,9 @@
             name="data"
             type="com.genesis.apps.comm.model.vo.RepairHistVO" />
 
-        <variable
-            name="pos"
-            type="int" />
+<!--        <variable-->
+<!--            name="pos"-->
+<!--            type="int" />-->
 
     </data>
 
@@ -39,10 +39,10 @@
             android:layout_height="1dp"
             android:layout_marginTop="30dp"
             android:background="@color/x_e5e5e5"
-            android:visibility="@{(pos!=0 &amp;&amp; data.isFirst) ? View.VISIBLE : View.GONE}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
+<!--        android:visibility="@{(pos!=0 &amp;&amp; data.isFirst) ? View.VISIBLE : View.GONE}"-->
 
 
         <TextView
@@ -54,14 +54,14 @@
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="4sp"
-            android:text="@{data.isFirst ? (DateUtil.getDate(DateUtil.getDefaultDateFormat((data.wrhsDtm ?? ``), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)) : ``}"
             android:textColor="@color/x_262626"
             android:textSize="14sp"
-            android:visibility="@{data.isFirst ? View.VISIBLE : View.GONE}"
+            android:text="@{(DateUtil.getDate(DateUtil.getDefaultDateFormat((data.wrhsDtm ?? ``), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot))}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_line_1"
             tools:text="2020.07.25" />
-
+<!--        android:text="@{data.isFirst ? (DateUtil.getDate(DateUtil.getDefaultDateFormat((data.wrhsDtm ?? ``), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)) : ``}"-->
+<!--        android:visibility="@{data.isFirst ? View.VISIBLE : View.GONE}"-->
 
         <TextView
             android:id="@+id/btn_repair_image"
@@ -80,6 +80,7 @@
             android:textSize="14sp"
             android:background="@drawable/bg_00000000_underline_000000"
             android:onClick="@{(view)->listener.onClick(view)}"
+            android:visibility="@{data.isRepairImage ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBaseline_toBaselineOf="@+id/tv_wrhs_dtm"/>
 
@@ -89,6 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:src="@drawable/btn_arrow_open_r"
+            android:visibility="@{data.isRepairImage ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/btn_repair_image"
             app:layout_constraintBottom_toBottomOf="@+id/btn_repair_image"
@@ -118,6 +120,7 @@
                 android:layout_height="wrap_content"
                 app:title="@{@string/sm_r_history01_1}"
                 app:msg="@{data.asnNm ?? `--`}"
+                app:isLeft="@{true}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -130,6 +133,7 @@
                 android:layout_marginTop="1dp"
                 app:title="@{@string/sm_r_history01_2}"
                 app:msg="@{data.rparWorkNm ?? `--`}"
+                app:isLeft="@{true}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/l_asn_nm"/>
@@ -142,6 +146,7 @@
                 android:layout_marginTop="1dp"
                 app:title="@{@string/sm_r_history01_3}"
                 app:msg="@{TextUtils.isEmpty(data.milg) ? (`-- km`) : (StringUtil.getDigitGroupingString(data.milg)+`km`)}"
+                app:isLeft="@{true}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/l_rpar_work_nm"/>
