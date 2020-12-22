@@ -16,14 +16,12 @@
             layout="@layout/layout_titlebar"
             app:value="@{@string/sm_remote01_list_title}" />
 
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_service_remote_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/l_service_remote_list_titlebar">
-
-            <include layout="@layout/item_service_remote" />
-        </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@id/l_service_remote_list_titlebar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

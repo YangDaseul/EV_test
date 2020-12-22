@@ -19,7 +19,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
-            android:text="2020.05.25 10:00"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,7 +30,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="진단 완료"
             android:textColor="#996449"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -50,14 +48,14 @@
             android:gravity="center"
             android:text="@string/sm_remote01_detail_title_0"
             android:textSize="14sp"
-            app:layout_constraintEnd_toStartOf="@id/tv_service_remote_deatil_desc"
+            app:layout_constraintEnd_toStartOf="@id/tv_service_remote_detail_desc"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_service_remote_date" />
 
         <!--고장 내용-->
         <TextView
-            android:id="@+id/tv_service_remote_deatil_desc"
+            android:id="@+id/tv_service_remote_detail_desc"
             style="@style/ServiceRemote.TextView_Font_RGSTG.262626"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -65,7 +63,6 @@
             android:gravity="center_vertical"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:text="차량 시동이 걸리지 않아요."
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_service_remote_detail_title"
             app:layout_constraintEnd_toEndOf="parent"
@@ -78,7 +75,7 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:background="@color/x_e5e5e5"
-            app:layout_constraintEnd_toEndOf="@id/tv_service_remote_deatil_desc"
+            app:layout_constraintEnd_toEndOf="@id/tv_service_remote_detail_desc"
             app:layout_constraintStart_toStartOf="@id/tv_service_remote_detail_title"
             app:layout_constraintTop_toTopOf="@id/tv_service_remote_detail_title" />
 
@@ -89,7 +86,7 @@
             android:layout_height="1dp"
             android:background="@color/x_e5e5e5"
             app:layout_constraintBottom_toBottomOf="@id/tv_service_remote_detail_title"
-            app:layout_constraintEnd_toEndOf="@id/tv_service_remote_deatil_desc"
+            app:layout_constraintEnd_toEndOf="@id/tv_service_remote_detail_desc"
             app:layout_constraintStart_toStartOf="@id/tv_service_remote_detail_title" />
 
         <!--원격 진단 결과 타이틀-->
@@ -143,7 +140,6 @@
                 android:paddingTop="20dp"
                 android:paddingEnd="15dp"
                 android:paddingBottom="20dp"
-                android:text="ISG 작동 조건이 만족치 않으나 작동된 바, ISG OFF 스위치를 누르고 운행하셔서  블루핸즈 방문 부탁 드립니다."
                 android:textSize="14sp" />
 
 
@@ -166,8 +162,6 @@
                 android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
-                <include layout="@layout/item_service_remote_detailitem" />
-
             </LinearLayout>
         </LinearLayout>
 
@@ -178,6 +172,7 @@
             android:layout_width="0dp"
             android:layout_height="53dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:background="@color/x_111111"
             android:gravity="center"
