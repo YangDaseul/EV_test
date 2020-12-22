@@ -62,7 +62,7 @@ public class StringUtil {
             if (phone.startsWith("+82")) {
                 phone = phone.replace("+82", "0");
             }
-            phone = phone.replace("-", "");
+            phone = phone.replaceAll("-", "");
         }
 
         return phone;

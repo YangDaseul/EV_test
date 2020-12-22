@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        style="@style/MapOverlayBox"
+        style="@style/MapOverlayBoxWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -13,38 +13,41 @@
         <!-- 장소명 -->
         <TextView
             android:id="@+id/tv_map_address_title"
-            style="@style/MapOverlay.RegularHead"
-            android:layout_marginRight="10dp"
+            style="@style/MapOverlayWhite.RegularHead"
+            android:lineSpacingExtra="2sp"
             app:layout_constrainedWidth="true"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_map_address_btn"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/tv_map_address_address"
             tools:text="우림 라이온스 밸리 A동"/>
 
         <!-- 주소 -->
         <TextView
             android:id="@+id/tv_map_address_address"
-            style="@style/MapOverlay.Light"
+            style="@style/MapOverlayWhite.Light"
             android:layout_width="0dp"
-            android:textColor="@color/x_c0ffffff"
-            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:lineSpacingExtra="6sp"
             app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toStartOf="@id/tv_map_address_btn"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_map_address_title"
-            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="서울특별시 금천구 가산동 440-4" />
 
         <!-- 설정 버튼 -->
         <TextView
             android:id="@+id/tv_map_address_btn"
-            style="@style/MapOverlay.Btn"
+            style="@style/MapOverlayWhite.Btn"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="30dp"
             android:text="@string/map_btn_4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_map_address_address" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

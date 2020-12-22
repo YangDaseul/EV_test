@@ -63,6 +63,7 @@ import com.genesis.apps.comm.model.api.gra.REQ_1003;
 import com.genesis.apps.comm.model.api.gra.REQ_1004;
 import com.genesis.apps.comm.model.api.gra.REQ_1005;
 import com.genesis.apps.comm.model.api.gra.REQ_1007;
+import com.genesis.apps.comm.model.api.gra.REQ_1008;
 import com.genesis.apps.comm.model.api.gra.REQ_1009;
 import com.genesis.apps.comm.model.api.gra.REQ_1010;
 import com.genesis.apps.comm.model.api.gra.REQ_1011;
@@ -3531,6 +3532,61 @@ public class TestCode {
             "  \"rtMsg\": \"Success\",\n" +
             "  \"rsvtNo\": \"1234567890123\"\n" +
             "}",REQ_1007.Response.class);
+
+    public static REQ_1008.Response REQ_1008 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"rsvtDtList\": [\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201225\",\n" +
+            "      \"rsvtTm\": \"1000\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201116\",\n" +
+            "      \"rsvtTm\": \"1400\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201117\",\n" +
+            "      \"rsvtTm\": \"1000\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201117\",\n" +
+            "      \"rsvtTm\": \"1400\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201118\",\n" +
+            "      \"rsvtTm\": \"1000\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201118\",\n" +
+            "      \"rsvtTm\": \"1400\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201119\",\n" +
+            "      \"rsvtTm\": \"1000\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201119\",\n" +
+            "      \"rsvtTm\": \"1400\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201120\",\n" +
+            "      \"rsvtTm\": \"1000\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20210101\",\n" +
+            "      \"rsvtTm\": \"1400\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201226\",\n" +
+            "      \"rsvtTm\": \"1000\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rsvtDt\": \"20201122\",\n" +
+            "      \"rsvtTm\": \"1400\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}",REQ_1008.Response.class);
 
 
     public static REQ_1009.Response REQ_1009 = new Gson().fromJson("{\n" +

@@ -212,6 +212,8 @@ public class REQRepo {
             @Override
             public void onSuccess(String object) {
                 RES_REQ_1008.setValue(NetUIResponse.success(new Gson().fromJson(object, REQ_1008.Response.class)));
+//                                RES_REQ_1008.setValue(NetUIResponse.success(TestCode.REQ_1008));
+
             }
 
             @Override

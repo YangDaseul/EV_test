@@ -15,16 +15,21 @@ import androidx.transition.ChangeBounds;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
+import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.REQ_1008;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
+import com.genesis.apps.comm.model.vo.RepairReserveDateVO;
 import com.genesis.apps.comm.model.vo.RepairReserveVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.DateUtil;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.ActivityServiceHometohome2Apply1Binding;
@@ -149,7 +154,8 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
                 break;
             //예약희망일
             case R.id.tv_rsvt_hope_dt:
-                selectCalendar();
+                reqCalendarInfo();
+//                selectCalendar();
                 break;
             //다음
             case R.id.btn_next:
@@ -158,7 +164,21 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
         }
     }
 
-    private void selectCalendar() {
+    private void reqCalendarInfo(){
+        Calendar minCalendar = Calendar.getInstance(Locale.getDefault());
+        minCalendar.add(Calendar.DATE, 2);
+        Calendar maxCalendar = Calendar.getInstance(Locale.getDefault());
+        maxCalendar.add(Calendar.MONTH, 2);
+        reqViewModel.reqREQ1008(new REQ_1008.Request(APPIAInfo.SM_R_RSV02_03.getId()
+                ,DateUtil.getDate(minCalendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd)
+                ,DateUtil.getDate(maxCalendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd)));
+    }
+
+
+    private void selectCalendar(List<RepairReserveDateVO> list) {
+        if(list==null||list.size()==0)
+            return;
+
         clearKeypad();
         DialogCalendar dialogCalendar = new DialogCalendar(this, R.style.BottomSheetDialogTheme);
         dialogCalendar.setOnDismissListener(dialogInterface -> {
@@ -174,9 +194,9 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
         minCalendar.add(Calendar.DATE, 2);
         Calendar maxCalendar = Calendar.getInstance(Locale.getDefault());
         maxCalendar.add(Calendar.MONTH, 2);
-
         dialogCalendar.setCalendarMinimum(minCalendar);
         dialogCalendar.setCalendarMaximum(maxCalendar);
+        dialogCalendar.setReserveDateVOList(list);
         dialogCalendar.setRemoveWeekends(true);
         dialogCalendar.show();
     }
@@ -234,6 +254,33 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
 
     @Override
     public void setObserver() {
+        reqViewModel.getRES_REQ_1008().observe(this, result -> {
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if (result.data != null && result.data.getRsvtDtList() != null && result.data.getRsvtDtList().size() > 0) {
+                        selectCalendar(result.data.getRsvtDtList());
+                        break;
+                    }
+                default:
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
+                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                        showProgressDialog(false);
+                    }
+                    break;
+            }
+        });
     }
     @Override
     public void getDataFromIntent() {
@@ -287,7 +334,8 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
                 //2020-12-01 화면 전체를 덮는 입력 페이지는 자동 진입 안하도록 수정
 //                startMapView(false);
             } else if (pos == views.length - 1) {
-                selectCalendar();
+//                selectCalendar();
+                reqCalendarInfo();
             }
         }else{
             switch (pckpDivCd){
@@ -345,12 +393,12 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
             ui.tvTitleHometohomeService.setVisibility(View.GONE);
             ui.tvErrorHometohomeService.setVisibility(View.VISIBLE);
             ui.tvErrorHometohomeService.setText(R.string.sm_r_rsv02_03_6);
-            ui.tvHometohomeService.setTextAppearance(R.style.CommonSpinnerItemDisable);
+            Paris.style(ui.tvHometohomeService).apply(R.style.CommonSpinnerItemDisable);
             return false;
         } else {
             ui.tvTitleHometohomeService.setVisibility(View.VISIBLE);
             ui.tvErrorHometohomeService.setVisibility(View.INVISIBLE);
-            ui.tvHometohomeService.setTextAppearance(R.style.CommonSpinnerItemEnable);
+            Paris.style(ui.tvHometohomeService).apply(R.style.CommonSpinnerItemEnable);
             doTransition(1);//ok
             return true;
         }
@@ -359,8 +407,7 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
     private boolean checkValidRsvtHopeDt() {
         if (TextUtils.isEmpty(rsvtHopeDt)) {
             ui.tvRsvtHopeDt.setText(R.string.sm_r_rsv02_01_16);
-            ui.tvRsvtHopeDt.setTextColor(getColor(R.color.x_aaabaf));
-            ui.tvRsvtHopeDt.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
+            Paris.style(ui.tvRsvtHopeDt).apply(R.style.CommonSpinnerItemCalendarDisable);
             ui.tvTitleRsvtHopeDt.setVisibility(View.GONE);
             ui.tvErrorRsvtHopeDt.setVisibility(View.VISIBLE);
             ui.tvErrorRsvtHopeDt.setText(R.string.sm_r_rsv02_01_14);
@@ -368,8 +415,7 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
         } else {
             String date = DateUtil.getDate(DateUtil.getDefaultDateFormat(rsvtHopeDt, DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot);
             ui.tvRsvtHopeDt.setText(date);
-            ui.tvRsvtHopeDt.setTextColor(getColor(R.color.x_000000));
-            ui.tvRsvtHopeDt.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
+            Paris.style(ui.tvRsvtHopeDt).apply(R.style.CommonSpinnerItemCalendar);
             ui.tvTitleRsvtHopeDt.setVisibility(View.VISIBLE);
             ui.tvErrorRsvtHopeDt.setVisibility(View.INVISIBLE);
             return true;
@@ -381,15 +427,13 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
         if (pckpAddressVO == null) {
             ui.tvErrorPckpAddr.setVisibility(View.VISIBLE);
             ui.tvErrorPckpAddr.setText(getString(R.string.sm_r_rsv02_01_14));
-            ui.tvPckpAddr.setTextColor(getColor(R.color.x_aaabaf));
-            ui.tvPckpAddr.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
+            Paris.style(ui.tvPckpAddr).apply(R.style.CommonInputItemDisable);
             ui.tvPckpAddr.setText(R.string.sm_r_rsv02_03_9);
             ui.tvTitlePckpAddr.setVisibility(View.INVISIBLE);
             return false;
         } else {
             ui.tvErrorPckpAddr.setVisibility(View.INVISIBLE);
-            ui.tvPckpAddr.setTextColor(getColor(R.color.x_000000));
-            ui.tvPckpAddr.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
+            Paris.style(ui.tvPckpAddr).apply(R.style.CommonInputItemEnable);
             ui.tvPckpAddr.setText(getAddress(pckpAddressVO)[0]);
             ui.tvTitlePckpAddr.setVisibility(View.VISIBLE);
             doTransition(2);
@@ -436,15 +480,13 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
         if (dlvryAddressVO == null) {
             ui.tvErrorDlvryAddr.setVisibility(View.VISIBLE);
             ui.tvErrorDlvryAddr.setText(getString(R.string.sm_r_rsv02_01_14));
-            ui.tvDlvryAddr.setTextColor(getColor(R.color.x_aaabaf));
-            ui.tvDlvryAddr.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
+            Paris.style(ui.tvDlvryAddr).apply(R.style.CommonInputItemDisable);
             ui.tvDlvryAddr.setText(R.string.sm_r_rsv02_03_16);
             ui.tvTitleDlvryAddr.setVisibility(View.INVISIBLE);
             return isOnlyPickUp()||false;
         } else {
             ui.tvErrorDlvryAddr.setVisibility(View.INVISIBLE);
-            ui.tvDlvryAddr.setTextColor(getColor(R.color.x_000000));
-            ui.tvDlvryAddr.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
+            Paris.style(ui.tvDlvryAddr).apply(R.style.CommonInputItemEnable);
             ui.tvDlvryAddr.setText(getAddress(dlvryAddressVO)[0]);
             ui.tvTitleDlvryAddr.setVisibility(View.VISIBLE);
             doTransition(4);

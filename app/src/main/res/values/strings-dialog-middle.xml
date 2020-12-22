@@ -104,8 +104,8 @@
 
     <string name="sm01_p01_1">로그인 안내</string>
     <string name="sm01_p01_2">선택하신 서비스를 이용하려면,\n로그인이 필요합니다.\n로그인 하시겠습니까?</string>
-    <string name="sm01_p02_1">이용 안내</string>
-    <string name="sm01_p02_2">이미 예약된 내역이 존재합니다.\n예약 내역을 확인해 주세요.</string>
+    <string name="sm01_p02_1">정비 예약 불가 안내</string>
+    <string name="sm01_p02_2">현재 예약 신청이 어렵습니다.\n\n예약 또는 정비 완료 후\n다시 시도해 주세요.</string>
 
     <string name="sm_r_rsv_p01_1">모바일 정비예약 불가 항목</string>
     <string name="sm_r_rsv_p01_2">아래 항목은 전화예약으로 진행해주시기 바랍니다.</string>

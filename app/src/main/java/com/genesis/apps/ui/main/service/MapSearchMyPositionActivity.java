@@ -75,12 +75,17 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
         ui.ivCenterMaker.setImageResource(R.drawable.ic_pin_car);
         //기본위치 갱신 시 맵 초기화
         ui.pmvMapView.initMap(latitude, longitude, 17);
-        ui.lMapOverlayTitle.tvMapTitleText.setVisibility(View.GONE);
-        ui.lMapOverlayTitle.tvMapTitleAddress.setVisibility(View.VISIBLE);
-        ui.lMapOverlayTitle.tvMapTitleAddress.setText(getTitleAddressMsg());
-        ui.lMapOverlayTitle.tvMapTitleAddress.setOnClickListener(onSingleClickListener);
+
+        //todo 2020-12-22 맵 변경 정책으로 아이콘 변경 진행했으나 대리운전은 디자인 확인 필요
+        ui.lMapOverlayTitle.tvMapTitleText.setVisibility(View.VISIBLE);
+        ui.lMapOverlayTitle.tvMapTitleText.setOnClickListener(onSingleClickListener);
+        ui.lMapOverlayTitle.tvMapTitleAddress.setVisibility(View.GONE);
+
+//        ui.lMapOverlayTitle.tvMapTitleText.setVisibility(View.GONE);
+//        ui.lMapOverlayTitle.tvMapTitleAddress.setVisibility(View.VISIBLE);
+//        ui.lMapOverlayTitle.tvMapTitleAddress.setText(getTitleAddressMsg());
+//        ui.lMapOverlayTitle.tvMapTitleAddress.setOnClickListener(onSingleClickListener);
         ui.btnMyPosition.setOnClickListener(onSingleClickListener);
-//        ui.lMapOverlayTitle.fabMapBack.setOnClickListener(onSingleClickListener);
         ui.pmvMapView.onMapTouchUpListener((motionEvent, makerList) -> {
             switch (motionEvent.getAction()) {
                 case MotionEvent.ACTION_DOWN:
@@ -289,7 +294,7 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
                 lgnViewModel.setPosition(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1));
                 ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)), 500);
                 break;
-            case R.id.tv_map_title_address:
+            case R.id.tv_map_title_text:
                 openSearchAddress();
                 break;
             case R.id.btn_my_addr_position:
@@ -409,14 +414,11 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
     private void updateAddressInfo(final AddressVO addressVO) {
         selectAddressVO = addressVO;
         if (bottomSelectBinding == null) {
-            setViewStub(R.id.vs_map_overlay_bottom_box, R.layout.layout_map_overlay_ui_bottom_address, new ViewStub.OnInflateListener() {
-                @Override
-                public void onInflate(ViewStub viewStub, View inflated) {
-                    bottomSelectBinding = DataBindingUtil.bind(inflated);
-                    bottomSelectBinding.tvMapAddressBtn.setOnClickListener(onSingleClickListener);
+            setViewStub(R.id.vs_map_overlay_bottom_box, R.layout.layout_map_overlay_ui_bottom_address, (viewStub, inflated) -> {
+                bottomSelectBinding = DataBindingUtil.bind(inflated);
+                bottomSelectBinding.tvMapAddressBtn.setOnClickListener(onSingleClickListener);
 //                    setViewAddresInfo(addressVO.getTitle(), addressVO.getCname(), addressVO.getAddrRoad());
-                    setViewAddresInfo(addressVO);
-                }
+                setViewAddresInfo(addressVO);
             });
         } else {
             setViewAddresInfo(addressVO);

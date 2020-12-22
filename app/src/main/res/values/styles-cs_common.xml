@@ -2,6 +2,7 @@
 
     <!-- 입력레이아웃의 안내 메시지 타이틀 ex)xxx를 입력해주세요.-->
     <style name="CommonTextMsg" parent="ViewMsgInputTile">
+        <item name="android:paddingBottom">30dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
@@ -16,7 +17,6 @@
         <item name="android:layout_marginTop">20dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
-        <item name="layout_goneMarginTop">30dp</item>
     </style>
     <style name="CommonSpinnerTitle">
         <item name="android:layout_width">0dp</item>
@@ -35,12 +35,12 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:paddingLeft">16dp</item>
-        <item name="android:textColor">@color/x_aaabaf</item>
+        <item name="android:textColor">@color/x_a2a2a2</item>
         <item name="android:textSize">15sp</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">6sp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
-        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_dadde3</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_e5e5e5</item>
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:drawableRight">@drawable/btn_dropdown</item>
         <item name="android:layout_marginTop">6dp</item>
@@ -49,11 +49,13 @@
     </style>
 
     <style name="CommonSpinnerItemDisable" parent="CommonSpinnerItem">
-        <item name="android:textColor">@color/x_aaabaf</item>
+        <item name="android:textColor">@color/x_a2a2a2</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_e5e5e5</item>
     </style>
 
     <style name="CommonSpinnerItemEnable" parent="CommonSpinnerItem">
         <item name="android:textColor">@color/x_000000</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_000000</item>
     </style>
 
     <style name="CommonSpinnerItemReject" parent="CommonSpinnerItem">
@@ -147,17 +149,16 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">0dp</item>
-        <item name="layout_goneMarginTop">20dp</item>
         <item name="boxBackgroundColor">@color/x_ffffff</item>
         <item name="boxBackgroundMode">outline</item>
         <item name="boxCornerRadiusTopEnd">0dp</item>
         <item name="boxCornerRadiusTopStart">0dp</item>
-        <item name="boxStrokeColor">@color/x_141414</item>
-        <item name="boxStrokeErrorColor">@color/x_ba544d</item>
+        <item name="boxStrokeColor">@color/x_000000</item>
+        <item name="boxStrokeErrorColor">@color/x_ce2d2d</item>
         <item name="endIconMode">clear_text</item>
         <item name="errorEnabled">true</item>
-        <item name="errorIconTint">@color/x_ba544d</item>
-        <item name="errorTextColor">@color/x_ba544d</item>
+        <item name="errorIconTint">@color/x_ce2d2d</item>
+        <item name="errorTextColor">@color/x_ce2d2d</item>
         <item name="hintEnabled">true</item>
         <item name="hintTextColor">@color/x_000000</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>

@@ -233,7 +233,7 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
             //에어포트 사용 가능 상태 + 소모성부품선택 + 픽앤딜리버리 횟수 1회 이상
             setViewVisibility(ui.lMaintenanceAirport.lMaintenanceCategoryItemBtn, isPossibleReservation(arptRsvtPsblYn) && selectRepairTypeVO.getRparTypCd().equalsIgnoreCase(VariableType.SERVICE_REPAIR_CODE_CS) && reqViewModel.checkCoupon(couponList, VariableType.SERVICE_CAR_CARE_COUPON_CODE_PICKUP_DELIVERY));
             //홈투홈서비스 사용 가능 상태 + 픽앤딜리버리 횟수 1회 이상
-            setViewVisibility(ui.lMaintenanceHometohome.lMaintenanceCategoryItemBtn, isPossibleReservation(hthRsvtPsblYn) && reqViewModel.checkCoupon(couponList, VariableType.SERVICE_CAR_CARE_COUPON_CODE_PICKUP_DELIVERY));
+//            setViewVisibility(ui.lMaintenanceHometohome.lMaintenanceCategoryItemBtn, isPossibleReservation(hthRsvtPsblYn) && reqViewModel.checkCoupon(couponList, VariableType.SERVICE_CAR_CARE_COUPON_CODE_PICKUP_DELIVERY));
             //정비소 사용 가능 상태
             setViewVisibility(ui.lMaintenanceRepair.lMaintenanceCategoryItemBtn, isPossibleReservation(rpshRsvtPsblYn));
         }else{
@@ -318,8 +318,10 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
 
 
     private void setViewCategorySelect(){
-        if(selectRepairTypeVO!=null)
+        if(selectRepairTypeVO!=null) {
             ui.tvMaintenanceCategorySelectBtn.setText(selectRepairTypeVO.getRparTypNm());
+            ui.tvMaintenanceCategorySelectBtn.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_000000);
+        }
     }
 
 

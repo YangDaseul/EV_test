@@ -47,7 +47,7 @@
             android:id="@+id/scroll"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="50dp"
             app:layout_constraintBottom_toTopOf="@+id/btn_confirm"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:scaleType="centerInside"
-                    android:src="@drawable/ic_fail"
+                    android:src="@drawable/ic_succeed"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -79,10 +79,10 @@
                     android:fontFamily="@font/light_genesissansheadglobal"
                     android:gravity="center"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="8sp"
+                    android:lineSpacingExtra="7sp"
                     android:text="@string/sm_r_rsv04_03_1"
                     android:textColor="@color/x_000000"
-                    android:textSize="22sp"
+                    android:textSize="25sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/iv_mark" />
@@ -95,13 +95,12 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="14dp"
                     android:layout_marginRight="20dp"
-                    android:fontFamily="@font/light_genesissansheadglobal"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
                     android:gravity="center"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="8sp"
-                    android:paddingBottom="70dp"
+                    android:lineSpacingExtra="12sp"
                     android:text="@string/sm_r_rsv04_03_2"
-                    android:textColor="@color/x_525252"
+                    android:textColor="@color/x_262626"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -112,13 +111,12 @@
                     android:id="@+id/tv_title_reserve"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/bg_00000000_underline_5e5e5e"
-                    android:fontFamily="@font/regular_genesissansheadglobal"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/light_genesissansheadglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="2sp"
-                    android:paddingBottom="10dp"
+                    android:lineSpacingExtra="12sp"
                     android:text="@string/sm_r_rsv03_03_3"
                     android:textColor="@color/x_000000"
                     android:textSize="18sp"
@@ -127,214 +125,147 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_msg_sub" />
 
 
-                <TextView
-                    android:id="@+id/tv_title_pckp_addr"
-                    style="@style/LeasingCarTextViewTitle"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="20dp"
-                    android:text="@string/sm_r_rsv03_03_4"
-                    android:textColor="@color/x_525252"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_reserve" />
 
-                <TextView
-                    android:id="@+id/tv_pckp_addr"
-                    style="@style/LeasingCarTextView"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="20dp"
-                    android:text="@{data.pckpAddr}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_pckp_addr"
-                    tools:text="서울특별시 금천구 가산디지털1로 168" />
-
-
-                <TextView
-                    android:id="@+id/tv_title_rsvt_hope_dt"
-                    style="@style/LeasingCarTextViewTitle"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="20dp"
-                    android:text="@string/sm_r_rsv03_03_5"
-                    android:textColor="@color/x_525252"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_pckp_addr" />
-
-                <TextView
-                    android:id="@+id/tv_rsvt_hope_dt"
-                    style="@style/LeasingCarTextView"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="20dp"
-                    android:text="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.rsvtHopeDt ?? ``), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_MM_dd_E) + ` / ` + (data.autoAmpmCd.equalsIgnoreCase(`A`) ? @string/sm_r_rsv02_01_p02_2 : @string/sm_r_rsv02_01_p02_3)}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_rsvt_hope_dt"
-                    tools:text="2020.12.10(목) / 오전" />
-
-
-                <TextView
-                    android:id="@+id/tv_title_dlvry_addr"
-                    style="@style/LeasingCarTextViewTitle"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="20dp"
-                    android:text="@string/sm_r_rsv03_03_6"
-                    android:textColor="@color/x_525252"
-                    android:visibility="@{TextUtils.isEmpty(data.dlvryAddr) ? View.GONE : View.VISIBLE }"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_rsvt_hope_dt" />
-
-                <TextView
-                    android:id="@+id/tv_dlvry_addr"
-                    style="@style/LeasingCarTextView"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="20dp"
-                    android:text="@{data.pckpAddr}"
-                    android:visibility="@{TextUtils.isEmpty(data.dlvryAddr) ? View.GONE : View.VISIBLE }"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_dlvry_addr"
-                    tools:text="서울특별시 금천구 가산디지털1로 168" />
-
-
-
-                <TextView
-                    android:id="@+id/tv_title_dt"
-                    style="@style/LeasingCarTextViewTitle"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="20dp"
-                    android:text="@string/sm_r_rsv03_03_7"
-                    android:textColor="@color/x_525252"
-                    android:visibility="@{TextUtils.isEmpty(data.dlvryAddr) ? View.GONE : View.VISIBLE }"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_dlvry_addr" />
-
-                <TextView
-                    android:id="@+id/tv_dt"
-                    style="@style/LeasingCarTextView"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="20dp"
-                    android:text="정비 완료 후"
-                    android:visibility="@{TextUtils.isEmpty(data.dlvryAddr) ? View.GONE : View.VISIBLE }"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_dt" />
-
-                <ImageView
-                    android:id="@+id/iv_line_1"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_pckp_info"
                     android:layout_width="0dp"
-                    android:layout_height="10dp"
-                    android:layout_marginTop="40dp"
-                    android:background="@color/x_f4f4f4"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/x_e5e5e5"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_dt" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_reserve">
+
+                    <include
+                        android:id="@+id/l_pckp_addr"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:msg="@{data.pckpAddr}"
+                        app:title="@{@string/sm_r_rsv03_03_4}"
+                        app:isLeft="@{true}"/>
+
+                    <include
+                        android:id="@+id/l_rsvt_hope_dt"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_pckp_addr"
+                        app:msg="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.rsvtHopeDt ?? ``), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_MM_dd_E) + ` / ` + (data.autoAmpmCd.equalsIgnoreCase(`A`) ? @string/sm_r_rsv02_01_p02_2 : @string/sm_r_rsv02_01_p02_3)}"
+                        app:title="@{@string/sm_r_rsv03_03_5}"
+                        app:isLeft="@{true}"/>
+
+                    <include
+                        android:id="@+id/l_dlvry_addr"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:visibility="@{TextUtils.isEmpty(data.dlvryAddr) ? View.GONE : View.VISIBLE }"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_rsvt_hope_dt"
+                        app:msg="@{data.dlvryAddr}"
+                        app:title="@{@string/sm_r_rsv03_03_6}"
+                        app:isLeft="@{true}"/>
+
+                    <include
+                        android:id="@+id/l_dt"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:visibility="@{TextUtils.isEmpty(data.dlvryAddr) ? View.GONE : View.VISIBLE }"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_dlvry_addr"
+                        app:msg="@{@string/sm_r_rsv03_03_15}"
+                        app:title="@{@string/sm_r_rsv03_03_7}"
+                        app:isLeft="@{true}"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 <TextView
                     android:id="@+id/tv_title_reserver"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/bg_00000000_underline_5e5e5e"
-                    android:fontFamily="@font/regular_genesissansheadglobal"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/light_genesissansheadglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="2sp"
-                    android:paddingBottom="10dp"
-                    android:text="@string/sm_r_rsv03_7"
+                    android:lineSpacingExtra="12sp"
+                    android:text="@string/sm_r_rsv03_03_8"
                     android:textColor="@color/x_000000"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_line_1" />
+                    app:layout_constraintTop_toBottomOf="@+id/l_pckp_info" />
 
 
-                <TextView
-                    android:id="@+id/tv_title_name"
-                    style="@style/LeasingCarTextViewTitle"
-                    android:layout_marginLeft="20dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_user_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginRight="20dp"
-                    android:text="@string/sm_r_rsv03_8"
-                    android:textColor="@color/x_525252"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/x_e5e5e5"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_reserver" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_reserver">
 
-                <TextView
-                    android:id="@+id/tv_name"
-                    style="@style/LeasingCarTextView"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginRight="20dp"
-                    android:text="@{data.userNm}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_name"
-                    tools:text="김제니" />
+                    <include
+                        android:id="@+id/l_user_nm"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:msg="@{data.userNm}"
+                        app:title="@{@string/sm_r_rsv03_8}"
+                        app:isLeft="@{true}"/>
 
+                    <include
+                        android:id="@+id/l_tel"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_user_nm"
+                        app:msg="@{PhoneNumberUtils.formatNumber( (data.hpNo ?? ``), Locale.getDefault().getCountry())}"
+                        app:title="@{@string/sm_r_rsv03_9}"
+                        app:isLeft="@{true}"/>
 
-                <TextView
-                    android:id="@+id/tv_title_tel"
-                    style="@style/LeasingCarTextViewTitle"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="20dp"
-                    android:text="@string/sm_r_rsv03_9"
-                    android:textColor="@color/x_525252"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_name" />
-
-                <TextView
-                    android:id="@+id/tv_tel"
-                    style="@style/LeasingCarTextView"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginRight="20dp"
-                    android:text="@{PhoneNumberUtils.formatNumber( (data.hpNo ?? ``), Locale.getDefault().getCountry())}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_tel"
-                    tools:text="010-8602-9612" />
-
-
-                <TextView
-                    android:id="@+id/tv_title_vrn"
-                    style="@style/LeasingCarTextViewTitle"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="20dp"
-                    android:text="@string/sm_r_rsv03_10"
-                    android:textColor="@color/x_525252"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_tel" />
-
-                <TextView
-                    android:id="@+id/tv_vrn"
-                    style="@style/LeasingCarTextView"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginRight="20dp"
-                    android:text="@{data.carRgstNo}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_vrn"
-                    tools:text="12가 3456" />
-
-
+                    <include
+                        android:id="@+id/l_vrn"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_tel"
+                        app:msg="@{data.carRgstNo}"
+                        app:title="@{@string/sm_r_rsv03_10}"
+                        app:isLeft="@{true}"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
@@ -345,7 +276,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/ripple_bg_141414"
-            android:fontFamily="@font/light_genesissansheadglobal"
+            android:fontFamily="@font/regular_genesissanstextglobal"
             android:gravity="center"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:text="@string/sm_emgc02_9"

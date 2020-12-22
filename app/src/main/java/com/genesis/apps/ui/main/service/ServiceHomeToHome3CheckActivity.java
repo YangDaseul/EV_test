@@ -10,18 +10,17 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.REQ_1009;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.vo.RepairReserveVO;
 import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringRe2j;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.ActivityServiceHometohome3CheckBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -30,6 +29,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.Locale;
+
+import androidx.lifecycle.ViewModelProvider;
 
 /**
  * @author hjpark
@@ -58,9 +59,10 @@ public class ServiceHomeToHome3CheckActivity extends SubActivity<ActivityService
         ui.etTel.setOnFocusChangeListener(focusChangeListener);
         ui.etVrn.setOnEditorActionListener(editorActionListener);
         ui.etVrn.setOnFocusChangeListener(focusChangeListener);
-        ui.etTel.setText(TextUtils.isEmpty(repairReserveVO.getHpNo()) ? "" : repairReserveVO.getHpNo());
+        ui.etTel.setText(TextUtils.isEmpty(repairReserveVO.getHpNo()) ? "" : StringUtil.parsingPhoneNumber(repairReserveVO.getHpNo()));
         ui.etVrn.setText(TextUtils.isEmpty(repairReserveVO.getCarRgstNo()) ? "" : repairReserveVO.getCarRgstNo());
 
+        ui.etRqrm.setOnFocusChangeListener(focusChangeListener);
         ui.etRqrm.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -86,12 +88,17 @@ public class ServiceHomeToHome3CheckActivity extends SubActivity<ActivityService
                 doNext();
                 break;
             case R.id.iv_arrow:
-                if (ui.lBackground.getVisibility() == View.VISIBLE) {
+                if (ui.etRqrm.getVisibility() == View.VISIBLE) {
                     ui.ivArrow.setImageResource(R.drawable.btn_accodian_open);
-                    InteractionUtil.collapse(ui.lBackground, null);
+                    InteractionUtil.collapse(ui.etRqrm, null);
+                    ui.etRqrm.clearFocus();
                 } else {
                     ui.ivArrow.setImageResource(R.drawable.btn_accodian_close);
-                    InteractionUtil.expand2(ui.lBackground, () -> ui.sc.fullScroll(View.FOCUS_DOWN));
+                    InteractionUtil.expand2(ui.etRqrm, () -> {
+//                        ui.sc.fullScroll(View.FOCUS_DOWN);
+                        ui.etRqrm.requestFocus();
+
+                    });
                 }
                 break;
         }

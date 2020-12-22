@@ -51,6 +51,7 @@
                     android:id="@+id/l_rsvt_hope_dt"
                     style="@style/CommonSpinnerLayout"
                     android:visibility="gone"
+                    android:layout_marginTop="0dp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_msg_bottom"
                     app:layout_constraintStart_toStartOf="@+id/tv_msg_bottom"
                     app:layout_constraintTop_toBottomOf="@+id/tv_msg">
@@ -99,7 +100,6 @@
                     android:id="@+id/l_dlvry_addr"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_goneMarginTop="30dp"
                     android:layout_marginTop="0dp"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/tv_msg_bottom"
@@ -155,7 +155,6 @@
                     style="@style/CommonTextInputLayout"
                     android:layout_marginTop="0dp"
                     android:visibility="gone"
-                    app:layout_goneMarginTop="0dp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_msg_bottom"
                     app:layout_constraintStart_toStartOf="@+id/tv_msg_bottom"
                     app:layout_constraintTop_toBottomOf="@+id/l_dlvry_addr">
@@ -172,7 +171,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    app:layout_goneMarginTop="30dp"
                     android:layout_marginTop="0dp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_msg_bottom"
                     app:layout_constraintStart_toStartOf="@+id/tv_msg_bottom"

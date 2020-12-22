@@ -5,7 +5,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.vo.RepairReserveDateVO;
+import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.databinding.DialogBottomCalendarBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
@@ -25,14 +29,16 @@ import com.prolificinteractive.materialcalendarview.format.DateFormatTitleFormat
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class DialogCalendar extends BaseBottomDialog<DialogBottomCalendarBinding> {
 
-    private DayViewDecorator weekendsDecorator;
+//    private DayViewDecorator weekendsDecorator;
     private HighlightWeekendsDecorator highlightWeekendsDecorator = new HighlightWeekendsDecorator();
     private RemoveWeekendsDecorator removeWeekendsDecorator = new RemoveWeekendsDecorator();
     private SelectedDayDecorator selectedDayDecorator = new SelectedDayDecorator(0);
+    private RejectDecorator rejectDecorator = new RejectDecorator();
     public Calendar calendar = null;
     private Calendar calendarMaximum;
     private Calendar calendarMinimum;
@@ -40,6 +46,8 @@ public class DialogCalendar extends BaseBottomDialog<DialogBottomCalendarBinding
     private boolean useAutoAmpmCd=false;
     private String autoAmpmCd="A";
     private boolean isRemoveWeekends=false;
+    //홈투홈에서만 사용, 예약 가능 일
+    private List<RepairReserveDateVO> reserveDateVOList;
 
     public DialogCalendar(@NonNull Context context, int theme) {
         super(context, theme);
@@ -52,15 +60,19 @@ public class DialogCalendar extends BaseBottomDialog<DialogBottomCalendarBinding
         setAllowOutTouch(true);
         ui.lTitle.setValue(title);
 
-        weekendsDecorator = (isRemoveWeekends ? removeWeekendsDecorator : highlightWeekendsDecorator);
+//        weekendsDecorator = (isRemoveWeekends ? removeWeekendsDecorator : highlightWeekendsDecorator);
+        ui.calendarView.setDynamicHeightEnabled(true); //달력 높이를 wrap로 설정
+//        ui.calendarView.addDecorator(weekendsDecorator);
+        ui.calendarView.addDecorator(highlightWeekendsDecorator);
+        if(isRemoveWeekends) ui.calendarView.addDecorator(removeWeekendsDecorator);
+        if(getReserveDateVOList()!=null) ui.calendarView.addDecorator(rejectDecorator);
 
-        ui.calendarView.addDecorator(weekendsDecorator);
         ui.calendarView.setOnDateChangedListener((widget, date, selected) -> {
             ui.calendarView.removeDecorator(selectedDayDecorator);
             selectedDayDecorator.setDaySelected(ui.calendarView.getSelectedDate().getDay());
-            ui.calendarView.addDecorators( weekendsDecorator, selectedDayDecorator);
-
-
+            ui.calendarView.addDecorators( highlightWeekendsDecorator, selectedDayDecorator);
+            if(isRemoveWeekends) ui.calendarView.addDecorator(removeWeekendsDecorator);
+            if(getReserveDateVOList()!=null) ui.calendarView.addDecorator(rejectDecorator);
 
 //            ui.calendarView.removeDecorators();
 //            ui.calendarView.addDecorators( highlightWeekendsDecorator, new SelectedDayDecorator(ui.calendarView.getSelectedDate().getDay()));
@@ -75,9 +87,10 @@ public class DialogCalendar extends BaseBottomDialog<DialogBottomCalendarBinding
         ui.calendarView.setOnMonthChangedListener((widget, date) -> {
 //            ui.calendarView.removeDecorators();
 //            ui.calendarView.addDecorator(highlightWeekendsDecorator);
-
-
-            ui.calendarView.removeDecorator(selectedDayDecorator);
+            if(ui.calendarView.getSelectedDate()!=null) {
+                ui.calendarView.clearSelection();
+                ui.calendarView.removeDecorator(selectedDayDecorator);
+            }
         });
 
         ui.btnNext.setOnClickListener(new OnSingleClickListener() {
@@ -87,6 +100,7 @@ public class DialogCalendar extends BaseBottomDialog<DialogBottomCalendarBinding
                     calendar = Calendar.getInstance(Locale.getDefault());
                     ui.calendarView.getSelectedDate().copyTo(calendar);
                     dismiss();
+
                 }else{
                     SnackBarUtil.show(getContext(), "날짜를 선택해 주세요.");
                 }
@@ -157,11 +171,20 @@ public class DialogCalendar extends BaseBottomDialog<DialogBottomCalendarBinding
         isRemoveWeekends = removeWeekends;
     }
 
+    public List<RepairReserveDateVO> getReserveDateVOList() {
+        return reserveDateVOList;
+    }
+
+    public void setReserveDateVOList(List<RepairReserveDateVO> reserveDateVOList) {
+        this.reserveDateVOList = reserveDateVOList;
+    }
+
 
     public class HighlightWeekendsDecorator implements DayViewDecorator {
 
         private final Drawable highlightDrawable;
-        private final int color = Color.parseColor("#ba544d");
+        private final int color = Color.parseColor("#ce2d2d");
+        private final int disableColor = Color.parseColor("#33ce2d2d");
 
         public HighlightWeekendsDecorator() {
             highlightDrawable = new ColorDrawable(color);
@@ -176,7 +199,11 @@ public class DialogCalendar extends BaseBottomDialog<DialogBottomCalendarBinding
 
         @Override public void decorate(final DayViewFacade view) {
 //            view.setBackgroundDrawable(highlightDrawable);
-            view.addSpan(new ForegroundColorSpan(color));
+            if(isRemoveWeekends){
+                view.addSpan(new ForegroundColorSpan(disableColor));
+            }else {
+                view.addSpan(new ForegroundColorSpan(color));
+            }
 //            view.addSpan(new ForegroundColorSpan(R.style.calendarStyleWeekendValue));
         }
     }
@@ -202,7 +229,9 @@ public class DialogCalendar extends BaseBottomDialog<DialogBottomCalendarBinding
 //            view.setBackgroundDrawable(highlightDrawable);
 //            view.addSpan(new ForegroundColorSpan(color));
             view.setDaysDisabled(true);
-            view.addSpan(new ForegroundColorSpan(color));
+//            view.addSpan(new ForegroundColorSpan(color));
+
+
 //            view.addSpan(new ForegroundColorSpan(R.style.calendarStyleWeekendValue));
         }
     }
@@ -232,6 +261,36 @@ public class DialogCalendar extends BaseBottomDialog<DialogBottomCalendarBinding
 
         public void setDaySelected(int daySelected){
             this.daySelected = daySelected;
+        }
+    }
+
+
+
+
+    public class RejectDecorator implements DayViewDecorator {
+
+        public RejectDecorator() {
+        }
+
+        @Override public boolean shouldDecorate(final CalendarDay day) {
+            if (getReserveDateVOList() != null) {
+                String checkDay = DateUtil.getDate(day.getCalendar().getTime(), DateUtil.DATE_FORMAT_yyyyMMdd);
+                boolean isPossible = false;
+                for (RepairReserveDateVO repairReserveDateVO : getReserveDateVOList()) {
+                    if (!TextUtils.isEmpty(repairReserveDateVO.getRsvtDt()) && repairReserveDateVO.getRsvtDt().equalsIgnoreCase(checkDay)) {
+                        isPossible = true;
+                        break;
+                    }
+                }
+
+                return !isPossible;
+            } else {
+                return false;
+            }
+        }
+
+        @Override public void decorate(final DayViewFacade view) {
+            view.setDaysDisabled(true);
         }
     }
 

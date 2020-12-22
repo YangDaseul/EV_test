@@ -299,12 +299,12 @@ class RepairReserveVO extends BaseData {
 
 
     //REQ-1013 홈투홈예약현황 및 에어포트 예약현황
-    @Expose
-    @SerializedName("pkckExtapChkUri") //pkckExtapChkUri
-    private String pkckExtapChkUri;
-    @Expose
-    @SerializedName("dlvryExtapChkUri") //딜리버리외관체크URI
-    private String dlvryExtapChkUri;
+//    @Expose
+//    @SerializedName("pkckExtapChkUri") //pkckExtapChkUri
+//    private String pkckExtapChkUri;
+//    @Expose
+//    @SerializedName("dlvryExtapChkUri") //딜리버리외관체크URI
+//    private String dlvryExtapChkUri;
 
     //로컬(오토케어 3단계 입력 확인)에서 표시용으로만 사용
     private String userNm;

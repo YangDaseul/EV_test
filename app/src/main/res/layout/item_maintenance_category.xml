@@ -28,7 +28,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/ripple_bg_ffffff_round_10"
+        android:background="@drawable/ripple_bg_ffffff"
         android:clickable="true"
         android:elevation="5dp"
         android:focusable="true"
@@ -41,10 +41,11 @@
         <TextView
             android:id="@+id/tv_maintenance_category_item_title"
             style="@style/TextBasic"
-            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:fontFamily="@font/light_genesissansheadglobal"
             android:text="@{title}"
             android:textColor="@color/x_000000"
             android:textSize="20sp"
+            android:lineSpacingExtra="4sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="정비 카테고리 이름" />
@@ -53,18 +54,22 @@
         <TextView
             android:id="@+id/tv_maintenance_category_item_desc"
             style="@style/TextBasic"
+            android:layout_width="0dp"
             android:layout_marginTop="14dp"
-            android:fontFamily="@font/light_genesissansheadglobal"
+            android:layout_marginEnd="22dp"
+            android:fontFamily="@font/regular_genesissansheadglobal"
             android:lineSpacingExtra="6sp"
             android:text="@{desc}"
-            android:textColor="@color/x_aaabaf"
+            android:textColor="@color/x_262626"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_maintenance_category_item_title"
+            app:layout_constraintEnd_toStartOf="@+id/iv_icon"
             tools:text="정비 카테고리 설명\n정비 카테고리 설명2" />
 
         <!--  정비 항목 아이콘-->
         <ImageView
+            android:id="@+id/iv_icon"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@{icon}"

@@ -38,6 +38,8 @@
     <!--    <style name="CustomTextAppearance" parent="TextAppearance.MaterialCalendarWidget.Date">-->
     <!--        <item name="android:textColor">@drawable/selector_calendar</item>-->
     <!--    </style>-->
+
+    <!--weekday style-->
     <style name="calendarStyle">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/selector_calendar</item>
@@ -47,28 +49,30 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <!--년/월-->
     <style name="calendarStyleHeader">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/x_000000</item>
-        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">12sp</item>
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="calendarStyleWeekend">
+    <!--월화수목금토일 타이틀-->
+    <style name="calendarStyleWeekendTitle">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/x_000000</item>
-        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">18sp</item>
         <item name="android:gravity">center</item>
     </style>
 
-
-    <style name="calendarStyleWeekendValue">
+    <!--weekday style-->
+    <style name="calendarStyleWeekend">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/selector_calendar_weekend</item>
+        <item name="android:textColor">@color/selector_calendar</item>
         <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">16sp</item>

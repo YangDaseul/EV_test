@@ -55,6 +55,7 @@ public class ServiceRepairReserveHistoryAdapter extends BaseRecyclerViewAdapter2
         @Override
         public void onBindView(RepairHistVO item, int pos) {
             getBinding().setData(item);
+            getBinding().setPos(pos);
         }
 
         @Override

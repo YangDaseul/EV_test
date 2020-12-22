@@ -33,8 +33,10 @@
             app:mcv_selectionColor="@color/x_000000"
             app:mcv_headerTextAppearance="@style/calendarStyleHeader"
             app:mcv_dateTextAppearance="@style/calendarStyle"
-            app:mcv_weekDayTextAppearance="@style/calendarStyleWeekend"
+            app:mcv_weekDayTextAppearance="@style/calendarStyleWeekendTitle"
+            app:mcv_showOtherDates="all"
             app:mcv_rightArrowMask="@drawable/btn_arrow_open_r"
+            app:mcv_leftArrowMask="@drawable/btn_arrow_open_l"
             />
 
 
@@ -49,7 +51,7 @@
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_category_2"
-            app:layout_constraintBottom_toBottomOf="@+id/calendarView"
+            app:layout_constraintTop_toBottomOf="@+id/calendarView"
             tools:visibility="gone"/>
 
         <TextView
@@ -69,13 +71,11 @@
             android:id="@+id/l_repair_group"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="27dp"
             android:visibility="gone"
             tools:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/calendarView"
-            app:layout_constraintBottom_toTopOf="@+id/btn_next">
+            app:layout_constraintTop_toBottomOf="@+id/calendarView">
             <TextView
                 android:id="@+id/tv_title_rsvthopetm"
                 style="@style/CommonSpinnerTitle"
@@ -137,6 +137,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="tv_category_1,l_repair_group" />
 
         <TextView
             android:id="@+id/btn_next"
@@ -144,7 +150,9 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginBottom="20dp"
+            android:layout_marginTop="30dp"
             android:text="@string/gm_carlst_01_32"
+            app:layout_constraintTop_toBottomOf="@+id/barrier"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>

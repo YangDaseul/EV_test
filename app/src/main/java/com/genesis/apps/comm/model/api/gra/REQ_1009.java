@@ -50,15 +50,15 @@ public class REQ_1009 extends BaseData {
         private String hpNo;
 
         @Expose
-        @SerializedName("pkckDivCd")
-        private String pkckDivCd;
+        @SerializedName("pckpDivCd")
+        private String pckpDivCd;
 
         @Expose
-        @SerializedName("pkckZip")
-        private String pkckZip;
+        @SerializedName("pckpZip")
+        private String pckpZip;
         @Expose
-        @SerializedName("pkckAddr")
-        private String pkckAddr;
+        @SerializedName("pckpAddr")
+        private String pckpAddr;
         @Expose
         @SerializedName("dlvryZip")
         private String dlvryZip;
