@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 /**
  * @author hjpark
- * @brief 공지사항
+ * @brief 유사 재고 조회
  */
 public class SimilarCarActivity extends SubActivity<ActivitySimilarCarBinding> {
     private LGNViewModel lgnViewModel;

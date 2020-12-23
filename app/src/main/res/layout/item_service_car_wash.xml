@@ -28,11 +28,11 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="프리미엄\n디테일링 세차" />
 
-        <!-- 현재 가격 -->
+        <!-- 할인율 -->
         <TextView
             android:id="@+id/tv_car_wash_item_curr_price"
             style="@style/TextBasic"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="13dp"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:textColor="@color/x_000000"
             android:textSize="18sp"
@@ -41,7 +41,6 @@
             tools:text="70,000원" />
 
         <!-- 원래 가격 (현재 할인중일 경우 한정)-->
-        <!-- TODO 취소선은 코드에서 그어야 한다 ㅠㅠ -->
         <TextView
             android:id="@+id/tv_car_wash_item_original_price"
             style="@style/TextBasic"
@@ -49,6 +48,7 @@
             android:fontFamily="@font/light_genesissansheadglobal"
             android:textColor="@color/x_aaabaf"
             android:textSize="14sp"
+            android:visibility="gone"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_car_wash_item_curr_price"
             app:layout_constraintStart_toEndOf="@id/tv_car_wash_item_curr_price"
             tools:text="90,000원" />
@@ -60,6 +60,7 @@
             android:layout_height="80dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:background="#000000" />
 
         <!-- 특가 표시-->

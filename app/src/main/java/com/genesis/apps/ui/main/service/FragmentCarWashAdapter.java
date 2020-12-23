@@ -48,15 +48,10 @@ public class FragmentCarWashAdapter extends BaseRecyclerViewAdapter2<WashGoodsVO
 
         @Override
         public void onBindView(WashGoodsVO item, int pos) {
-            //TODO  : 여기 기획 바뀌고 디자인 안 나왔음 ㅡㅡ;;
-            // 스토리 보드 문서 보니 가격 표시 삭제되고 할인율만 표시하는 거 같음
-
             //상품명
             getBinding().tvCarWashItemName.setText(item.getGodsNm());
 
             //할인정보
-            //TODO : 디자인 고칠 때 뷰 이름 바꾸기. 지금은 가격이라 명명함
-            // 특가 뱃지는 살아있나?
             getBinding().tvCarWashItemCurrPrice.setText(item.getDsctNm());
 
             //버튼 클릭 리스너 및 해당 버튼 처리에 필요한 데이터 세팅
