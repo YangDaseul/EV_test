@@ -80,9 +80,13 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
         setResizeScreen();
         setContentView(layouts[0]);
         getDataFromIntent();
-        setViewModel();
-        setObserver();
-        initView();
+        try {
+            setViewModel();
+            setObserver();
+            initView();
+        }catch (Exception e){
+
+        }
     }
 
     private void initView() {

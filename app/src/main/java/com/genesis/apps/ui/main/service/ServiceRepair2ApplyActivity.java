@@ -26,6 +26,7 @@ import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.ActivityServiceRepair2Apply1Binding;
+import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.bottom.DialogCalendarRepair;
@@ -220,10 +221,14 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
                 null);
 
         startActivitySingleTop(new Intent(this
-                        , ServiceRepair3CheckActivity.class)
-                        .putExtra(KeyNames.KEY_NAME_SERVICE_RESERVE_INFO, repairReserveVO)
-                , RequestCodes.REQ_CODE_ACTIVITY.getCode()
-                , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                , ServiceRepair2PreCheckActivity.class).putExtra(KeyNames.KEY_NAME_SERVICE_RESERVE_INFO, repairReserveVO)
+                , RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
+//        startActivitySingleTop(new Intent(this
+//                        , ServiceRepair3CheckActivity.class)
+//                        .putExtra(KeyNames.KEY_NAME_SERVICE_RESERVE_INFO, repairReserveVO)
+//                , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+//                , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
 

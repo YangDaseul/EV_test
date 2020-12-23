@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.service;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -15,10 +17,14 @@ import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.REQ_1016;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.RepairReserveVO;
 import com.genesis.apps.comm.model.vo.SurveyItemVO;
 import com.genesis.apps.comm.model.vo.SurveyVO;
-import com.genesis.apps.comm.net.ga.GA;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.ActivityPrecheckBinding;
@@ -30,21 +36,15 @@ import com.genesis.apps.ui.common.dialog.bottom.BottomContentDialog;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.bottom.BottomTwoButtonDialog;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
-import com.genesis.apps.ui.main.MainActivity;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrecheckActivity extends SubActivity<ActivityPrecheckBinding> {
-    private static final String TAG= PrecheckActivity.class.getSimpleName();
+public class ServiceRepair2PreCheckActivity extends SubActivity<ActivityPrecheckBinding> {
+    private static final String TAG= ServiceRepair2PreCheckActivity.class.getSimpleName();
     private REQViewModel reqViewModel;
 
-    private RepairReserveVO repairTypeVO;
+    private RepairReserveVO repairReserveVO;
     private SurveyVO surveyVO;
 
     private List<String> surveyList;
@@ -67,7 +67,7 @@ public class PrecheckActivity extends SubActivity<ActivityPrecheckBinding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_precheck);
-
+        getDataFromIntent();
         setViewModel();
         setObserver();
         initView();
@@ -320,9 +320,13 @@ public class PrecheckActivity extends SubActivity<ActivityPrecheckBinding> {
         }
 
         surveyVO.setSvyPrvsList(tempItems);
-
-        // TODO 출력 데이터
-        Log.d("JJJJJJ", "Json : " + surveyVO.toString());
+        Log.d(TAG, "Json : " + surveyVO.toString());
+        repairReserveVO.setSvyInfo(surveyVO);
+        startActivitySingleTop(new Intent(this
+                        , ServiceRepair3CheckActivity.class)
+                        .putExtra(KeyNames.KEY_NAME_SERVICE_RESERVE_INFO, repairReserveVO)
+                , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
     private void setSurveyEnable() {
@@ -457,6 +461,8 @@ public class PrecheckActivity extends SubActivity<ActivityPrecheckBinding> {
 
                                 mItemBinding.llMinorContain.addView(binding.getRoot());
                             }
+
+                                ui.tvServicePrecheckNextBtn.performClick();
                         }
                     }
                 }
@@ -469,7 +475,6 @@ public class PrecheckActivity extends SubActivity<ActivityPrecheckBinding> {
     @Override
     public void setViewModel() {
         ui.setActivity(this);
-
         reqViewModel = new ViewModelProvider(this).get(REQViewModel.class);
     }
 
@@ -491,12 +496,15 @@ public class PrecheckActivity extends SubActivity<ActivityPrecheckBinding> {
                                 if("L".equals(result.data.getSvyDivCd())) {
                                     majorList = result.data.getSvyPrvsList();
                                     mItemBinding.tvPrecheckMajor.setTag(majorList);
+                                    mItemBinding.tvPrecheckMajor.performClick();
                                 } else if("M".equals(result.data.getSvyDivCd())) {
                                     middleList = result.data.getSvyPrvsList();
                                     mItemBinding.tvPrecheckMiddle.setTag(middleList);
+                                    mItemBinding.tvPrecheckMiddle.performClick();
                                 } else {
                                     minorList = result.data.getSvyPrvsList();
                                     mItemBinding.tvPrecheckMinor.setTag(minorList);
+                                    mItemBinding.tvPrecheckMinor.performClick();
                                 }
                             }
                         }
@@ -520,6 +528,22 @@ public class PrecheckActivity extends SubActivity<ActivityPrecheckBinding> {
 
     @Override
     public void getDataFromIntent() {
+        try {
+            repairReserveVO = (RepairReserveVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SERVICE_RESERVE_INFO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (repairReserveVO == null) {
+                exitPage("신청 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+            }
+        }
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REPAIR.getCode()) {
+            exitPage(data, ResultCodes.REQ_CODE_SERVICE_RESERVE_REPAIR.getCode());
+        }
     }
 }

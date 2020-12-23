@@ -19,29 +19,6 @@
             android:layout_height="wrap_content"
             android:background="@color/x_f4f4f4"
             android:orientation="vertical">
-
-            <!-- 사전문진표 임시 작업 -->
-            <TextView
-                android:id="@+id/tv_precheck"
-                style="@style/TextBasic"
-                android:layout_width="match_parent"
-                android:layout_margin="20dp"
-                android:background="@drawable/ripple_bg_000000_round_10"
-                android:clickable="true"
-                android:drawableRight="@drawable/btn_arrow_open_r_w"
-                android:elevation="5dp"
-                android:focusable="true"
-                android:fontFamily="@font/regular_genesissansheadglobal"
-                android:gravity="center_vertical"
-                android:padding="20dp"
-                android:text="@string/sm01_maintenance_15"
-                android:textColor="@color/x_ffffff"
-                android:textSize="16sp"
-                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <!-- 서비스 네트워크 찾기 -->
             <TextView
                 android:id="@+id/tv_service_maintenance_find_network_btn"

@@ -88,8 +88,9 @@
                 style="@style/CommonTextInputEditText"
                 android:layout_height="148dp"
                 android:gravity="top"
-                android:hint="@string/sm01_maintenance_31"
-                android:inputType="text" />
+                android:maxLength="500"
+                android:inputType="text|textMultiLine"
+                android:hint="@string/sm01_maintenance_31"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView

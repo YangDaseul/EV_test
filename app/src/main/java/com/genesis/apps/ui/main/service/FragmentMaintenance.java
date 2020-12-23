@@ -1,14 +1,12 @@
 package com.genesis.apps.ui.main.service;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
@@ -22,7 +20,6 @@ import com.genesis.apps.comm.model.api.gra.REQ_1001;
 import com.genesis.apps.comm.model.api.gra.SOS_1001;
 import com.genesis.apps.comm.model.api.gra.SOS_1006;
 import com.genesis.apps.comm.model.vo.AddressVO;
-import com.genesis.apps.comm.model.vo.SOSDriverVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -34,7 +31,6 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.ServiceNetworkActivity;
-import com.genesis.apps.ui.myg.MyGEntranceActivity;
 
 public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceBinding> {
     private static final String TAG = FragmentMaintenance.class.getSimpleName();
@@ -225,10 +221,6 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
 //            return;
 
         switch (id) {
-            // 사전문진표 임시 작업
-            case R.id.tv_precheck:
-                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), PrecheckActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                break;
             //서비스 네트워크 찾기
             case R.id.tv_service_maintenance_find_network_btn:
                 ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceNetworkActivity.class).putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_SERVICE), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);

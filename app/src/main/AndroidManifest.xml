@@ -469,7 +469,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.service.PrecheckActivity"
+            android:name=".ui.main.service.ServiceRepair2PreCheckActivity"
             android:exported="false"
             android:theme="@style/TextInputLayout"
             android:screenOrientation="portrait" />

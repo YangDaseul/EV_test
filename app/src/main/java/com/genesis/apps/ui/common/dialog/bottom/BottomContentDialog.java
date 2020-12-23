@@ -40,26 +40,27 @@ public class BottomContentDialog extends BaseBottomDialog<DialogBottomContentBin
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(ui.etContent.isFocusable()) {
-                    try {
-                        byte[] bytetext = ui.etContent.getText().toString().getBytes("KSC5601");
-                        ui.tvByte.setText(String.valueOf(bytetext.length));
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                    ui.tvByte.setText(charSequence.length()+"");
+//                    try {
+//                        byte[] bytetext = ui.etContent.getText().toString().getBytes("KSC5601");
+//                        ui.tvByte.setText(String.valueOf(bytetext.length));
+//                    } catch (UnsupportedEncodingException e) {
+//                        e.printStackTrace();
+//                    }
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                String after_text = s.toString();
-                try {
-                    byte[] getbyte = after_text.getBytes("KSC5601");
-                    if (getbyte.length > 500) {
-                        s.delete(s.length()-2, s.length()-1);
-                    }
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+//                String after_text = s.toString();
+//                try {
+//                    byte[] getbyte = after_text.getBytes("KSC5601");
+//                    if (getbyte.length > 500) {
+//                        s.delete(s.length()-2, s.length()-1);
+//                    }
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                }
             }
         });
 

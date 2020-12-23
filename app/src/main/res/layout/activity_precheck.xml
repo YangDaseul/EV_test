@@ -5,14 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="activity" type="com.genesis.apps.ui.main.service.PrecheckActivity" />
+        <variable name="activity" type="com.genesis.apps.ui.main.service.ServiceRepair2PreCheckActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/x_ffffff"
-        tools:context=".ui.main.service.PrecheckActivity">
+        tools:context=".ui.main.service.ServiceRepair2PreCheckActivity">
 
         <!-- 타이틀바-->
         <include
