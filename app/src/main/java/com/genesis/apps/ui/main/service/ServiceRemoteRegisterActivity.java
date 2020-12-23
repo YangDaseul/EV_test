@@ -338,18 +338,6 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                     showProgressDialog(false);
                     data = result.data;
 
-                    // TODO : 더미 데이터. 실제 빌드시 삭제 필요.
-                    String dummyData = "{" +
-                            "\"rtCd\":\"0000\"," +
-                            "\"rtMsg\":\"Success\"," +
-                            "\"rmtExitYn\":\"N\"," +
-                            "\"carRgstNo\":\"123가4565\"," +
-                            "\"celphNo\":\"010-1234-5678\"," +
-                            "\"sosStusCd\":\"S\"," +
-                            "\"tmpAcptNo\":\"testno11\"" +
-                            "}";
-                    data = new Gson().fromJson(dummyData, RMT_1001.Response.class);
-
                     if (data != null) {
                         if (BaseResponse.RETURN_CODE_SUCC.equals(data.getRtCd())) {
                             // 성공.

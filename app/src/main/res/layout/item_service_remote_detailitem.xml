@@ -28,7 +28,6 @@
             android:background="@color/x_f8f8f8"
             android:gravity="center_vertical"
             android:paddingStart="15dp"
-            android:text="배터리"
             android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@id/tv_detail"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -55,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/x_e5e5e5"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@id/tv_detail"
             app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toTopOf="parent" />

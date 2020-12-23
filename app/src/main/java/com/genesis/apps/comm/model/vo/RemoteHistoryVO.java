@@ -4,6 +4,8 @@ import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,6 +25,8 @@ import lombok.EqualsAndHashCode;
  * YYYYMMDDHH24MISS
  * @see #aplyStusCd 신청상태코드
  * R':신청 / W:대기 / D:확정 / E:완료 / F:통신상태불량  'C':취소
+ * @see #chckCmnt 점검결과 Comment
+ * @see #chckItemList 점검항목리스트
  */
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
@@ -49,4 +53,11 @@ class RemoteHistoryVO extends BaseData {
     @Expose
     @SerializedName("aplyStusCd")
     private String aplyStusCd;
+
+    @Expose
+    @SerializedName("chckCmnt")
+    private String chckCmnt;
+    @Expose
+    @SerializedName("chckItemList")
+    private List<RemoteCheckVO> chckItemList;
 }

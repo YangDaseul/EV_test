@@ -317,7 +317,6 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
          * @param coupons      잔여 쿠폰 데이터.
          */
         private void bindReplacements(Context context, ItemDatamilesBinding binding, Replacements.Response replacements, List<CouponVO> coupons) {
-            Log.d("FID", "test :: 1111 :: replacements=" + replacements);
             if (replacements == null) {
                 return;
             }
