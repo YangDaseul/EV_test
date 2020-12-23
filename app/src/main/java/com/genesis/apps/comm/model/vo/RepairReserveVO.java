@@ -298,6 +298,25 @@ class RepairReserveVO extends BaseData {
     private String mbrNm;
 
 
+
+    //픽업외관체크 Uri  ->Y: 이력있음  N:이력 없음
+    //Y시 APP은 픽업이력 버튼 활성화  N:비활성화
+    @Expose
+    @SerializedName("pckpExtapChkYn")
+    private String pckpExtapChkYn;
+    @Expose
+    @SerializedName("pckpExtapChkUri")
+    private String pckpExtapChkUri;
+    //딜리버리외관체크 Uri  ->Y: 이력있음  N:이력 없음
+    //Y시 APP은 딜리버리이력 버튼 활성화  N:비활성화
+    @Expose
+    @SerializedName("dlvryExtapChkYn")
+    private String dlvryExtapChkYn;
+    @Expose
+    @SerializedName("dlvryExtapChkUri")
+    private String dlvryExtapChkUri;
+
+
     //REQ-1013 홈투홈예약현황 및 에어포트 예약현황
 //    @Expose
 //    @SerializedName("pkckExtapChkUri") //pkckExtapChkUri

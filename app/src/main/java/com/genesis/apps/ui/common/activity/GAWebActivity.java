@@ -128,7 +128,7 @@ public class GAWebActivity extends WebviewActivity {
             if(titleId==0){
                 ui.lTitle.lTitleBar.setVisibility(View.GONE);
             }else{
-                ui.lTitle.setValue(getString(titleId));
+                ui.setValue(getString(titleId));
                 ui.lTitle.lTitleBar.setVisibility(View.VISIBLE);
             }
         }

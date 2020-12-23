@@ -7,12 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.ConcatAdapter;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.REQ_1013;
@@ -27,18 +21,23 @@ import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.FragmentServiceRepairStatusBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
+import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
-import com.genesis.apps.ui.main.MainActivity;
-import com.genesis.apps.ui.main.home.WarrantyRepairGuideActivity;
 import com.genesis.apps.ui.main.service.view.ServiceRepairCurrentStatusAdapter;
 import com.genesis.apps.ui.main.service.view.ServiceRepairReserveStatusAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ConcatAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class FragmentServiceRepairStatus extends SubFragment<FragmentServiceRepairStatusBinding> {
 
@@ -92,7 +91,28 @@ public class FragmentServiceRepairStatus extends SubFragment<FragmentServiceRepa
 
     @Override
     public void onClickCommon(View v) {
+        RepairReserveVO repairReserveVO;
         switch (v.getId()) {
+            case R.id.btn_pckp_extap_chk://홈투홈 픽업 이력 보기
+                repairReserveVO = (RepairReserveVO)v.getTag(R.id.item);
+                if(repairReserveVO!=null&&!TextUtils.isEmpty(repairReserveVO.getPckpExtapChkUri())){
+                    ((SubActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class)
+                            .putExtra(KeyNames.KEY_NAME_URL, repairReserveVO.getPckpExtapChkUri())
+                            .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.sm_r_rsv05_40), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                }else{
+                    SnackBarUtil.show(getActivity(), "픽업 이력이 존재하지 않습니다.");
+                }
+                break;
+            case R.id.btn_dlvry_extap_chk://홈투홈 딜리버리 이력 보기
+                repairReserveVO = (RepairReserveVO)v.getTag(R.id.item);
+                if(repairReserveVO!=null&&!TextUtils.isEmpty(repairReserveVO.getDlvryExtapChkUri())){
+                    ((SubActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class)
+                            .putExtra(KeyNames.KEY_NAME_URL, repairReserveVO.getDlvryExtapChkUri())
+                            .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.sm_r_rsv05_41), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                }else{
+                    SnackBarUtil.show(getActivity(), "딜리버리 이력이 존재하지 않습니다.");
+                }
+                break;
             case R.id.btn_cancel:
                 int pos = 0;
 
@@ -102,7 +122,7 @@ public class FragmentServiceRepairStatus extends SubFragment<FragmentServiceRepa
                     e.printStackTrace();
                 } finally {
                     if (pos != 0) {
-                        RepairReserveVO repairReserveVO = serviceRepairReserveStatusAdapter.getItem(pos);
+                        repairReserveVO = serviceRepairReserveStatusAdapter.getItem(pos);
                         if (repairReserveVO != null
                                 && !TextUtils.isEmpty(repairReserveVO.getRparRsvtSeqNo())) {
                             selectRsvtCnclCd(repairReserveVO.getRparRsvtSeqNo(), repairReserveVO.getRsvtTypCd());

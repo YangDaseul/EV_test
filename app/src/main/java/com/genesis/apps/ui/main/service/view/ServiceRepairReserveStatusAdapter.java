@@ -189,10 +189,15 @@ public class ServiceRepairReserveStatusAdapter extends BaseRecyclerViewAdapter2<
         @Override
         public void onBindView(RepairReserveVO item, int pos, SparseBooleanArray selectedItems) {
             getBinding().setAdapter(serviceRepairReserveStatusAdapter);
+            getBinding().setListener(onSingleClickListener);
             getBinding().setData(item);
             getBinding().lDetail.setVisibility(selectedItems.get(pos) ? View.VISIBLE : View.GONE);
             getBinding().btnCancel.setTag(R.id.position, pos);
             getBinding().btnArrow.setTag(R.id.position, pos);
+
+            getBinding().btnDlvryExtapChk.setTag(R.id.item, item);
+            getBinding().btnPckpExtapChk.setTag(R.id.item, item);
+
             getBinding().btnArrow.setImageResource(selectedItems.get(pos) ? R.drawable.btn_arrow_close : R.drawable.btn_arrow_open);
 //            serviceRepairReserveStatusAdapter.changeVisibility(getBinding().lDetail, selectedItems.get(pos), pos);
         }

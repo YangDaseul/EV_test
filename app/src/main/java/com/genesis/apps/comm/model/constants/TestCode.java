@@ -3738,6 +3738,29 @@ public class TestCode {
             "      \"pbzAdr\": \"\",\n" +
             "      \"wrhsNo\": \"111111\",\n" +
             "      \"vhclInoutNo\": \"111111\",\n" +
+            "      \"pckpExtapChkYn\": \"Y\",\n" +
+            "      \"pckpExtapChkUri\": \"https://www.google.com\",\n" +
+            "      \"dlvryExtapChkYn\": \"N\",\n" +
+            "      \"dlvryExtapChkUri\": \"https://www.naver.com\",\n" +
+            "      \"repTn\": \"\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"rparRsvtSeqNo\": \"20091800000078\",\n" +
+            "      \"mbrNm\": \"댕댕이\",\n" +
+            "      \"hpNo\": \"01099990001\",\n" +
+            "      \"carRgstNo\": \"12가7887\",\n" +
+            "      \"rsvtTypCd\": \"HTOH\",\n" +
+            "      \"rsvtStusCd\": \"6800\",\n" +
+            "      \"rsvtNo\": \"12345678908988\",\n" +
+            "      \"rsvtHopeDt\": \"20201223\",\n" +
+            "      \"rsvtHopeTm\": \"\",\n" +
+            "      \"pckpAddr\": \"서울특별시 금천구 가산디지털1로 168, A동 1207호 &#40;가산동&#41; 우림라이온스밸리\",\n" +
+            "      \"dlvryAddr\": \"\",\n" +
+            "      \"asnCd\": \"232323\",\n" +
+            "      \"asnNm\": \"\",\n" +
+            "      \"pbzAdr\": \"\",\n" +
+            "      \"wrhsNo\": \"232323\",\n" +
+            "      \"vhclInoutNo\": \"232323\",\n" +
             "      \"repTn\": \"\"\n" +
             "    },\n" +
             "    {\n" +
@@ -3757,6 +3780,10 @@ public class TestCode {
             "      \"pbzAdr\": \"\",\n" +
             "      \"wrhsNo\": \"111111\",\n" +
             "      \"vhclInoutNo\": \"111111\",\n" +
+            "      \"pckpExtapChkYn\": \"Y\",\n" +
+            "      \"pckpExtapChkUri\": \"https://www.google.com\",\n" +
+            "      \"dlvryExtapChkYn\": \"N\",\n" +
+            "      \"dlvryExtapChkUri\": \"https://www.naver.com\",\n" +
             "      \"repTn\": \"\"\n" +
             "    },\n" +
             "    {\n" +
@@ -3795,6 +3822,10 @@ public class TestCode {
             "      \"pbzAdr\": \"\",\n" +
             "      \"wrhsNo\": \"111111\",\n" +
             "      \"vhclInoutNo\": \"111111\",\n" +
+            "      \"pckpExtapChkYn\": \"Y\",\n" +
+            "      \"pckpExtapChkUri\": \"https://www.google.com\",\n" +
+            "      \"dlvryExtapChkYn\": \"Y\",\n" +
+            "      \"dlvryExtapChkUri\": \"https://www.naver.com\",\n" +
             "      \"repTn\": \"\"\n" +
             "    },\n" +
             "    {\n" +
