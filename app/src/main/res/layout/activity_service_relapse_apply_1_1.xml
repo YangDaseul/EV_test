@@ -67,8 +67,7 @@
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/l_addr_dtl"
-                    app:layout_goneMarginTop="20dp">
+                    app:layout_constraintTop_toBottomOf="@+id/l_addr_dtl">
 
                     <TextView
                         android:id="@+id/tv_addr"

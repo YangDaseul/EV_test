@@ -21,7 +21,6 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/l_car_reg_no"
             style="@style/CommonTextInputLayout"
-            android:layout_marginTop="20dp"
             android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/tv_msg">
 
@@ -64,7 +63,6 @@
             android:id="@+id/l_addr"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_goneMarginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/l_addr_dtl">
