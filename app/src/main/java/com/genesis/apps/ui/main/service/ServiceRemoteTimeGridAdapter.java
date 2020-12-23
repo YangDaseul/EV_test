@@ -1,6 +1,5 @@
 package com.genesis.apps.ui.main.service;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +14,25 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
+ * Class Name : ServiceRemoteTimeGridAdapter
+ * 원격 진단 신청 - 시간 선택 다이얼로그의 시간 목록을 표시하기 위한 Adapter Class.
+ * <p>
  * Created by Ki-man Kim on 12/17/20
  */
 public class ServiceRemoteTimeGridAdapter extends RecyclerView.Adapter<ServiceRemoteTimeGridAdapter.ViewHolder>
         implements View.OnClickListener {
+    /**
+     * 현재 시간을 0시 부터 몇분 지났는지 값.
+     */
     private int nowTimeMin;
+    /**
+     * 시간대 데이터 목록
+     */
     private List<TimeVO> datas;
 
+    /**
+     * 시간대 선택 이벤트 Object.
+     */
     private OnItemSelectListener listener;
 
     interface OnItemSelectListener {
@@ -34,6 +45,9 @@ public class ServiceRemoteTimeGridAdapter extends RecyclerView.Adapter<ServiceRe
         nowTimeMin = getTimeMin(nowTime.get(Calendar.HOUR_OF_DAY), nowTime.get(Calendar.MINUTE));
     }
 
+    /****************************************************************************************************
+     * Override Method
+     ****************************************************************************************************/
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -67,14 +81,32 @@ public class ServiceRemoteTimeGridAdapter extends RecyclerView.Adapter<ServiceRe
         }
     }
 
+    /****************************************************************************************************
+     * Private Method
+     ****************************************************************************************************/
+    /**
+     * 시간과 분을 입력하여 0시 부터 몇분의 시간이 지난 상태인지 계산해주는 함수.
+     *
+     * @param hour   계산할 '시' 값.
+     * @param minute 계산할 '분' 값.
+     * @return 계산 결과.
+     */
     private int getTimeMin(int hour, int minute) {
         return hour * 60 + minute;
     }
 
+    /**
+     * 아이템 선택 이벤트 설정 함수.
+     *
+     * @param listener
+     */
     public void setListener(OnItemSelectListener listener) {
         this.listener = listener;
     }
 
+    /****************************************************************************************************
+     * Inner Class.
+     ****************************************************************************************************/
     /**
      * 상담 시간을 표시하기 위해 만든 상담 시간 목록 데이터 Object.
      * 패키지를 정리할 때 알맞는 위치로 변경이 필요해 보임.
@@ -99,6 +131,9 @@ public class ServiceRemoteTimeGridAdapter extends RecyclerView.Adapter<ServiceRe
         }
     } // end of class TimeVO
 
+    /**
+     * 시간 목록을 표시가기 위한 Item View Hodler Class.
+     */
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvTime;
 

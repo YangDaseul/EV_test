@@ -392,6 +392,11 @@
             android:name=".ui.main.service.ServiceRemoteRegisterActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+        <!--원격 진단 : 내역-->
+        <activity android:name=".ui.main.service.ServiceRemoteListActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.common.activity.test.TestActivity"
             android:exported="false"

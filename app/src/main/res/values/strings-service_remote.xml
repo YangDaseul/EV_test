@@ -23,7 +23,7 @@
 
     <string name="sm_remote01_fit_code_1000">차량 시동이 걸리지 않아요.</string>
     <string name="sm_remote01_fit_code_2000">가속이 너무 느려요.</string>
-    <string name="sm_remote01_fit_code_3000">계기판에 경고등 켜졌어요</string>
+    <string name="sm_remote01_fit_code_3000">계기판에 경고등 켜졌어요.</string>
     <string name="sm_remote01_fit_code_4000">기어가 작동하지 않아요.</string>
     <string name="sm_remote01_fit_code_5000">주차 브레이크가 풀리지 않아요.</string>
     <string name="sm_remote01_fit_code_6000">엔진이 과열되었어요.</string>
@@ -39,6 +39,7 @@
     <string name="sm_remote01_wrn_lght_code_3700">충전 경고등</string>
 
     <!--원격진단-->
+    <string name="sm_remote01_list_title">원격진단 신청내역</string>
     <string name="sm_remote01_dialog_title_error">원격진단 신청 불가</string>
     <string name="sm_remote01_service_time">상담 시간</string>
     <string name="sm_remote01_service_time_guide">상담 시간을\n선택해 주세요.</string>
@@ -54,6 +55,23 @@
     <string name="sm_remote01_input_complete">원격 진단을\n신청해주세요.</string>
     <string name="sm_remote01_next">다음</string>
     <string name="sm_remote01_submit">신청</string>
+    <string name="sm_remote01_cancel">예약 취소</string>
+    <string name="sm_remote01_detail_title_0">고장내용</string>
+    <string name="sm_remote01_detail_title_1">요청 항목</string>
+    <string name="sm_remote01_detail_title_2">기본 점검 항목</string>
+    <string name="sm_remote01_result">원격 진단 결과</string>
+
+    <string name="sm_remote01_status_0">예약 신청</string>
+    <string name="sm_remote01_status_1">예약 대기</string>
+    <string name="sm_remote01_status_2">예약 확정</string>
+    <string name="sm_remote01_status_3">진단 완료</string>
+    <string name="sm_remote01_status_4">통신 상태 불량</string>
+    <string name="sm_remote01_status_5">예약 취소</string>
+
+    <string name="sm_remote01_result_normal">정상</string>
+    <string name="sm_remote01_result_error">점검 필요</string>
+
+    <string name="sm_remote01_no_data">원격 진단 신청내역이 없습니다.</string>
 
     <string name="sm_remote01_guide_dot">ㆍ</string>
     <string name="sm_remote01_guide_0">원격진단 서비스를 신청하시면, 지정한 시간에 전화드리겠습니다.</string>
@@ -67,4 +85,11 @@
     <string name="sm_remote01_info_6">상담 결과는 차량 데이터를 원격에서 점검하여 추정한 결과로, 상세 점검을 위해서는 서비스센터 및 블루핸즈 방문이 필요합니다.</string>
 
     <string name="sm_remote01_msg_register_success">원격진단 서비스가 신청되었습니다.\n콜센터에서 진단을 위해 전화를 드립니다.\n진단은 정차한 상태에서 가능합니다.</string>
+    <string name="sm_remote01_msg_error_2401">현재 원격 진단 신청\n또는 진행 중 입니다.</string>
+    <string name="sm_remote01_msg_error_2402">현재 원격진단\n이용대상 차량이 아닙니다.\n\nGV80, GV70, The All-new Genesis G80\n차량만 서비스 제공이 가능합니다.</string>
+    <string name="sm_remote01_msg_error_2403">현재 원격진단 이용시간이 아닙니다.</string>
+    <string name="sm_remote01_msg_error_2404">현재 원격진단 이용이 어렵습니다.\n\nGCS 서비스 사용 신청하시고,\n차량 등록 후 이용해 주세요.</string>
+
+    <string name="sm_remote01_msg_cancel_success">원격진단 예약이 취소되었습니다.</string>
+    <string name="sm_remote01_msg_cancel_fail">원격진단 예약 취소가 실패했습니다.\n다시 시도해 주세요.</string>
 </resources>

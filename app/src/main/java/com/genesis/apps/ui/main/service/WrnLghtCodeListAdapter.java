@@ -1,6 +1,5 @@
 package com.genesis.apps.ui.main.service;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +13,26 @@ import com.genesis.apps.R;
 import java.util.List;
 
 /**
+ * Class Name : WrnLghtCodeListAdapter
+ * 경고등 표시를 위한 View Adapter Class.
+ * <p>
  * Created by Ki-man Kim on 12/16/20
  */
 public class WrnLghtCodeListAdapter extends RecyclerView.Adapter<WrnLghtCodeListAdapter.ViewHolder>
         implements View.OnClickListener {
+    /**
+     * 가로로 표시할 최대 갯수.
+     * 나중에 확장성도 고려를 해보기 위해 우선 변수로 제어하기 위해 만듬.
+     */
     private final int MAX_COLUMNS = 2;
+    /**
+     * 경고등 데이터 목록 Object.
+     */
     private List<ServiceRemoteRegisterActivity.WRN_LGHT_CODE> data;
 
+    /**
+     * 경고등 아이템 선택 이벤트 Object.
+     */
     private OnItemSelectListener listener;
 
     interface OnItemSelectListener {
@@ -31,6 +43,9 @@ public class WrnLghtCodeListAdapter extends RecyclerView.Adapter<WrnLghtCodeList
         this.data = data;
     }
 
+    /****************************************************************************************************
+     * Override Method
+     ****************************************************************************************************/
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -45,8 +60,6 @@ public class WrnLghtCodeListAdapter extends RecyclerView.Adapter<WrnLghtCodeList
         int startIndex = getStartIndex(position);
         int endIndex = startIndex + 1;
 
-        Log.d("FID", "test :: position=" + position);
-        Log.d("FID", "test :: startIndex=" + startIndex);
         if (startIndex < data.size()) {
             ServiceRemoteRegisterActivity.WRN_LGHT_CODE item = data.get(startIndex);
             holder.txtCode0.setText(item.messageResId());
@@ -72,10 +85,9 @@ public class WrnLghtCodeListAdapter extends RecyclerView.Adapter<WrnLghtCodeList
         return this.data != null ? (int) Math.ceil((float) this.data.size() / MAX_COLUMNS) : 0;
     }
 
-    private int getStartIndex(int position) {
-        return position * MAX_COLUMNS;
-    }
-
+    /****************************************************************************************************
+     * Override Method - Event
+     ****************************************************************************************************/
     @Override
     public void onClick(View v) {
         Object tag = v.getTag();
@@ -84,11 +96,40 @@ public class WrnLghtCodeListAdapter extends RecyclerView.Adapter<WrnLghtCodeList
         }
     }
 
+    /****************************************************************************************************
+     * Private Method
+     ****************************************************************************************************/
+    /**
+     * 시작 인덱스 설정 계산 함수.
+     * 데이터 배열에서 {@link MAX_COLUMNS} 만큼 나누어 표시를 위해 계산하는 함수.
+     *
+     * @param position
+     * @return
+     */
+    private int getStartIndex(int position) {
+        return position * MAX_COLUMNS;
+    }
+
+    /****************************************************************************************************
+     * Public Method
+     ****************************************************************************************************/
+    /**
+     * 경고등 아이템 선택 이벤트 설정 함수.
+     *
+     * @param listener
+     * @return {@link WrnLghtCodeListAdapter} Object.
+     */
     public WrnLghtCodeListAdapter setListener(OnItemSelectListener listener) {
         this.listener = listener;
         return this;
     }
 
+    /****************************************************************************************************
+     * Inner Class
+     ****************************************************************************************************/
+    /**
+     * 경고등 Item View Holder Class.
+     */
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtCode0;
         TextView txtCode1;

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.Gravity" />
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--신청 날짜 및 시간-->
+        <TextView
+            android:id="@+id/tv_service_remote_date"
+            style="@style/ServiceRemote.TextView_Font_RGSTG.262626"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--원격 신청 상태-->
+        <TextView
+            android:id="@+id/tv_service_remote_status"
+            style="@style/ServiceRemote.TextView_Font_RGSTG"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:textColor="#996449"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_service_remote_date" />
+
+
+        <!--고장 타이틀-->
+        <TextView
+            android:id="@+id/tv_service_remote_detail_title"
+            style="@style/ServiceRemote.TextView_Font_RGSTG.Black"
+            android:layout_width="81dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/x_f8f8f8"
+            android:gravity="center"
+            android:text="@string/sm_remote01_detail_title_0"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/tv_service_remote_detail_desc"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_remote_date" />
+
+        <!--고장 내용-->
+        <TextView
+            android:id="@+id/tv_service_remote_detail_desc"
+            style="@style/ServiceRemote.TextView_Font_RGSTG.262626"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center_vertical"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_service_remote_detail_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_service_remote_detail_title"
+            app:layout_constraintTop_toTopOf="@id/tv_service_remote_detail_title" />
+
+        <!--고장 내용 상단 라인-->
+        <View
+            android:id="@+id/line0"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/x_e5e5e5"
+            app:layout_constraintEnd_toEndOf="@id/tv_service_remote_detail_desc"
+            app:layout_constraintStart_toStartOf="@id/tv_service_remote_detail_title"
+            app:layout_constraintTop_toTopOf="@id/tv_service_remote_detail_title" />
+
+        <!--고장 내용 하단 라인-->
+        <View
+            android:id="@+id/line1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/x_e5e5e5"
+            app:layout_constraintBottom_toBottomOf="@id/tv_service_remote_detail_title"
+            app:layout_constraintEnd_toEndOf="@id/tv_service_remote_detail_desc"
+            app:layout_constraintStart_toStartOf="@id/tv_service_remote_detail_title" />
+
+        <!--원격 진단 결과 타이틀-->
+        <TextView
+            android:id="@+id/tv_service_remote_detail_btn"
+            style="@style/ServiceRemote.TextView_Font_LGSHG.Black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:clickable="true"
+            android:drawableEnd="@drawable/selector_service_remote_detail_arrow"
+            android:gravity="center_vertical"
+            android:text="@string/sm_remote01_result"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line1" />
+
+        <LinearLayout
+            android:id="@+id/l_service_remote_detail_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_remote_detail_btn">
+
+            <!--요청 항목 타이틀-->
+            <TextView
+                style="@style/ServiceRemote.TextView_Font_LGSHG.Black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/sm_remote01_detail_title_1"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_service_remote_detail_btn" />
+
+            <!--요청 항목-->
+            <TextView
+                android:id="@+id/tv_service_remote_detail_request"
+                style="@style/ServiceRemote.TextView_Font_RGSTG.262626"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/x_f8f8f8"
+                android:paddingStart="15dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="20dp"
+                android:textSize="14sp" />
+
+
+            <!--기본 점검 항목 타이틀-->
+            <TextView
+                style="@style/ServiceRemote.TextView_Font_LGSHG.Black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/sm_remote01_detail_title_2"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_service_remote_detail_btn" />
+
+            <!--기본 점검 항목 목록-->
+            <LinearLayout
+                android:id="@+id/l_service_remote_detail_basic_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--예약 취소 버튼-->
+        <TextView
+            android:id="@+id/tv_service_remote_cancel_btn"
+            style="@style/ServiceRemote.TextView_Font_RGSTG.White"
+            android:layout_width="0dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/x_111111"
+            android:gravity="center"
+            android:text="@string/sm_remote01_cancel"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/l_service_remote_detail_container" />
+
+        <!--맨 하단 라인-->
+        <View
+            android:id="@+id/line2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="30dp"
+            android:background="@color/x_e5e5e5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_remote_cancel_btn" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -77,6 +77,15 @@
                 app:icon="@{@drawable/ic_service_customercenter}"
                 app:title="@{@string/sm01_maintenance_9}" />
 
+            <!--  정비 원격 진단 내역 -->
+            <include
+                android:id="@+id/l_service_maintenance_remote_servie_list_btn"
+                layout="@layout/item_service_maintenance"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
+                app:desc="@{@string/sm01_maintenance_16}"
+                app:icon="@{@drawable/ic_service_customercenter}"
+                app:title="@{@string/sm01_maintenance_15}" />
+
             <!--  정비 재발 -->
             <include
                 android:id="@+id/l_service_maintenance_defect_btn"
