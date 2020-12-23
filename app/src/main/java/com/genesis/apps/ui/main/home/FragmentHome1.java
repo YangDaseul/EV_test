@@ -613,11 +613,15 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 recordUtil.checkRecordPermission();
                 break;
             case GM_BTO1://BTO
-                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_APP_IA_INFO, GM_BTO1), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class)
+                        .putExtra(KeyNames.KEY_NAME_APP_IA_INFO, GM_BTO1)
+                        .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.gm03_4), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 //                lgnViewModel.reqSTO1002(new STO_1002.Request(APPIAInfo.GM01.getId()));
                 break;
             case GM_BTO2://견적내기
-                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_APP_IA_INFO, GM_BTO2), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class)
+                        .putExtra(KeyNames.KEY_NAME_APP_IA_INFO, GM_BTO2)
+                        .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.gm03_3), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case GM02_CTR01://계약서 조회
                 //todo 전문 확인 필요

@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 
+import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.RepairGroupVO;
 import com.genesis.apps.comm.model.vo.RepairReserveDateVO;
@@ -31,20 +32,19 @@ import androidx.core.content.ContextCompat;
 
 public class DialogCalendarRepair extends BaseBottomDialog<DialogBottomCalendarBinding> {
 
-    private DayViewDecorator weekendsDecorator;
     private HighlightWeekendsDecorator highlightWeekendsDecorator = new HighlightWeekendsDecorator();
     private RemoveWeekendsDecorator removeWeekendsDecorator = new RemoveWeekendsDecorator();
     private SelectedDayDecorator selectedDayDecorator = new SelectedDayDecorator(0);
+    private RejectDecorator rejectDecorator = new RejectDecorator();
     public Calendar calendar = null;
     private Calendar calendarMaximum;
     private Calendar calendarMinimum;
     private String title;
     private RepairGroupVO repairGroupVO;
-
     private List<RepairReserveDateVO> reserveDateVOList;
+    private boolean isRemoveWeekends=false;
 
     private RepairReserveDateVO selectReserveDate = new RepairReserveDateVO();
-
     private OnSingleClickListener onSingleClickListener;
 
     public DialogCalendarRepair(@NonNull Context context, int theme, OnSingleClickListener onSingleClickListener) {
@@ -58,14 +58,16 @@ public class DialogCalendarRepair extends BaseBottomDialog<DialogBottomCalendarB
         setContentView(R.layout.dialog_bottom_calendar);
         setAllowOutTouch(true);
         ui.lTitle.setValue(title);
-
-        weekendsDecorator =  highlightWeekendsDecorator;
-
-        ui.calendarView.addDecorator(weekendsDecorator);
+        ui.calendarView.setDynamicHeightEnabled(true); //달력 높이를 wrap로 설정
+        ui.calendarView.addDecorator(highlightWeekendsDecorator);
+        if(isRemoveWeekends) ui.calendarView.addDecorator(removeWeekendsDecorator);
+        if(getReserveDateVOList()!=null) ui.calendarView.addDecorator(rejectDecorator);
         ui.calendarView.setOnDateChangedListener((widget, date, selected) -> {
             ui.calendarView.removeDecorator(selectedDayDecorator);
             selectedDayDecorator.setDaySelected(ui.calendarView.getSelectedDate().getDay());
-            ui.calendarView.addDecorators( weekendsDecorator, selectedDayDecorator);
+            ui.calendarView.addDecorators( highlightWeekendsDecorator, selectedDayDecorator);
+            if(isRemoveWeekends) ui.calendarView.addDecorator(removeWeekendsDecorator);
+            if(getReserveDateVOList()!=null) ui.calendarView.addDecorator(rejectDecorator);
             selectRsvtDt(DateUtil.getDate(ui.calendarView.getSelectedDate().getCalendar().getTime(),DateUtil.DATE_FORMAT_yyyyMMdd));
         });
 
@@ -75,7 +77,11 @@ public class DialogCalendarRepair extends BaseBottomDialog<DialogBottomCalendarB
 
 
         ui.calendarView.setOnMonthChangedListener((widget, date) -> {
-            ui.calendarView.removeDecorator(selectedDayDecorator);
+            if(ui.calendarView.getSelectedDate()!=null) {
+                ui.calendarView.clearSelection();
+                ui.calendarView.removeDecorator(selectedDayDecorator);
+                selectRsvtDt("");
+            }
         });
 
         ui.btnNext.setOnClickListener(new OnSingleClickListener() {
@@ -119,14 +125,11 @@ public class DialogCalendarRepair extends BaseBottomDialog<DialogBottomCalendarB
         selectReserveDate.setRsvtTm("");//예약가능시간 초기화
         ui.tvRsvthopetm.setVisibility(View.INVISIBLE);
         ui.btnTime10.setVisibility(View.GONE);
-        ui.btnTime10.setTextAppearance(R.style.BtrFilterDisable);
-        ui.btnTime10.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_4d141414);
         ui.btnTime14.setVisibility(View.GONE);
-        ui.btnTime14.setTextAppearance(R.style.BtrFilterDisable);
-        ui.btnTime14.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_4d141414);
-
+        Paris.style(ui.btnTime14).apply(R.style.BtrFilterDisable2);
+        Paris.style(ui.btnTime10).apply(R.style.BtrFilterDisable2);
         repairGroupVO = null;
-        ui.tvRepairGroup.setTextAppearance(R.style.CommonSpinnerItemDisable);
+        Paris.style(ui.tvRepairGroup).apply(R.style.CommonSpinnerItemDisable);
         ui.tvRepairGroup.setText(R.string.sm_r_rsv02_04_12);
 
 
@@ -147,6 +150,7 @@ public class DialogCalendarRepair extends BaseBottomDialog<DialogBottomCalendarB
 
         if(cnt==0){
             ui.tvRsvthopetm.setVisibility(View.VISIBLE);
+            ui.tvRsvthopetm.setText(R.string.sm_r_rsv02_04_18);
         }
     }
 
@@ -154,16 +158,12 @@ public class DialogCalendarRepair extends BaseBottomDialog<DialogBottomCalendarB
         selectReserveDate.setRsvtTm(v.getTag().toString());
         switch (v.getId()){
             case R.id.btn_time_10:
-                ui.btnTime10.setTextAppearance(R.style.BtrFilterEnable);
-                ui.btnTime10.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414_2dp);
-                ui.btnTime14.setTextAppearance(R.style.BtrFilterDisable);
-                ui.btnTime14.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_4d141414);
+                Paris.style(ui.btnTime10).apply(R.style.BtrFilterEnable2);
+                Paris.style(ui.btnTime14).apply(R.style.BtrFilterDisable2);
                 break;
             case R.id.btn_time_14:
-                ui.btnTime10.setTextAppearance(R.style.BtrFilterDisable);
-                ui.btnTime10.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_4d141414);
-                ui.btnTime14.setTextAppearance(R.style.BtrFilterEnable);
-                ui.btnTime14.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414_2dp);
+                Paris.style(ui.btnTime14).apply(R.style.BtrFilterEnable2);
+                Paris.style(ui.btnTime10).apply(R.style.BtrFilterDisable2);
                 break;
         }
     };
@@ -179,6 +179,13 @@ public class DialogCalendarRepair extends BaseBottomDialog<DialogBottomCalendarB
         this.calendarMaximum = calendarMaximum;
     }
 
+    public boolean isRemoveWeekends() {
+        return isRemoveWeekends;
+    }
+
+    public void setRemoveWeekends(boolean removeWeekends) {
+        isRemoveWeekends = removeWeekends;
+    }
     public List<RepairReserveDateVO> getReserveDateVOList() {
         return reserveDateVOList;
     }
@@ -194,7 +201,7 @@ public class DialogCalendarRepair extends BaseBottomDialog<DialogBottomCalendarB
     public void setSelectRepairGroup(RepairGroupVO repairGroupVO) {
         this.repairGroupVO = repairGroupVO;
         ui.tvRepairGroup.setText(repairGroupVO.getRpshGrpNm());
-        ui.tvRepairGroup.setTextAppearance(R.style.CommonSpinnerItemEnable);
+        Paris.style(ui.tvRepairGroup).apply(R.style.CommonSpinnerItemEnable);
     }
 
     public RepairGroupVO getRepairGroupVO() {
@@ -204,7 +211,8 @@ public class DialogCalendarRepair extends BaseBottomDialog<DialogBottomCalendarB
     public class HighlightWeekendsDecorator implements DayViewDecorator {
 
         private final Drawable highlightDrawable;
-        private final int color = Color.parseColor("#ba544d");
+        private final int color = Color.parseColor("#ce2d2d");
+        private final int disableColor = Color.parseColor("#33ce2d2d");
 
         public HighlightWeekendsDecorator() {
             highlightDrawable = new ColorDrawable(color);
@@ -219,7 +227,11 @@ public class DialogCalendarRepair extends BaseBottomDialog<DialogBottomCalendarB
 
         @Override public void decorate(final DayViewFacade view) {
 //            view.setBackgroundDrawable(highlightDrawable);
-            view.addSpan(new ForegroundColorSpan(color));
+            if(isRemoveWeekends){
+                view.addSpan(new ForegroundColorSpan(disableColor));
+            }else {
+                view.addSpan(new ForegroundColorSpan(color));
+            }
 //            view.addSpan(new ForegroundColorSpan(R.style.calendarStyleWeekendValue));
         }
     }
@@ -245,7 +257,6 @@ public class DialogCalendarRepair extends BaseBottomDialog<DialogBottomCalendarB
 //            view.setBackgroundDrawable(highlightDrawable);
 //            view.addSpan(new ForegroundColorSpan(color));
             view.setDaysDisabled(true);
-            view.addSpan(new ForegroundColorSpan(color));
 //            view.addSpan(new ForegroundColorSpan(R.style.calendarStyleWeekendValue));
         }
     }
@@ -275,6 +286,33 @@ public class DialogCalendarRepair extends BaseBottomDialog<DialogBottomCalendarB
 
         public void setDaySelected(int daySelected){
             this.daySelected = daySelected;
+        }
+    }
+
+    public class RejectDecorator implements DayViewDecorator {
+
+        public RejectDecorator() {
+        }
+
+        @Override public boolean shouldDecorate(final CalendarDay day) {
+            if (getReserveDateVOList() != null) {
+                String checkDay = DateUtil.getDate(day.getCalendar().getTime(), DateUtil.DATE_FORMAT_yyyyMMdd);
+                boolean isPossible = false;
+                for (RepairReserveDateVO repairReserveDateVO : getReserveDateVOList()) {
+                    if (!TextUtils.isEmpty(repairReserveDateVO.getRsvtDt()) && repairReserveDateVO.getRsvtDt().equalsIgnoreCase(checkDay)) {
+                        isPossible = true;
+                        break;
+                    }
+                }
+
+                return !isPossible;
+            } else {
+                return false;
+            }
+        }
+
+        @Override public void decorate(final DayViewFacade view) {
+            view.setDaysDisabled(true);
         }
     }
 

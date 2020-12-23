@@ -7,20 +7,17 @@ import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebChromeClient;
 
-import androidx.annotation.Nullable;
-
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.STO_1002;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
-import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.BtoVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
-import com.genesis.apps.ui.main.MainActivity;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
 

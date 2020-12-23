@@ -214,6 +214,23 @@
         <item name="layout_constraintStart_toStartOf">parent</item>
     </style>
 
+    <!-- 수정불가한 텍스트 뷰-->
+    <style name="CommonTextViewFix2">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:background">@color/x_f8f8f8</item>
+        <item name="android:gravity">center</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">16sp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">14sp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+    </style>
+
 
 
 </resources>

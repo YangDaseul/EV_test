@@ -22,6 +22,7 @@ import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringRe2j;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.ActivityServiceRepair3CheckBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -53,30 +54,13 @@ public class ServiceRepair3CheckActivity extends SubActivity<ActivityServiceRepa
     }
 
     private void initEditView() {
-        edits = new View[]{ui.etVrn, ui.etTel, ui.etRqrm};
+        edits = new View[]{ui.etVrn, ui.etTel};
         ui.etTel.setOnEditorActionListener(editorActionListener);
         ui.etTel.setOnFocusChangeListener(focusChangeListener);
         ui.etVrn.setOnEditorActionListener(editorActionListener);
         ui.etVrn.setOnFocusChangeListener(focusChangeListener);
-        ui.etTel.setText(TextUtils.isEmpty(repairReserveVO.getHpNo()) ? "" : repairReserveVO.getHpNo());
+        ui.etTel.setText(TextUtils.isEmpty(repairReserveVO.getHpNo()) ? "" : StringUtil.parsingPhoneNumber(repairReserveVO.getHpNo()));
         ui.etVrn.setText(TextUtils.isEmpty(repairReserveVO.getCarRgstNo()) ? "" : repairReserveVO.getCarRgstNo());
-
-        ui.etRqrm.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                ui.tvRqrmCnt.setText(charSequence.length() + "");
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
     }
 
     @Override
@@ -84,15 +68,6 @@ public class ServiceRepair3CheckActivity extends SubActivity<ActivityServiceRepa
         switch (v.getId()) {
             case R.id.btn_next://다음
                 doNext();
-                break;
-            case R.id.iv_arrow:
-                if (ui.lBackground.getVisibility() == View.VISIBLE) {
-                    ui.ivArrow.setImageResource(R.drawable.btn_accodian_open);
-                    InteractionUtil.collapse(ui.lBackground, null);
-                } else {
-                    ui.ivArrow.setImageResource(R.drawable.btn_accodian_close);
-                    InteractionUtil.expand2(ui.lBackground, () -> ui.sc.fullScroll(View.FOCUS_DOWN));
-                }
                 break;
         }
     }
@@ -107,7 +82,8 @@ public class ServiceRepair3CheckActivity extends SubActivity<ActivityServiceRepa
     private void doNext() {
         if (isValid()) {
             clearKeypad();
-            repairReserveVO.setRqrm(ui.etRqrm.getText().toString().trim());
+            //todo 사전문진에 대한 데이터로 채워야함
+//            repairReserveVO.setRqrm(ui.etRqrm.getText().toString().trim());
             repairReserveVO.setHpNo(ui.etTel.getText().toString().trim().replaceAll("-", ""));
             repairReserveVO.setCarRgstNo(ui.etVrn.getText().toString().trim());
             Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create(); //expose처리되어 있는 필드에 대해서만 파싱 진행

@@ -87,15 +87,15 @@
 
             <TextView
                 android:id="@+id/tv_rsvthopetm"
-                style="@style/CommonTextViewFix"
-                android:text="@string/sm_r_rsv02_04_14"
+                style="@style/CommonTextViewFix2"
+                android:text="@string/sm_r_rsv02_04_18"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_rsvthopetm"/>
 
             <TextView
                 android:id="@+id/btn_time_10"
-                style="@style/BtrFilterEnable"
+                style="@style/BtrFilterEnable2"
                 android:text="@string/sm_r_rsv02_04_15"
                 android:tag="1000"
                 android:visibility="gone"
@@ -107,14 +107,16 @@
 
             <TextView
                 android:id="@+id/btn_time_14"
-                style="@style/BtrFilterDisable"
+                style="@style/BtrFilterDisable2"
                 android:text="@string/sm_r_rsv02_04_16"
                 android:tag="1400"
                 android:visibility="gone"
+                android:layout_marginStart="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btn_time_10"
                 app:layout_constraintTop_toTopOf="@+id/btn_time_10"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_time_10"
+                app:layout_goneMarginStart="0dp"
                 tools:visibility="gone"/>
 
             <TextView

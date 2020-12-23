@@ -7,7 +7,6 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.vo.RepairReserveVO;
-import com.genesis.apps.databinding.ActivityServiceHometohome4ResultBinding;
 import com.genesis.apps.databinding.ActivityServiceRepair4ResultBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 

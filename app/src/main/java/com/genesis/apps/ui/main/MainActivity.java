@@ -205,8 +205,6 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         Log.e("onResume","onReusme Mainactivity");
         checkPushCode();
         reqNewNotiCnt();
-
-        lgnViewModel.reqLGN0007(new LGN_0007.Request(""));
 //        FirebaseMessagingService.notifyMessageTest(this, new PushVO(), PushCode.CAT_0E);
     }
 

@@ -18,6 +18,7 @@
     <string name="sm_r_rsv02_04_15">10:00</string>
     <string name="sm_r_rsv02_04_16">14:00</string>
     <string name="sm_r_rsv02_04_17">정비소 선택</string>
+    <string name="sm_r_rsv02_04_18">예약 날짜를 선택해 주세요.</string>
 
     <string name="sm_r_rsv03_04_1">정비소 예약 정보를\n확인해 주세요.</string>
     <string name="sm_r_rsv03_04_2">예약 내역을 확인하고,\n아래 다음 버튼을 누르시면,\n정비소 에약이 완료됩니다.</string>
@@ -44,6 +45,8 @@
     <string name="sm_r_rsv04_04_10">휴대폰 번호</string>
     <string name="sm_r_rsv04_04_11">차량 번호</string>
     <string name="sm_r_rsv04_04_12">예약 확인</string>
+    <string name="sm_r_rsv04_04_13">예약번호</string>
+    <string name="sm_r_rsv04_04_14">예약 정보</string>
 
 
     <string name="sm_r_rsv05_1">정비 현황 / 예약</string>
