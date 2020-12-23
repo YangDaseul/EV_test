@@ -2,17 +2,16 @@ package com.genesis.apps.ui.main.service;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.ChangeBounds;
 import androidx.transition.Transition;
@@ -30,7 +29,6 @@ import com.genesis.apps.comm.model.vo.RepairReserveVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.DateUtil;
-import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.ActivityServiceAutocare2Apply1Binding;
@@ -124,7 +122,10 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
         switch (v.getId()){
             //에약서비스선택
             case R.id.tv_autocare_service:
-            case R.id.btn_change_autocare_service:
+            case R.id.tv_reservation_1:
+            case R.id.tv_reservation_2:
+            case R.id.tv_reservation_3:
+            case R.id.tv_reservation_4:
                 selectAutocareService();
                 break;
             //주소검색
@@ -343,17 +344,33 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
     }
 
     /**
-     * @brief 예약 서비스 tag 갱신
+     * @brief 예약 서비스 갱신
      */
-    private void setViewAutocareServiceTag() {
-            Typeface typeface = ResourcesCompat.getFont(this, R.font.regular_genesissanstextglobal);
-            ui.tagAutocareService.removeAllTags();
-            ui.tagAutocareService.setTagTextSize(DeviceUtil.dip2Pixel(this, 15));
-            ui.tagAutocareService.setTagTypeface(typeface);
-//        getBinding().tag.setGravity(Gravity.CENTER);
-            for(CouponVO couponVO : selectCouponList){
-                ui.tagAutocareService.addTag(couponVO.getItemNm());
+    private void setViewAutoCareService() {
+        TextView[] textViews = {ui.tvReservation1, ui.tvReservation2, ui.tvReservation3, ui.tvReservation4};
+
+        //뷰 초기화
+        for(TextView textView : textViews){
+            textView.setVisibility(View.GONE);
+            textView.setText("");
+        }
+        //뷰 SET
+        for(CouponVO couponVO : selectCouponList){
+            if(!TextUtils.isEmpty(couponVO.getItemNm())) {
+                for (TextView textView : textViews) {
+                    if(TextUtils.isEmpty(textView.getText().toString())){
+                        textView.setVisibility(View.VISIBLE);
+                        textView.setText(couponVO.getItemNm());
+                        if(textView==ui.tvReservation1){
+                            ui.tvReservation2.setVisibility(View.INVISIBLE);
+                        }else if(textView==ui.tvReservation3){
+                            ui.tvReservation4.setVisibility(View.INVISIBLE);
+                        }
+                        break;
+                    }
+                }
             }
+        }
     }
 
 
@@ -361,19 +378,19 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
 
         if(selectCouponList==null||selectCouponList.size()<1){
             ui.tvTitleAutocareService.setVisibility(View.GONE);
-            ui.tagAutocareService.setVisibility(View.GONE);
-            ui.btnChangeAutocareService.setVisibility(View.GONE);
+            ui.tvReservation1.setVisibility(View.GONE);
+            ui.tvReservation2.setVisibility(View.GONE);
+            ui.tvReservation3.setVisibility(View.GONE);
+            ui.tvReservation4.setVisibility(View.GONE);
             ui.tvAutocareService.setVisibility(View.VISIBLE);
             ui.tvErrorAutocareService.setVisibility(View.VISIBLE);
             ui.tvErrorAutocareService.setText(R.string.sm_r_rsv02_01_17);
             return false;
         }else{
             ui.tvTitleAutocareService.setVisibility(View.VISIBLE);
-            ui.tagAutocareService.setVisibility(View.VISIBLE);
-            ui.btnChangeAutocareService.setVisibility(View.VISIBLE);
             ui.tvAutocareService.setVisibility(View.GONE);
             ui.tvErrorAutocareService.setVisibility(View.GONE);
-            setViewAutocareServiceTag();
+            setViewAutoCareService();
             doTransition(1);
             return true;
         }
@@ -456,7 +473,7 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
             ui.tvAddr.setTextColor(getColor(R.color.x_aaabaf));
             ui.tvAddr.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
             ui.tvAddr.setText(R.string.sm_r_rsv02_01_7);
-            ui.tvTitleAddr.setVisibility(View.INVISIBLE);
+            ui.tvTitleAddr.setVisibility(View.GONE);
             return false;
         }else{
             ui.tvErrorAddr.setVisibility(View.INVISIBLE);

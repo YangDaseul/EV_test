@@ -21,7 +21,7 @@
 
     <string name="sm_r_rsv03_1">정비 예약</string>
     <string name="sm_r_rsv03_2">오토케어 예약 정보를\n확인해 주세요.</string>
-    <string name="sm_r_rsv03_3">예약 내역을 확인하고,\n아래 다음 버튼을 누르시면 예약 신청이 완료되고, 콜센터에서 예약 확정 통화를 드립니다.</string>
+    <string name="sm_r_rsv03_3">예약 내역을 확인하고,\n아래 다음 버튼을 누르시면 예약 신청이 완료되고,\n콜센터에서 예약 확정 통화를 드립니다.</string>
     <string name="sm_r_rsv03_4">예약 정보</string>
     <string name="sm_r_rsv03_5">주소</string>
     <string name="sm_r_rsv03_6">일시</string>

@@ -43,9 +43,8 @@
 
         <TextView
             android:id="@+id/tv_category_1"
-            style="@style/BtrFilterEnable"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="30dp"
+            style="@style/BtrFilterEnable2"
+            android:layout_marginTop="20dp"
             android:text="@string/sm_r_rsv02_01_p02_2"
             android:tag="A"
             android:visibility="gone"
@@ -56,10 +55,12 @@
 
         <TextView
             android:id="@+id/tv_category_2"
-            style="@style/BtrFilterDisable"
+            style="@style/BtrFilterDisable2"
             android:text="@string/sm_r_rsv02_01_p02_3"
             android:tag="P"
             android:visibility="gone"
+            android:layout_marginStart="10dp"
+            app:layout_goneMarginStart="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_category_1"
             app:layout_constraintTop_toTopOf="@+id/tv_category_1"

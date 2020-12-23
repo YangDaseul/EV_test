@@ -163,7 +163,6 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
                 <TextView
                     android:id="@+id/tv_title_reserver"
                     android:layout_width="0dp"

@@ -34,7 +34,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 /**
  * @author hjpark
- * @brief 오토케어 3단계
+ * @brief 홈투홈 3단계
  */
 public class ServiceHomeToHome3CheckActivity extends SubActivity<ActivityServiceHometohome3CheckBinding> {
     private RepairReserveVO repairReserveVO;

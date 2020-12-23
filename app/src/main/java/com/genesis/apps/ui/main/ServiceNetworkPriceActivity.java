@@ -2,9 +2,7 @@ package com.genesis.apps.ui.main;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.text.Spannable;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -15,24 +13,16 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.vo.RepCostDetailVO;
 import com.genesis.apps.comm.model.vo.RepCostVO;
-import com.genesis.apps.comm.model.vo.TermVO;
-import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.ActivityServiceNetworkPriceBinding;
 import com.genesis.apps.databinding.ItemPriceContentsBinding;
 import com.genesis.apps.databinding.ItemPriceTitleBinding;
-import com.genesis.apps.databinding.ItemTermBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.common.view.TermView;
 
 import java.util.List;
 
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
-
-import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0005;
-import static com.genesis.apps.comm.model.vo.TermVO.TERM_ESN_AGMT_N;
 
 public class ServiceNetworkPriceActivity extends SubActivity<ActivityServiceNetworkPriceBinding> {
 

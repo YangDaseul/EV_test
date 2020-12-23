@@ -49,6 +49,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/l_rsvt_hope_dt"
                     style="@style/CommonSpinnerLayout"
+                    android:layout_marginTop="0dp"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/tv_msg_bottom"
                     app:layout_constraintStart_toStartOf="@+id/tv_msg_bottom"
@@ -106,7 +107,7 @@
                         android:id="@+id/tv_title_addr"
                         style="@style/CommonSpinnerTitle"
                         android:text="@string/sm_r_rsv02_01_8"
-                        android:visibility="invisible" />
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/tv_addr"
@@ -155,39 +156,60 @@
                         tools:visibility="invisible" />
 
 
-                    <co.lujun.androidtagview.TagContainerLayout
-                        android:id="@+id/tag_autocare_service"
+                    <TextView
+                        android:id="@+id/tv_reservation_1"
+                        style="@style/MapOverlayServiceNetwork"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        app:container_background_color="#00000000"
-                        app:container_border_color="#00000000"
-                        app:horizontal_interval="4dp"
-                        app:layout_constraintStart_toStartOf="@+id/tv_model"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_reservation_2"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_title_autocare_service"
-                        app:tag_background_color="@color/x_d1d1d1"
-                        app:tag_border_color="#fff"
-                        app:tag_clickable="false"
-                        app:tag_text_color="@color/x_ffffff"
-                        app:tag_theme="none"
-                        app:vertical_interval="4dp"
-                        android:visibility="gone"/>
+                        tools:text="엔진오일"
+                        tools:visibility="gone" />
 
                     <TextView
-                        android:id="@+id/btn_change_autocare_service"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tv_reservation_2"
+                        style="@style/MapOverlayServiceNetwork"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_ffffff_underline_6f6f6f"
-                        android:fontFamily="@font/light_genesissansheadglobal"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="29sp"
-                        android:text="@string/sm_r_rsv02_01_9"
-                        android:textColor="@color/x_6f6f6f"
-                        android:textSize="15sp"
-                        android:visibility="gone"
+                        android:layout_marginStart="10dp"
                         android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-                        app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_autocare_service"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/tv_reservation_1"
+                        app:layout_constraintTop_toTopOf="@+id/tv_reservation_1"
+                        tools:text="네비게이션 업데이트"
+                        tools:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tv_reservation_3"
+                        style="@style/MapOverlayServiceNetwork"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_reservation_4"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_reservation_1"
+                        tools:text="에어컨 필터"
+                        tools:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tv_reservation_4"
+                        style="@style/MapOverlayServiceNetwork"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/tv_reservation_3"
+                        app:layout_constraintTop_toTopOf="@+id/tv_reservation_3"
+                        tools:text="와이퍼 블레이드"
+                        tools:visibility="gone" />
+
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -377,7 +377,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             case R.id.btn_right_black://선택
                 switch (pageType){
                     case PAGE_TYPE_BTR:
-                        //todo 아래 vin정보와 asncd가 유효한 값인지 확인 필요
                         btrViewModel.reqBTR1009(new BTR_1009.Request(APPIAInfo.GM_BT06.getId(), btrVO.getVin(), btrVO.getAsnCd()));
                         break;
                     case PAGE_TYPE_RENT:
@@ -391,12 +390,10 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     case PAGE_TYPE_SERVICE:
                     default:
                         reqViewModel.reqREQ1003(new REQ_1003.Request(APPIAInfo.SM_SNFIND01.getId(),mainVehicle.getVin(),mainVehicle.getMdlCd(), btrVO.getAsnCd(), btrVO.getAcps1Cd(), btrVO.getFirmScnCd()));
-                        //todo 예약 시 이펙트..
                         break;
                 }
                 break;
             case R.id.btn_search_list://목록
-                //todo id 변경 필요
                 List<BtrVO> list = new ArrayList<>();
 
                 switch (pageType){

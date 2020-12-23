@@ -22,6 +22,7 @@ import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringRe2j;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.ActivityServiceAutocare3CheckBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -58,9 +59,10 @@ public class ServiceAutocare3CheckActivity extends SubActivity<ActivityServiceAu
         ui.etTel.setOnFocusChangeListener(focusChangeListener);
         ui.etVrn.setOnEditorActionListener(editorActionListener);
         ui.etVrn.setOnFocusChangeListener(focusChangeListener);
-        ui.etTel.setText(TextUtils.isEmpty(repairReserveVO.getHpNo()) ? "" : repairReserveVO.getHpNo());
+        ui.etTel.setText(TextUtils.isEmpty(repairReserveVO.getHpNo()) ? "" : StringUtil.parsingPhoneNumber(repairReserveVO.getHpNo()));
         ui.etVrn.setText(TextUtils.isEmpty(repairReserveVO.getCarRgstNo()) ? "" : repairReserveVO.getCarRgstNo());
 
+        ui.etRqrm.setOnFocusChangeListener(focusChangeListener);
         ui.etRqrm.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -89,10 +91,14 @@ public class ServiceAutocare3CheckActivity extends SubActivity<ActivityServiceAu
                 if (ui.lBackground.getVisibility() == View.VISIBLE) {
                     ui.ivArrow.setImageResource(R.drawable.btn_accodian_open);
                     InteractionUtil.collapse(ui.lBackground, null);
+                    ui.etRqrm.clearFocus();
                 } else {
                     ui.ivArrow.setImageResource(R.drawable.btn_accodian_close);
 
-                    InteractionUtil.expand2(ui.lBackground, () -> ui.sc.fullScroll(View.FOCUS_DOWN));
+                    InteractionUtil.expand2(ui.lBackground, () -> {
+                        ui.sc.fullScroll(View.FOCUS_DOWN);
+                        ui.etRqrm.requestFocus();
+                    });
                 }
                 break;
         }

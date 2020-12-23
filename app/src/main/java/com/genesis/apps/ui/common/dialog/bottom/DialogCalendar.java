@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 
+import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.RepairReserveDateVO;
 import com.genesis.apps.comm.util.DateUtil;
@@ -107,16 +108,12 @@ public class DialogCalendar extends BaseBottomDialog<DialogBottomCalendarBinding
         autoAmpmCd = v.getTag().toString();
         switch (v.getId()){
             case R.id.tv_category_1:
-                ui.tvCategory1.setTextAppearance(R.style.BtrFilterEnable);
-                ui.tvCategory1.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414_2dp);
-                ui.tvCategory2.setTextAppearance(R.style.BtrFilterDisable);
-                ui.tvCategory2.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_4d141414);
+                Paris.style(ui.tvCategory1).apply(R.style.BtrFilterEnable2);
+                Paris.style(ui.tvCategory2).apply(R.style.BtrFilterDisable2);
                 break;
             case R.id.tv_category_2:
-                ui.tvCategory1.setTextAppearance(R.style.BtrFilterDisable);
-                ui.tvCategory1.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_4d141414);
-                ui.tvCategory2.setTextAppearance(R.style.BtrFilterEnable);
-                ui.tvCategory2.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414_2dp);
+                Paris.style(ui.tvCategory2).apply(R.style.BtrFilterEnable2);
+                Paris.style(ui.tvCategory1).apply(R.style.BtrFilterDisable2);
                 break;
         }
     };

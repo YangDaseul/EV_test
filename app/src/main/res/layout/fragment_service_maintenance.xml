@@ -25,7 +25,7 @@
                 style="@style/TextBasic"
                 android:layout_width="match_parent"
                 android:layout_margin="20dp"
-                android:background="@drawable/ripple_bg_000000_round_10"
+                android:background="@drawable/ripple_bg_000000"
                 android:clickable="true"
                 android:drawableRight="@drawable/btn_arrow_open_r_w"
                 android:elevation="5dp"

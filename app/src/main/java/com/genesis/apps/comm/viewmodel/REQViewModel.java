@@ -2,18 +2,7 @@ package com.genesis.apps.comm.viewmodel;
 
 import android.text.TextUtils;
 import android.text.format.DateUtils;
-import android.view.View;
 
-import androidx.hilt.Assisted;
-import androidx.hilt.lifecycle.ViewModelInject;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.SavedStateHandle;
-import androidx.lifecycle.ViewModel;
-
-import com.genesis.apps.comm.model.api.gra.REQ_1016;
-import com.genesis.apps.comm.model.api.gra.REQ_1017;
-import com.genesis.apps.comm.model.api.gra.REQ_1018;
-import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.api.gra.REQ_1001;
 import com.genesis.apps.comm.model.api.gra.REQ_1002;
 import com.genesis.apps.comm.model.api.gra.REQ_1003;
@@ -28,11 +17,14 @@ import com.genesis.apps.comm.model.api.gra.REQ_1012;
 import com.genesis.apps.comm.model.api.gra.REQ_1013;
 import com.genesis.apps.comm.model.api.gra.REQ_1014;
 import com.genesis.apps.comm.model.api.gra.REQ_1015;
+import com.genesis.apps.comm.model.api.gra.REQ_1016;
+import com.genesis.apps.comm.model.api.gra.REQ_1017;
+import com.genesis.apps.comm.model.api.gra.REQ_1018;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.REQRepo;
 import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.CouponVO;
-import com.genesis.apps.comm.model.vo.ExpnVO;
 import com.genesis.apps.comm.model.vo.RepairGroupVO;
 import com.genesis.apps.comm.model.vo.RepairHistVO;
 import com.genesis.apps.comm.model.vo.RepairTypeVO;
@@ -46,8 +38,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.stream.Collectors;
 
+import androidx.hilt.Assisted;
+import androidx.hilt.lifecycle.ViewModelInject;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
+import androidx.lifecycle.ViewModel;
 import lombok.Data;
 
 import static java.util.stream.Collectors.toList;

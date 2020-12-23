@@ -160,6 +160,9 @@ public class REQRepo {
             @Override
             public void onSuccess(String object) {
                 RES_REQ_1005.setValue(NetUIResponse.success(new Gson().fromJson(object, REQ_1005.Response.class)));
+//                RES_REQ_1005.setValue(NetUIResponse.success(TestCode.REQ_1005));
+
+
 
 //                REQ_1005.Response response = new Gson().fromJson(object, REQ_1005.Response.class);
 //                response.setREQStateVO(new Gson().fromJson(object, REQStateVO.class));
@@ -188,6 +191,7 @@ public class REQRepo {
             @Override
             public void onSuccess(String object) {
                 RES_REQ_1007.setValue(NetUIResponse.success(new Gson().fromJson(object, REQ_1007.Response.class)));
+//                RES_REQ_1007.setValue(NetUIResponse.success(TestCode.REQ_1007));
             }
 
             @Override
