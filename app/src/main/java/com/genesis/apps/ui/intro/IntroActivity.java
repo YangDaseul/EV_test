@@ -12,12 +12,14 @@ import com.genesis.apps.comm.model.api.gra.CMN_0001;
 import com.genesis.apps.comm.model.api.gra.CMN_0002;
 import com.genesis.apps.comm.model.api.gra.LGN_0001;
 import com.genesis.apps.comm.model.api.gra.LGN_0004;
+import com.genesis.apps.comm.model.api.gra.LGN_0007;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.CCSVO;
 import com.genesis.apps.comm.model.vo.DeviceDTO;
 import com.genesis.apps.comm.model.vo.NotiVO;
 import com.genesis.apps.comm.model.vo.UserVO;
+import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
@@ -33,8 +35,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
+
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
 @AndroidEntryPoint
 public class IntroActivity extends SubActivity<ActivityIntroBinding> {
@@ -191,9 +196,38 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
         });
 
         lgnViewModel.getRES_LGN_0004().observe(this, result -> {
-            //결과에 상관없이 메인화면으로 이동
-            goToMain.run();
+
+            switch (result.status){
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    if(result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)){
+                        lgnViewModel.reqLGN0007(new LGN_0007.Request(APPIAInfo.INT01.getId()));
+                        break;
+                    }
+                default:
+                    //결과에 상관없이 메인화면으로 이동
+                    goToMain.run();
+                    break;
+            }
         });
+
+        lgnViewModel.getRES_LGN_0007().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    if(result.data!=null&&result.data.getTopicList()!=null) {
+                        subscribeTopic(lgnViewModel, result.data.getTopicList());
+                    }
+                    goToMain.run();
+                    break;
+                default:
+                    goToMain.run();
+                    break;
+            }
+        });
+
     }
 
     /**

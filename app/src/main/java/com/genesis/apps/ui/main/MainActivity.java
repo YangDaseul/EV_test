@@ -21,6 +21,7 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.BAR_1001;
+import com.genesis.apps.comm.model.api.gra.LGN_0007;
 import com.genesis.apps.comm.model.api.gra.NOT_0003;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
@@ -204,8 +205,8 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         Log.e("onResume","onReusme Mainactivity");
         checkPushCode();
         reqNewNotiCnt();
-        //TODO 이것은 테스트 액티비티 호출
-//        startActivitySingleTop(new Intent(this, MapSearchMyPositionActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
+        lgnViewModel.reqLGN0007(new LGN_0007.Request(""));
 //        FirebaseMessagingService.notifyMessageTest(this, new PushVO(), PushCode.CAT_0E);
     }
 

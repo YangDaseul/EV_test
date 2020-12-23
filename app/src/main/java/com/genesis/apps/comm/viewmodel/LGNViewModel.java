@@ -21,6 +21,7 @@ import com.genesis.apps.comm.model.repo.DBUserRepo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.LGNRepo;
 import com.genesis.apps.comm.model.repo.STORepo;
+import com.genesis.apps.comm.model.vo.TopicVO;
 import com.genesis.apps.comm.model.vo.UserVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
@@ -262,5 +263,12 @@ class LGNViewModel extends ViewModel {
         return position.getValue();
     }
 
+    public List<TopicVO> getTopicList(){
+        return dbUserRepo.getTopicList();
+    }
+
+    public void insertTopicList(List<String> oriList){
+        dbUserRepo.insertTopicList(oriList);
+    }
 
 }

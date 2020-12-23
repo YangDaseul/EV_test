@@ -13,12 +13,18 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.TopicVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
+import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.fcm.PushVO;
 import com.genesis.apps.ui.intro.IntroActivity;
 import com.genesis.apps.ui.main.AlarmCenterActivity;
 import com.genesis.apps.ui.main.service.ServiceReviewActivity;
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -252,5 +258,34 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+
+    public void subscribeTopic(LGNViewModel lgnViewModel, List<String> receiveTopicList){
+        try {
+            //기존에 db에 등록된 토픽 확인 및 구독 해제
+            List<TopicVO> topicList = new ArrayList<>();
+            topicList.addAll(lgnViewModel.getTopicList());
+            for (TopicVO oriTopic : topicList) {
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(oriTopic.getTopicNm());
+            }
+        }catch (Exception e){
+
+        }
+
+        try {
+            //db에 신규 토픽 등록
+            lgnViewModel.insertTopicList(receiveTopicList);
+            //db에 신규 등록된 토픽을 로드
+            List<TopicVO> newTopicList = new ArrayList<>();
+            newTopicList.addAll(lgnViewModel.getTopicList());
+            for (TopicVO newTopic : newTopicList) {
+                FirebaseMessaging.getInstance().subscribeToTopic(newTopic.getTopicNm());
+            }
+        }catch (Exception e){
+
+        }
+    }
+
+
 
 }

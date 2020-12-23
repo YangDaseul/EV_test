@@ -1,7 +1,11 @@
 package com.genesis.apps.comm.model.repo;
 
+import com.genesis.apps.comm.model.vo.TopicVO;
 import com.genesis.apps.comm.model.vo.UserVO;
 import com.genesis.apps.room.DatabaseHolder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -40,4 +44,21 @@ public class DBUserRepo {
         return isClear;
     }
 
+    public List<TopicVO> getTopicList(){
+        List<TopicVO> list=null;
+        try{
+            list = databaseHolder.getDatabase().topicDao().selectAll();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public void insertTopicList(List<String> oriList){
+        List<TopicVO> list=new ArrayList<>();
+        for(String topic : oriList){
+            list.add(new TopicVO(topic));
+        }
+        databaseHolder.getDatabase().topicDao().insertAndDeleteInTransaction(list);
+    }
 }
