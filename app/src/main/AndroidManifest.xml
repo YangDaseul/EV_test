@@ -15,9 +15,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
     <uses-permission android:name="android.permission.VIBRATE" />
-
 
     <application
         android:name=".comm.MyApplication"
@@ -37,6 +35,7 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -388,13 +387,11 @@
         <activity
             android:name=".ui.main.service.ServiceAirport2ApplyActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <!--원격 진단 : 신청-->
-        <activity android:name=".ui.main.service.ServiceRemoteRegisterActivity"
+            android:screenOrientation="portrait" /> <!-- 원격 진단 : 신청 -->
+        <activity
+            android:name=".ui.main.service.ServiceRemoteRegisterActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.common.activity.test.TestActivity"
             android:exported="false"
@@ -470,6 +467,11 @@
         <activity
             android:name=".ui.main.service.MaintenanceReserveActivity"
             android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.service.PrecheckActivity"
+            android:exported="false"
+            android:theme="@style/TextInputLayout"
             android:screenOrientation="portrait" />
 
         <service android:name=".fcm.FirebaseMessagingService">

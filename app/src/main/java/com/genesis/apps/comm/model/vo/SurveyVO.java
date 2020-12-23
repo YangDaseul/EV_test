@@ -21,6 +21,9 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 public @Data
 class SurveyVO extends BaseData {
+
+    public SurveyVO() {}
+
     @Expose
     @SerializedName("svyMgmtNo")
     private String svyMgmtNo;

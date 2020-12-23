@@ -61,6 +61,24 @@
     <string name="sm01_maintenance_12">같은 증상의\n하자가 재발 됐나요?</string>
     <string name="sm01_maintenance_13">접수 중</string>
     <string name="sm01_maintenance_14">정비 중</string>
+    <string name="sm01_maintenance_15">사전문진표 작성</string>
+    <string name="sm01_maintenance_16">사전 문진표를\n작성해 주세요.</string>
+    <string name="sm01_maintenance_17">대분류</string>
+    <string name="sm01_maintenance_18">대분류 선택</string>
+    <string name="sm01_maintenance_19">중분류</string>
+    <string name="sm01_maintenance_20">중분류 선택</string>
+    <string name="sm01_maintenance_21">소분류</string>
+    <string name="sm01_maintenance_22">소분류 선택</string>
+    <string name="sm01_maintenance_23">수리 유형을 선택해주세요.</string>
+    <string name="sm01_maintenance_24">사전 문진을 추가하시겠습니까?</string>
+    <string name="sm01_maintenance_25">사전 문진표</string>
+    <string name="sm01_maintenance_26">사전 문진표 상세내용을\n작성해 주세요.</string>
+    <string name="sm01_maintenance_27">상세 내용 입력</string>
+    <string name="sm01_maintenance_28">상세 내용을 적어주세요.</string>
+    <string name="sm01_maintenance_29">선택 입력 사항, 입력하지 않고\n확인을 누르셔도 됩니다.</string>
+    <string name="sm01_maintenance_30">/500 byte</string>
+    <string name="sm01_maintenance_31">상세내용을 입력해주세요.</string>
+    <string name="sm01_maintenance_32">필수 입력 사항입니다.</string>
 
     <!-- SERVICE 탭 세차 -->
     <string name="sm01_car_wash_1">세차 서비스 예약 내역</string>
