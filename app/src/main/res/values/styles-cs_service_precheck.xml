@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="PrecheckTextBasic">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="PrecheckSelectBoxBasic" parent="PrecheckSelectBasic">
+        <item name="android:drawableRight">@drawable/btn_dropdown</item>
+    </style>
+
+    <style name="PrecheckSelectBasic">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingLeft">16dp</item>
+    </style>
+
+    <!-- Select 영역 위 "대분류" or "중분류" of "소분류" -->
+    <style name="Precheck.Title" parent="PrecheckTextBasic">
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:textColor">@color/x_262626</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_marginBottom">6dp</item>
+    </style>
+
+    <style name="Precheck.SelectBox.DeSelected" parent="PrecheckSelectBoxBasic">
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:textColor">@color/x_a2a2a2</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_e5e5e5</item>
+    </style>
+
+    <style name="Precheck.SelectBox.Selected" parent="PrecheckSelectBoxBasic">
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_000000</item>
+    </style>
+
+    <style name="Precheck.Content.DeSelected" parent="PrecheckSelectBasic">
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:textColor">@color/x_a2a2a2</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_e5e5e5</item>
+    </style>
+
+    <style name="Precheck.Content.Selected" parent="PrecheckSelectBasic">
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_000000</item>
+    </style>
+
+</resources>

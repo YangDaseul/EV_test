@@ -225,6 +225,10 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
 //            return;
 
         switch (id) {
+            // 사전문진표 임시 작업
+            case R.id.tv_precheck:
+                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), PrecheckActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
             //서비스 네트워크 찾기
             case R.id.tv_service_maintenance_find_network_btn:
                 ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceNetworkActivity.class).putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_SERVICE), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingConstraints">
+
+    <data>
+        <variable name="activity" type="com.genesis.apps.ui.common.activity.SubActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_title"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tv_precheck_minor_title">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                android:textColor="@color/x_000000"
+                android:textSize="18sp"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="12sp"/>
+
+            <LinearLayout
+                android:id="@+id/ll_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:onClick="@{(v) -> activity.onSingleClickListener.onClick(v)}">
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/btn_close_popup"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <TextView
+            style="@style/Precheck.Title"
+            android:id="@+id/tv_precheck_minor_title"
+            android:text="@string/sm01_maintenance_21"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/ll_minor_contain" />
+
+        <LinearLayout
+            android:id="@+id/ll_minor_contain"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone"
+            android:showDividers="middle"
+            android:divider="@drawable/divider_10"
+            android:onClick="@{(v) -> activity.onSingleClickListener.onClick(v)}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tv_precheck_minor"/>
+
+        <TextView
+            style="@style/Precheck.SelectBox.DeSelected"
+            android:id="@+id/tv_precheck_minor"
+            android:text="@string/sm01_maintenance_22"
+            android:visibility="gone"
+            android:onClick="@{(v) -> activity.onSingleClickListener.onClick(v)}"
+            app:layout_goneMarginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_minor_error_repair"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_minor_error_repair"
+            style="@style/CommonSpinnerError"
+            android:layout_marginBottom="20dp"
+            android:text="@string/sm01_maintenance_32"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/tv_precheck_middle_title" />
+
+        <TextView
+            style="@style/Precheck.Title"
+            android:id="@+id/tv_precheck_middle_title"
+            android:text="@string/sm01_maintenance_19"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tv_precheck_middle" />
+
+        <TextView
+            style="@style/Precheck.SelectBox.DeSelected"
+            android:id="@+id/tv_precheck_middle"
+            android:text="@string/sm01_maintenance_20"
+            android:visibility="gone"
+            android:onClick="@{(v) -> activity.onSingleClickListener.onClick(v)}"
+            app:layout_goneMarginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_middle_error_repair"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_middle_error_repair"
+            style="@style/CommonSpinnerError"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone"
+            android:text="@string/sm01_maintenance_32"
+            app:layout_constraintBottom_toTopOf="@+id/tv_precheck_major_title" />
+
+        <TextView
+            style="@style/Precheck.Title"
+            android:id="@+id/tv_precheck_major_title"
+            android:text="@string/sm01_maintenance_17"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tv_precheck_major" />
+
+        <TextView
+            style="@style/Precheck.SelectBox.DeSelected"
+            android:id="@+id/tv_precheck_major"
+            android:text="@string/sm01_maintenance_18"
+            android:onClick="@{(v) -> activity.onSingleClickListener.onClick(v)}"
+            app:layout_constraintBottom_toTopOf="@+id/tv_major_error_repair"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_major_error_repair"
+            style="@style/CommonSpinnerError"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone"
+            android:text="@string/sm01_maintenance_32"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

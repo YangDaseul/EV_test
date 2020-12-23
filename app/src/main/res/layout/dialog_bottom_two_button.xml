@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingTop="40dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="20dp">
+
+        <include
+            android:id="@+id/l_title"
+            layout="@layout/layout_titlebar_dialog"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:showDividers="middle"
+            android:divider="@drawable/divider_10"
+            app:layout_constraintTop_toBottomOf="@+id/l_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/tv_no"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="18dp"
+                android:gravity="center"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                android:textSize="16sp"
+                android:text="@string/dialog_common_1"
+                android:textColor="@color/x_000000"
+                android:background="@drawable/ripple_bg_ffffff_stroke_000000"
+                app:elevation="10dp" />
+
+            <TextView
+                android:id="@+id/tv_yes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="18dp"
+                android:gravity="center"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                android:textSize="16sp"
+                android:text="@string/dialog_common_2"
+                android:textColor="@color/x_ffffff"
+                android:background="@drawable/ripple_bg_141414"
+                app:elevation="10dp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
