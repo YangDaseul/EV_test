@@ -18,6 +18,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.BAR_1001;
 import com.genesis.apps.comm.model.api.gra.NOT_0003;
@@ -35,6 +36,7 @@ import com.genesis.apps.ui.main.contents.ContentsSearchActivity;
 import com.genesis.apps.ui.main.home.FragmentHome1;
 import com.genesis.apps.ui.main.service.FragmentService;
 import com.genesis.apps.ui.main.service.MapSearchMyPositionActivity;
+import com.genesis.apps.ui.main.store.FragmentStore;
 import com.genesis.apps.ui.myg.MyGEntranceActivity;
 import com.genesis.apps.ui.myg.MyGHomeActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -126,24 +128,24 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             case R.id.btn_alarm:
                 startActivitySingleTop(new Intent(this, AlarmCenterActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
+            case R.id.btn_login:
+                startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
             case R.id.btn_profile:
-//                startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                startActivitySingleTop(new Intent(this, ServiceJoinActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                return;
-
-                try {
-                    switch (lgnViewModel.getUserInfoFromDB().getCustGbCd()){
-                        case VariableType.MAIN_VEHICLE_TYPE_0000:
-                            startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                            break;
-                        case VariableType.MAIN_VEHICLE_TYPE_OV:
-                        default:
-                            startActivitySingleTop(new Intent(this, MyGHomeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                            break;
-                    }
-                }catch (Exception ignore){
-                    ignore.printStackTrace();
-                }
+                startActivitySingleTop(new Intent(this, MyGHomeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                try {
+//                    switch (lgnViewModel.getUserInfoFromDB().getCustGbCd()){
+//                        case VariableType.MAIN_VEHICLE_TYPE_0000:
+//                            startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                            break;
+//                        case VariableType.MAIN_VEHICLE_TYPE_OV:
+//                        default:
+//                            startActivitySingleTop(new Intent(this, MyGHomeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                            break;
+//                    }
+//                }catch (Exception ignore){
+//                    ignore.printStackTrace();
+//                }
                 break;
                 case R.id.btn_search:
                     startActivitySingleTop(new Intent(this, ContentsSearchActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
@@ -331,6 +333,20 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     private long backKeyPressedTime = 0;
     @Override
     public void onBackPressed() {
+        // 현재 화면이 Store 화면일때 WebView 뒤로가기 처리
+        if(getViewPager().getCurrentItem() == 3) {
+            for(Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if(fragment instanceof FragmentStore) {
+                    MyWebViewFrament webFragment = (MyWebViewFrament) fragment.getChildFragmentManager().findFragmentById(R.id.fm_holder);
+
+                    if (webFragment.getWebView().canGoBack()) {
+                        webFragment.getWebView().goBack();
+                        return;
+                    }
+                }
+            }
+        }
+
         if (System.currentTimeMillis() > backKeyPressedTime + (2 * 1000)) {
             backKeyPressedTime = System.currentTimeMillis();
             SnackBarUtil.show(this, getString(R.string.comm_msg_1));

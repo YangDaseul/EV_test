@@ -1,13 +1,17 @@
 package com.genesis.apps.ui.main.service;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.ActivityServiceRepairHistoryBinding;
+import com.genesis.apps.databinding.ItemTabRepairImageBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.main.service.view.ServiceRepairHistoryViewpagerAdapter;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -46,12 +50,21 @@ public class ServiceRepairReserveHistoryActivity extends SubActivity<ActivitySer
         new TabLayoutMediator(ui.tlTabs, ui.vpContents, (tab, position) -> {
         }).attach();
 
-        for (int i = 0; i < PAGE_NUM; i++) {
-            TextView tabTitle = new TextView(this);
-            tabTitle.setText(TAB_ID_LIST[i]);
-            tabTitle.setTextAppearance(R.style.ServiceMainTabs);
-            ui.tlTabs.getTabAt(i).setCustomView(tabTitle);
+//        for (int i = 0; i < PAGE_NUM; i++) {
+//            TextView tabTitle = new TextView(this);
+//            tabTitle.setText(TAB_ID_LIST[i]);
+//            tabTitle.setTextAppearance(R.style.ServiceMainTabs);
+//            ui.tlTabs.getTabAt(i).setCustomView(tabTitle);
+//        }
+
+        for(int i=0 ; i<TAB_ID_LIST.length; i++) {
+            final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final ItemTabRepairImageBinding itemTabRepairImageBinding = DataBindingUtil.inflate(inflater, R.layout.item_tab_repair_image, null, false);
+            final View view = itemTabRepairImageBinding.getRoot();
+            itemTabRepairImageBinding.tvTab.setText(TAB_ID_LIST[i]);
+            ui.tlTabs.getTabAt(i).setCustomView(view);
         }
+
     }
 
     @Override

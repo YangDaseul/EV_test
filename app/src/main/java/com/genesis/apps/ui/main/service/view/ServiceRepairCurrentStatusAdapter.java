@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.RepairVO;
 import com.genesis.apps.databinding.ItemServiceRepairCurrentStatusBinding;
+import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
@@ -16,9 +17,11 @@ import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 public class ServiceRepairCurrentStatusAdapter extends BaseRecyclerViewAdapter2<RepairVO> {
 
     private Activity activity;
+    public OnSingleClickListener onSingleClickListener;
 
-    public ServiceRepairCurrentStatusAdapter(Activity activity) {
+    public ServiceRepairCurrentStatusAdapter(Activity activity, OnSingleClickListener onSingleClickListener) {
         this.activity = activity;
+        this.onSingleClickListener = onSingleClickListener;
     }
 
     @Override
@@ -149,6 +152,7 @@ public class ServiceRepairCurrentStatusAdapter extends BaseRecyclerViewAdapter2<
         public void onBindView(RepairVO item, final int pos) {
             getBinding().setAdapter(adapter);
             getBinding().setData(item);
+            getBinding().btnRepairImage.setTag(R.id.item, item);
         }
 
         @Override

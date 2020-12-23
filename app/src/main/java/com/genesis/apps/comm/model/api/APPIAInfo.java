@@ -19,6 +19,7 @@ import com.genesis.apps.ui.main.insight.InsightExpnInputActivity;
 import com.genesis.apps.ui.main.insight.InsightExpnMainActivity;
 import com.genesis.apps.ui.main.service.ServiceDriveReqActivity;
 import com.genesis.apps.ui.main.service.ServiceRelapseHistoryActivity;
+import com.genesis.apps.ui.main.service.ServiceRepairReserveHistoryActivity;
 import com.genesis.apps.ui.main.service.ServiceReviewActivity;
 import com.genesis.apps.ui.main.service.ServiceSOSApplyActivity;
 import com.genesis.apps.ui.myg.MyGGAActivity;
@@ -141,7 +142,7 @@ public enum APPIAInfo {
     SM_R_RSV_P03("SM_R_RSV_P03", null, VariableType.QUICK_MENU_CODE_NONE, "정비 예약 취소 팝업"),
     SM_R_RSV03("SM_R_RSV03", null, VariableType.QUICK_MENU_CODE_NONE, "3단계 예약 정보 확인"),
     SM_R_RSV04("SM_R_RSV04", null, VariableType.QUICK_MENU_CODE_NONE, "4단계 예약완료"),
-    SM_R_RSV05("SM_R_RSV05", null, VariableType.QUICK_MENU_CODE_NONE, "정비 예약 내역"),
+    SM_R_RSV05("SM_R_RSV05", ServiceRepairReserveHistoryActivity.class, VariableType.QUICK_MENU_CODE_OV, "정비 예약 내역"),
     SM_R_RSV05_P01("SM_R_RSV05_P01", null, VariableType.QUICK_MENU_CODE_NONE, "예약 취소 사유 선택 팝업"),
     SM_R_RSV05_P02("SM_R_RSV05_P02", null, VariableType.QUICK_MENU_CODE_NONE, "예약 취소 팝업"),
 

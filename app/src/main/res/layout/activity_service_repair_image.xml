@@ -32,6 +32,7 @@
             app:tabGravity="fill"
             app:tabIndicatorHeight="0dp"
             app:tabMode="fixed"
+            app:tabBackground="@drawable/selector_tab_repair_image_bg"
             tools:background="@color/x_000000"/>
 
         <androidx.recyclerview.widget.RecyclerView

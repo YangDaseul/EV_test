@@ -67,6 +67,7 @@ public class ServiceRepairImageActivity extends SubActivity<ActivityServiceRepai
         ui.rv.setHasFixedSize(true);
         ui.rv.setAdapter(serviceRepairImageAdapter);
         setTabView();
+        reqViewModel.reqREQ1018(new REQ_1018.Request("", asnCd, "1", wrhsNo, vhclInoutNo));
     }
 
 
@@ -92,8 +93,9 @@ public class ServiceRepairImageActivity extends SubActivity<ActivityServiceRepai
                 case SUCCESS:
                     if (result.data != null && result.data.getImgList()!=null) {
                         showProgressDialog(false);
+                        serviceRepairImageAdapter = new ServiceRepairImageAdapter();
                         serviceRepairImageAdapter.setRows(result.data.getImgList());
-                        serviceRepairImageAdapter.notifyDataSetChanged();
+                        ui.rv.setAdapter(serviceRepairImageAdapter);
                         ui.tvEmpty.setVisibility(serviceRepairImageAdapter.getItemCount()>0 ? View.GONE : View.VISIBLE);
                         break;
                     }
@@ -135,7 +137,8 @@ public class ServiceRepairImageActivity extends SubActivity<ActivityServiceRepai
             final ItemTabRepairImageBinding itemTabRepairImageBinding = DataBindingUtil.inflate(inflater, R.layout.item_tab_repair_image, null, false);
             final View view = itemTabRepairImageBinding.getRoot();
             itemTabRepairImageBinding.tvTab.setText(TAB_ID_LIST[i]);
-            ui.tlTabs.getTabAt(i).setCustomView(view);
+            ui.tlTabs.addTab(ui.tlTabs.newTab().setCustomView(view));
+//            ui.tlTabs.addView(view);
         }
 
         ui.tlTabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
