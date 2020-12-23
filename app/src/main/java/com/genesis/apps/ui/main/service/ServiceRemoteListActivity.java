@@ -85,7 +85,7 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
                     showProgressDialog(false);
                     RMT_1003.Response response = result.data;
 
-                    if (response != null) {
+                    if (response != null && response.getAplyList() != null) {
                         datas.clear();
                         datas.addAll(response.getAplyList());
                         initView();
