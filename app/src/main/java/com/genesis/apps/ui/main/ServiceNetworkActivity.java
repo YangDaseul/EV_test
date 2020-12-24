@@ -67,6 +67,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     private BtrVO btrVO = null;
     private LayoutMapOverlayUiBottomSelectNewBinding bottomSelectBinding;
     private String fillerCd = "";
+    private String rparTypCd = ""; //정비소 예약 시 해당 값으로 서버에 REQ-1002 요청
     private String addr = "";
     private String addrDtl = "";
     private VehicleVO mainVehicle=null;
@@ -149,6 +150,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
         try {
             btrVO = (BtrVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_BTR);
             pageType = getIntent().getIntExtra(KeyNames.KEY_NAME_PAGE_TYPE, PAGE_TYPE_SERVICE);
+            rparTypCd = getIntent().getStringExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -186,7 +188,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     if(btrVO!=null) {
                         try {
                             mainVehicle = reqViewModel.getMainVehicle();
-                            reqViewModel.reqREQ1002(new REQ_1002.Request(APPIAInfo.SM_SNFIND01.getId(), mainVehicle.getVin(), mainVehicle.getMdlCd(), String.valueOf(doubles.get(1)), String.valueOf(doubles.get(0)),"", "", "", ""));
+                            reqViewModel.reqREQ1002(new REQ_1002.Request(APPIAInfo.SM_SNFIND01.getId(), mainVehicle.getVin(), mainVehicle.getMdlCd(), btrVO.getMapXcooNm(),btrVO.getMapYcooNm(),"", "", "", rparTypCd));
                         } catch (Exception e) {
 
                         }
@@ -196,7 +198,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 default:
                     try {
                         mainVehicle = reqViewModel.getMainVehicle();
-                        reqViewModel.reqREQ1002(new REQ_1002.Request(APPIAInfo.SM_SNFIND01.getId(), mainVehicle.getVin(), mainVehicle.getMdlCd(), String.valueOf(doubles.get(1)), String.valueOf(doubles.get(0)), "", "", "", ""));
+                        reqViewModel.reqREQ1002(new REQ_1002.Request(APPIAInfo.SM_SNFIND01.getId(), mainVehicle.getVin(), mainVehicle.getMdlCd(), String.valueOf(doubles.get(1)), String.valueOf(doubles.get(0)), "", "", "", rparTypCd));
                     }catch (Exception e){
 
                     }
@@ -215,10 +217,17 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     showProgressDialog(false);
                     if (result.data != null && result.data.getAsnList() != null) {
                         setPosition(result.data.getAsnList(), result.data.getAsnList().get(0));
+                        break;
                     }
-                    break;
                 default:
-                    showProgressDialog(false);
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    }
                     break;
             }
         });
@@ -296,10 +305,18 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     showProgressDialog(false);
                     if (result.data != null && result.data.getAsnList() != null) {
                         setPosition(result.data.getAsnList(), result.data.getAsnList().get(0));
+                        break;
                     }
-                    break;
                 default:
                     showProgressDialog(false);
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    }
                     break;
             }
         });
@@ -320,7 +337,14 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     }
                 default:
                     showProgressDialog(false);
-                    SnackBarUtil.show(this, "정비 예약이 불가능합니다.\n다른 지점을 선택해 주세요.");
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? "정비 예약이 불가능합니다.\n다른 지점을 선택해 주세요." : serverMsg);
+                    }
                     break;
             }
         });
