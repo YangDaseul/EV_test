@@ -136,6 +136,24 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    public void moveToPage(String lnkUri, String lnkTypCd, boolean isPush){
+        if(!TextUtils.isEmpty(lnkUri) && !TextUtils.isEmpty(lnkTypCd)){
+            if(lnkTypCd.equalsIgnoreCase("I")||lnkTypCd.equalsIgnoreCase("IM")){
+                if(lnkUri.startsWith(KeyNames.KEY_NAME_INTERNAL_LINK)||lnkUri.startsWith(KeyNames.KEY_NAME_INTERNAL_LINK2)){
+                    //내부링크로 이동
+                    moveToNativePage(lnkUri, isPush);
+                }else if(lnkUri.startsWith("http")){
+                    //웹뷰로 이동
+                    moveToExternalPage(lnkUri, VariableType.COMMON_MEANS_YES);
+                }
+            }else if(lnkTypCd.equalsIgnoreCase("O")||lnkTypCd.equalsIgnoreCase("OW")){
+                //외부 브라우저로 이동
+                moveToExternalPage(lnkUri, VariableType.COMMON_MEANS_NO);
+            }
+        }
+    }
+
+
     public void moveToNativePage(String lnkUri, boolean isPush) {
         Uri uri = null;
         String id = "";
@@ -182,15 +200,16 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void moveToExternalPage(String lnkUri, String wvYn){
+        if(!lnkUri.startsWith("http"))
+            return;
 
         if (TextUtils.isEmpty(wvYn) || wvYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
             startActivitySingleTop(new Intent(this, GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, lnkUri), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
         } else {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(lnkUri));
-            startActivity(intent); //TODO 테스트 필요 0002
+            startActivity(intent);
         }
-
     }
 
 

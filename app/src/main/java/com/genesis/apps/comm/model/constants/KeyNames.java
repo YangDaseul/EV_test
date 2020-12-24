@@ -60,6 +60,7 @@ public interface KeyNames {
     String KEY_NAME_MEMBERSHIP_MBR_MGMT_NO="mbrshMbrMgmtNo";
 
     String KEY_NAME_INTERNAL_LINK="genesisapp://menu?id=";
+    String KEY_NAME_INTERNAL_LINK2="genesisapps://menu?id=";
     String KEY_NAME_URI_PARSER_ID="id";
     String KEY_NAME_URI_PARSER_PI="PI";
 

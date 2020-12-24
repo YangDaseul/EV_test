@@ -321,13 +321,9 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                 try{
                     messageVO = ((MessageVO)v.getTag(R.id.item));
                 }catch (Exception e){
-
+                    e.printStackTrace();
                 }finally{
-                    if(messageVO!=null&&messageVO.getLnkTypCd().equalsIgnoreCase("I")){
-                        ((MainActivity)getActivity()).moveToNativePage(messageVO.getLnkUri(), false);
-                    }else if (messageVO!=null){
-                        ((MainActivity)getActivity()).moveToExternalPage(messageVO.getLnkUri(), "");
-                    }
+                    ((MainActivity)getActivity()).moveToPage(messageVO.getLnkUri(), messageVO.getLnkTypCd(), false);
                 }
                 break;
 

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.target.Target;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.MessageVO;
 import com.genesis.apps.databinding.ItemHomeInsightEtcBinding;
@@ -150,6 +149,29 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
 
 
     private static class ItemHomeInsightWeather extends BaseViewHolder<MessageVO, ItemHomeInsightWeatherBinding> {
+
+        private final String[][] rule = {
+                {"\\? ", "\\?\n"},
+                {"\\?", "\\?\n"},
+                {". ", ".\n"},
+                {".", ".\n"},
+                {"! ", "!\n"},
+                {"!", "!\n"},
+                {", ", ",\n"},
+                {",", ",\n"}
+        };
+
+        private final String[][] ruleReplace = {
+                {"\\? ", "\\?\n"},
+                {"\\?", "\\?\n"},
+                {"\\. ", "\\.\n"},
+                {"\\.", "\\.\n"},
+                {"! ", "!\n"},
+                {"!", "!\n"},
+                {", ", ",\n"},
+                {",", ",\n"}
+        };
+
         public ItemHomeInsightWeather(View itemView) {
             super(itemView);
         }
@@ -161,7 +183,29 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
 
         @Override
         public void onBindView(MessageVO item, final int pos) {
-            getBinding().tvMsg.setText(item.getTxtMsg());
+            int txtChar = 0;
+            txtChar += getCharNumber(item.getTxtMsg(), '?');
+            txtChar += getCharNumber(item.getTxtMsg(), '!');
+            txtChar += getCharNumber(item.getTxtMsg(), '.');
+            txtChar += getCharNumber(item.getTxtMsg(), ',');
+
+            Log.v("insight test","item name:"+item.getTxtMsg()+"  특수문자 수:"+txtChar);
+
+            try {
+                if (txtChar>1&&!item.getTxtMsg().contains("\n")) {
+                    for (int i = 0; i < rule.length; i++) {
+                        if(item.getTxtMsg().contains(rule[i][0])) {
+                            item.setTxtMsg(item.getTxtMsg().replaceFirst(ruleReplace[i][0], ruleReplace[i][1]));
+                            Log.v("insight test", "item name after:" + item.getTxtMsg());
+                            break;
+                        }
+                    }
+                }
+            }catch (Exception e ){
+                e.printStackTrace();
+            }finally {
+                getBinding().tvMsg.setText(item.getTxtMsg());
+            }
         }
 
         @Override
@@ -169,6 +213,19 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
 
         }
 
+        private int getCharNumber(String str, char c)
+        {
+            int count = 0;
+            for(int i=0;i<str.length();i++)
+            {
+                if(str.charAt(i) == c)
+                    count++;
+            }
+            return count;
+        }
+
     }
+
+
 
 }

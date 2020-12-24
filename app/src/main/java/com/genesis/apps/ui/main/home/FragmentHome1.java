@@ -356,11 +356,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 }catch (Exception e){
                     e.printStackTrace();
                 }finally{
-                    if(messageVO!=null&&messageVO.getLnkTypCd().equalsIgnoreCase("I")){
-                        ((MainActivity)getActivity()).moveToNativePage(messageVO.getLnkUri(), false);
-                    }else if (messageVO!=null&&messageVO.getLnkTypCd().equalsIgnoreCase("O")){
-                        ((MainActivity)getActivity()).moveToExternalPage(messageVO.getLnkUri(), "");
-                    }
+                    ((MainActivity)getActivity()).moveToPage(messageVO.getLnkUri(), messageVO.getLnkTypCd(), false);
                 }
                 break;
 //            case R.id.btn_carinfo://차량정보설정
@@ -549,27 +545,20 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 public void onSingleClick(View v) {
                     QuickMenuVO quickMenuVO = (QuickMenuVO) v.getTag(R.id.menu_id);
                     if (quickMenuVO != null) {
-                        String qckMenuDivCd = quickMenuVO.getQckMenuDivCd();
+                        String msgLnkCd = quickMenuVO.getMsgLnkCd();
                         String lnkUri = quickMenuVO.getLnkUri();
-                        String wvYn = quickMenuVO.getWvYn();
-                        if (!TextUtils.isEmpty(qckMenuDivCd) && !TextUtils.isEmpty(lnkUri)) {
-                            if (qckMenuDivCd.equalsIgnoreCase("IM")) {
-                                if (lnkUri.startsWith(KeyNames.KEY_NAME_INTERNAL_LINK)) {
-                                    if (!TextUtils.isEmpty(lnkUri)) {
-                                        moveToNativePage(lnkUri);
-                                    }
+                        if (!TextUtils.isEmpty(msgLnkCd) && !TextUtils.isEmpty(lnkUri)) {
+                            if (msgLnkCd.equalsIgnoreCase("I") || msgLnkCd.equalsIgnoreCase("IM")) {
+                                if (lnkUri.startsWith(KeyNames.KEY_NAME_INTERNAL_LINK) || lnkUri.startsWith(KeyNames.KEY_NAME_INTERNAL_LINK2)) {
+                                    //내부링크로 이동
+                                    moveToNativePage(lnkUri);
+                                } else if (lnkUri.startsWith("http")) {
+                                    //웹뷰로 이동
+                                    ((MainActivity)getActivity()).moveToExternalPage(lnkUri, VariableType.COMMON_MEANS_YES);
                                 }
-                                //네이티브 링크로 이동
-                                //TODO 네이티브로 이동하는 부분은 처리 필요
-                            } else {
-                                if (TextUtils.isEmpty(wvYn) || wvYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
-                                    ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), WebviewActivity.class).putExtra(KeyNames.KEY_NAME_URL, lnkUri), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                                } else {
-                                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                                    intent.setData(Uri.parse(lnkUri));
-                                    startActivity(intent); //TODO 테스트 필요 0002
-                                }
-                                //외부 링크로 이동
+                            } else if (msgLnkCd.equalsIgnoreCase("O") || msgLnkCd.equalsIgnoreCase("OW")) {
+                                //외부 브라우저로 이동
+                                ((MainActivity)getActivity()).moveToExternalPage(lnkUri, VariableType.COMMON_MEANS_NO);
                             }
                         }
                     }

@@ -111,11 +111,7 @@ public class AlarmCenterActivity extends SubActivity<ActivityAlarmCenterBinding>
                     e.printStackTrace();
                 }finally{
                     if(item!=null&&!TextUtils.isEmpty(item.getDtlLnkUri())&&!TextUtils.isEmpty(item.getDtlLnkCd())){
-                        if(item.getDtlLnkCd().equalsIgnoreCase("I")){
-                            moveToNativePage(item.getDtlLnkUri(), false);
-                        }else{
-                            moveToExternalPage(item.getDtlLnkUri(), "");
-                        }
+                        moveToPage(item.getDtlLnkUri(), item.getDtlLnkCd(), false);
                     }
                 }
                 break;
@@ -142,14 +138,9 @@ public class AlarmCenterActivity extends SubActivity<ActivityAlarmCenterBinding>
                     if (item != null) {
                         switch (AlarmCenterRecyclerAdapter.getAccordionType(item)) {
                             case AlarmCenterRecyclerAdapter.ALARM_TYPE_NORMAL_NATIVE:
-                                //TODO 클릭 시 상세페이지 이동 / getMsgLnkUri가 메뉴면 네이티브, 링크면 WEBVIEW로 이동시켜야하는데 확인 필요
-                                adapter.notifyItemChanged(pos);
-                                moveToNativePage(item.getMsgLnkUri(), false);
-                                break;
                             case AlarmCenterRecyclerAdapter.ALARM_TYPE_NORMAL_WEBVIEW:
-                                //TODO 클릭 시 외부 링크로 이동
                                 adapter.notifyItemChanged(pos);
-                                moveToExternalPage(item.getMsgLnkUri(), "");
+                                moveToPage(item.getMsgLnkUri(), item.getMsgLnkCd(), false);
                                 break;
                             case AlarmCenterRecyclerAdapter.ALARM_TYPE_ACCORDION:
                             default:

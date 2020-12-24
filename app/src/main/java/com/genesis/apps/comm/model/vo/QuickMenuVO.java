@@ -18,12 +18,10 @@ import lombok.EqualsAndHashCode;
  * @see #menuId 메뉴ID
  * 제네시스앱 : 메뉴관리의 메뉴ID
  * 수동등록시의 임의 ID 입력
- * @see #qckMenuDivCd 퀵메뉴구분코드
- * IM:제네시스앱메뉴, OW:외부링크메뉴
+ * @see #msgLnkCd 퀵메뉴구분코드
+ * I:제네시스앱메뉴, O:외부링크메뉴
  * @see #menuNm 메뉴명
  * @see #nttOrd 표기순서
- * @see #wvYn 웹뷰여부
- * Y:웹뷰, N:아님
  * @see #lnkUri 링크URI
  */
 @Entity(primaryKeys = {"menuId","custGbCd"})
@@ -41,17 +39,14 @@ class QuickMenuVO extends BaseData {
     @SerializedName("menuId")
     private String menuId;
     @Expose
-    @SerializedName("qckMenuDivCd")
-    private String qckMenuDivCd;
+    @SerializedName("msgLnkCd")
+    private String msgLnkCd;
     @Expose
     @SerializedName("menuNm")
     private String menuNm;
     @Expose
     @SerializedName("nttOrd")
     private String nttOrd;
-    @Expose
-    @SerializedName("wvYn")
-    private String wvYn;
     @Expose
     @SerializedName("lnkUri")
     private String lnkUri;
