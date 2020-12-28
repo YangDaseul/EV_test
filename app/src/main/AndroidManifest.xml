@@ -241,6 +241,10 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.main.SimilarCarContractHistoryActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.main.home.LeasingCarVinRegisterActivity"
             android:exported="false"
             android:screenOrientation="portrait"

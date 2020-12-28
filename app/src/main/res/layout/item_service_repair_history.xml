@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="com.genesis.apps.comm.util.DateUtil" />
 
         <import type="com.genesis.apps.comm.util.StringUtil" />
@@ -20,11 +19,6 @@
         <variable
             name="data"
             type="com.genesis.apps.comm.model.vo.RepairHistVO" />
-
-<!--        <variable-->
-<!--            name="pos"-->
-<!--            type="int" />-->
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

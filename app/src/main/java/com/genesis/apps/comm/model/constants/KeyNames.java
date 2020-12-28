@@ -68,4 +68,5 @@ public interface KeyNames {
     String KEY_NAME_VEHICLE_IN_OUT_NO="vhclInoutNo";
     String KEY_NAME_WRHS_NO ="wrhsNo";
 
+    String KEY_NAME_CTRCT_NO ="ctrctNo";
 }

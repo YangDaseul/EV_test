@@ -51,7 +51,7 @@ public class STO_1003 extends BaseData {
      * @see #optCpndCtyAmt	옵션조합상품금액	단위: 원
      * @see #xrclCtyAmt	    외장컬러상품금액	단위: 원
      * @see #ieclCtyAmt	    내장컬러상품금액	단위: 원
-     * @see #Rscc2Amt	    특수사양조합상품금액	단위: 원
+     * @see #rscc2Amt	    특수사양조합상품금액	단위: 원
      * @see #csptCpndCtyAmt	파츠조합상품금액	단위: 원
      * @see #carTtlAmt	    차량합계금액	단위: 원
      * @see #dcTtlAmt	    할인합계금액	단위: 원
@@ -115,8 +115,8 @@ public class STO_1003 extends BaseData {
         @SerializedName("ieclCtyAmt")
         private String ieclCtyAmt;
         @Expose
-        @SerializedName("Rscc2Amt")
-        private String Rscc2Amt;
+        @SerializedName("rscc2Amt")
+        private String rscc2Amt;
         @Expose
         @SerializedName("csptCpndCtyAmt")
         private String csptCpndCtyAmt;

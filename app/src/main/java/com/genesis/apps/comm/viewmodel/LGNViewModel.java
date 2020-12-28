@@ -17,6 +17,7 @@ import com.genesis.apps.comm.model.api.gra.LGN_0006;
 import com.genesis.apps.comm.model.api.gra.LGN_0007;
 import com.genesis.apps.comm.model.api.gra.STO_1001;
 import com.genesis.apps.comm.model.api.gra.STO_1002;
+import com.genesis.apps.comm.model.api.gra.STO_1003;
 import com.genesis.apps.comm.model.repo.DBUserRepo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.LGNRepo;
@@ -68,6 +69,7 @@ class LGNViewModel extends ViewModel {
 
     private MutableLiveData<NetUIResponse<STO_1001.Response>> RES_STO_1001;
     private MutableLiveData<NetUIResponse<STO_1002.Response>> RES_STO_1002;
+    private MutableLiveData<NetUIResponse<STO_1003.Response>> RES_STO_1003;
 
     //map에서 사용하는 디폴트 위치 (현재위치 혹은 버틀러 위치 등..)
     private MutableLiveData<List<Double>> position = new MutableLiveData<>();
@@ -109,6 +111,7 @@ class LGNViewModel extends ViewModel {
 
         RES_STO_1001 = stoRepo.RES_STO_1001;
         RES_STO_1002 = stoRepo.RES_STO_1002;
+        RES_STO_1003 = stoRepo.RES_STO_1003;
     }
 
     public void reqLGN0001(final LGN_0001.Request reqData){
@@ -145,6 +148,10 @@ class LGNViewModel extends ViewModel {
 
     public void reqSTO1002(final STO_1002.Request reqData){
         stoRepo.REQ_STO_1002(reqData);
+    }
+
+    public void reqSTO1003(final STO_1003.Request reqData){
+        stoRepo.REQ_STO_1003(reqData);
     }
 
 

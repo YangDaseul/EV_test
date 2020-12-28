@@ -8,6 +8,7 @@ import com.genesis.apps.ui.main.BarcodeActivity;
 import com.genesis.apps.ui.main.ServiceNetworkActivity;
 import com.genesis.apps.ui.main.ServiceTermDetailActivity;
 import com.genesis.apps.ui.main.SimilarCarActivity;
+import com.genesis.apps.ui.main.SimilarCarContractHistoryActivity;
 import com.genesis.apps.ui.main.home.BtrBluehandsActivity;
 import com.genesis.apps.ui.main.home.BtrConsultTypeActivity;
 import com.genesis.apps.ui.main.home.LeasingCarVinRegisterActivity;
@@ -59,7 +60,8 @@ public enum APPIAInfo {
     GM01_03("GM01_03", null, VariableType.QUICK_MENU_CODE_NONE, "공유 미리보기"),
     GM_BTO1("GM_BTO1", GAWebActivity.class, VariableType.QUICK_MENU_CODE_0000, "BTO 차량 목록"),
     GM_BTO2("GM_BTO2", null, VariableType.QUICK_MENU_CODE_NONE, "BTO"),
-    GM02_CTR01("GM02_CTR01", null, VariableType.QUICK_MENU_CODE_NONE, "계약서 / 견적서 조회 / 계약진행현황"),
+    GM02_CTR01("GM02_CTR01", SimilarCarContractHistoryActivity.class, VariableType.QUICK_MENU_CODE_NONE, "구매 계약 내역"),
+    GM02_CTR01_P01("GM02_CTR01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "차량 가격 정보 상세 팝업"),
     GM02_INV01("GM02_INV01", SimilarCarActivity.class, VariableType.QUICK_MENU_CODE_NONE, "유사 재고 조회 / 예약"),
     GM02_BF01("GM02_BF01", null, VariableType.QUICK_MENU_CODE_NONE, "대기고객 혜택"),
 

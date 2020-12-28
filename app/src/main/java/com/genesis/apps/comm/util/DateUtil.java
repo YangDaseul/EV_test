@@ -61,6 +61,7 @@ public class DateUtil {
     public static final String DATE_FORMAT_yyyy_MM_dd_e_hh_mm = "yyyy.MM.dd a hh:mm";
     public static final String DATE_FORMAT_yyyy_MM_dd_HH_mm = "yyyy-MM-dd HH:mm";
     public static final String DATE_FORMAT_yyyy_MM_dd_E="yyyy.MM.dd (E)";
+    public static final String DATE_FORMAT_yyyy_MM_dd_KOREA="yyyy년 MM월 dd일";
 
     // date time
     public static final String DATE_FORMAT_yyyy_mm_dd_hh_mm = "yyyy.MM.dd HH:mm"; // 31-12-1989 12:30

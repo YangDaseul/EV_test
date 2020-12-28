@@ -12,24 +12,16 @@
             type="String" />
 
         <variable
-            name="msg"
+            name="msg1"
+            type="String" />
+
+        <variable
+            name="msg2"
             type="String" />
 
         <variable
             name="isLeft"
             type="boolean" />
-
-        <variable
-            name="textColor"
-            type="Integer" />
-
-        <variable
-            name="iconId"
-            type="android.graphics.drawable.Drawable" />
-
-        <variable
-            name="listener"
-            type="com.genesis.apps.ui.common.view.listener.OnSingleClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,8 +46,8 @@
             tools:text="타이틀"/>
 
         <TextView
-            android:id="@+id/tv_msg"
-            android:layout_width="0dp"
+            android:id="@+id/tv_msg_1"
+            android:layout_width="wrap_content"
             android:layout_height="55dp"
             android:background="@color/x_ffffff"
             android:ellipsize="end"
@@ -66,12 +58,9 @@
             android:maxLines="1"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:text="@{msg}"
-            android:textColor="@{textColor==0 ? @color/x_262626 : textColor}"
+            android:text="@{msg1}"
+            android:textColor="@color/x_262626"
             android:textSize="14sp"
-            android:drawableRight="@{iconId}"
-            android:onClick="@{(view)->listener.onClick(view)}"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_title"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="메시지"/>

@@ -66,6 +66,7 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static android.app.Activity.RESULT_OK;
@@ -176,7 +177,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 me.setWeatherCode(weatherCodes);
             } catch (Exception e) {
 
-            } finally{
+            } finally {
                 istViewModel.reqIST1001(new IST_1001.Request(APPIAInfo.GM01.getId(), "HOME", "TOP"));
             }
 
@@ -256,16 +257,16 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     break;
                 case SUCCESS:
                     if (result.data != null) {
-                        if(result.data.getAdmMsgList()!=null&&result.data.getAdmMsgList().size()>0){
-                            for(MessageVO messageVO : result.data.getAdmMsgList()){
+                        if (result.data.getAdmMsgList() != null && result.data.getAdmMsgList().size() > 0) {
+                            for (MessageVO messageVO : result.data.getAdmMsgList()) {
                                 messageVO.setBanner(false);
                             }
                             adapter.addRows(result.data.getAdmMsgList());
 //                            adapter.setRealItemCnt(adapter.getRealItemCnt() + result.data.getAdmMsgList().size());
                         }
 
-                        if (result.data.getBnrMsgList()!=null&&result.data.getBnrMsgList().size()>0) {
-                            for(MessageVO messageVO : result.data.getBnrMsgList()){
+                        if (result.data.getBnrMsgList() != null && result.data.getBnrMsgList().size() > 0) {
+                            for (MessageVO messageVO : result.data.getBnrMsgList()) {
                                 messageVO.setBanner(true);
                             }
 
@@ -351,12 +352,12 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         switch (v.getId()) {
             case R.id.l_whole:
                 MessageVO messageVO = null;
-                try{
-                    messageVO = ((MessageVO)v.getTag(R.id.item));
-                }catch (Exception e){
+                try {
+                    messageVO = ((MessageVO) v.getTag(R.id.item));
+                } catch (Exception e) {
                     e.printStackTrace();
-                }finally{
-                    ((MainActivity)getActivity()).moveToPage(messageVO.getLnkUri(), messageVO.getLnkTypCd(), false);
+                } finally {
+                    ((MainActivity) getActivity()).moveToPage(messageVO.getLnkUri(), messageVO.getLnkTypCd(), false);
                 }
                 break;
 //            case R.id.btn_carinfo://차량정보설정
@@ -388,7 +389,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                    }finally {
+                    } finally {
                         //todo 20201204 메시지 정의 필요
                         SnackBarUtil.show(getActivity(), "주차 위치 정보가 존재하지 않습니다.");
                     }
@@ -554,11 +555,11 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                                     moveToNativePage(lnkUri);
                                 } else if (lnkUri.startsWith("http")) {
                                     //웹뷰로 이동
-                                    ((MainActivity)getActivity()).moveToExternalPage(lnkUri, VariableType.COMMON_MEANS_YES);
+                                    ((MainActivity) getActivity()).moveToExternalPage(lnkUri, VariableType.COMMON_MEANS_YES);
                                 }
                             } else if (msgLnkCd.equalsIgnoreCase("O") || msgLnkCd.equalsIgnoreCase("OW")) {
                                 //외부 브라우저로 이동
-                                ((MainActivity)getActivity()).moveToExternalPage(lnkUri, VariableType.COMMON_MEANS_NO);
+                                ((MainActivity) getActivity()).moveToExternalPage(lnkUri, VariableType.COMMON_MEANS_NO);
                             }
                         }
                     }
@@ -592,7 +593,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                    }finally {
+                    } finally {
                         //todo 20201204 메시지 정의 필요
                         SnackBarUtil.show(getActivity(), "주차 위치 정보가 존재하지 않습니다.");
                     }
@@ -613,7 +614,21 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.gm03_3), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case GM02_CTR01://계약서 조회
-                //todo 전문 확인 필요
+
+                VehicleVO vehicleVO = null;
+                try {
+                    vehicleVO = lgnViewModel.getMainVehicleFromDB();
+                } catch (Exception e) {
+
+                } finally {
+                    if (vehicleVO != null) {
+                        ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM02_CTR01.getActivity())
+                                        .putExtra(vehicleVO.getCtrctNo(), KeyNames.KEY_NAME_CTRCT_NO)
+                                , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                                , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    }
+                }
+
                 break;
             case GM02_INV01://유사 재고 조회
                 ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM02_INV01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
@@ -643,20 +658,20 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             int menuSize = list.size() > 3 ? 3 : list.size();
 
             //차량이 없는 고객인 경우 흰색배경의 검은글씨 활성화
-            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams)me.lFloating.getLayoutParams();
-            int margin = (int)DeviceUtil.dip2Pixel(getContext(),20);
-            if(menuSize==1){
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) me.lFloating.getLayoutParams();
+            int margin = (int) DeviceUtil.dip2Pixel(getContext(), 20);
+            if (menuSize == 1) {
                 //메뉴가 하나일 때 (보통 미로그인, 미소유 사용자)
-                params.setMargins(margin,0,margin,margin);
-            }else{
+                params.setMargins(margin, 0, margin, margin);
+            } else {
                 //메뉴가 하나 이상일 때
-                params.setMargins(0,0, 0 ,margin);
+                params.setMargins(0, 0, 0, margin);
             }
             me.lFloating.setLayoutParams(params);
 
 
-            me.lFloating.setBackgroundColor(menuSize==1 ? getContext().getColor(R.color.x_ffffff) : 0);
-            me.btnFloating1.setTextColor(menuSize==1 ? getContext().getColor(R.color.x_000000) : getContext().getColor(R.color.x_ffffff));
+            me.lFloating.setBackgroundColor(menuSize == 1 ? getContext().getColor(R.color.x_ffffff) : 0);
+            me.btnFloating1.setTextColor(menuSize == 1 ? getContext().getColor(R.color.x_000000) : getContext().getColor(R.color.x_ffffff));
 
             for (int i = 0; i < menuSize; i++) {
                 floatingBtns[i].setVisibility(View.VISIBLE);
@@ -731,7 +746,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     private void setVideo(boolean isForce) {
         try {
 
-            if (player == null||isForce) {
+            if (player == null || isForce) {
                 player = new SimpleExoPlayer.Builder(getContext()).build();
                 player.setVolume(0);
                 player.setRepeatMode(REPEAT_MODE_ALL);
