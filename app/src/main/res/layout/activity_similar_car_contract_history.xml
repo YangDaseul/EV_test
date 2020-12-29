@@ -84,7 +84,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:msg="@{data.saleCnttNo}"
-                        app:title="@{@string/gm02_ctr02_1}" />
+                        app:title="@{@string/gm02_ctr02_2}" />
 
                     <include
                         android:id="@+id/l_cntt_ymd"
@@ -110,7 +110,8 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_cntt_ymd"
                         app:msg="@{data.mnfctNm ?? ``}"
-                        app:title="@{@string/gm02_ctr02_4}" />
+                        app:title="@{@string/gm02_ctr02_4}"
+                        />
 
 
                     <include
@@ -124,7 +125,8 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_mnfc_nm"
                         app:msg="@{data.carnNm ?? ``}"
-                        app:title="@{@string/gm02_ctr02_5}" />
+                        app:title="@{@string/gm02_ctr02_5}"
+                        app:maxLine="@{Integer.MAX_VALUE}"/>
 
                     <include
                         android:id="@+id/l_xrcl_cty_nm"
@@ -137,7 +139,8 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_carn_nm"
                         app:msg="@{data.xrclCtyNm ?? ``}"
-                        app:title="@{@string/gm02_ctr02_5}" />
+                        app:title="@{@string/gm02_ctr02_6}"
+                        app:maxLine="@{Integer.MAX_VALUE}"/>
 
                     <include
                         android:id="@+id/l_iecl_cty_nm"
@@ -150,7 +153,8 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_xrcl_cty_nm"
                         app:msg="@{data.ieclCtyNm ?? ``}"
-                        app:title="@{@string/gm02_ctr02_5}" />
+                        app:title="@{@string/gm02_ctr02_7}"
+                        app:maxLine="@{Integer.MAX_VALUE}"/>
 
                     <include
                         android:id="@+id/l_sale_mdl_opt_nm"
@@ -163,7 +167,8 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_iecl_cty_nm"
                         app:msg="@{data.saleMdlOptNm ?? ``}"
-                        app:title="@{@string/gm02_ctr02_5}" />
+                        app:title="@{@string/gm02_ctr02_8}"
+                        app:maxLine="@{Integer.MAX_VALUE}"/>
 
                     <include
                         android:id="@+id/l_car_cty_amt"
@@ -175,11 +180,12 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_sale_mdl_opt_nm"
-                        app:msg="@{StringUtil.getPriceString(data.carCtyAmt) ?? ``}"
-                        app:title="@{@string/gm02_ctr02_5}"
+                        app:msg="@{StringUtil.getPriceString(data.ttlBuyAmt)}"
+                        app:title="@{@string/gm02_ctr03_16}"
                         app:textColor="@{@color/x_996449}"
                         app:iconId="@{@drawable/btn_arrow_open_r}"
-                        app:listener="@{activity.onSingleClickListener}"/>
+                        app:listener="@{activity.onSingleClickListener}"
+                        app:maxLine="@{2}"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -212,7 +218,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_status"
                     app:msg="@{activity.getCnttStNm(data.cnttStCd1)}"
                     app:title="@{@string/gm02_ctr02_11}"
-                    app:backgroundId="@{data.cnttStCd1.equalsIgnoreCase(`9000`) ? @drawable/bg_ffffff_round_50_stroke_996449 : @drawable/bg_ffffff_round_50_stroke_e5e5e5}"/>
+                    app:backgroundId="@{activity.isFinish(data.cnttStCd1) ? @drawable/bg_ffffff_round_50_stroke_996449 : @drawable/bg_ffffff_round_50_stroke_e5e5e5}"/>
 
                 <ImageView
                     android:id="@+id/iv_arrow_1"
@@ -239,7 +245,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/iv_arrow_1"
                     app:msg="@{activity.getCnttStNm(data.cnttStCd2)}"
                     app:title="@{@string/gm02_ctr02_13}"
-                    app:backgroundId="@{data.cnttStCd1.equalsIgnoreCase(`9000`) ? @drawable/bg_ffffff_round_50_stroke_996449 : @drawable/bg_ffffff_round_50_stroke_e5e5e5}"/>
+                    app:backgroundId="@{activity.isFinish(data.cnttStCd2) ? @drawable/bg_ffffff_round_50_stroke_996449 : @drawable/bg_ffffff_round_50_stroke_e5e5e5}"/>
 
                 <ImageView
                     android:id="@+id/iv_arrow_2"
@@ -265,7 +271,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/iv_arrow_2"
                     app:msg="@{activity.getCnttStNm(data.cnttStCd3)}"
                     app:title="@{@string/gm02_ctr02_15}"
-                    app:backgroundId="@{data.cnttStCd1.equalsIgnoreCase(`9000`) ? @drawable/bg_ffffff_round_50_stroke_996449 : @drawable/bg_ffffff_round_50_stroke_e5e5e5}"/>
+                    app:backgroundId="@{activity.isFinish(data.cnttStCd3) ? @drawable/bg_ffffff_round_50_stroke_996449 : @drawable/bg_ffffff_round_50_stroke_e5e5e5}"/>
 
 
                 <TextView

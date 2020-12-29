@@ -69,4 +69,6 @@ public interface KeyNames {
     String KEY_NAME_WRHS_NO ="wrhsNo";
 
     String KEY_NAME_CTRCT_NO ="ctrctNo";
+
+    String KEY_NAME_STO_1003 ="sto1003";
 }

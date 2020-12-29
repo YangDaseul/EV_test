@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.genesis.apps.comm.util.StringUtil" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
+        <!--        <variable-->
+        <!--            name="activity"-->
+        <!--            type="com.genesis.apps.ui.main.service.ServiceRepair4ResultActivity" />-->
+
+        <variable
+            name="data"
+            type="com.genesis.apps.comm.model.api.gra.STO_1003.Response" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/x_ffffff"
+        android:paddingBottom="20dp">
+
+        <include
+            android:id="@+id/l_title"
+            layout="@layout/layout_titlebar_depth3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_title">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/tv_msg"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/bg_00000000_underline_000000"
+                    android:fontFamily="@font/light_genesissansheadglobal"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="8sp"
+                    android:paddingBottom="40dp"
+                    android:text="@string/gm02_ctr03_1"
+                    android:textColor="@color/x_000000"
+                    android:textSize="22sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/tv_title_car_cty_amt"
+                    style="@style/AmountTitleGold"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/gm02_ctr03_2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_msg" />
+
+                <TextView
+                    android:id="@+id/tv_car_cty_amt"
+                    style="@style/AmountMsg"
+                    android:text="@{StringUtil.getPriceString(data.carCtyAmt)}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_car_cty_amt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="90,000,000 원" />
+
+                <TextView
+                    android:id="@+id/tv_title_opt_cpnd_cty_amt"
+                    style="@style/AmountTitleBlack"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/gm02_ctr03_3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_car_cty_amt" />
+
+                <TextView
+                    android:id="@+id/tv_opt_cpnd_cty_amt"
+                    style="@style/AmountMsg"
+                    android:text="@{@string/gm02_ctr03_17(StringUtil.getPriceString(data.optCpndCtyAmt))}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_opt_cpnd_cty_amt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="+ 10,000,000 원" />
+
+                <TextView
+                    android:id="@+id/tv_title_xrcl_cty_amt"
+                    style="@style/AmountTitleBlack"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/gm02_ctr03_4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_opt_cpnd_cty_amt" />
+
+                <TextView
+                    android:id="@+id/tv_xrcl_cty_amt"
+                    style="@style/AmountMsg"
+                    android:text="@{@string/gm02_ctr03_17(StringUtil.getPriceString(data.xrclCtyAmt))}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_xrcl_cty_amt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="+ 10,000,000 원" />
+
+                <TextView
+                    android:id="@+id/tv_title_iecl_cty_amt"
+                    style="@style/AmountTitleBlack"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/gm02_ctr03_5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_xrcl_cty_amt" />
+
+                <TextView
+                    android:id="@+id/tv_iecl_cty_amt"
+                    style="@style/AmountMsg"
+                    android:text="@{@string/gm02_ctr03_17(StringUtil.getPriceString(data.ieclCtyAmt))}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_iecl_cty_amt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="+ 10,000,000 원" />
+
+                <TextView
+                    android:id="@+id/tv_title_rscc_2amt"
+                    style="@style/AmountTitleBlack"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/gm02_ctr03_6"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_iecl_cty_amt" />
+
+                <TextView
+                    android:id="@+id/tv_rscc_2amt"
+                    style="@style/AmountMsg"
+                    android:text="@{@string/gm02_ctr03_17(StringUtil.getPriceString(data.rscc2Amt))}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_rscc_2amt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="+ 10,000,000 원" />
+
+                <TextView
+                    android:id="@+id/tv_title_cspt_cpnd_cty_amt"
+                    style="@style/AmountTitleBlack"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/gm02_ctr03_7"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_rscc_2amt" />
+
+                <TextView
+                    android:id="@+id/tv_cspt_cpnd_cty_amt"
+                    style="@style/AmountMsg"
+                    android:text="@{@string/gm02_ctr03_17(StringUtil.getPriceString(data.csptCpndCtyAmt))}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_cspt_cpnd_cty_amt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="+ 10,000,000 원" />
+
+
+                <ImageView
+                    android:id="@+id/iv_line_1"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/bg_00000000_underline_e5e5e5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_cspt_cpnd_cty_amt" />
+
+                <TextView
+                    android:id="@+id/tv_title_car_ttl_amt"
+                    style="@style/AmountTitleGold"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/gm02_ctr03_8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_line_1" />
+
+                <TextView
+                    android:id="@+id/tv_car_ttl_amt"
+                    style="@style/AmountMsg"
+                    android:text="@{StringUtil.getPriceString(data.carTtlAmt)}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_car_ttl_amt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="90,000,000 원" />
+
+                <TextView
+                    android:id="@+id/tv_title_dc_ttl_amt"
+                    style="@style/AmountTitleBlack"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/gm02_ctr03_9"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_car_ttl_amt" />
+
+                <TextView
+                    android:id="@+id/tv_dc_ttl_amt"
+                    style="@style/AmountMsg"
+                    android:text="@{@string/gm02_ctr03_18(StringUtil.getPriceString(data.dcTtlAmt))}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_dc_ttl_amt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="- 10,000,000 원" />
+
+
+                <ImageView
+                    android:id="@+id/iv_line_2"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/bg_00000000_underline_e5e5e5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_dc_ttl_amt" />
+
+                <TextView
+                    android:id="@+id/tv_title_sale_amt"
+                    style="@style/AmountTitleGold"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/gm02_ctr03_10"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_line_2" />
+
+                <TextView
+                    android:id="@+id/tv_sale_amt"
+                    style="@style/AmountMsg"
+                    android:text="@{StringUtil.getPriceString(data.saleAmt)}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_sale_amt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="90,000,000 원" />
+
+
+                <TextView
+                    android:id="@+id/tv_title_mfs_amt"
+                    style="@style/AmountTitleBlack"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/gm02_ctr03_11"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_sale_amt" />
+
+                <TextView
+                    android:id="@+id/tv_mfs_amt"
+                    style="@style/AmountMsg"
+                    android:text="@{@string/gm02_ctr03_17(StringUtil.getPriceString(data.mfsAmt))}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_mfs_amt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="+ 10,000,000 원" />
+
+                <TextView
+                    android:id="@+id/tv_title_cnsg_cty_amt"
+                    style="@style/AmountTitleBlack"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/gm02_ctr03_12"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_mfs_amt" />
+
+                <TextView
+                    android:id="@+id/tv_cnsg_cty_amt"
+                    style="@style/AmountMsg"
+                    android:text="@{@string/gm02_ctr03_17(StringUtil.getPriceString(data.cnsgCtyAmt))}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_cnsg_cty_amt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="+ 10,000,000 원" />
+
+
+                <ImageView
+                    android:id="@+id/iv_line_3"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/bg_00000000_underline_e5e5e5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_cnsg_cty_amt" />
+
+                <TextView
+                    android:id="@+id/tv_title_ttl_sale_amt"
+                    style="@style/AmountTitleGold"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/gm02_ctr03_13"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_line_3" />
+
+                <TextView
+                    android:id="@+id/tv_ttl_sale_amt"
+                    style="@style/AmountMsg"
+                    android:text="@{StringUtil.getPriceString(data.ttlSaleAmt)}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_ttl_sale_amt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="90,000,000 원" />
+
+
+                <TextView
+                    android:id="@+id/tv_title_incid_exp"
+                    style="@style/AmountTitleBlack"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/gm02_ctr03_14"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_ttl_sale_amt" />
+
+                <TextView
+                    android:id="@+id/tv_incid_exp"
+                    style="@style/AmountMsg"
+                    android:text="@{@string/gm02_ctr03_17(StringUtil.getPriceString(data.incidExp))}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_incid_exp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="+ 10,000,000 원" />
+
+
+                <TextView
+                    android:id="@+id/tv_title_fnc_int_amt"
+                    style="@style/AmountTitleBlack"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/gm02_ctr03_15"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_incid_exp" />
+
+                <TextView
+                    android:id="@+id/tv_fnc_int_amt"
+                    style="@style/AmountMsg"
+                    android:text="@{@string/gm02_ctr03_17(StringUtil.getPriceString(data.fncIntAmt))}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_fnc_int_amt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="+ 10,000,000 원" />
+
+                <ImageView
+                    android:id="@+id/iv_line_4"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/bg_00000000_underline_000000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_fnc_int_amt" />
+
+
+                <TextView
+                    android:id="@+id/tv_title_ttl_buy_amt"
+                    style="@style/AmountTitleGold"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/gm02_ctr03_16"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_ttl_buy_amt"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_ttl_buy_amt" />
+
+                <TextView
+                    android:id="@+id/tv_ttl_buy_amt"
+                    style="@style/AmountMsg"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/light_genesissansheadglobal"
+                    android:lineSpacingExtra="-9sp"
+                    android:text="@{StringUtil.getPriceString(data.ttlBuyAmt)}"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_line_4"
+                    tools:text="90,000,000 원" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

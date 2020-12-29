@@ -78,6 +78,7 @@ import com.genesis.apps.comm.model.api.gra.SOS_1002;
 import com.genesis.apps.comm.model.api.gra.SOS_1004;
 import com.genesis.apps.comm.model.api.gra.STO_1001;
 import com.genesis.apps.comm.model.api.gra.STO_1002;
+import com.genesis.apps.comm.model.api.gra.STO_1003;
 import com.genesis.apps.comm.model.api.gra.VOC_1001;
 import com.genesis.apps.comm.model.api.gra.VOC_1002;
 import com.genesis.apps.comm.model.api.gra.VOC_1003;
@@ -2415,6 +2416,40 @@ public class TestCode {
             "    }\n" +
             "  ]\n" +
             "}",STO_1002.Response.class);
+
+
+    public static STO_1003.Response STO_1003 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"성공\",\n" +
+            "  \"saleCnttNo\": \"B0119JJ000009\",\n" +
+            "  \"mnfctNm\": \"㈜현대자동차\",\n" +
+            "  \"cnttYmd\": \"20201228\",\n" +
+            "  \"carnNm\": \"자가용 7인승 디젤 3.0 22인치 기본 디자인 4WD 오토 런칭 파퓰러 패키지\",\n" +
+            "  \"xrclCtyNm\": \" 카본 메탈\",\n" +
+            "  \"ieclCtyNm\": \"브라운/베이지 투톤(베이지시트)\",\n" +
+            "  \"saleMdlOptNm\": \"헤드업 디스플레이,하이테크 패키지,드라이빙 어시스턴트 패키지 2,파노라마썬루프^^드라이빙 어시스턴트 패키지 1\",\n" +
+            "  \"dlgYmd\": \" 카본 메탈\",\n" +
+            "  \"cnttStCd1\": \"3000\",\n" +
+            "  \"cnttStCd2\": \"4000\",\n" +
+            "  \"cnttStCd3\": \"1000\",\n" +
+            "  \"carCtyAmt\": \"99000000\",\n" +
+            "  \"optCpndCtyAmt\": \"5121450\",\n" +
+            "  \"xrclCtyAmt\": \"1248512\",\n" +
+            "  \"ieclCtyAmt\": \"122145\",\n" +
+            "  \"rscc2Amt\": \"123214\",\n" +
+            "  \"csptCpndCtyAmt\": \"2222\",\n" +
+            "  \"carTtlAmt\": \"100000000\",\n" +
+            "  \"dcTtlAmt\": \"123461\",\n" +
+            "  \"saleAmt\": \"1236744356\",\n" +
+            "  \"mfsAmt\": \"123123\",\n" +
+            "  \"cnsgCtyAmt\": \"200000\",\n" +
+            "  \"ttlSaleAmt\": \"222000000\",\n" +
+            "  \"incidExp\": \"50\",\n" +
+            "  \"fncIntAmt\": \"1500000\",\n" +
+            "  \"ttlBuyAmt\": \"15000000000\",\n" +
+            "  \"eeNm\": \"카마스터 성명\",\n" +
+            "  \"eeHpTn\": \"01078848751\"\n" +
+            "}",STO_1003.Response.class);
 
 //    public static IST_1002.Response IST_1002 = new Gson().fromJson("{\n" +
 //            "  \"rtCd\": \"0000\",\n" +

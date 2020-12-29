@@ -84,32 +84,29 @@
                     app:info="@{@string/int02_9}"
                     app:iconId="@{@drawable/ic_location}"/>
 
-                <include
-                    android:id="@+id/l_info_4"
-                    layout="@layout/item_permission"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/l_info_3"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:name="@{@string/int02_10}"
-                    app:info="@{@string/int02_11}"
-                    app:iconId="@{@drawable/ic_camera}"/>
+<!--                <include-->
+<!--                    android:id="@+id/l_info_4"-->
+<!--                    layout="@layout/item_permission"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/l_info_3"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:name="@{@string/int02_10}"-->
+<!--                    app:info="@{@string/int02_11}"-->
+<!--                    app:iconId="@{@drawable/ic_camera}"/>-->
 
                 <include
                     android:id="@+id/l_info_5"
                     layout="@layout/item_permission"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/l_info_4"
+                    app:layout_constraintTop_toBottomOf="@+id/l_info_3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:name="@{@string/int02_12}"
                     app:info="@{@string/int02_13}"
                     app:iconId="@{@drawable/ic_mic}"/>
-
-
-
 
                 <TextView
                     android:id="@+id/tv_mark_1"
@@ -127,9 +124,25 @@
                     app:layout_constraintStart_toEndOf="@+id/tv_mark_1"
                     app:layout_constraintTop_toBottomOf="@+id/l_info_5" />
 
+                <TextView
+                    android:id="@+id/tv_mark_2"
+                    style="@style/ViewMarkGrey"
+                    android:layout_marginLeft="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_info_7" />
 
                 <TextView
                     android:id="@+id/tv_info_7"
+                    style="@style/ViewMsgInputSub"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/int02_19"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_msg"
+                    app:layout_constraintStart_toEndOf="@+id/tv_mark_2"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_6" />
+
+
+                <TextView
+                    android:id="@+id/tv_info_8"
                     style="@style/ViewMsgInputSubMsg"
                     android:layout_marginTop="20dp"
                     android:text="@string/int02_15"
@@ -137,7 +150,7 @@
                     android:layout_marginRight="20dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_info_6" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_7" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

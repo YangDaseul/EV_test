@@ -27,10 +27,14 @@ import java.nio.charset.StandardCharsets;
 import androidx.fragment.app.FragmentTransaction;
 
 public class HtmlActivity extends SubActivity<ActivityHtmlBinding>  {
+
+    private MyWebViewFrament.WebViewListener webViewListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_html);
+        webViewListener = webViewListenerNormal;
     }
 
     @Override
@@ -53,6 +57,10 @@ public class HtmlActivity extends SubActivity<ActivityHtmlBinding>  {
 
     }
 
+    public void setWebViewListener(MyWebViewFrament.WebViewListener webViewListener){
+        this.webViewListener = webViewListener;
+    }
+
     public void loadTerms(String html){
         if(!TextUtils.isEmpty(html)){
             Bundle bundle = new Bundle();
@@ -60,6 +68,7 @@ public class HtmlActivity extends SubActivity<ActivityHtmlBinding>  {
 
             MyWebViewFrament fragment = new MyWebViewFrament();
             fragment.setArguments(bundle);
+            if(webViewListener==null) webViewListener=webViewListenerNormal;
             fragment.setWebViewListener(webViewListener);
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -74,6 +83,7 @@ public class HtmlActivity extends SubActivity<ActivityHtmlBinding>  {
         bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
 
         MyWebViewFrament fragment = new MyWebViewFrament();
+        if(webViewListener==null) webViewListener=webViewListenerNormal;
         fragment.setWebViewListener(webViewListener);
         fragment.setArguments(bundle);
 
@@ -82,7 +92,7 @@ public class HtmlActivity extends SubActivity<ActivityHtmlBinding>  {
         ft.commitAllowingStateLoss();
     }
 
-    public MyWebViewFrament.WebViewListener webViewListener = new MyWebViewFrament.WebViewListener() {
+    public MyWebViewFrament.WebViewListener webViewListenerNormal = new MyWebViewFrament.WebViewListener() {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             return false;

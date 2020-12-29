@@ -1,7 +1,6 @@
 package com.genesis.apps.ui.main.home;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -40,7 +39,6 @@ import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentHome1Binding;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
-import com.genesis.apps.ui.common.activity.WebviewActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
@@ -66,10 +64,10 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
-
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static android.app.Activity.RESULT_OK;
+import static com.airbnb.lottie.LottieDrawable.RESTART;
 import static com.genesis.apps.comm.model.api.APPIAInfo.GM_BTO1;
 import static com.genesis.apps.comm.model.api.APPIAInfo.GM_BTO2;
 import static com.google.android.exoplayer2.Player.REPEAT_MODE_ALL;
@@ -87,6 +85,9 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     private Timer timer = null;
     private boolean isRecord = false;
 
+    private int rawBackground=0;
+    private int rawLottie=0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return super.setContentView(inflater, R.layout.fragment_home_1);
@@ -102,7 +103,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         super.onActivityCreated(savedInstanceState);
         initViewModel();
         initView();
-        setVideo(false);
         setViewWeather();
         recordUtil.regReceiver();
     }
@@ -114,32 +114,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         cmnViewModel = new ViewModelProvider(getActivity()).get(CMNViewModel.class);
         istViewModel = new ViewModelProvider(getActivity()).get(ISTViewModel.class);
         developersViewModel = new ViewModelProvider(getActivity()).get(DevelopersViewModel.class);
-
-//        lgnViewModel.getRES_STO_1002().observe(getViewLifecycleOwner(), result -> {
-//            switch (result.status) {
-//                case LOADING:
-//                    ((MainActivity) getActivity()).showProgressDialog(true);
-//                    break;
-//                case SUCCESS:
-//                    if (result.data != null && !TextUtils.isEmpty(result.data.getHtmlFilUri())) {
-//                        ((MainActivity) getActivity()).showProgressDialog(false);
-//                        ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, result.data.getHtmlFilUri()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                        break;
-//                    }
-//                default:
-//                    ((MainActivity) getActivity()).showProgressDialog(false);
-//                    String serverMsg = "";
-//                    try {
-//                        serverMsg = result.data.getRtMsg();
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    } finally {
-//                        SnackBarUtil.show(getActivity(), serverMsg);
-//                    }
-//                    break;
-//            }
-//        });
-
 
         lgnViewModel.getRES_LGN_0003().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
@@ -156,12 +130,14 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             //날씨 정보 요청 전문에서는 에러가 발생되어도 기본 값으로 표시
             //todo 2020-11-20 park 날씨에 대한 리소스를 받으면 디폴트 값을  SKY_1 로 변경 필요
             WeatherCodes weatherCodes = WeatherCodes.PTY1;
-
+            int dayCd = 1;
             if (result.data != null) {
                 try {
                     weatherCodes = WeatherCodes.decideCode(result.data.getLgt(), result.data.getPty(), result.data.getSky());
+                    dayCd = Integer.parseInt(result.data.getDayCd());
                 } catch (Exception e) {
                     weatherCodes = WeatherCodes.PTY1;
+                    dayCd = 1;
                 }
             }
 
@@ -179,6 +155,16 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
             } finally {
                 istViewModel.reqIST1001(new IST_1001.Request(APPIAInfo.GM01.getId(), "HOME", "TOP"));
+            }
+
+            try{
+                rawBackground = WeatherCodes.getBackgroundResource(weatherCodes, dayCd);
+                rawLottie = WeatherCodes.getEffectResource(weatherCodes);
+                setVideo(false);
+                videoPauseAndResume(true);
+                resumeAndPauseLottie(true);
+            }catch (Exception e){
+
             }
 
         });
@@ -425,6 +411,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         if (isRecord)
             return;
 
+        resumeAndPauseLottie(true);
         videoPauseAndResume(true);
         setViewVehicle();
 //        recordUtil.regReceiver();
@@ -527,6 +514,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         super.onPause();
         pauseTimer();
         videoPauseAndResume(false);
+        resumeAndPauseLottie(false);
     }
 
     private void makeQuickMenu(String custGbCd) {
@@ -623,7 +611,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 } finally {
                     if (vehicleVO != null) {
                         ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM02_CTR01.getActivity())
-                                        .putExtra(vehicleVO.getCtrctNo(), KeyNames.KEY_NAME_CTRCT_NO)
+                                        .putExtra(KeyNames.KEY_NAME_CTRCT_NO, vehicleVO.getCtrctNo())
                                 , RequestCodes.REQ_CODE_ACTIVITY.getCode()
                                 , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     }
@@ -745,7 +733,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     private void setVideo(boolean isForce) {
         try {
-
             if (player == null || isForce) {
                 player = new SimpleExoPlayer.Builder(getContext()).build();
                 player.setVolume(0);
@@ -756,7 +743,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 me.exoPlayerView.setUseController(false);
 
 
-                DataSpec dataSpec = new DataSpec(RawResourceDataSource.buildRawResourceUri(R.raw.rain_mob));
+                DataSpec dataSpec = new DataSpec(RawResourceDataSource.buildRawResourceUri(rawBackground));
                 final RawResourceDataSource rawResourceDataSource = new RawResourceDataSource(getContext());
                 rawResourceDataSource.open(dataSpec);
                 com.google.android.exoplayer2.upstream.DataSource.Factory factory = () -> rawResourceDataSource;
@@ -764,21 +751,21 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 LoopingMediaSource mediaSource = new LoopingMediaSource(audioSource);
                 player.prepare(mediaSource);
             }
-
-
         } catch (Exception e) {
 
         }
     }
 
     private void videoPauseAndResume(boolean isResume) {
-        Log.v("video player status", "isResume:" + isResume);
+        if(rawBackground!=0) {
+            Log.v("video player status", "isResume:" + isResume);
 
-        if (isResume && player != null && player.getPlaybackState() == STATE_IDLE) {
-            setVideo(true);
+            if (isResume && player != null && player.getPlaybackState() == STATE_IDLE) {
+                setVideo(true);
+            }
+
+            player.setPlayWhenReady(isResume);
         }
-
-        player.setPlayWhenReady(isResume);
     }
 
 
@@ -797,17 +784,21 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
 
+    private void resumeAndPauseLottie(boolean isResume){
+        if(rawLottie!=0&&isResume) {
 
-//        if(requestCode == RequestCodes.REQ_CODE_GPS.getCode() && resultCode == RESULT_OK){
-//            reqMyLocation();
-//        }else if (requestCode == RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode() && resultCode == RESULT_OK) {
-//            recordUtil.doRecordService(me.vClickReject, resultCode, data);
-//            return;
-//        }else if (requestCode == RequestCodes.REQ_CODE_PLAY_VIDEO.getCode()){
-//            recordUtil.requestShare();
-//        }else{
-//            super.onActivityResult(requestCode, resultCode, data);
-//        }
+            if(rawLottie==R.raw.rainfall_project2)//todo 임시코드. 추후 리소스 변경 시 제거 필요
+                me.lottieView.setAlpha(0.25f);
+
+            me.lottieView.setSpeed(0.6f);
+            me.lottieView.setAnimation(rawLottie);
+            me.lottieView.setRepeatMode(RESTART);
+            me.lottieView.setMaxFrame(40);
+            me.lottieView.playAnimation();
+        }else{
+            me.lottieView.pauseAnimation();
+        }
     }
 }

@@ -24,6 +24,10 @@
             type="Integer" />
 
         <variable
+            name="maxLine"
+            type="Integer" />
+
+        <variable
             name="iconId"
             type="android.graphics.drawable.Drawable" />
 
@@ -40,7 +44,7 @@
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="100dp"
-            android:layout_height="55dp"
+            android:layout_height="0dp"
             android:background="@color/x_f8f8f8"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:gravity="center"
@@ -49,23 +53,28 @@
             android:text="@{title}"
             android:textColor="@color/x_000000"
             android:textSize="14sp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="타이틀"/>
 
         <TextView
             android:id="@+id/tv_msg"
             android:layout_width="0dp"
-            android:layout_height="55dp"
+            android:layout_height="wrap_content"
             android:background="@color/x_ffffff"
             android:ellipsize="end"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:gravity="@{isLeft ? Gravity.CENTER_VERTICAL : Gravity.CENTER}"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="4sp"
-            android:maxLines="1"
+            android:maxLines="@{maxLine==0 ? 1 : maxLine}"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
             android:text="@{msg}"
             android:textColor="@{textColor==0 ? @color/x_262626 : textColor}"
             android:textSize="14sp"

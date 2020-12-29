@@ -80,7 +80,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_name"
             app:layout_constraintStart_toStartOf="@+id/tv_name"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="저장공간에 대한 설명이 들어갈 예정입니다. 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"/>
+            tools:text="저장공간에 대한 설명이 들어갈 예정입니다."/>
 
         <View
             android:layout_width="0dp"

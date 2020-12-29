@@ -181,7 +181,8 @@ public enum APIInfo {
     DEVELOPERS_CAR_ID("CAR ID 조회(대상 차량 등록 여부 확인) (저장 시에도 요청 및 사용)", "userId", HttpRequest.METHOD_GET, "/profile/users/%s/cars", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     DEVELOPERS_CAR_CONNECT("GCS 차량 연결(등록)", "userId", HttpRequest.METHOD_POST, "/profile/users/%s/cars", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 //    DEVELOPERS_CAR_SAVE("CAR ID 조회 및 저장", "userId", HttpRequest.METHOD_GET, "/profile/users/%s/cars", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-
+    TSAUTH_GET_NEW_CAR_OWNER_SHIP("한국 교통안전공단 화면 호출", "", HttpRequest.METHOD_POST, "/getNewCarOwnerShip.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    TSAUTH_GET_CHECK_CAR_OWNER_SHIP("한국 교통안전공단 인증결과 조회", "", HttpRequest.METHOD_POST, "/getCheckCarOwnerShip.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     ROADWIN_SERVICE_AREA_CHECK("서비스 가능 지역 확인", "", HttpRequest.METHOD_GET, "/serviceAreaCheck.php", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     ROADWIN_WORK("기사 위치 확인", "", HttpRequest.METHOD_GET, "/work/w.php", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),

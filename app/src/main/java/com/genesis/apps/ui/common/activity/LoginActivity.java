@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
@@ -49,6 +50,7 @@ public class LoginActivity extends WebviewActivity {
         getDataFromIntent();
         setViewModel();
         setObserver();
+        ui.lTitle.lTitleBar.setVisibility(View.GONE);
     }
 
     @Override

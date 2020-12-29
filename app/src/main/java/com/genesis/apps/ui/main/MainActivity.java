@@ -8,25 +8,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.BAR_1001;
-import com.genesis.apps.comm.model.api.gra.LGN_0007;
 import com.genesis.apps.comm.model.api.gra.NOT_0003;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -36,11 +25,18 @@ import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.main.contents.ContentsSearchActivity;
 import com.genesis.apps.ui.main.home.FragmentHome1;
 import com.genesis.apps.ui.main.service.FragmentService;
-import com.genesis.apps.ui.main.service.MapSearchMyPositionActivity;
 import com.genesis.apps.ui.main.store.FragmentStore;
 import com.genesis.apps.ui.myg.MyGEntranceActivity;
 import com.genesis.apps.ui.myg.MyGHomeActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     private final int pageNum = 5;
@@ -58,6 +54,11 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         setObserver();
         initView();
         initBarcode();
+
+//                startActivitySingleTop(new Intent(this, APPIAInfo.GM02_CTR01.getActivity())
+//                        .putExtra(KeyNames.KEY_NAME_CTRCT_NO, "B0119JJ000009")
+//                , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+//                , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
     private void initBarcode() {
@@ -206,6 +207,9 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         checkPushCode();
         reqNewNotiCnt();
 //        FirebaseMessagingService.notifyMessageTest(this, new PushVO(), PushCode.CAT_0E);
+
+
+
     }
 
     private void reqNewNotiCnt() {

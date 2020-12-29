@@ -103,7 +103,7 @@
     <string name="sm_emgc02_p01_2">긴급출동서비스 신청을\n취소하시겠습니까?</string>
 
     <string name="sm01_p01_1">로그인 안내</string>
-    <string name="sm01_p01_2">선택하신 서비스를 이용하려면,\n로그인이 필요합니다.\n로그인 하시겠습니까?</string>
+    <string name="sm01_p01_2">선택하신 서비스를 이용하려면,\n로그인이 필요합니다.\n\n로그인 하시겠습니까?</string>
     <string name="sm01_p02_1">정비 예약 불가 안내</string>
     <string name="sm01_p02_2">현재 예약 신청이 어렵습니다.\n\n예약 또는 정비 완료 후\n다시 시도해 주세요.</string>
 

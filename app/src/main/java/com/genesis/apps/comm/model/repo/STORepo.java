@@ -85,7 +85,6 @@ public class STORepo {
             @Override
             public void onFail(NetResult e) {
                 RES_STO_1003.setValue(NetUIResponse.error(e.getMseeage(), null));
-//                RES_STO_1003.setValue(NetUIResponse.success(TestCode.STO_1003));
             }
 
             @Override

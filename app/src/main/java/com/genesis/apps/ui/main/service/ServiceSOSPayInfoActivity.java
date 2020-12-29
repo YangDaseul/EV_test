@@ -4,19 +4,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.BTR_1010;
 import com.genesis.apps.comm.model.api.gra.SOS_1003;
-import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.ResultCodes;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.SnackBarUtil;
-import com.genesis.apps.comm.viewmodel.BTRViewModel;
 import com.genesis.apps.comm.viewmodel.SOSViewModel;
 import com.genesis.apps.ui.common.activity.HtmlActivity;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 public class ServiceSOSPayInfoActivity extends HtmlActivity {

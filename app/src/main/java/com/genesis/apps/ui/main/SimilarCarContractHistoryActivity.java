@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -10,7 +11,9 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.STO_1003;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivitySimilarCarContractHistoryBinding;
@@ -38,6 +41,13 @@ public class SimilarCarContractHistoryActivity extends SubActivity<ActivitySimil
 
     @Override
     public void onClickCommon(View v) {
+
+        switch (v.getId()){
+            case R.id.tv_msg: //계약서 상세 조회
+                if(lgnViewModel.getRES_STO_1003().getValue().data!=null)
+                    startActivitySingleTop(new Intent(this, SimilarCarContractDetailActivity.class).putExtra(KeyNames.KEY_NAME_STO_1003, lgnViewModel.getRES_STO_1003().getValue().data), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+                break;
+        }
 
     }
 
@@ -72,7 +82,7 @@ public class SimilarCarContractHistoryActivity extends SubActivity<ActivitySimil
                         if (TextUtils.isEmpty(serverMsg)) {
                             serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
                         }
-                        SnackBarUtil.show(this, serverMsg);
+                        exitPage(serverMsg, ResultCodes.RES_CODE_NETWORK.getCode());
                     }
                     break;
             }
@@ -127,6 +137,22 @@ public class SimilarCarContractHistoryActivity extends SubActivity<ActivitySimil
         }
 
         return cnttStNm;
+    }
+
+    public boolean isFinish(String cnttStCd){
+        boolean isFinsih=false;
+
+        if(!TextUtils.isEmpty(cnttStCd)) {
+            switch (cnttStCd) {
+                case "3000"://생산완료
+                case "5000"://출고완료
+                case "7000"://인도완료
+                    isFinsih = true;
+                    break;
+            }
+        }
+
+        return isFinsih;
     }
 
 }

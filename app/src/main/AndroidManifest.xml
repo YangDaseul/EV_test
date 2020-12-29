@@ -39,6 +39,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.common.activity.DeepLinkActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="genesisapp" />
+            </intent-filter>
+        </activity>
+
+
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="false"
@@ -245,6 +260,10 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.main.SimilarCarContractDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.main.home.LeasingCarVinRegisterActivity"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -304,6 +323,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.main.home.TsAuthWebViewActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.service.ServiceSOSApplyActivity"
             android:exported="false"
@@ -397,7 +420,8 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <!--원격 진단 : 내역-->
-        <activity android:name=".ui.main.service.ServiceRemoteListActivity"
+        <activity
+            android:name=".ui.main.service.ServiceRemoteListActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
@@ -480,8 +504,8 @@
         <activity
             android:name=".ui.main.service.ServiceRepair2PreCheckActivity"
             android:exported="false"
-            android:theme="@style/TextInputLayout"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/TextInputLayout" />
 
         <service android:name=".fcm.FirebaseMessagingService">
             <intent-filter>
