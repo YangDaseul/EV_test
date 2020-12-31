@@ -128,15 +128,14 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         });
         lgnViewModel.getRES_LGN_0005().observe(getViewLifecycleOwner(), result -> {
             //날씨 정보 요청 전문에서는 에러가 발생되어도 기본 값으로 표시
-            //todo 2020-11-20 park 날씨에 대한 리소스를 받으면 디폴트 값을  SKY_1 로 변경 필요
-            WeatherCodes weatherCodes = WeatherCodes.PTY1;
+            WeatherCodes weatherCodes = WeatherCodes.SKY1;
             int dayCd = 1;
             if (result.data != null) {
                 try {
                     weatherCodes = WeatherCodes.decideCode(result.data.getLgt(), result.data.getPty(), result.data.getSky());
                     dayCd = Integer.parseInt(result.data.getDayCd());
                 } catch (Exception e) {
-                    weatherCodes = WeatherCodes.PTY1;
+                    weatherCodes = WeatherCodes.SKY1;
                     dayCd = 1;
                 }
             }
@@ -461,8 +460,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 me.tvCarVrn.setText(vehicleVO.getCarRgstNo());
                 Glide
                         .with(getContext())
-                        .load(vehicleVO.getMainImgUri() + (VariableType.isHardCoding ? "empty" : ""))
-                        .centerInside()
+                        .load(vehicleVO.getMainImgUri())
+                        .fitCenter()
                         .error(R.drawable.car_new_44)
                         .placeholder(R.drawable.car_new_44)
                         .into(me.ivCar);

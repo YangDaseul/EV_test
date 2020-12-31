@@ -151,8 +151,8 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
     private static class ItemHomeInsightWeather extends BaseViewHolder<MessageVO, ItemHomeInsightWeatherBinding> {
 
         private final String[][] rule = {
-                {"\\? ", "\\?\n"},
-                {"\\?", "\\?\n"},
+                {"? ", "?\n"},
+                {"?", "?\n"},
                 {". ", ".\n"},
                 {".", ".\n"},
                 {"! ", "!\n"},
@@ -183,29 +183,32 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
 
         @Override
         public void onBindView(MessageVO item, final int pos) {
-            int txtChar = 0;
-            txtChar += getCharNumber(item.getTxtMsg(), '?');
-            txtChar += getCharNumber(item.getTxtMsg(), '!');
-            txtChar += getCharNumber(item.getTxtMsg(), '.');
-            txtChar += getCharNumber(item.getTxtMsg(), ',');
 
-            Log.v("insight test","item name:"+item.getTxtMsg()+"  특수문자 수:"+txtChar);
+//            int txtChar = 0;
+//            txtChar += getCharNumber(item.getTxtMsg(), '?');
+//            txtChar += getCharNumber(item.getTxtMsg(), '!');
+//            txtChar += getCharNumber(item.getTxtMsg(), '.');
+//            txtChar += getCharNumber(item.getTxtMsg(), ',');
+////
+//            Log.v("insight test","item name:"+item.getTxtMsg()+"  특수문자 수:"+txtChar);
+//
+//            try {
+//                if (txtChar>1&&!item.getTxtMsg().contains("\n")) {
+//                    for (int i = 0; i < rule.length; i++) {
+//                        if(item.getTxtMsg().contains(rule[i][0])&&item.getTxtMsg().indexOf(rule[i][0])!=(item.getTxtMsg().length()-1)) {
+//                            item.setTxtMsg(item.getTxtMsg().replaceFirst(ruleReplace[i][0], ruleReplace[i][1]));
+//                            Log.v("insight test", "item name after:" + item.getTxtMsg());
+//                            break;
+//                        }
+//                    }
+//                }
+//            }catch (Exception e ){
+//                e.printStackTrace();
+//            }finally {
+//                getBinding().tvMsg.setText(item.getTxtMsg());
+//            }
 
-            try {
-                if (txtChar>1&&!item.getTxtMsg().contains("\n")) {
-                    for (int i = 0; i < rule.length; i++) {
-                        if(item.getTxtMsg().contains(rule[i][0])) {
-                            item.setTxtMsg(item.getTxtMsg().replaceFirst(ruleReplace[i][0], ruleReplace[i][1]));
-                            Log.v("insight test", "item name after:" + item.getTxtMsg());
-                            break;
-                        }
-                    }
-                }
-            }catch (Exception e ){
-                e.printStackTrace();
-            }finally {
-                getBinding().tvMsg.setText(item.getTxtMsg());
-            }
+            getBinding().tvMsg.setText(item.getTxtMsg());
         }
 
         @Override

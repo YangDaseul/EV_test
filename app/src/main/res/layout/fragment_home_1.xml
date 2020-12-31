@@ -273,7 +273,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/iv_teduri"
             app:layout_constraintEnd_toEndOf="@+id/iv_teduri"
             app:layout_constraintStart_toStartOf="@+id/iv_teduri"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
             <TextView
                 android:id="@+id/tv_distance_total"

@@ -13,7 +13,7 @@
 
     <!--    SM_EMGC_P01팝업과 중복됨-->
     <string name="r_bt06_p01_title_1">위치 정보 안내</string>
-    <string name="r_bt06_p01_msg_1">현재 위치 정보를 확인하기 위해 스마트폰 GPS를 켜 주시기 바랍니다.\nGPS가 꺼진 경우 일부 동작이 제한될 수 있습니다.</string>
+    <string name="r_bt06_p01_msg_1">현재 위치 정보를 확인하기 위해 스마트폰 GPS를 켜 주시기 바랍니다.\n\nGPS가 꺼진 경우 일부 동작이\n제한될 수 있습니다.</string>
 
     <string name="sm_emg01_p04_1_1">긴급 출동 현황 확인</string>
     <string name="sm_emg01_p04_1_2">긴급출동 서비스가 접수되어 있습니다.\n원격 진단으로 서비스 전환을 하기 위해서 기존 긴급출동 접수 건을 취소하시겠습니까?</string>

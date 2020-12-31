@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewStub;
@@ -31,6 +32,7 @@ import com.genesis.apps.databinding.ActivityMap2Binding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomSelectNewBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.home.BluehandsFilterFragment;
 import com.genesis.apps.ui.main.home.BtrBluehandsListActivity;
@@ -87,7 +89,21 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
         setViewModel();
         setObserver();
         initView();
-        reqMyLocation();
+        checkEnableGPS();
+    }
+
+    private void checkEnableGPS() {
+        if (!isGpsEnable()) {
+            MiddleDialog.dialogGPS(this, () -> turnGPSOn(isGPSEnable -> {
+                Log.v("test","value:"+isGPSEnable);
+            }), () -> {
+                //현대양재사옥위치
+                lgnViewModel.setPosition(37.463936, 127.042953);
+                lgnViewModel.setMyPosition(37.463936, 127.042953);
+            });
+        } else {
+            reqMyLocation();
+        }
     }
 
     private void initView() {
@@ -545,8 +561,21 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
 //            if (!TextUtils.isEmpty(fillerCd) || !TextUtils.isEmpty(addr) || !TextUtils.isEmpty(addrDtl)) {
 //                btrViewModel.reqBTR1008(new BTR_1008.Request(APPIAInfo.GM_CARLST_01_B01.getId(), String.valueOf(btrVO.getMapXcooNm()), String.valueOf(btrVO.getMapYcooNm()), "", "", ""));
 //            }
+        }else if (requestCode == RequestCodes.REQ_CODE_GPS.getCode()) {
+            if(resultCode == RESULT_OK)
+                reqMyLocation();
+            else{
+                //현대양재사옥위치
+                lgnViewModel.setPosition(37.463936, 127.042953);
+                lgnViewModel.setMyPosition(37.463936, 127.042953);
+            }
         }
+
+
     }
+
+
+
 
 //    private void setPosition(List<BtrVO> list, BtrVO btrVO) {
 //
