@@ -1,8 +1,7 @@
 package com.genesis.apps.ui.main;
 
-import android.graphics.Typeface;
+import android.text.TextUtils;
 import android.util.SparseBooleanArray;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -11,7 +10,6 @@ import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.SimilarVehicleVO;
-import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.databinding.ItemSimilarCarBinding;
 import com.genesis.apps.databinding.ItemSimilarCarHeaderBinding;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
@@ -22,10 +20,9 @@ public class SimilarCarAdapter extends BaseRecyclerViewAdapter2<SimilarVehicleVO
 
     private static final int HEADER=0;
     private static final int BODY=1;
-    private static Typeface typeface;
-
-    public SimilarCarAdapter(Typeface typeface) {
-        this.typeface = typeface;
+    private static View.OnClickListener onClickListener;
+    public SimilarCarAdapter(View.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
     }
 
     @Override
@@ -42,7 +39,6 @@ public class SimilarCarAdapter extends BaseRecyclerViewAdapter2<SimilarVehicleVO
 
     }
 
-
     @Override
     public int getItemViewType(int position) {
         try {
@@ -54,6 +50,26 @@ public class SimilarCarAdapter extends BaseRecyclerViewAdapter2<SimilarVehicleVO
         }catch (Exception e){
             return HEADER;
         }
+    }
+
+    public void selectItem(int pos, boolean isInit) {
+        for (int i = 0; i < getItemCount(); i++) {
+            ((SimilarVehicleVO) getItem(i)).setSelect(i==pos&&!((SimilarVehicleVO) getItem(i)).isSelect()&&!isInit);
+        }
+        notifyDataSetChanged();
+    }
+
+    public SimilarVehicleVO getSelectItem(){
+        SimilarVehicleVO similarVehicleVO = null;
+
+        for(SimilarVehicleVO item : getItems()){
+            if(item.isSelect()){
+                similarVehicleVO = item;
+                break;
+            }
+        }
+
+        return similarVehicleVO;
     }
 
 
@@ -70,24 +86,36 @@ public class SimilarCarAdapter extends BaseRecyclerViewAdapter2<SimilarVehicleVO
 
         @Override
         public void onBindView(SimilarVehicleVO item, int pos) {
-            getBinding().tvModel.setText(item.getVhclNm());
-            getBinding().tvCarRgstNo.setText(item.getMdlNm());
+            getBinding().setData(item);
             Glide
                     .with(getContext())
                     .load(item.getVhclImgUri())
                     .format(DecodeFormat.PREFER_ARGB_8888)
-                    .error(R.drawable.img_car_339_2) //todo 대체 이미지 필요
-                    .placeholder(R.drawable.img_car_339_2) //todo 에러시 대체 이미지 필요
+                    .error(R.drawable.img_car) //todo 대체 이미지 필요
+                    .placeholder(R.drawable.img_car) //todo 에러시 대체 이미지 필요
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(getBinding().ivCar);
 
-            getBinding().tag.setTagTextSize(DeviceUtil.dip2Pixel(getContext(),12));
-            getBinding().tag.setTagTypeface(typeface);
 
-            getBinding().tag.setGravity(Gravity.CENTER);
-            getBinding().tag.addTag(item.getEtrrClrNm());
-            getBinding().tag.addTag(item.getItrrClrNm());
-            getBinding().tag.addTag(item.getOtpnNm());
+
+//            getBinding().tvVhclNm.setText(item.getVhclNm());
+//            getBinding().tvMdlNm.setText(item.getMdlNm());
+//            Glide
+//                    .with(getContext())
+//                    .load(item.getVhclImgUri())
+//                    .format(DecodeFormat.PREFER_ARGB_8888)
+//                    .error(R.drawable.img_car) //todo 대체 이미지 필요
+//                    .placeholder(R.drawable.img_car) //todo 에러시 대체 이미지 필요
+//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                    .into(getBinding().ivCar);
+//
+//            getBinding().tag.setTagTextSize(DeviceUtil.dip2Pixel(getContext(),12));
+//            getBinding().tag.setTagTypeface(typeface);
+//
+//            getBinding().tag.setGravity(Gravity.CENTER);
+//            getBinding().tag.addTag(item.getEtrrClrNm());
+//            getBinding().tag.addTag(item.getItrrClrNm());
+//            getBinding().tag.addTag(item.getOtpnNm());
         }
 
         @Override
@@ -100,38 +128,54 @@ public class SimilarCarAdapter extends BaseRecyclerViewAdapter2<SimilarVehicleVO
 
 
     private static class ItemSimilarCar extends BaseViewHolder<SimilarVehicleVO, ItemSimilarCarBinding> {
+
+
         public ItemSimilarCar(View itemView) {
             super(itemView);
+            getBinding().lWhole.setOnClickListener(onClickListener);
         }
 
         @Override
         public void onBindView(SimilarVehicleVO item) {
 
+
         }
 
         @Override
         public void onBindView(SimilarVehicleVO item, int pos) {
-            getBinding().tvModel.setText(item.getVhclNm());
-            getBinding().tvCarRgstNo.setText(item.getMdlNm());
+            getBinding().lWhole.setTag(R.id.item, item);
+            getBinding().lWhole.setTag(R.id.position, pos);
+            getBinding().setData(item);
             Glide
                     .with(getContext())
                     .load(item.getVhclImgUri())
                     .format(DecodeFormat.PREFER_ARGB_8888)
-                    .error(R.drawable.img_car_339_2) //todo 대체 이미지 필요
-                    .placeholder(R.drawable.img_car_339_2) //todo 에러시 대체 이미지 필요
+                    .error(R.drawable.img_car) //todo 대체 이미지 필요
+                    .placeholder(R.drawable.img_car) //todo 에러시 대체 이미지 필요
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(getBinding().ivCar);
 
-
-            getBinding().tag.setTagTextSize(DeviceUtil.dip2Pixel(getContext(),12));
-            getBinding().tag.setTagTypeface(typeface);
-
-            getBinding().tag.setGravity(Gravity.CENTER);
-            getBinding().tag.addTag(item.getEtrrClrNm());
-            getBinding().tag.addTag(item.getItrrClrNm());
-            getBinding().tag.addTag(item.getOtpnNm());
-            getBinding().tvSmlrRto.setVisibility(View.VISIBLE);
-            getBinding().tvSmlrRto.setText(String.format(getContext().getString(R.string.gm02_inv01_2), item.getSmlrRto()==null ? "0" : item.getSmlrRto()));
+//            getBinding().tvModel.setText(item.getVhclNm());
+//            getBinding().tvCarRgstNo.setText(item.getMdlNm());
+//            Glide
+//                    .with(getContext())
+//                    .load(item.getVhclImgUri())
+//                    .format(DecodeFormat.PREFER_ARGB_8888)
+//                    .error(R.drawable.img_car) //todo 대체 이미지 필요
+//                    .placeholder(R.drawable.img_car) //todo 에러시 대체 이미지 필요
+//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                    .into(getBinding().ivCar);
+//
+//
+//            getBinding().tag.setTagTextSize(DeviceUtil.dip2Pixel(getContext(),12));
+//            getBinding().tag.setTagTypeface(typeface);
+//
+//            getBinding().tag.setGravity(Gravity.CENTER);
+//            getBinding().tag.addTag(item.getEtrrClrNm());
+//            getBinding().tag.addTag(item.getItrrClrNm());
+//            getBinding().tag.addTag(item.getOtpnNm());
+//            getBinding().tvSmlrRto.setVisibility(View.VISIBLE);
+//            getBinding().tvSmlrRto.setText(String.format(getContext().getString(R.string.gm02_inv01_2), item.getSmlrRto()==null ? "0" : item.getSmlrRto()));
         }
 
         @Override

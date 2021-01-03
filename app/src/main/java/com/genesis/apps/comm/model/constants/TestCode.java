@@ -2322,16 +2322,17 @@ public class TestCode {
             "  \"smlrVhclList\": [\n" +
             "    {\n" +
             "      \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
-            "      \"vhclNm\": \"GV80\",\n" +
+            "      \"vhclNm\": \"GV801\",\n" +
             "      \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
             "      \"etrrClrNm\": \"우유니 화이트\",\n" +
             "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
             "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "      \"celphNo\": \"01011111111\",\n" +
             "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
             "    },\n" +
             "    {\n" +
             "      \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
-            "      \"vhclNm\": \"GV80\",\n" +
+            "      \"vhclNm\": \"GV802\",\n" +
             "      \"smlrRto\": \"80\",\n" +
             "      \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
             "      \"etrrClrNm\": \"우유니 화이트\",\n" +
@@ -2341,22 +2342,112 @@ public class TestCode {
             "    },\n" +
             "    {\n" +
             "      \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
-            "      \"vhclNm\": \"GV81\",\n" +
+            "      \"vhclNm\": \"GV813\",\n" +
             "      \"smlrRto\": \"90\",\n" +
             "      \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
             "      \"etrrClrNm\": \"우유니 화이트\",\n" +
             "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
             "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "      \"celphNo\": \"0102222222\",\n" +
             "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
             "    },\n" +
             "    {\n" +
             "      \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
-            "      \"vhclNm\": \"GV82\",\n" +
+            "      \"vhclNm\": \"GV813\",\n" +
+            "      \"smlrRto\": \"90\",\n" +
+            "      \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
+            "      \"etrrClrNm\": \"우유니 화이트\",\n" +
+            "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
+            "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "      \"celphNo\": \"0102222333\",\n" +
+            "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
+            "      \"vhclNm\": \"GV813\",\n" +
+            "      \"smlrRto\": \"90\",\n" +
+            "      \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
+            "      \"etrrClrNm\": \"우유니 화이트\",\n" +
+            "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
+            "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "      \"celphNo\": \"0102222444\",\n" +
+            "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
+            "      \"vhclNm\": \"GV813\",\n" +
+            "      \"smlrRto\": \"90\",\n" +
+            "      \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
+            "      \"etrrClrNm\": \"우유니 화이트\",\n" +
+            "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
+            "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "      \"celphNo\": \"01022555\",\n" +
+            "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
+            "      \"vhclNm\": \"GV813\",\n" +
+            "      \"smlrRto\": \"90\",\n" +
+            "      \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
+            "      \"etrrClrNm\": \"우유니 화이트\",\n" +
+            "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
+            "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "      \"celphNo\": \"0103333333\",\n" +
+            "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
+            "      \"vhclNm\": \"GV813\",\n" +
+            "      \"smlrRto\": \"90\",\n" +
+            "      \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
+            "      \"etrrClrNm\": \"우유니 화이트\",\n" +
+            "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
+            "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "      \"celphNo\": \"01044444444\",\n" +
+            "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
+            "      \"vhclNm\": \"GV813\",\n" +
+            "      \"smlrRto\": \"90\",\n" +
+            "      \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
+            "      \"etrrClrNm\": \"우유니 화이트\",\n" +
+            "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
+            "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "      \"celphNo\": \"01055555555\",\n" +
+            "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
+            "      \"vhclNm\": \"GV813\",\n" +
+            "      \"smlrRto\": \"90\",\n" +
+            "      \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
+            "      \"etrrClrNm\": \"우유니 화이트\",\n" +
+            "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
+            "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "      \"celphNo\": \"01066666666\",\n" +
+            "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
+            "      \"vhclNm\": \"GV813\",\n" +
+            "      \"smlrRto\": \"90\",\n" +
+            "      \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
+            "      \"etrrClrNm\": \"우유니 화이트\",\n" +
+            "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
+            "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "      \"celphNo\": \"01077777777\",\n" +
+            "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"vhclCd\": \"JJJS4CAT1B08UYHNNB\",\n" +
+            "      \"vhclNm\": \"GV824\",\n" +
             "      \"smlrRto\": \"99\",\n" +
             "      \"mdlNm\": \"2.5 가솔린 2WD 4도어 18인치\",\n" +
             "      \"etrrClrNm\": \"우유니 화이트\",\n" +
             "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
             "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "      \"celphNo\": \"01088888888\",\n" +
             "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
             "    }\n" +
             "  ]\n" +

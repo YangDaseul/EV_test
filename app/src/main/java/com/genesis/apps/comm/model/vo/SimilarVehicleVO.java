@@ -4,6 +4,7 @@ import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import androidx.room.Ignore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -54,4 +55,7 @@ class SimilarVehicleVO extends BaseData {
     @Expose
     @SerializedName("celphNo")
     private String celphNo;
+
+    @Ignore
+    private boolean isSelect; //로컬에서만 사용
 }

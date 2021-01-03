@@ -5,6 +5,7 @@ import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.gra.STO_1001;
 import com.genesis.apps.comm.model.api.gra.STO_1002;
 import com.genesis.apps.comm.model.api.gra.STO_1003;
+import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.net.NetResultCallback;
@@ -33,7 +34,8 @@ public class STORepo {
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
-                RES_STO_1001.setValue(NetUIResponse.success(new Gson().fromJson(object, STO_1001.Response.class)));
+//                RES_STO_1001.setValue(NetUIResponse.success(new Gson().fromJson(object, STO_1001.Response.class)));
+                                RES_STO_1001.setValue(NetUIResponse.success(TestCode.STO_1001));
             }
 
             @Override

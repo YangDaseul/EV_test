@@ -1,5 +1,7 @@
 package com.genesis.apps.ui.main;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,6 +17,7 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -41,7 +44,8 @@ public class SimilarCarActivity extends SubActivity<ActivitySimilarCarBinding> {
     }
 
     private void initView() {
-        adapter = new SimilarCarAdapter(ResourcesCompat.getFont(this, R.font.regular_genesissanstextglobal));
+//        adapter = new SimilarCarAdapter(ResourcesCompat.getFont(this, R.font.regular_genesissanstextglobal));
+        adapter = new SimilarCarAdapter(view -> onClickCommon(view));
         ui.rv.setLayoutManager(new LinearLayoutManager(this));
         ui.rv.setHasFixedSize(true);
         ui.rv.setAdapter(adapter);
@@ -49,12 +53,68 @@ public class SimilarCarActivity extends SubActivity<ActivitySimilarCarBinding> {
 
     @Override
     public void onClickCommon(View v) {
+        SimilarVehicleVO similarVehicleVO = null;
+        switch (v.getId()){
+            case R.id.l_whole:
+                int pos = -1;
+                try{
+                    similarVehicleVO = (SimilarVehicleVO)v.getTag(R.id.item);
+                    pos = Integer.parseInt(v.getTag(R.id.position).toString());
+                }catch (Exception e){
+                    e.printStackTrace();
+                    pos = -1;
+                }finally{
+                    if(similarVehicleVO!=null&&!TextUtils.isEmpty(similarVehicleVO.getCelphNo())&&pos>-1){//카마스터 번호가 있으면
+                        adapter.selectItem(pos, false);
+                    }else{
+                        adapter.selectItem(pos, true);
+                        SnackBarUtil.show(this, "딜러 정보가 존재하지 않습니다.");
+                    }
 
+                    if(adapter.getSelectItem()==null){
+                        ui.btnBlock.setVisibility(View.VISIBLE);
+                        ui.btnRequest.setEnabled(false);
+                    }else{
+                        ui.btnBlock.setVisibility(View.GONE);
+                        ui.btnRequest.setEnabled(true);
+                    }
+                }
+
+                break;
+            case R.id.btn_request://문의하기
+                similarVehicleVO= adapter.getSelectItem();
+                if(similarVehicleVO!=null&&!TextUtils.isEmpty(similarVehicleVO.getCelphNo())){
+                    String msg = String.format(Locale.getDefault(), getString(R.string.gm02_inv01_8), lgnViewModel.getDbUserRepo().getUserVO().getCustNm(), similarVehicleVO.getVhclCd());
+                    sendSmsIntent(similarVehicleVO.getCelphNo(), msg);
+                }
+
+                break;
+        }
+
+    }
+
+
+    public void sendSmsIntent(String number, String msg){
+        try{
+            Uri smsUri = Uri.parse("sms:"+number);
+            Intent sendIntent = new Intent(Intent.ACTION_SENDTO, smsUri);
+            sendIntent.putExtra("sms_body", msg);
+            startActivity(sendIntent);
+
+//        Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+//        sendIntent.putExtra("address", number);
+//        sendIntent.putExtra("sms_body", editBody.getText().toString());
+//        sendIntent.setType("vnd.android-dir/mms-sms");
+//        startActivity(sendIntent);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void setViewModel() {
         ui.setLifecycleOwner(this);
+        ui.setListener(onSingleClickListener);
         lgnViewModel = new ViewModelProvider(this).get(LGNViewModel.class);
     }
 
