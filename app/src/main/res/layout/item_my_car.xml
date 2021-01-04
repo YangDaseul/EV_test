@@ -6,7 +6,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/x_ffffff">
 
         <ImageView
             android:id="@+id/l_bg"
@@ -16,7 +17,6 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="30dp"
-            android:background="@color/x_ffffff"
             android:paddingLeft="20dp"
             android:paddingTop="30dp"
             android:paddingRight="20dp"

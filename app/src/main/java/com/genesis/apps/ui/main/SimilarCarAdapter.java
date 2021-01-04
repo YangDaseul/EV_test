@@ -30,7 +30,7 @@ public class SimilarCarAdapter extends BaseRecyclerViewAdapter2<SimilarVehicleVO
         if(viewType==HEADER)
             return new ItemSimilarCarHeader(getView(parent, R.layout.item_similar_car_header));
         else
-            return new ItemSimilarCar(getView(parent, R.layout.item_similar_car));
+            return new ItemSimilarCar(getView(parent, R.layout.item_similar_car), !TextUtils.isEmpty(((SimilarVehicleVO)getItem(0)).getCelphNo()));
     }
 
     @Override
@@ -95,27 +95,6 @@ public class SimilarCarAdapter extends BaseRecyclerViewAdapter2<SimilarVehicleVO
                     .placeholder(R.drawable.img_car) //todo 에러시 대체 이미지 필요
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(getBinding().ivCar);
-
-
-
-//            getBinding().tvVhclNm.setText(item.getVhclNm());
-//            getBinding().tvMdlNm.setText(item.getMdlNm());
-//            Glide
-//                    .with(getContext())
-//                    .load(item.getVhclImgUri())
-//                    .format(DecodeFormat.PREFER_ARGB_8888)
-//                    .error(R.drawable.img_car) //todo 대체 이미지 필요
-//                    .placeholder(R.drawable.img_car) //todo 에러시 대체 이미지 필요
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    .into(getBinding().ivCar);
-//
-//            getBinding().tag.setTagTextSize(DeviceUtil.dip2Pixel(getContext(),12));
-//            getBinding().tag.setTagTypeface(typeface);
-//
-//            getBinding().tag.setGravity(Gravity.CENTER);
-//            getBinding().tag.addTag(item.getEtrrClrNm());
-//            getBinding().tag.addTag(item.getItrrClrNm());
-//            getBinding().tag.addTag(item.getOtpnNm());
         }
 
         @Override
@@ -129,10 +108,12 @@ public class SimilarCarAdapter extends BaseRecyclerViewAdapter2<SimilarVehicleVO
 
     private static class ItemSimilarCar extends BaseViewHolder<SimilarVehicleVO, ItemSimilarCarBinding> {
 
+        private boolean allowCheck=false;
 
-        public ItemSimilarCar(View itemView) {
+        public ItemSimilarCar(View itemView, boolean allowCheck) {
             super(itemView);
-            getBinding().lWhole.setOnClickListener(onClickListener);
+            this.allowCheck = allowCheck;
+            if(allowCheck) getBinding().lWhole.setOnClickListener(onClickListener);
         }
 
         @Override
@@ -145,6 +126,7 @@ public class SimilarCarAdapter extends BaseRecyclerViewAdapter2<SimilarVehicleVO
         public void onBindView(SimilarVehicleVO item, int pos) {
             getBinding().lWhole.setTag(R.id.item, item);
             getBinding().lWhole.setTag(R.id.position, pos);
+            getBinding().setAllowCheck(allowCheck);
             getBinding().setData(item);
             Glide
                     .with(getContext())

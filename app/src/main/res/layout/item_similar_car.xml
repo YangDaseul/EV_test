@@ -4,9 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
         <variable
             name="data"
             type="com.genesis.apps.comm.model.vo.SimilarVehicleVO" />
+        <variable
+            name="allowCheck"
+            type="boolean" />
     </data>
 
 
@@ -37,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:src="@{data.isSelect ? @drawable/btn_check_on : @drawable/btn_check_off}"
+            android:visibility="@{allowCheck ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="@+id/iv_car"
             app:layout_constraintTop_toTopOf="@+id/iv_car"
             tools:src="@drawable/btn_check_off" />

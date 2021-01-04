@@ -2317,6 +2317,7 @@ public class TestCode {
             "    \"etrrClrNm\": \"우유니 화이트\",\n" +
             "    \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
             "    \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
+            "    \"celphNo\": \"\",\n" +
             "    \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
             "  },\n" +
             "  \"smlrVhclList\": [\n" +
@@ -2327,7 +2328,6 @@ public class TestCode {
             "      \"etrrClrNm\": \"우유니 화이트\",\n" +
             "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
             "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
-            "      \"celphNo\": \"01011111111\",\n" +
             "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
             "    },\n" +
             "    {\n" +
@@ -2348,7 +2348,6 @@ public class TestCode {
             "      \"etrrClrNm\": \"우유니 화이트\",\n" +
             "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
             "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
-            "      \"celphNo\": \"0102222222\",\n" +
             "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
             "    },\n" +
             "    {\n" +
@@ -2359,7 +2358,6 @@ public class TestCode {
             "      \"etrrClrNm\": \"우유니 화이트\",\n" +
             "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
             "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
-            "      \"celphNo\": \"0102222333\",\n" +
             "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
             "    },\n" +
             "    {\n" +
@@ -2370,7 +2368,6 @@ public class TestCode {
             "      \"etrrClrNm\": \"우유니 화이트\",\n" +
             "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
             "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
-            "      \"celphNo\": \"0102222444\",\n" +
             "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
             "    },\n" +
             "    {\n" +
@@ -2381,7 +2378,6 @@ public class TestCode {
             "      \"etrrClrNm\": \"우유니 화이트\",\n" +
             "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
             "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
-            "      \"celphNo\": \"01022555\",\n" +
             "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
             "    },\n" +
             "    {\n" +
@@ -2392,7 +2388,6 @@ public class TestCode {
             "      \"etrrClrNm\": \"우유니 화이트\",\n" +
             "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
             "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
-            "      \"celphNo\": \"0103333333\",\n" +
             "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
             "    },\n" +
             "    {\n" +
@@ -2403,7 +2398,6 @@ public class TestCode {
             "      \"etrrClrNm\": \"우유니 화이트\",\n" +
             "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
             "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
-            "      \"celphNo\": \"01044444444\",\n" +
             "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
             "    },\n" +
             "    {\n" +
@@ -2414,7 +2408,6 @@ public class TestCode {
             "      \"etrrClrNm\": \"우유니 화이트\",\n" +
             "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
             "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
-            "      \"celphNo\": \"01055555555\",\n" +
             "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
             "    },\n" +
             "    {\n" +
@@ -2425,7 +2418,6 @@ public class TestCode {
             "      \"etrrClrNm\": \"우유니 화이트\",\n" +
             "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
             "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
-            "      \"celphNo\": \"01066666666\",\n" +
             "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
             "    },\n" +
             "    {\n" +
@@ -2436,7 +2428,6 @@ public class TestCode {
             "      \"etrrClrNm\": \"우유니 화이트\",\n" +
             "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
             "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
-            "      \"celphNo\": \"01077777777\",\n" +
             "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
             "    },\n" +
             "    {\n" +
@@ -2447,7 +2438,6 @@ public class TestCode {
             "      \"etrrClrNm\": \"우유니 화이트\",\n" +
             "      \"itrrClrNm\": \"블랙모노톤(블랙시트)\",\n" +
             "      \"otpnNm\": \"파노라마 선루프, 파퓰러 패키지\",\n" +
-            "      \"celphNo\": \"01088888888\",\n" +
             "      \"vhclImgUri\": \"http://placehold.it/400x200/eaa/aee&text=placehold.it\"\n" +
             "    }\n" +
             "  ]\n" +
