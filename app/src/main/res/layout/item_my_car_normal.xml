@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="android.view.View" />
 
         <variable
@@ -39,21 +38,21 @@
             android:id="@+id/btn_pre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:src="@drawable/btn_mycar_left"
             android:visibility="@{position==0 ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/iv_car"
             app:layout_constraintStart_toStartOf="@+id/iv_car"
-            app:layout_constraintTop_toTopOf="@+id/iv_car"
-            tools:src="@drawable/btn_arrow_open" />
+            app:layout_constraintTop_toTopOf="@+id/iv_car" />
 
         <ImageView
             android:id="@+id/btn_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{maxSize==(position-1) ? View.GONE : View.VISIBLE}"
+            android:src="@drawable/btn_mycar_right"
+            android:visibility="@{(maxSize-1)==position ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/iv_car"
             app:layout_constraintEnd_toEndOf="@+id/iv_car"
-            app:layout_constraintTop_toTopOf="@+id/iv_car"
-            tools:src="@drawable/btn_arrow_open" />
+            app:layout_constraintTop_toTopOf="@+id/iv_car" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

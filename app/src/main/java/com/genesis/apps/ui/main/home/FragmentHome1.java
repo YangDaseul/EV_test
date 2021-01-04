@@ -462,8 +462,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         .with(getContext())
                         .load(vehicleVO.getMainImgUri())
                         .fitCenter()
-                        .error(R.drawable.car_new_44)
-                        .placeholder(R.drawable.car_new_44)
+                        .error(R.drawable.main_img_car)
+                        .placeholder(R.drawable.main_img_car)
                         .into(me.ivCar);
 
 //                me.ivMore.setVisibility(View.GONE);

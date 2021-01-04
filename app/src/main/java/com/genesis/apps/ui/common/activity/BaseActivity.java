@@ -197,7 +197,7 @@ public class BaseActivity extends AppCompatActivity {
                     if (appiaInfo != null && appiaInfo.getActivity() != null) {
                         startActivitySingleTop(new Intent(this, appiaInfo.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     }else{
-                        SnackBarUtil.show(this, "화면 ID가 올바르지 않습니다.");
+                        SnackBarUtil.show(this, "메뉴 ID가 올바르지 않습니다.");
                     }
                 }else{
                     startActivitySingleTop(new Intent(this, AlarmCenterActivity.class).putExtra(PUSH_VO, pushVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);

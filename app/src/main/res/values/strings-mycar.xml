@@ -145,6 +145,10 @@
     <string name="gm_carlst_04_19">현황</string>
     <string name="gm_carlst_04_20">신청하기</string>
     <string name="gm_carlst_04_21">MY 차고</string>
+    <string name="gm_carlst_04_22">차량번호 등록</string>
+    <string name="gm_carlst_04_23">유사 재고 조회</string>
+    <string name="gm_carlst_04_24">계약서 조회</string>
+    <string name="gm_carlst_04_25">차량등록</string>
 
 
     <string name="gm_carlst_03_1">중고차 등록</string>

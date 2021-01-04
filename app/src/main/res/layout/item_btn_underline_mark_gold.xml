@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="btnNm"
+            type="String" />
+
+<!--        <variable-->
+<!--            name="listener"-->
+<!--            type="com.genesis.apps.ui.common.view.listener.OnSingleClickListener" />-->
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/btn_nm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="30dp"
+            android:maxLines="1"
+            android:textColor="@color/x_000000"
+            android:textSize="14dp"
+            android:text="@{btnNm}"
+            android:paddingBottom="2dp"
+            android:background="@drawable/bg_00000000_underline_000000"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible"
+            tools:text="버튼 텍스트"/>
+
+        <ImageView
+            android:id="@+id/iv_mark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btn_arrow_open_r_g"
+            android:layout_marginStart="2dp"
+            android:visibility="visible"
+            app:layout_constraintStart_toEndOf="@+id/btn_nm"
+            app:layout_constraintTop_toTopOf="@+id/btn_nm"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_nm"/>
+
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_title"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:background="@color/x_f8f8f8"-->
+<!--            android:fontFamily="@font/regular_genesissanstextglobal"-->
+<!--            android:gravity="center"-->
+<!--            android:letterSpacing="-0.01"-->
+<!--            android:lineSpacingExtra="4sp"-->
+<!--            android:text="@{title}"-->
+<!--            android:textColor="@color/x_000000"-->
+<!--            android:textSize="14sp"-->
+<!--            android:paddingTop="20dp"-->
+<!--            android:paddingBottom="20dp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            tools:text="타이틀"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_msg"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@color/x_ffffff"-->
+<!--            android:ellipsize="end"-->
+<!--            android:fontFamily="@font/regular_genesissanstextglobal"-->
+<!--            android:gravity="@{isLeft ? Gravity.CENTER_VERTICAL : Gravity.CENTER}"-->
+<!--            android:letterSpacing="-0.01"-->
+<!--            android:lineSpacingExtra="4sp"-->
+<!--            android:maxLines="@{maxLine==0 ? 1 : maxLine}"-->
+<!--            android:paddingStart="15dp"-->
+<!--            android:paddingEnd="15dp"-->
+<!--            android:paddingTop="20dp"-->
+<!--            android:paddingBottom="20dp"-->
+<!--            android:text="@{msg}"-->
+<!--            android:textColor="@{textColor==0 ? @color/x_262626 : textColor}"-->
+<!--            android:textSize="14sp"-->
+<!--            android:drawableRight="@{iconId}"-->
+<!--            android:onClick="@{(view)->listener.onClick(view)}"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/tv_title"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            tools:text="메시지"/>-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

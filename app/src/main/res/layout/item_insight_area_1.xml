@@ -106,8 +106,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/vp_image"
-            app:ci_drawable="@drawable/mark_oval_000000"
-            app:ci_drawable_unselected="@drawable/mark_oval_aaabaf"/>
+            app:ci_drawable="@drawable/mark_oval_ffffff_stroke_262626"
+            app:ci_drawable_unselected="@drawable/mark_oval_cccccc"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
