@@ -55,9 +55,7 @@ public class AlarmCenterActivity extends SubActivity<ActivityAlarmCenterBinding>
     }
 
     private void initTabView() {
-//        ui.tabs.addTab(ui.tabs.newTab().setText(R.string.alrm01_2));
-        for (String codeNm : PushCodes.getPushListNm()) {
-//            ui.tabs.addTab(ui.tabs.newTab().setText(codeNm));
+        for (String codeNm : cmnViewModel.getAlarmMsgTypeNmList()) {
             final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             final ItemTabAlarmBinding itemTabAlarmBinding = DataBindingUtil.inflate(inflater, R.layout.item_tab_alarm, null, false);
             final View view = itemTabAlarmBinding.getRoot();
@@ -68,7 +66,7 @@ public class AlarmCenterActivity extends SubActivity<ActivityAlarmCenterBinding>
         ui.tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                getList(PushCodes.findCode(((ItemTabAlarmBinding) DataBindingUtil.bind(tab.getCustomView())).tvTab.getText().toString()).getCateCd(), "");
+                getList(cmnViewModel.getAlarmTypeCd(((ItemTabAlarmBinding) DataBindingUtil.bind(tab.getCustomView())).tvTab.getText().toString()), "");
             }
 
             @Override

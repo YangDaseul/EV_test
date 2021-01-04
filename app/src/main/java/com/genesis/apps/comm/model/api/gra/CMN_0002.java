@@ -4,6 +4,7 @@ import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.BaseRequest;
 import com.genesis.apps.comm.model.api.BaseResponse;
+import com.genesis.apps.comm.model.vo.AlarmMsgTypeVO;
 import com.genesis.apps.comm.model.vo.DownMenuVO;
 import com.genesis.apps.comm.model.vo.QuickMenuVO;
 import com.genesis.apps.comm.model.vo.WeatherVO;
@@ -57,6 +58,9 @@ public class CMN_0002 extends BaseData {
         @Expose
         @SerializedName("wthrInsgtList")
         private List<WeatherVO> wthrInsgtList;
+        @Expose
+        @SerializedName("msgTypCd")
+        private List<AlarmMsgTypeVO> msgTypCd;
     }
 
 
