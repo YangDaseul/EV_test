@@ -177,6 +177,9 @@ public class GAWebActivity extends WebviewActivity {
         } else if (url.startsWith("genesisapps://backAction")){
             this.fn = uri.getQueryParameter("fn");
             return true;
+        } else if (url.startsWith("genesisapp://menu?id=")||url.startsWith("genesisapps://menu?id=")){
+            moveToNativePage(url, false);
+            return true;
         } else {
             return false;
         }

@@ -18,9 +18,11 @@ import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.fcm.PushVO;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.intro.IntroActivity;
 import com.genesis.apps.ui.main.AlarmCenterActivity;
 import com.genesis.apps.ui.main.service.ServiceReviewActivity;
+import com.genesis.apps.ui.myg.MyGEntranceActivity;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
@@ -170,6 +172,11 @@ public class BaseActivity extends AppCompatActivity {
         }
 
         switch (APPIAInfo.findCode(id)) {
+            case LOG01:
+                MiddleDialog.dialogLogin(this, () -> startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE), () -> {
+
+                });
+                break;
             case SM_REVIEW01_P01:
                 if (!TextUtils.isEmpty(PI)) {
                     startActivitySingleTop(new Intent(this, ServiceReviewActivity.class).putExtra(KeyNames.KEY_NAME_REVIEW_RSVT_SEQ_NO, PI), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);

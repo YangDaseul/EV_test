@@ -38,6 +38,7 @@ import java.util.stream.Collectors;
 
 public enum APPIAInfo {
     DEFAULT("default", null, VariableType.QUICK_MENU_CODE_NONE, "기본"),
+    LOG01("LOG01", null, VariableType.QUICK_MENU_CODE_NONE, "로그인 팝업"),
     INT01("INT01", null, VariableType.QUICK_MENU_CODE_NONE, "스플래시"),
     INT02("INT02", null, VariableType.QUICK_MENU_CODE_NONE, "접근 권한 알림"), //TODO 로그인/회원가입과 IA 아이디가 같음..
     INT02_P01("INT02_P01", null, VariableType.QUICK_MENU_CODE_NONE, "접근권한 설정 팝업"),

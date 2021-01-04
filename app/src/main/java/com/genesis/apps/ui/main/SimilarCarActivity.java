@@ -44,48 +44,43 @@ public class SimilarCarActivity extends SubActivity<ActivitySimilarCarBinding> {
     }
 
     private void initView() {
-//        adapter = new SimilarCarAdapter(ResourcesCompat.getFont(this, R.font.regular_genesissanstextglobal));
         adapter = new SimilarCarAdapter(view -> onClickCommon(view));
         ui.rv.setLayoutManager(new LinearLayoutManager(this));
-        ui.rv.setHasFixedSize(true);
+        ui.rv.setHasFixedSize(false);
         ui.rv.setAdapter(adapter);
     }
 
     @Override
     public void onClickCommon(View v) {
         SimilarVehicleVO similarVehicleVO = null;
-        switch (v.getId()){
+        String celphNo="";
+        switch (v.getId()) {
             case R.id.l_whole:
                 int pos = -1;
-                try{
-                    similarVehicleVO = (SimilarVehicleVO)v.getTag(R.id.item);
+                try {
+                    celphNo = ((SimilarVehicleVO)adapter.getItem(0)).getCelphNo(); //celphNo는 헤더인 계약차량에서
+                    similarVehicleVO = (SimilarVehicleVO) v.getTag(R.id.item);
                     pos = Integer.parseInt(v.getTag(R.id.position).toString());
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     pos = -1;
-                }finally{
-                    if(similarVehicleVO!=null&&!TextUtils.isEmpty(similarVehicleVO.getCelphNo())&&pos>-1){//카마스터 번호가 있으면
+                } finally {
+                    if (similarVehicleVO != null && !TextUtils.isEmpty(celphNo) && pos > -1) {//카마스터 번호가 있으면
                         adapter.selectItem(pos, false);
-                    }else{
-                        adapter.selectItem(pos, true);
-                        SnackBarUtil.show(this, "딜러 정보가 존재하지 않습니다.");
+                    } else {
+                        //없을 때 초기화하는 로직
+//                        adapter.selectItem(pos, true);
+//                        SnackBarUtil.show(this, "딜러 정보가 존재하지 않습니다.");
                     }
-
-                    if(adapter.getSelectItem()==null){
-                        ui.btnBlock.setVisibility(View.VISIBLE);
-                        ui.btnRequest.setEnabled(false);
-                    }else{
-                        ui.btnBlock.setVisibility(View.GONE);
-                        ui.btnRequest.setEnabled(true);
-                    }
+                    ui.btnRequest.setVisibility(adapter.getSelectItem()==null ? View.GONE : View.VISIBLE);
                 }
-
                 break;
             case R.id.btn_request://문의하기
-                similarVehicleVO= adapter.getSelectItem();
-                if(similarVehicleVO!=null&&!TextUtils.isEmpty(similarVehicleVO.getCelphNo())){
+                celphNo = ((SimilarVehicleVO)adapter.getItem(0)).getCelphNo(); //celphNo는 헤더인 계약차량에서
+                similarVehicleVO = adapter.getSelectItem(); //선택된 유사차량 정보
+                if (similarVehicleVO != null && !TextUtils.isEmpty(celphNo)) {
                     String msg = String.format(Locale.getDefault(), getString(R.string.gm02_inv01_8), lgnViewModel.getDbUserRepo().getUserVO().getCustNm(), similarVehicleVO.getVhclCd());
-                    sendSmsIntent(similarVehicleVO.getCelphNo(), msg);
+                    sendSmsIntent(celphNo, msg);
                 }
 
                 break;
@@ -93,20 +88,13 @@ public class SimilarCarActivity extends SubActivity<ActivitySimilarCarBinding> {
 
     }
 
-
-    public void sendSmsIntent(String number, String msg){
-        try{
-            Uri smsUri = Uri.parse("sms:"+number);
+    public void sendSmsIntent(String number, String msg) {
+        try {
+            Uri smsUri = Uri.parse("sms:" + number);
             Intent sendIntent = new Intent(Intent.ACTION_SENDTO, smsUri);
             sendIntent.putExtra("sms_body", msg);
             startActivity(sendIntent);
-
-//        Intent sendIntent = new Intent(Intent.ACTION_VIEW);
-//        sendIntent.putExtra("address", number);
-//        sendIntent.putExtra("sms_body", editBody.getText().toString());
-//        sendIntent.setType("vnd.android-dir/mms-sms");
-//        startActivity(sendIntent);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -122,15 +110,12 @@ public class SimilarCarActivity extends SubActivity<ActivitySimilarCarBinding> {
     public void setObserver() {
 
         lgnViewModel.getRES_STO_1001().observe(this, result -> {
-
-            switch (result.status){
+            switch (result.status) {
                 case LOADING:
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
-
-                    //todo 유사 차량이 없을 때 계약차량과 분리해야하는지 확인 필요요
-                   if(result.data!=null&&result.data.getEstmVhclList()!=null&&result.data.getSmlrVhclList()!=null){
+                    if (result.data != null && result.data.getEstmVhclList() != null && result.data.getSmlrVhclList() != null) {
                         List<SimilarVehicleVO> list = new ArrayList<>();
                         list.addAll(result.data.getSmlrVhclList());
                         list.add(0, result.data.getEstmVhclList());

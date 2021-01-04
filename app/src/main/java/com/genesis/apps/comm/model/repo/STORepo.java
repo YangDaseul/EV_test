@@ -34,8 +34,7 @@ public class STORepo {
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
-//                RES_STO_1001.setValue(NetUIResponse.success(new Gson().fromJson(object, STO_1001.Response.class)));
-                                RES_STO_1001.setValue(NetUIResponse.success(TestCode.STO_1001));
+                RES_STO_1001.setValue(NetUIResponse.success(new Gson().fromJson(object, STO_1001.Response.class)));
             }
 
             @Override
