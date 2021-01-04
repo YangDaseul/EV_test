@@ -51,6 +51,7 @@ public class OilView {
                 , ui.btnBarcodeGs, ui.btnBarcodeHo, ui.btnBarcodeSk, ui.btnBarcodeSoil);
 
         if (data == null || data.getOilRfnPontList() == null || data.getOilRfnPontList().size() < 1) {
+
             ui.btnBarcodeGs.setVisibility(View.GONE);
             ui.tvPointGs.setVisibility(View.GONE);
             ui.btnBarcodeHo.setVisibility(View.GONE);
@@ -60,6 +61,14 @@ public class OilView {
             ui.btnBarcodeSoil.setVisibility(View.GONE);
             ui.tvPointSoil.setVisibility(View.GONE);
 
+            //TODO 2021-01-04 임시 숨김 처리 진행
+            ui.lParent.setVisibility(View.GONE);
+            ui.lGs.setVisibility(View.GONE);
+            ui.lHo.setVisibility(View.GONE);
+            ui.lSoil.setVisibility(View.GONE);
+            ui.lSk.setVisibility(View.GONE);
+
+
             ui.tvIntegrationGs.setVisibility(View.VISIBLE);
             ui.tvIntegrationHo.setVisibility(View.VISIBLE);
             ui.tvIntegrationSk.setVisibility(View.VISIBLE);
@@ -68,15 +77,19 @@ public class OilView {
             for (int i = 0; i < data.getOilRfnPontList().size(); i++) {
                 switch (data.getOilRfnPontList().get(i).getOilRfnCd()) {
                     case OilPointVO.OIL_CODE_SOIL:
+                        ui.lSoil.setVisibility(View.VISIBLE);
                         setOilView(data.getOilRfnPontList().get(i), ui.btnBarcodeSoil, ui.tvPointSoil, ui.tvIntegrationSoil);
                         break;
                     case OilPointVO.OIL_CODE_GSCT:
+                        ui.lGs.setVisibility(View.VISIBLE);
                         setOilView(data.getOilRfnPontList().get(i), ui.btnBarcodeGs, ui.tvPointGs, ui.tvIntegrationGs);
                         break;
                     case OilPointVO.OIL_CODE_HDOL:
+                        ui.lHo.setVisibility(View.VISIBLE);
                         setOilView(data.getOilRfnPontList().get(i), ui.btnBarcodeHo, ui.tvPointHo, ui.tvIntegrationHo);
                         break;
                     case OilPointVO.OIL_CODE_SKNO:
+                        ui.lSk.setVisibility(View.VISIBLE);
                         setOilView(data.getOilRfnPontList().get(i), ui.btnBarcodeSk, ui.tvPointSk, ui.tvIntegrationSk);
                         break;
                     default:
