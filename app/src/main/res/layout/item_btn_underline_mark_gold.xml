@@ -32,10 +32,9 @@
             android:text="@{btnNm}"
             android:paddingBottom="2dp"
             android:background="@drawable/bg_00000000_underline_000000"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible"
             tools:text="버튼 텍스트"/>
 
         <ImageView

@@ -161,6 +161,9 @@ class LGNViewModel extends ViewModel {
 
             boolean isSuccess=false;
             try {
+
+//                UserVO userVO =
+
                 isSuccess = dbVehicleRepository.setVehicleList(data.getOwnVhclList(), MAIN_VEHICLE_TYPE_OV)
                         &&dbVehicleRepository.setVehicleList(data.getCtrctVhclList(), MAIN_VEHICLE_TYPE_CV)
                         &&dbVehicleRepository.setVehicle(data.getDftVhclInfo(), MAIN_VEHICLE_TYPE_0000)

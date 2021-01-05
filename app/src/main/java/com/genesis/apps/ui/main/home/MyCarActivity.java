@@ -84,6 +84,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                                         ui.vpCar.setOffscreenPageLimit(list.size());
                                         adapter.setRows(list);
                                         adapter.notifyDataSetChanged();
+                                        setVehicleInfo(list.get(0));
                                         //이동효과를 주는데 노티파이체인지와 딜레이없이 콜하면 효과가 중첩되어 사라저서 100ms 후 처리 진행
                                         new Handler().postDelayed(() ->{
                                             ui.vpCar.setCurrentItem(0, true);
@@ -163,41 +164,13 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                //todo 여기서 스크롤 시 마다 뷰 갱신 처리 진행
                 if (positionOffsetPixels == 0&&beforePostion!=0&&beforePostion!=-1) {
                     VehicleVO vehicleVO = ((VehicleVO)adapter.getItem(position));
-
-                    ui.tvCarCode.setText(vehicleVO.getMdlNm());
-                    ui.tvCarModel.setText(vehicleVO.getSaleMdlNm());
-                    ui.tvCarVrn.setText(vehicleVO.getCarRgstNo());
-
-                    switch (vehicleVO.getCustGbCd()) {
-                        case VariableType.MAIN_VEHICLE_TYPE_OV:
-                            break;
-                        case VariableType.MAIN_VEHICLE_TYPE_CV:
-                            break;
-                        case VariableType.MAIN_VEHICLE_TYPE_NV:
-                            break;
-                        default:
-                            break;
-                    }
-
-
-
-
-//                    int viewPos = Integer.parseInt(getBinding().vpImage.getTag(R.id.position).toString());
-//                    MessageVO messageVO = getItem(viewPos);
-//                    if(messageVO!=null){
-//                        messageVO.setCurrentPos(position);
-//                        setRow(viewPos, messageVO);
-////                            Log.v("image","image position change:"+ ((MessageVO)getItem(viewPos)).getCurrentPos() + "  view position:"+viewPos  + " position offset pixels:"+positionOffsetPixels + "positionOffset:"+ positionOffset  );
-//                    }
+                    setVehicleInfo(vehicleVO);
                 }
                 beforePostion = positionOffsetPixels;
             }
         });
-
-
 //        final float pageMargin = getResources().getDimensionPixelOffset(R.dimen.offset2);
 //        final float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset2);
 //        ui.vpCar.setPageTransformer((page, position) -> {
@@ -223,6 +196,75 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
 //        });
     }
 
+    private void setVehicleInfo(VehicleVO vehicleVO) {
+        ui.tvCarCode.setText(vehicleVO.getMdlNm());
+        ui.tvCarModel.setText(vehicleVO.getSaleMdlNm());
+
+        //UI초기화
+        ui.tvCarVrn.setVisibility(View.GONE);
+        ui.btnRegVrn.lWhole.setVisibility(View.GONE);
+        ui.btnRecovery.lWhole.setVisibility(View.GONE);
+        ui.btnDelete.lWhole.setVisibility(View.GONE);
+        ui.btnSimilar.lWhole.setVisibility(View.GONE);
+        ui.btnContract.lWhole.setVisibility(View.GONE);
+        ui.lPrivilege.setVisibility(View.GONE);
+        ui.ivFavorite.setVisibility(View.GONE);
+        ui.ivFavorite.setTag(R.id.vehicle, vehicleVO);
+
+        switch (vehicleVO.getCustGbCd()) {
+            case VariableType.MAIN_VEHICLE_TYPE_OV:
+                if (vehicleVO.getDelExpYn().equalsIgnoreCase(VariableType.DELETE_EXPIRE_Y)) {
+                    //삭제 예정 차량
+                    //차량번호 셋팅
+                    ui.tvCarVrn.setVisibility(View.VISIBLE);
+                    ui.tvCarVrn.setText(vehicleVO.getCarRgstNo());
+                    ui.tvCarVrn.setOnClickListener(null);
+                    ui.tvCarVrn.setCompoundDrawablesWithIntrinsicBounds(null,null,null,null);
+                    //삭졔예정표기
+                    ui.tvCarStatus.setText(String.format(getString(R.string.gm_carlst_04_4), (((TextUtils.isEmpty(vehicleVO.getDelExpDay())) ? "0" : vehicleVO.getDelExpDay()))));
+                    //복구버튼 활성화
+                    ui.btnRecovery.lWhole.setVisibility(View.VISIBLE);
+
+                }else{
+                    //정상차량
+                    //차량번호 셋팅
+                    if(!TextUtils.isEmpty(vehicleVO.getCarRgstNo())){
+                        //차량번호가 있을 경우
+                        ui.tvCarVrn.setVisibility(View.VISIBLE);
+                        ui.tvCarVrn.setText(vehicleVO.getCarRgstNo());
+                        ui.tvCarVrn.setOnClickListener(onSingleClickListener);
+                        ui.tvCarVrn.setCompoundDrawablesWithIntrinsicBounds(null, null, getDrawable(R.drawable.car_m_edit), null);
+                    }else{
+                        //차량번호가 없을 경우
+                        ui.btnRegVrn.lWhole.setVisibility(View.VISIBLE);
+                    }
+
+                    //주 이용 차량 셋팅
+                    ui.ivFavorite.setVisibility(View.VISIBLE);
+                    ui.ivFavorite.setImageResource(vehicleVO.getMainVhclYn().equalsIgnoreCase(VariableType.MAIN_VEHICLE_N) ? R.drawable.ic_star_l_s_d : R.drawable.ic_star_l_s);
+                    //주 차량 표기
+                    ui.tvCarStatus.setText(vehicleVO.getMainVhclYn().equalsIgnoreCase(VariableType.MAIN_VEHICLE_N) ? "" : getString(R.string.gm_carlst_01_4));
+                    //삭제버튼 활성화
+                    ui.btnDelete.lWhole.setVisibility(View.VISIBLE);
+                }
+                break;
+
+            case VariableType.MAIN_VEHICLE_TYPE_CV://계약차량
+                //계약차량 표기
+                ui.tvCarStatus.setText(R.string.gm_carlst_04_26);
+                //유사재고조회
+                ui.btnSimilar.lWhole.setVisibility(View.VISIBLE);
+                //계약서조회
+                ui.btnContract.lWhole.setVisibility(View.VISIBLE);
+
+
+                break;
+            case VariableType.MAIN_VEHICLE_TYPE_NV:
+            default:
+                break;
+        }
+    }
+
 
     @Override
     public void onClickCommon(View v) {
@@ -241,24 +283,6 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
             case R.id.btn_next://다음 버튼
                 ui.vpCar.setCurrentItem(ui.vpCar.getCurrentItem()+1, true);
                 break;
-
-
-
-
-
-
-
-            case R.id.iv_car://차량 상세페이지로 이동
-                VehicleVO vehicleVO1 = (VehicleVO)v.getTag(R.id.vehicle);
-                if(vehicleVO1!=null
-//                        &&!vehicleVO1.getDelExpYn().equalsIgnoreCase(VariableType.DELETE_EXPIRE_Y) //삭제 예정 차량이 아니고 //todo 삭제 예정차량 클릭못했었나 ?
-                        &&vehicleVO1.getCustGbCd().equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)){//소유 차량이면
-                    startActivitySingleTop(new Intent(this, MyCarDetailActivity.class).putExtra(KeyNames.KEY_NAME_VEHICLE, vehicleVO1).putExtra(KeyNames.KEY_NAME_VEHICLE_OWNER_COUNT, adapter.getVehicleOwnerCnt()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_ZOON);
-                }
-
-                break;
-            case R.id.l_whole:
-                break;
             case R.id.iv_favorite:// 주 이용 차량 설정
                 try{
                     VehicleVO vehicleVO = (VehicleVO)v.getTag(R.id.vehicle);
@@ -271,12 +295,22 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                     }
                 }catch (Exception e){
                     e.printStackTrace();
-                    //TODO 에러처리 필요
                 }
-
                 break;
 
-            case R.id.btn_ris:
+
+//            case R.id.iv_car://차량 상세페이지로 이동
+//                VehicleVO vehicleVO1 = (VehicleVO)v.getTag(R.id.vehicle);
+//                if(vehicleVO1!=null
+//                        &&vehicleVO1.getCustGbCd().equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)){//소유 차량이면
+//                    startActivitySingleTop(new Intent(this, MyCarDetailActivity.class).putExtra(KeyNames.KEY_NAME_VEHICLE, vehicleVO1).putExtra(KeyNames.KEY_NAME_VEHICLE_OWNER_COUNT, adapter.getVehicleOwnerCnt()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_ZOON);
+//                }
+//
+//                break;
+//            case R.id.l_whole:
+//                break;
+
+            case R.id.btn_ris://렌트리스
 
                 String actoprRgstYn = "N";
                 try{
@@ -295,7 +329,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                 }
                 break;
 
-            case R.id.btn_rent:
+            case R.id.btn_rent://중고차
                 startActivitySingleTop(new Intent(this, RegisterUsedCarActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
         }
