@@ -43,6 +43,7 @@ import lombok.Data;
 
 import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_0000;
 import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_CV;
+import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_NV;
 import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_OV;
 
 public @Data
@@ -162,12 +163,16 @@ class LGNViewModel extends ViewModel {
             boolean isSuccess=false;
             try {
 
-//                UserVO userVO =
+                String userType=MAIN_VEHICLE_TYPE_0000;
+                UserVO userVO = new Gson().fromJson(new Gson().toJson(data),UserVO.class);
+                if(userVO.getCustGbCd().equalsIgnoreCase(MAIN_VEHICLE_TYPE_NV)){
+                    userType=MAIN_VEHICLE_TYPE_NV;
+                }
 
                 isSuccess = dbVehicleRepository.setVehicleList(data.getOwnVhclList(), MAIN_VEHICLE_TYPE_OV)
                         &&dbVehicleRepository.setVehicleList(data.getCtrctVhclList(), MAIN_VEHICLE_TYPE_CV)
-                        &&dbVehicleRepository.setVehicle(data.getDftVhclInfo(), MAIN_VEHICLE_TYPE_0000)
-                        &&dbUserRepo.setUserVO(new Gson().fromJson(new Gson().toJson(data),UserVO.class));
+                        &&dbVehicleRepository.setVehicle(data.getDftVhclInfo(), userType)
+                        &&dbUserRepo.setUserVO(userVO);
             } catch (Exception e1) {
                 e1.printStackTrace();
                 isSuccess=false;
