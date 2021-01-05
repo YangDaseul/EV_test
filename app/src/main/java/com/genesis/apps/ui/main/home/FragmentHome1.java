@@ -118,9 +118,16 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         lgnViewModel.getRES_LGN_0003().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case SUCCESS:
-                    if (result.data != null && !TextUtils.isEmpty(result.data.getAsnStatsNm())) {
-                        me.tvRepairStatus.setVisibility(View.VISIBLE);
-                        me.tvRepairStatus.setText(result.data.getAsnStatsNm());
+                    if (result.data != null){
+                        if(!TextUtils.isEmpty(result.data.getVirtRecptNo())){
+                            me.tvRepairStatus.setVisibility(View.VISIBLE);
+                            me.tvRepairStatus.setText(result.data.getAsnStatsNm());
+                        }else if(!TextUtils.isEmpty(result.data.getAsnStatsNm())){
+                            me.tvRepairStatus.setVisibility(View.VISIBLE);
+                            me.tvRepairStatus.setText(result.data.getAsnStatsNm());
+                        }else{
+                            me.tvRepairStatus.setVisibility(View.GONE);
+                        }
                     }
                 default:
                     break;
