@@ -42,6 +42,7 @@ import com.hmns.playmap.shape.PlayMapMarker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -232,6 +233,15 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 case SUCCESS:
                     showProgressDialog(false);
                     if (result.data != null && result.data.getAsnList() != null) {
+
+                        try {
+                            if (result.data.getAsnList().size() > 0) {
+                                result.data.setAsnList(result.data.getAsnList().stream().sorted((o1, o2)-> Float.compare(Float.parseFloat(o1.getDist()), Float.parseFloat(o2.getDist()))).collect(Collectors.toList()));
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
                         setPosition(result.data.getAsnList(), result.data.getAsnList().get(0));
                         break;
                     }
@@ -320,6 +330,15 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 case SUCCESS:
                     showProgressDialog(false);
                     if (result.data != null && result.data.getAsnList() != null) {
+
+                        try {
+                            if (result.data.getAsnList().size() > 0) {
+                                result.data.setAsnList(result.data.getAsnList().stream().sorted((o1, o2)-> Float.compare(Float.parseFloat(o1.getDist()), Float.parseFloat(o2.getDist()))).collect(Collectors.toList()));
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
                         setPosition(result.data.getAsnList(), result.data.getAsnList().get(0));
                         break;
                     }
@@ -448,7 +467,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         break;
                 }
                 if (list != null && list.size() > 0) {
-
                     int titleId=0;
                     switch (pageType){
                         case PAGE_TYPE_BTR://버틀러 변경
@@ -503,7 +521,8 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 exitPage("위치 정보를 불러올 수 없습니다. GPS 상태를 확인 후 다시 시도해 주세요.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
                 return;
             }
-
+//            location.setLatitude(37.5133402);
+//            location.setLongitude(126.9333508);
             runOnUiThread(() -> {
                 if (btrVO == null) {
                     //버틀러 정보가 없으면 내 위치를 기본값으로 사용
