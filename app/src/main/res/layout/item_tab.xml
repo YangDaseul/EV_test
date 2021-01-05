@@ -5,8 +5,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_tab"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/iv_tab"
@@ -29,10 +29,10 @@
             android:layout_marginTop="6dp"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:gravity="center"
-            android:lineSpacingExtra="19dp"
+            android:lineSpacingExtra="0dp"
             android:letterSpacing="-0.01"
             android:textColor="@drawable/selector_tab"
-            android:textSize="10dp"
+            android:textSize="11dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
