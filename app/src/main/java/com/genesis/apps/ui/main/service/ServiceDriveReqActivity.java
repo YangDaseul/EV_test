@@ -164,7 +164,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                 paymentResultId = R.string.sd_pay_cancel;
             }
 
-            SnackBarUtil.show(this, getString(paymentResultId));
+            if(paymentResultId!=INVALID_ID) SnackBarUtil.show(this, getString(paymentResultId));
         }
     }
 
