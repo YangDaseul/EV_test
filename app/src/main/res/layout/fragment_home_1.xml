@@ -68,11 +68,23 @@
         <!--            app:layout_constraintRight_toRightOf="@+id/iv_car_bottom"-->
         <!--            app:layout_constraintTop_toTopOf="@+id/iv_car_bottom" />-->
 
+
+<!--        <ImageView-->
+<!--            android:id="@+id/iv_car"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:adjustViewBounds="true"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            tools:src="@drawable/new_car_4" />-->
+
         <ImageView
             android:id="@+id/iv_car"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:adjustViewBounds="true"
+            app:layout_constraintHeight_percent=".5"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -167,9 +179,7 @@
             android:layout_marginEnd="20dp"
             app:layout_constraintBottom_toTopOf="@+id/iv_car"
             app:layout_constraintEnd_toEndOf="@+id/iv_teduri"
-            app:layout_constraintStart_toStartOf="@+id/iv_teduri"
-            app:layout_constraintTop_toBottomOf="@+id/vp_insight"
-            app:layout_constraintVertical_bias=".7">
+            app:layout_constraintStart_toStartOf="@+id/iv_teduri">
 
             <TextView
                 android:id="@+id/tv_genesis"

@@ -127,7 +127,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                             me.tvRepairStatus.setVisibility(View.VISIBLE);
                             me.tvRepairStatus.setText(result.data.getAsnStatsNm());
                         }else{
-                            me.tvRepairStatus.setVisibility(View.GONE);
+                            me.tvRepairStatus.setVisibility(View.INVISIBLE);
                         }
                     }
                 default:
@@ -475,7 +475,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         .into(me.ivCar);
 
 //                me.ivMore.setVisibility(View.GONE);
-                me.tvRepairStatus.setVisibility(View.GONE);
+                me.tvRepairStatus.setVisibility(View.INVISIBLE);
                 me.lDistance.setVisibility(View.GONE);
                 me.lFloating.setVisibility(View.GONE);
 
