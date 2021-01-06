@@ -248,7 +248,9 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 default:
                     String serverMsg = "";
                     try {
-                        serverMsg = result.data.getRtMsg();
+//                        serverMsg = result.data.getRtMsg();
+                        serverMsg = getString(R.string.snackbar_etc_3);
+                        //기획 요청으로 검색 결과가 없습니다 로 에러메시지 통일
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
@@ -346,7 +348,9 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     showProgressDialog(false);
                     String serverMsg = "";
                     try {
-                        serverMsg = result.data.getRtMsg();
+//                        serverMsg = result.data.getRtMsg();
+                        serverMsg = getString(R.string.snackbar_etc_3);
+                        //기획 요청으로 검색 결과가 없습니다 로 에러메시지 통일
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
@@ -484,7 +488,27 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 }
                 break;
             case R.id.btn_my_position:
-                ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)), 500);
+
+                List<BtrVO> btrVOList;
+
+                switch (pageType){
+                    case PAGE_TYPE_BTR:
+                    case PAGE_TYPE_RENT:
+                        btrVOList = btrViewModel.getRES_BTR_1008().getValue().data.getAsnList();
+                        break;
+                    case PAGE_TYPE_REPAIR:
+                    case PAGE_TYPE_SERVICE:
+                    default:
+                        btrVOList = reqViewModel.getRES_REQ_1002().getValue().data.getAsnList();
+                        break;
+                }
+
+                if(btrVOList!=null&&btrVOList.size()>0){
+                    setPosition(btrVOList, btrVOList.get(0));
+                }else{
+                    SnackBarUtil.show(this, "선택가능한 지점이 존재하지 않습니다.");
+                }
+//                ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)), 500);
                 break;
             case R.id.btn_search:
                 showFragment(new BluehandsFilterFragment());

@@ -54,7 +54,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         setObserver();
         initView();
         initBarcode();
-//        startActivitySingleTop(new Intent(this, APPIAInfo.GM02_INV01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//        startActivitySingleTop(new Intent(this, APPIAInfo.GM_CARLST01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
     private void initBarcode() {

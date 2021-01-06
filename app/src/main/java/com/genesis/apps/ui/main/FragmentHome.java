@@ -19,6 +19,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.request.transition.TransitionFactory;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentHomeBinding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
@@ -36,7 +37,6 @@ public class FragmentHome extends SubFragment<FragmentHomeBinding> {
 
     private final int VIEWPAGER_VERTICAL_NUMBER=2;
     private LGNViewModel lgnViewModel;
-    private String custGbCd="";
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return super.setContentView(inflater, R.layout.fragment_home);
@@ -51,43 +51,31 @@ public class FragmentHome extends SubFragment<FragmentHomeBinding> {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
-        try{
-            custGbCd = lgnViewModel.getUserInfoFromDB().getCustGbCd();
-        }catch (Exception e){
-            custGbCd = VariableType.MAIN_VEHICLE_TYPE_0000;
-        }finally {
-            //소유차량이 아닌 고객은
-            if(TextUtils.isEmpty(custGbCd)||!custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)){
-                me.vpVehicle.setUserInputEnabled(false);
-            }else{
-                me.vpVehicle.setUserInputEnabled(true);
+        me.vpVehicle.setAdapter(new VehicleViewpagerAdapter(this, VIEWPAGER_VERTICAL_NUMBER));
+        me.vpVehicle.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
+        me.vpVehicle.setCurrentItem(0);
+        me.vpVehicle.setOffscreenPageLimit(VIEWPAGER_VERTICAL_NUMBER);
+
+        me.vpVehicle.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                if (positionOffsetPixels == 0) {
+                    me.vpVehicle.setCurrentItem(position);
+                }
+
+                if (position == 0) {
+                    ((MainActivity) getActivity()).ui.lGnb.lWhole.setVisibility(View.VISIBLE);
+                } else {
+                    ((MainActivity) getActivity()).ui.lGnb.lWhole.setVisibility(View.INVISIBLE);
+                }
             }
-            me.vpVehicle.setAdapter(new VehicleViewpagerAdapter(this, VIEWPAGER_VERTICAL_NUMBER));
-            me.vpVehicle.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
-            me.vpVehicle.setCurrentItem(0);
-            me.vpVehicle.setOffscreenPageLimit(VIEWPAGER_VERTICAL_NUMBER);
 
-            me.vpVehicle.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                    super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                    if (positionOffsetPixels == 0) {
-                        me.vpVehicle.setCurrentItem(position);
-                    }
-
-                    if(position==0){
-                        ((MainActivity)getActivity()).ui.lGnb.lWhole.setVisibility(View.VISIBLE);
-                    }else{
-                        ((MainActivity)getActivity()).ui.lGnb.lWhole.setVisibility(View.INVISIBLE);
-                    }
-                }
-
-                @Override
-                public void onPageSelected(int position) {
-                    super.onPageSelected(position);
-                }
-            });
-        }
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+            }
+        });
     }
 
     @Override
@@ -108,6 +96,21 @@ public class FragmentHome extends SubFragment<FragmentHomeBinding> {
         } else {
             ((MainActivity)getActivity()).setGNB(false, 1, View.GONE);
         }
+
+        VehicleVO vehicleVO = null;
+        try{
+            vehicleVO = lgnViewModel.getMainVehicleFromDB();
+        }catch (Exception e){
+            vehicleVO = null;
+        }finally {
+            //소유차량이 아닌 고객은
+            if (vehicleVO==null || TextUtils.isEmpty(vehicleVO.getCustGbCd()) || !vehicleVO.getCustGbCd().equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)) {
+                me.vpVehicle.setUserInputEnabled(false);
+            } else {
+                me.vpVehicle.setUserInputEnabled(true);
+            }
+        }
+
     }
 
 }

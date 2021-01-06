@@ -127,7 +127,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                 }
                 break;
             case R.id.tv_titlebar_text_btn:
-                if(selectVehicle.getVin()!=null) {
+                if(selectVehicle!=null&&selectVehicle.getVin()!=null) {
                     startActivitySingleTop(new Intent(this, InsightExpnInputActivity.class).putExtra(KeyNames.KEY_NAME_VIN, selectVehicle.getVin()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }
                 break;

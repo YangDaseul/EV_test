@@ -48,7 +48,7 @@
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:gravity="center"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="8sp"
+                    android:lineSpacingExtra="5sp"
                     android:textColor="@color/x_000000"
                     android:textSize="16sp"
                     tools:text="긴급출동 서비스가 접수되어 있습니다.

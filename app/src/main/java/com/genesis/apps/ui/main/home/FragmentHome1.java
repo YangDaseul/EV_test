@@ -62,6 +62,7 @@ import java.util.TimerTask;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -524,10 +525,14 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     }
 
     private void makeQuickMenu(String custGbCd) {
-        final TextView[] quickBtn = {me.btnQuick1, me.btnQuick2};
+        final TextView[] quickBtn = {me.btnQuick1, me.btnQuick2, me.btnQuick3, me.btnQuick4, me.btnQuick5, me.btnQuick6};
         List<QuickMenuVO> list = cmnViewModel.getQuickMenuList(custGbCd);
         quickBtn[0].setVisibility(View.GONE);
         quickBtn[1].setVisibility(View.GONE);
+        quickBtn[2].setVisibility(View.GONE);
+        quickBtn[3].setVisibility(View.GONE);
+        quickBtn[4].setVisibility(View.GONE);
+        quickBtn[5].setVisibility(View.GONE);
 
         int menuSize = list.size() > quickBtn.length ? quickBtn.length : list.size();
 
@@ -561,6 +566,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             });
         }
 
+        me.btnQuick.setVisibility(menuSize==0 ? View.INVISIBLE : View.VISIBLE);
     }
 
     //todo baseactivity의 함수로 대체가능한지 확인 필요. (주차위치확인)
@@ -666,6 +672,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
             me.lFloating.setBackgroundColor(menuSize == 1 ? getContext().getColor(R.color.x_ffffff) : 0);
             me.btnFloating1.setTextColor(menuSize == 1 ? getContext().getColor(R.color.x_000000) : getContext().getColor(R.color.x_ffffff));
+            me.btnFloating1.setTextSize(menuSize == 1 ? 16 : 12);
+            me.btnFloating1.setTypeface(menuSize == 1 ? ResourcesCompat.getFont(getActivity(), R.font.regular_genesissanstextglobal) : ResourcesCompat.getFont(getActivity(), R.font.light_genesissansheadglobal));
 
             for (int i = 0; i < menuSize; i++) {
                 floatingBtns[i].setVisibility(View.VISIBLE);

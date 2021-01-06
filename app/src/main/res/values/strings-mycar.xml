@@ -6,7 +6,6 @@
     <string name="gm_carlst_01_4">주 차량</string>
     <string name="gm_carlst_01_5">계약 차량</string>
     <string name="gm_carlst_01_6">차량이 없습니다.\n차량을 등록해 주세요.</string>
-
     <string name="gm_carlst_01_7">렌트/리스 실 운행자 등록</string>
     <string name="gm_carlst_01_8">차대 번호를\n입력해 주세요.</string>
     <string name="gm_carlst_01_9">차대 번호</string>
@@ -66,7 +65,7 @@
     <string name="gm_carlst_01_61">법인 임직원</string>
     <string name="gm_carlst_01_62">개인 렌트리스</string>
     <string name="gm_carlst_01_63">개월</string>
-
+    <string name="gm_carlst_01_64">잔여 횟수가 없습니다.</string>
 
     <string name="gm_carlst_01_01_1">주소 검색</string>
 

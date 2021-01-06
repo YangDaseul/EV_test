@@ -33,6 +33,7 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.ui.common.activity.SubActivity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -612,6 +613,12 @@ public abstract class WebViewFragment extends Fragment {
                                                           String url) {
 			WebResourceResponse ret = super.shouldInterceptRequest(view, url);
 			Log.d(LOG_TAG, "shouldInterceptRequest url[" + url + "]");
+
+			if(url.contains("https://www.genesis.com/kr/ko/shopping/quote.html")) //bto 견적내는 중 나가기
+//			||url.contains("https://genesis-mobile.fcm.zone/login/?access_type=app")) //프리빌리지현황 에서 나가기
+			{
+				((SubActivity)getActivity()).exitPage("",0);
+			}
 
 			if(url.contains("https://www.genesis.com/bin/kr/api/v1/shortCodeGetter")){
 				loadUrl("javascript:$('.button-2KBLE1x').hide()", webView);

@@ -14,7 +14,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/x_ffffff"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="6sp"
             android:fontFamily="@font/light_genesissansheadglobal"

@@ -68,6 +68,9 @@
     <string name="pop01_8">서비스 가입 완료</string>
     <string name="pop01_9">서비스 가입이 완료 되었습니다.</string>
 
+    <string name="pop02_1">서비스 이용제한 안내</string>
+    <string name="pop02_2">네트워크가 불안정하면\n서비스를 이용하실 수 없습니다.</string>
+
     <string name="noti01_1">공지사항</string>
 
     <!-- 세차 -->

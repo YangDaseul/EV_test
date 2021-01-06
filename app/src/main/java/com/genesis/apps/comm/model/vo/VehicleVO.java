@@ -49,7 +49,7 @@ import lombok.EqualsAndHashCode;
  * @see #csmrCarRelCd 고객차량관계코드
  * 1:단독소유, 2:주계약자, 3:공동계약, 4:실운행자, 5:렌트리스
  */
-@Entity(indices = {@Index(value = {"vin"}, unique = true)})
+@Entity(indices = {@Index(value = {"vin","ctrctNo"}, unique = true)})
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data

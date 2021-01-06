@@ -1,5 +1,7 @@
 package com.genesis.apps.comm.model.repo;
 
+import android.text.TextUtils;
+
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.model.vo.developers.CarConnectVO;
@@ -79,11 +81,16 @@ public class DBVehicleRepository {
             switch (row.getCustGbCd()){
                 case VariableType.MAIN_VEHICLE_TYPE_OV:
                     //소유차량이고 주 이용차량이면 해당 차량 사용
-                    if(row.getMainVhclYn().equalsIgnoreCase(VariableType.MAIN_VEHICLE_Y)){
-                        mainVehicle = row;
-                        break repeat;
-                    }else if(mainVehicle==null||!mainVehicle.getCustGbCd().equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)){//소유차량이고 주 이용 차량이 아니면 일단 임시 저장
-                        mainVehicle = row;
+                    String delYn = row.getDelYn();
+                    String delExpYn = row.getDelExpYn();
+                    //삭제예정 차량이 아닌고
+                    if(!(!TextUtils.isEmpty(delYn)&&delYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES))&&!(!TextUtils.isEmpty(delExpYn)&&delExpYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES))) {
+                        if (row.getMainVhclYn().equalsIgnoreCase(VariableType.MAIN_VEHICLE_Y)) {
+                            mainVehicle = row;
+                            break repeat;
+                        } else if (mainVehicle == null || !mainVehicle.getCustGbCd().equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)) {//소유차량이고 주 이용 차량이 아니면 일단 임시 저장
+                            mainVehicle = row;
+                        }
                     }
                     break;
                 case VariableType.MAIN_VEHICLE_TYPE_CV:

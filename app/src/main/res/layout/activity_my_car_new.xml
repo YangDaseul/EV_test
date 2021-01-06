@@ -30,15 +30,14 @@
             android:id="@+id/l_scroll"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/l_privilege"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/l_title">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="120dp">
+                android:layout_height="wrap_content">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/l_car_info"
@@ -89,7 +88,7 @@
                         app:layout_constraintBottom_toBottomOf="@+id/tv_genesis"
                         app:layout_constraintEnd_toStartOf="@+id/iv_favorite"
                         app:layout_constraintTop_toTopOf="@+id/tv_genesis"
-                        app:layout_goneMarginEnd="0dp"
+                        app:layout_goneMarginEnd="20dp"
                         tools:text="주 차량" />
 
                     <TextView
@@ -116,6 +115,7 @@
                         android:id="@+id/tv_car_model"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:maxWidth="100dp"
                         android:ellipsize="end"
                         android:fontFamily="@font/regular_genesissansheadglobal"
                         android:letterSpacing="-0.01"
@@ -127,7 +127,7 @@
                         app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintLeft_toLeftOf="@+id/tv_car_code"
                         app:layout_constraintTop_toBottomOf="@+id/tv_car_code"
-                        tools:text="가솔린 2.5 터보 2WD" />
+                        tools:text="가솔린 2.5 터보 2WD ddddddddddddddddddddddddddddddddddddddddddddddddddddd" />
 
                     <TextView
                         android:id="@+id/tv_car_vrn"
@@ -630,10 +630,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
+                    android:layout_marginBottom="50dp"
                     android:background="@drawable/bg_ffffff_underline_e4e4e4"
                     app:layout_constraintLeft_toLeftOf="@+id/l_part_engine"
                     app:layout_constraintRight_toRightOf="@+id/l_part_engine"
-                    app:layout_constraintTop_toBottomOf="@+id/l_part_break">
+                    app:layout_constraintTop_toBottomOf="@+id/l_part_break"
+                    app:layout_constraintBottom_toBottomOf="parent">
 
 
                     <TextView
@@ -673,6 +675,27 @@
                         app:layout_constraintBottom_toBottomOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_empty_coupon"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/x_f8f8f8"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:gravity="center"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="10sp"
+                    android:text="@string/gm_carlst_01_64"
+                    android:textColor="@color/x_262626"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/iv_bg"
+                    tools:visibility="gone" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
@@ -688,9 +711,11 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:background="@drawable/bg_111111_top_round_20"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:visibility="gone">
 
 
             <TextView
