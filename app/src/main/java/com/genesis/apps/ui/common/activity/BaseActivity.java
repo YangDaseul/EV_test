@@ -172,11 +172,6 @@ public class BaseActivity extends AppCompatActivity {
         }
 
         switch (APPIAInfo.findCode(id)) {
-            case LOG01:
-                MiddleDialog.dialogLogin(this, () -> startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE), () -> {
-
-                });
-                break;
             case SM_REVIEW01_P01:
                 if (!TextUtils.isEmpty(PI)) {
                     startActivitySingleTop(new Intent(this, ServiceReviewActivity.class).putExtra(KeyNames.KEY_NAME_REVIEW_RSVT_SEQ_NO, PI), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
