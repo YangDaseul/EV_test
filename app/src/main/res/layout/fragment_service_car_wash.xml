@@ -3,27 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/x_f4f4f4"
-        android:orientation="vertical">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include
-            android:id="@+id/l_service_car_wash_history_btn"
-            layout="@layout/layout_service_car_wash_top_panel" />
-
-        <include
-            android:id="@+id/l_service_car_wash_cost_btn"
-            layout="@layout/layout_service_car_wash_cost_top_panel" />
-
-        <!--  아이템으로 사용되는 뷰 파일 : item_service_car_wash -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_service_car_wash_item_list"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:background="#a0f040"
-            tools:listitem="@layout/item_service_car_wash" />
+            android:background="@color/x_f4f4f4">
 
-    </LinearLayout>
+            <include
+                android:id="@+id/l_service_car_wash_history_btn"
+                layout="@layout/layout_service_car_wash_top_panel" />
+
+            <include
+                android:id="@+id/l_service_car_wash_cost_btn"
+                layout="@layout/layout_service_car_wash_cost_top_panel" />
+
+            <!--  아이템으로 사용되는 뷰 파일 : item_service_car_wash -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_service_car_wash_item_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false"
+                tools:background="#a0f040"
+                tools:listitem="@layout/item_service_car_wash" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
 </layout>

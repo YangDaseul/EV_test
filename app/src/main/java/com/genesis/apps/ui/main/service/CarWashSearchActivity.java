@@ -195,7 +195,9 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 
             //내 위치 버튼
             case R.id.btn_my_position:
-                moveMapToInitPosition();
+                //최근거리 지점을 찾아서 정보 표시
+                showBranchInfo(findNearest(searchedBranchList), true);
+//                moveMapToInitPosition();
                 break;
 
             //지역선택 프래그먼트 호출

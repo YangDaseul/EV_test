@@ -74,6 +74,7 @@ public abstract class WebViewFragment extends Fragment {
 	public List<WebView> openWindows = new ArrayList<>();
 
 	private Object javaInterface=null;
+	private String scriptName="Android";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -402,10 +403,13 @@ public abstract class WebViewFragment extends Fragment {
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 			settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+			CookieManager cm = CookieManager.getInstance();
+			cm.setAcceptCookie(true);
+			cm.setAcceptThirdPartyCookies(webView, true);
 		}
 
 		if(javaInterface!=null)
-			webView.addJavascriptInterface(javaInterface, "Android");
+			webView.addJavascriptInterface(javaInterface, scriptName);
 
 		//settings.setUserAgentString(getString(R.string.app_full_name));
 	}
@@ -470,7 +474,12 @@ public abstract class WebViewFragment extends Fragment {
 
 
 	public void setJavaInterface(Object javaInterface) {
+		setJavaInterface(javaInterface, "Android");
+	}
+
+	public void setJavaInterface(Object javaInterface, String scriptName) {
 		this.javaInterface = javaInterface;
+		this.scriptName = scriptName;
 	}
 
 	/**

@@ -44,12 +44,13 @@ public class BottomDialogInputBranchCode extends BaseBottomDialog<DialogBottomSo
 
             @Override
             public void afterTextChanged(Editable editable) {
-                setError(!validateInput(editable.toString()));
+//                setError(!validateInput(editable.toString()));
             }
         });
 
-        //입력창 초기 값은 서버에서 준 값
-        ui.etSonaxBranchNo.setText(branchCode);
+        // input box 공란 수정
+//        // 입력창 초기 값은 서버에서 준 값
+//        ui.etSonaxBranchNo.setText(branchCode);
 
         ui.etSonaxBranchNo.selectAll();
 
@@ -84,7 +85,8 @@ public class BottomDialogInputBranchCode extends BaseBottomDialog<DialogBottomSo
 
     //지점코드 유효성 검사. 길이만 검사한다.
     private boolean validateInput(String input) {
-        return 0 < input.length() && input.length() <= BRANCH_CODE_MAX_LENGTH;
+//        return 0 < input.length() && input.length() <= BRANCH_CODE_MAX_LENGTH;
+        return input.equals(branchCode);
     }
 
     //에러 메시지 표시하기/끄기
