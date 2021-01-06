@@ -190,7 +190,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         me.tvDistancePossible.setText(StringUtil.getDigitGrouping(result.data.getValue()) + developersViewModel.getDistanceUnit(result.data.getUnit()));
                     }
                 default:
-                    me.tvDistancePossible.setText("--");
+                    me.tvDistancePossible.setText("--km");
                     break;
             }
         });
@@ -206,7 +206,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         break;
                     }
                 default:
-                    me.tvDistanceTotal.setText("--");
+                    me.tvDistanceTotal.setText("--km");
                     break;
             }
         });
@@ -223,7 +223,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         break;
                     }
                 default:
-                    me.tvDistanceRecently.setText("--");
+                    me.tvDistanceRecently.setText("--km");
                     break;
             }
         });

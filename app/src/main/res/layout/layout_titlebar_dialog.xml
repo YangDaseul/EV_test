@@ -43,6 +43,7 @@
             android:layout_height="wrap_content"
             android:scaleType="centerInside"
             android:src="@drawable/btn_close_popup"
+            android:paddingStart="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/title"
             app:layout_constraintTop_toTopOf="@+id/title"
             app:layout_constraintEnd_toEndOf="parent"

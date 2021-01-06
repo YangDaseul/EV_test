@@ -111,7 +111,7 @@
     <string name="sm01_p02_2">현재 예약 신청이 어렵습니다.\n\n예약 또는 정비 완료 후\n다시 시도해 주세요.</string>
 
     <string name="sm_r_rsv_p01_1">모바일 정비예약 불가 항목</string>
-    <string name="sm_r_rsv_p01_2">아래 항목은 전화예약으로 진행해주시기 바랍니다.</string>
+    <string name="sm_r_rsv_p01_2">아래 항목은 전화예약으로 진행해 주시기 바랍니다.</string>
     <string name="sm_r_rsv_p01_3">파손 차량 판금 도장</string>
     <string name="sm_r_rsv_p01_4">파노라마 썬루프</string>
     <string name="sm_r_rsv_p01_5">유리 파손, 시트</string>

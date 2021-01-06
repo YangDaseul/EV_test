@@ -50,7 +50,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="24dp"
-                    android:layout_marginRight="20dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/regular_genesissansheadglobal"
                     android:letterSpacing="-0.01"
@@ -60,7 +59,7 @@
                     android:textSize="18sp"
                     android:text="@{String.format(@string/word_home_23, (data.getMbrNm() ?? ``))}"
                     app:layout_constraintBottom_toTopOf="@+id/tv_mail"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_logout"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="김수현 님" />
@@ -78,10 +77,34 @@
                     android:textColor="@color/x_525252"
                     android:textSize="14sp"
                     android:text="@{data.getCcspEmail() ?? ``}"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_name"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_logout"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintTop_toBottomOf="@+id/tv_name"
                     tools:text="kim.genesis@genesis.com" />
+
+
+
+                <TextView
+                    android:id="@+id/btn_logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:paddingBottom="3dp"
+                    android:paddingStart="3dp"
+                    android:paddingEnd="3dp"
+                    android:background="@drawable/bg_ffffff_underline_6f6f6f"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:lineSpacingExtra="5sp"
+                    android:textColor="@color/x_6f6f6f"
+                    android:textSize="15sp"
+                    android:text="@string/word_ga_16"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_mail"
+                    app:layout_constraintTop_toTopOf="@+id/tv_name" />
+
+
+
 
                 <ImageView
                     android:id="@+id/line_1"
@@ -142,7 +165,7 @@
                     android:textColor="@color/x_141414"
                     android:textSize="14sp"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_name"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_logout"
                     app:layout_constraintHorizontal_bias="1"
                     app:layout_constraintTop_toBottomOf="@+id/line_1" />
 
@@ -221,7 +244,7 @@
                     android:textSize="14sp"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_agree"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_name" />
+                    app:layout_constraintEnd_toEndOf="@+id/btn_logout" />
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -232,7 +255,7 @@
                     android:background="@drawable/bg_ffffff_stroke_e2e2e2"
                     android:gravity="center_vertical"
                     android:paddingTop="20dp"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_name"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_logout"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_agree">
 
@@ -308,7 +331,7 @@
                     android:paddingTop="20dp"
                     android:paddingRight="15dp"
                     android:paddingBottom="20dp"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_name"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_logout"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintTop_toBottomOf="@+id/l_ad_info">
 
@@ -416,6 +439,7 @@
                             android:textColor="@color/x_000000"
                             android:fontFamily="@font/light_genesissansheadglobal"
                             android:text="@string/word_ga_15"
+                            android:visibility="invisible"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/cb_phone"
                             app:layout_constraintTop_toTopOf="@+id/cb_phone" />
@@ -480,7 +504,7 @@
                     android:paddingBottom="4dp"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_ga_withdrawal"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_name" />
+                    app:layout_constraintEnd_toEndOf="@+id/btn_logout" />
 
 
                 <ImageView
@@ -506,7 +530,7 @@
                     android:text="@string/msg_ga_1"
                     android:textColor="@color/x_aaabaf"
                     android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_name"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_logout"
                     app:layout_constraintStart_toEndOf="@+id/iv_dot_1"
                     app:layout_constraintTop_toBottomOf="@+id/tv_ga_withdrawal" />
 
@@ -534,7 +558,7 @@
                     android:text="@string/msg_ga_2"
                     android:textColor="@color/x_aaabaf"
                     android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_name"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_logout"
                     app:layout_constraintStart_toEndOf="@+id/iv_dot_2"
                     app:layout_constraintTop_toBottomOf="@+id/tv_warning_withdrawal_1" />
 

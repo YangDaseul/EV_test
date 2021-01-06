@@ -133,12 +133,8 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         if (fragments != null && fragments.size() > 0) {
             hideFragment(fragments.get(0));
         } else {
-            MiddleDialog.dialogServiceRelapseApplyExit(this, () -> {
-                finish();
-                closeTransition();
-            }, () -> {
-
-            });
+            finish();
+            closeTransition();
         }
     }
 

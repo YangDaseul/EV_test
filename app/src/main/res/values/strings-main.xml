@@ -155,6 +155,7 @@
     <string name="alrm01_5">검색결과가 없습니다.</string>
     <string name="alrm01_6">[%s]</string>
     <string name="alrm01_7">검색어를 입력해 주세요.</string>
+    <string name="alrm01_8">알람은 최대 90일까지 표시됩니다.</string>
 
     <string name="gm02_inv01_1">유사 재고 조회</string>
     <string name="gm02_inv01_2">유사도 %s%%</string>

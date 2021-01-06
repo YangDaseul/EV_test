@@ -557,12 +557,8 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
         if (fragments != null && fragments.size() > 0) {
             hideFragment(fragments.get(0));
         } else {
-            MiddleDialog.dialogServiceRelapseApplyExit(this, () -> {
-                finish();
-                closeTransition();
-            }, () -> {
-
-            });
+            finish();
+            closeTransition();
         }
     }
 

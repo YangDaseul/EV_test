@@ -559,11 +559,12 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
 
         try {
             switch (v.getId()) {
+                //이전 버튼과 다음버튼은 정책 변경으로 제거됨
                 case R.id.btn_pre://이전 버튼
-                    ui.vpCar.setCurrentItem(ui.vpCar.getCurrentItem() - 1, true);
+//                    ui.vpCar.setCurrentItem(ui.vpCar.getCurrentItem() - 1, true);
                     break;
                 case R.id.btn_next://다음 버튼
-                    ui.vpCar.setCurrentItem(ui.vpCar.getCurrentItem() + 1, true);
+//                    ui.vpCar.setCurrentItem(ui.vpCar.getCurrentItem() + 1, true);
                     break;
                 case R.id.iv_favorite://주 이용 차량 설정
                     try {

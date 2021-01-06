@@ -95,7 +95,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                 case SUCCESS:
                 default:
                     ui.tvPoint.setText((result.data==null||TextUtils.isEmpty(result.data.getBludMbrPoint()))
-                            ? "--" : String.format(Locale.getDefault(), getString(R.string.word_home_24), StringUtil.getDigitGroupingString(result.data.getBludMbrPoint())));
+                            ? "0" : String.format(Locale.getDefault(), getString(R.string.word_home_24), StringUtil.getDigitGroupingString(result.data.getBludMbrPoint())));
                     break;
             }
         });

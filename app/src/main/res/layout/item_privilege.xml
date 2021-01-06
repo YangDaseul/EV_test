@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/barrier_1"
-            tools:text="GV 80\n2.5 가솔린 2WD" />
+            tools:text="GV 80" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/barrier_1"
@@ -57,7 +57,7 @@
             android:visibility="gone"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_model"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_model"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_car_rgst_no"
             tools:visibility="visible"/>
 
 
@@ -79,7 +79,7 @@
             android:visibility="gone"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_model"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_model"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_car_rgst_no"
             tools:visibility="visible"/>
 
         <TextView
@@ -101,7 +101,7 @@
             android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/btn_status"
             app:layout_constraintTop_toTopOf="@+id/tv_model"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_model"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_car_rgst_no"
             tools:visibility="visible"/>
 
 

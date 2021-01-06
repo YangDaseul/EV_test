@@ -164,6 +164,14 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
     @Override
     public void onClickCommon(View v) {
         switch (v.getId()){
+            case R.id.btn_logout://로그아웃
+                if(mypViewModel.clearUserInfo()) {
+                    ga.clearLoginInfo();
+                    exitApp();
+                }else{
+                    SnackBarUtil.show(this, "로그아웃 중 예기치 못한 에러가 발생됬습니다.\n앱 재실행 후 다시 시도해 주십시오.");
+                }
+                break;
             case R.id.iv_arrow:
                 if(ui.tvAdInfo.getVisibility()==View.VISIBLE){
                     ui.ivArrow.setImageResource(R.drawable.btn_accodian_open);
@@ -256,7 +264,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
         }else if(resultCode == Activity.RESULT_OK && requestCode == RequestCodes.REQ_CODE_RELEASE.getCode()){
             if(mypViewModel.clearUserInfo()) {
                 ga.clearLoginInfo();
-                restart();
+                exitApp();
             }else{
                 SnackBarUtil.show(this, "회원정보 삭제 중 예기치 못한 에러가 발생됬습니다.\n앱 재실행 후 다시 시도해 주십시오.");
             }

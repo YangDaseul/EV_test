@@ -33,6 +33,8 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -333,7 +335,47 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                     showProgressDialog(false);
                     if(result.data!=null&&!TextUtils.isEmpty(result.data.getRtCd())&&result.data.getRtCd().equalsIgnoreCase("0000")){
                         int deletePosition = adapter.getRemovePosition();
+                        ExpnVO deleteItem = null;
                         if(deletePosition>-1){
+                            deleteItem = adapter.getItem(deletePosition);
+
+                            CBK_1002.Response data = cbkViewModel.getRES_CBK_1002().getValue().data;
+                            data.setTotCnt((isValidInteger(data.getTotCnt()) - 1) + "");
+
+                            int amt = isValidInteger(deleteItem.getExpnAmt());
+                            int refulSumAmt = isValidInteger(data.getRefulSumAmt());
+                            int rparSumAmt = isValidInteger(data.getRparSumAmt());
+                            int carWshSumAmt = isValidInteger(data.getCarWshSumAmt());
+                            int etcSumAmt = isValidInteger(data.getEtcSumAmt());
+                            if(TextUtils.isEmpty(deleteItem.getExpnDivNm())) deleteItem.setExpnDivNm("");
+
+                            switch (deleteItem.getExpnDivNm()){
+                                case VariableType.INSIGHT_EXPN_DIV_CODE_1000://refulSumAmt
+                                    refulSumAmt -= amt;
+                                    data.setRefulSumAmt(refulSumAmt+"");
+                                    break;
+                                case VariableType.INSIGHT_EXPN_DIV_CODE_2000://rparSumAmt
+                                    rparSumAmt -= amt;
+                                    data.setRparSumAmt(rparSumAmt+"");
+                                    break;
+                                case VariableType.INSIGHT_EXPN_DIV_CODE_3000://carWshSumAmt
+                                    carWshSumAmt -= amt;
+                                    data.setCarWshSumAmt(carWshSumAmt+"");
+                                    break;
+                                case VariableType.INSIGHT_EXPN_DIV_CODE_4000://etcSumAmt
+                                case VariableType.INSIGHT_EXPN_DIV_CODE_5000:
+                                case VariableType.INSIGHT_EXPN_DIV_CODE_6000:
+                                case VariableType.INSIGHT_EXPN_DIV_CODE_7000:
+                                case VariableType.INSIGHT_EXPN_DIV_CODE_8000:
+                                case VariableType.INSIGHT_EXPN_DIV_CODE_9000:
+                                default:
+                                    etcSumAmt -= amt;
+                                    data.setEtcSumAmt(etcSumAmt+"");
+                                    break;
+                            }
+
+                            data.setExpnList(adapter.getItems());
+                            setGraph(cbkViewModel.getRES_CBK_1002().getValue().data);
                             adapter.setDeleteExpnSeqNo("");
                             adapter.remove(deletePosition);
                             adapter.notifyItemRemoved(deletePosition);
@@ -362,6 +404,16 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
     @Override
     public void getDataFromIntent() {
 
+    }
+
+    private int isValidInteger(String value){
+        int retv = 0;
+        try{
+            retv = Integer.parseInt(value);
+        }catch (Exception e){
+            retv = 0;
+        }
+        return retv;
     }
 
     private void initGraph(){
