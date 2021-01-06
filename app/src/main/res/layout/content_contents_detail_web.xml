@@ -195,18 +195,6 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/iv_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginRight="5dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/btn_close"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:onClick="@{(v) -> activity.onSingleClickListener.onClick(v)}"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

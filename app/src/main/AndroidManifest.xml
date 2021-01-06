@@ -39,7 +39,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.common.activity.DeepLinkActivity"
             android:exported="false"
@@ -52,8 +51,6 @@
                 <data android:scheme="genesisapp" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="false"
@@ -62,6 +59,10 @@
             android:name=".ui.common.activity.WebviewActivity"
             android:exported="false"
             android:screenOrientation="portrait" /> <!-- 결제 웹뷰 -->
+        <activity
+            android:name=".ui.main.store.StoreWebActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.common.activity.PaymentWebViewActivity"
             android:exported="false"
@@ -419,13 +420,11 @@
         <activity
             android:name=".ui.main.service.ServiceRemoteRegisterActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
-        <!--원격 진단 : 내역-->
+            android:screenOrientation="portrait" /> <!-- 원격 진단 : 내역 -->
         <activity
             android:name=".ui.main.service.ServiceRemoteListActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.common.activity.test.TestActivity"
             android:exported="false"

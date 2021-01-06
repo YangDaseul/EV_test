@@ -120,10 +120,6 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
                     moveToPage(contentsVO.getLnkUri(), contentsVO.getLnkTypCd(), false);
                 }
                 break;
-            case R.id.iv_close:
-                finish();
-
-                break;
         }
     }
 
