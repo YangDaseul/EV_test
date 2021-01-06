@@ -553,8 +553,8 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
 
             runOnUiThread(() -> {
                 //현재 단말기 위치 정보 저장
-                myPosition[0] = location.getLatitude();
-                myPosition[1] = location.getLongitude();
+                myPosition[0] = location.getLongitude();
+                myPosition[1] = location.getLatitude();
             });
         }, 5000, GpsRetType.GPS_RETURN_HIGH, false);
     }
