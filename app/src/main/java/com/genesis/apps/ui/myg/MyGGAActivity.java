@@ -56,7 +56,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
         ui.cbEmail.setOnCheckedChangeListener(listener);
         ui.cbPhone.setOnCheckedChangeListener(listener);
         ui.cbSms.setOnCheckedChangeListener(listener);
-        ui.cbPost.setOnCheckedChangeListener(listener);
+//        ui.cbPost.setOnCheckedChangeListener(listener);
         ui.cbAd.setOnCheckedChangeListener(listenerAll);
         ui.vBlock.setOnTouchListener((view, motionEvent) -> true);
         ViewPressEffectHelper.attach(ui.btnWithdrawal);
@@ -82,7 +82,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
                         ui.cbAd.setChecked(result.data.getMrktYn().equalsIgnoreCase("Y"));
                         ui.cbSms.setChecked(result.data.getMrktCd().substring(0, 1).equalsIgnoreCase("1"));
                         ui.cbEmail.setChecked(result.data.getMrktCd().substring(1, 2).equalsIgnoreCase("1"));
-                        ui.cbPost.setChecked(result.data.getMrktCd().substring(2, 3).equalsIgnoreCase("1"));
+//                        ui.cbPost.setChecked(result.data.getMrktCd().substring(2, 3).equalsIgnoreCase("1"));
                         ui.cbPhone.setChecked(result.data.getMrktCd().substring(3, 4).equalsIgnoreCase("1"));
                         break;
                     }
@@ -232,7 +232,8 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
 
     CompoundButton.OnCheckedChangeListener listener = (compoundButton, b) -> {
         if(compoundButton.isPressed()) {
-            ui.cbAd.setChecked(ui.cbEmail.isChecked()|ui.cbPhone.isChecked()|ui.cbSms.isChecked()|ui.cbPost.isChecked());
+//            ui.cbAd.setChecked(ui.cbEmail.isChecked()|ui.cbPhone.isChecked()|ui.cbSms.isChecked()|ui.cbPost.isChecked());
+            ui.cbAd.setChecked(ui.cbEmail.isChecked()|ui.cbPhone.isChecked()|ui.cbSms.isChecked());
         }
     };
 
@@ -241,7 +242,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
             ui.cbEmail.setChecked(b);
             ui.cbPhone.setChecked(b);
             ui.cbSms.setChecked(b);
-            ui.cbPost.setChecked(b);
+//            ui.cbPost.setChecked(b);
         }
         ui.vBlock.setVisibility(b ? View.GONE : View.VISIBLE);
     };
