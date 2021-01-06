@@ -194,6 +194,7 @@ public class GAWebActivity extends WebviewActivity {
 //            finish();
 //        }
         finish();
+        closeTransition();
         return true;
 //        if (currentUrl.startsWith(GA_URL)) {
 //            if(!fragment.canGoBack()) {

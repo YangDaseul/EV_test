@@ -108,7 +108,7 @@
 <!--                android:letterSpacing="-0.01"-->
 <!--                android:text="@string/sm_r_rsv02_03_18"-->
 <!--                android:textColor="@color/x_000000"-->
-<!--                android:textSize="15sp"-->
+<!--                android:textSize="15dp"-->
 <!--                app:layout_constrainedWidth="true"-->
 <!--                app:layout_constraintEnd_toEndOf="parent"-->
 <!--                app:layout_constraintHorizontal_bias="0"-->

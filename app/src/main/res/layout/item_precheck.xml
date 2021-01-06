@@ -33,9 +33,9 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/light_genesissansheadglobal"
                 android:textColor="@color/x_000000"
-                android:textSize="18sp"
+                android:textSize="18dp"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="12sp"/>
+                android:lineSpacingExtra="12dp"/>
 
             <LinearLayout
                 android:id="@+id/ll_delete"

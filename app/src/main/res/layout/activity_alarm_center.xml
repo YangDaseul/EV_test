@@ -30,23 +30,46 @@
             app:layout_constraintTop_toBottomOf="@+id/l_title"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:tabGravity="center"
+            app:tabGravity="start"
             app:tabIndicatorHeight="2dp"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/x_000000"
             app:tabTextColor="@color/x_b9b9b9"
             app:tabIndicatorColor="@color/x_141414"/>
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_noti"
             android:layout_width="0dp"
             android:layout_height="0dp"
             tools:listitem="@layout/item_accodian_alarm"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tv_info_1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tabs" />
+
+
+
+        <TextView
+            android:id="@+id/tv_mark_1"
+            style="@style/ViewMarkGrey"
+            android:layout_marginLeft="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_info_1" />
+
+        <TextView
+            android:id="@+id/tv_info_1"
+            style="@style/ViewMsgInputSub"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="30dp"
+            android:text="@string/alrm01_8"
+            app:layout_constraintTop_toBottomOf="@+id/rv_noti"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_mark_1" />
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

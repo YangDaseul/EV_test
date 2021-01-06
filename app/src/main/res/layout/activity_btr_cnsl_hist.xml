@@ -25,10 +25,10 @@
             android:layout_marginTop="24dp"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:letterSpacing="-0.01"
-            android:lineSpacingExtra="-2sp"
+            android:lineSpacingExtra="-2dp"
             android:text="@string/gm_bt05_1"
             android:textColor="@color/x_000000"
-            android:textSize="18sp"
+            android:textSize="18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/l_title" />
 
@@ -39,9 +39,9 @@
             android:layout_marginLeft="5dp"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:letterSpacing="-0.01"
-            android:lineSpacingExtra="-2sp"
+            android:lineSpacingExtra="-2dp"
             android:textColor="@color/x_cd9a81"
-            android:textSize="18sp"
+            android:textSize="18dp"
             app:layout_constraintBaseline_toBaselineOf="@+id/tv_cnt"
             app:layout_constraintStart_toEndOf="@+id/tv_cnt"
             tools:text="3" />

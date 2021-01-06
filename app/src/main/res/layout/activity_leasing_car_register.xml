@@ -79,11 +79,11 @@
                         android:inputType="text"
                         android:maxLength="17"
                         android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="6sp"
+                        android:lineSpacingExtra="6dp"
                         android:padding="16dp"
                         android:textCursorDrawable="@drawable/cursor_141414"
                         android:textColor="@color/x_000000"
-                        android:textSize="15sp" />
+                        android:textSize="15dp" />
 
                     <requestFocus />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -262,10 +262,10 @@
                     android:paddingBottom="8dp"
                     android:text="@string/gm_carlst_01_21"
                     android:textColor="@color/x_141414"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:background="@drawable/ripple_bg_00000000_stroke_6f6f6f"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="7sp"
+                    android:lineSpacingExtra="7dp"
                     android:fontFamily="@font/light_genesissansheadglobal"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     app:layout_constraintEnd_toEndOf="@+id/tv_msg"

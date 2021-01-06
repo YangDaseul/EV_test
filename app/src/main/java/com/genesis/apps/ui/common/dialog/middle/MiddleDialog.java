@@ -891,4 +891,22 @@ public class MiddleDialog {
         );
     }
 
+
+    /**
+     * @brief 서비스 이용제한 안내
+     */
+    public static void dialogNetworkError(@NonNull Activity activity, final Runnable ok) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getOneButtonDialog(activity,
+                        ok,
+                        R.string.pop02_1,
+                        R.string.pop02_2,
+                        R.string.dialog_common_4
+                ).show()
+        );
+    }
+
 }

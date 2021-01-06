@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:textColor="#dedede"
-            android:textSize="18sp"
+            android:textSize="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/pager_container"
             app:layout_constraintTop_toTopOf="parent" />

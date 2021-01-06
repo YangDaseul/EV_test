@@ -53,13 +53,6 @@ import java.util.List;
 
 public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
 
-    private final int ADAPTER_ORDER_1 = 0;
-    private final int ADAPTER_ORDER_2 = 1;
-    private final int ADAPTER_ORDER_3 = 2;
-    private final int ADAPTER_ORDER_4 = 3;
-    private final int ADAPTER_ORDER_5 = 4;
-    private final int ADAPTER_ORDER_6 = 5;
-
     private ConcatAdapter concatAdapter;
     private Home2DataMilesAdapter home2DataMilesAdapter;
     private Home2AsanAdapter home2AsanAdapter;
@@ -392,7 +385,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
             case R.id.tv_title_btr_term:
                 String annMgmtCd;
                 try {
-                    annMgmtCd = "BTR_" + vehicleVO.getMdlNm();
+                    annMgmtCd = "BTR-" + vehicleVO.getMdlNm();
                     ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), BtrServiceInfoActivity.class)
                                     .putExtra(KeyNames.KEY_NAME_ADMIN_CODE, annMgmtCd)
                             , RequestCodes.REQ_CODE_ACTIVITY.getCode()

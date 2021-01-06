@@ -39,7 +39,7 @@
                 android:background="@drawable/bg_ffffff_round_99_stroke_cd9a81"
                 android:text="@string/item_relapse_history_waiting"
                 android:textColor="@color/x_cd9a81"
-                android:textSize="11sp"
+                android:textSize="11dp"
                 android:visibility="@{holder.finished? View.GONE:View.VISIBLE}" />
 
             <TextView
@@ -47,7 +47,7 @@
                 android:background="@drawable/bg_141414_round_99"
                 android:text="@string/item_relapse_history_finished"
                 android:textColor="@color/x_ffffff"
-                android:textSize="11sp"
+                android:textSize="11dp"
                 android:visibility="@{holder.finished? View.VISIBLE:View.GONE}"
                 tools:visibility="gone" />
         </LinearLayout>

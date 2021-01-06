@@ -30,10 +30,10 @@
             android:background="@drawable/bg_ffffff_round_99_stroke_ba544d"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:gravity="center"
-            android:lineSpacingExtra="2sp"
+            android:lineSpacingExtra="2dp"
             android:text="@string/service_drive_history_canceled"
             android:textColor="@color/x_ba544d"
-            android:textSize="11sp"
+            android:textSize="11dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

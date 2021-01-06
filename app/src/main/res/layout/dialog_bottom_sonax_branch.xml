@@ -59,11 +59,11 @@
                 android:imeOptions="actionDone"
                 android:inputType="text"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="6sp"
+                android:lineSpacingExtra="6dp"
                 android:padding="16dp"
                 android:textColor="@color/x_000000"
                 android:textCursorDrawable="@drawable/cursor_141414"
-                android:textSize="15sp" />
+                android:textSize="15dp" />
 
             <requestFocus />
         </com.google.android.material.textfield.TextInputLayout>

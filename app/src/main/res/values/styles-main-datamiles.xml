@@ -2,7 +2,7 @@
 <resources>
     <!--데이터 마일스 관련 Stryle-->
     <style name="DataMiles">
-        <item name="android:textSize">10sp</item>
+        <item name="android:textSize">10dp</item>
     </style>
 
     <!--폰트 구분 Style-->
@@ -57,14 +57,14 @@
 
     <!--중복 사용 요소 구분 Style-->
     <style name="DataMiles.TextView_Font_RGSHG.Black.Title">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">18dp</item>
     </style>
 
     <style name="DataMiles.TextView_Font_RGSTG.757575.Update">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">12dp</item>
     </style>
 
     <style name="DataMiles.TextView_Font_MGSTG.Black.Rank">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">12dp</item>
     </style>
 </resources>

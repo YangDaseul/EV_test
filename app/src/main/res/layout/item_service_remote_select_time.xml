@@ -19,7 +19,7 @@
             android:clickable="true"
             android:gravity="center"
             android:textColor="@drawable/selector_service_remote_register_time_text_color"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

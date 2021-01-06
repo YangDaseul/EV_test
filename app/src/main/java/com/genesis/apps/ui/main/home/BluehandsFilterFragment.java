@@ -54,6 +54,7 @@ public class BluehandsFilterFragment extends SubFragment<FragmentBluehandsFilter
         super.onActivityCreated(savedInstanceState);
         me.setLifecycleOwner(getViewLifecycleOwner());
         me.setFragment(this);
+        me.lTitle.back.setOnClickListener(onSingleClickListener);
         pubViewModel = new ViewModelProvider(getActivity()).get(PUBViewModel.class);
 
         pubViewModel.getRES_PUB_1002().observe(getViewLifecycleOwner(), result -> {
@@ -153,6 +154,7 @@ public class BluehandsFilterFragment extends SubFragment<FragmentBluehandsFilter
 
     @Override
     public boolean onBackPressed() {
+        getActivity().onBackPressed();
         return true;
     }
 
@@ -160,6 +162,10 @@ public class BluehandsFilterFragment extends SubFragment<FragmentBluehandsFilter
     @Override
     public void onClickCommon(View v) {
         switch (v.getId()) {
+            case R.id.back:
+                onBackPressed();
+                break;
+
             case R.id.tv_category_1:
             case R.id.tv_category_2:
             case R.id.tv_category_3:

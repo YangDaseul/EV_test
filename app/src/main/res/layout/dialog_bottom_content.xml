@@ -35,9 +35,9 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="6sp"
+                android:lineSpacingExtra="6dp"
                 android:textColor="@color/x_262626"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 android:text="@string/sm01_maintenance_29"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -55,20 +55,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/regular_genesissanstextglobal"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:textColor="@color/x_996449"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="4sp"
+                    android:lineSpacingExtra="4dp"
                     android:text="0"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/regular_genesissanstextglobal"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:textColor="@color/x_262626"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="4sp"
+                    android:lineSpacingExtra="4dp"
                     android:text="@string/sm01_maintenance_30"/>
 
             </LinearLayout>
@@ -100,7 +100,7 @@
             android:padding="18dp"
             android:gravity="center"
             android:fontFamily="@font/light_genesissansheadglobal"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:text="@string/dialog_common_5"
             android:textColor="@color/x_ffffff"
             android:background="@drawable/ripple_bg_141414"

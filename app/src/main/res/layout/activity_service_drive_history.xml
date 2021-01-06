@@ -21,7 +21,7 @@
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:text="@string/service_drive_history_no_data"
             android:textColor="@color/x_141414"
-            android:textSize="16sp"
+            android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

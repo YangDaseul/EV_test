@@ -57,7 +57,7 @@
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:gravity="center"
             android:letterSpacing="-0.01"
-            android:lineSpacingExtra="2sp"
+            android:lineSpacingExtra="2dp"
             android:background="@drawable/bg_ffffff_stroke_e2e2e2"
             app:layout_constraintTop_toTopOf="@+id/rv"
             app:layout_constraintBottom_toBottomOf="@+id/rv"

@@ -4,9 +4,9 @@
         <item name="android:layout_height">50dp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:textColor">@color/x_aaabaf</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_dadde3</item>
         <item name="android:gravity">left|center_vertical</item>
@@ -18,9 +18,9 @@
         <item name="android:layout_height">50dp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_dadde3</item>
         <item name="android:gravity">left|center_vertical</item>
@@ -32,9 +32,9 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">20dp</item>
         <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">13dp</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:lineSpacingExtra">9dp</item>
         <item name="android:gravity">bottom|left</item>
         <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
     </style>
@@ -47,9 +47,9 @@
         <item name="android:paddingLeft">15dp</item>
         <item name="android:paddingRight">15dp</item>
         <item name="android:textColor">@color/x_aaabaf</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">16sp</item>
+        <item name="android:lineSpacingExtra">16dp</item>
         <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_e2e2e2</item>
         <item name="android:gravity">left|center_vertical</item>
@@ -63,9 +63,9 @@
         <item name="android:paddingLeft">15dp</item>
         <item name="android:paddingRight">15dp</item>
         <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">16sp</item>
+        <item name="android:lineSpacingExtra">16dp</item>
         <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_000000</item>
         <item name="android:gravity">left|center_vertical</item>
@@ -78,9 +78,9 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">3sp</item>
+        <item name="android:lineSpacingExtra">3dp</item>
         <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_141414_2dp</item>
         <item name="android:gravity">center</item>
@@ -91,9 +91,9 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:textColor">@color/x_99000000</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">3sp</item>
+        <item name="android:lineSpacingExtra">3dp</item>
         <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_4d141414</item>
         <item name="android:gravity">center</item>
@@ -105,9 +105,9 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:textColor">@color/x_ffffff</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">14dp</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:lineSpacingExtra">4dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:background">@color/x_996449</item>
         <item name="android:gravity">center</item>
@@ -118,9 +118,9 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:textColor">@color/x_99000000</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">14dp</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:lineSpacingExtra">4dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_757575</item>
         <item name="android:gravity">center</item>

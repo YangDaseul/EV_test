@@ -42,9 +42,9 @@
                 android:fontFamily="@font/light_genesissansheadglobal"
                 android:gravity="center"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="0sp"
+                android:lineSpacingExtra="0dp"
                 android:textColor="@color/x_ffffff"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 tools:text="@string/cm02_11"
                 android:onClick="@{(v) -> activity.onSingleClickListener.onClick(v)}"/>
 
@@ -185,10 +185,10 @@
                     android:fontFamily="@font/light_genesissansheadglobal"
                     android:gravity="center"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="6dp"
                     android:text="@string/cm02_11"
                     android:textColor="@color/x_ffffff"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:onClick="@{(v) -> activity.onSingleClickListener.onClick(v)}"/>
 
             </LinearLayout>

@@ -203,26 +203,6 @@ class GNSViewModel extends ViewModel {
         }, es.getUiThreadExecutor());
     }
 
-    public VehicleVO getMainVehicleFromDB() throws ExecutionException, InterruptedException {
-        ExecutorService es = new ExecutorService("");
-        Future<VehicleVO> future = es.getListeningExecutorService().submit(()->{
-            VehicleVO vehicleVO = null;
-            try {
-                vehicleVO = dbVehicleRepository.getMainVehicleFromDB();
-            } catch (Exception ignore) {
-                ignore.printStackTrace();
-                vehicleVO = null;
-            }
-            return vehicleVO;
-        });
-
-        try {
-            return future.get();
-        }finally {
-            es.shutDownExcutor();
-        }
-    }
-
     public UserVO getUserInfoFromDB() throws ExecutionException, InterruptedException {
         ExecutorService es = new ExecutorService("");
         Future<UserVO> future = es.getListeningExecutorService().submit(()->{
@@ -290,6 +270,12 @@ class GNSViewModel extends ViewModel {
         }finally {
             //todo 테스트 필요
             es.shutDownExcutor();
+        }
+    }
+
+    public void updateVehicleToDB(VehicleVO vehicleVO) {
+        if(vehicleVO!=null){
+            dbVehicleRepository.updateVehicle(vehicleVO);
         }
     }
 }

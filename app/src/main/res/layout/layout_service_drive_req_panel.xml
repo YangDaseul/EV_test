@@ -39,7 +39,7 @@
             style="@style/ServiceReq.Light"
             android:layout_width="0dp"
             android:maxLines="1"
-            android:textSize="18sp"
+            android:textSize="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/l_service_drive_req_info"
             app:layout_constraintStart_toStartOf="parent"

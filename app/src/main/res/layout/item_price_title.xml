@@ -9,9 +9,9 @@
             android:paddingBottom="21dp"
             android:fontFamily="@font/light_genesissansheadglobal"
             android:gravity="left|center_vertical"
-            android:lineSpacingExtra="12sp"
+            android:lineSpacingExtra="12dp"
             android:letterSpacing="-0.01"
             android:textColor="@color/x_000000"
-            android:textSize="18sp"
+            android:textSize="18dp"
             tools:text="GENESIS GV80" />
 </layout>

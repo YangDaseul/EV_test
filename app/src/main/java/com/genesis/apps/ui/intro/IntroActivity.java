@@ -118,8 +118,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
                     break;
                 case ERROR:
                 default:
-                    //TODO ERROR팝업 추가 필요
-                    finish();
+                    MiddleDialog.dialogNetworkError(this, () -> finish());
                     break;
             }
         });
@@ -133,15 +132,13 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
                             if(((Boolean)result)){
                                 reqDownloadCarInfo.run();
                             }else{
-                                //TODO ERROR팝업 추가 필요
-                                finish();
+                                MiddleDialog.dialogNetworkError(IntroActivity.this, () -> finish());
                             }
                         }
 
                         @Override
                         public void onError(Object e) {
-                            //TODO ERROR팝업 추가 필요
-                            finish();
+                            MiddleDialog.dialogNetworkError(IntroActivity.this, () -> finish());
                         }
                     });
                     break;
@@ -149,8 +146,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
 
                     break;
                 default:
-                    //TODO ERROR팝업 추가 필요
-                    finish();
+                    MiddleDialog.dialogNetworkError(IntroActivity.this, () -> finish());
                     break;
             }
         });
@@ -174,14 +170,12 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
                                     goToMain.run();
                                 }
                             } else {
-                                //TODO ERROR팝업 추가 필요
-                                finish();
+                                MiddleDialog.dialogNetworkError(IntroActivity.this, () -> finish());
                             }
                         }
                         @Override
                         public void onError(Object e) {
-                            //TODO ERROR팝업 추가 필요
-                            finish();
+                            MiddleDialog.dialogNetworkError(IntroActivity.this, () -> finish());
                         }
                     });
                     break;
@@ -189,8 +183,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
 
                     break;
                 default:
-                    //TODO ERROR팝업 추가 필요
-                    finish();
+                    MiddleDialog.dialogNetworkError(IntroActivity.this, () -> finish());
                     break;
             }
         });

@@ -16,11 +16,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/x_000000"
-            android:textSize="22sp"
+            android:textSize="22dp"
             android:text="@string/sm_r_rsv05_21"
             android:fontFamily="@font/light_genesissansheadglobal"
             android:letterSpacing="-0.01"
-            android:lineSpacingExtra="8sp"
+            android:lineSpacingExtra="8dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>

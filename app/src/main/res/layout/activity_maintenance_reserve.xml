@@ -33,10 +33,10 @@
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:text="@string/maintenance_category_title"
             android:textColor="@color/x_262626"
-            android:textSize="13sp"
+            android:textSize="13dp"
             android:visibility="gone"
             android:letterSpacing="-0.01"
-            android:lineSpacingExtra="9sp"
+            android:lineSpacingExtra="9dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/l_maintenance_reserv_titlebar"
             app:layout_goneMarginTop="20dp"
@@ -58,9 +58,9 @@
             android:padding="16dp"
             android:textColor="@color/x_000000"
             android:textColorHint="@color/x_a2a2a2"
-            android:textSize="15sp"
+            android:textSize="15dp"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-            android:lineSpacingExtra="6sp"
+            android:lineSpacingExtra="6dp"
             android:letterSpacing="-0.01"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -93,9 +93,9 @@
                     android:fontFamily="@font/light_genesissansheadglobal"
                     android:text="@string/maintenance_service_title"
                     android:textColor="@color/x_000000"
-                    android:textSize="22sp"
+                    android:textSize="22dp"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="8sp"/>
+                    android:lineSpacingExtra="8dp"/>
 
                 <!-- 오토케어 -->
                 <include

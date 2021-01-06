@@ -52,7 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:src="@drawable/car_bottom_2"
+            android:src="@drawable/main_img_bottom"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
@@ -68,11 +68,23 @@
         <!--            app:layout_constraintRight_toRightOf="@+id/iv_car_bottom"-->
         <!--            app:layout_constraintTop_toTopOf="@+id/iv_car_bottom" />-->
 
+
+<!--        <ImageView-->
+<!--            android:id="@+id/iv_car"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:adjustViewBounds="true"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            tools:src="@drawable/new_car_4" />-->
+
         <ImageView
             android:id="@+id/iv_car"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:adjustViewBounds="true"
+            app:layout_constraintHeight_percent=".5"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -102,6 +114,7 @@
 
 
         <ImageView
+            android:id="@+id/iv_bg_bottom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="60dp"
@@ -110,6 +123,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/x_000000"
+            app:layout_constraintTop_toBottomOf="@+id/iv_bg_bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieView"
@@ -156,9 +179,7 @@
             android:layout_marginEnd="20dp"
             app:layout_constraintBottom_toTopOf="@+id/iv_car"
             app:layout_constraintEnd_toEndOf="@+id/iv_teduri"
-            app:layout_constraintStart_toStartOf="@+id/iv_teduri"
-            app:layout_constraintTop_toBottomOf="@+id/vp_insight"
-            app:layout_constraintVertical_bias=".7">
+            app:layout_constraintStart_toStartOf="@+id/iv_teduri">
 
             <TextView
                 android:id="@+id/tv_genesis"
@@ -285,7 +306,7 @@
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="7dp"
                 android:maxLines="1"
-                android:text="--"
+                android:text="--km"
                 android:textColor="@color/x_ffffff"
                 android:textSize="14dp"
                 app:layout_constrainedWidth="true"
@@ -340,7 +361,7 @@
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="7dp"
                 android:maxLines="1"
-                android:text="--"
+                android:text="--km"
                 android:textColor="@color/x_ffffff"
                 android:textSize="14dp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_title_distance_recently"
@@ -394,7 +415,7 @@
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="7dp"
                 android:maxLines="1"
-                android:text="--"
+                android:text="--km"
                 android:textColor="@color/x_ffffff"
                 android:textSize="14dp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_title_distance_possible"
@@ -627,6 +648,22 @@
                     android:textSize="13dp"
                     android:visibility="gone"
                     tools:text="Quick 5"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/btn_quick_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ripple_bg_00000000"
+                    android:fontFamily="@font/regular_genesissansheadglobal"
+                    android:gravity="center_vertical"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="17dp"
+                    android:padding="10dp"
+                    android:textColor="@color/x_000000"
+                    android:textSize="13dp"
+                    android:visibility="gone"
+                    tools:text="Quick 6"
                     tools:visibility="visible" />
 
             </LinearLayout>

@@ -90,8 +90,8 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
 
                 String value = charSequence.toString().replace(",","");
 
-                if(value.length()>10){
-                    ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(value.substring(0,10)));
+                if(value.length()>8){
+                    ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(value.substring(0,8)));
                     ui.etExpnAmt.setSelection(ui.etExpnAmt.length());
                 }
 
@@ -140,6 +140,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
                 selectDivCd();
                 break;
             case R.id.tv_expn_dtm:
+                clearKeypad();
                 DialogCalendar dialogCalendar = new DialogCalendar(this, R.style.BottomSheetDialogTheme);
                 dialogCalendar.setOnDismissListener(dialogInterface -> {
                     Calendar calendar = dialogCalendar.calendar;
@@ -155,6 +156,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
     }
 
     private void selectDivCd() {
+        clearKeypad();
         final List<String> divList = Arrays.asList(getResources().getStringArray(R.array.insight_item));
         final BottomListDialog bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
         bottomListDialog.setOnDismissListener(dialogInterface -> {

@@ -79,4 +79,14 @@ public class StringUtil {
         return String.format("%-14s", date).replaceAll(" ","0");
     }
 
+
+    public static int isValidInteger(String value){
+        int retv = 0;
+        try{
+            retv = Integer.parseInt(value);
+        }catch (Exception e){
+            retv = 0;
+        }
+        return retv;
+    }
 }

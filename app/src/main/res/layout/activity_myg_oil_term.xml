@@ -49,9 +49,9 @@
                     android:fontFamily="@font/light_genesissansheadglobal"
                     android:gravity="left|center_vertical"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="8sp"
+                    android:lineSpacingExtra="8dp"
                     android:textColor="@color/x_000000"
-                    android:textSize="22sp"
+                    android:textSize="22dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -64,9 +64,9 @@
                     android:layout_marginTop="14dp"
                     android:fontFamily="@font/light_genesissansheadglobal"
                     android:gravity="left|center_vertical"
-                    android:lineSpacingExtra="8sp"
+                    android:lineSpacingExtra="8dp"
                     android:textColor="@color/x_525252"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_1"
                     app:layout_constraintStart_toStartOf="@+id/tv_1"
                     app:layout_constraintTop_toBottomOf="@+id/tv_1"
@@ -85,7 +85,7 @@
                     android:letterSpacing="-0.01"
                     android:text="@string/mg_con02_01_5"
                     android:textColor="@color/x_000000"
-                    android:textSize="18sp"
+                    android:textSize="18dp"
                     app:layout_constrainedWidth="true"
                     app:layout_constraintEnd_toEndOf="@+id/tv_1"
                     app:layout_constraintStart_toStartOf="@+id/tv_1"
@@ -140,10 +140,10 @@
 <!--                        android:fontFamily="@font/regular_genesissanstextglobal"-->
 <!--                        android:gravity="left|center_vertical"-->
 <!--                        android:letterSpacing="-0.01"-->
-<!--                        android:lineSpacingExtra="6sp"-->
+<!--                        android:lineSpacingExtra="6dp"-->
 <!--                        android:text="@string/mg_con02_01_7"-->
 <!--                        android:textColor="@color/x_141414"-->
-<!--                        android:textSize="14sp"-->
+<!--                        android:textSize="14dp"-->
 <!--                        app:layout_constraintEnd_toEndOf="parent"-->
 <!--                        app:layout_constraintStart_toStartOf="parent"-->
 <!--                        app:layout_constraintTop_toTopOf="parent" />-->
@@ -160,7 +160,7 @@
 <!--                        android:fontFamily="@font/light_genesissansheadglobal"-->
 <!--                        android:text="@string/mg_con02_01_8"-->
 <!--                        android:textColor="@color/x_000000"-->
-<!--                        android:textSize="15sp"-->
+<!--                        android:textSize="15dp"-->
 <!--                        app:layout_constraintEnd_toStartOf="@+id/cb_sms"-->
 <!--                        app:layout_constraintHorizontal_chainStyle="spread_inside"-->
 <!--                        app:layout_constraintStart_toStartOf="parent"-->
@@ -178,7 +178,7 @@
 <!--                        android:fontFamily="@font/light_genesissansheadglobal"-->
 <!--                        android:text="@string/mg_con02_01_9"-->
 <!--                        android:textColor="@color/x_000000"-->
-<!--                        android:textSize="15sp"-->
+<!--                        android:textSize="15dp"-->
 <!--                        app:layout_constraintEnd_toEndOf="parent"-->
 <!--                        app:layout_constraintStart_toEndOf="@+id/cb_phone"-->
 <!--                        app:layout_constraintTop_toBottomOf="@+id/tv_agree_info" />-->
@@ -195,7 +195,7 @@
 <!--                        android:fontFamily="@font/light_genesissansheadglobal"-->
 <!--                        android:text="@string/mg_con02_01_10"-->
 <!--                        android:textColor="@color/x_000000"-->
-<!--                        android:textSize="15sp"-->
+<!--                        android:textSize="15dp"-->
 <!--                        app:layout_constraintEnd_toStartOf="@+id/cb_dm"-->
 <!--                        app:layout_constraintHorizontal_chainStyle="spread_inside"-->
 <!--                        app:layout_constraintStart_toStartOf="parent"-->
@@ -212,7 +212,7 @@
 <!--                        android:fontFamily="@font/light_genesissansheadglobal"-->
 <!--                        android:text="@string/mg_con02_01_11"-->
 <!--                        android:textColor="@color/x_000000"-->
-<!--                        android:textSize="15sp"-->
+<!--                        android:textSize="15dp"-->
 <!--                        app:layout_constraintEnd_toEndOf="parent"-->
 <!--                        app:layout_constraintStart_toEndOf="@+id/cb_mail"-->
 <!--                        app:layout_constraintTop_toTopOf="@+id/cb_mail" />-->
@@ -232,7 +232,7 @@
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:text="@string/mg_con02_01_12"
             android:textColor="@color/x_ffffff"
-            android:textSize="16sp"
+            android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
