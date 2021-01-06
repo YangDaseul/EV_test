@@ -53,7 +53,7 @@
                 android:fontFamily="@font/light_genesissansheadglobal"
                 android:text="@string/service_drive_history_driver"
                 android:textColor="@color/x_000000"
-                android:textSize="13sp"
+                android:textSize="13dp"
                 app:layout_constraintBottom_toTopOf="@id/tv_service_drive_history_driver_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -66,7 +66,7 @@
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:text="@{holder.driverName}"
                 android:textColor="@color/x_000000"
-                android:textSize="15sp"
+                android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tv_service_drive_history_driver_title"
                 app:layout_constraintTop_toBottomOf="@id/tv_service_drive_history_driver_title"
@@ -81,7 +81,7 @@
                 android:fontFamily="@font/light_genesissansheadglobal"
                 android:text="@{holder.driverPhone}"
                 android:textColor="@color/x_000000"
-                android:textSize="15sp"
+                android:textSize="15dp"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_driver_name"
                 app:layout_constraintStart_toEndOf="@id/tv_service_drive_history_driver_name"
                 tools:text="010-1230-5654" />
@@ -126,7 +126,7 @@
                 android:fontFamily="@font/light_genesissansheadglobal"
                 android:text="@string/service_drive_history_price"
                 android:textColor="@color/x_000000"
-                android:textSize="13sp"
+                android:textSize="13dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -137,7 +137,7 @@
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:text="@{holder.originalPrice}"
                 android:textColor="@color/x_000000"
-                android:textSize="15sp"
+                android:textSize="15dp"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_opened_price_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="1,000,000원" />
@@ -150,7 +150,7 @@
                 android:fontFamily="@font/light_genesissansheadglobal"
                 android:text="@string/service_drive_history_discount"
                 android:textColor="@color/x_000000"
-                android:textSize="13sp"
+                android:textSize="13dp"
                 android:visibility="@{holder.discountVisibility}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_service_drive_history_opened_price_title" />
@@ -162,7 +162,7 @@
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:text="@{holder.blueMemberPoint}"
                 android:textColor="@color/x_000000"
-                android:textSize="15sp"
+                android:textSize="15dp"
                 android:visibility="@{holder.discountVisibility}"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_opened_discount_title"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -187,7 +187,7 @@
                 android:fontFamily="@font/regular_genesissansheadglobal"
                 android:text="@string/service_drive_history_paid"
                 android:textColor="@color/x_000000"
-                android:textSize="13sp"
+                android:textSize="13dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_dummy" />
             <!-- 결제액(값) -->
@@ -197,7 +197,7 @@
                 android:fontFamily="@font/regular_genesissansheadglobal"
                 android:text="@{holder.paidPrice}"
                 android:textColor="@color/x_a36b4f"
-                android:textSize="18sp"
+                android:textSize="18dp"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_opened_paid_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="500,000원" />

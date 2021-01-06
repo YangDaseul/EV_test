@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:text="@string/sm_remote01_guide_dot"
             android:textColor="@{guideColor == 0 ? @color/x_666666 : guideColor}"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_service_remote_register_guide" />
 
@@ -41,7 +41,7 @@
             android:includeFontPadding="false"
             android:text="@{guide}"
             android:textColor="@{guideColor == 0 ? @color/x_666666 : guideColor}"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:layout_constraintStart_toEndOf="@id/v_service_remote_register_guide_dot"
             app:layout_constraintTop_toTopOf="parent" />
 

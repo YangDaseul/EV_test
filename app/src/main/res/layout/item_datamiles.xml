@@ -22,7 +22,7 @@
             android:layout_marginStart="20dp"
             android:paddingBottom="30dp"
             android:text="@string/gm01_datamiles_title"
-            android:textSize="16sp"
+            android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -106,9 +106,9 @@
                     android:background="@color/x_f8f8f8"
                     android:gravity="center"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="6dp"
                     android:text="@string/gm01_error_response_fail"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -187,7 +187,7 @@
                     android:gravity="top"
                     android:includeFontPadding="false"
                     android:lineSpacingExtra="0dp"
-                    android:textSize="44sp"
+                    android:textSize="44dp"
                     app:layout_constraintEnd_toEndOf="@id/asb_datamiles_driving_score"
                     app:layout_constraintTop_toTopOf="@id/asb_datamiles_driving_score" />
 
@@ -211,7 +211,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:textSize="12sp"
+                    android:textSize="12dp"
                     app:layout_constraintStart_toStartOf="@id/tv_datamiles_before_score_title"
                     app:layout_constraintTop_toBottomOf="@id/tv_datamiles_before_score_title" />
 
@@ -235,7 +235,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="110dp"
-                    android:textSize="11sp"
+                    android:textSize="11dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/asb_datamiles_driving_score" />
@@ -341,12 +341,12 @@
                     android:layout_marginEnd="15dp"
                     android:background="@drawable/bg_ffffff_stroke_e5e5e5"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="7sp"
+                    android:lineSpacingExtra="7dp"
                     android:paddingStart="15dp"
                     android:paddingTop="13dp"
                     android:paddingEnd="15dp"
                     android:paddingBottom="13dp"
-                    android:textSize="13sp"
+                    android:textSize="13dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/asb_datamiles_driving_score" />
@@ -395,7 +395,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/gm01_total_driving_distance"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 app:layout_constraintStart_toStartOf="@id/tv_datamiles_expendables_title"
                 app:layout_constraintTop_toBottomOf="@id/tv_datamiles_expendables_title" />
 
@@ -436,9 +436,9 @@
                     android:background="@color/x_f8f8f8"
                     android:gravity="center"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="6dp"
                     android:text="@string/gm01_error_response_fail"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -501,7 +501,7 @@
                     android:drawablePadding="15.2dp"
                     android:gravity="center_vertical"
                     android:text="@string/gm01_breakdown_code"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -511,7 +511,7 @@
                     style="@style/DataMiles.TextView_Font_MGSTG.AD7B61"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

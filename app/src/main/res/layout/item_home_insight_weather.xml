@@ -16,7 +16,7 @@
             android:textColor="@color/x_ffffff"
             android:textSize="18dp"
             android:letterSpacing="-0.01"
-            android:lineSpacingExtra="6sp"
+            android:lineSpacingExtra="6dp"
             android:fontFamily="@font/light_genesissansheadglobal"
             android:maxLines="2"
             android:ellipsize="end"
@@ -56,9 +56,9 @@
 <!--            android:layout_width="0dp"-->
 <!--            android:layout_height="63dp"-->
 <!--            android:textColor="@color/x_ffffff"-->
-<!--            android:textSize="18sp"-->
+<!--            android:textSize="18dp"-->
 <!--            android:letterSpacing="-0.01"-->
-<!--            android:lineSpacingExtra="6sp"-->
+<!--            android:lineSpacingExtra="6dp"-->
 <!--            android:fontFamily="@font/light_genesissansheadglobal"-->
 <!--            android:maxLines="2"-->
 <!--            android:ellipsize="end"-->

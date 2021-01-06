@@ -9,10 +9,10 @@
                     android:layout_height="match_parent"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:gravity="center"
-                    android:lineSpacingExtra="4sp"
+                    android:lineSpacingExtra="4dp"
                     android:letterSpacing="-0.01"
                     android:textColor="@drawable/selector_tab_repair_image"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -33,10 +33,10 @@
 <!--                    android:layout_height="0dp"-->
 <!--                    android:fontFamily="@font/regular_genesissanstextglobal"-->
 <!--                    android:gravity="center"-->
-<!--                    android:lineSpacingExtra="4sp"-->
+<!--                    android:lineSpacingExtra="4dp"-->
 <!--                    android:letterSpacing="-0.01"-->
 <!--                    android:textColor="@drawable/selector_tab_repair_image"-->
-<!--                    android:textSize="14sp"-->
+<!--                    android:textSize="14dp"-->
 <!--                    app:layout_constraintTop_toTopOf="parent"-->
 <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
 <!--                    app:layout_constraintStart_toStartOf="parent"-->

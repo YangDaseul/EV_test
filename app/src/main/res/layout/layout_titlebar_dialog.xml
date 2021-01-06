@@ -22,9 +22,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/x_000000"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:fontFamily="@font/regular_genesissansheadglobal"
-            android:lineSpacingExtra="-4sp"
+            android:lineSpacingExtra="-4dp"
             android:letterSpacing="-0.01"
             android:gravity="center_vertical|left"
             android:text='@{TextUtils.isEmpty(value) ? "" :value}'

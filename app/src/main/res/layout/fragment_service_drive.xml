@@ -33,7 +33,7 @@
                 android:fontFamily="@font/regular_genesissansheadglobal"
                 android:text="@string/sm01_service_driver_1"
                 android:textColor="@color/x_000000"
-                android:textSize="24sp"
+                android:textSize="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -102,7 +102,7 @@
                 android:paddingBottom="8dp"
                 android:text="@string/sm01_service_driver_7"
                 android:textColor="@color/x_ffffff"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_sm_service_drive_dec2_dec" />
 

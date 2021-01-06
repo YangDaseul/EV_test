@@ -15,7 +15,7 @@
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:text="@string/relapse_history_no_data"
             android:textColor="@color/x_141414"
-            android:textSize="16sp" />
+            android:textSize="16dp" />
 
     </LinearLayout>
 

@@ -24,7 +24,7 @@
             android:paddingBottom="10dp"
             android:text="@string/service_req_retry"
             android:textColor="@color/x_141414"
-            android:textSize="14sp" />
+            android:textSize="14dp" />
 
     </LinearLayout>
 

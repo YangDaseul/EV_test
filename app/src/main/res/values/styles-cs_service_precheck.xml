@@ -24,7 +24,7 @@
     <style name="Precheck.Title" parent="PrecheckTextBasic">
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:textColor">@color/x_262626</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">13dp</item>
         <item name="android:visibility">gone</item>
         <item name="android:layout_marginBottom">6dp</item>
     </style>
@@ -32,28 +32,28 @@
     <style name="Precheck.SelectBox.DeSelected" parent="PrecheckSelectBoxBasic">
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:textColor">@color/x_a2a2a2</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_e5e5e5</item>
     </style>
 
     <style name="Precheck.SelectBox.Selected" parent="PrecheckSelectBoxBasic">
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_000000</item>
     </style>
 
     <style name="Precheck.Content.DeSelected" parent="PrecheckSelectBasic">
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:textColor">@color/x_a2a2a2</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_e5e5e5</item>
     </style>
 
     <style name="Precheck.Content.Selected" parent="PrecheckSelectBasic">
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_000000</item>
     </style>
 

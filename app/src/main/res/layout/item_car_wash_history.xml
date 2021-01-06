@@ -14,7 +14,7 @@
             style="@style/CarWashHistoryLight"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="5dp"
-            android:textSize="16sp"
+            android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="2020.12.31" />
@@ -33,13 +33,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_ffffff_top_round_10"
-                android:padding="20sp">
+                android:padding="20dp">
 
                 <!-- 서비스 이름-->
                 <TextView
                     android:id="@+id/tv_car_wash_history_name"
                     style="@style/CarWashHistoryLight"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="울트라 킹왕짱\n울랄라 울라울라" />
@@ -49,7 +49,7 @@
                     android:id="@+id/tv_car_wash_history_price"
                     style="@style/CarWashHistoryRegular"
                     android:layout_marginTop="10dp"
-                    android:textSize="18sp"
+                    android:textSize="18dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_car_wash_history_name"
                     tools:text="70,000원" />
@@ -59,7 +59,7 @@
                     android:id="@+id/tv_car_wash_history_paytype"
                     style="@style/CarWashHistoryRegular"
                     android:layout_marginStart="10dp"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintBottom_toBottomOf="@id/tv_car_wash_history_price"
                     app:layout_constraintStart_toEndOf="@id/tv_car_wash_history_price"
                     tools:text="현장결제" />
@@ -74,7 +74,7 @@
                     android:gravity="center"
                     android:paddingHorizontal="10dp"
                     android:textColor="@color/x_ba544d"
-                    android:textSize="12sp"
+                    android:textSize="12dp"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/tv_car_wash_history_price"
                     app:layout_constraintStart_toEndOf="@id/tv_car_wash_history_price"
@@ -114,7 +114,7 @@
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:text="@string/sm_cw_history_02"
                     android:textColor="@color/x_aaabaf"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -131,7 +131,7 @@
                     android:gravity="center"
                     android:text="@string/sm_cw_history_04"
                     android:textColor="@color/x_ffffff"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_car_wash_history_noti" />
 
@@ -141,7 +141,7 @@
                     android:id="@+id/tv_car_wash_history_branch_name_reserved"
                     style="@style/CarWashHistoryRegular"
                     android:layout_marginStart="8dp"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     app:layout_constraintBottom_toBottomOf="@id/tv_car_wash_history_call"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_car_wash_history_call"
@@ -154,7 +154,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:text="@string/sm_cw_history_05"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     app:layout_constraintEnd_toStartOf="@id/tv_car_wash_history_cancel"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_car_wash_history_call" />
@@ -163,7 +163,7 @@
                     android:id="@+id/tv_car_wash_history_cancel"
                     style="@style/CarWashHistoryBtn"
                     android:text="@string/sm_cw_history_06"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/tv_car_wash_history_confirm"
                     app:layout_constraintTop_toTopOf="@id/tv_car_wash_history_confirm" />
@@ -177,7 +177,7 @@
                 android:layout_width="match_parent"
                 android:background="@drawable/bg_f9f9f9_bottom_round_10"
                 android:padding="28dp"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 android:visibility="gone"
                 tools:text="SONAX 지구 반대편 출장소"  />
         </LinearLayout>

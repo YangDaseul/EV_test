@@ -48,10 +48,10 @@
                     android:layout_marginRight="20dp"
                     android:fontFamily="@font/regular_genesissansheadglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="-4sp"
+                    android:lineSpacingExtra="-4dp"
                     android:text="@string/word_membership_1"
                     android:textColor="@color/x_000000"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     app:layout_constrainedWidth="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"
@@ -65,10 +65,10 @@
                     android:layout_marginTop="30dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="6dp"
                     android:text="1."
                     android:textColor="@color/x_aaabaf"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="@+id/tv_membership_info"
                     app:layout_constraintTop_toBottomOf="@+id/tv_membership_info" />
 
@@ -80,10 +80,10 @@
                     android:layout_marginLeft="11dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="6dp"
                     android:text="@string/msg_membership_1"
                     android:textColor="@color/x_000000"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_membership_info"
                     app:layout_constraintStart_toEndOf="@id/tv_number_1"
                     app:layout_constraintTop_toTopOf="@+id/tv_number_1" />
@@ -107,10 +107,10 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="6dp"
                     android:text="2."
                     android:textColor="@color/x_aaabaf"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="@+id/tv_membership_info"
                     app:layout_constraintTop_toBottomOf="@+id/v_line_1" />
 
@@ -122,10 +122,10 @@
                     android:layout_marginLeft="11dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="6dp"
                     android:text="@string/msg_membership_2"
                     android:textColor="@color/x_000000"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_membership_info"
                     app:layout_constraintStart_toEndOf="@id/tv_number_2"
                     app:layout_constraintTop_toTopOf="@+id/tv_number_2" />
@@ -149,10 +149,10 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="6dp"
                     android:text="3."
                     android:textColor="@color/x_aaabaf"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="@+id/tv_membership_info"
                     app:layout_constraintTop_toBottomOf="@+id/v_line_2" />
 
@@ -164,10 +164,10 @@
                     android:layout_marginLeft="11dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="6dp"
                     android:text="@string/msg_membership_3"
                     android:textColor="@color/x_000000"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_membership_info"
                     app:layout_constraintStart_toEndOf="@id/tv_number_3"
                     app:layout_constraintTop_toTopOf="@+id/tv_number_3" />
@@ -191,10 +191,10 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="6dp"
                     android:text="4."
                     android:textColor="@color/x_aaabaf"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="@+id/tv_membership_info"
                     app:layout_constraintTop_toBottomOf="@+id/v_line_3" />
 
@@ -206,10 +206,10 @@
                     android:layout_marginLeft="11dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="6dp"
                     android:text="@string/msg_membership_4"
                     android:textColor="@color/x_000000"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_membership_info"
                     app:layout_constraintStart_toEndOf="@id/tv_number_4"
                     app:layout_constraintTop_toTopOf="@+id/tv_number_4" />
@@ -233,10 +233,10 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="6dp"
                     android:text="5."
                     android:textColor="@color/x_aaabaf"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="@+id/tv_membership_info"
                     app:layout_constraintTop_toBottomOf="@+id/v_line_4" />
 
@@ -248,10 +248,10 @@
                     android:layout_marginLeft="11dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="6dp"
                     android:text="@string/word_membership_2"
                     android:textColor="@color/x_000000"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_membership_info"
                     app:layout_constraintStart_toEndOf="@id/tv_number_5"
                     app:layout_constraintTop_toTopOf="@+id/tv_number_5" />
@@ -275,7 +275,7 @@
                         android:fontFamily="@font/regular_genesissanstextglobal"
                         android:text="@string/msg_membership_5"
                         android:textColor="@color/x_525252"
-                        android:textSize="12sp" />
+                        android:textSize="12dp" />
 
 
                     <TextView
@@ -286,7 +286,7 @@
                         android:fontFamily="@font/regular_genesissanstextglobal"
                         android:text="@string/msg_membership_6"
                         android:textColor="@color/x_141414"
-                        android:textSize="14sp" />
+                        android:textSize="14dp" />
 
                 </RelativeLayout>
 
@@ -309,7 +309,7 @@
                         android:fontFamily="@font/regular_genesissanstextglobal"
                         android:text="@string/msg_membership_7"
                         android:textColor="@color/x_525252"
-                        android:textSize="12sp" />
+                        android:textSize="12dp" />
 
 
                     <TextView
@@ -320,7 +320,7 @@
                         android:fontFamily="@font/regular_genesissanstextglobal"
                         android:text="@string/msg_membership_8"
                         android:textColor="@color/x_141414"
-                        android:textSize="14sp" />
+                        android:textSize="14dp" />
 
                 </RelativeLayout>
 
@@ -344,10 +344,10 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="6dp"
                     android:text="@string/msg_membership_9"
                     android:textColor="@color/x_aaabaf"
-                    android:textSize="12sp"
+                    android:textSize="12dp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_membership_info"
                     app:layout_constraintStart_toEndOf="@+id/iv_dot_1"
                     app:layout_constraintTop_toBottomOf="@+id/l_contents_5_2" />
@@ -372,10 +372,10 @@
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="6dp"
                     android:text="@string/msg_membership_10"
                     android:textColor="@color/x_aaabaf"
-                    android:textSize="12sp"
+                    android:textSize="12dp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_membership_info"
                     app:layout_constraintStart_toEndOf="@+id/iv_dot_2"
                     app:layout_constraintTop_toBottomOf="@+id/tv_warning_1" />
@@ -400,7 +400,7 @@
                     android:background="@drawable/ripple_bg_000000"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="6dp"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     android:paddingLeft="10dp"
                     android:paddingTop="6dp"
@@ -409,7 +409,7 @@
                     android:tag="@string/word_membership_4"
                     android:text="@string/word_membership_3"
                     android:textColor="@color/x_ffffff"
-                    android:textSize="12sp"
+                    android:textSize="12dp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_membership_info"
                     app:layout_constraintHorizontal_bias="1"
                     app:layout_constraintTop_toBottomOf="@+id/v_line_5" />

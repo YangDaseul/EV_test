@@ -43,7 +43,7 @@
             android:letterSpacing="-0.01"
             android:text="@string/sm_cw_find_02"
             android:textColor="@color/x_000000"
-            android:textSize="22sp"
+            android:textSize="22dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/l_car_wash_find_branch_title" />
 
@@ -57,7 +57,7 @@
             android:letterSpacing="-0.01"
             android:text="@string/sm_cw_find_03"
             android:textColor="@color/x_000000"
-            android:textSize="13sp"
+            android:textSize="13dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_car_wash_find_branch_desc" />
 
@@ -78,7 +78,7 @@
             android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
             android:paddingHorizontal="15dp"
             android:text="@string/sm_cw_find_04"
-            android:textSize="15sp"
+            android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_car_wash_find_branch_location_title" />
@@ -111,13 +111,13 @@
                 style="@style/SonaxResult.NoResult"
                 android:fontFamily="@font/regular_genesissansheadglobal"
                 android:text="@string/sm_cw_find_06"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
 
             <TextView
                 style="@style/SonaxResult.NoResult"
                 android:fontFamily="@font/light_genesissansheadglobal"
                 android:text="@string/sm_cw_find_07"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
         </LinearLayout>
 
         <!-- 검색 결과 : 결과 없음 위에 덮어씌우는 형태로 출력

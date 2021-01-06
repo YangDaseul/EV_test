@@ -75,7 +75,7 @@
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:text="@string/now_or_reserve_desc"
                 android:textColor="@color/x_aaabaf"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
             <!-- "예약일시" 및 날짜선택버튼. visibility 컨트롤 한 번에 하려고 묶음 -->
             <LinearLayout
@@ -93,7 +93,7 @@
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:text="@string/now_or_reserve_date"
                     android:textColor="@color/x_000000"
-                    android:textSize="13sp" />
+                    android:textSize="13dp" />
 
                 <!-- 예약 날짜 선택 -->
                 <TextView
@@ -107,7 +107,7 @@
                     android:gravity="center_vertical"
                     android:padding="16dp"
                     android:textColor="@color/x_000000"
-                    android:textSize="15sp"
+                    android:textSize="15dp"
                     tools:text="2020.13.32 오후 27:61" />
             </LinearLayout>
             <!-- 요청 사항 입력 -->
@@ -135,7 +135,7 @@
                     android:padding="16dp"
                     android:textColor="@color/x_141414"
                     android:textCursorDrawable="@drawable/cursor_000000"
-                    android:textSize="15sp" />
+                    android:textSize="15dp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 

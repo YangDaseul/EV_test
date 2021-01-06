@@ -23,8 +23,8 @@
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:text="@string/sm01_car_wash_1"
             android:textColor="@color/x_ffffff"
-            android:textSize="16sp"
-            android:lineSpacingExtra="8sp"
+            android:textSize="16dp"
+            android:lineSpacingExtra="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,10 +34,10 @@
             style="@style/TextBasic"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/light_genesissansheadglobal"
-            android:lineSpacingExtra="6sp"
+            android:lineSpacingExtra="6dp"
             android:text="@string/sm01_car_wash_2"
             android:textColor="@color/x_aaabaf"
-            android:textSize="14sp"
+            android:textSize="14dp"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_service_car_wash_reserv_history_title" />

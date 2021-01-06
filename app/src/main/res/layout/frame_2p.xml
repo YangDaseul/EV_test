@@ -31,7 +31,7 @@
             android:gravity="center"
             android:layout_centerInParent="true"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:textStyle="bold"
             android:text="@{`test value:`+ (String.valueOf(vm.resVo.data.getValue) ?? `-123`)}"/>
 

@@ -35,7 +35,7 @@
             android:fontFamily="@font/light_genesissansheadglobal"
             android:text="@string/terms_all_agree"
             android:textColor="@color/x_000000"
-            android:textSize="18sp"
+            android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/l_dia_bottom_sonax_branch_title" />

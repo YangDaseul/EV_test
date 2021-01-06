@@ -53,8 +53,8 @@
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="8sp"
-                    android:textSize="22sp"
+                    android:lineSpacingExtra="8dp"
+                    android:textSize="22dp"
                     android:textStyle="normal" />
 
                 <!--상담 시간-->
@@ -112,7 +112,7 @@
                     android:layout_marginTop="40dp"
                     android:layout_marginEnd="20dp"
                     android:text="@string/sm_remote01_info_title"
-                    android:textSize="22sp" />
+                    android:textSize="22dp" />
 
                 <!--서비스 설명 문구.-->
                 <TextView
@@ -124,7 +124,7 @@
                     android:layout_marginTop="18dp"
                     android:layout_marginEnd="20dp"
                     android:text="@string/sm_remote01_info_0"
-                    android:textSize="16sp" />
+                    android:textSize="16dp" />
 
                 <!--이용 안내-->
                 <TextView
@@ -135,7 +135,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="40dp"
                     android:text="@string/sm_remote01_info_1"
-                    android:textSize="18sp" />
+                    android:textSize="18dp" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
@@ -150,7 +150,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/sm_remote01_guide_dot"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@id/tv_service_remote_register_using_time_title" />
 
@@ -162,7 +162,7 @@
                         android:layout_height="wrap_content"
                         android:includeFontPadding="false"
                         android:text="@string/sm_remote01_info_2"
-                        android:textSize="16sp"
+                        android:textSize="16dp"
                         app:layout_constraintStart_toEndOf="@id/v_service_remote_register_guide_dot"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -174,7 +174,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:text="@string/sm_remote01_info_3"
-                        android:textSize="16sp"
+                        android:textSize="16dp"
                         app:layout_constraintStart_toEndOf="@id/tv_service_remote_register_using_time_title"
                         app:layout_constraintTop_toTopOf="@id/tv_service_remote_register_using_time_title" />
 
@@ -220,7 +220,7 @@
             android:stateListAnimator="@null"
             android:onClick="@{(view) -> activity.onClickCommon(view)}"
             android:text="@string/sm_remote01_next"
-            android:textSize="16sp"
+            android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -17,7 +17,7 @@
             android:id="@+id/tv_service_drive_status_reserved_title"
             style="@style/ServiceDriveReqResult.Status.Text.Light"
             android:text="@string/service_drive_req_result_08"
-            android:textSize="13sp"
+            android:textSize="13dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
