@@ -22,6 +22,8 @@ import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityMainBinding;
 import com.genesis.apps.databinding.ItemTabBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
+import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.main.contents.ContentsSearchActivity;
 import com.genesis.apps.ui.main.home.FragmentHome1;
 import com.genesis.apps.ui.main.service.FragmentService;
@@ -148,6 +150,14 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 case R.id.btn_search:
                     startActivitySingleTop(new Intent(this, ContentsSearchActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
+            case R.id.btn_store_cart:
+                loginChk("https://devagenesisproduct.auton.kr/cart/gen/ko/cart_list");
+
+                break;
+            case R.id.btn_store_search:
+                loginChk("https://devagenesisproduct.auton.kr/gen/ko/search");
+
+                break;
         }
 
     }
@@ -289,16 +299,44 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         }
     }
 
-
     public void setGNB(boolean isSearch, int value, int isVisibility) {
+        setGNB(isSearch, value, isVisibility, false, false);
+    }
+
+    public void setGNB(boolean isSearch, int value, int isVisibility, boolean isStore, boolean isBgWhite) {
         try {
             ui.lGnb.setIsAlarm(isNewAlarm());
             ui.lGnb.setIsSearch(isSearch);
             ui.lGnb.setCustGbCd(lgnViewModel.getUserInfoFromDB().getCustGbCd());
             ui.lGnb.setBackground(value);
             ui.lGnb.lWhole.setVisibility(isVisibility);
+            ui.lGnb.setIsStore(isStore);
+            ui.lGnb.setIsBgWhite(isBgWhite);
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    private void loginChk(String url) {
+        String custGbCd="";
+        try {
+            custGbCd = lgnViewModel.getUserInfoFromDB().getCustGbCd();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            if(!TextUtils.isEmpty(custGbCd)&&!custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)){
+                for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                    if (fragment instanceof FragmentStore) {
+                        ((FragmentStore) fragment).loadUrl(url);
+                    }
+                }
+            } else {
+                MiddleDialog.dialogLogin(this, () -> {
+                    startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                }, () -> {
+
+                });
+            }
         }
     }
 
