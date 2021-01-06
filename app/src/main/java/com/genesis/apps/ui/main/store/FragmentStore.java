@@ -113,10 +113,11 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
     }
 
     private void initView() {
+        if(fragment != null) return;
+        
         url = "https://devagenesisproduct.auton.kr/ko/main";
 
         try {
-            Log.d("JJJJ", "custCd : " + lgnViewModel.getUserInfoFromDB().getCustGbCd());
             Bundle bundle = new Bundle();
             if(TextUtils.isEmpty(lgnViewModel.getUserInfoFromDB().getCustGbCd()) || VariableType.MAIN_VEHICLE_TYPE_0000.equals(lgnViewModel.getUserInfoFromDB().getCustGbCd())) {
                 bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
@@ -157,7 +158,6 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
         super.onActivityCreated(savedInstanceState);
 
         initViewModel();
-        initView();
     }
 
     @Override
@@ -176,6 +176,8 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
     public void onRefresh() {
         Log.e("onResume", "onReusme store");
         ((MainActivity) getActivity()).setGNB(false, 0, View.VISIBLE, true, true);
+
+        initView();
     }
 
     @Override
