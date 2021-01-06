@@ -13,6 +13,7 @@ import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.BAR_1001;
 import com.genesis.apps.comm.model.api.gra.NOT_0003;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
@@ -28,6 +29,7 @@ import com.genesis.apps.ui.main.contents.ContentsSearchActivity;
 import com.genesis.apps.ui.main.home.FragmentHome1;
 import com.genesis.apps.ui.main.service.FragmentService;
 import com.genesis.apps.ui.main.store.FragmentStore;
+import com.genesis.apps.ui.main.store.StoreWebActivity;
 import com.genesis.apps.ui.myg.MyGEntranceActivity;
 import com.genesis.apps.ui.myg.MyGHomeActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -325,11 +327,12 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             e.printStackTrace();
         }finally{
             if(!TextUtils.isEmpty(custGbCd)&&!custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)){
-                for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-                    if (fragment instanceof FragmentStore) {
-                        ((FragmentStore) fragment).loadUrl(url);
-                    }
-                }
+                startActivitySingleTop(new Intent(this, StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, url), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+//                    if (fragment instanceof FragmentStore) {
+//                        ((FragmentStore) fragment).loadUrl(url);
+//                    }
+//                }
             } else {
                 MiddleDialog.dialogLogin(this, () -> {
                     startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);

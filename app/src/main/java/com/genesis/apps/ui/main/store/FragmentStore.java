@@ -84,7 +84,7 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
                 case SUCCESS:
                     if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
                         Log.d("JJJJ", "getCustInfo : " + result.data.getCustInfo());
-                        try {
+//                        try {
 //                            String html = "<!DOCTYPE html>" +
 //                                    "<html>" +
 //                                    "<body onload='document.frm1.submit()'>" +
@@ -95,16 +95,16 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
 //                                    "</html>";
 //                            fragment.loadData(html);
 
-                            String postData = "data=" + URLEncoder.encode(result.data.getCustInfo(), "UTF-8");
-//                            String postData = "data=" + result.data.getCustInfo();
+//                            String postData = "data=" + URLEncoder.encode(result.data.getCustInfo(), "UTF-8");
+                            String postData = "data=" + result.data.getCustInfo();
 //                            String postData = "{\"data\":\"" + result.data.getCustInfo() + "\"}";
 
                             Log.d("JJJJ", "postData : " + postData);
 
                             fragment.postUrl(url, postData.getBytes());
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
+//                        } catch (UnsupportedEncodingException e) {
+//                            e.printStackTrace();
+//                        }
                     }
 
                     break;
