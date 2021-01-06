@@ -23,6 +23,9 @@
             name="isBgWhite"
             type="Boolean"/>
         <variable
+            name="useBarcode"
+            type="Boolean"/>
+        <variable
             name="point"
             type="String"/>
         <variable
@@ -175,7 +178,7 @@
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:scaleType="centerInside"
             android:src="@drawable/ic_barcode"
-            android:visibility="gone"
+            android:visibility="@{ (useBarcode&amp;&amp;!isStore) ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/btn_store_cart"
             app:layout_constraintTop_toTopOf="parent"

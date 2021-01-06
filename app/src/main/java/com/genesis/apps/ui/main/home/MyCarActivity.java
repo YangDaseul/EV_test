@@ -30,6 +30,7 @@ import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.bottom.DialogCarRgstNo;
+import com.genesis.apps.ui.main.MainActivity;
 import com.genesis.apps.ui.main.home.view.CarHorizontalAdapter;
 
 import java.util.ArrayList;
@@ -317,7 +318,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    if(result.data!=null) {
+                    if (result.data != null) {
                         showProgressDialog(false);
                         setPrivilegeLayout(result.data);
                         break;
@@ -372,13 +373,13 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
 
     private void setViewCoupon(List<CouponVO> list) {
 
-        int totalCnt=0;//추후 잔여횟수가 없습니다. 등을 표시할 때 사용 가능
+        int totalCnt = 0;//추후 잔여횟수가 없습니다. 등을 표시할 때 사용 가능
 
         if (list != null && list.size() > 0) {
             for (CouponVO couponVO : list) {
-                try{
-                    totalCnt+= Integer.parseInt(couponVO.getRemCnt());
-                }catch (Exception e){
+                try {
+                    totalCnt += Integer.parseInt(couponVO.getRemCnt());
+                } catch (Exception e) {
 
                 }
 
@@ -437,11 +438,12 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
         ui.tvEmpty.setVisibility(adapter == null || adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
     }
 
-    private void setEmptyCoupon(int totalCnt){
+    private void setEmptyCoupon(int totalCnt) {
         ui.tvEmptyCoupon.setVisibility(totalCnt == 0 ? View.VISIBLE : View.GONE);
     }
 
     private int beforePostion = -1;
+
     private void initView() {
         adapter = new CarHorizontalAdapter(onSingleClickListener);
         ui.vpCar.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
@@ -559,6 +561,17 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
 
         try {
             switch (v.getId()) {
+                case R.id.btn_contract://계약서 조회
+                    if (getCurrentVehicleVO() != null) {
+                        startActivitySingleTop(new Intent(this, APPIAInfo.GM02_CTR01.getActivity())
+                                        .putExtra(KeyNames.KEY_NAME_CTRCT_NO, getCurrentVehicleVO().getCtrctNo())
+                                , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                                , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    }
+                    break;
+                case R.id.btn_similar://유사 재고 조회
+                    startActivitySingleTop(new Intent(this, APPIAInfo.GM02_INV01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    break;
                 //이전 버튼과 다음버튼은 정책 변경으로 제거됨
                 case R.id.btn_pre://이전 버튼
 //                    ui.vpCar.setCurrentItem(ui.vpCar.getCurrentItem() - 1, true);
@@ -659,11 +672,11 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
         }
     }
 
-    private void openRent(){
+    private void openRent() {
         startActivitySingleTop(new Intent(this, RegisterUsedCarActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
-    private void openRentRis(){
+    private void openRentRis() {
         String actoprRgstYn = "N";
         try {
             actoprRgstYn = gnsViewModel.getRES_GNS_1001().getValue().data.getActoprRgstYn();
@@ -682,9 +695,9 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
     }
 
     private void goPrivilege(int id, String url) {
-        if(!TextUtils.isEmpty(url.trim())){
-            int titleId=0;
-            switch (id){
+        if (!TextUtils.isEmpty(url.trim())) {
+            int titleId = 0;
+            switch (id) {
                 case R.id.btn_status:
                     titleId = R.string.mg_prvi01_word_1_2;
                     break;
@@ -696,17 +709,17 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                     break;
             }
             startActivitySingleTop(new Intent(this, GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, url).putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, titleId), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-        }else{
+        } else {
             SnackBarUtil.show(this, "이동 가능한 URL이 없습니다.");
         }
     }
 
-    private VehicleVO getCurrentVehicleVO(){
-        VehicleVO vehicleVO=null;
+    private VehicleVO getCurrentVehicleVO() {
+        VehicleVO vehicleVO = null;
         int pos = ui.vpCar.getCurrentItem();
         try {
             vehicleVO = ((VehicleVO) adapter.getItem(pos));
-        }catch (Exception e){
+        } catch (Exception e) {
             vehicleVO = null;
         }
         return vehicleVO;

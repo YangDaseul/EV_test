@@ -192,11 +192,13 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                     break;
                 case SUCCESS:
                     if(result.data!=null&&result.data.getCardList()!=null&&result.data.getCardList().size()>0){
-                        ui.lGnb.btnBarcode.setVisibility(View.VISIBLE);
+                        ui.lGnb.setUseBarcode(true);
+//                        ui.lGnb.btnBarcode.setVisibility(View.VISIBLE);
                         break;
                     }
                 default:
-                    ui.lGnb.btnBarcode.setVisibility(View.GONE);
+                    ui.lGnb.setUseBarcode(false);
+//                    ui.lGnb.btnBarcode.setVisibility(View.GONE);
                     break;
             }
         });
