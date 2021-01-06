@@ -50,10 +50,10 @@
             android:scaleType="fitCenter"
             android:src="@drawable/ico_gnb_search_main"
             android:visibility="@{TextUtils.isEmpty(custGbCd)||custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000) ? View.GONE : isStore ? View.VISIBLE : View.GONE}"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/btn_profile"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:visibility="visible"/>
+            tools:visibility="gone"/>
 
         <ImageView
             android:id="@+id/btn_store_cart"
@@ -67,7 +67,7 @@
             app:layout_constraintRight_toLeftOf="@+id/btn_store_search"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:visibility="visible"/>
+            tools:visibility="gone"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -166,8 +166,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-
-
         <ImageView
             android:id="@+id/btn_barcode"
             android:layout_width="wrap_content"
@@ -179,9 +177,8 @@
             android:src="@drawable/ic_barcode"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/btn_profile"
+            app:layout_constraintRight_toLeftOf="@+id/btn_store_cart"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_goneMarginRight="0dp"
             tools:visibility="visible"/>
 
         <ImageView
