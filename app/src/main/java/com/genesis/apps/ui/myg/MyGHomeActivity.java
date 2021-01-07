@@ -30,6 +30,7 @@ import com.genesis.apps.databinding.ActivityMygHomeBinding;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
+import com.genesis.apps.ui.main.store.StoreWebActivity;
 import com.genesis.apps.ui.myg.view.FamilyAppHorizontalAdapter;
 import com.genesis.apps.ui.myg.view.OilView;
 
@@ -296,6 +297,10 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     break;
                 case R.id.btn_my_info: //내정보보기
                     startActivitySingleTop(new Intent(this, MyGGAActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    break;
+                case R.id.l_store:
+                    startActivitySingleTop(new Intent(this, StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, "https://devagenesisproduct.auton.kr/mypage/gen/ko/purchase/list"), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
                     break;
                 case R.id.l_point: //블루멤버스 사용 가능 포인트
                     startActivitySingleTop(new Intent(this, MyGMembershipActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
