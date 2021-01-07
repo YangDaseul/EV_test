@@ -89,26 +89,6 @@
                     app:layout_constraintStart_toEndOf="@+id/tv_mark_2"
                     app:layout_constraintTop_toBottomOf="@+id/tv_info_1" />
 
-
-                <TextView
-                    android:id="@+id/tv_mark_3"
-                    style="@style/ViewMarkBlack"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_info_3" />
-
-                <TextView
-                    android:id="@+id/tv_info_3"
-                    style="@style/ViewMsgInputSub"
-                    android:layout_marginTop="12dp"
-                    android:textSize="16sp"
-                    android:text="@string/sm_romte_p01_4"
-                    android:textColor="@color/x_525252"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tv_mark_3"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_info_2" />
-
-
                 <TextView
                     android:id="@+id/tv_mark_4"
                     style="@style/ViewMarkBlack"
@@ -125,7 +105,7 @@
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tv_mark_4"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_info_3" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_2" />
 
 
                 <TextView

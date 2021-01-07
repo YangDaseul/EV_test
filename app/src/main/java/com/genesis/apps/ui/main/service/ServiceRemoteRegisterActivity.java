@@ -2,6 +2,7 @@ package com.genesis.apps.ui.main.service;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringRe2j;
 import com.genesis.apps.comm.viewmodel.RMTViewModel;
 import com.genesis.apps.comm.viewmodel.SOSViewModel;
 import com.genesis.apps.databinding.ActivityServiceRemoteRegisterBinding;
@@ -36,6 +38,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -392,7 +395,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                                         () -> {
                                             // 긴급 출동 접수 취소 처리.
                                             sosViewModel.reqSOS1004(new SOS_1004.Request(APPIAInfo.R_REMOTE01.getId(), tmpAcpNo));
-                                        }, null);
+                                        }, () -> exitPage("", 0));
                             } else if (SERVICE_SOS_STATUS_CODE_S.equals(sosStatusCd)) {
                                 // 긴급 출동 출동 상태. - 출동 상태 팝업 표시.
                                 MiddleDialog.dialogServiceRemoteOneButton(
@@ -516,7 +519,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
         ui.lServiceRemoteStep1.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);
         if (!TextUtils.isEmpty(phoneNum)) {
             // 휴대폰 번호가 있는 경우.
-            ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.setText(phoneNum);
+            ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.setText(PhoneNumberUtils.formatNumber(phoneNum, Locale.getDefault().getCountry()));
 
             // 차량 입력 영역을 활성화
             ui.lServiceRemoteStep2.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);
@@ -603,12 +606,41 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
      */
     private REGISTER_STEP checkStep() {
         // 휴대폰 번호가 입력되어 있는지 체크.
-        boolean isEmptyPhoneNum = TextUtils.isEmpty(ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.getText().toString());
+        boolean isEmptyPhoneNum;
+        try {
+            String phoneNum = ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.getText().toString().trim();
+            if (TextUtils.isEmpty(phoneNum)) {
+                // 휴대폰 번호가 입력되어 있지 않음.
+                isEmptyPhoneNum = true;
+            } else {
+                // 휴대폰 번호가 입력되어 있음. - 휴대폰 번호 형식 체크.
+                isEmptyPhoneNum = !StringRe2j.matches(phoneNum, getString(R.string.check_phone_number));
+            }
+        } catch (NullPointerException e) {
+            // Phone Number 조회시 null 가능성이 있어 해당 Exception 발생시 입력이 안된 것으로 판단.
+            isEmptyPhoneNum = true;
+        }
+
         ui.lServiceRemoteStep1.tvServiceRemoteRegisterStepGuide.setVisibility(isEmptyPhoneNum ? View.VISIBLE : View.GONE);
         ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.setSelected(isEmptyPhoneNum);
 
         // 차량 번호가 입력되어 있는지 체크.
-        boolean isEmptyCarNum = TextUtils.isEmpty(ui.lServiceRemoteStep2.etServiceRemoteRegisterStepInput.getText().toString());
+        boolean isEmptyCarNum;
+        try {
+            String carNum = ui.lServiceRemoteStep2.etServiceRemoteRegisterStepInput.getText().toString().trim();
+
+            if (TextUtils.isEmpty(carNum)) {
+                // 차량 번호가 입력되어 있지 않음.
+                isEmptyCarNum = true;
+            } else {
+                // 차량 번호가 입력되어 있는 경우. - 차량 번호 형식 체크.
+                isEmptyCarNum = !StringRe2j.matches(carNum, getString(R.string.check_car_vrn));
+            }
+        } catch (NullPointerException e) {
+            // 차량 번호 조회시 null 가능성이 있어 해당 Exception 발생시 입력이 안된 것으로 판단.
+            isEmptyCarNum = true;
+        }
+
         ui.lServiceRemoteStep2.tvServiceRemoteRegisterStepGuide.setVisibility(isEmptyCarNum ? View.VISIBLE : View.GONE);
         ui.lServiceRemoteStep2.etServiceRemoteRegisterStepInput.setSelected(isEmptyCarNum);
 
@@ -623,7 +655,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
 
         if (isEmptyPhoneNum) {
             return REGISTER_STEP.INPUT_PHONE;
-        } else if (isEmptyPhoneNum) {
+        } else if (isEmptyCarNum) {
             return REGISTER_STEP.INPUT_CAR_NUM;
         } else if (isEmptyErrorCode) {
             return REGISTER_STEP.SERVICE_TYPE;
