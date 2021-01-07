@@ -8,6 +8,8 @@ import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 
@@ -15,6 +17,7 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.InteractionUtil;
+import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.databinding.ItemRelapse3BottomBinding;
 import com.genesis.apps.databinding.ItemRelapse3RepairHistoryBinding;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
@@ -73,6 +76,10 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
         selectedItems.put(0, true);
         Log.d(TAG, "add: selected : " + selectedItems);
         notifyDataSetChanged();
+
+        activity.ui.rvRelapse3RepairHistoryList.smoothScrollToPosition(0);
+
+        validateInputData(true);
     }
 
     @Override
@@ -115,12 +122,19 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
     //입력 데이터 전체 검사해서 미비한 게 하나라도 있으면 return false
     // 중간에 입력 미비를 발견해도 검사는 끝까지 하면서 어디가 틀렸는지 뷰에 표시함
     public boolean validateInputData() {
+        return validateInputData(false);
+    }
+
+    public boolean validateInputData(boolean isNew) {
         boolean valid = true;
 
-        for (RepairData data : getItems()) {
+        boolean isFocus = true;
+        for (int i=0; i<getItems().size(); i ++) {
+            RepairData data = getItems().get(i);
             if (data != null) {
-                if (!data.validateData(false)) {
+                if (!data.validateData(isNew, isFocus)) {
                     valid = false;
+                    isFocus = false;
                 }
             }
         }
@@ -158,9 +172,31 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
             normalColor = getContext().getColor(R.color.x_000000);
             errorColor = getContext().getColor(R.color.x_ba544d);
 
+            getBinding().etRelapse3Mechanic.setOnFocusChangeListener(focusChangeListener);
+            getBinding().etRelapse3DefectDetail.setOnFocusChangeListener(focusChangeListener);
+            getBinding().etRelapse3RepairDetail.setOnFocusChangeListener(focusChangeListener);
+
+            getBinding().etRelapse3Mechanic.setOnEditorActionListener(editorActionListener);
+            getBinding().etRelapse3DefectDetail.setOnEditorActionListener(editorActionListener);
+            getBinding().etRelapse3RepairDetail.setOnEditorActionListener(editorActionListener);
+
             initTextChangeListener();
             initDatePicker();
         }
+
+        EditText.OnFocusChangeListener focusChangeListener = (view, hasFocus) -> {
+            if (hasFocus) {
+                SoftKeyboardUtil.showKeyboard(activity);
+            }
+        };
+
+        EditText.OnEditorActionListener editorActionListener = (textView, actionId, keyEvent) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+
+                validateInputData();
+            }
+            return false;
+        };
 
         private void initTextChangeListener() {
             mechanicWatcher = new TextWatcher() {
@@ -254,6 +290,8 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
         }
 
         private void showDatePicker(int which) {
+            SoftKeyboardUtil.hideKeyboard(activity, activity.getWindow().getDecorView().getWindowToken());
+
             DialogCalendar dialogCalendar = new DialogCalendar(getContext(), R.style.BottomSheetDialogTheme);
             dialogCalendar.setOnDismissListener(dialogInterface -> setDate(which, dialogCalendar.calendar));
             dialogCalendar.setCalendarMaximum(Calendar.getInstance(Locale.getDefault()));
@@ -266,18 +304,32 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
                 return;
             }
 
-            setDateErrorEnabled(false);
-
             String date = DateUtil.getDate(calendar.getTime(), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot);
             switch (which) {
                 case DATE_REQ:
                     getBinding().tvRelapse3RepairReqDateBtn.setText(date);
                     ((RepairData) getItem(position)).setReqDate(date);
+
+                    getBinding().tvRelapse3RepairReqDateTitle.setTextColor(normalColor);
+                    getBinding().tvRelapse3RepairReqDateBtn.setTextColor(normalColor);
+                    getBinding().tvRelapse3RepairReqDateBtn.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
+                    getBinding().tvRelapse3RepairReqDateError.setVisibility(View.GONE);
+
+                    validateInputData();
+
                     break;
 
                 case DATE_FINISH:
                     getBinding().tvRelapse3RepairFinishDateBtn.setText(date);
                     ((RepairData) getItem(position)).setFinishDate(date);
+
+                    getBinding().tvRelapse3RepairFinishDateTitle.setTextColor(normalColor);
+                    getBinding().tvRelapse3RepairFinishDateBtn.setTextColor(normalColor);
+                    getBinding().tvRelapse3RepairFinishDateBtn.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
+                    getBinding().tvRelapse3RepairFinishDateError.setVisibility(View.GONE);
+
+                    validateInputData();
+
                     break;
 
                 default:
@@ -338,7 +390,7 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
             item.setHolder(this);
 
             //입력 유효성 검사
-            item.validateData(true);
+            item.validateData(true, false);
 
             item.setTurn(turn);
         }
@@ -350,6 +402,10 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
 
         private void onClickViewOpener(View v) {
             Log.d(TAG, "recyclerView onClick position : " + selectedItems + " / " + position);
+
+            getBinding().etRelapse3Mechanic.clearFocus();
+            getBinding().etRelapse3DefectDetail.clearFocus();
+            getBinding().etRelapse3RepairDetail.clearFocus();
 
             //클릭하면 상태 변경을 저장하고
             if (selectedItems.get(position)) {
@@ -403,6 +459,20 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
             getBinding().tvRelapse3RepairFinishDateBtn.setBackgroundResource(enabled ? R.drawable.ripple_bg_ffffff_stroke_ba544d : R.drawable.ripple_bg_ffffff_stroke_141414);
 
             getBinding().tvRelapse3RepairReqDateError.setVisibility(enabled ? View.VISIBLE : View.GONE);
+            getBinding().tvRelapse3RepairFinishDateError.setVisibility(enabled ? View.VISIBLE : View.GONE);
+        }
+
+        public void setReqDateErrorEnabled(boolean enabled) {
+            getBinding().tvRelapse3RepairReqDateTitle.setTextColor(enabled ? errorColor : normalColor);
+            getBinding().tvRelapse3RepairReqDateBtn.setTextColor(enabled ? errorColor : normalColor);
+            getBinding().tvRelapse3RepairReqDateBtn.setBackgroundResource(enabled ? R.drawable.ripple_bg_ffffff_stroke_ba544d : R.drawable.ripple_bg_ffffff_stroke_141414);
+            getBinding().tvRelapse3RepairReqDateError.setVisibility(enabled ? View.VISIBLE : View.GONE);
+        }
+
+        public void setFinishDateErrorEnabled(boolean enabled) {
+            getBinding().tvRelapse3RepairFinishDateTitle.setTextColor(enabled ? errorColor : normalColor);
+            getBinding().tvRelapse3RepairFinishDateBtn.setTextColor(enabled ? errorColor : normalColor);
+            getBinding().tvRelapse3RepairFinishDateBtn.setBackgroundResource(enabled ? R.drawable.ripple_bg_ffffff_stroke_ba544d : R.drawable.ripple_bg_ffffff_stroke_141414);
             getBinding().tvRelapse3RepairFinishDateError.setVisibility(enabled ? View.VISIBLE : View.GONE);
         }
     }
@@ -505,11 +575,17 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
         //입력 창 전체 검사해서 미비한 게 하나라도 있으면 return false
         // 중간에 입력 미비를 발견해도 검사는 끝까지 하면서 어디가 틀렸는지 뷰에 표시함
         // 홀더 없으면 false가 맞나?
-        public boolean validateData(boolean isNew) {
+        public boolean validateData(boolean isNew, boolean isFocus) {
             if (holder == null) {
                 return false;
             }
 
+            holder.getBinding().etRelapse3Mechanic.clearFocus();
+            holder.getBinding().etRelapse3DefectDetail.clearFocus();
+            holder.getBinding().etRelapse3RepairDetail.clearFocus();
+
+            boolean isFocusChk = isFocus;
+            Log.d("JJJJ", "isFocusChk : " + isFocusChk);
             if (isNew) { //인스턴스 갱신할 때 전부 빈칸인 건 봐줌
                 if (TextUtils.isEmpty(mechanic) &&
                         TextUtils.isEmpty(defectDetail) &&
@@ -527,22 +603,78 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
 
             if (TextUtils.isEmpty(mechanic)) {
                 holder.getBinding().lRelapse3Mechanic.setError(mechanicErrorString);
-                valid = false;
-            }
-            if (TextUtils.isEmpty(defectDetail)) {
-                holder.getBinding().lRelapse3DefectDetail.setError(defectDetailErrorString);
-                valid = false;
-            }
-            if (TextUtils.isEmpty(repairDetail)) {
-                holder.getBinding().lRelapse3RepairDetail.setError(repairDetailErrorString);
+                if(isFocusChk) {
+                    if (!selectedItems.get(holder.getLayoutPosition())) {
+                        holder.getBinding().tvRelapse3RepairHistoryTitle.performClick();
+                    }
+
+                    holder.getBinding().etRelapse3Mechanic.requestFocus();
+                    isFocusChk = false;
+                }
                 valid = false;
             }
 
             //날짜 입력 안 했거나
             // 수리 완료일이 요청일보다 미래가 아니면 오류(같은 건 ㅇㅋ 당일에 해결했나보지)
-            if (TextUtils.isEmpty(reqDate) || TextUtils.isEmpty(finishDate) ||
-                    0 < reqDate.compareTo(finishDate)) {
-                holder.setDateErrorEnabled(true);
+            if(TextUtils.isEmpty(reqDate)) {
+                holder.setReqDateErrorEnabled(true);
+                if(isFocusChk) {
+                    if (!selectedItems.get(holder.getLayoutPosition())) {
+                        holder.getBinding().tvRelapse3RepairHistoryTitle.performClick();
+                    }
+
+                    holder.getBinding().tvRelapse3RepairReqDateBtn.performClick();
+                    isFocusChk = false;
+                }
+
+                valid = false;
+            }
+
+            if(TextUtils.isEmpty(finishDate)) {
+                holder.setFinishDateErrorEnabled(true);
+                if(isFocusChk) {
+                    if (!selectedItems.get(holder.getLayoutPosition())) {
+                        holder.getBinding().tvRelapse3RepairHistoryTitle.performClick();
+                    }
+
+                    holder.getBinding().tvRelapse3RepairFinishDateBtn.performClick();
+                    isFocusChk = false;
+                }
+
+                valid = false;
+            }
+
+            if(!TextUtils.isEmpty(reqDate) && !TextUtils.isEmpty(finishDate)) {
+                if (0 < reqDate.compareTo(finishDate)) {
+                    holder.setDateErrorEnabled(true);
+
+                    valid = false;
+                }
+            }
+
+            if (TextUtils.isEmpty(defectDetail)) {
+                holder.getBinding().lRelapse3DefectDetail.setError(defectDetailErrorString);
+                if(isFocusChk) {
+                    if (!selectedItems.get(holder.getLayoutPosition())) {
+                        holder.getBinding().tvRelapse3RepairHistoryTitle.performClick();
+                    }
+
+                    holder.getBinding().etRelapse3DefectDetail.requestFocus();
+                    isFocusChk = false;
+                }
+                valid = false;
+            }
+
+            if (TextUtils.isEmpty(repairDetail)) {
+                holder.getBinding().lRelapse3RepairDetail.setError(repairDetailErrorString);
+                if(isFocusChk) {
+                    if (!selectedItems.get(holder.getLayoutPosition())) {
+                        holder.getBinding().tvRelapse3RepairHistoryTitle.performClick();
+                    }
+
+                    holder.getBinding().etRelapse3RepairDetail.requestFocus();
+                    isFocusChk = false;
+                }
                 valid = false;
             }
 
