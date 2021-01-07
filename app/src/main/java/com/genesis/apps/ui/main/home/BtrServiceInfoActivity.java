@@ -79,7 +79,7 @@ public class BtrServiceInfoActivity extends HtmlActivity {
     }
 
     private void initView() {
-        ui.setValue(getString(R.string.gm_bt01_p01_1));
+//        ui.setValue(getString(R.string.gm_bt01_p01_1));
         setTopView(R.layout.layout_btr_service_info);
     }
 

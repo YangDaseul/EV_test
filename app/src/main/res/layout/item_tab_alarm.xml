@@ -8,9 +8,9 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:gravity="center"
-            android:lineSpacingExtra="2sp"
+            android:lineSpacingExtra="2dp"
             android:letterSpacing="-0.01"
             android:textColor="@drawable/selector_tab_alarm"
-            android:textSize="16sp"
+            android:textSize="16dp"
             tools:text="HOME" />
 </layout>

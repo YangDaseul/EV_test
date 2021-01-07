@@ -19,9 +19,9 @@
             android:fontFamily="@font/light_genesissansheadglobal"
             android:gravity="center"
             android:letterSpacing="-0.01"
-            android:lineSpacingExtra="10sp"
+            android:lineSpacingExtra="10dp"
             android:textColor="@color/x_141414"
-            android:textSize="20sp"
+            android:textSize="20dp"
             tools:text="긴급 출동 현황 확인" />
 
 
@@ -48,9 +48,9 @@
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:gravity="center"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="8sp"
+                    android:lineSpacingExtra="5dp"
                     android:textColor="@color/x_000000"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     tools:text="긴급출동 서비스가 접수되어 있습니다.
 원격진단으로 서비스 전환을
 하기 위해서 기존 긴급출동 접수 건을
@@ -75,10 +75,10 @@
                 android:fontFamily="@font/light_genesissansheadglobal"
                 android:gravity="center"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="6sp"
+                android:lineSpacingExtra="6dp"
                 android:text="@string/dialog_common_1"
                 android:textColor="@color/x_141414"
-                android:textSize="16sp"/>
+                android:textSize="16dp"/>
 
 
             <TextView
@@ -90,10 +90,10 @@
                 android:fontFamily="@font/light_genesissansheadglobal"
                 android:gravity="center"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="6sp"
+                android:lineSpacingExtra="6dp"
                 android:text="@string/dialog_common_2"
                 android:textColor="@color/x_ffffff"
-                android:textSize="16sp"/>
+                android:textSize="16dp"/>
         </LinearLayout>
     </LinearLayout>
 </layout>

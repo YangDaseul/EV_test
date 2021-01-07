@@ -23,9 +23,9 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:lineSpacingExtra">9dp</item>
         <item name="android:textColor">@color/x_262626</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">13dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
@@ -36,9 +36,9 @@
         <item name="android:layout_height">50dp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:textColor">@color/x_a2a2a2</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_e5e5e5</item>
         <item name="android:gravity">left|center_vertical</item>
@@ -68,9 +68,9 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:paddingLeft">16dp</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:drawableRight">@drawable/ic_calendar</item>
@@ -104,9 +104,9 @@
         <item name="android:paddingBottom">3dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">10sp</item>
+        <item name="android:lineSpacingExtra">10dp</item>
         <item name="android:textColor">@color/x_ce2d2d</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">12dp</item>
         <item name="android:visibility">invisible</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
     </style>
@@ -118,12 +118,12 @@
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">16sp</item>
+        <item name="android:lineSpacingExtra">16dp</item>
         <item name="android:paddingTop">16dp</item>
         <item name="android:paddingBottom">16dp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:visibility">visible</item>
     </style>
 
@@ -172,11 +172,11 @@
         <item name="android:imeOptions">actionDone</item>
         <item name="android:inputType">text</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:padding">16dp</item>
         <item name="android:textColor">@color/x_000000</item>
         <item name="android:textCursorDrawable">@drawable/cursor_141414</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
     </style>
 
 
@@ -205,11 +205,11 @@
         <item name="android:background">@drawable/bg_f5f6f8_stroke_dadde3</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
         <item name="android:textColor">@color/x_525252</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
     </style>
@@ -222,11 +222,11 @@
         <item name="android:background">@color/x_f8f8f8</item>
         <item name="android:gravity">center</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">16sp</item>
+        <item name="android:lineSpacingExtra">16dp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
         <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">14dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
     </style>

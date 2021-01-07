@@ -28,7 +28,7 @@
             android:background="@color/x_f8f8f8"
             android:gravity="center_vertical"
             android:paddingStart="15dp"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:layout_constraintEnd_toStartOf="@id/tv_detail"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
             android:paddingEnd="15dp"
             android:text="정상"
             android:textColor="@drawable/selector_service_remote_detail_basic_txt_color"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_title"
             app:layout_constraintTop_toTopOf="parent" />

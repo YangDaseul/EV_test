@@ -25,7 +25,7 @@
                 android:gravity="center"
                 android:text="btn visible"
                 android:textColor="@color/x_000000"
-                android:textSize="11sp"/>
+                android:textSize="11dp"/>
 
 
             <TextView
@@ -37,7 +37,7 @@
                 android:gravity="center"
                 android:text="bottom dialog"
                 android:textColor="@color/x_000000"
-                android:textSize="11sp"/>
+                android:textSize="11dp"/>
 
 
             <TextView
@@ -49,7 +49,7 @@
                 android:gravity="center"
                 android:text="genesis-membership"
                 android:textColor="@color/x_000000"
-                android:textSize="11sp"/>
+                android:textSize="11dp"/>
 
 
             <TextView
@@ -61,7 +61,7 @@
                 android:gravity="center"
                 android:text="calender"
                 android:textColor="@color/x_000000"
-                android:textSize="11sp"/>
+                android:textSize="11dp"/>
 
 
             <TextView
@@ -73,7 +73,7 @@
                 android:gravity="center"
                 android:text="bar chart"
                 android:textColor="@color/x_000000"
-                android:textSize="11sp"/>
+                android:textSize="11dp"/>
 
             <TextView
                 android:id="@+id/btn_graph_stackedbar"
@@ -84,7 +84,7 @@
                 android:gravity="center"
                 android:text="stacked bar chart"
                 android:textColor="@color/x_000000"
-                android:textSize="11sp"/>
+                android:textSize="11dp"/>
 
             <TextView
                 android:id="@+id/btn_graph_pie"
@@ -95,7 +95,7 @@
                 android:gravity="center"
                 android:text="pie chart"
                 android:textColor="@color/x_000000"
-                android:textSize="11sp"/>
+                android:textSize="11dp"/>
 
 
             <TextView
@@ -107,7 +107,7 @@
                 android:gravity="center"
                 android:text="구매상담신청"
                 android:textColor="@color/x_000000"
-                android:textSize="11sp"/>
+                android:textSize="11dp"/>
             <TextView
                 android:id="@+id/btn_ga_drive"
                 android:layout_width="match_parent"
@@ -117,7 +117,7 @@
                 android:gravity="center"
                 android:text="시승신청"
                 android:textColor="@color/x_000000"
-                android:textSize="11sp"/>
+                android:textSize="11dp"/>
             <TextView
                 android:id="@+id/btn_ga_similar"
                 android:layout_width="match_parent"
@@ -127,7 +127,7 @@
                 android:gravity="center"
                 android:text="유사차량"
                 android:textColor="@color/x_000000"
-                android:textSize="11sp"/>
+                android:textSize="11dp"/>
 
             <TextView
                 android:id="@+id/btn_bto_main"
@@ -138,7 +138,7 @@
                 android:gravity="center"
                 android:text="BTO MAIN"
                 android:textColor="@color/x_000000"
-                android:textSize="11sp"/>
+                android:textSize="11dp"/>
 
             <TextView
                 android:id="@+id/btn_record"
@@ -149,7 +149,7 @@
                 android:gravity="center"
                 android:text="RECORD"
                 android:textColor="@color/x_000000"
-                android:textSize="14sp"/>
+                android:textSize="14dp"/>
 
 
             <TextView
@@ -161,7 +161,7 @@
                 android:gravity="center"
                 android:text="snackbar normal"
                 android:textColor="@color/x_000000"
-                android:textSize="14sp"/>
+                android:textSize="14dp"/>
 
 
             <TextView
@@ -173,7 +173,7 @@
                 android:gravity="center"
                 android:text="snackbar onclick toast"
                 android:textColor="@color/x_000000"
-                android:textSize="14sp"/>
+                android:textSize="14dp"/>
 
             <TextView
                 android:id="@+id/btn_cardview"
@@ -184,7 +184,7 @@
                 android:gravity="center"
                 android:text="card view"
                 android:textColor="@color/x_000000"
-                android:textSize="14sp"/>
+                android:textSize="14dp"/>
 
             <TextView
                 android:id="@+id/btn_cardview2"
@@ -195,7 +195,7 @@
                 android:gravity="center"
                 android:text="ServiceDriveReq constSet Test"
                 android:textColor="@color/x_000000"
-                android:textSize="18sp"/>
+                android:textSize="18dp"/>
 
 
             <com.google.android.material.textfield.TextInputLayout

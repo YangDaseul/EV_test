@@ -45,10 +45,10 @@
             android:fontFamily="@font/light_genesissansheadglobal"
             android:gravity="center"
             android:letterSpacing="-0.01"
-            android:lineSpacingExtra="-2sp"
+            android:lineSpacingExtra="-2dp"
             android:text='@{TextUtils.isEmpty(value) ? "" :value}'
             android:textColor="@color/x_141414"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:visibility='@{TextUtils.isEmpty(value) ? View.INVISIBLE : View.VISIBLE}'
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

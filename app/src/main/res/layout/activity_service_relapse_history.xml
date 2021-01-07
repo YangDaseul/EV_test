@@ -34,7 +34,7 @@
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:text="@string/relapse_history_list_title"
             android:textColor="@color/x_000000"
-            android:textSize="18sp"
+            android:textSize="18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/l_service_drive_req_result_titlebar" />
 
@@ -45,7 +45,7 @@
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:text="@{itemCount}"
             android:textColor="@color/x_cd9a81"
-            android:textSize="18sp"
+            android:textSize="18dp"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_relapse_history_list_title"
             app:layout_constraintStart_toEndOf="@id/tv_relapse_history_list_title"
             tools:text="999" />
@@ -69,10 +69,10 @@
             android:layout_marginStart="20dp"
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/light_genesissansheadglobal"
-            android:lineSpacingExtra="8sp"
+            android:lineSpacingExtra="8dp"
             android:text="@string/relapse_history_main_msg"
             android:textColor="@color/x_000000"
-            android:textSize="22sp"
+            android:textSize="22dp"
             app:layout_constraintBottom_toTopOf="@id/tv_relapse_history_req_btn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rv_service_drive_history_list" />

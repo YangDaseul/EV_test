@@ -32,6 +32,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static com.genesis.apps.comm.model.api.APPIAInfo.SM_REVIEW01_P03;
@@ -192,7 +193,7 @@ public class BaseActivity extends AppCompatActivity {
                     if (appiaInfo != null && appiaInfo.getActivity() != null) {
                         startActivitySingleTop(new Intent(this, appiaInfo.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     }else{
-                        SnackBarUtil.show(this, "화면 ID가 올바르지 않습니다.");
+                        SnackBarUtil.show(this, "메뉴 ID가 올바르지 않습니다.");
                     }
                 }else{
                     startActivitySingleTop(new Intent(this, AlarmCenterActivity.class).putExtra(PUSH_VO, pushVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
@@ -278,6 +279,15 @@ public class BaseActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
         startActivity(intent);
         finish();
+    }
+
+    public void exitApp(){
+//        moveTaskToBack(true);//태스크를 백그라운드로 이동
+//        finishAndRemoveTask();// 액티비티 종료 + 태스크 리스트에서 지우기
+//        System.exit(0);//프로세스종료
+        finishAffinity();
+        System.runFinalization();
+        System.exit(0);
     }
 
 

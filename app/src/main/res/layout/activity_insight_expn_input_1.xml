@@ -57,7 +57,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_expn_plc"
                         style="@style/CommonTextInputEditText"
-                        android:hint="@string/tm_exps01_01_13" />
+                        android:hint="@string/tm_exps01_01_13"
+                        android:maxLength="10"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout

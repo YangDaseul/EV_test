@@ -48,7 +48,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
         <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:textCursorDrawable">@drawable/cursor_000000</item>
         <item name="android:padding">16dp</item>
         <item name="android:inputType">text</item>
@@ -59,7 +59,7 @@
     <style name="ServiceDrive.SearchAddress.Title" parent="TextBasic">
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">13dp</item>
 
         <item name="layout_constraintStart_toStartOf">parent</item>
     </style>
@@ -105,7 +105,7 @@
     <!-- 대리운전 주소검색버튼 (미입력) -->
     <style name="ServiceDrive.SearchAddress.NoData" parent="ServiceDrive.SearchAddress">
         <item name="android:textColor">@color/x_aaabaf</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_e2e2e2</item>
         <item name="android:paddingTop">16dp</item>
         <item name="android:paddingBottom">16dp</item>
@@ -114,7 +114,7 @@
     <!-- 대리운전 주소검색버튼 (입력됨) -->
     <style name="ServiceDrive.SearchAddress.HasData" parent="ServiceDrive.SearchAddress">
         <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">16dp</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_141414</item>
         <item name="android:paddingTop">20dp</item>
         <item name="android:paddingBottom">20dp</item>

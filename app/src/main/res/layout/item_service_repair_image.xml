@@ -25,10 +25,10 @@
 <!--            android:fontFamily="@font/regular_genesissansheadglobal"-->
 <!--            android:gravity="center"-->
 <!--            android:letterSpacing="-0.01"-->
-<!--            android:lineSpacingExtra="2sp"-->
+<!--            android:lineSpacingExtra="2dp"-->
 <!--            android:text="@string/sm_r_rsv05_33"-->
 <!--            android:textColor="@color/x_141414"-->
-<!--            android:textSize="16sp"-->
+<!--            android:textSize="16dp"-->
 <!--            app:layout_constraintEnd_toEndOf="parent"-->
 <!--            app:layout_constraintStart_toStartOf="parent"-->
 <!--            app:layout_constraintTop_toTopOf="parent" />-->

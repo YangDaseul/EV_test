@@ -33,7 +33,7 @@
     <string name="r_flaw05_30">차대 번호 확인을 진행해 주세요.</string>
     <string name="r_flaw05_31">등록연월일 선택</string>
     <string name="r_flaw05_32">운행지역을 선택해 주세요.\n(시/도)</string>
-    <string name="r_flaw05_33">운행지역을 선택해 주세요.\n((시/군/구)</string>
+    <string name="r_flaw05_33">운행지역을 선택해 주세요.\n(시/군/구)</string>
 
 
     <string name="r_flaw05_p01_1">자동차 정보 입력 참고 사항</string>

@@ -200,7 +200,8 @@
         <activity
             android:name=".ui.main.home.MyCarActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/TextInputLayout" />
         <activity
             android:name=".ui.main.home.MyCarDetailActivity"
             android:exported="false"

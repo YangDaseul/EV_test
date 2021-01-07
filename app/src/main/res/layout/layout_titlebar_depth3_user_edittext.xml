@@ -33,9 +33,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/x_141414"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:fontFamily="@font/light_genesissansheadglobal"
-            android:lineSpacingExtra="-2sp"
+            android:lineSpacingExtra="-2dp"
             android:letterSpacing="-0.01"
             android:gravity="center"
             android:text='@{TextUtils.isEmpty(value) ? "" :value}'

@@ -5,10 +5,10 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">20dp</item>
         <item name="android:layout_marginRight">20dp</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">13dp</item>
         <item name="android:textColor">@color/x_000000</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">3sp</item>
+        <item name="android:lineSpacingExtra">3dp</item>
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
         <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
@@ -20,10 +20,10 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">20dp</item>
         <item name="android:layout_marginRight">20dp</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:textColor">@color/x_000000</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">3sp</item>
+        <item name="android:lineSpacingExtra">3dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
     </style>
 

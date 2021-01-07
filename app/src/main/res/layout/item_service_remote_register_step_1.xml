@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{title}"
-            android:textSize="13sp"
+            android:textSize="13dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,7 +51,7 @@
             android:hint="@{inputHintText}"
             android:padding="16dp"
             android:textColorHint="@color/x_a2a2a2"
-            android:textSize="15sp"
+            android:textSize="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_service_remote_register_step_title" />
 
@@ -63,7 +63,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="7dp"
             android:text="@{inputGuideMessage}"
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="@id/tv_service_remote_register_step_input"
             app:layout_constraintTop_toBottomOf="@id/tv_service_remote_register_step_input" />

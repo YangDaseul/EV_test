@@ -31,11 +31,14 @@ import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.databinding.FragmentStoreBinding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
+import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 
@@ -84,7 +87,16 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
                 case SUCCESS:
                     if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
                         Log.d("JJJJ", "getCustInfo : " + result.data.getCustInfo());
-//                        try {
+
+//                        Map<String, Object> params = new HashMap<>();
+//                        params.put("data", result.data.getCustInfo());
+//
+//                        Gson gson = new Gson();
+//                        String jsonStr = gson.toJson(params);
+
+//                        Log.d("JJJJ", "json str : " + jsonStr);
+
+                        try {
 //                            String html = "<!DOCTYPE html>" +
 //                                    "<html>" +
 //                                    "<body onload='document.frm1.submit()'>" +
@@ -95,16 +107,16 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
 //                                    "</html>";
 //                            fragment.loadData(html);
 
-//                            String postData = "data=" + URLEncoder.encode(result.data.getCustInfo(), "UTF-8");
-                            String postData = "data=" + result.data.getCustInfo();
+                            String postData = "data=" + URLEncoder.encode(result.data.getCustInfo(), "UTF-8");
+//                            String postData = "data=" + result.data.getCustInfo();
 //                            String postData = "{\"data\":\"" + result.data.getCustInfo() + "\"}";
 
                             Log.d("JJJJ", "postData : " + postData);
 
                             fragment.postUrl(url, postData.getBytes());
-//                        } catch (UnsupportedEncodingException e) {
-//                            e.printStackTrace();
-//                        }
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     break;
@@ -113,10 +125,11 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
     }
 
     private void initView() {
+        if(fragment != null) return;
+
         url = "https://devagenesisproduct.auton.kr/ko/main";
 
         try {
-            Log.d("JJJJ", "custCd : " + lgnViewModel.getUserInfoFromDB().getCustGbCd());
             Bundle bundle = new Bundle();
             if(TextUtils.isEmpty(lgnViewModel.getUserInfoFromDB().getCustGbCd()) || VariableType.MAIN_VEHICLE_TYPE_0000.equals(lgnViewModel.getUserInfoFromDB().getCustGbCd())) {
                 bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
@@ -157,7 +170,6 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
         super.onActivityCreated(savedInstanceState);
 
         initViewModel();
-        initView();
     }
 
     @Override
@@ -176,6 +188,8 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
     public void onRefresh() {
         Log.e("onResume", "onReusme store");
         ((MainActivity) getActivity()).setGNB(false, 0, View.VISIBLE, true, true);
+
+        initView();
     }
 
     @Override

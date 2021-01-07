@@ -1,5 +1,6 @@
 package com.genesis.apps.comm.model.repo;
 
+import com.genesis.apps.comm.model.vo.AlarmMsgTypeVO;
 import com.genesis.apps.comm.model.vo.BtoVO;
 import com.genesis.apps.comm.model.vo.DownMenuVO;
 import com.genesis.apps.comm.model.vo.FamilyAppVO;
@@ -19,6 +20,29 @@ public class DBContentsRepository {
     @Inject
     public DBContentsRepository(DatabaseHolder databaseHolder){
         this.databaseHolder = databaseHolder;
+    }
+
+    public List<AlarmMsgTypeVO> getAlarmMsgTypeList(){
+        return databaseHolder.getDatabase().alarmMsgTypeDao().selectAll();
+    }
+
+    public AlarmMsgTypeVO getAlarmMsgType(String cd){
+        return databaseHolder.getDatabase().alarmMsgTypeDao().select(cd);
+    }
+
+    public String getAlarmMsgTypeCd(String cdNm) {
+        return databaseHolder.getDatabase().alarmMsgTypeDao().selectCd(cdNm);
+    }
+
+    public boolean setAlarmMsgTypeList(List<AlarmMsgTypeVO> list){
+        boolean isUpdate = false;
+        try{
+            databaseHolder.getDatabase().alarmMsgTypeDao().insertAndDeleteInTransaction(list);
+            isUpdate=true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return isUpdate;
     }
 
     public List<WeatherVO> getWeatherList(){

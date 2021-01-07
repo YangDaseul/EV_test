@@ -13,7 +13,7 @@
     <string name="int02_4">(필수)</string>
     <string name="int02_5">로그인 정보 저장, 등록된 차량 정보 저장, 모바일 앱 내 컨텐츠 저장을 위해 필요합니다.</string>
     <string name="int02_6">전화</string>
-    <string name="int02_7">사용중인 모바일 기기의 전화번호 확인 및 전화 걸기 기능 사용을 위해 필요합니다.</string>
+    <string name="int02_7">사용 중인 모바일 기기의 전화번호 확인 및 전화 걸기 기능 사용을 위해 필요합니다.</string>
     <string name="int02_8">위치정보</string>
     <string name="int02_9">등록된 차량의 주차위치 확인 및 서비스 사용 시 차량 위치 파악을 위해 필요합니다.</string>
     <string name="int02_10">카메라</string>

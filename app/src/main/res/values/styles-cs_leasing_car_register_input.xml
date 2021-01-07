@@ -35,10 +35,10 @@
         <item name="android:layout_marginTop">30dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:lineSpacingExtra">9dp</item>
         <item name="android:text">@string/gm_carlst_01_47</item>
         <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">13dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/iv_card</item>
@@ -54,12 +54,12 @@
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
         <item name="android:text">@string/gm_carlst_01_48</item>
         <item name="android:textColor">@color/x_b9b9b9</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintEnd_toStartOf">@+id/btn_post_no</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
@@ -79,12 +79,12 @@
         <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
         <item name="android:gravity">center</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">7sp</item>
+        <item name="android:lineSpacingExtra">7dp</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
         <item name="android:text">@string/gm_carlst_01_48</item>
         <item name="android:textColor">@color/x_ffffff</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintTop_toTopOf">@+id/tv_post_no</item>
     </style>
@@ -98,12 +98,12 @@
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
         <item name="android:text">@string/gm_carlst_01_49</item>
         <item name="android:textColor">@color/x_b9b9b9</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/tv_post_no</item>
@@ -144,11 +144,11 @@
         <item name="android:imeOptions">actionDone</item>
         <item name="android:inputType">text</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:padding">16dp</item>
         <item name="android:textColor">@color/x_000000</item>
         <item name="android:textCursorDrawable">@drawable/cursor_141414</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
     </style>
     
     <style name="TextViewMart1" parent="@style/ViewMarkGrey">
@@ -203,10 +203,10 @@
         <item name="android:layout_marginTop">20dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:lineSpacingExtra">9dp</item>
         <item name="android:text">@string/gm_carlst_01_54</item>
         <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">13dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
@@ -233,9 +233,9 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">2sp</item>
+        <item name="android:lineSpacingExtra">2dp</item>
         <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">16dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
@@ -247,9 +247,9 @@
         <item name="android:layout_marginTop">6dp</item>
         <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:textColor">@color/x_bf000000</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">16dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/tv_btr_asnm</item>
@@ -262,9 +262,9 @@
         <item name="android:layout_marginTop">6dp</item>
         <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:textColor">@color/x_bf000000</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">16dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/tv_btr_addr</item>
@@ -280,12 +280,12 @@
         <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">16sp</item>
+        <item name="android:lineSpacingExtra">16dp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
         <item name="android:text">@string/gm_carlst_01_44</item>
         <item name="android:textColor">@color/x_aaabaf</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:visibility">gone</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
@@ -301,9 +301,9 @@
         <item name="android:paddingBottom">3dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">10sp</item>
+        <item name="android:lineSpacingExtra">10dp</item>
         <item name="android:textColor">@color/x_ba544d</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">12dp</item>
         <item name="android:visibility">visible</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/tv_btr</item>
@@ -327,10 +327,10 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:lineSpacingExtra">9dp</item>
         <item name="android:text">@string/gm_carlst_01_40</item>
         <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">13dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
@@ -345,10 +345,10 @@
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:letterSpacing">-0.03</item>
-        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintEnd_toStartOf">@+id/btn_emp_certi_img</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
@@ -384,12 +384,12 @@
         <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
         <item name="android:gravity">center</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">7sp</item>
+        <item name="android:lineSpacingExtra">7dp</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
         <item name="android:text">@string/gm_carlst_01_37</item>
         <item name="android:textColor">@color/x_ffffff</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintTop_toTopOf">@+id/tv_emp_certi_img</item>
     </style>
@@ -403,9 +403,9 @@
         <item name="android:paddingBottom">3dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">10sp</item>
+        <item name="android:lineSpacingExtra">10dp</item>
         <item name="android:textColor">@color/x_ba544d</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">12dp</item>
         <item name="android:visibility">visible</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/tv_emp_certi_img</item>
@@ -434,10 +434,10 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:lineSpacingExtra">9dp</item>
         <item name="android:text">@string/gm_carlst_01_35</item>
         <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">13dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
@@ -451,10 +451,10 @@
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:letterSpacing">-0.03</item>
-        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintEnd_toStartOf">@+id/btn_cnt_img</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
@@ -494,12 +494,12 @@
         <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
         <item name="android:gravity">center</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">7sp</item>
+        <item name="android:lineSpacingExtra">7dp</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
         <item name="android:text">@string/gm_carlst_01_37</item>
         <item name="android:textColor">@color/x_ffffff</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintTop_toTopOf">@+id/tv_cnt_img</item>
     </style>
@@ -513,9 +513,9 @@
         <item name="android:paddingBottom">3dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">10sp</item>
+        <item name="android:lineSpacingExtra">10dp</item>
         <item name="android:textColor">@color/x_ba544d</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">12dp</item>
         <item name="android:visibility">visible</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/tv_cnt_img</item>
@@ -537,10 +537,10 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:lineSpacingExtra">9dp</item>
         <item name="android:text">@string/gm_carlst_01_30</item>
         <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">13dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
@@ -567,10 +567,10 @@
         <item name="android:layout_marginTop">6dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">10sp</item>
+        <item name="android:lineSpacingExtra">10dp</item>
         <item name="android:text">@string/gm_carlst_01_57</item>
         <item name="android:textColor">@color/x_ba544d</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">12dp</item>
         <item name="android:visibility">gone</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/tv_rent_period</item>
@@ -635,12 +635,12 @@
         <item name="android:imeOptions">actionDone</item>
         <item name="android:inputType">number</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:padding">16dp</item>
         <item name="android:maxLength">2</item>
         <item name="android:textColor">@color/x_000000</item>
         <item name="android:textCursorDrawable">@drawable/cursor_141414</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
     </style>
 
     <style name="LayoutCsmrScnCd">
@@ -658,10 +658,10 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:lineSpacingExtra">9dp</item>
         <item name="android:text">@string/gm_carlst_01_25</item>
         <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">13dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
@@ -694,10 +694,10 @@
         <item name="android:layout_marginTop">6dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">10sp</item>
+        <item name="android:lineSpacingExtra">10dp</item>
         <item name="android:text">@string/gm_carlst_01_26</item>
         <item name="android:textColor">@color/x_ba544d</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">12dp</item>
         <item name="android:visibility">gone</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/tv_csmr_scn_cd</item>
@@ -721,10 +721,10 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:lineSpacingExtra">9dp</item>
         <item name="android:text">@string/gm_carlst_01_9</item>
         <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">13dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
@@ -737,11 +737,11 @@
         <item name="android:background">@drawable/bg_f5f6f8_stroke_dadde3</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
         <item name="android:textColor">@color/x_525252</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">15dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/tv_title_vin</item>

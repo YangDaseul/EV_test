@@ -36,7 +36,7 @@
             style="@style/ServiceDrive.Light"
             android:layout_marginStart="10dp"
             android:text="@string/service_drive_top_info_05"
-            android:textSize="13sp"
+            android:textSize="13dp"
             app:layout_constraintBottom_toBottomOf="@id/iv_service_drive_route_from_icon"
             app:layout_constraintStart_toEndOf="@id/iv_service_drive_route_from_icon"
             app:layout_constraintTop_toTopOf="@id/iv_service_drive_route_from_icon" />
@@ -67,7 +67,7 @@
             style="@style/ServiceDrive.Light"
             android:layout_marginTop="15dp"
             android:text="@string/service_drive_top_info_06"
-            android:textSize="13sp"
+            android:textSize="13dp"
             app:layout_constraintStart_toStartOf="@id/tv_service_drive_route_from_title"
             app:layout_constraintTop_toBottomOf="@id/tv_service_drive_route_from_address" />
 

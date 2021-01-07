@@ -50,17 +50,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="24dp"
-                    android:layout_marginRight="20dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/regular_genesissansheadglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="-2sp"
+                    android:lineSpacingExtra="-2dp"
                     android:maxLines="1"
                     android:textColor="@color/x_141414"
-                    android:textSize="18sp"
+                    android:textSize="18dp"
                     android:text="@{String.format(@string/word_home_23, (data.getMbrNm() ?? ``))}"
                     app:layout_constraintBottom_toTopOf="@+id/tv_mail"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_logout"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="김수현 님" />
@@ -73,15 +72,39 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="2sp"
+                    android:lineSpacingExtra="2dp"
                     android:maxLines="1"
                     android:textColor="@color/x_525252"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:text="@{data.getCcspEmail() ?? ``}"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_name"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_logout"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintTop_toBottomOf="@+id/tv_name"
                     tools:text="kim.genesis@genesis.com" />
+
+
+
+                <TextView
+                    android:id="@+id/btn_logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:paddingBottom="3dp"
+                    android:paddingStart="3dp"
+                    android:paddingEnd="3dp"
+                    android:background="@drawable/bg_ffffff_underline_6f6f6f"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:lineSpacingExtra="5dp"
+                    android:textColor="@color/x_6f6f6f"
+                    android:textSize="15dp"
+                    android:text="@string/word_ga_16"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_mail"
+                    app:layout_constraintTop_toTopOf="@+id/tv_name" />
+
+
+
 
                 <ImageView
                     android:id="@+id/line_1"
@@ -99,10 +122,10 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/regular_genesissansheadglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="5sp"
+                    android:lineSpacingExtra="5dp"
                     android:text="@string/word_ga_2"
                     android:textColor="@color/x_525252"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/btn_change_phone"
                     app:layout_constraintEnd_toStartOf="@+id/tv_phone"
                     app:layout_constraintHorizontal_bias="0"
@@ -116,9 +139,9 @@
                     android:layout_marginLeft="44dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="3sp"
+                    android:lineSpacingExtra="3dp"
                     android:textColor="@color/x_000000"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:text="@{PhoneNumberUtils.formatNumber( (data.getCelphNo() ?? ``), Locale.getDefault().getCountry())}"
                     app:layout_constraintBaseline_toBaselineOf="@+id/btn_change_phone"
                     app:layout_constraintEnd_toStartOf="@+id/btn_change_phone"
@@ -133,16 +156,16 @@
                     android:background="@drawable/ripple_bg_ffffff_stroke_6f6f6f"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="6dp"
                     android:paddingLeft="14dp"
                     android:paddingTop="8dp"
                     android:paddingRight="14dp"
                     android:paddingBottom="8dp"
                     android:text="@string/word_ga_4"
                     android:textColor="@color/x_141414"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_name"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_logout"
                     app:layout_constraintHorizontal_bias="1"
                     app:layout_constraintTop_toBottomOf="@+id/line_1" />
 
@@ -152,10 +175,10 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/regular_genesissansheadglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="5sp"
+                    android:lineSpacingExtra="5dp"
                     android:text="@string/word_ga_3"
                     android:textColor="@color/x_525252"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_birth"
                     app:layout_constraintEnd_toStartOf="@+id/tv_birth"
                     app:layout_constraintHorizontal_bias="0"
@@ -169,9 +192,9 @@
                     android:layout_marginTop="13dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="3sp"
+                    android:lineSpacingExtra="3dp"
                     android:textColor="@color/x_000000"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:text="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.getBrtdy()??``),DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)}"
                     app:layout_constraintStart_toStartOf="@+id/tv_phone"
                     app:layout_constraintTop_toBottomOf="@+id/tv_phone"
@@ -196,10 +219,10 @@
                     android:layout_marginTop="30dp"
                     android:fontFamily="@font/regular_genesissansheadglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="2sp"
+                    android:lineSpacingExtra="2dp"
                     android:text="@string/word_ga_5"
                     android:textColor="@color/x_141414"
-                    android:textSize="18sp"
+                    android:textSize="18dp"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintTop_toBottomOf="@+id/line_2" />
 
@@ -211,17 +234,17 @@
                     android:background="@drawable/ripple_bg_000000"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="6dp"
                     android:paddingLeft="14dp"
                     android:paddingTop="8dp"
                     android:paddingRight="14dp"
                     android:paddingBottom="8dp"
                     android:text="@string/word_ga_6"
                     android:textColor="@color/x_ffffff"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_agree"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_name" />
+                    app:layout_constraintEnd_toEndOf="@+id/btn_logout" />
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -232,7 +255,7 @@
                     android:background="@drawable/bg_ffffff_stroke_e2e2e2"
                     android:gravity="center_vertical"
                     android:paddingTop="20dp"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_name"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_logout"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_agree">
 
@@ -248,7 +271,7 @@
                         android:fontFamily="@font/regular_genesissansheadglobal"
                         android:text="@string/word_ga_7"
                         android:textColor="@color/x_000000"
-                        android:textSize="15sp"
+                        android:textSize="15dp"
                         app:layout_constrainedWidth="true"
                         app:layout_constraintBottom_toTopOf="@+id/tv_ad_info"
                         app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
@@ -281,14 +304,14 @@
                         android:background="@drawable/bg_f9f9f9_stroke_upper_e2e2e2"
                         android:fontFamily="@font/regular_genesissanstextglobal"
                         android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="5sp"
+                        android:lineSpacingExtra="5dp"
                         android:paddingLeft="15dp"
                         android:paddingTop="20dp"
                         android:paddingRight="15dp"
                         android:paddingBottom="20dp"
                         android:text="@string/msg_ga_3"
                         android:textColor="@color/x_525252"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -308,7 +331,7 @@
                     android:paddingTop="20dp"
                     android:paddingRight="15dp"
                     android:paddingBottom="20dp"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_name"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_logout"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintTop_toBottomOf="@+id/l_ad_info">
 
@@ -319,10 +342,10 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/regular_genesissansheadglobal"
                         android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="5sp"
+                        android:lineSpacingExtra="5dp"
                         android:text="@string/word_ga_8"
                         android:textColor="@color/x_525252"
-                        android:textSize="13sp"
+                        android:textSize="13dp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -335,7 +358,7 @@
 <!--                        android:drawableStart="@drawable/checkbox_selector"-->
 <!--                        android:drawablePadding="8dp"-->
 <!--                        android:text="@string/word_ga_9"-->
-<!--                        android:textSize="15sp"-->
+<!--                        android:textSize="15dp"-->
 <!--                        android:fontFamily="@font/light_genesissansheadglobal"-->
 <!--                        app:layout_constraintLeft_toLeftOf="parent"-->
 <!--                        app:layout_constraintTop_toBottomOf="@+id/tv_title_ad_receive" />-->
@@ -362,7 +385,7 @@
                             android:button="@null"
                             android:drawableStart="@drawable/checkbox_selector"
                             android:drawablePadding="8dp"
-                            android:textSize="15sp"
+                            android:textSize="15dp"
                             android:textColor="@color/x_000000"
                             android:fontFamily="@font/light_genesissansheadglobal"
                             app:layout_constraintEnd_toStartOf="@+id/cb_sms"
@@ -378,7 +401,7 @@
                             android:button="@null"
                             android:drawableStart="@drawable/checkbox_selector"
                             android:drawablePadding="8dp"
-                            android:textSize="15sp"
+                            android:textSize="15dp"
                             android:textColor="@color/x_000000"
                             android:fontFamily="@font/light_genesissansheadglobal"
                             android:text="@string/word_ga_11"
@@ -396,7 +419,7 @@
                             android:button="@null"
                             android:drawableStart="@drawable/checkbox_selector"
                             android:drawablePadding="8dp"
-                            android:textSize="15sp"
+                            android:textSize="15dp"
                             android:textColor="@color/x_000000"
                             android:fontFamily="@font/light_genesissansheadglobal"
                             app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -412,10 +435,11 @@
                             android:button="@null"
                             android:drawableStart="@drawable/checkbox_selector"
                             android:drawablePadding="8dp"
-                            android:textSize="15sp"
+                            android:textSize="15dp"
                             android:textColor="@color/x_000000"
                             android:fontFamily="@font/light_genesissansheadglobal"
                             android:text="@string/word_ga_15"
+                            android:visibility="invisible"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/cb_phone"
                             app:layout_constraintTop_toTopOf="@+id/cb_phone" />
@@ -461,7 +485,7 @@
                     android:letterSpacing="-0.01"
                     android:text="@string/word_ga_13"
                     android:textColor="@color/x_141414"
-                    android:textSize="18sp"
+                    android:textSize="18dp"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintTop_toBottomOf="@+id/line_3" />
 
@@ -473,14 +497,14 @@
                     android:background="@drawable/bg_trans_sroke_under_6f6f6f"
                     android:fontFamily="@font/light_genesissansheadglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="6dp"
                     android:text="@string/word_ga_14"
                     android:textColor="@color/x_6f6f6f"
-                    android:textSize="15sp"
+                    android:textSize="15dp"
                     android:paddingBottom="4dp"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_ga_withdrawal"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_name" />
+                    app:layout_constraintEnd_toEndOf="@+id/btn_logout" />
 
 
                 <ImageView
@@ -502,11 +526,11 @@
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="6dp"
                     android:text="@string/msg_ga_1"
                     android:textColor="@color/x_aaabaf"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_name"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_logout"
                     app:layout_constraintStart_toEndOf="@+id/iv_dot_1"
                     app:layout_constraintTop_toBottomOf="@+id/tv_ga_withdrawal" />
 
@@ -530,11 +554,11 @@
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="6dp"
                     android:text="@string/msg_ga_2"
                     android:textColor="@color/x_aaabaf"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_name"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_logout"
                     app:layout_constraintStart_toEndOf="@+id/iv_dot_2"
                     app:layout_constraintTop_toBottomOf="@+id/tv_warning_withdrawal_1" />
 

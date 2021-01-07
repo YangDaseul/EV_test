@@ -69,10 +69,10 @@
                     android:fontFamily="@font/light_genesissansheadglobal"
                     android:gravity="center"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="7sp"
+                    android:lineSpacingExtra="7dp"
                     android:text="@string/service_drive_position"
                     android:textColor="@color/x_ffffff"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:onClick="@{(v) -> activity.onSingleClickListener.onClick(v)}"/>
 
             </LinearLayout>

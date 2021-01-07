@@ -56,7 +56,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
         ui.cbEmail.setOnCheckedChangeListener(listener);
         ui.cbPhone.setOnCheckedChangeListener(listener);
         ui.cbSms.setOnCheckedChangeListener(listener);
-        ui.cbPost.setOnCheckedChangeListener(listener);
+//        ui.cbPost.setOnCheckedChangeListener(listener);
         ui.cbAd.setOnCheckedChangeListener(listenerAll);
         ui.vBlock.setOnTouchListener((view, motionEvent) -> true);
         ViewPressEffectHelper.attach(ui.btnWithdrawal);
@@ -82,7 +82,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
                         ui.cbAd.setChecked(result.data.getMrktYn().equalsIgnoreCase("Y"));
                         ui.cbSms.setChecked(result.data.getMrktCd().substring(0, 1).equalsIgnoreCase("1"));
                         ui.cbEmail.setChecked(result.data.getMrktCd().substring(1, 2).equalsIgnoreCase("1"));
-                        ui.cbPost.setChecked(result.data.getMrktCd().substring(2, 3).equalsIgnoreCase("1"));
+//                        ui.cbPost.setChecked(result.data.getMrktCd().substring(2, 3).equalsIgnoreCase("1"));
                         ui.cbPhone.setChecked(result.data.getMrktCd().substring(3, 4).equalsIgnoreCase("1"));
                         break;
                     }
@@ -164,6 +164,14 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
     @Override
     public void onClickCommon(View v) {
         switch (v.getId()){
+            case R.id.btn_logout://로그아웃
+                if(mypViewModel.clearUserInfo()) {
+                    ga.clearLoginInfo();
+                    exitApp();
+                }else{
+                    SnackBarUtil.show(this, "로그아웃 중 예기치 못한 에러가 발생됬습니다.\n앱 재실행 후 다시 시도해 주십시오.");
+                }
+                break;
             case R.id.iv_arrow:
                 if(ui.tvAdInfo.getVisibility()==View.VISIBLE){
                     ui.ivArrow.setImageResource(R.drawable.btn_accodian_open);
@@ -224,7 +232,8 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
 
     CompoundButton.OnCheckedChangeListener listener = (compoundButton, b) -> {
         if(compoundButton.isPressed()) {
-            ui.cbAd.setChecked(ui.cbEmail.isChecked()|ui.cbPhone.isChecked()|ui.cbSms.isChecked()|ui.cbPost.isChecked());
+//            ui.cbAd.setChecked(ui.cbEmail.isChecked()|ui.cbPhone.isChecked()|ui.cbSms.isChecked()|ui.cbPost.isChecked());
+            ui.cbAd.setChecked(ui.cbEmail.isChecked()|ui.cbPhone.isChecked()|ui.cbSms.isChecked());
         }
     };
 
@@ -233,7 +242,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
             ui.cbEmail.setChecked(b);
             ui.cbPhone.setChecked(b);
             ui.cbSms.setChecked(b);
-            ui.cbPost.setChecked(b);
+//            ui.cbPost.setChecked(b);
         }
         ui.vBlock.setVisibility(b ? View.GONE : View.VISIBLE);
     };
@@ -256,7 +265,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
         }else if(resultCode == Activity.RESULT_OK && requestCode == RequestCodes.REQ_CODE_RELEASE.getCode()){
             if(mypViewModel.clearUserInfo()) {
                 ga.clearLoginInfo();
-                restart();
+                exitApp();
             }else{
                 SnackBarUtil.show(this, "회원정보 삭제 중 예기치 못한 에러가 발생됬습니다.\n앱 재실행 후 다시 시도해 주십시오.");
             }

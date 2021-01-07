@@ -91,7 +91,7 @@
                 android:text="@{safetyDrvScore}"
                 android:includeFontPadding="false"
                 android:lineSpacingExtra="0dp"
-                android:textSize="44sp"
+                android:textSize="44dp"
                 app:layout_constraintEnd_toEndOf="@id/asb_datamiles_driving_score"
                 app:layout_constraintTop_toTopOf="@id/asb_datamiles_driving_score" />
 
@@ -116,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="2점"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 app:layout_constraintStart_toStartOf="@id/tv_datamiles_before_score_title"
                 app:layout_constraintTop_toBottomOf="@id/tv_datamiles_before_score_title" />
 
@@ -141,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="110dp"
                 android:text="90일간 1,200km 주행 기준"
-                android:textSize="11sp"
+                android:textSize="11dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/asb_datamiles_driving_score" />
@@ -221,13 +221,13 @@
                 android:layout_marginEnd="15dp"
                 android:background="@drawable/bg_ffffff_stroke_e5e5e5"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="7sp"
+                android:lineSpacingExtra="7dp"
                 android:paddingStart="15dp"
                 android:paddingTop="13dp"
                 android:paddingEnd="15dp"
                 android:paddingBottom="13dp"
                 android:text="최고의 모범 안전 운전자입니다.\n안전운전 유지하시고 자동차 \n보험 혜택을 받아보세요! (최대 12% 할인)"
-                android:textSize="13sp"
+                android:textSize="13dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/asb_datamiles_driving_score" />

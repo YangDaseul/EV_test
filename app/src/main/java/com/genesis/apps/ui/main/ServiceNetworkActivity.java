@@ -42,6 +42,7 @@ import com.hmns.playmap.shape.PlayMapMarker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -232,13 +233,24 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 case SUCCESS:
                     showProgressDialog(false);
                     if (result.data != null && result.data.getAsnList() != null) {
+
+                        try {
+                            if (result.data.getAsnList().size() > 0) {
+                                result.data.setAsnList(result.data.getAsnList().stream().sorted((o1, o2)-> Float.compare(Float.parseFloat(o1.getDist()), Float.parseFloat(o2.getDist()))).collect(Collectors.toList()));
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
                         setPosition(result.data.getAsnList(), result.data.getAsnList().get(0));
                         break;
                     }
                 default:
                     String serverMsg = "";
                     try {
-                        serverMsg = result.data.getRtMsg();
+//                        serverMsg = result.data.getRtMsg();
+                        serverMsg = getString(R.string.snackbar_etc_3);
+                        //기획 요청으로 검색 결과가 없습니다 로 에러메시지 통일
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
@@ -320,6 +332,15 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 case SUCCESS:
                     showProgressDialog(false);
                     if (result.data != null && result.data.getAsnList() != null) {
+
+                        try {
+                            if (result.data.getAsnList().size() > 0) {
+                                result.data.setAsnList(result.data.getAsnList().stream().sorted((o1, o2)-> Float.compare(Float.parseFloat(o1.getDist()), Float.parseFloat(o2.getDist()))).collect(Collectors.toList()));
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
                         setPosition(result.data.getAsnList(), result.data.getAsnList().get(0));
                         break;
                     }
@@ -327,7 +348,9 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     showProgressDialog(false);
                     String serverMsg = "";
                     try {
-                        serverMsg = result.data.getRtMsg();
+//                        serverMsg = result.data.getRtMsg();
+                        serverMsg = getString(R.string.snackbar_etc_3);
+                        //기획 요청으로 검색 결과가 없습니다 로 에러메시지 통일
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
@@ -448,7 +471,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         break;
                 }
                 if (list != null && list.size() > 0) {
-
                     int titleId=0;
                     switch (pageType){
                         case PAGE_TYPE_BTR://버틀러 변경
@@ -466,7 +488,27 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 }
                 break;
             case R.id.btn_my_position:
-                ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)), 500);
+
+                List<BtrVO> btrVOList;
+
+                switch (pageType){
+                    case PAGE_TYPE_BTR:
+                    case PAGE_TYPE_RENT:
+                        btrVOList = btrViewModel.getRES_BTR_1008().getValue().data.getAsnList();
+                        break;
+                    case PAGE_TYPE_REPAIR:
+                    case PAGE_TYPE_SERVICE:
+                    default:
+                        btrVOList = reqViewModel.getRES_REQ_1002().getValue().data.getAsnList();
+                        break;
+                }
+
+                if(btrVOList!=null&&btrVOList.size()>0){
+                    setPosition(btrVOList, btrVOList.get(0));
+                }else{
+                    SnackBarUtil.show(this, "선택가능한 지점이 존재하지 않습니다.");
+                }
+//                ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)), 500);
                 break;
             case R.id.btn_search:
                 showFragment(new BluehandsFilterFragment());
@@ -503,7 +545,8 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 exitPage("위치 정보를 불러올 수 없습니다. GPS 상태를 확인 후 다시 시도해 주세요.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
                 return;
             }
-
+//            location.setLatitude(37.5133402);
+//            location.setLongitude(126.9333508);
             runOnUiThread(() -> {
                 if (btrVO == null) {
                     //버틀러 정보가 없으면 내 위치를 기본값으로 사용

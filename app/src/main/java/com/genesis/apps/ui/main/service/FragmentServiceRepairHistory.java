@@ -135,6 +135,9 @@ public class FragmentServiceRepairHistory extends SubFragment<FragmentServiceRep
                     setViewEmpty();
                     String serverMsg = "";
                     try {
+                        if(result.data.getRtCd().equalsIgnoreCase("2005"))//조회된 정보가 없을 경우 에러메시지 출력하지 않음
+                            return;
+
                         serverMsg = result.data.getRtMsg();
                     } catch (Exception e) {
                         e.printStackTrace();

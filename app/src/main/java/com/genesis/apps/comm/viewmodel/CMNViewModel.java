@@ -27,6 +27,7 @@ import com.genesis.apps.comm.model.repo.DBContentsRepository;
 import com.genesis.apps.comm.model.repo.DBGlobalDataRepository;
 import com.genesis.apps.comm.model.repo.MBRRepo;
 import com.genesis.apps.comm.model.repo.NOTRepo;
+import com.genesis.apps.comm.model.vo.AlarmMsgTypeVO;
 import com.genesis.apps.comm.model.vo.BtoVO;
 import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.comm.model.vo.DownMenuVO;
@@ -56,6 +57,7 @@ import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TY
 import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_CV;
 import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_NV;
 import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_OV;
+import static java.util.stream.Collectors.toList;
 
 public @Data
 class CMNViewModel extends ViewModel {
@@ -176,6 +178,39 @@ class CMNViewModel extends ViewModel {
         return dbContentsRepository.getBto(mdlNm);
     }
 
+    public boolean setAlarmMsgTypeList(List<AlarmMsgTypeVO> list) {
+        if(list!=null)
+            return dbContentsRepository.setAlarmMsgTypeList(list);
+        else
+            return true;
+    }
+
+    public List<AlarmMsgTypeVO> getAlarmMsgTypeList(){
+        return dbContentsRepository.getAlarmMsgTypeList();
+    }
+
+    public List<String> getAlarmMsgTypeNmList(){
+
+        List<String> nmList = getAlarmMsgTypeList().stream().map(AlarmMsgTypeVO::getCdNm).collect(toList());
+        if(nmList==null) nmList = new ArrayList<>();
+        nmList.add(0,"전체");
+
+       return nmList;
+    }
+
+    public String getAlarmTypeCd(String cdNm){
+        String cd="";
+        try{
+            cd = dbContentsRepository.getAlarmMsgTypeCd(cdNm);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(TextUtils.isEmpty(cd)) cd="";
+
+            return cd;
+        }
+    }
+
     public boolean setWeatherList(List<WeatherVO> list) {
         return dbContentsRepository.setWeatherList(list);
     }
@@ -204,6 +239,7 @@ class CMNViewModel extends ViewModel {
 
             try {
                 isSuccess = setWeatherList(data.getWthrInsgtList())
+                        && setAlarmMsgTypeList(data.getMsgTypCd())
                         && setQuickMenu(data.getMenu0000().getQckMenuList(), MAIN_VEHICLE_TYPE_0000)
                         && setDownMenuList(data.getMenu0000().getDownMenuList(), MAIN_VEHICLE_TYPE_0000)
                         && setQuickMenu(data.getMenuCV().getQckMenuList(), MAIN_VEHICLE_TYPE_CV)

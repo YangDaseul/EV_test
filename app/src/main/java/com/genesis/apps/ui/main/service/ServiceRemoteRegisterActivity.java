@@ -309,8 +309,8 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                         fltCd.code,
                         fltCd == FLT_CODE.CODE_3000 ? wrnLghtCd.code : "",
                         rsrvMiss,
-                        String.valueOf(myPosition[0]),
-                        String.valueOf(myPosition[1])
+                        String.valueOf(myPosition[1]),
+                        String.valueOf(myPosition[0])
                 ));
             } else {
                 // 입력이 완료되지 않았다면 입력해야 할 부분으로 이동.
@@ -556,8 +556,8 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
 
             runOnUiThread(() -> {
                 //현재 단말기 위치 정보 저장
-                myPosition[0] = location.getLongitude();
-                myPosition[1] = location.getLatitude();
+                myPosition[0] = location.getLatitude();
+                myPosition[1] = location.getLongitude();
             });
         }, 5000, GpsRetType.GPS_RETURN_HIGH, false);
     }

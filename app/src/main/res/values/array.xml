@@ -7,6 +7,11 @@
         <item>기타</item>
     </string-array>
 
+    <string-array name="vehicle_reg">
+        <item>렌트/리스 실 운행자 등록</item>
+        <item>중고차 등록</item>
+    </string-array>
+
 
     <string-array name="leasing_car_csmr_scn_cd">
         <item>개인 렌트리스</item>

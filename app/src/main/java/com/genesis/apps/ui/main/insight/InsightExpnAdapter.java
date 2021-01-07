@@ -178,8 +178,6 @@ public class InsightExpnAdapter extends BaseRecyclerViewAdapter2<ExpnVO> {
                     expnDivNmId = R.string.tm_exps01_21;
                     iconId = R.drawable.ic_service_potentiometer;
                     break;
-
-
             }
 
             getBinding().tvExpnDivNm.setText(expnDivNmId);

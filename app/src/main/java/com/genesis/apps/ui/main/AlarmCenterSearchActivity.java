@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -7,6 +8,9 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.NOT_0002;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.NotiInfoVO;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
@@ -71,7 +75,54 @@ public class AlarmCenterSearchActivity extends SubActivity<ActivityAlarmCenterSe
 
     @Override
     public void onClickCommon(View v) {
+        NotiInfoVO item = null;
+        switch (v.getId()) {
+            case R.id.btn_detail:
+                try {
+                    item = (NotiInfoVO) v.getTag(R.id.noti_info);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    if (item != null && !TextUtils.isEmpty(item.getDtlLnkUri()) && !TextUtils.isEmpty(item.getDtlLnkCd())) {
+                        moveToPage(item.getDtlLnkUri(), item.getDtlLnkCd(), false);
+                    }
+                }
+                break;
+            case R.id.l_title:
+                int pos = 0;
 
+                try {
+                    item = (NotiInfoVO) v.getTag(R.id.noti_info);
+                    pos = Integer.parseInt(v.getTag(R.id.position).toString());
+
+                    //아이템을 선택했는데 읽음상태가 "읽지 않음인 경우"
+                    if (item != null && item.getReadYn().equalsIgnoreCase(VariableType.COMMON_MEANS_NO)) {
+                        //읽음상태 변경 요청
+                        cmnViewModel.reqNOT0002(new NOT_0002.Request(APPIAInfo.ALRM01.getId(), item.getNotiNo()));
+                        //일시적으로 해당페이지에서 읽음 상태로 처리하기 위해서 아래와 같이 데이터 변경
+                        //읽음 요청 처리 응답이 성공이 아닐 경우 (서버에서 처리 못한 경우) 해당 페이지에 재 진입 시 새글알림 마크가 다시 보일 수 있음
+                        ((NotiInfoVO) adapter.getItem(pos)).setReadYn(VariableType.COMMON_MEANS_YES);
+                        cmnViewModel.updateNotiInfoReadYN(item);
+                    }
+                } catch (Exception e) {
+
+                } finally {
+                    if (item != null) {
+                        switch (AlarmCenterRecyclerAdapter.getAccordionType(item)) {
+                            case AlarmCenterRecyclerAdapter.ALARM_TYPE_NORMAL_NATIVE:
+                            case AlarmCenterRecyclerAdapter.ALARM_TYPE_NORMAL_WEBVIEW:
+                                adapter.notifyItemChanged(pos);
+                                moveToPage(item.getMsgLnkUri(), item.getMsgLnkCd(), false);
+                                break;
+                            case AlarmCenterRecyclerAdapter.ALARM_TYPE_ACCORDION:
+                            default:
+                                adapter.eventAccordion(pos);
+                                break;
+                        }
+                    }
+                }
+                break;
+        }
     }
 
     @Override
@@ -107,7 +158,7 @@ public class AlarmCenterSearchActivity extends SubActivity<ActivityAlarmCenterSe
         } else {
             ui.lSearchParent.etSearch.setBackgroundResource(R.drawable.bg_ffffff_stroke_141414);
             try {
-                setListView(cmnViewModel.getNotiInfoFromDB("", "%"+keyword+"%"));
+                setListView(cmnViewModel.getNotiInfoFromDB("", "%" + keyword + "%"));
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {

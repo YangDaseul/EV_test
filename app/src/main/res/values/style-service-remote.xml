@@ -3,7 +3,7 @@
     // 원격 진단 관련 스타일 목록.
     <!--원격 진단 관련 Stryle-->
     <style name="ServiceRemote">
-        <item name="android:textSize">10sp</item>
+        <item name="android:textSize">10dp</item>
     </style>
 
     <!--폰트 구분 Style-->
@@ -58,7 +58,7 @@
         <item name="android:paddingTop">10dp</item>
         <item name="android:paddingBottom">10dp</item>
         <item name="android:drawablePadding">5dp</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">14dp</item>
         <item name="android:gravity">center</item>
     </style>
 </resources>

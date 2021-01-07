@@ -48,9 +48,9 @@
                     android:layout_marginBottom="30dp"
                     android:fontFamily="@font/light_genesissansheadglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="8sp"
+                    android:lineSpacingExtra="8dp"
                     android:textColor="@color/x_000000"
-                    android:textSize="22sp"
+                    android:textSize="22dp"
                     android:text="@string/sm01_maintenance_16" />
 
                 <TextView

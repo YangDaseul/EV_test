@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:text="Message"
                 android:textColor="#838383"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:text="Email"
                 android:textColor="#838383"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:text="Cloud"
                 android:textColor="#838383"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:text="Message"
                 android:textColor="#838383"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
         </LinearLayout>
 
         <LinearLayout
