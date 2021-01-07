@@ -655,7 +655,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
 
         if (isEmptyPhoneNum) {
             return REGISTER_STEP.INPUT_PHONE;
-        } else if (isEmptyPhoneNum) {
+        } else if (isEmptyCarNum) {
             return REGISTER_STEP.INPUT_CAR_NUM;
         } else if (isEmptyErrorCode) {
             return REGISTER_STEP.SERVICE_TYPE;
