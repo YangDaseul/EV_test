@@ -27,6 +27,7 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.main.contents.ContentsSearchActivity;
 import com.genesis.apps.ui.main.home.FragmentHome1;
+import com.genesis.apps.ui.main.insight.FragmentInsight;
 import com.genesis.apps.ui.main.service.FragmentService;
 import com.genesis.apps.ui.main.store.FragmentStore;
 import com.genesis.apps.ui.main.store.StoreWebActivity;
@@ -268,6 +269,13 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 ||resultCode==ResultCodes.REQ_CODE_SERVICE_NETWORK_RESERVE.getCode()){
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                 if (fragment instanceof FragmentService) {
+                    fragment.onActivityResult(requestCode, resultCode, data);
+                    return;
+                }
+            }
+        }else if(resultCode==ResultCodes.REQ_CODE_INSIGHT_EXPN_ADD.getCode()){
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if (fragment instanceof FragmentInsight) {
                     fragment.onActivityResult(requestCode, resultCode, data);
                     return;
                 }

@@ -18,6 +18,7 @@ import com.genesis.apps.comm.model.api.gra.SOS_1001;
 import com.genesis.apps.comm.model.api.gra.SOS_1006;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.ISTAmtVO;
 import com.genesis.apps.comm.model.vo.MessageVO;
@@ -300,7 +301,14 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                 try {
                     switch (lgnViewModel.getUserInfoFromDB().getCustGbCd()) {
                         case VariableType.MAIN_VEHICLE_TYPE_OV://소유
-                            ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), InsightExpnMainActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                            if(insightCarAdapter.getViewType()==InsightCarAdapter.TYPE_EMPTY){
+                                //empty일 경우 바로 입력 화면으로 이동
+                                if(mainVehicleInfo!=null&&!TextUtils.isEmpty(mainVehicleInfo.getVin())) {
+                                    ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), InsightExpnInputActivity.class).putExtra(KeyNames.KEY_NAME_VIN, mainVehicleInfo.getVin()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                                }
+                            }else {
+                                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), InsightExpnMainActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                            }
                             break;
                         default:
                             SnackBarUtil.show(getActivity(), getString(R.string.sm01_snack_bar));
@@ -369,5 +377,13 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(resultCode == ResultCodes.REQ_CODE_INSIGHT_EXPN_ADD.getCode()){
+            ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), InsightExpnMainActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        }else{
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 
 }

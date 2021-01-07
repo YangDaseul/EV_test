@@ -188,6 +188,6 @@
     <string name="mg_con02_01_20">개인정보의 보유 및 이용기간</string>
     <string name="mg_con02_01_21">회원 탈퇴 시까지 혹은 동의 철회 시까지</string>
 
-
-
+    <string name="mg_bf01_02_1">혜택/쿠폰</string>
+    <string name="mg_bf01_02_2">사용 가능한 쿠폰이 없습니다.</string>
 </resources>

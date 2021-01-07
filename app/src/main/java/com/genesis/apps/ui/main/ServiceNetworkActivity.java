@@ -24,6 +24,7 @@ import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.BTRViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.PUBViewModel;
@@ -369,7 +370,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 case SUCCESS:
                     showProgressDialog(false);
                     List<RepairTypeVO> list = new ArrayList<>();
-                    if(result.data.getPrctYn().equalsIgnoreCase("Y")&&result.data.getRparTypList()!=null&&result.data.getRparTypList().size()>0){
+                    if(StringUtil.isValidString(result.data.getPrctYn()).equalsIgnoreCase("Y")&&result.data.getRparTypList()!=null&&result.data.getRparTypList().size()>0){
                         list.addAll(result.data.getRparTypList());
                         showDialogRepairType(list);
                         break;
@@ -723,7 +724,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
         }
 
         for (int i = 0; i < list.size(); i++) {
-            if (btrVO.getAsnCd().equalsIgnoreCase(list.get(i).getAsnCd())) {
+            if (StringUtil.isValidString(btrVO.getAsnCd()).equalsIgnoreCase(list.get(i).getAsnCd())) {
                 drawMarkerItem(list.get(i), R.drawable.ic_pin_carcenter);
             } else {
                 drawMarkerItem(list.get(i), R.drawable.ic_pin);

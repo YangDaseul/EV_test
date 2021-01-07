@@ -45,7 +45,7 @@ import androidx.transition.TransitionManager;
 
 /**
  * @author hjpark
- * @brief 렌트/리스 실 운행자 등록 (차대번호 입력)
+ * @brief 렌트/리스 실운행자 등록 (차대번호 입력)
  */
 public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasingCarRegisterInput1Binding> {
 

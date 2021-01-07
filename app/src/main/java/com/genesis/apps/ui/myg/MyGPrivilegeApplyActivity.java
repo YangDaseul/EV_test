@@ -39,6 +39,12 @@ public class MyGPrivilegeApplyActivity extends SubActivity<ActivityPrivilegeAppl
         setViewModel();
         setObserver();
         initView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //프리빌리지 신청 완료 후에 해당 화면으로 왔을 때 데이터를 갱신하기 위함
         mypViewModel.reqMYP1005(new MYP_1005.Request(APPIAInfo.MG01.getId(), ""));
     }
 

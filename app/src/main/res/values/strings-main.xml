@@ -8,7 +8,7 @@
     <string name="gm01_1">총 주행 거리</string>
     <string name="gm01_2">일별 주행 거리</string>
     <string name="gm01_3">주행 가능 거리</string>
-    <string name="gm01_repair_status_1">긴급 출동 신청 중</string>
+    <string name="gm01_repair_status_1">긴급 출동 중</string>
     <string name="gm01_repair_status_2">차량 정비 중</string>
     <string name="gm01_bottom_1">소모품 현황</string>
     <string name="gm01_bottom_2">최근 정비 이력</string>
@@ -32,7 +32,7 @@
     <string name="gm02_7">SNS 자랑하기</string>
     <string name="gm02_8">로그인</string>
 
-    <string name="gm03_1">렌트/리스\n실 운행자 등록</string>
+    <string name="gm03_1">렌트/리스\n실운행자 등록</string>
     <string name="gm03_2">중고차 등록</string>
     <string name="gm03_3">견적 내기</string>
     <string name="gm03_4">BTO</string>

@@ -230,18 +230,19 @@ class GNSViewModel extends ViewModel {
             List<VehicleVO> list = new ArrayList<>();
             try {
                 list = dbVehicleRepository.getVehicleList();
-
                 if(list.size()>0){
                     //삭제를 하면 서버에서.. 주이용차량제외 및 할당을 다 처리 해준다는 가정하에 로직 X
 //                    VehicleVO vehicleFirst = list.get(0);
 //
 //                    if(vehicleFirst.get)
                 }
-
-
             } catch (Exception ignore) {
                 ignore.printStackTrace();
+            }finally {
+                if(list==null)
+                    list = new ArrayList<>();
             }
+
             return list;
         });
 

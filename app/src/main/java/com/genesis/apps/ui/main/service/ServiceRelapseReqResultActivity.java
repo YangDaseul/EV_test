@@ -62,9 +62,10 @@ public class ServiceRelapseReqResultActivity extends SubActivity<ActivityRelapse
             status = getString(R.string.relapse_req_result_status_req_complete);
         }
 
+        String zip =
         //고객 주소
         address = (String) TextUtils.concat(
-                "(", vocInfoVO.getRdwNmZip(), ") ",//우편번호
+                TextUtils.isEmpty(StringUtil.isValidString(vocInfoVO.getRdwNmZip())) ? "":"("+vocInfoVO.getRdwNmZip()+") ",//우편번호
                 vocInfoVO.getRdwNmAdr(), "\n",      //도로명주소
                 vocInfoVO.getRdwNmDtlAdr()          //상세주소
         );

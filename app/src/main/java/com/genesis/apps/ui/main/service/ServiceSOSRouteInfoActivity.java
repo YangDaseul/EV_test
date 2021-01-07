@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
 
@@ -30,6 +31,8 @@ import com.hmns.playmap.PlayMapPoint;
 import com.hmns.playmap.shape.PlayMapMarker;
 import com.hmns.playmap.shape.PlayMapPolyLine;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -48,44 +51,49 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
     private SOSDriverVO sosDriverVO;
     private SOS_1006.Response response;
     private String tmpAcptNo;
-    private int minute=0;
+    private int minute = 0;
     private Timer timer = null;
-    private boolean initCall=true;
+    private boolean initCall = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map2);
-        getDataFromIntent();
-        setViewModel();
-        setObserver();
-        initView();
+        try {
+            getDataFromIntent();
+            setViewModel();
+            setObserver();
+            initView();
+        }catch (Exception e){
+
+        }
     }
 
     private void startTimer() {
 
-        if(timer==null)
+        if (timer == null)
             timer = new Timer();
 
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 runOnUiThread(() -> {
-                    try{
+                    try {
 //                        TestCode.SOS_1006 = TestCode.SOS_1006_2;
-                        sosViewModel.reqSOS1006(new SOS_1006.Request(APPIAInfo.SM_EMGC03.getId(),tmpAcptNo));
-                    }catch (Exception e){
+                        sosViewModel.reqSOS1006(new SOS_1006.Request(APPIAInfo.SM_EMGC03.getId(), tmpAcptNo));
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 });
             }
-        },10000,10000);
+        }, 10000, 10000);
 
     }
 
-    private void pauseTimer(){
-        if(timer!=null){
+    private void pauseTimer() {
+        if (timer != null) {
             timer.cancel();
-            timer=null;
+            timer = null;
         }
     }
 
@@ -95,16 +103,16 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
         //내 위치로 이동 버튼 제거
         ui.btnMyPosition.setVisibility(View.GONE);
         //기본위치 갱신 시 맵 초기화
-        ui.pmvMapView.initMap(Double.parseDouble(sosDriverVO.getGCustY()), Double.parseDouble(sosDriverVO.getGCustX()),17);
+        ui.pmvMapView.initMap(Double.parseDouble(sosDriverVO.getGCustY()), Double.parseDouble(sosDriverVO.getGCustX()), 17);
 //        mapViewModel.reqFindPathPolyLine("0","0","0","2",new PlayMapPoint(Double.parseDouble(sosDriverVO.getGXpos()), Double.parseDouble(sosDriverVO.getGYpos())), new PlayMapPoint(Double.parseDouble(sosDriverVO.getGCustX()), Double.parseDouble(sosDriverVO.getGCustY())));
         reqFindPath();
     }
 
     private void reqFindPath() {
-        mapViewModel.reqFindPathResVo(new FindPathReqVO("0","0","0","2","0",new PlayMapPoint(Double.parseDouble(sosDriverVO.getGYpos()),Double.parseDouble(sosDriverVO.getGXpos())),new ArrayList(), new PlayMapPoint(Double.parseDouble(sosDriverVO.getGCustY()),Double.parseDouble(sosDriverVO.getGCustX()))));
+        mapViewModel.reqFindPathResVo(new FindPathReqVO("0", "0", "0", "2", "0", new PlayMapPoint(Double.parseDouble(sosDriverVO.getGYpos()), Double.parseDouble(sosDriverVO.getGXpos())), new ArrayList(), new PlayMapPoint(Double.parseDouble(sosDriverVO.getGCustY()), Double.parseDouble(sosDriverVO.getGCustX()))));
     }
 
-    private void drawMaker(boolean isFit){
+    private void drawMaker(boolean isFit) {
         //운전자 마커 생성
         PlayMapPoint point1 = new PlayMapPoint(Double.parseDouble(sosDriverVO.getGYpos()), Double.parseDouble(sosDriverVO.getGXpos()));
         PlayMapMarker driverMarker = new PlayMapMarker();
@@ -116,8 +124,8 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
 
 
         //고객 위치 마커는 null일 경우에만 1회 생성
-        if(!ui.pmvMapView.markeritems.containsKey("end")) {
-            PlayMapPoint point2 = new PlayMapPoint(Double.parseDouble(sosDriverVO.getGCustY()),Double.parseDouble(sosDriverVO.getGCustX()));
+        if (!ui.pmvMapView.markeritems.containsKey("end")) {
+            PlayMapPoint point2 = new PlayMapPoint(Double.parseDouble(sosDriverVO.getGCustY()), Double.parseDouble(sosDriverVO.getGCustX()));
             PlayMapMarker customerMarker = new PlayMapMarker();
             customerMarker.setMapPoint(point2);
             customerMarker.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_pin_mycar));
@@ -126,17 +134,19 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
             ui.pmvMapView.addMarkerItem("end", customerMarker);
         }
 
-        if(isFit) {
+        if (isFit) {
             //마커가 찍힌 후 충분한 시간 뒤에 핏 마커가 동작함
-            new Handler().postDelayed(() -> ui.pmvMapView.fitMarker(), 1000);
-            initCall=false;
+            new Handler().postDelayed(() -> ui.pmvMapView.fitPolyLine(), 1000);
+            initCall = false;
         }
 
     }
 
     public void drawPath(PlayMapPolyLine playMapPolyLine) {
-        if(playMapPolyLine!=null) {
+        if (playMapPolyLine != null) {
+            String testCor="#ba544d";
             playMapPolyLine.setLineColor(Color.RED);
+            Log.v("color test", " color ori:"+Color.parseColor(testCor) +"    color:"+Color.RED);
             playMapPolyLine.setLineWidth(4);
             ui.pmvMapView.addPolyLine("routeResult", playMapPolyLine);
         }
@@ -156,13 +166,13 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
 
     @Override
     public void getDataFromIntent() {
-        try{
+        try {
             response = (SOS_1006.Response) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SOS_DRIVER_VO);
             setData((SOS_1006.Response) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SOS_DRIVER_VO));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            if(sosDriverVO==null||TextUtils.isEmpty(tmpAcptNo)){
+        } finally {
+            if (sosDriverVO == null || TextUtils.isEmpty(tmpAcptNo) || TextUtils.isEmpty(sosDriverVO.getGCustY()) || TextUtils.isEmpty(sosDriverVO.getGCustX())) {
                 exitPage("기사 정보를 불러오지 못했습니다\n잠시 후 다시 시도해 주세요.", ResultCodes.RES_CODE_NETWORK.getCode());
             }
         }
@@ -185,34 +195,37 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
     public void setObserver() {
 
         sosViewModel.getRES_SOS_1006().observe(this, result -> {
-            switch (result.status){
+            switch (result.status) {
                 case LOADING:
+                    showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    if(result.data!=null&&sosDriverVO!=null&&!TextUtils.isEmpty(tmpAcptNo)){
+                    if (result.data != null && sosDriverVO != null && !TextUtils.isEmpty(tmpAcptNo)) {
                         setData(result.data);
                         reqFindPath();
+                        showProgressDialog(false);
                     }
                     break;
                 default:
+                    showProgressDialog(false);
                     break;
             }
         });
 
         mapViewModel.getFindPathResVo().observe(this, result -> {
-            if(result!=null&&result.status!=null) {
+            if (result != null && result.status != null) {
                 switch (result.status) {
                     case LOADING:
-                        if(initCall) showProgressDialog(true);
+                        if (initCall) showProgressDialog(true);
                         break;
                     case SUCCESS:
-                        if(result.data!=null) {
+                        if (result.data != null) {
                             PlayMapPolyLine playMapPolyLine = null;
                             try {
                                 playMapPolyLine = mapViewModel.makePolyLine(result.data.getPosList());
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 playMapPolyLine = null;
-                            }finally {
+                            } finally {
                                 drawPath(playMapPolyLine);
                                 drawMaker(initCall);
                                 updateTopView(result.data.getSummary());
@@ -232,21 +245,21 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
     private void updateTopView(FindPathResVO.Summary summary) {
         try {
             if (summary != null) {
-                minute = summary.getTotalTime()/60;
+                minute = summary.getTotalTime() / 60;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             if (topBinding == null) {
                 setViewStub(R.id.l_map_overlay_msg, R.layout.layout_map_overlay_ui_top_msg, new ViewStub.OnInflateListener() {
                     @Override
                     public void onInflate(ViewStub viewStub, View inflated) {
                         topBinding = DataBindingUtil.bind(inflated);
-                        topBinding.tvMapTopMsgTime.setText(minute+"분 후");
+                        topBinding.tvMapTopMsgTime.setText(minute + "분 후");
                     }
                 });
             } else {
-                topBinding.tvMapTopMsgTime.setText(minute+"분 후");
+                topBinding.tvMapTopMsgTime.setText(minute + "분 후");
             }
         }
     }
@@ -255,18 +268,18 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
     private void updateBottomView() {
         try {
             if (bottomBinding == null) {
-                ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams)findViewById(R.id.vs_map_overlay_bottom_box).getLayoutParams();
-                params.setMargins(0,0,0,0);
-                params.height= (int)DeviceUtil.dip2Pixel(this,40);
+                ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) findViewById(R.id.vs_map_overlay_bottom_box).getLayoutParams();
+                params.setMargins(0, 0, 0, 0);
+                params.height = (int) DeviceUtil.dip2Pixel(this, 40);
                 findViewById(R.id.vs_map_overlay_bottom_box).setLayoutParams(params);
                 setViewStub(R.id.vs_map_overlay_bottom_box, R.layout.layout_map_overlay_ui_bottom_info_bar, (viewStub, inflated) -> {
                     bottomBinding = DataBindingUtil.bind(inflated);
                     bottomBinding.btnDriverInfo.setOnClickListener(onSingleClickListener);
                 });
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
         }
     }
 

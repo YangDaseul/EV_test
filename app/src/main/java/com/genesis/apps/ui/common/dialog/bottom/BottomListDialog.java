@@ -35,14 +35,11 @@ public class BottomListDialog extends BaseBottomDialog<DialogBottomListBinding> 
         setAllowOutTouch(true);
         ui.lTitle.setValue(title);
         if(datas!=null) {
-            adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, datas);
+            adapter = new ArrayAdapter(getContext(), R.layout.item_bottom_list, datas);
             ui.lv.setAdapter(adapter);
-            ui.lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    selectItem = ((TextView)view).getText().toString();
-                    dismiss();
-                }
+            ui.lv.setOnItemClickListener((adapterView, view, i, l) -> {
+                selectItem = ((TextView)view).getText().toString();
+                dismiss();
             });
         }
     }

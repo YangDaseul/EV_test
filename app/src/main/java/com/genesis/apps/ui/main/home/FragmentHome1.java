@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -122,7 +124,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     if (result.data != null){
                         if(!TextUtils.isEmpty(result.data.getVirtRecptNo())){
                             me.tvRepairStatus.setVisibility(View.VISIBLE);
-                            me.tvRepairStatus.setText(result.data.getAsnStatsNm());
+                            me.tvRepairStatus.setText(R.string.gm01_repair_status_1);
                         }else if(!TextUtils.isEmpty(result.data.getAsnStatsNm())){
                             me.tvRepairStatus.setVisibility(View.VISIBLE);
                             me.tvRepairStatus.setText(result.data.getAsnStatsNm());
@@ -475,7 +477,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         .into(me.ivCar);
 
 //                me.ivMore.setVisibility(View.GONE);
-                me.tvRepairStatus.setVisibility(View.INVISIBLE);
                 me.lDistance.setVisibility(View.GONE);
                 me.lFloating.setVisibility(View.GONE);
 
@@ -633,7 +634,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             case GM02_INV01://유사 재고 조회
                 ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM02_INV01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
-            case GM_CARLST_01://렌트/리스 실 운행자 등록
+            case GM_CARLST_01://렌트/리스 실운행자 등록
                 ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM_CARLST_01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case GM_CARLST_03://중고차 등록
@@ -672,7 +673,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
             me.lFloating.setBackgroundColor(menuSize == 1 ? getContext().getColor(R.color.x_ffffff) : 0);
             me.btnFloating1.setTextColor(menuSize == 1 ? getContext().getColor(R.color.x_000000) : getContext().getColor(R.color.x_ffffff));
-            me.btnFloating1.setTextSize(menuSize == 1 ? 16 : 12);
+
+            me.btnFloating1.setTextSize(TypedValue.COMPLEX_UNIT_DIP, (menuSize == 1 ? 16 : 12));
             me.btnFloating1.setTypeface(menuSize == 1 ? ResourcesCompat.getFont(getActivity(), R.font.regular_genesissanstextglobal) : ResourcesCompat.getFont(getActivity(), R.font.light_genesissansheadglobal));
 
             for (int i = 0; i < menuSize; i++) {

@@ -48,7 +48,7 @@
     <string name="mg_con02_p01_3">포인트 연동이 완료되었습니다.\n바코드로 포인트 적립이 가능하며\n포인트 적립 시, 주유 내역이 자동입력 됩니다.</string>
 
     <string name="gm_carlst_01_p04_1">종료 안내</string>
-    <string name="gm_carlst_01_p04_2">아직 렌트/리스 실 운행자 등록 신청이 완료되지 않았습니다.\n신청을 종료 하시겠습니까?</string>
+    <string name="gm_carlst_01_p04_2">아직 렌트/리스 실운행자 등록 신청이 완료되지 않았습니다.\n신청을 종료 하시겠습니까?</string>
     <string name="gm_carlst_01_p05_1">취소 안내</string>
     <string name="gm_carlst_01_p05_2">렌트/리스 실운행자 차량등록을 취소하시겠습니까?</string>
 

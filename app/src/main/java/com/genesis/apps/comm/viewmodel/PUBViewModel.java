@@ -87,17 +87,13 @@ class PUBViewModel extends ViewModel {
 
     public List<String> getAddrGuNm(){
         List<String> addrNmList = new ArrayList<>();
-        if(RES_PUB_1003.getValue().data.getGugunList()!=null&&RES_PUB_1003.getValue().data.getGugunList().size()>0){
-            addrNmList = RES_PUB_1003.getValue().data.getGugunList().stream().sorted(Comparator.comparing(AddressGuVO::getGugunNm)).map(AddressGuVO::getGugunNm).collect(Collectors.toList()); //구군명칭 순 가나다 정렬 후 get String List
+        try {
+            if (RES_PUB_1003.getValue().data.getGugunList() != null && RES_PUB_1003.getValue().data.getGugunList().size() > 0) {
+                addrNmList = RES_PUB_1003.getValue().data.getGugunList().stream().sorted(Comparator.comparing(AddressGuVO::getGugunNm)).map(AddressGuVO::getGugunNm).collect(Collectors.toList()); //구군명칭 순 가나다 정렬 후 get String List
+            }
+        }catch (Exception e){
+
         }
-//        List<String> addrNmList = new ArrayList<>();
-//        try {
-//            for (AddressGuVO addressGuVO : RES_PUB_1003.getValue().data.getGugunList()) {
-//                addrNmList.add(addressGuVO.getGugunNm());
-//            }
-//        }catch (Exception e){
-//
-//        }
         return addrNmList;
     }
 

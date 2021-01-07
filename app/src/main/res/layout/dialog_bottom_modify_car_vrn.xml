@@ -32,15 +32,16 @@
             app:boxBackgroundColor="@color/x_ffffff"
             app:endIconMode="clear_text"
             app:errorEnabled="true"
-            app:errorTextColor="@color/x_ba544d"
             app:boxStrokeErrorColor="@color/x_ba544d"
             app:errorIconTint="@color/x_ba544d"
             app:hintEnabled="true"
-            app:hintTextColor="@color/x_000000"
             app:counterMaxLength="10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/l_title">
+            app:layout_constraintTop_toBottomOf="@+id/l_title"
+            app:hintTextAppearance="@style/CommonTextInputEditTextHint"
+            app:placeholderTextAppearance="@style/CommonTextInputEditTextHint"
+            app:errorTextAppearance="@style/CommonTextInputEditTextError">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_car_rgst_no"

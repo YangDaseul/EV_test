@@ -59,15 +59,16 @@
                     app:boxBackgroundColor="@color/x_ffffff"
                     app:endIconMode="clear_text"
                     app:errorEnabled="true"
-                    app:errorTextColor="@color/x_ba544d"
                     app:boxStrokeErrorColor="@color/x_ba544d"
                     app:errorIconTint="@color/x_ba544d"
                     app:hintEnabled="true"
-                    app:hintTextColor="@color/x_000000"
                     app:counterMaxLength="10"
                     app:layout_constraintEnd_toEndOf="@+id/tv_msg"
                     app:layout_constraintStart_toStartOf="@+id/tv_msg"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_msg">
+                    app:layout_constraintTop_toBottomOf="@+id/tv_msg"
+                    app:hintTextAppearance="@style/CommonTextInputEditTextHint"
+                    app:placeholderTextAppearance="@style/CommonTextInputEditTextHint"
+                    app:errorTextAppearance="@style/CommonTextInputEditTextError">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_vin"

@@ -1,8 +1,8 @@
 package com.genesis.apps.comm.net.ga;
 
-import android.content.Context;
 import android.util.Log;
 
+import com.genesis.apps.comm.MyApplication;
 import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.vo.UserProfileVO;
 import com.genesis.apps.comm.util.crypt.AesUtils;
@@ -44,10 +44,9 @@ class LoginInfoDTO extends BaseData {
     @Expose
     private String tokenCode;
 
-    private Context context;
 
-    public LoginInfoDTO(Context context){
-        this.context = context;
+    public LoginInfoDTO(){
+
     }
 
     public void refereshData(String accessToken, String refreshToken, long expiresDate, UserProfileVO profile, long refreshTokenExpriesDate, String tokenCode){
@@ -65,7 +64,7 @@ class LoginInfoDTO extends BaseData {
 
         try {
 
-            File dir = context.getFilesDir();
+            File dir = MyApplication.getInstance().getFilesDir();
             File dataDir = new File(dir, "/data");
             if (!dataDir.exists()) dataDir.mkdirs();
 
@@ -200,7 +199,7 @@ class LoginInfoDTO extends BaseData {
         Log.d(TAG, TAG_MSG_LOGININFO + (loginInfoDTO !=null ? loginInfoDTO.toString() : "null"));
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(loginInfoDTO);
-        File dir = context.getFilesDir();
+        File dir = MyApplication.getInstance().getFilesDir();
         File dataDir = new File(dir, "/data");
 
         // 추후 삭제
@@ -251,7 +250,7 @@ class LoginInfoDTO extends BaseData {
 
     public void clearLoginInfo() {
         try {
-            File dir = context.getFilesDir();
+            File dir = MyApplication.getInstance().getFilesDir();
             File dataDir = new File(dir, "/data");
             if (!dataDir.exists()) {
                 dataDir.mkdirs();

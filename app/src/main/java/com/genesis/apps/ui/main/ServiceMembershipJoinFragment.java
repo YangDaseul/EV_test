@@ -71,9 +71,8 @@ public class ServiceMembershipJoinFragment extends SubFragment<ActivityMembershi
         super.onActivityCreated(savedInstanceState);
         me.setLifecycleOwner(getViewLifecycleOwner());
         me.setFragment(this);
-
+        me.lTitle.back.setOnClickListener(onSingleClickListener);
         cmnViewModel = new ViewModelProvider(getActivity()).get(CMNViewModel.class);
-
         cmnViewModel.getRES_MBR_0001().observe(getViewLifecycleOwner(), result -> {
 
             switch (result.status){
@@ -155,6 +154,7 @@ public class ServiceMembershipJoinFragment extends SubFragment<ActivityMembershi
 
     @Override
     public boolean onBackPressed() {
+        getActivity().onBackPressed();
         return true;
     }
 
@@ -162,6 +162,9 @@ public class ServiceMembershipJoinFragment extends SubFragment<ActivityMembershi
     @Override
     public void onClickCommon(View v) {
         switch (v.getId()){
+            case R.id.back:
+                onBackPressed();
+                break;
             case R.id.btn_next:
                 //TODO 약관동의 페이지로 이동 및 데이터 실패에 대한 스낵바 정의를 여기서 해줘야함.
                 setAgreeStatus();

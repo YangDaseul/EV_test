@@ -136,6 +136,10 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.myg.MyGCouponActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.myg.MyGMembershipInfoActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

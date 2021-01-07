@@ -1,34 +1,38 @@
-package com.genesis.apps.ui.main.home;
+package com.genesis.apps.ui.myg;
 
 import android.os.Bundle;
 import android.view.View;
 
 import com.genesis.apps.R;
-import com.genesis.apps.databinding.ActivityLeasingCarInfoBinding;
+import com.genesis.apps.databinding.ActivityMygCouponBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 
 /**
  * @author hjpark
- * @brief 렌트/리스 실운행자 등록 [알려드립니다]
+ * @brief 혜택/쿠폰
  */
-public class LeasingCarInfoActivity extends SubActivity<ActivityLeasingCarInfoBinding> {
+public class MyGCouponActivity extends SubActivity<ActivityMygCouponBinding> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_leasing_car_info);
+        setContentView(R.layout.activity_myg_coupon);
         getDataFromIntent();
         setViewModel();
         setObserver();
+        initView();
+    }
+
+    private void initView() {
     }
 
     @Override
     public void onClickCommon(View v) {
     }
 
-
     @Override
     public void setViewModel() {
+        ui.setLifecycleOwner(this);
     }
 
     @Override
@@ -37,6 +41,6 @@ public class LeasingCarInfoActivity extends SubActivity<ActivityLeasingCarInfoBi
 
     @Override
     public void getDataFromIntent() {
-    }
 
+    }
 }

@@ -33,13 +33,18 @@
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone"
+            tools:src="@drawable/ic_star_card"/>
 
 
         <TextView
             android:id="@+id/tv_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            app:layout_goneMarginTop="20dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingBottom="5dp"
@@ -52,8 +57,8 @@
             android:text="@string/mg_member01_14"
             android:background="@drawable/bg_00000000_stroke_cd9a81"
             android:visibility="gone"
-            app:layout_constraintTop_toTopOf="@+id/iv_favorite"
-            app:layout_constraintEnd_toEndOf="@+id/iv_favorite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_favorite"
             tools:visibility="visible"/>
 
 
