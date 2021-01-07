@@ -4,12 +4,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.DialogBottomListBinding;
@@ -35,7 +38,18 @@ public class BottomListDialog extends BaseBottomDialog<DialogBottomListBinding> 
         setAllowOutTouch(true);
         ui.lTitle.setValue(title);
         if(datas!=null) {
-            adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, datas);
+            adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, datas) {
+                @NonNull
+                @Override
+                public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                    View view = super.getView(position, convertView, parent);
+                    TextView text = (TextView) view.findViewById(android.R.id.text1);
+                    text.setTextColor(getContext().getColor(R.color.x_000000));
+                    text.setTextSize(15);
+                    text.setTypeface(ResourcesCompat.getFont(getContext(), R.font.regular_genesissansheadglobal));
+                    return view;
+                }
+            };
             ui.lv.setAdapter(adapter);
             ui.lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
