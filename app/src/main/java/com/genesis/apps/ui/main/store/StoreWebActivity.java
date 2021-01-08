@@ -30,10 +30,14 @@ import com.genesis.apps.comm.viewmodel.CMSViewModel;
 import com.genesis.apps.databinding.ActivityContentsDetailWebBinding;
 import com.genesis.apps.databinding.ActivityStoreWebBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
     private final String TAG = getClass().getSimpleName();
@@ -80,7 +84,15 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
                 case SUCCESS:
                     if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
                         Log.d("JJJJ", "getCustInfo : " + result.data.getCustInfo());
-                        try {
+
+                        Map<String, Object> params = new HashMap<>();
+                        params.put("data", result.data.getCustInfo());
+
+                        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+                        String jsonStr = gson.toJson(params);
+
+                        Log.d("JJJJ", "json str : " + jsonStr);
+//                        try {
 //                            String html = "<!DOCTYPE html>" +
 //                                    "<html>" +
 //                                    "<body onload='document.frm1.submit()'>" +
@@ -91,16 +103,16 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
 //                                    "</html>";
 //                            fragment.loadData(html);
 
-                            String postData = "data=" + URLEncoder.encode(result.data.getCustInfo(), "UTF-8");
+//                            String postData = "data=" + URLEncoder.encode(result.data.getCustInfo(), "UTF-8");
 //                            String postData = "data=" + result.data.getCustInfo();
 //                            String postData = "{\"data\":\"" + result.data.getCustInfo() + "\"}";
 
-                            Log.d("JJJJ", "postData : " + postData);
+//                            Log.d("JJJJ", "postData : " + postData);
 
-                            fragment.postUrl(url, postData.getBytes());
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
+                            fragment.postUrl(url, jsonStr.getBytes());
+//                        } catch (UnsupportedEncodingException e) {
+//                            e.printStackTrace();
+//                        }
                     }
 
                     break;
