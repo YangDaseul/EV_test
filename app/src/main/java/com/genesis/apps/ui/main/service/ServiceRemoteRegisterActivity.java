@@ -19,6 +19,7 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.api.gra.RMT_1001;
 import com.genesis.apps.comm.model.api.gra.RMT_1002;
+import com.genesis.apps.comm.model.api.gra.RMT_1006;
 import com.genesis.apps.comm.model.api.gra.SOS_1004;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
@@ -48,6 +49,9 @@ import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_REMOTE_
 import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_REMOTE_RES_CODE_2403;
 import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_REMOTE_RES_CODE_2404;
 import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_REMOTE_RES_CODE_2405;
+import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_REMOTE_RES_CODE_9000;
+import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_REMOTE_RES_CODE_9019;
+import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_REMOTE_RES_CODE_9020;
 import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_SOS_STATUS_CODE_R;
 import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_SOS_STATUS_CODE_S;
 import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_SOS_STATUS_CODE_W;
@@ -271,16 +275,18 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
         setObserver();
         reqMyLocation();
 
-        MiddleDialog.dialogServiceRemoteInfo(this, () -> {
-            try {
-                vin = rmtViewModel.getMainVehicle().getVin();
-                rmtViewModel.reqRMT1001(new RMT_1001.Request(APPIAInfo.R_REMOTE01.getId(), vin));
-            } catch (ExecutionException ee) {
-                // TODO : 차대번호 조회 오류 처리 필요.
-            } catch (InterruptedException ie) {
-                // TODO : 차대번호 조회 오류 처리 필요.
-            }
-        }, () -> exitPage("", 0));//아니오 클릭시 페이지 종료
+        rmtViewModel.reqRMT1006(new RMT_1006.Request());
+
+//        MiddleDialog.dialogServiceRemoteInfo(this, () -> {
+//            try {
+//                vin = rmtViewModel.getMainVehicle().getVin();
+//                rmtViewModel.reqRMT1001(new RMT_1001.Request(APPIAInfo.R_REMOTE01.getId(), vin));
+//            } catch (ExecutionException ee) {
+//                // TODO : 차대번호 조회 오류 처리 필요.
+//            } catch (InterruptedException ie) {
+//                // TODO : 차대번호 조회 오류 처리 필요.
+//            }
+//        }, () -> exitPage("", 0));//아니오 클릭시 페이지 종료
 
     }
 
@@ -439,6 +445,71 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                             RequestCodes.REQ_CODE_ACTIVITY.getCode(),
                             VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
                     );
+                    break;
+                }
+                case ERROR: {
+                    showProgressDialog(false);
+                    // 통신 오류 안내.
+                    exitPage(getString(R.string.r_flaw06_p02_snackbar_1), ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                    break;
+                }
+            }
+        });
+
+        rmtViewModel.getRES_RMT_1006().observe(this, result -> {
+            switch (result.status) {
+                case LOADING: {
+                    showProgressDialog(true);
+                    break;
+                }
+                case SUCCESS: {
+                    showProgressDialog(false);
+                    RMT_1006.Response response = result.data;
+
+                    if (response != null) {
+                        String rtCd = response.getRtCd();
+                        if (BaseResponse.RETURN_CODE_SUCC.equals(rtCd)) {
+                            MiddleDialog.dialogServiceRemoteTwoButton(
+                                    this,
+                                    getString(R.string.sm_romte_p01_1),
+                                    response.getCont(),
+                                    () -> {
+                                        try {
+                                            vin = rmtViewModel.getMainVehicle().getVin();
+                                            rmtViewModel.reqRMT1001(new RMT_1001.Request(APPIAInfo.R_REMOTE01.getId(), vin));
+                                        } catch (ExecutionException ee) {
+                                            // TODO : 차대번호 조회 오류 처리 필요.
+                                        } catch (InterruptedException ie) {
+                                            // TODO : 차대번호 조회 오류 처리 필요.
+                                        }
+                                    }, () -> exitPage("", 0));
+                        } else if (SERVICE_REMOTE_RES_CODE_9000.equals(rtCd)) {
+                            // 시스템 오류.
+                            MiddleDialog.dialogServiceRemoteOneButton(
+                                    this,
+                                    R.string.sm_remote01_dialog_title_error,
+                                    R.string.sm_remote01_msg_error_9000,
+                                    () -> exitPage("", 0));
+                        } else if (SERVICE_REMOTE_RES_CODE_9019.equals(rtCd)) {
+                            // 전문필수 항목 누락.
+                            MiddleDialog.dialogServiceRemoteOneButton(
+                                    this,
+                                    R.string.sm_remote01_dialog_title_error,
+                                    R.string.sm_remote01_msg_error_9019,
+                                    () -> exitPage("", 0));
+                        } else if (SERVICE_REMOTE_RES_CODE_9020.equals(rtCd)) {
+                            // 전문필수 항목 무결성 오류.
+                            MiddleDialog.dialogServiceRemoteOneButton(
+                                    this,
+                                    R.string.sm_remote01_dialog_title_error,
+                                    R.string.sm_remote01_msg_error_9020,
+                                    () -> exitPage("", 0));
+                        }
+                    } else {
+                        // 조회된 데이터가 없어 예외처리 필요.
+                        // 통신 오류 안내.
+                        exitPage(getString(R.string.r_flaw06_p02_snackbar_1), ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                    }
                     break;
                 }
                 case ERROR: {

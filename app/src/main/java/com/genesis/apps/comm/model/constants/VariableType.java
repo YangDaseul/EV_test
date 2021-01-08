@@ -227,6 +227,14 @@ public class VariableType {
     public static final String SERVICE_SOS_STATUS_CODE_E = "E"; //완료
     public static final String SERVICE_SOS_STATUS_CODE_C = "C"; //취소
 
+
+    /**
+     * 원격 진단 안내 여부 결과 코드.
+     */
+    public static final String SERVICE_REMOTE_RES_CODE_9000 = "9000"; // 시스템 오류.
+    public static final String SERVICE_REMOTE_RES_CODE_9019 = "9019"; // 전문필수 항목 누락.
+    public static final String SERVICE_REMOTE_RES_CODE_9020 = "9020"; // 전문필수 항목 무결성 오류.
+
     /**
      * 원격 진단 가능 여부 결과 코드.
      */
