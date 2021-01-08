@@ -2,6 +2,7 @@ package com.genesis.apps.ui.common.dialog.bottom;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.databinding.DialogBottomListBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 
@@ -45,7 +47,7 @@ public class BottomListDialog extends BaseBottomDialog<DialogBottomListBinding> 
                     View view = super.getView(position, convertView, parent);
                     TextView text = (TextView) view.findViewById(android.R.id.text1);
                     text.setTextColor(getContext().getColor(R.color.x_000000));
-                    text.setTextSize(15);
+                    text.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
                     text.setTypeface(ResourcesCompat.getFont(getContext(), R.font.regular_genesissansheadglobal));
                     return view;
                 }
