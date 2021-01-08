@@ -22,6 +22,7 @@ import com.genesis.apps.comm.hybrid.core.WebViewFragment;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CMS_1001;
 import com.genesis.apps.comm.model.api.gra.MYP_1003;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
@@ -32,6 +33,7 @@ import com.genesis.apps.databinding.FragmentStoreBinding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -91,7 +93,7 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
                         Map<String, Object> params = new HashMap<>();
                         params.put("data", result.data.getCustInfo());
 
-                        Gson gson = new Gson();
+                        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
                         String jsonStr = gson.toJson(params);
 
                         Log.d("JJJJ", "json str : " + jsonStr);
@@ -225,6 +227,9 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
             return true;
         } else if (url.startsWith("genesisapps://newView")) {
             fragment.createChildWebView(uri.getQueryParameter("url"));
+            return true;
+        } else if (url.startsWith("genesisapps://openView")) {
+            ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, uri.getQueryParameter("url")), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
             return true;
         } else if (url.startsWith("genesisapps://sendAction")) {
 //            fragment.loadUrl(QueryString.encodeString(uri.getQueryParameter("fn")));
