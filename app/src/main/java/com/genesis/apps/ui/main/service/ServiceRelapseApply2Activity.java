@@ -133,20 +133,8 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
     public void onClickCommon(View v) {
         switch (v.getId()) {
             case R.id.btn_vin:
-                String vin = ui.etVin.getText().toString().trim();
-                if (TextUtils.isEmpty(vin)) {
-                    ui.etVin.requestFocus();
-                    ui.tvErrorVin.setVisibility(View.VISIBLE);
-                    ui.tvErrorVin.setText(getString(R.string.r_flaw05_28));
-                } else if (vin.length() != 17) {
-                    ui.etVin.requestFocus();
-                    ui.tvErrorVin.setVisibility(View.VISIBLE);
-                    ui.tvErrorVin.setText(getString(R.string.r_flaw05_29));
-                } else if (!isValidVin) {
-                    vocViewModel.reqVOC1001(new VOC_1001.Request(APPIAInfo.SM_FLAW05.getId(), vin));
-                }
+                checkVin();
                 break;
-
             case R.id.tv_wpa://시도
                 selectSido();
                 break;
@@ -162,6 +150,21 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
             case R.id.btn_next://다음
                 doNext();
                 break;
+        }
+    }
+
+    private void checkVin(){
+        String vin = ui.etVin.getText().toString().trim();
+        if (TextUtils.isEmpty(vin)) {
+            ui.etVin.requestFocus();
+            ui.tvErrorVin.setVisibility(View.VISIBLE);
+            ui.tvErrorVin.setText(getString(R.string.r_flaw05_28));
+        } else if (vin.length() != 17) {
+            ui.etVin.requestFocus();
+            ui.tvErrorVin.setVisibility(View.VISIBLE);
+            ui.tvErrorVin.setText(getString(R.string.r_flaw05_29));
+        } else if (!isValidVin) {
+            vocViewModel.reqVOC1001(new VOC_1001.Request(APPIAInfo.SM_FLAW05.getId(), vin));
         }
     }
 
@@ -374,8 +377,9 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
             return false;
         } else if (!isValidVin) {
             ui.etVin.requestFocus();
-            ui.tvErrorVin.setVisibility(View.VISIBLE);
-            ui.tvErrorVin.setText(getString(R.string.r_flaw05_30));
+//            ui.tvErrorVin.setVisibility(View.VISIBLE);
+//            ui.tvErrorVin.setText(getString(R.string.r_flaw05_30));
+            checkVin();
             return false;
         } else {
             ui.tvErrorVin.setVisibility(View.INVISIBLE);

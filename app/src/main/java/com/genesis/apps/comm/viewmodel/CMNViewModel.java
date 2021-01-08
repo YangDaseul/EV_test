@@ -162,6 +162,14 @@ class CMNViewModel extends ViewModel {
         dbGlobalDataRepository.update(KeyNames.KEY_NAME_DB_GLOBAL_DATA_NOTIDT, notiDt);
     }
 
+    public void updateGlobalDataToDB(String keyName, String value) {
+        dbGlobalDataRepository.update(keyName, value);
+    }
+
+    public String selectGlobalDataFromDB(String keyName){
+        return dbGlobalDataRepository.select(keyName);
+    }
+
     public void updateFamilyApp(List<FamilyAppVO> familyAppVOList) {
         dbContentsRepository.setFamilyApp(familyAppVOList);
     }

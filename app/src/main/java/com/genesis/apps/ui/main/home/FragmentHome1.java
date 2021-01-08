@@ -60,7 +60,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -125,9 +124,11 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         if(!TextUtils.isEmpty(result.data.getVirtRecptNo())){
                             me.tvRepairStatus.setVisibility(View.VISIBLE);
                             me.tvRepairStatus.setText(R.string.gm01_repair_status_1);
+                            me.tvRepairStatus.setTextColor(getContext().getColor(R.color.x_ce2d2d));
                         }else if(!TextUtils.isEmpty(result.data.getAsnStatsNm())){
                             me.tvRepairStatus.setVisibility(View.VISIBLE);
                             me.tvRepairStatus.setText(result.data.getAsnStatsNm());
+                            me.tvRepairStatus.setTextColor(getContext().getColor(R.color.x_ad7b61));
                         }else{
                             me.tvRepairStatus.setVisibility(View.INVISIBLE);
                         }
@@ -301,6 +302,18 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             me.lQuickMenu.setVisibility(visibility);
             //TODO 배경 및 차량 리소스가 결정되면 녹화해야할 VIEW가 요건 정의 된 후 여기에서 해당 뷰 셋팅 정의 필요
         });
+    }
+
+    private void setIndicator(String custGbCd) {
+        String isFirstLogin = lgnViewModel.selectGlobalDataFromDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_ISFIRSTLOGIN);
+        if (StringUtil.isValidString(custGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)//소유차량이고
+                && StringUtil.isValidString(isFirstLogin).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)//최초로그인이면
+        ){
+            me.ivIndicator.setVisibility(View.VISIBLE);
+            lgnViewModel.updateGlobalDataToDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_ISFIRSTLOGIN, VariableType.COMMON_MEANS_NO);
+        }else{
+            me.ivIndicator.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void setViewWeather() {
@@ -479,26 +492,26 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 //                me.ivMore.setVisibility(View.GONE);
                 me.lDistance.setVisibility(View.GONE);
                 me.lFloating.setVisibility(View.GONE);
-
+                setIndicator(vehicleVO.getCustGbCd());
                 switch (vehicleVO.getCustGbCd()) {
                     case VariableType.MAIN_VEHICLE_TYPE_OV:
 //                        me.ivMore.setVisibility(View.VISIBLE);
                         me.lDistance.setVisibility(View.VISIBLE);
                         lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
                         reqCarInfoToDevelopers(vehicleVO.getVin());
-                        makeQuickMenu(vehicleVO.getCustGbCd());
+                        makeQuickMenu(vehicleVO.getCustGbCd(),vehicleVO);
                         break;
                     case VariableType.MAIN_VEHICLE_TYPE_CV:
                         makeDownMenu(vehicleVO.getCustGbCd());
-                        makeQuickMenu(vehicleVO.getCustGbCd());
+                        makeQuickMenu(vehicleVO.getCustGbCd(),vehicleVO);
                         break;
                     case VariableType.MAIN_VEHICLE_TYPE_NV:
                         makeDownMenu(vehicleVO.getCustGbCd());
-                        makeQuickMenu(vehicleVO.getCustGbCd());
+                        makeQuickMenu(vehicleVO.getCustGbCd(),vehicleVO);
                         break;
                     default:
                         makeDownMenu(vehicleVO.getCustGbCd());
-                        makeQuickMenu(vehicleVO.getCustGbCd());
+                        makeQuickMenu(vehicleVO.getCustGbCd(),vehicleVO);
                         break;
                 }
             }
@@ -525,7 +538,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         resumeAndPauseLottie(false);
     }
 
-    private void makeQuickMenu(String custGbCd) {
+    private void makeQuickMenu(String custGbCd, VehicleVO vehicleVO) {
         final TextView[] quickBtn = {me.btnQuick1, me.btnQuick2, me.btnQuick3, me.btnQuick4, me.btnQuick5, me.btnQuick6};
         List<QuickMenuVO> list = cmnViewModel.getQuickMenuList(custGbCd);
         quickBtn[0].setVisibility(View.GONE);
@@ -537,8 +550,39 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
         int menuSize = list.size() > quickBtn.length ? quickBtn.length : list.size();
 
+        String userCustGbCd="";
+        try {
+            userCustGbCd = lgnViewModel.getDbUserRepo().getUserVO().getCustGbCd();
+        }catch (Exception e){
+
+        }
+
         for (int i = 0; i < menuSize; i++) {
-            quickBtn[i].setVisibility(View.VISIBLE);
+
+            APPIAInfo appiaInfo = APPIAInfo.findCode(StringUtil.isValidString(list.get(i).getMenuId()));
+
+            switch (appiaInfo){
+                case GM_CARLST01: //MY 차고
+                case GM01_03: //SNS 공유하기
+                    if(StringUtil.isValidString(userCustGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)){
+                        quickBtn[i].setVisibility(View.VISIBLE);
+                    }else{//차량 미보유 일 경우 미노출
+                        quickBtn[i].setVisibility(View.GONE);
+                    }
+                    break;
+                case GM01_01: //주차위치확인
+                    String carId = developersViewModel.getCarId(vehicleVO.getVin());
+                    if (!TextUtils.isEmpty(carId)) {//GCS 미가입 차 일 경우 미노출
+                        quickBtn[i].setVisibility(View.VISIBLE);
+                    }else{
+                        quickBtn[i].setVisibility(View.GONE);
+                    }
+                    break;
+                default:
+                    quickBtn[i].setVisibility(View.VISIBLE);
+                    break;
+            }
+
             quickBtn[i].setText(list.get(i).getMenuNm());
             quickBtn[i].setTag(R.id.menu_id, list.get(i));
             quickBtn[i].setOnClickListener(new OnSingleClickListener() {

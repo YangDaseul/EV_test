@@ -366,7 +366,12 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     private void initCarInfo() {
         //차종, 번호판 정보 표시
         ui.lServiceDriveReqTopPanel.tvServiceReqCarModel.setText(mainVehicle.getMdlNm());
-        ui.lServiceDriveReqTopPanel.tvServiceReqCarNumber.setText(mainVehicle.getCarRgstNo());
+        if(TextUtils.isEmpty(mainVehicle.getCarRgstNo())){
+            ui.lServiceDriveReqTopPanel.tvServiceReqCarNumber.setVisibility(View.GONE);
+        }else{
+            ui.lServiceDriveReqTopPanel.tvServiceReqCarNumber.setVisibility(View.VISIBLE);
+            ui.lServiceDriveReqTopPanel.tvServiceReqCarNumber.setText(mainVehicle.getCarRgstNo());
+        }
     }
 
     private void initStatusViews() {

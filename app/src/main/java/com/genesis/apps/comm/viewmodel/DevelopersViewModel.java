@@ -317,10 +317,11 @@ class DevelopersViewModel extends ViewModel {
     }
 
     public String getCarId(String vin) {
-        CarConnectVO carConnectVO;
+        CarConnectVO carConnectVO = null;
         String carId = "";
         try {
-            carConnectVO = dbVehicleRepository.getCarConnect(vin);
+            if(!TextUtils.isEmpty(vin))
+                carConnectVO = dbVehicleRepository.getCarConnect(vin);
 
             if (carConnectVO != null)
                 carId = carConnectVO.getCarId();

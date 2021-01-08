@@ -19,7 +19,6 @@ import com.genesis.apps.comm.model.vo.CCSVO;
 import com.genesis.apps.comm.model.vo.DeviceDTO;
 import com.genesis.apps.comm.model.vo.NotiVO;
 import com.genesis.apps.comm.model.vo.UserVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
@@ -35,7 +34,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -177,7 +175,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
                         public void onError(Object e) {
                             MiddleDialog.dialogNetworkError(IntroActivity.this, () -> finish());
                         }
-                    });
+                    }, false);
                     break;
                 case LOADING:
 

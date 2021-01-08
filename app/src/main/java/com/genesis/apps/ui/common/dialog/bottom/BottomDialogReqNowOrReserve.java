@@ -95,7 +95,12 @@ public class BottomDialogReqNowOrReserve extends BaseBottomDialog<DialogBottomNo
 
     private void initCarInfo() {
         ui.lDiaBottomNowOrReserveCarInfoPanel.tvServiceReqCarModel.setText(mainVehicle.getMdlNm());
-        ui.lDiaBottomNowOrReserveCarInfoPanel.tvServiceReqCarNumber.setText(mainVehicle.getCarRgstNo());
+        if(TextUtils.isEmpty(mainVehicle.getCarRgstNo())){
+            ui.lDiaBottomNowOrReserveCarInfoPanel.tvServiceReqCarNumber.setVisibility(View.GONE);
+        }else{
+            ui.lDiaBottomNowOrReserveCarInfoPanel.tvServiceReqCarNumber.setVisibility(View.VISIBLE);
+            ui.lDiaBottomNowOrReserveCarInfoPanel.tvServiceReqCarNumber.setText(mainVehicle.getCarRgstNo());
+        }
     }
 
     private void initPrice() {

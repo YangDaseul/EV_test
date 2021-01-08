@@ -18,6 +18,9 @@ import com.genesis.apps.comm.model.api.gra.LGN_0007;
 import com.genesis.apps.comm.model.api.gra.STO_1001;
 import com.genesis.apps.comm.model.api.gra.STO_1002;
 import com.genesis.apps.comm.model.api.gra.STO_1003;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.repo.DBGlobalDataRepository;
 import com.genesis.apps.comm.model.repo.DBUserRepo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.LGNRepo;
@@ -53,6 +56,7 @@ class LGNViewModel extends ViewModel {
     private final LGNRepo repository;
     private final STORepo stoRepo;
     private final DBVehicleRepository dbVehicleRepository;
+    private final DBGlobalDataRepository dbGlobalDataRepository;
     private final DBUserRepo dbUserRepo;
     private final SavedStateHandle savedStateHandle;
 
@@ -92,12 +96,14 @@ class LGNViewModel extends ViewModel {
             LGNRepo repository,
             STORepo stoRepo,
             DBVehicleRepository dbVehicleRepository,
+            DBGlobalDataRepository dbGlobalDataRepository,
             DBUserRepo dbUserRepo,
             @Assisted SavedStateHandle savedStateHandle)
     {
         this.repository = repository;
         this.stoRepo = stoRepo;
         this.dbVehicleRepository = dbVehicleRepository;
+        this.dbGlobalDataRepository = dbGlobalDataRepository;
         this.dbUserRepo = dbUserRepo;
         this.savedStateHandle = savedStateHandle;
 
@@ -156,27 +162,28 @@ class LGNViewModel extends ViewModel {
     }
 
 
-    public void setLGN0001ToDB(LGN_0001.Response data, ResultCallback callback){
+    public void setLGN0001ToDB(LGN_0001.Response data, ResultCallback callback, boolean isFirstLogin){
         ExecutorService es = new ExecutorService("");
         Futures.addCallback(es.getListeningExecutorService().submit(() -> {
 
-            boolean isSuccess=false;
+            boolean isSuccess;
             try {
-
                 String userType=MAIN_VEHICLE_TYPE_0000;
                 UserVO userVO = new Gson().fromJson(new Gson().toJson(data),UserVO.class);
                 if(userVO.getCustGbCd().equalsIgnoreCase(MAIN_VEHICLE_TYPE_NV)){
                     userType=MAIN_VEHICLE_TYPE_NV;
                 }
-
-                isSuccess = dbVehicleRepository.setVehicleList(data.getOwnVhclList(), MAIN_VEHICLE_TYPE_OV)
+                isSuccess = dbVehicleRepository.deleteAllVehicle()
+                        &&dbVehicleRepository.setVehicleList(data.getOwnVhclList(), MAIN_VEHICLE_TYPE_OV)
                         &&dbVehicleRepository.setVehicleList(data.getCtrctVhclList(), MAIN_VEHICLE_TYPE_CV)
                         &&dbVehicleRepository.setVehicle(data.getDftVhclInfo(), userType)
-                        &&dbUserRepo.setUserVO(userVO);
+                        &&dbUserRepo.setUserVO(userVO)
+                        &&(!isFirstLogin || updateGlobalDataToDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_ISFIRSTLOGIN, VariableType.COMMON_MEANS_YES));
             } catch (Exception e1) {
                 e1.printStackTrace();
                 isSuccess=false;
             }
+
             return isSuccess;
         }), new FutureCallback<Boolean>() {
             @Override
@@ -284,6 +291,21 @@ class LGNViewModel extends ViewModel {
 
     public void insertTopicList(List<String> oriList){
         dbUserRepo.insertTopicList(oriList);
+    }
+
+    public boolean updateGlobalDataToDB(String keyName, String value) {
+        boolean isUpdate=false;
+        try {
+            dbGlobalDataRepository.update(keyName, value);
+            isUpdate=true;
+        }catch (Exception e){
+            isUpdate=false;
+        }
+        return isUpdate;
+    }
+
+    public String selectGlobalDataFromDB(String keyName){
+        return dbGlobalDataRepository.select(keyName);
     }
 
 }
