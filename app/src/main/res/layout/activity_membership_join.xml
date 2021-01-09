@@ -251,6 +251,7 @@
                         android:text="@string/int03_7"
                         android:textColor="@color/x_000000"
                         android:textSize="15dp"
+                        android:background="@android:color/transparent"
                         app:layout_constraintEnd_toStartOf="@+id/cb_email"
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintStart_toStartOf="parent"
@@ -269,6 +270,7 @@
                         android:text="@string/int03_8"
                         android:textColor="@color/x_000000"
                         android:textSize="15dp"
+                        android:background="@android:color/transparent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/cb_sms"
                         app:layout_constraintTop_toBottomOf="@+id/tv_info_2" />
@@ -286,6 +288,7 @@
                         android:text="@string/int03_10"
                         android:textColor="@color/x_000000"
                         android:textSize="15dp"
+                        android:background="@android:color/transparent"
                         app:layout_constraintEnd_toStartOf="@+id/cb_phone"
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintStart_toStartOf="parent"
@@ -303,6 +306,7 @@
                         android:text="@string/int03_9"
                         android:textColor="@color/x_000000"
                         android:textSize="15dp"
+                        android:background="@android:color/transparent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/cb_post"
                         app:layout_constraintTop_toTopOf="@+id/cb_post" />
