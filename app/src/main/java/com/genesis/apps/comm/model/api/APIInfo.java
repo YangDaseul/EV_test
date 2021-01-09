@@ -71,7 +71,7 @@ public enum APIInfo {
     GRA_GNS_1013("My차고 + 렌트/리스 수정하기", "GNS-1013", HttpRequest.METHOD_POST, "/graapi/gns/myRentUpdate.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_GNS_1014("My차고 + 렌트/리스 신청취소", "GNS-1014", HttpRequest.METHOD_POST, "/graapi/gns/myRentCancel.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_GNS_1015("My차고 + 렌트/리스 재등록", "GNS-1015", HttpRequest.METHOD_POST, "/graapi/gns/myRentRetry.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_GNS_1016("My차고 + 렌트/리스 프리빌리지 특화상품 조회", "GNS-1016", HttpRequest.METHOD_POST, "/graapi/gns/", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8), //TODO URL 미정
+    GRA_GNS_1016("My차고 + 렌트/리스 프리빌리지 특화상품 조회", "GNS-1016", HttpRequest.METHOD_POST, "/graapi/gns/privilegeLookup", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     GRA_SOS_1001("Genesis + 긴급출동 접수현황 체크", "SOS-1001", HttpRequest.METHOD_POST, "/graapi/sos/receStatus.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_SOS_1002("Genesis + 긴급출동 신청", "SOS-1002", HttpRequest.METHOD_POST, "/graapi/sos/receReg.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
