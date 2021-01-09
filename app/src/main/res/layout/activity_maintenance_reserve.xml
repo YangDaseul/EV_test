@@ -1,142 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingConstraints">
 
     <data>
+
         <variable
             name="activity"
             type="com.genesis.apps.ui.main.service.MaintenanceReserveActivity" />
     </data>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/x_ffffff">
+        android:background="@color/x_f8f8f8"
+        android:orientation="vertical">
 
         <!-- 타이틀바-->
         <include
             android:id="@+id/l_maintenance_reserv_titlebar"
-            layout="@layout/layout_titlebar"
+            layout="@layout/layout_titlebar_use_edittext"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:value="@{@string/maintenance_reserve_title}" />
-
-        <!-- "정비 내용" -->
-        <TextView
-            android:id="@+id/tv_maintenance_category_title"
-            style="@style/TextBasic"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/regular_genesissanstextglobal"
-            android:text="@string/maintenance_category_title"
-            android:textColor="@color/x_262626"
-            android:textSize="13dp"
-            android:visibility="gone"
-            android:letterSpacing="-0.01"
-            android:lineSpacingExtra="9dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/l_maintenance_reserv_titlebar"
-            app:layout_goneMarginTop="20dp"
-            tools:visibility="visible" />
-
-        <!-- 정비 내용 선택 버튼 -->
-        <TextView
-            android:id="@+id/tv_maintenance_category_select_btn"
-            style="@style/TextBtnBasic"
-            android:layout_width="0dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/ripple_bg_ffffff_stroke_e5e5e5"
-            android:drawableEnd="@drawable/btn_arrow_open"
-            android:fontFamily="@font/regular_genesissanstextglobal"
-            android:gravity="center_vertical"
-            android:hint="@string/maintenance_category_title"
-            android:padding="16dp"
-            android:textColor="@color/x_000000"
-            android:textColorHint="@color/x_a2a2a2"
-            android:textSize="15dp"
-            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-            android:lineSpacingExtra="6dp"
-            android:letterSpacing="-0.01"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_maintenance_category_title"
-            app:layout_goneMarginTop="20dp" />
 
         <!-- 아래 스크롤 영역, 회색 배경 -->
         <ScrollView
-            android:layout_width="0dp"
+            android:id="@+id/sc"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="40dp"
-            android:background="@color/x_f8f8f8"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_maintenance_category_select_btn">
+            android:layout_weight="1">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/l_top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="40dp"
-                android:paddingBottom="20dp">
+                android:background="@color/x_ffffff">
 
-                <!-- "서비스" -->
                 <TextView
-                    style="@style/TextBasic"
+                    android:id="@+id/tv_msg"
+                    style="@style/ViewMsgInputTile"
                     android:layout_marginStart="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:fontFamily="@font/light_genesissansheadglobal"
-                    android:text="@string/maintenance_service_title"
-                    android:textColor="@color/x_000000"
-                    android:textSize="22dp"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="8dp"/>
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="20dp"
+                    android:paddingBottom="30dp"
+                    android:text="@string/sm_emgc01_16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <!-- 오토케어 -->
-                <include
-                    android:id="@+id/l_maintenance_autocare"
-                    layout="@layout/item_maintenance_category"
-                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-                    app:desc="@{@string/maintenance_service_desc_01}"
-                    app:icon="@{@drawable/ic_service_autocare}"
-                    app:title="@{@string/maintenance_service_item_01}" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_maintenance_category"
+                    style="@style/CommonSpinnerLayout"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_msg">
 
-                <!-- 에어포트 -->
-                <include
-                    android:id="@+id/l_maintenance_airport"
-                    layout="@layout/item_maintenance_category"
-                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-                    app:desc="@{@string/maintenance_service_desc_02}"
-                    app:icon="@{@drawable/ic_service_airport}"
-                    app:title="@{@string/maintenance_service_item_02}"/>
+                    <TextView
+                        android:id="@+id/tv_maintenance_category_title"
+                        style="@style/CommonSpinnerTitle"
+                        android:text="@string/maintenance_category_title"
+                        android:visibility="gone" />
 
-                <!-- 홈투홈 -->
-                <include
-                    android:id="@+id/l_maintenance_hometohome"
-                    layout="@layout/item_maintenance_category"
-                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-                    app:desc="@{@string/maintenance_service_desc_03}"
-                    app:icon="@{@drawable/ic_service_hometohome}"
-                    app:title="@{@string/maintenance_service_item_03}" />
 
-                <!-- 정비소 -->
-                <include
-                    android:id="@+id/l_maintenance_repair"
-                    layout="@layout/item_maintenance_category"
-                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-                    app:desc="@{@string/maintenance_service_desc_04}"
-                    app:icon="@{@drawable/ic_service_repair}"
-                    app:title="@{@string/maintenance_service_item_04}" />
+                    <TextView
+                        android:id="@+id/tv_maintenance_category_select_btn"
+                        style="@style/CommonSpinnerItemDisable"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                        android:text="@string/maintenance_category_title"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_maintenance_category_title" />
 
-            </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/l_car_reg_no"
+                    style="@style/CommonTextInputLayout"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/l_maintenance_category"
+                    app:layout_goneMarginTop="0dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_car_reg_no"
+                        style="@style/CommonTextInputEditText"
+                        android:hint="@string/sm_emgc01_17" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:background="@color/x_f8f8f8"
+                    android:orientation="vertical"
+                    android:paddingTop="40dp"
+                    android:paddingBottom="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/l_car_reg_no">
+
+                    <!-- "서비스" -->
+                    <TextView
+                        style="@style/TextBasic"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:fontFamily="@font/light_genesissansheadglobal"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="8dp"
+                        android:text="@string/maintenance_service_title"
+                        android:textColor="@color/x_000000"
+                        android:textSize="22dp" />
+
+                    <!-- 오토케어 -->
+                    <include
+                        android:id="@+id/l_maintenance_autocare"
+                        layout="@layout/item_maintenance_category"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                        app:desc="@{@string/maintenance_service_desc_01}"
+                        app:icon="@{@drawable/ic_service_autocare}"
+                        app:title="@{@string/maintenance_service_item_01}" />
+
+                    <!-- 에어포트 -->
+                    <include
+                        android:id="@+id/l_maintenance_airport"
+                        layout="@layout/item_maintenance_category"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                        app:desc="@{@string/maintenance_service_desc_02}"
+                        app:icon="@{@drawable/ic_service_airport}"
+                        app:title="@{@string/maintenance_service_item_02}" />
+
+                    <!-- 홈투홈 -->
+                    <include
+                        android:id="@+id/l_maintenance_hometohome"
+                        layout="@layout/item_maintenance_category"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                        app:desc="@{@string/maintenance_service_desc_03}"
+                        app:icon="@{@drawable/ic_service_hometohome}"
+                        app:title="@{@string/maintenance_service_item_03}" />
+
+                    <!-- 정비소 -->
+                    <include
+                        android:id="@+id/l_maintenance_repair"
+                        layout="@layout/item_maintenance_category"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                        app:desc="@{@string/maintenance_service_desc_04}"
+                        app:icon="@{@drawable/ic_service_repair}"
+                        app:title="@{@string/maintenance_service_item_04}" />
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
+        <TextView
+            android:id="@+id/btn_next"
+            style="@style/ViewBottomOkBtn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:text="@string/gm_carlst_01_32"
+            android:visibility="gone" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
 
 </layout>
