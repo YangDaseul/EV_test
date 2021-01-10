@@ -1,6 +1,7 @@
 package com.genesis.apps.comm.model.api.gra;
 
 import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.BaseRequest;
 import com.genesis.apps.comm.model.api.BaseResponse;
 import com.google.gson.annotations.Expose;
@@ -22,6 +23,9 @@ public class RMT_1006 extends BaseData {
     public @Data
     static
     class Request extends BaseRequest {
+        public Request(String menuId) {
+            setData(APIInfo.GRA_RMT_1006.getIfCd(), menuId);
+        }
     }
 
     /**
