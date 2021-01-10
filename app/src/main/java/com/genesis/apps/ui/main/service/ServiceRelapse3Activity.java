@@ -2,9 +2,11 @@ package com.genesis.apps.ui.main.service;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
@@ -20,6 +22,7 @@ import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.comm.model.vo.VOCInfoVO;
 import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.viewmodel.VOCViewModel;
 import com.genesis.apps.databinding.ActivityServiceRelapseApply3Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -33,6 +36,7 @@ import java.util.List;
 
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseApply3Binding> {
     private static final String TAG = ServiceRelapse3Activity.class.getSimpleName();
@@ -294,6 +298,7 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
 
         switch (currentState) {
             case STATE_OPEN_DEFECT_HISTORY:
+                SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
                 if (adapter.validateInputData()) {
                     changeStatusToAskOver4();
                 }
@@ -314,6 +319,8 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
                     if (TextUtils.isEmpty(period)) {
                         return;
                     }
+
+                    SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
 
                     reqTermsOfService();
                 }
@@ -368,6 +375,7 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         currentState = STATE_ASK_PERIOD;
         ui.tvRelapse3Desc.setText(R.string.relapse_3_msg_04);
         ui.tvRelapse3NextBtn.setText(R.string.relapse_3_req_btn_text);
+        ui.etRelapse3Period.setOnFocusChangeListener(focusChangeListener);
 
         //앞 단계에서 4회 이상이라고 했으면 값 저장
         if (over4) {
@@ -383,7 +391,17 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         InteractionUtil.collapse(ui.lRelapse3TotalCountContainer, null);
 
         InteractionUtil.expand(ui.lRelapse3PeriodContainer, null);
+
+        new Handler().postDelayed(() -> {
+                ui.etRelapse3Period.requestFocus();
+        }, 200);
     }
+
+    EditText.OnFocusChangeListener focusChangeListener = (view, hasFocus) -> {
+        if (hasFocus) {
+            SoftKeyboardUtil.showKeyboard(this);
+        }
+    };
 
     //필요한 약관 정보 요청
     private void reqTermsOfService() {

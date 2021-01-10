@@ -2,16 +2,21 @@ package com.genesis.apps.ui.common.dialog.bottom;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.databinding.DialogBottomListBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 

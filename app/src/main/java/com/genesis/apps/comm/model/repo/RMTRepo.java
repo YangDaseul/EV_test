@@ -7,6 +7,7 @@ import com.genesis.apps.comm.model.api.gra.RMT_1002;
 import com.genesis.apps.comm.model.api.gra.RMT_1003;
 import com.genesis.apps.comm.model.api.gra.RMT_1004;
 import com.genesis.apps.comm.model.api.gra.RMT_1005;
+import com.genesis.apps.comm.model.api.gra.RMT_1006;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.net.NetResultCallback;
@@ -26,6 +27,7 @@ public class RMTRepo {
     public final MutableLiveData<NetUIResponse<RMT_1003.Response>> RES_RMT_1003 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<RMT_1004.Response>> RES_RMT_1004 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<RMT_1005.Response>> RES_RMT_1005 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<RMT_1006.Response>> RES_RMT_1006 = new MutableLiveData<>();
 
     @Inject
     public RMTRepo(NetCaller netCaller) {
@@ -145,5 +147,27 @@ public class RMTRepo {
         }, APIInfo.GRA_RMT_1005, reqData);
 
         return RES_RMT_1005;
+    }
+
+    public MutableLiveData<NetUIResponse<RMT_1006.Response>> REQ_RMT_1006(final RMT_1006.Request reqData) {
+        RES_RMT_1006.setValue(NetUIResponse.loading(null));
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_RMT_1006.setValue(NetUIResponse.success(new Gson().fromJson(object, RMT_1006.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_RMT_1006.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_RMT_1006.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_RMT_1006, reqData);
+
+        return RES_RMT_1006;
     }
 }

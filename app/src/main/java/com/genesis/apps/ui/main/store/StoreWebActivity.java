@@ -4,10 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -26,9 +30,14 @@ import com.genesis.apps.comm.viewmodel.CMSViewModel;
 import com.genesis.apps.databinding.ActivityContentsDetailWebBinding;
 import com.genesis.apps.databinding.ActivityStoreWebBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
     private final String TAG = getClass().getSimpleName();
@@ -37,9 +46,12 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
 
     private CMSViewModel cmsViewModel;
 
+    private Handler mHandler = null;
     private String url = "";
     private boolean isClearHistory=false;
     public String fn=""; //javascript 함수
+
+    private String isDlp = "NO";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +84,15 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
                 case SUCCESS:
                     if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
                         Log.d("JJJJ", "getCustInfo : " + result.data.getCustInfo());
-                        try {
+
+                        Map<String, Object> params = new HashMap<>();
+                        params.put("data", result.data.getCustInfo());
+
+                        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+                        String jsonStr = gson.toJson(params);
+
+                        Log.d("JJJJ", "json str : " + jsonStr);
+//                        try {
 //                            String html = "<!DOCTYPE html>" +
 //                                    "<html>" +
 //                                    "<body onload='document.frm1.submit()'>" +
@@ -83,16 +103,16 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
 //                                    "</html>";
 //                            fragment.loadData(html);
 
-                            String postData = "data=" + URLEncoder.encode(result.data.getCustInfo(), "UTF-8");
+//                            String postData = "data=" + URLEncoder.encode(result.data.getCustInfo(), "UTF-8");
 //                            String postData = "data=" + result.data.getCustInfo();
 //                            String postData = "{\"data\":\"" + result.data.getCustInfo() + "\"}";
 
-                            Log.d("JJJJ", "postData : " + postData);
+//                            Log.d("JJJJ", "postData : " + postData);
 
-//                            fragment.postUrl(url, postData.getBytes());
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
+                            fragment.postUrl(url, jsonStr.getBytes());
+//                        } catch (UnsupportedEncodingException e) {
+//                            e.printStackTrace();
+//                        }
                     }
 
                     break;
@@ -114,16 +134,30 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
         cmsViewModel.reqCMS1001(new CMS_1001.Request(APPIAInfo.SM02.getId()));
     }
 
+    // 하드웨어/소프트웨어 이전 키 설정
+    boolean clickCheck = false;
     @Override
     public void onBackPressed() {
         Log.d("JJJJ", "clearWindowOpens2 : " + clearWindowOpens2());
-        try {
-            if (!fragment.onBackPressed() || TextUtils.isEmpty(fragment.getUrl()) || fragment.getUrl().equalsIgnoreCase("about:blank")) {
+        Log.d("JJJJ", "isDlp : " + isDlp);
+        if(isDlp.equals("YES")) {
+            fragment.loadUrl("javascript:bwcAppClose();");
+        } else {
+            Log.d("JJJJ", "canGoBack : " + fragment.canGoBack());
+            if(fragment.canGoBack()) {
+                fragment.goBack();
+            } else {
                 super.onBackPressed();
             }
-        }catch (Exception e){
-            super.onBackPressed();
         }
+
+//        try {
+//            if (!fragment.onBackPressed() || TextUtils.isEmpty(fragment.getUrl()) || fragment.getUrl().equalsIgnoreCase("about:blank")) {
+//                super.onBackPressed();
+//            }
+//        }catch (Exception e){
+//            super.onBackPressed();
+//        }
     }
 
     private void initView() {
@@ -179,7 +213,56 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
     }
 
     public boolean parseURL(String url) {
-        return false;
+        if(!url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("javascript")) {
+            Intent intent;
+            try {
+                intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+            } catch (URISyntaxException use) {
+                return false;
+            }
+
+            Uri uri = Uri.parse(intent.getDataString());
+            intent = new Intent(Intent.ACTION_VIEW, uri);
+            try {
+                startActivity(intent);
+            } catch (ActivityNotFoundException anfe) {
+                if(url.startsWith("ispmobile://")) {
+                    try {
+                        getPackageManager().getPackageInfo("kvp.jjy.MispAndroid320", 0);
+                    } catch(PackageManager.NameNotFoundException nnfe) {
+                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://mobile.vpay.co.kr/jsp/MISP/andown.jsp"));
+                        startActivity(intent);
+                        return true;
+                    }
+                } else if(url.contains("kb-acp")) {
+                    try {
+                        Intent exceptIntent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+                        exceptIntent = new Intent(Intent.ACTION_VIEW);
+                        exceptIntent.setData(Uri.parse("market://details?id=com.kbcard.kbkookmincard"));
+
+                        startActivity(exceptIntent);
+                    } catch(URISyntaxException use1) {
+                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://mobile.vpay.co.kr/jsp/MISP/andown.jsp"));
+                        startActivity(intent);
+                        return true;
+                    }
+                } else {
+                    try {
+                        Intent exceptIntent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+                        String packageNm = exceptIntent.getPackage();
+                        exceptIntent = new Intent(Intent.ACTION_VIEW);
+                        exceptIntent.setData(Uri.parse("market://search?q=" + packageNm));
+
+                        startActivity(exceptIntent);
+                    } catch (URISyntaxException use1) {
+                    }
+                }
+            }
+        } else {
+            fragment.loadUrl(url);
+            return false;
+        }
+        return true;
     }
 
     public boolean back(String currentUrl) {
@@ -228,12 +311,12 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
         @JavascriptInterface
         public void setMessage(final String value) {
             Log.d("JJJJ", "setMessage : " + value);
-//            hd = new Handler();
-//            hd.post(new Runnable() {
-//                public void run() {
-//                    isDlp = value;
-//                }
-//            });
+            mHandler = new Handler();
+            mHandler.post(new Runnable() {
+                public void run() {
+                    isDlp = value;
+                }
+            });
         }
     }
 }

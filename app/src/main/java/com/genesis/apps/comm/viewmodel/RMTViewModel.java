@@ -5,6 +5,7 @@ import com.genesis.apps.comm.model.api.gra.RMT_1002;
 import com.genesis.apps.comm.model.api.gra.RMT_1003;
 import com.genesis.apps.comm.model.api.gra.RMT_1004;
 import com.genesis.apps.comm.model.api.gra.RMT_1005;
+import com.genesis.apps.comm.model.api.gra.RMT_1006;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.RMTRepo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
@@ -34,6 +35,7 @@ class RMTViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<RMT_1003.Response>> RES_RMT_1003;
     private MutableLiveData<NetUIResponse<RMT_1004.Response>> RES_RMT_1004;
     private MutableLiveData<NetUIResponse<RMT_1005.Response>> RES_RMT_1005;
+    private MutableLiveData<NetUIResponse<RMT_1006.Response>> RES_RMT_1006;
 
     @ViewModelInject
     RMTViewModel(
@@ -49,6 +51,7 @@ class RMTViewModel extends ViewModel {
         RES_RMT_1003 = repository.RES_RMT_1003;
         RES_RMT_1004 = repository.RES_RMT_1004;
         RES_RMT_1005 = repository.RES_RMT_1005;
+        RES_RMT_1006 = repository.RES_RMT_1006;
     }
 
     public void reqRMT1001(final RMT_1001.Request reqData) {
@@ -69,6 +72,10 @@ class RMTViewModel extends ViewModel {
 
     public void reqRMT1005(final RMT_1005.Request reqData) {
         repository.REQ_RMT_1005(reqData);
+    }
+
+    public void reqRMT1006(final RMT_1006.Request reqData) {
+        repository.REQ_RMT_1006(reqData);
     }
 
     public VehicleVO getMainVehicle() throws ExecutionException, InterruptedException {

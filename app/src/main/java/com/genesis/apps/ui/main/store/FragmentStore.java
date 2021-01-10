@@ -22,6 +22,7 @@ import com.genesis.apps.comm.hybrid.core.WebViewFragment;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CMS_1001;
 import com.genesis.apps.comm.model.api.gra.MYP_1003;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
@@ -31,11 +32,15 @@ import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.databinding.FragmentStoreBinding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 
@@ -84,6 +89,15 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
                 case SUCCESS:
                     if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
                         Log.d("JJJJ", "getCustInfo : " + result.data.getCustInfo());
+
+                        Map<String, Object> params = new HashMap<>();
+                        params.put("data", result.data.getCustInfo());
+
+                        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+                        String jsonStr = gson.toJson(params);
+
+                        Log.d("JJJJ", "json str : " + jsonStr);
+
 //                        try {
 //                            String html = "<!DOCTYPE html>" +
 //                                    "<html>" +
@@ -96,12 +110,12 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
 //                            fragment.loadData(html);
 
 //                            String postData = "data=" + URLEncoder.encode(result.data.getCustInfo(), "UTF-8");
-                            String postData = "data=" + result.data.getCustInfo();
+//                            String postData = "data=" + result.data.getCustInfo();
 //                            String postData = "{\"data\":\"" + result.data.getCustInfo() + "\"}";
 
-                            Log.d("JJJJ", "postData : " + postData);
+//                            Log.d("JJJJ", "postData : " + postData);
 
-                            fragment.postUrl(url, postData.getBytes());
+                            fragment.postUrl(url, jsonStr.getBytes());
 //                        } catch (UnsupportedEncodingException e) {
 //                            e.printStackTrace();
 //                        }
@@ -114,7 +128,7 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
 
     private void initView() {
         if(fragment != null) return;
-        
+
         url = "https://devagenesisproduct.auton.kr/ko/main";
 
         try {
@@ -213,6 +227,9 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
             return true;
         } else if (url.startsWith("genesisapps://newView")) {
             fragment.createChildWebView(uri.getQueryParameter("url"));
+            return true;
+        } else if (url.startsWith("genesisapps://openView")) {
+            ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, uri.getQueryParameter("url")), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
             return true;
         } else if (url.startsWith("genesisapps://sendAction")) {
 //            fragment.loadUrl(QueryString.encodeString(uri.getQueryParameter("fn")));

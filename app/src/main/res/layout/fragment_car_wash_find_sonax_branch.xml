@@ -55,6 +55,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
             android:letterSpacing="-0.01"
+            android:fontFamily="@font/regular_genesissansheadglobal"
             android:text="@string/sm_cw_find_03"
             android:textColor="@color/x_000000"
             android:textSize="13dp"
