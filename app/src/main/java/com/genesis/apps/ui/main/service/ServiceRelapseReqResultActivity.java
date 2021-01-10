@@ -157,7 +157,7 @@ public class ServiceRelapseReqResultActivity extends SubActivity<ActivityRelapse
         switch (v.getId()) {
             //확인버튼
             case R.id.tv_relapse_req_result_ok_btn:
-                exitPage("", ResultCodes.REQ_CODE_NORMAL.getCode());
+                exitPage("", ResultCodes.REQ_CODE_IGNORE.getCode());
                 break;
 
             default:

@@ -125,7 +125,8 @@ public class ServiceRelapseHistoryAdapter extends BaseRecyclerViewAdapter2<VOCIn
 
                 case VOCInfoVO.INP_ST_CODE_FINISH:
                     finished = true;
-                    //not break;
+                    setTagAndListener(item);
+                    break;
                 default:
                     //do nothing
                     break;

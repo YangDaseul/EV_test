@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.home;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -7,18 +8,27 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 
+import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.GNS_1011;
+import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.GNSViewModel;
 import com.genesis.apps.databinding.ActivityLeasingCarRegisterBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
+
+import java.util.Arrays;
+import java.util.List;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import static com.genesis.apps.comm.model.constants.KeyNames.KEY_NAME_CSMR_SCN_CD;
+import static com.genesis.apps.comm.model.constants.KeyNames.KEY_NAME_GNS_1001_RESPONSE;
 import static com.genesis.apps.comm.model.constants.KeyNames.KEY_NAME_VIN;
 
 /**
@@ -27,12 +37,14 @@ import static com.genesis.apps.comm.model.constants.KeyNames.KEY_NAME_VIN;
  */
 public class LeasingCarVinRegisterActivity extends SubActivity<ActivityLeasingCarRegisterBinding> {
     private GNSViewModel gnsViewModel;
+    private BottomListDialog bottomListDialog;
+    //고객구분코드 1 법인 / 14 개인
+    private String csmrScnCd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setResizeScreen();
-
         setContentView(R.layout.activity_leasing_car_register);
         getDataFromIntent();
         setViewModel();
@@ -56,7 +68,7 @@ public class LeasingCarVinRegisterActivity extends SubActivity<ActivityLeasingCa
             @Override
             public void afterTextChanged(Editable editable) {
 
-                if(!TextUtils.isEmpty(editable.toString().trim())){
+                if (!TextUtils.isEmpty(editable.toString().trim())) {
                     ui.lVin.setError(null);
                 }
 
@@ -68,76 +80,32 @@ public class LeasingCarVinRegisterActivity extends SubActivity<ActivityLeasingCa
     @Override
     public void onClickCommon(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_check:
-                if(TextUtils.isEmpty(ui.etVin.getText().toString().trim())){
-                    ui.lVin.setError(getString(R.string.gm_carlst_01_23));
-                }else if(ui.etVin.getText().toString().trim().length()!=17){
-                    ui.lVin.setError(getString(R.string.gm_carlst_01_45));
-                }else{
-                   gnsViewModel.reqGNS1011(new GNS_1011.Request(APPIAInfo.GM_CARLST_01.getId(), ui.etVin.getText().toString().trim(), "")); //todo 2020-12-08 추가된 코드 넣어줘야함
+                if (checkValidVin()) {
+                    ui.lCsmrScnCd.setVisibility(View.VISIBLE);
+                    if (checkValidCsmrScnCd()) {
+                        gnsViewModel.reqGNS1011(new GNS_1011.Request(APPIAInfo.GM_CARLST_01.getId(), ui.etVin.getText().toString().trim(), csmrScnCd));
+                    } else {
+                        selectCsmrScnCd();
+                    }
                 }
                 break;
             case R.id.btn_info:
                 startActivitySingleTop(new Intent(this, LeasingCarInfoActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
                 break;
+            case R.id.tv_csmr_scn_cd://계약서선택
+                selectCsmrScnCd();
+                break;
         }
 
     }
-
-//    private void showMapDialog(int id, List<String> list, int title) {
-//        if(list!=null&&list.size()>0){
-//            final BottomListDialog bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
-//            bottomListDialog.setOnDismissListener(dialogInterface -> {
-//                String selectItem = bottomListDialog.getSelectItem();
-//                if(!TextUtils.isEmpty(selectItem)){
-//                    selectItem(selectItem, id);
-//                }
-//            });
-//            bottomListDialog.setDatas(list);
-//            bottomListDialog.setTitle(getString(title));
-//            bottomListDialog.show();
-//        }else{
-//            SnackBarUtil.show(this,id==R.id.tv_position_2 ? "시/도가 선택되지 않았습니다.\n시/도 정보를 선택 후 다시 시도해 주세요." : "시/도 정보가 없습니다.\n네트워크 상태를 확인 후 다시 시도해 주십시오." );
-//        }
-//    }
-
-//    private void selectItem(String selectNm, int id) {
-//        switch (id){
-//            case R.id.tv_position_1:
-//                if(!ui.tvPosition1.getText().toString().equalsIgnoreCase(selectNm)){
-//                    ui.tvPosition1.setText(selectNm);
-//                    ui.tvPosition1.setTextAppearance(R.style.BtrPositionEnable);
-//                    ui.tvPosition2.setText(R.string.bt06_5);
-//                    ui.tvPosition2.setTextAppearance(R.style.BtrPositionDisable);
-//                    pubViewModel.reqPUB1003(new PUB_1003.Request(APPIAInfo.GM_BT06_01.getId(), pubViewModel.getSidoCode(selectNm)));
-//                }
-//                break;
-//            case R.id.tv_position_2:
-//                if(!ui.tvPosition2.getText().toString().equalsIgnoreCase(selectNm)){
-//                    ui.tvPosition2.setText(selectNm);
-//                    ui.tvPosition2.setTextAppearance(R.style.BtrPositionEnable);
-//                }
-//                break;
-//        }
-//    }
-//
-//    private void setFilter(int selectId){
-//        for(int i=0; i<filterIds.length; i++){
-//
-//            if(selectId==filterIds[i]){
-//                ((TextView)findViewById(filterIds[i])).setTextAppearance(R.style.BtrFilterEnable);
-//            }else{
-//                ((TextView)findViewById(filterIds[i])).setTextAppearance(R.style.BtrFilterDisable);
-//            }
-//        }
-//    }
 
 
     @Override
     public void setViewModel() {
         ui.setLifecycleOwner(this);
-        ui.setActivity(this);
+        ui.setListener(onSingleClickListener);
         gnsViewModel = new ViewModelProvider(this).get(GNSViewModel.class);
     }
 
@@ -145,76 +113,44 @@ public class LeasingCarVinRegisterActivity extends SubActivity<ActivityLeasingCa
     public void setObserver() {
         gnsViewModel.getRES_GNS_1011().observe(this, result -> {
 
-            switch (result.status){
+            switch (result.status) {
                 case LOADING:
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    showProgressDialog(false);
-                    //todo 2020-12-08 기준으로 응답데이터가 추가되었기 떄문에 반영 필요
-                    if(!TextUtils.isEmpty(result.data.getRgstPsblYn())&&result.data.getRgstPsblYn().equalsIgnoreCase("Y")){
-                        startActivitySingleTop(new Intent(this, LeasingCarRegisterInputActivity.class).putExtra(KEY_NAME_VIN, ui.etVin.getText().toString().trim()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    if (result.data != null && StringUtil.isValidString(result.data.getRgstPsblYn()).equalsIgnoreCase("Y")) {
+                        startActivitySingleTop(new Intent(this, LeasingCarRegisterInputActivity.class)
+                                        .putExtra(KEY_NAME_VIN, ui.etVin.getText().toString().trim())
+                                        .putExtra(KEY_NAME_CSMR_SCN_CD, csmrScnCd)
+                                        .putExtra(KEY_NAME_GNS_1001_RESPONSE, result.data)
+                                .addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT)
+                                , 0
+                                , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        showProgressDialog(false);
                         finish();
                         break;
-                    }else if(!TextUtils.isEmpty(result.data.getRgstPsblYn())&&result.data.getRgstPsblYn().equalsIgnoreCase("N")) {
-                        SnackBarUtil.show(this, getString(R.string.gm_carlst_01_snackbar_3));
+                    } else if (StringUtil.isValidString(result.data.getRgstPsblYn()).equalsIgnoreCase("N")) {
+                        if (StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("9103")) {
+                            SnackBarUtil.show(this, getString(R.string.gm_carlst_01_snackbar_2));
+                        } else {
+                            SnackBarUtil.show(this, getString(R.string.gm_carlst_01_snackbar_3));
+                        }
+                        showProgressDialog(false);
                         break;
                     }
                 default:
                     showProgressDialog(false);
-                    String serverMsg="";
+                    String serverMsg = "";
                     try {
                         serverMsg = result.data.getRtMsg();
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    }finally{
+                    } finally {
                         SnackBarUtil.show(this, serverMsg);
                     }
                     break;
-
-
             }
-
-
         });
-
-
-
-//        pubViewModel.getRES_PUB_1002().observe(this, result -> {
-//            switch (result.status) {
-//                case LOADING:
-//                    showProgressDialog(true);
-//                    break;
-//                case SUCCESS:
-//                    showProgressDialog(false);
-//                    ui.tvPosition1.setText(R.string.bt06_4);
-//                    ui.tvPosition1.setTextAppearance(R.style.BtrPositionDisable);
-//                    ui.tvPosition2.setText(R.string.bt06_5);
-//                    ui.tvPosition2.setTextAppearance(R.style.BtrPositionDisable);
-//                    break;
-//                default:
-//                    showProgressDialog(false);
-//                    break;
-//            }
-//        });
-//        pubViewModel.getRES_PUB_1003().observe(this, result -> {
-//            switch (result.status) {
-//                case LOADING:
-//                    showProgressDialog(true);
-//                    break;
-//                case SUCCESS:
-//                    showProgressDialog(false);
-//                    break;
-//                default:
-//                    ui.tvPosition1.setText(R.string.bt06_4);
-//                    ui.tvPosition1.setTextAppearance(R.style.BtrPositionDisable);
-//                    ui.tvPosition2.setText(R.string.bt06_5);
-//                    ui.tvPosition2.setTextAppearance(R.style.BtrPositionDisable);
-//                    pubViewModel.getRES_PUB_1003().setValue(null);
-//                    showProgressDialog(false);
-//                    break;
-//            }
-//        });
     }
 
     @Override
@@ -222,4 +158,60 @@ public class LeasingCarVinRegisterActivity extends SubActivity<ActivityLeasingCa
 
     }
 
+    /**
+     * @brief 계약서 종류 선택
+     */
+    private void selectCsmrScnCd() {
+        final List<String> cdList = Arrays.asList(getResources().getStringArray(R.array.leasing_car_csmr_scn_cd));
+        showMapDialog(cdList, R.string.gm_carlst_01_26, dialogInterface -> {
+            String result = bottomListDialog.getSelectItem();
+            if (!TextUtils.isEmpty(result)) {
+                if (result.equalsIgnoreCase(cdList.get(0))) {
+                    csmrScnCd = VariableType.LEASING_CAR_CSMR_SCN_CD_14; //개인
+                } else {
+                    csmrScnCd = VariableType.LEASING_CAR_CSMR_SCN_CD_1; //법인
+                }
+
+                ui.tvTitleCsmrScnCd.setVisibility(View.VISIBLE);
+                Paris.style(ui.tvCsmrScnCd).apply(R.style.CommonSpinnerItemEnable);
+                ui.tvCsmrScnCd.setText(result);
+
+                checkValidCsmrScnCd();
+            }
+        });
+    }
+
+    private void showMapDialog(List<String> list, int title, DialogInterface.OnDismissListener dismissListener) {
+        bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
+        bottomListDialog.setOnDismissListener(dismissListener);
+        bottomListDialog.setDatas(list);
+        bottomListDialog.setTitle(getString(title));
+        bottomListDialog.show();
+    }
+
+    private boolean checkValidCsmrScnCd() {
+        if (!TextUtils.isEmpty(csmrScnCd)) {
+            ui.tvErrorCsmrScnCd.setVisibility(View.GONE);
+            return true;
+        } else {
+            ui.tvErrorCsmrScnCd.setVisibility(View.VISIBLE);
+            return false;
+        }
+    }
+
+    private boolean checkValidVin() {
+        if (TextUtils.isEmpty(ui.etVin.getText().toString().trim())) {
+            ui.lVin.requestFocus();
+            ui.lVin.setError(getString(R.string.gm_carlst_01_23));
+            return false;
+        } else if (ui.etVin.getText().toString().trim().length() != 17) {
+            ui.lVin.requestFocus();
+            ui.lVin.setError(getString(R.string.gm_carlst_01_45));
+            return false;
+        } else {
+            ui.lVin.setError(null);
+            ui.lVin.clearFocus();
+            return true;
+        }
+    }
 }

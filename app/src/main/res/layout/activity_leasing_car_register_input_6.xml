@@ -19,6 +19,26 @@
             style="@style/TextMsg"
             tools:text="@string/gm_carlst_01_46" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_privilege"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_msg">
+
+            <include
+                android:id="@+id/l_privilege"
+                layout="@layout/item_leasing_car_privilege_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_card"
@@ -230,12 +250,13 @@
 
             <TextView
                 android:id="@+id/tv_title_csmr_scn_cd"
-                style="@style/TextViewTitleCsmrScnCd" />
+                style="@style/TextViewTitleCsmrScnCd"
+                android:visibility="visible" />
 
 
             <TextView
                 android:id="@+id/tv_csmr_scn_cd"
-                style="@style/TextViewCsmrScnCd" />
+                style="@style/TextViewCsmrScnCd"/>
 
 
             <TextView
@@ -255,23 +276,21 @@
                 android:id="@+id/tv_title_vin"
                 style="@style/TextViewTitleVin" />
 
-
             <TextView
                 android:id="@+id/tv_vin"
                 style="@style/TextViewVin"
                 tools:text="15487ABD45782" />
-
-
-            <TextView
-                android:id="@+id/tv_mark_4"
-                style="@style/TextViewMart1"
-                app:layout_constraintTop_toTopOf="@+id/tv_vin_info_1" />
-
-            <TextView
-                android:id="@+id/tv_vin_info_1"
-                style="@style/TextViewVinInfo1" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            android:id="@+id/l_leasing_car_info"
+            layout="@layout/item_leasing_car_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_vin"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

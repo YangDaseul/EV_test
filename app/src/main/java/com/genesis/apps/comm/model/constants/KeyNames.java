@@ -15,6 +15,8 @@ public interface KeyNames {
     String KEY_NAME_URL="url";
     String KEY_NAME_ADMIN_CODE="annMgmtCd";
     String KEY_NAME_VIN="vin";
+    String KEY_NAME_CSMR_SCN_CD="csmrScnCd";
+    String KEY_NAME_GNS_1001_RESPONSE="GNS1001";
     String KEY_NAME_BTR="btr";
     String KEY_NAME_ZIP_ADDR="zipAddr";
     String KEY_NAME_ADDR="addressVO";
@@ -36,6 +38,7 @@ public interface KeyNames {
     String KEY_NAME_APP_IA_INFO="APPIAInfo";
     String KEY_NAME_MAP_SEARCH_TITLE_ID="titleId";
     String KEY_NAME_MAP_SEARCH_MSG_ID="msgId";
+    String KEY_NAME_MAP_SEARCH_PRIVILEGE="isPrivilege";
     String KEY_NAME_MAP_SEARCH_DIRECT_OPEN="directOpen";
     String KEY_NAME_SERVICE_REPAIR_TYPE_CODE="rparTypCd";
     String KEY_NAME_SERVICE_REPAIR_TYPE_NM="rparTypNm";

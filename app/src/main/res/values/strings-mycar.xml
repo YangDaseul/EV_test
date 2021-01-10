@@ -37,7 +37,7 @@
     <string name="gm_carlst_01_34">계약서 사진을\n올려주세요.</string>
     <string name="gm_carlst_01_35">계약서</string>
     <string name="gm_carlst_01_36">계약서 사진 첨부</string>
-    <string name="gm_carlst_01_37">파일찾기</string>
+    <string name="gm_carlst_01_37">첨부파일</string>
     <string name="gm_carlst_01_38">사용할 수 없는 사진입니다.</string>
     <string name="gm_carlst_01_39">재직증명서 사진을\n올려주세요.</string>
     <string name="gm_carlst_01_40">재직증명서</string>
@@ -68,6 +68,26 @@
     <string name="gm_carlst_01_64">잔여 횟수가 없습니다.</string>
 
     <string name="gm_carlst_01_01_1">주소 검색</string>
+    <string name="gm_carlst_01_01_2">골프백, 스마트패키지의 경우 색상 및 수령지 주소도 실운행자 승인 전까지만 수정 가능합니다.</string>
+    <string name="gm_carlst_01_01_3">프리빌리지 서비스는 실운행자 승인 전까지만 수정 가능합니다.</string>
+    <string name="gm_carlst_01_01_4">택배 배송 시작 후 배송지  변경은 어려우니, 신중한 주소 입력 부탁드립니다.</string>
+    <string name="gm_carlst_01_01_5">택배 배송 전 단계에서만 배송지 수정이 가능합니다.</string>
+    <string name="gm_carlst_01_01_6">주소가 다르거나, 택배 수령지를 자택/직장 외로 수령을 원하시는 경우 기타입력으로 택배 수령지를 입력해주세요.</string>
+    <string name="gm_carlst_01_01_7">프리빌리지 서비스 안내</string>
+    <string name="gm_carlst_01_01_8">서비스에 대한 자세한 내용은 다음 링크를 눌러주세요.</string>
+    <string name="gm_carlst_01_01_9">프리빌리지 서비스</string>
+    <string name="gm_carlst_01_01_10">프리빌리지 서비스를\n선택해 주세요.</string>
+    <string name="gm_carlst_01_01_11">멤버십 유효기간 (출고 후 3년) 내 서비스 이용이 가능합니다.</string>
+    <string name="gm_carlst_01_01_12">HONORS G 컨시어지\n(080-900-6000)를 통한 예약</string>
+    <string name="gm_carlst_01_01_13">이용 안내</string>
+    <string name="gm_carlst_01_01_14">제네시스 고객센터 (080-700-6000) 통해\n이용권 발급 요청</string>
+    <string name="gm_carlst_01_01_15">제네시스 실물카드 배송지와 동일</string>
+    <string name="gm_carlst_01_01_16">전화번호</string>
+    <string name="gm_carlst_01_01_17">서비스를 선택해 주세요.</string>
+    <string name="gm_carlst_01_01_18">신청 수정/취소</string>
+    <string name="gm_carlst_01_01_19"></string>
+    <string name="gm_carlst_01_01_20"></string>
+    <string name="gm_carlst_01_01_21"></string>
 
 
     <string name="gm_carlst_01_p01_1">알려드립니다.</string>
@@ -115,11 +135,12 @@
     <string name="gm_carlst_02_28">수정하기</string>
     <string name="gm_carlst_02_29">조회 내역이 없습니다.</string>
     <string name="gm_carlst_02_30">수령지 주소를 입력해 주세요.</string>
-    <string name="gm_carlst_02_31"></string>
-    <string name="gm_carlst_02_32"></string>
-    <string name="gm_carlst_02_33"></string>
-    <string name="gm_carlst_02_34"></string>
-    <string name="gm_carlst_02_35"></string>
+    <string name="gm_carlst_02_31">우편번호 검색</string>
+    <string name="gm_carlst_02_32">수령지 주소를\n입력해 주세요.</string>
+    <string name="gm_carlst_02_33">%s개월</string>
+    <string name="gm_carlst_02_34">렌트/리스 실운행자 등록 정보</string>
+    <string name="gm_carlst_02_35">실물 카드 수령지</string>
+    <string name="gm_carlst_02_36">프리빌리지</string>
 
 
 

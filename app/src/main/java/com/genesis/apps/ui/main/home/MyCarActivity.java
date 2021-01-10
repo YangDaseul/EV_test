@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.BTR_1001;
 import com.genesis.apps.comm.model.api.gra.GNS_1001;
 import com.genesis.apps.comm.model.api.gra.GNS_1002;
 import com.genesis.apps.comm.model.api.gra.GNS_1003;
@@ -17,7 +18,9 @@ import com.genesis.apps.comm.model.api.gra.GNS_1010;
 import com.genesis.apps.comm.model.api.gra.MYP_1005;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.CouponVO;
 import com.genesis.apps.comm.model.vo.PrivilegeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
@@ -37,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -656,7 +660,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                     goPrivilege(v.getId(), url);
                     break;
                 case R.id.tv_titlebar_text_btn:
-                    final List<String> list = Arrays.asList(getResources().getStringArray(R.array.vehicle_reg));
+                    final List<String> list = Arrays.asList(getResources().getStringArray(!isApplyRentRis() ? R.array.vehicle_reg : R.array.vehicle_list));
                     final BottomListDialog bottomListDialog2 = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
                     bottomListDialog2.setOnDismissListener(dialogInterface -> {
                         String result = bottomListDialog2.getSelectItem();
@@ -685,6 +689,16 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
     }
 
     private void openRentRis() {
+        if (!isApplyRentRis()) {
+            //등록확인메뉴로 이동
+            startActivitySingleTop(new Intent(this, LeasingCarVinRegisterActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        } else {
+            //내역으로 이동
+            startActivitySingleTop(new Intent(this, LeasingCarHistActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        }
+    }
+
+    private boolean isApplyRentRis(){
         String actoprRgstYn = "N";
         try {
             actoprRgstYn = gnsViewModel.getRES_GNS_1001().getValue().data.getActoprRgstYn();
@@ -692,11 +706,9 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
             actoprRgstYn = "N";
         } finally {
             if (TextUtils.isEmpty(actoprRgstYn) || actoprRgstYn.equalsIgnoreCase("N")) {
-                //등록확인메뉴로 이동
-                startActivitySingleTop(new Intent(this, LeasingCarVinRegisterActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                return false;
             } else {
-                //내역으로 이동
-                startActivitySingleTop(new Intent(this, LeasingCarHistActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                return true;
             }
         }
     }
@@ -730,5 +742,14 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
             vehicleVO = null;
         }
         return vehicleVO;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == ResultCodes.REQ_CODE_TS_AUTH.getCode()){
+           gnsViewModel.reqGNS1001(new GNS_1001.Request(APPIAInfo.GM_CARLST01.getId()));
+        }
     }
 }

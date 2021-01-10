@@ -31,6 +31,9 @@ public class SearchAddressActivity extends SubActivity<ActivitySearchAddressBind
 
     private PUBViewModel pubViewModel;
     private SearchAddressAdapter adapter;
+    int titleId=0;
+    int msgId=0;
+    private boolean isPrivilege=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class SearchAddressActivity extends SubActivity<ActivitySearchAddressBind
     }
 
     private void initView() {
+        setViewMsg();
         adapter = new SearchAddressAdapter(onSingleClickListener);
         ui.setActivity(this);
         ui.lSearchParent.rv.setLayoutManager(new LinearLayoutManager(this));
@@ -64,6 +68,15 @@ public class SearchAddressActivity extends SubActivity<ActivitySearchAddressBind
         ui.lSearchParent.tvEmpty.setVisibility(View.VISIBLE);
     }
 
+    private void setViewMsg(){
+        ui.lTitle.setValue(titleId != 0 ? getString(titleId) : getString(R.string.gm_carlst_01_01_1));
+        if (msgId != 0) {
+            ui.tvMsg.setVisibility(View.VISIBLE);
+            ui.tvMsg.setText(getString(msgId));
+        }
+    }
+
+
     @Override
     public void onClickCommon(View v) {
 
@@ -71,12 +84,9 @@ public class SearchAddressActivity extends SubActivity<ActivitySearchAddressBind
 
             case R.id.l_whole:
                 AddressZipVO addressZipVO = (AddressZipVO)v.getTag(R.id.addr);
-                setResult(ResultCodes.REQ_CODE_ADDR_ZIP.getCode(), new Intent().putExtra(KeyNames.KEY_NAME_ZIP_ADDR, addressZipVO));
+                setResult(!isPrivilege ? ResultCodes.REQ_CODE_ADDR_ZIP.getCode() : ResultCodes.REQ_CODE_ADDR_ZIP_PRIVILEGE.getCode(), new Intent().putExtra(KeyNames.KEY_NAME_ZIP_ADDR, addressZipVO));
                 finish();
                 break;
-
-
-
         }
 
     }
@@ -128,7 +138,13 @@ public class SearchAddressActivity extends SubActivity<ActivitySearchAddressBind
 
     @Override
     public void getDataFromIntent() {
+        try {
+            titleId = getIntent().getIntExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, 0);
+            msgId = getIntent().getIntExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, 0);
+            isPrivilege = getIntent().getBooleanExtra(KeyNames.KEY_NAME_MAP_SEARCH_PRIVILEGE, false);
+        }catch (Exception ignore){
 
+        }
     }
 
     private void setListView(List<AddressZipVO> list) {

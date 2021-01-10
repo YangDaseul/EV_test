@@ -132,8 +132,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_vrn"
                 style="@style/CommonTextInputEditText"
-                android:hint="@string/r_flaw05_9"
-                android:inputType="number" />
+                android:hint="@string/r_flaw05_9"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 

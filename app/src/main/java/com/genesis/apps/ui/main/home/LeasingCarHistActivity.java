@@ -16,6 +16,7 @@ import com.genesis.apps.comm.model.vo.RentStatusVO;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.GNSViewModel;
 import com.genesis.apps.databinding.ActivityLeasingCarHistBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -148,6 +149,9 @@ public class LeasingCarHistActivity extends SubActivity<ActivityLeasingCarHistBi
                 default:
                     ui.tvEmpty.setVisibility(View.VISIBLE);
                     showProgressDialog(false);
+                    if(result.data!=null&& StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("9101")){
+                        return; //신청정보가 없습니다.
+                    }
                     String serverMsg="";
                     try {
                         serverMsg = result.data.getRtMsg();
