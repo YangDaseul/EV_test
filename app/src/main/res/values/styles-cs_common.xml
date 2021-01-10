@@ -60,7 +60,7 @@
 
     <style name="CommonSpinnerItemReject" parent="CommonSpinnerItem">
         <item name="android:textColor">@color/x_525252</item>
-        <item name="android:background">@drawable/bg_f5f6f8_stroke_dadde3</item>
+        <item name="android:background">@drawable/bg_f5f6f8_stroke_e5e5e5</item>
     </style>
 
 
@@ -163,6 +163,9 @@
         <item name="hintTextColor">@color/x_000000</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="hintTextAppearance">@style/CommonTextInputEditTextHint</item>
+        <item name="placeholderTextAppearance">@style/CommonTextInputEditTextHint</item>
+        <item name="errorTextAppearance">@style/CommonTextInputEditTextError</item>
     </style>
 
     <style name="CommonTextInputEditText">
@@ -178,10 +181,16 @@
         <item name="android:textCursorDrawable">@drawable/cursor_141414</item>
         <item name="android:textSize">15dp</item>
     </style>
-
-
-    
-    
+    <style name="CommonTextInputEditTextHint">
+        <item name="android:textSize">13dp</item>
+        <item name="android:textColor">@color/x_262626</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+    </style>
+    <style name="CommonTextInputEditTextError">
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">@color/x_ce2d2d</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+    </style>
     
     
     
@@ -202,7 +211,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:layout_marginTop">6dp</item>
-        <item name="android:background">@drawable/bg_f5f6f8_stroke_dadde3</item>
+        <item name="android:background">@drawable/bg_f5f6f8_stroke_e5e5e5</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">6dp</item>

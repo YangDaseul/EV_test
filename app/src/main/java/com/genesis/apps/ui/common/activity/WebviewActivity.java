@@ -165,7 +165,7 @@ public class WebviewActivity extends SubActivity<ActivityWebviewBinding> {
 
     public boolean clearWindowOpens() {
         Log.d(TAG, "clearWindowOpens:" + url);
-        if(!fragment.openWindows.isEmpty()) {
+        if(fragment!=null&&fragment.openWindows!=null&&!fragment.openWindows.isEmpty()) {
             try {
                 for (WebView webView : fragment.openWindows) {
                     webView.clearHistory();

@@ -230,6 +230,9 @@
         <item name="errorTextColor">@color/x_ba544d</item>
         <item name="hintEnabled">true</item>
         <item name="hintTextColor">@color/x_000000</item>
+        <item name="hintTextAppearance">@style/CommonTextInputEditTextHint</item>
+        <item name="placeholderTextAppearance">@style/CommonTextInputEditTextHint</item>
+        <item name="errorTextAppearance">@style/CommonTextInputEditTextError</item>
     </style>
 
     <!-- 과거수리내역 입력창 -->

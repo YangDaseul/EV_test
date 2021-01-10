@@ -306,6 +306,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     startActivitySingleTop(new Intent(this, MyGMembershipActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.l_mobility_care: //혜택 쿠폰
+                    startActivitySingleTop(new Intent(this, MyGCouponActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.btn_benefit:
                 case R.id.btn_status:

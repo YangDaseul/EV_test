@@ -1706,6 +1706,7 @@ public class TestCode {
             "  \"subspDtm\": \"20201024110000\",\n" +
             "  \"aprvStusCd\": \"W\",\n" +
             "  \"aprvDtm\": \"20201024110000\",\n" +
+            "  \"mdlNm\": \"G80\",\n" +
             "  \"rtnRsnMsg\": \"거절\"\n" +
             "}",GNS_1012.Response.class);
 
@@ -1728,6 +1729,13 @@ public class TestCode {
             "  \"subspDtm\": \"20201024110000\",\n" +
             "  \"aprvStusCd\": \"N\",\n" +
             "  \"aprvDtm\": \"20201024110000\",\n" +
+            "  \"mdlNm\": \"G80\",\n" +
+            "  \"godsId\": \"abc\",\n" +
+            "  \"godsNm\": \"이름명칭\",\n" +
+            "  \"godsRcvZip\": \"(12345)\",\n" +
+            "  \"godsRcvAdr\": \"경기도 안산시 상록구\",\n" +
+            "  \"godsRcvDtlAdr\": \"화랑로168\",\n" +
+            "  \"godsRcvTelNo\": \"01086029612\",\n" +
             "  \"rtnRsnMsg\": \"거절\"\n" +
             "}",RentStatusVO.class);
 
@@ -1750,6 +1758,7 @@ public class TestCode {
             "  \"subspDtm\": \"20201024110000\",\n" +
             "  \"aprvStusCd\": \"W\",\n" +
             "  \"aprvDtm\": \"20201024110000\",\n" +
+            "  \"mdlNm\": \"G80\",\n" +
             "  \"rtnRsnMsg\": \"거절\"\n" +
             "}",RentStatusVO.class);
 

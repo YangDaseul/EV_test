@@ -1,5 +1,7 @@
 package com.genesis.apps.comm.viewmodel;
 
+import android.text.TextUtils;
+
 import com.genesis.apps.comm.model.api.gra.GNS_1001;
 import com.genesis.apps.comm.model.api.gra.GNS_1002;
 import com.genesis.apps.comm.model.api.gra.GNS_1003;
@@ -16,12 +18,16 @@ import com.genesis.apps.comm.model.api.gra.GNS_1013;
 import com.genesis.apps.comm.model.api.gra.GNS_1014;
 import com.genesis.apps.comm.model.api.gra.GNS_1015;
 import com.genesis.apps.comm.model.api.gra.GNS_1016;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.repo.DBUserRepo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.GNSRepo;
+import com.genesis.apps.comm.model.vo.AddressGuVO;
+import com.genesis.apps.comm.model.vo.RentStatusVO;
 import com.genesis.apps.comm.model.vo.UserVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.room.ResultCallback;
 import com.google.common.util.concurrent.FutureCallback;
@@ -30,9 +36,12 @@ import com.google.common.util.concurrent.Futures;
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 import androidx.hilt.Assisted;
 import androidx.hilt.lifecycle.ViewModelInject;
@@ -230,18 +239,19 @@ class GNSViewModel extends ViewModel {
             List<VehicleVO> list = new ArrayList<>();
             try {
                 list = dbVehicleRepository.getVehicleList();
-
                 if(list.size()>0){
                     //삭제를 하면 서버에서.. 주이용차량제외 및 할당을 다 처리 해준다는 가정하에 로직 X
 //                    VehicleVO vehicleFirst = list.get(0);
 //
 //                    if(vehicleFirst.get)
                 }
-
-
             } catch (Exception ignore) {
                 ignore.printStackTrace();
+            }finally {
+                if(list==null)
+                    list = new ArrayList<>();
             }
+
             return list;
         });
 
@@ -278,4 +288,25 @@ class GNSViewModel extends ViewModel {
             dbVehicleRepository.updateVehicle(vehicleVO);
         }
     }
+
+    public List<String> getGodsNmList(List<RentStatusVO> godsList){
+        List<String> godsNmList = new ArrayList<>();
+        try {
+            if (godsList != null && godsList.size() > 0) {
+                godsNmList = godsList.stream().sorted(Comparator.comparing(RentStatusVO::getGodsNm)).map(RentStatusVO::getGodsNm).collect(Collectors.toList());
+            }
+        }catch (Exception e){
+
+        }
+        return godsNmList;
+    }
+
+    public RentStatusVO getGodsByNm(String godsNm, List<RentStatusVO> godsList){
+        RentStatusVO rentStatusVO = null;
+        if(!TextUtils.isEmpty(godsNm)&&godsList!=null&&godsList.size()>0){
+            rentStatusVO = godsList.stream().filter(data->data.getGodsNm().equalsIgnoreCase(godsNm)).findFirst().orElse(null);
+        }
+        return rentStatusVO;
+    }
+
 }

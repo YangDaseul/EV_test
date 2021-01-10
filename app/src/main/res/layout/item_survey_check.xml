@@ -23,6 +23,7 @@
             android:paddingBottom="15dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
+            android:background="@android:color/transparent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

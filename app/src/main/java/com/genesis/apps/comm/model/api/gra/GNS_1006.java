@@ -145,6 +145,29 @@ public class GNS_1006 extends BaseData {
             this.empCertiImgYn = empCertiImgYn;
             setData(APIInfo.GRA_GNS_1006.getIfCd(), menuId);
         }
+
+        public Request(String menuId, String vin, String csmrScnCd, String rentPeriod, String asnCd, String crdRcvScnCd, String crdRcvZip, String crdRcvAdr, String crdRcvDtlAdr, String cnttImgYn, String empCertiImgYn
+        ,String ctrctNo,String godsId,String godsNm,String godsRcvZip,String godsRcvAdr,String godsRcvDtlAdr,String godsRcvTelNo){
+            this.vin = vin;
+            this.csmrScnCd = csmrScnCd;
+            this.rentPeriod = rentPeriod;
+            this.asnCd = asnCd;
+            this.crdRcvScnCd = crdRcvScnCd;
+            this.crdRcvZip = crdRcvZip;
+            this.crdRcvAdr = crdRcvAdr;
+            this.crdRcvDtlAdr = crdRcvDtlAdr;
+            this.cnttImgYn = cnttImgYn;
+            this.empCertiImgYn = empCertiImgYn;
+            this.ctrctNo = ctrctNo;
+            this.godsId = godsId;
+            this.godsNm = godsNm;
+            this.godsRcvZip = godsRcvZip;
+            this.godsRcvAdr = godsRcvAdr;
+            this.godsRcvDtlAdr = godsRcvDtlAdr;
+            this.godsRcvTelNo = godsRcvTelNo;
+            setData(APIInfo.GRA_GNS_1006.getIfCd(), menuId);
+        }
+
     }
 
     /**

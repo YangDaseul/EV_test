@@ -113,33 +113,23 @@
             <!-- 요청 사항 입력 -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_dia_bottom_now_or_reserve_request"
+                style="@style/CommonTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:hint="@string/now_or_reserve_request"
-                app:boxBackgroundColor="@color/x_ffffff"
-                app:boxBackgroundMode="outline"
-                app:boxStrokeColor="@color/x_141414"
-                app:boxStrokeWidth="1dp"
                 app:counterEnabled="true"
                 app:counterMaxLength="@{maxLength}"
-                app:counterOverflowTextColor="@color/x_ba544d"
-                app:hintTextColor="@color/x_141414">
+                app:counterOverflowTextColor="@color/x_ce2d2d"
+                android:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tiet_dia_bottom_now_or_reserve_request_input"
-                    style="@style/TextBasic"
-                    android:layout_width="match_parent"
-                    android:fontFamily="@font/regular_genesissanstextglobal"
-                    android:inputType="textMultiLine"
-                    android:padding="16dp"
-                    android:textColor="@color/x_141414"
-                    android:textCursorDrawable="@drawable/cursor_000000"
-                    android:textSize="15dp" />
+                    style="@style/CommonTextInputEditText"
+                    android:inputType="textMultiLine"/>
+                <requestFocus />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
-
-
         <!-- 다음 버튼 -->
         <TextView
             android:id="@+id/btn_ok"

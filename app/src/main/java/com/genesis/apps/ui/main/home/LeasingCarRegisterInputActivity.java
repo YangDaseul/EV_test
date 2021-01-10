@@ -2,32 +2,44 @@ package com.genesis.apps.ui.main.home;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
+import android.view.inputmethod.EditorInfo;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 
+import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.GNS_1006;
 import com.genesis.apps.comm.model.api.gra.GNS_1008;
 import com.genesis.apps.comm.model.api.gra.GNS_1009;
+import com.genesis.apps.comm.model.api.gra.GNS_1011;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressZipVO;
 import com.genesis.apps.comm.model.vo.BtrVO;
+import com.genesis.apps.comm.model.vo.RentStatusVO;
+import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.FileUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
+import com.genesis.apps.comm.util.StringRe2j;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.GNSViewModel;
 import com.genesis.apps.databinding.ActivityLeasingCarRegisterInput1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.main.ServiceNetworkActivity;
 import com.theartofdev.edmodo.cropper.CropImage;
 
@@ -36,32 +48,44 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.ChangeBounds;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
+import dagger.hilt.android.AndroidEntryPoint;
+
 
 /**
  * @author hjpark
- * @brief 렌트/리스 실 운행자 등록 (차대번호 입력)
+ * @brief 렌트/리스 실운행자 등록 (차대번호 입력)
  */
+@AndroidEntryPoint
 public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasingCarRegisterInput1Binding> {
+
+    @Inject
+    public LoginInfoDTO loginInfoDTO;
 
     private GNSViewModel gnsViewModel;
 
     private BottomListDialog bottomListDialog;
-    private final int[] layouts = {R.layout.activity_leasing_car_register_input_1, R.layout.activity_leasing_car_register_input_2, R.layout.activity_leasing_car_register_input_3, R.layout.activity_leasing_car_register_input_4, R.layout.activity_leasing_car_register_input_5, R.layout.activity_leasing_car_register_input_6};
-    private final int[] textMsgId = {R.string.gm_carlst_01_24, R.string.gm_carlst_01_29, R.string.gm_carlst_01_34, R.string.gm_carlst_01_39, R.string.gm_carlst_01_43, R.string.gm_carlst_01_46};
+    private final int[] layouts = {R.layout.activity_leasing_car_register_input_1, R.layout.activity_leasing_car_register_input_3, R.layout.activity_leasing_car_register_input_4, R.layout.activity_leasing_car_register_input_5, R.layout.activity_leasing_car_register_input_6, R.layout.activity_leasing_car_register_input_7};
+    private final int[] textMsgId = {R.string.gm_carlst_01_29, R.string.gm_carlst_01_34, R.string.gm_carlst_01_39, R.string.gm_carlst_01_43, R.string.gm_carlst_01_46, R.string.gm_carlst_01_01_10};
     private ConstraintSet[] constraintSets = new ConstraintSet[layouts.length];
     private View[] views;
     private String vin;
     private BtrVO btrVO = null;
     private AddressZipVO addressZipVO = null;
+    private AddressZipVO privilegeAddressZipVO = null;
     //고객구분코드 1 법인 / 14 개인
     private String csmrScnCd;
     private String rentPeriod;
+    private RentStatusVO selectPrivilege = null;
+    private GNS_1011.Response gns1011Response = null;
+
 
     private int targetImgId = 0;
     private Uri cntImagPath;
@@ -76,49 +100,108 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
         setViewModel();
         setObserver();
         initView();
-        selectCsmrScnCd();
     }
 
     private void initView() {
+        ui.sc.setNestedScrollingEnabled(false);
         initConstraintSets();
+        initPhoneNumber();
         ui.tvVin.setText(vin);
+        ui.tvCsmrScnCd.setText(StringUtil.isValidString(csmrScnCd).equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14) ? R.string.gm_carlst_01_62 : R.string.gm_carlst_01_61);
+        ui.etRentPeriodEtc.setOnFocusChangeListener(focusChangeListener);
+        ui.etAddrDetail.setOnFocusChangeListener(focusChangeListener);
+        ui.lPrivilege.etAddrDetail.setOnFocusChangeListener(focusChangeListener);
+        ui.lPrivilege.etTel.setOnFocusChangeListener(focusChangeListener);
 
-        ui.etRentPeriodEtc.setOnFocusChangeListener((view, hasFocus) -> {
+        ui.etRentPeriodEtc.setOnEditorActionListener(editorActionListener);
+        ui.etAddrDetail.setOnEditorActionListener(editorActionListener);
+        ui.lPrivilege.etAddrDetail.setOnEditorActionListener(editorActionListener);
+        ui.lPrivilege.etTel.setOnEditorActionListener(editorActionListener);
 
-            if (!hasFocus) {
-                SoftKeyboardUtil.hideKeyboard(LeasingCarRegisterInputActivity.this, getWindow().getDecorView().getWindowToken());
-            } else {
-                SoftKeyboardUtil.showKeyboard(getApplicationContext());
+        ui.lPrivilege.cbAddr.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                if(compoundButton.isPressed()&&b){
+                    if(addressZipVO!=null){
+                        try {
+                            privilegeAddressZipVO = ((AddressZipVO)addressZipVO.clone());
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }finally {
+                            if(privilegeAddressZipVO!=null){
+                                setPrivilegeAddressInfo();
+                            }
+                            String addrDtl = ui.etAddrDetail.getText().toString().trim();
+                            if(!TextUtils.isEmpty(addrDtl)){
+                                ui.lPrivilege.etAddrDetail.setText(addrDtl);
+                            }
+                        }
+                    }
+                }
+
             }
-
         });
+//        ui.etRentPeriodEtc.setOnFocusChangeListener((view, hasFocus) -> {
+//
+//            if (!hasFocus) {
+////                if(getPeriod()>0){
+////                    ui.etRentPeriodEtc.setText(getPeriod()+"개월");
+////                }else{
+////                    ui.etRentPeriodEtc.setText("");
+////                }
+//                SoftKeyboardUtil.hideKeyboard(LeasingCarRegisterInputActivity.this, getWindow().getDecorView().getWindowToken());
+//            } else {
+//                SoftKeyboardUtil.showKeyboard(getApplicationContext());
+////                if(StringUtil.isValidString(ui.etRentPeriodEtc.getText().toString()).contains("개월")){
+////                    ui.etRentPeriodEtc.setText(StringUtil.isValidString(ui.etRentPeriodEtc.getText().toString()).replace("개월",""));
+////                    ui.etRentPeriodEtc.setSelection(StringUtil.isValidString(ui.etRentPeriodEtc.getText().toString()).length());
+////                }
+//            }
+//
+//        });
 
-        new Handler().postDelayed(() -> SnackBarUtil.show(LeasingCarRegisterInputActivity.this, getString(R.string.gm_carlst_01_snackbar_1)), 100);
+        new Handler().postDelayed(() -> {
+            SnackBarUtil.show(LeasingCarRegisterInputActivity.this, getString(R.string.gm_carlst_01_snackbar_1));
+            selectRentPeriod();
+        }, 100);
+    }
+
+    private void initPhoneNumber() {
+        String phoneNumber = loginInfoDTO.getProfile()!=null ? loginInfoDTO.getProfile().getMobileNum() : "" ;
+
+        if(!TextUtils.isEmpty(phoneNumber)){
+            ui.lPrivilege.etTel.setText(
+                    StringUtil.parsingPhoneNumber(
+                            PhoneNumberUtils.formatNumber(
+                                    phoneNumber.replaceAll("-",""), Locale.getDefault().getCountry()
+                            )));
+        }
+    }
+
+    private void clearKeypad() {
+        View[] edits = {ui.etRentPeriodEtc, ui.etAddrDetail, ui.lPrivilege.etAddrDetail, ui.lPrivilege.etTel};
+        for (View view : edits) {
+            view.clearFocus();
+        }
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
 
     @Override
     public void onClickCommon(View v) {
 
         switch (v.getId()) {
-            case R.id.btn_next://다음
-                if (isValid()) {
-                    //todo 신청하기 진행
-                    gnsViewModel.reqGNS1006(new GNS_1006.Request(APPIAInfo.GM_CARLST_01_01.getId(),
-                            vin,
-                            csmrScnCd,
-                            (rentPeriod.equalsIgnoreCase(VariableType.LEASING_CAR_PERIOD_ETC) ? getPeriod() + "" : rentPeriod),
-                            btrVO.getAsnCd(),
-                            "3",
-                            addressZipVO.getZipNo(),
-                            addressZipVO.getRoadAddr(),
-                            ui.etAddrDetail.getText().toString().trim(),
-                            "Y",
-                            (csmrScnCd.equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14) ? "N" : "Y")));
+            case R.id.tv_privilege_service: //프리빌리지 서비스
+                selectPrivilegeService();
+                break;
+            case R.id.btn_privilege_info://프리빌리지 서비스 안내
+                //외부 브라우저로 오픈
+                if(gns1011Response!=null&&!TextUtils.isEmpty(gns1011Response.getSvcIntroUri())) {
+                    moveToExternalPage(gns1011Response.getSvcIntroUri(), VariableType.COMMON_MEANS_NO);
                 }
                 break;
-
-            case R.id.tv_csmr_scn_cd://계약서 종류 선택
-                selectCsmrScnCd();
+            case R.id.btn_next://다음
+                doNext();
                 break;
 
             case R.id.tv_rent_period://대여 기간 선택
@@ -126,6 +209,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                 break;
             case R.id.btn_cnt_img:
             case R.id.btn_emp_certi_img://계약서 이미지 첨부
+                clearKeypad();
                 targetImgId = v.getId();
                 CropImage.startPickImageActivity(this);
                 break;
@@ -134,21 +218,61 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                 selectBtrInfo();
                 break;
             case R.id.btn_post_no:
-                selectPostNo();
+                String tag;
+                try{
+                    tag = v.getTag().toString();
+                }catch (Exception e){
+                    tag="";
+                }
+                selectPostNo(StringUtil.isValidString(tag).equalsIgnoreCase("privilege"));
                 break;
         }
 
     }
 
+    private void doNext() {
+        if (isValid()) {
+
+//            File file = new File(FileUtil.getRealPathFromURI(this, empCertImagPath));
+//            gnsViewModel.reqGNS1009(new GNS_1009.Request(APPIAInfo.GM_CARLST_01_01.getId(), vin, file.getName(), file));
+
+            gnsViewModel.reqGNS1006(new GNS_1006.Request(APPIAInfo.GM_CARLST_01_01.getId(),
+                    vin,
+                    csmrScnCd,
+                    (rentPeriod.equalsIgnoreCase(VariableType.LEASING_CAR_PERIOD_ETC) ? getPeriod() + "" : rentPeriod),
+                    btrVO.getAsnCd(),
+                    "3",
+                    addressZipVO.getZipNo(),
+                    addressZipVO.getRoadAddr(),
+                    ui.etAddrDetail.getText().toString().trim(),
+                    "Y",
+                    (csmrScnCd.equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14) ? "N" : "Y"),
+                    StringUtil.isValidString(gns1011Response.getCtrctNo()),
+                    StringUtil.isValidString(selectPrivilege.getGodsId()),
+                    StringUtil.isValidString(selectPrivilege.getGodsNm()),
+                    StringUtil.isValidString(privilegeAddressZipVO.getZipNo()),
+                    StringUtil.isValidString(privilegeAddressZipVO.getRoadAddr()),
+                    ui.lPrivilege.etAddrDetail.getText().toString().trim(),
+                    ui.lPrivilege.etTel.getText().toString().trim().replaceAll("-", "")));
+        }
+    }
+
     private void selectBtrInfo() {
+        clearKeypad();
         startActivitySingleTop(new Intent(this, ServiceNetworkActivity.class).putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_RENT), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
-    private void selectPostNo() {
-        startActivitySingleTop(new Intent(this, SearchAddressActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+    private void selectPostNo(boolean isPrivilege) {
+        clearKeypad();
+        startActivitySingleTop(new Intent(this, SearchAddressActivity.class)
+                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.gm_carlst_02_31)
+                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, R.string.gm_carlst_02_32)
+                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_PRIVILEGE, isPrivilege)
+                ,RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
     private void selectRentPeriod() {
+        clearKeypad();
         final List<String> periodList = Arrays.asList(getResources().getStringArray(R.array.leasing_car_rent_period));
         showMapDialog(periodList, R.string.gm_carlst_01_57, new DialogInterface.OnDismissListener() {
             @Override
@@ -169,7 +293,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                         ui.etRentPeriodEtc.setText("");
                     }
 
-                    ui.tvRentPeriod.setTextAppearance(R.style.TextViewRentPeriodEnable);
+                    Paris.style(ui.tvRentPeriod).apply(R.style.TextViewRentPeriodEnable);
                     ui.tvRentPeriod.setText(result);
                     ui.tvTitleRentPeriod.setVisibility(View.VISIBLE);
 
@@ -179,41 +303,6 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
             }
         });
     }
-
-    /**
-     * @brief 계약서 종류 선택
-     */
-    private void selectCsmrScnCd() {
-        final List<String> cdList = Arrays.asList(getResources().getStringArray(R.array.leasing_car_csmr_scn_cd));
-        showMapDialog(cdList, R.string.gm_carlst_01_26, dialogInterface -> {
-            String result = bottomListDialog.getSelectItem();
-            if (!TextUtils.isEmpty(result)) {
-                //TODO 삭제 요청
-
-                if (result.equalsIgnoreCase(cdList.get(0))) {
-                    csmrScnCd = VariableType.LEASING_CAR_CSMR_SCN_CD_14; //개인
-                    if (views[4].getVisibility() == View.VISIBLE) {
-                        views[3].setVisibility(View.GONE);
-                        targetImgId = R.id.btn_cnt_img;
-                    }
-                } else {
-                    csmrScnCd = VariableType.LEASING_CAR_CSMR_SCN_CD_1; //법인
-                    if (views[4].getVisibility() == View.VISIBLE) {
-                        views[3].setVisibility(View.VISIBLE);
-                        targetImgId = R.id.btn_emp_certi_img;
-                    }
-                }
-
-                ui.tvTitleCsmrScnCd.setVisibility(View.VISIBLE);
-                ui.tvCsmrScnCd.setTextAppearance(R.style.TextViewCsmrScnCdEnable);
-                ui.tvCsmrScnCd.setText(result);
-
-                checkValidCsmrScnCd();
-
-            }
-        });
-    }
-
 
     private void showMapDialog(List<String> list, int title, DialogInterface.OnDismissListener dismissListener) {
         bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
@@ -226,9 +315,15 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
 
     @Override
     public void setViewModel() {
-        ui.setLifecycleOwner(this);
-        ui.setActivity(this);
-        gnsViewModel = new ViewModelProvider(this).get(GNSViewModel.class);
+        try {
+            gnsViewModel = new ViewModelProvider(this).get(GNSViewModel.class);
+            ui.setLifecycleOwner(this);
+            ui.setActivity(this);
+            ui.lPrivilege.setMdlNm(gns1011Response.getMdlNm());
+            ui.lPrivilege.setListener(onSingleClickListener);
+        }catch (Exception e){
+
+        }
     }
 
     @Override
@@ -254,12 +349,12 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                     }
                 default:
                     showProgressDialog(false);
-                    String serverMsg="";
+                    String serverMsg = "";
                     try {
                         serverMsg = result.data.getRtMsg();
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    }finally{
+                    } finally {
                         SnackBarUtil.show(this, serverMsg);
                     }
                     break;
@@ -300,17 +395,19 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
     public void getDataFromIntent() {
         try {
             vin = getIntent().getStringExtra(KeyNames.KEY_NAME_VIN);
-            if (TextUtils.isEmpty(vin)) {
-                exitPage("차대번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
-            }
+            csmrScnCd = getIntent().getStringExtra(KeyNames.KEY_NAME_CSMR_SCN_CD);
+            gns1011Response = (GNS_1011.Response) getIntent().getSerializableExtra(KeyNames.KEY_NAME_GNS_1001_RESPONSE);
         } catch (Exception e) {
             e.printStackTrace();
-            exitPage("차대번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+        } finally {
+            if (TextUtils.isEmpty(vin) || TextUtils.isEmpty(csmrScnCd) || gns1011Response == null) {
+                exitPage("차량 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+            }
         }
     }
 
     private void initConstraintSets() {
-        views = new View[]{ui.lCsmrScnCd, ui.lRentPeriod, ui.lCntImg, ui.lEmpCertiImg, ui.lBtr, ui.lCard};
+        views = new View[]{ui.lRentPeriod, ui.lCntImg, ui.lEmpCertiImg, ui.lBtr, ui.lCard, ui.clPrivilege};
         for (int i = 0; i < layouts.length; i++) {
             constraintSets[i] = new ConstraintSet();
 
@@ -329,37 +426,29 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
             constraintSets[pos].applyTo(ui.container);
             ui.tvMsg.setText(textMsgId[pos]);
 
-            if (csmrScnCd.equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14) && pos > 3) {
-                views[3].setVisibility(View.GONE);
+            if (csmrScnCd.equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14) && pos > 2) {
+                views[2].setVisibility(View.GONE);
             }
 
-            if (pos == 1) { //계약서 종류가 최초 선택이 완료된 경우
-                //계약 기간 선택 자동 활성화
-                selectRentPeriod();
+            if (pos == 1) {
+                targetImgId = R.id.btn_cnt_img;
+                CropImage.startPickImageActivity(this);
             } else if (pos == 2) {
-//                targetImgId = R.id.btn_cnt_img;
-//                CropImage.startPickImageActivity(this);
-            } else if (pos == 3) {
-//                targetImgId = R.id.btn_emp_certi_img;
-//                CropImage.startPickImageActivity(this);
+                targetImgId = R.id.btn_emp_certi_img;
+                CropImage.startPickImageActivity(this);
             } else if (pos == 4) {
-//                selectBtrInfo();
+                if(!isPrivilege()){
+                    ui.btnNext.setText(R.string.gm_carlst_04_20);
+                }
             } else if (pos == 5) {
-//                selectPostNo();
+                selectPrivilegeService();
+                ui.btnNext.setText(R.string.gm_carlst_04_20);
             }
-
         }
     }
 
-    private boolean checkValidCsmrScnCd() {
-        if (!TextUtils.isEmpty(csmrScnCd)) {
-            ui.tvErrorCsmrScnCd.setVisibility(View.GONE);
-            doTransition(1);
-            return true;
-        } else {
-            ui.tvErrorCsmrScnCd.setVisibility(View.VISIBLE);
-            return false;
-        }
+    private boolean isPrivilege() {
+        return StringUtil.isValidString(gns1011Response.getMdlNm()).equalsIgnoreCase("G80")||StringUtil.isValidString(gns1011Response.getMdlNm()).equalsIgnoreCase("G90");
     }
 
     private boolean checkValidPeriod() {
@@ -383,21 +472,25 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                 ui.lRentPeriodEtc.setError(getString(R.string.gm_carlst_01_33));
             } else {//정상적으로 입력됬을 경우
                 ui.etRentPeriodEtc.clearFocus();
-                doTransition(2);
+                doTransition(1);
                 isValid = true;
             }
         } else {
-            doTransition(2);
+            doTransition(1);
             isValid = true;
         }
 
         return isValid;
     }
 
+    private final int FILE_LENGTH_UNIT=1024;
+    private final int LIMIT_FILE_SIZE_KB=5120;
     private boolean checkValidImg() {
         String mimeType;
+        File file = null;
         try {
             mimeType = getContentResolver().getType(targetImgId == R.id.btn_cnt_img ? cntImagPath : empCertImagPath);
+            file = new File(FileUtil.getRealPathFromURI(this, targetImgId == R.id.btn_cnt_img ? cntImagPath : empCertImagPath));
         } catch (Exception e) {
             mimeType = "";
         }
@@ -406,26 +499,26 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
             //파일이 첨부되지 않은 경우
             switch (targetImgId) {
                 case R.id.btn_emp_certi_img:
-                    ui.tvEmpCertiImg.setTextAppearance(R.style.TextViewEmpCertiImgError2);
+                    Paris.style(ui.tvEmpCertiImg).apply(R.style.TextViewEmpCertiImgError2);
                     ui.tvErrorEmpCertiImg.setText(R.string.gm_carlst_01_42);
                     break;
                 case R.id.btn_cnt_img:
                 default: //아무 선택도 하지 않은 상태 0
-                    ui.tvCntImg.setTextAppearance(R.style.TextViewCntImgError2);
+                    Paris.style(ui.tvCntImg).apply(R.style.TextViewCntImgError2);
                     ui.tvErrorCntImg.setText(R.string.gm_carlst_01_55);
                     break;
             }
 
             return false;
-        } else if (!mimeType.contains("jpeg") && !mimeType.contains("pdf")) {
-
+        } else if (!mimeType.contains("jpeg") && !mimeType.contains("pdf")
+                ||(file!=null&&file.length()/FILE_LENGTH_UNIT>LIMIT_FILE_SIZE_KB)){
             switch (targetImgId) {
                 case R.id.btn_cnt_img:
-                    ui.tvCntImg.setTextAppearance(R.style.TextViewCntImgError);
+                    Paris.style(ui.tvCntImg).apply(R.style.TextViewCntImgError);
                     ui.tvErrorCntImg.setText(R.string.gm_carlst_01_38);
                     break;
                 case R.id.btn_emp_certi_img:
-                    ui.tvEmpCertiImg.setTextAppearance(R.style.TextViewEmpCertiImgError);
+                    Paris.style(ui.tvEmpCertiImg).apply(R.style.TextViewEmpCertiImgError);
                     ui.tvErrorEmpCertiImg.setText(R.string.gm_carlst_01_38);
                     break;
             }
@@ -436,15 +529,15 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                 case R.id.btn_cnt_img:
 
                     if (csmrScnCd.equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_1)) {
-                        doTransition(3);
+                        doTransition(2);
                         targetImgId = R.id.btn_emp_certi_img;
                     } else {
-                        doTransition(4);
+                        doTransition(3);
                     }
 
                     break;
                 case R.id.btn_emp_certi_img:
-                    doTransition(4);
+                    doTransition(3);
                     break;
             }
 
@@ -460,8 +553,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
             return false;
         } else {
             ui.tvErrorBtr.setText("");
-            ui.btnNext.setText(R.string.gm_carlst_04_20);
-            doTransition(5);
+            doTransition(4);
             return true;
         }
 
@@ -476,6 +568,55 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
             return false;
         } else {
             ui.lAddrDetail.setError(null);
+            if(isPrivilege())
+                doTransition(5);
+            return true;
+        }
+    }
+
+    private boolean checkValidPrivilege(boolean isFirst) {
+        if(selectPrivilege == null){
+            ui.lPrivilege.tvErrorPrivilegeService.setVisibility(View.VISIBLE);
+            return false;
+        }else {
+            ui.lPrivilege.tvErrorPrivilegeService.setVisibility(View.INVISIBLE);
+            //프리빌리지 서비스가 선택된 상태
+            if(StringUtil.isValidString(selectPrivilege.getAdrYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)){
+                //주소 입력창이 활성화되는 아이템 일 경우
+                if (privilegeAddressZipVO == null) {
+                    if(!isFirst) ui.lPrivilege.lAddrDetail.setError(getString(R.string.gm_carlst_01_59));
+                    return false;
+                } else if (TextUtils.isEmpty(ui.lPrivilege.etAddrDetail.getText().toString().trim())) {
+                    ui.lPrivilege.lAddrDetail.setError(getString(R.string.gm_carlst_01_60));
+                    return false;
+                } else {
+                    ui.lPrivilege.lAddrDetail.setError(null);
+                    ui.lPrivilege.etAddrDetail.clearFocus();
+                    return checkValidPhoneNumber();
+                }
+            }else{
+                //주소 입력창이 활성화 필요없는 아이템일 경우
+                return true;
+            }
+        }
+    }
+
+    private boolean checkValidPhoneNumber() {
+        String celPhoneNo = ui.lPrivilege.etTel.getText().toString().replaceAll("-", "").trim();
+
+        if (TextUtils.isEmpty(celPhoneNo)) {
+            ui.lPrivilege.etTel.requestFocus();
+            ui.lPrivilege.lTel.setError(getString(R.string.sm_emgc01_5));
+            return false;
+        } else if (!StringRe2j.matches(celPhoneNo, getString(R.string.check_phone_number))) {
+            ui.lPrivilege.etTel.requestFocus();
+            ui.lPrivilege.lTel.setError(getString(R.string.sm_emgc01_26));
+            return false;
+        } else {
+            ui.lPrivilege.etTel.setText(PhoneNumberUtils.formatNumber(celPhoneNo, Locale.getDefault().getCountry()));
+            ui.lPrivilege.etTel.setSelection(ui.lPrivilege.etTel.length());
+            ui.lPrivilege.etTel.clearFocus();
+            ui.lPrivilege.lTel.setError(null);
             return true;
         }
     }
@@ -493,28 +634,33 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
         for (View view : views) {
             if (view.getVisibility() == View.GONE) {
                 switch (view.getId()) {
-                    //현재 페이지가 계약서 종류 입력하는 상태 인 경우
-                    case R.id.l_rent_period:
-                        return checkValidCsmrScnCd() & false;
                     //현재 페이지가 렌트 기간 입력하는 상태 인 경우
                     case R.id.l_cnt_img:
-                        return checkValidCsmrScnCd() && checkValidPeriod() & false;
+                        return checkValidPeriod() & false;
                     //계약서 사진 입력하는 상태 인 경우
                     case R.id.l_emp_certi_img:
                         if (csmrScnCd.equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14))
                             break; //개인 인 경우는 체크하지 않는다.
                         else
-                            return checkValidCsmrScnCd() && checkValidPeriod() && checkValidImg() & false;
+                            return checkValidPeriod() && checkValidImg() & false;
                         //재직증명서 입력하는 상태 인경우
                     case R.id.l_btr:
-                        return checkValidCsmrScnCd() && checkValidPeriod() && checkValidImg() & false;
+                        return checkValidPeriod() && checkValidImg() & false;
 
                     case R.id.l_card:
-                        return checkValidCsmrScnCd() && checkValidPeriod() && checkValidImg() && checkValidBtr() & false;
+                        return checkValidPeriod() && checkValidImg() && checkValidBtr() & false;
+
+                    case R.id.cl_privilege:
+                        if(isPrivilege()){
+                            return checkValidPeriod() && checkValidImg() && checkValidBtr() & checkValidAddr() & false;
+                        }else{
+                            return checkValidPeriod() && checkValidImg() && checkValidBtr() & checkValidAddr();
+                        }
+
                 }
             }
         }
-        return checkValidCsmrScnCd() && checkValidPeriod() && checkValidImg() && checkValidBtr() & checkValidAddr();
+        return checkValidPeriod() && checkValidImg() && checkValidBtr() & checkValidAddr() & checkValidPrivilege(false);
     }
 
     private int getPeriod() {
@@ -543,6 +689,10 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
         } else if (resultCode == ResultCodes.REQ_CODE_ADDR_ZIP.getCode()) {
             addressZipVO = (AddressZipVO) data.getSerializableExtra(KeyNames.KEY_NAME_ZIP_ADDR);
             setAddressInfo();
+        } else if (resultCode == ResultCodes.REQ_CODE_ADDR_ZIP_PRIVILEGE.getCode()) {
+            privilegeAddressZipVO = (AddressZipVO) data.getSerializableExtra(KeyNames.KEY_NAME_ZIP_ADDR);
+            ui.lPrivilege.cbAddr.setChecked(false);
+            setPrivilegeAddressInfo();
         }
     }
 
@@ -551,14 +701,13 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
         switch (targetImgId) {
             case R.id.btn_cnt_img:
                 cntImagPath = resultUri;
-                ui.tvCntImg.setTextAppearance(R.style.TextViewCntImgEnable);
-
+                Paris.style(ui.tvCntImg).apply(R.style.TextViewCntImgEnable);
                 ui.tvCntImg.setText(new File(FileUtil.getRealPathFromURI(this, cntImagPath)).getName());
                 ui.tvErrorCntImg.setText("");
                 break;
             case R.id.btn_emp_certi_img:
                 empCertImagPath = resultUri;
-                ui.tvEmpCertiImg.setTextAppearance(R.style.TextViewEmpCertiImgEnable);
+                Paris.style(ui.tvEmpCertiImg).apply(R.style.TextViewEmpCertiImgEnable);
                 ui.tvEmpCertiImg.setText(new File(FileUtil.getRealPathFromURI(this, empCertImagPath)).getName());
                 ui.tvErrorEmpCertiImg.setText("");
                 break;
@@ -588,17 +737,89 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
     private void setAddressInfo() {
 
         if (addressZipVO == null) {
-            ui.tvPostNo.setTextAppearance(R.style.TextViewPostNo);
-            ui.tvAddr.setTextAppearance(R.style.TextViewAddr);
+            Paris.style(ui.tvPostNo).apply(R.style.TextViewPostNo);
+            Paris.style(ui.tvAddr).apply(R.style.TextViewAddr);
         } else {
-            ui.tvPostNo.setTextAppearance(R.style.TextViewPostNoEnable);
-            ui.tvAddr.setTextAppearance(R.style.TextViewAddrEnable);
+            Paris.style(ui.tvPostNo).apply(R.style.TextViewPostNoEnable);
+            Paris.style(ui.tvAddr).apply(R.style.TextViewAddrEnable);
             ui.tvPostNo.setText(addressZipVO.getZipNo());
             ui.tvAddr.setText(addressZipVO.getRoadAddr());
         }
 
-        checkValidAddr();
+        if (TextUtils.isEmpty(ui.etAddrDetail.getText().toString().trim())) {
+            ui.etAddrDetail.requestFocus();
+        }
     }
 
+    private void setPrivilegeAddressInfo() {
+        if (privilegeAddressZipVO == null) {
+            Paris.style(ui.lPrivilege.tvAddr).apply(R.style.TextViewAddr);
+            Paris.style(ui.lPrivilege.tvPostNo).apply(R.style.TextViewPostNo);
+        } else {
+            Paris.style(ui.lPrivilege.tvAddr).apply(R.style.TextViewAddrEnable);
+            Paris.style(ui.lPrivilege.tvPostNo).apply(R.style.TextViewPostNoEnable);
+            ui.lPrivilege.tvPostNo.setText(privilegeAddressZipVO.getZipNo());
+            ui.lPrivilege.tvAddr.setText(privilegeAddressZipVO.getRoadAddr());
+        }
+        if (TextUtils.isEmpty(ui.lPrivilege.etAddrDetail.getText().toString().trim())) {
+            ui.lPrivilege.etAddrDetail.requestFocus();
+        }
+    }
+
+    private void selectPrivilegeService() {
+        clearKeypad();
+        final List<String> periodList = gnsViewModel.getGodsNmList(gns1011Response.getGodsList());
+        showMapDialog(periodList, R.string.gm_carlst_01_01_17, new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                String result = bottomListDialog.getSelectItem();
+                if (!TextUtils.isEmpty(result)) {
+                    selectPrivilege = gnsViewModel.getGodsByNm(result,gns1011Response.getGodsList());
+                    if(selectPrivilege!=null) {
+                        ui.lPrivilege.setData(selectPrivilege);
+                        Paris.style(ui.lPrivilege.tvPrivilegeService).apply(R.style.CommonSpinnerItemEnable);
+                        ui.lPrivilege.tvPrivilegeService.setText(result);
+                        ui.lPrivilege.tvTitlePrivilegeService.setVisibility(View.VISIBLE);
+                    }
+                    checkValidPrivilege(true);
+                }
+            }
+        });
+    }
+
+
+    EditText.OnFocusChangeListener focusChangeListener = (view, hasFocus) -> {
+        if (!hasFocus) {
+            SoftKeyboardUtil.hideKeyboard(LeasingCarRegisterInputActivity.this, getWindow().getDecorView().getWindowToken());
+        } else {
+            SoftKeyboardUtil.showKeyboard(getApplicationContext());
+        }
+    };
+
+    EditText.OnEditorActionListener editorActionListener = (textView, actionId, keyEvent) -> {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            doNext();
+        }
+        return false;
+    };
+
+    @Override
+    public void onBackPressed() {
+        dialogExit();
+    }
+
+    @Override
+    public void onBackButton() {
+        dialogExit();
+    }
+
+    private void dialogExit() {
+        MiddleDialog.dialogLeasingCarCancel(this, () -> {
+            finish();
+            closeTransition();
+        }, () -> {
+
+        });
+    }
 
 }

@@ -13,8 +13,6 @@ import com.genesis.apps.comm.model.api.gra.LGN_0007;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.vo.TopicVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.net.ga.GA;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -25,15 +23,10 @@ import com.genesis.apps.ui.common.activity.LoginActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
 import com.genesis.apps.ui.main.ServiceJoinActivity;
-import com.google.firebase.messaging.FirebaseMessaging;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -161,7 +154,7 @@ public class MyGEntranceActivity extends SubActivity<ActivityMygEntranceBinding>
                                 ga.clearLoginInfo();
                                 SnackBarUtil.show(MyGEntranceActivity.this, "데이터가 저장되지 않았습니다.\n잠시 후 다시 시도해 주세요.\nErrCode:2");
                             }
-                        });
+                        }, true);
 
                         break;
                     }

@@ -9,7 +9,7 @@
     <string name="gm_carlst_p01_8">차량 번호를 올바르게 입력해 주세요.\nex)11가1111 또는 111가1111</string>
     <string name="gm_carlst_p01_9">지역을 선택해 주세요.\n(시/도)</string>
     <string name="gm_carlst_p01_10">지역을 선택해 주세요.\n(시/군/구)</string>
-    <string name="gm_carlst_p01_11"></string>
+    <string name="gm_carlst_p01_11">차량 등록</string>
     <string name="gm_carlst_p01_12"></string>
     <string name="gm_carlst_p01_13"></string>
     <string name="gm_carlst_p01_14"></string>

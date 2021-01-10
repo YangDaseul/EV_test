@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,6 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.developers.Distance;
 import com.genesis.apps.comm.model.api.developers.Dte;
 import com.genesis.apps.comm.model.api.developers.Odometer;
-import com.genesis.apps.comm.model.api.developers.ParkLocation;
 import com.genesis.apps.comm.model.api.gra.IST_1001;
 import com.genesis.apps.comm.model.api.gra.LGN_0003;
 import com.genesis.apps.comm.model.api.gra.LGN_0005;
@@ -122,10 +122,12 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     if (result.data != null){
                         if(!TextUtils.isEmpty(result.data.getVirtRecptNo())){
                             me.tvRepairStatus.setVisibility(View.VISIBLE);
-                            me.tvRepairStatus.setText(result.data.getAsnStatsNm());
+                            me.tvRepairStatus.setText(R.string.gm01_repair_status_1);
+                            me.tvRepairStatus.setTextColor(getContext().getColor(R.color.x_ce2d2d));
                         }else if(!TextUtils.isEmpty(result.data.getAsnStatsNm())){
                             me.tvRepairStatus.setVisibility(View.VISIBLE);
                             me.tvRepairStatus.setText(result.data.getAsnStatsNm());
+                            me.tvRepairStatus.setTextColor(getContext().getColor(R.color.x_ad7b61));
                         }else{
                             me.tvRepairStatus.setVisibility(View.INVISIBLE);
                         }
@@ -228,20 +230,20 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             }
         });
 
-        developersViewModel.getRES_PARKLOCATION().observe(getViewLifecycleOwner(), result -> {
-            switch (result.status) {
-                case LOADING:
-                    break;
-                case SUCCESS:
-                    if (result.data != null && result.data.getLat() != 0 && result.data.getLon() != 0) {
-                        me.btnLocation.setVisibility(View.VISIBLE);
-                        break;
-                    }
-                default:
-                    me.btnLocation.setVisibility(View.GONE);
-                    break;
-            }
-        });
+//        developersViewModel.getRES_PARKLOCATION().observe(getViewLifecycleOwner(), result -> {
+//            switch (result.status) {
+//                case LOADING:
+//                    break;
+//                case SUCCESS:
+//                    if (result.data != null && result.data.getLat() != 0 && result.data.getLon() != 0) {
+//                        me.btnLocation.setVisibility(View.VISIBLE);
+//                        break;
+//                    }
+//                default:
+//                    me.btnLocation.setVisibility(View.GONE);
+//                    break;
+//            }
+//        });
 
         istViewModel.getRES_IST_1001().observe(getViewLifecycleOwner(), result -> {
 
@@ -286,19 +288,41 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         recordUtil = new RecordUtil(this, visibility -> {
             ((MainActivity) getActivity()).ui.lGnb.lWhole.setVisibility(visibility);
             ((MainActivity) getActivity()).ui.tabs.setVisibility(visibility);
-            me.vpInsight.setVisibility(visibility);
-            me.tvCarCode.setVisibility(visibility);
-            me.tvCarModel.setVisibility(visibility);
-//            me.tvRepairStatus.setVisibility(visibility);
-            me.tvCarVrn.setVisibility(visibility);
-//            me.btnCarinfo.setVisibility(visibility);
-//            me.btnLocation.setVisibility(visibility);
-//            me.btnShare.setVisibility(visibility);
-
             me.flDim.setVisibility(visibility);
             me.lQuickMenu.setVisibility(visibility);
+            me.lCarInfo.setVisibility(visibility);
+            me.vpInsight.setVisibility(visibility);
+            if(visibility==View.GONE){
+                me.tvCarCode.setVisibility(visibility);
+                me.tvCarModel.setVisibility(visibility);
+                me.tvRepairStatus.setVisibility(visibility);
+                me.tvCarVrn.setVisibility(visibility);
+                me.ivTeduri.setVisibility(View.INVISIBLE);
+                me.lFloating.setVisibility(visibility);
+                me.lDistance.setVisibility(visibility);
+                me.btnQuick.setVisibility(visibility);
+            }else{
+                me.ivTeduri.setVisibility(View.VISIBLE);
+                setViewVehicle();
+                ((MainActivity) getActivity()).setGNB(false, 1, View.VISIBLE);
+                goneQuickMenu();
+            }
+
+
             //TODO 배경 및 차량 리소스가 결정되면 녹화해야할 VIEW가 요건 정의 된 후 여기에서 해당 뷰 셋팅 정의 필요
         });
+    }
+
+    private void setIndicator(String custGbCd) {
+        String isFirstLogin = lgnViewModel.selectGlobalDataFromDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_ISFIRSTLOGIN);
+        if (StringUtil.isValidString(custGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)//소유차량이고
+                && StringUtil.isValidString(isFirstLogin).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)//최초로그인이면
+        ){
+            me.ivIndicator.setVisibility(View.VISIBLE);
+            lgnViewModel.updateGlobalDataToDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_ISFIRSTLOGIN, VariableType.COMMON_MEANS_NO);
+        }else{
+            me.ivIndicator.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void setViewWeather() {
@@ -362,32 +386,32 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             case R.id.btn_quick:
                 toggleQuickMenu();
                 break;
-            case R.id.btn_location:
-                if (!((MainActivity) getActivity()).isGpsEnable()) {
-                    MiddleDialog.dialogGPS(getActivity(), () -> ((MainActivity) getActivity()).turnGPSOn(isGPSEnable -> {
-                    }), () -> {
-                        //TODO 확인 클릭
-                    });
-                } else {
-                    try {
-                        if (developersViewModel.getRES_PARKLOCATION().getValue() != null
-                                && developersViewModel.getRES_PARKLOCATION().getValue().data != null
-                                && developersViewModel.getRES_PARKLOCATION().getValue().data.getLat() != 0
-                                && developersViewModel.getRES_PARKLOCATION().getValue().data.getLon() != 0) {
-                            List<Double> position = new ArrayList<>();
-                            position.add(developersViewModel.getRES_PARKLOCATION().getValue().data.getLat());
-                            position.add(developersViewModel.getRES_PARKLOCATION().getValue().data.getLon());
-                            ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MyLocationActivity.class).putExtra(KeyNames.KEY_NAME_VEHICLE_LOCATION, new Gson().toJson(position)), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                            return;
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        //todo 20201204 메시지 정의 필요
-                        SnackBarUtil.show(getActivity(), "주차 위치 정보가 존재하지 않습니다.");
-                    }
-                }
-                break;
+//            case R.id.btn_location:
+//                if (!((MainActivity) getActivity()).isGpsEnable()) {
+//                    MiddleDialog.dialogGPS(getActivity(), () -> ((MainActivity) getActivity()).turnGPSOn(isGPSEnable -> {
+//                    }), () -> {
+//                        //TODO 확인 클릭
+//                    });
+//                } else {
+//                    try {
+//                        if (developersViewModel.getRES_PARKLOCATION().getValue() != null
+//                                && developersViewModel.getRES_PARKLOCATION().getValue().data != null
+//                                && developersViewModel.getRES_PARKLOCATION().getValue().data.getLat() != 0
+//                                && developersViewModel.getRES_PARKLOCATION().getValue().data.getLon() != 0) {
+//                            List<Double> position = new ArrayList<>();
+//                            position.add(developersViewModel.getRES_PARKLOCATION().getValue().data.getLat());
+//                            position.add(developersViewModel.getRES_PARKLOCATION().getValue().data.getLon());
+//                            ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MyLocationActivity.class).putExtra(KeyNames.KEY_NAME_VEHICLE_LOCATION, new Gson().toJson(position)), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                            return;
+//                        }
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    } finally {
+//                        //todo 20201204 메시지 정의 필요
+//                        SnackBarUtil.show(getActivity(), "주차 위치 정보가 존재하지 않습니다.");
+//                    }
+//                }
+//                break;
 
             case R.id.fl_dim:
                 goneQuickMenu();
@@ -421,7 +445,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         resumeAndPauseLottie(true);
         videoPauseAndResume(true);
         setViewVehicle();
-//        recordUtil.regReceiver();
         ((MainActivity) getActivity()).setGNB(false, 1, View.VISIBLE);
 
         startTimer();
@@ -475,29 +498,28 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         .into(me.ivCar);
 
 //                me.ivMore.setVisibility(View.GONE);
-                me.tvRepairStatus.setVisibility(View.INVISIBLE);
                 me.lDistance.setVisibility(View.GONE);
                 me.lFloating.setVisibility(View.GONE);
-
+                setIndicator(vehicleVO.getCustGbCd());
                 switch (vehicleVO.getCustGbCd()) {
                     case VariableType.MAIN_VEHICLE_TYPE_OV:
 //                        me.ivMore.setVisibility(View.VISIBLE);
                         me.lDistance.setVisibility(View.VISIBLE);
                         lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
                         reqCarInfoToDevelopers(vehicleVO.getVin());
-                        makeQuickMenu(vehicleVO.getCustGbCd());
+                        makeQuickMenu(vehicleVO.getCustGbCd(),vehicleVO);
                         break;
                     case VariableType.MAIN_VEHICLE_TYPE_CV:
                         makeDownMenu(vehicleVO.getCustGbCd());
-                        makeQuickMenu(vehicleVO.getCustGbCd());
+                        makeQuickMenu(vehicleVO.getCustGbCd(),vehicleVO);
                         break;
                     case VariableType.MAIN_VEHICLE_TYPE_NV:
                         makeDownMenu(vehicleVO.getCustGbCd());
-                        makeQuickMenu(vehicleVO.getCustGbCd());
+                        makeQuickMenu(vehicleVO.getCustGbCd(),vehicleVO);
                         break;
                     default:
                         makeDownMenu(vehicleVO.getCustGbCd());
-                        makeQuickMenu(vehicleVO.getCustGbCd());
+                        makeQuickMenu(vehicleVO.getCustGbCd(),vehicleVO);
                         break;
                 }
             }
@@ -512,7 +534,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             developersViewModel.reqDte(new Dte.Request(carId));
             developersViewModel.reqOdometer(new Odometer.Request(carId));
             developersViewModel.reqDistance(new Distance.Request(carId, developersViewModel.getDateYyyyMMdd(-7), developersViewModel.getDateYyyyMMdd(0)));
-            developersViewModel.reqParkLocation(new ParkLocation.Request(carId));
+//            developersViewModel.reqParkLocation(new ParkLocation.Request(carId));
         }
     }
 
@@ -524,7 +546,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         resumeAndPauseLottie(false);
     }
 
-    private void makeQuickMenu(String custGbCd) {
+    private void makeQuickMenu(String custGbCd, VehicleVO vehicleVO) {
         final TextView[] quickBtn = {me.btnQuick1, me.btnQuick2, me.btnQuick3, me.btnQuick4, me.btnQuick5, me.btnQuick6};
         List<QuickMenuVO> list = cmnViewModel.getQuickMenuList(custGbCd);
         quickBtn[0].setVisibility(View.GONE);
@@ -534,10 +556,45 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         quickBtn[4].setVisibility(View.GONE);
         quickBtn[5].setVisibility(View.GONE);
 
+        list.add(0, new QuickMenuVO("GM_CARLST01", "I", "My 차고", "1","genesisapp://menu?id=GM_CARLST01","NV"));
+        list.add(1, new QuickMenuVO("GM01_01", "I", "내차 위치 찾기", "2","genesisapp://menu?id=GM01_01","OV"));
+        list.add(2, new QuickMenuVO("GM01_03", "I", "SNS 공유하기", "3","genesisapp://menu?id=GM01_03","OV"));
+
         int menuSize = list.size() > quickBtn.length ? quickBtn.length : list.size();
 
+        String userCustGbCd="";
+        try {
+            userCustGbCd = lgnViewModel.getDbUserRepo().getUserVO().getCustGbCd();
+        }catch (Exception e){
+
+        }
+
         for (int i = 0; i < menuSize; i++) {
-            quickBtn[i].setVisibility(View.VISIBLE);
+
+            APPIAInfo appiaInfo = APPIAInfo.findCode(StringUtil.isValidString(list.get(i).getMenuId()));
+
+            switch (appiaInfo){
+                case GM_CARLST01: //MY 차고
+                case GM01_03: //SNS 공유하기
+                    if(StringUtil.isValidString(userCustGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)){
+                        quickBtn[i].setVisibility(View.VISIBLE);
+                    }else{//차량 미보유 일 경우 미노출
+                        quickBtn[i].setVisibility(View.GONE);
+                    }
+                    break;
+                case GM01_01: //주차위치확인
+                    String carId = developersViewModel.getCarId(vehicleVO.getVin());
+                    if (!TextUtils.isEmpty(carId)) {//GCS 미가입 차 일 경우 미노출
+                        quickBtn[i].setVisibility(View.VISIBLE);
+                    }else{
+                        quickBtn[i].setVisibility(View.GONE);
+                    }
+                    break;
+                default:
+                    quickBtn[i].setVisibility(View.VISIBLE);
+                    break;
+            }
+
             quickBtn[i].setText(list.get(i).getMenuNm());
             quickBtn[i].setTag(R.id.menu_id, list.get(i));
             quickBtn[i].setOnClickListener(new OnSingleClickListener() {
@@ -633,7 +690,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             case GM02_INV01://유사 재고 조회
                 ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM02_INV01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
-            case GM_CARLST_01://렌트/리스 실 운행자 등록
+            case GM_CARLST_01://렌트/리스 실운행자 등록
                 ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM_CARLST_01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case GM_CARLST_03://중고차 등록
@@ -672,7 +729,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
             me.lFloating.setBackgroundColor(menuSize == 1 ? getContext().getColor(R.color.x_ffffff) : 0);
             me.btnFloating1.setTextColor(menuSize == 1 ? getContext().getColor(R.color.x_000000) : getContext().getColor(R.color.x_ffffff));
-            me.btnFloating1.setTextSize(menuSize == 1 ? 16 : 12);
+
+            me.btnFloating1.setTextSize(TypedValue.COMPLEX_UNIT_DIP, (menuSize == 1 ? 16 : 12));
             me.btnFloating1.setTypeface(menuSize == 1 ? ResourcesCompat.getFont(getActivity(), R.font.regular_genesissanstextglobal) : ResourcesCompat.getFont(getActivity(), R.font.light_genesissansheadglobal));
 
             for (int i = 0; i < menuSize; i++) {

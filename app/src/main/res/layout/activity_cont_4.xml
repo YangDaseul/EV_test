@@ -20,7 +20,10 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed">
+            app:layout_constraintVertical_chainStyle="packed"
+            app:hintTextAppearance="@style/CommonTextInputEditTextHint"
+            app:placeholderTextAppearance="@style/CommonTextInputEditTextHint"
+            app:errorTextAppearance="@style/CommonTextInputEditTextError">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit4"
@@ -45,7 +48,10 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/l_edit4"
-            app:layout_constraintVertical_chainStyle="packed">
+            app:layout_constraintVertical_chainStyle="packed"
+            app:hintTextAppearance="@style/CommonTextInputEditTextHint"
+            app:placeholderTextAppearance="@style/CommonTextInputEditTextHint"
+            app:errorTextAppearance="@style/CommonTextInputEditTextError">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit3"
@@ -70,7 +76,10 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/l_edit3"
-            app:layout_constraintVertical_chainStyle="packed">
+            app:layout_constraintVertical_chainStyle="packed"
+            app:hintTextAppearance="@style/CommonTextInputEditTextHint"
+            app:placeholderTextAppearance="@style/CommonTextInputEditTextHint"
+            app:errorTextAppearance="@style/CommonTextInputEditTextError">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit2"

@@ -136,6 +136,10 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.myg.MyGCouponActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.myg.MyGMembershipInfoActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -500,12 +504,15 @@
         <activity
             android:name=".ui.main.service.MaintenanceReserveActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/TextInputLayout"
+            android:windowSoftInputMode="adjustResize"/>
+
         <activity
             android:name=".ui.main.service.ServiceRepair2PreCheckActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout" />
+            android:theme="@style/TextInputLayout"/>
 
         <service android:name=".fcm.FirebaseMessagingService">
             <intent-filter>

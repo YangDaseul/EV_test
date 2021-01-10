@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
@@ -22,6 +25,9 @@ import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.SoftKeyboardUtil;
+import com.genesis.apps.comm.util.StringRe2j;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.ActivityMaintenanceReserveBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -44,6 +50,7 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maintenance_reserve);
+        setResizeScreen();
         getDataFromIntent();
         setViewModel();
         setObserver();
@@ -56,12 +63,103 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
         }catch (Exception e){
             e.printStackTrace();
         }finally{
-            if(mainVehicle!=null)
-                reqViewModel.reqREQ1004(new REQ_1004.Request(APPIAInfo.SM_R_RSV01.getId()));
-            else
+            if(mainVehicle!=null) {
+                ui.etCarRegNo.setOnEditorActionListener(editorActionListener);
+                ui.etCarRegNo.setOnFocusChangeListener(focusChangeListener);
+
+                if(!TextUtils.isEmpty(mainVehicle.getCarRgstNo())){
+                    ui.etCarRegNo.setText(mainVehicle.getCarRgstNo());
+                    checkValid();
+                }else{
+                    ui.etCarRegNo.requestFocus();
+                }
+            }else {
                 exitPage("주 이용 차량 정보가 없습니다.\n차량을 확인 후 다시 시도해 주세요.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+            }
         }
     }
+
+    private boolean checkValid(){
+
+        boolean isValid=false;
+
+        if(checkValidCarRegNo()){
+            String carRegNo = ui.etCarRegNo.getText().toString().trim();
+            ui.etCarRegNo.clearFocus(); //차량번호의 포커스를 제거하고 -> 제거하면 다음버튼과 키패드가 사라짐
+            ui.lMaintenanceCategory.setVisibility(View.VISIBLE);// 정비내용 뷰 활성화
+            ui.tvMsg.setText(R.string.maintenance_category_msg);
+            if(!StringUtil.isValidString(mainVehicle.getCarRgstNo()).equalsIgnoreCase(carRegNo)){//기존에 입력된 차량번호와 다르면
+                mainVehicle.setCarRgstNo(carRegNo); //차량번호를 다시 넣어주고
+                initServiceItem(); //서비스 아이템 리스트 초기화
+                initMaintenanceCategory(); // 정비내용 븊 초기화
+                reqViewModel.reqREQ1004(new REQ_1004.Request(APPIAInfo.SM_R_RSV01.getId()));
+            }else if(!checkValidCategory()&&(list==null||list.size()<1)){
+                reqViewModel.reqREQ1004(new REQ_1004.Request(APPIAInfo.SM_R_RSV01.getId()));
+            }else if(!checkValidCategory()&&list!=null&&list.size()>0){
+                showDialogRepairType(list);
+            }else{
+                isValid=true;
+            }
+        }
+
+        return isValid;
+    }
+
+    private boolean checkValidCategory() {
+        return selectRepairTypeVO!=null;
+    }
+
+    private boolean checkValidCarRegNo() {
+        String carRegNo = ui.etCarRegNo.getText().toString().trim();
+        if (TextUtils.isEmpty(carRegNo)) {
+            ui.etCarRegNo.requestFocus();
+            ui.lCarRegNo.setError(getString(R.string.sm_emgc01_18));
+            return false;
+        } else if (!StringRe2j.matches(carRegNo, getString(R.string.check_car_vrn))) {
+            ui.etCarRegNo.requestFocus();
+            ui.lCarRegNo.setError(getString(R.string.sm_emgc01_27));
+            return false;
+        } else {
+            ui.lCarRegNo.setError(null);
+            return true;
+        }
+    }
+
+    private void initServiceItem(){
+        //오토케어
+        setViewVisibility(ui.lMaintenanceAutocare.lMaintenanceCategoryItemBtn, true);
+        //에어포트
+        setViewVisibility(ui.lMaintenanceAirport.lMaintenanceCategoryItemBtn, true);
+        //홈투홈서비스
+        setViewVisibility(ui.lMaintenanceHometohome.lMaintenanceCategoryItemBtn, true);
+        //정비소 사용
+        setViewVisibility(ui.lMaintenanceRepair.lMaintenanceCategoryItemBtn, true);
+    }
+
+    private void initMaintenanceCategory(){
+        selectRepairTypeVO=null;
+        Paris.style(ui.tvMaintenanceCategorySelectBtn).apply(R.style.CommonSpinnerItemDisable);
+        ui.tvMaintenanceCategorySelectBtn.setText(R.string.maintenance_category_title);
+        ui.tvMaintenanceCategoryTitle.setVisibility(View.GONE);
+    }
+
+
+    EditText.OnEditorActionListener editorActionListener = (textView, actionId, keyEvent) -> {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            checkValid();
+        }
+        return false;
+    };
+
+    EditText.OnFocusChangeListener focusChangeListener = (view, hasFocus) -> {
+        if (hasFocus) {
+            ui.btnNext.setVisibility(View.VISIBLE);
+            SoftKeyboardUtil.showKeyboard(getApplicationContext());
+        }else{
+            ui.btnNext.setVisibility(View.GONE);
+            SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
+        }
+    };
 
     @Override
     public void onClickCommon(View v) {
@@ -72,6 +170,9 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
             return;
 
         switch (viewId){
+            case R.id.btn_next:
+                checkValid();
+                break;
             case R.id.tv_maintenance_category_select_btn:
                 showDialogRepairType(list);
                 break;
@@ -127,12 +228,7 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
             case R.id.l_maintenance_airport:
             case R.id.l_maintenance_hometohome:
             case R.id.l_maintenance_repair:
-                if(selectRepairTypeVO==null){
-                    isSelect=false;
-                    showDialogRepairType(list);
-                }else{
-                    isSelect=true;
-                }
+                isSelect = checkValid();
                 break;
             default:
                 isSelect=true;
@@ -244,6 +340,7 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
         }
     }
 
+
     /**
      * @brief 서비스 아이템 활성화/비활성화
      *
@@ -319,8 +416,9 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
 
     private void setViewCategorySelect(){
         if(selectRepairTypeVO!=null) {
+            ui.tvMaintenanceCategoryTitle.setVisibility(View.VISIBLE);
+            Paris.style(ui.tvMaintenanceCategorySelectBtn).apply(R.style.CommonSpinnerItemEnable);
             ui.tvMaintenanceCategorySelectBtn.setText(selectRepairTypeVO.getRparTypNm());
-            ui.tvMaintenanceCategorySelectBtn.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_000000);
         }
     }
 

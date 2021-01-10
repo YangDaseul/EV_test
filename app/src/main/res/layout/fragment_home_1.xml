@@ -177,7 +177,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/iv_car"
+            app:layout_constraintVertical_bias=".43"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/iv_teduri"
             app:layout_constraintStart_toStartOf="@+id/iv_teduri">
 
@@ -215,19 +217,19 @@
                 tools:text="GV80" />
 
 
-            <ImageView
-                android:id="@+id/btn_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
-                android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_carinfo"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_genesis"
-                app:layout_constraintStart_toEndOf="@+id/tv_genesis"
-                app:layout_constraintTop_toTopOf="@+id/tv_genesis"
-                tools:visibility="visible" />
+<!--            <ImageView-->
+<!--                android:id="@+id/btn_location"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="6dp"-->
+<!--                android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"-->
+<!--                android:scaleType="centerInside"-->
+<!--                android:src="@drawable/ic_carinfo"-->
+<!--                android:visibility="gone"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/tv_genesis"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/tv_genesis"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/tv_genesis"-->
+<!--                tools:visibility="visible" />-->
 
 
             <TextView
@@ -280,7 +282,23 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_car_vrn"
                 tools:text="긴급 출동 신청 중"
                 tools:visibility="visible" />
+
+
+            <ImageView
+                android:id="@+id/iv_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_down_scroll"
+                android:visibility="invisible"
+                app:layout_constraintTop_toTopOf="@+id/tv_car_model"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:visibility="invisible" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -466,7 +484,7 @@
                 android:lineSpacingExtra="5dp"
                 android:textColor="@color/x_ffffff"
                 android:textSize="12dp"
-                tools:text="렌트/리스\n실 운행자 등록" />
+                tools:text="렌트/리스\n실운행자 등록" />
 
             <ImageView
                 android:id="@+id/iv_floating_mark_1"

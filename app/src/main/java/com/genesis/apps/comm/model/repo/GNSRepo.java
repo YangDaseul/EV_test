@@ -1,8 +1,6 @@
 package com.genesis.apps.comm.model.repo;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.api.gra.GNS_1016;
-import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.gra.GNS_1001;
 import com.genesis.apps.comm.model.api.gra.GNS_1002;
@@ -19,6 +17,7 @@ import com.genesis.apps.comm.model.api.gra.GNS_1012;
 import com.genesis.apps.comm.model.api.gra.GNS_1013;
 import com.genesis.apps.comm.model.api.gra.GNS_1014;
 import com.genesis.apps.comm.model.api.gra.GNS_1015;
+import com.genesis.apps.comm.model.api.gra.GNS_1016;
 import com.genesis.apps.comm.model.vo.RentStatusVO;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
@@ -173,7 +172,7 @@ public class GNSRepo {
     }
 
     public MutableLiveData<NetUIResponse<GNS_1006.Response>> REQ_GNS_1006(final GNS_1006.Request reqData) {
-
+        RES_GNS_1006.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -196,11 +195,12 @@ public class GNSRepo {
     }
 
     public MutableLiveData<NetUIResponse<GNS_1007.Response>> REQ_GNS_1007(final GNS_1007.Request reqData) {
-
+        RES_GNS_1007.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
                 RES_GNS_1007.setValue(NetUIResponse.success(new Gson().fromJson(object, GNS_1007.Response.class)));
+//                RES_GNS_1007.setValue(NetUIResponse.success(TestCode.GNS_1007));
             }
 
             @Override
@@ -219,7 +219,7 @@ public class GNSRepo {
     }
 
     public MutableLiveData<NetUIResponse<GNS_1008.Response>> REQ_GNS_1008(final GNS_1008.Request reqData) {
-
+        RES_GNS_1008.setValue(NetUIResponse.loading(null));
         netCaller.sendFileToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -242,7 +242,7 @@ public class GNSRepo {
     }
 
     public MutableLiveData<NetUIResponse<GNS_1009.Response>> REQ_GNS_1009(final GNS_1009.Request reqData) {
-
+        RES_GNS_1009.setValue(NetUIResponse.loading(null));
         netCaller.sendFileToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -289,7 +289,7 @@ public class GNSRepo {
     }
 
     public MutableLiveData<NetUIResponse<GNS_1011.Response>> REQ_GNS_1011(final GNS_1011.Request reqData) {
-
+        RES_GNS_1011.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -312,13 +312,18 @@ public class GNSRepo {
     }
 
     public MutableLiveData<NetUIResponse<GNS_1012.Response>> REQ_GNS_1012(final GNS_1012.Request reqData) {
-
+        RES_GNS_1012.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
                 GNS_1012.Response response = new Gson().fromJson(object, GNS_1012.Response.class); //결과코드 및 결과메시지 저장
                 response.setRentStatusVO(new Gson().fromJson(object, RentStatusVO.class)); //렌트 데이터 저장
                 RES_GNS_1012.setValue(NetUIResponse.success(response));
+
+
+//                                GNS_1012.Response response = TestCode.GNS_1012; //결과코드 및 결과메시지 저장
+//                response.setRentStatusVO(reqData.getSeqNo().equalsIgnoreCase("3") ? TestCode.GNS_1012_REJECT : TestCode.GNS_1012_WAIT); //btr 데이터 저장
+//                RES_GNS_1012.setValue(NetUIResponse.success(response));
             }
 
             @Override
@@ -342,7 +347,7 @@ public class GNSRepo {
 
 
     public MutableLiveData<NetUIResponse<GNS_1013.Response>> REQ_GNS_1013(final GNS_1013.Request reqData) {
-
+        RES_GNS_1013.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -365,7 +370,7 @@ public class GNSRepo {
         return RES_GNS_1013;
     }
     public MutableLiveData<NetUIResponse<GNS_1014.Response>> REQ_GNS_1014(final GNS_1014.Request reqData) {
-
+        RES_GNS_1014.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -387,7 +392,7 @@ public class GNSRepo {
         return RES_GNS_1014;
     }
     public MutableLiveData<NetUIResponse<GNS_1015.Response>> REQ_GNS_1015(final GNS_1015.Request reqData) {
-
+        RES_GNS_1015.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -410,7 +415,7 @@ public class GNSRepo {
         return RES_GNS_1015;
     }
     public MutableLiveData<NetUIResponse<GNS_1016.Response>> REQ_GNS_1016(final GNS_1016.Request reqData) {
-
+        RES_GNS_1016.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {

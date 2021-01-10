@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingConstraints">
 
     <data>
 
@@ -29,44 +31,45 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/l_dia_bottom_sonax_branch_edit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            style="@style/CommonTextInputLayout"
             android:layout_marginTop="28dp"
             android:hint="@string/cw_branch_code_hint"
-            app:boxBackgroundColor="@color/x_ffffff"
-            app:boxBackgroundMode="outline"
-            app:boxCornerRadiusTopEnd="0dp"
-            app:boxCornerRadiusTopStart="0dp"
-            app:boxStrokeColor="@color/x_141414"
-            app:boxStrokeErrorColor="@color/x_ba544d"
             app:counterEnabled="true"
             app:counterMaxLength="@{maxLength}"
-            app:endIconMode="clear_text"
-            app:errorEnabled="true"
-            app:errorIconTint="@color/x_ba544d"
-            app:errorTextColor="@color/x_ba544d"
-            app:hintEnabled="true"
-            app:hintTextColor="@color/x_000000"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/l_dia_bottom_sonax_branch_title">
+            app:counterOverflowTextColor="@color/x_ce2d2d"
+            app:layout_constraintTop_toBottomOf="@+id/l_dia_bottom_sonax_branch_title"
+            android:visibility="visible">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_sonax_branch_no"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/regular_genesissanstextglobal"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="6dp"
-                android:padding="16dp"
-                android:textColor="@color/x_000000"
-                android:textCursorDrawable="@drawable/cursor_141414"
-                android:textSize="15dp" />
-
+                style="@style/CommonTextInputEditText"
+                android:maxLength="@{maxLength}"/>
             <requestFocus />
         </com.google.android.material.textfield.TextInputLayout>
+
+
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/l_dia_bottom_sonax_branch_title">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/et_sonax_branch_no"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fontFamily="@font/regular_genesissanstextglobal"-->
+<!--                android:imeOptions="actionDone"-->
+<!--                android:inputType="text"-->
+<!--                android:letterSpacing="-0.01"-->
+<!--                android:lineSpacingExtra="6dp"-->
+<!--                android:padding="16dp"-->
+<!--                android:textColor="@color/x_000000"-->
+<!--                android:textCursorDrawable="@drawable/cursor_141414"-->
+<!--                android:textSize="15dp" />-->
+
+<!--            <requestFocus />-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
         <TextView
             android:id="@+id/btn_ok"

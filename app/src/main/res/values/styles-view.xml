@@ -101,7 +101,7 @@
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">6dp</item>
-        <item name="android:textColor">@color/x_aaabaf</item>
+        <item name="android:textColor">@color/x_666666</item>
         <item name="android:textSize">14dp</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -124,7 +124,7 @@
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">6dp</item>
-        <item name="android:drawableLeft">@drawable/mark_aaabaf</item>
+        <item name="android:drawableLeft">@drawable/mark_666666</item>
         <item name="android:drawablePadding">6dp</item>
         <item name="android:textSize">14dp</item>
         <item name="android:layout_width">wrap_content</item>
@@ -154,6 +154,17 @@
         <item name="android:textSize">14dp</item>
     </style>
 
+    <!-- 입력레이아웃의 서브 타이틀2-->
+    <style name="ViewMsgInputSubTitle2">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">4dp</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
 
     <!-- 입력레이아웃의 서브 메시지-->
     <style name="ViewMsgInputSubMsg">
@@ -161,14 +172,14 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">7dp</item>
-        <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">15dp</item>
-        <item name="android:background">@color/x_f4f4f4</item>
-        <item name="android:paddingLeft">15dp</item>
-        <item name="android:paddingRight">15dp</item>
-        <item name="android:paddingTop">20dp</item>
-        <item name="android:paddingBottom">20dp</item>
+        <item name="android:lineSpacingExtra">9dp</item>
+        <item name="android:textColor">@color/x_262626</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:background">@color/x_f8f8f8</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingTop">30dp</item>
+        <item name="android:paddingBottom">30dp</item>
     </style>
 
 

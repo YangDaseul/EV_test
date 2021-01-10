@@ -45,7 +45,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_service_req_car_model"
             app:layout_constraintVertical_chainStyle="packed"
-            tools:text="123너 6456" />
+            tools:text="123너 6456"/>
 
         <!-- 로딩중/예상가격/에러표시
              visibility 조작으로 이들 중 한 개만 보이도록 선별함. -->

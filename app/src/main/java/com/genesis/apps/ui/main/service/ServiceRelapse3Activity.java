@@ -483,22 +483,22 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         switch (data.getTurn()) {
             case 1:
                 param.setWkr1Nm(data.getMechanic());
-                param.setWk1StrtDt(data.getReqDate());
-                param.setWk1Dt(data.getFinishDate());
+                param.setWk1StrtDt(data.getReqDate().replaceAll("\\.",""));
+                param.setWk1Dt(data.getFinishDate().replaceAll("\\.",""));
                 param.setWk1Caus(data.getDefectDetail());
                 param.setWk1Dtl(data.getRepairDetail());
                 break;
             case 2:
                 param.setWkr2Nm(data.getMechanic());
-                param.setWk2StrtDt(data.getReqDate());
-                param.setWk2Dt(data.getFinishDate());
+                param.setWk2StrtDt(data.getReqDate().replaceAll("\\.",""));
+                param.setWk2Dt(data.getFinishDate().replaceAll("\\.",""));
                 param.setWk2Caus(data.getDefectDetail());
                 param.setWk2Dtl(data.getRepairDetail());
                 break;
             case 3:
                 param.setWkr3Nm(data.getMechanic());
-                param.setWk3StrtDt(data.getReqDate());
-                param.setWk3Dt(data.getFinishDate());
+                param.setWk3StrtDt(data.getReqDate().replaceAll("\\.",""));
+                param.setWk3Dt(data.getFinishDate().replaceAll("\\.",""));
                 param.setWk3Caus(data.getDefectDetail());
                 param.setWk3Dtl(data.getRepairDetail());
                 break;

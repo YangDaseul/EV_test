@@ -4,6 +4,7 @@
     <string name="maintenance_reserve_title">정비 예약</string>
 
     <string name="maintenance_category_title">정비 내용</string>
+    <string name="maintenance_category_msg">정비 내용을\n선택해 주세요.</string>
     <string name="maintenance_category_desc">정비할 부품을 선택해주세요.</string>
     <string name="maintenance_category_01">냉난방 부품</string>
     <string name="maintenance_category_02">차체 및 일반 부품</string>

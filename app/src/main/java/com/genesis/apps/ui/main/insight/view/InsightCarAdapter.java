@@ -140,6 +140,7 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
                 set1.setValues(values);
                 getBinding().chart.getData().notifyDataChanged();
                 getBinding().chart.notifyDataSetChanged();
+                getBinding().chart.invalidate();
             } else {
             //최초 로드 시
                 //차트 속성 정의
@@ -202,10 +203,11 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
 
                 getBinding().chart.setRenderer(roundedBarChartRenderer);
                 getBinding().chart.setData(data);
+
+                getBinding().chart.invalidate();
+                getBinding().chart.animateY(1500);
             }
 
-            getBinding().chart.invalidate();
-            getBinding().chart.animateY(1500);
 
             //이전달 금액표시
             String prvsMthAmt = "0";

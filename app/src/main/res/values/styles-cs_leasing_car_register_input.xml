@@ -2,6 +2,7 @@
 
     <!-- 입력레이아웃의 안내 메시지 타이틀 ex)xxx를 입력해주세요.-->
     <style name="TextMsg" parent="ViewMsgInputTile">
+        <item name="android:paddingBottom">30dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
@@ -11,10 +12,11 @@
     <style name="LayoutCard">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">30dp</item>
+        <item name="android:layout_marginTop">60dp</item>
+        <item name="layout_goneMarginTop">0dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
-        <item name="layout_constraintTop_toBottomOf">@+id/tv_msg</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/cl_privilege</item>
     </style>
 
 
@@ -50,7 +52,8 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:layout_marginTop">6dp</item>
-        <item name="android:background">@drawable/bg_f5f6f8_stroke_dadde3</item>
+        <item name="android:layout_marginEnd">4dp</item>
+        <item name="android:background">@drawable/bg_f5f6f8_stroke_e5e5e5</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:letterSpacing">-0.01</item>
@@ -58,7 +61,7 @@
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
         <item name="android:text">@string/gm_carlst_01_48</item>
-        <item name="android:textColor">@color/x_b9b9b9</item>
+        <item name="android:textColor">@color/x_a2a2a2</item>
         <item name="android:textSize">15dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintEnd_toStartOf">@+id/btn_post_no</item>
@@ -67,7 +70,7 @@
     </style>
 
     <style name="TextViewPostNoEnable" parent="TextViewPostNo">
-        <item name="android:textColor">@color/x_525252</item>
+        <item name="android:textColor">@color/x_000000</item>
     </style>
 
 
@@ -75,13 +78,13 @@
    <style name="ButtonPostNo">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">50dp</item>
-        <item name="android:background">@drawable/ripple_bg_141414</item>
-        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:background">@drawable/ripple_bg_111111</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:gravity">center</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">7dp</item>
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
         <item name="android:text">@string/gm_carlst_01_48</item>
         <item name="android:textColor">@color/x_ffffff</item>
         <item name="android:textSize">15dp</item>
@@ -93,8 +96,8 @@
     <style name="TextViewAddr">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">50dp</item>
-        <item name="android:layout_marginTop">4dp</item>
-        <item name="android:background">@drawable/bg_f5f6f8_stroke_dadde3</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:background">@drawable/bg_f5f6f8_stroke_e5e5e5</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:letterSpacing">-0.01</item>
@@ -102,7 +105,7 @@
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
         <item name="android:text">@string/gm_carlst_01_49</item>
-        <item name="android:textColor">@color/x_b9b9b9</item>
+        <item name="android:textColor">@color/x_a2a2a2</item>
         <item name="android:textSize">15dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
@@ -110,7 +113,7 @@
     </style>
 
     <style name="TextViewAddrEnable" parent="TextViewAddr">
-        <item name="android:textColor">@color/x_525252</item>
+        <item name="android:textColor">@color/x_000000</item>
     </style>
 
 
@@ -122,13 +125,13 @@
         <item name="boxBackgroundMode">outline</item>
         <item name="boxCornerRadiusTopEnd">0dp</item>
         <item name="boxCornerRadiusTopStart">0dp</item>
-        <item name="boxStrokeColor">@color/x_141414</item>
-        <item name="boxStrokeErrorColor">@color/x_ba544d</item>
+        <item name="boxStrokeColor">@color/x_000000</item>
+        <item name="boxStrokeErrorColor">@color/x_ce2d2d</item>
         <item name="counterMaxLength">10</item>
         <item name="endIconMode">clear_text</item>
         <item name="errorEnabled">true</item>
-        <item name="errorIconTint">@color/x_ba544d</item>
-        <item name="errorTextColor">@color/x_ba544d</item>
+        <item name="errorIconTint">@color/x_ce2d2d</item>
+        <item name="errorTextColor">@color/x_ce2d2d</item>
         <item name="hintEnabled">false</item>
         <item name="hintTextColor">@color/x_000000</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
@@ -217,7 +220,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">6dp</item>
         <item name="android:layout_marginBottom">20dp</item>
-        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_e2e2e2</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_000000</item>
         <item name="android:paddingLeft">15dp</item>
         <item name="android:paddingTop">20dp</item>
         <item name="android:paddingRight">15dp</item>
@@ -245,7 +248,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">6dp</item>
-        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:textColor">@color/x_bf000000</item>
@@ -284,7 +287,7 @@
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
         <item name="android:text">@string/gm_carlst_01_44</item>
-        <item name="android:textColor">@color/x_aaabaf</item>
+        <item name="android:textColor">@color/x_a2a2a2</item>
         <item name="android:textSize">15dp</item>
         <item name="android:visibility">gone</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
@@ -302,7 +305,7 @@
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">10dp</item>
-        <item name="android:textColor">@color/x_ba544d</item>
+        <item name="android:textColor">@color/x_ce2d2d</item>
         <item name="android:textSize">12dp</item>
         <item name="android:visibility">visible</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
@@ -318,7 +321,6 @@
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/l_btr</item>
-        <item name="layout_goneMarginTop">30dp</item>
     </style>
 
 
@@ -342,6 +344,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_marginEnd">4dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:letterSpacing">-0.03</item>
@@ -356,37 +359,37 @@
     </style>
 
     <style name="TextViewEmpCertiImgEnable" parent="TextViewEmpCertiImg">
-        <item name="android:background">@drawable/bg_ffffff_stroke_141414</item>
+        <item name="android:background">@drawable/bg_ffffff_stroke_000000</item>
         <item name="android:textColor">@color/x_000000</item>
     </style>
 
     <style name="TextViewEmpCertiImgDisable" parent="TextViewEmpCertiImg">
-        <item name="android:background">@drawable/bg_ffffff_stroke_dadde3</item>
-        <item name="android:textColor">@color/x_b9b9b9</item>
+        <item name="android:background">@drawable/bg_ffffff_stroke_e5e5e5</item>
+        <item name="android:textColor">@color/x_a2a2a2</item>
         <item name="android:text">@string/gm_carlst_01_41</item>
     </style>
 
     <style name="TextViewEmpCertiImgError" parent="TextViewEmpCertiImg">
-        <item name="android:background">@drawable/bg_ffffff_stroke_ba544d</item>
-        <item name="android:textColor">@color/x_525252</item>
+        <item name="android:background">@drawable/bg_ffffff_stroke_ce2d2d</item>
+        <item name="android:textColor">@color/x_000000</item>
     </style>
 
     <style name="TextViewEmpCertiImgError2" parent="TextViewEmpCertiImg">
-        <item name="android:background">@drawable/bg_ffffff_stroke_ba544d</item>
-        <item name="android:textColor">@color/x_b9b9b9</item>
+        <item name="android:background">@drawable/bg_ffffff_stroke_ce2d2d</item>
+        <item name="android:textColor">@color/x_a2a2a2</item>
     </style>
 
 
     <style name="BtnEmpCertiImg">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">50dp</item>
-        <item name="android:background">@drawable/ripple_bg_141414</item>
-        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:background">@drawable/ripple_bg_111111</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:gravity">center</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">7dp</item>
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
         <item name="android:text">@string/gm_carlst_01_37</item>
         <item name="android:textColor">@color/x_ffffff</item>
         <item name="android:textSize">15dp</item>
@@ -404,7 +407,7 @@
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">10dp</item>
-        <item name="android:textColor">@color/x_ba544d</item>
+        <item name="android:textColor">@color/x_ce2d2d</item>
         <item name="android:textSize">12dp</item>
         <item name="android:visibility">visible</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
@@ -448,6 +451,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_marginEnd">4dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:letterSpacing">-0.03</item>
@@ -463,24 +467,24 @@
 
 
     <style name="TextViewCntImgEnable" parent="TextViewCntImg">
-        <item name="android:background">@drawable/bg_ffffff_stroke_141414</item>
+        <item name="android:background">@drawable/bg_ffffff_stroke_000000</item>
         <item name="android:textColor">@color/x_000000</item>
     </style>
 
     <style name="TextViewCntImgDisable" parent="TextViewCntImg">
-        <item name="android:background">@drawable/bg_ffffff_stroke_dadde3</item>
-        <item name="android:textColor">@color/x_b9b9b9</item>
+        <item name="android:background">@drawable/bg_ffffff_stroke_e5e5e5</item>
+        <item name="android:textColor">@color/x_a2a2a2</item>
         <item name="android:text">@string/gm_carlst_01_36</item>
     </style>
 
     <style name="TextViewCntImgError" parent="TextViewCntImg">
-        <item name="android:background">@drawable/bg_ffffff_stroke_ba544d</item>
-        <item name="android:textColor">@color/x_525252</item>
+        <item name="android:background">@drawable/bg_ffffff_stroke_ce2d2d</item>
+        <item name="android:textColor">@color/x_000000</item>
     </style>
 
     <style name="TextViewCntImgError2" parent="TextViewCntImg">
-        <item name="android:background">@drawable/bg_ffffff_stroke_ba544d</item>
-        <item name="android:textColor">@color/x_b9b9b9</item>
+        <item name="android:background">@drawable/bg_ffffff_stroke_ce2d2d</item>
+        <item name="android:textColor">@color/x_a2a2a2</item>
     </style>
 
 
@@ -490,13 +494,13 @@
     <style name="ButtonCntImg">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">50dp</item>
-        <item name="android:background">@drawable/ripple_bg_141414</item>
-        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:background">@drawable/ripple_bg_111111</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:gravity">center</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">7dp</item>
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
         <item name="android:text">@string/gm_carlst_01_37</item>
         <item name="android:textColor">@color/x_ffffff</item>
         <item name="android:textSize">15dp</item>
@@ -514,7 +518,7 @@
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">10dp</item>
-        <item name="android:textColor">@color/x_ba544d</item>
+        <item name="android:textColor">@color/x_ce2d2d</item>
         <item name="android:textSize">12dp</item>
         <item name="android:visibility">visible</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
@@ -528,7 +532,6 @@
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/l_cnt_img</item>
-        <item name="layout_goneMarginTop">30dp</item>
     </style>
 
 
@@ -569,36 +572,20 @@
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">10dp</item>
         <item name="android:text">@string/gm_carlst_01_57</item>
-        <item name="android:textColor">@color/x_ba544d</item>
+        <item name="android:textColor">@color/x_ce2d2d</item>
         <item name="android:textSize">12dp</item>
         <item name="android:visibility">gone</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/tv_rent_period</item>
     </style>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <style name="TextViewRentPeriodDisable" parent="TextViewRentPeriod">
-        <item name="android:textColor">@color/x_aaabaf</item>
+        <item name="android:textColor">@color/x_a2a2a2</item>
         <item name="android:text">@string/gm_carlst_01_30</item>
     </style>
 
     <style name="TextViewRentPeriodEnable" parent="TextViewRentPeriod">
+        <item name="android:background">@drawable/bg_ffffff_stroke_000000</item>
         <item name="android:textColor">@color/x_000000</item>
     </style>
 
@@ -612,13 +599,13 @@
         <item name="boxBackgroundMode">outline</item>
         <item name="boxCornerRadiusTopEnd">0dp</item>
         <item name="boxCornerRadiusTopStart">0dp</item>
-        <item name="boxStrokeColor">@color/x_141414</item>
-        <item name="boxStrokeErrorColor">@color/x_ba544d</item>
+        <item name="boxStrokeColor">@color/x_000000</item>
+        <item name="boxStrokeErrorColor">@color/x_ce2d2d</item>
         <item name="counterMaxLength">10</item>
         <item name="endIconMode">clear_text</item>
         <item name="errorEnabled">true</item>
-        <item name="errorIconTint">@color/x_ba544d</item>
-        <item name="errorTextColor">@color/x_ba544d</item>
+        <item name="errorIconTint">@color/x_ce2d2d</item>
+        <item name="errorTextColor">@color/x_ce2d2d</item>
         <item name="hintEnabled">false</item>
         <item name="hintTextColor">@color/x_000000</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
@@ -643,6 +630,22 @@
         <item name="android:textSize">15dp</item>
     </style>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <style name="LayoutCsmrScnCd">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -650,9 +653,9 @@
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/l_rent_period</item>
-        <item name="layout_goneMarginTop">30dp</item>
     </style>
-    
+
+
     <style name="TextViewTitleCsmrScnCd">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -660,30 +663,29 @@
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">9dp</item>
         <item name="android:text">@string/gm_carlst_01_25</item>
-        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textColor">@color/x_262626</item>
         <item name="android:textSize">13dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
     </style>
 
-    <style name="TextViewCsmrScnCd" parent="@style/BtrConsultTypeDisable">
+
+    <style name="TextViewCsmrScnCd">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:layout_marginTop">6dp</item>
+        <item name="android:background">@drawable/bg_f5f6f8_stroke_e5e5e5</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">6dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">15dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/tv_title_csmr_scn_cd</item>
-    </style>
-
-
-    <style name="TextViewCsmrScnCdDisable" parent="TextViewCsmrScnCd">
-        <item name="android:textColor">@color/x_aaabaf</item>
-        <item name="android:text">@string/gm_carlst_01_25</item>
-    </style>
-
-    <style name="TextViewCsmrScnCdEnable" parent="TextViewCsmrScnCd">
-        <item name="android:textColor">@color/x_000000</item>
     </style>
 
 
@@ -696,7 +698,7 @@
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">10dp</item>
         <item name="android:text">@string/gm_carlst_01_26</item>
-        <item name="android:textColor">@color/x_ba544d</item>
+        <item name="android:textColor">@color/x_ce2d2d</item>
         <item name="android:textSize">12dp</item>
         <item name="android:visibility">gone</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
@@ -712,7 +714,6 @@
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/l_csmr_scn_cd</item>
-        <item name="layout_goneMarginTop">30dp</item>
     </style>
 
     
@@ -734,13 +735,13 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:layout_marginTop">6dp</item>
-        <item name="android:background">@drawable/bg_f5f6f8_stroke_dadde3</item>
+        <item name="android:background">@drawable/bg_f5f6f8_stroke_e5e5e5</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
-        <item name="android:textColor">@color/x_525252</item>
+        <item name="android:textColor">@color/x_000000</item>
         <item name="android:textSize">15dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>

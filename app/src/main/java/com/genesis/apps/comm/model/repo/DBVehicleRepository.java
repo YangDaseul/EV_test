@@ -19,6 +19,17 @@ public class DBVehicleRepository {
         this.databaseHolder = databaseHolder;
     }
 
+    public boolean deleteAllVehicle(){
+        boolean isDel = false;
+        try {
+            databaseHolder.getDatabase().vehicleDao().deleteAll();
+            isDel = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isDel;
+    }
+
     public List<VehicleVO> getVehicleListAll(){
         return databaseHolder.getDatabase().vehicleDao().selectAll();
     }

@@ -89,4 +89,14 @@ public class StringUtil {
         }
         return retv;
     }
+
+    public static String isValidString(String value){
+        String retv = "";
+        try {
+            retv = (TextUtils.isEmpty(value)||value.equalsIgnoreCase("null")) ? "" : value;
+        } catch (Exception e) {
+            retv = "";
+        }
+        return retv;
+    }
 }

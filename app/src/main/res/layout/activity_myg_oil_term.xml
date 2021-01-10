@@ -86,6 +86,7 @@
                     android:text="@string/mg_con02_01_5"
                     android:textColor="@color/x_000000"
                     android:textSize="18dp"
+                    android:background="@android:color/transparent"
                     app:layout_constrainedWidth="true"
                     app:layout_constraintEnd_toEndOf="@+id/tv_1"
                     app:layout_constraintStart_toStartOf="@+id/tv_1"

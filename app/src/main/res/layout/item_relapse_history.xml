@@ -20,8 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:background="@drawable/ripple_bg_ffffff_stroke_e2e2e2"
-        android:clickable="@{!holder.finished}"
-        android:focusable="@{!holder.finished}"
         android:padding="15dp">
 
         <!-- "접수중 or 신청 완료" -->

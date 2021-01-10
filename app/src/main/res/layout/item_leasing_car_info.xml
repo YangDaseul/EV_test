@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="com.genesis.apps.ui.common.view.listener.OnSingleClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_mark_1"
+            style="@style/ViewMarkGrey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_vin" />
+
+        <TextView
+            android:id="@+id/tv_vin"
+            style="@style/ViewMsgInputSub"
+            android:layout_marginTop="10dp"
+            android:text="@string/gm_carlst_01_10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_mark_1"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+        <TextView
+            android:id="@+id/tv_sub_title_target"
+            style="@style/ViewMsgInputSubTitle2"
+            android:layout_marginTop="50dp"
+            android:text="@string/gm_carlst_01_11"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_vin" />
+
+        <TextView
+            android:id="@+id/tv_sub_msg_target"
+            style="@style/ViewMsgInputSubMsg"
+            android:layout_marginTop="20dp"
+            android:text="@string/gm_carlst_01_12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sub_title_target" />
+
+        <TextView
+            android:id="@+id/tv_mark_2"
+            style="@style/ViewMarkGrey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_target" />
+
+        <TextView
+            android:id="@+id/tv_target"
+            style="@style/ViewMsgInputSub"
+            android:layout_marginTop="30dp"
+            android:text="@string/gm_carlst_01_13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_mark_2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sub_msg_target" />
+
+        <View
+            android:id="@+id/v_line_2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/x_e5e5e5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_target" />
+
+
+        <TextView
+            android:id="@+id/tv_sub_title_target_car"
+            style="@style/ViewMsgInputSubTitle2"
+            android:layout_marginTop="40dp"
+            android:text="@string/gm_carlst_01_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v_line_2" />
+
+        <TextView
+            android:id="@+id/tv_sub_msg_target_car"
+            style="@style/ViewMsgInputSubMsg"
+            android:layout_marginTop="20dp"
+            android:text="@string/gm_carlst_01_15"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sub_title_target_car" />
+
+        <TextView
+            android:id="@+id/tv_mark_3"
+            style="@style/ViewMarkGrey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_target_car" />
+
+        <TextView
+            android:id="@+id/tv_target_car"
+            style="@style/ViewMsgInputSub"
+            android:layout_marginTop="30dp"
+            android:text="@string/gm_carlst_01_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_mark_3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sub_msg_target_car" />
+
+        <View
+            android:id="@+id/v_line_3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/x_e5e5e5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_target_car" />
+
+
+        <TextView
+            android:id="@+id/tv_sub_title_benefit"
+            style="@style/ViewMsgInputSubTitle2"
+            android:layout_marginTop="40dp"
+            android:text="@string/gm_carlst_01_17"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v_line_3" />
+
+        <TextView
+            android:id="@+id/tv_sub_msg_benefit"
+            style="@style/ViewMsgInputSubMsg"
+            android:layout_marginTop="20dp"
+            android:text="@string/gm_carlst_01_18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sub_title_benefit" />
+
+        <TextView
+            android:id="@+id/tv_mark_4"
+            style="@style/ViewMarkGrey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_benefit" />
+
+        <TextView
+            android:id="@+id/tv_benefit"
+            style="@style/ViewMsgInputSub"
+            android:layout_marginTop="20dp"
+            android:text="@string/gm_carlst_01_20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_mark_4"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sub_msg_benefit" />
+
+        <View
+            android:id="@+id/v_line_4"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/x_e5e5e5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_benefit" />
+
+        <include
+            android:id="@+id/btn_info"
+            layout="@layout/item_btn_underline_mark_gold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:onClick="@{(view)->listener.onSingleClick(view)}"
+            app:btnNm="@{@string/gm_carlst_01_21}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v_line_4" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
