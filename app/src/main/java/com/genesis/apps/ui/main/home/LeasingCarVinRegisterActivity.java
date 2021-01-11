@@ -209,6 +209,7 @@ public class LeasingCarVinRegisterActivity extends SubActivity<ActivityLeasingCa
             ui.lVin.setError(getString(R.string.gm_carlst_01_45));
             return false;
         } else {
+            ui.etVin.setText(ui.etVin.getText().toString().toUpperCase());
             ui.lVin.setError(null);
             ui.lVin.clearFocus();
             return true;
