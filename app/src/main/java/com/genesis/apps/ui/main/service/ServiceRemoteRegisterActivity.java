@@ -469,31 +469,20 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                     if (response != null) {
                         String rtCd = response.getRtCd();
                         if (BaseResponse.RETURN_CODE_SUCC.equals(rtCd)) {
-                            //todo 2021-01-11 park html 관련 재구현 필요
-                            MiddleDialog.dialogServiceRemoteInfo(this, () -> {
-                                try {
-                                    vin = rmtViewModel.getMainVehicle().getVin();
-                                    rmtViewModel.reqRMT1001(new RMT_1001.Request(APPIAInfo.R_REMOTE01.getId(), vin));
-                                } catch (ExecutionException ee) {
-                                    // TODO : 차대번호 조회 오류 처리 필요.
-                                } catch (InterruptedException ie) {
-                                    // TODO : 차대번호 조회 오류 처리 필요.
-                                }
-                            }, () -> exitPage("", 0));
-//                            MiddleDialog.dialogServiceRemoteTwoButton(
-//                                    this,
-//                                    getString(R.string.sm_romte_p01_1),
-//                                    response.getCont(),
-//                                    () -> {
-//                                        try {
-//                                            vin = rmtViewModel.getMainVehicle().getVin();
-//                                            rmtViewModel.reqRMT1001(new RMT_1001.Request(APPIAInfo.R_REMOTE01.getId(), vin));
-//                                        } catch (ExecutionException ee) {
-//                                            // TODO : 차대번호 조회 오류 처리 필요.
-//                                        } catch (InterruptedException ie) {
-//                                            // TODO : 차대번호 조회 오류 처리 필요.
-//                                        }
-//                                    }, () -> exitPage("", 0));
+                            MiddleDialog.dialogServiceRemoteTwoButton(
+                                    this,
+                                    getString(R.string.sm_romte_p01_1),
+                                    response.getCont(),
+                                    () -> {
+                                        try {
+                                            vin = rmtViewModel.getMainVehicle().getVin();
+                                            rmtViewModel.reqRMT1001(new RMT_1001.Request(APPIAInfo.R_REMOTE01.getId(), vin));
+                                        } catch (ExecutionException ee) {
+                                            // TODO : 차대번호 조회 오류 처리 필요.
+                                        } catch (InterruptedException ie) {
+                                            // TODO : 차대번호 조회 오류 처리 필요.
+                                        }
+                                    }, () -> exitPage("", 0));
                         } else if (SERVICE_REMOTE_RES_CODE_9000.equals(rtCd)) {
                             // 시스템 오류.
                             MiddleDialog.dialogServiceRemoteOneButton(
