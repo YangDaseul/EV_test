@@ -111,6 +111,9 @@ public class AlarmCenterRecyclerAdapter extends BaseRecyclerViewAdapter2<NotiInf
                         getBinding().btnDetail.setVisibility(View.VISIBLE);
                         getBinding().btnDetail.setTag(R.id.noti_info, item);
                         getBinding().btnDetail.setOnClickListener(onSingleClickListener);
+                        if(!TextUtils.isEmpty(item.getDtlLnkNm())){
+                            getBinding().btnDetail.setText(item.getDtlLnkNm());
+                        }
                     }
 
                     if (TextUtils.isEmpty(item.getImgFilUri1())) {
