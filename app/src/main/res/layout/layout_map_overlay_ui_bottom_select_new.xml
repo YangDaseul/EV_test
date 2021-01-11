@@ -81,6 +81,7 @@
             style="@style/MapOverlayWhite.Light"
             android:layout_width="0dp"
             android:text="@{PhoneNumberUtils.formatNumber( (data.repTn ?? ``), Locale.getDefault().getCountry())}"
+            android:onClick="@{(view)->activity.onClickCommon(view)}"
             app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

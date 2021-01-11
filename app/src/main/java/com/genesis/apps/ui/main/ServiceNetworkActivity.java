@@ -2,12 +2,14 @@ package com.genesis.apps.ui.main;
 
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewStub;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.genesis.apps.R;
@@ -419,6 +421,14 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     public void onClickCommon(View v) {
 
         switch (v.getId()) {
+            case R.id.tv_map_select_phone://전화걸기
+
+                String tel = ((TextView)v).getText().toString().trim().replaceAll("-","");
+                if(!TextUtils.isEmpty(tel))
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + tel)));
+
+                break;
+
             case R.id.tv_auth_1:
             case R.id.tv_auth_2:
             case R.id.tv_auth_3:
