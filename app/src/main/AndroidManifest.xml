@@ -465,7 +465,8 @@
             android:name=".ui.main.service.ServiceRelapse3Activity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout" /> <!-- 하자 재발 신청 예시) -->
+            android:theme="@style/TextInputLayout"
+            android:windowSoftInputMode="adjustPan" /> <!-- 하자 재발 신청 예시) -->
         <activity
             android:name=".ui.main.service.ServiceRelapseApplyExampleActivity"
             android:exported="false"

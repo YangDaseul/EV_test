@@ -12,7 +12,7 @@ android {
         minSdkVersion 24
         targetSdkVersion 29
         versionCode 1
-        versionName "0.0.6"
+        versionName "0.0.7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -52,8 +52,7 @@ android {
                     def flavor = "debug"
                     def version = variant.versionName
                     def date = new Date();
-//                    def formattedDate = date.format('yyMMddHHmm')
-                    def formattedDate = '2012171800'
+                    def formattedDate = date.format('yyMMddHHmm')
                     def newApkName = project + SEP + flavor + SEP + version + SEP + formattedDate + ".apk"
                     outputFileName = new File(newApkName)
                 }
