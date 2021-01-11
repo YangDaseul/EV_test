@@ -28,7 +28,7 @@
     <string name="r_flaw05_25">주행거리를 입력해 주세요.</string>
     <string name="r_flaw05_26">운행 지역 (시/도)을 입력해 주세요.</string>
     <string name="r_flaw05_27">운행 지역 (시/군/구)을 입력해 주세요.</string>
-    <string name="r_flaw05_28">차대 번호를 입력해 주세요.</string>
+    <string name="r_flaw05_28">차대 번호 17자리를 입력해 주세요.</string>
     <string name="r_flaw05_29">차대 번호 17자리를 입력해 주세요.</string>
     <string name="r_flaw05_30">차대 번호 확인을 진행해 주세요.</string>
     <string name="r_flaw05_31">등록연월일 선택</string>
