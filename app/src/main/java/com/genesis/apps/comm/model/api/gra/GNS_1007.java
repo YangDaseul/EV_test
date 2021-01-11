@@ -37,7 +37,7 @@ public class GNS_1007 extends BaseData {
     public @Data
     class Response extends BaseResponse {
         @Expose
-        @SerializedName("subspList")
-        private List<RentStatusVO> subspList;
+        @SerializedName("suspList")
+        private List<RentStatusVO> suspList;
     }
 }
