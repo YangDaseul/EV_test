@@ -728,7 +728,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
 
             <TextView
@@ -787,7 +787,8 @@
                 android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
                 app:layout_constraintEnd_toStartOf="@+id/btn_status"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
 
 
             <TextView
