@@ -2799,7 +2799,7 @@ public class HttpRequest {
             startPart();
             final StringBuilder partBuffer = new StringBuilder();
             partBuffer.append("form-data; name=\"").append(key);
-            partBuffer.append("\"" + CRLF + CRLF + params.get(key) + CRLF);
+            partBuffer.append("\"" + params.get(key));
             partHeader("Content-Disposition", partBuffer.toString());
         }
         if (name != null) {
