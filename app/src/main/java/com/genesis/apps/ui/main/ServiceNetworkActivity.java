@@ -460,16 +460,20 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             case R.id.btn_search_list://목록
                 List<BtrVO> list = new ArrayList<>();
 
-                switch (pageType){
-                    case PAGE_TYPE_BTR:
-                    case PAGE_TYPE_RENT:
-                        list = btrViewModel.getRES_BTR_1008().getValue().data.getAsnList();
-                        break;
-                    case PAGE_TYPE_REPAIR:
-                    case PAGE_TYPE_SERVICE:
-                    default:
-                        list = reqViewModel.getRES_REQ_1002().getValue().data.getAsnList();
-                        break;
+                try {
+                    switch (pageType) {
+                        case PAGE_TYPE_BTR:
+                        case PAGE_TYPE_RENT:
+                            list = btrViewModel.getRES_BTR_1008().getValue().data.getAsnList();
+                            break;
+                        case PAGE_TYPE_REPAIR:
+                        case PAGE_TYPE_SERVICE:
+                        default:
+                            list = reqViewModel.getRES_REQ_1002().getValue().data.getAsnList();
+                            break;
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
                 if (list != null && list.size() > 0) {
                     int titleId=0;
@@ -490,18 +494,22 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 break;
             case R.id.btn_my_position:
 
-                List<BtrVO> btrVOList;
+                List<BtrVO> btrVOList = new ArrayList<>();
 
-                switch (pageType){
-                    case PAGE_TYPE_BTR:
-                    case PAGE_TYPE_RENT:
-                        btrVOList = btrViewModel.getRES_BTR_1008().getValue().data.getAsnList();
-                        break;
-                    case PAGE_TYPE_REPAIR:
-                    case PAGE_TYPE_SERVICE:
-                    default:
-                        btrVOList = reqViewModel.getRES_REQ_1002().getValue().data.getAsnList();
-                        break;
+                try {
+                    switch (pageType) {
+                        case PAGE_TYPE_BTR:
+                        case PAGE_TYPE_RENT:
+                            btrVOList = btrViewModel.getRES_BTR_1008().getValue().data.getAsnList();
+                            break;
+                        case PAGE_TYPE_REPAIR:
+                        case PAGE_TYPE_SERVICE:
+                        default:
+                            btrVOList = reqViewModel.getRES_REQ_1002().getValue().data.getAsnList();
+                            break;
+                    }
+                }catch (Exception e){
+
                 }
 
                 if(btrVOList!=null&&btrVOList.size()>0){
@@ -571,16 +579,21 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             btrVO = (BtrVO) data.getSerializableExtra(KeyNames.KEY_NAME_BTR);
             List<BtrVO> list = null;
 
-            switch (pageType){
-                case PAGE_TYPE_BTR:
-                case PAGE_TYPE_RENT:
-                    list = btrViewModel.getRES_BTR_1008().getValue().data.getAsnList();
-                    break;
-                case PAGE_TYPE_REPAIR:
-                case PAGE_TYPE_SERVICE:
-                default:
-                    list = reqViewModel.getRES_REQ_1002().getValue().data.getAsnList();
-                    break;
+            try {
+
+                switch (pageType) {
+                    case PAGE_TYPE_BTR:
+                    case PAGE_TYPE_RENT:
+                        list = btrViewModel.getRES_BTR_1008().getValue().data.getAsnList();
+                        break;
+                    case PAGE_TYPE_REPAIR:
+                    case PAGE_TYPE_SERVICE:
+                    default:
+                        list = reqViewModel.getRES_REQ_1002().getValue().data.getAsnList();
+                        break;
+                }
+            }catch (Exception e){
+
             }
 
 
@@ -674,10 +687,28 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
 
     private void setPosition(List<BtrVO> list, BtrVO btrVO) {
 
-        if(list==null)
+        if(list==null||btrVO==null)
             return;
-
+        String btlrNm="";
+        String celphNo="";
+        String cnsltBdgYn="";
+        String custMgmtNo="";
+        String vin="";
+        if(this.btrVO!=null){
+            btlrNm = StringUtil.isValidString(this.btrVO.getBtlrNm());
+            celphNo = StringUtil.isValidString(this.btrVO.getCelphNo());
+            cnsltBdgYn = StringUtil.isValidString(this.btrVO.getCnsltBdgYn());
+            custMgmtNo = StringUtil.isValidString(this.btrVO.getCustMgmtNo());
+            vin = StringUtil.isValidString(this.btrVO.getVin());
+        }
         this.btrVO = btrVO;
+        if(!TextUtils.isEmpty(btlrNm)) this.btrVO.setBtlrNm(btlrNm);
+        if(!TextUtils.isEmpty(celphNo)) this.btrVO.setCelphNo(celphNo);
+        if(!TextUtils.isEmpty(cnsltBdgYn)) this.btrVO.setCnsltBdgYn(cnsltBdgYn);
+        if(!TextUtils.isEmpty(custMgmtNo)) this.btrVO.setCustMgmtNo(custMgmtNo);
+        if(!TextUtils.isEmpty(vin)) this.btrVO.setVin(vin);
+
+
         if (bottomSelectBinding == null) {
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams)findViewById(R.id.vs_map_overlay_bottom_box).getLayoutParams();
             params.setMargins(0,0,0,0);
