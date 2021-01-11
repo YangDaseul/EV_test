@@ -867,7 +867,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             me.lottieView.setSpeed(0.6f);
             me.lottieView.setAnimation(rawLottie);
             me.lottieView.setRepeatMode(RESTART);
-            me.lottieView.setMaxFrame(40);
+//            me.lottieView.setMaxFrame(40);
             me.lottieView.playAnimation();
         }else{
             me.lottieView.pauseAnimation();
