@@ -94,4 +94,7 @@ class NotiInfoVO extends BaseData {
     @Expose
     @SerializedName("imgFilUri3")
     private String imgFilUri3;
+    @Expose
+    @SerializedName("dtlLnkNm")
+    private String dtlLnkNm;
 }
