@@ -3,7 +3,9 @@ package com.genesis.apps.ui.main.service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -63,6 +65,7 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         setContentView(R.layout.activity_service_relapse_apply_3);
         setResizeScreen();
 
+        initView();
         getDataFromIntent();
         setViewModel();
         setObserver();
@@ -280,6 +283,29 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         }
     }
 
+    private void initView() {
+        ui.etRelapse3TotalCount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(TextUtils.isEmpty(editable) || Integer.parseInt(editable.toString()) < 4) {
+                    ui.lRelapse3TotalCount.setError(getString(R.string.relapse_0));
+                } else {
+                    ui.lRelapse3TotalCount.setError(null);
+                }
+            }
+        });
+    }
+
     private void setAdapter() {
         adapter = new ServiceRelapse3Adapter(this);
         ui.rvRelapse3RepairHistoryList.setLayoutManager(new LinearLayoutManager(this));
@@ -309,7 +335,14 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
                         //↓ "4회이상?" 질문에 아니오 눌렀거나 예 누르고 값을 넣어야 통과
                         // 근데 기껏 값을 받아놓고 api에 송신하는 정보는 Y/N임 ㅡㅡ;; 사용자가 적은 숫자가 몇인지는 무시(2020.11.19)
                         (!over4 || !TextUtils.isEmpty(ui.etRelapse3TotalCount.getText().toString()))) {
-                    changeStatusToAskPeriod();
+                    if(Integer.parseInt(ui.etRelapse3TotalCount.getText().toString()) > 3) {
+                        ui.lRelapse3TotalCount.setError(null);
+                        changeStatusToAskPeriod();
+                    } else {
+                        ui.lRelapse3TotalCount.setError(getString(R.string.relapse_0));
+                    }
+                } else {
+                    if(Integer.parseInt(ui.etRelapse3TotalCount.getText().toString()) < 4) ui.lRelapse3TotalCount.setError(getString(R.string.relapse_0));
                 }
                 break;
 
