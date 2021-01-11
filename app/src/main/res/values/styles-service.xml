@@ -195,6 +195,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:background">@drawable/bg_ffffff_stroke_141414_2dp</item>
         <item name="android:padding">18dp</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="layout_constraintBottom_toBottomOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
         <item name="layout_constraintHorizontal_chainStyle">packed</item>
