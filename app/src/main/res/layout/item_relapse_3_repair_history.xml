@@ -63,12 +63,13 @@
             <!-- 수리 업자명 -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/l_relapse_3_mechanic"
-                style="@style/Relapse3RepairHistoryTextInputLayout"
-                android:hint="@string/relapse_3_repair_mechanic">
+                style="@style/Relapse3RepairHistoryTextInputLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_relapse_3_mechanic"
-                    style="@style/Relapse3RepairHistoryTextInputEditText" />
+                    style="@style/Relapse3RepairHistoryTextInputEditText"
+                    android:backgroundTint="@color/x_ffffff"
+                    android:hint="@string/relapse_3_repair_mechanic"/>
 
                 <requestFocus />
             </com.google.android.material.textfield.TextInputLayout>
