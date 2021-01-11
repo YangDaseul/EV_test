@@ -569,6 +569,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
         }
 
+        int visibleCnt=0; //버튼이 활성화 된 갯수
+
         for (int i = 0; i < menuSize; i++) {
 
             APPIAInfo appiaInfo = APPIAInfo.findCode(StringUtil.isValidString(list.get(i).getMenuId()));
@@ -578,6 +580,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 case GM01_03: //SNS 공유하기
                     if(StringUtil.isValidString(userCustGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)){
                         quickBtn[i].setVisibility(View.VISIBLE);
+                        visibleCnt++;
                     }else{//차량 미보유 일 경우 미노출
                         quickBtn[i].setVisibility(View.GONE);
                     }
@@ -586,12 +589,14 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     String carId = developersViewModel.getCarId(vehicleVO.getVin());
                     if (!TextUtils.isEmpty(carId)) {//GCS 미가입 차 일 경우 미노출
                         quickBtn[i].setVisibility(View.VISIBLE);
+                        visibleCnt++;
                     }else{
                         quickBtn[i].setVisibility(View.GONE);
                     }
                     break;
                 default:
                     quickBtn[i].setVisibility(View.VISIBLE);
+                    visibleCnt++;
                     break;
             }
 
@@ -623,7 +628,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             });
         }
 
-        me.btnQuick.setVisibility(menuSize==0 ? View.INVISIBLE : View.VISIBLE);
+        me.btnQuick.setVisibility(visibleCnt==0 ? View.INVISIBLE : View.VISIBLE);
     }
 
     //todo baseactivity의 함수로 대체가능한지 확인 필요. (주차위치확인)
