@@ -125,7 +125,7 @@ public enum APIInfo {
     GRA_REQ_1014("service + 정비 이력", "REQ-1014", HttpRequest.METHOD_POST, "/graapi/req/rparHist.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_REQ_1015("service + 예약 취소", "REQ-1015", HttpRequest.METHOD_POST, "/graapi/req/reservCancel.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_REQ_1016("service + 정비소예약 - 사전문진조회", "REQ-1016", HttpRequest.METHOD_POST, "/graapi/req/prePaper.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_REQ_1017("service + 정비소예약 - 대표가격조회", "REQ-1017", HttpRequest.METHOD_POST, "/graapi/req/nl/repPrice.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_REQ_1017("service + 정비소예약 - 대표가격조회", "REQ-1017", HttpRequest.METHOD_POST, "/graapi/nl/req/repPrice.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_REQ_1018("service + 정비소예약내역 - 수리 전중후이미지조회", "REQ-1018", HttpRequest.METHOD_POST, "/graapi/req/rprBcig.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     GRA_RMT_1001("원격진단신청가능여부", "RMT-1001", HttpRequest.METHOD_POST, "/graapi/rmt/getRemoteDiag.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),

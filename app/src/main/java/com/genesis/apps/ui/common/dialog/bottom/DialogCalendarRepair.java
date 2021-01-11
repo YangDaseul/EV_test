@@ -142,6 +142,9 @@ public class DialogCalendarRepair extends BaseBottomDialog<DialogBottomCalendarB
                     ui.btnTime10.setVisibility(View.VISIBLE);
                 }else if(repairReserveDateVO.getRsvtTm().equalsIgnoreCase(ui.btnTime14.getTag().toString())){
                     ui.btnTime14.setVisibility(View.VISIBLE);
+                }else{
+                    ui.tvRsvthopetm.setVisibility(View.VISIBLE);
+                    ui.tvRsvthopetm.setText(R.string.sm_r_rsv02_04_14);
                 }
                 if(cnt>1)
                     break;

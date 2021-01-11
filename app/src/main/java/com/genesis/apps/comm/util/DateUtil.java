@@ -96,6 +96,11 @@ public class DateUtil {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         Date date = null;
         try {
+            if(DateUtil.DATE_FORMAT_yyyyMMddHHmmss.equalsIgnoreCase(format)){
+                while (strDate.length() < 14) {
+                    strDate += "0";
+                }
+            }
             date = sdf.parse(strDate);
         } catch (ParseException e) {
             e.printStackTrace();
