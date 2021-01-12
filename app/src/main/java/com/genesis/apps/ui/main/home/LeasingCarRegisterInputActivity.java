@@ -2,17 +2,14 @@ package com.genesis.apps.ui.main.home;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.airbnb.paris.Paris;
