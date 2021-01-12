@@ -11,7 +11,7 @@
         android:focusable="true"
         android:gravity="center"
         android:visibility="gone"
-        tools:visibility="visible">
+        tools:visibility="gone">
             <ImageView
                 android:id="@+id/iv_progress"
                 android:layout_width="50dp"

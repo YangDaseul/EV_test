@@ -177,6 +177,6 @@
             android:id="@+id/l_progress"
             layout="@layout/layout_progress"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
     </FrameLayout>
 </layout>
