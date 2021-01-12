@@ -257,6 +257,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
+                        showProgressDialog(false);
                         SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
                     }
                     break;
@@ -276,13 +277,13 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         break;
                     }
                 default:
-                    showProgressDialog(false);
                     String serverMsg="";
                     try {
                         serverMsg = result.data.getRtMsg();
                     }catch (Exception e){
                         e.printStackTrace();
                     }finally{
+                        showProgressDialog(false);
                         SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.gm_bt06_snackbar_2) : serverMsg);
                     }
                     break;
@@ -348,7 +349,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         break;
                     }
                 default:
-                    showProgressDialog(false);
                     String serverMsg = "";
                     try {
 //                        serverMsg = result.data.getRtMsg();
@@ -357,6 +357,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
+                        showProgressDialog(false);
                         SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
                     }
                     break;
@@ -378,13 +379,13 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         break;
                     }
                 default:
-                    showProgressDialog(false);
                     String serverMsg = "";
                     try {
                         serverMsg = result.data.getRtMsg();
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
+                        showProgressDialog(false);
                         SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? "정비 예약이 불가능합니다.\n다른 지점을 선택해 주세요." : serverMsg);
                     }
                     break;
