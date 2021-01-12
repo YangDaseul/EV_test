@@ -44,9 +44,9 @@
             android:id="@+id/tv_service_review_please_star"
             style="@style/TextBasic"
             android:layout_marginTop="10dp"
-            android:fontFamily="@font/light_genesissansheadglobal"
+            android:fontFamily="@font/regular_genesissanstextglobal"
             android:text="@string/service_review_03"
-            android:textColor="@color/x_525252"
+            android:textColor="@color/x_262626"
             android:textSize="16dp"
             app:layout_constraintStart_toStartOf="@id/tv_service_review_title_msg"
             app:layout_constraintTop_toBottomOf="@id/tv_service_review_title_msg" />
@@ -74,7 +74,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/ic_star_l_s" />
+                    android:src="@drawable/ic_star_l_s_c" />
 
             </LinearLayout>
 
@@ -90,7 +90,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/ic_star_l_n" />
+                    android:src="@drawable/ic_star_l_n_c" />
 
             </LinearLayout>
 
@@ -106,7 +106,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/ic_star_l_n" />
+                    android:src="@drawable/ic_star_l_n_c" />
 
             </LinearLayout>
 
@@ -122,7 +122,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/ic_star_l_n"/>
+                    android:src="@drawable/ic_star_l_n_c"/>
 
             </LinearLayout>
 
@@ -138,7 +138,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/ic_star_l_n"/>
+                    android:src="@drawable/ic_star_l_n_c"/>
 
             </LinearLayout>
 
@@ -154,7 +154,8 @@
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:gravity="start"
             android:hint="@string/service_review_04"
-            android:padding="16dp"
+            android:padding="15dp"
+            android:textColorHint="@color/x_a2a2a2"
             android:textColor="@color/x_000000"
             android:textSize="15dp"
             app:layout_constraintBottom_toTopOf="@id/tv_service_review_ok_btn"
