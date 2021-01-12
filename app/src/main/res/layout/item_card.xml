@@ -104,7 +104,7 @@
             android:textSize="16dp"
             app:layout_constraintBottom_toTopOf="@+id/tv_card_no_2"
             app:layout_constraintStart_toStartOf="@+id/tv_card_no_2"
-            tools:text="블루멤버스 비신용카드" />
+            tools:text="제네시스 멤버스 비신용카드" />
 
 
         <ImageView

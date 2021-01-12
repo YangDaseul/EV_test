@@ -46,7 +46,7 @@ public enum APPIAInfo {
     INT03("INT03", null, VariableType.QUICK_MENU_CODE_NONE, "서비스 가입"),
     INT03_01("INT03_01", null, VariableType.QUICK_MENU_CODE_NONE, "제네시스 앱 이용약관"),
     INT03_P01("INT03_P01", null, VariableType.QUICK_MENU_CODE_NONE, "서비스 가입 실패 팝업"),
-    INT04("INT04", null, VariableType.QUICK_MENU_CODE_NONE, "블루멤버스 가입"),
+    INT04("INT04", null, VariableType.QUICK_MENU_CODE_NONE, "제네시스 멤버스 가입"),
     POP01("POP01", null, VariableType.QUICK_MENU_CODE_NONE, "업데이트 팝업"),
     POP02("POP02", null, VariableType.QUICK_MENU_CODE_NONE, "네트워크 불안정 팝업"),
     ALRM01("ALRM01", AlarmCenterActivity.class, VariableType.QUICK_MENU_CODE_NV, "알림 센터"),

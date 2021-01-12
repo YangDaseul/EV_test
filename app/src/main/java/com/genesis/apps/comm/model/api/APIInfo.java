@@ -23,7 +23,7 @@ public enum APIInfo {
     GRA_MYP_0004("마케팅 수신동의 변경 요청", "MYP-0004", HttpRequest.METHOD_POST, "/graapi/myp/mrktAgree.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_MYP_0005("휴대폰 번호 변경 요청", "MYP-0005", HttpRequest.METHOD_POST, "/graapi/myp/celphNoReg.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
-    GRA_MYP_1003("MyG+ 블루멤버스 정보", "MYP-1003", HttpRequest.METHOD_POST, "/graapi/myp/blueMbr.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_MYP_1003("MyG+ 제네시스 멤버스 정보", "MYP-1003", HttpRequest.METHOD_POST, "/graapi/myp/blueMbr.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_MYP_1004("MyG+ 혜택/쿠폰", "MYP-1004", HttpRequest.METHOD_POST, "/graapi/myp/coupon.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_MYP_1005("MyG+ 프리빌리지", "MYP-1005", HttpRequest.METHOD_POST, "/graapi/myp/privilege.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_MYP_1006("MyG+ 정유사 포인트", "MYP-1006", HttpRequest.METHOD_POST, "/graapi/myp/oilPoint.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
