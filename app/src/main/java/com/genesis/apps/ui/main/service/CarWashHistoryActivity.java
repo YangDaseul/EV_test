@@ -1,14 +1,10 @@
 package com.genesis.apps.ui.main.service;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
@@ -16,11 +12,10 @@ import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.api.gra.WSH_1004;
 import com.genesis.apps.comm.model.api.gra.WSH_1005;
 import com.genesis.apps.comm.model.api.gra.WSH_1006;
-import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.WashReserveVO;
 import com.genesis.apps.comm.util.PhoneUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.ActivityCarWashHistoryBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -28,6 +23,9 @@ import com.genesis.apps.ui.common.dialog.bottom.BottomDialogInputBranchCode;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 
 import java.util.List;
+
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBinding> {
     private static final String TAG = CarWashHistoryActivity.class.getSimpleName();
@@ -152,7 +150,12 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
+                        if(result.data!=null&& StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("2005"))
+                            return;
+
                         SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                        ui.rvCarWashHistoryList.setVisibility(View.GONE);
+                        ui.tvEmpty.setVisibility(View.VISIBLE);
                     }
                     break;
             }
