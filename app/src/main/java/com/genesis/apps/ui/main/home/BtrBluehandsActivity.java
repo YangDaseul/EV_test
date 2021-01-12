@@ -150,24 +150,7 @@ public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBi
 
     private void setViewBtrInfo(){
         if(btrVO!=null) {
-            ui.tvAsnnm.setText(StringUtil.isValidString(btrVO.getAsnNm()));
-            ui.tvAddr.setText(StringUtil.isValidString(btrVO.getPbzAdr()));
-            ui.tvReptn.setText(PhoneNumberUtils.formatNumber(StringUtil.isValidString(btrVO.getRepTn()), Locale.getDefault().getCountry()));
-
-            ui.tvName.setText(StringUtil.isValidString(btrVO.getBtlrNm()));
-            ui.tvPhone.setText(PhoneNumberUtils.formatNumber(StringUtil.isValidString(btrVO.getCelphNo()), Locale.getDefault().getCountry()));
-
-            if (StringUtil.isValidString(btrVO.getBltrChgYn()).equalsIgnoreCase(VariableType.BTR_CHANGE_REQUEST_YES)) {
-                ui.tvInfo.setVisibility(View.VISIBLE);
-                ui.lBtrMenu.setVisibility(View.GONE);
-                ui.btnChange.setVisibility(View.INVISIBLE);
-            } else {
-                ui.tvInfo.setVisibility(View.GONE);
-                ui.lBtrMenu.setVisibility(View.VISIBLE);
-                ui.btnChange.setVisibility(View.VISIBLE);
-            }
-
-            ui.ivBadge.setVisibility(StringUtil.isValidString(btrVO.getCnsltBdgYn()).equalsIgnoreCase(VariableType.BTR_CNSL_BADGE_YES) ? View.VISIBLE : View.GONE);
+            ui.setData(btrVO);
         }
     }
 

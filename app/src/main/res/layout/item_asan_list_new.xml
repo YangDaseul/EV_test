@@ -43,7 +43,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+            android:background="@drawable/bg_ffffff_stroke_e5e5e5"
             android:paddingLeft="15dp"
             android:paddingTop="20dp"
             android:paddingRight="15dp"
@@ -51,7 +51,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title_asan"
-            app:layout_goneMarginTop="0dp"
+            app:layout_goneMarginTop="4dp"
             tools:visibility="visible">
 
 
@@ -129,7 +129,7 @@
             android:paddingBottom="33dp"
             android:text="@string/gm01_bottom_5"
             android:textColor="@color/x_141414"
-            android:textSize="12dp"
+            android:textSize="16dp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

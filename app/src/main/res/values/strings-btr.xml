@@ -5,7 +5,7 @@
     <string name="gm_bt02_1">전담 블루핸즈 / 버틀러</string>
     <string name="gm_bt02_2">성명</string>
     <string name="gm_bt02_3">휴대폰 번호</string>
-    <string name="gm_bt02_4">변경</string>
+    <string name="gm_bt02_4">변경하기</string>
     <string name="gm_bt02_5">상담 이력</string>
     <string name="gm_bt02_6">1:1 문의 하기</string>
     <string name="gm_bt02_7">통화하기</string>
@@ -16,6 +16,7 @@
     <string name="gm_bt02_12">고객센터</string>
     <string name="gm_bt02_13">제네시스 고객센터 : 080-700-6000</string>
     <string name="gm_bt02_14">제네시스 Honors G 컨시어지 : 080-900-6000</string>
+    <string name="gm_bt02_15">버틀러 정보</string>
 
 
 
