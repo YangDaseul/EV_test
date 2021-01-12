@@ -20,7 +20,7 @@ public class MyGMembershipUseCaseActivity extends TermActivity {
         setViewModel();
         setObserver();
         loadTerms(URL);
-        ui.lTitle.lTitleBar.setVisibility(View.GONE);
+        ui.lTitle.lTitleBarPopup.setVisibility(View.GONE);
 //        mypViewModel.reqMYP2003(new MYP_2003.Request(APPIAInfo.MG_MEMBER02.getId()));
     }
 

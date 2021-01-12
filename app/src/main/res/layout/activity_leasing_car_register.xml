@@ -288,7 +288,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
             android:onClick="@{(view)->listener.onSingleClick(view)}"
-            android:text="@string/gm_carlst_01_22" />
+            android:text="@string/comm_next" />
 
     </LinearLayout>
 
