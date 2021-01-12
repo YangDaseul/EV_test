@@ -26,7 +26,11 @@ public class VOC_1003 extends BaseData {
     public @Data
     static
     class Request extends BaseRequest {
-        public Request(String menuId){
+        @Expose
+        @SerializedName("vin")
+        private String vin;
+        public Request(String menuId, String vin){
+            this.vin = vin;
             setData(APIInfo.GRA_VOC_1003.getIfCd(), menuId);
         }
     }

@@ -281,7 +281,21 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
                 AddressVO addressVO = new AddressVO();
                 addressVO.setCenterLat(lgnViewModel.getPosition().getValue().get(0));
                 addressVO.setCenterLon(lgnViewModel.getPosition().getValue().get(1));
-                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRelapseHistoryActivity.class).putExtra(KeyNames.KEY_NAME_ADDR, addressVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
+                VehicleVO mainVehicle = null;
+                try{
+                    mainVehicle = reqViewModel.getMainVehicle();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }finally {
+                    if(mainVehicle!=null&&!TextUtils.isEmpty(mainVehicle.getVin())){
+                        ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRelapseHistoryActivity.class)
+                                .putExtra(KeyNames.KEY_NAME_ADDR, addressVO)
+                                .putExtra(KeyNames.KEY_NAME_VIN, mainVehicle.getVin())
+                                , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                                , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    }
+                }
                 break;
 
             default:
