@@ -642,60 +642,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
 
     }
 
-
-
-
-//    private void setPosition(List<BtrVO> list, BtrVO btrVO) {
-//
-//        if(list==null)
-//            return;
-//
-//        this.btrVO = btrVO;
-//        if (bottomSelectBinding == null) {
-//            setViewStub(R.id.vs_map_overlay_bottom_box, R.layout.layout_map_overlay_ui_bottom_select, new ViewStub.OnInflateListener() {
-//                @Override
-//                public void onInflate(ViewStub viewStub, View inflated) {
-//                    bottomSelectBinding = DataBindingUtil.bind(inflated);
-//                    bottomSelectBinding.setActivity(ServiceNetworkActivity.this);
-//                    switch (pageType){
-//                        case PAGE_TYPE_BTR:
-//                            bottomSelectBinding.tvMapSelectBtn1.setText(R.string.bt06_14);
-//                            break;
-//                        case PAGE_TYPE_RENT:
-//                            bottomSelectBinding.tvMapSelectBtn1.setText(R.string.bt06_15);
-//                            break;
-//                        case PAGE_TYPE_REPAIR:
-//                            bottomSelectBinding.tvMapSelectBtn1.setText(R.string.map_btn_1);
-//                            break;
-//                        case PAGE_TYPE_SERVICE:
-//                        default:
-//                            String custGbCd = lgnViewModel.getDbUserRepo().getUserVO().getCustGbCd();
-//                            if(!TextUtils.isEmpty(custGbCd)&&custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)){//서비스네트워크에서는 차량 소유 고객에게만 예약버튼 제공
-//                                bottomSelectBinding.tvMapSelectBtn1.setVisibility(View.VISIBLE);
-//                                bottomSelectBinding.tvMapSelectBtn1.setText(R.string.map_btn_3);
-//                            }else{
-//                                bottomSelectBinding.tvMapSelectBtn1.setVisibility(View.INVISIBLE);
-//                            }
-//                            break;
-//                    }
-//                    bottomSelectBinding.setData(btrVO);
-//                }
-//            });
-//        } else {
-//            bottomSelectBinding.setData(btrVO);
-//        }
-//
-//        for (int i = 0; i < list.size(); i++) {
-//            if (btrVO.getAsnCd().equalsIgnoreCase(list.get(i).getAsnCd())) {
-//                drawMarkerItem(list.get(i), R.drawable.ic_pin_carcenter);
-//            } else {
-//                drawMarkerItem(list.get(i), R.drawable.ic_pin);
-//            }
-//        }
-//        ui.pmvMapView.setMapCenterPoint(new PlayMapPoint( Double.parseDouble(btrVO.getMapYcooNm()), Double.parseDouble(btrVO.getMapXcooNm())), 500);
-//    }
-
-
     private void setPosition(List<BtrVO> list, BtrVO btrVO) {
 
         if(list==null||btrVO==null)

@@ -317,7 +317,7 @@ public class MiddleDialog {
                         title,
                         message,
                         R.string.dialog_common_7,
-                        R.string.dialog_common_2
+                        R.string.dialog_common_9
                 ).show()
         );
     }
