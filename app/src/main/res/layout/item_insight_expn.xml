@@ -62,11 +62,11 @@
                 android:textColor="@color/x_000000"
                 android:textSize="15dp"
                 android:ellipsize="end"
-                android:maxLines="1"
+                android:maxLines="2"
                 app:layout_constraintStart_toStartOf="@+id/tv_expn_div_nm"
                 app:layout_constraintEnd_toStartOf="@+id/iv_icon"
                 app:layout_constraintTop_toBottomOf="@+id/tv_expn_div_nm"
-                tools:text="구로디지털단지주유소" />
+                tools:text="구로디지털단지주유소구로디지털단지주유소구로디지털단지주유소구로디지털단지주유소구로디지털단지주유소" />
 
             <TextView
                 android:id="@+id/tv_title_accm_milg"
