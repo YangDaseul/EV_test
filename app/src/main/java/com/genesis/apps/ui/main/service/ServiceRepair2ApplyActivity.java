@@ -137,7 +137,6 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
 
             case R.id.tv_repair_group:
                 requestRepairGroup();
-
                 break;
         }
     }
@@ -182,7 +181,7 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
         dialogCalendarRepair.setCalendarMaximum(Calendar.getInstance(Locale.getDefault()));
         dialogCalendarRepair.setTitle(getString(R.string.sm_r_rsv02_04_10));
         Calendar minCalendar = Calendar.getInstance(Locale.getDefault());
-        minCalendar.add(Calendar.DATE, 2);
+        minCalendar.add(Calendar.DATE, 0);
         Calendar maxCalendar = Calendar.getInstance(Locale.getDefault());
         maxCalendar.add(Calendar.DATE, 14);
 
@@ -277,10 +276,11 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
         reqViewModel.getRES_REQ_1011().observe(this, result -> {
             switch (result.status) {
                 case LOADING:
-                    showProgressDialog(true);
+                    if(dialogCalendarRepair!=null) dialogCalendarRepair.showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    showProgressDialog(false);
+                    if(dialogCalendarRepair!=null) dialogCalendarRepair.showProgressDialog(false);
+
                     if (result.data != null && result.data.getRpshGrpList() != null && result.data.getRpshGrpList().size() > 0) {
                         selectRepairGroup(result.data.getRpshGrpList());
                         break;
@@ -296,7 +296,7 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
                             serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
                         }
                         SnackBarUtil.show(this, serverMsg);
-                        showProgressDialog(false);
+                        if (dialogCalendarRepair != null) dialogCalendarRepair.showProgressDialog(false);
                     }
                     break;
             }

@@ -162,8 +162,8 @@
     <string name="mg_member03_8">변경 중 오류가 발생했습니다.\n이용에 불편을 드려 죄송합니다.\n네트워크 연결 상태를 확인 후 다시 시도해 주십시오.</string>
     <string name="mg_member03_9">웹사이트의 비밀번호(패스워드)와는 별개의 것입니다.</string>
     <string name="mg_member03_10">블루멤버스 카드를 여러장 보유하더라도 카드 비밀번호는 1개로 관리됩니다.</string>
-    <string name="mg_member03_11">현대카드 m-블루멤버스의 경우 신용카드 비밀번호와는 별도로 관리됩니다.</string>
-    <string name="mg_member03_12">카드 비밀 번호는 4자리 숫자입니다.</string>
+    <string name="mg_member03_11">현대카드 M-블루멤버스의 경우 신용카드 비밀번호와는 별도로 관리됩니다.</string>
+    <string name="mg_member03_12">카드 비밀번호는 4자리 숫자입니다.</string>
 
 
     <string name="mg_con02_01_1">포인트 연동</string>

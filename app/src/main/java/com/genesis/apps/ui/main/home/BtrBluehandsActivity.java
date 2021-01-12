@@ -17,6 +17,7 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.BTR_1001;
 import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.BTRViewModel;
 import com.genesis.apps.databinding.ActivityBtrBluehandsBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
@@ -149,14 +150,14 @@ public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBi
 
     private void setViewBtrInfo(){
         if(btrVO!=null) {
-            ui.tvAsnnm.setText(btrVO.getAsnNm());
-            ui.tvAddr.setText(btrVO.getPbzAdr());
-            ui.tvReptn.setText(PhoneNumberUtils.formatNumber(btrVO.getRepTn(), Locale.getDefault().getCountry()));
+            ui.tvAsnnm.setText(StringUtil.isValidString(btrVO.getAsnNm()));
+            ui.tvAddr.setText(StringUtil.isValidString(btrVO.getPbzAdr()));
+            ui.tvReptn.setText(PhoneNumberUtils.formatNumber(StringUtil.isValidString(btrVO.getRepTn()), Locale.getDefault().getCountry()));
 
-            ui.tvName.setText(btrVO.getBtlrNm());
-            ui.tvPhone.setText(PhoneNumberUtils.formatNumber(btrVO.getCelphNo(), Locale.getDefault().getCountry()));
+            ui.tvName.setText(StringUtil.isValidString(btrVO.getBtlrNm()));
+            ui.tvPhone.setText(PhoneNumberUtils.formatNumber(StringUtil.isValidString(btrVO.getCelphNo()), Locale.getDefault().getCountry()));
 
-            if (btrVO.getBltrChgYn().equalsIgnoreCase(VariableType.BTR_CHANGE_REQUEST_YES)) {
+            if (StringUtil.isValidString(btrVO.getBltrChgYn()).equalsIgnoreCase(VariableType.BTR_CHANGE_REQUEST_YES)) {
                 ui.tvInfo.setVisibility(View.VISIBLE);
                 ui.lBtrMenu.setVisibility(View.GONE);
                 ui.btnChange.setVisibility(View.INVISIBLE);
@@ -166,7 +167,7 @@ public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBi
                 ui.btnChange.setVisibility(View.VISIBLE);
             }
 
-            ui.ivBadge.setVisibility(btrVO.getCnsltBdgYn().equalsIgnoreCase(VariableType.BTR_CNSL_BADGE_YES) ? View.VISIBLE : View.GONE);
+            ui.ivBadge.setVisibility(StringUtil.isValidString(btrVO.getCnsltBdgYn()).equalsIgnoreCase(VariableType.BTR_CNSL_BADGE_YES) ? View.VISIBLE : View.GONE);
         }
     }
 

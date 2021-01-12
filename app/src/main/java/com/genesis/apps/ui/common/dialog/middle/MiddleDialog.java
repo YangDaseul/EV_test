@@ -305,6 +305,22 @@ public class MiddleDialog {
                 ).show()
         );
     }
+    public static void dialogLogout(@NonNull Activity activity, String title, String message, Runnable ok, Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        title,
+                        message,
+                        R.string.dialog_common_7,
+                        R.string.dialog_common_2
+                ).show()
+        );
+    }
 
 
     public static void dialogLeasingCarApplyCancel(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {

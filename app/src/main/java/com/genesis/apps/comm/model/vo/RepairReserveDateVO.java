@@ -4,6 +4,7 @@ import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import androidx.room.Ignore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -36,4 +37,7 @@ class RepairReserveDateVO extends BaseData {
     @Expose
     @SerializedName("rsvtTm")
     private String rsvtTm;
+
+    @Ignore
+    private boolean isSelect;
 }

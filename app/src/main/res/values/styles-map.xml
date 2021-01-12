@@ -120,8 +120,18 @@
 
 
 
+    <!-- 지도 UI 하단 하얀상자 : 하얀 상자 자체, 쉐도우 효과 있음-->
+    <style name="MapOverlayBoxWhiteUnShadow">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/x_ffffff</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:padding">20dp</item>
+    </style>
 
-    <!-- 지도 UI 하단 하얀상자 : 하얀 상자 자체-->
+
+
+    <!-- 지도 UI 하단 하얀상자 : 하얀 상자 자체, 쉐도우 효과 있음-->
     <style name="MapOverlayBoxWhite">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>

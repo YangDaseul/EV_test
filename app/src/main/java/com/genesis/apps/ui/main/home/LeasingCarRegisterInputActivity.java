@@ -135,6 +135,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                             String addrDtl = ui.etAddrDetail.getText().toString().trim();
                             if(!TextUtils.isEmpty(addrDtl)){
                                 ui.lPrivilege.etAddrDetail.setText(addrDtl);
+                                clearKeypad();
                             }
                         }
                     }

@@ -22,7 +22,7 @@
     <string name="gm_carlst_01_20">렌트/리스 이용 법인에 연결된 실운행자(법인임직원)는 포인트가 적립 되지 않습니다.\n단, 블루 기본점검은 제공됩니다.</string>
     <string name="gm_carlst_01_21">유의사항</string>
     <string name="gm_carlst_01_22">확인</string>
-    <string name="gm_carlst_01_23">차대 번호를 입력해 주세요.</string>
+    <string name="gm_carlst_01_23">차대 번호 17자리를 입력해 주세요.</string>
 
     <string name="gm_carlst_01_24">계약서 종류를\n선택해 주세요.</string>
     <string name="gm_carlst_01_25">계약서 종류</string>

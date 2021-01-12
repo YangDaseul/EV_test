@@ -1,6 +1,5 @@
 package com.genesis.apps.ui.myg.view;
 
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;

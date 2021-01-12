@@ -7,6 +7,10 @@
     <string name="dialog_common_6">닫기</string>
     <string name="dialog_common_7">취소</string>
     <string name="dialog_common_8">전화걸기</string>
+    <string name="dialog_common_9">로그아웃</string>
+
+    <string name="dialog_msg_1">로그아웃 하시겠습니까?\n\n로그아웃 시 앱이 종료됩니다.</string>
+
 
     <string name="sm_emg01_p03_title_1">종료 안내</string>
     <string name="sm_emg01_p03_msg_1">아직 원격진단서비스 신청이 완료되지 않았습니다.\n신청을 종료하시겠습니까?</string>
@@ -131,7 +135,7 @@
     <string name="sm_r_rsv05_p02_2">%s 예약을\n취소하시겠습니까?</string>
 
     <string name="sm_flaw03_01_1">종료 안내</string>
-    <string name="sm_flaw03_01_2">아직 하자재발통보 신청이\n완료되지 않았습니다.\n신청을 종료 하시겠습니까?</string>
+    <string name="sm_flaw03_01_2">아직 하자 재발 통보 신청이\n완료되지 않았습니다.\n신청을 종료 하시겠습니까?</string>
 
     <string name="pop03_1">안내</string>
     <string name="pop03_2">기존에 Push 메시지를 받으시는 스마트폰이 존재합니다.\n변경 하시겠습니까?</string>

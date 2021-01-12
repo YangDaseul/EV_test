@@ -25,7 +25,7 @@
     <!-- sonax 지점 검색 결과 없음   -->
     <style name="SonaxResult.NoResult" parent="TextBasic">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:textColor">@color/x_141414</item>
+        <item name="android:textColor">@color/x_000000</item>
         <item name="android:gravity">center_horizontal</item>
     </style>
 
@@ -44,7 +44,7 @@
     <style name="CarWashHistoryBtn" parent="TextBtnBasic">
         <item name="android:layout_width">0dp</item>
         <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
-        <item name="android:textColor">@color/x_141414</item>
+        <item name="android:textColor">@color/x_000000</item>
         <item name="android:textSize">16dp</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_6f6f6f</item>
         <item name="android:padding">18dp</item>
@@ -176,7 +176,7 @@
     <!-- 항목 항목 값-->
     <style name="RelapseHistoryItemDesc" parent="TextBasic">
         <item name="android:layout_width">0dp</item>
-        <item name="android:textColor">@color/x_141414</item>
+        <item name="android:textColor">@color/x_000000</item>
         <item name="android:textSize">16dp</item>
         <item name="android:maxLines">1</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
@@ -195,6 +195,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:background">@drawable/bg_ffffff_stroke_141414_2dp</item>
         <item name="android:padding">18dp</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="layout_constraintBottom_toBottomOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
         <item name="layout_constraintHorizontal_chainStyle">packed</item>
@@ -212,7 +213,6 @@
         <item name="layout_constraintHorizontal_chainStyle">packed</item>
     </style>
 
-
     <!-- 하자 재발 3단계 과거 수리내역 레이아웃 -->
     <style name="Relapse3RepairHistoryTextInputLayout">
         <item name="android:layout_width">match_parent</item>
@@ -222,14 +222,15 @@
         <item name="boxBackgroundMode">outline</item>
         <item name="boxCornerRadiusTopEnd">0dp</item>
         <item name="boxCornerRadiusTopStart">0dp</item>
-        <item name="boxStrokeColor">@color/x_141414</item>
-        <item name="boxStrokeErrorColor">@color/x_ba544d</item>
+        <item name="boxStrokeColor">@color/x_000000</item>
+        <item name="boxStrokeErrorColor">@color/x_ce2d2d</item>
         <item name="endIconMode">clear_text</item>
         <item name="errorEnabled">true</item>
-        <item name="errorIconTint">@color/x_ba544d</item>
-        <item name="errorTextColor">@color/x_ba544d</item>
+        <item name="errorIconTint">@color/x_ce2d2d</item>
+        <item name="errorTextColor">@color/x_ce2d2d</item>
         <item name="hintEnabled">true</item>
         <item name="hintTextColor">@color/x_000000</item>
+        <item name="placeholderTextColor">@color/x_000000</item>
         <item name="hintTextAppearance">@style/CommonTextInputEditTextHint</item>
         <item name="placeholderTextAppearance">@style/CommonTextInputEditTextHint</item>
         <item name="errorTextAppearance">@style/CommonTextInputEditTextError</item>
@@ -260,7 +261,7 @@
     <style name="Relapse3RepairHistoryDateError" parent="TextBasic">
         <item name="android:text">@string/relapse_3_repair_date_error</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
-        <item name="android:textColor">@color/x_ba544d</item>
+        <item name="android:textColor">@color/x_ce2d2d</item>
         <item name="android:textSize">12dp</item>
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:visibility">gone</item>

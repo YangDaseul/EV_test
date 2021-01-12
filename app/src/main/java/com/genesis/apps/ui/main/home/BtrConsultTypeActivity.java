@@ -351,13 +351,13 @@ public class BtrConsultTypeActivity extends SubActivity<ActivityBtrConsultType1B
             case R.id.tv_lgct:
                 //기 선택되어 있는 항목과 다를 경우
                 if(!selectCdValId[1].equalsIgnoreCase(getCode(listLgct, cdValNm))){
-                    btrViewModel.reqBTR2001(new BTR_2001.Request(APPIAInfo.GM_BT04.getId(), VariableType.BTR_CNSL_CODE_MEDIUM, getCode(listLgct, cdValNm),"",""));
+                    btrViewModel.reqBTR2001(new BTR_2001.Request(APPIAInfo.GM_BT04.getId(), VariableType.BTR_CNSL_CODE_MEDIUM, "",getCode(listLgct, cdValNm),""));
                 }
                 break;
             case R.id.tv_mdct:
                 //기 선택되어 있는 항목과 다를 경우
                 if(!selectCdValId[2].equalsIgnoreCase(getCode(listMdct, cdValNm))){
-                    btrViewModel.reqBTR2001(new BTR_2001.Request(APPIAInfo.GM_BT04.getId(), VariableType.BTR_CNSL_CODE_SMALL, getCode(listMdct, cdValNm),"",""));
+                    btrViewModel.reqBTR2001(new BTR_2001.Request(APPIAInfo.GM_BT04.getId(), VariableType.BTR_CNSL_CODE_SMALL, "","",getCode(listMdct, cdValNm)));
                 }
                 break;
             case R.id.tv_smct:

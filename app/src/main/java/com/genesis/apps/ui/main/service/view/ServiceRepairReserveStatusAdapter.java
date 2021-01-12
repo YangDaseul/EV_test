@@ -126,6 +126,12 @@ public class ServiceRepairReserveStatusAdapter extends BaseRecyclerViewAdapter2<
             this.serviceRepairReserveStatusAdapter = serviceRepairReserveStatusAdapter;
 
             getBinding().btnCancel.setOnClickListener(onSingleClickListener);
+            getBinding().tvRsvtStatus.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    getBinding().btnArrow.performClick();
+                }
+            });
             getBinding().btnArrow.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
@@ -167,6 +173,12 @@ public class ServiceRepairReserveStatusAdapter extends BaseRecyclerViewAdapter2<
             this.serviceRepairReserveStatusAdapter = serviceRepairReserveStatusAdapter;
 
             getBinding().btnCancel.setOnClickListener(onSingleClickListener);
+            getBinding().tvRsvtStatus.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    getBinding().btnArrow.performClick();
+                }
+            });
             getBinding().btnArrow.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
@@ -213,6 +225,12 @@ public class ServiceRepairReserveStatusAdapter extends BaseRecyclerViewAdapter2<
             this.serviceRepairReserveStatusAdapter = serviceRepairReserveStatusAdapter;
 
             getBinding().btnCancel.setOnClickListener(onSingleClickListener);
+            getBinding().tvRsvtStatus.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    getBinding().btnArrow.performClick();
+                }
+            });
             getBinding().btnArrow.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {

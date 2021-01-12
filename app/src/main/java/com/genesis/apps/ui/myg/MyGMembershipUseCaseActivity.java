@@ -12,7 +12,7 @@ import com.genesis.apps.ui.common.activity.TermActivity;
 
 public class MyGMembershipUseCaseActivity extends TermActivity {
     private MYPViewModel mypViewModel;
-    private final String URL = "https://www.genesis.com/content/genesis/kr/ko/genesis-membership/life-service.html"; //사용처 안내 하드코딩 URL
+    private final String URL = "https://www.genesis.com/kr/ko/members/genesis-membership/membership-overview/benefit-service.html?anchorID=members_teb_01"; //사용처 안내 하드코딩 URL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

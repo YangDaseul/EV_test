@@ -74,7 +74,7 @@ public class LeasingCarHistActivity extends SubActivity<ActivityLeasingCarHistBi
 
             case R.id.btn_more:
 
-                List<RentStatusVO> list = gnsViewModel.getRES_GNS_1007().getValue().data.getSubspList();
+                List<RentStatusVO> list = gnsViewModel.getRES_GNS_1007().getValue().data.getSuspList();
                 if(adapter.getItemCount()>=list.size()){
                     adapter.setMore(false);
 //                    adapter.notifyItemChanged(list.size()-1);
@@ -123,14 +123,14 @@ public class LeasingCarHistActivity extends SubActivity<ActivityLeasingCarHistBi
                 case SUCCESS:
 
                     if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
-                        if(result.data.getSubspList()!=null&&result.data.getSubspList().size()>0) {
+                        if(result.data.getSuspList()!=null&&result.data.getSuspList().size()>0) {
                             List<RentStatusVO> list = new ArrayList<>();
                             adapter.clear();
-                            if (result.data.getSubspList().size() > 2) {
-                                list = new ArrayList<>(result.data.getSubspList().subList(0, 3));
+                            if (result.data.getSuspList().size() > 2) {
+                                list = new ArrayList<>(result.data.getSuspList().subList(0, 3));
                                 adapter.setMore(true);
                             } else {
-                                list.addAll(result.data.getSubspList());
+                                list.addAll(result.data.getSuspList());
                                 adapter.setMore(false);
                             }
                             adapter.setRows(list);

@@ -311,7 +311,7 @@
 
                     <TextView
                         android:id="@+id/tv_privilege_service"
-                        style="@style/CommonSpinnerItemDisable"
+                        style="@style/CommonSpinnerItemEnable"
                         android:layout_marginTop="6dp"
                         android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
                         android:text="@{data.godsNm ?? @string/gm_carlst_01_01_9}"

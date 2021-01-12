@@ -133,20 +133,20 @@ public class FragmentServiceRepairHistory extends SubFragment<FragmentServiceRep
                     }
                 default:
                     setViewEmpty();
+                    ((SubActivity) getActivity()).showProgressDialog(false);
                     String serverMsg = "";
                     try {
-                        if(result.data.getRtCd().equalsIgnoreCase("2005"))//조회된 정보가 없을 경우 에러메시지 출력하지 않음
-                            return;
-
                         serverMsg = result.data.getRtMsg();
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
+                        if(result.data.getRtCd().equalsIgnoreCase("2005"))//조회된 정보가 없을 경우 에러메시지 출력하지 않음
+                            return;
+
                         if (TextUtils.isEmpty(serverMsg)) {
                             serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
                         }
                         SnackBarUtil.show(getActivity(), serverMsg);
-                        ((SubActivity) getActivity()).showProgressDialog(false);
                     }
                     break;
             }
