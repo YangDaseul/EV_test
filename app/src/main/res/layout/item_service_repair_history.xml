@@ -128,6 +128,7 @@
                 app:title="@{@string/sm_r_history01_2}"
                 app:msg="@{data.rparWorkNm ?? `--`}"
                 app:isLeft="@{true}"
+                app:maxLine="@{Integer.MAX_VALUE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/l_asn_nm"/>
