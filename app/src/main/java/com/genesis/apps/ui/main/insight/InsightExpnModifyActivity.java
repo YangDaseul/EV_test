@@ -198,6 +198,7 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
                 selectDivCd();
                 break;
             case R.id.tv_expn_dtm:
+                clearKeypad();
                 DialogCalendar dialogCalendar = new DialogCalendar(this, R.style.BottomSheetDialogTheme);
                 dialogCalendar.setOnDismissListener(dialogInterface -> {
                     Calendar calendar = dialogCalendar.calendar;
@@ -213,6 +214,7 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
     }
 
     private void showDialog(List<String> list, int title, DialogInterface.OnDismissListener dismissListener) {
+        clearKeypad();
         bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
         bottomListDialog.setOnDismissListener(dismissListener);
         bottomListDialog.setDatas(list);
@@ -221,6 +223,7 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
     }
 
     private void selectDivCd() {
+        clearKeypad();
         final List<String> divList = Arrays.asList(getResources().getStringArray(R.array.insight_item));
         final BottomListDialog bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
         bottomListDialog.setOnDismissListener(dialogInterface -> {
