@@ -71,7 +71,8 @@
                         android:id="@+id/et_expn_amt"
                         style="@style/CommonTextInputEditText"
                         android:hint="@string/tm_exps01_01_10"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:maxLength="8"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -117,7 +118,8 @@
                         android:id="@+id/et_accm_milg"
                         style="@style/CommonTextInputEditText"
                         android:hint="@string/tm_exps01_01_5"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:maxLength="8"/>
 
                     <requestFocus/>
 

@@ -383,7 +383,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
 
     EditText.OnEditorActionListener editorActionListener = (textView, actionId, keyEvent) -> {
         if(actionId== EditorInfo.IME_ACTION_DONE){
-            doNext();
+            ui.btnNext.performClick();
         }
         return false;
     };
