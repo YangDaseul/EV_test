@@ -30,7 +30,7 @@
                 android:padding="16dp"
                 android:inputType="text"
                 android:imeOptions="actionSearch"
-                android:hint="@string/mg00_msg_1"
+                android:hint="@string/mg00_msg_3"
                 android:textColorHint="@color/x_a2a2a2"
                 android:background="@drawable/bg_ffffff_stroke_e5e5e5"
                 android:fontFamily="@font/regular_genesissanstextglobal"
