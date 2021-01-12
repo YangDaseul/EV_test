@@ -26,10 +26,12 @@ import com.genesis.apps.comm.hybrid.core.WebViewFragment;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CMS_1001;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.viewmodel.CMSViewModel;
 import com.genesis.apps.databinding.ActivityContentsDetailWebBinding;
 import com.genesis.apps.databinding.ActivityStoreWebBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.main.MainActivity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -213,7 +215,49 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
     }
 
     public boolean parseURL(String url) {
-        if(!url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("javascript")) {
+        Uri uri = Uri.parse(url);
+
+        if (url.equalsIgnoreCase("https://www.genesis.com/kr/ko")
+                || url.equalsIgnoreCase("https://www.genesis.com/kr/ko/genesis-membership.html")){
+            //TODO 테스트 필요 0001
+            finish();
+            return true;
+        } else if(url.startsWith("genesisapps://close")){
+            //TODO 테스트 필요 0004
+            if(url.contains("all=y")){
+                finish();
+            }else{
+                if(clearWindowOpens3()) {
+                    return true;
+                }else {
+                    return back(fragment.getUrl());
+                }
+            }
+            return true;
+        } else if (url.startsWith("genesisapps://open")) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+//            intent.setData(QueryString.encode(uri.getQueryParameter("url")));
+            intent.setData(Uri.parse(uri.getQueryParameter("url")));
+            startActivity(intent); //TODO 테스트 필요 0002
+            return true;
+        } else if (url.startsWith("genesisapps://newView")) {
+            fragment.createChildWebView(uri.getQueryParameter("url"));
+            return true;
+        } else if (url.startsWith("genesisapps://openView")) {
+            startActivitySingleTop(new Intent(this, StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, uri.getQueryParameter("url")), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+            return true;
+        } else if (url.startsWith("genesisapps://sendAction")) {
+//            fragment.loadUrl(QueryString.encodeString(uri.getQueryParameter("fn")));
+//            fragment.loadUrl("javascript:"+QueryString.encodeString(uri.getQueryParameter("fn")));
+            fragment.loadUrl("javascript:"+uri.getQueryParameter("fn"));
+            return true;
+        } else if (url.startsWith("genesisapps://backAction")){
+            this.fn = uri.getQueryParameter("fn");
+            return true;
+        } else if (url.startsWith("genesisapp://menu?id=")||url.startsWith("genesisapps://menu?id=")){
+            moveToNativePage(url, false);
+            return true;
+        } else if(!url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("javascript")) {
             Intent intent;
             try {
                 intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
@@ -221,7 +265,7 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
                 return false;
             }
 
-            Uri uri = Uri.parse(intent.getDataString());
+            uri = Uri.parse(intent.getDataString());
             intent = new Intent(Intent.ACTION_VIEW, uri);
             try {
                 startActivity(intent);
@@ -299,6 +343,27 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
 //                    }
                 }
                 fragment.openWindows.clear();
+                return true;
+            } catch (Exception ignore) {
+            }
+        }
+        return false;
+    }
+
+    public boolean clearWindowOpens3() {
+
+        if(!fragment.openWindows.isEmpty()) {
+            try {
+                for (WebView webView : fragment.openWindows) {
+                    if(webView.canGoBack()){
+                        webView.goBack();
+                    }else {
+                        webView.clearHistory();
+                        fragment.getWebViewContainer().removeView(webView);
+                        fragment.onCloseWindow(webView);
+                        fragment.openWindows.clear();
+                    }
+                }
                 return true;
             } catch (Exception ignore) {
             }

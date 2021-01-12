@@ -65,7 +65,7 @@
         <TextView
             android:id="@+id/tv_map_title_address"
             style="@style/MapOverlayTitleBar.Hint"
-            android:layout_height="58dp"
+            android:layout_height="50dp"
             android:text="@{title}"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/back"

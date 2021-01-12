@@ -16,6 +16,8 @@
     <string name="sm_cw_history_06">예약 취소</string>
     <string name="sm_cw_history_07">이용 완료</string>
 
+    <string name="sm_cw_history_empty">세차 서비스 예약 내역이 없습니다.</string>
+
     <string name="sm_cw_pay_type_01">현금 결제</string>
     <string name="sm_cw_pay_type_xx">결제 정보 누락</string>
 

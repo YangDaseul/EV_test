@@ -24,22 +24,21 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/bg_f4f4f4_round_10"
-            android:elevation="5dp"
-            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_ffffff_stroke_e5e5e5"
+            android:layout_marginBottom="30dp"
             android:orientation="vertical">
             <!-- 윗부분, 서비스 내용-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_ffffff_top_round_10"
                 android:padding="20dp">
 
                 <!-- 서비스 이름-->
                 <TextView
                     android:id="@+id/tv_car_wash_history_name"
                     style="@style/CarWashHistoryLight"
-                    android:textSize="20dp"
+                    android:textSize="22dp"
+                    android:lineSpacingExtra="6dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="울트라 킹왕짱\n울랄라 울라울라" />
@@ -68,16 +67,16 @@
                 <TextView
                     android:id="@+id/tv_car_wash_history_service_end"
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="10dp"
-                    android:background="@drawable/bg_ffffff_stroke_ba544d"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
                     android:gravity="center"
-                    android:paddingHorizontal="10dp"
-                    android:textColor="@color/x_ba544d"
+                    android:textColor="@color/x_996449"
                     android:textSize="12dp"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="6dp"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/tv_car_wash_history_price"
-                    app:layout_constraintStart_toEndOf="@id/tv_car_wash_history_price"
+                    app:layout_constraintRight_toLeftOf="@+id/iv_car_wash_history_img"
                     app:layout_constraintTop_toTopOf="@id/tv_car_wash_history_price"
                     tools:text="이용 완료" />
 
@@ -93,18 +92,17 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- 가운데 점선 -->
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/x_ffffff"
-                android:src="@drawable/horizontal_ffffff_stroke_cbcbcb" />
+<!--            <ImageView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="2dp"-->
+<!--                android:background="@color/x_ffffff"-->
+<!--                android:src="@drawable/horizontal_ffffff_stroke_cbcbcb" />-->
 
             <!-- 아랫부분, 서비스 상태(예약 됨) -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/l_car_wash_history_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_f9f9f9_bottom_round_10"
                 android:padding="20dp">
 
                 <!-- 예약 안내 -->
@@ -113,27 +111,38 @@
                     style="@style/TextBasic"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:text="@string/sm_cw_history_02"
-                    android:textColor="@color/x_aaabaf"
+                    android:textColor="@color/x_666666"
                     android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <!-- 통화하기 -->
-                <TextView
+                <LinearLayout
                     android:id="@+id/tv_car_wash_history_call"
-                    android:layout_width="80dp"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
                     android:layout_height="36dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/ripple_bg_000000"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:fontFamily="@font/light_genesissansheadglobal"
-                    android:gravity="center"
-                    android:text="@string/sm_cw_history_04"
-                    android:textColor="@color/x_ffffff"
-                    android:textSize="14dp"
+                    android:gravity="center_vertical"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_car_wash_history_noti" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_car_wash_history_noti">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_ffffff_underline_000000"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:text="@string/sm_cw_history_04"
+                        android:textColor="@color/x_000000"
+                        android:textSize="14dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/btn_arrow_open_r_g" />
+
+                </LinearLayout>
 
                 <!-- 영업점 이름 -->
                 <!-- 예약 안내에서 점 뒤에 나오는 글에 정렬하려고 마진 8 넣음-->
@@ -150,20 +159,36 @@
                 <!-- 직원에게 확인 -->
                 <TextView
                     android:id="@+id/tv_car_wash_history_confirm"
-                    style="@style/CarWashHistoryBtn"
-                    android:layout_marginTop="10dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="10dp"
+                    android:padding="18dp"
+                    android:gravity="center"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
                     android:text="@string/sm_cw_history_05"
+                    android:textColor="@color/x_ffffff"
                     android:textSize="16dp"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="6dp"
+                    android:background="@drawable/ripple_bg_141414"
                     app:layout_constraintEnd_toStartOf="@id/tv_car_wash_history_cancel"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_car_wash_history_call" />
                 <!-- 예약 취소 -->
                 <TextView
                     android:id="@+id/tv_car_wash_history_cancel"
-                    style="@style/CarWashHistoryBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="18dp"
+                    android:gravity="center"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
                     android:text="@string/sm_cw_history_06"
+                    android:textColor="@color/x_000000"
                     android:textSize="16dp"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="6dp"
+                    android:background="@drawable/ripple_bg_ffffff_stroke_000000"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/tv_car_wash_history_confirm"
                     app:layout_constraintTop_toTopOf="@id/tv_car_wash_history_confirm" />
@@ -175,7 +200,6 @@
                 android:id="@+id/tv_car_wash_history_branch_name_end"
                 style="@style/CarWashHistoryRegular"
                 android:layout_width="match_parent"
-                android:background="@drawable/bg_f9f9f9_bottom_round_10"
                 android:padding="28dp"
                 android:textSize="16dp"
                 android:visibility="gone"

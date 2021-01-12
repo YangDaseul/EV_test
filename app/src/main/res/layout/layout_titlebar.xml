@@ -52,7 +52,7 @@
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="-2dp"
             android:text='@{TextUtils.isEmpty(value) ? "" :value}'
-            android:textColor="@color/x_141414"
+            android:textColor="@color/x_000000"
             android:textSize="18dp"
             android:visibility='@{TextUtils.isEmpty(value) ? View.INVISIBLE : View.VISIBLE}'
             app:layout_constraintBottom_toBottomOf="parent"

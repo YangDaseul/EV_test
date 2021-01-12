@@ -436,7 +436,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
         if (!TextUtils.isEmpty(carId)) {
             developersViewModel.reqTarget(new Target.Request(developersViewModel.getCarId(vehicleVO.getVin())));
         }
-        ((MainActivity) getActivity()).setGNB(false, 1, View.GONE);
+        ((MainActivity) getActivity()).setGNB("", View.GONE);
     }
 
 }

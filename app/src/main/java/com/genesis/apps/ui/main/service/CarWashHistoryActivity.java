@@ -125,17 +125,25 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
                     break;
 
                 case SUCCESS:
+                    //성공 후 데이터 로딩까지 다 되면 로딩 치우고 break;
+                    showProgressDialog(false);
+
                     if (result.data != null && result.data.getRsvtList() != null) {
                         List<WashReserveVO> list = result.data.getRsvtList();
-                        adapter.setRows(list);
-                        adapter.notifyDataSetChanged();
 
-                        //성공 후 데이터 로딩까지 다 되면 로딩 치우고 break;
-                        showProgressDialog(false);
-                        break;
+                        if(list.size() == 0) {
+                            ui.rvCarWashHistoryList.setVisibility(View.GONE);
+                            ui.tvEmpty.setVisibility(View.VISIBLE);
+                        } else {
+                            adapter.setRows(list);
+                            adapter.notifyDataSetChanged();
+                        }
+                    } else {
+                        ui.rvCarWashHistoryList.setVisibility(View.GONE);
+                        ui.tvEmpty.setVisibility(View.VISIBLE);
                     }
-                    //not break; 데이터 이상하면 default로 진입시킴
 
+                    break;
                 default:
                     showProgressDialog(false);
                     String serverMsg = "";

@@ -55,7 +55,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
             android:letterSpacing="-0.01"
-            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:fontFamily="@font/regular_genesissanstextglobal"
             android:text="@string/sm_cw_find_03"
             android:textColor="@color/x_000000"
             android:textSize="13dp"
@@ -90,7 +90,7 @@
             android:layout_width="0dp"
             android:layout_height="10dp"
             android:layout_marginTop="40dp"
-            android:src="@color/x_f4f4f4"
+            android:src="@color/x_f8f8f8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_car_wash_find_branch_location_select" />
@@ -98,27 +98,37 @@
         <LinearLayout
             android:id="@+id/l_car_wash_find_branch_no_result"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/x_f8f8f8"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_dummy"
-            app:layout_constraintVertical_bias="0.46"
-            tools:background="#a0f040"
             tools:visibility="visible">
 
             <TextView
-                style="@style/SonaxResult.NoResult"
-                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/regular_genesissanstextglobal"
                 android:text="@string/sm_cw_find_06"
-                android:textSize="16dp" />
+                android:textColor="@color/x_262626"
+                android:textSize="18dp"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="10sp" />
 
             <TextView
-                style="@style/SonaxResult.NoResult"
-                android:fontFamily="@font/light_genesissansheadglobal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/regular_genesissanstextglobal"
                 android:text="@string/sm_cw_find_07"
-                android:textSize="14dp" />
+                android:textColor="@color/x_666666"
+                android:textSize="16dp"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="10dp" />
+
         </LinearLayout>
 
         <!-- 검색 결과 : 결과 없음 위에 덮어씌우는 형태로 출력

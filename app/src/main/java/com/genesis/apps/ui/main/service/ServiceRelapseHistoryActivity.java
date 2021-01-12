@@ -35,6 +35,7 @@ public class ServiceRelapseHistoryActivity extends GpsBaseActivity<ActivityServi
     private VOCViewModel viewModel;
     private ServiceRelapseHistoryAdapter adapter;
     private AddressVO addressVO;
+    private String vin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,6 +163,7 @@ public class ServiceRelapseHistoryActivity extends GpsBaseActivity<ActivityServi
     public void getDataFromIntent() {
         try {
             addressVO = (AddressVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_ADDR);
+            vin = getIntent().getStringExtra(KeyNames.KEY_NAME_VIN);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -199,7 +201,7 @@ public class ServiceRelapseHistoryActivity extends GpsBaseActivity<ActivityServi
 
         viewModel.reqVOC1003(
                 new VOC_1003.Request(
-                        APPIAInfo.SM_FLAW01.getId()
+                        APPIAInfo.SM_FLAW01.getId(),vin
                 ));
     }
 

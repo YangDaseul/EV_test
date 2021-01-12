@@ -38,6 +38,7 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
     private SOSViewModel sosViewModel;
     private LGNViewModel lgnViewModel;
     private String tmpAcptNo;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView(): start");
@@ -55,36 +56,36 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
         lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
 
         sosViewModel.getRES_SOS_1001().observe(getViewLifecycleOwner(), result -> {
-            switch (result.status){
+            switch (result.status) {
                 case LOADING:
-                    ((SubActivity)getActivity()).showProgressDialog(true);
+                    ((SubActivity) getActivity()).showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    ((SubActivity)getActivity()).showProgressDialog(false);
+                    ((SubActivity) getActivity()).showProgressDialog(false);
                     tmpAcptNo = result.data.getTmpAcptNo();
-                    if(result.data!=null&&!TextUtils.isEmpty(tmpAcptNo)){
-                        sosViewModel.reqSOS1006(new SOS_1006.Request(APPIAInfo.SM01.getId(),tmpAcptNo));
+                    if (result.data != null && !TextUtils.isEmpty(tmpAcptNo)) {
+                        sosViewModel.reqSOS1006(new SOS_1006.Request(APPIAInfo.SM01.getId(), tmpAcptNo));
                         break;
                     }
                 default:
-                    ((SubActivity)getActivity()).showProgressDialog(false);
-                    SnackBarUtil.show(getActivity(), getString(R.string.r_flaw06_p02_snackbar_1)+(" code:1"));
+                    ((SubActivity) getActivity()).showProgressDialog(false);
+                    SnackBarUtil.show(getActivity(), getString(R.string.r_flaw06_p02_snackbar_1) + (" code:1"));
                     break;
             }
         });
         sosViewModel.getRES_SOS_1006().observe(getViewLifecycleOwner(), result -> {
-            switch (result.status){
+            switch (result.status) {
                 case LOADING:
-                    ((SubActivity)getActivity()).showProgressDialog(true);
+                    ((SubActivity) getActivity()).showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    ((SubActivity)getActivity()).showProgressDialog(false);
-                    if(result.data!=null&&result.data.getSosDriverVO()!=null&&!TextUtils.isEmpty(tmpAcptNo)){
+                    ((SubActivity) getActivity()).showProgressDialog(false);
+                    if (result.data != null && result.data.getSosDriverVO() != null && !TextUtils.isEmpty(tmpAcptNo)) {
                         ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceSOSRouteInfoActivity.class).putExtra(KeyNames.KEY_NAME_SOS_DRIVER_VO, result.data), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                         break;
                     }
                 default:
-                    ((SubActivity)getActivity()).showProgressDialog(false);
+                    ((SubActivity) getActivity()).showProgressDialog(false);
                     SnackBarUtil.show(getActivity(), getString(R.string.r_flaw06_p02_snackbar_1));
                     break;
             }
@@ -92,19 +93,19 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
 
         reqViewModel.getRES_REQ_1001().observe(getViewLifecycleOwner(), result -> {
 
-            switch (result.status){
+            switch (result.status) {
                 case LOADING:
-                    ((SubActivity)getActivity()).showProgressDialog(true);
+                    ((SubActivity) getActivity()).showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    ((SubActivity)getActivity()).showProgressDialog(false);
-                    if(result.data!=null){
+                    ((SubActivity) getActivity()).showProgressDialog(false);
+                    if (result.data != null) {
                         setViewSOSStatus(result.data.getPgrsStusCd());
                         setViewMaintenanceStatus(result.data.getStusCd());
                     }
                     break;
                 default:
-                    ((SubActivity)getActivity()).showProgressDialog(false);
+                    ((SubActivity) getActivity()).showProgressDialog(false);
                     break;
             }
 
@@ -125,14 +126,14 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
                     me.lServiceMaintenanceHistoryBtn.tvMovingNow.setVisibility(View.GONE);
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void setViewSOSStatus(String pgrsStusCd) {
-        if(!TextUtils.isEmpty(pgrsStusCd)){
-            switch (pgrsStusCd){
+        if (!TextUtils.isEmpty(pgrsStusCd)) {
+            switch (pgrsStusCd) {
                 case VariableType.SERVICE_SOS_STATUS_CODE_W://접수
                     me.lServiceMaintenanceEmergencyBtn.tvMovingNow.setVisibility(View.VISIBLE);
                     me.lServiceMaintenanceEmergencyBtn.tvMovingNow.setText(R.string.sm01_maintenance_13);
@@ -154,17 +155,17 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
 
     private void startSOSActivity() {
 
-        String pgrsStusCd="";
-        try{
+        String pgrsStusCd = "";
+        try {
             pgrsStusCd = reqViewModel.getRES_REQ_1001().getValue().data.getPgrsStusCd();
-        }catch (Exception e){
+        } catch (Exception e) {
             pgrsStusCd = "";
         }
 
-        if(!TextUtils.isEmpty(pgrsStusCd)){
-            switch (pgrsStusCd){
+        if (!TextUtils.isEmpty(pgrsStusCd)) {
+            switch (pgrsStusCd) {
                 case VariableType.SERVICE_SOS_STATUS_CODE_W://접수
-                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceSOSApplyInfoActivity.class),RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceSOSApplyInfoActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case VariableType.SERVICE_SOS_STATUS_CODE_S://출동
                     sosViewModel.reqSOS1001(new SOS_1001.Request(APPIAInfo.SM01.getId()));
@@ -188,15 +189,15 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
      * @brief 서비스 관련 정보를 서버에 요청
      */
     private void reqServiceInfoToServer() {
-        VehicleVO mainVehicle=null;
-        String custGbCd="";
-        try{
+        VehicleVO mainVehicle = null;
+        String custGbCd = "";
+        try {
             mainVehicle = reqViewModel.getMainVehicle();
-            custGbCd=lgnViewModel.getUserInfoFromDB().getCustGbCd();
-        }catch (Exception e){
+            custGbCd = lgnViewModel.getUserInfoFromDB().getCustGbCd();
+        } catch (Exception e) {
             mainVehicle = null;
-        }finally{
-            if(mainVehicle!=null&&!TextUtils.isEmpty(custGbCd)&&custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)){
+        } finally {
+            if (mainVehicle != null && !TextUtils.isEmpty(custGbCd) && custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)) {
                 reqViewModel.reqREQ1001(new REQ_1001.Request(APPIAInfo.SM01.getId(), mainVehicle.getVin()));
             }
         }
@@ -228,13 +229,13 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
 
             //정비 예약
             case R.id.l_service_maintenance_reservation_btn:
-                try{
+                try {
                     String avlRsrVn = reqViewModel.getRES_REQ_1001().getValue().data.getAvlRsrYn();
-                    if(!TextUtils.isEmpty(avlRsrVn)&&avlRsrVn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES))
-                         ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MaintenanceReserveActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    if (!TextUtils.isEmpty(avlRsrVn) && avlRsrVn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES))
+                        ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MaintenanceReserveActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     else
                         MiddleDialog.dialogServiceInfo(getActivity(), null);
-                }catch (Exception ignore){
+                } catch (Exception ignore) {
 
                 }
                 break;
@@ -245,7 +246,7 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
                 break;
 
             //긴급출동
-           case R.id.l_service_maintenance_emergency_btn:
+            case R.id.l_service_maintenance_emergency_btn:
                 startSOSActivity();
                 break;
 
@@ -266,13 +267,15 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
 
 
                 break;
-                // 원격 진단 신청 내역
+            // 원격 진단 신청 내역
             case R.id.l_service_maintenance_remote_servie_list_btn:
-                ((BaseActivity) getActivity()).startActivitySingleTop(
-                        new Intent(getActivity(), ServiceRemoteListActivity.class),
-                        RequestCodes.REQ_CODE_ACTIVITY.getCode(),
-                        VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
-                );
+                if (!TextUtils.isEmpty(getMainVehicleVin())) {
+                    ((BaseActivity) getActivity()).startActivitySingleTop(
+                            new Intent(getActivity(), ServiceRemoteListActivity.class).putExtra(KeyNames.KEY_NAME_VIN, getMainVehicleVin()),
+                            RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                            VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
+                    );
+                }
                 break;
 
             //하자재발통보
@@ -281,12 +284,29 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
                 AddressVO addressVO = new AddressVO();
                 addressVO.setCenterLat(lgnViewModel.getPosition().getValue().get(0));
                 addressVO.setCenterLon(lgnViewModel.getPosition().getValue().get(1));
-                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRelapseHistoryActivity.class).putExtra(KeyNames.KEY_NAME_ADDR, addressVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
+                if (!TextUtils.isEmpty(getMainVehicleVin())) {
+                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRelapseHistoryActivity.class)
+                                    .putExtra(KeyNames.KEY_NAME_ADDR, addressVO)
+                                    .putExtra(KeyNames.KEY_NAME_VIN, getMainVehicleVin())
+                            , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                            , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                }
                 break;
 
             default:
                 //do nothing
                 break;
         }
+    }
+
+    private String getMainVehicleVin() {
+        VehicleVO mainVehicle = null;
+        try {
+            mainVehicle = reqViewModel.getMainVehicle();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mainVehicle == null ? "" : mainVehicle.getVin();
     }
 }

@@ -189,7 +189,7 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
     @Override
     public void onRefresh() {
         Log.e("onResume", "onReusme store");
-        ((MainActivity) getActivity()).setGNB(false, 0, View.VISIBLE, true, true);
+        ((MainActivity) getActivity()).setGNB(getString(R.string.main_word_5), View.VISIBLE, true, true);
 
         initView();
     }

@@ -222,7 +222,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
         ui.lMapOverlayTitle.tvMapTitleText.setVisibility(View.GONE);
 
         ui.lMapOverlayTitle.tvMapTitleAddress.setVisibility(View.VISIBLE);
-        ui.lMapOverlayTitle.tvMapTitleAddress.setBackground(getDrawable(R.drawable.ripple_bg_ffffff_round_99_stroke_141414));
+        ui.lMapOverlayTitle.tvMapTitleAddress.setBackground(getDrawable(R.drawable.ripple_bg_ffffff));
         ui.lMapOverlayTitle.setTitle(getString(R.string.sm_cw_find_01));
 
         ui.lMapOverlayTitle.tvMapTitleAddress.setOnClickListener(onSingleClickListener);
@@ -421,7 +421,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
             markerItem.setAutoCalloutVisible(false);
             markerItem.setIcon(
                     ((BitmapDrawable) getResources().getDrawable(
-                            pickedBranch == branch ? R.drawable.ic_pin_wash : R.drawable.ic_pin,
+                            pickedBranch == branch ? R.drawable.ico_map_pin_active_b : R.drawable.ic_pin,
                             null)).getBitmap()
             );
 

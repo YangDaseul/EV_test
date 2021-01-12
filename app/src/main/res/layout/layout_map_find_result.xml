@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/x_ffffff"
+        android:background="@color/x_f8f8f8"
         android:padding="20dp">
 
         <!-- 검색결과 타이틀 -->
