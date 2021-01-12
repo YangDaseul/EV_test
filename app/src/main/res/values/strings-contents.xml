@@ -1,8 +1,9 @@
 <resources>
     <string name="cm02_1">이벤트</string>
-    <string name="cm02_2">보여드릴 콘텐츠가 없습니다.\n데이터 추가 후\n다시 시도 버튼을 눌러 주세요.</string>
+    <string name="cm02_2">보여드릴 콘텐츠가 없습니다.</string>
     <string name="cm02_3">다시 시도</string>
     <string name="cm02_4">로그인</string>
+    <string name="cm02_13">데이터 추가 후\n다시 시도 버튼을 눌러 주세요.</string>
 
     <string name="cm02_5">검색</string>
     <string name="cm02_6">검색 결과</string>

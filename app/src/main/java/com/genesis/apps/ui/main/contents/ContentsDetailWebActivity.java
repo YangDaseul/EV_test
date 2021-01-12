@@ -76,18 +76,18 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
                     if(linearLayout.getChildCount() != 0) {
                         if(isSelect) {
                             Glide.with(this)
-                                    .load(R.drawable.ic_star_l_n)
+                                    .load(R.drawable.ic_star_l_n_c)
                                     .format(DecodeFormat.PREFER_ARGB_8888)
-                                    .error(R.drawable.ic_star_l_n)
-                                    .placeholder(R.drawable.ic_star_l_n)
+                                    .error(R.drawable.ic_star_l_n_c)
+                                    .placeholder(R.drawable.ic_star_l_n_c)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                                     .into((ImageView) linearLayout.getChildAt(0));
                         } else {
                             Glide.with(this)
-                                    .load(R.drawable.ic_star_l_s)
+                                    .load(R.drawable.ic_star_l_s_c)
                                     .format(DecodeFormat.PREFER_ARGB_8888)
-                                    .error(R.drawable.ic_star_l_s)
-                                    .placeholder(R.drawable.ic_star_l_s)
+                                    .error(R.drawable.ic_star_l_s_c)
+                                    .placeholder(R.drawable.ic_star_l_s_c)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                                     .into((ImageView) linearLayout.getChildAt(0));
                         }
