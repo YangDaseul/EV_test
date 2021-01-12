@@ -176,7 +176,6 @@ public class NetCaller {
                         jsonObject = httpRequestUtil.sendPut(serverUrl, new Gson().toJson(reqVO));
                         break;
                     case HttpRequest.METHOD_POST:
-                        Log.e("HttpReqeusetUtil", "HttpReqeusetUtil ifcd:" + apiInfo.getIfCd() + "  send data :   " + new Gson().toJson(reqVO));
                         jsonObject = ga.postDataWithAccessToken(serverUrl, new Gson().toJson(reqVO));
 //                       jsonObject = httpRequestUtil.send(serverUrl, new Gson().toJson(reqVO));
                         break;
@@ -185,7 +184,7 @@ public class NetCaller {
                 }
 
                 if (jsonObject != null && !TextUtils.isEmpty(jsonObject.toString())) {
-                    Log.e("HttpReqeusetUtil", "HttpReqeusetUtil ifcd:" + apiInfo.getIfCd() + "  receive data :   " + jsonObject.toString());
+                    setLog(apiInfo.getIfCd(), new Gson().toJson(reqVO), jsonObject.toString());
                     return new NetResult(NetStatusCode.SUCCESS, 0, jsonObject);
                 } else {
                     return new NetResult(NetStatusCode.ERR_DATA_NULL, R.string.error_msg_1, null);
@@ -269,6 +268,7 @@ public class NetCaller {
         } catch (Exception e) {
             jsonObject = null;
         }
+        setLog(apiInfo.getIfCd(), new Gson().toJson(reqVO), jsonObject.toString());
         return jsonObject;
     }
 
@@ -316,6 +316,7 @@ public class NetCaller {
                 }
 
                 if (jsonObject != null && !TextUtils.isEmpty(jsonObject.toString())) {
+                    setLog(apiInfo.getIfCd(), new Gson().toJson(reqVO), jsonObject.toString());
                     return new NetResult(NetStatusCode.SUCCESS, 0, jsonObject);
                 } else {
                     return new NetResult(NetStatusCode.ERR_DATA_NULL, R.string.error_msg_1, null);
@@ -388,6 +389,7 @@ public class NetCaller {
                 jsonObject = httpRequestUtil.upload(ga.getAccessToken(), serverUrl, params, name, file.getName(), file);
 
                 if (jsonObject != null && !TextUtils.isEmpty(jsonObject.toString())) {
+                    setLog(apiInfo.getIfCd(), new Gson().toJson(reqVO), jsonObject.toString());
                     return new NetResult(NetStatusCode.SUCCESS, 0, jsonObject);
                 } else {
                     return new NetResult(NetStatusCode.ERR_DATA_NULL, R.string.error_msg_1, null);
@@ -426,5 +428,14 @@ public class NetCaller {
                 es.shutDownExcutor();
             }
         }, es.getUiThreadExecutor());
+    }
+    final String IFCD ="ifcd :";
+    private void setLog(String ifcd, String send, String receive){
+        try {
+            Log.e(TAG_LOG, IFCD + ifcd + "  send :   " + send);
+            Log.e(TAG_LOG, IFCD + ifcd + "  receive :   " + receive);
+        }catch (Exception ignore){
+            //do nothing
+        }
     }
 }
