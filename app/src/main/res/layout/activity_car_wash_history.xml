@@ -13,12 +13,31 @@
             layout="@layout/layout_titlebar"
             app:value="@{@string/sm_cw_history_01}" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_car_wash_history_list"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            tools:listitem="@layout/item_car_wash_history" />
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_car_wash_history_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="30dp"
+                tools:listitem="@layout/item_car_wash_history" />
+
+            <TextView
+                android:id="@+id/tv_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="10sp"
+                android:textColor="@color/x_262626"
+                android:textSize="18dp"
+                android:text="@string/sm_cw_history_empty"
+                android:visibility="gone"/>
+
+        </FrameLayout>
 
     </LinearLayout>
 </layout>

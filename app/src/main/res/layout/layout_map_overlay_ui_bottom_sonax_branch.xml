@@ -23,7 +23,15 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        style="@style/MapOverlayBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:elevation="10dp"
+        android:background="@color/x_ffffff"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +41,13 @@
         <!-- 지점명 -->
         <TextView
             android:id="@+id/tv_map_sonax_branch_title"
-            style="@style/MapOverlay.RegularHead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/x_000000"
+            android:textSize="16dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:fontFamily="@font/regular_genesissansheadglobal"
             android:text="@{data.getBrnhNm()}"
             app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toStartOf="@id/tv_map_sonax_branch_distance"
@@ -46,7 +60,11 @@
         <!-- 거리 -->
         <TextView
             android:id="@+id/tv_map_sonax_branch_distance"
-            style="@style/MapOverlay.RegularText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/x_000000"
+            android:maxLines="1"
+            android:fontFamily="@font/regular_genesissansheadglobal"
             android:layout_marginStart="10dp"
             android:text="@{(data.getDist()??`0`)+`km`}"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_map_sonax_branch_title"
@@ -58,8 +76,8 @@
             android:id="@+id/iv_map_sonax_branch_img"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginTop="12dp"
-            android:background="@color/x_ffffff"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_ffffff_stroke_e5e5e5"
             android:clickable="true"
             android:focusable="true"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
@@ -72,17 +90,21 @@
             android:id="@+id/tv_map_sonax_branch_service_list"
             style="@style/MapOverlay.Sonax.Service.List"
             android:layout_width="0dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="15dp"
             android:layout_marginEnd="10dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:textColor="@color/x_996449"
             android:text="@{data.getBrnhIntro()}"
             app:layout_constraintBottom_toBottomOf="@id/iv_map_sonax_branch_img"
-            app:layout_constraintEnd_toStartOf="@id/tv_map_sonax_branch_reserve_btn"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_map_sonax_branch_img"
             tools:text="이것도 하고 저것도 하고 울랄라도 하고" />
         <!-- 가능서비스 타이틀 -->
         <TextView
             android:id="@+id/tv_map_sonax_branch_service"
             style="@style/MapOverlay.Sonax.Service.Title"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:textColor="@color/x_996449"
             android:text="@string/map_msg_1"
             app:layout_constraintBottom_toTopOf="@id/tv_map_sonax_branch_service_list"
             app:layout_constraintStart_toStartOf="@id/tv_map_sonax_branch_service_list" />
@@ -90,13 +112,16 @@
         <!-- 주소 -->
         <TextView
             android:id="@+id/tv_map_sonax_branch_address"
-            style="@style/MapOverlay.Light"
             android:layout_width="0dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/x_000000"
+            android:maxLines="2"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="6sp"
+            android:layout_marginTop="15dp"
             android:text="@{data.getBrnhAddr()}"
-            app:layout_constraintEnd_toStartOf="@id/tv_map_sonax_branch_reserve_btn"
-            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_map_sonax_branch_img"
             tools:text="지구 반대쪽에 있지는 않겠지" />
@@ -104,24 +129,40 @@
         <!-- 전화번호 -->
         <TextView
             android:id="@+id/tv_map_sonax_branch_phone"
-            style="@style/MapOverlay.Light"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/x_000000"
+            android:maxLines="2"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="6sp"
             android:text="@{PhoneNumberUtils.formatNumber(data.getTelNo())}"
-            app:layout_constraintEnd_toStartOf="@id/tv_map_sonax_branch_reserve_btn"
-            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_map_sonax_branch_address"
             tools:text="020-104140-042402" />
 
         <!-- 예약버튼 -->
         <TextView
             android:id="@+id/tv_map_sonax_branch_reserve_btn"
-            style="@style/MapOverlay.Btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:padding="18dp"
+            android:gravity="center"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:textColor="@color/x_ffffff"
+            android:textSize="16dp"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="6dp"
+            android:background="@drawable/ripple_bg_141414"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:text="@string/map_btn_3"
             android:visibility="@{reserveEnable?View.VISIBLE:View.INVISIBLE}"
-            app:layout_constraintBottom_toBottomOf="@id/tv_map_sonax_branch_phone"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_map_sonax_branch_phone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
