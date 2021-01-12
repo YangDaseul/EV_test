@@ -17,6 +17,7 @@ import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.RemoteHistoryVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.RMTViewModel;
 import com.genesis.apps.databinding.ActivityServiceRemoteListBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -49,7 +50,7 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
         setViewModel();
         setObserver();
 
-        rmtViewModel.reqRMT1003(new RMT_1003.Request(APPIAInfo.R_REMOTE01.getId(),vin));
+        rmtViewModel.reqRMT1003(new RMT_1003.Request(APPIAInfo.R_REMOTE01.getId(), vin));
     }
 
     /****************************************************************************************************
@@ -93,6 +94,9 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
                         datas.clear();
                         datas.addAll(response.getAplyList());
                         initView();
+                    } else if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("2005")) {
+                        //조회된 정보가 없습니다 코드.
+                        initView();
                     } else {
                         exitPage(getString(R.string.r_flaw06_p02_snackbar_1), ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
                     }
@@ -121,7 +125,7 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
                         SnackBarUtil.show(this, getString(R.string.sm_remote01_msg_cancel_success));
 
                         // 데이터 재 조회.
-                        rmtViewModel.reqRMT1003(new RMT_1003.Request(APPIAInfo.R_REMOTE01.getId(),vin));
+                        rmtViewModel.reqRMT1003(new RMT_1003.Request(APPIAInfo.R_REMOTE01.getId(), vin));
                     } else {
                         // 예약 취소 실패.
                         SnackBarUtil.show(this, getString(R.string.sm_remote01_msg_cancel_fail));
@@ -144,8 +148,8 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
             vin = getIntent().getStringExtra(KeyNames.KEY_NAME_VIN);
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            if(TextUtils.isEmpty(vin))
+        } finally {
+            if (TextUtils.isEmpty(vin))
                 exitPage("차대정보가 존재하지 않습니다.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
         }
     }
