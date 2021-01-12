@@ -241,11 +241,15 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
                 if(isEvent){
                     //일반목록요청
                     isEvent=false;
-                    me.btnEvent.setBackgroundResource(R.drawable.bg_00000000_underline_6f6f6f);
+                    me.btnEvent.setBackground(null);
+                    me.tvEvent.setBackgroundResource(R.drawable.bg_00000000_underline_000000);
+                    me.tvEvent.setTextColor(getActivity().getColor(R.color.x_000000));
                 }else{
                     //이벤트목록요청
                     isEvent=true;
+                    me.tvEvent.setBackground(null);
                     me.btnEvent.setBackgroundResource(R.drawable.ripple_bg_000000);
+                    me.tvEvent.setTextColor(getActivity().getColor(R.color.x_ffffff));
                 }
 
                 contentsAdapter.setPageNo(0);
