@@ -6,9 +6,6 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.api.developers.Distance;
-import com.genesis.apps.comm.model.api.developers.Dte;
-import com.genesis.apps.comm.model.api.developers.Odometer;
 import com.genesis.apps.comm.model.api.developers.ParkLocation;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
@@ -136,7 +133,6 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
 
 
         });
-
     }
 
     private void initView(PlayMapGeoItem item) {
