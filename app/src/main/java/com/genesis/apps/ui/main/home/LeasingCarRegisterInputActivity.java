@@ -47,6 +47,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -57,6 +58,8 @@ import androidx.transition.ChangeBounds;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 import dagger.hilt.android.AndroidEntryPoint;
+
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
 
 /**
@@ -97,9 +100,6 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
         setResizeScreen();
         setContentView(layouts[0]);
         getDataFromIntent();
-        setViewModel();
-        setObserver();
-        initView();
     }
 
     private void initView() {
@@ -118,50 +118,28 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
         ui.lPrivilege.etAddrDetail.setOnEditorActionListener(editorActionListener);
         ui.lPrivilege.etTel.setOnEditorActionListener(editorActionListener);
 
-        ui.lPrivilege.cbAddr.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        ui.lPrivilege.cbAddr.setOnCheckedChangeListener((compoundButton, b) -> {
 
-                if(compoundButton.isPressed()&&b){
-                    if(addressZipVO!=null){
-                        try {
-                            privilegeAddressZipVO = ((AddressZipVO)addressZipVO.clone());
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }finally {
-                            if(privilegeAddressZipVO!=null){
-                                setPrivilegeAddressInfo();
-                            }
-                            String addrDtl = ui.etAddrDetail.getText().toString().trim();
-                            if(!TextUtils.isEmpty(addrDtl)){
-                                ui.lPrivilege.etAddrDetail.setText(addrDtl);
-                                clearKeypad();
-                            }
+            if (compoundButton.isPressed() && b) {
+                if (addressZipVO != null) {
+                    try {
+                        privilegeAddressZipVO = ((AddressZipVO) addressZipVO.clone());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (privilegeAddressZipVO != null) {
+                            setPrivilegeAddressInfo();
+                        }
+                        String addrDtl = ui.etAddrDetail.getText().toString().trim();
+                        if (!TextUtils.isEmpty(addrDtl)) {
+                            ui.lPrivilege.etAddrDetail.setText(addrDtl);
+                            clearKeypad();
                         }
                     }
                 }
-
             }
-        });
-//        ui.etRentPeriodEtc.setOnFocusChangeListener((view, hasFocus) -> {
-//
-//            if (!hasFocus) {
-////                if(getPeriod()>0){
-////                    ui.etRentPeriodEtc.setText(getPeriod()+"개월");
-////                }else{
-////                    ui.etRentPeriodEtc.setText("");
-////                }
-//                SoftKeyboardUtil.hideKeyboard(LeasingCarRegisterInputActivity.this, getWindow().getDecorView().getWindowToken());
-//            } else {
-//                SoftKeyboardUtil.showKeyboard(getApplicationContext());
-////                if(StringUtil.isValidString(ui.etRentPeriodEtc.getText().toString()).contains("개월")){
-////                    ui.etRentPeriodEtc.setText(StringUtil.isValidString(ui.etRentPeriodEtc.getText().toString()).replace("개월",""));
-////                    ui.etRentPeriodEtc.setSelection(StringUtil.isValidString(ui.etRentPeriodEtc.getText().toString()).length());
-////                }
-//            }
-//
-//        });
 
+        });
         new Handler().postDelayed(() -> {
             SnackBarUtil.show(LeasingCarRegisterInputActivity.this, getString(R.string.gm_carlst_01_snackbar_1));
             selectRentPeriod();
@@ -169,13 +147,13 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
     }
 
     private void initPhoneNumber() {
-        String phoneNumber = loginInfoDTO.getProfile()!=null ? loginInfoDTO.getProfile().getMobileNum() : "" ;
+        String phoneNumber = loginInfoDTO.getProfile() != null ? loginInfoDTO.getProfile().getMobileNum() : "";
 
-        if(!TextUtils.isEmpty(phoneNumber)){
+        if (!TextUtils.isEmpty(phoneNumber)) {
             ui.lPrivilege.etTel.setText(
                     StringUtil.parsingPhoneNumber(
                             PhoneNumberUtils.formatNumber(
-                                    phoneNumber.replaceAll("-",""), Locale.getDefault().getCountry()
+                                    phoneNumber.replaceAll("-", ""), Locale.getDefault().getCountry()
                             )));
         }
     }
@@ -197,14 +175,13 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                 break;
             case R.id.btn_privilege_info://프리빌리지 서비스 안내
                 //외부 브라우저로 오픈
-                if(gns1011Response!=null&&!TextUtils.isEmpty(gns1011Response.getSvcIntroUri())) {
+                if (gns1011Response != null && !TextUtils.isEmpty(gns1011Response.getSvcIntroUri())) {
                     moveToExternalPage(gns1011Response.getSvcIntroUri(), VariableType.COMMON_MEANS_NO);
                 }
                 break;
             case R.id.btn_next://다음
                 doNext();
                 break;
-
             case R.id.tv_rent_period://대여 기간 선택
                 selectRentPeriod();
                 break;
@@ -220,10 +197,10 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                 break;
             case R.id.btn_post_no:
                 String tag;
-                try{
+                try {
                     tag = v.getTag().toString();
-                }catch (Exception e){
-                    tag="";
+                } catch (Exception e) {
+                    tag = "";
                 }
                 selectPostNo(StringUtil.isValidString(tag).equalsIgnoreCase("privilege"));
                 break;
@@ -233,10 +210,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
 
     private void doNext() {
         if (isValid()) {
-
-//            File file = new File(FileUtil.getRealPathFromURI(this, empCertImagPath));
-//            gnsViewModel.reqGNS1009(new GNS_1009.Request(APPIAInfo.GM_CARLST_01_01.getId(), vin, file.getName(), file));
-
+            clearKeypad();
             gnsViewModel.reqGNS1006(new GNS_1006.Request(APPIAInfo.GM_CARLST_01_01.getId(),
                     vin,
                     csmrScnCd,
@@ -249,10 +223,10 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                     "Y",
                     (csmrScnCd.equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14) ? "N" : "Y"),
                     StringUtil.isValidString(gns1011Response.getCtrctNo()),
-                    StringUtil.isValidString(selectPrivilege.getGodsId()),
-                    StringUtil.isValidString(selectPrivilege.getGodsNm()),
-                    StringUtil.isValidString(privilegeAddressZipVO.getZipNo()),
-                    StringUtil.isValidString(privilegeAddressZipVO.getRoadAddr()),
+                    selectPrivilege !=null ? StringUtil.isValidString(selectPrivilege.getGodsId()) : "",
+                    selectPrivilege !=null ? StringUtil.isValidString(selectPrivilege.getGodsNm()) : "",
+                    privilegeAddressZipVO !=null ? StringUtil.isValidString(privilegeAddressZipVO.getZipNo()) : "",
+                    privilegeAddressZipVO !=null ? StringUtil.isValidString(privilegeAddressZipVO.getRoadAddr()) : "",
                     ui.lPrivilege.etAddrDetail.getText().toString().trim(),
                     ui.lPrivilege.etTel.getText().toString().trim().replaceAll("-", "")));
         }
@@ -266,10 +240,10 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
     private void selectPostNo(boolean isPrivilege) {
         clearKeypad();
         startActivitySingleTop(new Intent(this, SearchAddressActivity.class)
-                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.gm_carlst_02_31)
-                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, R.string.gm_carlst_02_32)
-                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_PRIVILEGE, isPrivilege)
-                ,RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.gm_carlst_02_31)
+                        .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, R.string.gm_carlst_02_32)
+                        .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_PRIVILEGE, isPrivilege)
+                , RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
     private void selectRentPeriod() {
@@ -322,7 +296,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
             ui.setActivity(this);
             ui.lPrivilege.setMdlNm(gns1011Response.getMdlNm());
             ui.lPrivilege.setListener(onSingleClickListener);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -338,21 +312,18 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                     break;
 
                 case SUCCESS:
-                    if (result.data.getRtCd().equalsIgnoreCase("0000")) {
-                        if (csmrScnCd.equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14)) {
-                            File file = new File(FileUtil.getRealPathFromURI(this, cntImagPath));
-                            gnsViewModel.reqGNS1008(new GNS_1008.Request(APPIAInfo.GM_CARLST_01_01.getId(), vin, file.getName(), file));
-                        } else {
-                            File file = new File(FileUtil.getRealPathFromURI(this, empCertImagPath));
-                            gnsViewModel.reqGNS1009(new GNS_1009.Request(APPIAInfo.GM_CARLST_01_01.getId(), vin, file.getName(), file));
-                        }
+                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)) {
+                        reqUploadImageCnt();
                         break;
                     }
                 default:
                     showProgressDialog(false);
                     String serverMsg = "";
                     try {
-                        serverMsg = result.data.getRtMsg();
+                        if (result.data != null)
+                            serverMsg = Objects.requireNonNull(result.data.getRtMsg(), getString(R.string.r_flaw06_p02_snackbar_1));
+                        else
+                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
@@ -364,17 +335,15 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
 
         //렌트 리스 재직증명서 등록 결과
         gnsViewModel.getRES_GNS_1009().observe(this, result -> {
-
             switch (result.status) {
                 case LOADING:
                     break;
                 case SUCCESS:
                 default:
-                    File file = new File(FileUtil.getRealPathFromURI(this, cntImagPath));
-                    gnsViewModel.reqGNS1008(new GNS_1008.Request(APPIAInfo.GM_CARLST_01_01.getId(), vin, file.getName(), file));
+                    showProgressDialog(false);
+                    moveToHist();
                     break;
             }
-
         });
 
         //렌트 리스 계약서 이미지 등록 결과
@@ -385,11 +354,40 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                 case SUCCESS:
                 default:
                     showProgressDialog(false);
-                    startActivitySingleTop(new Intent(this, LeasingCarHistActivity.class).putExtra(KeyNames.KEY_NAME_APPLY_LEASINGCAR, true), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                    finish();
+                    if (StringUtil.isValidString(csmrScnCd).equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14)) {
+                        //개인일 때
+                        moveToHist();
+                    } else {
+                        //법인일 때
+                        reqUploadImageCert();
+                    }
                     break;
             }
         });
+    }
+
+    /**
+     * @biref 계약서 이미지 업로드
+     */
+    private void reqUploadImageCnt() {
+        File file = new File(Objects.requireNonNull(FileUtil.getRealPathFromURI(this, cntImagPath)));
+        if (file.length() > 0)
+            gnsViewModel.reqGNS1008(new GNS_1008.Request(APPIAInfo.GM_CARLST_01_01.getId(), vin, file.getName(), file));
+    }
+
+    /**
+     * @brief 재직증명서 이미지 업로드
+     * 계약서 이미지 업로드 먼저 진쟁하지 않고 시도하면 에러 발생
+     */
+    private void reqUploadImageCert() {
+        File file = new File(Objects.requireNonNull(FileUtil.getRealPathFromURI(this, empCertImagPath)));
+        if (file.length() > 0)
+            gnsViewModel.reqGNS1009(new GNS_1009.Request(APPIAInfo.GM_CARLST_01_01.getId(), vin, file.getName(), file));
+    }
+
+    private void moveToHist() {
+        startActivitySingleTop(new Intent(this, LeasingCarHistActivity.class).putExtra(KeyNames.KEY_NAME_APPLY_LEASINGCAR, true), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        finish();
     }
 
     @Override
@@ -403,6 +401,10 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
         } finally {
             if (TextUtils.isEmpty(vin) || TextUtils.isEmpty(csmrScnCd) || gns1011Response == null) {
                 exitPage("차량 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+            }else{
+                setViewModel();
+                setObserver();
+                initView();
             }
         }
     }
@@ -438,7 +440,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                 targetImgId = R.id.btn_emp_certi_img;
                 CropImage.startPickImageActivity(this);
             } else if (pos == 4) {
-                if(!isPrivilege()){
+                if (!isPrivilege()) {
                     ui.btnNext.setText(R.string.gm_carlst_04_20);
                 }
             } else if (pos == 5) {
@@ -449,7 +451,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
     }
 
     private boolean isPrivilege() {
-        return StringUtil.isValidString(gns1011Response.getMdlNm()).equalsIgnoreCase("G80")||StringUtil.isValidString(gns1011Response.getMdlNm()).equalsIgnoreCase("G90");
+        return StringUtil.isValidString(gns1011Response.getMdlNm()).equalsIgnoreCase("G80") || StringUtil.isValidString(gns1011Response.getMdlNm()).equalsIgnoreCase("G90");
     }
 
     private boolean checkValidPeriod() {
@@ -484,8 +486,9 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
         return isValid;
     }
 
-    private final int FILE_LENGTH_UNIT=1024;
-    private final int LIMIT_FILE_SIZE_KB=5120;
+    private final int FILE_LENGTH_UNIT = 1024;
+    private final int LIMIT_FILE_SIZE_KB = 5120;
+
     private boolean checkValidImg() {
         String mimeType;
         File file = null;
@@ -512,7 +515,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
 
             return false;
         } else if (!mimeType.contains("jpeg") && !mimeType.contains("pdf")
-                ||(file!=null&&file.length()/FILE_LENGTH_UNIT>LIMIT_FILE_SIZE_KB)){
+                || (file != null && file.length() / FILE_LENGTH_UNIT > LIMIT_FILE_SIZE_KB)) {
             switch (targetImgId) {
                 case R.id.btn_cnt_img:
                     Paris.style(ui.tvCntImg).apply(R.style.TextViewCntImgError);
@@ -569,23 +572,24 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
             return false;
         } else {
             ui.lAddrDetail.setError(null);
-            if(isPrivilege())
+            if (isPrivilege())
                 doTransition(5);
             return true;
         }
     }
 
     private boolean checkValidPrivilege(boolean isFirst) {
-        if(selectPrivilege == null){
+        if (selectPrivilege == null) {
             ui.lPrivilege.tvErrorPrivilegeService.setVisibility(View.VISIBLE);
             return false;
-        }else {
+        } else {
             ui.lPrivilege.tvErrorPrivilegeService.setVisibility(View.INVISIBLE);
             //프리빌리지 서비스가 선택된 상태
-            if(StringUtil.isValidString(selectPrivilege.getAdrYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)){
+            if (StringUtil.isValidString(selectPrivilege.getAdrYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
                 //주소 입력창이 활성화되는 아이템 일 경우
                 if (privilegeAddressZipVO == null) {
-                    if(!isFirst) ui.lPrivilege.lAddrDetail.setError(getString(R.string.gm_carlst_01_59));
+                    if (!isFirst)
+                        ui.lPrivilege.lAddrDetail.setError(getString(R.string.gm_carlst_01_59));
                     return false;
                 } else if (TextUtils.isEmpty(ui.lPrivilege.etAddrDetail.getText().toString().trim())) {
                     ui.lPrivilege.lAddrDetail.setError(getString(R.string.gm_carlst_01_60));
@@ -595,7 +599,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                     ui.lPrivilege.etAddrDetail.clearFocus();
                     return checkValidPhoneNumber();
                 }
-            }else{
+            } else {
                 //주소 입력창이 활성화 필요없는 아이템일 경우
                 return true;
             }
@@ -652,9 +656,9 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                         return checkValidPeriod() && checkValidImg() && checkValidBtr() & false;
 
                     case R.id.cl_privilege:
-                        if(isPrivilege()){
+                        if (isPrivilege()) {
                             return checkValidPeriod() && checkValidImg() && checkValidBtr() & checkValidAddr() & false;
-                        }else{
+                        } else {
                             return checkValidPeriod() && checkValidImg() && checkValidBtr() & checkValidAddr();
                         }
 
@@ -775,8 +779,8 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
             public void onDismiss(DialogInterface dialogInterface) {
                 String result = bottomListDialog.getSelectItem();
                 if (!TextUtils.isEmpty(result)) {
-                    selectPrivilege = gnsViewModel.getGodsByNm(result,gns1011Response.getGodsList());
-                    if(selectPrivilege!=null) {
+                    selectPrivilege = gnsViewModel.getGodsByNm(result, gns1011Response.getGodsList());
+                    if (selectPrivilege != null) {
                         ui.lPrivilege.setData(selectPrivilege);
                         Paris.style(ui.lPrivilege.tvPrivilegeService).apply(R.style.CommonSpinnerItemEnable);
                         ui.lPrivilege.tvPrivilegeService.setText(result);

@@ -81,7 +81,6 @@ public class HttpRequestUtil {
 
 
     public JsonObject getData(String url, String accessToken) throws NetException{
-        Log.d(TAG_LOG, "getDataw:"+url);
         HttpRequest request = getRequest(url);
 
         if(!TextUtils.isEmpty(accessToken)) request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + accessToken);
