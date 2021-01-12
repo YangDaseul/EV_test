@@ -40,7 +40,7 @@
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
         android:layout_height="74dp"
-        android:background="@{isBgWhite ? @drawable/bg_ffffff : @drawable/bg_000000_underline_262626}"
+        android:background="@{isBgWhite ? menu.equals(@string/main_word_2) ? @drawable/bg_f8f8f8 : @drawable/bg_ffffff : @drawable/bg_000000_underline_262626}"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:paddingTop="24dp">
