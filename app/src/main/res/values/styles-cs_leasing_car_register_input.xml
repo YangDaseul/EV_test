@@ -611,6 +611,9 @@
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/tv_rent_period</item>
+        <item name="hintTextAppearance">@style/CommonTextInputEditTextHint</item>
+        <item name="placeholderTextAppearance">@style/CommonTextInputEditTextHint</item>
+        <item name="errorTextAppearance">@style/CommonTextInputEditTextError</item>
     </style>
 
 
@@ -675,6 +678,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:layout_marginTop">6dp</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:background">@drawable/bg_f5f6f8_stroke_e5e5e5</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:letterSpacing">-0.01</item>

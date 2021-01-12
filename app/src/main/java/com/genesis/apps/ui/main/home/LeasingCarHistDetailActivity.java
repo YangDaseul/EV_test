@@ -58,12 +58,6 @@ public class LeasingCarHistDetailActivity extends SubActivity<ActivityLeasingCar
 
     private void initView() {
         ui.setData(rentStatusVO);
-//        ui.tvCsmrScnCd.setText(StringUtil.isValidString(rentStatusVO.getCsmrScnCd()).equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14) ? R.string.gm_carlst_01_62 : R.string.gm_carlst_01_61);
-//        ui.tvVin.setText(StringUtil.isValidString(rentStatusVO.getVin()));
-//        ui.tvRentPeriod.setText(StringUtil.isValidString(rentStatusVO.getRentPeriod())+getString(R.string.gm_carlst_01_63));
-//        ui.tvAttachFileName.setText(StringUtil.isValidString(rentStatusVO.getAttachFilName()));
-//        ui.tvBluehandsInfo.setText(rentStatusVO.getAsnNm()+"\n"+rentStatusVO.getPbzAdr()+(rentStatusVO.getRepTn()!=null ? ("\n"+(PhoneNumberUtils.formatNumber(rentStatusVO.getRepTn(), Locale.getDefault().getCountry()))):""));
-
 
         switch (StringUtil.isValidString(rentStatusVO.getAprvStusCd())){
             case VariableType.LEASING_CAR_APRV_STATUS_CODE_REJECT:
@@ -83,21 +77,20 @@ public class LeasingCarHistDetailActivity extends SubActivity<ActivityLeasingCar
                 break;
             case VariableType.LEASING_CAR_APRV_STATUS_CODE_WAIT:
             default:
-                ui.ivMark.setImageResource(R.drawable.ic_succeed);//todo 수정필요
+                ui.ivMark.setImageResource(R.drawable.ic_succeed);
                 ui.tvMsg.setText(getString(R.string.gm_carlst_02_18)+"\n"+getString(R.string.gm_carlst_02_27));
                 ui.tvAddrInfo.setVisibility(View.GONE);
                 ui.lAddr.setVisibility(View.VISIBLE);
                 ui.tvAddr.setText(rentStatusVO.getCrdRcvAdr());
                 ui.tvPostNo.setText(rentStatusVO.getCrdRcvZip());
                 ui.etAddrDetail.setText(rentStatusVO.getCrdRcvDtlAdr());
-                ui.tvPostNo.setTextAppearance(R.style.TextViewPostNoEnable);
-                ui.tvAddr.setTextAppearance(R.style.TextViewAddrEnable);
                 ui.btnCancel.setVisibility(View.VISIBLE);
                 ui.btnModify.setVisibility(View.VISIBLE);
                 ui.btnApply.setVisibility(View.INVISIBLE);
-
                 ui.tvSubTitle2.setVisibility(View.GONE);
                 ui.tvSubTitle3.setVisibility(View.VISIBLE);
+                Paris.style(ui.tvPostNo).apply(R.style.TextViewPostNoEnable);
+                Paris.style(ui.tvAddr).apply(R.style.TextViewAddrEnable);
                 break;
         }
     }
@@ -340,24 +333,15 @@ public class LeasingCarHistDetailActivity extends SubActivity<ActivityLeasingCar
 
     private void setAddressInfo(){
         if(newAddressZipVO==null){
-            ui.tvPostNo.setTextAppearance(R.style.TextViewPostNo);
-            ui.tvAddr.setTextAppearance(R.style.TextViewAddr);
+            Paris.style(ui.tvPostNo).apply(R.style.TextViewPostNo);
+            Paris.style(ui.tvAddr).apply(R.style.TextViewAddr);
         }else{
-            ui.tvPostNo.setTextAppearance(R.style.TextViewPostNoEnable);
-            ui.tvAddr.setTextAppearance(R.style.TextViewAddrEnable);
+            Paris.style(ui.tvPostNo).apply(R.style.TextViewPostNoEnable);
+            Paris.style(ui.tvAddr).apply(R.style.TextViewAddrEnable);
             ui.tvPostNo.setText(newAddressZipVO.getZipNo());
             ui.tvAddr.setText(newAddressZipVO.getRoadAddr());
         }
     }
-
-
-
-
-
-
-
-
-
 
 
     private void setPrivilegeAddressInfo() {
