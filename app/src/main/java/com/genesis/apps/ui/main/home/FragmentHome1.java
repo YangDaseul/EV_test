@@ -304,7 +304,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             }else{
                 me.ivTeduri.setVisibility(View.VISIBLE);
                 setViewVehicle();
-                ((MainActivity) getActivity()).setGNB(false, 1, View.VISIBLE);
+                ((MainActivity) getActivity()).setGNB("", View.VISIBLE);
                 goneQuickMenu();
             }
 
@@ -445,7 +445,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         resumeAndPauseLottie(true);
         videoPauseAndResume(true);
         setViewVehicle();
-        ((MainActivity) getActivity()).setGNB(false, 1, View.VISIBLE);
+        ((MainActivity) getActivity()).setGNB("", View.VISIBLE);
 
         startTimer();
         goneQuickMenu();

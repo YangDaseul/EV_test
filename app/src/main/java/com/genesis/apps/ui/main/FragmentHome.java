@@ -92,9 +92,9 @@ public class FragmentHome extends SubFragment<FragmentHomeBinding> {
     @Override
     public void onRefresh() {
         if (me.vpVehicle.getCurrentItem() == 0) {
-            ((MainActivity)getActivity()).setGNB(false, 1, View.VISIBLE);
+            ((MainActivity)getActivity()).setGNB("", View.VISIBLE);
         } else {
-            ((MainActivity)getActivity()).setGNB(false, 1, View.GONE);
+            ((MainActivity)getActivity()).setGNB("", View.GONE);
         }
 
         VehicleVO vehicleVO = null;

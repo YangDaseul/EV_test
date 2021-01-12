@@ -348,7 +348,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
             e.printStackTrace();
         }finally {
             initView();
-            ((MainActivity) getActivity()).setGNB(false, 0, View.VISIBLE);
+            ((MainActivity) getActivity()).setGNB(getString(R.string.main_word_2), View.VISIBLE, false, true);
         }
     }
 

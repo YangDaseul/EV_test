@@ -150,9 +150,6 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 //                    ignore.printStackTrace();
 //                }
                 break;
-                case R.id.btn_search:
-                    startActivitySingleTop(new Intent(this, ContentsSearchActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                    break;
             case R.id.btn_store_cart:
                 loginChk("https://devagenesisproduct.auton.kr/cart/gen/ko/cart_list");
 
@@ -311,16 +308,15 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         }
     }
 
-    public void setGNB(boolean isSearch, int value, int isVisibility) {
-        setGNB(isSearch, value, isVisibility, false, false);
+    public void setGNB(String menu, int isVisibility) {
+        setGNB(menu, isVisibility, false, false);
     }
 
-    public void setGNB(boolean isSearch, int value, int isVisibility, boolean isStore, boolean isBgWhite) {
+    public void setGNB(String menu, int isVisibility, boolean isStore, boolean isBgWhite) {
         try {
+            ui.lGnb.setMenu(menu);
             ui.lGnb.setIsAlarm(isNewAlarm());
-            ui.lGnb.setIsSearch(isSearch);
             ui.lGnb.setCustGbCd(lgnViewModel.getUserInfoFromDB().getCustGbCd());
-            ui.lGnb.setBackground(value);
             ui.lGnb.lWhole.setVisibility(isVisibility);
             ui.lGnb.setIsStore(isStore);
             ui.lGnb.setIsBgWhite(isBgWhite);

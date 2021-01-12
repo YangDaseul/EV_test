@@ -259,6 +259,11 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
                 }
 
                 break;
+
+            case R.id.btn_search:
+                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ContentsSearchActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
+                break;
         }
     }
 
@@ -270,7 +275,7 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
         if(contentsAdapter.getPageNo()==0)
             cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(),"","",(contentsAdapter.getPageNo()+1)+"","20"));
 
-        ((MainActivity)getActivity()).setGNB(true, 0, View.VISIBLE);
+        ((MainActivity)getActivity()).setGNB(getString(R.string.main_word_4), View.VISIBLE, false, true);
     }
 
 
