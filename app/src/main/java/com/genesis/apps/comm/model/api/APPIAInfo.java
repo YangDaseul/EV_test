@@ -23,12 +23,15 @@ import com.genesis.apps.ui.main.service.ServiceRelapseHistoryActivity;
 import com.genesis.apps.ui.main.service.ServiceRepairReserveHistoryActivity;
 import com.genesis.apps.ui.main.service.ServiceReviewActivity;
 import com.genesis.apps.ui.main.service.ServiceSOSApplyActivity;
+import com.genesis.apps.ui.myg.MyGCouponActivity;
 import com.genesis.apps.ui.myg.MyGEntranceActivity;
 import com.genesis.apps.ui.myg.MyGGAActivity;
 import com.genesis.apps.ui.myg.MyGMembershipActivity;
 import com.genesis.apps.ui.myg.MyGMembershipUseCaseActivity;
 import com.genesis.apps.ui.myg.MyGMembershipUseListActivity;
 import com.genesis.apps.ui.myg.MyGNotiActivity;
+import com.genesis.apps.ui.myg.MyGTerms1000Activity;
+import com.genesis.apps.ui.myg.MyGTerms2000Activity;
 import com.genesis.apps.ui.myg.MyGTermsActivity;
 import com.genesis.apps.ui.myg.MyGVersioniActivity;
 
@@ -246,7 +249,7 @@ public enum APPIAInfo {
     MG_MEMBER04("MG_MEMBER04", MyGMembershipUseListActivity.class, VariableType.QUICK_MENU_CODE_NV, "포인트 사용 내역"),
 
     MG_MEMBER03("MG_MEMBER03", null, VariableType.QUICK_MENU_CODE_NONE, "카드 비밀번호 변경"),
-    MG_BF01("MG_BF01", null, VariableType.QUICK_MENU_CODE_OV, "혜택/쿠폰"),
+    MG_BF01("MG_BF01", MyGCouponActivity.class, VariableType.QUICK_MENU_CODE_OV, "혜택/쿠폰"),
     MG_BF01_01("MG_BF01_01", null, VariableType.QUICK_MENU_CODE_NONE, "사용 내역"),
     MG_BF01_02("MG_BF01_02", null, VariableType.QUICK_MENU_CODE_NONE, "설문"),
     MG_PRVI01("MG_PRVI01", null, VariableType.QUICK_MENU_CODE_NONE, "프리빌리지 차량 목록"),
@@ -265,8 +268,8 @@ public enum APPIAInfo {
 
     MG_CON02_P01("MG_CON02_P01", null, VariableType.QUICK_MENU_CODE_NONE, "포인트 연동 종료 팝업"),
     MG_NOTICE01("MG_NOTICE01", MyGNotiActivity.class, VariableType.QUICK_MENU_CODE_NV, "공지사항"),
-    MG_MENU01("MG_MENU01", ServiceTermDetailActivity.class, VariableType.QUICK_MENU_CODE_NV, "이용약관"),
-    MG_MENU02("MG_MENU02", ServiceTermDetailActivity.class, VariableType.QUICK_MENU_CODE_NV, "개인정보처리방침"),
+    MG_MENU01("MG_MENU01", MyGTerms1000Activity.class, VariableType.QUICK_MENU_CODE_NV, "이용약관"),
+    MG_MENU02("MG_MENU02", MyGTerms2000Activity.class, VariableType.QUICK_MENU_CODE_NV, "개인정보처리방침"),
     MG_MENU03("MG_MENU03", MyGTermsActivity.class, VariableType.QUICK_MENU_CODE_NV, "오픈소스 라이선스"),
     MG_VERSION01("MG_VERSION01", MyGVersioniActivity.class, VariableType.QUICK_MENU_CODE_NV, "버전 정보");
 

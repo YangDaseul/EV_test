@@ -156,6 +156,14 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.myg.MyGTerms1000Activity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.myg.MyGTerms2000Activity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.myg.MyGMenuActivity"
             android:exported="false"
             android:screenOrientation="portrait"
