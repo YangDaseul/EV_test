@@ -12,7 +12,7 @@
     <string name="gm_carlst_01_10">차대 번호는 차량등록증 또는 차량 내 라벨을 통해 확인 가능합니다.</string>
     <string name="gm_carlst_01_11">등록 대상</string>
     <string name="gm_carlst_01_12">12개월 이상 제네시스 차량을 렌트/리스로 이용 하는 개인/법인 실운행자</string>
-    <string name="gm_carlst_01_13">단, 레트리스 이용법인은 최초 가입 시 지점/대리점 방문 가입 필요</string>
+    <string name="gm_carlst_01_13">단, 렌트/리스 이용 법인은 최초 가입 시 지점/대리점 방문 가입 필요</string>
     <string name="gm_carlst_01_14">대상 차종</string>
     <string name="gm_carlst_01_15">GV80, G70, G80, G90, EQ900</string>
     <string name="gm_carlst_01_16">2013년 12월 1일 이후 제작증 발급된 차량부터 적용됩니다.</string>
