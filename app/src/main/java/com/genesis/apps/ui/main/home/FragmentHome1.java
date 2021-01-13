@@ -578,7 +578,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             switch (appiaInfo){
                 case GM_CARLST01: //MY 차고
                 case GM01_03: //SNS 공유하기
-                    if(StringUtil.isValidString(userCustGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)){
+                    if(StringUtil.isValidString(userCustGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)||StringUtil.isValidString(userCustGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_NV)){
                         quickBtn[i].setVisibility(View.VISIBLE);
                         visibleCnt++;
                     }else{//차량 미보유 일 경우 미노출
