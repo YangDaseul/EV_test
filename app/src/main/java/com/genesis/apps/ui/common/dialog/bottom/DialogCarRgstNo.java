@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.inputmethod.EditorInfo;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringRe2j;
 import com.genesis.apps.databinding.DialogBottomModifyCarVrnBinding;
 
@@ -70,6 +71,8 @@ public class DialogCarRgstNo extends BaseBottomDialog<DialogBottomModifyCarVrnBi
             }
             return true;
         });
+
+        SoftKeyboardUtil.showKeyboard(getContext());
 
     }
 
