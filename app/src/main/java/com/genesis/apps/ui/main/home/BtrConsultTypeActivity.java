@@ -13,6 +13,7 @@ import androidx.transition.ChangeBounds;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
+import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
@@ -173,7 +174,7 @@ public class BtrConsultTypeActivity extends SubActivity<ActivityBtrConsultType1B
         for(int i=0; i<selectCdValId.length; i++){
             if(selectCdValId[i].equalsIgnoreCase("")){
                 //선택되어 있지 않을 경우
-                textViews[i].setTextAppearance(R.style.BtrConsultTypeDisable);
+                Paris.style(textViews[i]).apply(R.style.BtrConsultTypeDisable);
                 textTitleViews[i].setVisibility(View.GONE);
                 switch (i){
                     case 0:
@@ -190,21 +191,18 @@ public class BtrConsultTypeActivity extends SubActivity<ActivityBtrConsultType1B
                         break;
                 }
             }else{
-                textViews[i].setTextAppearance(R.style.BtrConsultTypeEnable);
+                Paris.style(textViews[i]).apply(R.style.BtrConsultTypeEnable);
                 textTitleViews[i].setVisibility(View.VISIBLE);
                 switch (i){
                     case 0:
                         name = getName(listCnsl, selectCdValId[i]);
                         break;
-
                     case 1:
                         name = getName(listLgct, selectCdValId[i]);
                         break;
-
                     case 2:
                         name = getName(listMdct, selectCdValId[i]);
                         break;
-
                     case 3:
                         name = getName(listSmct, selectCdValId[i]);
                         break;
