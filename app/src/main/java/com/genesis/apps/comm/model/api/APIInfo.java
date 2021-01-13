@@ -184,9 +184,9 @@ public enum APIInfo {
     TSAUTH_GET_NEW_CAR_OWNER_SHIP("한국 교통안전공단 화면 호출", "", HttpRequest.METHOD_POST, "/getNewCarOwnerShip.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     TSAUTH_GET_CHECK_CAR_OWNER_SHIP("한국 교통안전공단 인증결과 조회", "", HttpRequest.METHOD_POST, "/getCheckCarOwnerShip.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
-    ROADWIN_SERVICE_AREA_CHECK("서비스 가능 지역 확인", "", HttpRequest.METHOD_GET, "/serviceAreaCheck.php", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    ROADWIN_SERVICE_AREA_CHECK("서비스 가능 지역 확인", "", HttpRequest.METHOD_POST, "/areaCheck", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     ROADWIN_WORK("기사 위치 확인", "", HttpRequest.METHOD_GET, "/work/w.php", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    ROADWIN_CHECK_PRICE("가격 정보 확인", "", HttpRequest.METHOD_GET, "/checkPrice.php", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8);
+    ROADWIN_CHECK_PRICE("가격 정보 확인", "", HttpRequest.METHOD_POST, "/checkPrice", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8);
 
 
     private String description;
