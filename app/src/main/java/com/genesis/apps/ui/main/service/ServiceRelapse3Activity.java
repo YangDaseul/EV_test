@@ -413,7 +413,8 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         //앞 단계에서 4회 이상이라고 했으면 값 저장
         if (over4) {
             count = ui.etRelapse3TotalCount.getText().toString();
-            count = "" + (Integer.parseInt(count) + ServiceRelapse3Adapter.REPAIR_HISTORY_MAX_SIZE - 1);//세부사항 입력한 3건도 더해서 셈 -1은 마지막 게 ui 더미 칸이니까
+            //아래 내용은 요건이 변경되어제거 2021-01-13
+//            count = "" + (Integer.parseInt(count) + ServiceRelapse3Adapter.REPAIR_HISTORY_MAX_SIZE - 1);//세부사항 입력한 3건도 더해서 셈 -1은 마지막 게 ui 더미 칸이니까
         }
         //아니면 입력 칸 3개 중에 몇 개나 채웠나 셈
         else {
