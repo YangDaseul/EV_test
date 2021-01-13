@@ -43,7 +43,7 @@ public class WSHRepo {
 
     //service + 소낙스 세차이용권 조회
     public MutableLiveData<NetUIResponse<WSH_1001.Response>> REQ_WSH_1001(final WSH_1001.Request reqData) {
-
+        RES_WSH_1001.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -67,7 +67,7 @@ public class WSHRepo {
 
     //service + 소낙스 세차이용권 선택 (고객의 근접한 소낙스 지점 찾기)
     public MutableLiveData<NetUIResponse<WSH_1002.Response>> REQ_WSH_1002(final WSH_1002.Request reqData) {
-
+        RES_WSH_1002.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -91,7 +91,7 @@ public class WSHRepo {
 
     //    service + 소낙스 세차예약
     public MutableLiveData<NetUIResponse<WSH_1003.Response>> REQ_WSH_1003(final WSH_1003.Request reqData) {
-
+        RES_WSH_1003.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -115,7 +115,7 @@ public class WSHRepo {
 
     //service + 소낙스 세차예약 내역
     public MutableLiveData<NetUIResponse<WSH_1004.Response>> REQ_WSH_1004(final WSH_1004.Request reqData) {
-
+        RES_WSH_1004.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -139,7 +139,7 @@ public class WSHRepo {
 
     //service + 소낙스 직원에게 확인받기
     public MutableLiveData<NetUIResponse<WSH_1005.Response>> REQ_WSH_1005(final WSH_1005.Request reqData) {
-
+        RES_WSH_1005.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -163,7 +163,7 @@ public class WSHRepo {
 
     //service + 소낙스 예약취소
     public MutableLiveData<NetUIResponse<WSH_1006.Response>> REQ_WSH_1006(final WSH_1006.Request reqData) {
-
+        RES_WSH_1006.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -187,7 +187,7 @@ public class WSHRepo {
 
     //service + 소낙스 평가지 요청
     public MutableLiveData<NetUIResponse<WSH_1007.Response>> REQ_WSH_1007(final WSH_1007.Request reqData) {
-
+        RES_WSH_1007.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -211,7 +211,7 @@ public class WSHRepo {
 
     //service + 소낙스 평가 요청
     public MutableLiveData<NetUIResponse<WSH_1008.Response>> REQ_WSH_1008(final WSH_1008.Request reqData) {
-
+        RES_WSH_1008.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
