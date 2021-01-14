@@ -234,9 +234,11 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
     private void initMainVehicle() {
         try {
             mainVehicle = lgnViewModel.getMainVehicleSimplyFromDB();
-        } catch (ExecutionException | InterruptedException e) {
+        } catch (ExecutionException e){
             e.printStackTrace();
-            //TODO 차량 정보 접근 실패에 대한 예외처리
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -400,8 +402,11 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
             return lgnViewModel.getUserInfoFromDB()
                     .getCustGbCd()
                     .equals(VariableType.MAIN_VEHICLE_TYPE_OV);
-        } catch (ExecutionException | InterruptedException e) {
+        } catch (ExecutionException e){
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
 
         return false;

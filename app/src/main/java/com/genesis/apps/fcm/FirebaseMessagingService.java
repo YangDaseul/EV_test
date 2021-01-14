@@ -3,7 +3,6 @@ package com.genesis.apps.fcm;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,14 +10,6 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
-import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.PushCodes;
@@ -26,10 +17,13 @@ import com.genesis.apps.ui.common.activity.PushDummyActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.google.gson.stream.JsonReader;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.URL;
+
+import androidx.core.app.NotificationCompat;
 
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
@@ -47,20 +41,26 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         try {
             if (remoteMessage.getData().size() > 0) {
                 Log.d(TAG, "Message data payload: " + remoteMessage.getData().toString());
-                JsonObject json = new Gson().fromJson(remoteMessage.getData().toString(), JsonObject.class);
-                PushVO.PushData data = new Gson().fromJson(json.toString(), PushVO.PushData.class);
-                json = new Gson().fromJson(remoteMessage.getNotification().toString(), JsonObject.class);
-                PushVO.Notification noti = new Gson().fromJson(json.toString(), PushVO.Notification.class);
+                JsonReader reader = new JsonReader(new StringReader(remoteMessage.getData().toString()));
+                reader.setLenient(true);
+                PushVO.PushData data = new Gson().fromJson(reader, PushVO.PushData.class);
+
+                reader = new JsonReader(new StringReader(remoteMessage.getNotification().toString()));
+                reader.setLenient(true);
+                PushVO.Notification noti = new Gson().fromJson(reader, PushVO.Notification.class);
+
+//                JsonObject json = new Gson().fromJson(remoteMessage.getData().toString(), JsonObject.class);
+//                PushVO.PushData data = new Gson().fromJson(json.toString(), PushVO.PushData.class);
+
+//                json = new Gson().fromJson(remoteMessage.getNotification().toString(), JsonObject.class);
+//                PushVO.Notification noti = new Gson().fromJson(json.toString(), PushVO.Notification.class);
+
                 PushVO pushVO = new PushVO();
                 pushVO.setData(data);
                 pushVO.setNotification(noti);
 
-                if (pushVO != null) {
-                    notifyMessage(pushVO, PushCodes.findCodeByCd(pushVO.getData().getLgrCatCd()));
-                } else {
-                    // 메시지 없음... 오류
-                    Log.e(TAG, "category is " + pushVO.getData().getDtlLnkCd() + " but message object is null!");
-                }
+                notifyMessage(pushVO, PushCodes.findCodeByCd(pushVO.getData().getLgrCatCd()));
+
             }
         }catch (Exception e){
             //do nothing

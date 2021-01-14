@@ -353,8 +353,8 @@ public abstract class WebViewFragment extends Fragment {
 				ViewGroup.LayoutParams.MATCH_PARENT));
 
 	}
-
-	final long CACHE_MAX_SIZE = 5 * 1_048_576;
+	final long CACHE_UNIT=1_048_576;
+	final long CACHE_MAX_SIZE = 5 * CACHE_UNIT;
 	/**
 	 * 웹뷰 설정
 	 */
@@ -787,20 +787,20 @@ public abstract class WebViewFragment extends Fragment {
 		}
 		intentCamera.putExtra(MediaStore.EXTRA_OUTPUT, cameraImageUri);
 
-		if (!_isCapture) { // 선택팝업 카메라, 갤러리 둘다 띄우고 싶을 때..
-			Intent pickIntent = new Intent(Intent.ACTION_PICK);
-			pickIntent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-			pickIntent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-			String pickTitle = "사진 가져올 방법을 선택하세요.";
-			Intent chooserIntent = Intent.createChooser(pickIntent, pickTitle);
-
-			// 카메라 intent 포함시키기..
-			chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Parcelable[]{intentCamera});
-			getActivity().startActivityForResult(chooserIntent, RequestCodes.REQ_CODE_FILECHOOSER.getCode());
-		} else {// 바로 카메라 실행..
+//		if (!_isCapture) { // 선택팝업 카메라, 갤러리 둘다 띄우고 싶을 때..
+//			Intent pickIntent = new Intent(Intent.ACTION_PICK);
+//			pickIntent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+//			pickIntent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//
+//			String pickTitle = "사진 가져올 방법을 선택하세요.";
+//			Intent chooserIntent = Intent.createChooser(pickIntent, pickTitle);
+//
+//			// 카메라 intent 포함시키기..
+//			chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Parcelable[]{intentCamera});
+//			getActivity().startActivityForResult(chooserIntent, RequestCodes.REQ_CODE_FILECHOOSER.getCode());
+//		} else {// 바로 카메라 실행..
 			getActivity().startActivityForResult(intentCamera, RequestCodes.REQ_CODE_FILECHOOSER.getCode());
-		}
+//		}
 	}
 
 }

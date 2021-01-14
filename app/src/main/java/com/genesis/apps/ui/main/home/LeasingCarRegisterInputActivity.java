@@ -685,13 +685,13 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
         if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == RESULT_OK) {
             Uri resultUri = CropImage.getPickImageResultUri(this, data);
             setImgAttach(resultUri);
-        } else if (resultCode == ResultCodes.REQ_CODE_BTR.getCode()) {
+        } else if (resultCode == ResultCodes.REQ_CODE_BTR.getCode()&&data!=null) {
             btrVO = (BtrVO) data.getSerializableExtra(KeyNames.KEY_NAME_BTR);
             setBtrInfo();
-        } else if (resultCode == ResultCodes.REQ_CODE_ADDR_ZIP.getCode()) {
+        } else if (resultCode == ResultCodes.REQ_CODE_ADDR_ZIP.getCode()&&data!=null) {
             addressZipVO = (AddressZipVO) data.getSerializableExtra(KeyNames.KEY_NAME_ZIP_ADDR);
             setAddressInfo();
-        } else if (resultCode == ResultCodes.REQ_CODE_ADDR_ZIP_PRIVILEGE.getCode()) {
+        } else if (resultCode == ResultCodes.REQ_CODE_ADDR_ZIP_PRIVILEGE.getCode()&&data!=null) {
             privilegeAddressZipVO = (AddressZipVO) data.getSerializableExtra(KeyNames.KEY_NAME_ZIP_ADDR);
             ui.lPrivilege.cbAddr.setChecked(false);
             setPrivilegeAddressInfo();

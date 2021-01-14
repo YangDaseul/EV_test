@@ -158,8 +158,6 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
     private void doNext(){
         if(isValid()){
             clearKeypad();
-            //todo 2단계로 이동
-
             VOCInfoVO vocInfoVO = new VOCInfoVO();
             vocInfoVO.setRdwNmDtlAdr(ui.etAddrDtl.getText().toString().trim());
             vocInfoVO.setRdwNmAdr(ui.tvAddrInfo2.getText().toString() + ui.tvAddrInfo1.getText().toString());

@@ -24,14 +24,18 @@ public class GpsUtils {
     private LocationSettingsRequest mLocationSettingsRequest;
     private LocationManager locationManager;
 
+    private final int SEC_TEN=10;
+    private final int SEC_TWO=2;
+    private final int SEC=1000;
+
     public GpsUtils(Context context) {
         this.context = context;
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         mSettingsClient = LocationServices.getSettingsClient(context);
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(10 * 1000);
-        locationRequest.setFastestInterval(2 * 1000);
+        locationRequest.setInterval(SEC_TEN * SEC);
+        locationRequest.setFastestInterval(SEC_TWO * SEC);
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
                 .addLocationRequest(locationRequest);
         mLocationSettingsRequest = builder.build();

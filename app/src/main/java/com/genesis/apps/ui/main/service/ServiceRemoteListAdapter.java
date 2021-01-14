@@ -291,7 +291,7 @@ public class ServiceRemoteListAdapter extends BaseRecyclerViewAdapter2<RemoteHis
         private STATUS getStatusByCode(String code) {
             STATUS status = null;
             try {
-                status = Stream.of(STATUS.values()).filter(it -> it.code.equals(code)).findFirst().get();
+                status = Stream.of(STATUS.values()).filter(it -> it.code.equals(code)).findFirst().orElse(null);
             } catch (NullPointerException e) {
                 // 관련 상태 코드를 못 찾음.
             }
@@ -307,7 +307,7 @@ public class ServiceRemoteListAdapter extends BaseRecyclerViewAdapter2<RemoteHis
         private FLT_CODE_CATEGORY getFltCodeCategoryByCode(String code) {
             FLT_CODE_CATEGORY category = null;
             try {
-                category = Stream.of(FLT_CODE_CATEGORY.values()).filter(it -> it.code.equals(code)).findFirst().get();
+                category = Stream.of(FLT_CODE_CATEGORY.values()).filter(it -> it.code.equals(code)).findFirst().orElse(null);
             } catch (NullPointerException e) {
                 // 관련 상태 코드를 못 찾음.
             }

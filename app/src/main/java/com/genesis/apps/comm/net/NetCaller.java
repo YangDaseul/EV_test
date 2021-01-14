@@ -32,6 +32,7 @@ public class NetCaller {
     private static String TAG_LOG = NetCaller.class.getSimpleName();
     private static final int CONNECTION_TIME_OUT = 10 * 1000;
     private static final int READ_TIME_OUT = 10 * 1000;
+    private static final String LOG_JSON_NULL="jsonObject is null";
 
     private HttpRequestUtil httpRequestUtil;
     private GA ga;
@@ -78,19 +79,23 @@ public class NetCaller {
         }), new FutureCallback<NetResult>() {
             @Override
             public void onSuccess(@NullableDecl NetResult result) {
-                switch (result.getCode()) {
-                    case SUCCESS:
-                        beanReqParm.getCallback().onSuccess(((JsonObject) result.getData()).toString());
-                        break;
-                    case ERR_EXCEPTION_DKC:
-                    case ERR_EXCEPTION_HTTP:
-                    case ERR_EXCEPTION_UNKNOWN:
-                    case ERR_DATA_NULL:
-                    case ERR_ISSUE_SOURCE:
-                    case ERR_DATA_INCORRECT:
-                    default:
-                        beanReqParm.getCallback().onFail(result);
-                        break;
+                if(result!=null) {
+                    switch (result.getCode()) {
+                        case SUCCESS:
+                            beanReqParm.getCallback().onSuccess(((JsonObject) result.getData()).toString());
+                            break;
+                        case ERR_EXCEPTION_DKC:
+                        case ERR_EXCEPTION_HTTP:
+                        case ERR_EXCEPTION_UNKNOWN:
+                        case ERR_DATA_NULL:
+                        case ERR_ISSUE_SOURCE:
+                        case ERR_DATA_INCORRECT:
+                        default:
+                            beanReqParm.getCallback().onFail(result);
+                            break;
+                    }
+                }else{
+                    beanReqParm.getCallback().onFail(null);
                 }
                 es.shutDownExcutor();
             }
@@ -127,19 +132,24 @@ public class NetCaller {
         }), new FutureCallback<NetResult>() {
             @Override
             public void onSuccess(@NullableDecl NetResult result) {
-                switch (result.getCode()) {
-                    case SUCCESS:
-                        callback.onSuccess(result.getData());
-                        break;
-                    case ERR_EXCEPTION_DKC:
-                    case ERR_EXCEPTION_HTTP:
-                    case ERR_EXCEPTION_UNKNOWN:
-                    case ERR_DATA_NULL:
-                    case ERR_ISSUE_SOURCE:
-                    case ERR_DATA_INCORRECT:
-                    default:
-                        callback.onFail(result);
-                        break;
+
+                if(result!=null) {
+                    switch (result.getCode()) {
+                        case SUCCESS:
+                            callback.onSuccess(result.getData());
+                            break;
+                        case ERR_EXCEPTION_DKC:
+                        case ERR_EXCEPTION_HTTP:
+                        case ERR_EXCEPTION_UNKNOWN:
+                        case ERR_DATA_NULL:
+                        case ERR_ISSUE_SOURCE:
+                        case ERR_DATA_INCORRECT:
+                        default:
+                            callback.onFail(result);
+                            break;
+                    }
+                }else{
+                    callback.onFail(null);
                 }
                 es.shutDownExcutor();
             }
@@ -200,19 +210,23 @@ public class NetCaller {
         }), new FutureCallback<NetResult>() {
             @Override
             public void onSuccess(@NullableDecl NetResult result) {
-                switch (result.getCode()) {
-                    case SUCCESS:
-                        callback.onSuccess(((JsonObject) result.getData()).toString());
-                        break;
-                    case ERR_EXCEPTION_DKC:
-                    case ERR_EXCEPTION_HTTP:
-                    case ERR_EXCEPTION_UNKNOWN:
-                    case ERR_DATA_NULL:
-                    case ERR_ISSUE_SOURCE:
-                    case ERR_DATA_INCORRECT:
-                    default:
-                        callback.onFail(result);
-                        break;
+                if(result!=null) {
+                    switch (result.getCode()) {
+                        case SUCCESS:
+                            callback.onSuccess(((JsonObject) result.getData()).toString());
+                            break;
+                        case ERR_EXCEPTION_DKC:
+                        case ERR_EXCEPTION_HTTP:
+                        case ERR_EXCEPTION_UNKNOWN:
+                        case ERR_DATA_NULL:
+                        case ERR_ISSUE_SOURCE:
+                        case ERR_DATA_INCORRECT:
+                        default:
+                            callback.onFail(result);
+                            break;
+                    }
+                }else{
+                    callback.onFail(null);
                 }
                 es.shutDownExcutor();
             }
@@ -268,7 +282,7 @@ public class NetCaller {
         } catch (Exception e) {
             jsonObject = null;
         }
-        setLog(apiInfo.getIfCd(), new Gson().toJson(reqVO), jsonObject.toString());
+        setLog(apiInfo.getIfCd(), new Gson().toJson(reqVO), jsonObject!=null ? jsonObject.toString() : LOG_JSON_NULL);
         return jsonObject;
     }
 
@@ -332,19 +346,23 @@ public class NetCaller {
         }), new FutureCallback<NetResult>() {
             @Override
             public void onSuccess(@NullableDecl NetResult result) {
-                switch (result.getCode()) {
-                    case SUCCESS:
-                        callback.onSuccess(((JsonObject) result.getData()).toString());
-                        break;
-                    case ERR_EXCEPTION_DKC:
-                    case ERR_EXCEPTION_HTTP:
-                    case ERR_EXCEPTION_UNKNOWN:
-                    case ERR_DATA_NULL:
-                    case ERR_ISSUE_SOURCE:
-                    case ERR_DATA_INCORRECT:
-                    default:
-                        callback.onFail(result);
-                        break;
+                if(result!=null) {
+                    switch (result.getCode()) {
+                        case SUCCESS:
+                            callback.onSuccess(((JsonObject) result.getData()).toString());
+                            break;
+                        case ERR_EXCEPTION_DKC:
+                        case ERR_EXCEPTION_HTTP:
+                        case ERR_EXCEPTION_UNKNOWN:
+                        case ERR_DATA_NULL:
+                        case ERR_ISSUE_SOURCE:
+                        case ERR_DATA_INCORRECT:
+                        default:
+                            callback.onFail(result);
+                            break;
+                    }
+                }else{
+                    callback.onFail(null);
                 }
                 es.shutDownExcutor();
             }
@@ -405,19 +423,23 @@ public class NetCaller {
         }), new FutureCallback<NetResult>() {
             @Override
             public void onSuccess(@NullableDecl NetResult result) {
-                switch (result.getCode()) {
-                    case SUCCESS:
-                        callback.onSuccess(((JsonObject) result.getData()).toString());
-                        break;
-                    case ERR_EXCEPTION_DKC:
-                    case ERR_EXCEPTION_HTTP:
-                    case ERR_EXCEPTION_UNKNOWN:
-                    case ERR_DATA_NULL:
-                    case ERR_ISSUE_SOURCE:
-                    case ERR_DATA_INCORRECT:
-                    default:
-                        callback.onFail(result);
-                        break;
+                if(result!=null) {
+                    switch (result.getCode()) {
+                        case SUCCESS:
+                            callback.onSuccess(((JsonObject) result.getData()).toString());
+                            break;
+                        case ERR_EXCEPTION_DKC:
+                        case ERR_EXCEPTION_HTTP:
+                        case ERR_EXCEPTION_UNKNOWN:
+                        case ERR_DATA_NULL:
+                        case ERR_ISSUE_SOURCE:
+                        case ERR_DATA_INCORRECT:
+                        default:
+                            callback.onFail(result);
+                            break;
+                    }
+                }else{
+                    callback.onFail(null);
                 }
                 es.shutDownExcutor();
             }

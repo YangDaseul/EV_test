@@ -107,7 +107,7 @@ public class DeviceUtil {
             return null;
         }
 
-        if (phoneNumber.startsWith("+82")) {
+        if (StringUtil.isValidString(phoneNumber).startsWith("+82")) {
             // is korea location number..
             parserd = phoneNumber.replace("+82", "0");
         } else {

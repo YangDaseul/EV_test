@@ -157,7 +157,7 @@ public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBi
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == ResultCodes.REQ_CODE_BTR.getCode()){
+        if(resultCode == ResultCodes.REQ_CODE_BTR.getCode()&&data!=null){
             BtrVO btrVO = (BtrVO)data.getSerializableExtra(KeyNames.KEY_NAME_BTR);
             if(btrVO!=null) {//버틀러 정보는 받지만 실제  블루핸즈 4개 정보만있고 버틀러 정보는 빠저있어서 재요청해야함;
                 btrViewModel.reqBTR1001(new BTR_1001.Request(APPIAInfo.GM_BT02.getId(),vin));

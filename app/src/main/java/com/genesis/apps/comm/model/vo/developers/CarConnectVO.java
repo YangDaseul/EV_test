@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 
 import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.comm.util.StringUtil;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -39,7 +40,8 @@ class CarConnectVO extends BaseData {
     @SerializedName("carName")
     private String carName;
 
-    public CarConnectVO(){
+    public CarConnectVO(String vin){
+        this.vin = StringUtil.isValidString(vin);
     }
 
     public CarConnectVO(@NonNull String vin, String carId, String masterCarId, String carGrantType, String carName){

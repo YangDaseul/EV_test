@@ -481,7 +481,7 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REPAIR.getCode()) {
             exitPage(data, ResultCodes.REQ_CODE_SERVICE_RESERVE_REPAIR.getCode());
-        } else if (resultCode == ResultCodes.REQ_CODE_BTR.getCode()) {
+        } else if (resultCode == ResultCodes.REQ_CODE_BTR.getCode()&&data!=null) {
             btrVO = (BtrVO) data.getSerializableExtra(KeyNames.KEY_NAME_BTR);
             checkValidRepair();
         }

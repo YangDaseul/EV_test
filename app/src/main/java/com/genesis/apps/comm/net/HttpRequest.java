@@ -677,7 +677,7 @@ public class HttpRequest {
          * @return {@link IOException} cause
          */
         @Override
-        public IOException getCause() {
+        public synchronized IOException getCause() {
             return (IOException) super.getCause();
         }
     }

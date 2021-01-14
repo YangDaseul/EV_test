@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.BtrVO;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ItemServiceNetworkPopupBinding;
 
 import androidx.annotation.NonNull;
@@ -37,7 +38,7 @@ public class ServiceNetworkPopUpView {
     }
 
     public void showPopUp(BtrVO btrVO, int authNm){
-        if(btrVO==null&&TextUtils.isEmpty(btrVO.getAcps1Cd())&&btrVO.getAcps1Cd().equalsIgnoreCase("2"))
+        if(btrVO==null|| StringUtil.isValidString(btrVO.getAcps1Cd()).equalsIgnoreCase("2"))
             return;
 
         String msg;

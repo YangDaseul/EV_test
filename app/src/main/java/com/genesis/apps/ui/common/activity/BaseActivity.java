@@ -226,7 +226,7 @@ public class BaseActivity extends AppCompatActivity {
 
             String errorMsg="";
             try {
-                errorMsg = data.getStringExtra("msg");
+                if(data!=null) errorMsg = data.getStringExtra("msg");
             }catch (Exception e){
                 e.printStackTrace();
             }finally{

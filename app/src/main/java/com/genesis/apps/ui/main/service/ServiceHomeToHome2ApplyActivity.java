@@ -585,7 +585,7 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
         super.onActivityResult(requestCode, resultCode, data);
 
         AddressVO addressVO = null;
-        if (requestCode == RequestCodes.REQ_CODE_SERVICE_HOMETOHOME_PCKP.getCode()) {
+        if (requestCode == RequestCodes.REQ_CODE_SERVICE_HOMETOHOME_PCKP.getCode()&&data!=null) {
             try {
                 addressVO = (AddressVO) data.getSerializableExtra(KeyNames.KEY_NAME_ADDR);
             } catch (Exception e) {
@@ -598,7 +598,7 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
                     checkValidPckpAddr();
                 }
             }
-        } else if (requestCode == RequestCodes.REQ_CODE_SERVICE_HOMETOHOME_DELIVERY.getCode()) {
+        } else if (requestCode == RequestCodes.REQ_CODE_SERVICE_HOMETOHOME_DELIVERY.getCode()&&data!=null) {
             try {
                 addressVO = (AddressVO) data.getSerializableExtra(KeyNames.KEY_NAME_ADDR);
             } catch (Exception e) {

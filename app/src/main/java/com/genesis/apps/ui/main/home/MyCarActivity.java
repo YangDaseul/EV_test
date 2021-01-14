@@ -587,11 +587,12 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
     public void onClickCommon(View v) {
 
         try {
+            VehicleVO vehicleVO = getCurrentVehicleVO();
             switch (v.getId()) {
                 case R.id.btn_contract://계약서 조회
-                    if (getCurrentVehicleVO() != null) {
+                    if (vehicleVO != null) {
                         startActivitySingleTop(new Intent(this, APPIAInfo.GM02_CTR01.getActivity())
-                                        .putExtra(KeyNames.KEY_NAME_CTRCT_NO, getCurrentVehicleVO().getCtrctNo())
+                                        .putExtra(KeyNames.KEY_NAME_CTRCT_NO, vehicleVO.getCtrctNo())
                                 , RequestCodes.REQ_CODE_ACTIVITY.getCode()
                                 , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     }
@@ -608,61 +609,65 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                     break;
                 case R.id.iv_favorite://주 이용 차량 설정
                     try {
-                        if (getCurrentVehicleVO() != null
-                                && !getCurrentVehicleVO().getDelExpYn().equalsIgnoreCase(VariableType.DELETE_EXPIRE_Y) //삭제 예정 차량이 아니고
-                                && getCurrentVehicleVO().getCustGbCd().equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV) //소유 차량이고
-                                && !getCurrentVehicleVO().getMainVhclYn().equalsIgnoreCase(VariableType.MAIN_VEHICLE_Y)) { //현재 주 이용 차량이 아니면
+                        if (vehicleVO != null
+                                && !StringUtil.isValidString(vehicleVO.getDelExpYn()).equalsIgnoreCase(VariableType.DELETE_EXPIRE_Y) //삭제 예정 차량이 아니고
+                                && StringUtil.isValidString(vehicleVO.getCustGbCd()).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV) //소유 차량이고
+                                && !StringUtil.isValidString(vehicleVO.getMainVhclYn()).equalsIgnoreCase(VariableType.MAIN_VEHICLE_Y)) { //현재 주 이용 차량이 아니면
                             //주 이용 차량 설정 가능
-                            gnsViewModel.reqGNS1004(new GNS_1004.Request(APPIAInfo.GM_CARLST01.getId(), getCurrentVehicleVO().getVin()));
+                            gnsViewModel.reqGNS1004(new GNS_1004.Request(APPIAInfo.GM_CARLST01.getId(), StringUtil.isValidString(vehicleVO.getVin())));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     break;
                 case R.id.btn_recovery:// 차량 복구
-                    if (getCurrentVehicleVO() != null
-                            && getCurrentVehicleVO().getDelExpYn().equalsIgnoreCase(VariableType.DELETE_EXPIRE_Y) //삭제 예정 차량이고
-                            && getCurrentVehicleVO().getCustGbCd().equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV) //소유 차량이고
+                    if (vehicleVO != null
+                            && StringUtil.isValidString(vehicleVO.getDelExpYn()).equalsIgnoreCase(VariableType.DELETE_EXPIRE_Y) //삭제 예정 차량이고
+                            && StringUtil.isValidString(vehicleVO.getCustGbCd()).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV) //소유 차량이고
                     ) {
                         //복구 요청 가능
-                        gnsViewModel.reqGNS1005(new GNS_1005.Request(APPIAInfo.GM_CARLST_04.getId(), getCurrentVehicleVO().getVin()));
+                        gnsViewModel.reqGNS1005(new GNS_1005.Request(APPIAInfo.GM_CARLST_04.getId(), StringUtil.isValidString(vehicleVO.getVin())));
                     }
                     break;
                 case R.id.tv_car_vrn:// 차량번호 수정
                 case R.id.btn_reg_vrn:
-                    final DialogCarRgstNo dialogCarRgstNo = new DialogCarRgstNo(this, R.style.BottomSheetDialogTheme);
-                    dialogCarRgstNo.setOnDismissListener(dialogInterface -> {
-                        if (!TextUtils.isEmpty(dialogCarRgstNo.getCarRgstNo())) {
-                            tmpCarRgstNo = dialogCarRgstNo.getCarRgstNo();
-                            gnsViewModel.reqGNS1002(new GNS_1002.Request(APPIAInfo.GM_CARLST_04.getId(), getCurrentVehicleVO().getVin(), dialogCarRgstNo.getCarRgstNo()));
-                        }
-                    });
-                    dialogCarRgstNo.show();
+                    if(vehicleVO!=null) {
+                        final DialogCarRgstNo dialogCarRgstNo = new DialogCarRgstNo(this, R.style.BottomSheetDialogTheme);
+                        dialogCarRgstNo.setOnDismissListener(dialogInterface -> {
+                            if (!TextUtils.isEmpty(dialogCarRgstNo.getCarRgstNo())) {
+                                tmpCarRgstNo = dialogCarRgstNo.getCarRgstNo();
+                                gnsViewModel.reqGNS1002(new GNS_1002.Request(APPIAInfo.GM_CARLST_04.getId(), StringUtil.isValidString(vehicleVO.getVin()), dialogCarRgstNo.getCarRgstNo()));
+                            }
+                        });
+                        dialogCarRgstNo.show();
+                    }
                     break;
                 case R.id.btn_delete:// 차량 삭제
-                    final List<String> deletionList = Arrays.asList(getResources().getStringArray(R.array.vehicle_deletion_reason));
-                    final BottomListDialog bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
-                    bottomListDialog.setOnDismissListener(dialogInterface -> {
-                        String result = bottomListDialog.getSelectItem();
-                        if (!TextUtils.isEmpty(result)) {
-                            //TODO 삭제 요청
-                            String delRsnCd = "";
+                    if(vehicleVO!=null) {
+                        final List<String> deletionList = Arrays.asList(getResources().getStringArray(R.array.vehicle_deletion_reason));
+                        final BottomListDialog bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
+                        bottomListDialog.setOnDismissListener(dialogInterface -> {
+                            String result = bottomListDialog.getSelectItem();
+                            if (!TextUtils.isEmpty(result)) {
+                                //TODO 삭제 요청
+                                String delRsnCd = "";
 
-                            if (result.equalsIgnoreCase(deletionList.get(0))) {
-                                delRsnCd = VariableType.MY_CAR_DELETION_REASON_SELL;
-                            } else if (result.equalsIgnoreCase(deletionList.get(1))) {
-                                delRsnCd = VariableType.MY_CAR_DELETION_REASON_SCRAPPED;
-                            } else if (result.equalsIgnoreCase(deletionList.get(2))) {
-                                delRsnCd = VariableType.MY_CAR_DELETION_REASON_TRANSFER;
-                            } else {
-                                delRsnCd = VariableType.MY_CAR_DELETION_REASON_ETC;
+                                if (result.equalsIgnoreCase(deletionList.get(0))) {
+                                    delRsnCd = VariableType.MY_CAR_DELETION_REASON_SELL;
+                                } else if (result.equalsIgnoreCase(deletionList.get(1))) {
+                                    delRsnCd = VariableType.MY_CAR_DELETION_REASON_SCRAPPED;
+                                } else if (result.equalsIgnoreCase(deletionList.get(2))) {
+                                    delRsnCd = VariableType.MY_CAR_DELETION_REASON_TRANSFER;
+                                } else {
+                                    delRsnCd = VariableType.MY_CAR_DELETION_REASON_ETC;
+                                }
+                                gnsViewModel.reqGNS1003(new GNS_1003.Request(APPIAInfo.GM_CARLST_04.getId(), StringUtil.isValidString(vehicleVO.getVin()), delRsnCd));
                             }
-                            gnsViewModel.reqGNS1003(new GNS_1003.Request(APPIAInfo.GM_CARLST_04.getId(), getCurrentVehicleVO().getVin(), delRsnCd));
-                        }
-                    });
-                    bottomListDialog.setDatas(deletionList);
-                    bottomListDialog.setTitle(getString(R.string.gm_carlst_p01_7));
-                    bottomListDialog.show();
+                        });
+                        bottomListDialog.setDatas(deletionList);
+                        bottomListDialog.setTitle(getString(R.string.gm_carlst_p01_7));
+                        bottomListDialog.show();
+                    }
                     //삭제제요청후
                     //성공이면 gns 001 요청 및 db갱신 후
                     //해당 차대번호의 차량으로 vehicleVO를 덮어쓴 다음에

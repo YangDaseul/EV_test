@@ -168,6 +168,7 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
     }
 

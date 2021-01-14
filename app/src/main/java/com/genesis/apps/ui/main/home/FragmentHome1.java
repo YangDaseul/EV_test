@@ -372,9 +372,12 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 try {
                     messageVO = ((MessageVO) v.getTag(R.id.item));
                 } catch (Exception e) {
+                    messageVO = null;
                     e.printStackTrace();
                 } finally {
-                    ((MainActivity) getActivity()).moveToPage(messageVO.getLnkUri(), messageVO.getLnkTypCd(), false);
+                    if(messageVO!=null) {
+                        ((MainActivity) getActivity()).moveToPage(StringUtil.isValidString(messageVO.getLnkUri()), StringUtil.isValidString(messageVO.getLnkTypCd()), false);
+                    }
                 }
                 break;
 //            case R.id.btn_carinfo://차량정보설정
@@ -841,7 +844,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 setVideo(true);
             }
 
-            player.setPlayWhenReady(isResume);
+            if(player!=null)
+                player.setPlayWhenReady(isResume);
         }
     }
 

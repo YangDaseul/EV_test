@@ -211,7 +211,7 @@ public class MyGEntranceActivity extends SubActivity<ActivityMygEntranceBinding>
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==Activity.RESULT_OK){
-            if(requestCode==RequestCodes.REQ_CODE_LOGIN.getCode()||requestCode==RequestCodes.REQ_CODE_JOIN.getCode()){
+            if(requestCode==RequestCodes.REQ_CODE_LOGIN.getCode()||requestCode==RequestCodes.REQ_CODE_JOIN.getCode()&&data!=null){
                 try {
                     tokenCode = data.getStringExtra(VariableType.KEY_NAME_LOGIN_TOKEN_CODE);
                     authUuid = data.getStringExtra(VariableType.KEY_NAME_LOGIN_AUTH_UUID);

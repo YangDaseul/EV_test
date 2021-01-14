@@ -1,6 +1,7 @@
 package com.genesis.apps.comm.model.vo;
 
 import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.room.QuickMenuDao;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -30,8 +31,8 @@ import lombok.EqualsAndHashCode;
 public @Data
 class QuickMenuVO extends BaseData {
 
-    public QuickMenuVO(){
-
+    public QuickMenuVO(String menuId, String custGbCd){
+        this.menuId = StringUtil.isValidString(menuId);
     }
 
     @NonNull

@@ -530,7 +530,7 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == ResultCodes.REQ_CODE_SERVICE_SOS_MAP.getCode()){
+        if(resultCode == ResultCodes.REQ_CODE_SERVICE_SOS_MAP.getCode()&&data!=null){
             addressVO = (AddressVO)data.getSerializableExtra(KeyNames.KEY_NAME_ADDR);
             setViewAddr(addressVO);
         }

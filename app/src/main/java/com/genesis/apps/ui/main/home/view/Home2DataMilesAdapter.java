@@ -122,7 +122,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
     public DataMilesVO findVOByCarId(String carId) {
         DataMilesVO result = null;
         try {
-            result = getItems().stream().filter(vo -> vo.getCarId().equals(carId)).findFirst().get();
+            result = getItems().stream().filter(vo -> vo.getCarId().equals(carId)).findFirst().orElse(null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -415,7 +415,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
 
             String count = "0";
             try {
-                CouponVO findItem = coupons.stream().filter(couponVO -> couponVO.getItemDivCd().equals(couponCode)).findFirst().get();
+                CouponVO findItem = coupons.stream().filter(couponVO -> couponVO.getItemDivCd().equals(couponCode)).findFirst().orElse(null);
                 if (findItem != null) {
                     count = findItem.getRemCnt();
                 }
