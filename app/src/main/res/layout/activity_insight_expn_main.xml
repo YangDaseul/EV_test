@@ -69,15 +69,74 @@
             app:layout_constraintTop_toBottomOf="@+id/l_title"
             tools:text="GV70 123제 4567"/>
 
+
+
+        <TextView
+            android:id="@+id/tv_curr_mth_amt_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:lineSpacingExtra="6dp"
+            android:textColor="@color/x_141414"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_vehicle"
+            android:text="@string/tm01_1_1" />
+
+        <TextView
+            android:id="@+id/tv_curr_mth_amt_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:lineSpacingExtra="6dp"
+            android:textColor="@color/x_141414"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_curr_mth_amt_1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_curr_mth_amt_1"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_curr_mth_amt"
+            android:text="@string/tm01_1_2" />
+
+
+        <TextView
+            android:id="@+id/tv_curr_mth_amt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:lineSpacingExtra="6dp"
+            android:textColor="@color/x_a36b4f"
+            android:textSize="24dp"
+            android:text="0"
+            app:layout_constraintStart_toEndOf="@+id/tv_curr_mth_amt_2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_curr_mth_amt_1"
+            tools:text="451,900" />
+
+        <TextView
+            android:id="@+id/tv_curr_mth_amt_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:lineSpacingExtra="6dp"
+            android:textColor="@color/x_141414"
+            android:textSize="16dp"
+            app:layout_constraintStart_toEndOf="@+id/tv_curr_mth_amt"
+            app:layout_constraintTop_toBottomOf="@+id/tv_curr_mth_amt_1"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_curr_mth_amt"
+            android:text="@string/tm01_1_3" />
+
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/chart"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
             app:layout_constraintDimensionRatio="1.5:1"
-            app:layout_constraintTop_toBottomOf="@+id/btn_month"
+            app:layout_constraintTop_toBottomOf="@+id/tv_curr_mth_amt"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
