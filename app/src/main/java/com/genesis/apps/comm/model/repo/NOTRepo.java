@@ -1,7 +1,8 @@
 package com.genesis.apps.comm.model.repo;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.gra.NOT_0001;
 import com.genesis.apps.comm.model.api.gra.NOT_0002;
@@ -18,8 +19,6 @@ import com.google.gson.Gson;
 import java.util.List;
 
 import javax.inject.Inject;
-
-import androidx.lifecycle.MutableLiveData;
 
 public class NOTRepo {
     private DatabaseHolder databaseHolder;

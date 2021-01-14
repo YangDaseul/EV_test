@@ -9,7 +9,6 @@ import com.genesis.apps.comm.model.api.gra.VOC_1002;
 import com.genesis.apps.comm.model.api.gra.VOC_1003;
 import com.genesis.apps.comm.model.api.gra.VOC_1004;
 import com.genesis.apps.comm.model.api.gra.VOC_1005;
-import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
