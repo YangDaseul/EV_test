@@ -436,8 +436,17 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
             ui.tvPartHomeCnt.setText(cnt);
         }
 
-        VehicleVO vehicleVO = ((VehicleVO) adapter.getItem(ui.vpCar.getCurrentItem()));
-        mypViewModel.reqMYP1005(new MYP_1005.Request(APPIAInfo.GM_CARLST_04.getId(), vehicleVO.getVin()));
+        reqPrivilegeDataToServer();
+    }
+
+    private void reqPrivilegeDataToServer() {
+        try {
+            VehicleVO vehicleVO = ((VehicleVO) adapter.getItem(ui.vpCar.getCurrentItem()));
+            mypViewModel.reqMYP1005(new MYP_1005.Request(APPIAInfo.GM_CARLST_04.getId(), vehicleVO.getVin()));
+        }catch (Exception e){
+            e.printStackTrace();
+            //do nothing
+        }
     }
 
     private void updateDataToAdapter(VehicleVO vehicleVO, int pos) {
