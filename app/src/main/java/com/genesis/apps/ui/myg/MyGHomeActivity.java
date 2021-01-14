@@ -56,8 +56,8 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myg_home);
-        getDataFromIntent();
         setViewModel();
+        getDataFromIntent();
         setObserver();
         initView();
         reqData();
@@ -198,7 +198,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     @Override
     public void getDataFromIntent() {
         try {
-            mainVehicle = (VehicleVO)getIntent().getSerializableExtra(KeyNames.KEY_NAME_VEHICLE);
+            mainVehicle = mypViewModel.getMainVehicleSimplyFromDB();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -297,7 +297,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     }
 
     private void setCallCenter(){
-        if(mainVehicle!=null&&!TextUtils.isEmpty(mainVehicle.getMdlNm())&& (mainVehicle.getMdlNm().equalsIgnoreCase("GV90")||mainVehicle.getMdlNm().equalsIgnoreCase("EQ900"))){
+        if(mainVehicle!=null&&!TextUtils.isEmpty(mainVehicle.getMdlNm())&& (mainVehicle.getMdlNm().equalsIgnoreCase("G90")||mainVehicle.getMdlNm().equalsIgnoreCase("EQ900"))){
             ui.tvCenterMsg4.setText(R.string.word_home_25);
         }else{
             ui.tvCenterMsg4.setText(R.string.word_home_14);
