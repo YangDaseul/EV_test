@@ -2,12 +2,6 @@ package com.genesis.apps.comm.viewmodel;
 
 import android.text.TextUtils;
 
-import androidx.hilt.Assisted;
-import androidx.hilt.lifecycle.ViewModelInject;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.SavedStateHandle;
-import androidx.lifecycle.ViewModel;
-
 import com.genesis.apps.comm.model.api.gra.CBK_1001;
 import com.genesis.apps.comm.model.api.gra.CBK_1002;
 import com.genesis.apps.comm.model.api.gra.CBK_1005;
@@ -31,6 +25,11 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
+import androidx.hilt.Assisted;
+import androidx.hilt.lifecycle.ViewModelInject;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
+import androidx.lifecycle.ViewModel;
 import lombok.Data;
 
 public @Data

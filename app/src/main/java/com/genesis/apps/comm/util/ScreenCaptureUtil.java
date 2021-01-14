@@ -1,7 +1,6 @@
 package com.genesis.apps.comm.util;
 
 import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.hardware.display.DisplayManager;
@@ -11,11 +10,11 @@ import android.media.projection.MediaProjectionManager;
 import android.os.Environment;
 import android.util.DisplayMetrics;
 
-import androidx.annotation.Nullable;
-
 import java.io.IOException;
 
 import javax.inject.Inject;
+
+import androidx.annotation.Nullable;
 
 import static android.content.Context.MEDIA_PROJECTION_SERVICE;
 
@@ -79,35 +78,10 @@ public class ScreenCaptureUtil {
         return mediaRecorder;
     }
 
-//    private void startRecord() {
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-//            MediaProjectionManager mediaProjectionManager = (MediaProjectionManager) activity.getSystemService(MEDIA_PROJECTION_SERVICE);
-//            activity.startActivityForResult(mediaProjectionManager.createScreenCaptureIntent(), RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode());
-//        }
-//    }
-
     public void stopRecord() {
         if(mediaProjection!=null) mediaProjection.stop();
     }
 
-//    private void requestShare(){
-//        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-//        Uri screenshotUri = Uri.parse(videoFile);    // android image path
-//        sharingIntent.setType("video/*");
-//        sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
-//        activity.startActivity(Intent.createChooser(sharingIntent, "Share image using")); // 변경가능
-//    }
-
-//    public void toggleRecord(Runnable start, Runnable stop){
-//        if(mediaProjection!=null){
-//            stopRecord();
-//            requestShare();
-//            stop.run();
-//        }else{
-//            startRecord();
-//            start.run();
-//        }
-//    }
 
 
 

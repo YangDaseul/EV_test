@@ -23,15 +23,6 @@ class MenuViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<List<MenuVO>>> recentlyMenuList;
     private MutableLiveData<NetUIResponse<List<MenuVO>>> keywordMenuList;
 
-//    public final LiveData<VehicleVO> carVO = Transformations.map(RES_LGN_0001, input -> input.data.getCarVO());
-//    public final LiveData<VehicleVO> carVO =
-//            Transformations.switchMap(RES_LGN_0001, new Function<NetUIResponse<LGN_0001.Response>, LiveData<VehicleVO>>() {
-//                @Override
-//                public LiveData<VehicleVO> apply(NetUIResponse<LGN_0001.Response> input) {
-//                    return input.data.getCarVO(); repo에서 getcarvo로 가저올수있는.. 다른걸 요청 가능
-//                }
-//            });
-
     @ViewModelInject
     MenuViewModel(
             MenuRepository repository,

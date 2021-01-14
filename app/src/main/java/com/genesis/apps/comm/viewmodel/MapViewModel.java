@@ -2,7 +2,6 @@ package com.genesis.apps.comm.viewmodel;
 
 import com.genesis.apps.comm.model.repo.MapRepository;
 import com.genesis.apps.comm.model.vo.AddressVO;
-import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.model.vo.map.AroundPOIReqVO;
 import com.genesis.apps.comm.model.vo.map.FindPathReqVO;
 import com.genesis.apps.comm.model.vo.map.FindPathResVO;
@@ -24,9 +23,6 @@ import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
-
-import org.json.JSONObject;
-
 import lombok.Data;
 
 public @Data

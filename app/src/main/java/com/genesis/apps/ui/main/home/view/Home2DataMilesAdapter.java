@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * Class Name : Home2DataMilesAdapter
- * 데이터 마일스 화면을 표시할 {@link com.genesis.apps.ui.common.view.listview.test.BaseRecyclerViewAdapter} Class.
+ * 데이터 마일스 화면을 표시할 {@link com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2} Class.
  * <p>
  * 표시하는 화면
  * 1. 안전 운전 점수

@@ -39,53 +39,6 @@ public class FileUtil {
         }
     }
 
-    public static void RmAllFiles(String sPath) {
-        RmAllFiles(sPath, 0);
-    }
-
-    public static void RmAllFiles(String sPath, long tm) {
-        try {
-            File p = new File(sPath);
-
-            if (p.isDirectory()) {
-                File[] af = p.listFiles();
-                for (int i = 0; i < af.length; i++) {
-                    if (af[i].isDirectory()) {
-                        RmAllFiles(af[i].getAbsolutePath(), tm);
-                        af[i].delete();
-                        af[i] = null;
-                    } else {
-                        if (af[i].lastModified() < tm) {
-                            af[i].delete();
-                            af[i] = null;
-                        }
-                    }
-                }
-            }
-            p = null;
-        } catch (Exception e) {
-            //
-        }
-    }
-
-    public static ArrayList<String> getAllFile(String sPath) {
-        ArrayList<String> r = new ArrayList<String>();
-        try {
-            File p = new File(sPath);
-
-            if (p.isDirectory()) {
-                File[] af = p.listFiles();
-
-                for (int i = 0; i < af.length; i++) {
-                    r.add(af[i].getName());
-                }
-            }
-            p = null;
-        } catch (Exception e) {
-        }
-        return r;
-    }
-
     public static long FileLength(String filename) {
         long r = -1;
         File f = new File(filename);
@@ -140,32 +93,6 @@ public class FileUtil {
             return true;
         } catch (Exception e) {
             return false;
-        }
-    }
-
-    public static boolean WriteFile(String filename, InputStream fis) {
-        MakeDir(filename);
-        try (FileOutputStream fos = new FileOutputStream(filename)) {
-            byte[] tmp = new byte[1024];
-            int nb = 0;
-            while ((nb = fis.read(tmp)) != -1) fos.write(tmp, 0, nb);
-            fis.close();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public static void FileCopy(String src, String tar) {
-        if (exists(src)) {
-            try (FileInputStream fis = new FileInputStream(src);
-                 FileOutputStream fos = new FileOutputStream(tar)) {
-                byte[] tmp = new byte[1024];
-                int nb = 0;
-                while ((nb = fis.read(tmp)) != -1) fos.write(tmp, 0, nb);
-            } catch (Exception e) {
-                //
-            }
         }
     }
 

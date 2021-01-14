@@ -12,7 +12,6 @@ import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-
 import com.genesis.apps.BuildConfig;
 
 public class DeviceUtil {
