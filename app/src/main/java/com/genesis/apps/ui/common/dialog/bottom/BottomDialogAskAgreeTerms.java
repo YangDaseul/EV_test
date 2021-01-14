@@ -2,7 +2,7 @@ package com.genesis.apps.ui.common.dialog.bottom;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.widget.CheckBox;
+import android.util.SparseBooleanArray;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +19,7 @@ public class BottomDialogAskAgreeTerms extends BaseBottomDialog<DialogBottomTerm
 
     private boolean inputConfirmed = false;
     private TermsAdapter adapter;
+    private List<TermVO> termList;
     private OnSingleClickListener onSingleClickListener;
 
     public BottomDialogAskAgreeTerms(@NonNull Context context, int theme, OnSingleClickListener listener) {
@@ -27,6 +28,7 @@ public class BottomDialogAskAgreeTerms extends BaseBottomDialog<DialogBottomTerm
     }
 
     public void init(List<TermVO> termList) {
+        this.termList = termList;
         inputConfirmed = false;
 
         adapter = new TermsAdapter(this, onSingleClickListener);
@@ -45,6 +47,7 @@ public class BottomDialogAskAgreeTerms extends BaseBottomDialog<DialogBottomTerm
         //전체동의 버튼
         setAllClickListener();
 
+        setEnabledBtn(false);
         //확인버튼
         ui.tvBottomTermsOkBtn.setOnClickListener(view -> {
 
@@ -79,7 +82,37 @@ public class BottomDialogAskAgreeTerms extends BaseBottomDialog<DialogBottomTerm
         return inputConfirmed;
     }
 
-    public CheckBox getAllCheckBox() {
-        return ui.cbAgreeAll;
+    public void validateCheck(SparseBooleanArray selectedItems) {
+        boolean isValidate = false;
+        for(int i=0; i<termList.size(); i++) {
+            TermVO item = termList.get(i);
+
+            if("Y".equals(item.getTermEsnAgmtYn())) {
+                for(int j=0; j<selectedItems.size(); j++) {
+                    if(i == selectedItems.keyAt(j)) {
+                        if(selectedItems.get(j)) {
+                            isValidate = true;
+                        } else {
+                            isValidate = false;
+
+                            setEnabledBtn(isValidate);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+        setEnabledBtn(isValidate);
+    }
+
+    private void setEnabledBtn(boolean isEnabled) {
+        ui.tvBottomTermsOkBtn.setEnabled(isEnabled);
+
+        if(isEnabled) {
+            ui.tvBottomTermsOkBtn.setBackgroundResource(R.drawable.ripple_bg_141414);
+        } else {
+            ui.tvBottomTermsOkBtn.setBackgroundResource(R.drawable.bg_1a141414);
+        }
     }
 }

@@ -464,14 +464,6 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
 
         termsDialog.init(termList);
         termsDialog.show();
-
-        termsDialog.getAllCheckBox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                Log.d("JJJJ", "isCheck : " + b);
-
-            }
-        });
     }
 
     //약관 보기
