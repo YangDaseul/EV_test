@@ -5,6 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.comm.util.StringUtil;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -22,6 +23,11 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public @Data
 class AlarmMsgTypeVO extends BaseData {
+
+    public AlarmMsgTypeVO(String cd){
+        this.cd = StringUtil.isValidString(cd);
+    }
+
     @PrimaryKey
     @NonNull
     @Expose
@@ -31,7 +37,4 @@ class AlarmMsgTypeVO extends BaseData {
     @SerializedName("cdNm")
     private String cdNm;
 
-    public AlarmMsgTypeVO(){
-
-    }
 }

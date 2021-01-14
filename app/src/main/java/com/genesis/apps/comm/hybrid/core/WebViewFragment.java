@@ -354,7 +354,7 @@ public abstract class WebViewFragment extends Fragment {
 
 	}
 
-	final long CACHE_MAX_SIZE = 5 * 1048576;
+	final long CACHE_MAX_SIZE = 5 * 1_048_576;
 	/**
 	 * 웹뷰 설정
 	 */
@@ -760,7 +760,7 @@ public abstract class WebViewFragment extends Fragment {
 	 * @param _isCapture
 	 */
 	// 카메라 기능 구현
-	private void runCamera(boolean _isCapture) {
+	private void runCamera(final boolean _isCapture) {
 
 		if (!_isCapture) {// 갤러리 띄운다.
 			Intent pickIntent = new Intent(Intent.ACTION_PICK);

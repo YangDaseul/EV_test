@@ -140,15 +140,15 @@ public class CardRepository {
                 //블루멤버스카드가 1개 이상이면
                 if(blueList.size()>0){
                     //블루멤버 카드 목록 중 카드 발급 신청일자가 가장 최근인 카드를 가지고온다.
-                    CardVO firstCard = blueList.stream().max(Comparator.comparingInt(data -> Integer.parseInt(data.getCardIsncSubspDt()))).get();
-                    if(updateCard(firstCard.getCardNo())){//즐겨찾기로 해당 카드를 등록 후에
+                    CardVO firstCard = blueList.stream().max(Comparator.comparingInt(data -> Integer.parseInt(data.getCardIsncSubspDt()))).orElse(null);
+                    if(firstCard!=null&&updateCard(firstCard.getCardNo())){//즐겨찾기로 해당 카드를 등록 후에
                         list.add(0, firstCard); //즐겨찾기가 설정된 블루멤버스 카드를 추가해준다.
                     }
                 }
             }else{
                 //즐겨찾기가 설정되어 있는 경우
                 //list에서 즐겨찾기 카드를 찾고
-                CardVO cardFavorite = blueList.stream().filter(data -> data.getCardNo().equalsIgnoreCase(cardNoFromDB)).max(Comparator.comparingInt(data -> Integer.parseInt(data.getCardIsncSubspDt()))).get();
+                CardVO cardFavorite = blueList.stream().filter(data -> data.getCardNo().equalsIgnoreCase(cardNoFromDB)).max(Comparator.comparingInt(data -> Integer.parseInt(data.getCardIsncSubspDt()))).orElse(null);
                 if(cardFavorite!=null){
                     //서버에서준 블루멤버스 리스트에 즐겨찾기된 카드가 있으면
                     list.add(0, cardFavorite); //즐겨찾기가 설정된 블루멤버스 카드를 추가해준다.
@@ -156,8 +156,8 @@ public class CardRepository {
                     //즐겨찾기된 카드가 서버에서 준 리스트에 없으면
                     if(blueList.size()>0){
                         //블루멤버 카드 목록 중 카드 발급 신청일자가 가장 최근인 카드를 가지고온다.
-                        CardVO firstCard = blueList.stream().max(Comparator.comparingInt(data -> Integer.parseInt(data.getCardIsncSubspDt()))).get();
-                        if(updateCard(firstCard.getCardNo())){//즐겨찾기로 해당 카드를 등록 후에
+                        CardVO firstCard = blueList.stream().max(Comparator.comparingInt(data -> Integer.parseInt(data.getCardIsncSubspDt()))).orElse(null);
+                        if(firstCard!=null&&updateCard(firstCard.getCardNo())){//즐겨찾기로 해당 카드를 등록 후에
                             list.add(0, firstCard); //즐겨찾기가 설정된 블루멤버스 카드를 추가해준다.
                         }
                     }
