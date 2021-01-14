@@ -240,7 +240,7 @@ dependencies {
 
 
 sonarqube  {
-    androidVariant 'devRelease'
+    androidVariant 'debug'
     properties  {
         property "sonar.sources", "src/main/java"
     }
