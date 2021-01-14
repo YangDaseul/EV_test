@@ -16,6 +16,7 @@ import com.genesis.apps.comm.model.api.gra.NOT_0003;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.constants.StoreInfo;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
@@ -151,11 +152,11 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 //                }
                 break;
             case R.id.btn_store_cart:
-                loginChk("http://devagenesisproduct.auton.kr/cart/gen/ko/cart_list");
+                loginChk(StoreInfo.STORE_CART_URL);
 
                 break;
             case R.id.btn_store_search:
-                loginChk("http://devagenesisproduct.auton.kr/gen/ko/search");
+                loginChk(StoreInfo.STORE_SEARCH_URL);
 
                 break;
         }

@@ -27,6 +27,7 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CMS_1001;
 import com.genesis.apps.comm.model.api.gra.MYP_1003;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.StoreInfo;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
@@ -144,13 +145,13 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
     private void initView() {
         if(fragment != null) return;
 
-        url = "http://devagenesisproduct.auton.kr/ko/main";
+        url = StoreInfo.STORE_LIST_URL;
 
         try {
             Bundle bundle = new Bundle();
-            if(TextUtils.isEmpty(lgnViewModel.getUserInfoFromDB().getCustGbCd()) || VariableType.MAIN_VEHICLE_TYPE_0000.equals(lgnViewModel.getUserInfoFromDB().getCustGbCd())) {
-                bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
-            } else {
+            bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
+
+            if(!TextUtils.isEmpty(lgnViewModel.getUserInfoFromDB().getCustGbCd())&&VariableType.MAIN_VEHICLE_TYPE_0000.equals(lgnViewModel.getUserInfoFromDB().getCustGbCd())) {
                 mypViewModel.reqMYP1003(new MYP_1003.Request(APPIAInfo.MG01.getId()));
                 cmsViewModel.reqCMS1001(new CMS_1001.Request(APPIAInfo.SM02.getId()));
             }
