@@ -85,7 +85,7 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
                 String value = charSequence.toString().replace(",", "");
 
                 if (value.length() > 10) {
-                    ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(value.substring(0, 10)));
+//                    ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(value.substring(0, 10)));
                     ui.etExpnAmt.setSelection(ui.etExpnAmt.length());
                 }
 
@@ -109,7 +109,7 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
                 String value = charSequence.toString().replace(",", "");
 
                 if (value.length() > 10) {
-                    ui.etAccmMilg.setText(StringUtil.getDigitGroupingString(value.substring(0, 10)));
+//                    ui.etAccmMilg.setText(StringUtil.getDigitGroupingString(value.substring(0, 10)));
                     ui.etAccmMilg.setSelection(ui.etAccmMilg.length());
                 }
             }
@@ -129,11 +129,11 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
         calendar.setTime(DateUtil.getDefaultDateFormat(baseData.getExpnDtm(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss));
         setViewDtm(calendar);
         //누적주행거리
-        ui.etAccmMilg.setText(StringUtil.getDigitGroupingString(baseData.getAccmMilg().replaceAll(",","")));
+        ui.etAccmMilg.setText(StringUtil.isValidString(baseData.getAccmMilg()).replaceAll(",",""));
         //지출 항목
         ui.tvExpnDivCd.setText(baseData.getExpnDivNm());
         //지출액
-        ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(baseData.getExpnAmt().replaceAll(",","")));
+        ui.etExpnAmt.setText(StringUtil.isValidString(baseData.getExpnAmt()).replaceAll(",",""));
         //지출처
         ui.etExpnPlc.setText(baseData.getExpnPlc());
     }
@@ -198,6 +198,7 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
                 selectDivCd();
                 break;
             case R.id.tv_expn_dtm:
+                clearKeypad();
                 DialogCalendar dialogCalendar = new DialogCalendar(this, R.style.BottomSheetDialogTheme);
                 dialogCalendar.setOnDismissListener(dialogInterface -> {
                     Calendar calendar = dialogCalendar.calendar;
@@ -213,6 +214,7 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
     }
 
     private void showDialog(List<String> list, int title, DialogInterface.OnDismissListener dismissListener) {
+        clearKeypad();
         bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
         bottomListDialog.setOnDismissListener(dismissListener);
         bottomListDialog.setDatas(list);
@@ -221,6 +223,7 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
     }
 
     private void selectDivCd() {
+        clearKeypad();
         final List<String> divList = Arrays.asList(getResources().getStringArray(R.array.insight_item));
         final BottomListDialog bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
         bottomListDialog.setOnDismissListener(dialogInterface -> {
@@ -379,7 +382,7 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
             ui.lAccmMilg.setError(getString(R.string.tm_exps01_01_7));
             return false;
         }else{
-            ui.etAccmMilg.setText(StringUtil.getDigitGroupingString(accmMilg.replaceAll(",","")));
+//            ui.etAccmMilg.setText(StringUtil.getDigitGroupingString(accmMilg.replaceAll(",","")));
             ui.lAccmMilg.setError(null);
             return true;
         }
@@ -405,7 +408,7 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
             ui.lExpnAmt.setError(getString(R.string.tm_exps01_01_11));
             return false;
         }else{
-            ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(amt.replaceAll(",","")));
+//            ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(amt.replaceAll(",","")));
             ui.lExpnAmt.setError(null);
             return true;
         }

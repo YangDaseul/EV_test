@@ -285,7 +285,7 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
                 if (!vocInfoVO.getWpa().equalsIgnoreCase(selectNm)) {
                     vocInfoVO.setWpa(selectNm);
                     vocInfoVO.setAdmz("");
-                    ui.tvAdmz.setText(R.string.r_flaw05_12);
+                    ui.tvAdmz.setText(R.string.r_flaw05_13);
                     ui.tvAdmz.setTextColor(getColor(R.color.x_aaabaf));
                     ui.tvAdmz.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
                     pubViewModel.reqPUB1003(new PUB_1003.Request(APPIAInfo.SM_FLAW05.getId(), pubViewModel.getSidoCode(selectNm)));
@@ -570,8 +570,8 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == ResultCodes.REQ_CODE_NORMAL.getCode()) {
-            exitPage(getString(R.string.relapse_succ), ResultCodes.REQ_CODE_NORMAL.getCode());
+        if (resultCode == ResultCodes.REQ_CODE_APPLY_RELAPSE.getCode()) {
+            exitPage(getString(R.string.relapse_succ), ResultCodes.REQ_CODE_APPLY_RELAPSE.getCode());
         }
     }
 }

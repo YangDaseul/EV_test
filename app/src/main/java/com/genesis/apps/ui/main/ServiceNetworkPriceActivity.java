@@ -67,13 +67,10 @@ public class ServiceNetworkPriceActivity extends SubActivity<ActivityServiceNetw
                     showProgressDialog(false);
                     String serverMsg = "";
                     try {
-                        serverMsg = result.data.getRtMsg();
+                        serverMsg = getString(R.string.sm_snfind01_snackbar_1);
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
-                        if (TextUtils.isEmpty(serverMsg))
-                            serverMsg = getString(R.string.sm_snfind01_snackbar_1);
-
                         exitPage(serverMsg, ResultCodes.RES_CODE_NETWORK.getCode());
                     }
                     break;

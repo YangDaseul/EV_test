@@ -81,7 +81,7 @@ public class MYPRepo {
     }
 
     public MutableLiveData<NetUIResponse<MYP_0004.Response>> REQ_MYP_0004(final MYP_0004.Request reqData) {
-
+        RES_MYP_0004.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -104,7 +104,7 @@ public class MYPRepo {
 
 
     public MutableLiveData<NetUIResponse<MYP_0005.Response>> REQ_MYP_0005(final MYP_0005.Request reqData) {
-
+        RES_MYP_0005.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -126,7 +126,7 @@ public class MYPRepo {
     }
 
     public MutableLiveData<NetUIResponse<MYP_1003.Response>> REQ_MYP_1003(final MYP_1003.Request reqData) {
-
+        RES_MYP_1003.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -194,7 +194,7 @@ public class MYPRepo {
 
 
     public MutableLiveData<NetUIResponse<MYP_2001.Response>> REQ_MYP_2001(final MYP_2001.Request reqData) {
-
+        RES_MYP_2001.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -216,7 +216,7 @@ public class MYPRepo {
     }
 
     public MutableLiveData<NetUIResponse<MYP_2002.Response>> REQ_MYP_2002(final MYP_2002.Request reqData) {
-
+        RES_MYP_2002.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -236,6 +236,7 @@ public class MYPRepo {
 
         return RES_MYP_2002;
     }
+    //사용하지 않는 전문
     public MutableLiveData<NetUIResponse<MYP_2003.Response>> REQ_MYP_2003(final MYP_2003.Request reqData) {
 
         netCaller.reqDataToGRA(new NetResultCallback() {
@@ -259,7 +260,7 @@ public class MYPRepo {
     }
 
     public MutableLiveData<NetUIResponse<MYP_2004.Response>> REQ_MYP_2004(final MYP_2004.Request reqData) {
-
+        RES_MYP_2004.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {

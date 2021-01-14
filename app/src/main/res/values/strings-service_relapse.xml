@@ -36,7 +36,7 @@
 
     <string name="relapse_3_repair_period">누적 수리 기간</string>
     <string name="relapse_3_repair_term_error">누적 수리 기간을 입력해주세요</string>
-    <string name="relapse_3_repair_total_count">추가 수리 횟수</string>
+    <string name="relapse_3_repair_total_count">누적 추가 수리 횟수</string>
     <string name="relapse_3_repair_total_count_error">추가 수리 횟수를 입력해주세요</string>
 
     <string name="relapse_3_repair_delete">삭제</string>
@@ -82,6 +82,6 @@
     <string name="relapse_req_result_defect_low">일반 하자</string>
     <string name="relapse_req_result_repair_detail_title">회차 수리내역</string>
     <string name="relapse_req_result_repair_count_title">수리내역 횟수 및 기간</string>
-    <string name="relapse_req_result_try">수리 시도 횟수</string>
+    <string name="relapse_req_result_try">누적 수리 시도 횟수</string>
 
 </resources>

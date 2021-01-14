@@ -83,6 +83,7 @@ public class LeasingCarVinRegisterActivity extends SubActivity<ActivityLeasingCa
         switch (v.getId()) {
             case R.id.btn_check:
                 if (checkValidVin()) {
+                    ui.btnCheck.setText(R.string.dialog_common_4);
                     ui.lCsmrScnCd.setVisibility(View.VISIBLE);
                     if (checkValidCsmrScnCd()) {
                         gnsViewModel.reqGNS1011(new GNS_1011.Request(APPIAInfo.GM_CARLST_01.getId(), ui.etVin.getText().toString().trim(), csmrScnCd));

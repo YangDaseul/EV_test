@@ -39,6 +39,8 @@ import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 import lombok.Data;
 
+import static com.genesis.apps.comm.model.vo.PrivilegeVO.JOIN_CODE_APPLYED;
+import static com.genesis.apps.comm.model.vo.PrivilegeVO.JOIN_CODE_APPLY_POSSIBLE;
 import static com.genesis.apps.comm.model.vo.PrivilegeVO.JOIN_CODE_UNABLE_APPLY;
 
 public @Data
@@ -212,4 +214,44 @@ class MYPViewModel extends ViewModel {
         return dbUserRepo.clearUserInfo();
     }
 
+    public Integer getPrivilegeCarCnt(List<PrivilegeVO> pvilList) throws ExecutionException, InterruptedException  {
+        ExecutorService es = new ExecutorService("");
+        Future<Integer> future = es.getListeningExecutorService().submit(()->{
+            Integer cnt = 0;
+            try {
+                cnt = (int)pvilList.stream().filter(data->data.getJoinPsblCd().equalsIgnoreCase(JOIN_CODE_APPLY_POSSIBLE)||data.getJoinPsblCd().equalsIgnoreCase(JOIN_CODE_APPLYED)).count();
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+                cnt = 0;
+            }
+            return cnt;
+        });
+
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
+    }
+
+
+    public PrivilegeVO getPrivilegeCar(List<PrivilegeVO> pvilList) throws ExecutionException, InterruptedException  {
+        ExecutorService es = new ExecutorService("");
+        Future<PrivilegeVO> future = es.getListeningExecutorService().submit(()->{
+            PrivilegeVO privilegeVO = null;
+            try {
+                privilegeVO = pvilList.stream().filter(data->data.getJoinPsblCd().equalsIgnoreCase(JOIN_CODE_APPLY_POSSIBLE)||data.getJoinPsblCd().equalsIgnoreCase(JOIN_CODE_APPLYED)).findFirst().orElse(null);
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+                privilegeVO = null;
+            }
+            return privilegeVO;
+        });
+
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
+    }
 }

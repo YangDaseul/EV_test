@@ -41,9 +41,9 @@
 
     <!--   버틀러 팝업-->
     <string name="gm_bt01_p02_1">서비스 신청 안내</string>
-    <string name="gm_bt01_p02_2">버틀러 신청은 고객센터 전화 상담으로만 가능합니다.\n바로 통화하시겠습니까?</string>
+    <string name="gm_bt01_p02_2">버틀러 신청은 고객센터 전화 상담으로만 가능합니다.\n\n바로 통화하시겠습니까?</string>
     <string name="gm_bt04_p01_1">종료 안내</string>
-    <string name="gm_bt04_p01_2">아직 버틀러 상담 신청이 완료되지 않았습니다.\n신청을 종료하시겠습니까?</string>
+    <string name="gm_bt04_p01_2">아직 버틀러 상담 신청이 완료되지 않았습니다.\n\n신청을 종료하시겠습니까?</string>
 
     <string name="mg_con01_p01_1">해제 안내</string>
     <string name="mg_con01_p01_2">포인트를 연동 해제할 경우 포인트 정보, 바코드가 제공되지 않으며 주유 내역이 자동 입력되지 않습니다.\n포인트 연동을 해제하시겠습니까?</string>

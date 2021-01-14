@@ -1,5 +1,5 @@
 <resources>
-    <string name="tm01_1">이번 달 사용금액은\n총 %s 원을 쓰셨습니다.</string>
+    <string name="tm01_1">이번 달 사용금액은\n총 %s 원 입니다.</string>
     <string name="tm01_1_1">이번 달 사용금액은</string>
     <string name="tm01_1_2">총</string>
     <string name="tm01_1_3">원을 쓰셨습니다.</string>

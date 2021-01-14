@@ -91,7 +91,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
                 String value = charSequence.toString().replace(",","");
 
                 if(value.length()>8){
-                    ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(value.substring(0,8)));
+//                    ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(value.substring(0,8)));
                     ui.etExpnAmt.setSelection(ui.etExpnAmt.length());
                 }
 
@@ -113,7 +113,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
                 String value = charSequence.toString().replace(",","");
 
                 if(value.length()>10){
-                    ui.etAccmMilg.setText(StringUtil.getDigitGroupingString(value.substring(0,10)));
+//                    ui.etAccmMilg.setText(StringUtil.getDigitGroupingString(value.substring(0,10)));
                     ui.etAccmMilg.setSelection(ui.etAccmMilg.length());
                 }
             }
@@ -311,7 +311,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
             ui.lAccmMilg.setError(getString(R.string.tm_exps01_01_7));
             return false;
         }else{
-            ui.etAccmMilg.setText(StringUtil.getDigitGroupingString(accmMilg.replaceAll(",","")));
+//            ui.etAccmMilg.setText(StringUtil.getDigitGroupingString(accmMilg.replaceAll(",","")));
             ui.lAccmMilg.setError(null);
             doTransition(1);
             return true;
@@ -339,7 +339,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
             ui.lExpnAmt.setError(getString(R.string.tm_exps01_01_11));
             return false;
         }else{
-            ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(amt.replaceAll(",","")));
+//            ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(amt.replaceAll(",","")));
             ui.lExpnAmt.setError(null);
             doTransition(3);
             return true;
@@ -383,7 +383,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
 
     EditText.OnEditorActionListener editorActionListener = (textView, actionId, keyEvent) -> {
         if(actionId== EditorInfo.IME_ACTION_DONE){
-            doNext();
+            ui.btnNext.performClick();
         }
         return false;
     };

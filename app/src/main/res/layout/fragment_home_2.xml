@@ -6,7 +6,7 @@
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/x_ffffff">
+        android:background="@color/x_f8f8f8">
 
         <ImageView
             android:id="@+id/iv_up"
@@ -21,7 +21,7 @@
         <com.genesis.apps.ui.common.view.NestedScrollableHost
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/x_f4f4f4"
+            android:background="@color/x_f8f8f8"
             android:layout_marginTop="40dp"
             android:paddingBottom="100dp">
             <androidx.recyclerview.widget.RecyclerView

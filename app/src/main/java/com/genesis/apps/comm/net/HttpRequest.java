@@ -2745,9 +2745,8 @@ public class HttpRequest {
         if (!multipart) {
             multipart = true;
             contentType(CONTENT_TYPE_MULTIPART).openOutput();
-            output.write("--" + BOUNDARY + CRLF);
-        } else
-            output.write(CRLF + "--" + BOUNDARY + CRLF);
+        }
+        output.write("--" + BOUNDARY + CRLF);
         return this;
     }
 
@@ -2799,7 +2798,7 @@ public class HttpRequest {
             startPart();
             final StringBuilder partBuffer = new StringBuilder();
             partBuffer.append("form-data; name=\"").append(key);
-            partBuffer.append("\"" + CRLF + CRLF + params.get(key) + CRLF);
+            partBuffer.append("\"" + CRLF + CRLF + params.get(key));
             partHeader("Content-Disposition", partBuffer.toString());
         }
         if (name != null) {

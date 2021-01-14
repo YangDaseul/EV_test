@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 /**
  * @author hjpark
  * @file GRA_NOT_0003
- * @Brief 알림센터 알림내용 읽기
+ * @Brief 신규알림갯수요청
  */
 public class NOT_0003 extends BaseData {
     /**

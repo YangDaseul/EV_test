@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <TextView
+        android:id="@+id/tv_popup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/regular_genesissanstextglobal"
+        android:gravity="left"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="10dp"
+        android:padding="30dp"
+        android:textColor="@color/x_ffffff"
+        android:textSize="14dp"
+        android:background="@color/x_1a1a1a"
+        android:visibility="visible"
+        tools:text="차별화 된 차체/도장 수리를 위한 인력/장비/시설/매뉴얼 정비역량을 보유한 우수 블루핸즈"
+        tools:visibility="visible"/>
+</layout>

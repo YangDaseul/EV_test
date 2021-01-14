@@ -5,12 +5,10 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.TextView;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringRe2j;
 import com.genesis.apps.databinding.DialogBottomModifyCarVrnBinding;
 
@@ -29,7 +27,7 @@ public class DialogCarRgstNo extends BaseBottomDialog<DialogBottomModifyCarVrnBi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_bottom_modify_car_vrn);
         setAllowOutTouch(true);
-        ui.lEdit.setError(getContext().getString(R.string.gm_carlst_p01_1));
+//        ui.lEdit.setError(getContext().getString(R.string.gm_carlst_p01_1));
         ui.etCarRgstNo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -73,6 +71,8 @@ public class DialogCarRgstNo extends BaseBottomDialog<DialogBottomModifyCarVrnBi
             }
             return true;
         });
+
+        SoftKeyboardUtil.showKeyboard(getContext());
 
     }
 

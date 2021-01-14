@@ -1,19 +1,14 @@
 <resources>
 
-    <!--황금색(cd9a81))테두리뷰-->
+    <!--텍스트 골드-->
     <style name="ViewBackgroundTransStrokeToupe">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:paddingRight">10dp</item>
-        <item name="android:paddingBottom">5dp</item>
-        <item name="android:paddingTop">5dp</item>
-        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
-        <item name="android:textColor">@color/x_cd9a81</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:textColor">@color/x_996449</item>
         <item name="android:textSize">12dp</item>
         <item name="android:letterSpacing">-0.01</item>
-        <item name="android:lineSpacingExtra">4dp</item>
-        <item name="android:background">@drawable/bg_00000000_stroke_cd9a81</item>
+        <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:gravity">center</item>
     </style>
 
@@ -31,6 +26,22 @@
         <item name="android:textSize">16dp</item>
         <item name="android:visibility">gone</item>
     </style>
+
+    <!--내역이 없습니다2.-->
+    <style name="ViewEmptyList2">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:background">@drawable/bg_f8f8f8_stroke_e5e5e5</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">18dp</item>
+        <item name="android:textColor">@color/x_262626</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
 
     <!-- 하단 승인 버튼(검은색)-->
     <style name="ViewBottomOkBtn">

@@ -52,17 +52,21 @@
 
             <TextView
                 android:id="@+id/tv_expn_plc"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="1dp"
                 android:textColor="@color/x_000000"
                 android:textSize="15dp"
+                android:ellipsize="end"
+                android:maxLines="2"
                 app:layout_constraintStart_toStartOf="@+id/tv_expn_div_nm"
+                app:layout_constraintEnd_toStartOf="@+id/iv_icon"
                 app:layout_constraintTop_toBottomOf="@+id/tv_expn_div_nm"
-                tools:text="구로디지털단지주유소" />
+                tools:text="구로디지털단지주유소구로디지털단지주유소구로디지털단지주유소구로디지털단지주유소구로디지털단지주유소" />
 
             <TextView
                 android:id="@+id/tv_title_accm_milg"

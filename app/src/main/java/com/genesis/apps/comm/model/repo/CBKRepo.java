@@ -36,7 +36,7 @@ public class CBKRepo {
     }
 
     public MutableLiveData<NetUIResponse<CBK_1001.Response>> REQ_CBK_1001(final CBK_1001.Request reqData) {
-
+        RES_CBK_1001.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -59,7 +59,7 @@ public class CBKRepo {
     
 
     public MutableLiveData<NetUIResponse<CBK_1002.Response>> REQ_CBK_1002(final CBK_1002.Request reqData) {
-
+        RES_CBK_1002.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -83,7 +83,7 @@ public class CBKRepo {
 
 
     public MutableLiveData<NetUIResponse<CBK_1005.Response>> REQ_CBK_1005(final CBK_1005.Request reqData) {
-
+        RES_CBK_1005.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -108,7 +108,7 @@ public class CBKRepo {
 
 
     public MutableLiveData<NetUIResponse<CBK_1006.Response>> REQ_CBK_1006(final CBK_1006.Request reqData) {
-
+        RES_CBK_1006.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -132,7 +132,7 @@ public class CBKRepo {
 
 
     public MutableLiveData<NetUIResponse<CBK_1007.Response>> REQ_CBK_1007(final CBK_1007.Request reqData) {
-
+        RES_CBK_1007.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -156,7 +156,7 @@ public class CBKRepo {
     }
 
     public MutableLiveData<NetUIResponse<CBK_1008.Response>> REQ_CBK_1008(final CBK_1008.Request reqData) {
-
+        RES_CBK_1008.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {

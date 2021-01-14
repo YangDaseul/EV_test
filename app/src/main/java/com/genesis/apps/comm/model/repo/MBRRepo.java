@@ -26,7 +26,7 @@ public class MBRRepo {
     }
 
     public MutableLiveData<NetUIResponse<MBR_0001.Response>> REQ_MBR_0001(final MBR_0001.Request reqData) {
-
+        RES_MBR_0001.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {

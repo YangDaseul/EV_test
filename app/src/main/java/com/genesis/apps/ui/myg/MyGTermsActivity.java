@@ -35,7 +35,7 @@ import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JO
 public class MyGTermsActivity extends WebviewActivity {
     public static final String TERMS_CODE="termsCd";
     public static final String TERMS_6000="6000"; //오픈소스 라이선스
-    private String termsCd;
+    public String termsCd;
     private int titleId;
     private MYPViewModel mypViewModel;
     @Override

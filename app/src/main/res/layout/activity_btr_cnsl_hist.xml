@@ -60,14 +60,14 @@
 
         <TextView
             android:id="@+id/tv_empty"
-            style="@style/ViewEmptyList"
+            style="@style/ViewEmptyList2"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/gm_bt05_5"
-            app:layout_constraintBottom_toBottomOf="@+id/rv_btr"
             app:layout_constraintEnd_toEndOf="@+id/rv_btr"
             app:layout_constraintStart_toStartOf="@+id/rv_btr"
             app:layout_constraintTop_toTopOf="@+id/rv_btr"
+            app:layout_constraintHeight_percent=".3"
             tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

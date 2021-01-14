@@ -64,6 +64,12 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mypViewModel.reqMYP1005(new MYP_1005.Request(APPIAInfo.MG01.getId(), ""));
+    }
+
+    @Override
     public void setViewModel() {
         ui.setLifecycleOwner(this);
         mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
@@ -221,8 +227,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     private void reqData() {
         mypViewModel.reqMYP0001(new MYP_0001.Request(APPIAInfo.MG01.getId()));
         mypViewModel.reqMYP1003(new MYP_1003.Request(APPIAInfo.MG01.getId()));
-        //TODO 차대번호 확인해서 넣어줘야함 
-        mypViewModel.reqMYP1005(new MYP_1005.Request(APPIAInfo.MG01.getId(), ""));
+//        mypViewModel.reqMYP1005(new MYP_1005.Request(APPIAInfo.MG01.getId(), "")); 프리빌리지 신청 완료 후 때문에 onResume에서 처리
         mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
     }
 
@@ -238,34 +243,45 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         } else {
             ui.lPrivilege.setVisibility(View.VISIBLE);
 
-            if (data.getPvilList().size()==1) {
-                ui.btnCarList.setVisibility(View.GONE);
-
-                switch (data.getPvilList().get(0).getJoinPsblCd()) {
-                    case PrivilegeVO.JOIN_CODE_APPLY_POSSIBLE:
-                        ui.btnStatus.setVisibility(View.GONE);
-                        ui.btnBenefit.setVisibility(View.GONE);
-                        ui.btnApply.setVisibility(View.VISIBLE);
-                        ui.btnApply.setTag(R.id.url, data.getPvilList().get(0).getServiceUrl());
-                        break;
-                    case PrivilegeVO.JOIN_CODE_APPLYED:
-                        ui.btnStatus.setVisibility(View.VISIBLE);
-                        ui.btnBenefit.setVisibility(View.VISIBLE);
-                        ui.btnApply.setVisibility(View.GONE);
-
-                        ui.btnStatus.setTag(R.id.url, data.getPvilList().get(0).getServiceUrl());
-                        ui.btnBenefit.setTag(R.id.url, data.getPvilList().get(0).getServiceDetailUrl());
-                        break;
-                    default:
-                        //TODO 정의 필요 임시로 프리빌리지 레이아웃이 안보이도록 처리;
-                        ui.lPrivilege.setVisibility(View.GONE);
-                        break;
+            int privilegeCarCnt = 1;
+            try {
+                privilegeCarCnt = mypViewModel.getPrivilegeCarCnt(data.getPvilList());
+            }catch (Exception e){
+                privilegeCarCnt = 1;
+            }finally {
+                if (privilegeCarCnt==1) {
+                    PrivilegeVO privilegeVO = null;
+                    try{
+                        privilegeVO = mypViewModel.getPrivilegeCar(data.getPvilList());
+                    }catch (Exception e){
+                        privilegeVO = null;
+                    }finally{
+                        ui.btnCarList.setVisibility(View.GONE);
+                        switch (privilegeVO.getJoinPsblCd()) {
+                            case PrivilegeVO.JOIN_CODE_APPLY_POSSIBLE:
+                                ui.btnStatus.setVisibility(View.GONE);
+                                ui.btnBenefit.setVisibility(View.GONE);
+                                ui.btnApply.setVisibility(View.VISIBLE);
+                                ui.btnApply.setTag(R.id.url, privilegeVO.getServiceUrl());
+                                break;
+                            case PrivilegeVO.JOIN_CODE_APPLYED:
+                                ui.btnStatus.setVisibility(View.VISIBLE);
+                                ui.btnBenefit.setVisibility(View.VISIBLE);
+                                ui.btnApply.setVisibility(View.GONE);
+                                ui.btnStatus.setTag(R.id.url, privilegeVO.getServiceUrl());
+                                ui.btnBenefit.setTag(R.id.url, privilegeVO.getServiceDetailUrl());
+                                break;
+                            default:
+                                ui.lPrivilege.setVisibility(View.GONE);
+                                break;
+                        }
+                    }
+                } else {
+                    ui.btnCarList.setVisibility(View.VISIBLE);
+                    ui.btnStatus.setVisibility(View.GONE);
+                    ui.btnBenefit.setVisibility(View.GONE);
+                    ui.btnApply.setVisibility(View.GONE);
                 }
-            } else {
-                ui.btnCarList.setVisibility(View.VISIBLE);
-                ui.btnStatus.setVisibility(View.GONE);
-                ui.btnBenefit.setVisibility(View.GONE);
-                ui.btnApply.setVisibility(View.GONE);
             }
         }
 

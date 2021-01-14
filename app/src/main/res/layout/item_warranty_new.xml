@@ -39,7 +39,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@drawable/ripple_bg_ffffff_stroke_e2e2e2"
+            android:background="@drawable/ripple_bg_ffffff_stroke_e5e5e5"
             android:onClick="@{(view)->listener.onClick(view)}"
             android:paddingLeft="15dp"
             android:paddingTop="20dp"

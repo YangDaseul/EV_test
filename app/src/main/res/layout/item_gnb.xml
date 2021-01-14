@@ -39,7 +39,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
-        android:layout_height="74dp"
+        android:layout_height="94dp"
         android:background="@{isBgWhite ? menu.equals(@string/main_word_2) ? @drawable/bg_f8f8f8 : @drawable/bg_ffffff : @drawable/bg_000000_underline_262626}"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
@@ -134,13 +134,14 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            tools:src="@drawable/ic_alarm_b"
             tools:visibility="visible"/>
 
         <ImageView
             android:id="@+id/iv_badge"
             android:layout_width="4dp"
             android:layout_height="4dp"
-            android:background="@drawable/badge_ba544d"
+            android:background="@drawable/badge_ce2d2d"
             android:layout_marginRight="6dp"
             android:layout_marginTop="6dp"
             android:visibility="@{isStore ? View.GONE : isAlarm ? View.VISIBLE : View.GONE}"

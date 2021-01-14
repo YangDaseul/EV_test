@@ -9,13 +9,6 @@ import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.transition.ChangeBounds;
-import androidx.transition.Transition;
-import androidx.transition.TransitionManager;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
@@ -24,6 +17,7 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.VOCInfoVO;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
+import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringRe2j;
 import com.genesis.apps.comm.util.StringUtil;
@@ -34,12 +28,19 @@ import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
 import javax.inject.Inject;
 
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.transition.ChangeBounds;
+import androidx.transition.Transition;
+import androidx.transition.TransitionManager;
 import dagger.hilt.android.AndroidEntryPoint;
 
 /**
@@ -79,7 +80,16 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
         initEmail();
         initPhoneNumber();
         ui.tvCsmrNm.setText(loginInfoDTO.getProfile()!=null ? loginInfoDTO.getProfile().getName() : "--");
-        ui.tvCsmrTymd.setText(loginInfoDTO.getProfile()!=null ? loginInfoDTO.getProfile().getBirthdate() : "--"); //todo 데이터 포맷 확인 후 수정 필요
+        ui.tvCsmrTymd.setText(loginInfoDTO.getProfile()!=null ? parseDate(loginInfoDTO.getProfile().getBirthdate()) : "--");
+    }
+
+    private String parseDate(String dateOriginal) {
+        if(TextUtils.isEmpty(dateOriginal)) {
+            return "";
+        }else {
+            Date date = DateUtil.getDefaultDateFormat(dateOriginal, DateUtil.DATE_FORMAT_yyyyMMdd);
+            return DateUtil.getDate(date, DateUtil.DATE_FORMAT_yyyy_mm_dd_dot);
+        }
     }
 
     private void initEditView() {
@@ -374,8 +384,8 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == ResultCodes.REQ_CODE_NORMAL.getCode()) {
-            exitPage(getString(R.string.relapse_succ), ResultCodes.REQ_CODE_NORMAL.getCode());
+        if (resultCode == ResultCodes.REQ_CODE_APPLY_RELAPSE.getCode()) {
+            exitPage(getString(R.string.relapse_succ), ResultCodes.REQ_CODE_APPLY_RELAPSE.getCode());
         }
 
 //        if(resultCode == ResultCodes.REQ_CODE_SERVICE_SOS_MAP.getCode()){

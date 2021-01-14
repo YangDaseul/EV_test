@@ -75,40 +75,39 @@ public class CTTRepo {
 
             @Override
             public void onFail(NetResult e) {
-                //TODO 2020-11-23 하드코딩 요청으로 처리
-//                RES_CTT_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
-                String message = "{\n" +
-                        "  \"rtCd\": \"0000\",\n" +
-                        "  \"rtMsg\": \"성공\",\n" +
-                        "  \"ttlList\": [\n" +
-                        "    {\n" +
-                        "      \"listSeqNo\": \"1\",\n" +
-                        "      \"catCd\": \"1000\",\n" +
-                        "      \"ttImgUri\": \"https://dive.hyundaicard.com/web/content/contentView.hdc?contentId=2741\",\n" +
-                        "      \"dtlViewCd\": \"1000\"\n" +
-                        "    },\n" +
-                        "    {\n" +
-                        "      \"listSeqNo\": \"2\",\n" +
-                        "      \"catCd\": \"1000\",\n" +
-                        "      \"ttImgUri\": \"https://dive.hyundaicard.com/web/content/contentView.hdc?contentId=2749&cookieDiveWeb=Y\",\n" +
-                        "      \"dtlViewCd\": \"1000\"\n" +
-                        "    },\n" +
-                        "    {\n" +
-                        "      \"listSeqNo\": \"3\",\n" +
-                        "      \"catCd\": \"1000\",\n" +
-                        "      \"ttImgUri\": \"https://dive.hyundaicard.com/web/content/contentView.hdc?contentId=2414&cookieDiveWeb=Y\",\n" +
-                        "      \"dtlViewCd\": \"1000\"\n" +
-                        "    },\n" +
-                        "    {\n" +
-                        "      \"listSeqNo\": \"4\",\n" +
-                        "      \"catCd\": \"2000\",\n" +
-                        "      \"ttImgUri\": \"https://dive.hyundaicard.com/web/content/contentView.hdc?contentId=2652&cookieDiveWeb=Y\",\n" +
-                        "      \"dtlViewCd\": \"1000\"\n" +
-                        "    }\n" +
-                        "  ]\n" +
-                        "}";
-
-                RES_CTT_1001.setValue(NetUIResponse.success(new Gson().fromJson(message, CTT_1001.Response.class)));
+                RES_CTT_1001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                String message = "{\n" +
+//                        "  \"rtCd\": \"0000\",\n" +
+//                        "  \"rtMsg\": \"성공\",\n" +
+//                        "  \"ttlList\": [\n" +
+//                        "    {\n" +
+//                        "      \"listSeqNo\": \"1\",\n" +
+//                        "      \"catCd\": \"1000\",\n" +
+//                        "      \"ttImgUri\": \"https://dive.hyundaicard.com/web/content/contentView.hdc?contentId=2741\",\n" +
+//                        "      \"dtlViewCd\": \"1000\"\n" +
+//                        "    },\n" +
+//                        "    {\n" +
+//                        "      \"listSeqNo\": \"2\",\n" +
+//                        "      \"catCd\": \"1000\",\n" +
+//                        "      \"ttImgUri\": \"https://dive.hyundaicard.com/web/content/contentView.hdc?contentId=2749&cookieDiveWeb=Y\",\n" +
+//                        "      \"dtlViewCd\": \"1000\"\n" +
+//                        "    },\n" +
+//                        "    {\n" +
+//                        "      \"listSeqNo\": \"3\",\n" +
+//                        "      \"catCd\": \"1000\",\n" +
+//                        "      \"ttImgUri\": \"https://dive.hyundaicard.com/web/content/contentView.hdc?contentId=2414&cookieDiveWeb=Y\",\n" +
+//                        "      \"dtlViewCd\": \"1000\"\n" +
+//                        "    },\n" +
+//                        "    {\n" +
+//                        "      \"listSeqNo\": \"4\",\n" +
+//                        "      \"catCd\": \"2000\",\n" +
+//                        "      \"ttImgUri\": \"https://dive.hyundaicard.com/web/content/contentView.hdc?contentId=2652&cookieDiveWeb=Y\",\n" +
+//                        "      \"dtlViewCd\": \"1000\"\n" +
+//                        "    }\n" +
+//                        "  ]\n" +
+//                        "}";
+//
+//                RES_CTT_1001.setValue(NetUIResponse.success(new Gson().fromJson(message, CTT_1001.Response.class)));
             }
 
             @Override

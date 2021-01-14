@@ -159,6 +159,7 @@
         <item name="errorEnabled">true</item>
         <item name="errorIconTint">@color/x_ce2d2d</item>
         <item name="errorTextColor">@color/x_ce2d2d</item>
+        <item name="errorIconDrawable">@null</item>
         <item name="hintEnabled">true</item>
         <item name="hintTextColor">@color/x_000000</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>

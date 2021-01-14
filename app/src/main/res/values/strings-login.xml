@@ -25,8 +25,8 @@
     <string name="int03_14">보유 및 이용기간 : 홈페이지 회원 자격 유지 기간</string>
 
 
-    <string name="int04_1">제네시스 블루멤버스\n회원 가입</string>
-    <string name="int04_2">블루멤버스 광고성 정보 수신에 대한 안내 (선택)</string>
+    <string name="int04_1">제네시스 멤버스\n회원 가입</string>
+    <string name="int04_2">제네시스 멤버스 광고성 정보 수신에 대한 안내 (선택)</string>
     <string name="int04_3"></string>
     <string name="int04_4">당사 멤버십 서비스에서 제공하는 광고성 정보 수신 및 마케팅 활용에 동의합니다.</string>
     <string name="int04_5">단, 미동의 시 당사에서 제공하는 다양한 정보 및 안내를 받으실 수 없습니다.</string>

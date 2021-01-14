@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.BTR_1001;
 import com.genesis.apps.comm.model.api.gra.GNS_1001;
 import com.genesis.apps.comm.model.api.gra.GNS_1002;
 import com.genesis.apps.comm.model.api.gra.GNS_1003;
@@ -20,7 +19,6 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.CouponVO;
 import com.genesis.apps.comm.model.vo.PrivilegeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;

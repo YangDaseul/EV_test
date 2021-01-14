@@ -37,11 +37,13 @@
                 <TextView
                     android:id="@+id/tv_car_wash_history_name"
                     style="@style/CarWashHistoryLight"
+                    android:layout_height="70dp"
                     android:textSize="22dp"
+                    android:gravity="center_vertical"
                     android:lineSpacingExtra="6dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="울트라 킹왕짱\n울랄라 울라울라" />
+                    tools:text="울트라 킹왕짱" />
 
                 <!-- 금액 -->
                 <TextView
@@ -51,7 +53,7 @@
                     android:textSize="18dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_car_wash_history_name"
-                    tools:text="70,000원" />
+                    tools:text="10%" />
 
                 <!-- 결제 방법-->
                 <TextView
@@ -59,6 +61,7 @@
                     style="@style/CarWashHistoryRegular"
                     android:layout_marginStart="10dp"
                     android:textSize="14dp"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/tv_car_wash_history_price"
                     app:layout_constraintStart_toEndOf="@id/tv_car_wash_history_price"
                     tools:text="현장결제" />
@@ -103,7 +106,9 @@
                 android:id="@+id/l_car_wash_history_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp">
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="20dp">
 
                 <!-- 예약 안내 -->
                 <TextView

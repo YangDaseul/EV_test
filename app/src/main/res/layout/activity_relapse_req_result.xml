@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="com.genesis.apps.comm.util.DateUtil" />
         <variable
             name="activity"
             type="com.genesis.apps.ui.main.service.ServiceRelapseReqResultActivity" />
@@ -150,7 +150,7 @@
                 <!-- 생년월일 값 -->
                 <TextView
                     style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{activity.vocInfoVO.getCsmrTymd()}"
+                    android:text="@{DateUtil.getDate(DateUtil.getDefaultDateFormat(activity.vocInfoVO.getCsmrTymd(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)}"
                     tools:text="1899.01.01" />
 
                 <!-- "전자우편주소" -->

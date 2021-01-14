@@ -68,13 +68,12 @@ public class BtrConslHistActivity extends SubActivity<ActivityBtrCnslHistBinding
                 case SUCCESS:
                     showProgressDialog(false);
                     if(result.data!=null&&result.data.getConslList()!=null&&result.data.getConslList().size()>0){
-                        ui.tvEmpty.setVisibility(View.GONE);
+                        setEmptyView(false);
                         ui.tvCntValue.setText(result.data.getConslList().size()+"");
                         adapter.setRows(result.data.getConslList());
                         adapter.notifyDataSetChanged();
                     }else{
-                        ui.tvEmpty.setVisibility(View.VISIBLE);
-                        ui.tvCntValue.setText("0");
+                        setEmptyView(true);
                     }
                     break;
                 default:
@@ -86,8 +85,7 @@ public class BtrConslHistActivity extends SubActivity<ActivityBtrCnslHistBinding
                         e.printStackTrace();
                     }finally{
                         SnackBarUtil.show(this, serverMsg);
-                        ui.tvEmpty.setVisibility(View.VISIBLE);
-                        ui.tvCntValue.setText("0");
+                        setEmptyView(true);
                     }
                     break;
             }
@@ -98,5 +96,16 @@ public class BtrConslHistActivity extends SubActivity<ActivityBtrCnslHistBinding
     @Override
     public void getDataFromIntent() {
 
+    }
+
+    private void setEmptyView(boolean isVisibility){
+        if(isVisibility){
+            ui.tvEmpty.setVisibility(View.VISIBLE);
+            ui.rvBtr.setVisibility(View.GONE);
+            ui.tvCntValue.setText("0");
+        }else{
+            ui.tvEmpty.setVisibility(View.GONE);
+            ui.rvBtr.setVisibility(View.VISIBLE);
+        }
     }
 }
