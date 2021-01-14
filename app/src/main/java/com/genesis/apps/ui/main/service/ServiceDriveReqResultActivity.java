@@ -81,7 +81,7 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
                 break;
 
             //기사에게 전화
-            case R.id.tv_service_drive_status_call_btn:
+            case R.id.ll_service_drive_status_call_btn:
                 PhoneUtil.phoneDial(this, serviceReqData.getDriverMdn());
                 break;
 
