@@ -384,8 +384,8 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == ResultCodes.REQ_CODE_NORMAL.getCode()) {
-            exitPage(getString(R.string.relapse_succ), ResultCodes.REQ_CODE_NORMAL.getCode());
+        if (resultCode == ResultCodes.REQ_CODE_APPLY_RELAPSE.getCode()) {
+            exitPage(getString(R.string.relapse_succ), ResultCodes.REQ_CODE_APPLY_RELAPSE.getCode());
         }
 
 //        if(resultCode == ResultCodes.REQ_CODE_SERVICE_SOS_MAP.getCode()){

@@ -167,7 +167,7 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
                 case SUCCESS:
                     if (result.data != null && result.data.getRtCd() != null) {
                         if (result.data.getRtCd().equals(BaseResponse.RETURN_CODE_SUCC)) {
-                            exitPage(getString(R.string.relapse_succ), ResultCodes.REQ_CODE_NORMAL.getCode());
+                            exitPage(getString(R.string.relapse_succ), ResultCodes.REQ_CODE_APPLY_RELAPSE.getCode());
                         }
 
                         showProgressDialog(false);

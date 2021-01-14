@@ -52,11 +52,9 @@ public class ServiceRelapseHistoryActivity extends GpsBaseActivity<ActivityServi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == ResultCodes.REQ_CODE_NORMAL.getCode()) {
-            if (requestCode == RequestCodes.REQ_CODE_RELAPSE_REQ.getCode()) {
-                SnackBarUtil.show(this, getString(R.string.relapse_succ));
-                reqNextPage();
-            }
+        if(resultCode == ResultCodes.REQ_CODE_APPLY_RELAPSE.getCode()){
+            SnackBarUtil.show(this, getString(R.string.relapse_succ));
+            reqNextPage();
         }
     }
 

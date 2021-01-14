@@ -82,6 +82,6 @@
     <string name="relapse_req_result_defect_low">일반 하자</string>
     <string name="relapse_req_result_repair_detail_title">회차 수리내역</string>
     <string name="relapse_req_result_repair_count_title">수리내역 횟수 및 기간</string>
-    <string name="relapse_req_result_try">수리 시도 횟수</string>
+    <string name="relapse_req_result_try">누적 수리 시도 횟수</string>
 
 </resources>
