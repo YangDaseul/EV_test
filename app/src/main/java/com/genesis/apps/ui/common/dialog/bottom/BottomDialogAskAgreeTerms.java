@@ -2,6 +2,7 @@ package com.genesis.apps.ui.common.dialog.bottom;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -76,5 +77,9 @@ public class BottomDialogAskAgreeTerms extends BaseBottomDialog<DialogBottomTerm
 
     public boolean isInputConfirmed() {
         return inputConfirmed;
+    }
+
+    public CheckBox getAllCheckBox() {
+        return ui.cbAgreeAll;
     }
 }
