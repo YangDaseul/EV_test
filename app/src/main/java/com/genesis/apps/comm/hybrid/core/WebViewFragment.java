@@ -125,10 +125,12 @@ public abstract class WebViewFragment extends Fragment {
 			} else if (postData != null) {
 				postUrl(mainUrl, postData);
 			} else {
-				if (header.size() > 0) {
-					loadUrl(mainUrl, header);
-				} else {
-					loadUrl(mainUrl);
+				if(!TextUtils.isEmpty(mainUrl)) {
+					if (header.size() > 0) {
+						loadUrl(mainUrl, header);
+					} else {
+						loadUrl(mainUrl);
+					}
 				}
 			}
 

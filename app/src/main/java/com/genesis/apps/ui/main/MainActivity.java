@@ -151,11 +151,11 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 //                }
                 break;
             case R.id.btn_store_cart:
-                loginChk("https://devagenesisproduct.auton.kr/cart/gen/ko/cart_list");
+                loginChk("http://devagenesisproduct.auton.kr/cart/gen/ko/cart_list");
 
                 break;
             case R.id.btn_store_search:
-                loginChk("https://devagenesisproduct.auton.kr/gen/ko/search");
+                loginChk("http://devagenesisproduct.auton.kr/gen/ko/search");
 
                 break;
         }
@@ -383,11 +383,17 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         if(getViewPager().getCurrentItem() == 3) {
             for(Fragment fragment : getSupportFragmentManager().getFragments()) {
                 if(fragment instanceof FragmentStore) {
+                    FragmentStore fragmentStore = (FragmentStore) fragment;
                     MyWebViewFrament webFragment = (MyWebViewFrament) fragment.getChildFragmentManager().findFragmentById(R.id.fm_holder);
 
-                    if (webFragment.getWebView().canGoBack()) {
-                        webFragment.getWebView().goBack();
-                        return;
+                    if(fragmentStore.isDlp.equals("YES")) {
+                        webFragment.loadUrl("javascript:bwcAppClose();");
+                    } else {
+                        Log.d("JJJJ", "canGoBack : " + webFragment.canGoBack());
+                        if(webFragment.canGoBack()) {
+                            webFragment.goBack();
+                            return;
+                        }
                     }
                 }
             }
