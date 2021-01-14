@@ -18,10 +18,12 @@
              TODO : 데이터 본체가 들어가는 리사이클러 뷰를 GONE으로 하면 보인다. -->
         <TextView
             style="@style/TextBasic"
-            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="10dp"
             android:text="@string/service_drive_history_no_data"
-            android:textColor="@color/x_141414"
-            android:textSize="16dp"
+            android:textColor="@color/x_262626"
+            android:textSize="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

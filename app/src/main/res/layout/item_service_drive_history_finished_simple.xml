@@ -81,7 +81,7 @@
                 android:textSize="14dp"
                 android:text="@string/service_drive_history_car_info"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="4sp" />
+                android:lineSpacingExtra="4dp" />
 
             <!-- 차량정보 데이터 -->
             <TextView
@@ -91,7 +91,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="4sp"
+                android:lineSpacingExtra="4dp"
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:textColor="@color/x_262626"
                 android:text="@{holder.carInfo}"
