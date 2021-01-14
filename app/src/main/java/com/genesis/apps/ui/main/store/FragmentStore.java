@@ -148,9 +148,9 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
 
         try {
             Bundle bundle = new Bundle();
-            if(TextUtils.isEmpty(lgnViewModel.getUserInfoFromDB().getCustGbCd()) || VariableType.MAIN_VEHICLE_TYPE_0000.equals(lgnViewModel.getUserInfoFromDB().getCustGbCd())) {
-                bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
-            } else {
+            bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
+
+            if(!TextUtils.isEmpty(lgnViewModel.getUserInfoFromDB().getCustGbCd())&&VariableType.MAIN_VEHICLE_TYPE_0000.equals(lgnViewModel.getUserInfoFromDB().getCustGbCd())) {
                 mypViewModel.reqMYP1003(new MYP_1003.Request(APPIAInfo.MG01.getId()));
                 cmsViewModel.reqCMS1001(new CMS_1001.Request(APPIAInfo.SM02.getId()));
             }
