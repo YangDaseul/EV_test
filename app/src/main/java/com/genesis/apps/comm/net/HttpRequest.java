@@ -23,6 +23,8 @@ package com.genesis.apps.comm.net;
  */
 
 
+import android.util.Log;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -719,7 +721,7 @@ public class HttpRequest {
                     done();
                 } catch (IOException e) {
                     if (!thrown)
-                        throw new HttpRequestException(e);
+                        Log.d(HttpRequest.class.getSimpleName(), "Operation: error");
                 }
             }
         }

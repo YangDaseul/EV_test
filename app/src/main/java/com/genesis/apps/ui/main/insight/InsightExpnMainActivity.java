@@ -99,9 +99,9 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
             vehicleName = vehicleList.get(position);
         }catch (Exception e){
             vehicleName="--";
-        }finally{
-            return vehicleName;
         }
+
+        return vehicleName;
     }
 
     @Override

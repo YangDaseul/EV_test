@@ -111,9 +111,9 @@ public class ServiceRepairReserveStatusAdapter extends BaseRecyclerViewAdapter2<
             }
         } catch (Exception e) {
             isCancel = false;
-        } finally {
-            return isCancel;
         }
+
+        return isCancel;
     }
 
 

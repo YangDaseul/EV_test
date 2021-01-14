@@ -354,7 +354,7 @@ public abstract class WebViewFragment extends Fragment {
 
 	}
 
-
+	final long CACHE_MAX_SIZE = 5 * 1048576;
 	/**
 	 * 웹뷰 설정
 	 */
@@ -367,7 +367,7 @@ public abstract class WebViewFragment extends Fragment {
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
 			settings.setSavePassword(false);
 			settings.setRenderPriority(WebSettings.RenderPriority.HIGH);
-			settings.setAppCacheMaxSize(5 * 1048576);
+			settings.setAppCacheMaxSize(CACHE_MAX_SIZE);
 		}
 		settings.setAppCacheEnabled(true);
 		settings.setGeolocationEnabled(true);

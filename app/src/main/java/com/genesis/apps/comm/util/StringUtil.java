@@ -24,9 +24,9 @@ public class StringUtil {
             valueLong = Long.parseLong(value);
         }catch (Exception e){
             valueLong = 0;
-        }finally{
-            return NumberFormat.getInstance(Locale.getDefault()).format(valueLong);
         }
+
+        return NumberFormat.getInstance(Locale.getDefault()).format(valueLong);
     }
 
     //숫자를 받아서 10,000원 형태를 반환

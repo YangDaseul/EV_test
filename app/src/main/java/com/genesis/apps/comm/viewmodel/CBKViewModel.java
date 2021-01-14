@@ -164,11 +164,10 @@ class CBKViewModel extends ViewModel {
                             subExpnDtm = oriList.get(n).getExpnDtm().substring(0, 8);
                         } catch (Exception e) {
                             subExpnDtm = "";
-                        } finally {
-                            if (subExpnDtm.equalsIgnoreCase(distinctExpnDtm.get(i))) {
-                                oriList.get(n).setFirst(true);
-                                break;
-                            }
+                        }
+                        if (subExpnDtm.equalsIgnoreCase(distinctExpnDtm.get(i))) {
+                            oriList.get(n).setFirst(true);
+                            break;
                         }
                     }
                 }

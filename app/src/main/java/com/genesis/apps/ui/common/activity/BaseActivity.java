@@ -167,10 +167,10 @@ public class BaseActivity extends AppCompatActivity {
             PI = uri.getQueryParameter(KeyNames.KEY_NAME_URI_PARSER_PI);
         }catch (Exception e){
             e.printStackTrace();
-        }finally {
-            if(TextUtils.isEmpty(id))
-                return;
         }
+        if (TextUtils.isEmpty(id))
+            return;
+
 
         switch (APPIAInfo.findCode(id)) {
             case SM_REVIEW01_P01:

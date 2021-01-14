@@ -211,11 +211,10 @@ class CMNViewModel extends ViewModel {
             cd = dbContentsRepository.getAlarmMsgTypeCd(cdNm);
         }catch (Exception e){
             e.printStackTrace();
-        }finally {
-            if(TextUtils.isEmpty(cd)) cd="";
-
-            return cd;
         }
+        if (TextUtils.isEmpty(cd)) cd = "";
+
+        return cd;
     }
 
     public boolean setWeatherList(List<WeatherVO> list) {

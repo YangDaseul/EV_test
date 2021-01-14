@@ -719,13 +719,8 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
             actoprRgstYn = gnsViewModel.getRES_GNS_1001().getValue().data.getActoprRgstYn();
         } catch (Exception e) {
             actoprRgstYn = "N";
-        } finally {
-            if (TextUtils.isEmpty(actoprRgstYn) || actoprRgstYn.equalsIgnoreCase("N")) {
-                return false;
-            } else {
-                return true;
-            }
         }
+        return StringUtil.isValidString(actoprRgstYn).equalsIgnoreCase(VariableType.COMMON_MEANS_YES);
     }
 
     private void goPrivilege(int id, String url) {

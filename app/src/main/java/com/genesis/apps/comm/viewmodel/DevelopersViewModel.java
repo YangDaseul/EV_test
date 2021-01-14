@@ -326,9 +326,9 @@ class DevelopersViewModel extends ViewModel {
 
         } catch (Exception e) {
 
-        } finally {
-            return carId;
         }
+
+        return carId;
     }
 
     public String getDateYyyyMMdd(int day) {
@@ -342,9 +342,9 @@ class DevelopersViewModel extends ViewModel {
             date = DateUtil.getDate(calendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            return date;
         }
+
+        return date;
     }
 
     public VehicleVO getMainVehicleSimplyFromDB() throws ExecutionException, InterruptedException {

@@ -363,13 +363,13 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             newNotiCnt_i = Integer.parseInt(newNotiCnt);
         }catch (Exception e){
             newNotiCnt_i = 0;
-        }finally{
-            if(newNotiCnt_i>0){
-                return true;
-            }else{
-                return false;
-            }
         }
+        if (newNotiCnt_i > 0) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 

@@ -162,9 +162,10 @@ public class PackageUtil {
             e.printStackTrace();
             retv=2;
             // end of try-with-resources
-        }finally {
-            return retv;
         }
+
+        return retv;
+
     }
 
 

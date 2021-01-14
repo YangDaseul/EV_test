@@ -124,9 +124,8 @@ public class NOTRepo {
             isUpdate = true;
         }catch (Exception e){
             isUpdate = false;
-        }finally{
-            return isUpdate;
         }
+        return isUpdate;
     }
 
 
