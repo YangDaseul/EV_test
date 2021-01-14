@@ -237,7 +237,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
         } catch (ExecutionException e){
             e.printStackTrace();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Log.d(TAG, "InterruptedException");
             Thread.currentThread().interrupt();
         }
     }
@@ -405,7 +405,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
         } catch (ExecutionException e){
             e.printStackTrace();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Log.d(TAG, "InterruptedException");
             Thread.currentThread().interrupt();
         }
 

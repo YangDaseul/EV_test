@@ -132,7 +132,7 @@ public class LoginActivity extends WebviewActivity {
                 try {
                     excuteResultEnroll(f.get(), tokenCode);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Log.d(TAG, "InterruptedException");
                     Thread.currentThread().interrupt();
                 } catch (ExecutionException e) {
                     e.printStackTrace();

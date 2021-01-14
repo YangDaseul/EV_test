@@ -94,20 +94,20 @@ public class DeviceUtil {
                 || (Build.VERSION_CODES.O <= Build.VERSION.SDK_INT && context.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED)) {
             throw new RuntimeException("");
         }
-        String parserd = null;
-        String phoneNumber = null;
+        String parserd = "";
+        String phoneNumber = "";
         TelephonyManager tm = (TelephonyManager) context
                 .getSystemService(Context.TELEPHONY_SERVICE);
         if (tm != null) {
-
             phoneNumber = tm.getLine1Number();
         }
 //        String phoneNumber = getPhoneNumber(context);
         if (TextUtils.isEmpty(phoneNumber)) {
             return null;
+        }else{
+            phoneNumber = StringUtil.isValidString(phoneNumber);
         }
-
-        if (StringUtil.isValidString(phoneNumber).startsWith("+82")) {
+        if (phoneNumber.startsWith("+82")) {
             // is korea location number..
             parserd = phoneNumber.replace("+82", "0");
         } else {

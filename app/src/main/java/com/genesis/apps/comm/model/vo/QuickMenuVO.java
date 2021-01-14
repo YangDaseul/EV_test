@@ -33,6 +33,7 @@ class QuickMenuVO extends BaseData {
 
     public QuickMenuVO(String menuId, String custGbCd){
         this.menuId = StringUtil.isValidString(menuId);
+        this.custGbCd = StringUtil.isValidString(custGbCd);
     }
 
     @NonNull

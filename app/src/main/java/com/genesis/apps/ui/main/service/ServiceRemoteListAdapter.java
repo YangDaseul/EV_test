@@ -209,69 +209,74 @@ public class ServiceRemoteListAdapter extends BaseRecyclerViewAdapter2<RemoteHis
             if (status != null) {
                 binding.tvServiceRemoteStatus.setText(status.descResId);
                 binding.tvServiceRemoteStatus.setTextColor(resources.getColor(status.colorResId));
-            }
-            switch (status) {
-                // 예약 신청.
-                case CODE_R:
-                    // 예약 대기.
-                case CODE_W:
-                    // 예약 확정.
-                case CODE_D: {
-                    binding.tvServiceRemoteDetailBtn.setVisibility(View.GONE);
 
-                    binding.lServiceRemoteDetailContainer.setVisibility(View.GONE);
-                    binding.tvServiceRemoteCancelBtn.setVisibility(View.VISIBLE);
-                    binding.tvServiceRemoteCancelBtn.setTag(item);
-                    break;
-                }
-                // 진단 완료.
-                case CODE_E: {
-                    boolean isSelected = selectedItems.get(pos);
-                    binding.tvServiceRemoteDetailBtn.setVisibility(View.VISIBLE);
-                    binding.tvServiceRemoteDetailBtn.setTag(pos);
-                    binding.tvServiceRemoteDetailBtn.setSelected(isSelected);
+                switch (status) {
+                    // 예약 신청.
+                    case CODE_R:
+                        // 예약 대기.
+                    case CODE_W:
+                        // 예약 확정.
+                    case CODE_D: {
+                        binding.tvServiceRemoteDetailBtn.setVisibility(View.GONE);
 
-                    binding.tvServiceRemoteCancelBtn.setVisibility(View.GONE);
-
-                    binding.lServiceRemoteDetailContainer.setVisibility(isSelected ? View.VISIBLE : View.GONE);
-
-                    binding.tvServiceRemoteDetailRequest.setText(item.getChckCmnt());
-                    List<RemoteCheckVO> chckItemList = item.getChckItemList();
-                    if (chckItemList != null) {
-                        binding.lServiceRemoteDetailBasicList.removeAllViews();
-                        int index = 0;
-                        for (RemoteCheckVO vo : chckItemList) {
-                            View itemView = layoutInflater.inflate(R.layout.item_service_remote_detailitem, binding.lServiceRemoteDetailBasicList, false);
-                            itemView.findViewById(R.id.line0).setVisibility(index == 0 ? View.VISIBLE : View.GONE);
-                            TextView tvTitle = itemView.findViewById(R.id.tv_title);
-                            TextView tvDetail = itemView.findViewById(R.id.tv_detail);
-                            tvTitle.setText(vo.getChckItemNm());
-                            if ("Y".equals(vo.getChckItemRslt())) {
-                                // 정상.
-                                tvDetail.setText(R.string.sm_remote01_result_normal);
-                                tvDetail.setSelected(false);
-                            } else {
-                                // 점검 필요.
-                                tvDetail.setText(R.string.sm_remote01_result_error);
-                                tvDetail.setSelected(true);
-                            }
-
-                            binding.lServiceRemoteDetailBasicList.addView(itemView);
-                            index++;
-                        }
+                        binding.lServiceRemoteDetailContainer.setVisibility(View.GONE);
+                        binding.tvServiceRemoteCancelBtn.setVisibility(View.VISIBLE);
+                        binding.tvServiceRemoteCancelBtn.setTag(item);
+                        break;
                     }
+                    // 진단 완료.
+                    case CODE_E: {
+                        boolean isSelected = selectedItems.get(pos);
+                        binding.tvServiceRemoteDetailBtn.setVisibility(View.VISIBLE);
+                        binding.tvServiceRemoteDetailBtn.setTag(pos);
+                        binding.tvServiceRemoteDetailBtn.setSelected(isSelected);
 
-                    break;
+                        binding.tvServiceRemoteCancelBtn.setVisibility(View.GONE);
+
+                        binding.lServiceRemoteDetailContainer.setVisibility(isSelected ? View.VISIBLE : View.GONE);
+
+                        binding.tvServiceRemoteDetailRequest.setText(item.getChckCmnt());
+                        List<RemoteCheckVO> chckItemList = item.getChckItemList();
+                        if (chckItemList != null) {
+                            binding.lServiceRemoteDetailBasicList.removeAllViews();
+                            int index = 0;
+                            for (RemoteCheckVO vo : chckItemList) {
+                                View itemView = layoutInflater.inflate(R.layout.item_service_remote_detailitem, binding.lServiceRemoteDetailBasicList, false);
+                                itemView.findViewById(R.id.line0).setVisibility(index == 0 ? View.VISIBLE : View.GONE);
+                                TextView tvTitle = itemView.findViewById(R.id.tv_title);
+                                TextView tvDetail = itemView.findViewById(R.id.tv_detail);
+                                tvTitle.setText(vo.getChckItemNm());
+                                if ("Y".equals(vo.getChckItemRslt())) {
+                                    // 정상.
+                                    tvDetail.setText(R.string.sm_remote01_result_normal);
+                                    tvDetail.setSelected(false);
+                                } else {
+                                    // 점검 필요.
+                                    tvDetail.setText(R.string.sm_remote01_result_error);
+                                    tvDetail.setSelected(true);
+                                }
+
+                                binding.lServiceRemoteDetailBasicList.addView(itemView);
+                                index++;
+                            }
+                        }
+
+                        break;
+                    }
+                    // 예약 취소.
+                    case CODE_C:
+                        // 통신 상태 불량.
+                    case CODE_F: {
+                        binding.tvServiceRemoteDetailBtn.setVisibility(View.GONE);
+                        binding.lServiceRemoteDetailContainer.setVisibility(View.GONE);
+                        binding.tvServiceRemoteCancelBtn.setVisibility(View.GONE);
+                        break;
+                    }
                 }
-                // 예약 취소.
-                case CODE_C:
-                    // 통신 상태 불량.
-                case CODE_F: {
-                    binding.tvServiceRemoteDetailBtn.setVisibility(View.GONE);
-                    binding.lServiceRemoteDetailContainer.setVisibility(View.GONE);
-                    binding.tvServiceRemoteCancelBtn.setVisibility(View.GONE);
-                    break;
-                }
+            }else{
+                binding.tvServiceRemoteDetailBtn.setVisibility(View.GONE);
+                binding.lServiceRemoteDetailContainer.setVisibility(View.GONE);
+                binding.tvServiceRemoteCancelBtn.setVisibility(View.GONE);
             }
 
             if (fltCodeCategory != null) {

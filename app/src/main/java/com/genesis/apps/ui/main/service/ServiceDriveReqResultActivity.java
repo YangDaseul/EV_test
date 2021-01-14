@@ -359,7 +359,7 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
                 });
     }
 
-    private final int TIME_SEC=1000;
+    private final long TIME_SEC=1_000;
     private final int TIME_MINUTE=60;
     private final int TIME_HOUR=5;
     //기사 배정 실패

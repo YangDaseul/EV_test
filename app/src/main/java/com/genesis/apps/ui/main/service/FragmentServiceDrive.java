@@ -140,7 +140,7 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
         } catch (ExecutionException e){
             e.printStackTrace();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Log.d(TAG, "InterruptedException");
             Thread.currentThread().interrupt();
         }
     }

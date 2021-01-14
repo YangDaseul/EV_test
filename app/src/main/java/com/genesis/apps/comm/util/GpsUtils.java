@@ -26,7 +26,7 @@ public class GpsUtils {
 
     private final int SEC_TEN=10;
     private final int SEC_TWO=2;
-    private final int SEC=1000;
+    private final long SEC=1_000;
 
     public GpsUtils(Context context) {
         this.context = context;

@@ -110,7 +110,7 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
                     e.printStackTrace();
                 } catch (InterruptedException e) {
                     vehicleVO = null;
-                    e.printStackTrace();
+                    Log.d(TAG, "InterruptedException");
                     Thread.currentThread().interrupt();
                 }
                 if(vehicleVO!=null)
@@ -198,7 +198,7 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
         } catch (ExecutionException e){
             e.printStackTrace();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Log.d(TAG, "InterruptedException");
             Thread.currentThread().interrupt();
         }
 

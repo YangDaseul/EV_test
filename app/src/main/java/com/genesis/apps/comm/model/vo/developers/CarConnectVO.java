@@ -9,6 +9,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import androidx.room.PrimaryKey;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,6 +23,20 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public @Data
 class CarConnectVO extends BaseData {
+
+    public CarConnectVO(String vin){
+        this.vin = StringUtil.isValidString(vin);
+    }
+
+    public CarConnectVO(@NonNull String vin, String carId, String masterCarId, String carGrantType, String carName){
+        this.vin = vin;
+        this.carId = carId;
+        this.masterCarId = masterCarId;
+        this.carGrantType = carGrantType;
+        this.carName = carName;
+    }
+
+
     @PrimaryKey
     @NonNull
     @Expose
@@ -39,18 +54,6 @@ class CarConnectVO extends BaseData {
     @Expose
     @SerializedName("carName")
     private String carName;
-
-    public CarConnectVO(String vin){
-        this.vin = StringUtil.isValidString(vin);
-    }
-
-    public CarConnectVO(@NonNull String vin, String carId, String masterCarId, String carGrantType, String carName){
-        this.vin = vin;
-        this.carId = carId;
-        this.masterCarId = masterCarId;
-        this.carGrantType = carGrantType;
-        this.carName = carName;
-    }
 
     @NonNull
     public String getVin(){
