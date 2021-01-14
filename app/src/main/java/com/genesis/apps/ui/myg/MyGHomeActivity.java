@@ -17,6 +17,7 @@ import com.genesis.apps.comm.model.api.gra.MYP_1006;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.OilCodes;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.StoreInfo;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.model.vo.PrivilegeVO;
@@ -315,7 +316,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     startActivitySingleTop(new Intent(this, MyGGAActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.l_store:
-                    startActivitySingleTop(new Intent(this, StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, "https://devagenesisproduct.auton.kr/mypage/gen/ko/purchase/list"), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    startActivitySingleTop(new Intent(this, StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, StoreInfo.STORE_PURCHASE_URL), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 
                     break;
                 case R.id.l_point: //블루멤버스 사용 가능 포인트

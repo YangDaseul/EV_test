@@ -27,6 +27,7 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CMS_1001;
 import com.genesis.apps.comm.model.api.gra.MYP_1003;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.StoreInfo;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
@@ -144,7 +145,7 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
     private void initView() {
         if(fragment != null) return;
 
-        url = "http://devagenesisproduct.auton.kr/ko/main";
+        url = StoreInfo.STORE_LIST_URL;
 
         try {
             Bundle bundle = new Bundle();
