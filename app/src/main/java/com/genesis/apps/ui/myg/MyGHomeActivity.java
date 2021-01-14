@@ -297,7 +297,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     }
 
     private void setCallCenter(){
-        if(mainVehicle!=null&&!TextUtils.isEmpty(mainVehicle.getMdlNm())&& (mainVehicle.getMdlNm().equalsIgnoreCase("GV90")||mainVehicle.getMdlNm().equalsIgnoreCase("EQ900"))){
+        if(mainVehicle!=null&&!TextUtils.isEmpty(mainVehicle.getMdlNm())&& (mainVehicle.getMdlNm().equalsIgnoreCase("G90")||mainVehicle.getMdlNm().equalsIgnoreCase("EQ900"))){
             ui.tvCenterMsg4.setText(R.string.word_home_25);
         }else{
             ui.tvCenterMsg4.setText(R.string.word_home_14);

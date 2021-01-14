@@ -65,7 +65,7 @@ public class ServiceAirport2ApplyActivity extends SubActivity<ActivityServiceAir
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if(mainVehicle!=null&&!TextUtils.isEmpty(mainVehicle.getMdlNm())&& (mainVehicle.getMdlNm().equalsIgnoreCase("GV90")||mainVehicle.getMdlNm().equalsIgnoreCase("EQ900"))){
+            if(mainVehicle!=null&&!TextUtils.isEmpty(mainVehicle.getMdlNm())&& (mainVehicle.getMdlNm().equalsIgnoreCase("G90")||mainVehicle.getMdlNm().equalsIgnoreCase("EQ900"))){
                 ui.btnCall.setTag(getString(R.string.word_home_25));
             }else{
                 ui.btnCall.setTag(getString(R.string.word_home_14));
