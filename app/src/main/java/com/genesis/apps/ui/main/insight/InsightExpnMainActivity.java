@@ -7,20 +7,20 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CBK_1001;
+import com.genesis.apps.comm.model.api.gra.CBK_1002;
+import com.genesis.apps.comm.model.api.gra.CBK_1007;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.CBK_1002;
-import com.genesis.apps.comm.model.api.gra.CBK_1007;
 import com.genesis.apps.comm.model.vo.ExpnVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.graph.AxisValueFormatter;
 import com.genesis.apps.comm.util.graph.RoundedBarChartRenderer;
 import com.genesis.apps.comm.viewmodel.CBKViewModel;
@@ -33,8 +33,6 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,7 +42,6 @@ import java.util.List;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -525,8 +522,33 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
 
         ui.chart.invalidate();
         ui.chart.animateY(1500);
-        
-        
+
+        //이번달 금액 표시
+        String currentAmt = "0";
+        int totalAmt = 0;
+        try {
+            totalAmt = parsingStringToInt(item.getEtcSumAmt())+
+                    parsingStringToInt(item.getRefulSumAmt())+
+                    parsingStringToInt(item.getRparSumAmt())+
+                    parsingStringToInt(item.getCarWshSumAmt());
+
+            currentAmt = StringUtil.getDigitGroupingString((Integer.toString(totalAmt)));
+        } catch (Exception e) {
+            currentAmt = "0";
+        } finally {
+            if (TextUtils.isEmpty(currentAmt)) currentAmt = "0";
+            ui.tvCurrMthAmt.setText(currentAmt);
+        }
+    }
+
+    private int parsingStringToInt(String value){
+        int retv=0;
+        try{
+            retv = Integer.parseInt(StringUtil.isValidString(value));
+        }catch (Exception e){
+            retv = 0;
+        }
+        return retv;
     }
 
 

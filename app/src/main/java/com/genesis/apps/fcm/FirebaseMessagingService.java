@@ -44,55 +44,26 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 //        PushEventBus.Message m = new PushEventBus.Message(PushEventBus.Event.RECEIVE_NEW_PUSH);
 //        PushEventBus.getInstance().post(m);
 
-        if (remoteMessage.getData().size() > 0) {
-            Log.d(TAG, "Message data payload: " + remoteMessage.getData().toString());
-            JsonObject json = new Gson().fromJson(remoteMessage.getData().toString(), JsonObject.class);
-            PushVO.PushData data = new Gson().fromJson(json.toString(), PushVO.PushData.class);
-            json = new Gson().fromJson(remoteMessage.getNotification().toString(), JsonObject.class);
-            PushVO.Notification noti = new Gson().fromJson(json.toString(), PushVO.Notification.class);
-            PushVO pushVO = new PushVO();
-            pushVO.setData(data);
-            pushVO.setNotification(noti);
+        try {
+            if (remoteMessage.getData().size() > 0) {
+                Log.d(TAG, "Message data payload: " + remoteMessage.getData().toString());
+                JsonObject json = new Gson().fromJson(remoteMessage.getData().toString(), JsonObject.class);
+                PushVO.PushData data = new Gson().fromJson(json.toString(), PushVO.PushData.class);
+                json = new Gson().fromJson(remoteMessage.getNotification().toString(), JsonObject.class);
+                PushVO.Notification noti = new Gson().fromJson(json.toString(), PushVO.Notification.class);
+                PushVO pushVO = new PushVO();
+                pushVO.setData(data);
+                pushVO.setNotification(noti);
 
-            if (pushVO != null) {
-                notifyMessage(pushVO, PushCodes.findCodeByCd(pushVO.getData().getLgrCatCd()));
-            } else {
-                // 메시지 없음... 오류
-                Log.e(TAG, "category is " + pushVO.getData().getDtlLnkCd() + " but message object is null!");
+                if (pushVO != null) {
+                    notifyMessage(pushVO, PushCodes.findCodeByCd(pushVO.getData().getLgrCatCd()));
+                } else {
+                    // 메시지 없음... 오류
+                    Log.e(TAG, "category is " + pushVO.getData().getDtlLnkCd() + " but message object is null!");
+                }
             }
-
-
-//            switch (findCode(pushVO.getData().getDtlLnkCd())) {
-//                case CAT_00:
-//                case CAT_01:
-//                case CAT_02:
-//                case CAT_03:
-//                case CAT_05:
-//                case CAT_06:
-//                case CAT_07:
-//                case CAT_08:
-//                case CAT_09:
-//                case CAT_0A:
-//                case CAT_0B:
-//                case CAT_0C:
-//                case CAT_0D:
-//                case CAT_0E:
-//                case CAT_0Z:
-//                case CAT_21:
-//                case CAT_22:
-//                case CAT_23:
-//                case CAT_50:
-//                case CAT_0X:
-//                case CAT_0K:
-//                default:
-//                    if (pushVO != null) {
-//                        notifyMessage(pushVO, findCode(pushVO.getData().getDtlLnkCd()));
-//                    } else {
-//                        // 메시지 없음... 오류
-//                        Log.e(TAG, "category is " + pushVO.getData().getDtlLnkCd() + " but message object is null!");
-//                    }
-//                    break;
-//            }
+        }catch (Exception e){
+            //do nothing
         }
     }
 

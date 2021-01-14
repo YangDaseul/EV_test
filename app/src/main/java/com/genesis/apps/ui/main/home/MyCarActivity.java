@@ -100,6 +100,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                                         adapter.setRows(list);
                                         adapter.notifyDataSetChanged();
                                         setVehicleInfo(list.get(0), false);
+                                        setBtnIndicator(0);
                                         //이동효과를 주는데 노티파이체인지와 딜레이없이 콜하면 효과가 중첩되어 사라저서 100ms 후 처리 진행
                                         new Handler().postDelayed(() -> {
                                             ui.vpCar.setCurrentItem(0, true);
@@ -466,6 +467,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                 if (positionOffsetPixels == 0 && beforePostion != 0 && beforePostion != -1) {
                     VehicleVO vehicleVO = ((VehicleVO) adapter.getItem(position));
                     setVehicleInfo(vehicleVO, false);
+                    setBtnIndicator(position);
                 }
                 beforePostion = positionOffsetPixels;
             }
@@ -493,6 +495,12 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
 //            }
 //
 //        });
+    }
+
+    private void setBtnIndicator(int position) {
+        final int maxSize = adapter.getItemCount();
+        ui.btnPre.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
+        ui.btnNext.setVisibility((maxSize-1)==position? View.GONE : View.VISIBLE);
     }
 
     private void setVehicleInfo(VehicleVO vehicleVO, boolean isUpdate) {

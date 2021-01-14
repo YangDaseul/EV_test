@@ -45,9 +45,9 @@ public class CarHorizontalAdapter extends BaseRecyclerViewAdapter2<VehicleVO> {
         public ItemCar(View itemView, int totalCnt) {
             super(itemView);
             this.totalCnt = totalCnt;
-            ViewPressEffectHelper.attaches(getBinding().btnNext, getBinding().btnPre);
-            getBinding().btnNext.setOnClickListener(onSingleClickListener);
-            getBinding().btnPre.setOnClickListener(onSingleClickListener);
+//            ViewPressEffectHelper.attaches(getBinding().btnNext, getBinding().btnPre);
+//            getBinding().btnNext.setOnClickListener(onSingleClickListener);
+//            getBinding().btnPre.setOnClickListener(onSingleClickListener);
         }
 
         @Override
@@ -58,8 +58,8 @@ public class CarHorizontalAdapter extends BaseRecyclerViewAdapter2<VehicleVO> {
         @Override
         public void onBindView(VehicleVO item, final int pos) {
 
-            getBinding().setMaxSize(totalCnt);
-            getBinding().setPosition(pos);
+//            getBinding().setMaxSize(totalCnt);
+//            getBinding().setPosition(pos);
 
             Glide
                     .with(getContext())

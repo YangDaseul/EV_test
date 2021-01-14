@@ -236,9 +236,9 @@ public enum APPIAInfo {
     CM_EVENT01("CM_EVENT01", null, VariableType.QUICK_MENU_CODE_NONE, "이벤트 상세"),
 
     CM_SRCH01("CM_SRCH01", null, VariableType.QUICK_MENU_CODE_NONE, "콘텐츠 검색"),
-    MG01("MG01", MyGHomeActivity.class, VariableType.QUICK_MENU_CODE_OV, "My G 홈(로그인/차량보유)"),
-    MG02("MG02", MyGHomeActivity.class, VariableType.QUICK_MENU_CODE_CV, "My G 홈(로그인/예약대기)"),
-    MG03("MG03", MyGHomeActivity.class, VariableType.QUICK_MENU_CODE_NV, "My G 홈(로그인/차량미보유)"),
+    MG01("MG01", MyGHomeActivity.class, VariableType.QUICK_MENU_CODE_NV, "My G 홈"),
+    MG02("MG02", MyGHomeActivity.class, VariableType.QUICK_MENU_CODE_NONE, "My G 홈(로그인/예약대기)"),
+    MG03("MG03", MyGHomeActivity.class, VariableType.QUICK_MENU_CODE_NONE, "My G 홈(로그인/차량미보유)"),
     MG04("MG04", null, VariableType.QUICK_MENU_CODE_NONE, "My G 홈(비로그인)"),
     MG_GA00("MG_GA00", null, VariableType.QUICK_MENU_CODE_NONE, "메뉴 검색"),
     MG_GA01("MG_GA01", MyGGAActivity.class, VariableType.QUICK_MENU_CODE_NV, "제네시스 어카운트"),
