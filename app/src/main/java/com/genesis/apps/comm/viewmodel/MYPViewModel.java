@@ -18,10 +18,12 @@ import com.genesis.apps.comm.model.api.gra.MYP_8005;
 import com.genesis.apps.comm.model.repo.CardRepository;
 import com.genesis.apps.comm.model.repo.DBContentsRepository;
 import com.genesis.apps.comm.model.repo.DBUserRepo;
+import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.MYPRepo;
 import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.comm.model.vo.FamilyAppVO;
 import com.genesis.apps.comm.model.vo.PrivilegeVO;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.net.ga.GA;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
@@ -50,6 +52,7 @@ class MYPViewModel extends ViewModel {
     private final DBUserRepo dbUserRepo;
     private final CardRepository cardRepository;
     private final DBContentsRepository dbContentsRepository;
+    private final DBVehicleRepository dbVehicleRepository;
     private final SavedStateHandle savedStateHandle;
 
     private MutableLiveData<NetUIResponse<MYP_0001.Response>> RES_MYP_0001;
@@ -79,10 +82,12 @@ class MYPViewModel extends ViewModel {
             DBUserRepo dbUserRepo,
             CardRepository cardRepository,
             DBContentsRepository dbContentsRepository,
+            DBVehicleRepository dbVehicleRepository,
             @Assisted SavedStateHandle savedStateHandle)
     {
         this.savedStateHandle = savedStateHandle;
         this.dbContentsRepository = dbContentsRepository;
+        this.dbVehicleRepository = dbVehicleRepository;
         this.repository = repository;
         this.dbUserRepo = dbUserRepo;
         RES_MYP_0001 = repository.RES_MYP_0001;
@@ -246,6 +251,26 @@ class MYPViewModel extends ViewModel {
                 privilegeVO = null;
             }
             return privilegeVO;
+        });
+
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
+    }
+
+    public VehicleVO getMainVehicleSimplyFromDB() throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<VehicleVO> future = es.getListeningExecutorService().submit(()->{
+            VehicleVO vehicleVO = null;
+            try {
+                vehicleVO = dbVehicleRepository.getMainVehicleSimplyFromDB();
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+                vehicleVO = null;
+            }
+            return vehicleVO;
         });
 
         try {
