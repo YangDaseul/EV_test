@@ -599,19 +599,47 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
 
             boolean valid = true;
 
-            //검사하는 뷰랑 오류 표시하는 뷰 싱크로 주의
-
-            if (TextUtils.isEmpty(mechanic)) {
-                holder.getBinding().lRelapse3Mechanic.setError(mechanicErrorString);
+            if (TextUtils.isEmpty(repairDetail)) {
+                holder.getBinding().lRelapse3RepairDetail.setError(repairDetailErrorString);
                 if(isFocusChk) {
                     if (!selectedItems.get(holder.getLayoutPosition())) {
                         holder.getBinding().tvRelapse3RepairHistoryTitle.performClick();
                     }
 
-                    holder.getBinding().etRelapse3Mechanic.requestFocus();
+                    holder.getBinding().etRelapse3RepairDetail.requestFocus();
                     isFocusChk = false;
                 }
-                valid = false;
+//                valid = false;
+                return false;
+            }
+
+            if (TextUtils.isEmpty(defectDetail)) {
+                holder.getBinding().lRelapse3DefectDetail.setError(defectDetailErrorString);
+                if(isFocusChk) {
+                    if (!selectedItems.get(holder.getLayoutPosition())) {
+                        holder.getBinding().tvRelapse3RepairHistoryTitle.performClick();
+                    }
+
+                    holder.getBinding().etRelapse3DefectDetail.requestFocus();
+                    isFocusChk = false;
+                }
+//                valid = false;
+                return false;
+            }
+
+            if(TextUtils.isEmpty(finishDate)) {
+                holder.setFinishDateErrorEnabled(true);
+                if(isFocusChk) {
+                    if (!selectedItems.get(holder.getLayoutPosition())) {
+                        holder.getBinding().tvRelapse3RepairHistoryTitle.performClick();
+                    }
+
+                    holder.getBinding().tvRelapse3RepairFinishDateBtn.performClick();
+                    isFocusChk = false;
+                }
+
+//                valid = false;
+                return false;
             }
 
             //날짜 입력 안 했거나
@@ -627,58 +655,36 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
                     isFocusChk = false;
                 }
 
-                valid = false;
-            }
-
-            if(TextUtils.isEmpty(finishDate)) {
-                holder.setFinishDateErrorEnabled(true);
-                if(isFocusChk) {
-                    if (!selectedItems.get(holder.getLayoutPosition())) {
-                        holder.getBinding().tvRelapse3RepairHistoryTitle.performClick();
-                    }
-
-                    holder.getBinding().tvRelapse3RepairFinishDateBtn.performClick();
-                    isFocusChk = false;
-                }
-
-                valid = false;
+//                valid = false;
+                return false;
             }
 
             if(!TextUtils.isEmpty(reqDate) && !TextUtils.isEmpty(finishDate)) {
                 if (0 < reqDate.compareTo(finishDate)) {
                     holder.setDateErrorEnabled(true);
 
-                    valid = false;
+//                    valid = false;
+                    return false;
                 }
             }
 
-            if (TextUtils.isEmpty(defectDetail)) {
-                holder.getBinding().lRelapse3DefectDetail.setError(defectDetailErrorString);
+            //검사하는 뷰랑 오류 표시하는 뷰 싱크로 주의
+
+            if (TextUtils.isEmpty(mechanic)) {
+                holder.getBinding().lRelapse3Mechanic.setError(mechanicErrorString);
                 if(isFocusChk) {
                     if (!selectedItems.get(holder.getLayoutPosition())) {
                         holder.getBinding().tvRelapse3RepairHistoryTitle.performClick();
                     }
 
-                    holder.getBinding().etRelapse3DefectDetail.requestFocus();
+                    holder.getBinding().etRelapse3Mechanic.requestFocus();
                     isFocusChk = false;
                 }
-                valid = false;
+//                valid = false;
+                return false;
             }
 
-            if (TextUtils.isEmpty(repairDetail)) {
-                holder.getBinding().lRelapse3RepairDetail.setError(repairDetailErrorString);
-                if(isFocusChk) {
-                    if (!selectedItems.get(holder.getLayoutPosition())) {
-                        holder.getBinding().tvRelapse3RepairHistoryTitle.performClick();
-                    }
-
-                    holder.getBinding().etRelapse3RepairDetail.requestFocus();
-                    isFocusChk = false;
-                }
-                valid = false;
-            }
-
-            return valid;
+            return true;
         }
 
         public ServiceRelapse3DefectHistoryViewHolder getHolder() {
