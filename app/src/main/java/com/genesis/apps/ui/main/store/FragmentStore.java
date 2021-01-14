@@ -1,14 +1,18 @@
 package com.genesis.apps.ui.main.store;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
@@ -36,6 +40,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.HashMap;
@@ -56,6 +61,9 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
     public String url = ""; //초기 접속 URL
     public String fn=""; //javascript 함수
     private boolean isClearHistory=false;
+    private Handler mHandler = null;
+
+    public String isDlp = "NO";
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -90,13 +98,20 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
                     if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
                         Log.d("JJJJ", "getCustInfo : " + result.data.getCustInfo());
 
-                        Map<String, Object> params = new HashMap<>();
-                        params.put("data", result.data.getCustInfo());
+//                        Map<String, Object> params = new HashMap<>();
+//                        params.put("data", result.data.getCustInfo());
 
-                        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-                        String jsonStr = gson.toJson(params);
+//                        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+//                        String jsonStr = gson.toJson(params);
+//
+//                        Log.d("JJJJ", "json str : " + jsonStr);
 
-                        Log.d("JJJJ", "json str : " + jsonStr);
+                        try {
+                            String postData = "data=" + URLEncoder.encode(result.data.getCustInfo(), "UTF-8");
+                            fragment.postUrl(url, postData.getBytes());
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
 
 //                        try {
 //                            String html = "<!DOCTYPE html>" +
@@ -115,7 +130,7 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
 
 //                            Log.d("JJJJ", "postData : " + postData);
 
-                            fragment.postUrl(url, jsonStr.getBytes());
+//                            fragment.postUrl(url, jsonStr.getBytes());
 //                        } catch (UnsupportedEncodingException e) {
 //                            e.printStackTrace();
 //                        }
@@ -129,7 +144,7 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
     private void initView() {
         if(fragment != null) return;
 
-        url = "https://devagenesisproduct.auton.kr/ko/main";
+        url = "http://devagenesisproduct.auton.kr/ko/main";
 
         try {
             Bundle bundle = new Bundle();
@@ -142,6 +157,7 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
 
             fragment = new MyWebViewFrament();
             fragment.setWebViewListener(webViewListener);
+            fragment.setJavaInterface(new ScriptInterface(), "isdlpshown");
             fragment.setArguments(bundle);
 
             FragmentTransaction ft = getChildFragmentManager().beginTransaction();
@@ -201,7 +217,7 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
 
     public boolean parseURL(String url) {
         Log.d("JJJJ", "url : " + url);
-        final Uri uri = Uri.parse(url);
+        Uri uri = Uri.parse(url);
         if (url.equalsIgnoreCase("https://www.genesis.com/kr/ko")
                 || url.equalsIgnoreCase("https://www.genesis.com/kr/ko/genesis-membership.html")){
             //TODO 테스트 필요 0001
@@ -242,9 +258,56 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
         } else if (url.startsWith("genesisapp://menu?id=")||url.startsWith("genesisapps://menu?id=")){
             ((MainActivity) getActivity()).moveToNativePage(url, false);
             return true;
+        } else if(!url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("javascript")) {
+            Intent intent;
+            try {
+                intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+            } catch (URISyntaxException use) {
+                return false;
+            }
+
+            uri = Uri.parse(intent.getDataString());
+            intent = new Intent(Intent.ACTION_VIEW, uri);
+            try {
+                startActivity(intent);
+            } catch (ActivityNotFoundException anfe) {
+                if(url.startsWith("ispmobile://")) {
+                    try {
+                        getActivity().getPackageManager().getPackageInfo("kvp.jjy.MispAndroid320", 0);
+                    } catch(PackageManager.NameNotFoundException nnfe) {
+                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://mobile.vpay.co.kr/jsp/MISP/andown.jsp"));
+                        startActivity(intent);
+                        return true;
+                    }
+                } else if(url.contains("kb-acp")) {
+                    try {
+                        Intent exceptIntent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+                        exceptIntent = new Intent(Intent.ACTION_VIEW);
+                        exceptIntent.setData(Uri.parse("market://details?id=com.kbcard.kbkookmincard"));
+
+                        startActivity(exceptIntent);
+                    } catch(URISyntaxException use1) {
+                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://mobile.vpay.co.kr/jsp/MISP/andown.jsp"));
+                        startActivity(intent);
+                        return true;
+                    }
+                } else {
+                    try {
+                        Intent exceptIntent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+                        String packageNm = exceptIntent.getPackage();
+                        exceptIntent = new Intent(Intent.ACTION_VIEW);
+                        exceptIntent.setData(Uri.parse("market://search?q=" + packageNm));
+
+                        startActivity(exceptIntent);
+                    } catch (URISyntaxException use1) {
+                    }
+                }
+            }
         } else {
             return false;
         }
+
+        return true;
     }
 
     private MyWebViewFrament.WebViewListener webViewListener = new MyWebViewFrament.WebViewListener() {
@@ -303,6 +366,20 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
 
     public void clearHistory(){
         if(fragment!=null) fragment.clearHistory();
+    }
+
+    // Javascript Brige class
+    class ScriptInterface {
+        @JavascriptInterface
+        public void setMessage(final String value) {
+            Log.d("JJJJ", "setMessage : " + value);
+            mHandler = new Handler();
+            mHandler.post(new Runnable() {
+                public void run() {
+                    isDlp = value;
+                }
+            });
+        }
     }
 
 }

@@ -58,15 +58,19 @@ public class DDS_1002 extends BaseData {
         @SerializedName("expPrice")
         private String expPrice;
         @Expose
+        @SerializedName("rwId")
+        private String rwId;
+        @Expose
         @SerializedName("posInfo")
         private List<PositionVO> posInfo;
 
-        public Request(String menuId, String vin, String reqDivCd, String rsvDt, String reqMemo, String expPrice, List<PositionVO> posInfo) {
+        public Request(String menuId, String vin, String reqDivCd, String rsvDt, String reqMemo, String expPrice, String rwId, List<PositionVO> posInfo) {
             this.vin = vin;
             this.reqDivCd = reqDivCd;
             this.rsvDt = rsvDt;
             this.reqMemo = reqMemo;
             this.expPrice = expPrice;
+            this.rwId = rwId;
             this.posInfo = posInfo;
             setData(APIInfo.GRA_DDS_1002.getIfCd(), menuId);
         }

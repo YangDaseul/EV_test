@@ -67,6 +67,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
     private VehicleVO mainVehicle;
     private AddressVO[] addressVO = new AddressVO[2];
+    private String rwId;
     private String priceMaybe;
     private boolean buttonEnable = true;
     private boolean now;//실시간 신청인가? false면 예약
@@ -246,6 +247,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                     if (result.data != null && result.data.getRst_code() != null) {
                         switch (result.data.getRst_code()) {
                             case CheckPrice.RST_CODE_POSSIBLE:
+                                rwId = result.data.getRwId();
                                 //예상 가격 저장하고 표시
                                 priceMaybe = result.data.getPrice();
                                 showStatus(STATUS_PRICE_MAYBE);
@@ -690,6 +692,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                         reserveDate,
                         msg,
                         priceMaybe,
+                        rwId,
                         Arrays.asList(route)));
     }
 
@@ -709,7 +712,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                 break;
 
             case STATUS_PRICE_MAYBE:
-                priceTextView.setText(StringUtil.getPriceString(priceMaybe));
+                priceTextView.setText(StringUtil.getDigitGroupingString(priceMaybe));
                 //not break;
             case STATUS_ERROR:
                 setBtnEnable(true);

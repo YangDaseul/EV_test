@@ -87,13 +87,21 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
                     if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
                         Log.d("JJJJ", "getCustInfo : " + result.data.getCustInfo());
 
-                        Map<String, Object> params = new HashMap<>();
-                        params.put("data", result.data.getCustInfo());
+//                        Map<String, Object> params = new HashMap<>();
+//                        params.put("data", result.data.getCustInfo());
+//
+//                        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+//                        String jsonStr = gson.toJson(params);
+//
+//                        Log.d("JJJJ", "json str : " + jsonStr);
 
-                        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-                        String jsonStr = gson.toJson(params);
+                        try {
+                            String postData = "data=" + URLEncoder.encode(result.data.getCustInfo(), "UTF-8");
+                            fragment.postUrl(url, postData.getBytes());
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
 
-                        Log.d("JJJJ", "json str : " + jsonStr);
 //                        try {
 //                            String html = "<!DOCTYPE html>" +
 //                                    "<html>" +
@@ -111,7 +119,7 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
 
 //                            Log.d("JJJJ", "postData : " + postData);
 
-                            fragment.postUrl(url, jsonStr.getBytes());
+//                            fragment.postUrl(url, jsonStr.getBytes());
 //                        } catch (UnsupportedEncodingException e) {
 //                            e.printStackTrace();
 //                        }
@@ -184,6 +192,7 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
         @Override
         public void onPageFinished(String url) {
             Log.d(TAG, "onPageFinished:" + url);
+            if(url.startsWith("about:blank")) finish();
             if(isClearHistory){
                 clearHistory();
                 setClearHistory(false);

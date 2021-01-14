@@ -8,7 +8,10 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
@@ -53,7 +56,7 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
     private ServiceRelapse3Adapter adapter;
     private BottomDialogAskAgreeTerms termsDialog;
 
-    public boolean over4;
+    public boolean over4 = false;
     private String count;
     private String period;
 
@@ -331,18 +334,20 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
                 break;
 
             case STATE_ASK_OVER_4:
-                if (adapter.validateInputData() &&
-                        //↓ "4회이상?" 질문에 아니오 눌렀거나 예 누르고 값을 넣어야 통과
-                        // 근데 기껏 값을 받아놓고 api에 송신하는 정보는 Y/N임 ㅡㅡ;; 사용자가 적은 숫자가 몇인지는 무시(2020.11.19)
-                        (!over4 || !TextUtils.isEmpty(ui.etRelapse3TotalCount.getText().toString()))) {
-                    if(Integer.parseInt(ui.etRelapse3TotalCount.getText().toString()) > 3) {
-                        ui.lRelapse3TotalCount.setError(null);
-                        changeStatusToAskPeriod();
-                    } else {
-                        ui.lRelapse3TotalCount.setError(getString(R.string.relapse_0));
+                if (adapter.validateInputData()) {
+                    if(over4) {
+                        if(!TextUtils.isEmpty(ui.etRelapse3TotalCount.getText().toString()) && Integer.parseInt(ui.etRelapse3TotalCount.getText().toString()) > 3) {
+                            ui.lRelapse3TotalCount.setError(null);
+                        } else {
+                            ui.lRelapse3TotalCount.setError(getString(R.string.relapse_0));
+
+                            return;
+                        }
                     }
+
+                    changeStatusToAskPeriod();
                 } else {
-                    if(Integer.parseInt(ui.etRelapse3TotalCount.getText().toString()) < 4) ui.lRelapse3TotalCount.setError(getString(R.string.relapse_0));
+                    if(TextUtils.isEmpty(ui.etRelapse3TotalCount.getText().toString()) || Integer.parseInt(ui.etRelapse3TotalCount.getText().toString()) < 4) ui.lRelapse3TotalCount.setError(getString(R.string.relapse_0));
                 }
                 break;
 
@@ -418,11 +423,11 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         }
         //아니면 입력 칸 3개 중에 몇 개나 채웠나 셈
         else {
+            InteractionUtil.collapse(ui.lRelapse3TotalCountContainer, null);
             count = "" + (adapter.getItemCount() - 1);//-1은 마지막 게 ui 더미 칸이니까
         }
 
         InteractionUtil.collapse(ui.lRelapse3YesNoContainer, null);
-        InteractionUtil.collapse(ui.lRelapse3TotalCountContainer, null);
 
         InteractionUtil.expand(ui.lRelapse3PeriodContainer, null);
 
@@ -459,6 +464,14 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
 
         termsDialog.init(termList);
         termsDialog.show();
+
+        termsDialog.getAllCheckBox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                Log.d("JJJJ", "isCheck : " + b);
+
+            }
+        });
     }
 
     //약관 보기

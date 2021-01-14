@@ -111,6 +111,9 @@ public class CheckPrice extends BaseData {
     public @Data
     class Response extends BaseData {
         @Expose
+        @SerializedName("rwId")
+        private String rwId;
+        @Expose
         @SerializedName("price")
         private String price;
         @Expose

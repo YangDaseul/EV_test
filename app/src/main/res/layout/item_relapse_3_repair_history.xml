@@ -83,8 +83,9 @@
             <!-- 수리 요청 날짜 선택 -->
             <TextView
                 android:id="@+id/tv_relapse_3_repair_req_date_btn"
-                style="@style/Relapse3RepairHistoryDatePickBtn"
-                tools:text="2020.13.32" />
+                android:hint="@string/relapse_3_repair_req_date"
+                android:textColorHint="@color/x_aaabaf"
+                style="@style/Relapse3RepairHistoryDatePickBtn" />
 
             <!--  수리 요청 날짜 에러 메시지-->
             <TextView
@@ -102,7 +103,8 @@
             <TextView
                 android:id="@+id/tv_relapse_3_repair_finish_date_btn"
                 style="@style/Relapse3RepairHistoryDatePickBtn"
-                tools:text="2020.13.32" />
+                android:hint="@string/relapse_3_repair_finish_date"
+                android:textColorHint="@color/x_aaabaf" />
 
             <!--  수리 완료 날짜 에러 메시지-->
             <TextView

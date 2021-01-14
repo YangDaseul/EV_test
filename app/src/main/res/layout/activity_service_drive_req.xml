@@ -36,27 +36,38 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="40dp"
             app:isRound="@{true}"
-            app:layout_constraintBottom_toTopOf="@id/l_service_drive_req_scroll_view"
+            app:layout_constraintBottom_toTopOf="@id/view_line"
             app:layout_constraintTop_toBottomOf="@id/l_service_drive_req_titlebar" />
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/x_e5e5e5"
+            app:layout_constraintBottom_toTopOf="@id/l_service_drive_req_scroll_view"
+            app:layout_constraintTop_toBottomOf="@id/l_service_drive_req_top_panel"/>
 
         <!-- 스크롤 범위 : 입력내용 안내 메시지 ~ 입력 창 네 개 -->
         <ScrollView
             android:id="@+id/l_service_drive_req_scroll_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:padding="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/l_service_drive_req_top_panel"
+            app:layout_constraintTop_toBottomOf="@id/view_line"
             app:layout_goneMarginTop="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="40dp"
+                android:paddingBottom="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <!-- "출발/도착지 주소를 입력해라" : 01 ~ 04 번 str -->
                 <TextView

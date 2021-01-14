@@ -10,21 +10,32 @@
         <TextView
             style="@style/ServiceReq.Error"
             android:layout_marginEnd="10dp"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="16sp"
+            android:textColor="@color/x_ce2d2d"
+            android:textSize="12dp"
             android:text="@string/service_req_error" />
 
         <!-- 재시도버튼 -->
-        <TextView
+        <LinearLayout
             android:id="@+id/tv_service_drive_retry"
-            style="@style/TextBtnBasic"
-            android:background="@drawable/ripple_bg_00000000_stroke_6f6f6f"
-            android:fontFamily="@font/light_genesissansheadglobal"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:paddingStart="14dp"
             android:paddingTop="10dp"
             android:paddingEnd="14dp"
-            android:paddingBottom="10dp"
-            android:text="@string/service_req_retry"
-            android:textColor="@color/x_141414"
-            android:textSize="14dp" />
+            android:paddingBottom="10dp">
+
+            <TextView
+                style="@style/TextBtnBasic"
+                android:background="@drawable/ripple_bg_trans_underline_000000"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:text="@string/service_req_retry"
+                android:textColor="@color/x_000000"
+                android:textSize="15dp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

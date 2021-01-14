@@ -18,7 +18,7 @@
 
     <!-- 지도 UI 타이틀바 힌트 -->
     <style name="MapOverlayTitleBar.Hint" parent="MapOverlayTitleBar">
-        <item name="android:background">@drawable/ripple_bg_ffffff_round_99</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_ffffff</item>
         <item name="android:textColor">@color/x_aaabaf</item>
     </style>
 
