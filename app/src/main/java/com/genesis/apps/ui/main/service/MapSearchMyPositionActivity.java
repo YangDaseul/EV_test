@@ -72,7 +72,7 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
 
     private void initView(final double latitude, final double longitude) {
         ui.ivCenterMaker.setVisibility(View.VISIBLE);
-        ui.ivCenterMaker.setImageResource(R.drawable.ic_pin_car);
+        ui.ivCenterMaker.setImageResource(getPinMarker());
         //기본위치 갱신 시 맵 초기화
         ui.pmvMapView.initMap(latitude, longitude, 17);
 
@@ -113,6 +113,18 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
             case 0:
             default://그 외
                 return R.string.map_title_3;
+        }
+    }
+
+    private int getPinMarker() {
+        switch (titleId) {
+            case R.string.service_drive_address_search_from_title://대리운전 출발지
+                return R.drawable.ic_pin_from;
+            case R.string.service_drive_address_search_to_title://대리운전 도착지
+                return R.drawable.ic_pin_to;
+            case 0:
+            default://그 외
+                return R.drawable.ic_pin_car;
         }
     }
 
