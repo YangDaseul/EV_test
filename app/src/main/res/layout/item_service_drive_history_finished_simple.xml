@@ -19,95 +19,148 @@
         android:background="@drawable/ripple_bg_ffffff"
         android:clickable="true"
         android:focusable="true"
-        android:padding="15dp">
+        android:paddingTop="30dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <!-- 신청일시 데이터 -->
+        <TextView
+            android:id="@+id/tv_service_drive_history_finished_date_desc"
+            style="@style/ServiceDrive.History.Data.Desc"
+            android:textSize="14dp"
+            android:textColor="@color/x_262626"
+            android:text="@{holder.date}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:text="20.12.10  오후 09:50(더미데이터)" />
 
         <!-- "이용완료" -->
         <TextView
             android:id="@+id/tv_service_drive_history_finished_title"
             style="@style/TextBasic"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_141414_round_99"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/regular_genesissanstextglobal"
-            android:gravity="center"
             android:text="@string/service_drive_history_finished"
-            android:textColor="@color/x_ffffff"
-            android:textSize="11dp"
+            android:textColor="@color/x_996449"
+            android:textSize="12dp"
+            app:layout_constraintTop_toTopOf="@+id/tv_service_drive_history_finished_date_desc"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_service_drive_history_finished_date_desc"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <View
+            android:id="@+id/view_line_1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/x_e5e5e5"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_service_drive_history_finished_date_desc"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/ll_info"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toBottomOf="@+id/view_line_1">
+
+            <!-- "차량정보" -->
+            <TextView
+                style="@style/ServiceDrive.History.Data.Title"
+                android:id="@+id/tv_service_drive_history_finished_car_info_title"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:background="@color/x_f8f8f8"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:textSize="14dp"
+                android:text="@string/service_drive_history_car_info"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="4dp" />
+
+            <!-- 차량정보 데이터 -->
+            <TextView
+                android:id="@+id/tv_service_drive_history_finished_car_info_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="4dp"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:textColor="@color/x_262626"
+                android:text="@{holder.carInfo}"
+                tools:text="GV70 123제 4567" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_line_2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/x_e5e5e5"
+            app:layout_constraintTop_toBottomOf="@+id/ll_info"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <!-- "결제금액" -->
+        <TextView
+            android:id="@+id/tv_service_drive_history_finished_paid_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="14dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:textSize="14dp"
+            android:textColor="@color/x_996449"
+            android:text="@string/service_drive_history_paid"
+            app:layout_constraintTop_toTopOf="@+id/tv_service_drive_history_finished_paid_desc"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_service_drive_history_finished_paid_desc"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- 결제금액 데이터 -->
+        <TextView
+            android:id="@+id/tv_service_drive_history_finished_paid_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="15dp"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:textSize="24dp"
+            android:textColor="@color/x_000000"
+            android:text="@{holder.paidPrice}"
+            app:layout_constraintTop_toBottomOf="@id/view_line_2"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintLeft_toRightOf="@+id/tv_service_drive_history_finished_paid_title"
+            tools:text="30,000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="1dp"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:textSize="14dp"
+            android:textColor="@color/x_000000"
+            android:text="@string/won"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_service_drive_history_finished_paid_desc"
+            app:layout_constraintLeft_toRightOf="@+id/tv_service_drive_history_finished_paid_desc"/>
+
 
         <!-- 오른쪽 드롭다운 화살표 -->
         <ImageView
             android:id="@+id/iv_service_drive_history_dropdown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- "신청일시" -->
-        <TextView
-            android:id="@+id/tv_service_drive_history_finished_date_title"
-            style="@style/ServiceDrive.History.Data.Title"
-            android:layout_marginStart="15dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/service_drive_history_date"
-            app:layout_constraintBottom_toTopOf="@id/tv_service_drive_history_finished_car_info_title"
-            app:layout_constraintStart_toEndOf="@+id/tv_service_drive_history_finished_title"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- 신청일시 데이터 -->
-        <TextView
-            android:id="@+id/tv_service_drive_history_finished_date_desc"
-            style="@style/ServiceDrive.History.Data.Desc"
-            android:layout_marginStart="13dp"
-            android:text="@{holder.date}"
-            app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_finished_date_title"
-            app:layout_constraintEnd_toStartOf="@id/iv_service_drive_history_dropdown"
-            app:layout_constraintStart_toEndOf="@id/tv_service_drive_history_finished_date_title"
-            tools:text="20.12.10  오후 09:50(더미데이터)" />
-
-        <!-- "차량정보" -->
-        <TextView
-            android:id="@+id/tv_service_drive_history_finished_car_info_title"
-            style="@style/ServiceDrive.History.Data.Title"
-            android:layout_marginBottom="8dp"
-            android:text="@string/service_drive_history_car_info"
-            app:layout_constraintBottom_toBottomOf="@id/tv_service_drive_history_finished_paid_title"
-            app:layout_constraintStart_toStartOf="@id/tv_service_drive_history_finished_date_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_service_drive_history_finished_date_title"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-        <!-- 차량정보 데이터 -->
-        <TextView
-            android:id="@+id/tv_service_drive_history_finished_car_info_desc"
-            style="@style/ServiceDrive.History.Data.Desc"
-            android:text="@{holder.carInfo}"
-            app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_finished_car_info_title"
-            app:layout_constraintEnd_toStartOf="@id/iv_service_drive_history_dropdown"
-            app:layout_constraintStart_toStartOf="@id/tv_service_drive_history_finished_date_desc"
-            tools:text="GV70 123제 4567" />
-
-        <!-- "결제금액" -->
-        <TextView
-            android:id="@+id/tv_service_drive_history_finished_paid_title"
-            style="@style/ServiceDrive.History.Data.Title"
-            android:text="@string/service_drive_history_paid"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/tv_service_drive_history_finished_date_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_service_drive_history_finished_car_info_title"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-        <!-- 결제금액 데이터 -->
-        <TextView
-            android:id="@+id/tv_service_drive_history_finished_paid_desc"
-            style="@style/ServiceDrive.History.Data.Desc"
-            android:text="@{holder.paidPrice}"
-            app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_finished_paid_title"
-            app:layout_constraintEnd_toStartOf="@id/iv_service_drive_history_dropdown"
-            app:layout_constraintStart_toStartOf="@id/tv_service_drive_history_finished_date_desc"
-            tools:text="30,000원" />
+            app:layout_constraintTop_toTopOf="@+id/tv_service_drive_history_finished_paid_desc"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_service_drive_history_finished_paid_desc"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

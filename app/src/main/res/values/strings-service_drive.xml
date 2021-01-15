@@ -46,7 +46,7 @@
     <string name="service_drive_req_result_08">예약일시</string>
     <string name="service_drive_req_result_09">차량 이동 중입니다.</string>
 
-    <string name="service_drive_req_result_btn_01">전화</string>
+    <string name="service_drive_req_result_btn_01">통화하기</string>
     <string name="service_drive_req_result_btn_02">신청 취소</string>
     <string name="service_drive_req_result_btn_03">취소</string>
     <string name="service_drive_req_result_btn_04">다시 요청</string>
@@ -57,9 +57,9 @@
 
     <!-- 신청 내역 -->
     <string name="service_drive_history_title">대리운전 신청내역</string>
-    <string name="service_drive_history_no_data">신청내역이 없습니다.</string>
+    <string name="service_drive_history_no_data">대리운전 신청 내역이 없습니다.</string>
     <string name="service_drive_history_finished">이용완료</string>
-    <string name="service_drive_history_canceled">사용자\n취소</string>
+    <string name="service_drive_history_canceled">사용자 취소</string>
     <string name="service_drive_history_date">신청일시</string>
     <string name="service_drive_history_car_info">차량정보</string>
     <string name="service_drive_history_paid">결제금액</string>

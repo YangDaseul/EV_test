@@ -78,7 +78,7 @@ public abstract class GpsBaseActivity<T extends ViewDataBinding> extends SubActi
                 mGpsTimer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        Log.d(TAG, "TIMER HIGH lat : " + (mLocation!=null ? mLocation.getLatitude() : "0" ) + ",  lng : " + (mLocation!=null ? mLocation.getLongitude() : "0" ) + " accurate:" + (mLocation!=null ? mLocation.getAccuracy() : "0" ));
+//                        Log.d(TAG, "TIMER HIGH lat : " + (mLocation!=null ? mLocation.getLatitude() : "0" ) + ",  lng : " + (mLocation!=null ? mLocation.getLongitude() : "0" ) + " accurate:" + (mLocation!=null ? mLocation.getAccuracy() : "0" ));
                         locListener.onGpsMyLocGet(mLocation);
                         stopGpsSearch();
                     }
@@ -90,16 +90,16 @@ public abstract class GpsBaseActivity<T extends ViewDataBinding> extends SubActi
                 countDownTimer = new CountDownTimer(searchTime, 100) {
                     @Override
                     public void onTick(long l) {
-                        Log.d(TAG, "TIMER COUNT DONW ON TICK:"+l +  "   lat:" + (mLocation!=null ? mLocation.getLatitude() : "0" ) + ",  lng : " + (mLocation!=null ? mLocation.getLongitude() : "0" ) + " accurate:" + (mLocation!=null ? mLocation.getAccuracy() : "0" ));
+//                        Log.d(TAG, "TIMER COUNT DONW ON TICK:"+l +  "   lat:" + (mLocation!=null ? mLocation.getLatitude() : "0" ) + ",  lng : " + (mLocation!=null ? mLocation.getLongitude() : "0" ) + " accurate:" + (mLocation!=null ? mLocation.getAccuracy() : "0" ));
                         if(mLocation!=null) {
-                            Log.d(TAG, "TIMER COUNT DONW ON TICK finish1:"+l +  "   lat:" + (mLocation!=null ? mLocation.getLatitude() : "0" ) + ",  lng : " + (mLocation!=null ? mLocation.getLongitude() : "0" ) + " accurate:" + (mLocation!=null ? mLocation.getAccuracy() : "0" ));
+//                            Log.d(TAG, "TIMER COUNT DONW ON TICK finish1:"+l +  "   lat:" + (mLocation!=null ? mLocation.getLatitude() : "0" ) + ",  lng : " + (mLocation!=null ? mLocation.getLongitude() : "0" ) + " accurate:" + (mLocation!=null ? mLocation.getAccuracy() : "0" ));
                             locListener.onGpsMyLocGet(mLocation);
                             stopGpsSearch();
                         }
                     }
                     @Override
                     public void onFinish() {
-                        Log.d(TAG, "TIMER COUNT DONW Finish lat:" + (mLocation!=null ? mLocation.getLatitude() : "0" ) + ",  lng : " + (mLocation!=null ? mLocation.getLongitude() : "0" ) + " accurate:" + (mLocation!=null ? mLocation.getAccuracy() : "0" ));
+//                        Log.d(TAG, "TIMER COUNT DONW Finish lat:" + (mLocation!=null ? mLocation.getLatitude() : "0" ) + ",  lng : " + (mLocation!=null ? mLocation.getLongitude() : "0" ) + " accurate:" + (mLocation!=null ? mLocation.getAccuracy() : "0" ));
                         locListener.onGpsMyLocGet(null);
                         stopGpsSearch();
                     }

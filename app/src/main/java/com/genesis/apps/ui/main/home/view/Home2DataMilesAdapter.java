@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * Class Name : Home2DataMilesAdapter
- * 데이터 마일스 화면을 표시할 {@link com.genesis.apps.ui.common.view.listview.test.BaseRecyclerViewAdapter} Class.
+ * 데이터 마일스 화면을 표시할 {@link com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2} Class.
  * <p>
  * 표시하는 화면
  * 1. 안전 운전 점수
@@ -122,7 +122,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
     public DataMilesVO findVOByCarId(String carId) {
         DataMilesVO result = null;
         try {
-            result = getItems().stream().filter(vo -> vo.getCarId().equals(carId)).findFirst().get();
+            result = getItems().stream().filter(vo -> vo.getCarId().equals(carId)).findFirst().orElse(null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -415,7 +415,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
 
             String count = "0";
             try {
-                CouponVO findItem = coupons.stream().filter(couponVO -> couponVO.getItemDivCd().equals(couponCode)).findFirst().get();
+                CouponVO findItem = coupons.stream().filter(couponVO -> couponVO.getItemDivCd().equals(couponCode)).findFirst().orElse(null);
                 if (findItem != null) {
                     count = findItem.getRemCnt();
                 }

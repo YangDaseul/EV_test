@@ -322,10 +322,10 @@ public class LeasingCarHistDetailActivity extends SubActivity<ActivityLeasingCar
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-       if(resultCode == ResultCodes.REQ_CODE_ADDR_ZIP.getCode()){
+       if(resultCode == ResultCodes.REQ_CODE_ADDR_ZIP.getCode()&&data!=null){
            newAddressZipVO = (AddressZipVO)data.getSerializableExtra(KeyNames.KEY_NAME_ZIP_ADDR);
            setAddressInfo();
-        }else if (resultCode == ResultCodes.REQ_CODE_ADDR_ZIP_PRIVILEGE.getCode()) {
+        }else if (resultCode == ResultCodes.REQ_CODE_ADDR_ZIP_PRIVILEGE.getCode()&&data!=null) {
            privilegeAddressZipVO = (AddressZipVO) data.getSerializableExtra(KeyNames.KEY_NAME_ZIP_ADDR);
            setPrivilegeAddressInfo();
        }

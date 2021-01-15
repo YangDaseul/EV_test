@@ -28,23 +28,31 @@
             android:scaleType="center"
             android:src="@drawable/ic_from"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/tv_service_drive_route_from_title"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_service_drive_route_from_title"
+            app:layout_constraintVertical_bias="0.5"/>
 
         <!-- "출발지" -->
         <TextView
             android:id="@+id/tv_service_drive_route_from_title"
-            style="@style/ServiceDrive.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:fontFamily="@font/regular_genesissansheadglobal"
             android:text="@string/service_drive_top_info_05"
-            android:textSize="13dp"
-            app:layout_constraintBottom_toBottomOf="@id/iv_service_drive_route_from_icon"
+            android:textSize="18dp"
+            android:textColor="@color/x_000000"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="14sp"
             app:layout_constraintStart_toEndOf="@id/iv_service_drive_route_from_icon"
-            app:layout_constraintTop_toTopOf="@id/iv_service_drive_route_from_icon" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- 출발지 장소명 -->
         <TextView
             android:id="@+id/tv_service_drive_route_from_name"
             style="@style/ServiceDriveReqResult.FromTo.Name"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:textSize="16dp"
             android:text="@{FROM.getAddrDtl()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_service_drive_route_from_title"
@@ -55,6 +63,8 @@
         <TextView
             android:id="@+id/tv_service_drive_route_from_address"
             style="@style/ServiceDriveReqResult.FromTo.Address"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:textSize="16dp"
             android:text="@{FROM.getAddrLotNo()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_service_drive_route_from_title"
@@ -64,10 +74,15 @@
         <!-- "도착지" -->
         <TextView
             android:id="@+id/tv_service_drive_route_to_title"
-            style="@style/ServiceDrive.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/regular_genesissansheadglobal"
             android:layout_marginTop="15dp"
             android:text="@string/service_drive_top_info_06"
-            android:textSize="13dp"
+            android:textSize="18dp"
+            android:textColor="@color/x_000000"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="14sp"
             app:layout_constraintStart_toStartOf="@id/tv_service_drive_route_from_title"
             app:layout_constraintTop_toBottomOf="@id/tv_service_drive_route_from_address" />
 
@@ -96,6 +111,8 @@
         <TextView
             android:id="@+id/tv_service_drive_route_to_name"
             style="@style/ServiceDriveReqResult.FromTo.Name"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:textSize="16dp"
             android:text="@{TO.getAddrDtl()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_service_drive_route_from_title"
@@ -106,6 +123,8 @@
         <TextView
             android:id="@+id/tv_service_drive_route_to_address"
             style="@style/ServiceDriveReqResult.FromTo.Address"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:textSize="16dp"
             android:text="@{TO.getAddrLotNo()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_service_drive_route_from_title"

@@ -8,9 +8,6 @@ import android.os.Vibrator;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.view.inputmethod.InputMethodManager;
-
-import androidx.annotation.RequiresApi;
 
 public class VibratorUtil {
     public static void doVibrator(Application context){
@@ -44,28 +41,4 @@ public class VibratorUtil {
         view.startAnimation(anim);
         return view;
     }
-
-
-
-
-
-//    @RequiresApi(api = Build.VERSION_CODES.O)
-//    public static void createWaveFormVibrationUsingVibrationEffect(Application context) {
-//        Vibrator vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
-//        long[] mVibratePattern = new long[]{0, 400, 1000, 600, 1000, 800, 1000, 1000};
-//        // -1 : Play exactly once
-//        VibrationEffect effect = VibrationEffect.createWaveform(mVibratePattern, -1);
-//        vibrator.vibrate(effect);
-//    }
-//
-//    @RequiresApi(api = Build.VERSION_CODES.O)
-//    public static void createWaveFormVibrationUsingVibrationEffectAndAmplitude(Application context) {
-//        Vibrator vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
-//        long[] mVibratePattern = new long[]{0, 15};
-//        int[] mAmplitudes = new int[]{0,1};
-//        // -1 : Play exactly once
-//
-//            VibrationEffect effect = VibrationEffect.createWaveform(mVibratePattern, mAmplitudes, -1);
-//            vibrator.vibrate(effect);
-//    }
 }

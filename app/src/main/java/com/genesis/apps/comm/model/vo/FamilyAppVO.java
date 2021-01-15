@@ -5,6 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.comm.util.StringUtil;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -23,8 +24,8 @@ import lombok.Data;
 public @Data
 class FamilyAppVO extends BaseData {
 
-    public FamilyAppVO(){
-
+    public FamilyAppVO(String appNm){
+        this.appNm = StringUtil.isValidString(appNm);
     }
 
     @PrimaryKey

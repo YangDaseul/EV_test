@@ -1,13 +1,5 @@
 package com.genesis.apps.comm.viewmodel;
 
-import androidx.hilt.Assisted;
-import androidx.hilt.lifecycle.ViewModelInject;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.SavedStateHandle;
-import androidx.lifecycle.Transformations;
-import androidx.lifecycle.ViewModel;
-
 import com.genesis.apps.comm.model.api.gra.LGN_0001;
 import com.genesis.apps.comm.model.api.gra.LGN_0002;
 import com.genesis.apps.comm.model.api.gra.LGN_0003;
@@ -42,6 +34,13 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
+import androidx.hilt.Assisted;
+import androidx.hilt.lifecycle.ViewModelInject;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
+import androidx.lifecycle.Transformations;
+import androidx.lifecycle.ViewModel;
 import lombok.Data;
 
 import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_0000;

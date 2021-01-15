@@ -5,6 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.comm.util.StringUtil;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -31,8 +32,8 @@ import lombok.EqualsAndHashCode;
 public @Data
 class ContentsVO extends BaseData {
 
-    public ContentsVO(){
-
+    public ContentsVO(String listSeqNo){
+        this.listSeqNo = StringUtil.isValidString(listSeqNo);
     }
 
     @PrimaryKey

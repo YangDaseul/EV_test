@@ -149,14 +149,13 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
                         serverMsg = result.data.getRtMsg();
                     } catch (Exception e) {
                         e.printStackTrace();
-                    } finally {
-                        if(result.data!=null&& StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("2005"))
-                            return;
-
-                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
-                        ui.rvCarWashHistoryList.setVisibility(View.GONE);
-                        ui.tvEmpty.setVisibility(View.VISIBLE);
                     }
+                    if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("2005"))
+                        return;
+
+                    SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    ui.rvCarWashHistoryList.setVisibility(View.GONE);
+                    ui.tvEmpty.setVisibility(View.VISIBLE);
                     break;
             }
         });

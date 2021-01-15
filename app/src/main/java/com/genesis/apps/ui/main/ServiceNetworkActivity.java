@@ -586,7 +586,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == ResultCodes.REQ_CODE_BTR.getCode()) {
+        if (resultCode == ResultCodes.REQ_CODE_BTR.getCode()&&data!=null) {
             btrVO = (BtrVO) data.getSerializableExtra(KeyNames.KEY_NAME_BTR);
             List<BtrVO> list = null;
 

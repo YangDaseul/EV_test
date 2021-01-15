@@ -19,6 +19,7 @@
         <TextView
             android:id="@+id/tv_service_drive_status_driver"
             style="@style/ServiceDriveReqResult.Status.Text.Regular"
+            android:textSize="14dp"
             android:text="@{activity.serviceReqData.getDriverNm()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,30 +29,50 @@
         <!-- 전화번호 -->
         <TextView
             android:id="@+id/tv_service_drive_status_phone"
-            style="@style/ServiceDriveReqResult.Status.Text.Light"
-            android:layout_marginStart="10dp"
+            style="@style/ServiceDriveReqResult.Status.Text.Regular"
+            android:textColor="@color/x_4d4d4d"
+            android:textSize="14dp"
+            android:layout_marginStart="15dp"
             android:text="@{activity.serviceReqData.getDriverMdn()}"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_status_driver"
             app:layout_constraintStart_toEndOf="@id/tv_service_drive_status_driver"
             tools:text="123-4556-8987" />
 
         <!-- 전화하기 버튼 -->
-        <TextView
-            android:id="@+id/tv_service_drive_status_call_btn"
-            style="@style/TextBtnBasic"
-            android:background="@drawable/ripple_bg_141414"
-            android:fontFamily="@font/light_genesissansheadglobal"
-            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+        <LinearLayout
+            android:id="@+id/ll_service_drive_status_call_btn"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:paddingStart="14dp"
             android:paddingTop="7dp"
             android:paddingEnd="14dp"
             android:paddingBottom="7dp"
-            android:text="@string/service_drive_req_result_btn_01"
-            android:textColor="@color/x_ffffff"
-            android:textSize="14dp"
+            android:background="@drawable/ripple_bg_ffffff"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_service_drive_status_call_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_trans_underline_000000"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:text="@string/service_drive_req_result_btn_01"
+                android:textColor="@color/x_000000"
+                android:textSize="14dp"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="30sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/btn_arrow_open_r_g" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

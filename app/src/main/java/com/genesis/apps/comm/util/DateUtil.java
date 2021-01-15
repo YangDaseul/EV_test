@@ -134,7 +134,10 @@ public class DateUtil {
 
     public static long getDiffMillis(String strDate, String format){
         Date baseDate = getDefaultDateFormat(strDate, format);
-        long diffMillis = System.currentTimeMillis() - baseDate.getTime();
+        long diffMillis = 0;
+        if(baseDate!=null)
+            diffMillis = System.currentTimeMillis() - baseDate.getTime();
+
         return diffMillis;
     }
 

@@ -3,7 +3,6 @@ package com.genesis.apps.comm.model.repo;
 import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.gra.LGN_0001;
 import com.genesis.apps.comm.model.api.gra.LGN_0002;

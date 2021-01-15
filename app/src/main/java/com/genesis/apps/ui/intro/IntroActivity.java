@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.genesis.apps.R;
@@ -387,7 +388,8 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
                     }
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Log.d("IntroActivity", "InterruptedException");
+                Thread.currentThread().interrupt();
             }
             return progressC;
         }

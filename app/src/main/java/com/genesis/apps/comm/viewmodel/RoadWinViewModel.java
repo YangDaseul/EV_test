@@ -1,17 +1,16 @@
 package com.genesis.apps.comm.viewmodel;
 
-import androidx.hilt.Assisted;
-import androidx.hilt.lifecycle.ViewModelInject;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.SavedStateHandle;
-import androidx.lifecycle.ViewModel;
-
 import com.genesis.apps.comm.model.api.roadwin.CheckPrice;
 import com.genesis.apps.comm.model.api.roadwin.ServiceAreaCheck;
 import com.genesis.apps.comm.model.api.roadwin.Work;
 import com.genesis.apps.comm.model.repo.RoadWinRepo;
 import com.genesis.apps.comm.net.NetUIResponse;
 
+import androidx.hilt.Assisted;
+import androidx.hilt.lifecycle.ViewModelInject;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
+import androidx.lifecycle.ViewModel;
 import lombok.Data;
 
 public @Data

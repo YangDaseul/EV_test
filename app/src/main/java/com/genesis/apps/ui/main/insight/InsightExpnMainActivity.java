@@ -99,9 +99,9 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
             vehicleName = vehicleList.get(position);
         }catch (Exception e){
             vehicleName="--";
-        }finally{
-            return vehicleName;
         }
+
+        return vehicleName;
     }
 
     @Override
@@ -560,7 +560,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
             list.add(TextUtils.isEmpty(data.getRparSumAmt()) ? 0 : Float.parseFloat(data.getRparSumAmt()));
             list.add(TextUtils.isEmpty(data.getCarWshSumAmt()) ? 0 : Float.parseFloat(data.getCarWshSumAmt()));
             list.add(TextUtils.isEmpty(data.getEtcSumAmt()) ? 0 : Float.parseFloat(data.getEtcSumAmt()));
-            maxValue = list.stream().max(Comparator.comparingDouble(o -> o)).get();
+            maxValue = list.stream().max(Comparator.comparingDouble(o -> o)).orElse(0f);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -577,12 +577,15 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                 ||resultCode == ResultCodes.REQ_CODE_INSIGHT_EXPN_MODIFY.getCode()){
              String msg="";
              try {
-                 msg = data.getStringExtra("msg");
+                 if(data!=null)
+                    msg = data.getStringExtra("msg");
              }catch (Exception e){
                  e.printStackTrace();
              }finally{
-                 SnackBarUtil.show(this, msg);
-                 reqCBKData();
+                 if(!TextUtils.isEmpty(msg)) {
+                     SnackBarUtil.show(this, msg);
+                     reqCBKData();
+                 }
              }
          }
     }

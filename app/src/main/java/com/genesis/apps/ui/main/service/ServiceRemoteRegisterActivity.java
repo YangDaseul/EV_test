@@ -478,9 +478,8 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                                             vin = rmtViewModel.getMainVehicle().getVin();
                                             rmtViewModel.reqRMT1001(new RMT_1001.Request(APPIAInfo.R_REMOTE01.getId(), vin));
                                         } catch (ExecutionException ee) {
-                                            // TODO : 차대번호 조회 오류 처리 필요.
                                         } catch (InterruptedException ie) {
-                                            // TODO : 차대번호 조회 오류 처리 필요.
+                                            Thread.currentThread().interrupt();
                                         }
                                     }, () -> exitPage("", 0));
                         } else if (SERVICE_REMOTE_RES_CODE_9000.equals(rtCd)) {

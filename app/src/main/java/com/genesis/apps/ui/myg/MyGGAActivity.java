@@ -258,7 +258,8 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
         if (resultCode == Activity.RESULT_OK && requestCode == RequestCodes.REQ_CODE_AUTHUUID.getCode()) {
             String authUuid = "";
             try {
-                authUuid = data.getStringExtra(VariableType.KEY_NAME_LOGIN_AUTH_UUID);
+                if(data!=null)
+                    authUuid = data.getStringExtra(VariableType.KEY_NAME_LOGIN_AUTH_UUID);
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
