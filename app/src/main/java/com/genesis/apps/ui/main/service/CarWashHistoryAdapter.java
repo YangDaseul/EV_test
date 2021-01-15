@@ -66,8 +66,9 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
             //상품명
             getBinding().tvCarWashHistoryName.setText(item.getGodsNm());
 
-            //결제금액
-            getBinding().tvCarWashHistoryPrice.setText(StringUtil.getPriceString(item.getPaymtCost()));
+            //결제금액 -> 할인명으로 변경 표기
+//            getBinding().tvCarWashHistoryPrice.setText(StringUtil.getPriceString(item.getPaymtCost()));
+            getBinding().tvCarWashHistoryPrice.setText(StringUtil.isValidString(item.getDsctNm()));
 
             //버튼 클릭 리스너 및 해당 버튼 처리에 필요한 데이터 세팅
             setSingleClickListenerAndData(item, pos);
