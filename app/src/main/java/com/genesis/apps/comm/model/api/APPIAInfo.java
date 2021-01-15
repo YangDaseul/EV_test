@@ -73,9 +73,9 @@ public enum APPIAInfo {
 
     GM_BT01_P01("GM_BT01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "버틀러 서비스 안내 팝업"),
     GM_BT01_P02("GM_BT01_P02", null, VariableType.QUICK_MENU_CODE_NONE, "버틀러 신청 안내 팝업"),
-    GM_BT02("GM_BT02", BtrBluehandsActivity.class, VariableType.QUICK_MENU_CODE_OV, "전담 블루핸즈/버틀러"),
+    GM_BT02("GM_BT02", BtrBluehandsActivity.class, VariableType.QUICK_MENU_CODE_NONE, "전담 블루핸즈/버틀러"), //2021-01-16 요청으로 삭제
     GM_BT03("GM_BT03", null, VariableType.QUICK_MENU_CODE_NONE, "블루핸즈 위치 상세"),
-    GM_BT04("GM_BT04", BtrConsultTypeActivity.class, VariableType.QUICK_MENU_CODE_OV, "버틀러 1:1 문의"),
+    GM_BT04("GM_BT04", BtrConsultTypeActivity.class, VariableType.QUICK_MENU_CODE_NONE, "버틀러 1:1 문의"), //2021-01-16 요청으로 삭제
     GM_BT04_P01("GM_BT04_P01", null, VariableType.QUICK_MENU_CODE_NONE, "버틀러 문의 종료 팝업"),
     GM_BT05("GM_BT05", null, VariableType.QUICK_MENU_CODE_NONE, "상담 이력"),
     GM_BT06_P01("GM_BT06_P01", null, VariableType.QUICK_MENU_CODE_NONE, "GPS 설정 안내 팝업"),
