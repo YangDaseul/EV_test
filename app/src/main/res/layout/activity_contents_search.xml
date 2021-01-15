@@ -38,6 +38,8 @@
                 android:id="@+id/et_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/mg00_msg_3"
+                android:fontFamily="@font/regular_genesissanstextglobal"
                 android:padding="16dp"
                 android:inputType="text"
                 android:imeOptions="actionSearch"
