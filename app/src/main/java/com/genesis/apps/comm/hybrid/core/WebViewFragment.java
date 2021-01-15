@@ -353,7 +353,7 @@ public abstract class WebViewFragment extends Fragment {
 				ViewGroup.LayoutParams.MATCH_PARENT));
 
 	}
-	final long CACHE_UNIT=1_048_576;
+	final long CACHE_UNIT=1_048_576L;
 	final long CACHE_MAX_SIZE = 5 * CACHE_UNIT;
 	/**
 	 * 웹뷰 설정

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
@@ -156,7 +157,8 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
     }
 
     private void doNext(){
-        if(isValid()){
+        final boolean isValid = isValid();
+        if(isValid){
             clearKeypad();
             VOCInfoVO vocInfoVO = new VOCInfoVO();
             vocInfoVO.setRdwNmDtlAdr(ui.etAddrDtl.getText().toString().trim());
@@ -177,6 +179,9 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
             vocInfoVO.setCsmrTymd(ui.tvCsmrTymd.getText().toString().replaceAll("\\.",""));
             vocInfoVO.setCsmrNm(ui.tvCsmrNm.getText().toString());
             startActivitySingleTop(new Intent(this, ServiceRelapseApply2Activity.class).putExtra(KeyNames.KEY_NAME_SERVICE_VOC_INFO_VO, vocInfoVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        }else{
+            Log.d(ServiceRelapseApply1Activity.class.getSimpleName(),"valid is false");
+            //do nothing
         }
     }
 

@@ -17,7 +17,7 @@ public class InteractionUtil {
      * @param v          대상 view 객체
      * @param scrollView 대상 객체에 대한 애니메이션 재생하는동안 스크롤을 못 하게 하고싶은 뷰
      */
-    private final static int UNIT_DURATION_TWO=2;
+    private final static long UNIT_DURATION_TWO=2L;
     public static void expand(final View v, @Nullable final View scrollView) {
         v.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         final int targetHeight = v.getMeasuredHeight();
