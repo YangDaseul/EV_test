@@ -337,8 +337,6 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
                         return checkValidPhoneNumber()&&checkValidEmail()&&false;
                     case R.id.l_addr_dtl:
                         return checkValidPhoneNumber()&&checkValidEmail()&&checkValidAddr()&&false;
-                    default:
-                        break;
                 }
             }
         }

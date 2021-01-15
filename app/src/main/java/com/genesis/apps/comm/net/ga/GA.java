@@ -1,6 +1,5 @@
 package com.genesis.apps.comm.net.ga;
 
-import android.app.Activity;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -14,15 +13,12 @@ import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.util.QueryString;
 import com.google.gson.JsonObject;
 
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import javax.inject.Inject;
 
-import static com.genesis.apps.comm.net.NetStatusCode.ERR_EXCEPTION_GA;
-import static com.genesis.apps.comm.net.NetStatusCode.ERR_EXCEPTION_UNKNOWN;
-import static com.genesis.apps.comm.net.NetStatusCode.SUCCESS;
 import static com.genesis.apps.comm.model.constants.GAInfo.CCSP_CLIENT_ID;
 import static com.genesis.apps.comm.model.constants.GAInfo.CCSP_SECRET;
 import static com.genesis.apps.comm.model.constants.GAInfo.GA_CALLBACK_URL;
@@ -30,6 +26,9 @@ import static com.genesis.apps.comm.model.constants.GAInfo.GA_REDIRECT_URL;
 import static com.genesis.apps.comm.model.constants.GAInfo.GA_URL;
 import static com.genesis.apps.comm.model.constants.GAInfo.HTTP_HEADER_NAME;
 import static com.genesis.apps.comm.model.constants.GAInfo.HTTP_HEADER_VALUE;
+import static com.genesis.apps.comm.net.NetStatusCode.ERR_EXCEPTION_GA;
+import static com.genesis.apps.comm.net.NetStatusCode.ERR_EXCEPTION_UNKNOWN;
+import static com.genesis.apps.comm.net.NetStatusCode.SUCCESS;
 
 public class GA {
     private static final String TAG=GA.class.getSimpleName();
@@ -419,7 +418,7 @@ public class GA {
 //        CCSP.getInstance().updateLoginInfo(context);
 //    }
 
-    private Random random = new Random();
+    private SecureRandom random = new SecureRandom();
     private String getRandomString(int len) {
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
