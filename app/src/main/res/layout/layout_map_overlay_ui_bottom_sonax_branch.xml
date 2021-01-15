@@ -136,6 +136,7 @@
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="6sp"
+            android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
             android:text="@{PhoneNumberUtils.formatNumber(data.getTelNo())}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintRight_toRightOf="parent"
