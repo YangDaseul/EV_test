@@ -12,15 +12,14 @@ import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
 import androidx.hilt.Assisted;
 import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
-
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-
 import lombok.Data;
 
 public @Data

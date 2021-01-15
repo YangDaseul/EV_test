@@ -149,17 +149,6 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
         }
     }
 
-    private String getVehicleName(int position) {
-        String vehicleName="--";
-        try{
-            vehicleName = vehicleList.get(position);
-        }catch (Exception e){
-            vehicleName="--";
-        }finally{
-            return vehicleName;
-        }
-    }
-
     private int getVehiclePosition(String selectVehicle){
         int pos=0;
 

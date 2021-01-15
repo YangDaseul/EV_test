@@ -359,6 +359,9 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
                 });
     }
 
+    private final long TIME_SEC=1_000;
+    private final int TIME_MINUTE=60;
+    private final int TIME_HOUR=5;
     //기사 배정 실패
     private void initViewNoDriver() {
         //layoutId : view stub 없음
@@ -376,7 +379,7 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
         autoCancelHandler = new Handler();
         autoCancelHandler.postDelayed(
                 this::onClickCancel,
-                1000 * 60 * 5);
+                TIME_SEC * TIME_MINUTE * TIME_HOUR);
     }
 
     //취소 버튼이 세 종류인데,

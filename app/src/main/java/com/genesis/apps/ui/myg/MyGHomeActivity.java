@@ -249,41 +249,44 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                 privilegeCarCnt = mypViewModel.getPrivilegeCarCnt(data.getPvilList());
             }catch (Exception e){
                 privilegeCarCnt = 1;
-            }finally {
-                if (privilegeCarCnt==1) {
-                    PrivilegeVO privilegeVO = null;
-                    try{
-                        privilegeVO = mypViewModel.getPrivilegeCar(data.getPvilList());
-                    }catch (Exception e){
-                        privilegeVO = null;
-                    }finally{
-                        ui.btnCarList.setVisibility(View.GONE);
-                        switch (privilegeVO.getJoinPsblCd()) {
-                            case PrivilegeVO.JOIN_CODE_APPLY_POSSIBLE:
-                                ui.btnStatus.setVisibility(View.GONE);
-                                ui.btnBenefit.setVisibility(View.GONE);
-                                ui.btnApply.setVisibility(View.VISIBLE);
-                                ui.btnApply.setTag(R.id.url, privilegeVO.getServiceUrl());
-                                break;
-                            case PrivilegeVO.JOIN_CODE_APPLYED:
-                                ui.btnStatus.setVisibility(View.VISIBLE);
-                                ui.btnBenefit.setVisibility(View.VISIBLE);
-                                ui.btnApply.setVisibility(View.GONE);
-                                ui.btnStatus.setTag(R.id.url, privilegeVO.getServiceUrl());
-                                ui.btnBenefit.setTag(R.id.url, privilegeVO.getServiceDetailUrl());
-                                break;
-                            default:
-                                ui.lPrivilege.setVisibility(View.GONE);
-                                break;
-                        }
-                    }
-                } else {
-                    ui.btnCarList.setVisibility(View.VISIBLE);
-                    ui.btnStatus.setVisibility(View.GONE);
-                    ui.btnBenefit.setVisibility(View.GONE);
-                    ui.btnApply.setVisibility(View.GONE);
-                }
             }
+            if (privilegeCarCnt == 1) {
+                PrivilegeVO privilegeVO = null;
+                try {
+                    privilegeVO = mypViewModel.getPrivilegeCar(data.getPvilList());
+                } catch (Exception e) {
+                    privilegeVO = null;
+                }
+                ui.btnCarList.setVisibility(View.GONE);
+                if(privilegeVO!=null) {
+                    switch (privilegeVO.getJoinPsblCd()) {
+                        case PrivilegeVO.JOIN_CODE_APPLY_POSSIBLE:
+                            ui.btnStatus.setVisibility(View.GONE);
+                            ui.btnBenefit.setVisibility(View.GONE);
+                            ui.btnApply.setVisibility(View.VISIBLE);
+                            ui.btnApply.setTag(R.id.url, privilegeVO.getServiceUrl());
+                            break;
+                        case PrivilegeVO.JOIN_CODE_APPLYED:
+                            ui.btnStatus.setVisibility(View.VISIBLE);
+                            ui.btnBenefit.setVisibility(View.VISIBLE);
+                            ui.btnApply.setVisibility(View.GONE);
+                            ui.btnStatus.setTag(R.id.url, privilegeVO.getServiceUrl());
+                            ui.btnBenefit.setTag(R.id.url, privilegeVO.getServiceDetailUrl());
+                            break;
+                        default:
+                            ui.lPrivilege.setVisibility(View.GONE);
+                            break;
+                    }
+                }else{
+                    ui.lPrivilege.setVisibility(View.GONE);
+                }
+            } else {
+                ui.btnCarList.setVisibility(View.VISIBLE);
+                ui.btnStatus.setVisibility(View.GONE);
+                ui.btnBenefit.setVisibility(View.GONE);
+                ui.btnApply.setVisibility(View.GONE);
+            }
+
         }
 
 

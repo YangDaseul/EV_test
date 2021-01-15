@@ -4,6 +4,7 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: "org.sonarqube"
 
 android {
     compileSdkVersion 29
@@ -235,4 +236,12 @@ dependencies {
 
     implementation 'com.androidadvance:topsnackbar:1.1.1'
 
+}
+
+
+sonarqube  {
+    androidVariant 'debug'
+    properties  {
+        property "sonar.sources", "src/main/java"
+    }
 }

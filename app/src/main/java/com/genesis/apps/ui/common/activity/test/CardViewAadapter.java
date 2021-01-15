@@ -10,8 +10,8 @@ import com.genesis.apps.R;
 import com.genesis.apps.databinding.SquareViewBinding;
 import com.genesis.apps.databinding.SquareViewLineBinding;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
-import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 import com.genesis.apps.ui.common.view.listview.test.Link;
+import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
 import java.util.Collections;
 

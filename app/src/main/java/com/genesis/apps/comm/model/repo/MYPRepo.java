@@ -3,7 +3,6 @@ package com.genesis.apps.comm.model.repo;
 import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.TestCode;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.gra.MYP_0001;
 import com.genesis.apps.comm.model.api.gra.MYP_0004;
@@ -24,7 +23,6 @@ import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.net.NetResultCallback;
 import com.genesis.apps.comm.net.NetUIResponse;
-import com.genesis.apps.ui.myg.MyGTermsActivity;
 import com.google.gson.Gson;
 
 import javax.inject.Inject;

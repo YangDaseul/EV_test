@@ -269,7 +269,7 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
                 list.add(TextUtils.isEmpty(istAmtVO.getOilAmt()) ? 0 : Float.parseFloat(istAmtVO.getOilAmt()));
                 list.add(TextUtils.isEmpty(istAmtVO.getEtcAmt()) ? 0 : Float.parseFloat(istAmtVO.getEtcAmt()));
                 list.add(TextUtils.isEmpty(istAmtVO.getCarWshAmt()) ? 0 : Float.parseFloat(istAmtVO.getCarWshAmt()));
-                maxValue = list.stream().max(Comparator.comparingDouble(o -> o)).get();
+                maxValue = list.stream().max(Comparator.comparingDouble(o -> o)).orElse(0f);
             }catch (Exception e){
                 e.printStackTrace();
             }

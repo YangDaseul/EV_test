@@ -117,7 +117,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         Log.d(TAG, "onActivityResult: reqCode : " + requestCode);
 
         //출발지 주소 얻어옴
-        if (requestCode == RequestCodes.REQ_CODE_FROM_ADDRESS.getCode()) {
+        if (requestCode == RequestCodes.REQ_CODE_FROM_ADDRESS.getCode()&&data!=null) {
             setAddressData(
                     FROM,
                     data,
@@ -128,7 +128,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
             );
         }
         //도착지 주소 얻어옴
-        else if (requestCode == RequestCodes.REQ_CODE_TO_ADDRESS.getCode()) {
+        else if (requestCode == RequestCodes.REQ_CODE_TO_ADDRESS.getCode()&&data!=null) {
             setAddressData(
                     TO,
                     data,

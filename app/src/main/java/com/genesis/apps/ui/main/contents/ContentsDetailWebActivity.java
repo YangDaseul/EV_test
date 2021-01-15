@@ -102,17 +102,19 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
 
                 break;
             case R.id.btn_rate:
-                VehicleVO vehicleVO = null;
+                VehicleVO vehicleVO;
                 try {
                     vehicleVO = lgnViewModel.getMainVehicleSimplyFromDB();
-                } catch (ExecutionException | InterruptedException e)  {
+                } catch (ExecutionException e){
                     vehicleVO = null;
                     e.printStackTrace();
+                } catch (InterruptedException e) {
+                    vehicleVO = null;
+                    Log.d(TAG, "InterruptedException");
+                    Thread.currentThread().interrupt();
                 }
-
-                Log.d(TAG, "mdlNm : " + vehicleVO.getMdlNm());
-                Log.d(TAG, "vin : " + vehicleVO.getVin());
-                cttViewModel.reqCTT1002(new CTT_1002.Request(APPIAInfo.CM01.getId(), contentsVO.getListSeqNo(), String.valueOf(mRate), vehicleVO.getMdlNm(), vehicleVO.getVin()));
+                if(vehicleVO!=null)
+                    cttViewModel.reqCTT1002(new CTT_1002.Request(APPIAInfo.CM01.getId(), contentsVO.getListSeqNo(), String.valueOf(mRate), vehicleVO.getMdlNm(), vehicleVO.getVin()));
 
                 break;
             case R.id.btn_link:
@@ -193,8 +195,11 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
             } else {
                 ui.includeLayout.llRate.setVisibility(View.GONE);
             }
-        } catch (ExecutionException | InterruptedException e) {
+        } catch (ExecutionException e){
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            Log.d(TAG, "InterruptedException");
+            Thread.currentThread().interrupt();
         }
 
         if("Y".equals(contentsVO.getLnkUseYn())) {

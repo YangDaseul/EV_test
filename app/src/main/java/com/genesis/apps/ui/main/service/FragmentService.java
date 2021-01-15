@@ -147,7 +147,7 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_AUTOCARE.getCode()) {
+        if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_AUTOCARE.getCode()&&data!=null) {
             //오토케어 서비스 예약 완료 시 페이지 이동
             RepairReserveVO repairReserveVO = (RepairReserveVO) data.getSerializableExtra(KeyNames.KEY_NAME_SERVICE_RESERVE_INFO);
             if (repairReserveVO != null) {
@@ -155,7 +155,7 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
                         , RequestCodes.REQ_CODE_ACTIVITY.getCode()
                         , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
             }
-        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_HOMETOHOME.getCode()) {
+        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_HOMETOHOME.getCode()&&data!=null) {
             //홈투홈 서비스 예약 완료 시 페이지 이동
             RepairReserveVO repairReserveVO = (RepairReserveVO) data.getSerializableExtra(KeyNames.KEY_NAME_SERVICE_RESERVE_INFO);
             if (repairReserveVO != null) {
@@ -163,7 +163,7 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
                         , RequestCodes.REQ_CODE_ACTIVITY.getCode()
                         , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
             }
-        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REPAIR.getCode()) {
+        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REPAIR.getCode()&&data!=null) {
             //정비 서비스 예약 완료 시 페이지 이동
             RepairReserveVO repairReserveVO = (RepairReserveVO) data.getSerializableExtra(KeyNames.KEY_NAME_SERVICE_RESERVE_INFO);
             if (repairReserveVO != null) {
@@ -172,9 +172,9 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
                         , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
             }
 
-        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REMOTE.getCode()) {
+        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REMOTE.getCode()&&data!=null) {
             //todo 원격진단 서비스 예약 완료 시 페이지 이동
-        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_NETWORK_RESERVE.getCode()) {
+        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_NETWORK_RESERVE.getCode()&&data!=null) {
             //서비스네트워크에서 예약 선택 시
             RepairTypeVO repairTypeVO = (RepairTypeVO) data.getSerializableExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE);
             BtrVO btrVO = (BtrVO) data.getSerializableExtra(KeyNames.KEY_NAME_BTR);

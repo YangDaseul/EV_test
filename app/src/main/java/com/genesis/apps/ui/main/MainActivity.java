@@ -215,10 +215,6 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         Log.e("onResume","onReusme Mainactivity");
         checkPushCode();
         reqNewNotiCnt();
-//        FirebaseMessagingService.notifyMessageTest(this, new PushVO(), PushCode.CAT_0E);
-
-
-
     }
 
     private void reqNewNotiCnt() {
@@ -367,13 +363,13 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             newNotiCnt_i = Integer.parseInt(newNotiCnt);
         }catch (Exception e){
             newNotiCnt_i = 0;
-        }finally{
-            if(newNotiCnt_i>0){
-                return true;
-            }else{
-                return false;
-            }
         }
+        if (newNotiCnt_i > 0) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 

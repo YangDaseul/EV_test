@@ -88,18 +88,6 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".comm.util.graph.AnotherBarActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".comm.util.graph.PieChartActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".comm.util.graph.StackedBarActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ui.common.activity.GAWebActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -107,12 +95,6 @@
             android:name=".ui.intro.PermissionsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.common.activity.ConstraintSetActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout"
-            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.main.BarcodeActivity"
             android:exported="false"
@@ -438,17 +420,8 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.common.activity.test.TestActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout" />
-        <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" /> <!-- optional (needed if default theme has no action bar) -->
-        <activity
-            android:name=".ui.common.activity.test.TestLayoutActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" /> <!-- 하자 재발 신청 내역 -->
         <activity
             android:name=".ui.main.service.ServiceRelapseHistoryActivity"
             android:exported="false"

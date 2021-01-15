@@ -23,6 +23,8 @@ package com.genesis.apps.comm.net;
  */
 
 
+import android.util.Log;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -77,7 +79,6 @@ import java.util.zip.GZIPInputStream;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
@@ -290,9 +291,9 @@ public class HttpRequest {
                 }
             } };
             try {
-                SSLContext context = SSLContext.getInstance("TLS");
-                context.init(null, trustAllCerts, new SecureRandom());
-                TRUSTED_FACTORY = context.getSocketFactory();
+                SSLContext sslcontext = SSLContext.getInstance("TLSv1.2");
+                sslcontext.init(null, trustAllCerts, new SecureRandom());
+                TRUSTED_FACTORY = sslcontext.getSocketFactory();
             } catch (GeneralSecurityException e) {
                 IOException ioException = new IOException(
                         "Security exception configuring SSL context");
@@ -306,12 +307,7 @@ public class HttpRequest {
 
     private static HostnameVerifier getTrustedVerifier() {
         if (TRUSTED_VERIFIER == null)
-            TRUSTED_VERIFIER = new HostnameVerifier() {
-
-                public boolean verify(String hostname, SSLSession session) {
-                    return true;
-                }
-            };
+            TRUSTED_VERIFIER = (hostname, session) -> hostname.equalsIgnoreCase(session.getPeerHost());
 
         return TRUSTED_VERIFIER;
     }
@@ -681,7 +677,7 @@ public class HttpRequest {
          * @return {@link IOException} cause
          */
         @Override
-        public IOException getCause() {
+        public synchronized IOException getCause() {
             return (IOException) super.getCause();
         }
     }
@@ -725,7 +721,7 @@ public class HttpRequest {
                     done();
                 } catch (IOException e) {
                     if (!thrown)
-                        throw new HttpRequestException(e);
+                        Log.d(HttpRequest.class.getSimpleName(), "Operation: error");
                 }
             }
         }

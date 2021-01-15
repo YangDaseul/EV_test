@@ -221,7 +221,7 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
             selectedDate.getFirstDate().set(Calendar.SECOND, 0);
             selectedDate.getFirstDate().set(Calendar.MILLISECOND, 0);
 
-            if (endDate != null && selectedDate.getFirstDate().compareTo(endDate) == 1) {
+            if (endDate != null && selectedDate.getFirstDate().compareTo(endDate) > 0) { // ==1
                 SnackBarUtil.show(MyGMembershipUseListActivity.this, "시작일은 종료일보다 클 수 없습니다.\n확인 후 다시 시도해 주십시오.");
             } else {
                 startDate = selectedDate.getFirstDate();
@@ -249,7 +249,7 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
             selectedDate.getFirstDate().set(Calendar.SECOND, 0);
             selectedDate.getFirstDate().set(Calendar.MILLISECOND, 0);
 
-            if (startDate != null && startDate.compareTo(selectedDate.getFirstDate()) == 1) {
+            if (startDate != null && startDate.compareTo(selectedDate.getFirstDate()) > 0) { // ==1
                 SnackBarUtil.show(MyGMembershipUseListActivity.this, "종료일은 시작일보다 작을 수 없습니다.\n확인 후 다시 시도해 주십시오.");
             } else {
                 endDate = selectedDate.getStartDate();

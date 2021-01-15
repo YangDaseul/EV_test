@@ -18,6 +18,7 @@ import com.genesis.apps.comm.model.vo.RepairReserveVO;
 import com.genesis.apps.comm.model.vo.RepairVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.FragmentServiceRepairStatusBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
@@ -261,15 +262,14 @@ public class FragmentServiceRepairStatus extends SubFragment<FragmentServiceRepa
                         serverMsg = result.data.getRtMsg();
                     } catch (Exception e) {
                         e.printStackTrace();
-                    } finally {
-                        if(result.data.getRtCd().equalsIgnoreCase("2005"))//조회된 정보가 없을 경우 에러메시지 출력하지 않음
-                            return;
-
-                        if (TextUtils.isEmpty(serverMsg)) {
-                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
-                        }
-                        SnackBarUtil.show(getActivity(), serverMsg);
                     }
+                    if (StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("2005"))//조회된 정보가 없을 경우 에러메시지 출력하지 않음
+                        return;
+
+                    if (TextUtils.isEmpty(serverMsg)) {
+                        serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                    }
+                    SnackBarUtil.show(getActivity(), serverMsg);
                     break;
             }
         });

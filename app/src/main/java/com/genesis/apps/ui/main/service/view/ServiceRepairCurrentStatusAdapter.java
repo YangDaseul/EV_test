@@ -49,9 +49,8 @@ public class ServiceRepairCurrentStatusAdapter extends BaseRecyclerViewAdapter2<
             }
         }catch (Exception e){
             isFinish = false;
-        }finally{
-            return isFinish;
         }
+        return isFinish;
     }
 
 
@@ -127,10 +126,9 @@ public class ServiceRepairCurrentStatusAdapter extends BaseRecyclerViewAdapter2<
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            Log.v("test","testStringLog:"+activity.getString(textId) +"      stusCd:"+stusCd);
-            return activity.getString(textId);
         }
+        Log.v("test", "testStringLog:" + activity.getString(textId) + "      stusCd:" + stusCd);
+        return activity.getString(textId);
     }
 
 

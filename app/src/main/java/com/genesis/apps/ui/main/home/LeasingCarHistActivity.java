@@ -186,7 +186,8 @@ public class LeasingCarHistActivity extends SubActivity<ActivityLeasingCarHistBi
         //신청 취소 시 스낵바 메시지 활성화 및 리스트를 다시 갱신
              String msg="";
              try {
-                 msg = data.getStringExtra("msg");
+                 if(data!=null)
+                    msg = data.getStringExtra("msg");
              }catch (Exception e){
                  e.printStackTrace();
              }finally{

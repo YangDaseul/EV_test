@@ -137,9 +137,11 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
     private void initMainVehicle() {
         try {
             mainVehicle = lgnViewModel.getMainVehicleSimplyFromDB();
-        } catch (ExecutionException | InterruptedException e) {
+        } catch (ExecutionException e){
             e.printStackTrace();
-            //TODO 차량 정보 접근 실패에 대한 예외처리
+        } catch (InterruptedException e) {
+            Log.d(TAG, "InterruptedException");
+            Thread.currentThread().interrupt();
         }
     }
 

@@ -2,12 +2,6 @@ package com.genesis.apps.comm.viewmodel;
 
 import android.text.TextUtils;
 
-import androidx.hilt.Assisted;
-import androidx.hilt.lifecycle.ViewModelInject;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.SavedStateHandle;
-import androidx.lifecycle.ViewModel;
-
 import com.genesis.apps.comm.model.api.developers.CarCheck;
 import com.genesis.apps.comm.model.api.developers.CarConnect;
 import com.genesis.apps.comm.model.api.developers.CarId;
@@ -30,13 +24,17 @@ import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
+import androidx.hilt.Assisted;
+import androidx.hilt.lifecycle.ViewModelInject;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
+import androidx.lifecycle.ViewModel;
 import lombok.Data;
 
 import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_OV;
@@ -328,9 +326,9 @@ class DevelopersViewModel extends ViewModel {
 
         } catch (Exception e) {
 
-        } finally {
-            return carId;
         }
+
+        return carId;
     }
 
     public String getDateYyyyMMdd(int day) {
@@ -344,9 +342,9 @@ class DevelopersViewModel extends ViewModel {
             date = DateUtil.getDate(calendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            return date;
         }
+
+        return date;
     }
 
     public VehicleVO getMainVehicleSimplyFromDB() throws ExecutionException, InterruptedException {

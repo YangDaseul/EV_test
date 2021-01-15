@@ -1,22 +1,11 @@
 package com.genesis.apps.ui.main;
 
-import android.content.res.AssetManager;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
-
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.request.transition.DrawableCrossFadeTransition;
-import com.bumptech.glide.request.transition.Transition;
-import com.bumptech.glide.request.transition.TransitionFactory;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.VehicleVO;
@@ -25,13 +14,12 @@ import com.genesis.apps.databinding.FragmentHomeBinding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.home.view.VehicleViewpagerAdapter;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 public class FragmentHome extends SubFragment<FragmentHomeBinding> {
-//    private ExampleViewModel exampleViewModel;
 //    private WeatherPointViewModel weatherPointViewModel;
 //    private MapViewModel mapViewModel;
 
