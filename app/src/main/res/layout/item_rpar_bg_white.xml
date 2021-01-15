@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.Gravity"/>
         <import type="android.text.TextUtils" />
 
         <variable
@@ -14,6 +14,26 @@
         <variable
             name="msg"
             type="String" />
+
+        <variable
+            name="isLeft"
+            type="boolean" />
+
+        <variable
+            name="textColor"
+            type="int" />
+
+        <variable
+            name="maxLine"
+            type="Integer" />
+
+        <variable
+            name="iconId"
+            type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="listener"
+            type="com.genesis.apps.ui.common.view.listener.OnSingleClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,10 +65,10 @@
             android:layout_marginStart="1dp"
             android:ellipsize="end"
             android:fontFamily="@font/regular_genesissanstextglobal"
-            android:gravity="center"
+            android:gravity="@{isLeft ? Gravity.CENTER_VERTICAL : Gravity.CENTER}"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="4dp"
-            android:maxLines="1"
+            android:maxLines="@{maxLine==0 ? 1 : maxLine}"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             android:text="@{msg}"
