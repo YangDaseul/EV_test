@@ -64,6 +64,8 @@
     <string name="snackbar_etc_2">번호가 변경되었습니다.</string>
     <string name="snackbar_etc_3">검색 결과가 없습니다.</string>
 
+    <string name="rate_error_1">평점을 선택해 주세요.</string>
+
 
 
 </resources>
