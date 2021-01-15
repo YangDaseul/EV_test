@@ -15,6 +15,7 @@ import com.genesis.apps.comm.model.api.gra.WSH_1006;
 import com.genesis.apps.comm.model.vo.WashReserveVO;
 import com.genesis.apps.comm.util.PhoneUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.ActivityCarWashHistoryBinding;
@@ -77,6 +78,7 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
                 inputBranchCodeDialog.setOnDismissListener(
                         dialogInterface -> {
                             if (inputBranchCodeDialog.isInputConfirmed()) {
+                                SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
                                 itemPosition = (int) v.getTag(R.id.item_position); //결과 처리할 곳에서 쓰기 위해 저장
                                 String newBrnhCd = inputBranchCodeDialog.getBranchCode();
                                 viewModel.reqWSH1005(new WSH_1005.Request(APPIAInfo.SM_CW01_P02.getId(), rsvtSeqNo, newBrnhCd));
