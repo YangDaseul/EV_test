@@ -39,40 +39,17 @@
             tools:text="123-4556-8987" />
 
         <!-- 전화하기 버튼 -->
-        <LinearLayout
+        <include
             android:id="@+id/ll_service_drive_status_call_btn"
-            android:orientation="horizontal"
+            layout="@layout/item_btn_underline_mark_gold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="14dp"
-            android:paddingTop="7dp"
-            android:paddingEnd="14dp"
-            android:paddingBottom="7dp"
-            android:background="@drawable/ripple_bg_ffffff"
-            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:layout_marginRight="20dp"
+            android:onClick="@{(v) -> activity.onSingleClickListener.onClick(v)}"
+            app:btnNm="@{@string/service_drive_req_result_btn_01}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/tv_service_drive_status_call_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_trans_underline_000000"
-                android:fontFamily="@font/regular_genesissanstextglobal"
-                android:text="@string/service_drive_req_result_btn_01"
-                android:textColor="@color/x_000000"
-                android:textSize="14dp"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="30sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/btn_arrow_open_r_g" />
-
-        </LinearLayout>
+            app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
