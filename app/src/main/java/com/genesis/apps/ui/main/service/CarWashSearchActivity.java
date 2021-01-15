@@ -2,11 +2,14 @@ package com.genesis.apps.ui.main.service;
 
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.WebView;
+import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
@@ -190,8 +193,17 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
     @Override
     public void onClickCommon(View v) {
         Log.d(TAG, "onClickCommon: ");
-
         switch (v.getId()) {
+            //전화걸기
+            case R.id.tv_map_sonax_branch_phone:
+                String tel="";
+                try{
+                    tel = ((TextView)v).getText().toString().replaceAll("-","");
+                }catch (Exception e){
+                    tel = "";
+                }
+                if(!TextUtils.isEmpty(tel)) startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + tel)));
+                break;
 
             //내 위치 버튼
             case R.id.btn_my_position:
