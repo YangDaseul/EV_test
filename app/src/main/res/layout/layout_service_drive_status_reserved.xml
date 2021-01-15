@@ -15,19 +15,24 @@
         <!-- "예약일시" -->
         <TextView
             android:id="@+id/tv_service_drive_status_reserved_title"
-            style="@style/ServiceDriveReqResult.Status.Text.Light"
+            style="@style/ServiceDriveReqResult.Status.Text.Regular"
             android:text="@string/service_drive_req_result_08"
-            android:textSize="13dp"
+            android:textSize="14dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <!-- 예약 일시 : value -->
         <TextView
             android:id="@+id/tv_service_drive_status_reserved_data"
             style="@style/ServiceDriveReqResult.Status.Text.Regular"
+            android:layout_marginLeft="14dp"
+            android:textColor="@color/x_4d4d4d"
             android:text="@{date}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_service_drive_status_reserved_title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_service_drive_status_reserved_title"
+            app:layout_constraintRight_toRightOf="parent"
             tools:text="2020.13.32 오전 -11:67" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

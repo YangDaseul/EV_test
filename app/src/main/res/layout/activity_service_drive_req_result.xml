@@ -30,60 +30,54 @@
             android:id="@+id/l_service_drive_req_result_top_background_4f4f4f"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/x_f4f4f4"
+            android:background="@color/x_ffffff"
             android:orientation="vertical"
-            android:paddingStart="20dp"
-            android:paddingTop="30dp"
-            android:paddingEnd="20dp"
-            android:paddingBottom="30dp"
+            android:padding="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/l_service_drive_req_result_titlebar"
-            tools:background="#a0f040">
+            app:layout_constraintTop_toBottomOf="@id/l_service_drive_req_result_titlebar">
 
-            <!-- 최외곽 회색배격 안쪽 흰색 둥근사각형  -->
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/iv_service_drive_req_result_fromto_back_panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_ffffff_round_10"
-                android:padding="20dp">
+                android:padding="20dp"
+                android:background="@color/x_f8f8f8">
 
                 <!-- 차종 -->
                 <TextView
                     android:id="@+id/tv_service_drive_ready_car_model"
                     style="@style/ServiceDrive.RegularHead"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:textSize="14dp"
                     android:text="@{activity.serviceReqData.getMdlNm()}"
-                    app:layout_constraintStart_toStartOf="@id/iv_service_drive_req_result_fromto_back_panel"
-                    app:layout_constraintTop_toTopOf="@id/iv_service_drive_req_result_fromto_back_panel"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
                     tools:text="GV 70" />
 
                 <!-- 번호판 -->
                 <TextView
                     android:id="@+id/tv_service_drive_ready_car_number"
                     style="@style/ServiceDrive.Light"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
                     android:text="@{activity.serviceReqData.getCarRegNo()}"
-                    android:textSize="18dp"
-                    app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_ready_car_model"
-                    app:layout_constraintEnd_toEndOf="@id/iv_service_drive_req_result_fromto_back_panel"
+                    android:textSize="14dp"
+                    android:textColor="@color/x_4d4d4d"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_service_drive_ready_car_model"
+                    app:layout_constraintLeft_toLeftOf="@+id/tv_service_drive_ready_car_model"
                     tools:text="123너 1231" />
 
-                <!-- 이동 경로 뷰 -->
-                <include
-                    android:id="@+id/l_service_drive_req_result_route"
-                    layout="@layout/layout_service_drive_route"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="5dp"
-                    app:FROM="@{activity.serviceReqData.getPosInfo()[0]}"
-                    app:TO="@{activity.serviceReqData.getPosInfo()[1]}"
-                    app:layout_constraintEnd_toEndOf="@id/iv_service_drive_req_result_fromto_back_panel"
-                    app:layout_constraintStart_toStartOf="@id/iv_service_drive_req_result_fromto_back_panel"
-                    app:layout_constraintTop_toBottomOf="@id/tv_service_drive_ready_car_model" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- 이동 경로 뷰 -->
+            <include
+                android:id="@+id/l_service_drive_req_result_route"
+                layout="@layout/layout_service_drive_route"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:FROM="@{activity.serviceReqData.getPosInfo()[0]}"
+                app:TO="@{activity.serviceReqData.getPosInfo()[1]}" />
+
         </LinearLayout>
 
         <!-- 대리 기사 배정 상태 타이틀 -->
@@ -93,7 +87,7 @@
             style="@style/ServiceDriveReqResult.Info"
             android:layout_marginTop="30dp"
             android:text="@{activity.statusTitle}"
-            android:textColor="@color/x_a36b4f"
+            android:textColor="@color/x_996449"
             android:textSize="22dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
