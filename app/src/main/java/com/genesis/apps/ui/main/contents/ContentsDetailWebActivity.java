@@ -43,7 +43,7 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
     private LGNViewModel lgnViewModel;
     private CTT_1004.Response contentsVO;
     private View[] ratingViews;
-    private int mRate = 1;
+    private int mRate = 0;
     public MyWebViewFrament fragment;
     public ContentsVO item;
     public String url = ""; //초기 접속 URL
@@ -102,6 +102,12 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
 
                 break;
             case R.id.btn_rate:
+                if(mRate == 0) {
+                    SnackBarUtil.show(this, getString(R.string.rate_error_1));
+
+                    return;
+                }
+
                 VehicleVO vehicleVO;
                 try {
                     vehicleVO = lgnViewModel.getMainVehicleSimplyFromDB();
