@@ -1,10 +1,13 @@
 package com.genesis.apps.ui.main.service;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
@@ -64,8 +67,9 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
         switch (id) {
             //통화하기
             case R.id.tv_car_wash_history_call:
+            case R.id.l_whole:
                 String phoneNumber = tag.getTelNo();
-                PhoneUtil.phoneDial(this, phoneNumber);
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + phoneNumber)));
                 break;
 
             //직원에게 확인

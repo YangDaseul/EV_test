@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.service;
 
+import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +69,7 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
 
             //결제금액 -> 할인명으로 변경 표기
 //            getBinding().tvCarWashHistoryPrice.setText(StringUtil.getPriceString(item.getPaymtCost()));
-            getBinding().tvCarWashHistoryPrice.setText(StringUtil.isValidString(item.getDsctNm()));
+            getBinding().tvCarWashHistoryPrice.setText(TextUtils.isEmpty(item.getDsctNm()) ? "0% 할인" : item.getDsctNm());
 
             //버튼 클릭 리스너 및 해당 버튼 처리에 필요한 데이터 세팅
             setSingleClickListenerAndData(item, pos);
@@ -93,11 +94,11 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
             switch (status) {
                 case WSH_1004.RESERVE_VALID:
                     //상단 결제방식, 하단 세부정보 visible
-                    getBinding().tvCarWashHistoryPaytype.setVisibility(View.VISIBLE);
+//                    getBinding().tvCarWashHistoryPaytype.setVisibility(View.VISIBLE);
                     getBinding().lCarWashHistoryBottom.setVisibility(View.VISIBLE);
 
                     //결제방식 표시
-                    setPayType(payType);
+//                    setPayType(payType);
 
                     //상단 이용완료or취소, 하단 지점명 gone
                     getBinding().tvCarWashHistoryServiceEnd.setVisibility(View.GONE);
@@ -106,8 +107,8 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
 
                 case WSH_1004.RESERVE_COMPLETED:
                 case WSH_1004.RESERVE_CANCELED:
-                    //상단 결제방식, 하단 세부정보 gone
-                    getBinding().tvCarWashHistoryPaytype.setVisibility(View.GONE);
+//                    //상단 결제방식, 하단 세부정보 gone
+//                    getBinding().tvCarWashHistoryPaytype.setVisibility(View.GONE);
                     getBinding().lCarWashHistoryBottom.setVisibility(View.GONE);
 
                     //상단 이용완료or취소, 하단 지점명 visible
@@ -157,8 +158,8 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
         //리스너를 연결하고, 이를 처리하는데 필요한 데이터도 저장
         private void setSingleClickListenerAndData(WashReserveVO item, int pos) {
             //통화하기
-            getBinding().tvCarWashHistoryCall.setOnClickListener(singleClickListener);
-            getBinding().tvCarWashHistoryCall.setTag(R.id.tag_wash_history, item);
+            getBinding().tvCarWashHistoryCall.lWhole.setOnClickListener(singleClickListener);
+            getBinding().tvCarWashHistoryCall.lWhole.setTag(R.id.tag_wash_history, item);
 
             //직원에게확인
             getBinding().tvCarWashHistoryConfirm.setOnClickListener(singleClickListener);
@@ -169,13 +170,6 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
             getBinding().tvCarWashHistoryCancel.setOnClickListener(singleClickListener);
             getBinding().tvCarWashHistoryCancel.setTag(R.id.tag_wash_history, item);
             getBinding().tvCarWashHistoryCancel.setTag(R.id.item_position, pos);
-
-            //TODO : 임시 진입점 설정
-            // 이용 완료 버튼에 평가하기 호출 붙여둠
-//            getBinding().tvCarWashHistoryServiceEnd.setOnClickListener(singleClickListener);
-//            getBinding().tvCarWashHistoryServiceEnd.setTag(R.id.tag_wash_history, item);
-//            getBinding().tvCarWashHistoryServiceEnd.setClickable(true);
-//            getBinding().tvCarWashHistoryServiceEnd.setFocusable(true);
         }
     }
 
