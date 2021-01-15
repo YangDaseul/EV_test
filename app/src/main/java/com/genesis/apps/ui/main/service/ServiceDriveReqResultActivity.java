@@ -455,7 +455,7 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
 
     //자동취소 타이머를 취소
     private void cancelTimer() {
-        autoCancelHandler.removeCallbacksAndMessages(null);
+        if(autoCancelHandler != null) autoCancelHandler.removeCallbacksAndMessages(null);
     }
 
     //다시 요청(기사 배정 실패 후, 배정 재요청)
