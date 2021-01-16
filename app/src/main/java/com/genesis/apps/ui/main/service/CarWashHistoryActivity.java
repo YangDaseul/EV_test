@@ -77,7 +77,7 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
                 rsvtSeqNo = tag.getRsvtSeqNo();
                 String oldBrnhCd = tag.getBrnhCd();
 
-                final BottomDialogInputBranchCode inputBranchCodeDialog = new BottomDialogInputBranchCode(this, oldBrnhCd, R.style.BottomSheetDialogTheme);
+                final BottomDialogInputBranchCode inputBranchCodeDialog = new BottomDialogInputBranchCode(this, oldBrnhCd, R.style.BottomSheetDialogTheme, adapter!=null ? adapter.getItems() : null);
                 inputBranchCodeDialog.setOnDismissListener(
                         dialogInterface -> {
                             if (inputBranchCodeDialog.isInputConfirmed()) {
