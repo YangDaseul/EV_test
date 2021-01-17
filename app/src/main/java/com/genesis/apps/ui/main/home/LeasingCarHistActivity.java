@@ -32,7 +32,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 /**
  * @author hjpark
- * @brief 렌트리스 실운행자 내역
+ * @brief 렌트리스 실 운행자 내역
  */
 public class LeasingCarHistActivity extends SubActivity<ActivityLeasingCarHistBinding> {
     private GNSViewModel gnsViewModel;

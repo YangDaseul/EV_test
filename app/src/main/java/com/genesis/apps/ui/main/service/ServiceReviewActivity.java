@@ -198,9 +198,7 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
 
                                     break;
                                 } else if("9030".equals(result.data.getRtCd())) {
-                                    SnackBarUtil.show(this, getString(R.string.service_review_duplicate));
-                                    new Handler().postDelayed(() -> finish(), 2000);
-
+                                    rejectReview();
                                     break;
                                 }
                             }

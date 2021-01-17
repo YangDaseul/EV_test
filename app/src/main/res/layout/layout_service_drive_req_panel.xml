@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="isRound"
             type="boolean" />
@@ -13,17 +12,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@{isRound?@drawable/bg_f4f4f4_round_10:@drawable/bg_f4f4f4}"
-        android:padding="20dp"
-        tools:background="#aaff88">
+        android:background="@color/x_f8f8f8"
+        android:padding="20dp">
 
         <!-- 차종 -->
         <TextView
             android:id="@+id/tv_service_req_car_model"
-            style="@style/ServiceDrive.RegularHead"
+            style="@style/ServiceDrive.RegularText"
             android:layout_width="0dp"
             android:maxLines="1"
-            android:fontFamily="@font/regular_genesissanstextglobal"
             android:textSize="14dp"
             app:layout_constraintBottom_toTopOf="@id/tv_service_req_car_number"
             app:layout_constraintEnd_toStartOf="@id/l_service_drive_req_info"

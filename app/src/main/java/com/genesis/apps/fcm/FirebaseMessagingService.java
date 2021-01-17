@@ -17,10 +17,10 @@ import com.genesis.apps.ui.common.activity.PushDummyActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.StringReader;
 import java.net.URL;
 
 import androidx.core.app.NotificationCompat;
@@ -29,53 +29,47 @@ import androidx.core.app.NotificationCompat;
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 
     private static final String TAG = FirebaseMessagingService.class.getSimpleName();
-    private static final int NOTIFICATION_ID = 687987; //TODO 2020-07-16 PUSH 정책에 따라 변경
+    private static final int NOTIFICATION_ID = 687987;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
-        //TODO 2020-07-16 PUSH DB 저장 유무 확인 필요
-//        PushEventBus.Message m = new PushEventBus.Message(PushEventBus.Event.RECEIVE_NEW_PUSH);
-//        PushEventBus.getInstance().post(m);
-
-        try {
-            if (remoteMessage.getData().size() > 0) {
-                Log.d(TAG, "Message data payload: " + remoteMessage.getData().toString());
-                JsonReader reader = new JsonReader(new StringReader(remoteMessage.getData().toString()));
-                reader.setLenient(true);
-                PushVO.PushData data = new Gson().fromJson(reader, PushVO.PushData.class);
-
-                reader = new JsonReader(new StringReader(remoteMessage.getNotification().toString()));
-                reader.setLenient(true);
-                PushVO.Notification noti = new Gson().fromJson(reader, PushVO.Notification.class);
-
-//                JsonObject json = new Gson().fromJson(remoteMessage.getData().toString(), JsonObject.class);
-//                PushVO.PushData data = new Gson().fromJson(json.toString(), PushVO.PushData.class);
-
-//                json = new Gson().fromJson(remoteMessage.getNotification().toString(), JsonObject.class);
-//                PushVO.Notification noti = new Gson().fromJson(json.toString(), PushVO.Notification.class);
-
-                PushVO pushVO = new PushVO();
-                pushVO.setData(data);
-                pushVO.setNotification(noti);
-
-                notifyMessage(pushVO, PushCodes.findCodeByCd(pushVO.getData().getLgrCatCd()));
-
-            }
-        }catch (Exception e){
-            //do nothing
+        Log.e(TAG, "From:receive push");
+        if (remoteMessage != null) {
+            Log.e(TAG, "From: " + remoteMessage.getFrom());
+            PushVO.PushData data = getPushData(remoteMessage);
+            PushVO.Notification notification = getNotification(remoteMessage);
+            PushVO pushVO = new PushVO();
+            pushVO.setData(data);
+            pushVO.setNotification(notification);
+            notifyMessage(pushVO, PushCodes.findCodeByCd(pushVO.getData()!=null ? pushVO.getData().getLgrCatCd() : ""));
         }
+    }
+
+    private PushVO.PushData getPushData(RemoteMessage remoteMessage) {
+        PushVO.PushData data = null;
+        if (remoteMessage != null && remoteMessage.getData()!=null && remoteMessage.getData().size() > 0) {
+            Log.e(TAG, "Message data payload: " + remoteMessage.getData().toString());
+            JSONObject json = new JSONObject(remoteMessage.getData());
+            data = new Gson().fromJson(json.toString(), PushVO.PushData.class);
+        }
+        return data;
+    }
+
+    private PushVO.Notification getNotification(RemoteMessage remoteMessage) {
+        PushVO.Notification noti = new PushVO.Notification();
+        if (remoteMessage != null && remoteMessage.getNotification() != null) {
+            noti.setTitle(remoteMessage.getNotification().getTitle());
+            noti.setBody(remoteMessage.getNotification().getBody());
+        }
+        return noti;
     }
 
     private void notifyMessage(PushVO pushVO, PushCodes code) {
         Log.d(TAG, "push test2: " + code);
-        if (pushVO.getNotification() != null) {
+        if (pushVO.getNotification() != null && !TextUtils.isEmpty(pushVO.getNotification().getTitle()) && !TextUtils.isEmpty(pushVO.getNotification().getBody())) {
             String head = pushVO.getNotification().getTitle();
             String body = pushVO.getNotification().getBody();
-
             Intent intent = new Intent(this, PushDummyActivity.class);
-
-
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                     | Intent.FLAG_ACTIVITY_CLEAR_TOP
                     | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -101,7 +95,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 //                    .addAction(R.drawable.ic_info_1, "added action", pIntent)
                     .setContentIntent(pIntent);
 
-            if (pushVO.getData() != null && TextUtils.isEmpty(pushVO.getData().getImgFilUri1())) {
+            if (pushVO.getData() != null && !TextUtils.isEmpty(pushVO.getData().getImgFilUri1())) {
                 try {
                     URL url = new URL(pushVO.getData().getImgFilUri1());
                     //이미지 처리
@@ -110,7 +104,8 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                             new NotificationCompat.BigPictureStyle()
                                     .bigPicture(bigPicture)
                                     .setBigContentTitle(head)
-                                    .setSummaryText(body));
+                                    .setSummaryText(body))
+                            .setContentIntent(pIntent);
 
 //                                                        .bigPicture(bigPicture)
 //                            .setBigContentTitle(remoteMessage.getData().get("title"))

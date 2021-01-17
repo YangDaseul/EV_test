@@ -8,7 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:paddingLeft="20dp"
         android:paddingTop="30dp"
         android:paddingRight="20dp">
@@ -69,7 +69,7 @@
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="9dp"
             android:text="@string/gm_carlst_03_5"
-            android:textColor="@color/x_000000"
+            android:textColor="@color/x_262626"
             android:textSize="13dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -114,24 +114,13 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_info_1" />
 
 
-        <TextView
+        <include
             android:id="@+id/btn_guide"
+            layout="@layout/item_btn_underline_mark_gold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/ripple_bg_00000000_stroke_6f6f6f"
-            android:fontFamily="@font/light_genesissansheadglobal"
-            android:letterSpacing="-0.01"
-            android:lineSpacingExtra="7dp"
-            android:paddingLeft="12dp"
-            android:paddingTop="8dp"
-            android:paddingRight="12dp"
-            android:paddingBottom="8dp"
-            android:text="@string/gm_carlst_03_8"
-            android:textColor="@color/x_141414"
-            android:textSize="14dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="30dp"
+            app:btnNm="@{@string/gm_carlst_03_8}"
             app:layout_constraintEnd_toEndOf="@+id/tv_msg"
             app:layout_constraintTop_toBottomOf="@+id/tv_info_2" />
 

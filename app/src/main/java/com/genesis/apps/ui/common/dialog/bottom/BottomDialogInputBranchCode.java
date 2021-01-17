@@ -10,18 +10,24 @@ import android.view.inputmethod.EditorInfo;
 import androidx.annotation.NonNull;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.vo.WashReserveVO;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.databinding.DialogBottomSonaxBranchBinding;
+
+import java.util.List;
 
 public class BottomDialogInputBranchCode extends BaseBottomDialog<DialogBottomSonaxBranchBinding> {
     private static final int BRANCH_CODE_MAX_LENGTH = 8;
 
     private String branchCode;
     private boolean inputConfirmed = false;
+    private List<WashReserveVO> rsvtList;
 
-    public BottomDialogInputBranchCode(@NonNull Context context, String branchCodeFromServer, int theme) {
+    public BottomDialogInputBranchCode(@NonNull Context context, String branchCodeFromServer, int theme, List<WashReserveVO> rsvtList) {
         super(context, theme);
         branchCode = branchCodeFromServer;
+        this.rsvtList = rsvtList;
     }
 
     @Override
@@ -87,8 +93,15 @@ public class BottomDialogInputBranchCode extends BaseBottomDialog<DialogBottomSo
 
     //지점코드 유효성 검사. 길이만 검사한다.
     private boolean validateInput(String input) {
-//        return 0 < input.length() && input.length() <= BRANCH_CODE_MAX_LENGTH;
-        return input.equals(branchCode);
+        WashReserveVO target = null;
+        try{
+            if(rsvtList!=null&&rsvtList.size()>0){
+                target = rsvtList.stream().filter(data -> (StringUtil.isValidString(data.getBrnhCd()).equalsIgnoreCase(input))).findFirst().orElse(null);
+            }
+        }catch (Exception e){
+            target = null;
+        }
+        return target != null;
     }
 
     //에러 메시지 표시하기/끄기

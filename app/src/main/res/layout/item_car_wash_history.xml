@@ -13,8 +13,9 @@
             android:id="@+id/tv_car_wash_history_date"
             style="@style/CarWashHistoryLight"
             android:layout_marginStart="20dp"
-            android:layout_marginBottom="5dp"
-            android:textSize="16dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:textSize="14dp"
+            android:textColor="@color/x_262626"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="2020.12.31" />
@@ -22,6 +23,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/bg_ffffff_stroke_e5e5e5"
@@ -38,22 +40,27 @@
                     android:id="@+id/tv_car_wash_history_name"
                     style="@style/CarWashHistoryLight"
                     android:layout_height="70dp"
+                    android:layout_width="0dp"
                     android:textSize="22dp"
                     android:gravity="center_vertical"
                     android:lineSpacingExtra="6dp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="울트라 킹왕짱" />
+                    app:layout_constraintEnd_toStartOf="@+id/iv_car_wash_history_img"
+                    app:layout_constraintHorizontal_bias="0"
+                    tools:text="울트라 킹왕짱\n쿠폰12231213" />
 
                 <!-- 금액 -->
                 <TextView
                     android:id="@+id/tv_car_wash_history_price"
                     style="@style/CarWashHistoryRegular"
-                    android:layout_marginTop="10dp"
-                    android:textSize="18dp"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_car_wash_history_name"
-                    tools:text="10%" />
+                    tools:text="10% 할인" />
 
                 <!-- 결제 방법-->
                 <TextView
@@ -74,10 +81,10 @@
                     android:layout_marginRight="15dp"
                     android:gravity="center"
                     android:textColor="@color/x_996449"
-                    android:textSize="12dp"
+                    android:textSize="14dp"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="6dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@id/tv_car_wash_history_price"
                     app:layout_constraintRight_toLeftOf="@+id/iv_car_wash_history_img"
                     app:layout_constraintTop_toTopOf="@id/tv_car_wash_history_price"
@@ -86,8 +93,8 @@
                 <!-- 사진 -->
                 <ImageView
                     android:id="@+id/iv_car_wash_history_img"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -121,44 +128,28 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <!-- 통화하기 -->
-                <LinearLayout
+                <!--통화하기-->
+                <include
                     android:id="@+id/tv_car_wash_history_call"
-                    android:orientation="horizontal"
+                    layout="@layout/item_btn_underline_mark_gold"
                     android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center_vertical"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    app:btnNm="@{@string/sm_cw_history_04}"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_car_wash_history_noti">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_ffffff_underline_000000"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:text="@string/sm_cw_history_04"
-                        android:textColor="@color/x_000000"
-                        android:textSize="14dp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/btn_arrow_open_r_g" />
-
-                </LinearLayout>
+                    app:layout_constraintTop_toTopOf="@+id/tv_car_wash_history_branch_name_reserved"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_car_wash_history_branch_name_reserved"
+                    tools:visibility="visible" />
 
                 <!-- 영업점 이름 -->
                 <!-- 예약 안내에서 점 뒤에 나오는 글에 정렬하려고 마진 8 넣음-->
                 <TextView
                     android:id="@+id/tv_car_wash_history_branch_name_reserved"
                     style="@style/CarWashHistoryRegular"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="30dp"
                     android:textSize="16dp"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_car_wash_history_call"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tv_car_wash_history_call"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_car_wash_history_noti"
                     tools:text="SONAX 지구 반대편 출장소" />
 
                 <!-- 직원에게 확인 -->
@@ -166,7 +157,7 @@
                     android:id="@+id/tv_car_wash_history_confirm"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginEnd="10dp"
                     android:padding="18dp"
                     android:gravity="center"
@@ -179,7 +170,7 @@
                     android:background="@drawable/ripple_bg_141414"
                     app:layout_constraintEnd_toStartOf="@id/tv_car_wash_history_cancel"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_car_wash_history_call" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_car_wash_history_branch_name_reserved" />
                 <!-- 예약 취소 -->
                 <TextView
                     android:id="@+id/tv_car_wash_history_cancel"

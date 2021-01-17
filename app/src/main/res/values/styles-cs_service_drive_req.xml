@@ -78,12 +78,8 @@
     <!-- 출발지 주소  -->
     <style name="ServiceDrive.SearchFrom.Title" parent="ServiceDrive.SearchAddress.Title">
         <item name="android:text">@string/service_drive_input_08</item>
-
-        <item name="layout_constraintTop_toBottomOf">@id/l_service_drive_req_input_from_detail
-        </item>
-        <item name="layout_constraintBottom_toTopOf">
-            @id/tv_service_drive_req_search_from_address_btn
-        </item>
+        <item name="layout_constraintTop_toBottomOf">@id/l_service_drive_req_input_from_detail</item>
+        <item name="layout_constraintBottom_toTopOf">@id/tv_service_drive_req_search_from_address_btn</item>
     </style>
 
 

@@ -64,4 +64,7 @@ class WashReserveVO extends BaseData {
     @Expose
     @SerializedName("godsImgUri")
     private String godsImgUri;
+    @Expose
+    @SerializedName("dsctNm")
+    private String dsctNm;
 }

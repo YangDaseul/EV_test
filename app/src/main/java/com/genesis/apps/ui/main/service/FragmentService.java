@@ -47,7 +47,7 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
     private void initView() {
         serviceTabAdapter = new ServiceViewpagerAdapter(this, PAGE_NUM);
         me.vpServiceContentsViewPager.setAdapter(serviceTabAdapter);
-//        me.vpServiceContentsViewPager.setUserInputEnabled(false);
+        me.vpServiceContentsViewPager.setUserInputEnabled(false);
         setTabView();
 
         //ViewPager Setting
@@ -55,7 +55,6 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
         me.vpServiceContentsViewPager.setCurrentItem(0);
         me.vpServiceContentsViewPager.setOffscreenPageLimit(PAGE_NUM);
 
-        //TODO : MAinActivity에서 복붙. 스와이프 리스너인데 필요한가?
 //        me.vpServiceContentsViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
 //            @Override
 //            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -74,7 +73,6 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
 //
 //        });
 
-        //TODO : MAinActivity에서 복붙. 페이지 넘기는 이펙트 그럼 메인 탭이 넘어가야되나, 서비스 내부 탭이 넘어가야되나???
 //        final float pageMargin = getResources().getDimensionPixelOffset(R.dimen.pageMargin);
 //        final float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset);
 //        me.vpServiceContentsViewPager.setPageTransformer((page, position) -> {

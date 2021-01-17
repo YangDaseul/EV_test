@@ -124,15 +124,18 @@ public class BaseActivity extends AppCompatActivity {
 
     public void checkPushCode() {
         if (isPushData()) {
-
+            String url="";
             try {
-                String url = !TextUtils.isEmpty(pushVO.getData().getMsgLnkUri()) ? pushVO.getData().getMsgLnkUri() : pushVO.getData().getDtlLnkUri();
-                if (!TextUtils.isEmpty(url))
-                    moveToNativePage(url, true);
+                if(pushVO!=null&&pushVO.getData()!=null)
+                    url = !TextUtils.isEmpty(pushVO.getData().getMsgLnkUri()) ? pushVO.getData().getMsgLnkUri() : pushVO.getData().getDtlLnkUri();
             } catch (Exception e) {
-
+                e.printStackTrace();
+                url="";
             }
+            if (TextUtils.isEmpty(url))
+                url = "";
 
+            moveToNativePage(url, true);
             this.getIntent().removeExtra(PUSH_VO);
             this.getIntent().removeExtra(NOTIFICATION_ID);
             ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancel(notificationId);
@@ -167,8 +170,12 @@ public class BaseActivity extends AppCompatActivity {
             PI = uri.getQueryParameter(KeyNames.KEY_NAME_URI_PARSER_PI);
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            if(TextUtils.isEmpty(id))
+                id="";
         }
-        if (TextUtils.isEmpty(id))
+
+        if (TextUtils.isEmpty(id)&&!isPush)
             return;
 
 

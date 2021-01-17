@@ -44,13 +44,13 @@
     <string name="tm_exps01_01_2">지출 항목을\n선택해 주세요.</string>
     <string name="tm_exps01_01_3">지출 항목</string>
     <string name="tm_exps01_01_4">지출 항목을 선택해 주세요.</string>
-    <string name="tm_exps01_01_5">누적주행거리</string>
+    <string name="tm_exps01_01_5">누적주행거리(km)</string>
     <string name="tm_exps01_01_6">누적주행거리를\n입력해 주세요.</string>
     <string name="tm_exps01_01_7">누적주행거리를 입력해 주세요.</string>
     <string name="tm_exps01_01_8">지출 일자</string>
 
     <string name="tm_exps01_01_9">지출 금액을\n 입력해 주세요.</string>
-    <string name="tm_exps01_01_10">지출액</string>
+    <string name="tm_exps01_01_10">지출액(원)</string>
     <string name="tm_exps01_01_11">지출액을 입력해 주세요.</string>
     <string name="tm_exps01_01_12">지출처를\n입력해 주세요.</string>
     <string name="tm_exps01_01_13">지출처</string>

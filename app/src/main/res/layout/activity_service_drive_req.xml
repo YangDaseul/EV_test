@@ -19,7 +19,7 @@
         <!-- 타이틀바-->
         <include
             android:id="@+id/l_service_drive_req_titlebar"
-            layout="@layout/layout_titlebar"
+            layout="@layout/layout_titlebar_use_edittext"
             app:btnText="@{@string/service_drive_01}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +47,7 @@
             android:layout_height="1dp"
             android:background="@color/x_e5e5e5"
             app:layout_constraintBottom_toTopOf="@id/l_service_drive_req_scroll_view"
-            app:layout_constraintTop_toBottomOf="@id/l_service_drive_req_top_panel"/>
+            app:layout_constraintTop_toBottomOf="@id/l_service_drive_req_top_panel" />
 
         <!-- 스크롤 범위 : 입력내용 안내 메시지 ~ 입력 창 네 개 -->
         <ScrollView
@@ -64,22 +64,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingTop="40dp"
-                android:paddingBottom="20dp"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp">
+                android:paddingTop="40dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="20dp">
 
                 <!-- "출발/도착지 주소를 입력해라" : 01 ~ 04 번 str -->
                 <TextView
                     android:id="@+id/tv_service_drive_req_please_input_xxx"
                     style="@style/TextBasic"
-                    android:layout_marginBottom="30dp"
                     android:fontFamily="@font/light_genesissansheadglobal"
+                    android:paddingBottom="30dp"
                     android:text="@string/service_drive_input_01"
                     android:textColor="@color/x_000000"
-                    android:textSize="22dp" />
+                    android:textSize="22dp"/>
 
-                <!-- ConstraintSet으로 갈아끼울 구간 -->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/l_service_drive_req_container"
                     android:layout_width="match_parent"
@@ -87,58 +86,78 @@
                     android:orientation="vertical">
 
                     <!-- 도착지 상세 주소 입력칸 -->
-                    <!-- app:helperText="@string/service_drive_input_07" -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/l_service_drive_req_input_to_detail"
-                        style="@style/ServiceDrive.InputToDetailLayout"
+                        style="@style/CommonTextInputLayout"
                         android:visibility="gone"
-                        tools:helperText="@string/service_drive_input_07">
+                        android:layout_marginTop="0dp"
+                        app:layout_goneMarginTop="0dp"
+                        tools:helperText="@string/service_drive_input_07"
+                        tools:visibility="visible">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/tiet_service_drive_req_input_to_address_detail"
-                            style="@style/ServiceDrive.InputAddressDetail"
+                            style="@style/CommonTextInputEditText"
+                            android:hint="@string/service_drive_input_06"
                             tools:background="#aaff88" />
-
                     </com.google.android.material.textfield.TextInputLayout>
+
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        android:id="@+id/l_service_drive_req_input_to_detail"-->
+<!--                        style="@style/ServiceDrive.InputToDetailLayout"-->
+<!--                        android:visibility="gone"-->
+<!--                        tools:helperText="@string/service_drive_input_07">-->
+
+<!--                        <com.google.android.material.textfield.TextInputEditText-->
+<!--                            android:id="@+id/tiet_service_drive_req_input_to_address_detail"-->
+<!--                            style="@style/ServiceDrive.InputAddressDetail"-->
+<!--                            tools:background="#aaff88" />-->
+
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
 
                     <!-- "도착지 주소" -->
                     <TextView
                         android:id="@+id/tv_service_drive_req_to_title"
-                        style="@style/ServiceDrive.SearchTo.Title" />
+                        style="@style/ServiceDrive.SearchTo.Title"
+                        android:layout_marginTop="5dp"
+                        tools:visibility="visible"/>
 
-                    <!-- 도착 주소 검색 버튼
-                     TODO : 주소 입력 전후는 스타일 바꿔서 처리
-                      .NoData / .HasData -->
+                    <!-- 도착 주소 검색 버튼-->
                     <TextView
                         android:id="@+id/tv_service_drive_req_search_to_address_btn"
                         style="@style/ServiceDrive.SearchTo.NoData"
                         android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        tools:visibility="visible" />
 
                     <!-- 출발지 상세 주소 입력칸 -->
-                    <!-- app:helperText="@string/service_drive_input_05" -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/l_service_drive_req_input_from_detail"
-                        style="@style/ServiceDrive.InputFromDetailLayout"
+                        style="@style/CommonTextInputLayout"
                         android:visibility="gone"
-                        tools:helperText="@string/service_drive_input_07">
+                        android:layout_marginTop="20dp"
+                        app:layout_goneMarginTop="0dp"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_service_drive_req_search_to_address_btn"
+                        tools:helperText="@string/service_drive_input_07"
+                        tools:visibility="visible">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/tiet_service_drive_req_input_from_address_detail"
-                            style="@style/ServiceDrive.InputAddressDetail"
+                            style="@style/CommonTextInputEditText"
                             tools:background="#aaff88" />
 
                     </com.google.android.material.textfield.TextInputLayout>
+
 
                     <!-- "출발지 주소" -->
                     <TextView
                         android:id="@+id/tv_service_drive_req_from_title"
                         style="@style/ServiceDrive.SearchFrom.Title"
-                        android:visibility="gone" />
+                        android:layout_marginTop="5dp"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
 
-                    <!-- 출발 주소 검색 버튼
-                     TODO : 주소 입력 전후는 스타일 바꿔서 처리
-                      .NoData / .HasData -->
+                    <!-- 출발 주소 검색 버튼 -->
                     <TextView
                         android:id="@+id/tv_service_drive_req_search_from_address_btn"
                         style="@style/ServiceDrive.SearchFrom.NoData"

@@ -20,6 +20,7 @@
             style="@style/RelapseHistoryItemNoti"
             android:layout_marginStart="4dp"
             android:text="@string/relapse_history_noti_01"
+            app:layout_constrainedWidth="true"
             app:layout_constraintStart_toEndOf="@id/tv_relapse_dot1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

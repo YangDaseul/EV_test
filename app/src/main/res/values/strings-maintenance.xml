@@ -21,8 +21,8 @@
     <string name="maintenance_service_desc_02">김포공항에서 차량을 픽업/정비하고\n주차해 드리는 서비스</string>
     <string name="maintenance_service_item_03">홈투홈</string>
     <string name="maintenance_service_desc_03">차량을 픽업/정비하고\n배달해드리는 서비스</string>
-    <string name="maintenance_service_item_04">정비소</string>
-    <string name="maintenance_service_desc_04">서비스 네트워크 (블루핸즈)\n정비 서비스</string>
+    <string name="maintenance_service_item_04">서비스 네트워크</string>
+    <string name="maintenance_service_desc_04">직영 서비스센터 및 블루핸즈\n정비 서비스</string>
 
 
 </resources>

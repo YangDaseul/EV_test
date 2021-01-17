@@ -89,7 +89,8 @@ public class MyGTermsActivity extends WebviewActivity {
             });
             mypViewModel.reqMYP8001(new MYP_8001.Request(menuId, termsCd));
         }else{
-            loadTerms(new TermVO("",TERMS_6000,getString(R.string.title_terms_6),getStringFromAssetsFile(),""));
+//            loadTerms(new TermVO("",TERMS_6000,getString(R.string.title_terms_6),getStringFromAssetsFile(),""));
+            initWebview("file:///android_asset/6000.html");
         }
     }
 

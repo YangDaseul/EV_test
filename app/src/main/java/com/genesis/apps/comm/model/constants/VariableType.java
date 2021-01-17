@@ -250,7 +250,7 @@ public class VariableType {
     public static final String SERVICE_CAR_CARE_COUPON_CODE_BREAK_PAD = "32";
     public static final String SERVICE_CAR_CARE_COUPON_CODE_WIPER = "33"; //와이퍼 블레이드
     public static final String SERVICE_CAR_CARE_COUPON_CODE_BREAK_OIL = "34";
-    public static final String SERVICE_CAR_CARE_COUPON_CODE_NAVIGATION = "35";
+    public static final String SERVICE_CAR_CARE_COUPON_CODE_NAVIGATION = "42";
     public static final String SERVICE_CAR_CARE_COUPON_CODE_PICKUP_DELIVERY = "61";
     public static final String SERVICE_CAR_CARE_COUPON_CODE_WASH_SONAKS = "99";
 
