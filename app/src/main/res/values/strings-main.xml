@@ -32,7 +32,7 @@
     <string name="gm02_7">SNS 자랑하기</string>
     <string name="gm02_8">로그인</string>
 
-    <string name="gm03_1">렌트/리스\n실운행자 등록</string>
+    <string name="gm03_1">렌트/리스\n실 운행자 등록</string>
     <string name="gm03_2">중고차 등록</string>
     <string name="gm03_3">견적 내기</string>
     <string name="gm03_4">BTO</string>
@@ -118,7 +118,7 @@
     <string name="sm01_maintenance_21">소분류</string>
     <string name="sm01_maintenance_22">소분류 선택</string>
     <string name="sm01_maintenance_23">수리 유형을 선택해주세요.</string>
-    <string name="sm01_maintenance_24">사전 문진을 추가하시겠습니까?</string>
+    <string name="sm01_maintenance_24">선택하신 내용 외에\n사전 문진 항목을 더 추가하겠습니까?</string>
     <string name="sm01_maintenance_25">사전 문진표</string>
     <string name="sm01_maintenance_26">사전 문진표 상세내용을\n작성해 주세요.</string>
     <string name="sm01_maintenance_27">상세 내용 입력</string>

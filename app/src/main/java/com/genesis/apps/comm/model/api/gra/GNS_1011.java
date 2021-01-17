@@ -23,7 +23,7 @@ public class GNS_1011 extends BaseData {
     /**
      * @brief GNS_1011 요청 항목
      * @see #vin 차대번호
-     * @see #csmrScnCd 실운행자고객구분코드
+     * @see #csmrScnCd 실 운행자고객구분코드
      * 1 : 개인(법인임직원) = 법인 렌트리스
      * 14 : 개인(리스/렌트 이용개인) = 개인렌트리스
      */

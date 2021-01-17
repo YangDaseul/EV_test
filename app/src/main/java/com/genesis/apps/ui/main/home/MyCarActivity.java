@@ -686,7 +686,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                         String result = bottomListDialog2.getSelectItem();
                         if (!TextUtils.isEmpty(result)) {
                             if (result.equalsIgnoreCase(list.get(0))) {
-                                //렌트/리스 실운행자 등록
+                                //렌트/리스 실 운행자 등록
                                 openRentRis();
                             } else {
                                 //중고차 등록

@@ -98,7 +98,6 @@ public class RegisterUsedCarActivity extends SubActivity<ActivityRegUsedCar1Bind
 
     private void doNext() {
         if (isValid()) {
-
             UserVO userVO = null;
             try {
                 userVO = gnsViewModel.getUserInfoFromDB();
@@ -224,6 +223,8 @@ public class RegisterUsedCarActivity extends SubActivity<ActivityRegUsedCar1Bind
             TransitionManager.beginDelayedTransition(ui.container);
             constraintSets[pos].applyTo(ui.container);
             ui.tvMsg.setText(textMsgId[pos]);
+
+            ui.btnCheck.setText(R.string.gm_carlst_03_9);
 
             if (edits[pos] instanceof TextInputEditText) {
                 edits[pos].requestFocus();

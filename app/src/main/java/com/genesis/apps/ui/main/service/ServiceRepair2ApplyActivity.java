@@ -123,7 +123,6 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
     @Override
     public void onClickCommon(View v) {
         switch (v.getId()) {
-            //TODO 주소검색 변경필요
             case R.id.tv_repair:
                 startMapView();
                 break;

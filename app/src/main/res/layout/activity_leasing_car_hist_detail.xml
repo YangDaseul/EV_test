@@ -89,7 +89,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/iv_mark"
-                    tools:text="렌트/리스 실운행자\n등록 신청이 반려되었습니다." />
+                    tools:text="렌트/리스 실 운행자\n등록 신청이 반려되었습니다." />
 
 
                 <TextView

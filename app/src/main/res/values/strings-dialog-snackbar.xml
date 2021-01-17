@@ -14,7 +14,7 @@
     <string name="mg_con01_p01_snackbar_1">포인트 연동이 해제되었습니다.</string>
     <string name="mg_con01_p01_snackbar_2">포인트 연동 해제가 되지 않았습니다.\n다시 시도해 주십시오.</string>
     <string name="mg_con01_p01_snackbar_3">포인트 연동이 되지 않았습니다.\n다시 시도해 주십시오.</string>
-    <string name="gm_carlst_01_p05_snackbar">렌트/리스 실운행자\n차량등록 신청이 취소되었습니다.</string>
+    <string name="gm_carlst_01_p05_snackbar">렌트/리스 실 운행자\n차량등록 신청이 취소되었습니다.</string>
 
     <string name="gm_carlst01_snackbar_1">주 차량 설정이 완료되었습니다.</string>
     <string name="gm_carlst01_snackbar_2">차량 번호를 수정하였습니다.</string>
@@ -30,12 +30,12 @@
 
 
     <string name="gm_carlst_01_snackbar_1">등록대상 차량이 확인되었습니다.</string>
-    <string name="gm_carlst_01_snackbar_2">차량이 이미 등록 되어 있습니다.\n차대 번호를 확인해 주세요.</string>
-    <string name="gm_carlst_01_snackbar_3">등록대상 차량이 확인되지 않습니다.\n차대 번호를 확인해 주세요.</string>
+    <string name="gm_carlst_01_snackbar_2">차량이 이미 등록 되어 있습니다.\n차대번호를 확인해 주세요.</string>
+    <string name="gm_carlst_01_snackbar_3">등록대상 차량이 확인되지 않습니다.\n차대번호를 확인해 주세요.</string>
 
 
-    <string name="gm_carlist_01_01_snackbar_1">고객님의 렌트/리스 실운행자\n등록 신청이 완료되었습니다.\n\n영업일 기준 3일 이후 승인이 완료될 예정이며, 승인진행 상황은 이력페이지에서 확인 가능합니다.</string>
-    <string name="gm_carlist_01_p05_snackbar_1">렌트/리스 실운행자\n차량등록 신청이 취소되었습니다.</string>
+    <string name="gm_carlist_01_01_snackbar_1">고객님의 렌트/리스 실 운행자\n등록 신청이 완료되었습니다.\n\n영업일 기준 3일 이후 승인이 완료될 예정이며, 승인진행 상황은 이력페이지에서 확인 가능합니다.</string>
+    <string name="gm_carlist_01_p05_snackbar_1">렌트/리스 실 운행자\n차량등록 신청이 취소되었습니다.</string>
     <string name="gm_carlist_01_p05_snackbar_2">수령지 수정이 완료되었습니다.</string>
 
 

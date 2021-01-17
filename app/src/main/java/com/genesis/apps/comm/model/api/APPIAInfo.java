@@ -86,7 +86,7 @@ public enum APPIAInfo {
     GM_CARLST01("GM_CARLST01", MyCarActivity.class, VariableType.QUICK_MENU_CODE_CV, "My 차고"),
     GM_CARLST_P01("GM_CARLST_P01", null, VariableType.QUICK_MENU_CODE_NONE, "차량 번호 수정 팝업"),
     GM_CARLST_P02("GM_CARLST_P02", null, VariableType.QUICK_MENU_CODE_NONE, "차량 삭제 팝업"),
-    GM_CARLST_01("GM_CARLST_01", LeasingCarVinRegisterActivity.class, VariableType.QUICK_MENU_CODE_NV, "렌트/리스 실운행자 등록 확인"),
+    GM_CARLST_01("GM_CARLST_01", LeasingCarVinRegisterActivity.class, VariableType.QUICK_MENU_CODE_NV, "렌트/리스 실 운행자 등록 확인"),
     GM_CARLST_01_01("GM_CARLST_01_01", null, VariableType.QUICK_MENU_CODE_NONE, "등록 신청"),
     GM_CARLST_01_B01("GM_CARLST_01_B01", null, VariableType.QUICK_MENU_CODE_NONE, "전담블루핸즈/버틀러 선택 팝업"),
     GM_CARLST_01_B02("GM_CARLST_01_B02", null, VariableType.QUICK_MENU_CODE_NONE, "블루핸즈 필터"),
@@ -99,7 +99,7 @@ public enum APPIAInfo {
     GM_CARLST_01_P04("GM_CARLST_01_P04", null, VariableType.QUICK_MENU_CODE_NONE, "신청 초기화 팝업"),
     GM_CARLST_01_P05("GM_CARLST_01_P05", null, VariableType.QUICK_MENU_CODE_NONE, "신청 취소 팝업"),
 
-    GM_CARLST_02("GM_CARLST_02", null, VariableType.QUICK_MENU_CODE_NONE, "렌트/리스 실운행자 등록 내역"),
+    GM_CARLST_02("GM_CARLST_02", null, VariableType.QUICK_MENU_CODE_NONE, "렌트/리스 실 운행자 등록 내역"),
     GM_CARLST_03("GM_CARLST_03", RegisterUsedCarActivity.class, VariableType.QUICK_MENU_CODE_NV, "중고차 등록"),
     GM_CARLST_03_P01("GM_CARLST_03_P01", null, VariableType.QUICK_MENU_CODE_NONE, "중고차 안내사항"),
     GM_CARLST_04("GM_CARLST_04", null, VariableType.QUICK_MENU_CODE_NONE, "차량 상세"),
