@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="30dp"
-                android:paddingBottom="30dp">
+                android:paddingBottom="40dp">
 
                 <TextView
                     style="@style/ViewMsgInputTile"
@@ -118,7 +118,7 @@
                 <TextView
                     android:id="@+id/tv_info_6"
                     style="@style/ViewMsgInputSub"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:text="@string/int02_14"
                     app:layout_constraintEnd_toEndOf="@+id/tv_msg"
                     app:layout_constraintStart_toEndOf="@+id/tv_mark_1"
@@ -144,13 +144,14 @@
                 <TextView
                     android:id="@+id/tv_info_8"
                     style="@style/ViewMsgInputSubMsg"
-                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:layout_marginTop="30dp"
                     android:text="@string/int02_15"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_info_7" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_7"/>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -166,7 +167,6 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-            android:fontFamily="@font/light_genesissansheadglobal"
             android:text="@string/int02_16"/>
 
     </LinearLayout>
