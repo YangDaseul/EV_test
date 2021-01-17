@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.WashReserveVO;
 import com.genesis.apps.comm.util.StringUtil;
+import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.databinding.DialogBottomSonaxBranchBinding;
 
 import java.util.List;
@@ -58,6 +59,7 @@ public class BottomDialogInputBranchCode extends BaseBottomDialog<DialogBottomSo
 //        // 입력창 초기 값은 서버에서 준 값
 //        ui.etSonaxBranchNo.setText(branchCode);
 
+        SoftKeyboardUtil.showKeyboard(getContext());
         ui.etSonaxBranchNo.selectAll();
 
         ui.etSonaxBranchNo.setOnEditorActionListener((textView, actionId, keyEvent) -> {

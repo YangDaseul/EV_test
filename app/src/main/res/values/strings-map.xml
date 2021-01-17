@@ -10,7 +10,7 @@
 
     <string name="map_btn_1">선택</string>
     <string name="map_btn_2">목록</string>
-    <string name="map_btn_3">세차 예약하기</string>
+    <string name="map_btn_3">예약하기</string>
     <string name="map_btn_4">설정</string>
 
 </resources>

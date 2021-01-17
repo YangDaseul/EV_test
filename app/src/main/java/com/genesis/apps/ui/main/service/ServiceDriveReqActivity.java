@@ -153,7 +153,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                         RequestCodes.REQ_CODE_ACTIVITY.getCode(),
                         VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 
-                exitPage("", ResultCodes.REQ_CODE_NORMAL.getCode());
+                exitPage("", 0);
                 return;
             }
             //결제 실패

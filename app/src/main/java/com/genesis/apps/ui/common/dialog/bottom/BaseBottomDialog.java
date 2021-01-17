@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.common.dialog.bottom;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.KeyEvent;
 import android.view.View;
@@ -9,6 +10,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -54,6 +56,7 @@ public class BaseBottomDialog<T extends ViewDataBinding> extends BottomSheetDial
             findViewById(R.id.back).setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
+                    SoftKeyboardUtil.hideKeyboard(getContext(), getWindow().getDecorView().getWindowToken());
                     dismiss();
                 }
             });

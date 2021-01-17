@@ -41,7 +41,7 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
     private WSHViewModel wshViewModel;
     private DDSViewModel ddsViewModel;
     private int reviewType;
-    private int mRate = 1;
+    private int mRate = 0;
     private String rsvtSeqNo;
     private String transId;
 
@@ -310,6 +310,12 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
     //확인버튼 처리
     private void onClickOkBtn() {
         Log.d(TAG, "onClickOkBtn: " + reviewType);
+        if(mRate == 0) {
+            SnackBarUtil.show(this, getString(R.string.rate_error_1));
+
+            return;
+        }
+
         //사용자가 입력한 별점, 기타의견 가져오기
         String starRating = String.valueOf(mRate);
         String reviewInput = ui.etServiceReviewInput.getText().toString();

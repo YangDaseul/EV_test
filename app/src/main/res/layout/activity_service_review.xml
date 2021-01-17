@@ -74,7 +74,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/ic_star_l_s_c" />
+                    android:src="@drawable/ic_star_l_n_c" />
 
             </LinearLayout>
 

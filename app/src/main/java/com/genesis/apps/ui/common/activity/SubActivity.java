@@ -33,6 +33,7 @@ import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.main.MainActivity;
 import com.genesis.apps.ui.main.home.MyLocationActivity;
+import com.genesis.apps.ui.main.service.CarWashFindSonaxBranchFragment;
 import com.genesis.apps.ui.main.service.ServiceReviewActivity;
 import com.google.gson.Gson;
 
@@ -144,8 +145,15 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
 //    }
 
     public void onBackButton(){
-        finish();
-        closeTransition();
+        List<SubFragment> fragments = getFragments();
+        if (fragments != null && fragments.size() > 0) {
+            if(fragments.get(0) instanceof CarWashFindSonaxBranchFragment) {
+                hideFragment(fragments.get(0));
+            }
+        } else {
+            finish();
+            closeTransition();
+        }
     }
     public abstract void onClickCommon(View v);
     public abstract void setViewModel();

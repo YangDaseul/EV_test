@@ -29,49 +29,25 @@
             app:layout_constraintBottom_toTopOf="@+id/vp"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
-        <LinearLayout
+        <include
             android:id="@+id/btn_event"
-            android:orientation="horizontal"
+            layout="@layout/item_btn_underline_mark_gold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="5dp"
-            android:gravity="center_vertical"
-            android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
+            android:onClick="@{(v) -> fragment.onSingleClickListener.onClick(v)}"
+            app:btnNm="@{@string/cm02_12}"
             app:layout_constraintTop_toTopOf="@+id/btn_search"
             app:layout_constraintBottom_toBottomOf="@+id/btn_search"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <TextView
-                android:id="@+id/tv_event"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_00000000_underline_000000"
-                android:fontFamily="@font/regular_genesissanstextglobal"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="30dp"
-                android:text="@string/cm02_12"
-                android:textColor="@color/x_000000"
-                android:textSize="14dp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/btn_arrow_open_r_g" />
-
-        </LinearLayout>
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginLeft="30dp"
+            android:paddingLeft="30dp"
             android:layout_marginTop="170dp"
-            android:layout_marginRight="30dp"
+            android:paddingRight="30dp"
             android:layout_marginBottom="60dp"
             android:clipChildren="false"
             android:clipToPadding="false"

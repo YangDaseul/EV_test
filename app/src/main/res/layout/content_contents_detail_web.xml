@@ -80,7 +80,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/ic_star_l_s_c" />
+                        android:src="@drawable/ic_star_l_n_c" />
 
                 </LinearLayout>
 
@@ -184,38 +184,14 @@
 
                 </LinearLayout>
 
-
-                <LinearLayout
+                <include
                     android:id="@+id/btn_rate"
-                    android:orientation="horizontal"
+                    layout="@layout/item_btn_underline_mark_gold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:onClick="@{(v) -> activity.onSingleClickListener.onClick(v)}">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_00000000_underline_000000"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:gravity="center"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="30dp"
-                        android:text="@string/cm02_11"
-                        android:textColor="@color/x_000000"
-                        android:textSize="14dp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/btn_arrow_open_r_g" />
-
-                </LinearLayout>
+                    android:layout_marginStart="10dp"
+                    android:onClick="@{(v) -> activity.onSingleClickListener.onClick(v)}"
+                    app:btnNm="@{@string/cm02_11}" />
 
             </LinearLayout>
 
