@@ -418,7 +418,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
             @Override
             public void afterTextChanged(Editable editable) {
-                setError(fromDetailLayout, hasInput(editable.toString()));
+//                setError(fromDetailLayout, hasInput(editable.toString()));
             }
         });
 
@@ -435,7 +435,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
             @Override
             public void afterTextChanged(Editable editable) {
-                setError(toDetailLayout, hasInput(editable.toString()));
+//                setError(toDetailLayout, hasInput(editable.toString()));
             }
         });
     }
@@ -448,7 +448,8 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
     //세부주소 칸에 입력한 값이 있는지 없는지 검사
     private boolean hasInput(String input) {
-        return 0 < input.length();
+//        return 0 < input.length();
+        return true;
     }
 
     //에러 메시지 표시하기/끄기
@@ -467,6 +468,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
     private void onClickNextBtn() {
         Log.d(TAG, "onClickNextBtn active : " + buttonEnable);
+        clearKeypad();
 
         //예상 가격 응답 기다리는 동안은 버튼 무력화
         if (!buttonEnable) {
@@ -518,7 +520,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         boolean hasToDetail = hasInput(toDetail.getText().toString());
 
         //세부 주소 빈칸인지 검사
-        checkDetailAddress(hasFromDetail, hasToDetail);
+//        checkDetailAddress(hasFromDetail, hasToDetail);
 
         //도착지 검색 버튼 해금 :
         //버튼이 안 보이고 출발 상세주소가 입력된 상태
@@ -567,6 +569,12 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
     private void openToAddressBtn() {
         ui.tvServiceDriveReqSearchToAddressBtn.setVisibility(View.VISIBLE);
         ui.tvServiceDriveReqPleaseInputXxx.setText(R.string.service_drive_input_03);
+    }
+
+    private void clearKeypad() {
+        fromDetail.clearFocus();
+        toDetail.clearFocus();
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
 
     /**

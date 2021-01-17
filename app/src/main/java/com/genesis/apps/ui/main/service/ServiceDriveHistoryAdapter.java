@@ -186,15 +186,15 @@ public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveSe
         //아이템에서 데이터를 꺼내서 뷰에 출력할 값으로 가공하여 뷰홀더에 저장
         private void getDataFromItem(DriveServiceVO item) {
             //날짜 : 포맷에 맞게 변경
-            Date date = DateUtil.getDefaultDateFormat(item.getRgstDt(), DateUtil.DATE_FORMAT_yyyyMMddHHmm, Locale.KOREA);
+            Date date = DateUtil.getDefaultDateFormat(StringUtil.isValidString(item.getRgstDt()), DateUtil.DATE_FORMAT_yyyyMMddHHmm, Locale.KOREA);
             this.date = DateUtil.getDate(date, DateUtil.DATE_FORMAT_yyyy_MM_dd_e_hh_mm);
 
             //차량정보 : 차종 + 번호판
-            carInfo = item.getMdlNm() + " " + item.getCarRegNo();
+            carInfo = StringUtil.isValidString(item.getMdlNm()) + " " + StringUtil.isValidString(item.getCarRegNo());
 
             //가격 : 숫자를 가격으로
-            paidPrice = StringUtil.getPriceString(item.getPayPrice());
-            originalPrice = StringUtil.getPriceString(item.getExpPrice());
+            paidPrice = StringUtil.getDigitGroupingString(StringUtil.isValidString(item.getPayPrice()));
+            originalPrice = StringUtil.getPriceString(StringUtil.isValidString(item.getExpPrice()));
 
             //할인가 : 숫자를 할인가(음수 붙은 가격)로, 단, 할인 0원이면 뷰를 숨김
             blueMemberPoint = item.getBluMbrDcPrice();

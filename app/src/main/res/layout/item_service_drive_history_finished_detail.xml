@@ -14,15 +14,8 @@
         android:id="@+id/l_service_drive_history_detail_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="30dp"
         android:orientation="vertical">
-
-        <!-- 회색 선 -->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:src="@color/x_e2e2e2" />
 
         <!-- 출발지 도착지  -->
         <include
@@ -44,7 +37,7 @@
             android:textColor="@color/x_000000"
             android:textSize="18dp"
             android:letterSpacing="-0.01"
-            android:lineSpacingExtra="12sp"/>
+            android:lineSpacingExtra="12dp"/>
 
         <!-- 운행기사 레이아웃 -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -99,7 +92,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/x_f9f9f9"
             android:paddingStart="20dp"
             android:paddingTop="15dp"
             android:paddingEnd="15dp"
@@ -114,7 +106,7 @@
                 android:textColor="@color/x_996449"
                 android:textSize="14dp"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="14sp"
+                android:lineSpacingExtra="14dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -127,7 +119,7 @@
                 android:textColor="@color/x_000000"
                 android:textSize="14dp"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="1sp"
+                android:lineSpacingExtra="1dp"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_opened_price_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="1,000,000원" />
@@ -143,7 +135,7 @@
                 android:textSize="14dp"
                 android:visibility="@{holder.discountVisibility}"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="14sp"
+                android:lineSpacingExtra="14dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_service_drive_history_opened_price_title" />
 
@@ -157,7 +149,7 @@
                 android:textSize="14dp"
                 android:visibility="@{holder.discountVisibility}"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="14sp"
+                android:lineSpacingExtra="14dp"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_opened_discount_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="-500,000원" />
@@ -194,7 +186,7 @@
                 android:textColor="@color/x_000000"
                 android:textSize="24dp"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="-9sp"
+                android:lineSpacingExtra="-9dp"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_opened_paid_title"
                 app:layout_constraintRight_toLeftOf="@+id/tv_won"
                 tools:text="500,000" />
@@ -207,7 +199,7 @@
                 android:textColor="@color/x_000000"
                 android:textSize="14dp"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="1sp"
+                android:lineSpacingExtra="1dp"
                 app:layout_constraintLeft_toRightOf="@+id/tv_service_drive_history_opened_paid_value"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_opened_paid_title"
                 app:layout_constraintEnd_toEndOf="parent" />
