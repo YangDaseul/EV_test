@@ -166,7 +166,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
     public void onClickCommon(View v) {
         switch (v.getId()){
             case R.id.btn_logout://로그아웃
-                MiddleDialog.dialogLogout(this, "", getString(R.string.dialog_msg_1), () -> {
+                MiddleDialog.dialogLogout(this, getString(R.string.dialog_common_9), getString(R.string.dialog_msg_1), () -> {
                     if(mypViewModel.clearUserInfo()) {
                         ga.clearLoginInfo();
                         exitApp();

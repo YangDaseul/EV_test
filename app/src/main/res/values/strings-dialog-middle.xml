@@ -138,5 +138,5 @@
     <string name="sm_flaw03_01_2">아직 하자 재발 통보 신청이\n완료되지 않았습니다.\n신청을 종료 하시겠습니까?</string>
 
     <string name="pop03_1">안내</string>
-    <string name="pop03_2">기존에 Push 메시지를 받으시는 스마트폰이 존재합니다.\n변경 하시겠습니까?</string>
+    <string name="pop03_2">기존에 Push 메시지를 받으시는\n스마트폰이 존재합니다.\n\n변경 하시겠습니까?</string>
 </resources>

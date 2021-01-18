@@ -105,7 +105,7 @@ public class BottomDialogReqNowOrReserve extends BaseBottomDialog<DialogBottomNo
 
     private void initPrice() {
         ui.lDiaBottomNowOrReserveCarInfoPanel.lServiceDriveReqPrice.getRoot().setVisibility(View.VISIBLE);
-        ui.lDiaBottomNowOrReserveCarInfoPanel.lServiceDriveReqPrice.tvServicePriceMaybe.setText(StringUtil.getPriceString(priceMaybe));
+        ui.lDiaBottomNowOrReserveCarInfoPanel.lServiceDriveReqPrice.tvServicePriceMaybe.setText(StringUtil.getDigitGroupingString(priceMaybe));
     }
 
     private void initTextInputLayouts() {

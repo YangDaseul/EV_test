@@ -5,34 +5,24 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.gra.REQ_1018;
 import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.PushCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.ActivityServiceRepairImageBinding;
-import com.genesis.apps.databinding.ItemTabAlarmBinding;
-import com.genesis.apps.databinding.ItemTabBinding;
 import com.genesis.apps.databinding.ItemTabRepairImageBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.main.service.view.ServiceRepairHistoryViewpagerAdapter;
 import com.genesis.apps.ui.main.service.view.ServiceRepairImageAdapter;
-import com.genesis.apps.ui.myg.view.ExtncPlanPontAdapter;
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
-
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.viewpager2.widget.ViewPager2;
 
 /**
  * @author hjpark

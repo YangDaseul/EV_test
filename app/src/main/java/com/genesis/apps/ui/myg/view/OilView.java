@@ -61,12 +61,12 @@ public class OilView {
             ui.btnBarcodeSoil.setVisibility(View.GONE);
             ui.tvPointSoil.setVisibility(View.GONE);
 
-            //TODO 2021-01-04 임시 숨김 처리 진행
-            ui.lParent.setVisibility(View.GONE);
-            ui.lGs.setVisibility(View.GONE);
-            ui.lHo.setVisibility(View.GONE);
-            ui.lSoil.setVisibility(View.GONE);
-            ui.lSk.setVisibility(View.GONE);
+//            //TODO 2021-01-04 임시 숨김 처리 진행
+//            ui.lParent.setVisibility(View.GONE);
+//            ui.lGs.setVisibility(View.GONE);
+//            ui.lHo.setVisibility(View.GONE);
+//            ui.lSoil.setVisibility(View.GONE);
+//            ui.lSk.setVisibility(View.GONE);
 
 
             ui.tvIntegrationGs.setVisibility(View.VISIBLE);
@@ -119,11 +119,12 @@ public class OilView {
 
     public void reqIntegrateOil(String rfnCd) {
         List<OilPointVO> list = new ArrayList<>();
-        try {
-            list.addAll(data.getOilRfnPontList());
-        } catch (Exception e) {
-            list = new ArrayList<>();
-        }
+        //TODO 2021 01 18 임시 추가
+//        try {
+//            list.addAll(data.getOilRfnPontList());
+//        } catch (Exception e) {
+//            list = new ArrayList<>();
+//        }
 
         //서버로부터 전달받은 오일정보가 없으면 임의로 생성
         if (list == null || list.size() == 0) {

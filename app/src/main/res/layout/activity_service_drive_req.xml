@@ -144,6 +144,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/tiet_service_drive_req_input_from_address_detail"
                             style="@style/CommonTextInputEditText"
+                            android:hint="@string/service_drive_input_05"
                             tools:background="#aaff88" />
 
                     </com.google.android.material.textfield.TextInputLayout>

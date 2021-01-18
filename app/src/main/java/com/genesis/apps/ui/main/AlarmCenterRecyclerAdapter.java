@@ -87,7 +87,7 @@ public class AlarmCenterRecyclerAdapter extends BaseRecyclerViewAdapter2<NotiInf
             getBinding().tvTitle.setText(item.getTitle());
             getBinding().tvTitle.setMaxLines(selectedItems.get(pos) ? Integer.MAX_VALUE : 1);
             getBinding().tvTitle.setEllipsize(selectedItems.get(pos) ? null : TextUtils.TruncateAt.END);
-            getBinding().tvDate.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(item.getNotDt(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot));
+            getBinding().tvDate.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(item.getNotDt(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm));
             getBinding().ivBadge.setVisibility(item.getReadYn().equalsIgnoreCase("Y") ? View.GONE : View.VISIBLE);
 
             switch (AlarmCenterRecyclerAdapter.getAccordionType(item)){

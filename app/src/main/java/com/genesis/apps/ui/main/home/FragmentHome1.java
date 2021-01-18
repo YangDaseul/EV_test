@@ -581,7 +581,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             switch (appiaInfo){
                 case GM_CARLST01: //MY 차고
                 case GM01_03: //SNS 공유하기
-                    if(StringUtil.isValidString(userCustGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)||StringUtil.isValidString(userCustGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_NV)){
+                    if(StringUtil.isValidString(userCustGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)||StringUtil.isValidString(userCustGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_CV)){
                         quickBtn[i].setVisibility(View.VISIBLE);
                         visibleCnt++;
                     }else{//차량 미보유 일 경우 미노출
@@ -750,11 +750,11 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     public void onSingleClick(View v) {
                         DownMenuVO downMenuVO = (DownMenuVO) v.getTag(R.id.menu_id);
                         if (downMenuVO != null) {
-                            String qckMenuDivCd = downMenuVO.getQckMenuDivCd();
+                            String qckMenuDivCd = downMenuVO.getMsgLnkCd();
                             String lnkUri = downMenuVO.getLnkUri();
                             String wvYn = downMenuVO.getWvYn();
                             if (!TextUtils.isEmpty(qckMenuDivCd) && !TextUtils.isEmpty(lnkUri)) {
-                                if (qckMenuDivCd.equalsIgnoreCase("IM")) {
+                                if (qckMenuDivCd.equalsIgnoreCase("I")||qckMenuDivCd.equalsIgnoreCase("IM")) {
 
                                     if (lnkUri.startsWith(KeyNames.KEY_NAME_INTERNAL_LINK)) {
                                         if (!TextUtils.isEmpty(lnkUri)) {

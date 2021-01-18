@@ -47,7 +47,7 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
     private void initView() {
         serviceTabAdapter = new ServiceViewpagerAdapter(this, PAGE_NUM);
         me.vpServiceContentsViewPager.setAdapter(serviceTabAdapter);
-        me.vpServiceContentsViewPager.setUserInputEnabled(false);
+//        me.vpServiceContentsViewPager.setUserInputEnabled(false);
         setTabView();
 
         //ViewPager Setting

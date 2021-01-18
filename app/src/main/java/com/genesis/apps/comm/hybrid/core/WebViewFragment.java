@@ -406,9 +406,6 @@ public abstract class WebViewFragment extends Fragment {
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 			settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-			CookieManager cm = CookieManager.getInstance();
-			cm.setAcceptCookie(true);
-			cm.setAcceptThirdPartyCookies(webView, true);
 		}
 
 		if(javaInterface!=null)
@@ -456,9 +453,14 @@ public abstract class WebViewFragment extends Fragment {
 	 * 세션 유지를 위해 추가
 	 */
 	public void enableCookies(WebView webView) {
+		Log.d("JJJJ", "Cokies Setting");
 		CookieManager cookieManager = CookieManager.getInstance();
+		cookieManager.setAcceptFileSchemeCookies(true);
 		cookieManager.setAcceptCookie(true);
-		cookieManager.setAcceptThirdPartyCookies(webView, true);
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			cookieManager.setAcceptThirdPartyCookies(webView, true);
+		}
 	}
 
 
@@ -672,6 +674,8 @@ public abstract class WebViewFragment extends Fragment {
 
 			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 				CookieSyncManager.getInstance().sync();
+			} else {
+				CookieManager.getInstance().flush();
 			}
 			WebViewFragment.this.onPageFinished(view, url);
 			super.onPageFinished(view, url);

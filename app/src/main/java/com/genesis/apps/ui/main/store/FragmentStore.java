@@ -237,6 +237,9 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
                 }
             }
             return true;
+        } else if (url.startsWith("genesisapps://openView")) {
+            ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, uri.getQueryParameter("url")), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+            return true;
         } else if (url.startsWith("genesisapps://open")) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
 //            intent.setData(QueryString.encode(uri.getQueryParameter("url")));
@@ -245,9 +248,6 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
             return true;
         } else if (url.startsWith("genesisapps://newView")) {
             fragment.createChildWebView(uri.getQueryParameter("url"));
-            return true;
-        } else if (url.startsWith("genesisapps://openView")) {
-            ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, uri.getQueryParameter("url")), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
             return true;
         } else if (url.startsWith("genesisapps://sendAction")) {
 //            fragment.loadUrl(QueryString.encodeString(uri.getQueryParameter("fn")));
@@ -261,11 +261,11 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
             ((MainActivity) getActivity()).moveToNativePage(url, false);
             return true;
         } else if(!url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("javascript")) {
-            Intent intent;
+            Intent intent = null;
             try {
                 intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
             } catch (URISyntaxException use) {
-                return false;
+
             }
 
             uri = Uri.parse(intent.getDataString());
