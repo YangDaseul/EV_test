@@ -28,73 +28,74 @@
             app:textBtnListener="@{activity.onSingleClickListener}"
             app:value="@{@string/sm01_service_driver_1}" />
 
-
-        <!-- 최외곽 회색배격 안쪽 흰색 둥근사각형  -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/iv_service_drive_req_result_fromto_back_panel"
+        <ScrollView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/l_bottom_shadow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/l_service_drive_req_result_titlebar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/l_car_info"
-                style="@style/ServiceDriveReqResultStatusBackground"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
+                android:id="@+id/iv_service_drive_req_result_fromto_back_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/l_service_drive_req_result_titlebar">
 
-                <!-- 차종 -->
-                <TextView
-                    android:id="@+id/tv_service_drive_ready_car_model"
-                    style="@style/ServiceDrive.RegularText"
-                    android:text="@{activity.serviceReqData.getMdlNm()}"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_car_info"
+                    style="@style/ServiceDriveReqResultStatusBackground"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="GV 70" />
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <!-- 번호판 -->
-                <TextView
-                    android:id="@+id/tv_service_drive_ready_car_number"
-                    style="@style/ServiceDrive.CarVarn"
-                    android:layout_marginTop="5dp"
-                    android:text="@{activity.serviceReqData.getCarRegNo()}"
-                    android:textSize="18dp"
-                    android:visibility="@{TextUtils.isEmpty(activity.serviceReqData.getCarRegNo()) ? View.GONE : View.VISIBLE}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_service_drive_ready_car_model"
-                    tools:text="123너 1231" />
+                    <!-- 차종 -->
+                    <TextView
+                        android:id="@+id/tv_service_drive_ready_car_model"
+                        style="@style/ServiceDrive.RegularText"
+                        android:text="@{activity.serviceReqData.getMdlNm()}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="GV 70" />
 
+                    <!-- 번호판 -->
+                    <TextView
+                        android:id="@+id/tv_service_drive_ready_car_number"
+                        style="@style/ServiceDrive.CarVarn"
+                        android:layout_marginTop="5dp"
+                        android:text="@{activity.serviceReqData.getCarRegNo()}"
+                        android:textSize="18dp"
+                        android:visibility="@{TextUtils.isEmpty(activity.serviceReqData.getCarRegNo()) ? View.GONE : View.VISIBLE}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_service_drive_ready_car_model"
+                        tools:text="123너 1231" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <!-- 이동 경로 뷰 -->
+                <include
+                    android:id="@+id/l_service_drive_req_result_route"
+                    layout="@layout/layout_service_drive_route"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="5dp"
+                    app:FROM="@{activity.serviceReqData.getPosInfo()[0]}"
+                    app:TO="@{activity.serviceReqData.getPosInfo()[1]}"
+                    app:layout_constraintEnd_toEndOf="@id/iv_service_drive_req_result_fromto_back_panel"
+                    app:layout_constraintStart_toStartOf="@id/iv_service_drive_req_result_fromto_back_panel"
+                    app:layout_constraintTop_toBottomOf="@id/l_car_info" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <!-- 이동 경로 뷰 -->
-            <include
-                android:id="@+id/l_service_drive_req_result_route"
-                layout="@layout/layout_service_drive_route"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="5dp"
-                app:FROM="@{activity.serviceReqData.getPosInfo()[0]}"
-                app:TO="@{activity.serviceReqData.getPosInfo()[1]}"
-                app:layout_constraintEnd_toEndOf="@id/iv_service_drive_req_result_fromto_back_panel"
-                app:layout_constraintStart_toStartOf="@id/iv_service_drive_req_result_fromto_back_panel"
-                app:layout_constraintTop_toBottomOf="@id/l_car_info" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-
+        </ScrollView>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -124,7 +125,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_goneMarginEnd="20dp"
                 tools:text="@string/service_drive_req_result_btn_03"
-                tools:visibility="visible"/>
+                tools:visibility="visible" />
 
 
             <TextView
@@ -164,18 +165,18 @@
                 android:inflatedId="@+id/vs_service_drive_req_result_status_info"
                 app:layout_constraintBottom_toTopOf="@+id/tv_service_drive_cancel_btn"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent" />
 
-<!--            <include-->
-<!--                android:id="@+id/vs_service_drive_req_result_status_info"-->
-<!--                layout="@layout/layout_service_drive_status_reserved"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_margin="20dp"-->
-<!--                android:inflatedId="@+id/vs_service_drive_req_result_status_info"-->
-<!--                app:layout_constraintBottom_toTopOf="@+id/tv_service_drive_cancel_btn"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent" />-->
+            <!--            <include-->
+            <!--                android:id="@+id/vs_service_drive_req_result_status_info"-->
+            <!--                layout="@layout/layout_service_drive_status_reserved"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_margin="20dp"-->
+            <!--                android:inflatedId="@+id/vs_service_drive_req_result_status_info"-->
+            <!--                app:layout_constraintBottom_toTopOf="@+id/tv_service_drive_cancel_btn"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent" />-->
 
 
             <TextView
@@ -202,13 +203,13 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="18dp"
-                app:layout_goneMarginBottom="30dp"
                 android:text="@{activity.statusTitle}"
                 android:textColor="@color/x_996449"
                 android:textSize="22dp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_service_drive_driver_status_desc"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_goneMarginBottom="30dp"
                 tools:text="@string/service_drive_req_result_01" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
