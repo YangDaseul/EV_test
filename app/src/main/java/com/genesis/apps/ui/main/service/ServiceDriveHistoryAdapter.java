@@ -258,7 +258,7 @@ public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveSe
             getBinding().setDate(dateStr);
 
             //차량 정보
-            String carInfo = item.getMdlNm() + " " + item.getCarRegNo();
+            String carInfo = StringUtil.isValidString(item.getMdlNm()) + " " + StringUtil.isValidString(item.getCarRegNo());
             getBinding().setCarInfo(carInfo);
         }
 
