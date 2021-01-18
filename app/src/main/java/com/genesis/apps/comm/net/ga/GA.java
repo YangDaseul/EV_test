@@ -447,7 +447,7 @@ public class GA {
 
     public JsonObject postDataWithToken(String url, String data, String token) throws NetException {
         HttpRequest request = httpRequestUtil.getPostRequest(url);
-        request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + token);
+        if(!TextUtils.isEmpty(token)) request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + token);
         Log.d(TAG, "Authorization:Bearer " + token);
         JsonObject ret = null;
 
