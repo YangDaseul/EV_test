@@ -64,12 +64,13 @@ public class PaymentWebViewActivity extends WebviewActivity {
             if (!TextUtils.isEmpty(msg) && msg.equalsIgnoreCase(ROADWIN_PAYMENT_SUCC)) {
                 exit(ResultCodes.REQ_CODE_PAYMENT_SUCC.getCode());
             } else {
-                String currUrl = fragment.getUrl();
-                if (!TextUtils.isEmpty(currUrl) && currUrl.equalsIgnoreCase(url)) {
-                    exit(ResultCodes.REQ_CODE_PAYMENT_FAIL.getCode());
-                } else {
-                    reload();
-                }
+                exit(ResultCodes.REQ_CODE_PAYMENT_FAIL.getCode());
+//                String currUrl = fragment.getUrl();
+//                if (!TextUtils.isEmpty(currUrl) && currUrl.equalsIgnoreCase(url)) {
+//                    exit(ResultCodes.REQ_CODE_PAYMENT_FAIL.getCode());
+//                } else {
+//                    reload();
+//                }
             }
         }
     }
