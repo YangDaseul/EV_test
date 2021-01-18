@@ -466,7 +466,8 @@
             android:name=".ui.main.service.ServiceDriveReqActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout" /> <!-- 대리운전 신청 완료 (신청하고 결제 성공하면 나오는 거) -->
+            android:theme="@style/TextInputLayout"
+            android:windowSoftInputMode="adjustResize"/> <!-- 대리운전 신청 완료 (신청하고 결제 성공하면 나오는 거) -->
         <activity
             android:name=".ui.main.service.ServiceDriveReqCompleteActivity"
             android:exported="false"
