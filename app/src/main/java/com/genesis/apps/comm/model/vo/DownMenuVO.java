@@ -30,8 +30,8 @@ class DownMenuVO extends BaseData {
     @SerializedName("menuNm")
     private String menuNm;
     @Expose
-    @SerializedName("qckMenuDivCd")
-    private String qckMenuDivCd;
+    @SerializedName("msgLnkCd")
+    private String msgLnkCd;
     @Expose
     @SerializedName("wvYn")
     private String wvYn;
