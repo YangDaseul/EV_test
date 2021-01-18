@@ -92,16 +92,18 @@ public class BottomDialogInputBranchCode extends BaseBottomDialog<DialogBottomSo
     }
 
     //지점코드 유효성 검사. 길이만 검사한다.
+    //2021-01-18 유효성 검사가 세차지점 전체로 변경되면서 APP에서 체크 불가로 제거 됨
     private boolean validateInput(String input) {
-        WashReserveVO target = null;
-        try{
-            if(rsvtList!=null&&rsvtList.size()>0){
-                target = rsvtList.stream().filter(data -> (StringUtil.isValidString(data.getBrnhCd()).equalsIgnoreCase(input))).findFirst().orElse(null);
-            }
-        }catch (Exception e){
-            target = null;
-        }
-        return target != null;
+        return true;
+//        WashReserveVO target = null;
+//        try{
+//            if(rsvtList!=null&&rsvtList.size()>0){
+//                target = rsvtList.stream().filter(data -> (StringUtil.isValidString(data.getBrnhCd()).equalsIgnoreCase(input))).findFirst().orElse(null);
+//            }
+//        }catch (Exception e){
+//            target = null;
+//        }
+//        return target != null;
     }
 
     //에러 메시지 표시하기/끄기
