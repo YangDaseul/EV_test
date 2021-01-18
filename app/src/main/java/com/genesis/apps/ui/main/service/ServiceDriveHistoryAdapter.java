@@ -186,7 +186,7 @@ public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveSe
         //아이템에서 데이터를 꺼내서 뷰에 출력할 값으로 가공하여 뷰홀더에 저장
         private void getDataFromItem(DriveServiceVO item) {
             //날짜 : 포맷에 맞게 변경
-            Date date = DateUtil.getDefaultDateFormat(StringUtil.isValidString(item.getRgstDt()), DateUtil.DATE_FORMAT_yyyyMMddHHmm, Locale.KOREA);
+            Date date = DateUtil.getDefaultDateFormat(StringUtil.isValidString(item.getRgstDt()), DateUtil.DATE_FORMAT_yyyyMMddHHmmss, Locale.KOREA);
             this.date = DateUtil.getDate(date, DateUtil.DATE_FORMAT_yyyy_MM_dd_e_hh_mm);
 
             //차량정보 : 차종 + 번호판
