@@ -64,11 +64,11 @@ public class PaymentWebViewActivity extends WebviewActivity {
     public boolean parseURL(String url) {
         Log.d("JJJJ", "parseURL : " + url);
         if(!url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("javascript")) {
-            Intent intent;
+            Intent intent = null;
             try {
                 intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
             } catch (URISyntaxException use) {
-                return false;
+
             }
 
             Uri uri = Uri.parse(intent.getDataString());

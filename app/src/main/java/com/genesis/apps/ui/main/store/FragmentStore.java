@@ -261,11 +261,11 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
             ((MainActivity) getActivity()).moveToNativePage(url, false);
             return true;
         } else if(!url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("javascript")) {
-            Intent intent;
+            Intent intent = null;
             try {
                 intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
             } catch (URISyntaxException use) {
-                return false;
+
             }
 
             uri = Uri.parse(intent.getDataString());

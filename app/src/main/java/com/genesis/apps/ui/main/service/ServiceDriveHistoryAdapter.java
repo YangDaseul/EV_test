@@ -253,7 +253,7 @@ public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveSe
         public void onBindView(DriveServiceVO item, int pos) {
             Log.d(TAG, "onBindView(canceled): ");
             //신청 일시
-            Date date = DateUtil.getDefaultDateFormat(item.getRgstDt(), DateUtil.DATE_FORMAT_yyyyMMddHHmm, Locale.KOREA);
+            Date date = DateUtil.getDefaultDateFormat(item.getRgstDt(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss, Locale.KOREA);
             String dateStr = DateUtil.getDate(date, DateUtil.DATE_FORMAT_yyyy_MM_dd_e_hh_mm);
             getBinding().setDate(dateStr);
 

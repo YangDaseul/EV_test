@@ -69,24 +69,24 @@
         <!--            app:layout_constraintTop_toTopOf="@+id/iv_car_bottom" />-->
 
 
-<!--        <ImageView-->
-<!--            android:id="@+id/iv_car"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:adjustViewBounds="true"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            tools:src="@drawable/new_car_4" />-->
+        <!--        <ImageView-->
+        <!--            android:id="@+id/iv_car"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:adjustViewBounds="true"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            tools:src="@drawable/new_car_4" />-->
 
         <ImageView
             android:id="@+id/iv_car"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:adjustViewBounds="true"
-            app:layout_constraintHeight_percent=".5"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent=".5"
             app:layout_constraintStart_toStartOf="parent"
             tools:src="@drawable/new_car_4" />
 
@@ -128,22 +128,10 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/x_000000"
-            app:layout_constraintTop_toBottomOf="@+id/iv_bg_bottom"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottieView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_loop="true"
-            app:lottie_speed="0.6" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_bg_bottom" />
 
 
         <ImageView
@@ -165,10 +153,22 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="30dp"
+            app:layout_constraintDimensionRatio="4.6:1"
             app:layout_constraintEnd_toEndOf="@+id/iv_teduri"
             app:layout_constraintStart_toStartOf="@+id/iv_teduri"
-            app:layout_constraintTop_toTopOf="@+id/iv_bg_top"
-            app:layout_constraintDimensionRatio="4.6:1"/>
+            app:layout_constraintTop_toTopOf="@+id/iv_bg_top" />
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_loop="true"
+            app:lottie_speed="0.6" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -177,11 +177,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            app:layout_constraintVertical_bias=".43"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/iv_teduri"
-            app:layout_constraintStart_toStartOf="@+id/iv_teduri">
+            app:layout_constraintStart_toStartOf="@+id/iv_teduri"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias=".43">
 
             <TextView
                 android:id="@+id/tv_genesis"
@@ -217,19 +217,19 @@
                 tools:text="GV80" />
 
 
-<!--            <ImageView-->
-<!--                android:id="@+id/btn_location"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginLeft="6dp"-->
-<!--                android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"-->
-<!--                android:scaleType="centerInside"-->
-<!--                android:src="@drawable/ic_carinfo"-->
-<!--                android:visibility="gone"-->
-<!--                app:layout_constraintBottom_toBottomOf="@+id/tv_genesis"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/tv_genesis"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/tv_genesis"-->
-<!--                tools:visibility="visible" />-->
+            <!--            <ImageView-->
+            <!--                android:id="@+id/btn_location"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginLeft="6dp"-->
+            <!--                android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"-->
+            <!--                android:scaleType="centerInside"-->
+            <!--                android:src="@drawable/ic_carinfo"-->
+            <!--                android:visibility="gone"-->
+            <!--                app:layout_constraintBottom_toBottomOf="@+id/tv_genesis"-->
+            <!--                app:layout_constraintStart_toEndOf="@+id/tv_genesis"-->
+            <!--                app:layout_constraintTop_toTopOf="@+id/tv_genesis"-->
+            <!--                tools:visibility="visible" />-->
 
 
             <TextView
@@ -291,14 +291,12 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_down_scroll"
                 android:visibility="invisible"
-                app:layout_constraintTop_toTopOf="@+id/tv_car_model"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_car_model"
                 tools:visibility="invisible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
