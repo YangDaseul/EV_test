@@ -23,7 +23,7 @@
     <string name="gm_bt04_1">버틀러 1:1 문의</string>
     <string name="gm_bt04_2">상담 구분을%s\n선택해 주세요.</string>
     <string name="gm_bt04_3">상담 구분</string>
-    <string name="gm_bt04_4">%s를 선택해 주세요.</string>
+    <string name="gm_bt04_4">상담 유형(%s)을 선택해 주세요.</string>
     <string name="gm_bt04_5">상담 유형%s을\n선택해 주세요.</string>
     <string name="gm_bt04_6">상담 유형%s</string>
     <string name="gm_bt04_7">(대분류)</string>
