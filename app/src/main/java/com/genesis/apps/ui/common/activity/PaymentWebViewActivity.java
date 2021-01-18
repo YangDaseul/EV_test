@@ -17,6 +17,7 @@ public class PaymentWebViewActivity extends WebviewActivity {
     private final static String TAG = PaymentWebViewActivity.class.getSimpleName();
     final String ROADWIN_PAYMENT_SUCC = "0";
     final String ROADWIN_PAYMENT_FAIL = "1";
+    final String ROADWIN_PAYMENT_USER_CANCEL = "2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +125,8 @@ public class PaymentWebViewActivity extends WebviewActivity {
             Log.e(TAG, "ipay_event_2 : " + msg);
             if (!TextUtils.isEmpty(msg) && msg.equalsIgnoreCase(ROADWIN_PAYMENT_SUCC)) {
                 exit(ResultCodes.REQ_CODE_PAYMENT_SUCC.getCode());
+            } else if (!TextUtils.isEmpty(msg) && msg.equalsIgnoreCase(ROADWIN_PAYMENT_USER_CANCEL)) {
+                exit(ResultCodes.REQ_CODE_PAYMENT_CANCEL.getCode());
             } else {
                 exit(ResultCodes.REQ_CODE_PAYMENT_FAIL.getCode());
 //                String currUrl = fragment.getUrl();
