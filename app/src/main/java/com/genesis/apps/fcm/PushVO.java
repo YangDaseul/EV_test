@@ -12,24 +12,24 @@ public @Data class PushVO extends BaseData {
     @Expose
     @SerializedName("token")
     private String token;
-    @Expose
-    @SerializedName("notification")
-    private Notification notification;
+//    @Expose
+//    @SerializedName("notification")
+//    private Notification notification;
     @Expose
     @SerializedName("data")
     private PushData data;
 
-    public @Data static class Notification extends BaseData {
-        @Expose
-        @SerializedName("title")
-        private String title;
-        @Expose
-        @SerializedName("body")
-        private String body;
-        @Expose
-        @SerializedName("badge")
-        private String badge;
-    }
+//    public @Data static class Notification extends BaseData {
+//        @Expose
+//        @SerializedName("title")
+//        private String title;
+//        @Expose
+//        @SerializedName("body")
+//        private String body;
+//        @Expose
+//        @SerializedName("badge")
+//        private String badge;
+//    }
 
     public @Data static class PushData extends BaseData {
         @Expose
@@ -63,5 +63,15 @@ public @Data class PushVO extends BaseData {
         @Expose
         @SerializedName("lgrCatCd")
         private String lgrCatCd;
+
+        @Expose
+        @SerializedName("title")
+        private String title;
+        @Expose
+        @SerializedName("body")
+        private String body;
+        @Expose
+        @SerializedName("badge")
+        private String badge;
     }
 }

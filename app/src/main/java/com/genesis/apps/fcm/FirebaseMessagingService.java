@@ -37,10 +37,10 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         if (remoteMessage != null) {
             Log.e(TAG, "From: " + remoteMessage.getFrom());
             PushVO.PushData data = getPushData(remoteMessage);
-            PushVO.Notification notification = getNotification(remoteMessage);
+//            PushVO.Notification notification = getNotification(remoteMessage);
             PushVO pushVO = new PushVO();
             pushVO.setData(data);
-            pushVO.setNotification(notification);
+//            pushVO.setNotification(notification);
             notifyMessage(pushVO, PushCodes.findCodeByCd(pushVO.getData()!=null ? pushVO.getData().getLgrCatCd() : ""));
         }
     }
@@ -55,20 +55,20 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         return data;
     }
 
-    private PushVO.Notification getNotification(RemoteMessage remoteMessage) {
-        PushVO.Notification noti = new PushVO.Notification();
-        if (remoteMessage != null && remoteMessage.getNotification() != null) {
-            noti.setTitle(remoteMessage.getNotification().getTitle());
-            noti.setBody(remoteMessage.getNotification().getBody());
-        }
-        return noti;
-    }
+//    private PushVO.Notification getNotification(RemoteMessage remoteMessage) {
+//        PushVO.Notification noti = new PushVO.Notification();
+//        if (remoteMessage != null && remoteMessage.getNotification() != null) {
+//            noti.setTitle(remoteMessage.getNotification().getTitle());
+//            noti.setBody(remoteMessage.getNotification().getBody());
+//        }
+//        return noti;
+//    }
 
     private void notifyMessage(PushVO pushVO, PushCodes code) {
         Log.d(TAG, "push test2: " + code);
-        if (pushVO.getNotification() != null && !TextUtils.isEmpty(pushVO.getNotification().getTitle()) && !TextUtils.isEmpty(pushVO.getNotification().getBody())) {
-            String head = pushVO.getNotification().getTitle();
-            String body = pushVO.getNotification().getBody();
+        if (pushVO.getData() != null && !TextUtils.isEmpty(pushVO.getData().getTitle()) && !TextUtils.isEmpty(pushVO.getData().getBody())) {
+            String head = pushVO.getData().getTitle();
+            String body = pushVO.getData().getBody();
             Intent intent = new Intent(this, PushDummyActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                     | Intent.FLAG_ACTIVITY_CLEAR_TOP
