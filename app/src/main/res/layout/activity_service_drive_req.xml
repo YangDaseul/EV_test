@@ -11,19 +11,19 @@
             type="com.genesis.apps.ui.main.service.ServiceDriveReqActivity" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/x_ffffff">
+        android:background="@color/x_ffffff"
+        android:orientation="vertical">
 
         <!-- 타이틀바-->
         <include
             android:id="@+id/l_service_drive_req_titlebar"
             layout="@layout/layout_titlebar_use_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             app:btnText="@{@string/service_drive_01}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:textBtnListener="@{activity.onSingleClickListener}"
             app:value="@{@string/sm01_service_driver_1}" />
 
@@ -33,64 +33,57 @@
             layout="@layout/layout_service_drive_req_panel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="40dp"
-            app:isRound="@{true}"
-            app:layout_constraintBottom_toTopOf="@id/view_line"
-            app:layout_constraintTop_toBottomOf="@id/l_service_drive_req_titlebar" />
+            app:isRound="@{true}" />
 
         <View
             android:id="@+id/view_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/x_e5e5e5"
-            app:layout_constraintBottom_toTopOf="@id/l_service_drive_req_scroll_view"
-            app:layout_constraintTop_toBottomOf="@id/l_service_drive_req_top_panel" />
+            android:layout_marginBottom="40dp"
+            android:background="@color/x_e5e5e5" />
+
 
         <!-- 스크롤 범위 : 입력내용 안내 메시지 ~ 입력 창 네 개 -->
         <ScrollView
             android:id="@+id/l_service_drive_req_scroll_view"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_line"
-            app:layout_goneMarginTop="10dp">
+            android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="20dp"
-                android:paddingTop="40dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="20dp">
-
+                android:orientation="vertical">
                 <!-- "출발/도착지 주소를 입력해라" : 01 ~ 04 번 str -->
                 <TextView
                     android:id="@+id/tv_service_drive_req_please_input_xxx"
                     style="@style/TextBasic"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:fontFamily="@font/light_genesissansheadglobal"
                     android:paddingBottom="30dp"
                     android:text="@string/service_drive_input_01"
                     android:textColor="@color/x_000000"
-                    android:textSize="22dp"/>
+                    android:textSize="22dp" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/l_service_drive_req_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:orientation="vertical">
 
                     <!-- 도착지 상세 주소 입력칸 -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/l_service_drive_req_input_to_detail"
                         style="@style/CommonTextInputLayout"
-                        android:visibility="gone"
                         android:layout_marginTop="0dp"
+                        android:visibility="gone"
                         app:layout_goneMarginTop="0dp"
                         tools:helperText="@string/service_drive_input_07"
                         tools:visibility="visible">
@@ -102,25 +95,25 @@
                             tools:background="#aaff88" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-<!--                    <com.google.android.material.textfield.TextInputLayout-->
-<!--                        android:id="@+id/l_service_drive_req_input_to_detail"-->
-<!--                        style="@style/ServiceDrive.InputToDetailLayout"-->
-<!--                        android:visibility="gone"-->
-<!--                        tools:helperText="@string/service_drive_input_07">-->
+                    <!--                    <com.google.android.material.textfield.TextInputLayout-->
+                    <!--                        android:id="@+id/l_service_drive_req_input_to_detail"-->
+                    <!--                        style="@style/ServiceDrive.InputToDetailLayout"-->
+                    <!--                        android:visibility="gone"-->
+                    <!--                        tools:helperText="@string/service_drive_input_07">-->
 
-<!--                        <com.google.android.material.textfield.TextInputEditText-->
-<!--                            android:id="@+id/tiet_service_drive_req_input_to_address_detail"-->
-<!--                            style="@style/ServiceDrive.InputAddressDetail"-->
-<!--                            tools:background="#aaff88" />-->
+                    <!--                        <com.google.android.material.textfield.TextInputEditText-->
+                    <!--                            android:id="@+id/tiet_service_drive_req_input_to_address_detail"-->
+                    <!--                            style="@style/ServiceDrive.InputAddressDetail"-->
+                    <!--                            tools:background="#aaff88" />-->
 
-<!--                    </com.google.android.material.textfield.TextInputLayout>-->
+                    <!--                    </com.google.android.material.textfield.TextInputLayout>-->
 
                     <!-- "도착지 주소" -->
                     <TextView
                         android:id="@+id/tv_service_drive_req_to_title"
                         style="@style/ServiceDrive.SearchTo.Title"
                         android:layout_marginTop="5dp"
-                        tools:visibility="visible"/>
+                        tools:visibility="visible" />
 
                     <!-- 도착 주소 검색 버튼-->
                     <TextView
@@ -134,10 +127,10 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/l_service_drive_req_input_from_detail"
                         style="@style/CommonTextInputLayout"
-                        android:visibility="gone"
                         android:layout_marginTop="20dp"
-                        app:layout_goneMarginTop="0dp"
+                        android:visibility="gone"
                         app:layout_constraintTop_toBottomOf="@+id/tv_service_drive_req_search_to_address_btn"
+                        app:layout_goneMarginTop="0dp"
                         tools:helperText="@string/service_drive_input_07"
                         tools:visibility="visible">
 
@@ -165,27 +158,28 @@
                         android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <!-- 스크롤 범위 더미 : 이 뒤에 나올 다음 버튼과 같은 높이를 가져야 함.
-                     텍스트 지우면 높이 달라짐 -->
-                <TextView
-                    style="@style/BigBtn.Black"
-                    android:text="더미"
-                    android:visibility="invisible" />
             </LinearLayout>
         </ScrollView>
 
-        <TextView
-            android:id="@+id/tv_service_drive_req_next_btn"
-            style="@style/BigBtn.Black"
-            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-            android:text="@string/comm_next"
-            android:visibility="gone"
-            app:elevation="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:visibility="visible" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/x_ffffff"
+            android:paddingTop="20dp">
+
+            <TextView
+                android:id="@+id/tv_service_drive_req_next_btn"
+                style="@style/BigBtn.Black"
+                android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                android:text="@string/comm_next"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:visibility="visible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
 </layout>

@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 
+import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 
 import java.net.URISyntaxException;
@@ -23,6 +24,7 @@ public class PaymentWebViewActivity extends WebviewActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setJavaInterface(new RoadWindInterface());
         super.onCreate(savedInstanceState);
+        ui.setValue(getString(R.string.comm_pay));
     }
 
     @Override

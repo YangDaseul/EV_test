@@ -117,7 +117,6 @@ public class BtrConsultTypeActivity extends SubActivity<ActivityBtrConsultType1B
 
     }
 
-
     /**
      * @brief 선택된 아이템 초기화
      */
@@ -133,6 +132,7 @@ public class BtrConsultTypeActivity extends SubActivity<ActivityBtrConsultType1B
                 selectCdValId[3]="";
                 listCnsl.addAll(result.getCdList());
                 msg = String.format(getString(R.string.gm_bt04_2),"");
+                openBottomDialog(ui.tvCnsl, listCnsl);
                 break;
             case VariableType.BTR_CNSL_CODE_LARGE:
                 nextPos=1;
@@ -142,6 +142,7 @@ public class BtrConsultTypeActivity extends SubActivity<ActivityBtrConsultType1B
                 selectCdValId[3]="";
                 listLgct.addAll(result.getCdList());
                 msg = String.format(getString(R.string.gm_bt04_2),getString(R.string.gm_bt04_7));
+                openBottomDialog(ui.tvLgct, listLgct);
                 break;
             case VariableType.BTR_CNSL_CODE_MEDIUM:
                 nextPos=2;
@@ -150,6 +151,7 @@ public class BtrConsultTypeActivity extends SubActivity<ActivityBtrConsultType1B
                 selectCdValId[3]="";
                 listMdct.addAll(result.getCdList());
                 msg = String.format(getString(R.string.gm_bt04_2),getString(R.string.gm_bt04_8));
+                openBottomDialog(ui.tvMdct, listMdct);
                 break;
             case VariableType.BTR_CNSL_CODE_SMALL:
                 nextPos=3;
@@ -157,6 +159,7 @@ public class BtrConsultTypeActivity extends SubActivity<ActivityBtrConsultType1B
                 selectCdValId[3]="";
                 listSmct.addAll(result.getCdList());
                 msg = String.format(getString(R.string.gm_bt04_2),getString(R.string.gm_bt04_9));
+                openBottomDialog(ui.tvSmct, listSmct);
                 break;
         }
         ui.tvMsg.setText(msg);
@@ -237,6 +240,11 @@ public class BtrConsultTypeActivity extends SubActivity<ActivityBtrConsultType1B
     }
 
     private void openBottomDialog(final View v, final List<CounselCodeVO> counselList) {
+
+        if(counselList==null||counselList.size()<1) {
+            SnackBarUtil.show(this, "내역이 존재하지 않습니다.");
+            return;
+        }
 
         if(!isValid(v.getId())) {
             SnackBarUtil.show(this, getErrorMsg(v.getId()));

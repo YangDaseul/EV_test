@@ -282,8 +282,13 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
             case R.id.l_service_maintenance_defect_btn:
                 //주소 검색 시 사용하기 위한 내 위치 정보 전달
                 AddressVO addressVO = new AddressVO();
-                addressVO.setCenterLat(lgnViewModel.getPosition().getValue().get(0));
-                addressVO.setCenterLon(lgnViewModel.getPosition().getValue().get(1));
+                try {
+                    addressVO.setCenterLat(lgnViewModel.getPosition().getValue().get(0));
+                    addressVO.setCenterLon(lgnViewModel.getPosition().getValue().get(1));
+                }catch (Exception e){
+                    addressVO.setCenterLat(37.463936);
+                    addressVO.setCenterLon(127.042953);
+                }
 
                 if (!TextUtils.isEmpty(getMainVehicleVin())) {
                     ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRelapseHistoryActivity.class)
