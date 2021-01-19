@@ -13,6 +13,7 @@ import android.util.Log;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.PushCodes;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.ui.common.activity.PushDummyActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.RemoteMessage;
@@ -66,9 +67,9 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
     private void notifyMessage(PushVO pushVO, PushCodes code) {
         Log.d(TAG, "push test2: " + code);
-        if (pushVO.getData() != null && !TextUtils.isEmpty(pushVO.getData().getTitle()) && !TextUtils.isEmpty(pushVO.getData().getBody())) {
-            String head = pushVO.getData().getTitle();
-            String body = pushVO.getData().getBody();
+        if (pushVO.getData() != null && !TextUtils.isEmpty(pushVO.getData().getTitle())) {
+            String head = StringUtil.isValidString(pushVO.getData().getTitle());
+            String body = StringUtil.isValidString(pushVO.getData().getBody());
             Intent intent = new Intent(this, PushDummyActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                     | Intent.FLAG_ACTIVITY_CLEAR_TOP
