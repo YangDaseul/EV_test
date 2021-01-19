@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.VOCInfoVO;
 import com.genesis.apps.comm.util.DateUtil;
-import com.genesis.apps.databinding.ItemRelapseHistoryBinding;
+import com.genesis.apps.databinding.ItemRelapseHistoryNewBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
@@ -72,7 +72,7 @@ public class ServiceRelapseHistoryAdapter extends BaseRecyclerViewAdapter2<VOCIn
         switch (viewType) {
             case TYPE_FINISHED:
             case TYPE_WAITING:
-                return new RelapseHistoryViewHolder(getView(parent, R.layout.item_relapse_history));
+                return new RelapseHistoryViewHolder(getView(parent, R.layout.item_relapse_history_new));
 
             case TYPE_NOTI:
                 return new RelapseHistoryViewHolder(getView(parent, R.layout.item_relapse_history_noti));
@@ -90,7 +90,7 @@ public class ServiceRelapseHistoryAdapter extends BaseRecyclerViewAdapter2<VOCIn
     }
 
     //하자 재발 뷰 홀더
-    public static class RelapseHistoryViewHolder extends BaseViewHolder<VOCInfoVO, ItemRelapseHistoryBinding> {
+    public static class RelapseHistoryViewHolder extends BaseViewHolder<VOCInfoVO, ItemRelapseHistoryNewBinding> {
         public boolean finished;
         public String vin;
         public String dateStr;

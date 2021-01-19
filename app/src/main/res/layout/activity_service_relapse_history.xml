@@ -44,7 +44,7 @@
             android:layout_marginStart="8dp"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:text="@{itemCount}"
-            android:textColor="@color/x_cd9a81"
+            android:textColor="@color/x_996449"
             android:textSize="18dp"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_relapse_history_list_title"
             app:layout_constraintStart_toEndOf="@id/tv_relapse_history_list_title"
@@ -55,37 +55,61 @@
             android:id="@+id/rv_service_drive_history_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
             android:background="@color/x_ffffff"
-            app:layout_constraintBottom_toTopOf="@id/tv_relapse_history_main_msg"
+            app:layout_constraintBottom_toTopOf="@id/l_bottom"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_relapse_history_list_title"
-            tools:listitem="@layout/item_relapse_history" />
+            tools:listitem="@layout/item_relapse_history_new" />
 
-        <TextView
-            android:id="@+id/tv_relapse_history_main_msg"
-            style="@style/TextBasic"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="20dp"
-            android:fontFamily="@font/light_genesissansheadglobal"
-            android:lineSpacingExtra="8dp"
-            android:text="@string/relapse_history_main_msg"
-            android:textColor="@color/x_000000"
-            android:textSize="22dp"
-            app:layout_constraintBottom_toTopOf="@id/tv_relapse_history_req_btn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_service_drive_history_list" />
 
-        <TextView
-            android:id="@+id/tv_relapse_history_req_btn"
-            style="@style/BigBtn.Black"
-            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-            android:text="@string/relapse_history_req_btn"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_bottom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@color/x_ffffff"
+            android:elevation="15dp"
+            android:paddingTop="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_relapse_history_main_msg" />
+            app:layout_constraintTop_toBottomOf="@+id/rv_service_drive_history_list">
+
+
+            <TextView
+                android:id="@+id/tv_relapse_history_main_msg"
+                style="@style/TextBasic"
+                android:layout_width="0dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/x_ffffff"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                android:lineSpacingExtra="8dp"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:text="@string/relapse_history_main_msg"
+                android:textColor="@color/x_000000"
+                android:textSize="22dp"
+                app:layout_constraintBottom_toTopOf="@id/tv_relapse_history_req_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_relapse_history_req_btn"
+                style="@style/BigBtn.Black"
+                android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                android:text="@string/relapse_history_req_btn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_relapse_history_main_msg" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

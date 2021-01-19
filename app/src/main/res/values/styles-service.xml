@@ -9,7 +9,7 @@
 
     <!-- 대리운전 항목 설명-->
     <style name="ServiceDriveDesc" parent="TextBasic">
-        <item name="android:textColor">@color/x_aaabaf</item>
+        <item name="android:textColor">@color/x_666666</item>
         <item name="android:textSize">14dp</item>
         <item name="android:lineSpacingExtra">6dp</item>
     </style>
@@ -151,7 +151,7 @@
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:layout_marginStart">20dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
-        <item name="android:textColor">@color/x_aaabaf</item>
+        <item name="android:textColor">@color/x_666666</item>
         <item name="android:textSize">14dp</item>
     </style>
 
@@ -184,7 +184,7 @@
 
     <!-- 하자 재발 내역 목록 밑에 안내문 세 개 -->
     <style name="RelapseHistoryItemNoti" parent="TextBasic">
-        <item name="android:textColor">@color/x_aaabaf</item>
+        <item name="android:textColor">@color/x_666666</item>
         <item name="android:textSize">14dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:lineSpacingExtra">6dp</item>
