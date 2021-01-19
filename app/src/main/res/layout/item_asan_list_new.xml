@@ -90,7 +90,7 @@
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/tv_date"
+                app:layout_constraintRight_toLeftOf="@+id/tv_dt"
                 app:layout_constraintTop_toBottomOf="@+id/tv_asnhist"
                 tools:text="(주) 염리점현대자동차" />
 

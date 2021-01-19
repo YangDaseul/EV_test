@@ -7,45 +7,44 @@
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:background="@drawable/ripple_bg_ffffff_underline_f4f4f4">
+        android:background="@drawable/ripple_bg_ffffff_underline_f4f4f4"
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/tv_zip_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16dp"
-            android:textColor="@color/x_000000"
+            android:ellipsize="end"
+            android:fontFamily="@font/regular_genesissansheadglobal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="15dp"
             android:maxLines="1"
-            android:ellipsize="end"
-            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:textColor="@color/x_000000"
+            android:textSize="16dp"
             app:layout_constrainedWidth="true"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_distance"
-            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintHorizontal_bias="0"
-            tools:text="12345"/>
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="12345" />
+
         <TextView
             android:id="@+id/tv_road_addr"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="16dp"
-            android:textColor="@color/x_bf000000"
+            android:ellipsize="end"
+            android:fontFamily="@font/light_genesissansheadglobal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="6dp"
             android:maxLines="2"
-            android:ellipsize="end"
-            android:fontFamily="@font/light_genesissansheadglobal"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintTop_toBottomOf="@+id/tv_zip_no"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
-            app:layout_constraintHorizontal_chainStyle="packed"
+            android:textColor="@color/x_bf000000"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
-            tools:text="서울특별시 금천구 시흥대로 333 (가산동)"/>
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_zip_no"
+            tools:text="서울특별시 금천구 시흥대로 333 (가산동)" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
