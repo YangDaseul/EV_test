@@ -63,7 +63,7 @@
     <!-- 약관 -->
     <string name="terms_title">약관에 모두 동의해 주세요.</string>
     <string name="terms_all_agree">모두 동의</string>
-    <string name="terms_essential">\ (필수)</string>
+    <string name="terms_essential"><![CDATA[<font color="#996449"> (필수)</font>]]></string>
 
 
 </resources>

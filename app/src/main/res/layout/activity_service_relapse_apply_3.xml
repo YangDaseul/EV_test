@@ -58,34 +58,34 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/bg_ffffff_stroke_e2e2e2"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_relapse_3_desc"
                 tools:visibility="gone">
 
-                <!-- 예 버튼 테두리 -->
-                <TextView
-                    android:id="@+id/tv_relapse_3_yes_border"
-                    style="@style/Relapse3RepairOver4Selected"
-                    android:visibility="@{activity.over4?View.VISIBLE:View.INVISIBLE}"
-                    app:layout_constraintEnd_toStartOf="@id/tv_relapse_3_no_border"
-                    app:layout_constraintStart_toStartOf="parent" />
+<!--                &lt;!&ndash; 예 버튼 테두리 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_relapse_3_yes_border"-->
+<!--                    style="@style/Relapse3RepairOver4Selected"-->
+<!--                    android:visibility="@{activity.over4?View.VISIBLE:View.GONE}"-->
+<!--                    app:layout_constraintEnd_toStartOf="@id/tv_relapse_3_no_border"-->
+<!--                    app:layout_constraintStart_toStartOf="parent" />-->
 
-                <!-- 아니오 버튼 테두리 -->
-                <TextView
-                    android:id="@+id/tv_relapse_3_no_border"
-                    style="@style/Relapse3RepairOver4Selected"
-                    android:visibility="@{activity.over4?View.INVISIBLE:View.VISIBLE}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/tv_relapse_3_yes_border" />
+<!--                &lt;!&ndash; 아니오 버튼 테두리 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_relapse_3_no_border"-->
+<!--                    style="@style/Relapse3RepairOver4Selected"-->
+<!--                    android:visibility="@{activity.over4?View.GONE:View.VISIBLE}"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/tv_relapse_3_yes_border" />-->
 
                 <!-- 예 버튼 -->
                 <TextView
                     android:id="@+id/tv_relapse_3_yes"
                     style="@style/Relapse3RepairOver4Btn"
-                    android:alpha="@{activity.over4?1.0f:0.6f}"
+                    android:background="@{activity.over4 ? @drawable/ripple_bg_996449 : @drawable/bg_ffffff_stroke_757575}"
+                    android:textColor="@{activity.over4? @color/x_ffffff : @color/x_757575}"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     android:text="@string/dialog_common_2"
                     app:layout_constraintEnd_toStartOf="@id/tv_relapse_3_no"
@@ -95,7 +95,8 @@
                 <TextView
                     android:id="@+id/tv_relapse_3_no"
                     style="@style/Relapse3RepairOver4Btn"
-                    android:alpha="@{activity.over4?0.6f:1.0f}"
+                    android:background="@{activity.over4 ? @drawable/bg_ffffff_stroke_757575 : @drawable/ripple_bg_996449}"
+                    android:textColor="@{activity.over4? @color/x_757575 : @color/x_ffffff}"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     android:text="@string/dialog_common_1"
                     app:layout_constraintEnd_toEndOf="parent"

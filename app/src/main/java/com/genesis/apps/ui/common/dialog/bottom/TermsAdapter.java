@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.common.dialog.bottom;
 
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -90,7 +91,7 @@ public class TermsAdapter extends BaseRecyclerViewAdapter2<TermVO> {
             if (Objects.equals(item.getTermEsnAgmtYn(), "Y")) {
                 termName += getContext().getString(R.string.terms_essential);
             }
-            getBinding().cb.setText(termName);
+            getBinding().cb.setText(Html.fromHtml(termName, Html.FROM_HTML_MODE_COMPACT));
             getBinding().cb.setChecked(selectedItems.get(pos));
 
             getBinding().cb.setOnCheckedChangeListener((buttonView, isChecked) -> {

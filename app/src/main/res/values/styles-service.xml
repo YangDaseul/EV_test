@@ -193,7 +193,7 @@
     <!-- 하자 재발 3단계 4회이상 테두리 -->
     <style name="Relapse3RepairOver4Selected" parent="TextBasic">
         <item name="android:layout_width">0dp</item>
-        <item name="android:background">@drawable/bg_ffffff_stroke_141414_2dp</item>
+        <item name="android:background">@drawable/bg_ffffff_stroke_757575</item>
         <item name="android:padding">18dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="layout_constraintBottom_toBottomOf">parent</item>
@@ -207,7 +207,7 @@
         <item name="android:textColor">@color/x_000000</item>
         <item name="android:layout_margin">2dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
-        <item name="android:background">@drawable/ripple_bg_ffffff</item>
+        <item name="android:background">@drawable/ripple_bg_996449</item>
         <item name="android:padding">16dp</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
         <item name="layout_constraintBottom_toBottomOf">parent</item>
