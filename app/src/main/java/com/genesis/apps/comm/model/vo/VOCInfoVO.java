@@ -231,5 +231,10 @@ class VOCInfoVO extends BaseData {
     @SerializedName("inpDesc")
     private String inpDesc;
 
+    //1001에서만 사용 인도일자 yyyyMMdd
+    @Expose
+    @SerializedName("recvYmd")
+    private String recvYmd;
+
 
 }

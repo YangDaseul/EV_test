@@ -36,7 +36,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="30dp">
+                android:paddingBottom="40dp">
 
                 <TextView
                     android:id="@+id/tv_title_example"
@@ -55,36 +55,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_title_sub_example"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginRight="20dp"
-                    android:fontFamily="@font/light_genesissansheadglobal"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="4dp"
-                    android:text="@string/r_flaw05_p01_2"
-                    android:textColor="@color/x_525252"
-                    android:textSize="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_example" />
-
 
                 <ImageView
                     android:id="@+id/iv_example_img"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="30dp"
                     android:adjustViewBounds="true"
-                    android:background="@color/x_f4f4f4"
+                    android:background="@color/x_f8f8f8"
                     android:padding="20dp"
                     android:src="@drawable/flaw_05_img"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_sub_example" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_example" />
 
 
                 <TextView
@@ -97,7 +80,7 @@
                 <TextView
                     android:id="@+id/tv_info_1"
                     style="@style/TextViewVinInfo1"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginEnd="20dp"
                     android:text="@string/r_flaw05_p01_3"
                     app:layout_constraintStart_toEndOf="@+id/tv_mark_1"

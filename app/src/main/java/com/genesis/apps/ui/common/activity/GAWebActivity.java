@@ -23,12 +23,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class GAWebActivity extends WebviewActivity {
-    //todo 제거 예정
-    public static final String URL_PURCHASE_CONSULTING="https://mypage.genesis.com/kr/ko/mypage/guide/purchase-consulting-step1.html";
-    public static final String URL_TEST_DRIVE="https://www.genesis.com/kr/ko/genesis-test-drive.html";
-    public static final String URL_SIMILAR_STOCKS="https://www.genesis.com/content/genesis_owners/kr/ko/shopping/similar-stocks.html";
-    public static final String URL_MEMBERSHIP="https://www.genesis.com/kr/ko/genesis-membership/benefit-service.html";
-    public static final String URL_BTO_MAIN="https://www.genesis.com/kr/ko/build-your-genesis-gate.html";
 
     private final String TAG = getClass().getSimpleName();
     private int titleId=0;

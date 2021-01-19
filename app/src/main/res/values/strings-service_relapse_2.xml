@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="r_flaw05_0">하자 재발 통보</string>
-    <string name="r_flaw05_1">자동차 등록증을 참고하시어 작성\n바랍니다.</string>
+    <string name="r_flaw05_1">자동차 등록증을 참고하시어 작성 바랍니다.</string>
     <string name="r_flaw05_2">예시확인</string>
     <string name="r_flaw05_3">제작자명</string>
     <string name="r_flaw05_4">현대자동차</string>
@@ -36,7 +36,7 @@
     <string name="r_flaw05_33">운행지역을 선택해 주세요.\n(시/군/구)</string>
 
 
-    <string name="r_flaw05_p01_1">자동차 정보 입력 참고 사항</string>
+    <string name="r_flaw05_p01_1">자동차 정보 입력 참고 사항\n(자동차 등록증)</string>
     <string name="r_flaw05_p01_2">(자동차 등록증)</string>
     <string name="r_flaw05_p01_3">차명 : 자동차 등록증의 ④ 차명 확인 등록</string>
     <string name="r_flaw05_p01_4">번호 : 자동차 등록증의 ① 자동차등록번호 확인</string>
