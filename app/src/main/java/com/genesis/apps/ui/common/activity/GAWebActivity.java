@@ -193,8 +193,20 @@ public class GAWebActivity extends WebviewActivity {
 //        } else {
 //            finish();
 //        }
-        finish();
-        closeTransition();
+        if(!TextUtils.isEmpty(fn)){
+            if(fragment.openWindows.size()>0){
+                fragment.openWindows.get(0).loadUrl("javascript:"+fn);
+            }else{
+                fragment.loadUrl("javascript:"+fn);
+            }
+//            fn="";
+            return true;
+        } else {
+            finish();
+            closeTransition();
+        }
+
+
         return true;
 //        if (currentUrl.startsWith(GA_URL)) {
 //            if(!fragment.canGoBack()) {

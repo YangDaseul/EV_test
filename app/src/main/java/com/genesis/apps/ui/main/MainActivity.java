@@ -387,9 +387,17 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                         webFragment.loadUrl("javascript:bwcAppClose();");
                     } else {
                         Log.d("JJJJ", "canGoBack : " + webFragment.canGoBack());
-                        if(webFragment.canGoBack()) {
-                            webFragment.goBack();
-                            return;
+                        if(!TextUtils.isEmpty(fragmentStore.fn)){
+                            if(webFragment.openWindows.size()>0){
+                                webFragment.openWindows.get(0).loadUrl("javascript:"+fragmentStore.fn);
+                            }else{
+                                webFragment.loadUrl("javascript:"+fragmentStore.fn);
+                            }
+                        } else {
+                            if(webFragment.canGoBack()) {
+                                webFragment.goBack();
+                                return;
+                            }
                         }
                     }
                 }

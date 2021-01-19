@@ -154,10 +154,18 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
             fragment.loadUrl("javascript:bwcAppClose();");
         } else {
             Log.d("JJJJ", "canGoBack : " + fragment.canGoBack());
-            if(fragment.canGoBack()) {
-                fragment.goBack();
+            if(!TextUtils.isEmpty(fn)){
+                if(fragment.openWindows.size()>0){
+                    fragment.openWindows.get(0).loadUrl("javascript:"+fn);
+                }else{
+                    fragment.loadUrl("javascript:"+fn);
+                }
             } else {
-                super.onBackPressed();
+                if(fragment.canGoBack()) {
+                    fragment.goBack();
+                } else {
+                    super.onBackPressed();
+                }
             }
         }
 
