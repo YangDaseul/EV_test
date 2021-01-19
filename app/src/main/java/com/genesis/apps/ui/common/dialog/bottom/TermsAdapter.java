@@ -1,12 +1,15 @@
 package com.genesis.apps.ui.common.dialog.bottom;
 
+import android.text.Spannable;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.TermVO;
@@ -92,7 +95,8 @@ public class TermsAdapter extends BaseRecyclerViewAdapter2<TermVO> {
             }
             getBinding().cb.setText(termName);
             getBinding().cb.setChecked(selectedItems.get(pos));
-
+            getBinding().lWhole.setBackgroundResource(R.drawable.ripple_bg_ffffff);
+            getBinding().ivLine.setVisibility(View.GONE);
             getBinding().cb.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
                     selectedItems.put(pos, true);
@@ -104,6 +108,13 @@ public class TermsAdapter extends BaseRecyclerViewAdapter2<TermVO> {
                 bottomDialogAskAgreeTerms.setAllAgree(isAll());
             });
 
+            String target = getContext().getString(R.string.int03_3); //(필수)
+            if(termName.contains(target)){
+                int start = termName.indexOf(target.charAt(0));
+                int end = start + target.length();
+                Spannable span = (Spannable)getBinding().cb.getText();
+                span.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.x_996449)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
             getBinding().ivArrow.setTag(R.id.tag_term_vo, item);
             getBinding().setListener(onSingleClickListener);
         }

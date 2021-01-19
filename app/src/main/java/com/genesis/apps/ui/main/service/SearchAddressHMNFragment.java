@@ -130,8 +130,6 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
         me.lSearchParent.rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         me.lSearchParent.rv.setHasFixedSize(true);
         me.lSearchParent.rv.setAdapter(adapter);
-
-
         me.lSearchParent.etSearch.setOnEditorActionListener(editorActionListener);
         me.lSearchParent.etSearch.setHint(R.string.map_title_3);
         me.lSearchParent.etSearch.addTextChangedListener(new TextWatcher() {
@@ -156,6 +154,7 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
         });
 
         me.lTitle.back.setOnClickListener(onSingleClickListener);
+        SoftKeyboardUtil.showKeyboard(getContext());
         setViewMsg();
         reqRecentlyData();
     }

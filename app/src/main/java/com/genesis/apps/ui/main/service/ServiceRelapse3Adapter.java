@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 
+import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.util.DateUtil;
@@ -376,8 +377,8 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
             getBinding().tvRelapse3RepairHistoryTitle.setText(turn + getContext().getString(R.string.relapse_3_repair_count));
 
             //삭제 버튼. 1회차는 삭제버튼 없다
-            getBinding().tvRelapse3RepairHistoryDeleteBtn.setOnClickListener(turn == 1 ? null : v -> remove(pos));
-            getBinding().tvRelapse3RepairHistoryDeleteBtn.setVisibility(turn == 1 ? View.GONE : View.VISIBLE);
+            getBinding().tvRelapse3RepairHistoryDeleteBtn.lWhole.setOnClickListener(turn == 1 ? null : v -> remove(pos));
+            getBinding().tvRelapse3RepairHistoryDeleteBtn.lWhole.setVisibility(turn == 1 ? View.GONE : View.VISIBLE);
 
             //데이터를 뷰에 출력
             getBinding().etRelapse3Mechanic.setText(item.mechanic);
@@ -532,7 +533,8 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
             if (defectListDialog.getSelectItem() != null) {
                 //선택한 내용을 버튼에 표시(따로 저장은 안 함. 버튼 글씨만 변함)
                 getBinding().tvRelapseDefectSelect.setText(defectListDialog.getSelectItem());
-                getBinding().tvRelapseDefectSelect.setTextColor((getContext().getColor(R.color.x_141414)));
+                Paris.style(getBinding().tvRelapseDefectSelect).apply(R.style.CommonSpinnerItemEnable);
+                getBinding().tvTitleRelapseDefectSelect.setVisibility(View.VISIBLE);
 
                 //입력창 하나 추가(아이템이 UI 뷰 하나만 있을 때 한정)
                 if (getItemCount() == 1) {
