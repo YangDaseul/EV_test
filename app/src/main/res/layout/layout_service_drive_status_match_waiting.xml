@@ -7,6 +7,8 @@
         <TextView
             style="@style/ServiceDriveReqResult.Status.Text.Regular"
             android:text="@string/service_drive_req_result_03"
+            android:textSize="14dp"
+            android:textColor="@color/x_262626"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
