@@ -27,12 +27,12 @@ android {
 
     signingConfigs {
         release {
-            storeFile file(getRootDir().getAbsolutePath() + "/KSmarTech.googleKey")
+            storeFile file(getRootDir().getAbsolutePath() + "/MyGenesisKey.jks")
 //            storeFile file("/opt/KeyStore/KSmartech/KSmarTech.googleKey")
 //            storeFile file("E:/KSmarTech/KSmarTech.googleKey")
-            storePassword "07075101000"
-            keyAlias "KSmarTech"
-            keyPassword "07075101000"
+            storePassword "wpsptltm202!"
+            keyAlias "Genesis"
+            keyPassword "wpsptltm202!"
         }
     }
 
@@ -45,19 +45,28 @@ android {
         }
 
         debug {
-            //APK Auto File Name
-            applicationVariants.all { variant ->
-                variant.outputs.all { output ->
-                    def project = "myGenesis"
-                    def SEP = "_"
-                    def flavor = "debug"
-                    def version = variant.versionName
-                    def date = new Date();
-                    def formattedDate = date.format('yyMMddHHmm')
-                    def newApkName = project + SEP + flavor + SEP + version + SEP + formattedDate + ".apk"
-                    outputFileName = new File(newApkName)
-                }
+        }
+
+        //APK Auto File Name
+        applicationVariants.all { variant ->
+            def flavor = variant.name
+            variant.outputs.all { output ->
+                def project = "myGenesis"
+                def SEP = "_"
+                def version = variant.versionName
+                def date = new Date();
+                def formattedDate = date.format('yyMMddHHmm')
+                def newApkName = project + SEP + flavor + SEP + version + SEP + formattedDate + ".apk"
+                outputFileName = new File(newApkName)
             }
+        }
+
+
+        lintOptions {
+            checkReleaseBuilds false
+            // Or, if you prefer, you can continue to check for errors in release builds,
+            // but continue the build even when errors are found:
+            abortOnError false
         }
     }
 
