@@ -17,6 +17,7 @@
 package com.genesis.apps.comm.util;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,7 +75,8 @@ public class CalenderUtil extends DialogFragment {
             // Should actually be called by activity inside `Callback.onCancelled()`
             dismiss();
         }
-// You can also override 'formatDate(Date)' & 'formatTime(Date)'
+
+        // You can also override 'formatDate(Date)' & 'formatTime(Date)'
         // to supply custom formatters.
     };
 
@@ -154,8 +156,10 @@ public class CalenderUtil extends DialogFragment {
         options.setDateRange(limitStartDate, limitEndDate);
 
         options.setAnimateLayoutChanges(true);
-        if(baseDate!=null)
+        if(baseDate!=null) {
             options.setDateParams(baseDate);
+            options.setTimeParams(baseDate.get(Calendar.HOUR_OF_DAY), baseDate.get(Calendar.MINUTE), true);
+        }
         // Example for setting date range:
         // Note that you can pass a date range as the initial date params
         // even if you have date-range selection disabled. In this case,
