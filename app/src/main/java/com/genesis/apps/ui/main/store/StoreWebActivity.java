@@ -155,6 +155,7 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
         } else {
             Log.d("JJJJ", "canGoBack : " + fragment.canGoBack());
             if(!TextUtils.isEmpty(fn)){
+                Log.d("JJJJ", "openWindows size : " + fragment.openWindows.size());
                 if(fragment.openWindows.size()>0){
                     fragment.openWindows.get(0).loadUrl("javascript:"+fn);
                 }else{
@@ -180,7 +181,7 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
 
     private void initView() {
         Bundle bundle = new Bundle();
-        bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
+//        bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
 
         fragment = new MyWebViewFrament();
         fragment.setWebViewListener(webViewListener);
@@ -208,6 +209,7 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
         }
         @Override
         public boolean onBackPressed() {
+            Log.d("JJJJ", "onBackPressed");
             if(clearWindowOpens2()) {
                 return true;
             }else {
@@ -233,7 +235,7 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
 
     public boolean parseURL(String url) {
         Uri uri = Uri.parse(url);
-
+        Log.d("JJJJ", "parseURL : " + url);
         if (url.equalsIgnoreCase("https://www.genesis.com/kr/ko")
                 || url.equalsIgnoreCase("https://www.genesis.com/kr/ko/genesis-membership.html")){
             //TODO 테스트 필요 0001
