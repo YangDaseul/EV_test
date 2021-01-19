@@ -58,6 +58,7 @@
                     <TextView
                         android:id="@+id/tv_service_drive_ready_car_model"
                         style="@style/ServiceDrive.RegularText"
+                        android:textSize="14dp"
                         android:text="@{activity.serviceReqData.getMdlNm()}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -69,7 +70,7 @@
                         style="@style/ServiceDrive.CarVarn"
                         android:layout_marginTop="5dp"
                         android:text="@{activity.serviceReqData.getCarRegNo()}"
-                        android:textSize="18dp"
+                        android:textSize="14dp"
                         android:visibility="@{TextUtils.isEmpty(activity.serviceReqData.getCarRegNo()) ? View.GONE : View.VISIBLE}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_service_drive_ready_car_model"
