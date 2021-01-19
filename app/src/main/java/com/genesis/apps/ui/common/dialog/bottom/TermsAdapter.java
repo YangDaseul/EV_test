@@ -101,7 +101,7 @@ public class TermsAdapter extends BaseRecyclerViewAdapter2<TermVO> {
                     selectedItems.delete(pos);
                 }
 
-                bottomDialogAskAgreeTerms.validateCheck(selectedItems);
+//                bottomDialogAskAgreeTerms.validateCheck(selectedItems);
                 bottomDialogAskAgreeTerms.setAllAgree(isAll());
             });
 

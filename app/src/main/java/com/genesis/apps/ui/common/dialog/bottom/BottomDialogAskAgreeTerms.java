@@ -2,6 +2,7 @@ package com.genesis.apps.ui.common.dialog.bottom;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 
 import androidx.annotation.NonNull;
@@ -47,7 +48,7 @@ public class BottomDialogAskAgreeTerms extends BaseBottomDialog<DialogBottomTerm
         //전체동의 버튼
         setAllClickListener();
 
-        setEnabledBtn(false);
+        setEnabledBtn(true);
         //확인버튼
         ui.tvBottomTermsOkBtn.setOnClickListener(view -> {
 
@@ -84,25 +85,75 @@ public class BottomDialogAskAgreeTerms extends BaseBottomDialog<DialogBottomTerm
 
     public void validateCheck(SparseBooleanArray selectedItems) {
         boolean isValidate = false;
-        for(int i=0; i<termList.size(); i++) {
-            TermVO item = termList.get(i);
+        for(int i=0; i<selectedItems.size(); i++) {
+            for(int j=0; j<termList.size(); j++) {
+                TermVO item = termList.get(j);
 
-            if("Y".equals(item.getTermEsnAgmtYn())) {
-                for(int j=0; j<selectedItems.size(); j++) {
-                    if(i == selectedItems.keyAt(j)) {
-                        if(selectedItems.get(j)) {
-                            isValidate = true;
-                        } else {
-                            isValidate = false;
-
-                            setEnabledBtn(isValidate);
-                            return;
-                        }
+                if("Y".equals(item.getTermEsnAgmtYn())) {
+                    if(selectedItems.keyAt(i) == j) {
+                        isValidate = true;
+                        Log.d("JJJJ", "index : " + j + "isValidate : " + isValidate);
+                        break;
+                    } else {
+                        isValidate = false;
                     }
                 }
             }
         }
 
+//        for(int i=0; i<termList.size(); i++) {
+//            TermVO item = termList.get(i);
+//
+//            if("Y".equals(item.getTermEsnAgmtYn())) {
+//                for(int j=0; j<selectedItems.size(); j++) {
+//                    if(selectedItems.keyAt(j) == i) {
+//                        isValidate = true;
+//                        Log.d("JJJJ", "index : " + i + ", isValidate : " + isValidate);
+//                        break;
+//                    } else {
+//                        isValidate = false;
+//
+//                        setEnabledBtn(isValidate);
+//                        return;
+//                    }
+//                }
+//            }
+//        }
+
+        for(int i=0; i<selectedItems.size(); i++) {
+            if(selectedItems.get(i)) {
+                isValidate = true;
+            } else {
+                isValidate = false;
+
+                break;
+            }
+        }
+
+//        for(int i=0; i<termList.size(); i++) {
+//            TermVO item = termList.get(i);
+//
+//            if("Y".equals(item.getTermEsnAgmtYn())) {
+//                for(int j=0; j<selectedItems.size(); j++) {
+//                    Log.d("JJJJ", "index : " + i + ", key : " + selectedItems.keyAt(j));
+//                    if(i == selectedItems.keyAt(j)) {
+//                        if(selectedItems.get(j)) {
+//                            isValidate = true;
+//
+//                            Log.d("JJJJ", "T : " + isValidate);
+//                        } else {
+//                            isValidate = false;
+//
+//                            Log.d("JJJJ", "F : " + isValidate);
+//                            setEnabledBtn(isValidate);
+//                            return;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+
+        Log.d("JJJJ", "end : " + isValidate);
         setEnabledBtn(isValidate);
     }
 
