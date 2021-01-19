@@ -22,12 +22,15 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.DDS_1005;
 import com.genesis.apps.comm.model.api.gra.WSH_1008;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.DDSViewModel;
 import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.ActivityServiceReviewBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.main.home.LeasingCarRegisterInputActivity;
+
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
 public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBinding> {
     private static final String TAG = ServiceReviewActivity.class.getSimpleName();
@@ -259,18 +262,15 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
                             break;
 
                         case SUCCESS:
-                            if (result.data != null && result.data.getRtCd() != null) {
+                            if (result.data != null) {
                                 showProgressDialog(false);
-//                                if(  todo 이미 평가 한 건수인지 검사  ){
-//                                    rejectReview();
-//                                    return;
-//                                }
-
-                                finishReview();
+                                if(StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)){
+                                    finishReview();
+                                }else if(StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("9030")){
+                                    rejectReview();
+                                }
                                 break;
                             }
-                            //not break; 데이터 이상하면 default로 진입시킴
-
                         default:
                             showProgressDialog(false);
                             String serverMsg = "";
