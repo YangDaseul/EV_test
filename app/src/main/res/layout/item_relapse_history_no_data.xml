@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <TextView
+        style="@style/TextBasic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/bg_ffffff_stroke_e2e2e2"
-        android:gravity="center">
-
-
-        <TextView
-            style="@style/TextBasic"
-            android:layout_margin="40dp"
-            android:fontFamily="@font/regular_genesissansheadglobal"
-            android:text="@string/relapse_history_no_data"
-            android:textColor="@color/x_141414"
-            android:textSize="16dp" />
-
-    </LinearLayout>
+        android:background="@drawable/bg_f8f8f8_stroke_e5e5e5"
+        android:fontFamily="@font/regular_genesissanstextglobal"
+        android:gravity="center"
+        android:lineSpacingExtra="10dp"
+        android:paddingTop="50dp"
+        android:paddingBottom="50dp"
+        android:text="@string/relapse_history_no_data"
+        android:textColor="@color/x_262626"
+        android:textSize="18dp" />
 
 </layout>

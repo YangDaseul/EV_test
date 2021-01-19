@@ -4,7 +4,7 @@
     <!-- 하자 재발 신청내역 -->
     <string name="relapse_history_page_title">하자 재발 통보 신청</string>
     <string name="relapse_history_list_title">신청 내역</string>
-    <string name="relapse_history_no_data">신청 내역이 없습니다.</string>
+    <string name="relapse_history_no_data">내역이 없습니다.</string>
     <string name="relapse_history_main_msg">자동차 수리 후,\n같은 증상의 하자가 발생\n하셨나요?</string>
     <string name="relapse_history_req_btn">신청</string>
     <string name="relapse_history_dot">·</string>
