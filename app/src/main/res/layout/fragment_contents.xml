@@ -127,7 +127,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cm02_3"
-                    android:textSize="15dp"
+                    android:textSize="14dp"
                     android:textColor="@color/x_000000"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:lineSpacingExtra="29dp"
