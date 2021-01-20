@@ -12,7 +12,9 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
+import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.BaseResponse;
@@ -388,12 +390,14 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         currentState = STATE_ASK_OVER_4;
         ui.tvRelapse3Desc.setText(R.string.relapse_3_msg_03);
 
-        InteractionUtil.expand(ui.lRelapse3YesNoContainer, null);
+        ui.tvRelapse3Yes.setVisibility(View.VISIBLE);
+        ui.tvRelapse3No.setVisibility(View.VISIBLE);
         ui.ivDummy.setVisibility(View.VISIBLE);
     }
 
     //4번넘었나요? : y/n 선택함
     private void selectOver4(boolean over) {
+        setStyleOver(over);
         if (over4 == over) {
             return;
         }
@@ -406,6 +410,11 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         } else {
             InteractionUtil.collapse(ui.lRelapse3TotalCountContainer, null);
         }
+    }
+
+    public void setStyleOver(boolean over) {
+        Paris.style(ui.tvRelapse3Yes).apply(over ? R.style.BtrFilterEnable2 : R.style.BtrFilterDisable2);
+        Paris.style(ui.tvRelapse3No).apply(over ? R.style.BtrFilterDisable2 : R.style.BtrFilterEnable2);
     }
 
     //누적 수리 기간 묻기
@@ -426,9 +435,8 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
             InteractionUtil.collapse(ui.lRelapse3TotalCountContainer, null);
             count = "" + (adapter.getItemCount() - 1);//-1은 마지막 게 ui 더미 칸이니까
         }
-
-        InteractionUtil.collapse(ui.lRelapse3YesNoContainer, null);
-
+        ui.tvRelapse3Yes.setVisibility(View.GONE);
+        ui.tvRelapse3No.setVisibility(View.GONE);
         InteractionUtil.expand(ui.lRelapse3PeriodContainer, null);
 
         new Handler().postDelayed(() -> {
