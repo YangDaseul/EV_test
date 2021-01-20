@@ -15,6 +15,7 @@
     <string name="maintenance_category_07">기타</string>
 
     <string name="maintenance_service_title">서비스</string>
+    <string name="maintenance_service_title_02">서비스를 선택해 주세요.</string>
     <string name="maintenance_service_item_01">찾아가는 오토케어</string>
     <string name="maintenance_service_desc_01">차량이 있는 곳으로 찾아가서\n정비해 드리는 서비스</string>
     <string name="maintenance_service_item_02">에어포트</string>

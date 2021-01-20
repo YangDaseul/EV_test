@@ -127,13 +127,19 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
 
     private void initServiceItem(){
         //오토케어
-        setViewVisibility(ui.lMaintenanceAutocare.lMaintenanceCategoryItemBtn, true);
+        setViewVisibility(ui.lMaintenanceAutocare.lMaintenanceCategoryItemBtn, ui.lMaintenanceAutocare.btnBlock,true);
         //에어포트
-        setViewVisibility(ui.lMaintenanceAirport.lMaintenanceCategoryItemBtn, true);
+        setViewVisibility(ui.lMaintenanceAirport.lMaintenanceCategoryItemBtn, ui.lMaintenanceAirport.btnBlock,true);
         //홈투홈서비스
-        setViewVisibility(ui.lMaintenanceHometohome.lMaintenanceCategoryItemBtn, true);
+        setViewVisibility(ui.lMaintenanceHometohome.lMaintenanceCategoryItemBtn, ui.lMaintenanceHometohome.btnBlock, true);
         //정비소 사용
-        setViewVisibility(ui.lMaintenanceRepair.lMaintenanceCategoryItemBtn, true);
+        setViewVisibility(ui.lMaintenanceRepair.lMaintenanceCategoryItemBtn, ui.lMaintenanceRepair.btnBlock, true);
+
+        ui.lMaintenanceRepair.btnBlock.setVisibility(View.VISIBLE);
+        ui.lMaintenanceHometohome.btnBlock.setVisibility(View.VISIBLE);
+        ui.lMaintenanceAirport.btnBlock.setVisibility(View.VISIBLE);
+        ui.lMaintenanceAutocare.btnBlock.setVisibility(View.VISIBLE);
+        ui.tvService.setText(R.string.maintenance_service_title);
     }
 
     private void initMaintenanceCategory(){
@@ -325,13 +331,13 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
         if(!TextUtils.isEmpty(avlRsrYn)&&avlRsrYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
             //예약신청가능여부가 y인경우
             //오토케어 사용 가능 상태 + 소모성부품선택 + 픽앤딜리버리 횟수 1회 이상 + 엔진 횟수 1회 이상
-            setViewVisibility(ui.lMaintenanceAutocare.lMaintenanceCategoryItemBtn, isPossibleReservation(autoRsvtPsblYn) && selectRepairTypeVO.getRparTypCd().equalsIgnoreCase(VariableType.SERVICE_REPAIR_CODE_CS) && reqViewModel.checkCoupon(couponList, VariableType.SERVICE_CAR_CARE_COUPON_CODE_PICKUP_DELIVERY) && reqViewModel.checkCoupon(couponList, VariableType.SERVICE_CAR_CARE_COUPON_CODE_ENGINE));
+            setViewVisibility(ui.lMaintenanceAutocare.lMaintenanceCategoryItemBtn, ui.lMaintenanceAutocare.btnBlock, isPossibleReservation(autoRsvtPsblYn) && selectRepairTypeVO.getRparTypCd().equalsIgnoreCase(VariableType.SERVICE_REPAIR_CODE_CS) && reqViewModel.checkCoupon(couponList, VariableType.SERVICE_CAR_CARE_COUPON_CODE_PICKUP_DELIVERY) && reqViewModel.checkCoupon(couponList, VariableType.SERVICE_CAR_CARE_COUPON_CODE_ENGINE));
             //에어포트 사용 가능 상태 + 소모성부품선택 + 픽앤딜리버리 횟수 1회 이상
-            setViewVisibility(ui.lMaintenanceAirport.lMaintenanceCategoryItemBtn, isPossibleReservation(arptRsvtPsblYn) && selectRepairTypeVO.getRparTypCd().equalsIgnoreCase(VariableType.SERVICE_REPAIR_CODE_CS) && reqViewModel.checkCoupon(couponList, VariableType.SERVICE_CAR_CARE_COUPON_CODE_PICKUP_DELIVERY));
+            setViewVisibility(ui.lMaintenanceAirport.lMaintenanceCategoryItemBtn, ui.lMaintenanceAirport.btnBlock, isPossibleReservation(arptRsvtPsblYn) && selectRepairTypeVO.getRparTypCd().equalsIgnoreCase(VariableType.SERVICE_REPAIR_CODE_CS) && reqViewModel.checkCoupon(couponList, VariableType.SERVICE_CAR_CARE_COUPON_CODE_PICKUP_DELIVERY));
             //홈투홈서비스 사용 가능 상태 + 픽앤딜리버리 횟수 1회 이상
-            setViewVisibility(ui.lMaintenanceHometohome.lMaintenanceCategoryItemBtn, isPossibleReservation(hthRsvtPsblYn) && reqViewModel.checkCoupon(couponList, VariableType.SERVICE_CAR_CARE_COUPON_CODE_PICKUP_DELIVERY));
+            setViewVisibility(ui.lMaintenanceHometohome.lMaintenanceCategoryItemBtn, ui.lMaintenanceHometohome.btnBlock, isPossibleReservation(hthRsvtPsblYn) && reqViewModel.checkCoupon(couponList, VariableType.SERVICE_CAR_CARE_COUPON_CODE_PICKUP_DELIVERY));
             //정비소 사용 가능 상태
-            setViewVisibility(ui.lMaintenanceRepair.lMaintenanceCategoryItemBtn, isPossibleReservation(rpshRsvtPsblYn));
+            setViewVisibility(ui.lMaintenanceRepair.lMaintenanceCategoryItemBtn, ui.lMaintenanceRepair.btnBlock, isPossibleReservation(rpshRsvtPsblYn));
         }else{
             //예약신청가능여부가 갑자기 N으로 변경된 경우
             MiddleDialog.dialogServiceInfo(this, () -> {
@@ -344,14 +350,18 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
     /**
      * @brief 서비스 아이템 활성화/비활성화
      *
-     * @param view
      * @param visibility visibility true면 아이템 활성화
      */
-    private void setViewVisibility(View view, boolean visibility){
+    private void setViewVisibility(View parent, View block, boolean visibility){
 
-        if(visibility&&view.getVisibility()!=View.VISIBLE) InteractionUtil.expand(view, null);
-        else if(!visibility&&view.getVisibility()!=View.GONE) InteractionUtil.collapse(view, null);
+        if(visibility&&parent.getVisibility()!=View.VISIBLE) {
+            InteractionUtil.expand(parent, null);
+        }else if(!visibility&&parent.getVisibility()!=View.GONE) {
+            InteractionUtil.collapse(parent, null);
+        }
 
+        if(visibility)
+            block.setVisibility(View.GONE);
 //        view.setVisibility(visibility ? View.VISIBLE : View.GONE);
     }
 
@@ -419,6 +429,7 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
             ui.tvMaintenanceCategoryTitle.setVisibility(View.VISIBLE);
             Paris.style(ui.tvMaintenanceCategorySelectBtn).apply(R.style.CommonSpinnerItemEnable);
             ui.tvMaintenanceCategorySelectBtn.setText(selectRepairTypeVO.getRparTypNm());
+            ui.tvService.setText(R.string.maintenance_service_title_02);
         }
     }
 
