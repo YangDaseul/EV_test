@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,81 +10,97 @@
             type="com.genesis.apps.ui.main.service.ServiceRelapseReqResultActivity.DefectHistoryData" />
     </data>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_f9f9f9_stroke_e2e2e2"
+        android:background="@color/x_ffffff"
         android:orientation="vertical">
-
-        <!-- n"회차 수리내역" -->
+        <!-- n회차 수리내역 -->
         <TextView
-            style="@style/TextBasic"
+            style="@style/RelapseReqResultSubTitle"
+            android:text="@{data.title ?? ``}"
+            tools:text="n회차 수리 내역" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_repair_hist_detail"
             android:layout_width="match_parent"
-            android:background="@drawable/bg_ffffff_stroke_e2e2e2"
-            android:fontFamily="@font/regular_genesissansheadglobal"
-            android:paddingStart="15dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:text="@{data.title}"
-            android:textColor="@color/x_000000"
-            android:textSize="16dp"
-            tools:text="n회차 수리내역" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/x_e5e5e5"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp">
+            <!-- "수리업자명" -->
+            <include
+                android:id="@+id/l_repair_hist_nm"
+                layout="@layout/item_rpar_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:isLeft="@{true}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:msg="@{data.mechanic ?? ``}"
+                app:title="@{@string/relapse_3_repair_mechanic}" />
 
-        <!-- "수리업자명" -->
-        <TextView
-            style="@style/RelapseReqResultItem.Title"
-            android:text="@string/relapse_3_repair_mechanic" />
+            <!-- "수리 요청일" -->
+            <include
+                android:id="@+id/l_repair_hist_date"
+                layout="@layout/item_rpar_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                app:isLeft="@{true}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/l_repair_hist_nm"
+                app:maxLine="@{Integer.MAX_VALUE}"
+                app:msg="@{data.repairReqDate ?? ``}"
+                app:title="@{@string/relapse_3_repair_req_date}" />
 
-        <!-- 수리업자명 값-->
-        <TextView
-            style="@style/RelapseReqResultItem.Desc"
-            android:text="@{data.mechanic}"
-            tools:text="울랄라자동차" />
+            <!-- "수리 완료일" -->
+            <include
+                android:id="@+id/l_date_finish"
+                layout="@layout/item_rpar_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                app:isLeft="@{true}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/l_repair_hist_date"
+                app:msg="@{data.repairFinishDate ?? ``}"
+                app:title="@{@string/relapse_3_repair_finish_date}" />
 
-        <!-- "수리 요청일" -->
-        <TextView
-            style="@style/RelapseReqResultItem.Title"
-            android:text="@string/relapse_3_repair_req_date" />
+            <!-- "하자 증상" -->
+            <include
+                android:id="@+id/l_defect"
+                layout="@layout/item_rpar_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                app:isLeft="@{true}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/l_date_finish"
+                app:msg="@{data.defectDetail ?? ``}"
+                app:title="@{@string/relapse_3_repair_defect}" />
 
-        <!-- 수리 요청일 값-->
-        <TextView
-            style="@style/RelapseReqResultItem.Desc"
-            android:text="@{data.repairReqDate}"
-            tools:text="2020.10.10" />
+            <!-- 수리 내용-->
+            <include
+                android:id="@+id/l_detail_c"
+                layout="@layout/item_rpar_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                app:isLeft="@{true}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/l_defect"
+                app:msg="@{data.repairDetail ?? ``}"
+                app:title="@{@string/relapse_3_repair_detail}" />
 
-        <!-- "수리 완료일" -->
-        <TextView
-            style="@style/RelapseReqResultItem.Title"
-            android:text="@string/relapse_3_repair_finish_date" />
-
-        <!-- 수리 완료일 값-->
-        <TextView
-            style="@style/RelapseReqResultItem.Desc"
-            android:text="@{data.repairFinishDate}"
-            tools:text="2020.13.10." />
-
-        <!-- "하자 증상" -->
-        <TextView
-            style="@style/RelapseReqResultItem.Title"
-            android:text="@string/relapse_3_repair_defect" />
-
-        <!-- 하자 증상 값-->
-        <TextView
-            style="@style/RelapseReqResultItem.Desc"
-            android:text="@{data.defectDetail}"
-            tools:text="범퍼 납작해짐" />
-
-        <!-- "수리 내용" -->
-        <TextView
-            style="@style/RelapseReqResultItem.Title"
-            android:text="@string/relapse_3_repair_detail" />
-
-        <!-- 수리 내용 값-->
-        <TextView
-            style="@style/RelapseReqResultItem.Desc"
-            android:layout_marginBottom="20dp"
-            android:text="@{data.repairDetail}"
-            tools:text="범퍼 방어력 복원" />
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </layout>

@@ -81,7 +81,7 @@ public class ServiceRelapseReqResultActivity extends SubActivity<ActivityRelapse
         birthday = parseDate(vocInfoVO.getCsmrTymd());
 
         //차명 : todo 이거 맞나?
-        carInfo = vocInfoVO.getCrnVehlCd() + " " + vocInfoVO.getCarNm();
+        carInfo = StringUtil.isValidString(vocInfoVO.getCarNm());
 
         //인도날짜
         carReceiveDate = parseDate(vocInfoVO.getRecvDt());

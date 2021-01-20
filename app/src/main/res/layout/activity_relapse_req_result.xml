@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="com.genesis.apps.comm.util.DateUtil" />
+
         <variable
             name="activity"
             type="com.genesis.apps.ui.main.service.ServiceRelapseReqResultActivity" />
@@ -26,263 +28,282 @@
         <!--  전범위 스크롤 -->
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <!-- 타이틀바 빼고 전체 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingTop="40dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="30dp">
 
-                <!-- 접수일 / 상태 -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@drawable/bg_ffffff_stroke_e2e2e2"
-                    android:padding="10dp">
+                <!-- 접수일 데이터 -->
+                <TextView
+                    android:id="@+id/tv_relapse_req_result_date_data"
+                    style="@style/TextBasic"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:text="@{activity.reqDate ?? ``}"
+                    android:textColor="@color/x_000000"
+                    android:textSize="18dp"
+                    tools:text="2020.13.32" />
 
-                    <!-- 가운데 막대 -->
-                    <ImageView
-                        android:id="@+id/iv_top_center_line"
-                        android:layout_width="1dp"
-                        android:layout_height="0dp"
-                        android:src="@color/x_e2e2e2"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <!-- "접수일" -->
-                    <TextView
-                        android:id="@+id/tv_relapse_req_result_date_title"
-                        style="@style/RelapseReqResultTopTitle"
-                        android:text="@string/relapse_req_result_req_date"
-                        app:layout_constraintEnd_toStartOf="@id/iv_top_center_line"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/iv_top_center_line" />
-
-                    <!-- "상태" -->
-                    <TextView
-                        style="@style/RelapseReqResultTopTitle"
-                        android:text="@string/relapse_req_result_status"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/iv_top_center_line"
-                        app:layout_constraintTop_toTopOf="@id/iv_top_center_line" />
-
-                    <!-- 접수일 데이터 -->
-                    <TextView
-                        android:id="@+id/tv_relapse_req_result_date_data"
-                        style="@style/TextBasic"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:text="@{activity.reqDate}"
-                        android:textColor="@color/x_000000"
-                        android:textSize="16dp"
-                        app:layout_constraintBottom_toBottomOf="@id/iv_top_center_line"
-                        app:layout_constraintEnd_toStartOf="@id/iv_top_center_line"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_relapse_req_result_date_title"
-                        tools:text="2020.13.32" />
-
-                    <!-- 상태 데이터 -->
-                    <TextView
-                        android:id="@+id/tv_relapse_req_result_status_data"
-                        style="@style/TextBasic"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:text="@{activity.status}"
-                        android:textColor="@color/x_cd9a81"
-                        android:textSize="16dp"
-                        app:layout_constraintBaseline_toBaselineOf="@id/tv_relapse_req_result_date_data"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/iv_top_center_line"
-                        tools:text="접수중" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <!-- 상태 데이터 -->
+                <TextView
+                    android:id="@+id/tv_relapse_req_result_status_data"
+                    style="@style/TextBasic"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:text="@{activity.status ?? ``}"
+                    android:textColor="@color/x_996449"
+                    android:textSize="18dp"
+                    tools:text="접수중" />
 
                 <!-- 소유자 -->
                 <TextView
                     style="@style/RelapseReqResultSubTitle"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="40dp"
                     android:text="@string/relapse_req_result_owner" />
 
-                <!-- "고객명" -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Title"
-                    android:text="@string/relapse_req_result_customer_name" />
 
-                <!-- 고객명 값 -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{activity.vocInfoVO.getCsmrNm()}"
-                    tools:text="울랄라맨" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_owner_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/x_e5e5e5"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp">
+                    <!-- "고객명" -->
+                    <include
+                        android:id="@+id/l_customer_name"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:msg="@{activity.vocInfoVO.getCsmrNm() ?? ``}"
+                        app:title="@{@string/relapse_req_result_customer_name}" />
 
-                <!-- "주소" -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Title"
-                    android:text="@string/relapse_req_result_customer_address" />
+                    <!-- "주소" -->
+                    <include
+                        android:id="@+id/l_addr"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_customer_name"
+                        app:maxLine="@{Integer.MAX_VALUE}"
+                        app:msg="@{activity.address ?? ``}"
+                        app:title="@{@string/relapse_req_result_customer_address}" />
 
-                <!-- 주소 값 -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{activity.address}"
-                    tools:text="(05485) 서울특별시 금천구 가산동 440-4\n우림 라이온스밸리 A동 1205호" />
-
-                <!-- "연락처" -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Title"
-                    android:text="@string/relapse_req_result_customer_phone" />
-
-                <!-- 연락처 값 -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{activity.phoneNo}"
-                    tools:text="010-12312-231" />
-
-                <!-- "생년월일" -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Title"
-                    android:text="@string/relapse_req_result_customer_birthday" />
-
-                <!-- 생년월일 값 -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{DateUtil.getDate(DateUtil.getDefaultDateFormat(activity.vocInfoVO.getCsmrTymd(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)}"
-                    tools:text="1899.01.01" />
-
-                <!-- "전자우편주소" -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Title"
-                    android:text="@string/relapse_req_result_customer_email" />
-
-                <!-- 전자우편주소 값 -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{activity.vocInfoVO.getEmlAdr()}"
-                    tools:text="genesis@nemesis.com" />
+                    <!-- "연락처" -->
+                    <include
+                        android:id="@+id/l_phone"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_addr"
+                        app:msg="@{activity.phoneNo ?? ``}"
+                        app:title="@{@string/relapse_req_result_customer_phone}" />
 
 
-                <!-- 소유자/대상 자동차 사이 회색 줄-->
-                <ImageView style="@style/DummyGrayLineHorizontal" />
+                    <include
+                        android:id="@+id/l_birth"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_phone"
+                        app:msg="@{DateUtil.getDate(DateUtil.getDefaultDateFormat(activity.vocInfoVO.getCsmrTymd(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)}"
+                        app:title="@{@string/relapse_req_result_customer_birthday}" />
+
+                    <include
+                        android:id="@+id/l_mail"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_birth"
+                        app:msg="@{activity.vocInfoVO.getEmlAdr() ?? ``}"
+                        app:title="@{@string/relapse_req_result_customer_email}" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 <!-- 대상 자동차 -->
                 <TextView
                     style="@style/RelapseReqResultSubTitle"
+                    android:layout_marginTop="50dp"
                     android:text="@string/relapse_req_result_car_title" />
 
-                <!-- "차명" -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Title"
-                    android:text="@string/relapse_req_result_car_name" />
 
-                <!-- 차명 값 -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{activity.carInfo}"
-                    tools:text="G90 자가용 가솔린 3.3 뤆쎠뤼 오토" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_car_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/x_e5e5e5"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp">
+                    <!-- "차명" -->
+                    <include
+                        android:id="@+id/l_car_nm"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:maxLine="@{Integer.MAX_VALUE}"
+                        app:msg="@{activity.carInfo ?? ``}"
+                        app:title="@{@string/relapse_req_result_car_name}" />
 
-                <!-- "등록번호" -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Title"
-                    android:text="@string/relapse_req_result_car_reg_no" />
+                    <!-- "차량등록번호" -->
+                    <include
+                        android:id="@+id/l_car_reg_no"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_car_nm"
+                        app:msg="@{activity.vocInfoVO.getCarNo() ?? ``}"
+                        app:title="@{@string/relapse_req_result_car_reg_no}" />
 
-                <!-- 등록번호 값  -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{activity.vocInfoVO.getCarNo()}"
-                    tools:text="123가 1234" />
+                    <!-- "차대번호" -->
+                    <include
+                        android:id="@+id/l_vin"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_car_reg_no"
+                        app:msg="@{activity.vocInfoVO.getVin() ?? ``}"
+                        app:title="@{@string/relapse_req_result_car_vin}" />
 
-                <!-- "차대번호" -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Title"
-                    android:text="@string/relapse_req_result_car_vin" />
+                    <!-- "운행지역" -->
+                    <include
+                        android:id="@+id/l_wpa"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_vin"
+                        app:maxLine="@{Integer.MAX_VALUE}"
+                        app:msg="@{activity.vocInfoVO.getWpa() ?? ``}"
+                        app:title="@{@string/relapse_req_result_car_location}" />
 
-                <!-- 차대번호 값  -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{activity.vocInfoVO.getVin()}"
-                    tools:text="15487ABD45782" />
+                    <!-- "인도일" -->
+                    <include
+                        android:id="@+id/l_receive_date"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_wpa"
+                        app:msg="@{activity.carReceiveDate ?? ``}"
+                        app:title="@{@string/relapse_req_result_car_receive_date}" />
 
-                <!-- "운행지역" -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Title"
-                    android:text="@string/relapse_req_result_car_location" />
+                    <!-- "동록년월일" -->
+                    <include
+                        android:id="@+id/l_reg_date"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_receive_date"
+                        app:msg="@{activity.carRegistDate ?? ``}"
+                        app:title="@{@string/relapse_req_result_car_reg_date}" />
 
-                <!-- 운행지역 값  -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{activity.vocInfoVO.getWpa()}"
-                    tools:text="경기도 분당시" />
+                    <!-- "주행거리" -->
+                    <include
+                        android:id="@+id/l_distance"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_reg_date"
+                        app:msg="@{activity.carDistance ?? ``}"
+                        app:title="@{@string/relapse_req_result_car_distance}" />
 
-                <!-- "인도날짜" -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Title"
-                    android:text="@string/relapse_req_result_car_receive_date" />
-
-                <!-- 인도날짜 값  -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{activity.carReceiveDate}"
-                    tools:text="2022.13.32" />
-
-                <!-- "등록연월일" -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Title"
-                    android:text="@string/relapse_req_result_car_reg_date" />
-
-                <!-- 등록연월일 값  -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{activity.carRegistDate}"
-                    tools:text="2023.01.34" />
-
-                <!-- "주행거리" -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Title"
-                    android:text="@string/relapse_req_result_car_distance" />
-
-                <!-- 주행거리 값  -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{activity.carDistance}"
-                    tools:text="93,999 km" />
-
-
-                <!-- 대상 차/동일하자 사이 회색 줄-->
-                <ImageView style="@style/DummyGrayLineHorizontal" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 <!-- 동일한 하자 수리 내역 -->
                 <TextView
                     style="@style/RelapseReqResultSubTitle"
+                    android:layout_marginTop="50dp"
                     android:text="@string/relapse_req_result_relapse_title" />
 
-                <!-- "하자구분" -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Title"
-                    android:text="@string/relapse_req_result_relapse_kind" />
 
-                <!-- 하자 구분 값 -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{activity.defectLevel}"
-                    tools:text="일반 보증 기간" />
-
-                <!-- 동일하자 /123회차 내역 사이 회색 줄-->
-                <ImageView style="@style/DummyGrayLineHorizontal" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_repair_hist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/x_e5e5e5"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp">
+                    <!-- "하자구분" -->
+                    <include
+                        android:id="@+id/l_relapse_kind"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:msg="@{activity.defectLevel ?? ``}"
+                        app:title="@{@string/relapse_req_result_relapse_kind}" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <!-- 1회차 수리 내역 -->
                 <include
                     layout="@layout/layout_service_relapse_req_result_defect_history"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="50dp"
                     android:visibility="@{activity.history[0].visibility}"
                     app:data="@{activity.history[0]}" />
 
@@ -291,9 +312,7 @@
                     layout="@layout/layout_service_relapse_req_result_defect_history"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="50dp"
                     android:visibility="@{activity.history[1].visibility}"
                     app:data="@{activity.history[1]}" />
 
@@ -302,56 +321,64 @@
                     layout="@layout/layout_service_relapse_req_result_defect_history"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="50dp"
                     android:visibility="@{activity.history[2].visibility}"
                     app:data="@{activity.history[2]}" />
-
-
-                <!-- 123회차 /휫수,기간 사이 회색 줄-->
-                <ImageView style="@style/DummyGrayLineHorizontal" />
 
 
                 <!-- "수리내역 횟수 및 기간" -->
                 <TextView
                     style="@style/RelapseReqResultSubTitle"
+                    android:layout_marginTop="50dp"
                     android:text="@string/relapse_req_result_repair_count_title" />
 
-                <!-- "수리 시도 횟수" -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Title"
-                    android:text="@string/relapse_req_result_try" />
 
-                <!-- 수리 시도 횟수 값 -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{activity.tryCount}"
-                    tools:text="99회" />
-
-                <!-- "누적 수리 기간" -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Title"
-                    android:text="@string/relapse_3_repair_period" />
-
-                <!-- 누적 수리 기간 값 -->
-                <TextView
-                    style="@style/RelapseReqResultItem.Desc"
-                    android:text="@{activity.tryPeriod}"
-                    tools:text="99일" />
-
-                <TextView
-                    android:id="@+id/tv_relapse_req_result_ok_btn"
-                    style="@style/BigBtn.Black"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_repair_count"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="30dp"
-                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-                    android:text="@string/dialog_common_4" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/x_e5e5e5"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp">
+                    <!-- "수리 시도 횟수" -->
+                    <include
+                        android:id="@+id/l_cnt"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:msg="@{activity.tryCount ?? ``}"
+                        app:title="@{@string/relapse_req_result_try}" />
+
+                    <!-- "누적 수리 기간" -->
+                    <include
+                        android:id="@+id/l_term"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_cnt"
+                        app:msg="@{activity.tryPeriod ?? ``}"
+                        app:title="@{@string/relapse_3_repair_period}" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout><!-- 타이틀바 빼고 전체 -->
-
-
         </ScrollView>
+
+
+        <TextView
+            android:id="@+id/tv_relapse_req_result_ok_btn"
+            style="@style/BigBtn.Black"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:text="@string/dialog_common_4" />
 
     </LinearLayout>
 </layout>
