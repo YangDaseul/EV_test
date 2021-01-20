@@ -9,9 +9,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
 
+import androidx.core.util.Pair;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
@@ -221,11 +223,9 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
     private void setBlockCancelBtn(boolean b) {
         ui.tvServiceDriveCancelBtn.setEnabled(b);
         if (b) {
-            ui.tvServiceDriveCancelBtn.setTextAppearance(R.style.BigBtn_White);
-            ui.tvServiceDriveCancelBtn.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_111111);
+            Paris.style(ui.tvServiceDriveCancelBtn).apply(R.style.BigBtn_White);
         } else {
-            ui.tvServiceDriveCancelBtn.setTextAppearance(R.style.BigBtn_Black);
-            ui.tvServiceDriveCancelBtn.setBackgroundResource(R.drawable.ripple_bg_111111);
+            Paris.style(ui.tvServiceDriveCancelBtn).apply(R.style.BigBtn_Black);
         }
         ui.btnBlock.setVisibility(!b ? View.VISIBLE : View.GONE);
     }
