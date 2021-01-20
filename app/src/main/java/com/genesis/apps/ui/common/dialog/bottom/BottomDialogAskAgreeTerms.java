@@ -48,7 +48,7 @@ public class BottomDialogAskAgreeTerms extends BaseBottomDialog<DialogBottomTerm
         //전체동의 버튼
         setAllClickListener();
 
-        setEnabledBtn(true);
+        setEnabledBtn(false);
         //확인버튼
         ui.tvBottomTermsOkBtn.setOnClickListener(view -> {
 
@@ -84,76 +84,29 @@ public class BottomDialogAskAgreeTerms extends BaseBottomDialog<DialogBottomTerm
     }
 
     public void validateCheck(SparseBooleanArray selectedItems) {
-        boolean isValidate = false;
-        for(int i=0; i<selectedItems.size(); i++) {
-            for(int j=0; j<termList.size(); j++) {
-                TermVO item = termList.get(j);
+        boolean isValidate = true;
 
-                if("Y".equals(item.getTermEsnAgmtYn())) {
-                    if(selectedItems.keyAt(i) == j) {
-                        isValidate = true;
-                        Log.d("JJJJ", "index : " + j + "isValidate : " + isValidate);
+        for(int i=0; i<termList.size(); i++) {
+            TermVO item = termList.get(i);
+
+            if("Y".equals(item.getTermEsnAgmtYn())) {
+                boolean isEmpty = true;
+                for(int j=0; j<selectedItems.size(); j++) {
+                    if(selectedItems.keyAt(j) == i) {
+                        isEmpty = false;
+
                         break;
-                    } else {
-                        isValidate = false;
                     }
+                }
+
+                if(isEmpty) {
+                    isValidate = false;
+
+                    break;
                 }
             }
         }
 
-//        for(int i=0; i<termList.size(); i++) {
-//            TermVO item = termList.get(i);
-//
-//            if("Y".equals(item.getTermEsnAgmtYn())) {
-//                for(int j=0; j<selectedItems.size(); j++) {
-//                    if(selectedItems.keyAt(j) == i) {
-//                        isValidate = true;
-//                        Log.d("JJJJ", "index : " + i + ", isValidate : " + isValidate);
-//                        break;
-//                    } else {
-//                        isValidate = false;
-//
-//                        setEnabledBtn(isValidate);
-//                        return;
-//                    }
-//                }
-//            }
-//        }
-
-        for(int i=0; i<selectedItems.size(); i++) {
-            if(selectedItems.get(i)) {
-                isValidate = true;
-            } else {
-                isValidate = false;
-
-                break;
-            }
-        }
-
-//        for(int i=0; i<termList.size(); i++) {
-//            TermVO item = termList.get(i);
-//
-//            if("Y".equals(item.getTermEsnAgmtYn())) {
-//                for(int j=0; j<selectedItems.size(); j++) {
-//                    Log.d("JJJJ", "index : " + i + ", key : " + selectedItems.keyAt(j));
-//                    if(i == selectedItems.keyAt(j)) {
-//                        if(selectedItems.get(j)) {
-//                            isValidate = true;
-//
-//                            Log.d("JJJJ", "T : " + isValidate);
-//                        } else {
-//                            isValidate = false;
-//
-//                            Log.d("JJJJ", "F : " + isValidate);
-//                            setEnabledBtn(isValidate);
-//                            return;
-//                        }
-//                    }
-//                }
-//            }
-//        }
-
-        Log.d("JJJJ", "end : " + isValidate);
         setEnabledBtn(isValidate);
     }
 
