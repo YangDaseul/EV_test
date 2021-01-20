@@ -66,13 +66,15 @@
             android:orientation="horizontal">
 
             <TextView
+                style="@style/BigBtn.White"
                 android:id="@+id/btn_cancel"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/ripple_bg_ffffff_stroke_6f6f6f"
-                android:fontFamily="@font/light_genesissansheadglobal"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="10dp"
                 android:gravity="center"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="6dp"
@@ -82,12 +84,12 @@
 
 
             <TextView
+                style="@style/BigBtn.Black"
                 android:id="@+id/btn_ok"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/ripple_bg_000000"
-                android:fontFamily="@font/light_genesissansheadglobal"
+                android:layout_margin="0dp"
                 android:gravity="center"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="6dp"

@@ -5,6 +5,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.ExpnVO;
@@ -67,8 +68,8 @@ public class MiddleDialog {
                     if (versionType.equalsIgnoreCase(VERSION_TYPE_M)) {
                         //필수업데이트
                         binding.tvTitleSub.setText(R.string.pop01_3);
-                        binding.tvTitleSub.setTextColor(activity.getColor(R.color.x_cd9a81));
                         binding.btnCancel.setVisibility(View.GONE);
+                        Paris.style(binding.btnOk).apply(R.style.BigBtn_Black);
                         binding.btnOk.setText(R.string.dialog_common_4);
                     } else {
                         //선택업데이트
@@ -392,6 +393,8 @@ public class MiddleDialog {
                     binding.tvMsg.setText(R.string.int02_18);
                     binding.tvMsg.setMovementMethod(new ScrollingMovementMethod());
 
+                    Paris.style(binding.btnCancel).apply(R.style.BigBtn_Black);
+                    Paris.style(binding.btnOk).apply(R.style.BigBtn_Black);
                     binding.btnCancel.setText(R.string.dialog_common_4);
                     binding.btnOk.setText(R.string.dialog_common_3);
 
