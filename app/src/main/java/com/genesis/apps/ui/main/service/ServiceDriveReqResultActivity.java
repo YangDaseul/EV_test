@@ -220,6 +220,13 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
 
     private void setBlockCancelBtn(boolean b) {
         ui.tvServiceDriveCancelBtn.setEnabled(b);
+        if (b) {
+            ui.tvServiceDriveCancelBtn.setTextAppearance(R.style.BigBtn_White);
+            ui.tvServiceDriveCancelBtn.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_111111);
+        } else {
+            ui.tvServiceDriveCancelBtn.setTextAppearance(R.style.BigBtn_Black);
+            ui.tvServiceDriveCancelBtn.setBackgroundResource(R.drawable.ripple_bg_111111);
+        }
         ui.btnBlock.setVisibility(!b ? View.VISIBLE : View.GONE);
     }
 
