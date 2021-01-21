@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -26,15 +25,14 @@ import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringRe2j;
+import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.RMTViewModel;
 import com.genesis.apps.comm.viewmodel.SOSViewModel;
 import com.genesis.apps.databinding.ActivityServiceRemoteRegisterBinding;
-import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.bottom.BottomRecyclerDialog;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -220,6 +218,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
 
     private RMTViewModel rmtViewModel;
     private SOSViewModel sosViewModel;
+    private DevelopersViewModel developersViewModel;
 
     /**
      * 시간 선택을 위한 {@link com.genesis.apps.ui.main.service.ServiceRemoteTimeGridAdapter.TimeVO} 목록 정의 Field.
@@ -333,6 +332,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
         ui.setLifecycleOwner(this);
         rmtViewModel = new ViewModelProvider(this).get(RMTViewModel.class);
         sosViewModel = new ViewModelProvider(this).get(SOSViewModel.class);
+        developersViewModel = new ViewModelProvider(this).get(DevelopersViewModel.class);
     }
 
     @Override
@@ -476,7 +476,17 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                                     () -> {
                                         try {
                                             vin = rmtViewModel.getMainVehicle().getVin();
-                                            rmtViewModel.reqRMT1001(new RMT_1001.Request(APPIAInfo.R_REMOTE01.getId(), vin));
+                                            String carId = developersViewModel.getCarId(vin);
+                                            if(TextUtils.isEmpty(carId)) {
+                                                // Car ID가 조회되지 않으면 GCS 가입 안내 팝업표시.
+                                                MiddleDialog.dialogServiceRemoteOneButton(
+                                                        this,
+                                                        R.string.sm_remote01_dialog_title_error,
+                                                        R.string.sm_remote01_msg_error_2404,
+                                                        () -> exitPage("", 0));
+                                            } else {
+                                                rmtViewModel.reqRMT1001(new RMT_1001.Request(APPIAInfo.R_REMOTE01.getId(), vin));
+                                            }
                                         } catch (ExecutionException ee) {
                                         } catch (InterruptedException ie) {
                                             Thread.currentThread().interrupt();
