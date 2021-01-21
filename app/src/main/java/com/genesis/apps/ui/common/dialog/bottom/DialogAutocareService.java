@@ -39,6 +39,7 @@ public class DialogAutocareService extends BaseBottomDialog<DialogBottomAutocare
         ui.setDialog(this);
         ui.setCouponList(list);
         ui.lAutoSvc1.cbAutoSvc1.setTypeface(ResourcesCompat.getFont(getContext(), R.font.regular_genesissansheadglobal));
+        ui.lAutoSvc1.cbAutoSvc1.setText(R.string.sm_r_rsv02_01_p01_4);
 
         String target = getContext().getString(R.string.int03_3); //(필수)
         int start = getContext().getString(R.string.sm_r_rsv02_01_p01_4).indexOf(target.charAt(0));
