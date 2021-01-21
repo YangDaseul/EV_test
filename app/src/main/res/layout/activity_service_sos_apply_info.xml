@@ -176,6 +176,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
+                        app:maxLine="@{Integer.MAX_VALUE}"
                         app:isLeft="@{true}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

@@ -20,11 +20,11 @@
     <string name="r_bt06_p01_msg_1">현재 위치 정보를 확인하기 위해 스마트폰 GPS를 켜 주시기 바랍니다.\n\nGPS가 꺼진 경우 일부 동작이\n제한될 수 있습니다.</string>
 
     <string name="sm_emg01_p04_1_1">긴급 출동 현황 확인</string>
-    <string name="sm_emg01_p04_1_2">긴급출동 서비스가 접수되어 있습니다.\n원격 진단으로 서비스 전환을 하기 위해서 기존 긴급출동 접수 건을 취소하시겠습니까?</string>
+    <string name="sm_emg01_p04_1_2">긴급출동 서비스가 접수되어 있습니다.\n\n원격 진단으로 서비스 전환을\n하기 위해서 기존 긴급출동 접수 건을\n취소하시겠습니까?</string>
     <string name="sm_emgc01_p03_1">종료 안내</string>
     <string name="sm_emgc01_p03_2">아직 긴급출동서비스 신청이\n완료되지 않았습니다.\n\n신청을 종료 하시겠습니까?</string>
     <string name="sm_emgc01_p05_1">긴급 출동 현황 확인</string>
-    <string name="sm_emgc01_p05_2">긴급출동 서비스가 출동했습니다.\n긴급출동 조치가 완료된 이후에 원격진단을 신청하실 수 있습니다.</string>
+    <string name="sm_emgc01_p05_2">긴급출동 서비스가 출동했습니다.\n\n긴급출동 조치가 완료된 이후에\n원격진단을 신청하실 수 있습니다.</string>
     <string name="sm_emgc01_p06_1">원격진단 신청 불가</string>
     <string name="sm_emgc01_p06_2">현재 원격진단 이용이 어렵습니다.\nGCS 서비스 사용 신청하시고, 차량 등록 후 이용해 주세요.</string>
 

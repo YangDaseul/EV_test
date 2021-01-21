@@ -1,6 +1,5 @@
 package com.genesis.apps.ui.main.service;
 
-import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,11 +7,6 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewStub;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
@@ -22,12 +16,10 @@ import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.vo.SOSDriverVO;
 import com.genesis.apps.comm.model.vo.map.FindPathReqVO;
 import com.genesis.apps.comm.model.vo.map.FindPathResVO;
-import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.viewmodel.MapViewModel;
 import com.genesis.apps.comm.viewmodel.SOSViewModel;
 import com.genesis.apps.databinding.ActivityMap2Binding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomInfoBarBinding;
-import com.genesis.apps.databinding.LayoutMapOverlayUiTopMsgBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.dialog.bottom.DialogSOSDriverInfo;
 import com.hmns.playmap.PlayMapPoint;
@@ -38,6 +30,9 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -52,6 +47,8 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
     private int minute = 0;
     private Timer timer = null;
     private boolean initCall = true;
+
+    private DialogSOSDriverInfo dialogSOSDriverInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,7 +162,7 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
     public void getDataFromIntent() {
         try {
             response = (SOS_1006.Response) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SOS_DRIVER_VO);
-            setData((SOS_1006.Response) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SOS_DRIVER_VO));
+            setData(response);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -278,11 +275,13 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
                 setViewStub(R.id.vs_map_overlay_bottom_box, R.layout.layout_map_overlay_ui_bottom_info_bar, (viewStub, inflated) -> {
                     bottomBinding = DataBindingUtil.bind(inflated);
                     bottomBinding.btnDriverInfo.setOnClickListener(onSingleClickListener);
-                    bottomBinding.tvMapTopMsgTime.setText(String.format(getString(R.string.map_msg_5), minute));
+                    bottomBinding.setMinute(minute);
                 });
             }else{
-                bottomBinding.tvMapTopMsgTime.setText(String.format(getString(R.string.map_msg_5), minute));
+                bottomBinding.setMinute(minute);
             }
+
+            if(dialogSOSDriverInfo!=null) dialogSOSDriverInfo.setMinute(minute);
         }
     }
 
@@ -292,21 +291,14 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
 
         switch (v.getId()) {
             case R.id.btn_driver_info:
+                dialogSOSDriverInfo = new DialogSOSDriverInfo(this, R.style.BottomSheetDialogTheme);
+                dialogSOSDriverInfo.setOnDismissListener(dialogInterface -> {
 
-                final DialogSOSDriverInfo dialogSOSDriverInfo = new DialogSOSDriverInfo(this, R.style.BottomSheetDialogTheme);
-                dialogSOSDriverInfo.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
-
-                    }
                 });
                 dialogSOSDriverInfo.setData(response);
                 dialogSOSDriverInfo.setMinute(minute);
                 dialogSOSDriverInfo.show();
-
                 break;
         }
-
     }
-
 }

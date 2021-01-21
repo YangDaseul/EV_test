@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APIInfo;
+import com.genesis.apps.comm.model.api.gra.REQ_1001;
 import com.genesis.apps.comm.model.api.gra.SOS_1001;
 import com.genesis.apps.comm.model.api.gra.SOS_1002;
 import com.genesis.apps.comm.model.api.gra.SOS_1003;
@@ -42,6 +43,15 @@ public class SOSRepo {
             @Override
             public void onSuccess(String object) {
                 RES_SOS_1001.setValue(NetUIResponse.success(new Gson().fromJson(object, SOS_1001.Response.class)));
+
+//                RES_SOS_1001.setValue(NetUIResponse.success(new Gson().fromJson("{\n" +
+//                        "  \"rtCd\": \"0000\",\n" +
+//                        "  \"rtMsg\": \"Success\",\n" +
+//                        "  \"subspYn\": \"Y\",\n" +
+//                        "  \"tmpAcptNo\": \"28843\",\n" +
+//                        "  \"pgrsStusCd\": \"S\"\n" +
+//                        "}", SOS_1001.Response.class)));
+
             }
 
             @Override
@@ -166,6 +176,31 @@ public class SOSRepo {
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
+
+//                object = "{\n" +
+//                        "  \"rtCd\": \"0000\",\n" +
+//                        "  \"rtMsg\": \"Success\",\n" +
+//                        "  \"tmpAcptNo\": \"28843\",\n" +
+//                        "  \"tmpAcptDtm\": \"20200827112847\",\n" +
+//                        "  \"areaClsCd\": \"R\",\n" +
+//                        "  \"addr\": \"서울시 용산구 원효\",\n" +
+//                        "  \"carRegNo\": \"23가9876\",\n" +
+//                        "  \"memo\": \"메모내용\",\n" +
+//                        "  \"controlTel\": \"01011111111\",\n" +
+//                        "  \"carNo\": \"10라0142\",\n" +
+//                        "  \"carTypeNm\": \"아이오닉EV\",\n" +
+//                        "  \"receiveDtm\": \"20180128105929\",\n" +
+//                        "  \"gCustY\": \"37.53235333090944\",\n" +
+//                        "  \"startX\": \"45728206\",\n" +
+//                        "  \"startY\": \"13502901\",\n" +
+//                        "  \"finishX\": \"45703607\",\n" +
+//                        "  \"finishY\": \"13510640\",\n" +
+//                        "  \"gCustX\": \"126.95236305538208\",\n" +
+//                        "  \"gYpos\": \"37.510865\",\n" +
+//                        "  \"gXpos\": \"127.020693\",\n" +
+//                        "  \"sallocNm\": \"출동(하이카)\"\n" +
+//                        "}";
+
 //                RES_SOS_1006.setValue(NetUIResponse.success(new Gson().fromJson(object, SOS_1006.Response.class)));
                 SOS_1006.Response response = new Gson().fromJson(object, SOS_1006.Response.class);
                 response.setSosDriverVO(new Gson().fromJson(object, SOSDriverVO.class));

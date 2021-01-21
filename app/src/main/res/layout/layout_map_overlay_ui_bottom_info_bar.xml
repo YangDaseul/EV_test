@@ -7,9 +7,14 @@
         <variable
             name="isDialog"
             type="boolean" />
+
+        <variable
+            name="minute"
+            type="int" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -23,7 +28,7 @@
 
         <ImageView
             android:id="@+id/btn_driver_info"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:scaleType="centerInside"
             android:src="@{isDialog ? @drawable/btn_arrow_open_2 : @drawable/btn_arrow_close_2}"
@@ -55,6 +60,7 @@
             android:layout_marginTop="5dp"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:textSize="16dp"
+            android:text="@{@string/map_msg_5(minute)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_map_top_title"
             tools:text="약 17분 후" />

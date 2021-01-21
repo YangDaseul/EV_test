@@ -63,6 +63,17 @@ public class REQRepo {
             @Override
             public void onSuccess(String object) {
                 RES_REQ_1001.setValue(NetUIResponse.success(new Gson().fromJson(object, REQ_1001.Response.class)));
+
+
+//                RES_REQ_1001.setValue(NetUIResponse.success(new Gson().fromJson("{\n" +
+//                        "  \"rtCd\": \"0000\",\n" +
+//                        "  \"rtMsg\": \"Success\",\n" +
+//                        "  \"rsvtStusCd\": \"1400\",\n" +
+//                        "  \"pgrsStusCd\": \"S\",\n" +
+//                        "  \"avlRsrYn\": \"Y\",\n" +
+//                        "  \"tmpAcptNo\": \"29375\"\n" +
+//                        "}", REQ_1001.Response.class)));
+
             }
 
             @Override
