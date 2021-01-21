@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/bg_ffffff_stroke_141414"
+                android:background="@drawable/ripple_bg_ffffff_stroke_000000"
                 android:paddingLeft="15dp"
                 android:paddingTop="20dp"
                 android:paddingRight="15dp"
@@ -252,7 +252,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/btn_question"
             app:layout_constraintTop_toTopOf="@+id/tv_info_1"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_info_1"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

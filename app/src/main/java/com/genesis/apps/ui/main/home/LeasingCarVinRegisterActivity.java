@@ -10,11 +10,9 @@ import android.view.View;
 
 import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.RequestCodes;
-import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.GNS_1011;
-import com.genesis.apps.comm.util.InteractionUtil;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.GNSViewModel;

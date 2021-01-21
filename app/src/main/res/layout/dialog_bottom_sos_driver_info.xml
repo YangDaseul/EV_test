@@ -7,273 +7,232 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="14dp"
         android:paddingBottom="20dp"
+        android:background="@color/x_ffffff"
         android:orientation="vertical">
 
-        <ImageView
+        <include
             android:id="@+id/back"
+            layout="@layout/layout_map_overlay_ui_bottom_info_bar"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:src="@drawable/btn_arrow_down"
-            android:scaleType="centerInside"/>
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_vin"
+            app:isDialog="@{true}"/>
 
         <ScrollView
             android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="11dp">
+            android:layout_weight="1">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:paddingTop="40dp"
+                android:background="@drawable/bg_00000000_topline_e5e5e5">
 
 
+
+                <!-- 기사정보 -->
                 <TextView
                     android:id="@+id/tv_title_driver"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/bg_00000000_underline_5e5e5e"
-                    android:fontFamily="@font/regular_genesissansheadglobal"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="2dp"
-                    android:paddingBottom="10dp"
+                    style="@style/RelapseReqResultSubTitle"
                     android:text="@string/sm_emgc03_p01_1"
-                    android:textColor="@color/x_000000"
-                    android:textSize="18dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
 
-                <TextView
-                    android:id="@+id/tv_title_control_tel"
-                    style="@style/LeasingCarTextViewTitle"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="30dp"
-                    android:text="@string/sm_emgc03_p01_2"
-                    android:textColor="@color/x_525252"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_driver" />
-
-                <TextView
-                    android:id="@+id/tv_control_tel"
-                    style="@style/LeasingCarTextView"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="30dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_control_tel"
-                    tools:text="010-7272-2424" />
-
-
-                <TextView
-                    android:id="@+id/tv_title_car_no"
-                    style="@style/LeasingCarTextViewTitle"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="30dp"
-                    android:text="@string/sm_emgc03_p01_3"
-                    android:textColor="@color/x_525252"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_control_tel" />
-
-                <TextView
-                    android:id="@+id/tv_car_no"
-                    style="@style/LeasingCarTextView"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="30dp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_car_no"
-                    tools:text="10기 4323 아이오닉" />
-
-                <TextView
-                    android:id="@+id/tv_title_s_alloc_nm"
-                    style="@style/LeasingCarTextViewTitle"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="30dp"
-                    android:text="@string/sm_emgc03_p01_4"
-                    android:textColor="@color/x_525252"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_car_no" />
-
-                <TextView
-                    android:id="@+id/tv_s_alloc_nm"
-                    style="@style/LeasingCarTextView"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="30dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_s_alloc_nm"
-                    tools:text="하이카" />
-
-
-                <ImageView
-                    android:id="@+id/iv_line_1"
-                    android:layout_width="0dp"
-                    android:layout_height="10dp"
-                    android:layout_marginTop="40dp"
-                    android:background="@color/x_f4f4f4"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_s_alloc_nm" />
-
-
-                <TextView
-                    android:id="@+id/tv_title_apply_info"
-                    android:layout_width="0dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_driver_info"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/bg_00000000_underline_5e5e5e"
-                    android:fontFamily="@font/regular_genesissansheadglobal"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="2dp"
-                    android:paddingBottom="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/x_e5e5e5"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_driver"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                    <!-- "전화번호" -->
+                    <include
+                        android:id="@+id/l_control_tel"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:msg="@{}"
+                        app:title="@{@string/sm_emgc03_p01_2}" />
+
+                    <!-- "차량정보" -->
+                    <include
+                        android:id="@+id/l_car_no"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_control_tel"
+                        app:maxLine="@{Integer.MAX_VALUE}"
+                        app:msg="@{}"
+                        app:title="@{@string/sm_emgc03_p01_3}" />
+
+                    <!-- "업체정보" -->
+                    <include
+                        android:id="@+id/l_alloc_nm"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_car_no"
+                        app:msg="@{}"
+                        app:title="@{@string/sm_emgc03_p01_4}" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+                <!-- 신청정보 -->
+                <TextView
+                    android:id="@+id/tv_title_apply"
+                    style="@style/RelapseReqResultSubTitle"
                     android:text="@string/sm_emgc03_p01_5"
-                    android:textColor="@color/x_000000"
-                    android:textSize="18dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="40dp"
+                    app:layout_constraintTop_toBottomOf="@+id/l_driver_info"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_line_1" />
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
 
-                <TextView
-                    android:id="@+id/tv_title_tmp_acpt_dtm"
-                    style="@style/LeasingCarTextViewTitle"
-                    android:layout_marginLeft="30dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_apply_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:layout_marginRight="30dp"
-                    android:text="@string/sm_emgc03_p01_6"
-                    android:textColor="@color/x_525252"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/x_e5e5e5"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_apply"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_apply_info" />
+                    app:layout_constraintEnd_toEndOf="parent">
+                    <!-- "신청일시" -->
+                    <include
+                        android:id="@+id/l_tmp_acpt_dtm"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:msg="@{}"
+                        app:title="@{@string/sm_emgc03_p01_6}" />
 
-                <TextView
-                    android:id="@+id/tv_tmp_acpt_dtm"
-                    style="@style/LeasingCarTextView"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="30dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_tmp_acpt_dtm"
-                    tools:text="2020-07-14 14:00" />
+                    <!-- "위치유형" -->
+                    <include
+                        android:id="@+id/l_area_cls_cd"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_tmp_acpt_dtm"
+                        app:msg="@{}"
+                        app:title="@{@string/sm_emgc03_p01_7}" />
 
-
-                <TextView
-                    android:id="@+id/tv_title_area_cls_cd"
-                    style="@style/LeasingCarTextViewTitle"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="30dp"
-                    android:text="@string/sm_emgc03_p01_7"
-                    android:textColor="@color/x_525252"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_tmp_acpt_dtm" />
-
-                <TextView
-                    android:id="@+id/tv_area_cls_cd"
-                    style="@style/LeasingCarTextView"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="30dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_area_cls_cd"
-                    tools:text="일반도로" />
-
-
-                <TextView
-                    android:id="@+id/tv_title_addr"
-                    style="@style/LeasingCarTextViewTitle"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="30dp"
-                    android:text="@string/sm_emgc03_p01_8"
-                    android:textColor="@color/x_525252"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_area_cls_cd" />
-
-                <TextView
-                    android:id="@+id/tv_addr"
-                    style="@style/LeasingCarTextView"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="30dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_addr"
-                    tools:text="우림 라이온스 밸리 가산디지털단지역" />
+                    <!-- "차량위치" -->
+                    <include
+                        android:id="@+id/l_addr"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_area_cls_cd"
+                        app:maxLine="@{Integer.MAX_VALUE}"
+                        app:msg="@{}"
+                        app:title="@{@string/sm_emgc03_p01_8}" />
 
 
-                <TextView
-                    android:id="@+id/tv_title_car_reg_no"
-                    style="@style/LeasingCarTextViewTitle"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="30dp"
-                    android:text="@string/sm_emgc03_p01_9"
-                    android:textColor="@color/x_525252"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_addr" />
+                    <!-- "차량번호" -->
+                    <include
+                        android:id="@+id/l_car_reg_no"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_addr"
+                        app:msg="@{}"
+                        app:title="@{@string/sm_emgc03_p01_9}" />
 
-                <TextView
-                    android:id="@+id/tv_car_reg_no"
-                    style="@style/LeasingCarTextView"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="30dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_car_reg_no"
-                    tools:text="16조6840" />
+                    <!-- "메모" -->
+                    <include
+                        android:id="@+id/l_memo"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_car_reg_no"
+                        app:msg="@{}"
+                        app:title="@{@string/sm_emgc03_p01_10}" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                <TextView
-                    android:id="@+id/tv_title_memo"
-                    style="@style/LeasingCarTextViewTitle"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="30dp"
-                    android:text="@string/sm_emgc03_p01_10"
-                    android:textColor="@color/x_525252"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_car_reg_no" />
 
-                <TextView
-                    android:id="@+id/tv_memo"
-                    style="@style/LeasingCarTextView"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginBottom="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_memo"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    tools:text="메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다." />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
@@ -286,7 +245,7 @@
                     android:layout_marginRight="20dp"
                     android:paddingTop="18dp"
                     android:paddingBottom="18dp"
-                    android:fontFamily="@font/light_genesissansheadglobal"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="0dp"
                     android:text="@string/sm_emgc03_p01_11"

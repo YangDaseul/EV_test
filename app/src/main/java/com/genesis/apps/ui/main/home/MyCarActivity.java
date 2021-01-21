@@ -514,7 +514,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
 
     private void setVehicleInfo(VehicleVO vehicleVO, boolean isUpdate) {
         ui.tvCarCode.setText(StringUtil.isValidString(vehicleVO.getMdlNm()));
-        ui.tvCarModel.setText(StringUtil.isValidString(vehicleVO.getSaleMdlNm()));
+        ui.tvCarModel.setText(StringUtil.isValidString(vehicleVO.getSaleMdlNm()).replace(StringUtil.isValidString(vehicleVO.getMdlNm()),""));
         //UI초기화
         ui.tvCarVrn.setVisibility(View.GONE);
         ui.btnRegVrn.lWhole.setVisibility(View.GONE);

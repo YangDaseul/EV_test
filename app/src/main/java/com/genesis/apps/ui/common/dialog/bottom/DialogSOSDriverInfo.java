@@ -25,7 +25,7 @@ import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_SOS_ARE
 public class DialogSOSDriverInfo extends BaseBottomDialog<DialogBottomSosDriverInfoBinding> {
 
     private SOS_1006.Response data;
-
+    private int min;
     public DialogSOSDriverInfo(@NonNull Context context, int theme) {
         super(context, theme);
     }
@@ -62,5 +62,9 @@ public class DialogSOSDriverInfo extends BaseBottomDialog<DialogBottomSosDriverI
 
     public void setData(SOS_1006.Response data) {
         this.data = data;
+    }
+
+    public void setMinute(int minute) {
+        this.min = minute;
     }
 }

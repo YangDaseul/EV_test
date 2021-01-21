@@ -44,7 +44,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Binding> {
     private MapViewModel mapViewModel;
     private SOSViewModel sosViewModel;
-    private LayoutMapOverlayUiTopMsgBinding topBinding;
+//    private LayoutMapOverlayUiTopMsgBinding topBinding;
     private LayoutMapOverlayUiBottomInfoBarBinding bottomBinding;
     private SOSDriverVO sosDriverVO;
     private SOS_1006.Response response;
@@ -96,7 +96,6 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
     }
 
     private void initView() {
-        updateBottomView();
         ui.lMapOverlayTitle.lMapTitleBar.setVisibility(View.GONE);
         //내 위치로 이동 버튼 제거
         ui.btnMyPosition.setVisibility(View.GONE);
@@ -226,7 +225,7 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
                             } finally {
                                 drawPath(playMapPolyLine);
                                 drawMaker(initCall);
-                                updateTopView(result.data.getSummary());
+                                updateBottomView(result.data.getSummary());
                                 showProgressDialog(false);
                             }
                             break;
@@ -240,7 +239,30 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
         });
     }
 
-    private void updateTopView(FindPathResVO.Summary summary) {
+//    private void updateTopView(FindPathResVO.Summary summary) {
+//        try {
+//            if (summary != null) {
+//                minute = summary.getTotalTime() / 60;
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (topBinding == null) {
+//                setViewStub(R.id.l_map_overlay_msg, R.layout.layout_map_overlay_ui_top_msg, new ViewStub.OnInflateListener() {
+//                    @Override
+//                    public void onInflate(ViewStub viewStub, View inflated) {
+//                        topBinding = DataBindingUtil.bind(inflated);
+//                        topBinding.tvMapTopMsgTime.setText(minute + "분 후");
+//                    }
+//                });
+//            } else {
+//                topBinding.tvMapTopMsgTime.setText(minute + "분 후");
+//            }
+//        }
+//    }
+
+
+    private void updateBottomView(FindPathResVO.Summary summary) {
         try {
             if (summary != null) {
                 minute = summary.getTotalTime() / 60;
@@ -248,36 +270,19 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (topBinding == null) {
-                setViewStub(R.id.l_map_overlay_msg, R.layout.layout_map_overlay_ui_top_msg, new ViewStub.OnInflateListener() {
-                    @Override
-                    public void onInflate(ViewStub viewStub, View inflated) {
-                        topBinding = DataBindingUtil.bind(inflated);
-                        topBinding.tvMapTopMsgTime.setText(minute + "분 후");
-                    }
-                });
-            } else {
-                topBinding.tvMapTopMsgTime.setText(minute + "분 후");
-            }
-        }
-    }
-
-
-    private void updateBottomView() {
-        try {
             if (bottomBinding == null) {
                 ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) findViewById(R.id.vs_map_overlay_bottom_box).getLayoutParams();
                 params.setMargins(0, 0, 0, 0);
-                params.height = (int) DeviceUtil.dip2Pixel(this, 40);
+//                params.height = (int) DeviceUtil.dip2Pixel(this, 40);
                 findViewById(R.id.vs_map_overlay_bottom_box).setLayoutParams(params);
                 setViewStub(R.id.vs_map_overlay_bottom_box, R.layout.layout_map_overlay_ui_bottom_info_bar, (viewStub, inflated) -> {
                     bottomBinding = DataBindingUtil.bind(inflated);
                     bottomBinding.btnDriverInfo.setOnClickListener(onSingleClickListener);
+                    bottomBinding.tvMapTopMsgTime.setText(String.format(getString(R.string.map_msg_5), minute));
                 });
+            }else{
+                bottomBinding.tvMapTopMsgTime.setText(String.format(getString(R.string.map_msg_5), minute));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
         }
     }
 
@@ -296,6 +301,7 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
                     }
                 });
                 dialogSOSDriverInfo.setData(response);
+                dialogSOSDriverInfo.setMinute(minute);
                 dialogSOSDriverInfo.show();
 
                 break;
