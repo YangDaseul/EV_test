@@ -507,7 +507,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 switch (vehicleVO.getCustGbCd()) {
                     case VariableType.MAIN_VEHICLE_TYPE_OV:
 //                        me.ivMore.setVisibility(View.VISIBLE);
-                        me.lDistance.setVisibility(View.VISIBLE);
                         lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
                         reqCarInfoToDevelopers(vehicleVO.getVin());
                         makeQuickMenu(vehicleVO.getCustGbCd(),vehicleVO);
@@ -537,7 +536,10 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             developersViewModel.reqDte(new Dte.Request(carId));
             developersViewModel.reqOdometer(new Odometer.Request(carId));
             developersViewModel.reqDistance(new Distance.Request(carId, developersViewModel.getDateYyyyMMdd(-7), developersViewModel.getDateYyyyMMdd(0)));
+            me.lDistance.setVisibility(View.VISIBLE);
 //            developersViewModel.reqParkLocation(new ParkLocation.Request(carId));
+        }else{
+            me.lDistance.setVisibility(View.GONE);
         }
     }
 
