@@ -70,7 +70,7 @@ public class ApplicationModule {
     @Singleton
     public PlayMapRestApi providePlayMapRestApi(Application application){
         PlayMapRestApi playMapRestApi = new PlayMapRestApi(application);
-        playMapRestApi.setPlayMapApiKey("SE1DOkdlbmVTVEc=");
+        playMapRestApi.setPlayMapApiKey("QW5pWFZMQjdVVzZKRmpmUTlzVUc6NlhxNTMzNTFoME0wenhXdHJHVXg=");
         return playMapRestApi;
     }
 
