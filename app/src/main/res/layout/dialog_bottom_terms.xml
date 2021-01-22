@@ -71,7 +71,6 @@
         <TextView
             android:id="@+id/tv_bottom_terms_ok_btn"
             style="@style/BigBtn.Black"
-            android:layout_marginTop="20dp"
             android:text="@string/gm_carlst_p01_3"
             android:layout_marginTop="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
