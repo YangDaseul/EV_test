@@ -99,4 +99,20 @@ public class StringUtil {
         }
         return retv;
     }
+
+
+    /**
+     * 기사 이름 마스킹 처리
+     *
+     * @param name
+     * @return
+     */
+    public static String maskingDriverName(String name) {
+        if (TextUtils.isEmpty(name))
+            return null;
+
+        StringBuffer stringBuffer = new StringBuffer(name);
+        stringBuffer.setCharAt(1, '*');
+        return stringBuffer.toString();
+    }
 }
