@@ -93,7 +93,9 @@
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:textColor="@color/x_996449"
             android:text="@string/map_msg_1"
+            app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintTop_toTopOf="@+id/iv_map_sonax_branch_img"
+            app:layout_constraintBottom_toTopOf="@+id/tv_map_sonax_branch_service_list"
             app:layout_constraintLeft_toRightOf="@+id/iv_map_sonax_branch_img" />
 
         <!-- 가능서비스 목록 -->
@@ -108,6 +110,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_map_sonax_branch_service"
             app:layout_constraintLeft_toLeftOf="@+id/tv_map_sonax_branch_service"
             app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_map_sonax_branch_img"
             tools:text="이것도 하고 저것도 하고 울랄라도 하고" />
 
         <!-- 주소 -->
