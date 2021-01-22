@@ -7,24 +7,20 @@
         android:id="@+id/l_relapse_3_repair_history_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/bg_f9f9f9_stroke_e2e2e2">
+        android:background="@drawable/bg_ffffff_underline_e5e5e5">
 
         <!-- "n회" -->
         <TextView
             android:id="@+id/tv_relapse_3_repair_history_title"
             style="@style/TextBtnBasic"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ripple_bg_ffffff_stroke_e2e2e2"
+            android:layout_height="78dp"
+            android:background="@drawable/ripple_bg_ffffff_underline_e4e4e4"
             android:fontFamily="@font/regular_genesissansheadglobal"
-            android:gravity="start"
-            android:paddingStart="15dp"
-            android:paddingTop="20dp"
-            android:paddingEnd="15dp"
-            android:paddingBottom="20dp"
-            android:textColor="@color/x_000000"
-            android:textSize="16dp"
+            android:gravity="center_vertical"
+            android:padding="20dp"
+            android:textColor="@color/x_262626"
+            android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -32,18 +28,29 @@
             tools:text="1회" />
 
         <!-- 삭제 버튼 -->
-        <TextView
+        <include
             android:id="@+id/tv_relapse_3_repair_history_delete_btn"
-            style="@style/TextBtnBasic"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/ripple_bg_00000000_underline_6f6f6f"
-            android:fontFamily="@font/light_genesissansheadglobal"
-            android:text="@string/relapse_3_repair_delete"
-            android:textColor="@color/x_6f6f6f"
-            android:textSize="15dp"
+            layout="@layout/item_btn_underline_mark_gold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="60dp"
+            app:btnNm="@{@string/relapse_3_repair_delete}"
             app:layout_constraintBottom_toBottomOf="@id/tv_relapse_3_repair_history_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_relapse_3_repair_history_title" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_relapse_3_repair_history_delete_btn"-->
+<!--            style="@style/TextBtnBasic"-->
+<!--            android:layout_marginEnd="50dp"-->
+<!--            android:background="@drawable/bg_ffffff_underline_000000"-->
+<!--            android:fontFamily="@font/light_genesissansheadglobal"-->
+<!--            android:text="@string/relapse_3_repair_delete"-->
+<!--            android:textColor="@color/x_000000"-->
+<!--            android:textSize="14dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/tv_relapse_3_repair_history_title"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@id/tv_relapse_3_repair_history_title" />-->
 
         <!-- 접히는 부분 -->
         <LinearLayout
@@ -63,15 +70,14 @@
             <!-- 수리 업자명 -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/l_relapse_3_mechanic"
-                style="@style/Relapse3RepairHistoryTextInputLayout">
+                style="@style/CommonTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_relapse_3_mechanic"
-                    style="@style/Relapse3RepairHistoryTextInputEditText"
-                    android:backgroundTint="@color/x_ffffff"
+                    style="@style/CommonTextInputEditText"
                     android:hint="@string/relapse_3_repair_mechanic"/>
-
-                <requestFocus />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- 수리 요청일 -->
@@ -114,29 +120,29 @@
             <!-- 하자 내용(증상) -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/l_relapse_3_defect_detail"
-                style="@style/Relapse3RepairHistoryTextInputLayout"
+                style="@style/CommonTextInputLayout"
                 android:layout_marginTop="20dp"
-                android:hint="@string/relapse_3_repair_defect">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_relapse_3_defect_detail"
-                    style="@style/Relapse3RepairHistoryTextInputEditText" />
-
-                <requestFocus />
+                    style="@style/CommonTextInputEditText"
+                    android:hint="@string/relapse_3_repair_defect"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- 수리 내용 -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/l_relapse_3_repair_detail"
-                style="@style/Relapse3RepairHistoryTextInputLayout"
-                android:layout_marginBottom="0dp"
-                android:hint="@string/relapse_3_repair_detail">
+                style="@style/CommonTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_relapse_3_repair_detail"
-                    style="@style/Relapse3RepairHistoryTextInputEditText" />
-
-                <requestFocus />
+                    style="@style/CommonTextInputEditText"
+                    android:hint="@string/relapse_3_repair_detail"/>
+                <requestFocus/>
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>

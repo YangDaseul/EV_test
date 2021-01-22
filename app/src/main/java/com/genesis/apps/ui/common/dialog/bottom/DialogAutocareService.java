@@ -2,10 +2,13 @@ package com.genesis.apps.ui.common.dialog.bottom;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.genesis.apps.R;
@@ -36,6 +39,13 @@ public class DialogAutocareService extends BaseBottomDialog<DialogBottomAutocare
         ui.setDialog(this);
         ui.setCouponList(list);
         ui.lAutoSvc1.cbAutoSvc1.setTypeface(ResourcesCompat.getFont(getContext(), R.font.regular_genesissansheadglobal));
+        ui.lAutoSvc1.cbAutoSvc1.setText(R.string.sm_r_rsv02_01_p01_4);
+
+        String target = getContext().getString(R.string.int03_3); //(필수)
+        int start = getContext().getString(R.string.sm_r_rsv02_01_p01_4).indexOf(target.charAt(0));
+        int end = start + target.length();
+        Spannable span = (Spannable) ui.lAutoSvc1.cbAutoSvc1.getText();
+        span.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.x_ba544d)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 //        ui.lAutoSvc1.setRemCnt(getRemCnt(list.get(0).getRemCnt()));
 //        ui.lAutoSvc1.cbAutoSvc1.setChecked(true);

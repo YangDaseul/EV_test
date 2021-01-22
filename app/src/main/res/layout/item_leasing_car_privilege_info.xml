@@ -231,10 +231,10 @@
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="29dp"
             android:onClick="@{(view)->listener.onSingleClick(view)}"
-            android:paddingBottom="4dp"
+            android:paddingBottom="2dp"
             android:text="@string/gm_carlst_01_01_7"
             android:textColor="@color/x_000000"
-            android:textSize="15dp"
+            android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_normal" />
 

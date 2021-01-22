@@ -482,7 +482,7 @@
                 android:lineSpacingExtra="5dp"
                 android:textColor="@color/x_ffffff"
                 android:textSize="12dp"
-                tools:text="렌트/리스\n실 운행자 등록" />
+                tools:text="렌트/리스\n실운행자 등록" />
 
             <ImageView
                 android:id="@+id/iv_floating_mark_1"

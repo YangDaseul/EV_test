@@ -4,7 +4,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp">
 
         <!-- 점1 -->
         <TextView
@@ -18,7 +19,7 @@
         <TextView
             android:id="@+id/tv_relapse_noti1"
             style="@style/RelapseHistoryItemNoti"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="6dp"
             android:text="@string/relapse_history_noti_01"
             app:layout_constrainedWidth="true"
             app:layout_constraintStart_toEndOf="@id/tv_relapse_dot1"

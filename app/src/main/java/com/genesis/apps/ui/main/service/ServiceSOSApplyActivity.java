@@ -16,6 +16,7 @@ import androidx.transition.ChangeBounds;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
+import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.SOS_1002;
@@ -334,7 +335,7 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
             if(!TextUtils.isEmpty(result)){
                 areaClsCd  = VariableType.getAreaClsCd(result);
                 ui.tvTitleAreaClsCd.setVisibility(View.VISIBLE);
-                ui.tvAreaClsCd.setTextAppearance(R.style.CommonSpinnerItemEnable);
+                Paris.style(ui.tvAreaClsCd).apply(R.style.CommonSpinnerItemEnable);
                 ui.tvAreaClsCd.setText(result);
                 checkValidAreaClsCd();
             }
@@ -352,7 +353,7 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
             if(!TextUtils.isEmpty(result)){
                 fltCd  = VariableType.getFltCd(result);
                 ui.tvTitleFltCd.setVisibility(View.VISIBLE);
-                ui.tvFltCd.setTextAppearance(R.style.CommonSpinnerItemEnable);
+                Paris.style(ui.tvFltCd).apply(R.style.CommonSpinnerItemEnable);
                 ui.tvFltCd.setText(result);
                 checkValidfltCd();
             }

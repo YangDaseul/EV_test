@@ -46,6 +46,7 @@
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/light_genesissansheadglobal"
                 android:letterSpacing="-0.01"
+                android:lineSpacingExtra="8dp"
                 android:text="@string/relapse_3_msg_01"
                 android:textColor="@color/x_000000"
                 android:textSize="22dp"
@@ -53,16 +54,15 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <!-- 예, 아니오 버튼 -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/l_relapse_3_yes_no_container"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <TextView
+                android:id="@+id/tv_relapse_3_yes"
+                style="@style/BtrFilterDisable2"
                 android:layout_marginTop="30dp"
                 android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_relapse_3_no"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_relapse_3_desc"
-                tools:visibility="gone">
+                app:layout_constraintTop_toBottomOf="@+id/tv_relapse_3_desc"
+                tools:visibility="visible"/>
 
 <!--                &lt;!&ndash; 예 버튼 테두리 &ndash;&gt;-->
 <!--                <TextView-->
@@ -108,11 +108,13 @@
                 android:id="@+id/l_relapse_3_period_container"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="0dp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/l_relapse_3_yes_no_container">
+                app:layout_constraintTop_toBottomOf="@id/tv_relapse_3_yes"
+                app:layout_goneMarginTop="30dp"
+                tools:visibility="visible">
 
                 <!-- 누적 수리 기간 입력창 -->
                 <com.google.android.material.textfield.TextInputLayout
@@ -123,8 +125,7 @@
                     app:layout_constraintEnd_toStartOf="@id/tv_relapse_3_unit_period"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_goneMarginTop="30dp">
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_relapse_3_period"
@@ -154,12 +155,12 @@
                 android:id="@+id/l_relapse_3_total_count_container"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/l_relapse_3_period_container"
-                app:layout_goneMarginTop="15dp">
+                app:layout_goneMarginTop="15dp"
+                tools:visibility="visible">
 
                 <!-- 추가 수리 횟수 입력창 -->
                 <com.google.android.material.textfield.TextInputLayout
@@ -201,13 +202,14 @@
         <ImageView
             android:id="@+id/iv_dummy"
             android:layout_width="0dp"
-            android:layout_height="10dp"
-            android:layout_marginTop="40dp"
-            android:src="@color/x_f4f4f4"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:src="@color/x_e5e5e5"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/l_relapse_3_top" />
+            app:layout_constraintTop_toBottomOf="@id/l_relapse_3_top"
+            tools:visibility="visible"/>
 
         <!-- 수리내역 최대 3개 및
         수리 내역 추가, 하자 구분 선택 버튼 -->
@@ -215,14 +217,12 @@
             android:id="@+id/rv_relapse_3_repair_history_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="20dp"
             app:layout_constraintBottom_toTopOf="@id/button_area_dummy"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_dummy"
-            app:layout_goneMarginTop="30dp" />
+            app:layout_goneMarginTop="30dp"
+            tools:visibility="visible"/>
 
         <!-- 다음버튼이 위쪽 UI 덮어버리지 않도록 공간 확보(같은 크기의 뷰) -->
         <TextView

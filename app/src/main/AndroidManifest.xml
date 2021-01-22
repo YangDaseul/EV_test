@@ -29,6 +29,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="stateHidden"
+        android:extractNativeLibs="true"
         tools:replace="android:allowBackup">
         <activity
             android:name=".ui.intro.IntroActivity"
@@ -97,11 +98,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.BarcodeActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/CardViewTheme" />
-        <activity
-            android:name=".ui.common.activity.CardViewActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/CardViewTheme" />

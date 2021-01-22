@@ -25,7 +25,7 @@
             android:bufferType="spannable"
             android:button="@null"
             android:drawableStart="@drawable/checkbox_selector"
-            android:drawablePadding="8dp"
+            android:drawablePadding="10dp"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="3dp"
@@ -54,6 +54,7 @@
 
         <!-- 경계선 뷰-->
         <ImageView
+            android:id="@+id/iv_line"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="20dp"

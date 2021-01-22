@@ -43,6 +43,7 @@
             android:enabled="@{ (remCnt==0||isEngine) ? false : true}"
             android:checked="@{ isEngine ? true : false}"
             android:background="@android:color/transparent"
+            android:bufferType="spannable"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_rem_cnt"
             app:layout_constraintStart_toStartOf="parent"

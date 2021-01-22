@@ -256,13 +256,9 @@ public class BluehandsFilterFragment extends SubFragment<FragmentBluehandsFilter
                 if(isSelectFilter[i]){
                     isSelectFilter[i]=false;
                     Paris.style(((TextView) getActivity().findViewById(filterIds[i]))).apply(R.style.BtrFilterDisable2);
-//                    ((TextView) getActivity().findViewById(filterIds[i])).setTextAppearance(R.style.BtrFilterDisable2);
-//                    ((TextView) getActivity().findViewById(filterIds[i])).setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_757575);
                 }else{
                     isSelectFilter[i]=true;
                     Paris.style(((TextView) getActivity().findViewById(filterIds[i]))).apply(R.style.BtrFilterEnable2);
-//                    ((TextView) getActivity().findViewById(filterIds[i])).setTextAppearance(R.style.BtrFilterEnable2);
-//                    ((TextView) getActivity().findViewById(filterIds[i])).setBackgroundColor(getContext().getColor(R.color.x_996449));
                 }
                 break;
             }

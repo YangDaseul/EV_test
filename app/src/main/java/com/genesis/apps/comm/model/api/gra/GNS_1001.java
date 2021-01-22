@@ -36,9 +36,9 @@ public class GNS_1001 extends BaseData {
      * @see #ownVhclCnt 소유차량수
      * @see #ownVhclList 소유차량목록
      * @see #ctrctVhclList 계약차량목록
-     * @see #actoprRgstYn 실 운행자 등록 여부
-     * Y:실 운행자등록건이 있음(1건이상) N: 실 운행자등록건이 없음
-     * Y이면 실 운행자 내역조회 메뉴  N면 실 운행자 등록메뉴
+     * @see #actoprRgstYn 실운행자 등록 여부
+     * Y:실운행자등록건이 있음(1건이상) N: 실운행자등록건이 없음
+     * Y이면 실운행자 내역조회 메뉴  N면 실운행자 등록메뉴
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data

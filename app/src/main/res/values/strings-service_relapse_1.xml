@@ -16,8 +16,8 @@
     <string name="sm_flaw_02_11">이메일 형식이 맞지 않습니다.</string>
     <string name="sm_flaw_02_12">상세 주소를 입력해 주세요.</string>
     <string name="sm_flaw_02_13">이메일 주소를 입력해 주세요.</string>
-    <string name="sm_flaw_02_14"></string>
-    <string name="sm_flaw_02_15"></string>
+    <string name="sm_flaw_02_14">주소 검색</string>
+    <string name="sm_flaw_02_15">주소를\n검색해 주세요.</string>
     <string name="sm_flaw_02_16"></string>
     <string name="sm_flaw_02_17"></string>
 </resources>

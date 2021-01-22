@@ -9,7 +9,7 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 
 /**
  * @author hjpark
- * @brief 렌트/리스 실 운행자 등록 [알려드립니다]
+ * @brief 렌트/리스 실운행자 등록 [알려드립니다]
  */
 public class LeasingCarInfoActivity extends SubActivity<ActivityLeasingCarInfoBinding> {
 

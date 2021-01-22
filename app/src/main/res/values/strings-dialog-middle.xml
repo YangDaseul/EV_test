@@ -13,18 +13,18 @@
 
 
     <string name="sm_emg01_p03_title_1">종료 안내</string>
-    <string name="sm_emg01_p03_msg_1">아직 원격진단서비스 신청이 완료되지 않았습니다.\n신청을 종료 하시겠습니까?</string>
+    <string name="sm_emg01_p03_msg_1">아직 원격진단서비스 신청이\n완료되지 않았습니다.\n\n신청을 종료 하시겠습니까?</string>
 
     <!--    SM_EMGC_P01팝업과 중복됨-->
     <string name="r_bt06_p01_title_1">위치 정보 안내</string>
     <string name="r_bt06_p01_msg_1">현재 위치 정보를 확인하기 위해 스마트폰 GPS를 켜 주시기 바랍니다.\n\nGPS가 꺼진 경우 일부 동작이\n제한될 수 있습니다.</string>
 
     <string name="sm_emg01_p04_1_1">긴급 출동 현황 확인</string>
-    <string name="sm_emg01_p04_1_2">긴급출동 서비스가 접수되어 있습니다.\n원격 진단으로 서비스 전환을 하기 위해서 기존 긴급출동 접수 건을 취소하시겠습니까?</string>
+    <string name="sm_emg01_p04_1_2">긴급출동 서비스가 접수되어 있습니다.\n\n원격 진단으로 서비스 전환을\n하기 위해서 기존 긴급출동 접수 건을\n취소하시겠습니까?</string>
     <string name="sm_emgc01_p03_1">종료 안내</string>
-    <string name="sm_emgc01_p03_2">아직 긴급출동서비스 신청이 완료되지 않았습니다.\n신청을 종료 하시겠습니까?</string>
+    <string name="sm_emgc01_p03_2">아직 긴급출동서비스 신청이\n완료되지 않았습니다.\n\n신청을 종료 하시겠습니까?</string>
     <string name="sm_emgc01_p05_1">긴급 출동 현황 확인</string>
-    <string name="sm_emgc01_p05_2">긴급출동 서비스가 출동했습니다.\n긴급출동 조치가 완료된 이후에 원격진단을 신청하실 수 있습니다.</string>
+    <string name="sm_emgc01_p05_2">긴급출동 서비스가 출동했습니다.\n\n긴급출동 조치가 완료된 이후에\n원격진단을 신청하실 수 있습니다.</string>
     <string name="sm_emgc01_p06_1">원격진단 신청 불가</string>
     <string name="sm_emgc01_p06_2">현재 원격진단 이용이 어렵습니다.\nGCS 서비스 사용 신청하시고, 차량 등록 후 이용해 주세요.</string>
 
@@ -43,7 +43,7 @@
     <string name="gm_bt01_p02_1">서비스 신청 안내</string>
     <string name="gm_bt01_p02_2">버틀러 신청은 고객센터 전화 상담으로만 가능합니다.\n\n바로 통화하시겠습니까?</string>
     <string name="gm_bt04_p01_1">종료 안내</string>
-    <string name="gm_bt04_p01_2">아직 버틀러 상담 신청이 완료되지 않았습니다.\n\n신청을 종료 하시겠습니까?</string>
+    <string name="gm_bt04_p01_2">아직 버틀러 상담 신청이\n완료되지 않았습니다.\n\n신청을 종료 하시겠습니까?</string>
 
     <string name="mg_con01_p01_1">해제 안내</string>
     <string name="mg_con01_p01_2">포인트를 연동 해제할 경우 포인트 정보, 바코드가 제공되지 않으며 주유 내역이 자동 입력되지 않습니다.\n포인트 연동을 해제하시겠습니까?</string>
@@ -52,9 +52,9 @@
     <string name="mg_con02_p01_3">포인트 연동이 완료되었습니다.\n바코드로 포인트 적립이 가능하며\n포인트 적립 시, 주유 내역이 자동입력 됩니다.</string>
 
     <string name="gm_carlst_01_p04_1">종료 안내</string>
-    <string name="gm_carlst_01_p04_2">아직 렌트/리스 실 운행자 등록 신청이 완료되지 않았습니다.\n\n신청을 종료 하시겠습니까?</string>
+    <string name="gm_carlst_01_p04_2">아직 렌트/리스 실운행자 등록 신청이 완료되지 않았습니다.\n\n신청을 종료 하시겠습니까?</string>
     <string name="gm_carlst_01_p05_1">취소 안내</string>
-    <string name="gm_carlst_01_p05_2">렌트/리스 실 운행자 차량등록을 취소하시겠습니까?</string>
+    <string name="gm_carlst_01_p05_2">렌트/리스 실운행자 차량등록을 취소하시겠습니까?</string>
 
     <string name="gm_carlst_03_p01_1">중고차 등록 알림</string>
     <string name="gm_carlst_03_p01_2">·확인 가능한 시간은 평일 08:00 ~ 18:00입니다.</string>
@@ -105,7 +105,7 @@
 
     <!-- 긴급출동 -->
     <string name="sm_emgc01_p03_4">종료 안내</string>
-    <string name="sm_emgc01_p03_5">아직 긴급출동서비스 신청이 완료되지 않았습니다.\n신청을 종료 하시겠습니까?</string>
+    <string name="sm_emgc01_p03_5">아직 긴급출동서비스 신청이\n완료되지 않았습니다.\n\n신청을 종료 하시겠습니까?</string>
     <string name="sm_emgc02_p01_1">취소 안내</string>
     <string name="sm_emgc02_p01_2">긴급출동서비스 신청을\n취소하시겠습니까?</string>
 
@@ -123,7 +123,7 @@
     <string name="sm_r_rsv_p01_7">싼타페(CM, SM) LSD 관련 수리</string>
 
     <string name="sm_emgc01_p03_1_1">종료 안내</string>
-    <string name="sm_emgc01_p03_1_2">아직 원격진단서비스 신청이\n완료되지 않았습니다.\n신청을 종료 하시겠습니까?</string>
+    <string name="sm_emgc01_p03_1_2">아직 원격진단서비스 신청이\n완료되지 않았습니다.\n\n신청을 종료 하시겠습니까?</string>
 
     <string name="sm_r_rsv_p03_1">정비 예약 취소</string>
     <string name="sm_r_rsv_p03_2">이전 단계로 이동하시면,\n지금까지 입력하신 예약 정보가\n모두 사라집니다.\n이동하시겠습니까?</string>
@@ -135,7 +135,7 @@
     <string name="sm_r_rsv05_p02_2">%s 예약을\n취소하시겠습니까?</string>
 
     <string name="sm_flaw03_01_1">종료 안내</string>
-    <string name="sm_flaw03_01_2">아직 하자 재발 통보 신청이\n완료되지 않았습니다.\n신청을 종료 하시겠습니까?</string>
+    <string name="sm_flaw03_01_2">아직 하자 재발 통보 신청이\n완료되지 않았습니다.\n\n신청을 종료 하시겠습니까?</string>
 
     <string name="pop03_1">안내</string>
     <string name="pop03_2">기존에 Push 메시지를 받으시는\n스마트폰이 존재합니다.\n\n변경 하시겠습니까?</string>

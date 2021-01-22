@@ -89,7 +89,7 @@ public class MyWebViewFrament extends WebViewFragment {
 
         final JsResult res = result;
         new AlertDialog.Builder(getActivity())
-                .setIcon(R.mipmap.ic_launcher)
+                .setIcon(R.mipmap.ic_launcher_genesis)
 //				.setTitle(R.string.popup_title)
                 .setMessage(message)
                 .setCancelable(false)
@@ -108,7 +108,7 @@ public class MyWebViewFrament extends WebViewFragment {
 
         final JsResult res = result;
         new AlertDialog.Builder(getActivity())
-                .setIcon(R.mipmap.ic_launcher)
+                .setIcon(R.mipmap.ic_launcher_genesis)
 //				.setTitle(R.string.popup_title)
                 .setMessage(message)
                 .setCancelable(false)

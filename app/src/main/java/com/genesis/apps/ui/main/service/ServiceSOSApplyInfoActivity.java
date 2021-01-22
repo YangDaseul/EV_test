@@ -50,11 +50,12 @@ public class ServiceSOSApplyInfoActivity extends SubActivity<ActivityServiceSosA
     }
 
     private void initView() {
-        ui.tvAreaClsCd.setText(sosStateVO.getAreaClsCd().equalsIgnoreCase("R") ? SERVICE_SOS_AREA_CLS_CODE_R : SERVICE_SOS_AREA_CLS_CODE_H);
-        ui.tvAddr.setText(sosStateVO.getAddr());
-        ui.tvCarRegNo.setText(sosStateVO.getCarRegNo());
-        ui.tvMemo.setText(sosStateVO.getMemo());
-        ui.tvTmpAcptDtm.setText((!TextUtils.isEmpty(sosStateVO.getTmpAcptDtm()) ? (DateUtil.getDate(DateUtil.getDefaultDateFormat(DateUtil.getYyyyMMddHHmmss(sosStateVO.getTmpAcptDtm()), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm)) : "--"));
+        ui.setData(sosStateVO);
+//        ui.tvAreaClsCd.setText(sosStateVO.getAreaClsCd().equalsIgnoreCase("R") ? SERVICE_SOS_AREA_CLS_CODE_R : SERVICE_SOS_AREA_CLS_CODE_H);
+//        ui.tvAddr.setText(sosStateVO.getAddr());
+//        ui.tvCarRegNo.setText(sosStateVO.getCarRegNo());
+//        ui.tvMemo.setText(sosStateVO.getMemo());
+//        ui.tvTmpAcptDtm.setText((!TextUtils.isEmpty(sosStateVO.getTmpAcptDtm()) ? (DateUtil.getDate(DateUtil.getDefaultDateFormat(DateUtil.getYyyyMMddHHmmss(sosStateVO.getTmpAcptDtm()), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm)) : "--"));
     }
 
     @Override

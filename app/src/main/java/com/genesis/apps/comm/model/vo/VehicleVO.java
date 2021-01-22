@@ -41,13 +41,13 @@ import lombok.EqualsAndHashCode;
  * @see #ctrctNo 계약번호
  *
  * @see #recvYmd 인도일자
- * 1:단독소유, 2:주계약자, 3:공동계약, 4:실 운행자, 5:렌트리스
+ * 1:단독소유, 2:주계약자, 3:공동계약, 4:실운행자, 5:렌트리스
  *
  *
  * @see #delYn 삭제여부
  * Y:삭제된 차량 N: 삭제안된 차량
  * @see #csmrCarRelCd 고객차량관계코드
- * 1:단독소유, 2:주계약자, 3:공동계약, 4:실 운행자, 5:렌트리스
+ * 1:단독소유, 2:주계약자, 3:공동계약, 4:실운행자, 5:렌트리스
  */
 @Entity(indices = {@Index(value = {"vin","ctrctNo"}, unique = true)})
 @EqualsAndHashCode(callSuper = false)

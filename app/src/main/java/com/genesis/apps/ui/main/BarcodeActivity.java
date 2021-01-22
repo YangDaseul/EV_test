@@ -1,20 +1,12 @@
 package com.genesis.apps.ui.main;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.annotation.RequiresApi;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.viewpager2.widget.ViewPager2;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.BAR_1001;
-import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -22,10 +14,13 @@ import com.genesis.apps.comm.util.VibratorUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.databinding.ActivityBarcodeBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.common.activity.test.CardViewAadapter;
 import com.genesis.apps.ui.common.activity.test.ItemMoveCallback;
-import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
-import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
+
+import androidx.annotation.RequiresApi;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.viewpager2.widget.ViewPager2;
 
 public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
     private CMNViewModel cmnViewModel;
@@ -80,7 +75,7 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
 
     private void initLineView(){
         barcodeAdapter2 = new BarcodeAdapter();
-        barcodeAdapter2.setViewType(CardViewAadapter.TYPE_LINE);
+        barcodeAdapter2.setViewType(BarcodeAdapter.TYPE_LINE);
         ItemTouchHelper.Callback callback = new ItemMoveCallback(barcodeAdapter2);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(ui.recyclerView);

@@ -514,7 +514,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
 
     private void setVehicleInfo(VehicleVO vehicleVO, boolean isUpdate) {
         ui.tvCarCode.setText(StringUtil.isValidString(vehicleVO.getMdlNm()));
-        ui.tvCarModel.setText(StringUtil.isValidString(vehicleVO.getSaleMdlNm()));
+        ui.tvCarModel.setText(StringUtil.isValidString(vehicleVO.getSaleMdlNm()).replace(StringUtil.isValidString(vehicleVO.getMdlNm()),""));
         //UI초기화
         ui.tvCarVrn.setVisibility(View.GONE);
         ui.btnRegVrn.lWhole.setVisibility(View.GONE);
@@ -686,7 +686,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                         String result = bottomListDialog2.getSelectItem();
                         if (!TextUtils.isEmpty(result)) {
                             if (result.equalsIgnoreCase(list.get(0))) {
-                                //렌트/리스 실 운행자 등록
+                                //렌트/리스 실운행자 등록
                                 openRentRis();
                             } else {
                                 //중고차 등록

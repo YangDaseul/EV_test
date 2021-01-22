@@ -29,10 +29,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/l_title" />
 
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="30dp"
@@ -40,12 +41,28 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_msg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:tabGravity="center"
-            app:tabIndicatorHeight="2dp"
-            app:tabMode="scrollable"
-            app:tabSelectedTextColor="@color/x_000000"
-            app:tabTextColor="@color/x_b9b9b9"
-            app:tabIndicatorColor="@color/x_141414"/>
+            app:tabGravity="fill"
+            app:tabIndicatorHeight="0dp"
+            app:tabBackground="@drawable/selector_tab_repair_image_bg"
+            app:tabMode="fixed"/>
+
+<!--        <com.google.android.material.tabs.TabLayout-->
+<!--            android:id="@+id/tabs"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:visibility="visible"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tv_msg"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:tabGravity="center"-->
+<!--            app:tabIndicatorHeight="2dp"-->
+<!--            app:tabMode="fixed"-->
+<!--            app:tabSelectedTextColor="@color/x_000000"-->
+<!--            app:tabTextColor="@color/x_b9b9b9"-->
+<!--            app:tabIndicatorColor="@color/x_141414"/>-->
 
 
         <FrameLayout

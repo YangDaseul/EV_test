@@ -4,7 +4,7 @@
     <!-- 하자 재발 신청내역 -->
     <string name="relapse_history_page_title">하자 재발 통보 신청</string>
     <string name="relapse_history_list_title">신청 내역</string>
-    <string name="relapse_history_no_data">신청 내역이 없습니다.</string>
+    <string name="relapse_history_no_data">내역이 없습니다.</string>
     <string name="relapse_history_main_msg">자동차 수리 후,\n같은 증상의 하자가 발생\n하셨나요?</string>
     <string name="relapse_history_req_btn">신청</string>
     <string name="relapse_history_dot">·</string>
@@ -57,7 +57,7 @@
 
     <string name="relapse_3_req_btn_text">신청하기</string>
 
-    <string name="relapse_req_result_title">하자 재발 통보 신청</string>
+    <string name="relapse_req_result_title">하자 재발 통보서 접수 현황</string>
     <string name="relapse_req_result_req_date">접수일</string>
     <string name="relapse_req_result_status">상태</string>
     <string name="relapse_req_result_status_waiting">접수중</string>
@@ -82,6 +82,6 @@
     <string name="relapse_req_result_defect_low">일반 하자</string>
     <string name="relapse_req_result_repair_detail_title">회차 수리내역</string>
     <string name="relapse_req_result_repair_count_title">수리내역 횟수 및 기간</string>
-    <string name="relapse_req_result_try">누적 수리 시도 횟수</string>
+    <string name="relapse_req_result_try">수리 시도 횟수</string>
 
 </resources>

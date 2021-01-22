@@ -12,13 +12,12 @@ import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.hybrid.core.WebViewFragment;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.WRT_1001;
-import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.vo.WarrantyVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.WRTViewModel;
 import com.genesis.apps.databinding.ActivityWarrantyRepairGuideBinding;
-import com.genesis.apps.databinding.ItemTabAlarmBinding;
+import com.genesis.apps.databinding.ItemTabWarrantyBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.google.android.material.tabs.TabLayout;
 
@@ -100,17 +99,17 @@ public class WarrantyRepairGuideActivity extends SubActivity<ActivityWarrantyRep
     private void initTabView(List<WarrantyVO> warrantyVOList) {
         for (int nm : titleId) {
             final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            final ItemTabAlarmBinding itemTabAlarmBinding = DataBindingUtil.inflate(inflater, R.layout.item_tab_alarm, null, false);
-            final View view = itemTabAlarmBinding.getRoot();
-            itemTabAlarmBinding.tvTab.setText(nm);
-            itemTabAlarmBinding.tvTab.setTag(R.id.url, getUrl(warrantyVOList, nm));
+            final ItemTabWarrantyBinding itemTabWarrantyBinding = DataBindingUtil.inflate(inflater, R.layout.item_tab_warranty, null, false);
+            final View view = itemTabWarrantyBinding.getRoot();
+            itemTabWarrantyBinding.tvTab.setText(nm);
+            itemTabWarrantyBinding.tvTab.setTag(R.id.url, getUrl(warrantyVOList, nm));
             ui.tabs.addTab(ui.tabs.newTab().setCustomView(view));
         }
 
         ui.tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                loadTerms(((ItemTabAlarmBinding) DataBindingUtil.bind(tab.getCustomView())).tvTab.getTag(R.id.url).toString());
+                loadTerms(((ItemTabWarrantyBinding) DataBindingUtil.bind(tab.getCustomView())).tvTab.getTag(R.id.url).toString());
             }
 
             @Override

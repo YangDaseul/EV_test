@@ -25,59 +25,148 @@
         android:id="@+id/l_maintenance_category_item_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:background="@color/x_ffffff"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/ripple_bg_ffffff"
-        android:clickable="true"
-        android:elevation="5dp"
-        android:focusable="true"
-        android:paddingStart="20dp"
-        android:paddingTop="25dp"
-        android:paddingEnd="15dp"
-        android:paddingBottom="25dp">
+        android:layout_marginBottom="10dp">
 
-        <!--  정비 카테고리 타이틀-->
-        <TextView
-            android:id="@+id/tv_maintenance_category_item_title"
-            style="@style/TextBasic"
-            android:fontFamily="@font/light_genesissansheadglobal"
-            android:text="@{title}"
-            android:textColor="@color/x_000000"
-            android:textSize="20dp"
-            android:lineSpacingExtra="4dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="정비 카테고리 이름" />
 
-        <!--  정비 카테고리 텍스트-->
-        <TextView
-            android:id="@+id/tv_maintenance_category_item_desc"
-            style="@style/TextBasic"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_maintenance_category_item"
             android:layout_width="0dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginEnd="22dp"
-            android:fontFamily="@font/regular_genesissansheadglobal"
-            android:lineSpacingExtra="6dp"
-            android:text="@{desc}"
-            android:textColor="@color/x_262626"
-            android:textSize="14dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ripple_bg_ffffff"
+            android:paddingStart="20dp"
+            android:paddingTop="25dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="25dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_maintenance_category_item_title"
-            app:layout_constraintEnd_toStartOf="@+id/iv_icon"
-            tools:text="정비 카테고리 설명\n정비 카테고리 설명2" />
-
-        <!--  정비 항목 아이콘-->
-        <ImageView
-            android:id="@+id/iv_icon"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@{icon}"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_service_autocare" />
+            app:layout_constraintBottom_toBottomOf="parent">
+
+
+            <!--  정비 카테고리 타이틀-->
+            <TextView
+                android:id="@+id/tv_maintenance_category_item_title"
+                style="@style/TextBasic"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                android:lineSpacingExtra="4dp"
+                android:text="@{title}"
+                android:textColor="@color/x_000000"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="정비 카테고리 이름" />
+
+            <!--  정비 카테고리 텍스트-->
+            <TextView
+                android:id="@+id/tv_maintenance_category_item_desc"
+                style="@style/TextBasic"
+                android:layout_width="0dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="22dp"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:lineSpacingExtra="6dp"
+                android:text="@{desc}"
+                android:textColor="@color/x_262626"
+                android:textSize="14dp"
+                app:layout_constraintEnd_toStartOf="@+id/iv_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_maintenance_category_item_title"
+                tools:text="정비 카테고리 설명\n정비 카테고리 설명2" />
+
+            <!--  정비 항목 아이콘-->
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@{icon}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_service_autocare" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/btn_block"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/x_33000000"
+            android:visibility="visible"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!--    &lt;!&ndash; 아이콘 높이가 가운데 정렬 &ndash;&gt;-->
+
+    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--        android:id="@+id/l_maintenance_category_item_btn"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="20dp"-->
+    <!--        android:layout_marginEnd="20dp"-->
+    <!--        android:layout_marginBottom="10dp"-->
+    <!--        android:background="@drawable/ripple_bg_ffffff"-->
+    <!--        android:clickable="true"-->
+    <!--        android:elevation="5dp"-->
+    <!--        android:focusable="true"-->
+    <!--        android:paddingStart="20dp"-->
+    <!--        android:paddingTop="25dp"-->
+    <!--        android:paddingEnd="15dp"-->
+    <!--        android:paddingBottom="25dp">-->
+
+    <!--        &lt;!&ndash;  정비 카테고리 타이틀&ndash;&gt;-->
+    <!--        <TextView-->
+    <!--            android:id="@+id/tv_maintenance_category_item_title"-->
+    <!--            style="@style/TextBasic"-->
+    <!--            android:fontFamily="@font/light_genesissansheadglobal"-->
+    <!--            android:text="@{title}"-->
+    <!--            android:textColor="@color/x_000000"-->
+    <!--            android:textSize="20dp"-->
+    <!--            android:lineSpacingExtra="4dp"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent"-->
+    <!--            tools:text="정비 카테고리 이름" />-->
+
+    <!--        &lt;!&ndash;  정비 카테고리 텍스트&ndash;&gt;-->
+    <!--        <TextView-->
+    <!--            android:id="@+id/tv_maintenance_category_item_desc"-->
+    <!--            style="@style/TextBasic"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_marginTop="14dp"-->
+    <!--            android:layout_marginEnd="22dp"-->
+    <!--            android:fontFamily="@font/regular_genesissansheadglobal"-->
+    <!--            android:lineSpacingExtra="6dp"-->
+    <!--            android:text="@{desc}"-->
+    <!--            android:textColor="@color/x_262626"-->
+    <!--            android:textSize="14dp"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toBottomOf="@id/tv_maintenance_category_item_title"-->
+    <!--            app:layout_constraintEnd_toStartOf="@+id/iv_icon"-->
+    <!--            tools:text="정비 카테고리 설명\n정비 카테고리 설명2" />-->
+
+    <!--        &lt;!&ndash;  정비 항목 아이콘&ndash;&gt;-->
+    <!--        <ImageView-->
+    <!--            android:id="@+id/iv_icon"-->
+    <!--            android:layout_width="60dp"-->
+    <!--            android:layout_height="60dp"-->
+    <!--            android:src="@{icon}"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent"-->
+    <!--            tools:src="@drawable/ic_service_autocare" />-->
+
+    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 </layout>

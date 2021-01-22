@@ -114,7 +114,7 @@ public class BottomDialogAskAgreeTerms extends BaseBottomDialog<DialogBottomTerm
         ui.tvBottomTermsOkBtn.setEnabled(isEnabled);
 
         if(isEnabled) {
-            ui.tvBottomTermsOkBtn.setBackgroundResource(R.drawable.ripple_bg_141414);
+            ui.tvBottomTermsOkBtn.setBackgroundResource(R.drawable.ripple_bg_111111);
         } else {
             ui.tvBottomTermsOkBtn.setBackgroundResource(R.drawable.bg_1a141414);
         }

@@ -129,7 +129,10 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
 
 
     private void startMapView(){
-        showFragment(new SearchAddressHMNFragment());
+        Bundle bundle = new Bundle();
+        bundle.putInt(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.sm_flaw_02_14);
+        bundle.putInt(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, R.string.sm_flaw_02_15);
+        showFragment(new SearchAddressHMNFragment(), bundle);
     }
 
     @Override

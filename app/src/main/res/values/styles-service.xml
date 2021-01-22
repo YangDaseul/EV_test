@@ -9,7 +9,7 @@
 
     <!-- 대리운전 항목 설명-->
     <style name="ServiceDriveDesc" parent="TextBasic">
-        <item name="android:textColor">@color/x_aaabaf</item>
+        <item name="android:textColor">@color/x_666666</item>
         <item name="android:textSize">14dp</item>
         <item name="android:lineSpacingExtra">6dp</item>
     </style>
@@ -151,7 +151,7 @@
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:layout_marginStart">20dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
-        <item name="android:textColor">@color/x_aaabaf</item>
+        <item name="android:textColor">@color/x_666666</item>
         <item name="android:textSize">14dp</item>
     </style>
 
@@ -184,7 +184,7 @@
 
     <!-- 하자 재발 내역 목록 밑에 안내문 세 개 -->
     <style name="RelapseHistoryItemNoti" parent="TextBasic">
-        <item name="android:textColor">@color/x_aaabaf</item>
+        <item name="android:textColor">@color/x_666666</item>
         <item name="android:textSize">14dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:lineSpacingExtra">6dp</item>
@@ -293,14 +293,10 @@
     <!-- 하자재발 현황조회 구간별 제목  -->
     <style name="RelapseReqResultSubTitle" parent="TextBasic">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_marginTop">40dp</item>
-        <item name="android:layout_marginStart">20dp</item>
-        <item name="android:layout_marginEnd">20dp</item>
-        <item name="android:background">@drawable/bg_00000000_underline_000000</item>
-        <item name="android:paddingBottom">8dp</item>
-        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
         <item name="android:textColor">@color/x_000000</item>
         <item name="android:textSize">18dp</item>
+        <item name="android:lineSpacingExtra">12dp</item>
     </style>
 
     <!-- 하자재발 현황조회 항목 공통  -->

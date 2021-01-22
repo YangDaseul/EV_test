@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
 /**
  * @author hjpark
  * @file GRA_GNS_1007
- * @Brief My차고 + 렌트/리스 실 운행자 내역
+ * @Brief My차고 + 렌트/리스 실운행자 내역
  */
 public class GNS_1007 extends BaseData {
     /**

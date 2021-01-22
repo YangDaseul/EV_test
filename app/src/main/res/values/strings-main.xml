@@ -32,7 +32,7 @@
     <string name="gm02_7">SNS 자랑하기</string>
     <string name="gm02_8">로그인</string>
 
-    <string name="gm03_1">렌트/리스\n실 운행자 등록</string>
+    <string name="gm03_1">렌트/리스\n실운행자 등록</string>
     <string name="gm03_2">중고차 등록</string>
     <string name="gm03_3">견적 내기</string>
     <string name="gm03_4">BTO</string>
@@ -172,7 +172,7 @@
     <string name="bcode01_2">완료</string>
 
     <string name="gm01_02_1">보증 수리 안내</string>
-    <string name="gm01_02_2">오너 차량의\n주요부품의 보증기간에 따른\n수리 안내입니다.</string>
+    <string name="gm01_02_2">오너 차량의\n주요 부품의 보증기간에 따른\n수리 안내입니다.</string>
     <string name="gm01_02_3">일반 보증 기간</string>
-    <string name="gm01_02_4">배출가스 관련 부품 보증기간</string>
+    <string name="gm01_02_4">배출가스 관련\n부품 보증기간</string>
 </resources>

@@ -138,7 +138,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:layout_marginBottom="20dp"
-                        android:background="@drawable/ripple_bg_ffffff_stroke_141414"
+                        android:background="@drawable/ripple_bg_ffffff_stroke_000000"
                         android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                         android:paddingLeft="15dp"
                         android:paddingTop="20dp"
@@ -289,7 +289,8 @@
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     android:src="@drawable/btn_question"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_info_1" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_info_1"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_info_1"/>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

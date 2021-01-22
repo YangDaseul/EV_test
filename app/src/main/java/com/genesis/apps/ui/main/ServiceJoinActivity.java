@@ -249,7 +249,7 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
                 int start = termVO.getTermNm().indexOf(target.charAt(0));
                 int end = start + target.length();
                 Spannable span = (Spannable)itemTermBinding.cb.getText();
-                span.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color.x_ba544d)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                span.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color.x_996449)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
             itemTermBinding.ivArrow.setTag(R.id.term, termVO);
             checkBoxs.add(new TermView(termVO, itemTermBinding.cb));

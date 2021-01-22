@@ -17,6 +17,7 @@ import androidx.transition.ChangeBounds;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
+import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.PUB_1002;
@@ -211,7 +212,7 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
                         vocInfoVO.setCarNm(result.data.getVhclList().get(0).getMdlNm());
                         vocInfoVO.setRecvDt(result.data.getVhclList().get(0).getRecvYmd());
                         ui.tvCarNm.setText(vocInfoVO.getCarNm());
-                        ui.tvRecvDt.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(vocInfoVO.getRecvDt(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot));
+                        ui.tvRecvDt.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(StringUtil.isValidString(vocInfoVO.getRecvYmd()), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot));
                         isValidVin = true;
                         validVin = result.data.getVhclList().get(0).getVin();
                         checkValidVin();
@@ -286,8 +287,7 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
                     vocInfoVO.setWpa(selectNm);
                     vocInfoVO.setAdmz("");
                     ui.tvAdmz.setText(R.string.r_flaw05_13);
-                    ui.tvAdmz.setTextColor(getColor(R.color.x_aaabaf));
-                    ui.tvAdmz.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
+                    Paris.style(ui.tvAdmz).apply(R.style.CommonSpinnerItemDisable);
                     pubViewModel.reqPUB1003(new PUB_1003.Request(APPIAInfo.SM_FLAW05.getId(), pubViewModel.getSidoCode(selectNm)));
                 }
                 break;
@@ -412,8 +412,7 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
 
         if (TextUtils.isEmpty(mdyyyy)) {
             ui.tvMdYyyy.setText(R.string.r_flaw05_10);
-            ui.tvMdYyyy.setTextColor(getColor(R.color.x_aaabaf));
-            ui.tvMdYyyy.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
+            Paris.style(ui.tvMdYyyy).apply(R.style.CommonSpinnerItemCalendarDisable);
             ui.tvTitleMdYyyy.setVisibility(View.GONE);
             ui.tvErrorMdYyyy.setVisibility(View.VISIBLE);
             ui.tvErrorMdYyyy.setText(R.string.r_flaw05_24);
@@ -421,8 +420,7 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
         } else {
             String date = DateUtil.getDate(DateUtil.getDefaultDateFormat(mdyyyy, DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot);
             ui.tvMdYyyy.setText(date);
-            ui.tvMdYyyy.setTextColor(getColor(R.color.x_000000));
-            ui.tvMdYyyy.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
+            Paris.style(ui.tvMdYyyy).apply(R.style.CommonSpinnerItemCalendar);
             ui.tvTitleMdYyyy.setVisibility(View.VISIBLE);
             ui.tvErrorMdYyyy.setVisibility(View.INVISIBLE);
             doTransition(3);
@@ -468,16 +466,14 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
 
         if (TextUtils.isEmpty(wpa)) {
             ui.tvWpa.setText(R.string.r_flaw05_12);
-            ui.tvWpa.setTextColor(getColor(R.color.x_aaabaf));
-            ui.tvWpa.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
+            Paris.style(ui.tvWpa).apply(R.style.CommonSpinnerItemDisable);
             ui.tvTitleWpa.setVisibility(View.GONE);
             ui.tvErrorWpa.setVisibility(View.VISIBLE);
             ui.tvErrorWpa.setText(R.string.r_flaw05_26);
             return false;
         } else {
             ui.tvWpa.setText(wpa);
-            ui.tvWpa.setTextColor(getColor(R.color.x_000000));
-            ui.tvWpa.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
+            Paris.style(ui.tvWpa).apply(R.style.CommonSpinnerItemEnable);
             ui.tvTitleWpa.setVisibility(View.VISIBLE);
             ui.tvErrorWpa.setVisibility(View.INVISIBLE);
             doTransition(5);
@@ -491,16 +487,14 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
 
         if (TextUtils.isEmpty(admz)) {
             ui.tvAdmz.setText(R.string.r_flaw05_12);
-            ui.tvAdmz.setTextColor(getColor(R.color.x_aaabaf));
-            ui.tvAdmz.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
+            Paris.style(ui.tvAdmz).apply(R.style.CommonSpinnerItemDisable);
             ui.tvTitleAdmz.setVisibility(View.GONE);
             ui.tvErrorAdmz.setVisibility(View.VISIBLE);
             ui.tvErrorAdmz.setText(R.string.r_flaw05_26);
             return false;
         } else {
             ui.tvAdmz.setText(admz);
-            ui.tvAdmz.setTextColor(getColor(R.color.x_000000));
-            ui.tvAdmz.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
+            Paris.style(ui.tvAdmz).apply(R.style.CommonSpinnerItemEnable);
             ui.tvTitleAdmz.setVisibility(View.VISIBLE);
             ui.tvErrorAdmz.setVisibility(View.INVISIBLE);
             return true;

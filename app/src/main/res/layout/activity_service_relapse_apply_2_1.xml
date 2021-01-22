@@ -40,7 +40,7 @@
                 android:paddingLeft="20dp"
                 android:paddingTop="30dp"
                 android:paddingRight="20dp"
-                android:paddingBottom="30dp">
+                android:paddingBottom="10dp">
 
                 <TextView
                     android:id="@+id/tv_msg"
@@ -143,7 +143,6 @@
                         android:paddingEnd="12dp"
                         android:text="@string/r_flaw05_10"
                         android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-                        app:drawableRightCompat="@drawable/ic_calendar"
                         app:layout_constraintTop_toBottomOf="@+id/tv_title_md_yyyy" />
 
                     <TextView
@@ -184,10 +183,15 @@
                     <EditText
                         android:id="@+id/et_vin"
                         style="@style/CommonTextInputEditText"
+                        android:layout_width="0dp"
                         android:layout_marginTop="6dp"
-                        android:background="@drawable/bg_ffffff_stroke_141414"
+                        android:layout_marginEnd="4dp"
+                        android:background="@drawable/bg_ffffff_stroke_111111"
                         android:hint="@string/r_flaw05_7"
                         android:maxLength="17"
+                        android:maxLines="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/btn_vin"
                         app:layout_constraintTop_toBottomOf="@+id/tv_title_vin" />
 
                     <TextView
@@ -210,7 +214,7 @@
                         android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                         app:layout_constraintBottom_toBottomOf="@+id/et_vin"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/et_vin" />
+                        app:layout_constraintTop_toTopOf="@+id/et_vin"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -294,26 +298,18 @@
                     app:layout_constraintStart_toEndOf="@+id/tv_mark_1"
                     app:layout_constraintTop_toBottomOf="@+id/l_maker" />
 
-
-                <TextView
+                <!--차량 번호 등록 버튼-->
+                <include
                     android:id="@+id/btn_example"
+                    layout="@layout/item_btn_underline_mark_gold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ripple_bg_00000000_stroke_6f6f6f"
-                    android:fontFamily="@font/light_genesissansheadglobal"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="7dp"
-                    android:paddingLeft="12dp"
-                    android:paddingTop="8dp"
-                    android:paddingRight="12dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/r_flaw05_2"
-                    android:textColor="@color/x_141414"
-                    android:textSize="14dp"
-                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    android:layout_marginTop="30dp"
+                    android:visibility="visible"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
+                    app:btnNm="@{@string/r_flaw05_2}"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_info_1" />
-
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_1"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
@@ -326,6 +322,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:text="@string/gm_carlst_01_32" />
 

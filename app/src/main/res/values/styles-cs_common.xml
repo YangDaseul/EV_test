@@ -219,7 +219,7 @@
         <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
-        <item name="android:textColor">@color/x_525252</item>
+        <item name="android:textColor">@color/x_000000</item>
         <item name="android:textSize">15dp</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>

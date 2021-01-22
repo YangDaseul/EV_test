@@ -20,7 +20,8 @@ import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.VOCInfoVO;
-import com.genesis.apps.comm.model.vo.map.ReverseGeocodingReqVO;
+import com.genesis.apps.comm.util.DeviceUtil;
+import com.genesis.apps.comm.util.RecyclerViewDecoration;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.VOCViewModel;
 import com.genesis.apps.databinding.ActivityServiceRelapseHistoryBinding;
@@ -175,6 +176,7 @@ public class ServiceRelapseHistoryActivity extends GpsBaseActivity<ActivityServi
     private void setAdapter() {
         //하자 재발 신청 내역 어댑터 (인스턴스 타입 맞나 확인)
         adapter = new ServiceRelapseHistoryAdapter(onSingleClickListener);
+        ui.rvServiceDriveHistoryList.addItemDecoration(new RecyclerViewDecoration((int) DeviceUtil.dip2Pixel(this,4.0f)));
         ui.rvServiceDriveHistoryList.setLayoutManager(new LinearLayoutManager(this));
         ui.rvServiceDriveHistoryList.setHasFixedSize(true);
         ui.rvServiceDriveHistoryList.setAdapter(adapter);

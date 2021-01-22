@@ -259,7 +259,7 @@
                 android:lineSpacingExtra="3dp"
                 android:letterSpacing="-0.01"
                 android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
-                tools:text="렌트/리스\n실 운행자 등록"/>
+                tools:text="렌트/리스\n실운행자 등록"/>
 
             <ImageView
                 android:id="@+id/iv_floating_mark_1"

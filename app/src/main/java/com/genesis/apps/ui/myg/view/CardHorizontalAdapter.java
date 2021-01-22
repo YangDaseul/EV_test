@@ -101,7 +101,8 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
                     break;
                 case CardVO.CARD_STATUS_0://발급중
                     getBinding().tvStatus.setVisibility(View.VISIBLE);
-                    getBinding().ivFavorite.setVisibility(View.INVISIBLE);
+                    getBinding().ivFavorite.setBackgroundResource(item.isFavorite() ? R.drawable.ic_star_l_s : R.drawable.ic_star_l_b2);
+                    getBinding().ivFavorite.setOnClickListener(onSingleClickListener);
                     break;
 
                 case CARD_STATUS_20://정지 처리안함

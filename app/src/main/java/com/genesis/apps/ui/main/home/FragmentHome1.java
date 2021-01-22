@@ -389,33 +389,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             case R.id.btn_quick:
                 toggleQuickMenu();
                 break;
-//            case R.id.btn_location:
-//                if (!((MainActivity) getActivity()).isGpsEnable()) {
-//                    MiddleDialog.dialogGPS(getActivity(), () -> ((MainActivity) getActivity()).turnGPSOn(isGPSEnable -> {
-//                    }), () -> {
-//                        //TODO 확인 클릭
-//                    });
-//                } else {
-//                    try {
-//                        if (developersViewModel.getRES_PARKLOCATION().getValue() != null
-//                                && developersViewModel.getRES_PARKLOCATION().getValue().data != null
-//                                && developersViewModel.getRES_PARKLOCATION().getValue().data.getLat() != 0
-//                                && developersViewModel.getRES_PARKLOCATION().getValue().data.getLon() != 0) {
-//                            List<Double> position = new ArrayList<>();
-//                            position.add(developersViewModel.getRES_PARKLOCATION().getValue().data.getLat());
-//                            position.add(developersViewModel.getRES_PARKLOCATION().getValue().data.getLon());
-//                            ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MyLocationActivity.class).putExtra(KeyNames.KEY_NAME_VEHICLE_LOCATION, new Gson().toJson(position)), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                            return;
-//                        }
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    } finally {
-//                        //todo 20201204 메시지 정의 필요
-//                        SnackBarUtil.show(getActivity(), "주차 위치 정보가 존재하지 않습니다.");
-//                    }
-//                }
-//                break;
-
             case R.id.fl_dim:
                 goneQuickMenu();
                 break;
@@ -489,8 +462,9 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         try {
             vehicleVO = lgnViewModel.getMainVehicleFromDB();
             if (vehicleVO != null) {
-                me.tvCarCode.setText(vehicleVO.getMdlNm());
-                me.tvCarModel.setText(vehicleVO.getSaleMdlNm());
+                me.tvCarCode.setText(StringUtil.isValidString(vehicleVO.getMdlNm()));
+                me.tvCarModel.setText(StringUtil.isValidString(vehicleVO.getSaleMdlNm()).replace(StringUtil.isValidString(vehicleVO.getMdlNm()),""));
+
                 me.tvCarVrn.setText(vehicleVO.getCarRgstNo());
                 Glide
                         .with(getContext())
@@ -507,19 +481,12 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 switch (vehicleVO.getCustGbCd()) {
                     case VariableType.MAIN_VEHICLE_TYPE_OV:
 //                        me.ivMore.setVisibility(View.VISIBLE);
-                        me.lDistance.setVisibility(View.VISIBLE);
                         lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
                         reqCarInfoToDevelopers(vehicleVO.getVin());
                         makeQuickMenu(vehicleVO.getCustGbCd(),vehicleVO);
                         break;
                     case VariableType.MAIN_VEHICLE_TYPE_CV:
-                        makeDownMenu(vehicleVO.getCustGbCd());
-                        makeQuickMenu(vehicleVO.getCustGbCd(),vehicleVO);
-                        break;
                     case VariableType.MAIN_VEHICLE_TYPE_NV:
-                        makeDownMenu(vehicleVO.getCustGbCd());
-                        makeQuickMenu(vehicleVO.getCustGbCd(),vehicleVO);
-                        break;
                     default:
                         makeDownMenu(vehicleVO.getCustGbCd());
                         makeQuickMenu(vehicleVO.getCustGbCd(),vehicleVO);
@@ -537,7 +504,10 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             developersViewModel.reqDte(new Dte.Request(carId));
             developersViewModel.reqOdometer(new Odometer.Request(carId));
             developersViewModel.reqDistance(new Distance.Request(carId, developersViewModel.getDateYyyyMMdd(-7), developersViewModel.getDateYyyyMMdd(0)));
+            me.lDistance.setVisibility(View.VISIBLE);
 //            developersViewModel.reqParkLocation(new ParkLocation.Request(carId));
+        }else{
+            me.lDistance.setVisibility(View.GONE);
         }
     }
 
@@ -698,7 +668,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             case GM02_INV01://유사 재고 조회
                 ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM02_INV01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
-            case GM_CARLST_01://렌트/리스 실 운행자 등록
+            case GM_CARLST_01://렌트/리스 실운행자 등록
                 ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM_CARLST_01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case GM_CARLST_03://중고차 등록
