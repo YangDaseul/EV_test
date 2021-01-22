@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="com.genesis.apps.comm.util.StringUtil" />
+        
         <variable
             name="activity"
             type="com.genesis.apps.ui.main.service.ServiceDriveReqResultActivity" />
@@ -18,7 +19,7 @@
             android:id="@+id/tv_service_drive_status_driver"
             style="@style/ServiceDriveReqResult.Status.Text.Regular"
             android:textSize="14dp"
-            android:text="@{activity.serviceReqData.getDriverNm()}"
+            android:text="@{StringUtil.maskingDriverName(activity.serviceReqData.getDriverNm())}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
