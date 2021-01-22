@@ -70,7 +70,7 @@
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_marginTop="30dp"
-            android:background="@drawable/bg_dadde3_round_15"
+            android:background="@mipmap/ic_launcher_genesis"
             app:layout_constraintTop_toBottomOf="@+id/tv_msg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
