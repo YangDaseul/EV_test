@@ -31,7 +31,7 @@ import static com.genesis.apps.comm.model.constants.KeyNames.KEY_NAME_VIN;
 
 /**
  * @author hjpark
- * @brief 렌트/리스 실 운행자 등록 (차대번호 입력)
+ * @brief 렌트/리스 실운행자 등록 (차대번호 입력)
  */
 public class LeasingCarVinRegisterActivity extends SubActivity<ActivityLeasingCarRegisterBinding> {
     private GNSViewModel gnsViewModel;

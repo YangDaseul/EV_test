@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * @brief 실 운행자 내역 정보
+ * @brief 실운행자 내역 정보
  * @author hjpark
  *
  *
