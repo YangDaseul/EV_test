@@ -79,15 +79,24 @@ public class AlarmCenterRecyclerAdapter extends BaseRecyclerViewAdapter2<NotiInf
 
         @Override
         public void onBindView(NotiInfoVO item, int pos, SparseBooleanArray selectedItems) {
+
+            getBinding().lTitle.setBackgroundResource(pos==0 ? R.drawable.bg_ffffff_stroke_e5e5e5 :R.drawable.bg_ffffff_underline_e5e5e5);
+
+
             getBinding().btnDetail.setOnClickListener(null);
             getBinding().lTitle.setTag(R.id.noti_info, item);
             getBinding().lTitle.setTag(R.id.position, pos);
 
-            getBinding().tvCateNm.setText(item.getCateNm() != null ? String.format(getContext().getString(R.string.alrm01_6), item.getCateNm()) : "");
+            getBinding().tvCateNm.setText(item.getCateNm() != null ? item.getCateNm() : "");
             getBinding().tvTitle.setText(item.getTitle());
 //            getBinding().tvTitle.setMaxLines(selectedItems.get(pos) ? Integer.MAX_VALUE : 1);
 //            getBinding().tvTitle.setEllipsize(selectedItems.get(pos) ? null : TextUtils.TruncateAt.END);
-            getBinding().tvDate.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(item.getNotDt(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm));
+            if(TextUtils.isEmpty(item.getNotDt())){
+                getBinding().tvDate.setVisibility(View.GONE);
+            }else {
+                getBinding().tvDate.setVisibility(View.VISIBLE);
+                getBinding().tvDate.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(item.getNotDt(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm));
+            }
             getBinding().ivBadge.setVisibility(item.getReadYn().equalsIgnoreCase("Y") ? View.GONE : View.VISIBLE);
 
             switch (AlarmCenterRecyclerAdapter.getAccordionType(item)){

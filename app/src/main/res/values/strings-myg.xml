@@ -1,7 +1,7 @@
 <resources>
     <string name="title_noti">공지사항</string>
     <string name="title_version">버전 정보</string>
-    <string name="title_ga">제네시스 어카운트</string>
+    <string name="title_ga">내 정보 상세보기</string>
     <string name="title_home">MY G</string>
 
     <string name="title_terms_1">이용약관</string>
@@ -46,16 +46,16 @@
     <string name="word_version_1">현재 버전</string>
     <string name="word_version_2">최신 버전</string>
     <string name="word_version_3">업데이트</string>
-    <string name="msg_version_1">최신 버전입니다.</string>
-    <string name="msg_version_2">업데이트가 필요합니다.</string>
+    <string name="msg_version_1">\'제네시스 앱\'\n최신 업데이트 버전입니다.</string>
+    <string name="msg_version_2">\'제네시스 앱\'의\n최신 업데이트가 필요합니다.</string>
 
     <string name="word_ga_1">%s 님</string>
-    <string name="word_ga_2">휴대폰번호</string>
+    <string name="word_ga_2">휴대폰</string>
     <string name="word_ga_3">생년월일</string>
     <string name="word_ga_4">변경</string>
     <string name="word_ga_5">마케팅 수신 동의</string>
     <string name="word_ga_6">저장</string>
-    <string name="word_ga_7">광고성 정보 수신에 대한 안내</string>
+    <string name="word_ga_7">광고성 정보 수신에 대한 안내 (선택)</string>
     <string name="word_ga_8">수신 방법</string>
     <string name="word_ga_9">전체 선택</string>
     <string name="word_ga_10">이메일</string>
@@ -65,13 +65,15 @@
     <string name="word_ga_14">탈퇴</string>
     <string name="word_ga_15">우편</string>
     <string name="word_ga_16">로그아웃</string>
-    <string name="msg_ga_1">제네시스 어카운트를 탈퇴하시면 최초 등록한 통합계정(이메일 ID)가 삭제됩니다.</string>
-    <string name="msg_ga_2">다시 제네시스 어카운트 서비스를 이용하시려면, 신규 회원 가입이 필요합니다.</string>
-    <string name="msg_ga_3">1. 수집·이용 목적 : 신규 상품 서비스 안내, 이벤트 및 행사 안내, 최신 기업 정보 안내, 고객별 통계 분석, 시장조사 등을 합니다.
-\n2. 수집 항목 : 이메일, 휴대폰 번호
-\n3. 보유 및 이용 기간 : 웹사이트 개인 회원 자격 유지 기간\n\n당사가 제공하는 판촉/마케팅 관련 광고성 정보 수신 및 마케팅 활용에 동의합니다.
-\n수신 동의 여부와 관계없이 필수 안내는 제공됩니다.
-\n단, 미동의 시 당사에서 제공하는 이벤트 및 다양한 마케팅 정보 및 안내를 받으실 수 없습니다.</string>
+    <string name="word_ga_17">광고성 정보 수신에 대한 안내</string>
+    <string name="msg_ga_1">제네시스 어카운트 탈퇴하시면 최초 등록한 통합계정 (이메일 ID)가 삭제됩니다.\n다시 제네시스 어카운트 서비스를 이용하시려면, 신규 회원 가입이 필요합니다.</string>
+    <string name="msg_ga_2">제네시스 어카운트 탈퇴 시 제네시스 커넥티드 서비스, 제네시스 디지털 키 등 제네시스 어카운트를 통해 제공하는 디지털 서비스가 자동으로 함께 탈퇴됩니다.</string>
+    <string name="msg_ga_3">수집·이용 목적 : 신규 상품 서비스 안내, 이벤트 및 행사 안내, 최신 기업 정보 안내, 고객별 통계 분석, 시장 조사</string>
+    <string name="msg_ga_4">수집 항목 : 이메일, 휴대폰 번호, 주소</string>
+    <string name="msg_ga_5">보유 및 이용 기간 : 홈페이지 회원 자격 유지 기간</string>
+    <string name="msg_ga_6">수신 동의 여부와 관계없이 기본 안내는 제공됩니다.</string>
+    <string name="msg_ga_7">단, 미동의 시, 당사에서 제공하는 이벤트 및 다양한 마케팅 정보 및 안내를 받으실 수 없습니다.</string>
+
 
     <string name="word_membership_1">멤버십 카드 안내</string>
     <string name="word_membership_2">최초 카드 비밀번호 안내</string>

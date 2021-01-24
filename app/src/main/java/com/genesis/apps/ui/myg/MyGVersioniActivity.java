@@ -77,9 +77,9 @@ public class MyGVersioniActivity extends SubActivity<ActivityMygVersionBinding> 
         if (PackageUtil.versionCompare(currentVersion,newVersion)<0) {
             //업데이트필요한경우
             ui.tvMsg.setText(R.string.msg_version_2);
-            ui.lNewVersion.setBackgroundResource(R.drawable.bg_ffffff_stroke_cd9a81);
-            ui.tvNewTitle.setTextColor(getColor(R.color.x_cd9a81));
-            ui.tvNewVersion.setTextColor(getColor(R.color.x_cd9a81));
+//            ui.lNewVersion.setBackgroundResource(R.drawable.bg_ffffff_stroke_cd9a81);
+//            ui.tvNewTitle.setTextColor(getColor(R.color.x_cd9a81));
+//            ui.tvNewVersion.setTextColor(getColor(R.color.x_cd9a81));
             ui.tvUpdate2.setVisibility(View.VISIBLE);
             ui.tvUpdate2.setOnClickListener(new OnSingleClickListener() {
                 @Override
@@ -90,9 +90,9 @@ public class MyGVersioniActivity extends SubActivity<ActivityMygVersionBinding> 
         }else{
             //최신버전일경우
             ui.tvMsg.setText(R.string.msg_version_1);
-            ui.lNewVersion.setBackgroundColor(getColor(R.color.x_f4f4f4));
-            ui.tvNewTitle.setTextColor(getColor(R.color.x_525252));
-            ui.tvNewVersion.setTextColor(getColor(R.color.x_141414));
+//            ui.lNewVersion.setBackgroundColor(getColor(R.color.x_f4f4f4));
+//            ui.tvNewTitle.setTextColor(getColor(R.color.x_525252));
+//            ui.tvNewVersion.setTextColor(getColor(R.color.x_141414));
             ui.tvUpdate2.setVisibility(View.GONE);
         }
         ui.tvCurrentVersion.setText(PackageUtil.changeVersionToAppFormat(currentVersion));

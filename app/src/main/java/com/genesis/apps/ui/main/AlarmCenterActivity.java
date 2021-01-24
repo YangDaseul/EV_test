@@ -1,43 +1,38 @@
 package com.genesis.apps.ui.main;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.NOT_0001;
 import com.genesis.apps.comm.model.api.gra.NOT_0002;
-import com.genesis.apps.comm.model.constants.PushCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.NotiInfoVO;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
-import com.genesis.apps.databinding.ActivityAlarmCenterBinding;
-import com.genesis.apps.databinding.ItemTabAlarmBinding;
+import com.genesis.apps.databinding.ActivityAlarmCenterNewBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.google.android.material.tabs.TabLayout;
+import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 
 import java.util.List;
+
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 /**
  * @author hjpark
  * @brief 알림센터
  */
-public class AlarmCenterActivity extends SubActivity<ActivityAlarmCenterBinding> {
+public class AlarmCenterActivity extends SubActivity<ActivityAlarmCenterNewBinding> {
     private CMNViewModel cmnViewModel;
     private AlarmCenterRecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alarm_center);
+        setContentView(R.layout.activity_alarm_center_new);
         getDataFromIntent();
         setViewModel();
         setObserver();
@@ -47,46 +42,68 @@ public class AlarmCenterActivity extends SubActivity<ActivityAlarmCenterBinding>
 
     private void initView() {
         ui.lTitle.ivTitlebarImgBtn.setOnClickListener(onSingleClickListener);
-        adapter = new AlarmCenterRecyclerAdapter(onSingleClickListener);
         ui.rvNoti.setLayoutManager(new LinearLayoutManager(this));
         ui.rvNoti.setHasFixedSize(true);
-        ui.rvNoti.setAdapter(adapter);
-        initTabView();
+        initSelectBox();
     }
 
-    private void initTabView() {
-        for (String codeNm : cmnViewModel.getAlarmMsgTypeNmList()) {
-            final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            final ItemTabAlarmBinding itemTabAlarmBinding = DataBindingUtil.inflate(inflater, R.layout.item_tab_alarm, null, false);
-            final View view = itemTabAlarmBinding.getRoot();
-            itemTabAlarmBinding.tvTab.setText(codeNm);
-            ui.tabs.addTab(ui.tabs.newTab().setCustomView(view));
-        }
+    private void initSelectBox() {
+        ui.tvSelectCategory.setOnClickListener(onSingleClickListener);
+    }
 
-        ui.tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                getList(cmnViewModel.getAlarmTypeCd(((ItemTabAlarmBinding) DataBindingUtil.bind(tab.getCustomView())).tvTab.getText().toString()), "");
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
+    private void selectCategoty(){
+        final BottomListDialog bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
+        bottomListDialog.setOnDismissListener(dialogInterface -> {
+            String result = bottomListDialog.getSelectItem();
+            if (!TextUtils.isEmpty(result)) {
+                try{
+                    getList(cmnViewModel.getAlarmTypeCd(result), "");
+                    ui.tvSelectCategory.setText(result);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
+        bottomListDialog.setDatas(cmnViewModel.getAlarmMsgTypeNmList());
+        bottomListDialog.setTitle(getString(R.string.alrm01_9));
+        bottomListDialog.show();
     }
+
+//    private void initTabView() {
+//        for (String codeNm : cmnViewModel.getAlarmMsgTypeNmList()) {
+//            final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//            final ItemTabAlarmBinding itemTabAlarmBinding = DataBindingUtil.inflate(inflater, R.layout.item_tab_alarm, null, false);
+//            final View view = itemTabAlarmBinding.getRoot();
+//            itemTabAlarmBinding.tvTab.setText(codeNm);
+//            ui.tabs.addTab(ui.tabs.newTab().setCustomView(view));
+//        }
+//
+//        ui.tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                getList(cmnViewModel.getAlarmTypeCd(((ItemTabAlarmBinding) DataBindingUtil.bind(tab.getCustomView())).tvTab.getText().toString()), "");
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
+//    }
 
     private void getList(String cateCd, String search) {
         showProgressDialog(true);
         try {
+            adapter = new AlarmCenterRecyclerAdapter(onSingleClickListener);
             List<NotiInfoVO> list = cmnViewModel.getNotiInfoFromDB(cateCd, search);
             adapter.setRows(list);
-            adapter.notifyDataSetChanged();
+            ui.rvNoti.setAdapter(adapter);
+            ui.tvEmpty.setVisibility(list != null && list.size() < 1 ? View.VISIBLE : View.GONE);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -98,6 +115,9 @@ public class AlarmCenterActivity extends SubActivity<ActivityAlarmCenterBinding>
     public void onClickCommon(View v) {
         NotiInfoVO item = null;
         switch (v.getId()) {
+            case R.id.tv_select_category:
+                selectCategoty();
+                break;
             case R.id.iv_titlebar_img_btn:
                 startActivitySingleTop(new Intent(this, AlarmCenterSearchActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
@@ -174,8 +194,7 @@ public class AlarmCenterActivity extends SubActivity<ActivityAlarmCenterBinding>
                     if (result.data != null && result.data.getNotiInfoList() != null) {
                         try {
                             if (cmnViewModel.updateNotiList(result.data.getNotiInfoList())) {
-                                adapter.setRows(result.data.getNotiInfoList());
-                                adapter.notifyDataSetChanged();
+                                getList(cmnViewModel.getAlarmTypeCd(getString(R.string.alrm01_2)), "");
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -199,7 +218,6 @@ public class AlarmCenterActivity extends SubActivity<ActivityAlarmCenterBinding>
 
     @Override
     public void getDataFromIntent() {
-        //todo push로 실행되는 경우 pushVo를 받고 대분류 카테고리 일치하는 쪽으로 자동 이동?
 
     }
 }
