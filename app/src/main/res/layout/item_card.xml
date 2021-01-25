@@ -9,8 +9,7 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/bg_ffffff_round_10"
-        android:elevation="3dp">
+        android:background="@drawable/bg_ffffff_top_round_10_stroke_e5e5e5">
 
 
         <ImageView
@@ -24,6 +23,17 @@
             tools:src="@drawable/img_card_320"/>
 
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_vertical_car"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="@+id/iv_card"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_card"
+            app:layout_constraintGuide_begin="0dp"
+            app:layout_constraintGuide_end="300dp"/>
+
+
         <ImageView
             android:id="@+id/iv_favorite"
             android:layout_width="0dp"
@@ -34,31 +44,43 @@
             android:scaleType="centerInside"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone"
+            tools:visibility="visible"
             tools:src="@drawable/ic_star_card"/>
+
+
+        <TextView
+            android:id="@+id/tv_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="4dp"
+            android:textColor="@color/x_996449"
+            android:textSize="12dp"
+            android:text="@string/mg_member01_15"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@+id/iv_favorite"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_favorite"
+            app:layout_constraintEnd_toStartOf="@+id/iv_favorite"
+            tools:visibility="visible"/>
 
 
         <TextView
             android:id="@+id/tv_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            app:layout_goneMarginTop="20dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="4dp"
-            android:textColor="@color/x_cd9a81"
+            android:textColor="@color/x_996449"
             android:textSize="12dp"
             android:text="@string/mg_member01_14"
-            android:background="@drawable/bg_00000000_stroke_cd9a81"
             android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_favorite"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible"/>
 
 
@@ -67,44 +89,46 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginBottom="25dp"
-            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:layout_marginBottom="70dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="2dp"
-            android:textColor="@color/x_dadde3"
+            android:textColor="@color/x_ffffff"
             android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="@+id/iv_card"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="2165-1231-1231-4564" />
 
-        <TextView
-            android:id="@+id/tv_card_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="25dp"
-            android:fontFamily="@font/regular_genesissansheadglobal"
-            android:letterSpacing="-0.01"
-            android:lineSpacingExtra="3dp"
-            android:textColor="@color/x_99dadde3"
-            android:textSize="13dp"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_card"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="2020.04.19" />
+<!--        <TextView-->
+<!--            android:id="@+id/tv_card_date"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:layout_marginBottom="25dp"-->
+<!--            android:fontFamily="@font/regular_genesissansheadglobal"-->
+<!--            android:letterSpacing="-0.01"-->
+<!--            android:lineSpacingExtra="3dp"-->
+<!--            android:textColor="@color/x_99dadde3"-->
+<!--            android:textSize="13dp"-->
+<!--            android:visibility="gone"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/iv_card"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            tools:text="2020.04.19" />-->
 
 
         <TextView
             android:id="@+id/tv_card_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/light_genesissansheadglobal"
+            android:layout_marginBottom="70dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
             android:letterSpacing="-0.01"
             android:textColor="@color/x_ffffff"
-            android:textSize="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_card_no_2"
-            app:layout_constraintStart_toStartOf="@+id/tv_card_no_2"
-            tools:text="제네시스 멤버스 비신용카드" />
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_card"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="비 신용카드" />
 
 
         <ImageView
@@ -158,17 +182,14 @@
             android:id="@+id/tv_card_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="100dp"
-            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
             android:lineSpacingExtra="2dp"
             android:textColor="@color/x_000000"
             android:textSize="14dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_barcode"
-            app:layout_constraintVertical_bias="0"
             tools:text="2165-1231-1231-4564" />
 
 

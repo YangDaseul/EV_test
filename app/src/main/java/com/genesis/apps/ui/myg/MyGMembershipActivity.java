@@ -108,19 +108,27 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
                     }finally{
                         if(TextUtils.isEmpty(serverMsg)) serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
                         SnackBarUtil.show(this, serverMsg);
+
+                        setEmptyCardView();
                     }
                     break;
             }
         });
 
         mypViewModel.getCardVoList().observe(this, result -> {
-            ui.viewpager.setOffscreenPageLimit(result.data.size());
-            adapter.setRows(result.data);
-//            adapter.applyFilter();
-//            adapter.addCard();
-            adapter.notifyDataSetChanged();
-            //이동효과를 주는데 노티파이체인지와 딜레이없이 콜하면 효과가 중첩되어 사라저서 100ms 후 처리 진행
-            new Handler().postDelayed(() -> ui.viewpager.setCurrentItem(0, true), 100);
+            if(result.data==null||result.data.size()<1){
+                setEmptyCardView();
+            }else{
+                ui.btnPassword.setVisibility(View.VISIBLE);
+                ui.btnQuestion.setVisibility(View.VISIBLE);
+                ui.tvEmptyCard.setVisibility(View.GONE);
+                ui.viewpager.setOffscreenPageLimit(result.data.size());
+                adapter.setRows(result.data);
+                adapter.notifyDataSetChanged();
+                //이동효과를 주는데 노티파이체인지와 딜레이없이 콜하면 효과가 중첩되어 사라저서 100ms 후 처리 진행
+                new Handler().postDelayed(() -> ui.viewpager.setCurrentItem(0, true), 100);
+            }
+
         });
     }
 
@@ -129,6 +137,11 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
 
     }
 
+    private void setEmptyCardView(){
+        ui.tvEmptyCard.setVisibility(View.VISIBLE);
+        ui.btnPassword.setVisibility(View.GONE);
+        ui.btnQuestion.setVisibility(View.GONE);
+    }
 
     @Override
     public void onClickCommon(View v) {

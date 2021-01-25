@@ -81,17 +81,19 @@ public class PointUseListAdapter extends BaseRecyclerViewAdapter2<MembershipPoin
             int textColor=0;
             int textMsg=0;
             int cancelLine=0;
-            switch (item.getTransTypNm()){
+            String minus="";
+            switch (StringUtil.isValidString(item.getTransTypNm())){
                 case MembershipPointVO.TYPE_TRANS_SAVE:
-                    textColor = R.color.x_000000;
+                    textColor = R.color.x_262626;
                     textMsg = R.string.mg_member04_4;
                     break;
                 case MembershipPointVO.TYPE_TRANS_USE:
-                    textColor = R.color.x_cd9a81;
+                    textColor = R.color.x_996449;
                     textMsg = R.string.mg_member04_6;
+                    minus="-";
                     break;
                 case MembershipPointVO.TYPE_TRANS_CANCEL:
-                    textColor = R.color.x_ba544d;
+                    textColor = R.color.x_ce2d2d;
                     textMsg = R.string.mg_member04_7;
                     cancelLine = Paint.STRIKE_THRU_TEXT_FLAG;
                     break;
@@ -99,14 +101,14 @@ public class PointUseListAdapter extends BaseRecyclerViewAdapter2<MembershipPoin
                     //처리안함
                     return;
             }
-            getBinding().tvPoint.setText(StringUtil.getDigitGroupingString(item.getUseMlg()));
-            getBinding().tvPoint.setPaintFlags( cancelLine==0 ? 0 : (getBinding().tvPoint.getPaintFlags()|cancelLine));
+            getBinding().tvPoint.setText(minus + StringUtil.getDigitGroupingString(StringUtil.isValidString(item.getUseMlg())));
+            getBinding().tvPoint.setPaintFlags(cancelLine==0 ? 0 : (getBinding().tvPoint.getPaintFlags()|cancelLine));
             getBinding().tvPoint.setTextColor(getContext().getColor(textColor));
             getBinding().tvUnit.setTextColor(getContext().getColor(textColor));
             getBinding().tvUnit.setText(textMsg);
-            getBinding().tvRemindPoint.setText(StringUtil.getDigitGroupingString(item.getRmndPont()));
-            getBinding().tvAsnnm.setText(item.getFrchsNm());
-            getBinding().tvDate.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(item.getTransDtm(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot));
+            getBinding().tvRemindPoint.setText(StringUtil.getDigitGroupingString(StringUtil.isValidString(item.getRmndPont())));
+            getBinding().tvAsnnm.setText(StringUtil.isValidString(item.getFrchsNm()));
+            getBinding().tvDate.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(StringUtil.isValidString(item.getTransDtm()), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot));
         }
 
         @Override

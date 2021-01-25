@@ -72,7 +72,7 @@ public class AlarmCenterActivity extends SubActivity<ActivityAlarmCenterNewBindi
 //    private void initTabView() {
 //        for (String codeNm : cmnViewModel.getAlarmMsgTypeNmList()) {
 //            final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            final ItemTabAlarmBinding itemTabAlarmBinding = DataBindingUtil.inflate(inflater, R.layout.item_tab_alarm, null, false);
+//            final ItemTabAlarmBinding itemTabAlarmBinding = DataBindingUtil.inflate(inflater, R.layout.item_tab_gold, null, false);
 //            final View view = itemTabAlarmBinding.getRoot();
 //            itemTabAlarmBinding.tvTab.setText(codeNm);
 //            ui.tabs.addTab(ui.tabs.newTab().setCustomView(view));

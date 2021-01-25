@@ -13,6 +13,8 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.MYP_2002;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.vo.MembershipPointVO;
+import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.CalenderUtil;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -21,13 +23,21 @@ import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.databinding.ActivityMygMembershipUseListBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.myg.view.PointUseListAdapter;
+import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
+
+import static com.genesis.apps.comm.model.vo.MembershipPointVO.TYPE_TRANS_CANCEL;
+import static com.genesis.apps.comm.model.vo.MembershipPointVO.TYPE_TRANS_SAVE;
+import static com.genesis.apps.comm.model.vo.MembershipPointVO.TYPE_TRANS_USE;
 
 public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembershipUseListBinding> {
     private static final int PAGE_SIZE = 20;
@@ -46,7 +56,6 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
         setViewModel();
         setObserver();
         initView();
-
         reqMYP2002(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd),1 );
     }
 
@@ -70,8 +79,8 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (!ui.rv.canScrollVertically(1)) {//scroll end
-                    if(adapter.getItemCount() >= adapter.getPageNo() * PAGE_SIZE)
-                        reqMYP2002("", "", adapter.getPageNo() + 1);
+                    if(adapter.getItemCount()>0&&adapter.getItemCount() >= adapter.getPageNo() * PAGE_SIZE)
+                        reqMYP2002(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), adapter.getPageNo() + 1);
                 }
             }
         });
@@ -84,6 +93,7 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
     public void onClickCommon(View v) {
         switch (v.getId()) {
             case R.id.btn_query:
+                adapter.setPageNo(0);
                 reqMYP2002(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd),1 );
                 break;
             case R.id.btn_start_date:
@@ -105,75 +115,13 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
     @Override
     public void setObserver() {
         mypViewModel.getRES_MYP_2002().observe(this, result -> {
-
-//            String test = "{\n" +
-//                    "  \"rsltCd\": \"0000\",\n" +
-//                    "  \"rsltMsg\": \"성공\",\n" +
-//                    "  \"blueMbrYn\": \"Y\",\n" +
-//                    "  \"mbrshMbrMgmtNo\": \"1000000\",\n" +
-//                    "  \"transTotCnt\": \"3\",\n" +
-//                    "  \"transList\": [\n" +
-//                    "    {\n" +
-//                    "      \"seqNo\": \"1\",\n" +
-//                    "      \"transDtm\": \"20200901111111\",\n" +
-//                    "      \"frchsNm\": \"가맹점1\",\n" +
-//                    "      \"transTypNm\": \"사용\",\n" +
-//                    "      \"useMlg\": \"124574\",\n" +
-//                    "      \"rmndPont\": \"1111111\"\n" +
-//                    "    },\n" +
-//                    "    {\n" +
-//                    "      \"seqNo\": \"2\",\n" +
-//                    "      \"transDtm\": \"20200902222222\",\n" +
-//                    "      \"frchsNm\": \"가맹점2\",\n" +
-//                    "      \"transTypNm\": \"사용\",\n" +
-//                    "      \"useMlg\": \"222222\",\n" +
-//                    "      \"rmndPont\": \"333333\"\n" +
-//                    "    },\n" +
-//                    "    {\n" +
-//                    "      \"seqNo\": \"3\",\n" +
-//                    "      \"transDtm\": \"20200920000000\",\n" +
-//                    "      \"frchsNm\": \"가맹점3\",\n" +
-//                    "      \"transTypNm\": \"적립\",\n" +
-//                    "      \"useMlg\": \"222222\",\n" +
-//                    "      \"rmndPont\": \"333333\"\n" +
-//                    "    },\n" +
-//                    "    {\n" +
-//                    "      \"seqNo\": \"4\",\n" +
-//                    "      \"transDtm\": \"20200930000000\",\n" +
-//                    "      \"frchsNm\": \"가맹점4\",\n" +
-//                    "      \"transTypNm\": \"취소\",\n" +
-//                    "      \"useMlg\": \"2222221\",\n" +
-//                    "      \"rmndPont\": \"3333331\"\n" +
-//                    "    }\n" +
-//                    "  ]\n" +
-//                    "}";
-//            MYP_2002.Response sample = new Gson().fromJson(test, MYP_2002.Response.class);
-
             switch (result.status){
                 case LOADING:
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
-                    if (result.data != null && result.data.getTransList() != null && result.data.getTransList().size() > 0) {
-                        int itemSizeBefore = adapter.getItemCount();
-                        if (adapter.getPageNo() == 0) {
-                            adapter.setRows(result.data.getTransList());
-                        } else {
-                            adapter.addRows(result.data.getTransList());
-                        }
-                        adapter.setPageNo(adapter.getPageNo() + 1);
-                        adapter.notifyItemRangeInserted(itemSizeBefore, adapter.getItemCount());
-
-                        ui.tvPointSave.setText(StringUtil.getDigitGrouping(adapter.getTotalSavePoint()));
-                        ui.tvPointUse.setText(StringUtil.getDigitGrouping(adapter.getTotalUsePoint()));
-                    }
-
-                    if (adapter != null && adapter.getItemCount() < 1) {
-                        ui.tvEmpty.setVisibility(View.VISIBLE);
-                    } else {
-                        ui.tvEmpty.setVisibility(View.GONE);
-                    }
+                    setFilter();
                     break;
                 default:
                     showProgressDialog(false);
@@ -185,6 +133,7 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
                     }finally{
                         if(TextUtils.isEmpty(serverMsg)) serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
                         SnackBarUtil.show(this, serverMsg);
+                        ui.tvEmpty.setVisibility(View.VISIBLE);
                     }
                     break;
             }
@@ -307,5 +256,64 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
         }
 
         setDate();
+    }
+
+
+    private void setFilter(){
+
+        String transTypNm;
+        switch (ui.rGroup2.getCheckedRadioButtonId()){
+            case R.id.r_use:
+                transTypNm = TYPE_TRANS_USE;
+                break;
+            case R.id.r_save:
+                transTypNm = TYPE_TRANS_SAVE;
+                break;
+            case R.id.r_cancel:
+                transTypNm = TYPE_TRANS_CANCEL;
+                break;
+            case R.id.r_all:
+            default:
+                transTypNm = getString(R.string.word_membership_7);
+                break;
+        }
+
+
+        List<MembershipPointVO> list = new ArrayList<>();
+        if (mypViewModel.getRES_MYP_2002().getValue() != null
+                && mypViewModel.getRES_MYP_2002().getValue().data != null
+                && mypViewModel.getRES_MYP_2002().getValue().data.getTransList() != null
+                && mypViewModel.getRES_MYP_2002().getValue().data.getTransList().size() > 0) {
+
+            if(StringUtil.isValidString(transTypNm).equalsIgnoreCase(getString(R.string.word_membership_7))){
+                //전체
+                list.addAll(mypViewModel.getRES_MYP_2002().getValue().data.getTransList());
+            }else{
+                //선택
+                list.addAll(mypViewModel.getRES_MYP_2002().getValue().data.getTransList().stream().filter(data -> data.getTransTypNm().equalsIgnoreCase(transTypNm)).collect(Collectors.toList()));
+            }
+        }
+
+        if (list != null && list.size() > 0) {
+            if (adapter.getPageNo() == 0) {
+                adapter.setRows(list);
+                adapter.notifyDataSetChanged();
+            } else {
+                adapter.addRows(list);
+                int itemSizeBefore = adapter.getItemCount();
+                adapter.notifyItemRangeInserted(itemSizeBefore, adapter.getItemCount());
+            }
+            adapter.setPageNo(adapter.getPageNo() + 1);
+        }
+
+        ui.tvPointSave.setText(StringUtil.getDigitGrouping(adapter.getTotalSavePoint()));
+        String totalUsePoint = StringUtil.getDigitGrouping(adapter.getTotalUsePoint());
+        ui.tvPointUse.setText((!StringUtil.isValidString(totalUsePoint).equalsIgnoreCase("0") ? "-" : "")+totalUsePoint);
+
+        if (adapter != null && adapter.getItemCount() < 1) {
+            ui.tvEmpty.setVisibility(View.VISIBLE);
+        } else {
+            ui.tvEmpty.setVisibility(View.GONE);
+        }
     }
 }

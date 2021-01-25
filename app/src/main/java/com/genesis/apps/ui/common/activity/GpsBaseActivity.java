@@ -7,6 +7,9 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.ViewStub;
 
+import androidx.annotation.Nullable;
+import androidx.databinding.ViewDataBinding;
+
 import com.genesis.apps.comm.util.GpsUtils;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -18,9 +21,6 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import androidx.annotation.Nullable;
-import androidx.databinding.ViewDataBinding;
 
 public abstract class GpsBaseActivity<T extends ViewDataBinding> extends SubActivity<T> {
     private final static String TAG = GpsBaseActivity.class.getSimpleName();

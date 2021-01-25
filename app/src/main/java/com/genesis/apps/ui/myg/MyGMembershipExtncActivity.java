@@ -1,9 +1,12 @@
 package com.genesis.apps.ui.myg;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -15,8 +18,10 @@ import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.MembershipPointVO;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ActivityMygMembershipExtncBinding;
+import com.genesis.apps.databinding.ItemTabGoldBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.myg.view.ExtncPlanPontAdapter;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,4 +131,37 @@ public class MyGMembershipExtncActivity extends SubActivity<ActivityMygMembershi
         }
         return list;
     }
+
+
+//    private void initTabView() {
+//        final List<String> list = new ArrayList<>();
+//        list.add(getString(R.string.word_membership_7));
+//        list.add(getString(R.string.word_membership_8));
+//        list.add(getString(R.string.word_membership_9));
+//        list.add(getString(R.string.word_membership_10));
+//        for (String codeNm : list) {
+//            final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//            final ItemTabGoldBinding itemTabGoldBinding = DataBindingUtil.inflate(inflater, R.layout.item_tab_gold, null, false);
+//            final View view = itemTabGoldBinding.getRoot();
+//            itemTabGoldBinding.tvTab.setText(codeNm);
+//            ui.tabs.addTab(ui.tabs.newTab().setCustomView(view));
+//        }
+//
+//        ui.tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                getList(cmnViewModel.getAlarmTypeCd(((ItemTabGoldBinding) DataBindingUtil.bind(tab.getCustomView())).tvTab.getText().toString()), "");
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
+//    }
 }
