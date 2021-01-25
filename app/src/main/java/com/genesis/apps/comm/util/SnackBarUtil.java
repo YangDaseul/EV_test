@@ -34,24 +34,31 @@ public class SnackBarUtil {
     public static void show(Activity activity, String msg) {
         if (activity != null) {
 
-//            TSnackbar snackbar = TSnackbar
-//                    .make(activity.findViewById(android.R.id.content), StringUtil.isValidString(msg), TSnackbar.LENGTH_LONG);
-//            View snackbarView = snackbar.getView();
-//            snackbarView.setBackgroundColor(activity.getColor(R.color.x_1a1a1a));
-//            TextView textView = snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
-//            textView.setTextColor(Color.WHITE);
-//            textView.setTypeface(ResourcesCompat.getFont(activity, R.font.regular_genesissanstextglobal));
-//            textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP,14);
-//            textView.setMinHeight((int)(DeviceUtil.dip2Pixel(activity,100)));
-//            snackbar.show();
+            TSnackbar snackbar = TSnackbar
+                    .make(activity.findViewById(android.R.id.content), StringUtil.isValidString(msg), TSnackbar.LENGTH_LONG);
+            View snackbarView = snackbar.getView();
+            snackbarView.setBackgroundColor(activity.getColor(R.color.x_1a1a1a));
+            TextView textView = snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+            textView.setTextColor(Color.WHITE);
+            textView.setTypeface(ResourcesCompat.getFont(activity, R.font.regular_genesissanstextglobal));
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP,14);
+            int padding = (int)(DeviceUtil.dip2Pixel(activity,30));
+//            textView.setPadding(padding,padding,padding,padding);
+//            textView.setPa
+            textView.setMinHeight((int)(DeviceUtil.dip2Pixel(activity,100)));
+            snackbar.show();
 
 //                TSnackbar.make(activity.findViewById(android.R.id.content), StringUtil.isValidString(msg), TSnackbar.LENGTH_LONG).show();
-//                TSnackbar.make(view, StringUtil.isValidString(msg), TSnackbar.LENGTH_LONG).show();
-            final CustomSnackbar sb = new CustomSnackbar(activity);
-            sb.customView(R.layout.snackbar_msg);
-            sb.duration(Snackbar.LENGTH_LONG);
-            ((TextView)sb.getView().findViewById(R.id.tv_msg)).setText(msg);
-            sb.show();
+
+
+
+
+
+//            final CustomSnackbar sb = new CustomSnackbar(activity);
+//            sb.customView(R.layout.snackbar_msg);
+//            sb.duration(Snackbar.LENGTH_LONG);
+//            ((TextView)sb.getView().findViewById(R.id.tv_msg)).setText(msg);
+//            sb.show();
         }
     }
 
