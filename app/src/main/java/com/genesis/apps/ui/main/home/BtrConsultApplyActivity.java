@@ -2,6 +2,8 @@ package com.genesis.apps.ui.main.home;
 
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
@@ -19,6 +21,7 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.EmptyStackException;
 import java.util.List;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -28,6 +31,21 @@ public class BtrConsultApplyActivity extends SubActivity<ActivityBtrConsultApply
     private BTRViewModel btrViewModel;
     private List<String> selectCdValId;
     private String vin;
+
+    public static InputFilter EMOJI_FILTER = new InputFilter() {
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            for (int index = start; index < end; index++) {
+
+                int type = Character.getType(source.charAt(index));
+
+                if (type == Character.SURROGATE || type == Character.OTHER_SYMBOL) {
+                    return "";
+                }
+            }
+            return null;
+        }
+    };
 
 
     @Override
@@ -106,7 +124,8 @@ public class BtrConsultApplyActivity extends SubActivity<ActivityBtrConsultApply
 
 
     private void initView() {
-
+        ui.etSubject.setFilters(new InputFilter[]{EMOJI_FILTER});
+        ui.etContents.setFilters(new InputFilter[]{EMOJI_FILTER});
         ui.etSubject.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
