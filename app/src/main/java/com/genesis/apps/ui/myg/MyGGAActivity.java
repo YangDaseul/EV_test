@@ -57,10 +57,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
         ui.cbEmail.setOnCheckedChangeListener(listener);
         ui.cbPhone.setOnCheckedChangeListener(listener);
         ui.cbSms.setOnCheckedChangeListener(listener);
-//        ui.cbPost.setOnCheckedChangeListener(listener);
         ui.cbAd.setOnCheckedChangeListener(listenerAll);
-        ui.vBlock.setOnTouchListener((view, motionEvent) -> true);
-        ViewPressEffectHelper.attach(ui.btnWithdrawal);
     }
 
     @Override
@@ -166,7 +163,7 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
     public void onClickCommon(View v) {
         switch (v.getId()){
             case R.id.btn_logout://로그아웃
-                MiddleDialog.dialogLogout(this, getString(R.string.dialog_common_9), getString(R.string.dialog_msg_1), () -> {
+                MiddleDialog.dialogLogout(this, getString(R.string.dialog_common_10), getString(R.string.dialog_msg_1), () -> {
                     if(mypViewModel.clearUserInfo()) {
                         ga.clearLoginInfo();
                         exitApp();
@@ -178,12 +175,12 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
                 });
                 break;
             case R.id.iv_arrow:
-                if(ui.tvAdInfo.getVisibility()==View.VISIBLE){
+                if(ui.lAdInfo.getVisibility()==View.VISIBLE){
                     ui.ivArrow.setImageResource(R.drawable.btn_accodian_open);
-                    InteractionUtil.collapse(ui.tvAdInfo, null);
+                    InteractionUtil.collapse(ui.lAdInfo, null);
                 }else{
                     ui.ivArrow.setImageResource(R.drawable.btn_accodian_close);
-                    InteractionUtil.expand(ui.tvAdInfo, null);
+                    InteractionUtil.expand(ui.lAdInfo, null);
                 }
                 break;
             case R.id.btn_save_agree:
@@ -247,9 +244,11 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
             ui.cbEmail.setChecked(b);
             ui.cbPhone.setChecked(b);
             ui.cbSms.setChecked(b);
+            if(ui.lAdInfo.getVisibility()==View.GONE&&b){
+                ui.ivArrow.performClick();
+            }
 //            ui.cbPost.setChecked(b);
         }
-        ui.vBlock.setVisibility(b ? View.GONE : View.VISIBLE);
     };
 
     @Override

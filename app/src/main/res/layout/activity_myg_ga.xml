@@ -4,14 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.genesis.apps.comm.util.DateUtil"/>
-        <import type="android.view.View"/>
+
+        <import type="com.genesis.apps.comm.util.DateUtil" />
+
+        <import type="android.view.View" />
+
         <import type="android.text.TextUtils" />
-        <import type="android.telephony.PhoneNumberUtils"/>
-        <import type="java.util.Locale"/>
+
+        <import type="android.telephony.PhoneNumberUtils" />
+
+        <import type="java.util.Locale" />
+
         <variable
             name="activity"
             type="com.genesis.apps.ui.myg.MyGGAActivity" />
+
         <variable
             name="data"
             type="com.genesis.apps.comm.model.api.gra.MYP_0001.Response" />
@@ -42,22 +49,22 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="30dp">
+                android:paddingBottom="50dp">
 
                 <TextView
                     android:id="@+id/tv_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
                     android:ellipsize="end"
-                    android:fontFamily="@font/regular_genesissansheadglobal"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="-2dp"
+                    android:lineSpacingExtra="7dp"
                     android:maxLines="1"
-                    android:textColor="@color/x_141414"
-                    android:textSize="18dp"
-                    android:text="@{String.format(@string/word_home_23, (data.getMbrNm() ?? ``))}"
+                    android:text="@{@string/word_home_23(data.getMbrNm() ?? `--`)}"
+                    android:textColor="@color/x_000000"
+                    android:textSize="16dp"
                     app:layout_constraintBottom_toTopOf="@+id/tv_mail"
                     app:layout_constraintEnd_toStartOf="@+id/btn_logout"
                     app:layout_constraintStart_toStartOf="parent"
@@ -72,16 +79,15 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="2dp"
+                    android:lineSpacingExtra="9dp"
                     android:maxLines="1"
-                    android:textColor="@color/x_525252"
-                    android:textSize="14dp"
                     android:text="@{data.getCcspEmail() ?? ``}"
+                    android:textColor="@color/x_4d4d4d"
+                    android:textSize="14dp"
                     app:layout_constraintEnd_toStartOf="@+id/btn_logout"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintTop_toBottomOf="@+id/tv_name"
                     tools:text="kim.genesis@genesis.com" />
-
 
 
                 <TextView
@@ -89,483 +95,522 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:paddingBottom="3dp"
-                    android:paddingStart="3dp"
-                    android:paddingEnd="3dp"
-                    android:background="@drawable/bg_ffffff_underline_6f6f6f"
+                    android:background="@drawable/bg_ffffff_underline_000000"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:lineSpacingExtra="5dp"
-                    android:textColor="@color/x_6f6f6f"
-                    android:textSize="15dp"
-                    android:text="@string/word_ga_16"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:paddingBottom="2dp"
+                    android:text="@string/word_ga_16"
+                    android:textColor="@color/x_000000"
+                    android:textSize="14dp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_mail"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_name" />
-
-
-
 
                 <ImageView
                     android:id="@+id/line_1"
                     android:layout_width="0dp"
                     android:layout_height="10dp"
-                    android:layout_marginTop="25dp"
-                    android:background="@color/x_f4f4f4"
+                    android:layout_marginTop="40dp"
+                    android:background="@color/x_f8f8f8"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_mail" />
 
-                <TextView
-                    android:id="@+id/tv_title_phone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/regular_genesissansheadglobal"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="5dp"
-                    android:text="@string/word_ga_2"
-                    android:textColor="@color/x_525252"
-                    android:textSize="16dp"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/btn_change_phone"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_phone"
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="@+id/tv_name" />
-
-                <TextView
-                    android:id="@+id/tv_phone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="44dp"
-                    android:fontFamily="@font/regular_genesissanstextglobal"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="3dp"
-                    android:textColor="@color/x_000000"
-                    android:textSize="16dp"
-                    android:text="@{PhoneNumberUtils.formatNumber( (data.getCelphNo() ?? ``), Locale.getDefault().getCountry())}"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/btn_change_phone"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_change_phone"
-                    app:layout_constraintStart_toEndOf="@+id/tv_title_phone"
-                    tools:text="010-2020-0710" />
-
-                <TextView
-                    android:id="@+id/btn_change_phone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:background="@drawable/ripple_bg_ffffff_stroke_6f6f6f"
-                    android:fontFamily="@font/regular_genesissanstextglobal"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6dp"
-                    android:paddingLeft="14dp"
-                    android:paddingTop="8dp"
-                    android:paddingRight="14dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/word_ga_4"
-                    android:textColor="@color/x_141414"
-                    android:textSize="14dp"
-                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-                    app:layout_constraintEnd_toEndOf="@+id/btn_logout"
-                    app:layout_constraintHorizontal_bias="1"
-                    app:layout_constraintTop_toBottomOf="@+id/line_1" />
-
-                <TextView
-                    android:id="@+id/tv_title_birth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/regular_genesissansheadglobal"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="5dp"
-                    android:text="@string/word_ga_3"
-                    android:textColor="@color/x_525252"
-                    android:textSize="16dp"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_birth"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_birth"
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="@+id/tv_name" />
-
-                <TextView
-                    android:id="@+id/tv_birth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="13dp"
-                    android:fontFamily="@font/regular_genesissanstextglobal"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="3dp"
-                    android:textColor="@color/x_000000"
-                    android:textSize="16dp"
-                    android:text="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.getBrtdy()??``),DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)}"
-                    app:layout_constraintStart_toStartOf="@+id/tv_phone"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_phone"
-                    tools:text="1970.03.03" />
-
-
-                <ImageView
-                    android:id="@+id/line_2"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_user_info"
                     android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="30dp"
-                    android:background="@color/x_f4f4f4"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_birth" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/x_e5e5e5"
+                    android:paddingBottom="1dp"
+                    android:paddingTop="1dp"
+                    app:layout_constraintTop_toBottomOf="@+id/line_1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <include
+                        android:id="@+id/l_phone"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:isLeft="@{true}"
+                        app:title="@{@string/word_ga_2}"
+                        app:msg="@{PhoneNumberUtils.formatNumber( (data.getCelphNo() ?? ``), Locale.getDefault().getCountry())}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <!-- 변경 버튼 -->
+                    <include
+                        android:id="@+id/btn_change_phone"
+                        layout="@layout/item_btn_underline_mark_gold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                        app:btnNm="@{@string/word_ga_4}"
+                        app:layout_constraintVertical_bias=".5"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/l_phone"
+                        app:layout_constraintBottom_toBottomOf="@+id/l_phone" />
+
+                    <include
+                        android:id="@+id/l_birth"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:title="@{@string/word_ga_3}"
+                        app:msg="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.getBrtdy()??``),DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_phone"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 <TextView
                     android:id="@+id/tv_title_agree"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:fontFamily="@font/regular_genesissansheadglobal"
+                    android:layout_marginTop="50dp"
+                    android:fontFamily="@font/light_genesissansheadglobal"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="2dp"
+                    android:lineSpacingExtra="12dp"
                     android:text="@string/word_ga_5"
-                    android:textColor="@color/x_141414"
+                    android:textColor="@color/x_000000"
                     android:textSize="18dp"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
-                    app:layout_constraintTop_toBottomOf="@+id/line_2" />
+                    app:layout_constraintTop_toBottomOf="@+id/l_user_info" />
 
 
-                <TextView
+                <!-- 저장 버튼 -->
+                <include
                     android:id="@+id/btn_save_agree"
+                    layout="@layout/item_btn_underline_mark_gold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ripple_bg_000000"
-                    android:fontFamily="@font/regular_genesissanstextglobal"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6dp"
-                    android:paddingLeft="14dp"
-                    android:paddingTop="8dp"
-                    android:paddingRight="14dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/word_ga_6"
-                    android:textColor="@color/x_ffffff"
-                    android:textSize="14dp"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_agree"
-                    app:layout_constraintEnd_toEndOf="@+id/btn_logout" />
+                    app:btnNm="@{@string/word_ga_6}"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_title_agree"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_logout"/>
+
+
+                <ImageView
+                    android:id="@+id/line_2"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/x_000000"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_save_agree" />
+
+                <CheckBox
+                    android:id="@+id/cb_ad"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@android:color/transparent"
+                    android:button="@null"
+                    android:drawableStart="@drawable/checkbox_selector"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/regular_genesissansheadglobal"
+                    android:text="@string/word_ga_7"
+                    android:textColor="@color/x_000000"
+                    android:textSize="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
+                    app:layout_constraintTop_toBottomOf="@+id/line_2" />
+
+                <ImageView
+                    android:id="@+id/iv_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:paddingStart="30dp"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/btn_accodian_open"
+                    app:layout_constraintHorizontal_bias="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cb_ad"
+                    app:layout_constraintTop_toTopOf="@+id/cb_ad"
+                    app:layout_constraintBottom_toBottomOf="@+id/cb_ad"/>
+
+
+
+                <ImageView
+                    android:id="@+id/line_11"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/x_e5e5e5"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cb_ad" />
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/l_ad_info"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+                    android:layout_marginTop="30dp"
+                    android:paddingBottom="30dp"
+                    android:paddingTop="30dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:background="@drawable/bg_ffffff_stroke_e5e5e5"
                     android:gravity="center_vertical"
-                    android:paddingTop="20dp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/btn_logout"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_agree">
-
-                    <CheckBox
-                        android:id="@+id/cb_ad"
-                        android:layout_width="0dp"
-                        android:layout_height="24dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginBottom="20dp"
-                        android:button="@null"
-                        android:drawableStart="@drawable/checkbox_selector"
-                        android:drawablePadding="8dp"
-                        android:fontFamily="@font/regular_genesissansheadglobal"
-                        android:text="@string/word_ga_7"
-                        android:textColor="@color/x_000000"
-                        android:textSize="15dp"
-                        android:background="@android:color/transparent"
-                        app:layout_constrainedWidth="true"
-                        app:layout_constraintBottom_toTopOf="@+id/tv_ad_info"
-                        app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
-
-                    <ImageView
-                        android:id="@+id/iv_arrow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="15dp"
-                        android:scaleType="centerInside"
-                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-                        app:layout_constraintBottom_toBottomOf="@+id/cb_ad"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/cb_ad"
-                        app:layout_constraintTop_toTopOf="@+id/cb_ad"
-                        android:src="@drawable/btn_accodian_open" />
+                    app:layout_constraintTop_toBottomOf="@+id/cb_ad"
+                    tools:visibility="visible">
 
 
                     <TextView
-                        android:id="@+id/tv_ad_info"
-                        android:layout_width="match_parent"
+                        android:id="@+id/tv_ad_title"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/cb_ad"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginRight="1dp"
-                        android:layout_marginBottom="1dp"
-                        android:background="@drawable/bg_f8f8f8_stroke_upper_e5e5e5"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="9dp"
+                        android:text="@string/word_ga_17"
+                        android:textColor="@color/x_000000"
+                        android:textSize="14dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tv_ad_1"
+                        android:layout_width="15dp"
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/regular_genesissanstextglobal"
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="5dp"
-                        android:paddingLeft="15dp"
-                        android:paddingTop="20dp"
-                        android:paddingRight="15dp"
-                        android:paddingBottom="20dp"
-                        android:text="@string/msg_ga_3"
-                        android:textColor="@color/x_525252"
+                        android:text="1."
+                        android:textColor="@color/x_4d4d4d"
                         android:textSize="14dp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:visibility="visible"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/cb_ad"
-                        tools:visibility="visible" />
+                        app:layout_constraintTop_toTopOf="@+id/tv_ad_msg_1" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/l_ad_receive"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:background="@drawable/bg_ffffff_stroke_e2e2e2"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="20dp"
-                    android:paddingRight="15dp"
-                    android:paddingBottom="20dp"
-                    app:layout_constraintEnd_toEndOf="@+id/btn_logout"
-                    app:layout_constraintStart_toStartOf="@+id/tv_name"
-                    app:layout_constraintTop_toBottomOf="@+id/l_ad_info">
+                    <TextView
+                        android:id="@+id/tv_ad_msg_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="9dp"
+                        android:text="@string/msg_ga_3"
+                        android:textColor="@color/x_4d4d4d"
+                        android:textSize="14dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/tv_ad_1"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_ad_title"/>
 
 
                     <TextView
-                        android:id="@+id/tv_title_ad_receive"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tv_ad_2"
+                        android:layout_width="15dp"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/regular_genesissansheadglobal"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="5dp"
-                        android:text="@string/word_ga_8"
-                        android:textColor="@color/x_525252"
-                        android:textSize="13dp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:text="2."
+                        android:textColor="@color/x_4d4d4d"
+                        android:textSize="14dp"
+                        android:visibility="visible"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_ad_msg_2" />
 
-<!--                    <CheckBox-->
-<!--                        android:id="@+id/cb_all"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="15dp"-->
-<!--                        android:button="@null"-->
-<!--                        android:drawableStart="@drawable/checkbox_selector"-->
-<!--                        android:drawablePadding="8dp"-->
-<!--                        android:text="@string/word_ga_9"-->
-<!--                        android:textSize="15dp"-->
-<!--                        android:fontFamily="@font/light_genesissansheadglobal"-->
-<!--                        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/tv_title_ad_receive" />-->
-
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <TextView
+                        android:id="@+id/tv_ad_msg_2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="9dp"
+                        android:text="@string/msg_ga_4"
+                        android:textColor="@color/x_4d4d4d"
+                        android:textSize="14dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/tv_ad_2"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_ad_msg_1"/>
+
+
+
+
+                    <TextView
+                        android:id="@+id/tv_ad_3"
+                        android:layout_width="15dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="5dp"
+                        android:text="3."
+                        android:textColor="@color/x_4d4d4d"
+                        android:textSize="14dp"
+                        android:visibility="visible"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_ad_msg_3" />
+
+                    <TextView
+                        android:id="@+id/tv_ad_msg_3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="9dp"
+                        android:text="@string/msg_ga_5"
+                        android:textColor="@color/x_4d4d4d"
+                        android:textSize="14dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/tv_ad_3"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_ad_msg_2"/>
+
+
+                    <ImageView
+                        android:id="@+id/iv_mark_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:src="@drawable/mark_666666"
+                        android:scaleType="centerInside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_info_1"/>
+
+
+                    <TextView
+                        android:id="@+id/tv_info_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="6dp"
+                        android:textColor="@color/x_666666"
+                        android:textSize="14dp"
+                        android:text="@string/msg_ga_6"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_ad_msg_3"
+                        app:layout_constraintStart_toEndOf="@+id/iv_mark_1"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/iv_mark_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:src="@drawable/mark_666666"
+                        android:scaleType="centerInside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_info_2"/>
+
+
+                    <TextView
+                        android:id="@+id/tv_info_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="12dp"
-                        android:background="@color/x_f4f4f4"
-                        android:paddingLeft="28dp"
-                        android:paddingTop="20dp"
-                        android:paddingRight="28dp"
-                        android:paddingBottom="20dp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_title_ad_receive">
-
-                        <CheckBox
-                            android:id="@+id/cb_email"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="@string/word_ga_10"
-                            android:button="@null"
-                            android:drawableStart="@drawable/checkbox_selector"
-                            android:drawablePadding="8dp"
-                            android:textSize="15dp"
-                            android:textColor="@color/x_000000"
-                            android:fontFamily="@font/light_genesissansheadglobal"
-                            android:background="@android:color/transparent"
-                            app:layout_constraintEnd_toStartOf="@+id/cb_sms"
-                            app:layout_constraintHorizontal_chainStyle="spread_inside"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="6dp"
+                        android:textColor="@color/x_666666"
+                        android:textSize="14dp"
+                        android:text="@string/msg_ga_7"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_info_1"
+                        app:layout_constraintStart_toEndOf="@+id/iv_mark_2"
+                        app:layout_constraintEnd_toEndOf="parent"/>
 
 
-                        <CheckBox
-                            android:id="@+id/cb_sms"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:button="@null"
-                            android:drawableStart="@drawable/checkbox_selector"
-                            android:drawablePadding="8dp"
-                            android:textSize="15dp"
-                            android:textColor="@color/x_000000"
-                            android:fontFamily="@font/light_genesissansheadglobal"
-                            android:text="@string/word_ga_11"
-                            android:background="@android:color/transparent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/cb_email"
-                            app:layout_constraintTop_toTopOf="parent" />
+
+                    <CheckBox
+                        android:id="@+id/cb_sms"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:background="@android:color/transparent"
+                        android:button="@null"
+                        android:drawableStart="@drawable/checkbox_selector"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:text="@string/word_ga_11"
+                        android:textColor="@color/x_000000"
+                        android:textSize="15dp"
+                        app:layout_constraintEnd_toStartOf="@+id/cb_email"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_info_2" />
 
 
-                        <CheckBox
-                            android:id="@+id/cb_phone"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="@string/word_ga_12"
-                            android:button="@null"
-                            android:drawableStart="@drawable/checkbox_selector"
-                            android:drawablePadding="8dp"
-                            android:textSize="15dp"
-                            android:textColor="@color/x_000000"
-                            android:fontFamily="@font/light_genesissansheadglobal"
-                            android:background="@android:color/transparent"
-                            app:layout_constraintHorizontal_chainStyle="spread_inside"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/cb_post"
-                            app:layout_constraintTop_toBottomOf="@+id/cb_email" />
+                    <CheckBox
+                        android:id="@+id/cb_email"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:background="@android:color/transparent"
+                        android:button="@null"
+                        android:drawableStart="@drawable/checkbox_selector"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:text="@string/word_ga_10"
+                        android:textColor="@color/x_000000"
+                        android:textSize="15dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/cb_sms"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_info_2" />
 
 
-                        <CheckBox
-                            android:id="@+id/cb_post"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:button="@null"
-                            android:drawableStart="@drawable/checkbox_selector"
-                            android:drawablePadding="8dp"
-                            android:textSize="15dp"
-                            android:textColor="@color/x_000000"
-                            android:fontFamily="@font/light_genesissansheadglobal"
-                            android:text="@string/word_ga_15"
-                            android:visibility="invisible"
-                            android:background="@android:color/transparent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/cb_phone"
-                            app:layout_constraintTop_toTopOf="@+id/cb_phone" />
+                    <CheckBox
+                        android:id="@+id/cb_phone"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:background="@android:color/transparent"
+                        android:button="@null"
+                        android:drawableStart="@drawable/checkbox_selector"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:text="@string/word_ga_12"
+                        android:textColor="@color/x_000000"
+                        android:textSize="15dp"
+                        app:layout_constraintEnd_toStartOf="@+id/cb_post"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cb_sms" />
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+                    <CheckBox
+                        android:id="@+id/cb_post"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:button="@null"
+                        android:drawableStart="@drawable/checkbox_selector"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:text="@string/word_ga_15"
+                        android:textColor="@color/x_000000"
+                        android:textSize="15dp"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/cb_phone"
+                        app:layout_constraintTop_toTopOf="@+id/cb_phone" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                <View
-                    android:id="@+id/v_block"
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/barrier"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_margin="1dp"
-                    android:background="#80ffffff"
-                    android:focusableInTouchMode="true"
-                    android:visibility="visible"
-                    tools:visibility="visible"
-                    app:layout_constraintTop_toTopOf="@+id/l_ad_receive"
-                    app:layout_constraintLeft_toLeftOf="@+id/l_ad_receive"
-                    app:layout_constraintRight_toRightOf="@+id/l_ad_receive"
-                    app:layout_constraintBottom_toBottomOf="@+id/l_ad_receive"/>
+                    android:layout_height="wrap_content"
+                    app:barrierDirection="bottom"
+                    app:constraint_referenced_ids="line_11, l_ad_info" />
 
 
                 <ImageView
                     android:id="@+id/line_3"
                     android:layout_width="0dp"
                     android:layout_height="10dp"
-                    android:layout_marginTop="30dp"
-                    android:background="@color/x_f4f4f4"
+                    android:layout_marginTop="40dp"
+                    android:background="@color/x_f8f8f8"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/l_ad_receive" />
+                    app:layout_constraintTop_toBottomOf="@+id/barrier" />
 
 
                 <TextView
                     android:id="@+id/tv_ga_withdrawal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:fontFamily="@font/regular_genesissansheadglobal"
+                    android:layout_marginTop="40dp"
+                    android:fontFamily="@font/light_genesissansheadglobal"
                     android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="12dp"
                     android:text="@string/word_ga_13"
-                    android:textColor="@color/x_141414"
+                    android:textColor="@color/x_000000"
                     android:textSize="18dp"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintTop_toBottomOf="@+id/line_3" />
 
 
-                <TextView
+                <!-- 탈퇴 버튼 -->
+                <include
                     android:id="@+id/btn_withdrawal"
+                    layout="@layout/item_btn_underline_mark_gold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_trans_sroke_under_6f6f6f"
-                    android:fontFamily="@font/light_genesissansheadglobal"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6dp"
-                    android:text="@string/word_ga_14"
-                    android:textColor="@color/x_6f6f6f"
-                    android:textSize="15dp"
-                    android:paddingBottom="4dp"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_ga_withdrawal"
-                    app:layout_constraintEnd_toEndOf="@+id/btn_logout" />
-
+                    app:btnNm="@{@string/word_ga_14}"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_ga_withdrawal"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_logout"/>
 
                 <ImageView
-                    android:id="@+id/iv_dot_1"
+                    android:id="@+id/iv_mark_3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="6dp"
-                    android:background="@drawable/rect_aaabaf_2dp"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_warning_withdrawal_1"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_warning_withdrawal_1"
-                    app:layout_constraintStart_toStartOf="@+id/tv_name"
-                    app:layout_constraintTop_toTopOf="@+id/tv_warning_withdrawal_1"
-                    app:layout_constraintVertical_bias=".2" />
+                    android:layout_height="20dp"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/mark_666666"
+                    android:scaleType="centerInside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_info_3"/>
 
                 <TextView
-                    android:id="@+id/tv_warning_withdrawal_1"
+                    android:id="@+id/tv_info_3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="6dp"
-                    android:text="@string/msg_ga_1"
-                    android:textColor="@color/x_aaabaf"
+                    android:textColor="@color/x_666666"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toEndOf="@+id/btn_logout"
-                    app:layout_constraintStart_toEndOf="@+id/iv_dot_1"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_ga_withdrawal" />
+                    android:text="@string/msg_ga_1"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_ga_withdrawal"
+                    app:layout_constraintStart_toEndOf="@+id/iv_mark_3"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
 
                 <ImageView
-                    android:id="@+id/iv_dot_2"
+                    android:id="@+id/iv_mark_4"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="6dp"
-                    android:background="@drawable/rect_aaabaf_2dp"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_warning_withdrawal_2"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_warning_withdrawal_2"
-                    app:layout_constraintStart_toStartOf="@+id/tv_name"
-                    app:layout_constraintTop_toTopOf="@+id/tv_warning_withdrawal_2"
-                    app:layout_constraintVertical_bias=".2" />
+                    android:layout_height="20dp"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/mark_666666"
+                    android:scaleType="centerInside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_info_4"/>
 
                 <TextView
-                    android:id="@+id/tv_warning_withdrawal_2"
+                    android:id="@+id/tv_info_4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="6dp"
-                    android:text="@string/msg_ga_2"
-                    android:textColor="@color/x_aaabaf"
+                    android:textColor="@color/x_666666"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toEndOf="@+id/btn_logout"
-                    app:layout_constraintStart_toEndOf="@+id/iv_dot_2"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_warning_withdrawal_1" />
+                    android:text="@string/msg_ga_2"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_3"
+                    app:layout_constraintStart_toEndOf="@+id/iv_mark_4"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
