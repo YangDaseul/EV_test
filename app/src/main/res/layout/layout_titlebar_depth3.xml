@@ -15,8 +15,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_title_bar_popup"
         android:layout_width="match_parent"
-        android:paddingTop="24dp"
-        android:layout_height="74dp"
+        android:paddingTop="0dp"
+        android:layout_height="50dp"
         android:background="@color/x_ffffff">
 
         <ImageView

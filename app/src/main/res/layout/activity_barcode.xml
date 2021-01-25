@@ -8,7 +8,7 @@
         android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/x_f4f4f4">
+        android:background="@color/x_f8f8f8">
 
         <!-- crousel -->
         <com.saeed.infiniteflow.lib.FinitePagerContainer

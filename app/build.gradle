@@ -146,6 +146,7 @@ dependencies {
     implementation "com.google.android.exoplayer:exoplayer-ui:2.11.7"
 
     //lombok
+    compileOnly 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
 
     //encrypt

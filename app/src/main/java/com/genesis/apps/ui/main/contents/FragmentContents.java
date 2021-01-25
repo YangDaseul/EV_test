@@ -8,6 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CTT_1001;
@@ -19,17 +25,12 @@ import com.genesis.apps.comm.model.vo.ContentsVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CTTViewModel;
 import com.genesis.apps.databinding.FragmentContentsBinding;
+import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
 
 public class FragmentContents extends SubFragment<FragmentContentsBinding> {
 
@@ -273,9 +274,8 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
 
     @Override
     public void onRefresh() {
-
         Log.e("onResume","onReusme contents");
-
+        SubActivity.setStatusBarColor(getActivity(), R.color.x_ffffff);
         if(contentsAdapter.getPageNo()==0)
             cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(),"","",(contentsAdapter.getPageNo()+1)+"","20"));
 

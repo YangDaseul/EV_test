@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,24 +28,19 @@ import com.genesis.apps.comm.model.api.gra.MYP_1003;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.StoreInfo;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CMSViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.databinding.FragmentStoreBinding;
+import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 
@@ -207,6 +201,7 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
     @Override
     public void onRefresh() {
         Log.e("onResume", "onReusme store");
+        SubActivity.setStatusBarColor(getActivity(), R.color.x_ffffff);
         ((MainActivity) getActivity()).setGNB(getString(R.string.main_word_5), View.VISIBLE, true, true);
 
         initView();
