@@ -7,6 +7,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import androidx.lifecycle.ViewModelProvider;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CMN_0001;
@@ -35,7 +37,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
@@ -59,6 +60,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
+        setStatusBarColor(this, R.color.x_000000);
         startProgressTask();
         if(isPermissions()){
             init();

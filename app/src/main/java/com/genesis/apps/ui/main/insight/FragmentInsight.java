@@ -8,6 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ConcatAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.IST_1002;
@@ -46,12 +52,6 @@ import com.hmns.playmap.PlayMapPoint;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.ConcatAdapter;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
     private ISTViewModel istViewModel;
@@ -349,6 +349,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
+            SubActivity.setStatusBarColor(getActivity(), R.color.x_f8f8f8);
             initView();
             ((MainActivity) getActivity()).setGNB(getString(R.string.main_word_2), View.VISIBLE, false, true);
         }

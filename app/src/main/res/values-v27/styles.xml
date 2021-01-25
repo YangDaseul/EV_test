@@ -3,22 +3,26 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/x_ffffff</item>
+        <item name="colorPrimaryDark">@color/x_ffffff</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:splitMotionEvents">false</item>
+        <item name="android:windowLightStatusBar">true</item>
         <!--초기로딩시 검은 화면 없애기-->
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
     <style name="TextInputLayout" parent="Theme.MaterialComponents.Light.NoActionBar" >
+        <item name="android:statusBarColor">@color/x_ffffff</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowSoftInputMode">adjustPan</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
     </style>
 
@@ -29,20 +33,16 @@
 
     <style name="CardViewTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/x_ffffff</item>
         <item name="colorPrimaryDark">#000</item>
-
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/x_f8f8f8</item>
+        <item name="android:windowLightStatusBar">true</item>
 <!--        <item name="android:backgroundDimEnabled">true</item>-->
 <!--        <item name="android:windowIsTranslucent">true</item>-->
 <!--        <item name="android:windowBackground">@android:color/transparent</item>-->
     </style>
 
-    <!--    <style name="CustomTextAppearance" parent="TextAppearance.MaterialCalendarWidget.Date">-->
-    <!--        <item name="android:textColor">@drawable/selector_calendar</item>-->
-    <!--    </style>-->
-
-    <!--weekday style-->
     <style name="calendarStyle">
         <item name="android:textSize">14dp</item>
         <item name="android:textColor">@color/selector_calendar</item>

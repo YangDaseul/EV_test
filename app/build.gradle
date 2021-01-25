@@ -109,9 +109,6 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'me.relex:circleindicator:2.1.4'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-//    implementation "androidx.annotation:annotation:1.1.0"
-//    implementation "androidx.annotation:annotation-experimental:1.0.0"
-//    implementation "com.squareup:javapoet:1.13.0"
 
     //preference
     implementation "androidx.preference:preference:1.1.1"
@@ -148,11 +145,6 @@ dependencies {
     implementation "com.google.android.exoplayer:exoplayer-core:2.11.7"
     implementation "com.google.android.exoplayer:exoplayer-ui:2.11.7"
 
-//    //socket.io chat
-//    implementation('io.socket:socket.io-client:1.0.0') {
-//        exclude group: 'org.json', module: 'json'
-//    }
-
     //lombok
     compileOnly 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
@@ -176,17 +168,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
-//    implementation 'com.google.firebase:firebase-analytics:17.5.0'
-//    implementation 'com.google.firebase:firebase-core:17.5.0'
-//    implementation 'com.google.firebase:firebase-messaging:20.3.0'
-//    implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
-//    implementation 'com.google.firebase:firebase-crashlytics-ktx:17.2.2'
 
     //glide + webp
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.zlc.glide:webpdecoder:1.5.4.9.0'
-
 
     //barcode
     implementation 'com.google.zxing:core:3.4.0'
@@ -194,15 +180,6 @@ dependencies {
     //play map sdk
     implementation 'com.facebook.soloader:soloader:0.9.0'
     implementation name: 'PlayMapSDK_1.2', ext: 'aar'
-
-//    implementation (name: 'PlayMapSDK_1.0', ext: 'aar'){
-//        configurations{
-//            compile.exclude module: 'gson'
-//            compile.exclude module: 'okhttp'
-//            compile.exclude module: 'okio'
-//            compile.exclude module: 'logging-interceptor'
-//        }
-//    }
 
     //lottie
     implementation 'com.airbnb.android:lottie:3.4.4'
@@ -225,13 +202,13 @@ dependencies {
     //multi permission library
     implementation 'com.karumi:dexter:6.2.1'
 
-    //TagView
-    implementation 'co.lujun:androidtagview:1.1.5'
+//    //TagView
+//    implementation 'co.lujun:androidtagview:1.1.5'
 
     implementation 'com.github.saeed-younus:finite-cover-flow:1.0.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.0.0"
 
-
+    //하단 스낵바 변경 예정
     implementation 'com.github.kishandonga:custom-snackbar:1.1'
 
     implementation 'com.google.re2j:re2j:1.1'

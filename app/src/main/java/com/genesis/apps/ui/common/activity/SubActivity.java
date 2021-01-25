@@ -1,17 +1,15 @@
 package com.genesis.apps.ui.common.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.view.Window;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
@@ -19,29 +17,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.PushCodes;
-import com.genesis.apps.comm.model.constants.RequestCodes;
-import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
-import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.databinding.ActivityBaseBinding;
-import com.genesis.apps.fcm.PushVO;
-import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
-import com.genesis.apps.ui.main.MainActivity;
-import com.genesis.apps.ui.main.home.MyLocationActivity;
 import com.genesis.apps.ui.main.service.CarWashFindSonaxBranchFragment;
-import com.genesis.apps.ui.main.service.ServiceReviewActivity;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.genesis.apps.comm.model.api.APPIAInfo.GM_BTO1;
-import static com.genesis.apps.comm.model.api.APPIAInfo.GM_BTO2;
 
 
 public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivity {
@@ -59,22 +42,39 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
-        if (Build.VERSION.SDK_INT >= 19) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        }
-        if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
+//        if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        }
+//        if (Build.VERSION.SDK_INT >= 19) {
+//            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+//        }
+//        if (Build.VERSION.SDK_INT >= 21) {
+//            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//            getWindow().setStatusBarColor(Color.TRANSPARENT);
+//        }
 
 
-//        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
 
         if (base == null) base = (ActivityBaseBinding) inflate(R.layout.activity_base);
     }
+
+
+    public static void setStatusBarColor(Activity activity, int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = activity.getWindow();
+//            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(activity.getColor(color));
+            if(color==R.color.x_000000){
+                window.getDecorView().setSystemUiVisibility(0);
+            }else{
+                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            }
+        }
+    }
+
+
+
 
     @Override
     public void setContentView(int layoutResId) {
@@ -162,7 +162,14 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
     public abstract void getDataFromIntent();
 
     public void setResizeScreen() {
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+//        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+
+
+
+
+
+
+
 
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 //        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);

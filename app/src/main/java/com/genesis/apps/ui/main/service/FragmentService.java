@@ -136,10 +136,8 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
 
     @Override
     public void onRefresh() {
-
         Log.e("onResume", "onReusme contents");
-
-
+        SubActivity.setStatusBarColor(getActivity(), R.color.x_ffffff);
         ((MainActivity) getActivity()).setGNB(getString(R.string.main_word_3), View.VISIBLE, false, true);
     }
 
