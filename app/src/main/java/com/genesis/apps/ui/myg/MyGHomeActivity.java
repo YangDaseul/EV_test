@@ -73,10 +73,15 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     protected void onResume() {
         super.onResume();
         mypViewModel.reqMYP1005(new MYP_1005.Request(APPIAInfo.MG01.getId(), ""));
+        reqInsightExpn();
+    }
+
+    private void reqInsightExpn(){
         if(mainVehicle!=null&&!TextUtils.isEmpty(mainVehicle.getVin())){
             istViewModel.reqIST1002(new IST_1002.Request(APPIAInfo.MG01.getId(), "INSGT", "CBK", mainVehicle.getVin()));
         }else{
             ui.tvInsightExpn.setText("0");
+            ui.tvInsightExpnUnit.setVisibility(View.VISIBLE);
         }
     }
 
@@ -102,8 +107,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                             &&result.data.getRtCd().equalsIgnoreCase("0000")
                             &&result.data.getCurrMthAmt()!=null
                             &&result.data.getCurrMthAmt().size()>0
-                            &&!TextUtils.isEmpty(result.data.getCurrMthAmt().get(0).getTotUseAmt())
-                            &&!result.data.getCurrMthAmt().get(0).getTotUseAmt().equalsIgnoreCase("0")) {
+                            &&!TextUtils.isEmpty(result.data.getCurrMthAmt().get(0).getTotUseAmt())) {
                         try {
                             current = ((ISTAmtVO)result.data.getCurrMthAmt().get(0).clone());
                         }catch (Exception e){
@@ -111,12 +115,14 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                         }
                         ui.tvInsightExpn.setText(StringUtil.getDigitGroupingString(current.getTotUseAmt()));
                         ui.tvInsightExpnUnit.setVisibility(View.VISIBLE);
+                        ui.tvExpnConnectError.setVisibility(View.GONE);
+                        ui.tvExpnRetry.setVisibility(View.GONE);
                         ui.pInsightExpn.hide();
                         break;
                     }
                 default:
-                    ui.tvInsightExpn.setText("0");
-                    ui.tvInsightExpnUnit.setVisibility(View.VISIBLE);
+                    ui.tvExpnConnectError.setVisibility(View.VISIBLE);
+                    ui.tvExpnRetry.setVisibility(View.VISIBLE);
                     ui.pInsightExpn.hide();
                     break;
             }
@@ -129,13 +135,19 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     ui.pUser.show();
                     break;
                 case SUCCESS:
-                default:
                     ui.tvName.setText((result.data==null||TextUtils.isEmpty(result.data.getMbrNm()))
                             ? "--" : String.format(Locale.getDefault(), getString(R.string.word_home_23), result.data.getMbrNm()));
                     ui.tvMail.setText((result.data==null||TextUtils.isEmpty(result.data.getCcspEmail()))
                             ? "--" : result.data.getCcspEmail());
 
                     ui.btnMyInfo.setVisibility(View.VISIBLE);
+                    ui.tvUserRetry.setVisibility(View.GONE);
+                    ui.tvUserConnectError.setVisibility(View.GONE);
+                    ui.pUser.hide();
+                    break;
+                default:
+                    ui.tvUserConnectError.setVisibility(View.VISIBLE);
+                    ui.tvUserRetry.setVisibility(View.VISIBLE);
                     ui.pUser.hide();
                     break;
             }
@@ -147,10 +159,16 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     ui.pPoint.show();
                     break;
                 case SUCCESS:
-                default:
                     ui.tvPoint.setText((result.data==null||TextUtils.isEmpty(result.data.getBludMbrPoint()))
                             ? "0" : StringUtil.getDigitGroupingString(result.data.getBludMbrPoint()));
                     ui.tvPointUnit.setVisibility(View.VISIBLE);
+                    ui.tvPointConnectError.setVisibility(View.GONE);
+                    ui.tvPointRetry.setVisibility(View.GONE);
+                    ui.pPoint.hide();
+                    break;
+                default:
+                    ui.tvPointConnectError.setVisibility(View.VISIBLE);
+                    ui.tvPointRetry.setVisibility(View.VISIBLE);
                     ui.pPoint.hide();
                     break;
             }
@@ -213,39 +231,6 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     break;
             }
         });
-
-
-//        mypViewModel.getRES_MYP_8001().observe(this, result -> {
-//            switch (result.status) {
-//                case LOADING:
-//                    showProgressDialog(true);
-//                    break;
-//                case SUCCESS:
-//                    if (result.data != null&&result.data.getTermList()!=null&&result.data.getTermList().size()>0) {
-//                        startActivitySingleTop(new Intent(this, ServiceTermDetailActivity.class)
-//                                        .putExtra(VariableType.KEY_NAME_TERM_VO, result.data.getTermList().get(0))
-//                                        .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, result.data.getTermList().get(0).getTermNm())
-//                                , RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                        showProgressDialog(false);
-//                        break;
-//                    }
-//                default:
-//                    showProgressDialog(false);
-//                    String serverMsg = "";
-//                    try {
-//                        serverMsg = result.data.getRtMsg();
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    } finally {
-//                        if (TextUtils.isEmpty(serverMsg)) {
-//                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
-//                        }
-//                        SnackBarUtil.show(this, serverMsg);
-//                    }
-//                    break;
-//            }
-//        });
-
     }
 
     @Override
@@ -463,6 +448,22 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
                 case R.id.iv_app:
                     PackageUtil.runApp(this, v.getTag(R.id.url).toString());
+                    break;
+
+                case R.id.tv_user_retry://사용자 정보 다시 시도
+                    mypViewModel.reqMYP0001(new MYP_0001.Request(APPIAInfo.MG01.getId()));
+                    ui.tvUserRetry.setVisibility(View.GONE);
+                    ui.tvUserConnectError.setVisibility(View.GONE);
+                    break;
+                case R.id.tv_point_retry:
+                    mypViewModel.reqMYP1003(new MYP_1003.Request(APPIAInfo.MG01.getId()));
+                    ui.tvPointConnectError.setVisibility(View.GONE);
+                    ui.tvPointRetry.setVisibility(View.GONE);
+                    break;
+                case R.id.tv_expn_retry:
+                    reqInsightExpn();
+                    ui.tvExpnConnectError.setVisibility(View.GONE);
+                    ui.tvExpnRetry.setVisibility(View.GONE);
                     break;
 
             }

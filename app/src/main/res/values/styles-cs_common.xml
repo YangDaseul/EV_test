@@ -9,7 +9,6 @@
     </style>
 
 
-
     <!-- Spinner 레이아웃 및 뷰-->
     <style name="CommonSpinnerLayout">
         <item name="android:layout_width">0dp</item>
@@ -18,6 +17,7 @@
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
     </style>
+
     <style name="CommonSpinnerTitle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -143,7 +143,6 @@
     </style>
 
 
-
     <!--EditText 레이아웃 및 뷰-->
     <style name="CommonTextInputLayout">
         <item name="android:layout_width">0dp</item>
@@ -182,29 +181,18 @@
         <item name="android:textCursorDrawable">@drawable/cursor_141414</item>
         <item name="android:textSize">15dp</item>
     </style>
+
     <style name="CommonTextInputEditTextHint">
         <item name="android:textSize">13dp</item>
         <item name="android:textColor">@color/x_262626</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
     </style>
+
     <style name="CommonTextInputEditTextError">
         <item name="android:textSize">12dp</item>
         <item name="android:textColor">@color/x_ce2d2d</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
     </style>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
 
     <!-- 수정불가한 텍스트 뷰-->
@@ -243,6 +231,29 @@
         <item name="layout_constraintStart_toStartOf">parent</item>
     </style>
 
+    <style name="CommonLoadingErrorText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:lineSpacingExtra">16dp</item>
+        <item name="android:text">@string/word_home_32</item>
+        <item name="android:textColor">@color/x_ce2d2d</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="CommonLoadingRetryText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:background">@drawable/bg_ffffff_underline_000000</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:lineSpacingExtra">38dp</item>
+        <item name="android:text">@string/word_home_33</item>
+        <item name="android:textColor">@color/x_000000</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:visibility">gone</item>
+    </style>
 
 
 </resources>
