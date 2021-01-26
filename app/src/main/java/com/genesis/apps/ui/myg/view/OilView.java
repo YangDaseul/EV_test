@@ -47,8 +47,8 @@ public class OilView {
 
         ui.tvOil.setText((data != null && data.getOilRfnPontList() != null) ? data.getOilRfnPontList().size() + "" : "0");
 
-        ViewPressEffectHelper.attaches(ui.tvIntegrationGs, ui.tvIntegrationHo, ui.tvIntegrationSk, ui.tvIntegrationSoil
-                , ui.btnBarcodeGs, ui.btnBarcodeHo, ui.btnBarcodeSk, ui.btnBarcodeSoil);
+        ViewPressEffectHelper.attaches(ui.tvIntegrationGs, ui.tvIntegrationHo, ui.tvIntegrationSoil
+                , ui.btnBarcodeGs, ui.btnBarcodeHo,  ui.btnBarcodeSoil);
 
         if (data == null || data.getOilRfnPontList() == null || data.getOilRfnPontList().size() < 1) {
 
@@ -56,8 +56,6 @@ public class OilView {
             ui.tvPointGs.setVisibility(View.GONE);
             ui.btnBarcodeHo.setVisibility(View.GONE);
             ui.tvPointHo.setVisibility(View.GONE);
-            ui.btnBarcodeSk.setVisibility(View.GONE);
-            ui.tvPointSk.setVisibility(View.GONE);
             ui.btnBarcodeSoil.setVisibility(View.GONE);
             ui.tvPointSoil.setVisibility(View.GONE);
 
@@ -71,7 +69,6 @@ public class OilView {
 
             ui.tvIntegrationGs.setVisibility(View.VISIBLE);
             ui.tvIntegrationHo.setVisibility(View.VISIBLE);
-            ui.tvIntegrationSk.setVisibility(View.VISIBLE);
             ui.tvIntegrationSoil.setVisibility(View.VISIBLE);
         } else {
             for (int i = 0; i < data.getOilRfnPontList().size(); i++) {
@@ -85,14 +82,9 @@ public class OilView {
                         setOilView(data.getOilRfnPontList().get(i), ui.btnBarcodeGs, ui.tvPointGs, ui.tvIntegrationGs);
                         break;
                     case OilPointVO.OIL_CODE_HDOL:
+                    default:
                         ui.lHo.setVisibility(View.VISIBLE);
                         setOilView(data.getOilRfnPontList().get(i), ui.btnBarcodeHo, ui.tvPointHo, ui.tvIntegrationHo);
-                        break;
-                    case OilPointVO.OIL_CODE_SKNO:
-                        ui.lSk.setVisibility(View.VISIBLE);
-                        setOilView(data.getOilRfnPontList().get(i), ui.btnBarcodeSk, ui.tvPointSk, ui.tvIntegrationSk);
-                        break;
-                    default:
                         break;
                 }
             }

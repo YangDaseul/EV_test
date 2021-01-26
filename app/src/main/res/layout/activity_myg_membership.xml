@@ -325,6 +325,7 @@
                         android:text="@string/mg_member01_10"
                         android:textColor="@color/x_000000"
                         android:textSize="14dp"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_title_card"
                         app:layout_constraintEnd_toStartOf="@+id/btn_question"
                         app:layout_constraintTop_toTopOf="@+id/tv_title_card" />

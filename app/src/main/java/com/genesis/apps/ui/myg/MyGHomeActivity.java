@@ -10,6 +10,7 @@ import android.webkit.WebView;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.IST_1002;
 import com.genesis.apps.comm.model.api.gra.MYP_0001;
 import com.genesis.apps.comm.model.api.gra.MYP_1003;
 import com.genesis.apps.comm.model.api.gra.MYP_1005;
@@ -19,22 +20,29 @@ import com.genesis.apps.comm.model.constants.OilCodes;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.StoreInfo;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.ISTAmtVO;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.model.vo.PrivilegeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
+import com.genesis.apps.comm.viewmodel.ISTViewModel;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.viewmodel.OILViewModel;
 import com.genesis.apps.databinding.ActivityMygHomeBinding;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
+import com.genesis.apps.ui.main.MainActivity;
+import com.genesis.apps.ui.main.insight.InsightExpnMainActivity;
+import com.genesis.apps.ui.main.insight.view.InsightCarAdapter;
 import com.genesis.apps.ui.main.store.StoreWebActivity;
 import com.genesis.apps.ui.myg.view.FamilyAppHorizontalAdapter;
 import com.genesis.apps.ui.myg.view.OilView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -48,6 +56,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
     private MYPViewModel mypViewModel;
     private OILViewModel oilViewModel;
+    private ISTViewModel istViewModel;
     private OilView oilView;
     private VehicleVO mainVehicle;
     private FamilyAppHorizontalAdapter adapter;
@@ -68,6 +77,11 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     protected void onResume() {
         super.onResume();
         mypViewModel.reqMYP1005(new MYP_1005.Request(APPIAInfo.MG01.getId(), ""));
+        if(mainVehicle!=null&&!TextUtils.isEmpty(mainVehicle.getVin())){
+            istViewModel.reqIST1002(new IST_1002.Request(APPIAInfo.MG01.getId(), "INSGT", "CBK", mainVehicle.getVin()));
+        }else{
+            ui.tvInsightExpn.setText("0");
+        }
     }
 
     @Override
@@ -75,10 +89,38 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         ui.setLifecycleOwner(this);
         mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
         oilViewModel = new ViewModelProvider(this).get(OILViewModel.class);
+        istViewModel = new ViewModelProvider(this).get(ISTViewModel.class);
     }
 
     @Override
     public void setObserver() {
+
+        istViewModel.getRES_IST_1002().observe(this, result -> {
+            switch (result.status) {
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    ISTAmtVO current = null;
+                    if (result.data != null
+                            &&result.data.getRtCd().equalsIgnoreCase("0000")
+                            &&result.data.getCurrMthAmt()!=null
+                            &&result.data.getCurrMthAmt().size()>0
+                            &&!TextUtils.isEmpty(result.data.getCurrMthAmt().get(0).getTotUseAmt())
+                            &&!result.data.getCurrMthAmt().get(0).getTotUseAmt().equalsIgnoreCase("0")) {
+                        try {
+                            current = ((ISTAmtVO)result.data.getCurrMthAmt().get(0).clone());
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        ui.tvInsightExpn.setText(StringUtil.getDigitGroupingString(current.getTotUseAmt()));
+                        break;
+                    }
+                default:
+                    ui.tvInsightExpn.setText("0");
+                    break;
+            }
+        });
+
 
         mypViewModel.getRES_MYP_0001().observe(this, result -> {
             //TODO 예외처리 및 뷰별 로딩처리 필요
@@ -224,11 +266,9 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         ui.rcFamilyApp.setAdapter(adapter);
     }
 
-    //TODO 로딩 처리 필요..
     private void reqData() {
         mypViewModel.reqMYP0001(new MYP_0001.Request(APPIAInfo.MG01.getId()));
         mypViewModel.reqMYP1003(new MYP_1003.Request(APPIAInfo.MG01.getId()));
-//        mypViewModel.reqMYP1005(new MYP_1005.Request(APPIAInfo.MG01.getId(), "")); 프리빌리지 신청 완료 후 때문에 onResume에서 처리
         mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
     }
 
@@ -312,6 +352,9 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         Log.v("test duplicate", "id:" + v.getId());
         if (v != null) {
             switch (v.getId()) {
+                case R.id.btn_insight_expn://인사이트 자세히 보기
+                    startActivitySingleTop(new Intent(this, InsightExpnMainActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    break;
                 case R.id.btn_search:
                     startActivitySingleTop(new Intent(this, MyGMenuActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;

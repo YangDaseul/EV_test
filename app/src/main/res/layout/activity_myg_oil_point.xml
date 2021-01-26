@@ -39,48 +39,59 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/iv_ci"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
                     android:scaleType="centerInside"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@drawable/logo_sk_l"/>
+                    tools:src="@drawable/logo_gs_l" />
+
+
+                <!-- 삭제 버튼 -->
+                <include
+                    android:id="@+id/btn_release"
+                    layout="@layout/item_btn_underline_mark_gold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    app:btnNm="@{@string/mg_con01_word_2}"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_ci"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/iv_ci" />
 
 
                 <TextView
                     android:id="@+id/tv_point"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:fontFamily="@font/regular_genesissansheadglobal"
-                    android:gravity="left|center_vertical"
-                    android:lineSpacingExtra="-18dp"
-                    android:textColor="@color/x_cd9a81"
-                    android:textSize="34dp"
+                    android:fontFamily="@font/light_genesissansheadglobal"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="-21dp"
+                    android:textColor="@color/x_996449"
+                    android:textSize="42dp"
                     android:visibility="visible"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/iv_ci"
                     tools:text="32,450" />
 
-
                 <TextView
                     android:id="@+id/tv_unit_point"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
-                    android:fontFamily="@font/bold_genesissanstextglobal"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
                     android:lineSpacingExtra="-12dp"
-                    android:text="P"
-                    android:textColor="@color/x_cd9a81"
-                    android:textSize="28dp"
+                    android:text="p"
+                    android:textColor="@color/x_996449"
+                    android:textSize="16dp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_point"
                     app:layout_constraintStart_toEndOf="@+id/tv_point" />
 
@@ -88,9 +99,7 @@
                     android:id="@+id/btn_refresh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/bg_ffffff_stroke_6f6f6f"
-                    android:padding="7dp"
+                    android:layout_marginEnd="20dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/btn_repeat"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_point"
@@ -99,98 +108,88 @@
                     app:layout_constraintVertical_bias=".5" />
 
 
-                <ImageView
-                    android:id="@+id/iv_barcode"
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginRight="30dp"
-                    android:scaleType="centerInside"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_point" />
-
-
-                <TextView
-                    android:id="@+id/tv_card_no"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_barcode"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/regular_genesissansheadglobal"
-                    android:gravity="center_vertical|left"
-                    android:textColor="@color/x_000000"
-                    android:textSize="16dp"
-                    app:layout_constraintEnd_toEndOf="@+id/iv_barcode"
-                    app:layout_constraintStart_toStartOf="@+id/iv_barcode"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_barcode"
-                    tools:text="2165-****-****-9765" />
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/bg_ffffff_stroke_e5e5e5"
+                    android:paddingStart="30dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="30dp"
+                    android:paddingBottom="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_point">
 
+                    <ImageView
+                        android:id="@+id/iv_barcode"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:scaleType="centerInside"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_card_no"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:gravity="center_horizontal"
+                        android:textColor="@color/x_000000"
+                        android:textSize="14dp"
+                        app:layout_constraintEnd_toEndOf="@+id/iv_barcode"
+                        app:layout_constraintStart_toStartOf="@+id/iv_barcode"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_barcode"
+                        tools:text="2165-****-****-9765" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tv_mark_1"
+                    style="@style/ViewMarkGrey"
+                    android:layout_marginStart="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_info" />
 
                 <TextView
                     android:id="@+id/tv_info"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@color/x_f9f9f9"
+                    android:layout_marginEnd="20dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
-                    android:gravity="center_vertical|left"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="20dp"
-                    android:paddingRight="15dp"
-                    android:paddingBottom="20dp"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="6dp"
                     android:text="@string/mg_con01_msg_1"
-                    android:textColor="@color/x_525252"
+                    android:textColor="@color/x_666666"
                     android:textSize="14dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_card_no" />
-
-
-                <TextView
-                    android:id="@+id/btn_release"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/ripple_bg_ffffff_stroke_6f6f6f"
-                    android:fontFamily="@font/regular_genesissansheadglobal"
-                    android:gravity="center"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="7dp"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="8dp"
-                    android:paddingRight="15dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/mg_con01_word_2"
-                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-                    android:textColor="@color/x_6f6f6f"
-                    android:textSize="14dp"
-                    app:layout_constraintStart_toStartOf="@+id/tv_info"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_info" />
+                    app:layout_constraintStart_toEndOf="@+id/tv_mark_1"
+                    app:layout_constraintTop_toBottomOf="@+id/l_barcode" />
 
 
                 <TextView
                     android:id="@+id/btn_check_point"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:background="@drawable/ripple_bg_141414"
-                    android:fontFamily="@font/regular_genesissansheadglobal"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/ripple_bg_111111"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
                     android:gravity="center"
                     android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="7dp"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="8dp"
-                    android:paddingRight="15dp"
-                    android:paddingBottom="8dp"
+                    android:lineSpacingExtra="6dp"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     android:text="@string/mg_con01_word_3"
                     android:textColor="@color/x_ffffff"
-                    android:textSize="14dp"
-                    app:layout_constraintStart_toEndOf="@+id/btn_release"
-                    app:layout_constraintTop_toTopOf="@+id/btn_release" />
+                    android:textSize="16dp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_info"
+                    app:layout_constraintStart_toStartOf="@+id/tv_mark_1"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info" />
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -198,13 +197,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
-                    android:background="@color/x_f4f4f4"
+                    android:background="@drawable/bg_f8f8f8_stroke_e5e5e5"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-                    android:paddingBottom="30dp"
+                    android:paddingBottom="50dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_release">
+                    app:layout_constraintTop_toBottomOf="@+id/btn_check_point">
 
                     <include
                         android:id="@+id/l_oil"

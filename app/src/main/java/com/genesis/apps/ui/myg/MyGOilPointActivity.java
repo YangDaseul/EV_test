@@ -66,67 +66,62 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
         for (int i = 0; i < OilCodes.values().length; i++) {
             constraintSets[i] = new ConstraintSet();
 
-                constraintSets[i].clone(this, OilCodes.values()[i].getLayout());
+            constraintSets[i].clone(this, OilCodes.values()[i].getLayout());
         }
     }
 
     private void doTransition(int pos) {
-            Transition changeBounds = new ChangeBounds();
-            changeBounds.setInterpolator(new OvershootInterpolator());
-            TransitionManager.beginDelayedTransition(ui.lOil.lParent);
-            constraintSets[pos].applyTo(ui.lOil.lParent);
+        Transition changeBounds = new ChangeBounds();
+        changeBounds.setInterpolator(new OvershootInterpolator());
+        TransitionManager.beginDelayedTransition(ui.lOil.lParent);
+        constraintSets[pos].applyTo(ui.lOil.lParent);
 
-            switch (pos){
-                case 0:
-                    ui.lOil.lHo.setElevation(1);
-                    ui.lOil.lSk.setElevation(2);
-                    ui.lOil.lSoil.setElevation(3);
+        switch (pos) {
+            case 0:
+                ui.lOil.lHo.setElevation(1);
+                ui.lOil.lSoil.setElevation(2);
 
-                    ui.lOil.lHo.setPadding(15,0,15,20);
-                    ui.lOil.lSk.setPadding(15,0,15,20);
-                    ui.lOil.lSoil.setPadding(15,0,15,0);
+//                    ui.lOil.lHo.setPadding(15,0,15,20);
+//                    ui.lOil.lSk.setPadding(15,0,15,20);
+//                    ui.lOil.lSoil.setPadding(15,0,15,0);
 
-                    break;
-                case 1:
-                    ui.lOil.lSk.setElevation(1);
-                    ui.lOil.lSoil.setElevation(2);
-                    ui.lOil.lGs.setElevation(3);
+                break;
+            case 1:
+                ui.lOil.lSoil.setElevation(1);
+                ui.lOil.lGs.setElevation(2);
 
-                    ui.lOil.lSk.setPadding(15,0,15,20);
-                    ui.lOil.lSoil.setPadding(15,0,15,20);
-                    ui.lOil.lGs.setPadding(15,0,15,0);
+//                    ui.lOil.lSk.setPadding(15,0,15,20);
+//                    ui.lOil.lSoil.setPadding(15,0,15,20);
+//                    ui.lOil.lGs.setPadding(15,0,15,0);
 
-                    break;
-                case 2:
-                    ui.lOil.lSoil.setElevation(1);
-                    ui.lOil.lGs.setElevation(2);
-                    ui.lOil.lHo.setElevation(3);
+                break;
+//                case 2:
+//                    ui.lOil.lSoil.setElevation(1);
+//                    ui.lOil.lGs.setElevation(2);
+//                    ui.lOil.lHo.setElevation(3);
+//
+////                    ui.lOil.lSoil.setPadding(15,0,15,20);
+////                    ui.lOil.lGs.setPadding(15,0,15,20);
+////                    ui.lOil.lHo.setPadding(15,0,15,0);
+//                    break;
+            case 2:
+                ui.lOil.lGs.setElevation(1);
+                ui.lOil.lHo.setElevation(2);
 
-                    ui.lOil.lSoil.setPadding(15,0,15,20);
-                    ui.lOil.lGs.setPadding(15,0,15,20);
-                    ui.lOil.lHo.setPadding(15,0,15,0);
-                    break;
-                case 3:
-                    ui.lOil.lGs.setElevation(1);
-                    ui.lOil.lHo.setElevation(2);
-                    ui.lOil.lSk.setElevation(3);
-
-                    ui.lOil.lGs.setPadding(15,0,15,20);
-                    ui.lOil.lHo.setPadding(15,0,15,20);
-                    ui.lOil.lSk.setPadding(15,0,15,0);
-                    break;
+//                    ui.lOil.lGs.setPadding(15,0,15,20);
+//                    ui.lOil.lHo.setPadding(15,0,15,20);
+//                    ui.lOil.lSk.setPadding(15,0,15,0);
+                break;
 
 
-            }
+        }
     }
 
 
-
-
-    private void setOilDetailView(List<OilPointVO> list){
+    private void setOilDetailView(List<OilPointVO> list) {
         initOilInfo(list);
-        for(OilPointVO pointVO : list){
-            if(pointVO.getOilRfnCd().equalsIgnoreCase(oilRfnCd)){
+        for (OilPointVO pointVO : list) {
+            if (pointVO.getOilRfnCd().equalsIgnoreCase(oilRfnCd)) {
                 ui.ivCi.setImageResource(OilCodes.findCode(oilRfnCd).getSmallSrc());
                 ui.tvPoint.setText(StringUtil.getDigitGroupingString(TextUtils.isEmpty(pointVO.getPont()) ? "0" : pointVO.getPont()));
                 ui.tvCardNo.setText(StringRe2j.replaceAll(pointVO.getCardNo(), getString(R.string.card_original), getString(R.string.card_mask)));
@@ -136,9 +131,9 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
         }
     }
 
-    private void setBarcode(String cardNo){
+    private void setBarcode(String cardNo) {
         try {
-            Bitmap bitmap = new BarcodeUtil().encodeAsBitmap(cardNo.replace("-","") , BarcodeFormat.CODE_128 , ui.ivBarcode.getWidth() , ui.ivBarcode.getHeight());
+            Bitmap bitmap = new BarcodeUtil().encodeAsBitmap(cardNo.replace("-", ""), BarcodeFormat.CODE_128, ui.ivBarcode.getWidth(), ui.ivBarcode.getHeight());
             ui.ivBarcode.setImageBitmap(bitmap);
         } catch (WriterException e) {
             e.printStackTrace();
@@ -146,9 +141,9 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
     }
 
     private void initOilInfo(List<OilPointVO> list) {
-        if(TextUtils.isEmpty(oilRfnCd)){
-            for(OilPointVO pointVO : list){
-                if(pointVO.getRgstYn().equalsIgnoreCase(OIL_JOIN_CODE_Y)){
+        if (TextUtils.isEmpty(oilRfnCd)) {
+            for (OilPointVO pointVO : list) {
+                if (pointVO.getRgstYn().equalsIgnoreCase(OIL_JOIN_CODE_Y)) {
                     oilRfnCd = pointVO.getOilRfnCd();
                     break;
                 }
@@ -160,7 +155,7 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
     @Override
     public void onClickCommon(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_integration_gs: //gs칼텍스 연동하기
                 oilView.reqIntegrateOil(OIL_CODE_GSCT);
                 break;
@@ -209,7 +204,7 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
     @Override
     public void setObserver() {
         mypViewModel.getRES_MYP_1006().observe(this, responseNetUI -> {
-            switch (responseNetUI.status){
+            switch (responseNetUI.status) {
                 case LOADING:
                     showProgressDialog(true);
                     break;
@@ -225,25 +220,26 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
             }
         });
         oilViewModel.getRES_OIL_0003().observe(this, result -> {
-            switch (result.status){
+            switch (result.status) {
                 case LOADING:
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)){
+                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)) {
                         showProgressDialog(false);
                         exitPage(getString(R.string.mg_con01_p01_snackbar_1), ResultCodes.REQ_CODE_NORMAL.getCode());
                         break;
                     }
                 default:
                     showProgressDialog(false);
-                    String serverMsg="";
+                    String serverMsg = "";
                     try {
                         serverMsg = result.data.getRtMsg();
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    }finally{
-                        if(TextUtils.isEmpty(serverMsg)) serverMsg = getString(R.string.mg_con01_p01_snackbar_2);
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg))
+                            serverMsg = getString(R.string.mg_con01_p01_snackbar_2);
                         SnackBarUtil.show(this, serverMsg);
                     }
                     break;
@@ -251,26 +247,27 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
         });
 
         oilViewModel.getRES_OIL_0005().observe(this, result -> {
-            switch (result.status){
+            switch (result.status) {
                 case LOADING:
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
-                    if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)){
+                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)) {
                         mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
                         SnackBarUtil.show(this, "연동이 완료되었습니다.");
                         break;
                     }
                 default:
                     showProgressDialog(false);
-                    String serverMsg="";
+                    String serverMsg = "";
                     try {
                         serverMsg = result.data.getRtMsg();
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    }finally{
-                        if(TextUtils.isEmpty(serverMsg)) serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg))
+                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
                         SnackBarUtil.show(this, serverMsg);
                     }
                     break;
@@ -284,10 +281,10 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
     public void getDataFromIntent() {
         try {
             oilRfnCd = getIntent().getStringExtra(OilCodes.KEY_OIL_CODE);
-            if(TextUtils.isEmpty(oilRfnCd)){
+            if (TextUtils.isEmpty(oilRfnCd)) {
                 exitPage("정유소 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             exitPage("정유소 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
         }
