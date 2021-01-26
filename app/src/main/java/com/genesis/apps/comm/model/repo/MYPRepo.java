@@ -1,7 +1,5 @@
 package com.genesis.apps.comm.model.repo;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.gra.MYP_0001;
@@ -26,6 +24,8 @@ import com.genesis.apps.comm.net.NetUIResponse;
 import com.google.gson.Gson;
 
 import javax.inject.Inject;
+
+import androidx.lifecycle.MutableLiveData;
 
 public class MYPRepo {
 
@@ -172,6 +172,7 @@ public class MYPRepo {
             @Override
             public void onSuccess(String object) {
                 RES_MYP_1006.setValue(NetUIResponse.success(new Gson().fromJson(object, MYP_1006.Response.class)));
+//                                RES_MYP_1006.setValue(NetUIResponse.success(TestCode.MYP_1006));
             }
 
             @Override

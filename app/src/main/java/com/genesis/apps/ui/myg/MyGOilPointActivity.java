@@ -65,7 +65,6 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
     private void initConstraintSets() {
         for (int i = 0; i < OilCodes.values().length; i++) {
             constraintSets[i] = new ConstraintSet();
-
             constraintSets[i].clone(this, OilCodes.values()[i].getLayout());
         }
     }
@@ -209,8 +208,8 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    doTransition(OilCodes.findCode(oilRfnCd).ordinal());
                     oilView.setOilLayout(responseNetUI.data);
+                    doTransition(OilCodes.findCode(oilRfnCd).ordinal());
                     setOilDetailView(responseNetUI.data.getOilRfnPontList());
                     showProgressDialog(false);
                     break;

@@ -34,15 +34,11 @@ import com.genesis.apps.databinding.ActivityMygHomeBinding;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
-import com.genesis.apps.ui.main.MainActivity;
 import com.genesis.apps.ui.main.insight.InsightExpnMainActivity;
-import com.genesis.apps.ui.main.insight.view.InsightCarAdapter;
 import com.genesis.apps.ui.main.store.StoreWebActivity;
 import com.genesis.apps.ui.myg.view.FamilyAppHorizontalAdapter;
 import com.genesis.apps.ui.myg.view.OilView;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -145,7 +141,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                 case SUCCESS:
                 default:
                     ui.tvPoint.setText((result.data==null||TextUtils.isEmpty(result.data.getBludMbrPoint()))
-                            ? "0" : String.format(Locale.getDefault(), getString(R.string.word_home_24), StringUtil.getDigitGroupingString(result.data.getBludMbrPoint())));
+                            ? "0" : StringUtil.getDigitGroupingString(result.data.getBludMbrPoint()));
                     break;
             }
         });
