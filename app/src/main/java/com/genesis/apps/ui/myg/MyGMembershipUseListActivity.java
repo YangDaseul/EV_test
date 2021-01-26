@@ -12,9 +12,7 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.MYP_2002;
 import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.vo.MembershipPointVO;
-import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.CalenderUtil;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -23,7 +21,6 @@ import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.databinding.ActivityMygMembershipUseListBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.myg.view.PointUseListAdapter;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -72,7 +69,7 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
 
     private void initView() {
         adapter = new PointUseListAdapter();
-        ui.rv.setHasFixedSize(true);
+//        ui.rv.setHasFixedSize(true);
         ui.rv.setAdapter(adapter);
         ui.rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -304,16 +301,15 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
                 adapter.notifyItemRangeInserted(itemSizeBefore, adapter.getItemCount());
             }
             adapter.setPageNo(adapter.getPageNo() + 1);
+            ui.tvEmpty.setVisibility(View.GONE);
+        }else{
+            adapter.clear();
+            adapter.notifyDataSetChanged();
+            ui.tvEmpty.setVisibility(View.VISIBLE);
         }
 
         ui.tvPointSave.setText(StringUtil.getDigitGrouping(adapter.getTotalSavePoint()));
         String totalUsePoint = StringUtil.getDigitGrouping(adapter.getTotalUsePoint());
         ui.tvPointUse.setText((!StringUtil.isValidString(totalUsePoint).equalsIgnoreCase("0") ? "-" : "")+totalUsePoint);
-
-        if (adapter != null && adapter.getItemCount() < 1) {
-            ui.tvEmpty.setVisibility(View.VISIBLE);
-        } else {
-            ui.tvEmpty.setVisibility(View.GONE);
-        }
     }
 }
