@@ -87,6 +87,7 @@
                     android:textColor="@color/x_000000"
                     android:textSize="14dp"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    android:visibility="gone"
                     app:layout_constraintTop_toTopOf="@+id/tv_name"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_mail"
                     app:layout_constraintEnd_toEndOf="@+id/tv_greetings" />
@@ -108,6 +109,18 @@
                     app:layout_constraintStart_toStartOf="@+id/tv_greetings"
                     app:layout_constraintTop_toBottomOf="@+id/tv_name"
                     tools:text="kim.genesis@genesis.com" />
+
+
+                <androidx.core.widget.ContentLoadingProgressBar
+                    android:id="@+id/p_user"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="140dp"
+                    android:layout_height="24dp"
+                    android:indeterminateTint="@color/x_996449"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_mail"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_name" />
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -172,6 +185,16 @@
                         tools:text="32,450"/>
 
 
+                    <androidx.core.widget.ContentLoadingProgressBar
+                        android:id="@+id/p_point"
+                        style="?android:attr/progressBarStyleLarge"
+                        android:layout_width="140dp"
+                        android:layout_height="24dp"
+                        android:indeterminateTint="@color/x_996449"
+                        app:layout_constraintBottom_toBottomOf="@+id/l_point_detail"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+
                     <TextView
                         android:id="@+id/tv_point_unit"
                         android:layout_width="wrap_content"
@@ -182,6 +205,7 @@
                         android:textColor="@color/x_996449"
                         android:textSize="16dp"
                         android:text="p"
+                        android:visibility="gone"
                         app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintStart_toEndOf="@+id/tv_point"
                         app:layout_constraintEnd_toStartOf="@+id/l_point_detail"
@@ -374,7 +398,7 @@
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            tools:visibility="visible"/>
+                            tools:visibility="gone"/>
 
 
 
@@ -400,6 +424,17 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             tools:visibility="gone"/>
+
+
+                        <androidx.core.widget.ContentLoadingProgressBar
+                            android:id="@+id/p_privilege"
+                            style="?android:attr/progressBarStyleLarge"
+                            android:layout_width="120dp"
+                            android:layout_height="24dp"
+                            android:indeterminateTint="@color/x_996449"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
 
 <!--                        <TextView-->
 <!--                            android:id="@+id/btn_benefit"-->
@@ -513,8 +548,7 @@
                             android:gravity="end"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/tv_insight_expn_unit"
-                            tools:text="999,999,999"/>
+                            app:layout_constraintEnd_toStartOf="@+id/tv_insight_expn_unit"/>
 
 
                         <TextView
@@ -527,7 +561,20 @@
                             android:textColor="@color/x_000000"
                             android:textSize="14dp"
                             android:text="원"
+                            android:visibility="gone"
                             app:layout_constraintBaseline_toBaselineOf="@+id/tv_insight_expn"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+                        <androidx.core.widget.ContentLoadingProgressBar
+                            android:id="@+id/p_insight_expn"
+                            style="?android:attr/progressBarStyleLarge"
+                            android:layout_width="120dp"
+                            android:layout_height="24dp"
+                            android:indeterminateTint="@color/x_996449"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"/>
 
 

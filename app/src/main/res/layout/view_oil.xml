@@ -118,10 +118,24 @@
                 android:textColor="@color/x_ffffff"
                 android:textSize="14dp"
                 android:text="@string/word_home_8"
+                android:visibility="gone"
                 android:background="@drawable/bg_trans_stroke_under_ffffff"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                android:id="@+id/p_gs"
+                style="?android:attr/progressBarStyleLarge"
+                android:visibility="gone"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="14dp"
+                android:indeterminateTint="@color/x_ffffff"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -195,6 +209,7 @@
                 android:gravity="center"
                 android:lineSpacingExtra="6dp"
                 android:textColor="@color/x_ffffff"
+                android:visibility="gone"
                 android:textSize="14dp"
                 android:text="@string/word_home_8"
                 android:background="@drawable/bg_trans_stroke_under_ffffff"
@@ -202,6 +217,20 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                android:id="@+id/p_ho"
+                style="?android:attr/progressBarStyleLarge"
+                android:visibility="gone"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="14dp"
+                android:indeterminateTint="@color/x_ffffff"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -239,8 +268,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="visible"
-                />
+                tools:visibility="gone"/>
 
 
             <TextView
@@ -263,7 +291,7 @@
                 app:layout_constraintStart_toEndOf="@+id/iv_soil"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="32,450p"
-                tools:visibility="visible"/>
+                tools:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tv_integration_soil"
@@ -283,6 +311,20 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="gone"/>
+
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                android:id="@+id/p_soil"
+                style="?android:attr/progressBarStyleLarge"
+                android:visibility="gone"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="14dp"
+                android:indeterminateTint="@color/x_ffffff"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

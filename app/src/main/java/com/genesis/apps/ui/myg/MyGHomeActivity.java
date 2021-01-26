@@ -94,6 +94,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         istViewModel.getRES_IST_1002().observe(this, result -> {
             switch (result.status) {
                 case LOADING:
+                    ui.pInsightExpn.show();
                     break;
                 case SUCCESS:
                     ISTAmtVO current = null;
@@ -109,19 +110,23 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                             e.printStackTrace();
                         }
                         ui.tvInsightExpn.setText(StringUtil.getDigitGroupingString(current.getTotUseAmt()));
+                        ui.tvInsightExpnUnit.setVisibility(View.VISIBLE);
+                        ui.pInsightExpn.hide();
                         break;
                     }
                 default:
                     ui.tvInsightExpn.setText("0");
+                    ui.tvInsightExpnUnit.setVisibility(View.VISIBLE);
+                    ui.pInsightExpn.hide();
                     break;
             }
         });
 
 
         mypViewModel.getRES_MYP_0001().observe(this, result -> {
-            //TODO 예외처리 및 뷰별 로딩처리 필요
             switch (result.status) {
                 case LOADING:
+                    ui.pUser.show();
                     break;
                 case SUCCESS:
                 default:
@@ -129,32 +134,39 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                             ? "--" : String.format(Locale.getDefault(), getString(R.string.word_home_23), result.data.getMbrNm()));
                     ui.tvMail.setText((result.data==null||TextUtils.isEmpty(result.data.getCcspEmail()))
                             ? "--" : result.data.getCcspEmail());
+
+                    ui.btnMyInfo.setVisibility(View.VISIBLE);
+                    ui.pUser.hide();
                     break;
             }
         });
 
         mypViewModel.getRES_MYP_1003().observe(this, result -> {
-            //TODO 예외처리 및 뷰별 로딩처리 필요
             switch (result.status) {
                 case LOADING:
+                    ui.pPoint.show();
                     break;
                 case SUCCESS:
                 default:
                     ui.tvPoint.setText((result.data==null||TextUtils.isEmpty(result.data.getBludMbrPoint()))
                             ? "0" : StringUtil.getDigitGroupingString(result.data.getBludMbrPoint()));
+                    ui.tvPointUnit.setVisibility(View.VISIBLE);
+                    ui.pPoint.hide();
                     break;
             }
         });
 
         mypViewModel.getRES_MYP_1005().observe(this, result -> {
-            //TODO 예외처리 및 로딩처리 필요
             switch (result.status) {
                 case LOADING:
+                    ui.pPrivilege.show();
                     break;
                 case SUCCESS:
                     setPrivilegeLayout(result.data);
+                    ui.pPrivilege.hide();
                     break;
                 default:
+                    ui.pPrivilege.hide();
                     break;
             }
         });
@@ -163,11 +175,14 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
             switch (result.status){
                 case LOADING:
+                    oilView.showPorgessBar(true);
                     break;
                 case SUCCESS:
                     oilView.setOilLayout(result.data);
+                    oilView.showPorgessBar(false);
                     break;
                 default:
+                    oilView.showPorgessBar(false);
                     break;
             }
         });

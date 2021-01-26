@@ -41,6 +41,22 @@ public class OilView {
         setOilLayout(null);
     }
 
+    public void showPorgessBar(boolean isShow){
+        if(isShow) {
+            ui.pGs.setVisibility(View.VISIBLE);
+            ui.pHo.setVisibility(View.VISIBLE);
+            ui.pSoil.setVisibility(View.VISIBLE);
+            ui.pGs.show();
+            ui.pHo.show();
+            ui.pSoil.show();
+        }else{
+            ui.pGs.hide();
+            ui.pHo.hide();
+            ui.pSoil.hide();
+        }
+    }
+
+
     public void setOilLayout(MYP_1006.Response data) {
 
         this.data = data;
