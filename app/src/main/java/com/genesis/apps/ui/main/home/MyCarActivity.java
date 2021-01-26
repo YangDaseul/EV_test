@@ -593,7 +593,14 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
             VehicleVO vehicleVO = getCurrentVehicleVO();
             switch (v.getId()) {
                 case R.id.btn_option:
-                    MiddleDialog.dialogCarOption(this, "임시 작업", null);
+                    if(vehicleVO != null) {
+                        if(vehicleVO.getSaleMdlOptNm() == null || TextUtils.isEmpty(vehicleVO.getSaleMdlOptNm())) {
+                            SnackBarUtil.show(this, "옵션 정보가 없습니다.");
+                        } else {
+                            MiddleDialog.dialogCarOption(this, vehicleVO.getSaleMdlOptNm(), null);
+                        }
+                    }
+
                     break;
                 case R.id.btn_contract://계약서 조회
                     if (vehicleVO != null) {
