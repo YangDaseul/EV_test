@@ -501,6 +501,7 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="40dp"
                         android:background="@color/x_e5e5e5"
+                        android:visibility="gone"
                         app:layout_constraintTop_toBottomOf="@+id/l_privilege"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"/>
@@ -518,6 +519,7 @@
                         android:text="@string/word_home_29"
                         android:textColor="@color/x_000000"
                         android:textSize="20dp"
+                        android:visibility="gone"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/v_line_01"/>
@@ -528,6 +530,7 @@
                     <include
                         android:id="@+id/btn_insight_expn"
                         layout="@layout/item_btn_underline_mark_gold"
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
@@ -548,7 +551,8 @@
                         android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                         app:layout_constraintTop_toBottomOf="@+id/tv_title_insight_expn"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent">
+                        app:layout_constraintRight_toRightOf="parent"
+                        tools:visibility="gone">
 
                         <TextView
                             android:id="@+id/tv_title_insight_expn_info"

@@ -78,11 +78,18 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
     private void reqInsightExpn(){
         if(mainVehicle!=null&&!TextUtils.isEmpty(mainVehicle.getVin())){
+            setInsightExpnLayout(View.VISIBLE);
             istViewModel.reqIST1002(new IST_1002.Request(APPIAInfo.MG01.getId(), "INSGT", "CBK", mainVehicle.getVin()));
         }else{
-            ui.tvInsightExpn.setText("0");
-            ui.tvInsightExpnUnit.setVisibility(View.VISIBLE);
+            setInsightExpnLayout(View.GONE);
         }
+    }
+
+    private void setInsightExpnLayout(int visibility){
+        ui.btnInsightExpn.lWhole.setVisibility(visibility);
+        ui.lInsightExpnInfo.setVisibility(visibility);
+        ui.tvTitleInsightExpn.setVisibility(visibility);
+        ui.vLine01.setVisibility(visibility);
     }
 
     @Override
