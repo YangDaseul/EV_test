@@ -152,6 +152,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 }
             }
 
+            ((MainActivity) getActivity()).setTab(dayCd);
+
             try {
                 MessageVO weather = cmnViewModel.getHomeWeatherInsight(weatherCodes);
                 if (weather != null) {
