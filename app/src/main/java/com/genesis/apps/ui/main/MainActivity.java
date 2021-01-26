@@ -330,8 +330,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
      */
     public void setTab(int dayCd) {
         ui.tabs.removeAllTabs();
-        ui.tabs.setBackgroundColor(dayCd == 1 ? getColor(R.color.x_ffffff) : getColor(R.color.x_000000));
-
+        ui.tabs.setBackgroundResource(dayCd == 1 ? R.drawable.bg_ffffff_topline_f8f8f8 : R.drawable.bg_000000_topline_262626);
         new TabLayoutMediator(ui.tabs, ui.viewpager, (tab, position) -> {
 
         }).attach();

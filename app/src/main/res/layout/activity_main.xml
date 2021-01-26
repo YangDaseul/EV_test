@@ -45,7 +45,7 @@
             android:id="@+id/tabs"
             android:layout_width="0dp"
             android:layout_height="64dp"
-            android:background="@color/x_000000"
+            android:background="@drawable/bg_000000_topline_262626"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
