@@ -25,7 +25,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:value="@{@string/title_home}"/>
+            app:value="@{@string/title_home}"
+            app:iconId="@{@drawable/ic_store_b}"/>
 
         <ScrollView
             android:layout_width="0dp"
@@ -87,10 +88,22 @@
                     android:textColor="@color/x_000000"
                     android:textSize="14dp"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    android:visibility="gone"
                     app:layout_constraintTop_toTopOf="@+id/tv_name"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_mail"
                     app:layout_constraintEnd_toEndOf="@+id/tv_greetings" />
-
+                <TextView
+                    android:id="@+id/tv_user_connect_error"
+                    style="@style/CommonLoadingErrorText"
+                    app:layout_constraintTop_toTopOf="@+id/tv_name"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_mail"
+                    app:layout_constraintStart_toStartOf="@+id/tv_greetings"/>
+                <TextView
+                    android:id="@+id/tv_user_retry"
+                    style="@style/CommonLoadingRetryText"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_user_connect_error"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_greetings"/>
                 <TextView
                     android:id="@+id/tv_mail"
                     android:layout_width="0dp"
@@ -108,6 +121,18 @@
                     app:layout_constraintStart_toStartOf="@+id/tv_greetings"
                     app:layout_constraintTop_toBottomOf="@+id/tv_name"
                     tools:text="kim.genesis@genesis.com" />
+
+
+                <androidx.core.widget.ContentLoadingProgressBar
+                    android:id="@+id/p_user"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="140dp"
+                    android:layout_height="24dp"
+                    android:indeterminateTint="@color/x_996449"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_mail"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_name" />
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -172,6 +197,16 @@
                         tools:text="32,450"/>
 
 
+                    <androidx.core.widget.ContentLoadingProgressBar
+                        android:id="@+id/p_point"
+                        style="?android:attr/progressBarStyleLarge"
+                        android:layout_width="140dp"
+                        android:layout_height="24dp"
+                        android:indeterminateTint="@color/x_996449"
+                        app:layout_constraintBottom_toBottomOf="@+id/l_point_detail"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+
                     <TextView
                         android:id="@+id/tv_point_unit"
                         android:layout_width="wrap_content"
@@ -182,10 +217,28 @@
                         android:textColor="@color/x_996449"
                         android:textSize="16dp"
                         android:text="p"
+                        android:visibility="gone"
                         app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintStart_toEndOf="@+id/tv_point"
                         app:layout_constraintEnd_toStartOf="@+id/l_point_detail"
                         app:layout_constraintBaseline_toBaselineOf="@+id/tv_point"/>
+
+
+
+                    <TextView
+                        android:id="@+id/tv_point_connect_error"
+                        style="@style/CommonLoadingErrorText"
+                        android:layout_marginTop="48dp"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_title_point"
+                        app:layout_constraintStart_toStartOf="@+id/tv_title_point"
+                        tools:visibility="visible"/>
+                    <TextView
+                        android:id="@+id/tv_point_retry"
+                        style="@style/CommonLoadingRetryText"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/tv_point_connect_error"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_title_membership"
+                        tools:visibility="visible"/>
 
 
                     <!-- 자세히 보기 버튼 -->
@@ -374,7 +427,7 @@
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            tools:visibility="visible"/>
+                            tools:visibility="gone"/>
 
 
 
@@ -400,6 +453,17 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             tools:visibility="gone"/>
+
+
+                        <androidx.core.widget.ContentLoadingProgressBar
+                            android:id="@+id/p_privilege"
+                            style="?android:attr/progressBarStyleLarge"
+                            android:layout_width="120dp"
+                            android:layout_height="24dp"
+                            android:indeterminateTint="@color/x_996449"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
 
 <!--                        <TextView-->
 <!--                            android:id="@+id/btn_benefit"-->
@@ -437,6 +501,7 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="40dp"
                         android:background="@color/x_e5e5e5"
+                        android:visibility="gone"
                         app:layout_constraintTop_toBottomOf="@+id/l_privilege"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"/>
@@ -454,6 +519,7 @@
                         android:text="@string/word_home_29"
                         android:textColor="@color/x_000000"
                         android:textSize="20dp"
+                        android:visibility="gone"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/v_line_01"/>
@@ -464,6 +530,7 @@
                     <include
                         android:id="@+id/btn_insight_expn"
                         layout="@layout/item_btn_underline_mark_gold"
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
@@ -484,7 +551,8 @@
                         android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                         app:layout_constraintTop_toBottomOf="@+id/tv_title_insight_expn"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent">
+                        app:layout_constraintRight_toRightOf="parent"
+                        tools:visibility="gone">
 
                         <TextView
                             android:id="@+id/tv_title_insight_expn_info"
@@ -496,9 +564,10 @@
                             android:text="@string/word_home_30"
                             android:textColor="@color/x_996449"
                             android:textSize="14dp"
+                            app:layout_constraintVertical_chainStyle="packed"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
+                            app:layout_constraintBottom_toTopOf="@+id/tv_expn_connect_error"/>
 
 
                         <TextView
@@ -507,15 +576,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="3dp"
                             android:fontFamily="@font/light_genesissansheadglobal"
-                            android:letterSpacing="-0.01"
                             android:lineSpacingExtra="0dp"
                             android:textColor="@color/x_000000"
                             android:textSize="24dp"
                             android:gravity="end"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/tv_insight_expn_unit"
-                            tools:text="999,999,999"/>
+                            app:layout_constraintEnd_toStartOf="@+id/tv_insight_expn_unit"/>
 
 
                         <TextView
@@ -528,8 +595,40 @@
                             android:textColor="@color/x_000000"
                             android:textSize="14dp"
                             android:text="원"
+                            android:visibility="gone"
                             app:layout_constraintBaseline_toBaselineOf="@+id/tv_insight_expn"
                             app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+                        <androidx.core.widget.ContentLoadingProgressBar
+                            android:id="@+id/p_insight_expn"
+                            style="?android:attr/progressBarStyleLarge"
+                            android:layout_width="120dp"
+                            android:layout_height="24dp"
+                            android:indeterminateTint="@color/x_996449"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+                        <TextView
+                            android:id="@+id/tv_expn_connect_error"
+                            style="@style/CommonLoadingErrorText"
+                            android:layout_marginTop="5dp"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_title_insight_expn_info"
+                            app:layout_constraintStart_toStartOf="@+id/tv_title_insight_expn_info"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            tools:visibility="visible"/>
+                        <TextView
+                            android:id="@+id/tv_expn_retry"
+                            style="@style/CommonLoadingRetryText"
+                            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            tools:visibility="visible"/>
+
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -252,7 +252,6 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
         }
         ui.btnBlock.setVisibility(View.INVISIBLE);
         ui.btnNext.setEnabled(true);
-        //TODO 약관동의 요청하는 부분 추가 필요
     }
 
     private void addTermToLayout(List<TermOilVO> termList){
@@ -291,15 +290,17 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
                 //오일뱅크일 경우 수신동의 시에 대한 안내 문구 제거
                 if(oilRfnCd.equalsIgnoreCase(OilPointVO.OIL_CODE_HDOL)){
                     itemTermOilBinding.tvAgreeInfo.setVisibility(View.GONE);
-                    itemTermOilBinding.ivArrow.setImageResource(R.drawable.btn_accodian_open);
+                    itemTermOilBinding.lHoTerm.setVisibility(View.VISIBLE);
+                    itemTermOilBinding.ivArrow.setImageResource(R.drawable.btn_accodian_close);
                 }else{
                     itemTermOilBinding.tvAgreeInfo.setVisibility(View.VISIBLE);
+                    itemTermOilBinding.lHoTerm.setVisibility(View.GONE);
                     itemTermOilBinding.ivArrow.setVisibility(View.INVISIBLE);
                 }
 //                itemTermOilBinding.tvAgreeInfo.setVisibility(oilRfnCd.equalsIgnoreCase(OilPointVO.OIL_CODE_HDOL) ? View.GONE : View.VISIBLE);
 //                itemTermOilBinding.ivArrow.setImageResource(oilRfnCd.equalsIgnoreCase(OilPointVO.OIL_CODE_HDOL) ? R.drawable.btn_accodian_open : null);
 
-                hoTermLayout = itemTermOilBinding.lHoTerm;
+                hoTermLayout = itemTermOilBinding.lAgree;
                 hoTermArrow = itemTermOilBinding.ivArrow;
                 marketingCb = itemTermOilBinding.cb;
                 try {
@@ -381,8 +382,23 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
         if(compoundButton.isPressed()) {
             setCheckBoxsAll(b);
             checkAgree();
+            checkMarketing(b);
         }
     };
+
+    private void checkMarketing(boolean b) {
+        try {
+            if(marketingCheckBox!=null) {
+                marketingCheckBox.setCheckEmail(b);
+                marketingCheckBox.setCheckDm(b);
+                marketingCheckBox.setCheckSms(b);
+                marketingCheckBox.setCheckPhone(b);
+                marketingCb.setChecked(b);
+            }
+        }catch (Exception ignore){
+
+        }
+    }
 
     public class MarketingCheckBox {
         private CheckBox cbSms;
@@ -459,15 +475,12 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
     };
 
     CompoundButton.OnCheckedChangeListener marketingListenerAll = (compoundButton, b) -> {
-//        if(compoundButton.isPressed()) {
+        if(compoundButton.isPressed()) {
             marketingCheckBox.setCheckEmail(b);
             marketingCheckBox.setCheckDm(b);
             marketingCheckBox.setCheckSms(b);
             marketingCheckBox.setCheckPhone(b);
-
-            setCheckBoxsAll();
-            checkAgree();
-//        }
+        }
     };
 
 }

@@ -41,14 +41,43 @@ public class OilView {
         setOilLayout(null);
     }
 
+    public void showPorgessBar(boolean isShow){
+        if(isShow) {
+            ui.btnBarcodeGs.setVisibility(View.GONE);
+            ui.tvPointGs.setVisibility(View.GONE);
+            ui.btnBarcodeHo.setVisibility(View.GONE);
+            ui.tvPointHo.setVisibility(View.GONE);
+            ui.btnBarcodeSoil.setVisibility(View.GONE);
+            ui.tvPointSoil.setVisibility(View.GONE);
+            ui.tvIntegrationGs.setVisibility(View.GONE);
+            ui.tvIntegrationHo.setVisibility(View.GONE);
+            ui.tvIntegrationSoil.setVisibility(View.GONE);
+            ui.pGs.setVisibility(View.VISIBLE);
+            ui.pHo.setVisibility(View.VISIBLE);
+            ui.pSoil.setVisibility(View.VISIBLE);
+            ui.pGs.show();
+            ui.pHo.show();
+            ui.pSoil.show();
+        }else{
+            ui.pGs.hide();
+            ui.pHo.hide();
+            ui.pSoil.hide();
+        }
+    }
+
+    public void showErrorLayout(int visibility) {
+        ui.lError.setVisibility(visibility);
+    }
+
+
     public void setOilLayout(MYP_1006.Response data) {
 
         this.data = data;
 
         ui.tvOil.setText((data != null && data.getOilRfnPontList() != null) ? data.getOilRfnPontList().size() + "" : "0");
 
-        ViewPressEffectHelper.attaches(ui.tvIntegrationGs, ui.tvIntegrationHo, ui.tvIntegrationSk, ui.tvIntegrationSoil
-                , ui.btnBarcodeGs, ui.btnBarcodeHo, ui.btnBarcodeSk, ui.btnBarcodeSoil);
+        ViewPressEffectHelper.attaches(ui.tvIntegrationGs, ui.tvIntegrationHo, ui.tvIntegrationSoil
+                , ui.btnBarcodeGs, ui.btnBarcodeHo,  ui.btnBarcodeSoil);
 
         if (data == null || data.getOilRfnPontList() == null || data.getOilRfnPontList().size() < 1) {
 
@@ -56,24 +85,21 @@ public class OilView {
             ui.tvPointGs.setVisibility(View.GONE);
             ui.btnBarcodeHo.setVisibility(View.GONE);
             ui.tvPointHo.setVisibility(View.GONE);
-            ui.btnBarcodeSk.setVisibility(View.GONE);
-            ui.tvPointSk.setVisibility(View.GONE);
             ui.btnBarcodeSoil.setVisibility(View.GONE);
             ui.tvPointSoil.setVisibility(View.GONE);
+            ui.tvIntegrationGs.setVisibility(View.VISIBLE);
+            ui.tvIntegrationHo.setVisibility(View.VISIBLE);
+            ui.tvIntegrationSoil.setVisibility(View.VISIBLE);
 
-//            //TODO 2021-01-04 임시 숨김 처리 진행
+
+            //            //TODO 2021-01-04 임시 숨김 처리 진행
 //            ui.lParent.setVisibility(View.GONE);
 //            ui.lGs.setVisibility(View.GONE);
 //            ui.lHo.setVisibility(View.GONE);
 //            ui.lSoil.setVisibility(View.GONE);
 //            ui.lSk.setVisibility(View.GONE);
-
-
-            ui.tvIntegrationGs.setVisibility(View.VISIBLE);
-            ui.tvIntegrationHo.setVisibility(View.VISIBLE);
-            ui.tvIntegrationSk.setVisibility(View.VISIBLE);
-            ui.tvIntegrationSoil.setVisibility(View.VISIBLE);
         } else {
+            setIntegrationView(data.getOilRfnPontList());
             for (int i = 0; i < data.getOilRfnPontList().size(); i++) {
                 switch (data.getOilRfnPontList().get(i).getOilRfnCd()) {
                     case OilPointVO.OIL_CODE_SOIL:
@@ -85,19 +111,38 @@ public class OilView {
                         setOilView(data.getOilRfnPontList().get(i), ui.btnBarcodeGs, ui.tvPointGs, ui.tvIntegrationGs);
                         break;
                     case OilPointVO.OIL_CODE_HDOL:
+                    default:
                         ui.lHo.setVisibility(View.VISIBLE);
                         setOilView(data.getOilRfnPontList().get(i), ui.btnBarcodeHo, ui.tvPointHo, ui.tvIntegrationHo);
-                        break;
-                    case OilPointVO.OIL_CODE_SKNO:
-                        ui.lSk.setVisibility(View.VISIBLE);
-                        setOilView(data.getOilRfnPontList().get(i), ui.btnBarcodeSk, ui.tvPointSk, ui.tvIntegrationSk);
-                        break;
-                    default:
                         break;
                 }
             }
         }
     }
+
+    /**
+     * 서버에서 데이터가 없을 때 리스트를 주지 않을 때가 있어
+     * 리스트가 없을 경우 연동하기 버튼을 무조건 활성화
+     * @param oilRfnPontList
+     */
+    private void setIntegrationView(List<OilPointVO> oilRfnPontList) {
+        if(oilRfnPontList==null||oilRfnPontList.size()<1){
+            ui.tvIntegrationGs.setVisibility(View.VISIBLE);
+            ui.tvIntegrationHo.setVisibility(View.VISIBLE);
+            ui.tvIntegrationSoil.setVisibility(View.VISIBLE);
+        }else{
+            if(oilRfnPontList.stream().filter(data->data.getOilRfnCd().equalsIgnoreCase(OilPointVO.OIL_CODE_SOIL)).findAny().orElse(null)==null){
+                ui.tvIntegrationSoil.setVisibility(View.VISIBLE);
+            }
+            if(oilRfnPontList.stream().filter(data->data.getOilRfnCd().equalsIgnoreCase(OilPointVO.OIL_CODE_HDOL)).findAny().orElse(null)==null){
+                ui.tvIntegrationHo.setVisibility(View.VISIBLE);
+            }
+            if(oilRfnPontList.stream().filter(data->data.getOilRfnCd().equalsIgnoreCase(OilPointVO.OIL_CODE_GSCT)).findAny().orElse(null)==null){
+                ui.tvIntegrationGs.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
 
     public void setOilView(OilPointVO data, View barcode, TextView point, View integration) {
         switch (data.getRgstYn()) {

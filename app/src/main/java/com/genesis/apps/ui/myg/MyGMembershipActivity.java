@@ -119,7 +119,7 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
             if(result.data==null||result.data.size()<1){
                 setEmptyCardView();
             }else{
-                ui.btnPassword.setVisibility(View.VISIBLE);
+//                ui.btnPassword.setVisibility(View.VISIBLE); //todo 임시 히든 처리 2021-01-26 오픈 후 변경 예정
                 ui.btnQuestion.setVisibility(View.VISIBLE);
                 ui.tvEmptyCard.setVisibility(View.GONE);
                 ui.viewpager.setOffscreenPageLimit(result.data.size());

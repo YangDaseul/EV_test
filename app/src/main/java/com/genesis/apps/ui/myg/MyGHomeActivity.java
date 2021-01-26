@@ -10,6 +10,7 @@ import android.webkit.WebView;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.IST_1002;
 import com.genesis.apps.comm.model.api.gra.MYP_0001;
 import com.genesis.apps.comm.model.api.gra.MYP_1003;
 import com.genesis.apps.comm.model.api.gra.MYP_1005;
@@ -19,18 +20,21 @@ import com.genesis.apps.comm.model.constants.OilCodes;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.StoreInfo;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.ISTAmtVO;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.model.vo.PrivilegeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
+import com.genesis.apps.comm.viewmodel.ISTViewModel;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.viewmodel.OILViewModel;
 import com.genesis.apps.databinding.ActivityMygHomeBinding;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
+import com.genesis.apps.ui.main.insight.InsightExpnMainActivity;
 import com.genesis.apps.ui.main.store.StoreWebActivity;
 import com.genesis.apps.ui.myg.view.FamilyAppHorizontalAdapter;
 import com.genesis.apps.ui.myg.view.OilView;
@@ -48,6 +52,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
     private MYPViewModel mypViewModel;
     private OILViewModel oilViewModel;
+    private ISTViewModel istViewModel;
     private OilView oilView;
     private VehicleVO mainVehicle;
     private FamilyAppHorizontalAdapter adapter;
@@ -68,6 +73,23 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     protected void onResume() {
         super.onResume();
         mypViewModel.reqMYP1005(new MYP_1005.Request(APPIAInfo.MG01.getId(), ""));
+        reqInsightExpn();
+    }
+
+    private void reqInsightExpn(){
+        if(mainVehicle!=null&&!TextUtils.isEmpty(mainVehicle.getVin())){
+            setInsightExpnLayout(View.VISIBLE);
+            istViewModel.reqIST1002(new IST_1002.Request(APPIAInfo.MG01.getId(), "INSGT", "CBK", mainVehicle.getVin()));
+        }else{
+            setInsightExpnLayout(View.GONE);
+        }
+    }
+
+    private void setInsightExpnLayout(int visibility){
+        ui.btnInsightExpn.lWhole.setVisibility(visibility);
+        ui.lInsightExpnInfo.setVisibility(visibility);
+        ui.tvTitleInsightExpn.setVisibility(visibility);
+        ui.vLine01.setVisibility(visibility);
     }
 
     @Override
@@ -75,48 +97,128 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         ui.setLifecycleOwner(this);
         mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
         oilViewModel = new ViewModelProvider(this).get(OILViewModel.class);
+        istViewModel = new ViewModelProvider(this).get(ISTViewModel.class);
     }
 
     @Override
     public void setObserver() {
 
-        mypViewModel.getRES_MYP_0001().observe(this, result -> {
-            //TODO 예외처리 및 뷰별 로딩처리 필요
+        istViewModel.getRES_IST_1002().observe(this, result -> {
             switch (result.status) {
                 case LOADING:
+                    ui.tvInsightExpnUnit.setVisibility(View.INVISIBLE);
+                    ui.tvInsightExpn.setVisibility(View.INVISIBLE);
+                    ui.tvExpnConnectError.setVisibility(View.GONE);
+                    ui.tvExpnRetry.setVisibility(View.GONE);
+                    ui.pInsightExpn.show();
                     break;
                 case SUCCESS:
+                    ISTAmtVO current = null;
+                    if (result.data != null
+                            &&result.data.getRtCd().equalsIgnoreCase("0000")
+                            &&result.data.getCurrMthAmt()!=null
+                            &&result.data.getCurrMthAmt().size()>0
+                            &&!TextUtils.isEmpty(result.data.getCurrMthAmt().get(0).getTotUseAmt())) {
+                        try {
+                            current = ((ISTAmtVO)result.data.getCurrMthAmt().get(0).clone());
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        ui.tvInsightExpn.setText(StringUtil.getDigitGroupingString(current.getTotUseAmt()));
+                        ui.tvInsightExpn.setVisibility(View.VISIBLE);
+                        ui.tvInsightExpnUnit.setVisibility(View.VISIBLE);
+                        ui.tvExpnConnectError.setVisibility(View.GONE);
+                        ui.tvExpnRetry.setVisibility(View.GONE);
+                        ui.pInsightExpn.hide();
+                        break;
+                    }
                 default:
+                    ui.tvInsightExpnUnit.setVisibility(View.INVISIBLE);
+                    ui.tvInsightExpn.setVisibility(View.INVISIBLE);
+                    ui.tvExpnConnectError.setVisibility(View.VISIBLE);
+                    ui.tvExpnRetry.setVisibility(View.VISIBLE);
+                    ui.pInsightExpn.hide();
+                    break;
+            }
+        });
+
+
+        mypViewModel.getRES_MYP_0001().observe(this, result -> {
+            switch (result.status) {
+                case LOADING:
+                    ui.tvName.setVisibility(View.INVISIBLE);
+                    ui.tvMail.setVisibility(View.INVISIBLE);
+                    ui.btnMyInfo.setVisibility(View.INVISIBLE);
+                    ui.tvUserRetry.setVisibility(View.GONE);
+                    ui.tvUserConnectError.setVisibility(View.GONE);
+                    ui.pUser.show();
+                    break;
+                case SUCCESS:
                     ui.tvName.setText((result.data==null||TextUtils.isEmpty(result.data.getMbrNm()))
                             ? "--" : String.format(Locale.getDefault(), getString(R.string.word_home_23), result.data.getMbrNm()));
                     ui.tvMail.setText((result.data==null||TextUtils.isEmpty(result.data.getCcspEmail()))
                             ? "--" : result.data.getCcspEmail());
+
+                    ui.tvName.setVisibility(View.VISIBLE);
+                    ui.tvMail.setVisibility(View.VISIBLE);
+                    ui.btnMyInfo.setVisibility(View.VISIBLE);
+                    ui.tvUserRetry.setVisibility(View.GONE);
+                    ui.tvUserConnectError.setVisibility(View.GONE);
+                    ui.pUser.hide();
+                    break;
+                default:
+                    ui.tvName.setVisibility(View.INVISIBLE);
+                    ui.tvMail.setVisibility(View.INVISIBLE);
+                    ui.btnMyInfo.setVisibility(View.INVISIBLE);
+                    ui.tvUserConnectError.setVisibility(View.VISIBLE);
+                    ui.tvUserRetry.setVisibility(View.VISIBLE);
+                    ui.pUser.hide();
                     break;
             }
         });
 
         mypViewModel.getRES_MYP_1003().observe(this, result -> {
-            //TODO 예외처리 및 뷰별 로딩처리 필요
             switch (result.status) {
                 case LOADING:
+                    ui.tvPointUnit.setVisibility(View.INVISIBLE);
+                    ui.tvPoint.setVisibility(View.INVISIBLE);
+                    ui.lPointDetail.lWhole.setVisibility(View.VISIBLE);
+                    ui.tvPointConnectError.setVisibility(View.GONE);
+                    ui.tvPointRetry.setVisibility(View.GONE);
+                    ui.pPoint.show();
                     break;
                 case SUCCESS:
-                default:
                     ui.tvPoint.setText((result.data==null||TextUtils.isEmpty(result.data.getBludMbrPoint()))
-                            ? "0" : String.format(Locale.getDefault(), getString(R.string.word_home_24), StringUtil.getDigitGroupingString(result.data.getBludMbrPoint())));
+                            ? "0" : StringUtil.getDigitGroupingString(result.data.getBludMbrPoint()));
+                    ui.tvPointUnit.setVisibility(View.VISIBLE);
+                    ui.tvPoint.setVisibility(View.VISIBLE);
+                    ui.lPointDetail.lWhole.setVisibility(View.VISIBLE);
+                    ui.tvPointConnectError.setVisibility(View.GONE);
+                    ui.tvPointRetry.setVisibility(View.GONE);
+                    ui.pPoint.hide();
+                    break;
+                default:
+                    ui.tvPointUnit.setVisibility(View.INVISIBLE);
+                    ui.tvPoint.setVisibility(View.INVISIBLE);
+                    ui.lPointDetail.lWhole.setVisibility(View.INVISIBLE);
+                    ui.tvPointConnectError.setVisibility(View.VISIBLE);
+                    ui.tvPointRetry.setVisibility(View.VISIBLE);
+                    ui.pPoint.hide();
                     break;
             }
         });
 
         mypViewModel.getRES_MYP_1005().observe(this, result -> {
-            //TODO 예외처리 및 로딩처리 필요
             switch (result.status) {
                 case LOADING:
+                    ui.pPrivilege.show();
                     break;
                 case SUCCESS:
                     setPrivilegeLayout(result.data);
+                    ui.pPrivilege.hide();
                     break;
                 default:
+                    ui.pPrivilege.hide();
                     break;
             }
         });
@@ -125,11 +227,17 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
             switch (result.status){
                 case LOADING:
+                    oilView.showErrorLayout(View.GONE);
+                    oilView.showPorgessBar(true);
                     break;
                 case SUCCESS:
                     oilView.setOilLayout(result.data);
+                    oilView.showErrorLayout(View.GONE);
+                    oilView.showPorgessBar(false);
                     break;
                 default:
+                    oilView.showErrorLayout(View.VISIBLE);
+                    oilView.showPorgessBar(false);
                     break;
             }
         });
@@ -160,39 +268,6 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     break;
             }
         });
-
-
-//        mypViewModel.getRES_MYP_8001().observe(this, result -> {
-//            switch (result.status) {
-//                case LOADING:
-//                    showProgressDialog(true);
-//                    break;
-//                case SUCCESS:
-//                    if (result.data != null&&result.data.getTermList()!=null&&result.data.getTermList().size()>0) {
-//                        startActivitySingleTop(new Intent(this, ServiceTermDetailActivity.class)
-//                                        .putExtra(VariableType.KEY_NAME_TERM_VO, result.data.getTermList().get(0))
-//                                        .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, result.data.getTermList().get(0).getTermNm())
-//                                , RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                        showProgressDialog(false);
-//                        break;
-//                    }
-//                default:
-//                    showProgressDialog(false);
-//                    String serverMsg = "";
-//                    try {
-//                        serverMsg = result.data.getRtMsg();
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    } finally {
-//                        if (TextUtils.isEmpty(serverMsg)) {
-//                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
-//                        }
-//                        SnackBarUtil.show(this, serverMsg);
-//                    }
-//                    break;
-//            }
-//        });
-
     }
 
     @Override
@@ -209,6 +284,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         oilView = new OilView(ui.lOil, v -> onSingleClickListener.onClick(v), oilViewModel);
         ui.setActivity(this);
         ui.setOilView(oilView);
+        ui.lTitle.ivTitlebarImgBtn.setOnClickListener(onSingleClickListener);
         setCallCenter();
         initFamilyApp();
         ui.tvVersion.setText("V"+PackageUtil.changeVersionToAppFormat(PackageUtil.getApplicationVersionName(this, getPackageName())));
@@ -224,11 +300,9 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         ui.rcFamilyApp.setAdapter(adapter);
     }
 
-    //TODO 로딩 처리 필요..
     private void reqData() {
         mypViewModel.reqMYP0001(new MYP_0001.Request(APPIAInfo.MG01.getId()));
         mypViewModel.reqMYP1003(new MYP_1003.Request(APPIAInfo.MG01.getId()));
-//        mypViewModel.reqMYP1005(new MYP_1005.Request(APPIAInfo.MG01.getId(), "")); 프리빌리지 신청 완료 후 때문에 onResume에서 처리
         mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
     }
 
@@ -312,15 +386,14 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         Log.v("test duplicate", "id:" + v.getId());
         if (v != null) {
             switch (v.getId()) {
-                case R.id.btn_search:
-                    startActivitySingleTop(new Intent(this, MyGMenuActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                case R.id.btn_insight_expn://인사이트 자세히 보기
+                    startActivitySingleTop(new Intent(this, InsightExpnMainActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.btn_my_info: //내정보보기
                     startActivitySingleTop(new Intent(this, MyGGAActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.l_store:
                     startActivitySingleTop(new Intent(this, StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, StoreInfo.STORE_PURCHASE_URL), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-
                     break;
                 case R.id.l_point_detail: //블루멤버스 사용 가능 포인트
                     startActivitySingleTop(new Intent(this, MyGMembershipActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
@@ -423,6 +496,25 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     PackageUtil.runApp(this, v.getTag(R.id.url).toString());
                     break;
 
+                case R.id.tv_user_retry://사용자 정보 다시 시도
+                    mypViewModel.reqMYP0001(new MYP_0001.Request(APPIAInfo.MG01.getId()));
+                    break;
+                case R.id.tv_point_retry:
+                    mypViewModel.reqMYP1003(new MYP_1003.Request(APPIAInfo.MG01.getId()));
+                    break;
+                case R.id.tv_expn_retry:
+                    reqInsightExpn();
+                    break;
+                case R.id.tv_oil_retry:
+                    mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
+                    break;
+                case R.id.iv_titlebar_img_btn:
+                    try {
+                        loginChk(StoreInfo.STORE_CART_URL, mypViewModel.getUserInfoFromDB().getCustGbCd());
+                    }catch (Exception ignore){
+
+                    }
+                    break;
             }
         }
 

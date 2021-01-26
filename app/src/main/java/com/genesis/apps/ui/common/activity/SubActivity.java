@@ -2,6 +2,7 @@ package com.genesis.apps.ui.common.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,11 +18,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.databinding.ActivityBaseBinding;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.main.service.CarWashFindSonaxBranchFragment;
+import com.genesis.apps.ui.main.store.StoreWebActivity;
+import com.genesis.apps.ui.myg.MyGEntranceActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -301,5 +307,17 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         return address;
     }
 
+
+    public void loginChk(String url, String custGbCd) {
+        if (!TextUtils.isEmpty(custGbCd) && !custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)) {
+            startActivitySingleTop(new Intent(this, StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, url), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        } else {
+            MiddleDialog.dialogLogin(this, () -> {
+                startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+            }, () -> {
+
+            });
+        }
+    }
 
 }

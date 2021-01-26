@@ -35,6 +35,7 @@ import com.genesis.apps.ui.main.store.FragmentStore;
 import com.genesis.apps.ui.main.store.StoreWebActivity;
 import com.genesis.apps.ui.myg.MyGEntranceActivity;
 import com.genesis.apps.ui.myg.MyGHomeActivity;
+import com.genesis.apps.ui.myg.MyGMenuActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import androidx.annotation.Nullable;
@@ -153,18 +154,28 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 //                }
                 break;
             case R.id.btn_search:
-
+                startActivitySingleTop(new Intent(this, MyGMenuActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.btn_cart_list:
-                loginChk(StoreInfo.STORE_PURCHASE_URL);
-
+                try {
+                    loginChk(StoreInfo.STORE_PURCHASE_URL, lgnViewModel.getUserInfoFromDB().getCustGbCd());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 break;
             case R.id.btn_store_cart:
-                loginChk(StoreInfo.STORE_CART_URL);
+                try {
+                    loginChk(StoreInfo.STORE_CART_URL, lgnViewModel.getUserInfoFromDB().getCustGbCd());
+                }catch (Exception ignore){
 
+                }
                 break;
             case R.id.btn_store_search:
-                loginChk(StoreInfo.STORE_SEARCH_URL);
+                try {
+                    loginChk(StoreInfo.STORE_SEARCH_URL, lgnViewModel.getUserInfoFromDB().getCustGbCd());
+                }catch (Exception e){
+
+                }
 
                 break;
         }
@@ -360,30 +371,6 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             ui.lGnb.setIsBgWhite(isBgWhite);
         }catch (Exception e){
             e.printStackTrace();
-        }
-    }
-
-    private void loginChk(String url) {
-        String custGbCd="";
-        try {
-            custGbCd = lgnViewModel.getUserInfoFromDB().getCustGbCd();
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally{
-            if(!TextUtils.isEmpty(custGbCd)&&!custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)){
-                startActivitySingleTop(new Intent(this, StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, url), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-//                    if (fragment instanceof FragmentStore) {
-//                        ((FragmentStore) fragment).loadUrl(url);
-//                    }
-//                }
-            } else {
-                MiddleDialog.dialogLogin(this, () -> {
-                    startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                }, () -> {
-
-                });
-            }
         }
     }
 

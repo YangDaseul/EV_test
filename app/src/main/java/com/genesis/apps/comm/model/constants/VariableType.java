@@ -72,6 +72,11 @@ public class VariableType {
                 return QUICK_MENU_CODE_NONE;
         }
     }
+    public static final int QUICK_MENU_CATEGORY_HOME=0;
+    public static final int QUICK_MENU_CATEGORY_INSIGHT=1;
+    public static final int QUICK_MENU_CATEGORY_SERVICE=2;
+    public static final int QUICK_MENU_CATEGORY_MYG=3;
+    public static final int QUICK_MENU_CATEGORY_NONE=10;
 
 
 
