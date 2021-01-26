@@ -23,6 +23,7 @@ import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityMainBinding;
 import com.genesis.apps.databinding.ItemTabBinding;
+import com.genesis.apps.databinding.ItemTabDayBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
@@ -150,6 +151,13 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 //                }catch (Exception ignore){
 //                    ignore.printStackTrace();
 //                }
+                break;
+            case R.id.btn_search:
+
+                break;
+            case R.id.btn_cart_list:
+                loginChk(StoreInfo.STORE_PURCHASE_URL);
+
                 break;
             case R.id.btn_store_cart:
                 loginChk(StoreInfo.STORE_CART_URL);
@@ -283,11 +291,11 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     }
 
     private final int TAB_INFO[][]={
-            {R.string.main_word_1, R.drawable.ic_tabbar_home},
-            {R.string.main_word_2, R.drawable.ic_tabbar_insight},
-            {R.string.main_word_3, R.drawable.ic_tabbar_service},
-            {R.string.main_word_5, R.drawable.ic_tabbar_store},
-            {R.string.main_word_4, R.drawable.ic_tabbar_contents}
+            {R.string.main_word_1, R.drawable.ic_tabbar_home_bs},
+            {R.string.main_word_2, R.drawable.ic_tabbar_insight_w},
+            {R.string.main_word_3, R.drawable.ic_tabbar_service_w},
+            {R.string.main_word_5, R.drawable.ic_tabbar_store_w},
+            {R.string.main_word_4, R.drawable.ic_tabbar_contents_w}
     };
 
     private void setTabView(){
@@ -301,6 +309,39 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             final View view = itemTabBinding.getRoot();
             itemTabBinding.tvTab.setText(TAB_INFO[i][0]);
             itemTabBinding.ivTab.setImageResource(TAB_INFO[i][1]);
+            ui.tabs.getTabAt(i).setCustomView(view);
+        }
+    }
+
+    /**
+     *
+     * @param dayCd 낮 : 1 , 밤 : 2
+     */
+    public void setTab(int dayCd) {
+        ui.tabs.removeAllTabs();
+        ui.tabs.setBackgroundColor(dayCd == 1 ? getColor(R.color.x_ffffff) : getColor(R.color.x_000000));
+
+        new TabLayoutMediator(ui.tabs, ui.viewpager, (tab, position) -> {
+
+        }).attach();
+
+        for(int i=0 ; i<pageNum; i++) {
+            final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = null;
+            if(dayCd == 1) {
+                final ItemTabDayBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_tab_day, null, false);
+
+                view = binding.getRoot();
+                binding.tvTab.setText(TAB_INFO[i][0]);
+                binding.ivTab.setImageResource(TAB_INFO[i][1]);
+            } else {
+                final ItemTabBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_tab, null, false);
+
+                view = binding.getRoot();
+                binding.tvTab.setText(TAB_INFO[i][0]);
+                binding.ivTab.setImageResource(TAB_INFO[i][1]);
+            }
+
             ui.tabs.getTabAt(i).setCustomView(view);
         }
     }

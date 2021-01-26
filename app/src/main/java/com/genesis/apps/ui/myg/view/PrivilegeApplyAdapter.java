@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.PrivilegeVO;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ItemPrivilegeBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
@@ -74,7 +75,7 @@ public class PrivilegeApplyAdapter extends BaseRecyclerViewAdapter2<PrivilegeVO>
             }
 
             getBinding().tvModel.setText(item.getMdlNm());
-            getBinding().tvEngine.setText(item.getSaleMdlNm());
+            getBinding().tvSaleMdlNm.setText(StringUtil.isValidString(item.getSaleMdlNm()).replace(StringUtil.isValidString(item.getMdlNm()),""));
             getBinding().tvVin.setText(item.getVin());
         }
 
