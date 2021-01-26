@@ -104,7 +104,7 @@
                 android:lineSpacingExtra="10dp"
                 android:textColor="@color/x_000000"
                 android:textSize="14dp"
-                android:text="@string/word_home_27"/>
+                android:text="@string/word_home_31"/>
 
             <TextView
                 android:id="@+id/tv_point"
