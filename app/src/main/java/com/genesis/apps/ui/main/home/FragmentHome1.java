@@ -423,7 +423,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     public void onRefresh() {
         if (isRecord)
             return;
-        SubActivity.setStatusBarColor(getActivity(), R.color.x_000000);
+        SubActivity.setStatusBarColor(getActivity(), dayCd == 1 ? R.color.x_ffffff : R.color.x_000000);
 
         resumeAndPauseLottie(true);
         videoPauseAndResume(true);
