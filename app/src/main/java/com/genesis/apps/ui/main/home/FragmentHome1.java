@@ -90,6 +90,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     private int rawBackground=0;
     private int rawLottie=0;
+    private int dayCd = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -141,7 +142,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         lgnViewModel.getRES_LGN_0005().observe(getViewLifecycleOwner(), result -> {
             //날씨 정보 요청 전문에서는 에러가 발생되어도 기본 값으로 표시
             WeatherCodes weatherCodes = WeatherCodes.SKY1;
-            int dayCd = 1;
+
             if (result.data != null) {
                 try {
                     weatherCodes = WeatherCodes.decideCode(result.data.getLgt(), result.data.getPty(), result.data.getSky());
@@ -153,6 +154,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             }
 
             ((MainActivity) getActivity()).setTab(dayCd);
+            ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == 1 ? true : false);
 
             try {
                 MessageVO weather = cmnViewModel.getHomeWeatherInsight(weatherCodes);
@@ -426,7 +428,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         resumeAndPauseLottie(true);
         videoPauseAndResume(true);
         setViewVehicle();
-        ((MainActivity) getActivity()).setGNB("", View.VISIBLE);
+        ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == 1 ? true : false);
 
         startTimer();
         goneQuickMenu();

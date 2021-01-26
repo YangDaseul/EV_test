@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:scaleType="fitCenter"
-            android:src="@drawable/ico_gnb_search_main"
+            android:src="@drawable/ic_serch_b"
             android:visibility="@{TextUtils.isEmpty(custGbCd)||custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000) ? View.GONE : isStore ? View.VISIBLE : View.GONE}"
             app:layout_constraintRight_toLeftOf="@+id/btn_profile"
             app:layout_constraintTop_toTopOf="parent"
@@ -65,9 +65,23 @@
             android:layout_marginRight="10dp"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:scaleType="fitCenter"
-            android:src="@drawable/ico_gnb_store_main"
+            android:src="@drawable/ic_store_b"
             android:visibility="@{TextUtils.isEmpty(custGbCd)||custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000) ? View.GONE : isStore ? View.VISIBLE : View.GONE}"
             app:layout_constraintRight_toLeftOf="@+id/btn_store_search"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/btn_cart_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_storelist_b"
+            android:visibility="@{TextUtils.isEmpty(custGbCd)||custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000) ? View.GONE : isStore ? View.VISIBLE : View.GONE}"
+            app:layout_constraintRight_toLeftOf="@+id/btn_store_cart"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:visibility="gone"/>
@@ -90,7 +104,7 @@
                 android:lineSpacingExtra="10dp"
                 android:textColor="@color/x_000000"
                 android:textSize="14dp"
-                android:text="@string/word_home_3"/>
+                android:text="@string/word_home_27"/>
 
             <TextView
                 android:id="@+id/tv_point"
@@ -126,12 +140,12 @@
             android:id="@+id/btn_alarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:scaleType="fitCenter"
-            android:src="@{isBgWhite ? @drawable/ic_alarm_b : @drawable/ic_alarm}"
-            android:visibility="@{TextUtils.isEmpty(custGbCd)||custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000) ? View.GONE : isStore ? View.GONE : View.VISIBLE}"
-            app:layout_constraintRight_toRightOf="parent"
+            android:src="@{isBgWhite ? @drawable/ic_alarm_b : @drawable/ic_alarm_w}"
+            android:visibility="@{TextUtils.isEmpty(custGbCd)||custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000) ? View.GONE : isStore || menu.equals(@string/main_word_4) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintRight_toLeftOf="@+id/btn_profile"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:src="@drawable/ic_alarm_b"
@@ -142,13 +156,12 @@
             android:layout_width="4dp"
             android:layout_height="4dp"
             android:background="@drawable/badge_ce2d2d"
-            android:layout_marginRight="6dp"
-            android:layout_marginTop="6dp"
-            android:visibility="@{isStore ? View.GONE : isAlarm ? View.VISIBLE : View.GONE}"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="3dp"
+            android:visibility="@{isStore || menu.equals(@string/main_word_4) ? View.GONE : isAlarm ? View.VISIBLE : View.GONE}"
             app:layout_constraintRight_toRightOf="@+id/btn_alarm"
             app:layout_constraintTop_toTopOf="@+id/btn_alarm"
             tools:visibility="visible"/>
-
 
         <ImageView
             android:id="@+id/btn_profile"
@@ -157,13 +170,27 @@
             android:layout_marginRight="10dp"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:scaleType="fitCenter"
-            android:src="@{isBgWhite ? @drawable/ic_profile_b : @drawable/ic_profile}"
-            android:visibility="@{TextUtils.isEmpty(custGbCd)||custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000) ? View.GONE : isStore ? View.GONE : View.VISIBLE}"
+            android:src="@{isBgWhite ? @drawable/ic_profile_b : @drawable/ic_profile_w}"
+            android:visibility="@{TextUtils.isEmpty(custGbCd)||custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000) ? View.GONE : isStore || menu.equals(@string/main_word_4) ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/btn_alarm"
+            app:layout_constraintRight_toLeftOf="@+id/btn_search"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_goneMarginRight="0dp" />
+            app:layout_goneMarginRight="0dp"
+            tools:visibility="visible"/>
 
+        <ImageView
+            android:id="@+id/btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:scaleType="fitCenter"
+            android:src="@{isBgWhite ? @drawable/ic_serch_b : @drawable/ic_serch_w}"
+            android:visibility="@{TextUtils.isEmpty(custGbCd)||custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000) ? View.GONE : isStore || (!TextUtils.isEmpty(menu) &amp;&amp; !menu.equals(@string/main_word_4)) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:src="@drawable/ic_serch_b"
+            tools:visibility="visible"/>
 
         <TextView
             android:id="@+id/btn_login"
@@ -187,13 +214,12 @@
             android:id="@+id/btn_barcode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:scaleType="centerInside"
-            android:src="@{isBgWhite ? @drawable/ic_barcode_b : @drawable/ic_barcode}"
-            android:visibility="@{ (useBarcode&amp;&amp;!isStore) ? View.VISIBLE : View.GONE}"
+            android:src="@{isBgWhite ? @drawable/ic_barcode_b : @drawable/ic_barcode_w}"
+            android:visibility="@{ (useBarcode&amp;&amp;TextUtils.isEmpty(menu)) ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/btn_store_cart"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible"/>
 

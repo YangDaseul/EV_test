@@ -152,6 +152,13 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 //                    ignore.printStackTrace();
 //                }
                 break;
+            case R.id.btn_search:
+
+                break;
+            case R.id.btn_cart_list:
+                loginChk(StoreInfo.STORE_PURCHASE_URL);
+
+                break;
             case R.id.btn_store_cart:
                 loginChk(StoreInfo.STORE_CART_URL);
 
