@@ -86,8 +86,10 @@ public class CardRepository {
                         newList.add(cardVO);
                     }
                 }
-                if(!haveAddCard(newList))
-                    newList.add(new CardVO(0,"", "", "", CardVO.CARD_STATUS_99, "", "", "", 0,false));
+
+                //카드 추가 제거 요건 반영
+//                if(!haveAddCard(newList))
+//                    newList.add(new CardVO(0,"", "", "", CardVO.CARD_STATUS_99, "", "", "", 0,false));
 
             } catch (Exception e1) {
                 e1.printStackTrace();

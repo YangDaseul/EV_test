@@ -63,9 +63,9 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
             getBinding().tvCardName.setVisibility(View.VISIBLE);
             getBinding().tvCardNo2.setVisibility(View.VISIBLE);
             getBinding().tvCardNo.setVisibility(View.VISIBLE);
-            getBinding().tvCardDate.setVisibility(View.VISIBLE);
             getBinding().ivBarcode.setVisibility(View.VISIBLE);
             getBinding().ivFavorite.setVisibility(View.VISIBLE);
+            getBinding().tvFavorite.setVisibility(View.VISIBLE);
             getBinding().ivCard.setImageResource(0);
             getBinding().ivCard.setImageResource(R.drawable.img_card_320);
             getBinding().ivCard.setAdjustViewBounds(true);
@@ -82,9 +82,9 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
                     getBinding().tvCardName.setVisibility(View.INVISIBLE);
                     getBinding().tvCardNo2.setVisibility(View.INVISIBLE);
                     getBinding().tvCardNo.setVisibility(View.GONE);
-                    getBinding().tvCardDate.setVisibility(View.INVISIBLE);
                     getBinding().ivBarcode.setVisibility(View.GONE);
                     getBinding().ivFavorite.setVisibility(View.INVISIBLE);
+                    getBinding().tvFavorite.setVisibility(View.INVISIBLE);
                     getBinding().ivCard.setImageResource(0);
                     getBinding().ivCard.setImageResource(R.drawable.img_box_addcard);
                     getBinding().ivAdd.setVisibility(View.VISIBLE);
@@ -96,13 +96,15 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
 //                    ViewPressEffectHelper.attach(getBinding().ivCard);
                     return;
                 case CardVO.CARD_STATUS_10://정상
-                    getBinding().ivFavorite.setBackgroundResource(item.isFavorite() ? R.drawable.ic_star_l_s : R.drawable.ic_star_l_b2);
+                    getBinding().ivFavorite.setBackgroundResource(item.isFavorite() ? R.drawable.ic_star_card : R.drawable.ic_star_l_s_d);
                     getBinding().ivFavorite.setOnClickListener(onSingleClickListener);
+                    getBinding().tvFavorite.setVisibility(item.isFavorite() ? View.VISIBLE : View.INVISIBLE);
                     break;
                 case CardVO.CARD_STATUS_0://발급중
                     getBinding().tvStatus.setVisibility(View.VISIBLE);
-                    getBinding().ivFavorite.setBackgroundResource(item.isFavorite() ? R.drawable.ic_star_l_s : R.drawable.ic_star_l_b2);
+                    getBinding().ivFavorite.setBackgroundResource(item.isFavorite() ? R.drawable.ic_star_card : R.drawable.ic_star_l_s_d);
                     getBinding().ivFavorite.setOnClickListener(onSingleClickListener);
+                    getBinding().tvFavorite.setVisibility(item.isFavorite() ? View.VISIBLE : View.INVISIBLE);
                     break;
 
                 case CARD_STATUS_20://정지 처리안함
@@ -113,7 +115,6 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
 
 
             getBinding().tvCardName.setText(item.getCardNm() + " " + item.getCardClsNm());
-            getBinding().tvCardDate.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(item.getCardIsncSubspDt(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)); //데이트 포맷정의
 
             if (!TextUtils.isEmpty(item.getCardNo())) {
                 getBinding().tvCardNo2.setText(StringRe2j.replaceAll(item.getCardNo(), getContext().getString(R.string.card_original), getContext().getString(R.string.card_mask)));

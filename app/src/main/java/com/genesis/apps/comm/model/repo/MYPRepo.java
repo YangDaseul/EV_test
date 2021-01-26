@@ -218,6 +218,48 @@ public class MYPRepo {
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
+
+//                object = "{\n" +
+//                        "  \"rsltCd\": \"0000\",\n" +
+//                        "  \"rsltMsg\": \"성공\",\n" +
+//                        "  \"blueMbrYn\": \"Y\",\n" +
+//                        "  \"mbrshMbrMgmtNo\": \"1000000\",\n" +
+//                        "  \"transTotCnt\": \"3\",\n" +
+//                        "  \"transList\": [\n" +
+//                        "    {\n" +
+//                        "      \"seqNo\": \"1\",\n" +
+//                        "      \"transDtm\": \"20200901111111\",\n" +
+//                        "      \"frchsNm\": \"가맹점1\",\n" +
+//                        "      \"transTypNm\": \"사용\",\n" +
+//                        "      \"useMlg\": \"124574\",\n" +
+//                        "      \"rmndPont\": \"1111111\"\n" +
+//                        "    },\n" +
+//                        "    {\n" +
+//                        "      \"seqNo\": \"2\",\n" +
+//                        "      \"transDtm\": \"20200902222222\",\n" +
+//                        "      \"frchsNm\": \"가맹점2\",\n" +
+//                        "      \"transTypNm\": \"사용\",\n" +
+//                        "      \"useMlg\": \"222222\",\n" +
+//                        "      \"rmndPont\": \"333333\"\n" +
+//                        "    },\n" +
+//                        "    {\n" +
+//                        "      \"seqNo\": \"3\",\n" +
+//                        "      \"transDtm\": \"20200920000000\",\n" +
+//                        "      \"frchsNm\": \"가맹점3\",\n" +
+//                        "      \"transTypNm\": \"적립\",\n" +
+//                        "      \"useMlg\": \"222222\",\n" +
+//                        "      \"rmndPont\": \"333333\"\n" +
+//                        "    },\n" +
+//                        "    {\n" +
+//                        "      \"seqNo\": \"4\",\n" +
+//                        "      \"transDtm\": \"20200930000000\",\n" +
+//                        "      \"frchsNm\": \"가맹점4\",\n" +
+//                        "      \"transTypNm\": \"취소\",\n" +
+//                        "      \"useMlg\": \"2222221\",\n" +
+//                        "      \"rmndPont\": \"3333331\"\n" +
+//                        "    }\n" +
+//                        "  ]\n" +
+//                        "}";
                 RES_MYP_2002.setValue(NetUIResponse.success(new Gson().fromJson(object, MYP_2002.Response.class)));
             }
 

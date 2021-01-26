@@ -38,6 +38,12 @@ import lombok.EqualsAndHashCode;
  * 신청된 차량인 경우 현황 URL
  * @see #serviceDetailUrl 서비스 상세 혜택 URL
  * 신청된 차량인 경우 혜택 URL
+ * @see #prvContent 서비스 내용
+ * EQ900(Hi) / G90(Gi) / G80(GH) 일경우
+ * @see #prvTerm 서비스 제공기간
+ * EQ900(Hi) / G90(Gi) / G80(GH) 일경우
+ * @see #prvCount 서비스 제공횟수
+ * EQ900(Hi) / G90(Gi) / G80(GH) 일경우
  */
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
@@ -86,4 +92,14 @@ class PrivilegeVO extends BaseData {
     @Expose
     @SerializedName("serviceDetailUrl")
     private String serviceDetailUrl;
+
+    @Expose
+    @SerializedName("prvContent")
+    private String prvContent;
+    @Expose
+    @SerializedName("prvTerm")
+    private String prvTerm;
+    @Expose
+    @SerializedName("prvCount")
+    private String prvCount;
 }

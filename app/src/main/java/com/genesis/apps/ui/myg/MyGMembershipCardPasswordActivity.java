@@ -137,7 +137,7 @@ public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMe
                 ui.ivInput2.setImageResource(R.drawable.ic_password);
                 ui.ivInput3.setImageResource(R.drawable.ic_password);
                 ui.ivInput4.setImageResource(R.drawable.ic_password);
-                ui.tvMsgError.setVisibility(View.INVISIBLE);
+                ui.tvMsgError.setText("\n");
                 break;
             case STEP_2_2:
                 ui.etHidden.setTag(R.id.et_reject, true);
@@ -147,7 +147,7 @@ public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMe
                 ui.ivInput2.setImageResource(R.drawable.ic_password);
                 ui.ivInput3.setImageResource(R.drawable.ic_password);
                 ui.ivInput4.setImageResource(R.drawable.ic_password);
-                ui.tvMsgError.setVisibility(View.INVISIBLE);
+                ui.tvMsgError.setText("\n");
                 break;
             case STEP_2_3:
                 ui.etHidden.setTag(R.id.et_reject, true);
@@ -157,7 +157,6 @@ public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMe
                 ui.ivInput2.setImageResource(R.drawable.ic_password_error);
                 ui.ivInput3.setImageResource(R.drawable.ic_password_error);
                 ui.ivInput4.setImageResource(R.drawable.ic_password_error);
-                ui.tvMsgError.setVisibility(View.VISIBLE);
                 ui.tvMsgError.setText(R.string.mg_member03_6);
                 VibratorUtil.makeMeShake(ui.tvMsgError, 20, 5);
                 break;
@@ -211,7 +210,8 @@ public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMe
                 switch (step) {
 //                    case STEP_1_2:
                     case STEP_2_3:
-                        ui.tvMsgError.setVisibility(View.INVISIBLE);
+//                        ui.tvMsgError.setVisibility(View.INVISIBLE);
+                        ui.tvMsgError.setText("\n");
                         break;
                 }
             }

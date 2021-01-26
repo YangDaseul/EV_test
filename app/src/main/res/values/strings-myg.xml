@@ -2,7 +2,7 @@
     <string name="title_noti">공지사항</string>
     <string name="title_version">버전 정보</string>
     <string name="title_ga">내 정보 상세보기</string>
-    <string name="title_home">MY G</string>
+    <string name="title_home">마이 페이지</string>
 
     <string name="title_terms_1">이용약관</string>
     <string name="title_terms_2">개인정보처리방침</string>
@@ -17,8 +17,8 @@
     <string name="word_home_3">사용 가능 포인트</string>
     <string name="word_home_4">혜택/쿠폰</string>
     <string name="word_home_5">프리빌리지</string>
-    <string name="word_home_6">신청하기</string>
-    <string name="word_home_7">주유 포인트 연동</string>
+    <string name="word_home_6">프리빌리지 신청하러 가기</string>
+    <string name="word_home_7">주유 포인트 조회</string>
     <string name="word_home_8">연동하기</string>
     <string name="word_home_9">데이터 연동</string>
     <string name="word_home_10">마카롱</string>
@@ -31,16 +31,19 @@
     <string name="word_home_17">Digital Key</string>
     <string name="word_home_18">G-Carpay</string>
     <string name="word_home_19">Built in CAM</string>
-    <string name="word_home_20">차량목록</string>
+    <string name="word_home_20">차량 목록</string>
     <string name="word_home_21">혜택</string>
-    <string name="word_home_22">현황</string>
+    <string name="word_home_22">신청 현황 보기</string>
     <string name="word_home_23">%s 님</string>
     <string name="word_home_24">%s P</string>
     <string name="word_home_25">080-900-6000</string>
-    <string name="word_home_26">STORE 구매 내역</string>
-    <string name="word_home_27">포인트</string>
+    <string name="word_home_26">스토어 구매 내역</string>
+    <string name="word_home_27">안녕하세요.</string>
+    <string name="word_home_28">자세히 보기</string>
+    <string name="word_home_29">차계부</string>
+    <string name="word_home_30">이번 달 지출 금액</string>
 
-    <string name="msg_home_1">제네시스 고객센터 입니다.</string>
+    <string name="msg_home_1">제네시스 고객센터 안내</string>
     <string name="msg_home_2">보증 기간 동안 더 이상의 불편함 없이\n가장 필요한 서비스를 가장 편리한 방식으로\n이용하실 수 있습니다.</string>
     <string name="msg_home_3">평일 09:00-19:00\n일요일 09:00-16:00ㆍ토/공휴일 09:00-17:00\n긴급출동 서비스(24시간)</string>
 
@@ -82,7 +85,10 @@
     <string name="word_membership_4">080-600-6000</string>
     <string name="word_membership_5">소멸 예정 포인트</string>
     <string name="word_membership_6">6개월 이내</string>
-    <string name="word_membership_7"></string>
+    <string name="word_membership_7">전체</string>
+    <string name="word_membership_8">적립</string>
+    <string name="word_membership_9">사용</string>
+    <string name="word_membership_10">취소</string>
     <string name="msg_membership_1">카드를 신청하신 후 1개월이 지나도록 카드가 도착하지 않았다면, 다시 재발급 신청을 하시기 바랍니다.</string>
     <string name="msg_membership_2">여러 장의 카드를 보유하고 계셔도 포인트는 통합 관리 되며, 재발급 시 기존 카드는 소멸됩니다.</string>
     <string name="msg_membership_3">제네시스 멤버스 일반카드 발급 관련 자세한 문의는 현대자동차 고객센터(080-600-6000)로 문의 바랍니다.</string>
@@ -131,26 +137,28 @@
 
     <string name="mg_member01_1">멤버십</string>
     <string name="mg_member01_2">가 %s에 소멸될 예정입니다.</string>
-    <string name="mg_member01_3">%sP</string>
+    <string name="mg_member01_3">%sp</string>
     <string name="mg_member01_4">사용내역</string>
     <string name="mg_member01_5">사용처 안내</string>
     <string name="mg_member01_6">적립 예정</string>
     <string name="mg_member01_7">소멸 예정 (6개월 이내)</string>
-    <string name="mg_member01_8">보유 포인트는 가맹점에서 사용 가능합니다.</string>
+    <string name="mg_member01_8">· 보유 포인트는 가맹점에서 사용 가능합니다.</string>
     <string name="mg_member01_9">보유 카드</string>
     <string name="mg_member01_10">비밀번호 변경</string>
     <string name="mg_member01_11">을 선택하여 대표 카드를 설정하세요</string>
-    <string name="mg_member01_12">제네시스 멤버스 비신용카드</string>
+    <string name="mg_member01_12">비 신용카드</string>
     <string name="mg_member01_13">멤버십 카드 신청</string>
     <string name="mg_member01_14">발급 중</string>
+    <string name="mg_member01_15">주 사용 카드</string>
+    <string name="mg_member01_16">사용 가능한\n제네시스 카드가 없습니다.</string>
 
     <string name="mg_member04_1">포인트 사용 내역</string>
     <string name="mg_member04_2">적립 포인트</string>
     <string name="mg_member04_3">사용 포인트</string>
-    <string name="mg_member04_4">P&#160;&#160;적립</string>
-    <string name="mg_member04_5">P&#160;&#160;잔여</string>
-    <string name="mg_member04_6">P&#160;&#160;사용</string>
-    <string name="mg_member04_7">P&#160;&#160;취소</string>
+    <string name="mg_member04_4">p&#160;&#160;적립</string>
+    <string name="mg_member04_5">p&#160;&#160;잔여</string>
+    <string name="mg_member04_6">p&#160;&#160;사용</string>
+    <string name="mg_member04_7">p&#160;&#160;취소</string>
     <string name="mg_member04_8">오늘</string>
     <string name="mg_member04_9">7일</string>
     <string name="mg_member04_10">1개월</string>
