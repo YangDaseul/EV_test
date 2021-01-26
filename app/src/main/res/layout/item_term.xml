@@ -26,7 +26,7 @@
             android:button="@null"
             android:drawableStart="@drawable/checkbox_selector"
             android:drawablePadding="10dp"
-            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:fontFamily="@font/regular_genesissansheadglobal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="3dp"
             android:textColor="@color/x_000000"
