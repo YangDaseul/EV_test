@@ -129,11 +129,23 @@
                         app:layout_constraintTop_toBottomOf="@+id/tv_car_code"
                         tools:text="가솔린 2.5 터보 2WD ddddddddddddddddddddddddddddddddddddddddddddddddddddd" />
 
+                    <!--옵션 버튼-->
+                    <include
+                        android:id="@+id/btn_option"
+                        layout="@layout/item_btn_underline_mark_gold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
+                        app:btnNm="@{@string/gm_carlst_04_27}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_car_model" />
+
                     <TextView
                         android:id="@+id/tv_car_vrn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
                         android:drawableRight="@drawable/car_m_edit"
                         android:drawablePadding="4dp"
                         android:ellipsize="end"
@@ -145,10 +157,10 @@
                         android:textSize="14dp"
                         android:visibility="gone"
                         android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
-                        app:layout_constraintStart_toEndOf="@+id/tv_car_model"
-                        app:layout_constraintTop_toTopOf="@+id/tv_car_model"
+                        app:layout_constraintLeft_toLeftOf="@+id/tv_car_model"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_car_model"
                         tools:text="129차 2916"
-                        tools:visibility="gone" />
+                        tools:visibility="visible" />
 
                     <!--차량 번호 등록 버튼-->
                     <include
@@ -156,13 +168,13 @@
                         layout="@layout/item_btn_underline_mark_gold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
                         android:visibility="gone"
                         android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
                         app:btnNm="@{@string/gm_carlst_04_22}"
-                        app:layout_constraintStart_toEndOf="@+id/tv_car_model"
-                        app:layout_constraintTop_toTopOf="@+id/tv_car_model"
-                        tools:visibility="gone" />
+                        app:layout_constraintLeft_toLeftOf="@+id/tv_car_model"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_car_model"
+                        tools:visibility="visible" />
 
                     <!--유사 재고 조회 버튼-->
                     <include
@@ -170,13 +182,13 @@
                         layout="@layout/item_btn_underline_mark_gold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
                         android:visibility="gone"
                         android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
                         app:btnNm="@{@string/gm_carlst_04_23}"
-                        app:layout_constraintStart_toEndOf="@+id/tv_car_model"
-                        app:layout_constraintTop_toTopOf="@+id/tv_car_model"
-                        tools:visibility="gone" />
+                        app:layout_constraintLeft_toLeftOf="@+id/tv_car_model"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_car_model"
+                        tools:visibility="visible" />
 
                     <!--삭제 버튼-->
                     <include
@@ -189,8 +201,8 @@
                         android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
                         app:btnNm="@{@string/gm_carlst_04_2}"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_car_model"
-                        tools:visibility="gone" />
+                        app:layout_constraintTop_toTopOf="@+id/tv_car_vrn"
+                        tools:visibility="visible" />
 
                     <!--복원 버튼-->
                     <include
@@ -203,8 +215,8 @@
                         android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
                         app:btnNm="@{@string/gm_carlst_04_3}"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_car_model"
-                        tools:visibility="gone" />
+                        app:layout_constraintTop_toTopOf="@+id/tv_car_vrn"
+                        tools:visibility="visible" />
 
                     <!--계약서 조회 버튼-->
                     <include
@@ -217,8 +229,8 @@
                         android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
                         app:btnNm="@{@string/gm_carlst_04_24}"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_car_model"
-                        tools:visibility="gone" />
+                        app:layout_constraintTop_toTopOf="@+id/tv_car_vrn"
+                        tools:visibility="visible" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.viewpager2.widget.ViewPager2
@@ -282,40 +294,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/vp_car" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_options"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:paddingTop="30dp"
-                    android:paddingBottom="30dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:background="@color/x_f8f8f8"
-                    app:layout_constraintTop_toBottomOf="@+id/indicator"
-                    app:layout_constraintBottom_toTopOf="@+id/tv_title_mobility_care_1"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent">
-
-                    <TextView
-                        android:id="@+id/tv_option"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="9dp"
-                        android:textColor="@color/x_262626"
-                        android:textSize="14dp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        tools:text="파노라마 선루프, 헤드업 디스플레이, 뒷좌석 듀얼 모니터 ▶뒷좌석 듀얼 모니터(좌/우 독립제어, USB 단자(충전/데이터 리딩) 포함) "/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
                 <TextView
                     android:id="@+id/tv_title_mobility_care_1"
                     android:layout_width="0dp"
@@ -333,7 +311,7 @@
                     android:textSize="24dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cl_options" />
+                    app:layout_constraintTop_toBottomOf="@+id/indicator" />
 
                 <TextView
                     android:id="@+id/tv_title_mobility_care_2"
@@ -781,7 +759,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="25dp"
             android:paddingBottom="25dp"
-            android:paddingStart="20dp"
+            android:paddingStart="30dp"
             android:paddingEnd="20dp"
             android:background="@drawable/bg_111111_top_round_20"
             android:visibility="gone"
@@ -814,41 +792,18 @@
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="6dp"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
+                android:paddingLeft="55dp"
+                android:paddingRight="55dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
                 android:textColor="@color/x_000000"
                 android:textSize="16dp"
-                android:text="@string/gm_carlst_04_19"
+                android:text="@string/mg_prvi01_word_5"
                 android:background="@drawable/ripple_bg_ffffff"
                 android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
-
-
-            <TextView
-                android:id="@+id/btn_benefit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:fontFamily="@font/regular_genesissanstextglobal"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="6dp"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                android:textColor="@color/x_ffffff"
-                android:textSize="16dp"
-                android:text="@string/gm_carlst_04_18"
-                android:background="@drawable/ripple_bg_111111_stroke_ffffff"
-                android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
-                app:layout_constraintEnd_toStartOf="@+id/btn_status"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                />
 
 
             <TextView
@@ -861,14 +816,14 @@
                 android:gravity="center"
                 android:textColor="@color/x_ffffff"
                 android:textSize="16dp"
-                android:text="@string/gm_carlst_04_20"
+                android:text="@string/mg_prvi01_word_1_4"
                 android:background="@drawable/ripple_bg_111111_stroke_ffffff"
                 android:visibility="gone"
                 android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
-                app:layout_constraintStart_toStartOf="@+id/btn_benefit"
+                app:layout_constraintStart_toStartOf="@+id/btn_status"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btn_benefit"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_benefit"
+                app:layout_constraintTop_toTopOf="@+id/btn_status"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_status"
                 tools:visibility="visible"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

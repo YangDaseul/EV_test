@@ -41,6 +41,7 @@
             android:layout_marginRight="6dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/rect_aaabaf_2dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/tv_warning_1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_warning_1"/>
@@ -53,6 +54,7 @@
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="6dp"
+            android:visibility="gone"
             android:text="@string/gm_carlst_p01_4"
             android:textColor="@color/x_aaabaf"
             android:textSize="14dp"
@@ -76,7 +78,6 @@
             android:id="@+id/tv_warning_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="6dp"

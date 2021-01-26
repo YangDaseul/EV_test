@@ -91,6 +91,21 @@ public class MiddleDialog {
         );
     }
 
+    //MY 차고 차량 옵션
+    public static void dialogCarOption(@NonNull Activity activity, String msg, final Runnable ok) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getOneButtonDialog(activity,
+                        ok,
+                        activity.getString(R.string.gm_carlst_p01_12),
+                        msg,
+                        R.string.comm_word_1
+                ).show()
+        );
+    }
+
 
     /**
      * @param activity

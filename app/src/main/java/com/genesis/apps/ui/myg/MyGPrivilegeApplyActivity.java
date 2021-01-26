@@ -11,6 +11,7 @@ import com.genesis.apps.comm.model.api.gra.MYP_1005;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.PrivilegeVO;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -60,7 +61,19 @@ public class MyGPrivilegeApplyActivity extends SubActivity<ActivityPrivilegeAppl
     public void onClickCommon(View v) {
         switch (v.getId()){
             case R.id.btn_status:
-            case R.id.btn_benefit:
+                PrivilegeVO data = (PrivilegeVO) v.getTag(R.id.item);
+
+                if(data != null) {
+                    if("EQ900".equals(data.getMdlNm()) || "G90".equals(data.getMdlNm()) || "G80".equals(data.getMdlNm())) {
+                        startActivitySingleTop(new Intent(this, MyGPrivilegeStateActivity.class).putExtra(KeyNames.KEY_NAME_PRIVILEGE_VO, data), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    } else {
+                        String url = data.getServiceUrl();
+                        goPrivilege(v.getId(), url);
+                    }
+                }
+
+                break;
+//            case R.id.btn_benefit:
             case R.id.btn_apply:
                 String url = v.getTag(R.id.url).toString();
                 goPrivilege(v.getId(), url);

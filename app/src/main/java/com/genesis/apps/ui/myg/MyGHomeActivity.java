@@ -270,7 +270,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                             ui.btnStatus.setVisibility(View.VISIBLE);
 //                            ui.btnBenefit.setVisibility(View.VISIBLE);
                             ui.btnApply.setVisibility(View.GONE);
-                            ui.btnStatus.setTag(R.id.url, privilegeVO.getServiceUrl());
+                            ui.btnStatus.setTag(R.id.item, privilegeVO);
 //                            ui.btnBenefit.setTag(R.id.url, privilegeVO.getServiceDetailUrl());
                             break;
                         default:
@@ -328,8 +328,20 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                 case R.id.l_mobility_care: //혜택 쿠폰
                     startActivitySingleTop(new Intent(this, MyGCouponActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
-                case R.id.btn_benefit:
                 case R.id.btn_status:
+                    PrivilegeVO data = (PrivilegeVO) v.getTag(R.id.item);
+
+                    if(data != null) {
+                        if("EQ900".equals(data.getMdlNm()) || "G90".equals(data.getMdlNm()) || "G80".equals(data.getMdlNm())) {
+                            startActivitySingleTop(new Intent(this, MyGPrivilegeStateActivity.class).putExtra(KeyNames.KEY_NAME_PRIVILEGE_VO, data), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        } else {
+                            String url = data.getServiceUrl();
+                            goPrivilege(v.getId(), url);
+                        }
+                    }
+
+                    break;
+                case R.id.btn_benefit:
                 case R.id.btn_apply:
                     String url = v.getTag(R.id.url).toString();
                     goPrivilege(v.getId(), url);

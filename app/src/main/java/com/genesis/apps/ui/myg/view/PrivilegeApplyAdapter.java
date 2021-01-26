@@ -67,7 +67,7 @@ public class PrivilegeApplyAdapter extends BaseRecyclerViewAdapter2<PrivilegeVO>
                     getBinding().btnApply.setVisibility(View.GONE);
                     getBinding().btnStatus.setVisibility(View.VISIBLE);
 //                    getBinding().btnBenefit.setVisibility(View.VISIBLE);
-                    getBinding().btnStatus.setTag(R.id.url, item.getServiceUrl());
+                    getBinding().btnStatus.setTag(R.id.item, item);
 //                    getBinding().btnBenefit.setTag(R.id.url, item.getServiceDetailUrl());
                     getBinding().btnStatus.setOnClickListener(onSingleClickListener);
 //                    getBinding().btnBenefit.setOnClickListener(onSingleClickListener);
@@ -75,7 +75,7 @@ public class PrivilegeApplyAdapter extends BaseRecyclerViewAdapter2<PrivilegeVO>
             }
 
             getBinding().tvModel.setText(item.getMdlNm());
-            getBinding().tvSaleMdlNm.setText(StringUtil.isValidString(item.getSaleMdlNm()).replace(StringUtil.isValidString(item.getMdlNm()),""));
+            getBinding().tvSaleMdlNm.setText(StringUtil.isValidString(item.getSaleMdlNm()).replace(StringUtil.isValidString(item.getMdlNm()),"").trim());
             getBinding().tvVin.setText(item.getVin());
         }
 

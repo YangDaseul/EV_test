@@ -124,6 +124,9 @@
     <string name="mg_prvi01_word_4">혜택</string>
     <string name="mg_prvi01_word_5">신청 현황 보기</string>
     <string name="mg_prvi01_word_6">GENESIS</string>
+    <string name="mg_prvi01_word_7">프리빌리지 서비스</string>
+    <string name="mg_prvi01_word_8">잔여 정보</string>
+    <string name="mg_prvi01_word_9">%s 까지 %s회</string>
 
     <string name="mg_con01_word_1">주유 포인트</string>
     <string name="mg_con01_word_2">포인트 연동 해제</string>

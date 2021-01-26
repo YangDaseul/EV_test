@@ -6,6 +6,10 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.GNS_1001;
@@ -32,15 +36,14 @@ import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.bottom.DialogCarRgstNo;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.main.home.view.CarHorizontalAdapter;
+import com.genesis.apps.ui.myg.MyGHomeActivity;
+import com.genesis.apps.ui.myg.MyGPrivilegeStateActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
 
 public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
 
@@ -362,17 +365,17 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                 switch (data.getPvilList().get(0).getJoinPsblCd()) {
                     case PrivilegeVO.JOIN_CODE_APPLY_POSSIBLE:
                         ui.btnStatus.setVisibility(View.INVISIBLE);
-                        ui.btnBenefit.setVisibility(View.INVISIBLE);
+//                        ui.btnBenefit.setVisibility(View.INVISIBLE);
                         ui.btnApply.setVisibility(View.VISIBLE);
                         ui.btnApply.setTag(R.id.url, data.getPvilList().get(0).getServiceUrl());
                         break;
                     case PrivilegeVO.JOIN_CODE_APPLYED:
                         ui.btnStatus.setVisibility(View.VISIBLE);
-                        ui.btnBenefit.setVisibility(View.VISIBLE);
+//                        ui.btnBenefit.setVisibility(View.VISIBLE);
                         ui.btnApply.setVisibility(View.INVISIBLE);
 
-                        ui.btnStatus.setTag(R.id.url, data.getPvilList().get(0).getServiceUrl());
-                        ui.btnBenefit.setTag(R.id.url, data.getPvilList().get(0).getServiceDetailUrl());
+                        ui.btnStatus.setTag(R.id.item, data.getPvilList().get(0));
+//                        ui.btnBenefit.setTag(R.id.url, data.getPvilList().get(0).getServiceDetailUrl());
                         break;
                     default:
                         ui.lPrivilege.setVisibility(View.GONE);
@@ -514,7 +517,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
 
     private void setVehicleInfo(VehicleVO vehicleVO, boolean isUpdate) {
         ui.tvCarCode.setText(StringUtil.isValidString(vehicleVO.getMdlNm()));
-        ui.tvCarModel.setText(StringUtil.isValidString(vehicleVO.getSaleMdlNm()).replace(StringUtil.isValidString(vehicleVO.getMdlNm()),""));
+        ui.tvCarModel.setText(StringUtil.isValidString(vehicleVO.getSaleMdlNm()).replace(StringUtil.isValidString(vehicleVO.getMdlNm()),"").trim());
         //UI초기화
         ui.tvCarVrn.setVisibility(View.GONE);
         ui.btnRegVrn.lWhole.setVisibility(View.GONE);
@@ -589,6 +592,9 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
         try {
             VehicleVO vehicleVO = getCurrentVehicleVO();
             switch (v.getId()) {
+                case R.id.btn_option:
+                    MiddleDialog.dialogCarOption(this, "임시 작업", null);
+                    break;
                 case R.id.btn_contract://계약서 조회
                     if (vehicleVO != null) {
                         startActivitySingleTop(new Intent(this, APPIAInfo.GM02_CTR01.getActivity())
@@ -673,8 +679,20 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                     //해당 차대번호의 차량으로 vehicleVO를 덮어쓴 다음에
                     //INIT..호출
                     break;
-                case R.id.btn_benefit://프리빌리지 혜택
+//                case R.id.btn_benefit://프리빌리지 혜택
                 case R.id.btn_status://프리빌리지 현황
+                    PrivilegeVO data = (PrivilegeVO) v.getTag(R.id.item);
+
+                    if(data != null) {
+                        if("EQ900".equals(data.getMdlNm()) || "G90".equals(data.getMdlNm()) || "G80".equals(data.getMdlNm())) {
+                            startActivitySingleTop(new Intent(this, MyGPrivilegeStateActivity.class).putExtra(KeyNames.KEY_NAME_PRIVILEGE_VO, data), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        } else {
+                            String url = data.getServiceUrl();
+                            goPrivilege(v.getId(), url);
+                        }
+                    }
+
+                    break;
                 case R.id.btn_apply://프리빌리지 신청
                     String url = v.getTag(R.id.url).toString();
                     goPrivilege(v.getId(), url);
