@@ -20,12 +20,12 @@
             android:id="@+id/tv_title_oil"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:fontFamily="@font/light_genesissansheadglobal"
             android:letterSpacing="-0.01"
-            android:lineSpacingExtra="0dp"
+            android:lineSpacingExtra="4dp"
             android:text="@string/word_home_7"
             android:textColor="@color/x_000000"
-            android:textSize="18dp"
+            android:textSize="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -42,8 +42,7 @@
             android:textColor="@color/x_cd9a81"
             android:textSize="18dp"
             app:layout_constraintStart_toEndOf="@+id/tv_title_oil"
-            app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_oil"
-            tools:text="3"/>
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_oil"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_gs"

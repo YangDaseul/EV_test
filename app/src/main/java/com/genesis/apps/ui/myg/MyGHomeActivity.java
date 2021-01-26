@@ -262,16 +262,16 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     switch (privilegeVO.getJoinPsblCd()) {
                         case PrivilegeVO.JOIN_CODE_APPLY_POSSIBLE:
                             ui.btnStatus.setVisibility(View.GONE);
-                            ui.btnBenefit.setVisibility(View.GONE);
+//                            ui.btnBenefit.setVisibility(View.GONE);
                             ui.btnApply.setVisibility(View.VISIBLE);
                             ui.btnApply.setTag(R.id.url, privilegeVO.getServiceUrl());
                             break;
                         case PrivilegeVO.JOIN_CODE_APPLYED:
                             ui.btnStatus.setVisibility(View.VISIBLE);
-                            ui.btnBenefit.setVisibility(View.VISIBLE);
+//                            ui.btnBenefit.setVisibility(View.VISIBLE);
                             ui.btnApply.setVisibility(View.GONE);
                             ui.btnStatus.setTag(R.id.url, privilegeVO.getServiceUrl());
-                            ui.btnBenefit.setTag(R.id.url, privilegeVO.getServiceDetailUrl());
+//                            ui.btnBenefit.setTag(R.id.url, privilegeVO.getServiceDetailUrl());
                             break;
                         default:
                             ui.lPrivilege.setVisibility(View.GONE);
@@ -283,7 +283,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
             } else {
                 ui.btnCarList.setVisibility(View.VISIBLE);
                 ui.btnStatus.setVisibility(View.GONE);
-                ui.btnBenefit.setVisibility(View.GONE);
+//                ui.btnBenefit.setVisibility(View.GONE);
                 ui.btnApply.setVisibility(View.GONE);
             }
 
@@ -322,7 +322,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     startActivitySingleTop(new Intent(this, StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, StoreInfo.STORE_PURCHASE_URL), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 
                     break;
-                case R.id.l_point: //블루멤버스 사용 가능 포인트
+                case R.id.l_point_detail: //블루멤버스 사용 가능 포인트
                     startActivitySingleTop(new Intent(this, MyGMembershipActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.l_mobility_care: //혜택 쿠폰

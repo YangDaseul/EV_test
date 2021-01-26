@@ -15,7 +15,7 @@
             style="@style/TextBtnBasic"
             android:layout_width="0dp"
             android:layout_height="78dp"
-            android:background="@drawable/ripple_bg_ffffff_underline_e4e4e4"
+            android:background="@drawable/ripple_bg_ffffff_underline_e5e5e5"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:gravity="center_vertical"
             android:padding="20dp"

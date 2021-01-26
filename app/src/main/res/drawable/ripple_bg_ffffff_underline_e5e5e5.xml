@@ -4,7 +4,7 @@
     android:color="@color/x_11000000"> <!-- Ripple color :: WHITE (눌린 후 색상) -->
 
     <item
-        android:drawable="@drawable/bg_ffffff_underline_e4e4e4">
+        android:drawable="@drawable/bg_ffffff_underline_e5e5e5">
     </item>
 
     <!-- Make sure the ripple doesn't exceed the bounds -->
