@@ -116,6 +116,9 @@ class VehicleVO extends BaseData {
     @SerializedName("saleMdlNm")
     private String saleMdlNm;
     @Expose
+    @SerializedName("saleMdlOptNm")
+    private String saleMdlOptNm;
+    @Expose
     @SerializedName("xrclCtyNm")
     private String xrclCtyNm;
     @Expose
