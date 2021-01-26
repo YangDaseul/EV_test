@@ -56,7 +56,7 @@ public enum APPIAInfo {
     INT04("INT04", null, VariableType.QUICK_MENU_CODE_NONE, "제네시스 멤버스 가입",VariableType.QUICK_MENU_CATEGORY_NONE),
     POP01("POP01", null, VariableType.QUICK_MENU_CODE_NONE, "업데이트 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     POP02("POP02", null, VariableType.QUICK_MENU_CODE_NONE, "네트워크 불안정 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
-    ALRM01("ALRM01", AlarmCenterActivity.class, VariableType.QUICK_MENU_CODE_NV, "알림 센터",VariableType.QUICK_MENU_CATEGORY_HOME),
+    ALRM01("ALRM01", AlarmCenterActivity.class, VariableType.QUICK_MENU_CODE_NV, "알림센터",VariableType.QUICK_MENU_CATEGORY_HOME),
     ALRM01_01("ALRM01_01", null, VariableType.QUICK_MENU_CODE_NONE, "알림 상세",VariableType.QUICK_MENU_CATEGORY_NONE),
     ALRM01_SRCH01("ALRM01_SRCH01", null, VariableType.QUICK_MENU_CODE_NONE, "알림 검색",VariableType.QUICK_MENU_CATEGORY_NONE),
     Bcode01("Bcode01", BarcodeActivity.class, VariableType.QUICK_MENU_CODE_NV, "바코드",VariableType.QUICK_MENU_CATEGORY_HOME),

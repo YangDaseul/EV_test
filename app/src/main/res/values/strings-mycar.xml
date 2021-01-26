@@ -1,5 +1,5 @@
 <resources>
-    <string name="gm_carlst_01">MY 차고</string>
+    <string name="gm_carlst_01">보유 차량 리스트</string>
     <string name="gm_carlst_01_1">렌트리스 실운행자 /\n중고차 등록</string>
     <string name="gm_carlst_01_2">렌트리스 실운행자 등록 / 내역</string>
     <string name="gm_carlst_01_3">중고차 등록</string>
@@ -164,7 +164,7 @@
     <string name="gm_carlst_04_18">혜택</string>
     <string name="gm_carlst_04_19">현황</string>
     <string name="gm_carlst_04_20">신청하기</string>
-    <string name="gm_carlst_04_21">MY 차고</string>
+    <string name="gm_carlst_04_21">보유 차량 리스트</string>
     <string name="gm_carlst_04_22">차량번호 등록</string>
     <string name="gm_carlst_04_23">유사 재고 조회</string>
     <string name="gm_carlst_04_24">계약서 조회</string>

@@ -537,8 +537,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         quickBtn[4].setVisibility(View.GONE);
         quickBtn[5].setVisibility(View.GONE);
 
-        list.add(0, new QuickMenuVO("GM_CARLST01", "I", "My 차고", "1","genesisapp://menu?id=GM_CARLST01","NV"));
-        list.add(1, new QuickMenuVO("GM01_01", "I", "내차 위치 찾기", "2","genesisapp://menu?id=GM01_01","OV"));
+        list.add(0, new QuickMenuVO("GM_CARLST01", "I", "보유 차량 리스트", "1","genesisapp://menu?id=GM_CARLST01","NV"));
+        list.add(1, new QuickMenuVO("GM01_01", "I", "내 차 위치 찾기", "2","genesisapp://menu?id=GM01_01","OV"));
         list.add(2, new QuickMenuVO("GM01_03", "I", "SNS 공유하기", "3","genesisapp://menu?id=GM01_03","OV"));
 
         int menuSize = list.size() > quickBtn.length ? quickBtn.length : list.size();

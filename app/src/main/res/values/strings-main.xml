@@ -27,8 +27,8 @@
     <string name="gm02_2">계약서 조회</string>
     <string name="gm02_3">유사 재고 조회</string>
     <string name="gm02_4">견적 내기</string>
-    <string name="gm02_5">차량 위치</string>
-    <string name="gm02_6">My 차고</string>
+    <string name="gm02_5">내 차 위치 찾기</string>
+    <string name="gm02_6">보유 차량 리스트</string>
     <string name="gm02_7">SNS 자랑하기</string>
     <string name="gm02_8">로그인</string>
 
@@ -148,7 +148,7 @@
     <string name="sm01_service_driver_7">신청 / 내역 확인</string>
 
 
-    <string name="alrm01_1">알림 센터</string>
+    <string name="alrm01_1">알림센터</string>
     <string name="alrm01_2">전체</string>
     <string name="alrm01_3">자세히 보기</string>
     <string name="alrm01_4">검색 결과</string>
