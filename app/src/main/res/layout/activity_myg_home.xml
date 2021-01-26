@@ -25,7 +25,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:value="@{@string/title_home}"/>
+            app:value="@{@string/title_home}"
+            app:iconId="@{@drawable/ic_store_b}"/>
 
         <ScrollView
             android:layout_width="0dp"
@@ -238,10 +239,6 @@
                         app:layout_constraintBaseline_toBaselineOf="@+id/tv_point_connect_error"
                         app:layout_constraintEnd_toEndOf="@+id/tv_title_membership"
                         tools:visibility="visible"/>
-
-
-
-
 
 
                     <!-- 자세히 보기 버튼 -->

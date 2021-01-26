@@ -246,7 +246,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingBottom">2dp</item>
-        <item name="android:background">@drawable/bg_ffffff_underline_000000</item>
+        <item name="android:background">@drawable/bg_00000000_underline_000000</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:lineSpacingExtra">38dp</item>
         <item name="android:text">@string/word_home_33</item>

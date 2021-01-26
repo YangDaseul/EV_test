@@ -150,8 +150,9 @@ public class MyGMenuActivity extends SubActivity<ActivityMygMenuBinding> {
 
     private void reqListData(String keyword) {
         if (TextUtils.isEmpty(keyword)) {
-            menuViewModel.reqRecentlyMenuList(MenuRepository.ACTION_GET_MENU_ALL, null); //최근 검색어
-            ui.lSearchParent.etSearch.setBackgroundResource(R.drawable.bg_ffffff_stroke_dadde3);
+            menuViewModel.reqMenuList(); //2021-01-27 요건 변경으로 최근검색결과 제거
+//            menuViewModel.reqRecentlyMenuList(MenuRepository.ACTION_GET_MENU_ALL, null); //최근 검색어
+//            ui.lSearchParent.etSearch.setBackgroundResource(R.drawable.bg_ffffff_stroke_dadde3);
         } else {
             MenuVO menuVO = new MenuVO();
             menuVO.setName(keyword);

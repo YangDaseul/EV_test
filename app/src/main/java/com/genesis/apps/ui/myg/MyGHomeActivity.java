@@ -99,6 +99,10 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         istViewModel.getRES_IST_1002().observe(this, result -> {
             switch (result.status) {
                 case LOADING:
+                    ui.tvInsightExpnUnit.setVisibility(View.INVISIBLE);
+                    ui.tvInsightExpn.setVisibility(View.INVISIBLE);
+                    ui.tvExpnConnectError.setVisibility(View.GONE);
+                    ui.tvExpnRetry.setVisibility(View.GONE);
                     ui.pInsightExpn.show();
                     break;
                 case SUCCESS:
@@ -114,6 +118,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                             e.printStackTrace();
                         }
                         ui.tvInsightExpn.setText(StringUtil.getDigitGroupingString(current.getTotUseAmt()));
+                        ui.tvInsightExpn.setVisibility(View.VISIBLE);
                         ui.tvInsightExpnUnit.setVisibility(View.VISIBLE);
                         ui.tvExpnConnectError.setVisibility(View.GONE);
                         ui.tvExpnRetry.setVisibility(View.GONE);
@@ -121,6 +126,8 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                         break;
                     }
                 default:
+                    ui.tvInsightExpnUnit.setVisibility(View.INVISIBLE);
+                    ui.tvInsightExpn.setVisibility(View.INVISIBLE);
                     ui.tvExpnConnectError.setVisibility(View.VISIBLE);
                     ui.tvExpnRetry.setVisibility(View.VISIBLE);
                     ui.pInsightExpn.hide();
@@ -132,6 +139,11 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         mypViewModel.getRES_MYP_0001().observe(this, result -> {
             switch (result.status) {
                 case LOADING:
+                    ui.tvName.setVisibility(View.INVISIBLE);
+                    ui.tvMail.setVisibility(View.INVISIBLE);
+                    ui.btnMyInfo.setVisibility(View.INVISIBLE);
+                    ui.tvUserRetry.setVisibility(View.GONE);
+                    ui.tvUserConnectError.setVisibility(View.GONE);
                     ui.pUser.show();
                     break;
                 case SUCCESS:
@@ -140,12 +152,17 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     ui.tvMail.setText((result.data==null||TextUtils.isEmpty(result.data.getCcspEmail()))
                             ? "--" : result.data.getCcspEmail());
 
+                    ui.tvName.setVisibility(View.VISIBLE);
+                    ui.tvMail.setVisibility(View.VISIBLE);
                     ui.btnMyInfo.setVisibility(View.VISIBLE);
                     ui.tvUserRetry.setVisibility(View.GONE);
                     ui.tvUserConnectError.setVisibility(View.GONE);
                     ui.pUser.hide();
                     break;
                 default:
+                    ui.tvName.setVisibility(View.INVISIBLE);
+                    ui.tvMail.setVisibility(View.INVISIBLE);
+                    ui.btnMyInfo.setVisibility(View.INVISIBLE);
                     ui.tvUserConnectError.setVisibility(View.VISIBLE);
                     ui.tvUserRetry.setVisibility(View.VISIBLE);
                     ui.pUser.hide();
@@ -156,17 +173,27 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         mypViewModel.getRES_MYP_1003().observe(this, result -> {
             switch (result.status) {
                 case LOADING:
+                    ui.tvPointUnit.setVisibility(View.INVISIBLE);
+                    ui.tvPoint.setVisibility(View.INVISIBLE);
+                    ui.lPointDetail.lWhole.setVisibility(View.VISIBLE);
+                    ui.tvPointConnectError.setVisibility(View.GONE);
+                    ui.tvPointRetry.setVisibility(View.GONE);
                     ui.pPoint.show();
                     break;
                 case SUCCESS:
                     ui.tvPoint.setText((result.data==null||TextUtils.isEmpty(result.data.getBludMbrPoint()))
                             ? "0" : StringUtil.getDigitGroupingString(result.data.getBludMbrPoint()));
                     ui.tvPointUnit.setVisibility(View.VISIBLE);
+                    ui.tvPoint.setVisibility(View.VISIBLE);
+                    ui.lPointDetail.lWhole.setVisibility(View.VISIBLE);
                     ui.tvPointConnectError.setVisibility(View.GONE);
                     ui.tvPointRetry.setVisibility(View.GONE);
                     ui.pPoint.hide();
                     break;
                 default:
+                    ui.tvPointUnit.setVisibility(View.INVISIBLE);
+                    ui.tvPoint.setVisibility(View.INVISIBLE);
+                    ui.lPointDetail.lWhole.setVisibility(View.INVISIBLE);
                     ui.tvPointConnectError.setVisibility(View.VISIBLE);
                     ui.tvPointRetry.setVisibility(View.VISIBLE);
                     ui.pPoint.hide();
@@ -193,13 +220,16 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
             switch (result.status){
                 case LOADING:
+                    oilView.showErrorLayout(View.GONE);
                     oilView.showPorgessBar(true);
                     break;
                 case SUCCESS:
                     oilView.setOilLayout(result.data);
+                    oilView.showErrorLayout(View.GONE);
                     oilView.showPorgessBar(false);
                     break;
                 default:
+                    oilView.showErrorLayout(View.VISIBLE);
                     oilView.showPorgessBar(false);
                     break;
             }
@@ -247,6 +277,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         oilView = new OilView(ui.lOil, v -> onSingleClickListener.onClick(v), oilViewModel);
         ui.setActivity(this);
         ui.setOilView(oilView);
+        ui.lTitle.ivTitlebarImgBtn.setOnClickListener(onSingleClickListener);
         setCallCenter();
         initFamilyApp();
         ui.tvVersion.setText("V"+PackageUtil.changeVersionToAppFormat(PackageUtil.getApplicationVersionName(this, getPackageName())));
@@ -351,15 +382,11 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                 case R.id.btn_insight_expn://인사이트 자세히 보기
                     startActivitySingleTop(new Intent(this, InsightExpnMainActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
-                case R.id.btn_search:
-                    startActivitySingleTop(new Intent(this, MyGMenuActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                    break;
                 case R.id.btn_my_info: //내정보보기
                     startActivitySingleTop(new Intent(this, MyGGAActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.l_store:
                     startActivitySingleTop(new Intent(this, StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, StoreInfo.STORE_PURCHASE_URL), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-
                     break;
                 case R.id.l_point_detail: //블루멤버스 사용 가능 포인트
                     startActivitySingleTop(new Intent(this, MyGMembershipActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
@@ -452,20 +479,23 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
                 case R.id.tv_user_retry://사용자 정보 다시 시도
                     mypViewModel.reqMYP0001(new MYP_0001.Request(APPIAInfo.MG01.getId()));
-                    ui.tvUserRetry.setVisibility(View.GONE);
-                    ui.tvUserConnectError.setVisibility(View.GONE);
                     break;
                 case R.id.tv_point_retry:
                     mypViewModel.reqMYP1003(new MYP_1003.Request(APPIAInfo.MG01.getId()));
-                    ui.tvPointConnectError.setVisibility(View.GONE);
-                    ui.tvPointRetry.setVisibility(View.GONE);
                     break;
                 case R.id.tv_expn_retry:
                     reqInsightExpn();
-                    ui.tvExpnConnectError.setVisibility(View.GONE);
-                    ui.tvExpnRetry.setVisibility(View.GONE);
                     break;
+                case R.id.tv_oil_retry:
+                    mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
+                    break;
+                case R.id.iv_titlebar_img_btn:
+                    try {
+                        loginChk(StoreInfo.STORE_CART_URL, mypViewModel.getUserInfoFromDB().getCustGbCd());
+                    }catch (Exception ignore){
 
+                    }
+                    break;
             }
         }
 

@@ -92,7 +92,6 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
         });
 
         reqViewModel.getRES_REQ_1001().observe(getViewLifecycleOwner(), result -> {
-
             switch (result.status) {
                 case LOADING:
                     ((SubActivity) getActivity()).showProgressDialog(true);
@@ -108,8 +107,6 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
                     ((SubActivity) getActivity()).showProgressDialog(false);
                     break;
             }
-
-
         });
 
     }
@@ -252,20 +249,11 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
 
             //원격진단 신청
             case R.id.l_service_maintenance_customercenter_btn:
-
-//                MiddleDialog.dialogServiceRemoteInfo(getActivity(), () -> {
-//                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL+"080-700-6000"));
-//                    startActivity(intent);
                 ((BaseActivity) getActivity()).startActivitySingleTop(
                         new Intent(getActivity(), ServiceRemoteRegisterActivity.class),
                         RequestCodes.REQ_CODE_ACTIVITY.getCode(),
                         VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
                 );
-//                }, () -> {
-//
-//                });
-
-
                 break;
             // 원격 진단 신청 내역
             case R.id.l_service_maintenance_remote_servie_list_btn:
@@ -285,7 +273,7 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
                 try {
                     addressVO.setCenterLat(lgnViewModel.getPosition().getValue().get(0));
                     addressVO.setCenterLon(lgnViewModel.getPosition().getValue().get(1));
-                }catch (Exception e){
+                } catch (Exception e) {
                     addressVO.setCenterLat(37.463936);
                     addressVO.setCenterLon(127.042953);
                 }

@@ -23,6 +23,7 @@ import com.genesis.apps.comm.model.repo.MYPRepo;
 import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.comm.model.vo.FamilyAppVO;
 import com.genesis.apps.comm.model.vo.PrivilegeVO;
+import com.genesis.apps.comm.model.vo.UserVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.net.ga.GA;
@@ -271,6 +272,26 @@ class MYPViewModel extends ViewModel {
                 vehicleVO = null;
             }
             return vehicleVO;
+        });
+
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
+    }
+
+    public UserVO getUserInfoFromDB() throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<UserVO> future = es.getListeningExecutorService().submit(()->{
+            UserVO userVO = null;
+            try {
+                userVO = dbUserRepo.getUserVO();
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+                userVO = null;
+            }
+            return userVO;
         });
 
         try {
