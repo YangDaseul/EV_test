@@ -153,6 +153,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 }
             }
 
+            SubActivity.setStatusBarColor(getActivity(), dayCd == 1 ? R.color.x_ffffff : R.color.x_000000);
             ((MainActivity) getActivity()).setTab(dayCd);
             ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == 1 ? true : false);
 
