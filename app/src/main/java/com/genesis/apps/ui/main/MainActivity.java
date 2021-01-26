@@ -284,11 +284,11 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     }
 
     private final int TAB_INFO[][]={
-            {R.string.main_word_1, R.drawable.ic_tabbar_home},
-            {R.string.main_word_2, R.drawable.ic_tabbar_insight},
-            {R.string.main_word_3, R.drawable.ic_tabbar_service},
-            {R.string.main_word_5, R.drawable.ic_tabbar_store},
-            {R.string.main_word_4, R.drawable.ic_tabbar_contents}
+            {R.string.main_word_1, R.drawable.ic_tabbar_home_bs},
+            {R.string.main_word_2, R.drawable.ic_tabbar_insight_w},
+            {R.string.main_word_3, R.drawable.ic_tabbar_service_w},
+            {R.string.main_word_5, R.drawable.ic_tabbar_store_w},
+            {R.string.main_word_4, R.drawable.ic_tabbar_contents_w}
     };
 
     private void setTabView(){

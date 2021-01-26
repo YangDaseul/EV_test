@@ -32,7 +32,7 @@
             android:lineSpacingExtra="0dp"
             android:letterSpacing="-0.01"
             android:textColor="@drawable/selector_tab"
-            android:textSize="11dp"
+            android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
