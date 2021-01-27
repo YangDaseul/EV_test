@@ -10,178 +10,197 @@
             type="com.genesis.apps.ui.main.service.FragmentServiceDrive" />
     </data>
 
-    <!-- 배경 회색 추가 -->
-    <LinearLayout
-        android:orientation="vertical"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/x_f8f8f8">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/l_service_drive_req_btn"
+        <!-- 배경 회색 추가 -->
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/ripple_bg_000000"
-            android:clickable="true"
-            android:focusable="true"
-            android:padding="20dp"
-            android:elevation="3dp"
-            android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}">
+            android:layout_height="wrap_content">
 
-            <!--  세차 예약 내역 타이틀-->
-            <TextView
-                android:id="@+id/iv_service_car_wash_reserv_history_title"
-                style="@style/TextBasic"
-                android:fontFamily="@font/regular_genesissansheadglobal"
-                android:text="@string/sm01_service_driver_7"
-                android:textColor="@color/x_ffffff"
-                android:textSize="16dp"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <!--  세차 예약 내역 텍스트-->
-            <TextView
-                android:id="@+id/iv_service_car_wash_reserv_history_desc"
-                style="@style/TextBasic"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/light_genesissansheadglobal"
-                android:lineSpacingExtra="6dp"
-                android:text="@string/sm01_car_wash_2"
-                android:textColor="@color/x_aaabaf"
-                android:textSize="14dp"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_service_car_wash_reserv_history_title" />
-
-            <!-- 세차 예약 내역 오른쪽에 " > " -->
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/btn_arrow_open_r_w"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf=" parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!-- 본문 최상위 레이아웃 -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="20dp"
-            android:background="@color/x_ffffff"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:elevation="3dp">
-
-            <!-- 대리운전 타이틀 -->
-            <TextView
-                android:id="@+id/tv_sm_service_drive_title"
-                style="@style/TextBasic"
-                android:layout_marginTop="25dp"
-                android:fontFamily="@font/light_genesissansheadglobal"
-                android:text="@string/sm01_service_driver_1"
-                android:textColor="@color/x_000000"
-                android:textSize="20dp"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="4dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <!-- 개요 -->
-            <TextView
-                android:id="@+id/tv_sm_service_drive_sub"
-                style="@style/ServiceDriveDesc.regular"
-                android:textColor="@color/x_262626"
-                android:layout_marginTop="15dp"
-                android:text="@string/sm01_service_driver_2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_sm_service_drive_title" />
-
-            <!-- 아이콘 -->
-            <ImageView
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/l_service_drive_req_btn"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:src="@drawable/ic_service_driver"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/ripple_bg_000000"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="20dp"
+                android:elevation="3dp"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}">
 
-            <View
-                android:id="@+id/view_line"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="30dp"
-                android:background="@color/x_e5e5e5"
-                app:layout_constraintTop_toBottomOf="@+id/tv_sm_service_drive_sub"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
+                <!--  세차 예약 내역 타이틀-->
+                <TextView
+                    android:id="@+id/iv_service_car_wash_reserv_history_title"
+                    style="@style/TextBasic"
+                    android:fontFamily="@font/regular_genesissansheadglobal"
+                    android:text="@string/sm01_service_driver_7"
+                    android:textColor="@color/x_ffffff"
+                    android:textSize="16dp"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- 상세 1 타이틀 -->
-            <TextView
-                style="@style/ServiceDriveDesc"
-                android:id="@+id/tv_sm_service_drive_dec1_title"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/regular_genesissanstextglobal"
-                android:textColor="@color/x_000000"
-                android:text="@string/sm01_service_driver_3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view_line" />
+                <!--  세차 예약 내역 텍스트-->
+                <TextView
+                    android:id="@+id/iv_service_car_wash_reserv_history_desc"
+                    style="@style/TextBasic"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/light_genesissansheadglobal"
+                    android:lineSpacingExtra="6dp"
+                    android:text="@string/sm01_car_wash_2"
+                    android:textColor="@color/x_aaabaf"
+                    android:textSize="14dp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_service_car_wash_reserv_history_title" />
 
-            <TextView
-                android:id="@+id/tv_sm_service_drive_dec1_dec_dot"
-                style="@style/ServiceDriveDesc"
-                android:fontFamily="@font/regular_genesissanstextglobal"
-                android:textColor="@color/x_4d4d4d"
-                android:text="-"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_sm_service_drive_dec1_dec" />
+                <!-- 세차 예약 내역 오른쪽에 " > " -->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/btn_arrow_open_r_w"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf=" parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- 상세 1 내용 -->
-            <TextView
-                android:id="@+id/tv_sm_service_drive_dec1_dec"
-                style="@style/ServiceDriveDesc"
+            <!-- 본문 최상위 레이아웃 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
-                android:fontFamily="@font/regular_genesissanstextglobal"
-                android:textColor="@color/x_4d4d4d"
-                android:text="@string/sm01_service_driver_4"
-                app:layout_constraintLeft_toRightOf="@+id/tv_sm_service_drive_dec1_dec_dot"
-                app:layout_constraintTop_toBottomOf="@id/tv_sm_service_drive_dec1_title" />
-            <!-- 상세 2 타이틀 -->
-            <TextView
-                android:id="@+id/tv_sm_service_drive_dec2_title"
-                style="@style/ServiceDriveDesc"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/regular_genesissanstextglobal"
-                android:textColor="@color/x_000000"
-                android:text="@string/sm01_service_driver_5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_sm_service_drive_dec1_dec" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="30dp"
+                android:background="@color/x_ffffff"
+                android:paddingTop="25dp"
+                android:paddingBottom="25dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:elevation="3dp">
 
-            <TextView
-                android:id="@+id/tv_sm_service_drive_dec2_dec_dot"
-                style="@style/ServiceDriveDesc"
-                android:fontFamily="@font/regular_genesissanstextglobal"
-                android:textColor="@color/x_4d4d4d"
-                android:text="-"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_sm_service_drive_dec2_dec" />
+                <!-- 대리운전 타이틀 -->
+                <TextView
+                    android:id="@+id/tv_sm_service_drive_title"
+                    style="@style/TextBasic"
+                    android:fontFamily="@font/light_genesissansheadglobal"
+                    android:text="@string/sm01_service_driver_1"
+                    android:textColor="@color/x_000000"
+                    android:textSize="20dp"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="4dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_sm_service_drive_sub"/>
 
-            <!-- 상세 2 내용 -->
-            <TextView
-                android:id="@+id/tv_sm_service_drive_dec2_dec"
-                style="@style/ServiceDriveDesc"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/regular_genesissanstextglobal"
-                android:textColor="@color/x_4d4d4d"
-                android:text="@string/sm01_service_driver_6"
-                app:layout_constraintLeft_toRightOf="@+id/tv_sm_service_drive_dec2_dec_dot"
-                app:layout_constraintTop_toBottomOf="@id/tv_sm_service_drive_dec2_title" />
+                <!-- 개요 -->
+                <TextView
+                    android:id="@+id/tv_sm_service_drive_sub"
+                    style="@style/ServiceDriveDesc.regular"
+                    android:textColor="@color/x_262626"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/sm01_service_driver_2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sm_service_drive_title"
+                    app:layout_constraintBottom_toTopOf="@+id/view_line"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+                <!-- 아이콘 -->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/ic_service_driver"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/view_line"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@color/x_e5e5e5"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_sm_service_drive_sub"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_sm_service_drive_dec1_title"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
+                <!-- 상세 1 타이틀 -->
+                <TextView
+                    style="@style/ServiceDriveDesc"
+                    android:id="@+id/tv_sm_service_drive_dec1_title"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:textColor="@color/x_000000"
+                    android:text="@string/sm01_service_driver_3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_line"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_sm_service_drive_dec1_dec"/>
+
+                <TextView
+                    android:id="@+id/tv_sm_service_drive_dec1_dec_dot"
+                    style="@style/ServiceDriveDesc"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:textColor="@color/x_4d4d4d"
+                    android:text="-"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_sm_service_drive_dec1_dec" />
+
+                <!-- 상세 1 내용 -->
+                <TextView
+                    android:id="@+id/tv_sm_service_drive_dec1_dec"
+                    style="@style/ServiceDriveDesc"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:textColor="@color/x_4d4d4d"
+                    android:text="@string/sm01_service_driver_4"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_sm_service_drive_dec1_dec_dot"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sm_service_drive_dec1_title"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_sm_service_drive_dec2_title"/>
+                <!-- 상세 2 타이틀 -->
+                <TextView
+                    android:id="@+id/tv_sm_service_drive_dec2_title"
+                    style="@style/ServiceDriveDesc"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:textColor="@color/x_000000"
+                    android:text="@string/sm01_service_driver_5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sm_service_drive_dec1_dec"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_sm_service_drive_dec2_dec"/>
+
+                <TextView
+                    android:id="@+id/tv_sm_service_drive_dec2_dec_dot"
+                    style="@style/ServiceDriveDesc"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:textColor="@color/x_4d4d4d"
+                    android:text="-"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_sm_service_drive_dec2_dec" />
+
+                <!-- 상세 2 내용 -->
+                <TextView
+                    android:id="@+id/tv_sm_service_drive_dec2_dec"
+                    style="@style/ServiceDriveDesc"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:textColor="@color/x_4d4d4d"
+                    android:text="@string/sm01_service_driver_6"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_sm_service_drive_dec2_dec_dot"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sm_service_drive_dec2_title"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
 </layout>
