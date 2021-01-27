@@ -264,11 +264,6 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
                 }
 
                 break;
-
-            case R.id.btn_search:
-                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ContentsSearchActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-
-                break;
         }
     }
 

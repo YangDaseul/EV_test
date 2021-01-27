@@ -178,6 +178,10 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 }
 
                 break;
+            case R.id.btn_contents_search:
+                startActivitySingleTop(new Intent(this, ContentsSearchActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
+                break;
         }
 
     }
@@ -409,6 +413,12 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 if(fragment instanceof FragmentStore) {
                     FragmentStore fragmentStore = (FragmentStore) fragment;
                     MyWebViewFrament webFragment = (MyWebViewFrament) fragment.getChildFragmentManager().findFragmentById(R.id.fm_holder);
+
+                    if(base.lProgress.lProgress.getVisibility() == View.VISIBLE) {
+                        showProgressDialog(false);
+
+                        return;
+                    }
 
                     if(fragmentStore.isDlp.equals("YES")) {
                         webFragment.loadUrl("javascript:bwcAppClose();");
