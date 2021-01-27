@@ -37,6 +37,9 @@ class MessageVO extends BaseData {
     @SerializedName("msgTypCd")
     private String msgTypCd;
     @Expose
+    @SerializedName("ttl")
+    private String ttl;
+    @Expose
     @SerializedName("txtMsg1")
     private String txtMsg1;
     @Expose
@@ -81,8 +84,19 @@ class MessageVO extends BaseData {
     private String txtMsg;
 
     @Ignore
+    private String siGuGun;
+    @Ignore
+    private String wthrCdNm;
+    @Ignore
+    private String t1h;
+    @Ignore
+    private int dayCd;
+
+    @Ignore
     private boolean isBanner;//로컬 메인 홈 인사이트에서 배너메시지인지 어드민메시지인지 확인 시 사용
 
     @Ignore
     private int currentPos;//인사이트 영역1에서 현재 이미지 위치 확인 시 사용
+
+
 }

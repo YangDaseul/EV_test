@@ -44,6 +44,9 @@ public class VariableType {
     public static final String WEATHER_NAME_PTY = "pty";
     public static final String WEATHER_NAME_LGT = "lgt";
 
+    public static final int HOME_TIME_DAY = 1;
+    public static final int HOME_TIME_NIGHT = 2;
+
     //OS 코드 정의
     public static final String OS_DIVICE_CODE = "A";
 

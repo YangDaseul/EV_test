@@ -41,4 +41,13 @@ public class VibratorUtil {
         view.startAnimation(anim);
         return view;
     }
+
+    public static View makeMeShakeY(View view, int duration, int offset) {
+        Animation anim = new TranslateAnimation(0,0,-offset,offset);
+        anim.setDuration(duration);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setRepeatCount(5);
+        view.startAnimation(anim);
+        return view;
+    }
 }

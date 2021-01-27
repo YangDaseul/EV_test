@@ -78,7 +78,7 @@ public class LGNRepo {
     }
 
     public MutableLiveData<NetUIResponse<LGN_0003.Response>> REQ_LGN_0003(final LGN_0003.Request reqData){
-
+        RES_LGN_0003.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -120,7 +120,7 @@ public class LGNRepo {
 
 
     public MutableLiveData<NetUIResponse<LGN_0005.Response>> REQ_LGN_0005(final LGN_0005.Request reqData){
-
+        RES_LGN_0005.setValue(NetUIResponse.loading(null));
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {

@@ -93,5 +93,8 @@ public class LGN_0005 extends BaseData {
         @Expose
         @SerializedName("dayCd")
         private String dayCd;
+        @Expose
+        @SerializedName("siGuGun")
+        private String siGuGun;
     }
 }

@@ -16,7 +16,7 @@ public enum WeatherCodes {
 
     PTY0("PTY_0", WEATHER_NAME_PTY, "0", "없음", 0, 0, 0, R.color.x_ffffff),
     PTY1("PTY_145", WEATHER_NAME_PTY, "1", "비", 3, 3, 1, R.color.x_ffffff),
-    PTY2("PTY_26", WEATHER_NAME_PTY, "2", "비/눈(진눈개비)", 2, 5, 2, R.color.x_ffffff),
+    PTY2("PTY_26", WEATHER_NAME_PTY, "2", "비/눈", 2, 5, 2, R.color.x_ffffff),
     PTY3("PTY_37", WEATHER_NAME_PTY, "3", "눈", 2, 4, 2, R.color.x_ffffff),
     PTY4("PTY_145", WEATHER_NAME_PTY, "4", "소나기", 3, 3, 1, R.color.x_ffffff),
     PTY5("PTY_145", WEATHER_NAME_PTY, "5", "빗방울", 3, 3, 1, R.color.x_ffffff),
@@ -38,8 +38,13 @@ public enum WeatherCodes {
             {R.raw.cleansky_night, R.raw.cloudy_night, R.raw.snowy_night, R.raw.rainy_night, R.raw.lighting_night}
     };
 
+    public static int getTextColorResource(int day){
+        //낮일 때 검은색, 밤일 때 흰색
+        return day < VariableType.HOME_TIME_NIGHT ? R.color.x_000000 : R.color.x_ffffff;
+    }
+
     public static int getBackgroundResource(WeatherCodes weatherCodes, int day){
-        if(day<1) day=1;//서버에서 주는 낮밤 코드는 1: 낮 2: 밤
+        if(day<VariableType.HOME_TIME_DAY) day=VariableType.HOME_TIME_DAY;//서버에서 주는 낮밤 코드는 1: 낮 2: 밤
 
         return BACKGROUND_RESOURCE[day-1][weatherCodes.getPosBackground()];
     }

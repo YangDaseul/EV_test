@@ -333,7 +333,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                 }
                 ui.btnCarList.setVisibility(View.GONE);
                 if(privilegeVO!=null) {
-                    switch (privilegeVO.getJoinPsblCd()) {
+                    switch (StringUtil.isValidString(privilegeVO.getJoinPsblCd())) {
                         case PrivilegeVO.JOIN_CODE_APPLY_POSSIBLE:
                             ui.btnStatus.setVisibility(View.GONE);
 //                            ui.btnBenefit.setVisibility(View.GONE);

@@ -53,7 +53,7 @@ public class PrivilegeApplyAdapter extends BaseRecyclerViewAdapter2<PrivilegeVO>
             getBinding().btnStatus.setOnClickListener(null);
             getBinding().btnStatus.setVisibility(View.GONE);
 
-            switch (item.getJoinPsblCd()){
+            switch (StringUtil.isValidString(item.getJoinPsblCd())){
                 case PrivilegeVO.JOIN_CODE_APPLY_POSSIBLE:
                     getBinding().lWhole.setBackgroundResource(R.drawable.bg_ffffff_stroke_cd9a81);
                     getBinding().btnStatus.setVisibility(View.GONE);

@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.MessageVO;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ItemHomeInsightEtcBinding;
 import com.genesis.apps.databinding.ItemHomeInsightWeatherBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
@@ -30,7 +31,7 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.v("recyclerview","recyclerview onCreateViewHolder:"+viewType);
+        Log.v("recyclerview", "recyclerview onCreateViewHolder:" + viewType);
         if (viewType == ITEM_WEATHER) {
             return new ItemHomeInsightWeather(getView(parent, R.layout.item_home_insight_weather));
         } else {
@@ -42,7 +43,7 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
     @Override
     public int getItemViewType(int position) {
         try {
-            Log.v("recyclerview","recyclerview getItemViewType:"+position);
+            Log.v("recyclerview", "recyclerview getItemViewType:" + position);
             int index = 0;
             if (getItems().size() > 0) {
                 index = position % getItems().size();
@@ -70,15 +71,14 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
 
     @Override
     public int getItemCount() {
-        if(getItems()==null||getItems().size()==0){
+        if (getItems() == null || getItems().size() == 0) {
             return 0;
-        }else{
+        } else {
             return Integer.MAX_VALUE;
         }
     }
 
-
-    public int getRealItemCnt(){
+    public int getRealItemCnt() {
         return getItems().size();
     }
 
@@ -93,6 +93,7 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
     private static class ItemHomeInsightEtc extends BaseViewHolder<MessageVO, ItemHomeInsightEtcBinding> {
         public ItemHomeInsightEtc(View itemView) {
             super(itemView);
+
         }
 
         @Override
@@ -111,7 +112,7 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
             if (item.isBanner()) {
                 //배너메시지
                 getBinding().ivImg.setVisibility(View.VISIBLE);
-                Log.v("test img log","test:"+item.getImgUri()+"   pos:"+pos);
+                Log.v("test img log", "test:" + item.getImgUri() + "   pos:" + pos);
                 Glide
                         .with(getContext())
                         .load(item.getImgUri())
@@ -207,8 +208,26 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
 //            }finally {
 //                getBinding().tvMsg.setText(item.getTxtMsg());
 //            }
-
+            getBinding().setContext(getContext());
+            getBinding().setData(item);
             getBinding().tvMsg.setText(item.getTxtMsg());
+            String spec = StringUtil.isValidString(item.getWthrCdNm());
+            spec += (!StringUtil.isValidString(item.getT1h()).equalsIgnoreCase("") ? item.getT1h() + " " : "");
+            spec += StringUtil.isValidString(item.getSiGuGun());
+            getBinding().tvMsg2.setText(spec);
+
+            if (!StringUtil.isValidString(item.getIconImgUri()).equalsIgnoreCase("")) {
+                Glide
+                        .with(getContext())
+                        .load(item.getIconImgUri())
+//                        .override(Target.SIZE_ORIGINAL,63)
+//                        .error(R.drawable.banner_home_960x480) //todo 기본이미지 적용 필요
+//                        .placeholder(R.drawable.banner_home_960x480) //todo 기본이미지 적용 필요
+//                        .onlyRetrieveFromCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                        .into(getBinding().ivIcon);
+            }
+
         }
 
         @Override
@@ -216,19 +235,16 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
 
         }
 
-        private int getCharNumber(String str, char c)
-        {
+        private int getCharNumber(String str, char c) {
             int count = 0;
-            for(int i=0;i<str.length();i++)
-            {
-                if(str.charAt(i) == c)
+            for (int i = 0; i < str.length(); i++) {
+                if (str.charAt(i) == c)
                     count++;
             }
             return count;
         }
 
     }
-
 
 
 }

@@ -113,16 +113,15 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                                 } catch (Exception e) {
                                     //TODO 예외처리 필요
                                 }
-                                showProgressDialog(false);
                                 setEmptyView();
                             }
 
                             @Override
                             public void onError(Object e) {
-                                showProgressDialog(false);
                                 setEmptyView();
                             }
                         });
+                        showProgressDialog(false);
                         break;
                     }
                 default:

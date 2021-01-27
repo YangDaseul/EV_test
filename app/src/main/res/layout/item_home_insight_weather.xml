@@ -2,41 +2,85 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+        <import type="com.genesis.apps.comm.model.constants.VariableType"/>
+
+        <import type="com.genesis.apps.comm.util.StringUtil" />
+
+        <import type ="androidx.core.content.ContextCompat"/>
+
+        <import type="com.genesis.apps.comm.model.constants.WeatherCodes" />
+
+        <variable
+            name="context"
+            type="android.content.Context" />
+
+        <variable
+            name="data"
+            type="com.genesis.apps.comm.model.vo.MessageVO" />
+    </data>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp">
+        android:background="@color/x_1a262626"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp">
 
         <TextView
             android:id="@+id/tv_msg"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/x_ffffff"
+            android:textColor="@{ContextCompat.getColor(context,WeatherCodes.getTextColorResource(data.dayCd))}"
             android:textSize="18dp"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="6dp"
             android:fontFamily="@font/light_genesissansheadglobal"
-            android:maxLines="2"
+            android:maxLines="1"
             android:ellipsize="end"
             app:layout_constrainedWidth="true"
+            app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/iv_icon"
+            tools:textColor="@color/x_000000"
             tools:text="폭우가 쏟아져요!\n안전 운전 필수입니다."/>
 
-        <!--        <ImageView-->
-        <!--            android:id="@+id/iv_icon"-->
-        <!--            android:layout_width="40dp"-->
-        <!--            android:layout_height="40dp"-->
-        <!--            android:scaleType="centerInside"-->
-        <!--            android:layout_marginRight="15dp"-->
-        <!--            android:layout_marginTop="15dp"-->
-        <!--            app:layout_constraintRight_toRightOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            tools:src="@drawable/ic_weather_rain"/>-->
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:scaleType="centerInside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_msg"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+        <TextView
+            android:id="@+id/tv_msg_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:textColor="@{ContextCompat.getColor(context,WeatherCodes.getTextColorResource(data.dayCd))}"
+            android:textSize="14dp"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="10dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintTop_toTopOf="@+id/iv_icon"
+            app:layout_constraintStart_toEndOf="@+id/iv_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_icon"
+            tools:textColor="@color/x_000000"
+            tools:text="폭우가 쏟아져요!\n안전 운전 필수입니다."/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

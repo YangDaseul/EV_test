@@ -17,6 +17,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.airbnb.paris.Paris;
 import com.bumptech.glide.Glide;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
@@ -39,6 +40,7 @@ import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecordUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
+import com.genesis.apps.comm.util.VibratorUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.ISTViewModel;
@@ -91,6 +93,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     private int rawBackground=0;
     private int rawLottie=0;
     private int dayCd = 1;
+    private boolean isInit=true; //최초 로딩 완료의 기준은 LGN-0005. LGN-0005(날씨정보요청)에 의해서 기본적인 뷰 표시가 결정됨
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -125,12 +128,11 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     if (result.data != null){
                         if(!TextUtils.isEmpty(result.data.getVirtRecptNo())){
                             me.tvRepairStatus.setVisibility(View.VISIBLE);
-                            me.tvRepairStatus.setText(R.string.gm01_repair_status_1);
-                            me.tvRepairStatus.setTextColor(getContext().getColor(R.color.x_ce2d2d));
+                            Paris.style(me.tvRepairStatus).apply(R.style.MainHomeBadgeSOS);
                         }else if(!TextUtils.isEmpty(result.data.getAsnStatsNm())){
                             me.tvRepairStatus.setVisibility(View.VISIBLE);
+                            Paris.style(me.tvRepairStatus).apply(R.style.MainHomeBadgeRpar);
                             me.tvRepairStatus.setText(result.data.getAsnStatsNm());
-                            me.tvRepairStatus.setTextColor(getContext().getColor(R.color.x_ad7b61));
                         }else{
                             me.tvRepairStatus.setVisibility(View.INVISIBLE);
                         }
@@ -140,49 +142,67 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             }
         });
         lgnViewModel.getRES_LGN_0005().observe(getViewLifecycleOwner(), result -> {
-            //날씨 정보 요청 전문에서는 에러가 발생되어도 기본 값으로 표시
-            WeatherCodes weatherCodes = WeatherCodes.SKY1;
 
-            if (result.data != null) {
-                try {
-                    weatherCodes = WeatherCodes.decideCode(result.data.getLgt(), result.data.getPty(), result.data.getSky());
-                    dayCd = Integer.parseInt(result.data.getDayCd());
-                } catch (Exception e) {
-                    weatherCodes = WeatherCodes.SKY1;
-                    dayCd = 1;
-                }
-            }
+            switch (result.status) {
+                case LOADING:
+                    ((MainActivity) getActivity()).showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                default:
+                    ((MainActivity) getActivity()).showProgressDialog(false);
 
-            SubActivity.setStatusBarColor(getActivity(), dayCd == 1 ? R.color.x_ffffff : R.color.x_000000);
-            ((MainActivity) getActivity()).setTab(dayCd);
-            ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == 1 ? true : false);
+                    //날씨 정보 요청 전문에서는 에러가 발생되어도 기본 값으로 표시
+                    WeatherCodes weatherCodes = WeatherCodes.SKY1;
+                    String sigungu="";
+                    String t1h="";
 
-            try {
-                MessageVO weather = cmnViewModel.getHomeWeatherInsight(weatherCodes);
-                if (weather != null) {
-                    adapter.addRow(weather);
+                    if (result.data != null) {
+                        try {
+                            weatherCodes = WeatherCodes.decideCode(result.data.getLgt(), result.data.getPty(), result.data.getSky());
+                            dayCd = Integer.parseInt(result.data.getDayCd());
+                            sigungu = StringUtil.isValidString(result.data.getSiGuGun());
+                            t1h = StringUtil.isValidString(result.data.getT1h());
+                        } catch (Exception e) {
+                            weatherCodes = WeatherCodes.SKY1;
+                            dayCd = 1;
+                        }
+                    }
+
+                    SubActivity.setStatusBarColor(getActivity(), dayCd == 1 ? R.color.x_ffffff : R.color.x_000000);
+                    ((MainActivity) getActivity()).setTab(dayCd);
+                    ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == 1 ? true : false);
+
+                    try {
+                        MessageVO weather = cmnViewModel.getHomeWeatherInsight(weatherCodes, dayCd, sigungu, t1h);
+                        if (weather != null) {
+                            adapter.addRow(weather);
 //                    adapter.setRealItemCnt(adapter.getRealItemCnt() + 1);
-                }
+                        }
 
 //                adapter.notifyDataSetChanged();
-                me.setActivity((MainActivity) getActivity());
-                me.setWeatherCode(weatherCodes);
-            } catch (Exception e) {
+                        me.setActivity((MainActivity) getActivity());
+                        me.setWeatherCode(weatherCodes);
+                        me.setDayCd(dayCd);
+                    } catch (Exception e) {
 
-            } finally {
-                istViewModel.reqIST1001(new IST_1001.Request(APPIAInfo.GM01.getId(), "HOME", "TOP"));
+                    } finally {
+                        istViewModel.reqIST1001(new IST_1001.Request(APPIAInfo.GM01.getId(), "HOME", "TOP"));
+                    }
+
+                    try{
+                        rawBackground = WeatherCodes.getBackgroundResource(weatherCodes, dayCd);
+                        rawLottie = WeatherCodes.getEffectResource(weatherCodes);
+                        setVideo(false);
+                        videoPauseAndResume(true);
+                        resumeAndPauseLottie(true);
+                        setIndicator(lgnViewModel.getMainVehicleFromDB().getCustGbCd());
+                        startTimer();
+                    }catch (Exception e){
+
+                    }
+                    isInit=false;
+                    break;
             }
-
-            try{
-                rawBackground = WeatherCodes.getBackgroundResource(weatherCodes, dayCd);
-                rawLottie = WeatherCodes.getEffectResource(weatherCodes);
-                setVideo(false);
-                videoPauseAndResume(true);
-                resumeAndPauseLottie(true);
-            }catch (Exception e){
-
-            }
-
         });
 
         lgnViewModel.getPosition().observe(getViewLifecycleOwner(), doubles -> {
@@ -304,19 +324,14 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 me.tvCarModel.setVisibility(visibility);
                 me.tvRepairStatus.setVisibility(visibility);
                 me.tvCarVrn.setVisibility(visibility);
-                me.ivTeduri.setVisibility(View.INVISIBLE);
                 me.lFloating.setVisibility(visibility);
                 me.lDistance.setVisibility(visibility);
                 me.btnQuick.setVisibility(visibility);
             }else{
-                me.ivTeduri.setVisibility(View.VISIBLE);
                 setViewVehicle();
                 ((MainActivity) getActivity()).setGNB("", View.VISIBLE);
                 goneQuickMenu();
             }
-
-
-            //TODO 배경 및 차량 리소스가 결정되면 녹화해야할 VIEW가 요건 정의 된 후 여기에서 해당 뷰 셋팅 정의 필요
         });
     }
 
@@ -326,6 +341,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 && StringUtil.isValidString(isFirstLogin).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)//최초로그인이면
         ){
             me.ivIndicator.setVisibility(View.VISIBLE);
+            VibratorUtil.makeMeShakeY(me.ivIndicator, 200, 20);
             lgnViewModel.updateGlobalDataToDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_ISFIRSTLOGIN, VariableType.COMMON_MEANS_NO);
         }else{
             me.ivIndicator.setVisibility(View.INVISIBLE);
@@ -337,7 +353,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         if (!((MainActivity) getActivity()).isGpsEnable()) {
             MiddleDialog.dialogGPS(getActivity(), () -> ((MainActivity) getActivity()).turnGPSOn(isGPSEnable -> {
             }), () -> {
-                //TODO 확인 클릭
             });
 
             //현대양재사옥위치
@@ -430,9 +445,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         videoPauseAndResume(true);
         setViewVehicle();
         ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == 1 ? true : false);
-
-        startTimer();
         goneQuickMenu();
+        if(!isInit) startTimer();
     }
 
     private void startTimer() {
@@ -485,7 +499,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 //                me.ivMore.setVisibility(View.GONE);
                 me.lDistance.setVisibility(View.GONE);
                 me.lFloating.setVisibility(View.GONE);
-                setIndicator(vehicleVO.getCustGbCd());
                 switch (vehicleVO.getCustGbCd()) {
                     case VariableType.MAIN_VEHICLE_TYPE_OV:
 //                        me.ivMore.setVisibility(View.VISIBLE);
@@ -512,10 +525,10 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             developersViewModel.reqDte(new Dte.Request(carId));
             developersViewModel.reqOdometer(new Odometer.Request(carId));
             developersViewModel.reqDistance(new Distance.Request(carId, developersViewModel.getDateYyyyMMdd(-7), developersViewModel.getDateYyyyMMdd(0)));
-            me.lDistance.setVisibility(View.VISIBLE);
+//            me.lDistance.setVisibility(View.VISIBLE);
 //            developersViewModel.reqParkLocation(new ParkLocation.Request(carId));
         }else{
-            me.lDistance.setVisibility(View.GONE);
+//            me.lDistance.setVisibility(View.GONE);
         }
     }
 
@@ -703,20 +716,22 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             //차량이 없는 고객인 경우 흰색배경의 검은글씨 활성화
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) me.lFloating.getLayoutParams();
             int margin = (int) DeviceUtil.dip2Pixel(getContext(), 20);
+            int marginHorizontal = (int) DeviceUtil.dip2Pixel(getContext(), 35);
+            int marginBottom = (int) DeviceUtil.dip2Pixel(getContext(), 105);
             if (menuSize == 1) {
                 //메뉴가 하나일 때 (보통 미로그인, 미소유 사용자)
-                params.setMargins(margin, 0, margin, margin);
+                params.setMargins(marginHorizontal, 0, marginHorizontal, marginBottom);
             } else {
                 //메뉴가 하나 이상일 때
-                params.setMargins(0, 0, 0, margin);
+                params.setMargins(margin, 0, margin, marginBottom);
             }
             me.lFloating.setLayoutParams(params);
 
 
             me.lFloating.setBackgroundColor(menuSize == 1 ? getContext().getColor(R.color.x_ffffff) : 0);
-            me.btnFloating1.setTextColor(menuSize == 1 ? getContext().getColor(R.color.x_000000) : getContext().getColor(R.color.x_ffffff));
+            me.btnFloating1.setTextColor(menuSize == 1 ? getContext().getColor(R.color.x_000000) :  (dayCd==VariableType.HOME_TIME_DAY ? getContext().getColor(R.color.x_000000) : getContext().getColor(R.color.x_ffffff)));
 
-            me.btnFloating1.setTextSize(TypedValue.COMPLEX_UNIT_DIP, (menuSize == 1 ? 16 : 12));
+            me.btnFloating1.setTextSize(TypedValue.COMPLEX_UNIT_DIP, (menuSize == 1 ? 16 : 14));
             me.btnFloating1.setTypeface(menuSize == 1 ? ResourcesCompat.getFont(getActivity(), R.font.regular_genesissanstextglobal) : ResourcesCompat.getFont(getActivity(), R.font.light_genesissansheadglobal));
 
             for (int i = 0; i < menuSize; i++) {
