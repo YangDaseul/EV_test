@@ -158,13 +158,12 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
                     if (result.data != null) {
                         try {
-                            weatherCodes = WeatherCodes.decideCode(result.data.getLgt(), result.data.getPty(), result.data.getSky());
-                            dayCd = Integer.parseInt(result.data.getDayCd());
+                            dayCd = Integer.parseInt(StringUtil.isValidString(result.data.getDayCd()));
                             sigungu = StringUtil.isValidString(result.data.getSiGuGun());
                             t1h = StringUtil.isValidString(result.data.getT1h());
+                            weatherCodes = WeatherCodes.decideCode(result.data.getLgt(), result.data.getPty(), result.data.getSky());
                         } catch (Exception e) {
                             weatherCodes = WeatherCodes.SKY1;
-                            dayCd = 1;
                         }
                     }
 
@@ -282,6 +281,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         if (result.data.getAdmMsgList() != null && result.data.getAdmMsgList().size() > 0) {
                             for (MessageVO messageVO : result.data.getAdmMsgList()) {
                                 messageVO.setBanner(false);
+                                messageVO.setDayCd(dayCd);
                             }
                             adapter.addRows(result.data.getAdmMsgList());
 //                            adapter.setRealItemCnt(adapter.getRealItemCnt() + result.data.getAdmMsgList().size());
@@ -290,6 +290,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         if (result.data.getBnrMsgList() != null && result.data.getBnrMsgList().size() > 0) {
                             for (MessageVO messageVO : result.data.getBnrMsgList()) {
                                 messageVO.setBanner(true);
+                                messageVO.setDayCd(dayCd);
                             }
 
                             adapter.addRows(result.data.getBnrMsgList());

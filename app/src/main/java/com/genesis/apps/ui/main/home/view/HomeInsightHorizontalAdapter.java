@@ -103,12 +103,13 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
 
         @Override
         public void onBindView(MessageVO item, final int pos) {
+            getBinding().setContext(getContext());
+            getBinding().setData(item);
             getBinding().tvMsg.setVisibility(View.GONE);
             getBinding().tvMsg2.setVisibility(View.GONE);
             getBinding().ivImg.setVisibility(View.INVISIBLE);
             getBinding().lWhole.setOnClickListener(null);
             getBinding().lWhole.setTag(R.id.item, null);
-
             if (item.isBanner()) {
                 //배너메시지
                 getBinding().ivImg.setVisibility(View.VISIBLE);
@@ -212,8 +213,8 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
             getBinding().setData(item);
             getBinding().tvMsg.setText(item.getTxtMsg());
             String spec = StringUtil.isValidString(item.getWthrCdNm());
-            spec += (!StringUtil.isValidString(item.getT1h()).equalsIgnoreCase("") ? item.getT1h() + " " : "");
-            spec += StringUtil.isValidString(item.getSiGuGun());
+            spec += (!StringUtil.isValidString(item.getT1h()).equalsIgnoreCase("") ? " "+item.getT1h()+"℃" : "");
+            spec += " "+StringUtil.isValidString(item.getSiGuGun());
             getBinding().tvMsg2.setText(spec);
 
             if (!StringUtil.isValidString(item.getIconImgUri()).equalsIgnoreCase("")) {

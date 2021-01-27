@@ -312,7 +312,7 @@ class CMNViewModel extends ViewModel {
         }
     }
 
-    public MessageVO getHomeWeatherInsight(WeatherCodes weatherCodes) throws ExecutionException, InterruptedException {
+    public MessageVO getHomeWeatherInsight(WeatherCodes weatherCodes, int dayCd, String sigungu, String t1h) throws ExecutionException, InterruptedException {
 
         ExecutorService es = new ExecutorService("");
         Future<MessageVO> future = es.getListeningExecutorService().submit(()->{
@@ -321,6 +321,11 @@ class CMNViewModel extends ViewModel {
                 WeatherVO weatherVO = dbContentsRepository.getWeatherRandom(weatherCodes.getDbCode());
                 weather = new Gson().fromJson((new Gson().toJson(weatherVO)), MessageVO.class);
                 weather.setWeatherCodes(weatherCodes);
+                weather.setDayCd(dayCd);
+                weather.setSiGuGun(sigungu);
+                weather.setT1h(t1h);
+                weather.setIconImgUri(weatherVO.getIconImgUri());
+                weather.setWthrCdNm(weatherVO.getWthrCdNm());
             } catch (Exception ignore) {
                 ignore.printStackTrace();
             }

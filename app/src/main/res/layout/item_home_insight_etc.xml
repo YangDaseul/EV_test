@@ -2,6 +2,24 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.genesis.apps.comm.model.constants.VariableType"/>
+
+        <import type ="androidx.core.content.ContextCompat"/>
+
+        <import type="com.genesis.apps.comm.model.constants.WeatherCodes" />
+
+        <variable
+            name="context"
+            type="android.content.Context" />
+
+        <variable
+            name="data"
+            type="com.genesis.apps.comm.model.vo.MessageVO" />
+    </data>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
@@ -28,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:textColor="@color/x_ffffff"
+            android:textColor="@{ContextCompat.getColor(context,WeatherCodes.getTextColorResource(data.dayCd))}"
             android:textSize="18dp"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="6dp"
@@ -53,7 +71,7 @@
             android:fontFamily="@font/light_genesissansheadglobal"
             android:lineSpacingExtra="6dp"
             android:letterSpacing="-0.01"
-            android:textColor="@color/x_ffffff"
+            android:textColor="@{ContextCompat.getColor(context,WeatherCodes.getTextColorResource(data.dayCd))}"
             android:textSize="18dp"
             android:gravity="center_vertical"
             android:maxLines="1"
