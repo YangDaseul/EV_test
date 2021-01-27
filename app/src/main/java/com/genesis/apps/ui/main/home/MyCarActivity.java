@@ -362,7 +362,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
         } else {
             ui.lPrivilege.setVisibility(View.VISIBLE);
             if (data.getPvilList().size() > 0) {
-                switch (data.getPvilList().get(0).getJoinPsblCd()) {
+                switch (StringUtil.isValidString(data.getPvilList().get(0).getJoinPsblCd())) {
                     case PrivilegeVO.JOIN_CODE_APPLY_POSSIBLE:
                         ui.btnStatus.setVisibility(View.INVISIBLE);
 //                        ui.btnBenefit.setVisibility(View.INVISIBLE);
