@@ -105,6 +105,19 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
                     e.printStackTrace();
                 }
                 break;
+            case R.id.cb_all:
+                Log.d("JJJJ", "checked : " + ui.cbAll.isChecked());
+
+                for(int i=0; i<ui.lTermBottom.getChildCount(); i++) {
+                    ItemTermBinding binding = DataBindingUtil.bind(ui.lTermBottom.getChildAt(i));
+
+                    binding.cb.setChecked(ui.cbAll.isChecked());
+                    setCheckBoxsAdAll(ui.cbAll.isChecked());
+                }
+
+                checkAgree();
+
+                break;
         }
     }
 
@@ -185,8 +198,17 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
         }
     }
 
-    private void checkAgree() {
+    private void isAllCheck() {
+        boolean isAllCheck = true;
+        for(int i=0; i<checkBoxs.size(); i++){
+            if(!checkBoxs.get(i).getCheckBox().isChecked()){
+                isAllCheck = false;
+            }
+        }
+        ui.cbAll.setChecked(isAllCheck);
+    }
 
+    private void checkAgree() {
         for(int i=0; i<checkBoxs.size(); i++){
             if(checkBoxs.get(i).getTermVO().getTermEsnAgmtYn().equalsIgnoreCase(TermVO.TERM_ESN_AGMT_Y)&&!checkBoxs.get(i).getCheckBox().isChecked()){
                 ui.btnBlock.setVisibility(View.VISIBLE);
@@ -257,7 +279,7 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
 
             if(termVO.getTermCd().equalsIgnoreCase(TERM_SERVICE_JOIN_GRA0005)){
                 itemTermAd = itemTermBinding;
-                itemTermAd.ivArrow.setImageResource(R.drawable.btn_accodian_open);
+                itemTermAd.ivArrow.setImageResource(R.drawable.btn_accodian_close);
                 itemTermAd.cb.setOnCheckedChangeListener(listenerAdAll);
             }
         }
@@ -283,12 +305,14 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
     CompoundButton.OnCheckedChangeListener listener = (compoundButton, b) -> {
         if(compoundButton.isPressed()) {
             checkAgree();
+            isAllCheck();
         }
     };
 
     CompoundButton.OnCheckedChangeListener listenerAdAll = (compoundButton, b) -> {
         if(compoundButton.isPressed()) {
             setCheckBoxsAdAll(compoundButton.isChecked());
+            isAllCheck();
         }
     };
 
@@ -297,6 +321,7 @@ public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding>
             if(itemTermAd!=null&&itemTermAd.cb!=null){
                 itemTermAd.cb.setChecked(checkBoxsAd[0].isChecked()||checkBoxsAd[1].isChecked()||checkBoxsAd[2].isChecked());
             }
+            isAllCheck();
         }
     };
 

@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.main.contents;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -33,6 +34,7 @@ import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityContentsDetailWebBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.activity.WebviewActivity;
+import com.genesis.apps.ui.main.store.StoreWebActivity;
 
 import java.util.concurrent.ExecutionException;
 
@@ -176,6 +178,23 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
         url = contentsVO.getDtlViewCd().equalsIgnoreCase("3000") ? contentsVO.getDtlList().get(0).getHtmlFilUri() : contentsVO.getDtlList().get(0).getImgFilUri();
     }
 
+    @Override
+    public void onBackPressed() {
+        if(!TextUtils.isEmpty(fn)){
+            if(fragment.openWindows.size()>0){
+                fragment.openWindows.get(0).loadUrl("javascript:"+fn);
+            }else{
+                fragment.loadUrl("javascript:"+fn);
+            }
+        } else {
+            if(fragment.canGoBack()) {
+                fragment.goBack();
+            } else {
+                super.onBackPressed();
+            }
+        }
+    }
+
     public void initView() {
         ui.setActivity(mActivity);
 
@@ -217,6 +236,47 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
     }
 
     public boolean parseURL(String url) {
+        Uri uri = Uri.parse(url);
+        Log.d("JJJJ", "parseURL : " + url);
+        if (url.equalsIgnoreCase("https://www.genesis.com/kr/ko")
+                || url.equalsIgnoreCase("https://www.genesis.com/kr/ko/genesis-membership.html")){
+            //TODO 테스트 필요 0001
+            finish();
+            return true;
+        } else if(url.startsWith("genesisapps://close")){
+            //TODO 테스트 필요 0004
+            if(url.contains("all=y")){
+                finish();
+            }else{
+                if(clearWindowOpens3()) {
+                    return true;
+                }else {
+                    return back(fragment.getUrl());
+                }
+            }
+            return true;
+        } else if (url.startsWith("genesisapps://openView")) {
+            startActivitySingleTop(new Intent(this, StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, uri.getQueryParameter("url")), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+            return true;
+        } else if (url.startsWith("genesisapps://open")) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+//            intent.setData(QueryString.encode(uri.getQueryParameter("url")));
+            intent.setData(Uri.parse(uri.getQueryParameter("url")));
+            startActivity(intent); //TODO 테스트 필요 0002
+            return true;
+        } else if (url.startsWith("genesisapps://newView")) {
+            fragment.createChildWebView(uri.getQueryParameter("url"));
+            return true;
+        } else if (url.startsWith("genesisapps://sendAction")) {
+            fragment.loadUrl("javascript:"+uri.getQueryParameter("fn"));
+            return true;
+        } else if (url.startsWith("genesisapps://backAction")){
+            this.fn = uri.getQueryParameter("fn");
+            return true;
+        } else if (url.startsWith("genesisapp://menu?id=")||url.startsWith("genesisapps://menu?id=")){
+            moveToNativePage(url, false);
+            return true;
+        }
         return false;
     }
 
@@ -274,7 +334,7 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
 
 
     public boolean clearWindowOpens2() {
-
+        Log.d("JJJJ", "fn : " + fn);
         if(!TextUtils.isEmpty(fn)){
             if(fragment.openWindows.size()>0){
                 fragment.openWindows.get(0).loadUrl("javascript:"+fn);

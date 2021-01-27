@@ -76,7 +76,7 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
 
         switch (id) {
             //대리운전 신청 버튼 (이미 신청한 상태이면 그 내용을 보여줌)
-            case R.id.tv_service_drive_req_btn:
+            case R.id.l_service_drive_req_btn:
                 onClickReqBtn();
                 break;
 

@@ -196,12 +196,13 @@
                         layout="@layout/item_btn_underline_mark_gold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
                         android:layout_marginEnd="20dp"
                         android:visibility="gone"
                         android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
                         app:btnNm="@{@string/gm_carlst_04_2}"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_car_vrn"
+                        app:layout_constraintTop_toBottomOf="@+id/btn_option"
                         tools:visibility="visible" />
 
                     <!--복원 버튼-->
@@ -210,12 +211,13 @@
                         layout="@layout/item_btn_underline_mark_gold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
                         android:layout_marginEnd="20dp"
                         android:visibility="gone"
                         android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
                         app:btnNm="@{@string/gm_carlst_04_3}"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_car_vrn"
+                        app:layout_constraintTop_toBottomOf="@+id/btn_option"
                         tools:visibility="visible" />
 
                     <!--계약서 조회 버튼-->
@@ -224,12 +226,13 @@
                         layout="@layout/item_btn_underline_mark_gold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
                         android:layout_marginEnd="20dp"
                         android:visibility="gone"
                         android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
                         app:btnNm="@{@string/gm_carlst_04_24}"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_car_vrn"
+                        app:layout_constraintTop_toBottomOf="@+id/btn_option"
                         tools:visibility="visible" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

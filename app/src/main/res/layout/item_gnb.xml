@@ -184,7 +184,21 @@
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:scaleType="fitCenter"
             android:src="@{isBgWhite ? @drawable/ic_serch_b : @drawable/ic_serch_w}"
-            android:visibility="@{TextUtils.isEmpty(custGbCd)||custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000) ? View.GONE : isStore || (!TextUtils.isEmpty(menu) &amp;&amp; !menu.equals(@string/main_word_4)) ? View.GONE : View.VISIBLE}"
+            android:visibility="@{TextUtils.isEmpty(custGbCd)||custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000) ? View.GONE : isStore || menu.equals(@string/main_word_4) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:src="@drawable/ic_serch_b"
+            tools:visibility="visible"/>
+
+        <ImageView
+            android:id="@+id/btn_contents_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:scaleType="fitCenter"
+            android:src="@{isBgWhite ? @drawable/ic_serch_b : @drawable/ic_serch_w}"
+            android:visibility="@{TextUtils.isEmpty(custGbCd)||custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000) ? View.GONE : isStore || !menu.equals(@string/main_word_4) ? View.GONE : View.VISIBLE}"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
