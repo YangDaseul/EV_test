@@ -367,11 +367,13 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                     istViewModel.reqIST1005(new IST_1005.Request(APPIAInfo.TM01.getId(), "INSGT", "INS-03", String.valueOf(lgnViewModel.getPositionValue().get(1)), String.valueOf(lgnViewModel.getPositionValue().get(0)), mainVehicleInfo.getVin(), mainVehicleInfo.getMdlNm()));
                     me.ivInfo1.setVisibility(View.GONE);
                     me.ivInfo2.setVisibility(View.GONE);
+                    me.vBaseBg.setVisibility(View.GONE);
                     break;
                 case VariableType.MAIN_VEHICLE_TYPE_0000: //미로그인
                 default:
                     me.ivInfo1.setVisibility(View.VISIBLE);
                     me.ivInfo2.setVisibility(View.VISIBLE);
+                    me.vBaseBg.setVisibility(View.VISIBLE);
                     break;
             }
         } catch (Exception e) {
