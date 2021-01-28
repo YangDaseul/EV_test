@@ -2,6 +2,7 @@ package com.genesis.apps.comm.model.repo;
 
 import com.genesis.apps.comm.model.vo.AlarmMsgTypeVO;
 import com.genesis.apps.comm.model.vo.BtoVO;
+import com.genesis.apps.comm.model.vo.CatTypeVO;
 import com.genesis.apps.comm.model.vo.DownMenuVO;
 import com.genesis.apps.comm.model.vo.FamilyAppVO;
 import com.genesis.apps.comm.model.vo.QuickMenuVO;
@@ -38,6 +39,25 @@ public class DBContentsRepository {
         boolean isUpdate = false;
         try{
             databaseHolder.getDatabase().alarmMsgTypeDao().insertAndDeleteInTransaction(list);
+            isUpdate=true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return isUpdate;
+    }
+
+    public List<CatTypeVO> getCatTypeList(){
+        return databaseHolder.getDatabase().catTypeDao().selectAll();
+    }
+
+    public String getCatTypeCd(String cdNm) {
+        return databaseHolder.getDatabase().catTypeDao().selectCd(cdNm);
+    }
+
+    public boolean setCatTypeList(List<CatTypeVO> list){
+        boolean isUpdate = false;
+        try{
+            databaseHolder.getDatabase().catTypeDao().insertAndDeleteInTransaction(list);
             isUpdate=true;
         }catch (Exception e){
             e.printStackTrace();
