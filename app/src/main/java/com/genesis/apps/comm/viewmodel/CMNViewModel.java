@@ -24,6 +24,7 @@ import com.genesis.apps.comm.model.repo.NOTRepo;
 import com.genesis.apps.comm.model.vo.AlarmMsgTypeVO;
 import com.genesis.apps.comm.model.vo.BtoVO;
 import com.genesis.apps.comm.model.vo.CardVO;
+import com.genesis.apps.comm.model.vo.CatTypeVO;
 import com.genesis.apps.comm.model.vo.DownMenuVO;
 import com.genesis.apps.comm.model.vo.FamilyAppVO;
 import com.genesis.apps.comm.model.vo.MessageVO;
@@ -217,6 +218,38 @@ class CMNViewModel extends ViewModel {
         return cd;
     }
 
+    public boolean setCatTypeList(List<CatTypeVO> list) {
+        if(list!=null)
+            return dbContentsRepository.setCatTypeList(list);
+        else
+            return true;
+    }
+
+    public List<CatTypeVO> getCatTypeList(){
+        return dbContentsRepository.getCatTypeList();
+    }
+
+    public List<String> getCatTypeNmList(){
+
+        List<String> nmList = getCatTypeList().stream().map(CatTypeVO::getCdNm).collect(toList());
+        if(nmList==null) nmList = new ArrayList<>();
+        nmList.add(0,"전체");
+
+        return nmList;
+    }
+
+    public String getCatTypeCd(String cdNm){
+        String cd="";
+        try{
+            cd = dbContentsRepository.getCatTypeCd(cdNm);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if (TextUtils.isEmpty(cd)) cd = "";
+
+        return cd;
+    }
+
     public boolean setWeatherList(List<WeatherVO> list) {
         return dbContentsRepository.setWeatherList(list);
     }
@@ -246,6 +279,7 @@ class CMNViewModel extends ViewModel {
             try {
                 isSuccess = setWeatherList(data.getWthrInsgtList())
                         && setAlarmMsgTypeList(data.getMsgTypCd())
+                        && setCatTypeList(data.getCatTypCd())
                         && setQuickMenu(data.getMenu0000().getQckMenuList(), MAIN_VEHICLE_TYPE_0000)
                         && setDownMenuList(data.getMenu0000().getDownMenuList(), MAIN_VEHICLE_TYPE_0000)
                         && setQuickMenu(data.getMenuCV().getQckMenuList(), MAIN_VEHICLE_TYPE_CV)

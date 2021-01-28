@@ -176,20 +176,6 @@
                         app:layout_constraintTop_toBottomOf="@+id/tv_car_model"
                         tools:visibility="visible" />
 
-                    <!--유사 재고 조회 버튼-->
-                    <include
-                        android:id="@+id/btn_similar"
-                        layout="@layout/item_btn_underline_mark_gold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:visibility="gone"
-                        android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
-                        app:btnNm="@{@string/gm_carlst_04_23}"
-                        app:layout_constraintLeft_toLeftOf="@+id/tv_car_model"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_car_model"
-                        tools:visibility="visible" />
-
                     <!--삭제 버튼-->
                     <include
                         android:id="@+id/btn_delete"
@@ -216,21 +202,6 @@
                         android:visibility="gone"
                         android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
                         app:btnNm="@{@string/gm_carlst_04_3}"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/btn_option"
-                        tools:visibility="visible" />
-
-                    <!--계약서 조회 버튼-->
-                    <include
-                        android:id="@+id/btn_contract"
-                        layout="@layout/item_btn_underline_mark_gold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="20dp"
-                        android:visibility="gone"
-                        android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
-                        app:btnNm="@{@string/gm_carlst_04_24}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/btn_option"
                         tools:visibility="visible" />
@@ -297,458 +268,518 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/vp_car" />
 
+                <!--계약서 조회 버튼-->
                 <TextView
-                    android:id="@+id/tv_title_mobility_care_1"
+                    android:id="@+id/btn_contract"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginEnd="20dp"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/light_genesissansheadglobal"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:paddingTop="18dp"
+                    android:paddingBottom="18dp"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/ripple_bg_111111"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:textSize="16dp"
+                    android:textColor="@color/x_ffffff"
+                    android:text="@string/gm_carlst_04_24"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="6dp"
-                    android:maxLines="1"
-                    android:text="@string/gm_carlst_04_5"
-                    android:textColor="@color/x_000000"
-                    android:textSize="24dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/indicator" />
+                    android:visibility="gone"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
+                    app:layout_constraintTop_toBottomOf="@+id/indicator"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    tools:visibility="visible"/>
 
+                <!--유사 재고 조회 버튼-->
                 <TextView
-                    android:id="@+id/tv_title_mobility_care_2"
+                    android:id="@+id/btn_similar"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/light_genesissansheadglobal"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="12dp"
-                    android:maxLines="1"
-                    android:text="@string/gm_carlst_04_6"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:paddingTop="18dp"
+                    android:paddingBottom="18dp"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/ripple_bg_ffffff_stroke_111111"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:textSize="16dp"
                     android:textColor="@color/x_000000"
-                    android:textSize="18dp"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
-                    app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_mobility_care_1" />
-
-
-                <ImageView
-                    android:id="@+id/iv_bg"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/x_e5e5e5"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
-                    app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
-                    app:layout_constraintBottom_toBottomOf="@+id/l_part_home"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title_mobility_care_2"/>
+                    android:text="@string/gm_carlst_04_23"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="6dp"
+                    android:visibility="gone"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_contract"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    tools:visibility="visible"/>
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/l_part_engine"
+                    android:id="@+id/cl_mobility_care"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:background="@color/x_ffffff"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
-                    app:layout_constraintTop_toTopOf="@+id/iv_bg">
-
+                    android:layout_marginTop="50dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/indicator"
+                    tools:visibility="visible">
 
                     <TextView
-                        android:id="@+id/tv_title_part_engine"
-                        android:layout_width="130dp"
-                        android:layout_height="0dp"
-                        android:background="@color/x_f8f8f8"
+                        android:id="@+id/tv_title_mobility_care_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
                         android:ellipsize="end"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:gravity="center"
+                        android:fontFamily="@font/light_genesissansheadglobal"
                         android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="4dp"
+                        android:lineSpacingExtra="6dp"
                         android:maxLines="1"
-                        android:text="@string/gm_carlst_04_7"
+                        android:text="@string/gm_carlst_04_5"
                         android:textColor="@color/x_000000"
-                        android:textSize="14dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:textSize="24dp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <TextView
+                        android:id="@+id/tv_title_mobility_care_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/light_genesissansheadglobal"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="12dp"
+                        android:maxLines="1"
+                        android:text="@string/gm_carlst_04_6"
+                        android:textColor="@color/x_000000"
+                        android:textSize="18dp"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_title_mobility_care_1" />
+
+                    <ImageView
+                        android:id="@+id/iv_bg"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/x_e5e5e5"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintBottom_toBottomOf="@+id/l_part_home"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_title_mobility_care_2"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/l_part_engine"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:background="@color/x_ffffff"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintTop_toTopOf="@+id/iv_bg">
+
+
+                        <TextView
+                            android:id="@+id/tv_title_part_engine"
+                            android:layout_width="130dp"
+                            android:layout_height="0dp"
+                            android:background="@color/x_f8f8f8"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:gravity="center"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="4dp"
+                            android:maxLines="1"
+                            android:text="@string/gm_carlst_04_7"
+                            android:textColor="@color/x_000000"
+                            android:textSize="14dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_title_part_engine_oil"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:gravity="left"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="4dp"
+                            android:maxLines="1"
+                            android:text="@string/gm_carlst_04_8"
+                            android:textColor="@color/x_262626"
+                            android:textSize="14dp"
+                            app:layout_constraintHorizontal_bias=".1"
+                            app:layout_constraintLeft_toRightOf="@+id/tv_title_part_engine"
+                            app:layout_constraintRight_toLeftOf="@+id/tv_part_engine_oil_cnt"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_part_engine_oil_cnt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_marginEnd="15dp"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:gravity="center"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="4dp"
+                            android:textColor="@color/x_ad7b61"
+                            android:textSize="14dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="6 회" />
+
+
+                        <TextView
+                            android:id="@+id/tv_title_part_oil_filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:gravity="left"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="4dp"
+                            android:maxLines="1"
+                            android:text="@string/gm_carlst_04_9"
+                            android:textColor="@color/x_262626"
+                            android:textSize="14dp"
+                            app:layout_constraintHorizontal_bias="0"
+                            app:layout_constraintRight_toLeftOf="@+id/tv_part_engine_oil_cnt"
+                            app:layout_constraintStart_toStartOf="@+id/tv_title_part_engine_oil"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_title_part_engine_oil" />
+
+
+                        <!--                    <TextView-->
+                        <!--                        android:id="@+id/tv_part_oil_filter_cnt"-->
+                        <!--                        android:layout_width="wrap_content"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:fontFamily="@font/regular_genesissansheadglobal"-->
+                        <!--                        android:letterSpacing="-0.01"-->
+                        <!--                        android:lineSpacingExtra="2dp"-->
+                        <!--                        android:textColor="@color/x_cd9a81"-->
+                        <!--                        android:textSize="16dp"-->
+                        <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                        <!--                        app:layout_constraintTop_toTopOf="@+id/tv_title_part_oil_filter" />-->
+
+
+                        <TextView
+                            android:id="@+id/tv_title_part_air_cleaner"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="20dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:gravity="center"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="4dp"
+                            android:maxLines="1"
+                            android:text="@string/gm_carlst_04_10"
+                            android:textColor="@color/x_262626"
+                            android:textSize="14dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintHorizontal_bias="0"
+                            app:layout_constraintRight_toLeftOf="@+id/tv_part_engine_oil_cnt"
+                            app:layout_constraintStart_toStartOf="@+id/tv_title_part_engine_oil"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_title_part_oil_filter" />
+
+                        <!--                    <TextView-->
+                        <!--                        android:id="@+id/tv_part_air_cleaner_cnt"-->
+                        <!--                        android:layout_width="wrap_content"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:fontFamily="@font/regular_genesissansheadglobal"-->
+                        <!--                        android:letterSpacing="-0.01"-->
+                        <!--                        android:lineSpacingExtra="2dp"-->
+                        <!--                        android:textColor="@color/x_cd9a81"-->
+                        <!--                        android:textSize="16dp"-->
+                        <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                        <!--                        app:layout_constraintTop_toTopOf="@+id/tv_title_part_air_cleaner" />-->
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/l_part_air_conditioner_filter"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:background="@color/x_ffffff"
+                        app:layout_constraintLeft_toLeftOf="@+id/l_part_engine"
+                        app:layout_constraintRight_toRightOf="@+id/l_part_engine"
+                        app:layout_constraintTop_toBottomOf="@+id/l_part_engine">
+
+
+                        <TextView
+                            android:id="@+id/tv_title_part_air_conditioner_filter"
+                            android:layout_width="130dp"
+                            android:layout_height="0dp"
+                            android:ellipsize="end"
+                            android:background="@color/x_f8f8f8"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:gravity="center"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="4dp"
+                            android:maxLines="1"
+                            android:text="@string/gm_carlst_04_11"
+                            android:textColor="@color/x_000000"
+                            android:textSize="14dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_part_air_conditioner_filter_cnt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginEnd="15dp"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="4dp"
+                            android:textColor="@color/x_ad7b61"
+                            android:textSize="14dp"
+                            tools:text="0 회"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/l_part_break_pad"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:background="@color/x_ffffff"
+                        app:layout_constraintLeft_toLeftOf="@+id/l_part_engine"
+                        app:layout_constraintRight_toRightOf="@+id/l_part_engine"
+                        app:layout_constraintTop_toBottomOf="@+id/l_part_air_conditioner_filter">
+
+
+                        <TextView
+                            android:id="@+id/tv_title_part_break_pad"
+                            android:layout_width="130dp"
+                            android:layout_height="0dp"
+                            android:ellipsize="end"
+                            android:background="@color/x_f8f8f8"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:gravity="center"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="4dp"
+                            android:maxLines="1"
+                            android:text="@string/gm_carlst_04_12"
+                            android:textColor="@color/x_000000"
+                            android:textSize="14dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_part_break_pad_cnt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginEnd="15dp"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="4dp"
+                            android:textColor="@color/x_ad7b61"
+                            android:textSize="14dp"
+                            tools:text="0 회"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/l_part_wiper"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:background="@color/x_ffffff"
+                        app:layout_constraintLeft_toLeftOf="@+id/l_part_engine"
+                        app:layout_constraintRight_toRightOf="@+id/l_part_engine"
+                        app:layout_constraintTop_toBottomOf="@+id/l_part_break_pad">
+
+
+                        <TextView
+                            android:id="@+id/tv_title_part_wiper"
+                            android:layout_width="130dp"
+                            android:layout_height="0dp"
+                            android:ellipsize="end"
+                            android:background="@color/x_f8f8f8"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:gravity="center"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="4dp"
+                            android:maxLines="1"
+                            android:text="@string/gm_carlst_04_13"
+                            android:textColor="@color/x_000000"
+                            android:textSize="14dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_part_wiper_cnt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginEnd="15dp"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="4dp"
+                            android:textColor="@color/x_ad7b61"
+                            android:textSize="14dp"
+                            tools:text="0 회"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/l_part_break"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:background="@color/x_ffffff"
+                        app:layout_constraintLeft_toLeftOf="@+id/l_part_engine"
+                        app:layout_constraintRight_toRightOf="@+id/l_part_engine"
+                        app:layout_constraintTop_toBottomOf="@+id/l_part_wiper">
+
+
+                        <TextView
+                            android:id="@+id/tv_title_part_break"
+                            android:layout_width="130dp"
+                            android:layout_height="0dp"
+                            android:ellipsize="end"
+                            android:background="@color/x_f8f8f8"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:gravity="center"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="4dp"
+                            android:maxLines="1"
+                            android:text="@string/gm_carlst_04_14"
+                            android:textColor="@color/x_000000"
+                            android:textSize="14dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_part_break_cnt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginEnd="15dp"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="4dp"
+                            android:textColor="@color/x_ad7b61"
+                            android:textSize="14dp"
+                            tools:text="0 회"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/l_part_home"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="50dp"
+                        android:background="@drawable/bg_ffffff_underline_e4e4e4"
+                        app:layout_constraintLeft_toLeftOf="@+id/l_part_engine"
+                        app:layout_constraintRight_toRightOf="@+id/l_part_engine"
+                        app:layout_constraintTop_toBottomOf="@+id/l_part_break"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+
+                        <TextView
+                            android:id="@+id/tv_title_part_home"
+                            android:layout_width="130dp"
+                            android:layout_height="0dp"
+                            android:ellipsize="end"
+                            android:background="@color/x_f8f8f8"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:gravity="center"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="4dp"
+                            android:maxLines="1"
+                            android:text="@string/gm_carlst_04_15"
+                            android:textColor="@color/x_000000"
+                            android:textSize="14dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_part_home_cnt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginEnd="15dp"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="4dp"
+                            android:textColor="@color/x_ad7b61"
+                            android:textSize="14dp"
+                            tools:text="0 회"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
-                        android:id="@+id/tv_title_part_engine_oil"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:ellipsize="end"
+                        android:id="@+id/tv_empty_coupon"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@color/x_f8f8f8"
                         android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:gravity="left"
+                        android:gravity="center"
                         android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="4dp"
-                        android:maxLines="1"
-                        android:text="@string/gm_carlst_04_8"
+                        android:lineSpacingExtra="10dp"
+                        android:text="@string/gm_carlst_01_64"
                         android:textColor="@color/x_262626"
-                        android:textSize="14dp"
-                        app:layout_constraintHorizontal_bias=".1"
-                        app:layout_constraintLeft_toRightOf="@+id/tv_title_part_engine"
-                        app:layout_constraintRight_toLeftOf="@+id/tv_part_engine_oil_cnt"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tv_part_engine_oil_cnt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_marginEnd="15dp"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:gravity="center"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="4dp"
-                        android:textColor="@color/x_ad7b61"
-                        android:textSize="14dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="6 회" />
-
-
-                    <TextView
-                        android:id="@+id/tv_title_part_oil_filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:gravity="left"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="4dp"
-                        android:maxLines="1"
-                        android:text="@string/gm_carlst_04_9"
-                        android:textColor="@color/x_262626"
-                        android:textSize="14dp"
-                        app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintRight_toLeftOf="@+id/tv_part_engine_oil_cnt"
-                        app:layout_constraintStart_toStartOf="@+id/tv_title_part_engine_oil"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_title_part_engine_oil" />
-
-
-                    <!--                    <TextView-->
-                    <!--                        android:id="@+id/tv_part_oil_filter_cnt"-->
-                    <!--                        android:layout_width="wrap_content"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:fontFamily="@font/regular_genesissansheadglobal"-->
-                    <!--                        android:letterSpacing="-0.01"-->
-                    <!--                        android:lineSpacingExtra="2dp"-->
-                    <!--                        android:textColor="@color/x_cd9a81"-->
-                    <!--                        android:textSize="16dp"-->
-                    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
-                    <!--                        app:layout_constraintTop_toTopOf="@+id/tv_title_part_oil_filter" />-->
-
-
-                    <TextView
-                        android:id="@+id/tv_title_part_air_cleaner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="20dp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:gravity="center"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="4dp"
-                        android:maxLines="1"
-                        android:text="@string/gm_carlst_04_10"
-                        android:textColor="@color/x_262626"
-                        android:textSize="14dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintRight_toLeftOf="@+id/tv_part_engine_oil_cnt"
-                        app:layout_constraintStart_toStartOf="@+id/tv_title_part_engine_oil"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_title_part_oil_filter" />
-
-                    <!--                    <TextView-->
-                    <!--                        android:id="@+id/tv_part_air_cleaner_cnt"-->
-                    <!--                        android:layout_width="wrap_content"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:fontFamily="@font/regular_genesissansheadglobal"-->
-                    <!--                        android:letterSpacing="-0.01"-->
-                    <!--                        android:lineSpacingExtra="2dp"-->
-                    <!--                        android:textColor="@color/x_cd9a81"-->
-                    <!--                        android:textSize="16dp"-->
-                    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
-                    <!--                        app:layout_constraintTop_toTopOf="@+id/tv_title_part_air_cleaner" />-->
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/l_part_air_conditioner_filter"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:background="@color/x_ffffff"
-                    app:layout_constraintLeft_toLeftOf="@+id/l_part_engine"
-                    app:layout_constraintRight_toRightOf="@+id/l_part_engine"
-                    app:layout_constraintTop_toBottomOf="@+id/l_part_engine">
-
-
-                    <TextView
-                        android:id="@+id/tv_title_part_air_conditioner_filter"
-                        android:layout_width="130dp"
-                        android:layout_height="0dp"
-                        android:ellipsize="end"
-                        android:background="@color/x_f8f8f8"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:gravity="center"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="4dp"
-                        android:maxLines="1"
-                        android:text="@string/gm_carlst_04_11"
-                        android:textColor="@color/x_000000"
-                        android:textSize="14dp"
+                        android:textSize="18dp"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <TextView
-                        android:id="@+id/tv_part_air_conditioner_filter_cnt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginEnd="15dp"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="4dp"
-                        android:textColor="@color/x_ad7b61"
-                        android:textSize="14dp"
-                        tools:text="0 회"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        app:layout_constraintTop_toTopOf="@+id/iv_bg"
+                        tools:visibility="gone" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/l_part_break_pad"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:background="@color/x_ffffff"
-                    app:layout_constraintLeft_toLeftOf="@+id/l_part_engine"
-                    app:layout_constraintRight_toRightOf="@+id/l_part_engine"
-                    app:layout_constraintTop_toBottomOf="@+id/l_part_air_conditioner_filter">
-
-
-                    <TextView
-                        android:id="@+id/tv_title_part_break_pad"
-                        android:layout_width="130dp"
-                        android:layout_height="0dp"
-                        android:ellipsize="end"
-                        android:background="@color/x_f8f8f8"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:gravity="center"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="4dp"
-                        android:maxLines="1"
-                        android:text="@string/gm_carlst_04_12"
-                        android:textColor="@color/x_000000"
-                        android:textSize="14dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <TextView
-                        android:id="@+id/tv_part_break_pad_cnt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginEnd="15dp"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="4dp"
-                        android:textColor="@color/x_ad7b61"
-                        android:textSize="14dp"
-                        tools:text="0 회"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/l_part_wiper"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:background="@color/x_ffffff"
-                    app:layout_constraintLeft_toLeftOf="@+id/l_part_engine"
-                    app:layout_constraintRight_toRightOf="@+id/l_part_engine"
-                    app:layout_constraintTop_toBottomOf="@+id/l_part_break_pad">
-
-
-                    <TextView
-                        android:id="@+id/tv_title_part_wiper"
-                        android:layout_width="130dp"
-                        android:layout_height="0dp"
-                        android:ellipsize="end"
-                        android:background="@color/x_f8f8f8"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:gravity="center"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="4dp"
-                        android:maxLines="1"
-                        android:text="@string/gm_carlst_04_13"
-                        android:textColor="@color/x_000000"
-                        android:textSize="14dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <TextView
-                        android:id="@+id/tv_part_wiper_cnt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginEnd="15dp"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="4dp"
-                        android:textColor="@color/x_ad7b61"
-                        android:textSize="14dp"
-                        tools:text="0 회"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/l_part_break"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:background="@color/x_ffffff"
-                    app:layout_constraintLeft_toLeftOf="@+id/l_part_engine"
-                    app:layout_constraintRight_toRightOf="@+id/l_part_engine"
-                    app:layout_constraintTop_toBottomOf="@+id/l_part_wiper">
-
-
-                    <TextView
-                        android:id="@+id/tv_title_part_break"
-                        android:layout_width="130dp"
-                        android:layout_height="0dp"
-                        android:ellipsize="end"
-                        android:background="@color/x_f8f8f8"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:gravity="center"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="4dp"
-                        android:maxLines="1"
-                        android:text="@string/gm_carlst_04_14"
-                        android:textColor="@color/x_000000"
-                        android:textSize="14dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <TextView
-                        android:id="@+id/tv_part_break_cnt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginEnd="15dp"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="4dp"
-                        android:textColor="@color/x_ad7b61"
-                        android:textSize="14dp"
-                        tools:text="0 회"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/l_part_home"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginBottom="50dp"
-                    android:background="@drawable/bg_ffffff_underline_e4e4e4"
-                    app:layout_constraintLeft_toLeftOf="@+id/l_part_engine"
-                    app:layout_constraintRight_toRightOf="@+id/l_part_engine"
-                    app:layout_constraintTop_toBottomOf="@+id/l_part_break"
-                    app:layout_constraintBottom_toBottomOf="parent">
-
-
-                    <TextView
-                        android:id="@+id/tv_title_part_home"
-                        android:layout_width="130dp"
-                        android:layout_height="0dp"
-                        android:ellipsize="end"
-                        android:background="@color/x_f8f8f8"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:gravity="center"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="4dp"
-                        android:maxLines="1"
-                        android:text="@string/gm_carlst_04_15"
-                        android:textColor="@color/x_000000"
-                        android:textSize="14dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <TextView
-                        android:id="@+id/tv_part_home_cnt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginEnd="15dp"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="4dp"
-                        android:textColor="@color/x_ad7b61"
-                        android:textSize="14dp"
-                        tools:text="0 회"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                <TextView
-                    android:id="@+id/tv_empty_coupon"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:background="@color/x_f8f8f8"
-                    android:fontFamily="@font/regular_genesissanstextglobal"
-                    android:gravity="center"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="10dp"
-                    android:text="@string/gm_carlst_01_64"
-                    android:textColor="@color/x_262626"
-                    android:textSize="18dp"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/iv_bg"
-                    tools:visibility="gone" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
