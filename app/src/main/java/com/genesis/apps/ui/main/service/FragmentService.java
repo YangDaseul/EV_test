@@ -54,39 +54,6 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
         me.vpServiceContentsViewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         me.vpServiceContentsViewPager.setCurrentItem(0);
         me.vpServiceContentsViewPager.setOffscreenPageLimit(PAGE_NUM);
-
-//        me.vpServiceContentsViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-//            @Override
-//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-//                if (positionOffsetPixels == 0) {
-//                    me.vpServiceContentsViewPager.setCurrentItem(position);
-//                }
-//            }
-//
-//            @Override
-//            public void onPageSelected(int position) {
-//                super.onPageSelected(position);
-//
-////                ui.indicator.animatePageSelected(position%num_page);
-//            }
-//
-//        });
-
-//        final float pageMargin = getResources().getDimensionPixelOffset(R.dimen.pageMargin);
-//        final float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset);
-//        me.vpServiceContentsViewPager.setPageTransformer((page, position) -> {
-//            float myOffset = position * -(2 * pageOffset + pageMargin);
-//            if (me.vpServiceContentsViewPager.getOrientation() == ViewPager2.ORIENTATION_HORIZONTAL) {
-//                if (ViewCompat.getLayoutDirection(me.vpServiceContentsViewPager) == ViewCompat.LAYOUT_DIRECTION_RTL) {
-//                    page.setTranslationX(-myOffset);
-//                } else {
-//                    page.setTranslationX(myOffset);
-//                }
-//            } else {
-//                page.setTranslationY(myOffset);
-//            }
-//        });
     }
 
     //탭 헤더 세팅
@@ -190,10 +157,11 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
 
         try {
             switch (viewId) {
-                case R.id.l_service_maintenance_reservation_btn://정비예약
+                case R.id.tv_service_maintenance_btn_black://정비, 원격진단, 긴급출동 예약
+                case R.id.tv_service_maintenance_btn_white://전화예약
                 case R.id.l_service_maintenance_history_btn: //정비 현황/예약 내역
-                case R.id.l_service_maintenance_emergency_btn: //긴급출동
-                case R.id.l_service_maintenance_customercenter_btn://원격진단 신청
+//                case R.id.l_service_maintenance_emergency_btn: //긴급출동
+//                case R.id.l_service_maintenance_customercenter_btn://원격진단 신청
                 case R.id.l_service_maintenance_remote_servie_list_btn:// 원격 진단 내역
                 case R.id.l_service_maintenance_defect_btn: //하자재발통보
                 case R.id.l_service_car_wash_history_btn: //세차 서비스 예약내역 버튼

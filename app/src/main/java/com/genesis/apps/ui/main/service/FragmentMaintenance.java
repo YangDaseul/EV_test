@@ -1,12 +1,14 @@
 package com.genesis.apps.ui.main.service;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
@@ -22,6 +24,7 @@ import com.genesis.apps.comm.model.api.gra.SOS_1006;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.comm.viewmodel.SOSViewModel;
@@ -225,18 +228,49 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
                 break;
 
             //정비 예약
-            case R.id.l_service_maintenance_reservation_btn:
-                try {
-                    String avlRsrVn = reqViewModel.getRES_REQ_1001().getValue().data.getAvlRsrYn();
-                    if (!TextUtils.isEmpty(avlRsrVn) && avlRsrVn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES))
-                        ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MaintenanceReserveActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                    else
-                        MiddleDialog.dialogServiceInfo(getActivity(), null);
-                } catch (Exception ignore) {
+            case R.id.tv_service_maintenance_btn_black:
 
+                String title = v.getTag().toString();
+
+                if(StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm01_maintenance_2))){
+                    //정비예약
+                    try {
+                        String avlRsrVn = reqViewModel.getRES_REQ_1001().getValue().data.getAvlRsrYn();
+                        if (!TextUtils.isEmpty(avlRsrVn) && avlRsrVn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES))
+                            ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MaintenanceReserveActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        else
+                            MiddleDialog.dialogServiceInfo(getActivity(), null);
+                    } catch (Exception ignore) {
+
+                    }
+                }else if(StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm01_maintenance_6))){
+                    //긴급출동
+                    startSOSActivity();
+
+
+                }else if(StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm01_maintenance_9))){
+                    //원격진단
+                    ((BaseActivity) getActivity()).startActivitySingleTop(
+                            new Intent(getActivity(), ServiceRemoteRegisterActivity.class),
+                            RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                            VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
+                    );
                 }
                 break;
 
+            //전화 예약
+            case R.id.tv_service_maintenance_btn_white:
+                VehicleVO mainVehicle = null;
+                try {
+                    mainVehicle = reqViewModel.getMainVehicle();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if(mainVehicle!=null&&!TextUtils.isEmpty(mainVehicle.getMdlNm())){
+                    String tel=mainVehicle.getMdlNm().equalsIgnoreCase("G90")||mainVehicle.getMdlNm().equalsIgnoreCase("EQ900") ? "080-900-6000" : "080-700-6000";
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + tel)));
+                }
+                break;
             //정비 현황/예약 내역
             case R.id.l_service_maintenance_history_btn:
                 ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRepairReserveHistoryActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);

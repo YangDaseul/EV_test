@@ -3,8 +3,8 @@
     <!-- 서비스 메인 탭 텍스트 (정비/세차/대리) -->
     <style name="ServiceMainTabs" parent="TextBasic">
         <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
-        <item name="android:textSize">16dp</item>
-        <item name="android:textColor">@color/selector_color_000000_b9b9b9</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/selector_color_996449_757575</item>
     </style>
 
     <!-- 대리운전 항목 설명-->

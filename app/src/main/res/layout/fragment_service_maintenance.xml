@@ -24,11 +24,13 @@
                 android:id="@+id/tv_service_maintenance_find_network_btn"
                 style="@style/TextBasic"
                 android:layout_width="match_parent"
-                android:layout_margin="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/ripple_bg_000000"
                 android:clickable="true"
                 android:drawableRight="@drawable/btn_arrow_open_r_w"
-                android:elevation="5dp"
                 android:focusable="true"
                 android:fontFamily="@font/regular_genesissansheadglobal"
                 android:gravity="center_vertical"
@@ -45,10 +47,12 @@
             <include
                 android:id="@+id/l_service_maintenance_reservation_btn"
                 layout="@layout/item_service_maintenance"
-                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
                 app:desc="@{@string/sm01_maintenance_3}"
                 app:icon="@{@drawable/ic_service_reservation}"
-                app:title="@{@string/sm01_maintenance_2}" />
+                app:title="@{@string/sm01_maintenance_2}"
+                app:btnWhite="@{@string/sm01_maintenance_35}"
+                app:btnBlack="@{@string/sm01_maintenance_36}"
+                app:fragment="@{fragment}"/>
 
             <!--  정비 이력 -->
             <include
@@ -63,19 +67,23 @@
             <include
                 android:id="@+id/l_service_maintenance_emergency_btn"
                 layout="@layout/item_service_maintenance"
-                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
                 app:desc="@{@string/sm01_maintenance_8}"
                 app:icon="@{@drawable/ic_service_emergency}"
-                app:title="@{@string/sm01_maintenance_6}" />
+                app:title="@{@string/sm01_maintenance_6}"
+                app:btnWhite="@{@string/sm01_maintenance_35}"
+                app:btnBlack="@{@string/sm01_maintenance_36}"
+                app:fragment="@{fragment}"/>
 
             <!--  정비 원격진단 -->
             <include
                 android:id="@+id/l_service_maintenance_customercenter_btn"
                 layout="@layout/item_service_maintenance"
-                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
                 app:desc="@{@string/sm01_maintenance_10}"
                 app:icon="@{@drawable/ic_service_customercenter}"
-                app:title="@{@string/sm01_maintenance_9}" />
+                app:title="@{@string/sm01_maintenance_9}"
+                app:btnWhite="@{@string/sm01_maintenance_35}"
+                app:btnBlack="@{@string/sm01_maintenance_36}"
+                app:fragment="@{fragment}"/>
 
             <!--  정비 원격 진단 내역 -->
             <include
@@ -83,10 +91,10 @@
                 layout="@layout/item_service_maintenance"
                 android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
                 app:desc="@{@string/sm01_maintenance_34}"
-                app:icon="@{@drawable/ic_service_customercenter}"
+                app:icon="@{@drawable/ic_service_customercenter_list}"
                 app:title="@{@string/sm01_maintenance_33}" />
 
-            <!--  정비 재발 -->
+            <!--  하자 재발 -->
             <include
                 android:id="@+id/l_service_maintenance_defect_btn"
                 layout="@layout/item_service_maintenance"
@@ -94,6 +102,16 @@
                 app:desc="@{@string/sm01_maintenance_12}"
                 app:icon="@{@drawable/ic_service_defect}"
                 app:title="@{@string/sm01_maintenance_11}" />
+
+            <!--  견적 요청하기 (2021-01-28 이번 요건에 제외됨 추후 진행 필요)-->
+            <include
+                android:id="@+id/l_service_maintenance_req_price_btn"
+                layout="@layout/item_service_maintenance"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
+                app:desc="@{@string/sm01_maintenance_38}"
+                app:icon="@{@drawable/ic_service_price}"
+                app:title="@{@string/sm01_maintenance_37}"
+                android:visibility="gone"/>
 
         </LinearLayout>
     </ScrollView>
