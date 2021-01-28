@@ -522,15 +522,14 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     private void reqCarInfoToDevelopers(String vin) {
         String carId = developersViewModel.getCarId(vin);
-        me.lDistance.setVisibility(View.VISIBLE);
         if (!TextUtils.isEmpty(carId)) {
             developersViewModel.reqDte(new Dte.Request(carId));
             developersViewModel.reqOdometer(new Odometer.Request(carId));
             developersViewModel.reqDistance(new Distance.Request(carId, developersViewModel.getDateYyyyMMdd(-7), developersViewModel.getDateYyyyMMdd(0)));
-//            me.lDistance.setVisibility(View.VISIBLE);
+            me.lDistance.setVisibility(View.VISIBLE);
 //            developersViewModel.reqParkLocation(new ParkLocation.Request(carId));
         }else{
-//            me.lDistance.setVisibility(View.GONE);
+            me.lDistance.setVisibility(View.GONE);
         }
     }
 
