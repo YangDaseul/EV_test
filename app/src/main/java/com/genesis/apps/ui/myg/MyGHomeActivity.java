@@ -211,6 +211,9 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         mypViewModel.getRES_MYP_1005().observe(this, result -> {
             switch (result.status) {
                 case LOADING:
+                    ui.btnStatus.setVisibility(View.GONE);
+                    ui.btnCarList.setVisibility(View.GONE);
+                    ui.btnApply.setVisibility(View.GONE);
                     ui.pPrivilege.show();
                     break;
                 case SUCCESS:
