@@ -35,6 +35,8 @@ public interface KeyNames {
     String KEY_NAME_MAINTENANCE_AVL_RSR_YN="AvlRsrYn";
     String KEY_NAME_MAINTENANCE_REPAIR_TYPE="repairTypeVO";
 
+    String KEY_NAME_CAT_NO="catCd";
+
     String KEY_NAME_PRIVILEGE_VO="privilegeVO";
 
     String KEY_NAME_APP_IA_INFO="APPIAInfo";
