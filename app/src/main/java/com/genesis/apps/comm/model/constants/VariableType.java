@@ -286,7 +286,7 @@ public class VariableType {
                 return "홈투홈";
             case SERVICE_RESERVATION_TYPE_RPSH:
             default:
-                return "정비소";
+                return "서비스 네트워크";
         }
     }
 

@@ -145,10 +145,10 @@
                         layout="@layout/item_maintenance_category"
                         android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                         app:desc="@{@string/maintenance_service_desc_03}"
-                        app:icon="@{@drawable/ic_service_hometohome}"
+                        app:icon="@{@drawable/ic_service_hometohome_new}"
                         app:title="@{@string/maintenance_service_item_03}" />
 
-                    <!-- 정비소 -->
+                    <!-- 서비스 네트워크 -->
                     <include
                         android:id="@+id/l_maintenance_repair"
                         layout="@layout/item_maintenance_category"

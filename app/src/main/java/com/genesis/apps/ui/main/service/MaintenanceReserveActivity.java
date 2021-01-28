@@ -397,6 +397,7 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
 
         if (visibility)
             block.setVisibility(View.GONE);
+
 //        view.setVisibility(visibility ? View.VISIBLE : View.GONE);
     }
 

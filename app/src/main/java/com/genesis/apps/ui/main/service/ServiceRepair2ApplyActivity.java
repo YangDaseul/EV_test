@@ -365,7 +365,7 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
             e.printStackTrace();
         } finally {
             if (repairTypeVO == null) {
-                exitPage("정비소 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                exitPage("서비스 네트워크 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }
         }
     }

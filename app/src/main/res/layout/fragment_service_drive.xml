@@ -32,7 +32,6 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:padding="20dp"
-                android:elevation="3dp"
                 android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}">
 
                 <!--  세차 예약 내역 타이틀-->
@@ -84,8 +83,7 @@
                 android:paddingTop="25dp"
                 android:paddingBottom="25dp"
                 android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:elevation="3dp">
+                android:paddingEnd="20dp">
 
                 <!-- 대리운전 타이틀 -->
                 <TextView
