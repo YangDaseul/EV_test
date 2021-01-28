@@ -109,13 +109,13 @@ public class TermsAdapter extends BaseRecyclerViewAdapter2<TermVO> {
                 bottomDialogAskAgreeTerms.setAllAgree(isAll());
             });
 
-            String target = getContext().getString(R.string.int03_3); //(필수)
-            if(termName.contains(target)){
-                int start = termName.indexOf(target.charAt(0));
-                int end = start + target.length();
-                Spannable span = (Spannable)getBinding().cb.getText();
-                span.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.x_996449)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            }
+//            String target = getContext().getString(R.string.int03_3); //(필수)
+//            if(termName.contains(target)){
+//                int start = termName.indexOf(target.charAt(0));
+//                int end = start + target.length();
+//                Spannable span = (Spannable)getBinding().cb.getText();
+//                span.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.x_996449)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            }
             getBinding().ivArrow.setTag(R.id.tag_term_vo, item);
             getBinding().setListener(onSingleClickListener);
         }
