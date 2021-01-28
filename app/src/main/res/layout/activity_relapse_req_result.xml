@@ -358,6 +358,7 @@
                     <include
                         android:id="@+id/l_term"
                         layout="@layout/item_rpar_status"
+                        android:layout_marginTop="1dp"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         app:isLeft="@{true}"
