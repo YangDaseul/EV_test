@@ -5,6 +5,7 @@ import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
@@ -78,8 +79,6 @@ public class InsightArea1Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
 
         @Override
         public void onBindView(MessageVO item, final int pos) {
-//            item.setMsgTypCd("IM");
-
             getBinding().tvTitle.setVisibility(View.GONE);
             getBinding().tvMsg.setVisibility(View.INVISIBLE);
             getBinding().tvLinkNm.setVisibility(View.GONE);
@@ -88,6 +87,14 @@ public class InsightArea1Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
             getBinding().vpImage.setVisibility(View.GONE);
             getBinding().vpImage.setTag(R.id.position, pos);
             getBinding().indicator.setVisibility(View.GONE);
+            getBinding().tvTtl.setVisibility(View.GONE);
+
+            if (!TextUtils.isEmpty(item.getTtl())) {
+                getBinding().tvTtl.setVisibility(View.VISIBLE);
+                getBinding().tvTtl.setText(item.getTtl());
+            } else {
+                getBinding().tvTtl.setVisibility(View.GONE);
+            }
 
             if (!TextUtils.isEmpty(item.getIconImgUri())) {
                 getBinding().ivIcon.setVisibility(View.VISIBLE);
@@ -99,7 +106,7 @@ public class InsightArea1Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(getBinding().ivIcon);
             } else {
-                getBinding().ivIcon.setVisibility(View.INVISIBLE);
+                getBinding().ivIcon.setVisibility(View.GONE);
             }
 
             if (TextUtils.isEmpty(item.getTxtMsg1())) {

@@ -213,8 +213,8 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
             getBinding().setData(item);
             getBinding().tvMsg.setText(item.getTxtMsg());
             String spec = StringUtil.isValidString(item.getWthrCdNm());
-            spec += (!StringUtil.isValidString(item.getT1h()).equalsIgnoreCase("") ? " "+item.getT1h()+"℃" : "");
-            spec += " "+StringUtil.isValidString(item.getSiGuGun());
+            spec += (!StringUtil.isValidString(item.getT1h()).equalsIgnoreCase("") ? "   "+item.getT1h()+"℃" : "");
+            spec += "    "+StringUtil.isValidString(item.getSiGuGun());
             getBinding().tvMsg2.setText(spec);
 
             if (!StringUtil.isValidString(item.getIconImgUri()).equalsIgnoreCase("")) {

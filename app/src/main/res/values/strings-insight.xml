@@ -13,7 +13,9 @@
     <string name="tm01_7">차량 비용을 기록해 보세요.</string>
     <string name="tm01_8">긴급출동 서비스를\n신청하셨습니다.</string>
     <string name="tm01_9">약 %s분 후 도착 예정입니다.</string>
-    <string name="tm01_10">기사님 위치보기</string>
+    <string name="tm01_10">기사님 위치 보기</string>
+    <string name="tm01_11">차계부를 이용하여\n나만의 차량 비용을 기록해 보세요.</string>
+    <string name="tm01_12">긴급출동 서비스</string>
 
     <string name="tm_exps01_1">차계부</string>
     <string name="tm_exps01_2">추가</string>

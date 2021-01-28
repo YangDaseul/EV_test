@@ -4,110 +4,145 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/l_whole"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:elevation="2dp"
-        android:background="@drawable/bg_ffffff_round_10"
-        android:paddingBottom="25dp"
-        android:paddingTop="25dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
 
-
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_whole"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/light_genesissansheadglobal"
-            android:lineSpacingExtra="8dp"
-            android:textColor="@color/x_000000"
-            android:textSize="22dp"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="HAPPY GV80 DAY!"/>
-
-        <TextView
-            android:id="@+id/tv_msg"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/light_genesissansheadglobal"
-            android:lineSpacingExtra="6dp"
-            android:letterSpacing="-0.01"
-            android:textColor="@color/x_000000"
-            android:textSize="16dp"
-            android:gravity="center_vertical"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title"
-            app:layout_constraintEnd_toStartOf="@+id/iv_icon"
-            app:layout_goneMarginBottom="18dp"
-            tools:text="오늘은 GV80 구입하신지\n2년 되는 날이예요!\n오래오래 안전하게 운행하세요:)"/>
-
-
-        <TextView
-            android:id="@+id/tv_link_nm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/regular_genesissansheadglobal"
-            android:lineSpacingExtra="29dp"
-            android:textColor="@color/x_6f6f6f"
-            android:textSize="15dp"
-            android:background="@drawable/bg_00000000_underline_6f6f6f"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_msg"
-            app:layout_constraintEnd_toStartOf="@+id/iv_icon"
-            tools:text="@string/tm01_10"
-            tools:visibility="visible"/>
-
-        <ImageView
-            android:id="@+id/iv_icon"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:scaleType="centerInside"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_msg"
-            tools:src="@drawable/ic_service_emergency"/>
-
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/barrier"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="iv_icon,tv_link_nm" />
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vp_image"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:visibility="gone"
-            app:constraintSet="@layout/item_insight_image"
-            app:layout_constraintTop_toBottomOf="@+id/barrier"
+            android:background="@color/x_ffffff"
+            android:paddingLeft="20dp"
+            android:paddingTop="25dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            tools:visibility="visible"/>
-
-        <me.relex.circleindicator.CircleIndicator3
-            android:id="@+id/indicator"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vp_image"
-            app:ci_drawable="@drawable/mark_oval_ffffff_stroke_262626"
-            app:ci_drawable_unselected="@drawable/mark_oval_cccccc"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <TextView
+                android:id="@+id/tv_ttl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="6dp"
+                android:textColor="@color/x_262626"
+                android:textSize="14dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="ggggggg"/>
+
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                android:lineSpacingExtra="8dp"
+                android:textColor="@color/x_000000"
+                android:textSize="20dp"
+                android:includeFontPadding="false"
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_ttl"
+                tools:text="HAPPY GV80 DAY!" />
+
+            <TextView
+                android:id="@+id/tv_msg"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:gravity="center_vertical"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="6dp"
+                android:textColor="@color/x_262626"
+                android:textSize="14dp"
+                android:includeFontPadding="false"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                app:layout_goneMarginBottom="18dp"
+                tools:text="오늘은 GV80 구입하신지\n2년 되는 날이예요!\n오래오래 안전하게 운행하세요:)" />
+
+
+            <TextView
+                android:id="@+id/tv_link_nm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:paddingBottom="2dp"
+                android:background="@drawable/bg_00000000_underline_000000"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:lineSpacingExtra="29dp"
+                android:textColor="@color/x_000000"
+                android:textSize="14dp"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toStartOf="@+id/iv_icon"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_msg"
+                tools:text="@string/tm01_10"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="2dp"
+                android:scaleType="centerInside"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_msg"
+                tools:src="@drawable/ic_service_emergency" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="iv_icon,tv_link_nm" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_image"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:visibility="gone"
+                app:constraintSet="@layout/item_insight_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/barrier"
+                tools:visibility="visible" />
+
+            <me.relex.circleindicator.CircleIndicator3
+                android:id="@+id/indicator"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                app:ci_drawable="@drawable/mark_oval_ffffff_stroke_262626"
+                app:ci_drawable_unselected="@drawable/mark_oval_cccccc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vp_image" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

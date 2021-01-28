@@ -162,10 +162,10 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
                 getBinding().chart.getAxisLeft().setEnabled(false);
 
                 //우측의 y축에 대한 정의
-                getBinding().chart.getAxisRight().setZeroLineColor(ContextCompat.getColor(getContext(),R.color.x_e2e2e2));
-                getBinding().chart.getAxisRight().setGridColor(ContextCompat.getColor(getContext(),R.color.x_e2e2e2));
+                getBinding().chart.getAxisRight().setZeroLineColor(ContextCompat.getColor(getContext(),R.color.x_e5e5e5));
+                getBinding().chart.getAxisRight().setGridColor(ContextCompat.getColor(getContext(),R.color.x_e5e5e5));
                 getBinding().chart.getAxisRight().setAxisLineColor(ContextCompat.getColor(getContext(),R.color.x_00000000));
-                getBinding().chart.getAxisRight().setTextColor(ContextCompat.getColor(getContext(),R.color.x_4d525252));
+                getBinding().chart.getAxisRight().setTextColor(ContextCompat.getColor(getContext(),R.color.x_757575));
                 getBinding().chart.getAxisRight().setTextSize(8f);
                 getBinding().chart.getAxisRight().setTypeface(ResourcesCompat.getFont(getContext(), R.font.regular_genesissansheadglobal));
                 getBinding().chart.getAxisRight().setLabelCount(5);
@@ -179,15 +179,15 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
                 xAxis.setDrawGridLines(false);
                 xAxis.setLabelCount(4);
                 xAxis.setTextColor(ContextCompat.getColor(getContext(),R.color.x_bf000000));
-                xAxis.setTextSize(11f);
-                xAxis.setTypeface(ResourcesCompat.getFont(getContext(), R.font.regular_genesissansheadglobal));
+                xAxis.setTextSize(12f);
+                xAxis.setTypeface(ResourcesCompat.getFont(getContext(), R.font.regular_genesissanstextglobal));
                 //위 차트 속성에대한 정의는 최초1회만 진행
 
 
 
                 //데이터 정의
                 set1 = new BarDataSet(values, "Data Set");
-                set1.setColor(ContextCompat.getColor(getContext(),R.color.x_4ea39d));
+                set1.setColor(ContextCompat.getColor(getContext(),R.color.x_996449));
                 set1.setDrawValues(false);
                 set1.setDrawIcons(false);
                 set1.setHighlightEnabled(false);
@@ -196,16 +196,17 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
                 dataSets.add(set1);
 
                 BarData data = new BarData(dataSets);
-                data.setBarWidth(0.2f);
+                data.setBarWidth(0.4f);
 
                 RoundedBarChartRenderer roundedBarChartRenderer = new RoundedBarChartRenderer(getBinding().chart, getBinding().chart.getAnimator(), getBinding().chart.getViewPortHandler());
-                roundedBarChartRenderer.setmRadius(20f);
+                roundedBarChartRenderer.setmRadius(0f);
 
                 getBinding().chart.setRenderer(roundedBarChartRenderer);
                 getBinding().chart.setData(data);
 
                 getBinding().chart.invalidate();
                 getBinding().chart.animateY(1500);
+//                getBinding().chart.setViewPortOffsets(0f, 10f, 10f, 10f);
             }
 
 

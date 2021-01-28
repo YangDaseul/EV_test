@@ -82,7 +82,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
         super.onActivityCreated(savedInstanceState);
         me.rvInsight.setLayoutManager(new LinearLayoutManager(getContext()));
         me.rvInsight.setHasFixedSize(true);
-        me.rvInsight.addItemDecoration(new RecyclerViewDecoration((int) DeviceUtil.dip2Pixel(getContext(), 4.0f)));
+        me.rvInsight.addItemDecoration(new RecyclerViewDecoration((int) DeviceUtil.dip2Pixel(getContext(), 10.0f)));
         insightCarAdapter = new InsightCarAdapter(onSingleClickListener);
         insightArea1Adapter = new InsightArea1Adapter(onSingleClickListener);
         insightArea2Adapter = new InsightArea2Adapter(onSingleClickListener);
@@ -349,7 +349,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
-            SubActivity.setStatusBarColor(getActivity(), R.color.x_f8f8f8);
+            SubActivity.setStatusBarColor(getActivity(), R.color.x_ffffff);
             initView();
             ((MainActivity) getActivity()).setGNB(getString(R.string.main_word_2), View.VISIBLE, false, true);
         }
@@ -367,13 +367,13 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                     istViewModel.reqIST1005(new IST_1005.Request(APPIAInfo.TM01.getId(), "INSGT", "INS-03", String.valueOf(lgnViewModel.getPositionValue().get(1)), String.valueOf(lgnViewModel.getPositionValue().get(0)), mainVehicleInfo.getVin(), mainVehicleInfo.getMdlNm()));
                     me.ivInfo1.setVisibility(View.GONE);
                     me.ivInfo2.setVisibility(View.GONE);
-                    me.vBaseBg.setVisibility(View.GONE);
+                    me.rvInsight.setVisibility(View.VISIBLE);
                     break;
                 case VariableType.MAIN_VEHICLE_TYPE_0000: //미로그인
                 default:
+                    me.rvInsight.setVisibility(View.VISIBLE);
                     me.ivInfo1.setVisibility(View.VISIBLE);
                     me.ivInfo2.setVisibility(View.VISIBLE);
-                    me.vBaseBg.setVisibility(View.VISIBLE);
                     break;
             }
         } catch (Exception e) {

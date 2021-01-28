@@ -59,6 +59,15 @@ public class InsightArea3Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
             getBinding().tvLinkNm.setVisibility(View.GONE);
             getBinding().ivIcon.setVisibility(View.INVISIBLE);
             getBinding().lWhole.setOnClickListener(null);
+            getBinding().tvTtl.setVisibility(View.GONE);
+
+            if (!TextUtils.isEmpty(item.getTtl())) {
+                getBinding().tvTtl.setVisibility(View.VISIBLE);
+                getBinding().tvTtl.setText(item.getTtl());
+            } else {
+                getBinding().tvTtl.setVisibility(View.GONE);
+            }
+
 
             if (!TextUtils.isEmpty(item.getIconImgUri())) {
                 getBinding().ivIcon.setVisibility(View.VISIBLE);
@@ -70,7 +79,7 @@ public class InsightArea3Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(getBinding().ivIcon);
             } else {
-                getBinding().ivIcon.setVisibility(View.INVISIBLE);
+                getBinding().ivIcon.setVisibility(View.GONE);
             }
 
 
