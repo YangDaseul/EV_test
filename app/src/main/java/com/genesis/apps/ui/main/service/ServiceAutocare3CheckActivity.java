@@ -235,23 +235,23 @@ public class ServiceAutocare3CheckActivity extends SubActivity<ActivityServiceAu
         }
     };
 
-    @Override
-    public void onBackPressed() {
-        dialogExit();
-    }
-
-    @Override
-    public void onBackButton() {
-        dialogExit();
-    }
-
-    private void dialogExit() {
-        MiddleDialog.dialogServiceBack(this, () -> {
-            finish();
-            closeTransition();
-        }, () -> {
-
-        });
-    }
+//    @Override
+//    public void onBackPressed() {
+//        dialogExit();
+//    }
+//
+//    @Override
+//    public void onBackButton() {
+//        dialogExit();
+//    }
+//
+//    private void dialogExit() {
+//        MiddleDialog.dialogServiceBack(this, () -> {
+//            finish();
+//            closeTransition();
+//        }, () -> {
+//
+//        });
+//    }
 
 }
