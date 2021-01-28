@@ -60,6 +60,12 @@ class WeatherVO extends BaseData {
     @SerializedName("iconImgUri")
     private String iconImgUri;
     @Expose
+    @SerializedName("iconImgUri1")
+    private String iconImgUri1;
+    @Expose
+    @SerializedName("iconImgUri2")
+    private String iconImgUri2;
+    @Expose
     @SerializedName("lnkUseYn")
     private String lnkUseYn;
     @Expose

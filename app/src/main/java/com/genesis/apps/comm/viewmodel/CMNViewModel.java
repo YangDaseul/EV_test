@@ -324,7 +324,7 @@ class CMNViewModel extends ViewModel {
                 weather.setDayCd(dayCd);
                 weather.setSiGuGun(sigungu);
                 weather.setT1h(t1h);
-                weather.setIconImgUri(weatherVO.getIconImgUri());
+                weather.setIconImgUri(dayCd==VariableType.HOME_TIME_DAY ? weatherVO.getIconImgUri1() :weatherVO.getIconImgUri2());
                 weather.setWthrCdNm(weatherVO.getWthrCdNm());
             } catch (Exception ignore) {
                 ignore.printStackTrace();

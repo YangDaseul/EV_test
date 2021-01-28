@@ -27,6 +27,7 @@ import com.genesis.apps.comm.model.vo.UserVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.net.ga.GA;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 
 import java.util.ArrayList;
@@ -188,7 +189,7 @@ class MYPViewModel extends ViewModel {
         List<PrivilegeVO> applyList;
 
         try{
-            applyList = list.stream().filter(data -> !data.getJoinPsblCd().equalsIgnoreCase(JOIN_CODE_UNABLE_APPLY)).collect(Collectors.toList());
+            applyList = list.stream().filter(data-> StringUtil.isValidString(data.getJoinPsblCd()).equalsIgnoreCase(JOIN_CODE_APPLY_POSSIBLE)||StringUtil.isValidString(data.getJoinPsblCd()).equalsIgnoreCase(JOIN_CODE_APPLYED)).collect(Collectors.toList());
         }catch (Exception e){
             applyList = new ArrayList<>();
         }
@@ -225,7 +226,7 @@ class MYPViewModel extends ViewModel {
         Future<Integer> future = es.getListeningExecutorService().submit(()->{
             Integer cnt = 0;
             try {
-                cnt = (int)pvilList.stream().filter(data->data.getJoinPsblCd().equalsIgnoreCase(JOIN_CODE_APPLY_POSSIBLE)||data.getJoinPsblCd().equalsIgnoreCase(JOIN_CODE_APPLYED)).count();
+                cnt = (int)pvilList.stream().filter(data-> StringUtil.isValidString(data.getJoinPsblCd()).equalsIgnoreCase(JOIN_CODE_APPLY_POSSIBLE)||StringUtil.isValidString(data.getJoinPsblCd()).equalsIgnoreCase(JOIN_CODE_APPLYED)).count();
             } catch (Exception ignore) {
                 ignore.printStackTrace();
                 cnt = 0;
