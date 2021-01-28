@@ -522,14 +522,16 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
         ui.btnRegVrn.lWhole.setVisibility(View.GONE);
         ui.btnRecovery.lWhole.setVisibility(View.GONE);
         ui.btnDelete.lWhole.setVisibility(View.GONE);
-        ui.btnSimilar.lWhole.setVisibility(View.GONE);
-        ui.btnContract.lWhole.setVisibility(View.GONE);
+        ui.btnSimilar.setVisibility(View.GONE);
+        ui.btnContract.setVisibility(View.GONE);
+        ui.clMobilityCare.setVisibility(View.GONE);
         ui.lPrivilege.setVisibility(View.GONE);
         ui.ivFavorite.setVisibility(View.GONE);
         ui.ivFavorite.setTag(R.id.vehicle, vehicleVO);
 
         switch (StringUtil.isValidString(vehicleVO.getCustGbCd())) {
             case VariableType.MAIN_VEHICLE_TYPE_OV:
+                ui.clMobilityCare.setVisibility(View.VISIBLE);
                 if (StringUtil.isValidString(vehicleVO.getDelExpYn()).equalsIgnoreCase(VariableType.DELETE_EXPIRE_Y)) {
                     //삭제 예정 차량
                     //차량번호 셋팅
@@ -570,12 +572,13 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                 break;
 
             case VariableType.MAIN_VEHICLE_TYPE_CV://계약차량
+                ui.clMobilityCare.setVisibility(View.GONE);
                 //계약차량 표기
                 ui.tvCarStatus.setText(R.string.gm_carlst_04_26);
                 //유사재고조회
-                ui.btnSimilar.lWhole.setVisibility(View.VISIBLE);
+                ui.btnSimilar.setVisibility(View.VISIBLE);
                 //계약서조회
-                ui.btnContract.lWhole.setVisibility(View.VISIBLE);
+                ui.btnContract.setVisibility(View.VISIBLE);
                 setEmptyCoupon(0);
                 break;
             case VariableType.MAIN_VEHICLE_TYPE_NV:
