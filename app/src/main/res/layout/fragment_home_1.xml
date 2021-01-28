@@ -16,6 +16,10 @@
             type="int" />
 
         <variable
+            name="menuSize"
+            type="int" />
+
+        <variable
             name="weatherCode"
             type="com.genesis.apps.comm.model.constants.WeatherCodes" />
 
@@ -401,7 +405,7 @@
                 android:gravity="center"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="4dp"
-                android:textColor="@{activity.getColor(WeatherCodes.getTextColorResource(dayCd))}"
+                android:textColor="@{menuSize==1 ? @color/x_000000 : activity.getColor(WeatherCodes.getTextColorResource(dayCd))}"
                 android:textSize="14dp"
                 tools:text="렌트/리스\n실운행자 등록" />
 

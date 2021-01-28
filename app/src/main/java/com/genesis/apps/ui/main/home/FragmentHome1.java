@@ -726,11 +726,12 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 //메뉴가 하나 이상일 때
                 params.setMargins(margin, 0, margin, marginBottom);
             }
+            me.setMenuSize(menuSize);
             me.lFloating.setLayoutParams(params);
 
 
             me.lFloating.setBackgroundColor(menuSize == 1 ? getContext().getColor(R.color.x_ffffff) : 0);
-            me.btnFloating1.setTextColor(menuSize == 1 ? getContext().getColor(R.color.x_000000) :  (dayCd==VariableType.HOME_TIME_DAY ? getContext().getColor(R.color.x_000000) : getContext().getColor(R.color.x_ffffff)));
+            me.btnFloating1.setTextColor(menuSize == 1 ? getContext().getColor(R.color.x_000000) : (dayCd==VariableType.HOME_TIME_DAY ? getContext().getColor(R.color.x_000000) : getContext().getColor(R.color.x_ffffff)));
 
             me.btnFloating1.setTextSize(TypedValue.COMPLEX_UNIT_DIP, (menuSize == 1 ? 16 : 14));
             me.btnFloating1.setTypeface(menuSize == 1 ? ResourcesCompat.getFont(getActivity(), R.font.regular_genesissanstextglobal) : ResourcesCompat.getFont(getActivity(), R.font.light_genesissansheadglobal));
