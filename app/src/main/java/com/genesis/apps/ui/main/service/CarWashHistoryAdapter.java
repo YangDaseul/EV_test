@@ -130,6 +130,25 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
             getBinding().tvCarWashHistoryDate.setText(dateStr);
         }
 
+//        //날짜. 서버 값은 YYYYMMDDHH24MISS / UI 출력은 YYYY.MM.DD
+//        private void setDate(WashReserveVO item, String rsvtStusCd) {
+//
+//            String dateOriginal="";
+//            switch (rsvtStusCd) {
+//                case WSH_1004.RESERVE_COMPLETED:
+//                    dateOriginal = item.getRsvtDtm()
+//                    break;
+//                default:
+//                    dateOriginal = item.getRsvtDtm();
+//                    break;
+//            }
+//            Date date = DateUtil.getDefaultDateFormat(dateOriginal, DateUtil.DATE_FORMAT_yyyyMMddHHmmss);
+//            String dateStr = DateUtil.getDate(date, DateUtil.DATE_FORMAT_yyyy_mm_dd_dot);
+//
+//            getBinding().tvCarWashHistoryDate.setText(dateStr);
+//        }
+
+
         //지점명. 예약중/이용완료또는 취소 두 뷰에 일괄 처리
         private void setBranchName(String name) {
             getBinding().tvCarWashHistoryBranchNameReserved.setText(name);

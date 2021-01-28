@@ -109,7 +109,7 @@
     <string name="msg_entrance_1">로그인이 필요합니다.\n아직 회원이 아니시면 회원가입을 해주세요.</string>
     <string name="msg_entrance_2">아이디를 잊어버리셨나요?</string>
 
-    <string name="mg00_word_1">메뉴 검색</string>
+    <string name="mg00_word_1">검색</string>
     <string name="mg00_word_2">최근 검색</string>
     <string name="mg00_word_3">검색 결과</string>
     <string name="mg00_msg_1">메뉴, 기능, 혜택을 검색해 주세요.</string>

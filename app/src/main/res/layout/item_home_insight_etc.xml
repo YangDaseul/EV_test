@@ -23,7 +23,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/x_1a262626">
 
 
         <ImageView
@@ -31,7 +32,6 @@
             android:layout_width="0dp"
             android:layout_height="70dp"
             android:adjustViewBounds="true"
-            android:background="@color/x_1a262626"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
