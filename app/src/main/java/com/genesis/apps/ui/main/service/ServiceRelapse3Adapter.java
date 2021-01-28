@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.comm.model.vo.VOCInfoVO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
@@ -535,7 +536,13 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
                 getBinding().tvRelapseDefectSelect.setText(defectListDialog.getSelectItem());
                 Paris.style(getBinding().tvRelapseDefectSelect).apply(R.style.CommonSpinnerItemEnable);
                 getBinding().tvTitleRelapseDefectSelect.setVisibility(View.VISIBLE);
-
+                if(defectListDialog.getSelectItem().equalsIgnoreCase(activity.getString(R.string.relapse_req_result_defect_high))){
+                    //중대한 하자
+                    activity.setFlawCd(VOCInfoVO.DEFECT_LEVEL_HIGH);
+                }else{
+                    //일반 하자
+                    activity.setFlawCd(VOCInfoVO.DEFECT_LEVEL_LOW);
+                }
                 //입력창 하나 추가(아이템이 UI 뷰 하나만 있을 때 한정)
                 if (getItemCount() == 1) {
                     addRow(new RepairData());

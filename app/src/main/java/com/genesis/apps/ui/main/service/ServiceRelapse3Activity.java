@@ -61,7 +61,6 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
     public boolean over4 = false;
     private String count;
     private String period;
-
     private int currentState = STATE_INIT;
 
     @Override
@@ -554,5 +553,9 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
                 //do nothing
                 break;
         }
+    }
+
+    public void setFlawCd(String flawCd) {
+        vocInfoVO.setFlawCd(flawCd);
     }
 }
