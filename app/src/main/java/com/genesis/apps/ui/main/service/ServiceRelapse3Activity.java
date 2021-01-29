@@ -389,8 +389,9 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
         currentState = STATE_ASK_OVER_4;
         ui.tvRelapse3Desc.setText(R.string.relapse_3_msg_03);
 
-        ui.tvRelapse3Yes.setVisibility(View.VISIBLE);
-        ui.tvRelapse3No.setVisibility(View.VISIBLE);
+        ui.clRelapseBtnContainer.setVisibility(View.VISIBLE);
+//        ui.tvRelapse3Yes.setVisibility(View.VISIBLE);
+//        ui.tvRelapse3No.setVisibility(View.VISIBLE);
         ui.ivDummy.setVisibility(View.VISIBLE);
     }
 
@@ -434,8 +435,9 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
             InteractionUtil.collapse(ui.lRelapse3TotalCountContainer, null);
             count = "" + (adapter.getItemCount() - 1);//-1은 마지막 게 ui 더미 칸이니까
         }
-        ui.tvRelapse3Yes.setVisibility(View.GONE);
-        ui.tvRelapse3No.setVisibility(View.GONE);
+        ui.tvRelapse3TotalCountTitle.setVisibility(View.VISIBLE);
+//        ui.tvRelapse3Yes.setVisibility(View.GONE);
+//        ui.tvRelapse3No.setVisibility(View.GONE);
         InteractionUtil.expand(ui.lRelapse3PeriodContainer, null);
 
         new Handler().postDelayed(() -> {

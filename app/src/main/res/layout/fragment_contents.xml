@@ -25,117 +25,45 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
 
-            <include
-                android:id="@+id/btn_event"
-                layout="@layout/item_btn_underline_mark_gold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:onClick="@{(v) -> fragment.onSingleClickListener.onClick(v)}"
-                app:btnNm="@{@string/cm02_12}"
+            <!-- 콘텐츠 카테고리 -->
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tl_category_tabs"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:background="@color/x_ffffff"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
+                app:tabRippleColor="@android:color/transparent"
+                app:tabPaddingTop="0dp"
+                app:tabPaddingBottom="0dp"
+                app:tabPaddingStart="0dp"
+                app:tabPaddingEnd="0dp"
+                app:tabIndicatorHeight="0dp"
+                app:tabMode="scrollable"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vp"
+        <!-- 서비스 탭 본문 -->
+        <FrameLayout
+            android:id="@+id/fl_contents"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:paddingLeft="30dp"
-            android:layout_marginTop="145dp"
-            android:paddingRight="30dp"
             android:layout_marginBottom="60dp"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            app:constraintSet="@layout/fragment_contents_vp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/l_empty"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/bg_f8f8f8_topline_e5e5e5"
-            android:visibility="gone"
-            app:layout_constraintTop_toTopOf="@+id/vp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:visibility="gone">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_tabs">
 
-
-            <TextView
-                android:id="@+id/tv_empty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cm02_2"
-                android:textSize="18dp"
-                android:textColor="@color/x_262626"
-                android:fontFamily="@font/regular_genesissanstextglobal"
-                android:lineSpacingExtra="10dp"
-                android:letterSpacing="-0.01"
-                android:gravity="center"
-                app:layout_constraintVertical_chainStyle="packed"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/tv_empty_1"/>
-
-            <TextView
-                android:id="@+id/tv_empty_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/cm02_13"
-                android:textSize="18dp"
-                android:textColor="@color/x_262626"
-                android:fontFamily="@font/regular_genesissanstextglobal"
-                android:lineSpacingExtra="10dp"
-                android:letterSpacing="-0.01"
-                android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@+id/tv_empty"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/btn_retry"/>
-
-
-            <LinearLayout
-                android:id="@+id/btn_retry"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="7dp"
-                android:paddingBottom="7dp"
-                android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
-                app:layout_constraintTop_toBottomOf="@+id/tv_empty_1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/cm02_3"
-                    android:textSize="14dp"
-                    android:textColor="@color/x_000000"
-                    android:fontFamily="@font/regular_genesissanstextglobal"
-                    android:lineSpacingExtra="29dp"
-                    android:letterSpacing="-0.01"
-                    android:background="@drawable/bg_00000000_underline_000000" />
-
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_contents_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="false"
+                android:clipToPadding="false" />
+        </FrameLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

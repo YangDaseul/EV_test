@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
@@ -30,30 +31,46 @@ import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.CTTViewModel;
 import com.genesis.apps.databinding.FragmentContentsBinding;
-import com.genesis.apps.databinding.ItemTabBinding;
+import com.genesis.apps.databinding.FragmentContentsListBinding;
 import com.genesis.apps.databinding.ItemTabContentsBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
-import com.genesis.apps.ui.main.service.ServiceViewpagerAdapter;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentContents extends SubFragment<FragmentContentsBinding> {
+public class FragmentContentsList extends SubFragment<FragmentContentsListBinding> {
 
-    private CMNViewModel cmnViewModel;
     private CTTViewModel cttViewModel;
-    private boolean isEvent=false;
+    private ContentsAdapter contentsAdapter;
 
-    private List<CatTypeVO> mCatTypeList;
+    private String mCatCd = "";
 
-    public FragmentStateAdapter serviceTabAdapter;
+    public static Fragment newInstance(String catCd) {
+        FragmentContentsList fragment = new FragmentContentsList();
+
+        Bundle args = new Bundle();
+        args.putString(KeyNames.KEY_NAME_CAT_NO, catCd);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if(getArguments() != null) {
+            mCatCd = getArguments().getString(KeyNames.KEY_NAME_CAT_NO);
+            Log.e("JJJJ", "cat Cd : " + mCatCd);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return super.setContentView(inflater, R.layout.fragment_contents);
+        return super.setContentView(inflater, R.layout.fragment_contents_list);
     }
 
     @Override
@@ -66,44 +83,15 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
         super.onActivityCreated(savedInstanceState);
 
         intViewModel();
-    }
-
-    private void initView() {
-        serviceTabAdapter = new ContentsViewpagerAdapter(this, mCatTypeList);
-
-        me.vpContentsViewPager.setAdapter(serviceTabAdapter);
-        me.vpContentsViewPager.setUserInputEnabled(false);
-
-        //ViewPager Setting
-        me.vpContentsViewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-        me.vpContentsViewPager.setCurrentItem(0);
-        me.vpContentsViewPager.setOffscreenPageLimit(mCatTypeList.size());
-
-        me.vpContentsViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                if (positionOffsetPixels == 0) {
-                    me.vpContentsViewPager.setCurrentItem(position);
-                }
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-            }
-
-        });
+        initViewPager();
     }
 
     private void intViewModel() {
-        cmnViewModel = new ViewModelProvider(getActivity()).get(CMNViewModel.class);
         cttViewModel = new ViewModelProvider(this).get(CTTViewModel.class);
         me.setLifecycleOwner(getViewLifecycleOwner());
         me.setFragment(this);
 
         cttViewModel.getRES_CTT_1001().observe(getViewLifecycleOwner(), result -> {
-
             switch (result.status){
                 case LOADING:
                     ((MainActivity)getActivity()).showProgressDialog(true);
@@ -111,50 +99,28 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
                 case SUCCESS:
                     ((MainActivity)getActivity()).showProgressDialog(false);
 
-                    mCatTypeList = new ArrayList<>();
-                    mCatTypeList.add(new CatTypeVO("", "전체"));
+                    List<ContentsVO> list = new ArrayList<>();
 
-                    if(cmnViewModel != null && cmnViewModel.getCatTypeList() != null && cmnViewModel.getCatTypeList().size() > 0) {
-                        for(int i=0; i<cmnViewModel.getCatTypeList().size(); i++) {
-                            CatTypeVO catItem = cmnViewModel.getCatTypeList().get(i);
-
-                            if(result.data!=null&&result.data.getTtlList()!=null){
-                                for(int j=0; j<result.data.getTtlList().size(); j++) {
-                                    ContentsVO item = result.data.getTtlList().get(j);
-
-                                    if(catItem.getCd().equals(item.getCatCd())) {
-                                        mCatTypeList.add(catItem);
-
-                                        break;
-                                    }
-                                }
-                            }
-                        }
+                    if(result.data!=null&&result.data.getTtlList()!=null){
+                        list.addAll(result.data.getTtlList());
                     }
 
-                    initView();
-                    initTabView();
+                    int itemSizeBefore = 0;
+                    if (contentsAdapter.getPageNo() == 0) {
+                        contentsAdapter.setRows(list);
+                    } else {
+                        itemSizeBefore = contentsAdapter.getItemCount();
+                        contentsAdapter.addRows(list);
+                    }
 
-//                    if(result.data!=null&&result.data.getTtlList()!=null){
-//                        list.addAll(result.data.getTtlList());
-//                    }
-//
-//                    int itemSizeBefore = 0;
-//                    if (contentsAdapter.getPageNo() == 0) {
-//                        contentsAdapter.setRows(list);
-//                    } else {
-//                        itemSizeBefore = contentsAdapter.getItemCount();
-//                        contentsAdapter.addRows(list);
-//                    }
-//
-//                    contentsAdapter.notifyDataSetChanged();
-//                    if (contentsAdapter.getPageNo() == 0) {
-//                        me.vp.setCurrentItem(0);
-//                    }
-//
-//
-//                    contentsAdapter.setPageNo(contentsAdapter.getPageNo() + 1);
-//                    me.lEmpty.setVisibility(contentsAdapter.getItemCount()==0 ? View.VISIBLE : View.GONE);
+                    contentsAdapter.notifyDataSetChanged();
+                    if (contentsAdapter.getPageNo() == 0) {
+                        me.vp.setCurrentItem(0);
+                    }
+
+
+                    contentsAdapter.setPageNo(contentsAdapter.getPageNo() + 1);
+                    me.lEmpty.setVisibility(contentsAdapter.getItemCount()==0 ? View.VISIBLE : View.GONE);
                     break;
                 default:
                     String serverMsg="";
@@ -207,21 +173,77 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
             }
         });
 
-        cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(),"",""));
+        
     }
 
-    private void initTabView() {
-        new TabLayoutMediator(me.tlCategoryTabs, me.vpContentsViewPager, (tab, position) -> {
+    private void initViewPager(){
+        //ViewPager Setting
+        contentsAdapter = new ContentsAdapter(onSingleClickListener);
+        me.vp.setAdapter(contentsAdapter);
+        me.vp.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
+        me.vp.setCurrentItem(0);
+        me.vp.setOffscreenPageLimit(3);
 
-        }).attach();
+        me.vp.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                if (positionOffsetPixels == 0) {
+                    me.vp.setCurrentItem(position);
+                }
+            }
 
-        for(int i=0 ; i<mCatTypeList.size(); i++) {
-            final LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            final ItemTabContentsBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_tab_contents, null, false);
-            final View view = binding.getRoot();
-            binding.tvTab.setText(mCatTypeList.get(i).getCdNm());
-            me.tlCategoryTabs.getTabAt(i).setCustomView(view);
-        }
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+            }
+
+        });
+
+        final float pageMargin= getResources().getDimensionPixelOffset(R.dimen.vpMargin);
+
+        me.vp.setPageTransformer((view, position) -> {
+            float myOffset = position * -(pageMargin);
+//                page.setScaleX(1 - (0.25f * abs(position)));
+//                page.setTranslationY(pageTranslationY * position);
+            final float tmp = 0.75f;
+
+            if (position <= -1) { // [-Infinity,-1)
+                // This page is way off-screen to the left.
+                view.setAlpha(0);
+
+            } else if (position <= 0) { // [-1,0]
+                // Use the default slide transition when moving to the left/top page
+                view.setAlpha(1);
+                ViewCompat.setElevation(view, 1);
+                // Counteract the default slide transition
+                view.setTranslationY(view.getWidth() * -position); //위로 올리는 형태
+                view.setTranslationY(view.getHeight() * -position); //덮는 형태
+                view.setTranslationX(0);
+
+                //set Y position to swipe in from top
+                float scaleFactor = tmp + (1 - tmp) * (1 - Math.abs(position));
+                view.setScaleX(scaleFactor);
+                view.setScaleY(scaleFactor);
+
+            } else if (position <= 1) { // [0,1]
+                view.setAlpha(1);
+                ViewCompat.setElevation(view, 2);
+
+                // Counteract the default slide transition
+                view.setTranslationX(0);
+//                    view.setTranslationY(position * view.getHeight());
+                view.setTranslationY(myOffset);
+
+                // Scale the page down (between MIN_SCALE and 1)
+                view.setScaleX(1);
+                view.setScaleY(1);
+            } else { // (1,+Infinity]
+                // This page is way off-screen to the right.
+                view.setAlpha(0);
+            }
+        });
+
     }
 
     @Override
@@ -231,14 +253,29 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
 
     @Override
     public void onClickCommon(View v) {
+
+        switch (v.getId()){
+            //다시시도
+            case R.id.btn_retry:
+                contentsAdapter.setPageNo(0);
+                cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(), mCatCd,""));
+                break;
+
+            case R.id.iv_image:
+                ContentsVO item = ((ContentsVO)v.getTag(R.id.item));
+                if(item!=null){
+                    cttViewModel.reqCTT1004(new CTT_1004.Request(APPIAInfo.CM01.getId(), item.getListSeqNo()));
+                }
+
+                break;
+        }
     }
 
     @Override
     public void onRefresh() {
         Log.e("onResume","onReusme contents");
-        SubActivity.setStatusBarColor(getActivity(), R.color.x_ffffff);
-
-        ((MainActivity)getActivity()).setGNB(getString(R.string.main_word_4), View.VISIBLE, false, true);
+        if(contentsAdapter.getPageNo()==0)
+            cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(), mCatCd,""));
     }
 
 

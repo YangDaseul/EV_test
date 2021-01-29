@@ -210,7 +210,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="4dp"
-            android:background="@{isBgWhite ? @drawable/bg_ffffff_underline_000000 : @drawable/bg_00000000_underline_ffffff}"
+            android:background="@{isBgWhite ? @drawable/bg_trans_underline_000000 : @drawable/bg_00000000_underline_ffffff}"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:visibility="@{TextUtils.isEmpty(custGbCd)||custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000) ? View.VISIBLE : View.GONE}"
             android:text="@string/gm02_8"

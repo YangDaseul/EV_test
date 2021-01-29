@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+        <variable
+            name="fragment"
+            type="com.genesis.apps.ui.main.contents.FragmentContentsList" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/x_ffffff">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="30dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:constraintSet="@layout/fragment_contents_vp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_empty"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_f8f8f8_topline_e5e5e5"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@+id/vp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:visibility="gone">
+
+
+            <TextView
+                android:id="@+id/tv_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cm02_2"
+                android:textSize="18dp"
+                android:textColor="@color/x_262626"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:lineSpacingExtra="10dp"
+                android:letterSpacing="-0.01"
+                android:gravity="center"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/tv_empty_1"/>
+
+            <TextView
+                android:id="@+id/tv_empty_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/cm02_13"
+                android:textSize="18dp"
+                android:textColor="@color/x_262626"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:lineSpacingExtra="10dp"
+                android:letterSpacing="-0.01"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@+id/tv_empty"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/btn_retry"/>
+
+
+            <LinearLayout
+                android:id="@+id/btn_retry"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"
+                app:layout_constraintTop_toBottomOf="@+id/tv_empty_1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cm02_3"
+                    android:textSize="14dp"
+                    android:textColor="@color/x_000000"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:lineSpacingExtra="29dp"
+                    android:letterSpacing="-0.01"
+                    android:background="@drawable/bg_00000000_underline_000000" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
