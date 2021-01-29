@@ -24,8 +24,12 @@ import lombok.EqualsAndHashCode;
 public @Data
 class CatTypeVO extends BaseData {
 
-    public CatTypeVO(String cd){
+//    public CatTypeVO(String cd){
+//        this.cd = StringUtil.isValidString(cd);
+//    }
+    public CatTypeVO(String cd, String cdNm){
         this.cd = StringUtil.isValidString(cd);
+        this.cdNm = StringUtil.isValidString(cdNm);
     }
 
     @PrimaryKey
