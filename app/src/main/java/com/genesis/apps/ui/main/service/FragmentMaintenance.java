@@ -152,6 +152,19 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
         }
     }
 
+    private void startServiceNetworkReservation(){
+        //정비예약
+        try {
+            String avlRsrVn = reqViewModel.getRES_REQ_1001().getValue().data.getAvlRsrYn();
+            if (!TextUtils.isEmpty(avlRsrVn) && avlRsrVn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES))
+                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MaintenanceReserveActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+            else
+                MiddleDialog.dialogServiceInfo(getActivity(), null);
+        } catch (Exception ignore) {
+
+        }
+    }
+
 
     private void startSOSActivity() {
 
@@ -226,38 +239,22 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
             case R.id.tv_service_maintenance_find_network_btn:
                 ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceNetworkActivity.class).putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_SERVICE), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
-
             //정비 예약
+            case R.id.l_service_maintenance_reservation_btn:
+                startServiceNetworkReservation();
+                break;
             case R.id.tv_service_maintenance_btn_black:
 
                 String title = v.getTag().toString();
 
                 if(StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm01_maintenance_2))){
                     //정비예약
-                    try {
-                        String avlRsrVn = reqViewModel.getRES_REQ_1001().getValue().data.getAvlRsrYn();
-                        if (!TextUtils.isEmpty(avlRsrVn) && avlRsrVn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES))
-                            ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MaintenanceReserveActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                        else
-                            MiddleDialog.dialogServiceInfo(getActivity(), null);
-                    } catch (Exception ignore) {
-
-                    }
+                    startServiceNetworkReservation();
                 }else if(StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm01_maintenance_6))){
                     //긴급출동
                     startSOSActivity();
-
-
-                }else if(StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm01_maintenance_9))){
-                    //원격진단
-                    ((BaseActivity) getActivity()).startActivitySingleTop(
-                            new Intent(getActivity(), ServiceRemoteRegisterActivity.class),
-                            RequestCodes.REQ_CODE_ACTIVITY.getCode(),
-                            VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
-                    );
                 }
                 break;
-
             //전화 예약
             case R.id.tv_service_maintenance_btn_white:
                 VehicleVO mainVehicle = null;

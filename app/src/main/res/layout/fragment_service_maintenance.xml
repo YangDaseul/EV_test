@@ -47,6 +47,7 @@
             <include
                 android:id="@+id/l_service_maintenance_reservation_btn"
                 layout="@layout/item_service_maintenance"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
                 app:desc="@{@string/sm01_maintenance_3}"
                 app:icon="@{@drawable/ic_service_reservation}"
                 app:title="@{@string/sm01_maintenance_2}"
@@ -67,23 +68,22 @@
             <include
                 android:id="@+id/l_service_maintenance_emergency_btn"
                 layout="@layout/item_service_maintenance"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
                 app:desc="@{@string/sm01_maintenance_8}"
                 app:icon="@{@drawable/ic_service_emergency}"
                 app:title="@{@string/sm01_maintenance_6}"
-                app:btnWhite="@{@string/sm01_maintenance_35}"
-                app:btnBlack="@{@string/sm01_maintenance_36}"
+                app:btnWhite="@{@string/sm01_maintenance_39}"
+                app:btnBlack="@{@string/sm01_maintenance_40}"
                 app:fragment="@{fragment}"/>
 
             <!--  정비 원격진단 -->
             <include
                 android:id="@+id/l_service_maintenance_customercenter_btn"
                 layout="@layout/item_service_maintenance"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
                 app:desc="@{@string/sm01_maintenance_10}"
                 app:icon="@{@drawable/ic_service_customercenter}"
-                app:title="@{@string/sm01_maintenance_9}"
-                app:btnWhite="@{@string/sm01_maintenance_35}"
-                app:btnBlack="@{@string/sm01_maintenance_36}"
-                app:fragment="@{fragment}"/>
+                app:title="@{@string/sm01_maintenance_9}"/>
 
             <!--  정비 원격 진단 내역 -->
             <include
