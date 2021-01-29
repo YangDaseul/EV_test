@@ -302,6 +302,10 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.main.insight.InsightExpnMembershipActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.main.insight.InsightExpnInputActivity"
             android:exported="false"
             android:screenOrientation="portrait"

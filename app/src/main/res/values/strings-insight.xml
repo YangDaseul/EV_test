@@ -42,6 +42,13 @@
     <string name="tm_exps01_23">조회할 날짜(년)를 선택해 주세요.</string>
     <string name="tm_exps01_24">조회할 차량을 선택해 주세요.</string>
 
+    <string name="tm_exps01_25">멤버십 사용방법</string>
+    <string name="tm_exps01_26">멤버십 포인트 사용방법을 확인하세요.</string>
+    <string name="tm_exps01_27">%s에 %s원 지출하셨습니다.</string>
+    <string name="tm_exps01_28">%s 항목에 %s원 지출하셨습니다.</string>
+
+    <string name="tm_exps01_meb01">멤버십 사용방법</string>
+
     <string name="tm_exps01_01_1">지출 내역 입력</string>
     <string name="tm_exps01_01_2">지출 항목을\n선택해 주세요.</string>
     <string name="tm_exps01_01_3">지출 항목</string>

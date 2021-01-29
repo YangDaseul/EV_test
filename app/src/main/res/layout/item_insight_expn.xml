@@ -3,21 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="data"
+            type="com.genesis.apps.comm.model.vo.ExpnVO" />
+        <variable
+            name="listener"
+            type="com.genesis.apps.ui.common.view.listener.OnItemClickListener"/>
+    </data>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="1dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tv_expn_dtm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:letterSpacing="-0.01"
-            android:lineSpacingExtra="6dp"
-            android:textColor="@color/x_000000"
-            android:textSize="15dp"
+            android:lineSpacingExtra="4dp"
+            android:textColor="@color/x_262626"
+            android:textSize="14dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="2020.07.25" />
@@ -26,9 +36,12 @@
             android:id="@+id/l_expn_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_ffffff_stroke_e5e5e5"
+            android:paddingStart="15dp"
             android:paddingTop="20dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_expn_dtm"
@@ -39,32 +52,46 @@
                 android:id="@+id/tv_expn_div_nm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:background="@color/x_111111"
+                android:fontFamily="@font/light_genesissansheadglobal"
+                android:includeFontPadding="false"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="0dp"
-                android:textColor="@color/x_000000"
-                android:textSize="16dp"
+                android:paddingStart="6dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="6dp"
+                android:paddingBottom="4dp"
+                android:textColor="@color/x_ffffff"
+                android:textSize="11dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="주유" />
 
+            <include
+                android:id="@+id/btn_delete"
+                layout="@layout/item_btn_underline_mark_gold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                app:btnNm="@{@string/tm_exps01_6}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_expn_plc"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:fontFamily="@font/regular_genesissanstextglobal"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="1dp"
-                android:textColor="@color/x_000000"
-                android:textSize="15dp"
+                android:layout_marginTop="15dp"
                 android:ellipsize="end"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="6dp"
                 android:maxLines="2"
+                android:textColor="@color/x_000000"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_expn_div_nm"
-                app:layout_constraintEnd_toStartOf="@+id/iv_icon"
                 app:layout_constraintTop_toBottomOf="@+id/tv_expn_div_nm"
                 tools:text="구로디지털단지주유소구로디지털단지주유소구로디지털단지주유소구로디지털단지주유소구로디지털단지주유소" />
 
@@ -72,13 +99,14 @@
                 android:id="@+id/tv_title_accm_milg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/light_genesissansheadglobal"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:includeFontPadding="false"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="1dp"
+                android:lineSpacingExtra="4dp"
                 android:text="@string/tm_exps01_9"
                 android:textColor="@color/x_000000"
-                android:textSize="15dp"
+                android:textSize="14dp"
                 app:layout_constraintStart_toStartOf="@+id/tv_expn_plc"
                 app:layout_constraintTop_toBottomOf="@+id/tv_expn_plc" />
 
@@ -86,135 +114,65 @@
                 android:id="@+id/tv_accm_milg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="12dp"
                 android:fontFamily="@font/regular_genesissanstextglobal"
+                android:includeFontPadding="false"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="3dp"
-                android:textColor="@color/x_000000"
-                android:textSize="13dp"
+                android:lineSpacingExtra="4dp"
+                android:textColor="@color/x_262626"
+                android:textSize="14dp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_accm_milg"
                 app:layout_constraintStart_toEndOf="@+id/tv_title_accm_milg"
                 tools:text="27,879km" />
 
-
-            <ImageView
-                android:id="@+id/iv_icon"
+            <TextView
+                android:id="@+id/tv_title_expn_amt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="20dp"
-                android:scaleType="centerInside"
-                app:layout_constraintBottom_toTopOf="@+id/l_expn_info_dtl"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5"
-                tools:src="@drawable/ic_service_refueling" />
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="4dp"
+                android:text="@string/tm_exps01_10"
+                android:textColor="@color/x_000000"
+                android:textSize="14dp"
+                app:layout_constraintStart_toStartOf="@+id/tv_expn_plc"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_accm_milg" />
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/l_expn_info_dtl"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/tv_expn_amt"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="2dp"
-                android:layout_marginBottom="2dp"
-                android:background="@color/x_f9f9f9"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_accm_milg">
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="4dp"
+                android:textColor="@color/x_996449"
+                android:textSize="14dp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_expn_amt"
+                app:layout_constraintStart_toEndOf="@+id/tv_title_expn_amt"
+                tools:text="30,000원" />
 
-                <ImageView
-                    android:id="@+id/iv_line"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/line_dot"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/btn_modify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple_bg_111111"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="10dp"
+                android:paddingLeft="17dp"
+                android:paddingTop="10dp"
+                android:paddingRight="17dp"
+                android:paddingBottom="10dp"
+                android:text="@string/tm_exps01_5"
+                android:textColor="@color/x_ffffff"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_title_expn_amt"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-
-                <TextView
-                    android:id="@+id/tv_title_expn_amt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="23dp"
-                    android:layout_marginBottom="23dp"
-                    android:fontFamily="@font/regular_genesissansheadglobal"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="5dp"
-                    android:text="@string/tm_exps01_10"
-                    android:textColor="@color/x_000000"
-                    android:textSize="13dp"
-                    app:layout_constraintVertical_bias="0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_line" />
-
-                <TextView
-                    android:id="@+id/tv_expn_amt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:fontFamily="@font/regular_genesissansheadglobal"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="-2dp"
-                    android:textColor="@color/x_a36b4f"
-                    android:textSize="18dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_expn_amt"
-                    tools:text="30,000원" />
-
-
-                <TextView
-                    android:id="@+id/btn_delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/ripple_bg_00000000_stroke_6f6f6f"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:paddingLeft="14dp"
-                    android:paddingRight="14dp"
-                    android:fontFamily="@font/light_genesissansheadglobal"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="7dp"
-                    android:textColor="@color/x_141414"
-                    android:textSize="14dp"
-                    android:text="@string/tm_exps01_6"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_expn_amt"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_expn_amt"/>
-
-
-
-                <TextView
-                    android:id="@+id/btn_modify"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="6dp"
-                    android:background="@drawable/ripple_bg_141414"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:paddingLeft="14dp"
-                    android:paddingRight="14dp"
-                    android:fontFamily="@font/light_genesissansheadglobal"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="7dp"
-                    android:textColor="@color/x_ffffff"
-                    android:textSize="14dp"
-                    android:text="@string/tm_exps01_5"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_delete"
-                    app:layout_constraintTop_toTopOf="@+id/btn_delete"/>
-
-
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

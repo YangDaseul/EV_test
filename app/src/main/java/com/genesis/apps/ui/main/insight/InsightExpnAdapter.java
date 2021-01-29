@@ -7,11 +7,9 @@ import android.view.ViewGroup;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.ExpnVO;
-import com.genesis.apps.comm.model.vo.ExpnVO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ItemInsightExpnBinding;
-import com.genesis.apps.databinding.ItemLeasingHistBinding;
 import com.genesis.apps.databinding.ItemLeasingHistMoreBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
@@ -132,8 +130,8 @@ public class InsightExpnAdapter extends BaseRecyclerViewAdapter2<ExpnVO> {
             getBinding().tvAccmMilg.setText(StringUtil.getDigitGroupingString(item.getAccmMilg())+"km");
             getBinding().tvExpnAmt.setText(StringUtil.getDigitGroupingString(item.getExpnAmt())+"원");
 
-            getBinding().btnDelete.setOnClickListener(onSingleClickListener);
-            getBinding().btnDelete.setTag(R.id.insight_expn_vo, item);
+            getBinding().btnDelete.lWhole.setOnClickListener(onSingleClickListener);
+            getBinding().btnDelete.lWhole.setTag(R.id.insight_expn_vo, item);
             getBinding().btnModify.setOnClickListener(onSingleClickListener);
             getBinding().btnModify.setTag(R.id.insight_expn_vo, item);
 
@@ -181,7 +179,7 @@ public class InsightExpnAdapter extends BaseRecyclerViewAdapter2<ExpnVO> {
             }
 
             getBinding().tvExpnDivNm.setText(expnDivNmId);
-            getBinding().ivIcon.setImageResource(iconId);
+//            getBinding().ivIcon.setImageResource(iconId);
 
         }
 

@@ -7,10 +7,12 @@
         android:layout_height="wrap_content"
         android:background="@color/x_ffffff"
         android:orientation="vertical"
-        android:paddingLeft="15dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:paddingLeft="20dp"
         android:paddingTop="30dp"
-        android:paddingRight="15dp"
-        android:paddingBottom="29dp">
+        android:paddingRight="20dp"
+        android:paddingBottom="20dp">
 
         <TextView
             android:id="@+id/tv_title"
@@ -20,7 +22,7 @@
             android:gravity="center"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="10dp"
-            android:textColor="@color/x_141414"
+            android:textColor="@color/x_000000"
             android:textSize="20dp"
             android:text="@string/tm_exps01_p01_1"/>
 
@@ -30,9 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="40dp">
 
             <LinearLayout
@@ -52,7 +52,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:gravity="center"
                     android:letterSpacing="-0.01"
@@ -76,23 +76,22 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/ripple_bg_ffffff_stroke_6f6f6f"
-                android:fontFamily="@font/light_genesissansheadglobal"
+                android:background="@drawable/ripple_bg_ffffff_stroke_111111"
+                android:fontFamily="@font/regular_genesissanstextglobal"
                 android:gravity="center"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="6dp"
                 android:text="@string/dialog_common_1"
-                android:textColor="@color/x_141414"
+                android:textColor="@color/x_000000"
                 android:textSize="16dp"/>
-
 
             <TextView
                 android:id="@+id/btn_ok"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/ripple_bg_000000"
-                android:fontFamily="@font/light_genesissansheadglobal"
+                android:background="@drawable/ripple_bg_111111"
+                android:fontFamily="@font/regular_genesissanstextglobal"
                 android:gravity="center"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="6dp"

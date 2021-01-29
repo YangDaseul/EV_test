@@ -162,7 +162,7 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
                 getBinding().chart.getAxisLeft().setEnabled(false);
 
                 //우측의 y축에 대한 정의
-                getBinding().chart.getAxisRight().setZeroLineColor(ContextCompat.getColor(getContext(),R.color.x_e5e5e5));
+                getBinding().chart.getAxisRight().setZeroLineColor(ContextCompat.getColor(getContext(),R.color.x_4d4d4d));
                 getBinding().chart.getAxisRight().setGridColor(ContextCompat.getColor(getContext(),R.color.x_e5e5e5));
                 getBinding().chart.getAxisRight().setAxisLineColor(ContextCompat.getColor(getContext(),R.color.x_00000000));
                 getBinding().chart.getAxisRight().setTextColor(ContextCompat.getColor(getContext(),R.color.x_757575));

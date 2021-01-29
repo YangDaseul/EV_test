@@ -9,6 +9,7 @@ import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.ExpnVO;
+import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.DialogInsightExpnDeleteBinding;
@@ -500,12 +501,13 @@ public class MiddleDialog {
                     binding.tvMsg.setMovementMethod(new ScrollingMovementMethod());
 
 
-                    binding.lExpn.tvExpnDtm.setVisibility(View.GONE);
+                    binding.lExpn.tvExpnDtm.setVisibility(View.VISIBLE);
+                    binding.lExpn.tvExpnDtm.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(item.getExpnDtm(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot));
 
                     binding.lExpn.tvExpnPlc.setText(item.getExpnPlc());
                     binding.lExpn.tvAccmMilg.setText(StringUtil.getDigitGroupingString(item.getAccmMilg()) + "km");
                     binding.lExpn.tvExpnAmt.setText(StringUtil.getDigitGroupingString(item.getExpnAmt()) + "원");
-                    binding.lExpn.btnDelete.setVisibility(View.GONE);
+                    binding.lExpn.btnDelete.lWhole.setVisibility(View.GONE);
                     binding.lExpn.btnModify.setVisibility(View.GONE);
 
                     int iconId = R.drawable.ic_service_potentiometer; //기타 이미지 변경 필요
@@ -553,7 +555,6 @@ public class MiddleDialog {
 
                     }
                     binding.lExpn.tvExpnDivNm.setText(expnDivNmId);
-                    binding.lExpn.ivIcon.setVisibility(View.GONE);
 
                     binding.btnCancel.setOnClickListener(v -> {
                         dialog.dismiss();

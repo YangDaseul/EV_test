@@ -6,6 +6,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CBK_1001;
@@ -32,18 +38,16 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import java.util.Locale;
 
 /**
  * @author hjpark
@@ -73,7 +77,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
         adapter = new InsightExpnAdapter(onSingleClickListener);
         ui.rv.setLayoutManager(new LinearLayoutManager(this));
         ui.rv.addItemDecoration(new RecyclerViewDecoration((int) DeviceUtil.dip2Pixel(this, 4.0f)));
-        ui.rv.setHasFixedSize(true);
+//        ui.rv.setHasFixedSize(true);
         ui.rv.setAdapter(adapter);
         ui.lTitle.setBtnText(getString(R.string.tm_exps01_2));
         ui.lTitle.setTextBtnListener(onSingleClickListener);
@@ -169,6 +173,10 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                         }
                     }
                 }
+                break;
+
+            case R.id.l_membership:
+                startActivitySingleTop(new Intent(this, InsightExpnMembershipActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
         }
 
@@ -434,15 +442,33 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
         ui.chart.getAxisLeft().setEnabled(false);
 
         //우측의 y축에 대한 정의
-        ui.chart.getAxisRight().setZeroLineColor(ContextCompat.getColor(this,R.color.x_e2e2e2));
-        ui.chart.getAxisRight().setGridColor(ContextCompat.getColor(this,R.color.x_e2e2e2));
+        ui.chart.getAxisRight().setZeroLineColor(ContextCompat.getColor(this,R.color.x_4d4d4d));
+        ui.chart.getAxisRight().setGridColor(ContextCompat.getColor(this,R.color.x_e5e5e5));
         ui.chart.getAxisRight().setAxisLineColor(ContextCompat.getColor(this,R.color.x_00000000));
-        ui.chart.getAxisRight().setTextColor(ContextCompat.getColor(this,R.color.x_4d525252));
+        ui.chart.getAxisRight().setTextColor(ContextCompat.getColor(this,R.color.x_757575));
         ui.chart.getAxisRight().setTextSize(8f);
         ui.chart.getAxisRight().setTypeface(ResourcesCompat.getFont(this, R.font.regular_genesissansheadglobal));
         ui.chart.getAxisRight().setLabelCount(5);
         ui.chart.getAxisRight().setAxisMinimum(0); //좌측과 우측에대한 최소 값을 반드시 0으로 설정해야 정상적인 그래프가 출력됨 1
         ui.chart.getAxisLeft().setAxisMinimum(0); //좌측과 우측에대한 최소 값을 반드시 0으로 설정해야 정상적인 그래프가 출력됨 2
+        ui.chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                try {
+                    int position = (int) e.getX();
+                    int expn = (int) e.getY();
+                    String item = AxisValueFormatter.xNames[position];
+                    String msg = String.format(Locale.getDefault(), getString(position==3 ? R.string.tm_exps01_28 : R.string.tm_exps01_27), item, StringUtil.getDigitGroupingString(Integer.toString(expn)));
+                    SnackBarUtil.show(InsightExpnMainActivity.this, msg);
+                }catch (Exception ignore){
+
+                }
+            }
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
 
         //x축에 대한 정의
         XAxis xAxis = ui.chart.getXAxis();
@@ -451,8 +477,8 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
         xAxis.setDrawGridLines(false);
         xAxis.setLabelCount(4);
         xAxis.setTextColor(ContextCompat.getColor(this,R.color.x_bf000000));
-        xAxis.setTextSize(11f);
-        xAxis.setTypeface(ResourcesCompat.getFont(this, R.font.regular_genesissansheadglobal));
+        xAxis.setTextSize(12f);
+        xAxis.setTypeface(ResourcesCompat.getFont(this, R.font.regular_genesissanstextglobal));
         //위 차트 속성에대한 정의는 최초1회만 진행
     }
     
@@ -465,7 +491,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
 //            ui.tvEmptyChart.setVisibility(View.VISIBLE);
 //            return;
         }
-        ui.tvEmptyChart.setVisibility(View.GONE);
+//        ui.tvEmptyChart.setVisibility(View.GONE);
 
         ui.chart.getAxisRight().setAxisMaximum(maxValue);
         ui.chart.getAxisLeft().setAxisMaximum(maxValue);
@@ -502,19 +528,20 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
 
             //데이터 정의
             set1 = new BarDataSet(values, "Data Set");
-            set1.setColor(ContextCompat.getColor(this,R.color.x_4ea39d));
+            set1.setColor(ContextCompat.getColor(this,R.color.x_996449));
             set1.setDrawValues(false);
             set1.setDrawIcons(false);
-            set1.setHighlightEnabled(false);
+            set1.setHighlightEnabled(true);
+            set1.setHighLightColor(ContextCompat.getColor(this,R.color.x_996449));
 
             ArrayList<IBarDataSet> dataSets = new ArrayList<>();
             dataSets.add(set1);
 
             BarData data = new BarData(dataSets);
-            data.setBarWidth(0.2f);
+            data.setBarWidth(0.4f);
 
             RoundedBarChartRenderer roundedBarChartRenderer = new RoundedBarChartRenderer(ui.chart, ui.chart.getAnimator(), ui.chart.getViewPortHandler());
-            roundedBarChartRenderer.setmRadius(20f);
+            roundedBarChartRenderer.setmRadius(0f);
 
             ui.chart.setRenderer(roundedBarChartRenderer);
             ui.chart.setData(data);

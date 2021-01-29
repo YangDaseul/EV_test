@@ -12,7 +12,7 @@
             android:id="@+id/tv_empty"
             android:layout_width="0dp"
             android:layout_height="200dp"
-            android:background="@drawable/bg_ffffff_stroke_e2e2e2"
+            android:background="@drawable/bg_ffffff_stroke_e5e5e5"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:gravity="center"
             android:letterSpacing="-0.01"

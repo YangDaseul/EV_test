@@ -143,9 +143,6 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                     }
                     insightCarAdapter.setRows(list);
                     insightCarAdapter.notifyDataSetChanged();
-//                    concatAdapter.notifyDataSetChanged();
-//                    concatAdapter.removeAdapter(insightCarAdapter);
-//                    concatAdapter.addAdapter(0, insightCarAdapter);
                     break;
                 default:
                     ((MainActivity) getActivity()).showProgressDialog(false);
