@@ -24,9 +24,6 @@ public class CTT_1001 extends BaseData {
      * @brief CTT_1001 요청 항목
      * @see #catCd 카테고리코드
      * @see #keywd 검색어
-     * @see #pageNo 페이지 번호
-     * 최근 순으로 페이지 번호
-     * @see #searchCnt 조회 요청 개수
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -38,18 +35,10 @@ public class CTT_1001 extends BaseData {
         @Expose
         @SerializedName("keywd")
         private String keywd;
-        @Expose
-        @SerializedName("pageNo")
-        private String pageNo;
-        @Expose
-        @SerializedName("searchCnt")
-        private String searchCnt;
 
-        public Request(String menuId, String catCd, String keywd, String pageNo, String searchCnt){
+        public Request(String menuId, String catCd, String keywd){
             this.catCd = catCd;
             this.keywd = keywd;
-            this.pageNo = pageNo;
-            this.searchCnt = searchCnt;
             setData(APIInfo.GRA_CTT_1001.getIfCd(),menuId);
         }
     }

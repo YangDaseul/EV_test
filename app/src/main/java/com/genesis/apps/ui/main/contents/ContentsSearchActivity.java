@@ -101,15 +101,15 @@ public class ContentsSearchActivity extends SubActivity<ActivityContentsSearchBi
                     }
 
                     int itemSizeBefore = contentsAdapter.getItemCount();
-                    if (contentsAdapter.getPageNo() == 0) {
+//                    if (contentsAdapter.getPageNo() == 0) {
                         contentsAdapter = new ContentsAdapter(onSingleClickListener);
                         ui.vp.setAdapter(contentsAdapter);
                         contentsAdapter.setRows(list);
                         contentsAdapter.notifyDataSetChanged();
-                    } else {
-                        contentsAdapter.addRows(list);
-                    }
-                    contentsAdapter.setPageNo(contentsAdapter.getPageNo() + 1);
+//                    } else {
+//                        contentsAdapter.addRows(list);
+//                    }
+//                    contentsAdapter.setPageNo(contentsAdapter.getPageNo() + 1);
                     contentsAdapter.notifyItemRangeInserted(itemSizeBefore, contentsAdapter.getItemCount());
 
                     ui.tvEmpty.setVisibility(contentsAdapter.getItemCount()==0 ? View.VISIBLE : View.GONE);
@@ -244,8 +244,8 @@ public class ContentsSearchActivity extends SubActivity<ActivityContentsSearchBi
         //end
         String keyword = ui.etSearch.getText().toString().trim();
 
-        contentsAdapter.setPageNo(0);
-        cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(),"",keyword,(contentsAdapter.getPageNo()+1)+"","20"));
+//        contentsAdapter.setPageNo(0);
+        cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(),"",keyword));
 
         SoftKeyboardUtil.hideKeyboard(mActivity, mActivity.getWindow().getDecorView().getWindowToken());
     }
