@@ -228,10 +228,10 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
         }
 
         if("Y".equals(contentsVO.getLnkUseYn())) {
-            ui.includeLayout.llLink.setVisibility(View.VISIBLE);
+//            ui.includeLayout.llLink.setVisibility(View.VISIBLE);
             ui.includeLayout.btnLink.setText(contentsVO.getLnkNm());
         } else {
-            ui.includeLayout.llLink.setVisibility(View.GONE);
+//            ui.includeLayout.llLink.setVisibility(View.GONE);
         }
     }
 
