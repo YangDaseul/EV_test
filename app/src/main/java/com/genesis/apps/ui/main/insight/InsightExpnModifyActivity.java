@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CBK_1001;
@@ -145,7 +146,7 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
         if(size<2){ //1대일경우
             ui.tvVehicle.setCompoundDrawables(null, null, null, null);
             ui.tvVehicle.setOnClickListener(null);
-            ui.tvVehicle.setTextAppearance(R.style.CommonSpinnerItemReject);
+            Paris.style(ui.tvVehicle).apply(R.style.CommonSpinnerItemReject);
         }
     }
 
@@ -220,7 +221,7 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
             if(!TextUtils.isEmpty(result)){
                 expnDivCd  = VariableType.getExpnDivCd(result);
                 ui.tvTitleExpnDivCd.setVisibility(View.VISIBLE);
-                ui.tvExpnDivCd.setTextAppearance(R.style.CommonSpinnerItemEnable);
+                Paris.style(ui.tvExpnDivCd).apply(R.style.CommonSpinnerItemEnable);
                 ui.tvExpnDivCd.setText(result);
 
                 checkVaildDivCd();

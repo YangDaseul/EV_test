@@ -15,6 +15,7 @@ import androidx.transition.ChangeBounds;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
+import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
@@ -164,7 +165,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
             if(!TextUtils.isEmpty(result)){
                 expnDivCd  = VariableType.getExpnDivCd(result);
                 ui.tvTitleExpnDivCd.setVisibility(View.VISIBLE);
-                ui.tvExpnDivCd.setTextAppearance(R.style.CommonSpinnerItemEnable);
+                Paris.style(ui.tvExpnDivCd).apply(R.style.CommonSpinnerItemEnable);
                 ui.tvExpnDivCd.setText(result);
 
                 checkVaildDivCd();

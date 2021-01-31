@@ -42,7 +42,7 @@
 
     <!--   버틀러 팝업-->
     <string name="gm_bt01_p02_1">서비스 신청 안내</string>
-    <string name="gm_bt01_p02_2">버틀러 신청은 고객센터 전화 상담으로만 가능합니다.\n\n바로 통화하시겠습니까?</string>
+    <string name="gm_bt01_p02_2">버틀러 신청은\n고객센터 전화 상담으로만 가능합니다.\n\n바로 통화하시겠습니까?</string>
     <string name="gm_bt04_p01_1">종료 안내</string>
     <string name="gm_bt04_p01_2">아직 버틀러 상담 신청이\n완료되지 않았습니다.\n\n신청을 종료 하시겠습니까?</string>
 
@@ -95,14 +95,14 @@
     <string name="service_review_msg">아직 서비스 리뷰 작성을\n완료하지 않으셨습니다.\n\n종료 하시겠습니까? </string>
 
     <string name="tm_exps01_p02_1">입력 취소</string>
-    <string name="tm_exps01_p02_2">입력을 취소 하시면,\n지금까지 입력하신 내용이\n모두 사라집니다.\n취소하시겠습니까?</string>
+    <string name="tm_exps01_p02_2">입력을 취소 하시면,\n지금까지 입력하신 내용이\n모두 사라집니다.\n\n취소하시겠습니까?</string>
 
     <!-- 차계부 -->
     <string name="tm_exps01_p01_1">차계부 입력 내용 삭제</string>
     <string name="tm_exps01_p01_2">입력하신 내용을 삭제하시겠습니까?</string>
 
     <string name="tm_exps01_p03_1">수정 취소</string>
-    <string name="tm_exps01_p03_2">수정을 취소 하시면,\n지금까지 수정하신 내용이\n이전 내용으로 돌아갑니다.\n취소하시겠습니까?</string>
+    <string name="tm_exps01_p03_2">수정을 취소 하시면,\n지금까지 수정하신 내용이\n이전 내용으로 돌아갑니다.\n\n취소하시겠습니까?</string>
 
     <!-- 긴급출동 -->
     <string name="sm_emgc01_p03_4">종료 안내</string>
