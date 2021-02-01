@@ -93,20 +93,25 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
         setViewModel();
         setObserver();
         initView();
-        checkEnableGPS();
+        checkEnableGPS(() -> {
+            //현대양재사옥위치
+            lgnViewModel.setPosition(37.463936, 127.042953);
+            lgnViewModel.setMyPosition(37.463936, 127.042953);
+        }, () -> {
+            reqMyLocation();
+        });
     }
 
-    private void checkEnableGPS() {
+    private void checkEnableGPS(Runnable disableGPS, Runnable enableGPS) {
         if (!isGpsEnable()) {
             MiddleDialog.dialogGPS(this, () -> turnGPSOn(isGPSEnable -> {
                 Log.v("test","value:"+isGPSEnable);
             }), () -> {
                 //현대양재사옥위치
-                lgnViewModel.setPosition(37.463936, 127.042953);
-                lgnViewModel.setMyPosition(37.463936, 127.042953);
+                disableGPS.run();
             });
         } else {
-            reqMyLocation();
+            enableGPS.run();
         }
     }
 
@@ -505,30 +510,34 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 break;
             case R.id.btn_my_position:
 
-                List<BtrVO> btrVOList = new ArrayList<>();
+                checkEnableGPS(() -> {
 
-                try {
-                    switch (pageType) {
-                        case PAGE_TYPE_BTR:
-                        case PAGE_TYPE_RENT:
-                            btrVOList = btrViewModel.getRES_BTR_1008().getValue().data.getAsnList();
-                            break;
-                        case PAGE_TYPE_REPAIR:
-                        case PAGE_TYPE_SERVICE:
-                        default:
-                            btrVOList = reqViewModel.getRES_REQ_1002().getValue().data.getAsnList();
-                            break;
+                }, () -> {
+                    List<BtrVO> btrVOList = new ArrayList<>();
+
+                    try {
+                        switch (pageType) {
+                            case PAGE_TYPE_BTR:
+                            case PAGE_TYPE_RENT:
+                                btrVOList = btrViewModel.getRES_BTR_1008().getValue().data.getAsnList();
+                                break;
+                            case PAGE_TYPE_REPAIR:
+                            case PAGE_TYPE_SERVICE:
+                            default:
+                                btrVOList = reqViewModel.getRES_REQ_1002().getValue().data.getAsnList();
+                                break;
+                        }
+                    }catch (Exception e){
+
                     }
-                }catch (Exception e){
 
-                }
+                    if(btrVOList!=null&&btrVOList.size()>0){
+                        setPosition(btrVOList, btrVOList.get(0));
+                    }else{
+                        SnackBarUtil.show(this, "선택가능한 지점이 존재하지 않습니다.");
+                    }
+                });
 
-                if(btrVOList!=null&&btrVOList.size()>0){
-                    setPosition(btrVOList, btrVOList.get(0));
-                }else{
-                    SnackBarUtil.show(this, "선택가능한 지점이 존재하지 않습니다.");
-                }
-//                ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)), 500);
                 break;
             case R.id.btn_search:
                 showFragment(new BluehandsFilterFragment());
