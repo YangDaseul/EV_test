@@ -135,13 +135,26 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                 }
                 break;
             case R.id.btn_month:
-                final List<String> yearList = cbkViewModel.getYearRecently5Years();
-                showMapDialog(yearList, R.string.tm_exps01_23, dialogInterface -> {
-                    String year = bottomListDialog.getSelectItem();
-                    if(!TextUtils.isEmpty(year)){
-                        openDialogMonth(year);
+                final List<String> yearList = cbkViewModel.getYearRecently1Years();
+                showMapDialog(yearList, R.string.tm_exps01_29, dialogInterface -> {
+                    String date = bottomListDialog.getSelectItem();
+                    if(!TextUtils.isEmpty(date)){
+                        String yyyy = date.substring(0,4);
+                        String month = date.replace(yyyy+"년", "").trim().replace("월", "");
+                        String mm = String.format(Locale.getDefault(), "%02d", Integer.parseInt(month));
+                        basYymm = yyyy+mm;
+                        ui.btnMonth.setText(month+"월");
+                        reqCBKData();
                     }
                 });
+
+//                final List<String> yearList = cbkViewModel.getYearRecently5Years();
+//                showMapDialog(yearList, R.string.tm_exps01_23, dialogInterface -> {
+//                    String year = bottomListDialog.getSelectItem();
+//                    if(!TextUtils.isEmpty(year)){
+//                        openDialogMonth(year);
+//                    }
+//                });
 
                 break;
             case R.id.btn_vehicle:

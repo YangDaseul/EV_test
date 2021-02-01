@@ -129,6 +129,22 @@ class CBKViewModel extends ViewModel {
     }
 
 
+    public List<String> getYearRecently1Years(){
+        List<String> years = new ArrayList<>();
+
+        for(int i=0; i<12; i++){
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.MONTH, -i);
+            years.add(cal.get(Calendar.YEAR) + "년 "+(cal.get(Calendar.MONTH)+1)+"월");
+        }
+        return years;
+    }
+
+
+
+
+
+
     public List<String> getYearRecently5Years(){
 
         List<String> years = new ArrayList<>();
@@ -147,7 +163,7 @@ class CBKViewModel extends ViewModel {
 
     public String getCurrentMM(){
         Calendar cal = Calendar.getInstance();
-        return String.format(Locale.getDefault(),"%02d월", cal.get(Calendar.MONTH)+1);
+        return String.format(Locale.getDefault(),"%d월", cal.get(Calendar.MONTH)+1);
     }
 
     public List<ExpnVO> getExpnList(List<ExpnVO> oriList) throws ExecutionException, InterruptedException {
