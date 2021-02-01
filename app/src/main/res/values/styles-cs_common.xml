@@ -166,8 +166,6 @@
         <item name="errorTextColor">@color/x_ce2d2d</item>
         <item name="errorIconDrawable">@null</item>
 
-
-
         <item name="hintEnabled">true</item>
         <!--포커스가 있는 상태의 hint 컬러-->
         <item name="hintTextColor">@color/x_262626</item>

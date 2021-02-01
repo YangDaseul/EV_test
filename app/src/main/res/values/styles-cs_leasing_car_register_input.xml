@@ -95,15 +95,14 @@
 
     <style name="TextViewAddr">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:background">@drawable/bg_f5f6f8_stroke_e5e5e5</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">6dp</item>
-        <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingRight">16dp</item>
+        <item name="android:padding">16dp</item>
         <item name="android:text">@string/gm_carlst_01_49</item>
         <item name="android:textColor">@color/x_a2a2a2</item>
         <item name="android:textSize">15dp</item>
@@ -121,19 +120,26 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">6dp</item>
+        <!--end icon-->
+        <item name="endIconMode">clear_text</item>
+        <item name="endIconTint">@color/x_000000</item>
+
         <item name="boxBackgroundColor">@color/x_ffffff</item>
         <item name="boxBackgroundMode">outline</item>
         <item name="boxCornerRadiusTopEnd">0dp</item>
         <item name="boxCornerRadiusTopStart">0dp</item>
-        <item name="boxStrokeColor">@color/x_000000</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeColor">@color/selector_color_textinputlayout</item>
+
         <item name="boxStrokeErrorColor">@color/x_ce2d2d</item>
-        <item name="counterMaxLength">10</item>
-        <item name="endIconMode">clear_text</item>
         <item name="errorEnabled">true</item>
         <item name="errorIconTint">@color/x_ce2d2d</item>
         <item name="errorTextColor">@color/x_ce2d2d</item>
+        <item name="errorIconDrawable">@null</item>
+
         <item name="hintEnabled">false</item>
-        <item name="hintTextColor">@color/x_000000</item>
+        <item name="hintTextColor">@color/x_262626</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/tv_addr</item>
@@ -595,24 +601,30 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">6dp</item>
         <item name="android:visibility">gone</item>
+        <!--end icon-->
+        <item name="endIconMode">clear_text</item>
+        <item name="endIconTint">@color/x_000000</item>
+
         <item name="boxBackgroundColor">@color/x_ffffff</item>
         <item name="boxBackgroundMode">outline</item>
         <item name="boxCornerRadiusTopEnd">0dp</item>
         <item name="boxCornerRadiusTopStart">0dp</item>
-        <item name="boxStrokeColor">@color/x_000000</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeColor">@color/selector_color_textinputlayout</item>
+
         <item name="boxStrokeErrorColor">@color/x_ce2d2d</item>
-        <item name="counterMaxLength">10</item>
-        <item name="endIconMode">clear_text</item>
         <item name="errorEnabled">true</item>
         <item name="errorIconTint">@color/x_ce2d2d</item>
         <item name="errorTextColor">@color/x_ce2d2d</item>
+        <item name="errorIconDrawable">@null</item>
+
         <item name="hintEnabled">false</item>
-        <item name="hintTextColor">@color/x_000000</item>
+        <item name="hintTextColor">@color/x_262626</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toBottomOf">@+id/tv_rent_period</item>
         <item name="hintTextAppearance">@style/CommonTextInputEditTextHint</item>
-        <item name="placeholderTextAppearance">@style/CommonTextInputEditTextHint</item>
         <item name="errorTextAppearance">@style/CommonTextInputEditTextError</item>
     </style>
 
@@ -632,21 +644,6 @@
         <item name="android:textCursorDrawable">@drawable/cursor_141414</item>
         <item name="android:textSize">15dp</item>
     </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     <style name="LayoutCsmrScnCd">

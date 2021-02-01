@@ -201,6 +201,9 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                 }
                 selectPostNo(StringUtil.isValidString(tag).equalsIgnoreCase("privilege"));
                 break;
+            case R.id.btn_info:
+                startActivitySingleTop(new Intent(this, LeasingCarInfoActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+                break;
         }
 
     }
@@ -251,7 +254,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
             public void onDismiss(DialogInterface dialogInterface) {
                 String result = bottomListDialog.getSelectItem();
                 if (!TextUtils.isEmpty(result)) {
-
+                    ui.lRentPeriodEtc.setVisibility(View.GONE);
                     if (result.equalsIgnoreCase(periodList.get(0))) {
                         rentPeriod = VariableType.LEASING_CAR_PERIOD_12; //12개월
                     } else if (result.equalsIgnoreCase(periodList.get(1))) {
@@ -262,6 +265,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                         rentPeriod = VariableType.LEASING_CAR_PERIOD_48; //48개월
                     } else if (result.equalsIgnoreCase(periodList.get(4))) {
                         rentPeriod = VariableType.LEASING_CAR_PERIOD_ETC; //기타
+                        ui.lRentPeriodEtc.setVisibility(View.VISIBLE);
                         ui.etRentPeriodEtc.setText("");
                     }
 
@@ -269,8 +273,11 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                     ui.tvRentPeriod.setText(result);
                     ui.tvTitleRentPeriod.setVisibility(View.VISIBLE);
 
-
-                    checkValidPeriod();
+                    if(rentPeriod==VariableType.LEASING_CAR_PERIOD_ETC) {
+                        ui.etRentPeriodEtc.requestFocus();
+                    }else{
+                        checkValidPeriod();
+                    }
                 }
             }
         });
@@ -458,15 +465,11 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
         //VIEW 초기화
         ui.tvErrorRentPeriod.setVisibility(View.GONE); //대여 기간 미선택 에러 GONE
         ui.lRentPeriodEtc.setError(null); //기타 기간에 대한 에러 제거 및 레이아웃 GONE
-        ui.lRentPeriodEtc.setVisibility(View.GONE);
-
 
         if (TextUtils.isEmpty(rentPeriod)) {
             //대여 기간이 선택되지 않은 경우
             ui.tvErrorRentPeriod.setVisibility(View.VISIBLE);
         } else if (rentPeriod.equalsIgnoreCase(VariableType.LEASING_CAR_PERIOD_ETC)) {
-            ui.lRentPeriodEtc.setVisibility(View.VISIBLE);
-
             //대여 기간이 기타로 선택된 경우
             if (getPeriod() < 12) {//기간이 12개월 미만일 경우
                 ui.lRentPeriodEtc.setError(getString(R.string.gm_carlst_01_33));
