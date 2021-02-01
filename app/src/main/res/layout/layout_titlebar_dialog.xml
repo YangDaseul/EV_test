@@ -28,6 +28,7 @@
             android:letterSpacing="-0.01"
             android:gravity="center_vertical|left"
             android:text='@{TextUtils.isEmpty(value) ? "" :value}'
+            android:includeFontPadding="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
