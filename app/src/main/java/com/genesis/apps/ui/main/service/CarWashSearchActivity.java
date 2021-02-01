@@ -454,7 +454,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
             return;
         }
 
-        String msg = pickedBranch.getBrnhNm() + "\n" + godsNm + "\n" + getString(R.string.cw_reserve_msg);
+        String msg = mainVehicle.getMdlNm() + " " + godsNm + " 서비스\n" + getString(R.string.cw_reserve_msg) + "\n\n" + "(" + pickedBranch.getBrnhNm() + ")";
 
         //예약 할래? 대화상자
         MiddleDialog.dialogCarWashReserve(this, this::reserveCarWash, msg);
