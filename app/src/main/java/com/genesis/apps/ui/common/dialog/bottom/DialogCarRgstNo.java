@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 public class DialogCarRgstNo extends BaseBottomDialog<DialogBottomModifyCarVrnBinding> {
 
     private String carRgstNo="";
-
+    private String currentRgstNo="";
     public DialogCarRgstNo(@NonNull Context context, int theme) {
         super(context, theme);
     }
@@ -28,6 +28,11 @@ public class DialogCarRgstNo extends BaseBottomDialog<DialogBottomModifyCarVrnBi
         setContentView(R.layout.dialog_bottom_modify_car_vrn);
         setAllowOutTouch(true);
 //        ui.lEdit.setError(getContext().getString(R.string.gm_carlst_p01_1));
+
+        if(!TextUtils.isEmpty(currentRgstNo)){
+            ui.etCarRgstNo.setHint(currentRgstNo);
+        }
+
         ui.etCarRgstNo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -51,19 +56,12 @@ public class DialogCarRgstNo extends BaseBottomDialog<DialogBottomModifyCarVrnBi
             }
         });
 
-        ui.btnOk.setOnClickListener(view -> {
-            if(!StringRe2j.matches(ui.etCarRgstNo.getText().toString(), getContext().getString(R.string.check_car_vrn))){
-                ui.lEdit.setError(getContext().getString(R.string.gm_carlst_p01_8));
-            }else{
-                setCarRgstNo(ui.etCarRgstNo.getText().toString());
-                dismiss();
-            }
-        });
+        ui.btnOk.setOnClickListener(view -> confirm());
 
         ui.etCarRgstNo.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             switch (actionId) {
                 case EditorInfo.IME_ACTION_DONE:
-                    ui.btnOk.performClick();
+                    confirm();
                     break;
                 default:
                     // 기본 엔터키 동작
@@ -85,4 +83,18 @@ public class DialogCarRgstNo extends BaseBottomDialog<DialogBottomModifyCarVrnBi
     }
 
 
+    public void setCurrentRgstNo(String currentRgstNo) {
+        this.currentRgstNo = currentRgstNo;
+    }
+
+    private void confirm(){
+        if(!StringRe2j.matches(ui.etCarRgstNo.getText().toString(), getContext().getString(R.string.check_car_vrn))){
+            ui.lEdit.setError(getContext().getString(R.string.gm_carlst_p01_8));
+        }else{
+            ui.etCarRgstNo.clearFocus();
+            SoftKeyboardUtil.hideKeyboard(getContext(), getWindow().getDecorView().getWindowToken());
+            setCarRgstNo(ui.etCarRgstNo.getText().toString());
+            dismiss();
+        }
+    }
 }

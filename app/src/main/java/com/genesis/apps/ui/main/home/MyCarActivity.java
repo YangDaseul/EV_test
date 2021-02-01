@@ -654,6 +654,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                                 gnsViewModel.reqGNS1002(new GNS_1002.Request(APPIAInfo.GM_CARLST_04.getId(), StringUtil.isValidString(vehicleVO.getVin()), dialogCarRgstNo.getCarRgstNo()));
                             }
                         });
+                        dialogCarRgstNo.setCurrentRgstNo(StringUtil.isValidString(vehicleVO.getCarRgstNo()));
                         dialogCarRgstNo.show();
                     }
                     break;
