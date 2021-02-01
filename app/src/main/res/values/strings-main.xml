@@ -39,7 +39,7 @@
 
     <string name="gm04_1">원하시는 차량의 견적을\n짜보세요.(BTO)</string>
 
-    <string name="gm02_ctr02_1">구매 계약 내역</string>
+    <string name="gm02_ctr02_1">계약 정보 조회</string>
     <string name="gm02_ctr02_2">구매계약번호</string>
     <string name="gm02_ctr02_3">계약일</string>
     <string name="gm02_ctr02_4">제조사</string>
