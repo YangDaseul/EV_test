@@ -28,12 +28,14 @@ import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.PhoneUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.DDSViewModel;
 import com.genesis.apps.databinding.ActivityServiceDriveReqResultBinding;
 import com.genesis.apps.databinding.LayoutServiceDriveStatusDriverBinding;
 import com.genesis.apps.databinding.LayoutServiceDriveStatusReservedBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
+import com.genesis.apps.ui.main.MainActivity;
 
 import java.util.Date;
 import java.util.Locale;
@@ -60,18 +62,14 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_drive_req_result);
-
-        getDataFromIntent();//데이터 제대로 안 들어있으면 액티비티 종료처리까지 함
-        initView();//getDataFromIntent()가 성공해야 실행가능
         setViewModel();
         setObserver();
+        getDataFromIntent();//데이터 제대로 안 들어있으면 액티비티 종료처리까지 함
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        //todo : 액티비티 유지된 상태에서 기사 배정 등 서비스 이용 상황이 진행되면 처리
-        // getDataFromIntent 한 번 더 부르면 되나?
     }
 
     @Override
@@ -111,7 +109,47 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
 
     @Override
     public void setObserver() {
-        Log.d(TAG, "setObserver: ");
+        //신청 현황 확인
+        viewModel.getRES_DDS_1001().observe(this, result -> {
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    if (result.data != null) {
+                        showProgressDialog(false);
+                        switch (StringUtil.isValidString(result.data.getSvcStusCd())) {
+                            case DDS_1001.STATUS_DRIVER_MATCH_WAIT:
+                            case DDS_1001.STATUS_RESERVED:
+                            case DDS_1001.STATUS_DRIVER_MATCHED:
+                            case DDS_1001.STATUS_DRIVER_REMATCHED:
+                            case DDS_1001.STATUS_DRIVE_NOW:
+                            case DDS_1001.STATUS_NO_DRIVER:
+                                serviceReqData = result.data;
+                                initView();
+                                break;
+                            default:
+                                exitPage("기사정보가 존재하지 않습니다.", ResultCodes.RES_CODE_NETWORK.getCode());
+                                break;
+                        }
+                    }
+                default:
+                    showProgressDialog(false);
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
+                            serverMsg = getString(R.string.instability_network);
+                        }
+                        exitPage(serverMsg, ResultCodes.RES_CODE_NETWORK.getCode());
+                    }
+                    break;
+            }
+        });
+
 
         //취소요청
         viewModel.getRES_DDS_1004().observe(this, result -> {
@@ -236,13 +274,24 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
         Log.d(TAG, "getDataFromIntent: ");
 
         try {
+            mainVehicle = viewModel.getMainVehicle();
             DDS_1001.Response data = (DDS_1001.Response) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SERVICE_DRIVE_STATUS);
             Log.d(TAG, "getDataFromIntent/initView : " + data);
             serviceReqData = data;
-            mainVehicle = (VehicleVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_VEHICLE_VO);
         } catch (NullPointerException e) {
             Log.d(TAG, "init: 신청 현황 또는 주 차량 데이터 처리 실패");
-            finish();
+        } catch (Exception e){
+
+        }
+
+        if(serviceReqData!=null){
+            initView();//getDataFromIntent()가 성공해야 실행가능
+        }else{
+            if(mainVehicle!=null&&!TextUtils.isEmpty(mainVehicle.getVin())) {
+                viewModel.reqDDS1001(new DDS_1001.Request(APPIAInfo.SM_DRV06.getId(), mainVehicle.getVin()));
+            }else{
+                exitPage("차량 정보가 존재하지 않습니다.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+            }
         }
     }
 

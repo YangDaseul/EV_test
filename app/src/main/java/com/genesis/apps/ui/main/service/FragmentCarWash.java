@@ -140,7 +140,7 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
                     if(TextUtils.isEmpty(url)){
                         SnackBarUtil.show(getActivity(), "가격 정보가 존재하지 않습니다.");
                     }else{
-                        ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, url).putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.sm_cw02_1), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, url).putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.sm01_car_wash_4), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     }
                 }
                 break;

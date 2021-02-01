@@ -21,6 +21,7 @@ import com.genesis.apps.ui.main.insight.InsightExpnInputActivity;
 import com.genesis.apps.ui.main.insight.InsightExpnMainActivity;
 import com.genesis.apps.ui.main.service.MaintenanceReserveActivity;
 import com.genesis.apps.ui.main.service.ServiceDriveReqActivity;
+import com.genesis.apps.ui.main.service.ServiceDriveReqResultActivity;
 import com.genesis.apps.ui.main.service.ServiceRelapseHistoryActivity;
 import com.genesis.apps.ui.main.service.ServiceRepairReserveHistoryActivity;
 import com.genesis.apps.ui.main.service.ServiceReviewActivity;
@@ -220,6 +221,7 @@ public enum APPIAInfo {
     SM_DRV03("SM_DRV03", null, VariableType.QUICK_MENU_CODE_NONE, "대리운전 결제",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM_DRV04("SM_DRV04", null, VariableType.QUICK_MENU_CODE_NONE, "대리운전 신청완료",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM_DRV05("SM_DRV05", null, VariableType.QUICK_MENU_CODE_NONE, "대리운전 신청 내역",VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_DRV06("SM_DRV06", ServiceDriveReqResultActivity.class, VariableType.QUICK_MENU_CODE_NONE, "신청 상태 확인",VariableType.QUICK_MENU_CATEGORY_NONE),
 
     SM_DRV01_P02("SM_DRV01_P02", null, VariableType.QUICK_MENU_CODE_NONE, "대리운전 신청 취소 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM_DRV01_P03("SM_DRV01_P03", null, VariableType.QUICK_MENU_CODE_NONE, "대리운전 예약 취소 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
