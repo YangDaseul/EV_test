@@ -177,7 +177,6 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
                 checkValidRsvtHopeDt();
             }
         });
-        dialogCalendarRepair.setCalendarMaximum(Calendar.getInstance(Locale.getDefault()));
         dialogCalendarRepair.setTitle(getString(R.string.sm_r_rsv02_04_10));
         Calendar minCalendar = Calendar.getInstance(Locale.getDefault());
         minCalendar.add(Calendar.DATE, 0);
