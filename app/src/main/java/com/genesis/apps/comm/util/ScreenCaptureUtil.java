@@ -75,13 +75,13 @@ public class ScreenCaptureUtil {
         mediaRecorder.setVideoSize(displayMetrics.widthPixels, (int) (displayMetrics.heightPixels * 0.9));
         mediaRecorder.setOutputFile(videoFile);
 
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-
-        Point size = new Point();
-        display.getSize(size);
-
-        Log.d("JJJJ", "width : " + size.x + ", height : " + size.y);
+//        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+//        Display display = wm.getDefaultDisplay();
+//
+//        Point size = new Point();
+//        display.getSize(size);
+//
+//        Log.d("JJJJ", "width : " + size.x + ", height : " + size.y);
         try {
             mediaRecorder.prepare();
         } catch (IOException e) {
