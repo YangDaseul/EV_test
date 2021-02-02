@@ -80,7 +80,7 @@
 
     <!-- 세차 -->
     <string name="cw_reserve_title">세차 예약 하기</string>
-    <string name="cw_reserve_msg">예약 하시겠습니까?</string>
+    <string name="cw_reserve_msg">신청 하시겠습니까?</string>
     <string name="cw_reserve_cancel_title">세차 서비스 예약 취소</string>
     <string name="cw_reserve_cancel_msg">세차 서비스를\n취소하시겠습니까?</string>
 
