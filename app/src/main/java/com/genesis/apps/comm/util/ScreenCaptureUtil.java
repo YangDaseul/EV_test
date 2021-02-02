@@ -9,12 +9,15 @@ import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
 import android.os.Environment;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Display;
+import android.view.WindowManager;
+
+import androidx.annotation.Nullable;
 
 import java.io.IOException;
 
 import javax.inject.Inject;
-
-import androidx.annotation.Nullable;
 
 import static android.content.Context.MEDIA_PROJECTION_SERVICE;
 
@@ -63,13 +66,22 @@ public class ScreenCaptureUtil {
 //        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mediaRecorder.setVideoSource(MediaRecorder.VideoSource.SURFACE);
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-        mediaRecorder.setOutputFile(videoFile);
-        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
-        mediaRecorder.setVideoSize(displayMetrics.widthPixels, displayMetrics.heightPixels);
-        mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.HEVC);
+        mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
 //        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
         mediaRecorder.setVideoEncodingBitRate(512 * 1000);
         mediaRecorder.setVideoFrameRate(30);
+
+        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
+        mediaRecorder.setVideoSize(displayMetrics.widthPixels, (int) (displayMetrics.heightPixels * 0.9));
+        mediaRecorder.setOutputFile(videoFile);
+
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+
+        Point size = new Point();
+        display.getSize(size);
+
+        Log.d("JJJJ", "width : " + size.x + ", height : " + size.y);
         try {
             mediaRecorder.prepare();
         } catch (IOException e) {
