@@ -46,6 +46,7 @@ public class SnackBarUtil {
 //            textView.setPadding(padding,padding,padding,padding);
 //            textView.setPa
             textView.setMinHeight((int)(DeviceUtil.dip2Pixel(activity,100)));
+            textView.setMaxLines(Integer.MAX_VALUE);
             snackbar.show();
 
 //                TSnackbar.make(activity.findViewById(android.R.id.content), StringUtil.isValidString(msg), TSnackbar.LENGTH_LONG).show();
