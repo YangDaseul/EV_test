@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.developers.CheckJoinCCS;
 import com.genesis.apps.comm.model.api.gra.CMN_0001;
 import com.genesis.apps.comm.model.api.gra.CMN_0002;
 import com.genesis.apps.comm.model.api.gra.LGN_0001;
@@ -159,7 +160,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
                         public void onSuccess(Object retv) {
                             if (((Boolean) retv)) {
 
-                                checkVehicleCarId(result.data.getCcsUserInfo());
+                                checkVehicleCarId();
 
                                 if(!TextUtils.isEmpty(result.data.getPushIdChgYn())&&result.data.getPushIdChgYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES)){
                                     MiddleDialog.dialogDuplicateLogin(IntroActivity.this, () -> {
@@ -225,17 +226,16 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
 
     /**
      * @brief Developers에 소유 차량에 대한 carId 확인 요청
-     * @param ccsUserInfo
      */
-    private void checkVehicleCarId(CCSVO ccsUserInfo) {
+    private void checkVehicleCarId() {
         try {
-            if (ccsUserInfo != null
-                    && !TextUtils.isEmpty(ccsUserInfo.getRgstYn())
-                    && !TextUtils.isEmpty(ccsUserInfo.getUserId())
-                    && ccsUserInfo.getRgstYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
-                developersViewModel.checkCarId(ccsUserInfo.getUserId());
+            String vin = lgnViewModel.getDbVehicleRepository().getMainVehicleFromDB().getVin();
+            String userId = loginInfoDTO.getProfile().getId();
+            if (!TextUtils.isEmpty(vin)&&!TextUtils.isEmpty(userId)&&developersViewModel.checkJoinCCS(new CheckJoinCCS.Request(userId, vin))) {
+                developersViewModel.checkCarId(userId);
             }
         }catch (Exception ignore){
+
         }
     }
 

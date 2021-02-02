@@ -27,6 +27,6 @@ public @Data class DeviceDTO extends BaseData {
     public void initData(){
         setDeviceId(DeviceUtil.getDeviceId(application));
         setMdn(DeviceUtil.getPhoneNumber(application));
-        FirebaseMessagingService.getToken(token -> setPushId(token));
+        FirebaseMessagingService.getToken(this::setPushId);
     }
 }

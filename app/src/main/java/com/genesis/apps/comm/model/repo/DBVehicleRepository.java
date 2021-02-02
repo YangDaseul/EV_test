@@ -153,4 +153,8 @@ public class DBVehicleRepository {
         databaseHolder.getDatabase().carConnectDao().insertOrUpdate(list);
     }
 
+    public void updateCarConnect(boolean result, String carId){
+        databaseHolder.getDatabase().carConnectDao().updateResult(result, carId);
+    }
+
 }

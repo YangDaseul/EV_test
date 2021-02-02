@@ -2,10 +2,12 @@ package com.genesis.apps.comm.model.repo;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APIInfo;
+import com.genesis.apps.comm.model.api.developers.Agreements;
 import com.genesis.apps.comm.model.api.developers.CarCheck;
 import com.genesis.apps.comm.model.api.developers.CarConnect;
 import com.genesis.apps.comm.model.api.developers.CarId;
 import com.genesis.apps.comm.model.api.developers.CarList;
+import com.genesis.apps.comm.model.api.developers.CheckJoinCCS;
 import com.genesis.apps.comm.model.api.developers.Detail;
 import com.genesis.apps.comm.model.api.developers.Distance;
 import com.genesis.apps.comm.model.api.developers.Dtc;
@@ -41,6 +43,7 @@ public class DevelopersRepo {
     public final MutableLiveData<NetUIResponse<CarCheck.Response>> RES_CAR_CHECK = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<CarId.Response>> RES_CAR_ID = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<CarConnect.Response>> RES_CAR_CONNECT = new MutableLiveData<>();
+
 
 
     @Inject
@@ -339,6 +342,26 @@ public class DevelopersRepo {
         CarConnect.Response response;
         try{
             response = new Gson().fromJson(netCaller.reqDataFromAnonymous(GAInfo.CCSP_URL, APIInfo.DEVELOPERS_CAR_CONNECT, reqData), CarConnect.Response.class);
+        }catch (Exception e){
+            response = null;
+        }
+        return response;
+    }
+
+    public CheckJoinCCS.Response REQ_CHECK_JOIN_CCS(final CheckJoinCCS.Request reqData) {
+        CheckJoinCCS.Response response;
+        try{
+            response = new Gson().fromJson(netCaller.reqDataFromAnonymous(GAInfo.CCSP_URL, APIInfo.DEVELOPERS_CHECK_JOIN_CCS, reqData), CheckJoinCCS.Response.class);
+        }catch (Exception e){
+            response = null;
+        }
+        return response;
+    }
+
+    public Agreements.Response REQ_AGREEMENTS(final Agreements.Request reqData) {
+        Agreements.Response response;
+        try{
+            response = new Gson().fromJson(netCaller.reqDataFromAnonymous(GAInfo.CCSP_URL, APIInfo.DEVELOPERS_AGREEMENTS, reqData), Agreements.Response.class);
         }catch (Exception e){
             response = null;
         }

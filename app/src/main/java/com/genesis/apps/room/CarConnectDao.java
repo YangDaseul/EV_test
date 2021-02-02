@@ -24,4 +24,7 @@ public abstract class CarConnectDao implements BaseDao<CarConnectVO> {
     @Query("DELETE FROM CarConnectVO WHERE vin =:vin")
     public abstract void deleteVin(String vin);
 
+    @Query("UPDATE CarConnectVO SET result=:result WHERE carId=:carId")
+    public abstract void updateResult(boolean result, String carId);
+
 }

@@ -66,7 +66,7 @@ public class ScreenCaptureUtil {
         mediaRecorder.setOutputFile(videoFile);
         DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
         mediaRecorder.setVideoSize(displayMetrics.widthPixels, displayMetrics.heightPixels);
-        mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
+        mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.HEVC);
 //        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
         mediaRecorder.setVideoEncodingBitRate(512 * 1000);
         mediaRecorder.setVideoFrameRate(30);

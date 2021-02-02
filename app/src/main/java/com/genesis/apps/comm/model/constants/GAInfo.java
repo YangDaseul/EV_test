@@ -45,4 +45,9 @@ public interface GAInfo {
     String GA_REDIRECT_URL = SERVER_INFOS[SERVER_TYPE][5] + SERVER_INFOS[SERVER_TYPE][7];
     String GA_AUTH_UUID_CHECK_URL = SERVER_INFOS[SERVER_TYPE][5] + "/api/authorize/ccsp/oauth";
 
+    String GA_DATAMILES_KEY_TOKEN="token";
+    String GA_DATAMILES_KEY_USER_ID="userId";
+    String GA_DATAMILES_KEY_CAR_ID="carId";
+    String GA_DATAMILES_AGREEMENTS_URL="https://prd-kr-ccapi.genesis.com:8081/web/v1/data-service/agreements";
+    String GA_DATAMILES_DETAIL_URL="https://prd-kr-ccapi.genesis.com:8081/web/v1/data-service";
 }

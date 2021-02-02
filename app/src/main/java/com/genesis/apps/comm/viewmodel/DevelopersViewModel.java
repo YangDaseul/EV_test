@@ -1,11 +1,14 @@
 package com.genesis.apps.comm.viewmodel;
 
 import android.text.TextUtils;
+import android.view.View;
 
+import com.genesis.apps.comm.model.api.developers.Agreements;
 import com.genesis.apps.comm.model.api.developers.CarCheck;
 import com.genesis.apps.comm.model.api.developers.CarConnect;
 import com.genesis.apps.comm.model.api.developers.CarId;
 import com.genesis.apps.comm.model.api.developers.CarList;
+import com.genesis.apps.comm.model.api.developers.CheckJoinCCS;
 import com.genesis.apps.comm.model.api.developers.Detail;
 import com.genesis.apps.comm.model.api.developers.Distance;
 import com.genesis.apps.comm.model.api.developers.Dtc;
@@ -14,6 +17,7 @@ import com.genesis.apps.comm.model.api.developers.Odometer;
 import com.genesis.apps.comm.model.api.developers.ParkLocation;
 import com.genesis.apps.comm.model.api.developers.Replacements;
 import com.genesis.apps.comm.model.api.developers.Target;
+import com.genesis.apps.comm.model.constants.GAInfo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.DevelopersRepo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
@@ -21,6 +25,8 @@ import com.genesis.apps.comm.model.vo.developers.CarConnectVO;
 import com.genesis.apps.comm.model.vo.developers.CarVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.DateUtil;
+import com.genesis.apps.comm.util.QueryString;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 
 import java.util.ArrayList;
@@ -35,8 +41,11 @@ import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
+
 import lombok.Data;
 
+import static com.genesis.apps.comm.model.constants.GAInfo.CCSP_CLIENT_ID;
+import static com.genesis.apps.comm.model.constants.GAInfo.GA_URL;
 import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_OV;
 
 public @Data
@@ -168,6 +177,55 @@ class DevelopersViewModel extends ViewModel {
         repository.REQ_CAR_CONNECT(reqData);
     }
 
+    public Boolean reqAgreements(Agreements.Request reqData, boolean isUpdate) throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<Boolean> future = es.getListeningExecutorService().submit(() -> {
+            Boolean result = false;
+            Agreements.Response response = repository.REQ_AGREEMENTS(reqData);
+            if (response != null) {
+                try {
+                    result = response.isResult();
+                    if (isUpdate) {
+                        dbVehicleRepository.updateCarConnect(result, reqData.getCarId());
+                    }
+                } catch (Exception ignore) {
+                    ignore.printStackTrace();
+                }
+            }
+            return result;
+        });
+
+        try {
+            return future.get();
+        } finally {
+            es.shutDownExcutor();
+        }
+    }
+
+
+    public Boolean checkJoinCCS(CheckJoinCCS.Request reqData) throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<Boolean> future = es.getListeningExecutorService().submit(() -> {
+            Boolean isJoin = false;
+            CheckJoinCCS.Response response = repository.REQ_CHECK_JOIN_CCS(reqData);
+            if (response != null) {
+                try {
+                    isJoin = !TextUtils.isDigitsOnly(response.getCarId()) && response.isMaster();
+                } catch (Exception ignore) {
+                    ignore.printStackTrace();
+                }
+            }
+            return isJoin;
+        });
+
+        try {
+            return future.get();
+        } finally {
+            es.shutDownExcutor();
+        }
+    }
+
+
     public List<CarConnectVO> checkCarId(String userId) throws ExecutionException, InterruptedException {
         ExecutorService es = new ExecutorService("");
         Future<List<CarConnectVO>> future = es.getListeningExecutorService().submit(() -> {
@@ -204,6 +262,12 @@ class DevelopersViewModel extends ViewModel {
                     for (CarVO carVO : carIdResLast.getCars()) {
                         if (targetList.get(i).getVin().equalsIgnoreCase(carVO.getVin())) {
                             targetList.get(i).setCarId(carVO.getCarId());
+                            try {
+                                targetList.get(i).setResult(reqAgreements(new Agreements.Request(userId, carVO.getCarId()), false));
+                            } catch (Exception ignore) {
+
+                            }
+                            break;
                         }
                     }
                 }
@@ -318,7 +382,7 @@ class DevelopersViewModel extends ViewModel {
         CarConnectVO carConnectVO = null;
         String carId = "";
         try {
-            if(!TextUtils.isEmpty(vin))
+            if (!TextUtils.isEmpty(vin))
                 carConnectVO = dbVehicleRepository.getCarConnect(vin);
 
             if (carConnectVO != null)
@@ -330,6 +394,18 @@ class DevelopersViewModel extends ViewModel {
 
         return carId;
     }
+
+    public CarConnectVO getCarConnectVO(String vin) {
+        CarConnectVO carConnectVO = null;
+        try {
+            if (!TextUtils.isEmpty(vin))
+                carConnectVO = dbVehicleRepository.getCarConnect(vin);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return carConnectVO;
+    }
+
 
     public String getDateYyyyMMdd(int day) {
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
@@ -349,7 +425,7 @@ class DevelopersViewModel extends ViewModel {
 
     public VehicleVO getMainVehicleSimplyFromDB() throws ExecutionException, InterruptedException {
         ExecutorService es = new ExecutorService("");
-        Future<VehicleVO> future = es.getListeningExecutorService().submit(()->{
+        Future<VehicleVO> future = es.getListeningExecutorService().submit(() -> {
             VehicleVO vehicleVO = null;
             try {
                 vehicleVO = dbVehicleRepository.getMainVehicleSimplyFromDB();
@@ -362,7 +438,7 @@ class DevelopersViewModel extends ViewModel {
 
         try {
             return future.get();
-        }finally {
+        } finally {
             es.shutDownExcutor();
         }
     }
@@ -410,5 +486,71 @@ class DevelopersViewModel extends ViewModel {
         }
         return result;
     }
+
+    /**
+     * @param token  CCSP ACCESS TOKEN
+     * @param userId CCSP USER ID
+     * @param carId  CCS CAR ID
+     * @return 데이터 마일즈 상세 URL
+     * @biref 데이터마일즈 상세 페이지 URL 확인
+     */
+    public String getDataMilesDetailUrl(String token, String userId, String carId) {
+        return GAInfo.GA_DATAMILES_DETAIL_URL + getParams(token, userId, carId).getQuery();
+    }
+
+    /**
+     * @param token  CCSP ACCESS TOKEN
+     * @param userId CCSP USER ID
+     * @param carId  CCS CAR ID
+     * @return 데이터 마일즈 약관 동의 URL
+     * @biref 데이터마일즈 약관동의 페이지 URL 확인
+     */
+    public String getDataMilesAgreementsUrl(String token, String userId, String carId) {
+        return GAInfo.GA_DATAMILES_AGREEMENTS_URL + getParams(token, userId, carId).getQuery();
+    }
+
+    public QueryString getParams(String token, String userId, String carId) {
+        QueryString q = new QueryString();
+        q.add(GAInfo.GA_DATAMILES_KEY_TOKEN, token);
+        q.add(GAInfo.GA_DATAMILES_KEY_USER_ID, userId);
+        q.add(GAInfo.GA_DATAMILES_KEY_CAR_ID, carId);
+        return q;
+    }
+
+    public enum CCSSTAT {
+        STAT_AGREEMENT,
+        STAT_DISAGREEMENT,
+        STAT_DISABLE
+    }
+    public CCSSTAT checkCarInfoToDevelopers(String vin, String userId) {
+        CarConnectVO carConnectVO = getCarConnectVO(vin);
+        //ccs 연동된 상태일 경우
+        if (carConnectVO != null && !TextUtils.isEmpty(carConnectVO.getCarId())) {
+            if (carConnectVO.isResult()) {
+                return CCSSTAT.STAT_AGREEMENT;
+            } else {
+                //정보제공 미동의상태 인 경우
+                boolean result = false;
+
+                try {
+                    //정보 동의를 상태를 확인
+                    result = reqAgreements(new Agreements.Request(userId, carConnectVO.getCarId()), true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if (result) {
+                    //동의가 된 경우
+                    return CCSSTAT.STAT_AGREEMENT;
+                } else {
+                    //동의되지 않은 경우
+                    return CCSSTAT.STAT_DISAGREEMENT;
+                }
+            }
+        } else {
+            //ccs 미 연동 상태일 경우
+            return CCSSTAT.STAT_DISABLE;
+        }
+    }
+
 
 }
