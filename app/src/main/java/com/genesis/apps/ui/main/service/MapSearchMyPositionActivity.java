@@ -77,14 +77,14 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
         ui.pmvMapView.initMap(latitude, longitude, 17);
 
         //todo 2020-12-22 맵 변경 정책으로 아이콘 변경 진행했으나 대리운전은 디자인 확인 필요
-//        ui.lMapOverlayTitle.tvMapTitleText.setVisibility(View.VISIBLE);
-//        ui.lMapOverlayTitle.tvMapTitleText.setOnClickListener(onSingleClickListener);
-//        ui.lMapOverlayTitle.tvMapTitleAddress.setVisibility(View.GONE);
+        ui.lMapOverlayTitle.tvMapTitleText.setVisibility(View.VISIBLE);
+        ui.lMapOverlayTitle.tvMapTitleText.setOnClickListener(onSingleClickListener);
+        ui.lMapOverlayTitle.tvMapTitleAddress.setVisibility(View.GONE);
 
-        ui.lMapOverlayTitle.tvMapTitleText.setVisibility(View.GONE);
-        ui.lMapOverlayTitle.tvMapTitleAddress.setVisibility(View.VISIBLE);
-        ui.lMapOverlayTitle.tvMapTitleAddress.setText(getTitleAddressMsg());
-        ui.lMapOverlayTitle.tvMapTitleAddress.setOnClickListener(onSingleClickListener);
+//        ui.lMapOverlayTitle.tvMapTitleText.setVisibility(View.GONE);
+//        ui.lMapOverlayTitle.tvMapTitleAddress.setVisibility(View.VISIBLE);
+//        ui.lMapOverlayTitle.tvMapTitleAddress.setText(getTitleAddressMsg());
+//        ui.lMapOverlayTitle.tvMapTitleAddress.setOnClickListener(onSingleClickListener);
         ui.btnMyPosition.setOnClickListener(onSingleClickListener);
         ui.pmvMapView.onMapTouchUpListener((motionEvent, makerList) -> {
             switch (motionEvent.getAction()) {

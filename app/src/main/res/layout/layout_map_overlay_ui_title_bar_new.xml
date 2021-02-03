@@ -21,10 +21,12 @@
         <!-- 백 버튼 -->
         <ImageView
             android:id="@+id/back"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/ripple_bg_ffffff_round_99"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/ripple_bg_ffffff"
             android:elevation="10dp"
             android:src="@drawable/btn_back"
             android:scaleType="centerInside"
@@ -37,13 +39,15 @@
         -->
         <ImageView
             android:id="@+id/tv_map_title_text"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/ripple_bg_000000_oval"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ripple_bg_ffffff"
             android:elevation="10dp"
-            android:layout_margin="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="5dp"
             android:scaleType="centerInside"
-            android:src="@drawable/ico_search"
+            android:src="@drawable/ico_serch_b"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -88,22 +92,22 @@
 
             <ImageView
                 android:id="@+id/btn_search"
-                android:layout_width="60dp"
-                android:layout_height="58dp"
-                android:background="@drawable/ripple_bg_111111_left_round_30"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ripple_bg_ffffff"
                 android:elevation="5dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/ico_search"
+                android:src="@drawable/ico_serch_b"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/iv_line"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <ImageView
                 android:id="@+id/iv_line"
                 android:layout_width="1dp"
                 android:layout_height="0dp"
-                android:background="@color/x_4d4d4d"
+                android:background="@color/x_e5e5e5"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btn_search_list"
                 app:layout_constraintStart_toEndOf="@+id/btn_search"
@@ -111,17 +115,16 @@
 
             <ImageView
                 android:id="@+id/btn_search_list"
-                android:layout_width="60dp"
-                android:layout_height="58dp"
-                android:background="@drawable/ripple_bg_111111_right_round_30"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ripple_bg_ffffff"
                 android:elevation="5dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/ico_search_list"
+                android:src="@drawable/btn_search_list"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_line"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintTop_toTopOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

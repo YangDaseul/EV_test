@@ -69,8 +69,8 @@
         <!-- gps 버튼 -->
         <ImageView
             android:id="@+id/btn_my_position"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginStart="15dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/ripple_bg_ffffff_round_05"
