@@ -315,6 +315,7 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
                     getBinding().tvRelapse3RepairReqDateTitle.setTextColor(normalColor);
                     getBinding().tvRelapse3RepairReqDateBtn.setTextColor(normalColor);
                     getBinding().tvRelapse3RepairReqDateBtn.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
+                    getBinding().tvRelapse3RepairReqDateTitle.setVisibility(View.VISIBLE);
                     getBinding().tvRelapse3RepairReqDateError.setVisibility(View.GONE);
 
                     validateInputData();
@@ -328,6 +329,7 @@ public class ServiceRelapse3Adapter extends BaseRecyclerViewAdapter2<ServiceRela
                     getBinding().tvRelapse3RepairFinishDateTitle.setTextColor(normalColor);
                     getBinding().tvRelapse3RepairFinishDateBtn.setTextColor(normalColor);
                     getBinding().tvRelapse3RepairFinishDateBtn.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
+                    getBinding().tvRelapse3RepairFinishDateTitle.setVisibility(View.VISIBLE);
                     getBinding().tvRelapse3RepairFinishDateError.setVisibility(View.GONE);
 
                     validateInputData();

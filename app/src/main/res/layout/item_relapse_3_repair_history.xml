@@ -84,6 +84,7 @@
             <TextView
                 android:id="@+id/tv_relapse_3_repair_req_date_title"
                 style="@style/Relapse3RepairHistoryDatePickTitle"
+                android:visibility="gone"
                 android:text="@string/relapse_3_repair_req_date" />
 
             <!-- 수리 요청 날짜 선택 -->
@@ -98,32 +99,40 @@
                 android:id="@+id/tv_relapse_3_repair_req_date_error"
                 style="@style/Relapse3RepairHistoryDateError" />
 
-            <!-- 수리 완료일 -->
-            <TextView
-                android:id="@+id/tv_relapse_3_repair_finish_date_title"
-                style="@style/Relapse3RepairHistoryDatePickTitle"
-                android:layout_marginTop="20dp"
-                android:text="@string/relapse_3_repair_finish_date" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
 
-            <!-- 수리 완료 날짜 선택 -->
-            <TextView
-                android:id="@+id/tv_relapse_3_repair_finish_date_btn"
-                style="@style/Relapse3RepairHistoryDatePickBtn"
-                android:hint="@string/relapse_3_repair_finish_date"
-                android:textColorHint="@color/x_aaabaf" />
+                <!-- 수리 완료일 -->
+                <TextView
+                    android:id="@+id/tv_relapse_3_repair_finish_date_title"
+                    style="@style/Relapse3RepairHistoryDatePickTitle"
+                    android:visibility="gone"
+                    android:text="@string/relapse_3_repair_finish_date" />
 
-            <!--  수리 완료 날짜 에러 메시지-->
-            <TextView
-                android:id="@+id/tv_relapse_3_repair_finish_date_error"
-                style="@style/Relapse3RepairHistoryDateError" />
+                <!-- 수리 완료 날짜 선택 -->
+                <TextView
+                    android:id="@+id/tv_relapse_3_repair_finish_date_btn"
+                    style="@style/Relapse3RepairHistoryDatePickBtn"
+                    android:hint="@string/relapse_3_repair_finish_date"
+                    android:textColorHint="@color/x_aaabaf" />
+
+                <!--  수리 완료 날짜 에러 메시지-->
+                <TextView
+                    android:id="@+id/tv_relapse_3_repair_finish_date_error"
+                    style="@style/Relapse3RepairHistoryDateError" />
+
+            </LinearLayout>
 
             <!-- 하자 내용(증상) -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/l_relapse_3_defect_detail"
                 style="@style/CommonTextInputLayout"
-                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_relapse_3_defect_detail"
