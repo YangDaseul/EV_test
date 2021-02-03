@@ -26,7 +26,7 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
     private CMNViewModel cmnViewModel;
     private BarcodeAdapter barcodeAdapter;
     private BarcodeAdapter barcodeAdapter2;
-    private final int offsetPageLimit=5;
+    private final int offsetPageLimit=4;
     private boolean animationStartNeeded = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
     }
 
     private void initCardView(){
-        barcodeAdapter = new BarcodeAdapter();
+        barcodeAdapter = new BarcodeAdapter(onSingleClickListener);
         ui.viewPager.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
         ui.viewPager.setOffscreenPageLimit(offsetPageLimit);
         ui.viewPager.setAdapter(barcodeAdapter);
@@ -74,7 +74,7 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
     }
 
     private void initLineView(){
-        barcodeAdapter2 = new BarcodeAdapter();
+        barcodeAdapter2 = new BarcodeAdapter(onSingleClickListener);
         barcodeAdapter2.setViewType(BarcodeAdapter.TYPE_LINE);
         ItemTouchHelper.Callback callback = new ItemMoveCallback(barcodeAdapter2);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
@@ -87,27 +87,37 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
     private void initView() {
         initCardView();
         initLineView();
-        ui.lTitle.setTextBtnListener(onSingleClickListener);
-        ui.btnSettings.setOnClickListener(onSingleClickListener);
+        ui.lTitle.setTextBtnListener(onSingleClickListener); //완료
+        ui.lTitle.ivTitlebarImgBtn.setOnClickListener(onSingleClickListener); //설정
+        initTitleBar();
+    }
+
+    private void initTitleBar(){
+        ui.lTitle.setValue(""); //타이틀 없음
+        ui.lTitle.setBtnText(""); //완료버튼제거
+        ui.lTitle.setIconId(getDrawable(R.drawable.ic_setting_b)); //설정버튼
+        ui.lTitle.lTitleBar.setBackgroundColor(getColor(R.color.x_f8f8f8));
     }
 
     private void openViewer(){
         initCardView();
         ui.pagerContainer.setVisibility(View.VISIBLE);
         ui.recyclerView.setVisibility(View.GONE);
-        ui.lTitle.lTitleBar.setVisibility(View.GONE);
-        ui.btnSettings.setVisibility(View.VISIBLE);
         barcodeAdapter.setRows(barcodeAdapter2.getItems());
         barcodeAdapter.notifyDataSetChanged();
+        initTitleBar();
     }
 
     private void editViewer(){
         ui.pagerContainer.setVisibility(View.GONE);
-        ui.lTitle.lTitleBar.setVisibility(View.VISIBLE);
         ui.recyclerView.setVisibility(View.VISIBLE);
         barcodeAdapter2.setRows(barcodeAdapter.getItems());
         barcodeAdapter2.notifyDataSetChanged();
-        ui.btnSettings.setVisibility(View.GONE);
+
+        ui.lTitle.setValue(getString(R.string.bcode01_1)); //멤버십 편집
+        ui.lTitle.setBtnText(getString(R.string.bcode01_2)); //완료버튼
+        ui.lTitle.setIconId(null); //설정버튼
+        ui.lTitle.lTitleBar.setBackgroundColor(getColor(R.color.x_ffffff));
     }
 
 
@@ -127,10 +137,15 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
                     showProgressDialog(false);
                 }
                 break;
-            case R.id.btn_settings:
+            case R.id.iv_titlebar_img_btn:
                 if(barcodeAdapter!=null){
                     editViewer();
                 }
+            case R.id.tv_integration:
+
+                break;
+            case R.id.tv_membership_info:
+
                 break;
         }
 
@@ -171,7 +186,7 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
                         e.printStackTrace();
                     }finally{
                         SnackBarUtil.show(this, serverMsg);
-                        ui.btnSettings.setEnabled(false);
+                        ui.lTitle.ivTitlebarImgBtn.setEnabled(false);
                     }
                     break;
 
@@ -198,7 +213,7 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
     }
 
     private void exit() {
-        if(ui.btnSettings.getVisibility()!=View.VISIBLE){
+        if(ui.lTitle.ivTitlebarImgBtn.getVisibility()!=View.VISIBLE){
             openViewer();
         }else{
             finish();

@@ -41,10 +41,13 @@ import lombok.EqualsAndHashCode;
  * 현대가상화카드(10)/삼성페이(11)/삼성페이(12)/LG페이(13)/LG페이(14)
  * @see #cardIsncSubspDt 카드발급신청일자
  * YYYYMMDD (발급처코드가 BLUE 인 경우에만 필수)
+ * @see #rgstYn 정유사 가입 여부
+ * 정유사 카드인 경우에만 필수
+ * Y:가입 N:미가입
  */
 
 
-@Entity(indices = {@Index(value = {"cardNo"}, unique = true)})
+@Entity(indices = {@Index(value = {"isncCd"}, unique = true)})
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
@@ -87,6 +90,9 @@ class CardVO extends BaseData {
     @Expose
     @SerializedName("cardIsncSubspDt")
     private String cardIsncSubspDt;
+    @Expose
+    @SerializedName("rgstYn")
+    private String rgstYn;
 
     private int orderNumber=9999;
 

@@ -1,7 +1,7 @@
 package com.genesis.apps.ui.main;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
@@ -9,13 +9,16 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.comm.util.BarcodeUtil;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.StringRe2j;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ItemBarcodeBinding;
 import com.genesis.apps.databinding.ItemBarcodeModifyBinding;
 import com.genesis.apps.ui.common.activity.test.ItemMoveCallback;
+import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 import com.google.zxing.BarcodeFormat;
@@ -44,7 +47,10 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
         this.VIEW_TYPE = VIEW_TYPE;
     }
 
-    public BarcodeAdapter() {
+    private static OnSingleClickListener onSingleClickListener;
+
+    public BarcodeAdapter(OnSingleClickListener onSingleClickListener) {
+        this.onSingleClickListener = onSingleClickListener;
     }
 
     @Override
@@ -91,52 +97,84 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
         @Override
         public void onBindView(CardVO item) {
 
+            getBinding().tvMembershipInfo.setOnClickListener(onSingleClickListener);
+            getBinding().tvIntegration.setOnClickListener(onSingleClickListener);
+
         }
 
         @Override
         public void onBindView(CardVO item, final int pos) {
 
-            int imageId = R.drawable.bg_141414_round_10;
+            getBinding().tvCardBg.setText("");
+            getBinding().tvInfo.setVisibility(View.GONE);
+            getBinding().tvMembershipInfo.setVisibility(View.GONE);
+            getBinding().tvMembershipInfo.setTag(R.id.item, item);
+            getBinding().tvIntegration.setTag(R.id.item, item);
+            int imageId = R.drawable.bg_111111_round_10;
             int iconId = R.drawable.logo_genesis_w;
-            switch (item.getIsncCd()){
+            boolean isReg = false;
+            boolean isIntegration = true;
+            switch (StringUtil.isValidString(item.getIsncCd())){
                 case OIL_CODE_HDOL:
-                    imageId = R.drawable.bg_323a3d_round_10;
+                    imageId = R.drawable.bg_025ea9_round_10;
                     iconId = R.drawable.logo_hyundaioilbank_w;
+                    getBinding().tvMembershipInfo.setVisibility(View.VISIBLE);
+                    isReg = StringUtil.isValidString(item.getRgstYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)&&!TextUtils.isEmpty(item.getCardNo());
                     break;
                 case OIL_CODE_GSCT:
-                    imageId = R.drawable.bg_000000_round_10;
+                    imageId = R.drawable.bg_009999_round_10;
                     iconId = R.drawable.logo_gs_w;
+                    getBinding().tvMembershipInfo.setVisibility(View.VISIBLE);
+                    isReg = StringUtil.isValidString(item.getRgstYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)&&!TextUtils.isEmpty(item.getCardNo());
                     break;
                 case OIL_CODE_SOIL:
-                    imageId = R.drawable.bg_82898b_round_10;
+                    imageId = R.drawable.bg_fbb900_round_10;
                     iconId = R.drawable.logo_soil_w;
-                    break;
-                case OIL_CODE_SKNO:
-                    imageId = R.drawable.bg_4f585b_round_10;
-                    iconId = R.drawable.logo_sk_w;
+                    getBinding().tvMembershipInfo.setVisibility(View.VISIBLE);
+                    isReg = StringUtil.isValidString(item.getRgstYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)&&!TextUtils.isEmpty(item.getCardNo());
                     break;
                 case OIL_CODE_BLUE:
                 default:
-                    imageId = R.drawable.bg_141414_round_10;
+                    imageId = R.drawable.bg_111111_round_10;
                     iconId = R.drawable.logo_genesis_w;
+                    getBinding().tvInfo.setVisibility(View.VISIBLE);
+                    isReg = !TextUtils.isEmpty(item.getCardNo());
+                    isIntegration = false;
                     break;
             }
-
             getBinding().ivCard.setImageResource(imageId);
             getBinding().ivLogo.setImageResource(iconId);
-            getBinding().tvCardNo.setText(StringRe2j.replaceAll(item.getCardNo(), getContext().getString(R.string.card_original), getContext().getString(R.string.card_mask)));
-            getBinding().ivBarcode.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    try {
-                        getBinding().ivBarcode.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                        Bitmap bitmap = new BarcodeUtil().encodeAsBitmap(item.getCardNo().replace("-", ""), BarcodeFormat.CODE_128, (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivBarcode.getWidth()), (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivBarcode.getHeight()));
-                        getBinding().ivBarcode.setImageBitmap(bitmap);
-                    } catch (WriterException e) {
-                        e.printStackTrace();
+
+
+            if(isReg) {
+                getBinding().tvIntegration.setVisibility(View.GONE);
+                getBinding().tvCardNo.setVisibility(View.VISIBLE);
+                getBinding().tvCardNo.setText(StringRe2j.replaceAll(item.getCardNo(), getContext().getString(R.string.card_original), getContext().getString(R.string.card_mask)));
+                getBinding().ivBarcode.setVisibility(View.VISIBLE);
+                getBinding().ivBarcode.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        try {
+                            getBinding().ivBarcode.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                            Bitmap bitmap = new BarcodeUtil().encodeAsBitmap(item.getCardNo().replace("-", ""), BarcodeFormat.CODE_128, (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivBarcode.getWidth()), (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivBarcode.getHeight()));
+                            getBinding().ivBarcode.setImageBitmap(bitmap);
+                        } catch (WriterException e) {
+                            e.printStackTrace();
+                        }
                     }
+                });
+            }else{
+                getBinding().tvCardNo.setVisibility(View.INVISIBLE);
+                if(isIntegration) {
+                    getBinding().tvIntegration.setVisibility(View.VISIBLE);
+                    getBinding().ivBarcode.setVisibility(View.VISIBLE);
+                    //                getBinding().ivBarcode.setImageResource(0);
+                }else{
+                    getBinding().tvIntegration.setVisibility(View.GONE);
+                    getBinding().tvCardBg.setText(R.string.bcode01_5);
+                    getBinding().ivBarcode.setVisibility(View.GONE);
                 }
-            });
+            }
 
         }
 
@@ -161,29 +199,29 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
         @Override
         public void onBindView(CardVO item, final int pos) {
 
-            int iconId = R.drawable.logo_genesis_w;
-            int bgId = R.color.x_141414;
+            int iconId = R.drawable.logo_genesis_barcode_w;
+            int bgId = R.color.x_111111;
             switch (item.getIsncCd()){
                 case OIL_CODE_HDOL:
-                    iconId = R.drawable.logo_hyundaioilbank_w;
-                    bgId = R.color.x_323a3d;
+                    iconId = R.drawable.logo_hyundaioilbank_barcode_w;
+                    bgId = R.color.x_025ea9;
                     break;
                 case OIL_CODE_GSCT:
-                    iconId = R.drawable.logo_gs_w;
-                    bgId = R.color.x_000000;
+                    iconId = R.drawable.logo_gs_barcode_w;
+                    bgId = R.color.x_009999;
                     break;
                 case OIL_CODE_SOIL:
                     iconId = R.drawable.logo_soil_w;
-                    bgId = R.color.x_82898b;
+                    bgId = R.color.x_fbb900;
                     break;
-                case OIL_CODE_SKNO:
-                    iconId = R.drawable.logo_sk_w;
-                    bgId = R.color.x_4f585b;
-                    break;
+//                case OIL_CODE_SKNO:
+//                    iconId = R.drawable.logo_sk_w;
+//                    bgId = R.color.x_4f585b;
+//                    break;
                 case OIL_CODE_BLUE:
                 default:
-                    iconId = R.drawable.logo_genesis_w;
-                    bgId = R.color.x_141414;
+                    iconId = R.drawable.logo_genesis_barcode_w;
+                    bgId = R.color.x_111111;
                     break;
             }
             getBinding().ivLogo.setImageResource(iconId);

@@ -1,14 +1,14 @@
 <resources>
     <style name="CardRoundGenesis">
-        <item name="android:background">@drawable/bg_141414_round_10</item>
+        <item name="android:background">@drawable/bg_111111_round_10</item>
     </style>
 
     <style name="CardRoundHyundaiOil">
-        <item name="android:background">@drawable/bg_323a3d_round_10</item>
+        <item name="android:background">@drawable/bg_025ea9_round_10</item>
     </style>
 
     <style name="CardRoundGS">
-        <item name="android:background">@drawable/bg_000000_round_10</item>
+        <item name="android:background">@drawable/bg_009999_round_10</item>
     </style>
 
     <style name="CardRoundSK">
@@ -16,7 +16,7 @@
     </style>
 
     <style name="CardRoundSOIL">
-        <item name="android:background">@drawable/bg_82898b_round_10</item>
+        <item name="android:background">@drawable/bg_fbb900_round_10</item>
     </style>
 
 
