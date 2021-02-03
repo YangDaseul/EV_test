@@ -51,7 +51,6 @@
                 android:fontFamily="@font/light_genesissansheadglobal"
                 android:includeFontPadding="false"
                 android:lineSpacingExtra="8dp"
-                android:maxLines="1"
                 android:textColor="@color/x_000000"
                 android:textSize="20dp"
                 app:layout_constrainedWidth="true"
