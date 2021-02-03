@@ -91,7 +91,7 @@
             <TextView
                 android:id="@+id/tv_relapse_3_repair_req_date_btn"
                 android:hint="@string/relapse_3_repair_req_date"
-                android:textColorHint="@color/x_aaabaf"
+                android:textColorHint="@color/x_a2a2a2"
                 style="@style/Relapse3RepairHistoryDatePickBtn" />
 
             <!--  수리 요청 날짜 에러 메시지-->
@@ -117,7 +117,7 @@
                     android:id="@+id/tv_relapse_3_repair_finish_date_btn"
                     style="@style/Relapse3RepairHistoryDatePickBtn"
                     android:hint="@string/relapse_3_repair_finish_date"
-                    android:textColorHint="@color/x_aaabaf" />
+                    android:textColorHint="@color/x_a2a2a2" />
 
                 <!--  수리 완료 날짜 에러 메시지-->
                 <TextView
