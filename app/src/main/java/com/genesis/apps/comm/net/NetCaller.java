@@ -252,7 +252,9 @@ public class NetCaller {
         JsonObject jsonObject = null;
         String serverUrl = serverDomain + apiInfo.getURI();
 
-        if (apiInfo.getIfCd().equalsIgnoreCase("carId") || apiInfo.getIfCd().equalsIgnoreCase("userId")) {
+        if(apiInfo==APIInfo.DEVELOPERS_CHECK_JOIN_CCS){
+            serverUrl = String.format(Locale.getDefault(), serverUrl, getUriInfo(apiInfo.getIfCd(), new Gson().toJson(reqVO)), getUriInfo("vin", new Gson().toJson(reqVO)));
+        } else if (apiInfo.getIfCd().equalsIgnoreCase("carId") || apiInfo.getIfCd().equalsIgnoreCase("userId")) {
             serverUrl = String.format(Locale.getDefault(), serverUrl, getUriInfo(apiInfo.getIfCd(), new Gson().toJson(reqVO)));
         }
 
@@ -261,7 +263,8 @@ public class NetCaller {
                 case HttpRequest.METHOD_GET:
                     if (reqVO != null
                             && apiInfo != APIInfo.DEVELOPERS_CAR_ID //TODO 확인필요
-                            && apiInfo != APIInfo.DEVELOPERS_CAR_CHECK) {
+                            && apiInfo != APIInfo.DEVELOPERS_CAR_CHECK
+                            && apiInfo != APIInfo.DEVELOPERS_CHECK_JOIN_CCS) {
                         Map<String, Object> map = new Gson().fromJson(
                                 new Gson().toJson(reqVO), new TypeToken<HashMap<String, Object>>() {
                                 }.getType());

@@ -69,8 +69,8 @@
         <!-- gps 버튼 -->
         <ImageView
             android:id="@+id/btn_my_position"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginStart="15dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/ripple_bg_ffffff_round_05"
@@ -103,7 +103,6 @@
             android:id="@+id/l_popup"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             layout="@layout/item_service_network_popup"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"

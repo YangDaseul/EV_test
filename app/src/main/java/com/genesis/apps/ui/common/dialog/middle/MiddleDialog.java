@@ -275,6 +275,21 @@ public class MiddleDialog {
         );
     }
 
+    public static void dialogCommonOneButton(@NonNull Activity activity, @StringRes int titleResId, String msg, Runnable ok) {
+        if (activity.isFinishing()) {
+            return;
+        }
+
+        activity.runOnUiThread(() ->
+                getOneButtonDialog(activity,
+                        ok,
+                        activity.getString(titleResId),
+                        msg,
+                        R.string.dialog_common_4
+                ).show()
+        );
+    }
+
     public static void dialogServiceRemoteOneButton(@NonNull Activity activity, @StringRes int titleResId, @StringRes int messageResId, Runnable ok) {
         if (activity.isFinishing()) {
             return;
@@ -285,6 +300,23 @@ public class MiddleDialog {
                         ok,
                         activity.getString(titleResId),
                         activity.getString(messageResId),
+                        R.string.dialog_common_4
+                ).show()
+        );
+    }
+
+    public static void dialogCommonTwoButton(@NonNull Activity activity, @StringRes int titleResId, String msg, Runnable ok, Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        activity.getString(titleResId),
+                        msg,
+                        R.string.dialog_common_7,
                         R.string.dialog_common_4
                 ).show()
         );

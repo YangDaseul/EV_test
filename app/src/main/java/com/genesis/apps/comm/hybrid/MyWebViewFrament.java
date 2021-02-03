@@ -19,6 +19,7 @@ import androidx.databinding.ViewDataBinding;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.core.WebViewFragment;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 
 
 /**
@@ -88,15 +89,7 @@ public class MyWebViewFrament extends WebViewFragment {
         if(getActivity() == null) return false;
 
         final JsResult res = result;
-        new AlertDialog.Builder(getActivity())
-                .setIcon(R.mipmap.ic_launcher_genesis)
-//				.setTitle(R.string.popup_title)
-                .setMessage(message)
-                .setCancelable(false)
-                .setPositiveButton(android.R.string.yes,
-                        (dialog, which) -> res.confirm())
-                .setNegativeButton(android.R.string.no,
-                        (dialog, which) -> res.cancel()).show();
+        MiddleDialog.dialogCommonTwoButton(getActivity(), R.string.comm_word_3, message, () -> res.confirm(), () -> res.cancel());
 
         return true;
     }
@@ -107,13 +100,7 @@ public class MyWebViewFrament extends WebViewFragment {
         if(getActivity() == null) return false;
 
         final JsResult res = result;
-        new AlertDialog.Builder(getActivity())
-                .setIcon(R.mipmap.ic_launcher_genesis)
-//				.setTitle(R.string.popup_title)
-                .setMessage(message)
-                .setCancelable(false)
-                .setPositiveButton(android.R.string.ok,
-                        (dialog, which) -> res.confirm()).show();
+        MiddleDialog.dialogCommonOneButton(getActivity(), R.string.comm_word_3, message, () -> res.confirm());
 
         return true;
     }

@@ -214,6 +214,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 
             //지역선택 프래그먼트 호출
             case R.id.tv_map_title_address:
+            case R.id.tv_map_title_text:
                 showFragment(new CarWashFindSonaxBranchFragment());
                 break;
 
@@ -231,13 +232,14 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 
     private void initView() {
         Log.d(TAG, "initView: ");
-        ui.lMapOverlayTitle.tvMapTitleText.setVisibility(View.GONE);
+        ui.lMapOverlayTitle.tvMapTitleText.setVisibility(View.VISIBLE);
 
-        ui.lMapOverlayTitle.tvMapTitleAddress.setVisibility(View.VISIBLE);
-        ui.lMapOverlayTitle.tvMapTitleAddress.setBackground(getDrawable(R.drawable.ripple_bg_ffffff));
-        ui.lMapOverlayTitle.setTitle(getString(R.string.sm_cw_find_01));
+//        ui.lMapOverlayTitle.tvMapTitleAddress.setVisibility(View.VISIBLE);
+//        ui.lMapOverlayTitle.tvMapTitleAddress.setBackground(getDrawable(R.drawable.ripple_bg_ffffff));
+//        ui.lMapOverlayTitle.setTitle(getString(R.string.sm_cw_find_01));
 
-        ui.lMapOverlayTitle.tvMapTitleAddress.setOnClickListener(onSingleClickListener);
+        ui.lMapOverlayTitle.tvMapTitleText.setOnClickListener(onSingleClickListener);
+//        ui.lMapOverlayTitle.tvMapTitleAddress.setOnClickListener(onSingleClickListener);
         ui.btnMyPosition.setOnClickListener(onSingleClickListener);
 
         setMarkerClickListener();
