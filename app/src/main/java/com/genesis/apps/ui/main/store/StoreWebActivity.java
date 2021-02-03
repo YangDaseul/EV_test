@@ -86,43 +86,12 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
                 case SUCCESS:
                     if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
                         Log.d("JJJJ", "getCustInfo : " + result.data.getCustInfo());
-
-//                        Map<String, Object> params = new HashMap<>();
-//                        params.put("data", result.data.getCustInfo());
-//
-//                        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-//                        String jsonStr = gson.toJson(params);
-//
-//                        Log.d("JJJJ", "json str : " + jsonStr);
-
                         try {
                             String postData = "data=" + URLEncoder.encode(result.data.getCustInfo(), "UTF-8");
                             fragment.postUrl(url, postData.getBytes());
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
                         }
-
-//                        try {
-//                            String html = "<!DOCTYPE html>" +
-//                                    "<html>" +
-//                                    "<body onload='document.frm1.submit()'>" +
-//                                    "<form action='" + url + "' method='post' name='frm1'>" +
-//                                    "  <input type='hidden' name='data' value='" + result.data.getCustInfo() + "'><br>" +
-//                                    "</form>" +
-//                                    "</body>" +
-//                                    "</html>";
-//                            fragment.loadData(html);
-
-//                            String postData = "data=" + URLEncoder.encode(result.data.getCustInfo(), "UTF-8");
-//                            String postData = "data=" + result.data.getCustInfo();
-//                            String postData = "{\"data\":\"" + result.data.getCustInfo() + "\"}";
-
-//                            Log.d("JJJJ", "postData : " + postData);
-
-//                            fragment.postUrl(url, jsonStr.getBytes());
-//                        } catch (UnsupportedEncodingException e) {
-//                            e.printStackTrace();
-//                        }
                     }
 
                     break;
@@ -148,14 +117,10 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
     boolean clickCheck = false;
     @Override
     public void onBackPressed() {
-        Log.d("JJJJ", "clearWindowOpens2 : " + clearWindowOpens2());
-        Log.d("JJJJ", "isDlp : " + isDlp);
         if(isDlp.equals("YES")) {
             fragment.loadUrl("javascript:bwcAppClose();");
         } else {
-            Log.d("JJJJ", "canGoBack : " + fragment.canGoBack());
             if(!TextUtils.isEmpty(fn)){
-                Log.d("JJJJ", "openWindows size : " + fragment.openWindows.size());
                 if(fragment.openWindows.size()>0){
                     fragment.openWindows.get(0).loadUrl("javascript:"+fn);
                 }else{
@@ -169,14 +134,6 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
                 }
             }
         }
-
-//        try {
-//            if (!fragment.onBackPressed() || TextUtils.isEmpty(fragment.getUrl()) || fragment.getUrl().equalsIgnoreCase("about:blank")) {
-//                super.onBackPressed();
-//            }
-//        }catch (Exception e){
-//            super.onBackPressed();
-//        }
     }
 
     private void initView() {
