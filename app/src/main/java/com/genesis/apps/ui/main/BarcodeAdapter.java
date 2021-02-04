@@ -156,26 +156,13 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
                     public void onGlobalLayout() {
                         try {
                             getBinding().ivBarcode.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                            Bitmap bitmap = new BarcodeUtil().encodeAsBitmap("1111111111111111", BarcodeFormat.CODE_128, (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivBarcode.getWidth()), (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivBarcode.getHeight()));
+                            Bitmap bitmap = new BarcodeUtil().encodeAsBitmap(item.getCardNo().replace("-", ""), BarcodeFormat.CODE_128, (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivBarcode.getWidth()), (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivBarcode.getHeight()));
                             getBinding().ivBarcode.setImageBitmap(bitmap);
                         } catch (WriterException e) {
                             e.printStackTrace();
                         }
                     }
                 });
-
-//                getBinding().ivBarcode.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//                    @Override
-//                    public void onGlobalLayout() {
-//                        try {
-//                            getBinding().ivBarcode.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-//                            Bitmap bitmap = new BarcodeUtil().encodeAsBitmap(item.getCardNo().replace("-", ""), BarcodeFormat.CODE_128, (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivBarcode.getWidth()), (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivBarcode.getHeight()));
-//                            getBinding().ivBarcode.setImageBitmap(bitmap);
-//                        } catch (WriterException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                });
             }else{
                 getBinding().tvCardNo.setVisibility(View.INVISIBLE);
                 if(isIntegration) {
