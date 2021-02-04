@@ -79,4 +79,6 @@ public interface KeyNames {
     String KEY_NAME_CTRCT_NO ="ctrctNo";
 
     String KEY_NAME_STO_1003 ="sto1003";
+
+    String KEY_NAME_BARCODE ="isBarcode";
 }

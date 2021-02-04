@@ -106,6 +106,7 @@
 
     <string name="word_entrance_1">로그인</string>
     <string name="word_entrance_2">회원가입</string>
+    <string name="word_entrance_3">로그인 안내</string>
     <string name="msg_entrance_1">로그인이 필요합니다.\n아직 회원이 아니시면 회원가입을 해주세요.</string>
     <string name="msg_entrance_2">아이디를 잊어버리셨나요?</string>
 

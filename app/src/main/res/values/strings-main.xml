@@ -183,6 +183,7 @@
     <string name="bcode01_4">사용 방법</string>
     <string name="bcode01_5">제네시스 멤버십에 가입되어 있지 않습니다.</string>
     <string name="bcode01_6">멤버십 연동 하기</string>
+    <string name="bcode01_7">이용 가능한 카드가 없습니다.</string>
 
     <string name="gm01_02_1">보증 수리 안내</string>
     <string name="gm01_02_2">오너 차량의\n주요 부품의 보증기간에 따른\n수리 안내입니다.</string>

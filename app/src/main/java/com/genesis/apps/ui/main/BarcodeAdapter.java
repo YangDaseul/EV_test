@@ -104,13 +104,12 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
 
         @Override
         public void onBindView(CardVO item, final int pos) {
-
             getBinding().tvCardBg.setText("");
             getBinding().tvInfo.setVisibility(View.GONE);
             getBinding().tvMembershipInfo.setVisibility(View.GONE);
             getBinding().tvMembershipInfo.setTag(R.id.item, item);
             getBinding().tvIntegration.setTag(R.id.item, item);
-            getBinding().ivBarcode.setAlpha(0f);
+            getBinding().ivBarcode.setAlpha(1f);
             int imageId = R.drawable.bg_111111_round_10;
             int iconId = R.drawable.logo_genesis_w;
             boolean isReg = false;
@@ -157,13 +156,26 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
                     public void onGlobalLayout() {
                         try {
                             getBinding().ivBarcode.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                            Bitmap bitmap = new BarcodeUtil().encodeAsBitmap(item.getCardNo().replace("-", ""), BarcodeFormat.CODE_128, (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivBarcode.getWidth()), (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivBarcode.getHeight()));
+                            Bitmap bitmap = new BarcodeUtil().encodeAsBitmap("1111111111111111", BarcodeFormat.CODE_128, (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivBarcode.getWidth()), (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivBarcode.getHeight()));
                             getBinding().ivBarcode.setImageBitmap(bitmap);
                         } catch (WriterException e) {
                             e.printStackTrace();
                         }
                     }
                 });
+
+//                getBinding().ivBarcode.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//                    @Override
+//                    public void onGlobalLayout() {
+//                        try {
+//                            getBinding().ivBarcode.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//                            Bitmap bitmap = new BarcodeUtil().encodeAsBitmap(item.getCardNo().replace("-", ""), BarcodeFormat.CODE_128, (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivBarcode.getWidth()), (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivBarcode.getHeight()));
+//                            getBinding().ivBarcode.setImageBitmap(bitmap);
+//                        } catch (WriterException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
             }else{
                 getBinding().tvCardNo.setVisibility(View.INVISIBLE);
                 if(isIntegration) {

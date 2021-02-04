@@ -34,7 +34,7 @@
             android:fontFamily="@font/light_genesissansheadglobal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="7dp"
-            android:text="@string/title_ga"
+            android:text="@string/word_entrance_3"
             android:textColor="@color/x_000000"
             android:textSize="25dp"
             app:layout_constraintLeft_toLeftOf="parent"

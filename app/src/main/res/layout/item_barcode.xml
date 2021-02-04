@@ -114,12 +114,12 @@
             android:lineSpacingExtra="2dp"
             android:textColor="@color/x_ffffff"
             android:textSize="14dp"
+            android:text="@string/bcode01_3"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/tv_card_bg"
             app:layout_constraintEnd_toEndOf="@+id/iv_card"
             app:layout_constraintTop_toTopOf="@+id/iv_card"
-            app:layout_constraintVertical_bias=".5"
-            tools:text="제네시스 멤버십 카드" />
+            app:layout_constraintVertical_bias=".5" />
 
         <TextView
             android:id="@+id/tv_membership_info"

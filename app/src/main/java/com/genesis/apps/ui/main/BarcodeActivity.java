@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -16,8 +17,10 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.BAR_1001;
 import com.genesis.apps.comm.model.api.gra.OIL_0005;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.OilCodes;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.comm.model.vo.OilPointVO;
@@ -33,6 +36,7 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.activity.test.ItemMoveCallback;
 import com.genesis.apps.ui.main.insight.InsightExpnMembershipActivity;
 import com.genesis.apps.ui.myg.MyGOilIntegrationActivity;
+import com.genesis.apps.ui.myg.MyGOilTermActivity;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
@@ -51,14 +55,15 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
         setViewModel();
         setObserver();
         initView();
+        cmnViewModel.reqBAR1001(new BAR_1001.Request(APPIAInfo.Bcode01.getId()));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(ui.lTitle.ivTitlebarImgBtn.getVisibility()==View.VISIBLE) {
-            cmnViewModel.reqBAR1001(new BAR_1001.Request(APPIAInfo.Bcode01.getId()));
-        }
+//        if(ui.lTitle.ivTitlebarImgBtn.getVisibility()==View.VISIBLE) {
+//            cmnViewModel.reqBAR1001(new BAR_1001.Request(APPIAInfo.Bcode01.getId()));
+//        }
     }
 
     private void initCardView(){
@@ -171,8 +176,8 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
                     if(StringUtil.isValidString(item.getRgstYn()).equalsIgnoreCase(OilPointVO.OIL_JOIN_CODE_R)){
                         oilViewModel.reqOIL0005(new OIL_0005.Request(APPIAInfo.MG01.getId(), StringUtil.isValidString(item.getIsncCd())));
                     }else{
-                        startActivitySingleTop(new Intent(this, MyGOilIntegrationActivity.class).putExtra(OilCodes.KEY_OIL_CODE, StringUtil.isValidString(item.getIsncCd())), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                   }
+                        startActivitySingleTop(new Intent(this, MyGOilTermActivity.class).putExtra(OilCodes.KEY_OIL_CODE, StringUtil.isValidString(item.getIsncCd())), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    }
                 }
                 break;
             case R.id.tv_membership_info:
@@ -209,6 +214,7 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
                             e.printStackTrace();
                         }finally {
                             showProgressDialog(false);
+                            ui.tvEmpty.setVisibility(barcodeAdapter.getItemCount()==0 ? View.VISIBLE : View.GONE);
                         }
                         break;
                     }
@@ -222,6 +228,7 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
                     }finally{
                         SnackBarUtil.show(this, serverMsg);
                         ui.lTitle.ivTitlebarImgBtn.setEnabled(false);
+                        ui.tvEmpty.setVisibility(View.VISIBLE);
                     }
                     break;
             }
@@ -237,7 +244,7 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
                     showProgressDialog(false);
                     if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)){
                         cmnViewModel.reqBAR1001(new BAR_1001.Request(APPIAInfo.Bcode01.getId()));
-                        SnackBarUtil.show(this, "연동이 완료되었습니다.");
+                        SnackBarUtil.show(this, getString(R.string.mg_con02_p01_3));
                         break;
                     }
                 default:
@@ -277,6 +284,24 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
             openViewer();
         }else{
             finish();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == ResultCodes.REQ_CODE_OIL_INTEGRATION_SUCCESS.getCode()){
+            String msg="";
+            try {
+                if(data!=null) msg = data.getStringExtra("msg");
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally{
+                if(!TextUtils.isEmpty(msg)){
+                    SnackBarUtil.show(this, msg);
+                    cmnViewModel.reqBAR1001(new BAR_1001.Request(APPIAInfo.Bcode01.getId()));
+                }
+            }
         }
     }
 
