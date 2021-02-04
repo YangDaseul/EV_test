@@ -14,7 +14,7 @@ public abstract class CardDao implements BaseDao<CardVO> {
     @Query("SELECT * FROM CardVO WHERE cardNo=:cardNo")
     public abstract List<CardVO> select(String cardNo);
 
-    @Query("SELECT * FROM CardVO ORDER BY orderNumber ASC, _id ASC")
+    @Query("SELECT * FROM CardVO ORDER BY orderNumber ASC")
     public abstract List<CardVO> selectAll();
 
     @Query("DELETE from CardVO")

@@ -19,6 +19,7 @@ import com.genesis.apps.databinding.ItemBarcodeBinding;
 import com.genesis.apps.databinding.ItemBarcodeModifyBinding;
 import com.genesis.apps.ui.common.activity.test.ItemMoveCallback;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
+import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 import com.google.zxing.BarcodeFormat;
@@ -29,7 +30,6 @@ import java.util.Collections;
 import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_BLUE;
 import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_GSCT;
 import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_HDOL;
-import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_SKNO;
 import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_SOIL;
 
 
@@ -92,13 +92,13 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
     private static class ItemBarcode extends BaseViewHolder<CardVO, ItemBarcodeBinding> {
         public ItemBarcode(View itemView) {
             super(itemView);
+            ViewPressEffectHelper.attaches(getBinding().tvMembershipInfo, getBinding().tvIntegration);
+            getBinding().tvMembershipInfo.setOnClickListener(onSingleClickListener);
+            getBinding().tvIntegration.setOnClickListener(onSingleClickListener);
         }
 
         @Override
         public void onBindView(CardVO item) {
-
-            getBinding().tvMembershipInfo.setOnClickListener(onSingleClickListener);
-            getBinding().tvIntegration.setOnClickListener(onSingleClickListener);
 
         }
 
@@ -110,6 +110,7 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
             getBinding().tvMembershipInfo.setVisibility(View.GONE);
             getBinding().tvMembershipInfo.setTag(R.id.item, item);
             getBinding().tvIntegration.setTag(R.id.item, item);
+            getBinding().ivBarcode.setAlpha(0f);
             int imageId = R.drawable.bg_111111_round_10;
             int iconId = R.drawable.logo_genesis_w;
             boolean isReg = false;
@@ -168,7 +169,19 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
                 if(isIntegration) {
                     getBinding().tvIntegration.setVisibility(View.VISIBLE);
                     getBinding().ivBarcode.setVisibility(View.VISIBLE);
-                    //                getBinding().ivBarcode.setImageResource(0);
+                    getBinding().ivBarcode.setAlpha(.1f);
+                    getBinding().ivBarcode.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @Override
+                        public void onGlobalLayout() {
+                            try {
+                                getBinding().ivBarcode.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                                Bitmap bitmap = new BarcodeUtil().encodeAsBitmap("1111111111111111", BarcodeFormat.CODE_128, (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivBarcode.getWidth()), (int) DeviceUtil.dip2Pixel(getContext(), (float) getBinding().ivBarcode.getHeight()));
+                                getBinding().ivBarcode.setImageBitmap(bitmap);
+                            } catch (WriterException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
                 }else{
                     getBinding().tvIntegration.setVisibility(View.GONE);
                     getBinding().tvCardBg.setText(R.string.bcode01_5);

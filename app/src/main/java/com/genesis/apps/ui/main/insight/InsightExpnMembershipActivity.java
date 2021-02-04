@@ -2,28 +2,18 @@ package com.genesis.apps.ui.main.insight;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.api.gra.REQ_1018;
-import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.ResultCodes;
-import com.genesis.apps.comm.util.DeviceUtil;
-import com.genesis.apps.comm.util.RecyclerViewDecoration;
-import com.genesis.apps.comm.util.SnackBarUtil;
-import com.genesis.apps.comm.viewmodel.REQViewModel;
+import com.genesis.apps.comm.model.constants.OilCodes;
+import com.genesis.apps.comm.model.vo.OilPointVO;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ActivityInsightExpnMembershipBinding;
-import com.genesis.apps.databinding.ActivityServiceRepairImageBinding;
 import com.genesis.apps.databinding.ItemTabMembershipBinding;
-import com.genesis.apps.databinding.ItemTabRepairImageBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.main.service.view.ServiceRepairImageAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 /**
@@ -33,7 +23,7 @@ import com.google.android.material.tabs.TabLayout;
 public class InsightExpnMembershipActivity extends SubActivity<ActivityInsightExpnMembershipBinding> {
 
     private final int[] TAB_ID_LIST = {R.drawable.tab_oil_h_s, R.drawable.tab_oil_g_s, R.drawable.tab_oil_s_s};
-
+    private String oilRfnCd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +37,18 @@ public class InsightExpnMembershipActivity extends SubActivity<ActivityInsightEx
 
     private void initView() {
         setTabView();
+
+        switch (StringUtil.isValidString(oilRfnCd)){
+            case OilPointVO.OIL_CODE_SOIL:
+                ui.tlTabs.getTabAt(2).view.performClick();
+                break;
+            case OilPointVO.OIL_CODE_GSCT:
+                ui.tlTabs.getTabAt(1).view.performClick();
+                break;
+            case OilPointVO.OIL_CODE_HDOL:
+                ui.tlTabs.getTabAt(0).view.performClick();
+                break;
+        }
     }
 
 
@@ -67,6 +69,11 @@ public class InsightExpnMembershipActivity extends SubActivity<ActivityInsightEx
 
     @Override
     public void getDataFromIntent() {
+        try {
+            oilRfnCd = getIntent().getStringExtra(OilCodes.KEY_OIL_CODE);
+        }catch (Exception ignore){
+
+        }
     }
 
 

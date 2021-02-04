@@ -1,14 +1,14 @@
 package com.genesis.apps.comm.model.vo;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -47,27 +47,26 @@ import lombok.EqualsAndHashCode;
  */
 
 
-@Entity(indices = {@Index(value = {"isncCd"}, unique = true)})
+//@Entity(indices = {@Index(value = {"isncCd"}, unique = true)})
+@Entity
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
 class CardVO extends BaseData {
 
-    public CardVO(){
-
+    public CardVO(String isncCd){
+        this.isncCd = isncCd;
     }
 
-    @PrimaryKey(autoGenerate = true)
-    private int _id;
-
-    @Expose
-    @SerializedName("cardNo")
-    private String cardNo;
-
+    @PrimaryKey
+    @NonNull
     @Expose
     @SerializedName("isncCd")
     private String isncCd;
 
+    @Expose
+    @SerializedName("cardNo")
+    private String cardNo;
     @Expose
     @SerializedName("cardNm")
     private String cardNm;

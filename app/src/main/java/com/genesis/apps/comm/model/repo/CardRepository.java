@@ -2,9 +2,12 @@ package com.genesis.apps.comm.model.repo;
 
 import android.text.TextUtils;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.room.DatabaseHolder;
 import com.genesis.apps.room.GlobalData;
@@ -19,8 +22,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
-
-import androidx.lifecycle.MutableLiveData;
 
 import static com.genesis.apps.comm.model.vo.CardVO.CARD_STATUS_20;
 import static com.genesis.apps.comm.model.vo.CardVO.CARD_STATUS_30;
@@ -166,11 +167,23 @@ public class CardRepository {
                 }
             }
 
-            //db리스트 전체 삭제 후
-            databaseHolder.getDatabase().cardDao().deleteAll();
+            //LOCAL DB에 저장되어 있는 정렬 순서를 서버 데이터에 UPDATE 진행
+            final List<CardVO> dbList = databaseHolder.getDatabase().cardDao().selectAll();
+            if(dbList!=null&&dbList.size()>0){
+                for(CardVO cardVO : dbList){
+                    if(list!=null&&list.size()>0) {
+                        for(CardVO server : list) {
+                            if (StringUtil.isValidString(cardVO.getIsncCd()).equalsIgnoreCase(StringUtil.isValidString(server.getIsncCd()))){
+                                server.setOrderNumber(cardVO.getOrderNumber());
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
 
             if(list.size()>0){//카드가 있는 경우 db에 다시 넣어준다.
-                databaseHolder.getDatabase().cardDao().insert(list);
+                databaseHolder.getDatabase().cardDao().insertAndDeleteInTransaction(list);
             }
         }catch (Exception e){
 
