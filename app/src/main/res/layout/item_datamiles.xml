@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -16,13 +17,13 @@
 
         <TextView
             android:id="@+id/tv_datamiles_title"
-            style="@style/DataMiles.TextView_Font_MGSTG.Black"
+            style="@style/DataMiles.TextView_Font_LGSHG"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:paddingBottom="30dp"
             android:text="@string/gm01_datamiles_title"
-            android:textSize="16dp"
+            android:textSize="25dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,6 +32,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="30dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:textColor="@color/x_000000"
+            android:textSize="14dp"
             android:text="@string/gm01_more"
             app:layout_constraintEnd_toStartOf="@id/iv_datamiles_arrow"
             app:layout_constraintTop_toTopOf="@id/tv_datamiles_title" />
@@ -54,6 +58,8 @@
 
 
         <!--안전 운전 점수-->
+
+        <!--소모품 현황-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_datamiles_driving_score_container"
             android:layout_width="match_parent"
@@ -69,7 +75,7 @@
             <!--타이틀 : 안전운전 점수-->
             <TextView
                 android:id="@+id/tv_datamiles_driving_score_title"
-                style="@style/DataMiles.TextView_Font_RGSHG.Black.Title"
+                style="@style/DataMiles.TextView_Font_LGSHG.Black.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/gm01_driving_score"
@@ -96,7 +102,18 @@
                 android:layout_marginTop="17dp"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_datamiles_driving_score_title">
+                app:layout_constraintTop_toBottomOf="@id/tv_datamiles_driving_score_title"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/iv_datamiles_service_guide"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@null"
+                    android:src="@drawable/datamiles_service_guide"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_datamiles_driving_score_error"
@@ -115,16 +132,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/iv_datamiles_service_guide"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@null"
-                    android:src="@drawable/datamiles_service_guide"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!--안전 운전 점수 Container-->
@@ -139,22 +146,20 @@
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/l_datamiles_guide_container">
+                app:layout_constraintTop_toBottomOf="@id/l_datamiles_guide_container"
+                tools:visibility="visible">
 
-                <com.marcinmoskala.arcseekbar.ArcSeekBar
-                    android:id="@+id/asb_datamiles_driving_score"
-                    android:layout_width="220dp"
-                    android:layout_height="128dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:maxProgress="100"
-                    app:progressBackgroundColor="@color/x_b8bdbb"
-                    app:progressBackgroundWidth="10dp"
-                    app:progressColor="@color/x_996449"
-                    app:progressWidth="10dp"
-                    app:roundEdges="false"
-                    app:thumb="@drawable/thumb_driving_score" />
+                <ImageView
+                    android:id="@+id/iv_datamiles_driving_score_icon"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="3dp"
+                    android:background="@drawable/sel_icon_driving_before_score"
+                    android:padding="0dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_before_score"
+                    app:layout_constraintStart_toEndOf="@id/tv_datamiles_before_score"
+                    app:layout_constraintTop_toTopOf="@id/tv_datamiles_before_score" />
 
                 <!--최소 점수-->
                 <TextView
@@ -216,19 +221,6 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_datamiles_before_score_title" />
 
                 <!--전월 대비 점수 증가/감소 아이콘-->
-                <ImageView
-                    android:id="@+id/iv_datamiles_driving_score_icon"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:layout_marginStart="3dp"
-                    android:background="@drawable/sel_icon_driving_before_score"
-                    android:padding="0dp"
-                    android:scaleType="fitXY"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_before_score"
-                    app:layout_constraintStart_toEndOf="@id/tv_datamiles_before_score"
-                    app:layout_constraintTop_toTopOf="@id/tv_datamiles_before_score" />
-
-                <!--점수 산정 가이드 문구-->
                 <TextView
                     android:id="@+id/tv_datamiles_driving_score_guide"
                     style="@style/DataMiles.TextView_Font_RGSTG.757575"
@@ -240,7 +232,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/asb_datamiles_driving_score" />
 
-                <!--점수 전체 랭킹 : 타이틀-->
+                <!--점수 산정 가이드 문구-->
                 <TextView
                     android:id="@+id/tv_datamiles_driving_score_rank_all_title"
                     style="@style/DataMiles.TextView_Font_RGSTG.757575"
@@ -253,7 +245,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_datamiles_driving_score_rank_all" />
 
-                <!--점수 전체 랭킹 : 상위 텍스트-->
+                <!--점수 전체 랭킹 : 타이틀-->
                 <TextView
                     android:id="@+id/tv_datamiles_driving_score_rank_title_1"
                     style="@style/DataMiles.TextView_Font_MGSTG.Black.Rank"
@@ -266,7 +258,7 @@
                     app:layout_constraintStart_toEndOf="@id/tv_datamiles_driving_score_rank_all_title"
                     app:layout_constraintTop_toTopOf="@id/tv_datamiles_driving_score_rank_all" />
 
-                <!--점수 전체 랭킹 : 퍼센트-->
+                <!--점수 전체 랭킹 : 상위 텍스트-->
                 <TextView
                     android:id="@+id/tv_datamiles_driving_score_rank_all"
                     style="@style/DataMiles.TextView_Font_MGSTG.Black.Rank"
@@ -279,20 +271,7 @@
                     app:layout_constraintStart_toEndOf="@id/tv_datamiles_driving_score_rank_title_1"
                     app:layout_constraintTop_toTopOf="@id/v_datamiles_verticalline" />
 
-                <!--점수 랭킹 구분 라인-->
-                <View
-                    android:id="@+id/v_datamiles_verticalline"
-                    android:layout_width="1dp"
-                    android:layout_height="10dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@color/x_e5e5e5"
-                    app:layout_constraintEnd_toStartOf="@id/tv_datamiles_driving_score_rank_category_title"
-                    app:layout_constraintStart_toEndOf="@id/tv_datamiles_driving_score_rank_all"
-                    app:layout_constraintTop_toBottomOf="@id/tv_datamiles_driving_score_guide" />
-
-                <!--점수 동일차종 랭킹 : 타이틀-->
+                <!--점수 전체 랭킹 : 퍼센트-->
                 <TextView
                     android:id="@+id/tv_datamiles_driving_score_rank_category_title"
                     style="@style/DataMiles.TextView_Font_RGSTG.757575"
@@ -304,7 +283,7 @@
                     app:layout_constraintStart_toEndOf="@id/v_datamiles_verticalline"
                     app:layout_constraintTop_toTopOf="@id/v_datamiles_verticalline" />
 
-                <!--점수 동일차종 랭킹 : 상위 텍스트-->
+                <!--점수 랭킹 구분 라인-->
                 <TextView
                     android:id="@+id/tv_datamiles_driving_score_rank_title_2"
                     style="@style/DataMiles.TextView_Font_MGSTG.Black.Rank"
@@ -317,7 +296,7 @@
                     app:layout_constraintStart_toEndOf="@id/tv_datamiles_driving_score_rank_category_title"
                     app:layout_constraintTop_toTopOf="@id/tv_datamiles_driving_score_rank_category_title" />
 
-                <!--점수 동일차종 랭킹 : 퍼센트-->
+                <!--점수 동일차종 랭킹 : 타이틀-->
                 <TextView
                     android:id="@+id/tv_datamiles_driving_score_rank_category"
                     style="@style/DataMiles.TextView_Font_MGSTG.Black.Rank"
@@ -330,7 +309,7 @@
                     app:layout_constraintStart_toEndOf="@id/tv_datamiles_driving_score_rank_title_2"
                     app:layout_constraintTop_toTopOf="@id/tv_datamiles_driving_score_rank_category_title" />
 
-                <!--운전 점수 평가-->
+                <!--점수 동일차종 랭킹 : 상위 텍스트-->
                 <TextView
                     android:id="@+id/tv_datamiles_driving_score_description"
                     style="@style/DataMiles.TextView_Font_RGSTG.Black"
@@ -350,10 +329,38 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/asb_datamiles_driving_score" />
+
+                <!--점수 동일차종 랭킹 : 퍼센트-->
+                <View
+                    android:id="@+id/v_datamiles_verticalline"
+                    android:layout_width="1dp"
+                    android:layout_height="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/x_e5e5e5"
+                    app:layout_constraintEnd_toStartOf="@id/tv_datamiles_driving_score_rank_category_title"
+                    app:layout_constraintStart_toEndOf="@id/tv_datamiles_driving_score_rank_all"
+                    app:layout_constraintTop_toBottomOf="@id/tv_datamiles_driving_score_guide" />
+
+                <!--운전 점수 평가-->
+                <com.marcinmoskala.arcseekbar.ArcSeekBar
+                    android:id="@+id/asb_datamiles_driving_score"
+                    android:layout_width="220dp"
+                    android:layout_height="128dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:maxProgress="100"
+                    app:progressBackgroundColor="@color/x_b8bdbb"
+                    app:progressBackgroundWidth="10dp"
+                    app:progressColor="@color/x_996449"
+                    app:progressWidth="10dp"
+                    app:roundEdges="false"
+                    app:thumb="@drawable/thumb_driving_score" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!--소모품 현황-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_datamiles_expenables_container"
             android:layout_width="match_parent"
@@ -370,7 +377,7 @@
             <!--타이틀 : 소모품 현황-->
             <TextView
                 android:id="@+id/tv_datamiles_expendables_title"
-                style="@style/DataMiles.TextView_Font_RGSHG.Black.Title"
+                style="@style/DataMiles.TextView_Font_LGSHG.Black.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/gm01_expendables"
@@ -426,24 +433,48 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_datamiles_expendables_total_distance_title">
 
-                <TextView
-                    android:id="@+id/tv_datamiles_expenables_error"
-                    style="@style/DataMiles.TextView_Font_RGSHG.Black"
+                <LinearLayout
+                    android:id="@+id/ll_datamiles_expenables_error"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginBottom="50dp"
-                    android:background="@color/x_f8f8f8"
                     android:gravity="center"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6dp"
-                    android:text="@string/gm01_error_response_fail"
-                    android:textSize="16dp"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:paddingTop="47dp"
+                    android:paddingBottom="47dp">
+
+                    <TextView
+                        style="@style/DataMiles.TextView_Font_RGSHG.Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/x_f8f8f8"
+                        android:gravity="center"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="6dp"
+                        android:text="@string/gm01_error_response_fail"
+                        android:textSize="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_datamiles_expenables_error"
+                        style="@style/DataMiles.TextView_Font_RGSTG.Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="6dp"
+                        android:background="@drawable/bg_trans_underline_000000"
+                        android:text="@string/gm01_error_response_fail_01"
+                        android:textSize="14dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </LinearLayout>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -463,7 +494,7 @@
             <!--타이틀 : 차량 진단-->
             <TextView
                 android:id="@+id/tv_datamiles_vehicle_diagnostic_title"
-                style="@style/DataMiles.TextView_Font_RGSHG.Black.Title"
+                style="@style/DataMiles.TextView_Font_LGSHG.Black.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/gm01_vehicle_diagnostic"

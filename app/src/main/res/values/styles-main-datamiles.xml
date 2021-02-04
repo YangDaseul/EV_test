@@ -27,6 +27,10 @@
     </style>
 
     <!--색상 구분 Style-->
+    <style name="DataMiles.TextView_Font_LGSHG.Black">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
     <style name="DataMiles.TextView_Font_RGSHG.White">
         <item name="android:textColor">@android:color/white</item>
     </style>
@@ -56,6 +60,10 @@
     </style>
 
     <!--중복 사용 요소 구분 Style-->
+    <style name="DataMiles.TextView_Font_LGSHG.Black.Title">
+        <item name="android:textSize">18dp</item>
+    </style>
+
     <style name="DataMiles.TextView_Font_RGSHG.Black.Title">
         <item name="android:textSize">18dp</item>
     </style>

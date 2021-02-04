@@ -202,14 +202,14 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                 case SUCCESS: {
                     binding.tvDatamilesExpendablesTotalDistanceTitle.setVisibility(View.VISIBLE);
                     binding.tvDatamilesExpendablesTotalDistance.setVisibility(View.VISIBLE);
-                    binding.tvDatamilesExpenablesError.setVisibility(View.GONE);
+                    binding.llDatamilesExpenablesError.setVisibility(View.GONE);
                     bindReplacements(context, binding, replacements, item.getServiceCouponList());
                     break;
                 }
                 case FAIL: {
                     binding.tvDatamilesExpendablesTotalDistanceTitle.setVisibility(View.GONE);
                     binding.tvDatamilesExpendablesTotalDistance.setVisibility(View.GONE);
-                    binding.tvDatamilesExpenablesError.setVisibility(View.VISIBLE);
+                    binding.llDatamilesExpenablesError.setVisibility(View.VISIBLE);
                     binding.tvDatamilesExpenablesError.setOnClickListener(view -> onSingleClickListener.onClick(view));
                     break;
                 }
@@ -360,6 +360,8 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                     // 잔여 거리. 마이너스 남은 거리는 0으로 처리.
                     TextView txtDistance = view.findViewById(R.id.tv_datamiles_expendables_distance);
                     ProgressBar progDistance = view.findViewById(R.id.progress_datamiles_expendables);
+
+                    progDistance.setEnabled(stdDistance <= odoMeter ? false : true);
 
                     // 잔여 거리 대비 퍼센트 계산을 진행. 최대 값 기준은 ProgressBar의 최대치를 기준.
                     if (diff > 0) {
