@@ -75,7 +75,7 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (!ui.rv.canScrollVertically(1)) {//scroll end
+                if (!ui.rv.canScrollVertically(1)&&ui.rv.getScrollState()==RecyclerView.SCROLL_STATE_IDLE) {//scroll end
                     if(adapter.getItemCount()>0&&adapter.getItemCount() >= adapter.getPageNo() * PAGE_SIZE)
                         reqMYP2002(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), adapter.getPageNo() + 1);
                 }

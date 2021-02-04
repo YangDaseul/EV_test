@@ -163,7 +163,7 @@ public class FragmentServiceRepairHistory extends SubFragment<FragmentServiceRep
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (!me.rv.canScrollVertically(1)) {//scroll end
+                if (!me.rv.canScrollVertically(1)&&me.rv.getScrollState()==RecyclerView.SCROLL_STATE_IDLE) {//scroll end
                     if (adapter.getItemCount() >= adapter.getPageNo() * PAGE_SIZE)
                         requestREQ1014((adapter.getPageNo() + 1) + "");
                 }

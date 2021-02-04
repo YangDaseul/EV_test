@@ -122,6 +122,7 @@ public class ServiceDriveHistoryActivity extends SubActivity<ActivityServiceDriv
         super.onDestroy();
     }
 
+
     private void setAdapter() {
         //대리운전 이용 내역 어댑터 (인스턴스 타입 맞나 확인)
         adapter = new ServiceDriveHistoryAdapter();
@@ -131,6 +132,13 @@ public class ServiceDriveHistoryActivity extends SubActivity<ActivityServiceDriv
 
         //끝까지 스크롤하면 다음 페이지 요청
         ui.rvServiceDriveHistoryList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+            }
+
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -138,7 +146,7 @@ public class ServiceDriveHistoryActivity extends SubActivity<ActivityServiceDriv
                 //scroll end
                 // 페이지 포화 검사해서 데이터가 더 없는 것 같으면 다음 거 달라고 안 할 생각이었는데
                 // 서버에서 받은 것 중에 버리는 데이터가 있어서 단순히 목록 길이만 보고 판단이 안 돼서 그냥 스크롤만 보고 판단
-                if (!ui.rvServiceDriveHistoryList.canScrollVertically(1)) {
+                if (!ui.rvServiceDriveHistoryList.canScrollVertically(1)&&ui.rvServiceDriveHistoryList.getScrollState()==RecyclerView.SCROLL_STATE_IDLE) {
                     reqNextPage();
                 }
             }

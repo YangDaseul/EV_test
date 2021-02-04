@@ -54,7 +54,7 @@ public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (!ui.rvNoti.canScrollVertically(1)) { //scroll end
+                if (!ui.rvNoti.canScrollVertically(1)&&ui.rvNoti.getScrollState()==RecyclerView.SCROLL_STATE_IDLE) { //scroll end
                     if (adapter.getItemCount() >= adapter.getPageNo() * PAGE_SIZE)
                         reqMYP8005();
                 }

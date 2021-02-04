@@ -56,7 +56,7 @@ public class SearchAddressActivity extends SubActivity<ActivitySearchAddressBind
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (!ui.lSearchParent.rv.canScrollVertically(1)) {//scroll end
+                if (!ui.lSearchParent.rv.canScrollVertically(1)&&ui.lSearchParent.rv.getScrollState()==RecyclerView.SCROLL_STATE_IDLE) {//scroll end
                     if(adapter.getItemCount() >= adapter.getPageNo() * PAGE_SIZE) searchAddress();
                 }
             }
