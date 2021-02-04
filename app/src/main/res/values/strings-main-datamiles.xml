@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--데이터 마일스 : 공통-->
-    <string name="gm01_datamiles_title">datamiles</string>
+    <string name="gm01_datamiles_title">나의 드라이빙\n데이터</string>
     <string name="gm01_more">datamiles</string>
     <string name="gm01_update">업데이트</string>
 
@@ -15,6 +15,7 @@
     <string name="gm01_format_rank">%d%%</string>
 
     <string name="gm01_error_response_fail">정보를 불러 올 수 없습니다.\n잠시 후 새로 고침 해주세요.</string>
+    <string name="gm01_error_response_fail_01">새로 고침</string>
 
     <!--데이터 마일스 : 소모품 현황-->
     <string name="gm01_expendables">소모품 현황</string>

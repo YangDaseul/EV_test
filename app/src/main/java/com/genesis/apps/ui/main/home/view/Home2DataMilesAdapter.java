@@ -202,14 +202,14 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                 case SUCCESS: {
                     binding.tvDatamilesExpendablesTotalDistanceTitle.setVisibility(View.VISIBLE);
                     binding.tvDatamilesExpendablesTotalDistance.setVisibility(View.VISIBLE);
-                    binding.tvDatamilesExpenablesError.setVisibility(View.GONE);
+                    binding.llDatamilesExpenablesError.setVisibility(View.GONE);
                     bindReplacements(context, binding, replacements, item.getServiceCouponList());
                     break;
                 }
                 case FAIL: {
                     binding.tvDatamilesExpendablesTotalDistanceTitle.setVisibility(View.GONE);
                     binding.tvDatamilesExpendablesTotalDistance.setVisibility(View.GONE);
-                    binding.tvDatamilesExpenablesError.setVisibility(View.VISIBLE);
+                    binding.llDatamilesExpenablesError.setVisibility(View.VISIBLE);
                     binding.tvDatamilesExpenablesError.setOnClickListener(view -> onSingleClickListener.onClick(view));
                     break;
                 }
