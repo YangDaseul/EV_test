@@ -361,6 +361,8 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                     TextView txtDistance = view.findViewById(R.id.tv_datamiles_expendables_distance);
                     ProgressBar progDistance = view.findViewById(R.id.progress_datamiles_expendables);
 
+                    progDistance.setEnabled(stdDistance <= odoMeter ? false : true);
+
                     // 잔여 거리 대비 퍼센트 계산을 진행. 최대 값 기준은 ProgressBar의 최대치를 기준.
                     if (diff > 0) {
                         // 잔여 거리가 있을 경우 애니메이션 처리 진행.
