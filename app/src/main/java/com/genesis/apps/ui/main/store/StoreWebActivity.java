@@ -211,7 +211,8 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
             }
             return true;
         } else if (url.startsWith("genesisapps://openView")) {
-            startActivitySingleTop(new Intent(this, StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, uri.getQueryParameter("url")), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+            fragment.loadUrl(uri.getQueryParameter("url"));
+//            startActivitySingleTop(new Intent(this, StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, uri.getQueryParameter("url")), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
             return true;
         } else if (url.startsWith("genesisapps://open")) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
