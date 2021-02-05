@@ -49,7 +49,7 @@ public class SimilarCarContractDetailActivity extends SubActivity<ActivitySimila
             e.printStackTrace();
         } finally {
             if (response==null) {
-                exitPage("게약 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                exitPage("계약 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }else{
                 ui.setData(response);
             }

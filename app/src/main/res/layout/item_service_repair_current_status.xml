@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.text.Html" />
+
         <import type="android.text.TextUtils" />
 
         <import type="android.view.View" />
@@ -21,9 +23,9 @@
             name="adapter"
             type="com.genesis.apps.ui.main.service.view.ServiceRepairCurrentStatusAdapter" />
 
-<!--        <variable-->
-<!--            name="listener"-->
-<!--            type="com.genesis.apps.ui.common.view.listener.OnSingleClickListener" />-->
+        <!--        <variable-->
+        <!--            name="listener"-->
+        <!--            type="com.genesis.apps.ui.common.view.listener.OnSingleClickListener" />-->
 
     </data>
 
@@ -31,300 +33,207 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/x_ffffff"
-        android:visibility="@{data==null ? View.GONE : View.VISIBLE}"
         android:paddingTop="50dp"
-        android:paddingBottom="40dp">
+        android:paddingBottom="40dp"
+        android:visibility="@{data==null ? View.GONE : View.VISIBLE}">
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/l_stus_cd"
+        <TextView
+            android:id="@+id/tv_stus_cd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="center"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="7dp"
+            android:text="@{Html.fromHtml(@string/sm_r_rsv05_43(adapter.getStusName(data.stusCd)), Html.FROM_HTML_MODE_COMPACT)   }"
+            android:textColor="@color/x_996449"
+            android:textSize="22dp"
             android:visibility="@{TextUtils.isEmpty(data.stusCd) || data.stusCd.equalsIgnoreCase(`0000`) ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="차량 상태 정보 딜리버리 완료" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_stus_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:visibility="@{ (data==null || TextUtils.isEmpty(data.asnCd) || data.stusCd.equalsIgnoreCase(``)) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_stus_cd">
+
 
             <TextView
-                android:id="@+id/tv_stus_cd"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_title_reserve"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:fontFamily="@font/light_genesissansheadglobal"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="7dp"
-                android:text="@string/sm_r_rsv05_4"
+                android:lineSpacingExtra="8dp"
+                android:text="@string/sm_r_rsv05_17"
                 android:textColor="@color/x_000000"
                 android:textSize="22dp"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/iv_stus_cd"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/iv_stus_cd"
+                android:id="@+id/btn_repair_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/bg_00000000_underline_000000"
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="7dp"
-                android:textColor="@color/x_996449"
-                android:textSize="22dp"
-                android:text="@{adapter.getStusName(data.stusCd)}"
-                android:maxLines="1"
-                android:ellipsize="end"
-                app:layout_constrainedWidth="true"
-                app:layout_constraintStart_toEndOf="@+id/tv_stus_cd"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="딜리버리 완료"/>
+                android:lineSpacingExtra="30dp"
+                android:onClick="@{(view)->adapter.onSingleClickListener.onClick(view)}"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
+                android:paddingBottom="5dp"
+                android:text="@string/sm_r_rsv05_39"
+                android:textColor="@color/x_000000"
+                android:textSize="14dp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_title_reserve"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_reserve" />
+
+            <ImageView
+                android:id="@+id/iv_arrow_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_arrow_open_r"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_repair_image"
+                app:layout_constraintEnd_toEndOf="@+id/tv_title_reserve"
+                app:layout_constraintTop_toTopOf="@+id/btn_repair_image"
+                app:tint="@color/x_996449" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/l_rpar_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/x_e5e5e5"
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_title_reserve"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_reserve"
+                app:layout_constraintTop_toBottomOf="@+id/btn_repair_image">
+
+                <include
+                    android:id="@+id/l_asn_nm"
+                    layout="@layout/item_rpar_status"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:msg="@{data.asnNm}"
+                    app:title="@{@string/sm_r_rsv03_04_4}" />
+
+                <include
+                    android:id="@+id/l_pbz_adr"
+                    layout="@layout/item_rpar_status"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/l_asn_nm"
+                    app:msg="@{data.asnAddr}"
+                    app:title="@{@string/sm_r_rsv03_04_5}" />
+
+                <include
+                    android:id="@+id/l_reptn"
+                    layout="@layout/item_rpar_status"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/l_pbz_adr"
+                    app:msg="@{PhoneNumberUtils.formatNumber((data.asnTelNo ?? ``), Locale.getDefault().getCountry())}"
+                    app:title="@{@string/sm_r_rsv05_20}" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <!--        <TextView-->
+            <!--            android:id="@+id/tv_title_asn_nm"-->
+            <!--            style="@style/LeasingCarTextViewTitle"-->
+            <!--            android:layout_marginTop="20dp"-->
+            <!--            android:text="@string/sm_r_rsv03_04_4"-->
+            <!--            android:textColor="@color/x_525252"-->
+            <!--            app:layout_constraintEnd_toEndOf="parent"-->
+            <!--            app:layout_constraintStart_toStartOf="parent"-->
+            <!--            app:layout_constraintTop_toBottomOf="@+id/btn_repair_image" />-->
+
+            <!--        <TextView-->
+            <!--            android:id="@+id/tv_asn_nm"-->
+            <!--            style="@style/LeasingCarTextView"-->
+            <!--            android:layout_marginTop="5dp"-->
+            <!--            android:text="@{data.asnNm}"-->
+            <!--            app:layout_constraintEnd_toEndOf="parent"-->
+            <!--            app:layout_constraintStart_toStartOf="parent"-->
+            <!--            app:layout_constraintTop_toBottomOf="@+id/tv_title_asn_nm"-->
+            <!--            tools:text="금천 제네시스 센터" />-->
+
+
+            <!--        <TextView-->
+            <!--            android:id="@+id/tv_title_pbz_adr"-->
+            <!--            style="@style/LeasingCarTextViewTitle"-->
+            <!--            android:layout_marginLeft="20dp"-->
+            <!--            android:layout_marginTop="20dp"-->
+            <!--            android:layout_marginRight="20dp"-->
+            <!--            android:text="@string/sm_r_rsv03_04_5"-->
+            <!--            android:textColor="@color/x_525252"-->
+            <!--            app:layout_constraintEnd_toEndOf="parent"-->
+            <!--            app:layout_constraintStart_toStartOf="parent"-->
+            <!--            app:layout_constraintTop_toBottomOf="@+id/tv_asn_nm" />-->
+
+            <!--        <TextView-->
+            <!--            android:id="@+id/tv_pbz_adr"-->
+            <!--            style="@style/LeasingCarTextView"-->
+            <!--            android:layout_marginLeft="20dp"-->
+            <!--            android:layout_marginTop="5dp"-->
+            <!--            android:layout_marginRight="20dp"-->
+            <!--            android:text="@{data.asnAddr}"-->
+            <!--            app:layout_constraintEnd_toEndOf="parent"-->
+            <!--            app:layout_constraintStart_toStartOf="parent"-->
+            <!--            app:layout_constraintTop_toBottomOf="@+id/tv_title_pbz_adr"-->
+            <!--            tools:text="서울특별시 금천구 가산디지털1로 168" />-->
+
+
+            <!--        <TextView-->
+            <!--            android:id="@+id/tv_title_reptn"-->
+            <!--            style="@style/LeasingCarTextViewTitle"-->
+            <!--            android:layout_marginLeft="20dp"-->
+            <!--            android:layout_marginTop="20dp"-->
+            <!--            android:layout_marginRight="20dp"-->
+            <!--            android:text="@string/sm_r_rsv05_20"-->
+            <!--            android:textColor="@color/x_525252"-->
+            <!--            app:layout_constraintEnd_toEndOf="parent"-->
+            <!--            app:layout_constraintStart_toStartOf="parent"-->
+            <!--            app:layout_constraintTop_toBottomOf="@+id/tv_pbz_adr" />-->
+
+            <!--        <TextView-->
+            <!--            android:id="@+id/tv_reptn"-->
+            <!--            style="@style/LeasingCarTextView"-->
+            <!--            android:layout_marginLeft="20dp"-->
+            <!--            android:layout_marginTop="5dp"-->
+            <!--            android:layout_marginRight="20dp"-->
+            <!--            android:text="@{PhoneNumberUtils.formatNumber((data.asnTelNo ?? ``), Locale.getDefault().getCountry())}"-->
+            <!--            app:layout_constraintEnd_toEndOf="parent"-->
+            <!--            app:layout_constraintStart_toStartOf="parent"-->
+            <!--            app:layout_constraintTop_toBottomOf="@+id/tv_title_reptn"-->
+            <!--            tools:text="02-0000-0000" />-->
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:id="@+id/l_stus_cd"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginLeft="20dp"-->
-<!--            android:layout_marginRight="20dp"-->
-<!--            android:background="@drawable/bg_ffffff_stroke_e2e2e2"-->
-<!--            android:padding="15dp"-->
-<!--            android:visibility="@{TextUtils.isEmpty(data.stusCd) || data.stusCd.equalsIgnoreCase(`0000`) ? View.GONE : View.VISIBLE}"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent">-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/iv_stus_cd"-->
-<!--                android:layout_width="50dp"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:background="@{adapter.isFinish(data.stusCd) ? @drawable/bg_141414_round_99 : @drawable/bg_ffffff_round_99_stroke_ba544d}"-->
-<!--                android:fontFamily="@font/regular_genesissanstextglobal"-->
-<!--                android:gravity="center"-->
-<!--                android:letterSpacing="-0.01"-->
-<!--                android:lineSpacingExtra="7dp"-->
-<!--                android:textColor="@{adapter.isFinish(data.stusCd) ? @color/x_ffffff : @color/x_ba544d}"-->
-<!--                android:textSize="11dp"-->
-<!--                android:text="@{adapter.getStusName(data.stusCd)}"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                tools:text="작업대기"-->
-<!--                tools:background="@drawable/bg_ffffff_round_99_stroke_ba544d"/>-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/tv_stus_cd"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginRight="10dp"-->
-<!--                android:fontFamily="@font/regular_genesissanstextglobal"-->
-<!--                android:letterSpacing="-0.01"-->
-<!--                android:lineSpacingExtra="4dp"-->
-<!--                android:text="@string/sm_r_rsv05_4"-->
-<!--                android:textColor="@color/x_000000"-->
-<!--                android:textSize="14dp"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toStartOf="@+id/iv_stus_cd"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/l_stus_detail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:visibility="@{ (data==null || TextUtils.isEmpty(data.asnCd) || data.stusCd.equalsIgnoreCase(``)) ? View.GONE : View.VISIBLE}"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/l_stus_cd">
-
-
-        <TextView
-            android:id="@+id/tv_title_reserve"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:fontFamily="@font/light_genesissansheadglobal"
-            android:letterSpacing="-0.01"
-            android:lineSpacingExtra="8dp"
-            android:text="@string/sm_r_rsv05_17"
-            android:textColor="@color/x_000000"
-            android:textSize="22dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <TextView
-            android:id="@+id/btn_repair_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="15dp"
-            android:paddingBottom="5dp"
-            android:paddingStart="2dp"
-            android:paddingEnd="2dp"
-            android:fontFamily="@font/regular_genesissanstextglobal"
-            android:letterSpacing="-0.01"
-            android:lineSpacingExtra="30dp"
-            android:text="@string/sm_r_rsv05_39"
-            android:textColor="@color/x_000000"
-            android:textSize="14dp"
-            android:background="@drawable/bg_00000000_underline_000000"
-            android:onClick="@{(view)->adapter.onSingleClickListener.onClick(view)}"
-            app:layout_constraintEnd_toEndOf="@+id/tv_title_reserve"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title_reserve"/>
-
-        <ImageView
-            android:id="@+id/iv_arrow_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/btn_arrow_open_r"
-            app:layout_constraintEnd_toEndOf="@+id/tv_title_reserve"
-            app:layout_constraintTop_toTopOf="@+id/btn_repair_image"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_repair_image"
-            app:tint="@color/x_996449" />
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/l_rpar_status"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@color/x_e5e5e5"
-            android:paddingBottom="1dp"
-            android:paddingTop="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/btn_repair_image"
-            app:layout_constraintStart_toStartOf="@+id/tv_title_reserve"
-            app:layout_constraintEnd_toEndOf="@+id/tv_title_reserve">
-
-            <include
-                android:id="@+id/l_asn_nm"
-                layout="@layout/item_rpar_status"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:title="@{@string/sm_r_rsv03_04_4}"
-                app:msg="@{data.asnNm}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <include
-                android:id="@+id/l_pbz_adr"
-                layout="@layout/item_rpar_status"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                app:title="@{@string/sm_r_rsv03_04_5}"
-                app:msg="@{data.asnAddr}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/l_asn_nm"/>
-
-            <include
-                android:id="@+id/l_reptn"
-                layout="@layout/item_rpar_status"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                app:title="@{@string/sm_r_rsv05_20}"
-                app:msg="@{PhoneNumberUtils.formatNumber((data.asnTelNo ?? ``), Locale.getDefault().getCountry())}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/l_pbz_adr"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_title_asn_nm"-->
-<!--            style="@style/LeasingCarTextViewTitle"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:text="@string/sm_r_rsv03_04_4"-->
-<!--            android:textColor="@color/x_525252"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/btn_repair_image" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_asn_nm"-->
-<!--            style="@style/LeasingCarTextView"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            android:text="@{data.asnNm}"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/tv_title_asn_nm"-->
-<!--            tools:text="금천 제네시스 센터" />-->
-
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_title_pbz_adr"-->
-<!--            style="@style/LeasingCarTextViewTitle"-->
-<!--            android:layout_marginLeft="20dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:layout_marginRight="20dp"-->
-<!--            android:text="@string/sm_r_rsv03_04_5"-->
-<!--            android:textColor="@color/x_525252"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/tv_asn_nm" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_pbz_adr"-->
-<!--            style="@style/LeasingCarTextView"-->
-<!--            android:layout_marginLeft="20dp"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            android:layout_marginRight="20dp"-->
-<!--            android:text="@{data.asnAddr}"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/tv_title_pbz_adr"-->
-<!--            tools:text="서울특별시 금천구 가산디지털1로 168" />-->
-
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_title_reptn"-->
-<!--            style="@style/LeasingCarTextViewTitle"-->
-<!--            android:layout_marginLeft="20dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:layout_marginRight="20dp"-->
-<!--            android:text="@string/sm_r_rsv05_20"-->
-<!--            android:textColor="@color/x_525252"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/tv_pbz_adr" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_reptn"-->
-<!--            style="@style/LeasingCarTextView"-->
-<!--            android:layout_marginLeft="20dp"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            android:layout_marginRight="20dp"-->
-<!--            android:text="@{PhoneNumberUtils.formatNumber((data.asnTelNo ?? ``), Locale.getDefault().getCountry())}"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/tv_title_reptn"-->
-<!--            tools:text="02-0000-0000" />-->
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

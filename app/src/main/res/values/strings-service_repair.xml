@@ -90,6 +90,8 @@
     <string name="sm_r_rsv05_39">수리 사진</string>
     <string name="sm_r_rsv05_40">픽업 현황</string>
     <string name="sm_r_rsv05_41">딜리버리 현황</string>
+    <string name="sm_r_rsv05_42">차량 현재 상태 %s</string>
+    <string name="sm_r_rsv05_43"><![CDATA[<font color="#000000">차량 현재 상태</font> %s]]></string>
 
     <string name="sm_r_history01_1">업체명</string>
     <string name="sm_r_history01_2">작업내역</string>

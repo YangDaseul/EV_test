@@ -97,7 +97,7 @@ public class SimilarCarContractHistoryActivity extends SubActivity<ActivitySimil
             e.printStackTrace();
         } finally {
             if (TextUtils.isEmpty(ctrctNo)) {
-                exitPage("게약 번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                exitPage("계약 번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }else{
                 lgnViewModel.reqSTO1003(new STO_1003.Request(APPIAInfo.GM02_CTR01.getId(), ctrctNo));
             }
@@ -154,5 +154,4 @@ public class SimilarCarContractHistoryActivity extends SubActivity<ActivitySimil
 
         return isFinsih;
     }
-
 }
