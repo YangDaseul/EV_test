@@ -15,5 +15,5 @@
         android:background="@color/x_1a1a1a"
         android:visibility="gone"
         tools:text="차별화 된 차체/도장 수리를 위한 인력/장비/시설/매뉴얼 정비역량을 보유한 우수 블루핸즈"
-        tools:visibility="gone"/>
+        tools:visibility="visible"/>
 </layout>
