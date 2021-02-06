@@ -60,7 +60,7 @@ public class CardRepository {
                 if(count!=1){//1개가 아닐 경우 서버 리스트에서
                     //카드 상태가 정상이고 카드번호가 있는 것 중에서 발급일자가 가장 최신인 카드의 카드번호 추출
                     try {
-                        cardNo = cardVOList.stream().filter(data -> data.getCardStusNm().equalsIgnoreCase(CardVO.CARD_STATUS_10) && !TextUtils.isEmpty(data.getCardNo())).max(Comparator.comparingInt(data -> Integer.parseInt(data.getCardIsncSubspDt()))).get().getCardNo();
+                        cardNo = cardVOList.stream().filter(data -> (data.getCardStusNm().equalsIgnoreCase(CardVO.CARD_STATUS_10)||data.getCardStusNm().equalsIgnoreCase(CardVO.CARD_STATUS_0)) && !TextUtils.isEmpty(data.getCardNo())).max(Comparator.comparingInt(data -> Integer.parseInt(data.getCardIsncSubspDt()))).get().getCardNo();
                     }catch (Exception e){
                         e.printStackTrace();
                     }
