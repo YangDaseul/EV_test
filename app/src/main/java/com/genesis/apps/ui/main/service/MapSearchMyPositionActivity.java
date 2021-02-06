@@ -27,6 +27,7 @@ import com.genesis.apps.comm.viewmodel.RoadWinViewModel;
 import com.genesis.apps.databinding.ActivityMap2Binding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomAddressBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.google.gson.Gson;
 import com.hmns.playmap.PlayMapPoint;
@@ -59,7 +60,22 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
         getDataFromIntent();
         setViewModel();
         setObserver();
-        reqMyLocation();
+
+        checkEnableGPS(() -> {
+            if (selectAddressVO == null) {
+                //기 선택된 위치 정보가 없으면 map을 내 위치로 초기화
+                initView(37.463936, 127.042953);
+                lgnViewModel.setPosition(37.463936, 127.042953);
+            } else {
+                initView(selectAddressVO.getCenterLat(), selectAddressVO.getCenterLon());
+                lgnViewModel.setPosition(selectAddressVO.getCenterLat(), selectAddressVO.getCenterLon());
+            }
+            //내위치는 항상 저장
+            lgnViewModel.setMyPosition(37.463936, 127.042953);
+        }, () -> {
+            reqMyLocation();
+        });
+
     }
 
     //요구사항 변경에 따라 비활성화
@@ -335,21 +351,6 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
         showFragment(new SearchAddressHMNFragment(), bundle);
     }
 
-//    /**
-//     * drawMarkerItem 지도에 마커를 그린다.
-//     */
-//    public void drawMarkerItem(PlayMapGeoItem item, int iconId) {
-//        PlayMapMarker markerItem = new PlayMapMarker();
-////        PlayMapPoint point = mapView.getMapCenterPoint();
-//        PlayMapPoint point = new PlayMapPoint(item.centerLat, item.centerLon);
-//        markerItem.setMapPoint(point);
-//        markerItem.setCanShowCallout(false);
-//        markerItem.setAutoCalloutVisible(false);
-//        markerItem.setIcon(((BitmapDrawable) getResources().getDrawable(iconId, null)).getBitmap());
-//        ui.pmvMapView.addMarkerItem("center", markerItem);
-//    }
-
-
     private void reqMyLocation() {
         showProgressDialog(true);
         findMyLocation(location -> {
@@ -373,6 +374,19 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
             });
 
         }, 5000, GpsRetType.GPS_RETURN_HIGH, false);
+    }
+
+    private void checkEnableGPS(Runnable disableGPS, Runnable enableGPS) {
+        if (!isGpsEnable()) {
+            MiddleDialog.dialogGPS(this, () -> turnGPSOn(isGPSEnable -> {
+                Log.v("test","value:"+isGPSEnable);
+            }), () -> {
+                //현대양재사옥위치
+                disableGPS.run();
+            });
+        } else {
+            enableGPS.run();
+        }
     }
 
 
