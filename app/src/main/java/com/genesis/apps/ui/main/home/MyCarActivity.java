@@ -196,8 +196,10 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                             vehicleVO.setDelExpDay("7");
                             vehicleVO.setDelExpYn(VariableType.DELETE_EXPIRE_Y);
                             gnsViewModel.updateVehicleToDB(vehicleVO);
-                            updateDataToAdapter(vehicleVO, pos);
+//                            updateDataToAdapter(vehicleVO, pos);
                             SnackBarUtil.show(this, getString(R.string.gm_carlst01_snackbar_4));
+                            gnsViewModel.reqGNS1001(new GNS_1001.Request(APPIAInfo.GM_CARLST01.getId()));
+
                         }catch (Exception e){
 
                         }
@@ -623,17 +625,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
 //                    ui.vpCar.setCurrentItem(ui.vpCar.getCurrentItem() + 1, true);
                     break;
                 case R.id.iv_favorite://주 이용 차량 설정
-                    try {
-                        if (vehicleVO != null
-                                && !StringUtil.isValidString(vehicleVO.getDelExpYn()).equalsIgnoreCase(VariableType.DELETE_EXPIRE_Y) //삭제 예정 차량이 아니고
-                                && StringUtil.isValidString(vehicleVO.getCustGbCd()).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV) //소유 차량이고
-                                && !StringUtil.isValidString(vehicleVO.getMainVhclYn()).equalsIgnoreCase(VariableType.MAIN_VEHICLE_Y)) { //현재 주 이용 차량이 아니면
-                            //주 이용 차량 설정 가능
-                            gnsViewModel.reqGNS1004(new GNS_1004.Request(APPIAInfo.GM_CARLST01.getId(), StringUtil.isValidString(vehicleVO.getVin())));
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    setFavoriteCar(vehicleVO);
                     break;
                 case R.id.btn_recovery:// 차량 복구
                     if (vehicleVO != null
@@ -729,6 +721,20 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
             }
         } catch (Exception e) {
 
+        }
+    }
+
+    private void setFavoriteCar(VehicleVO vehicleVO) {
+        try {
+            if (vehicleVO != null
+                    && !StringUtil.isValidString(vehicleVO.getDelExpYn()).equalsIgnoreCase(VariableType.DELETE_EXPIRE_Y) //삭제 예정 차량이 아니고
+                    && StringUtil.isValidString(vehicleVO.getCustGbCd()).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV) //소유 차량이고
+                    && !StringUtil.isValidString(vehicleVO.getMainVhclYn()).equalsIgnoreCase(VariableType.MAIN_VEHICLE_Y)) { //현재 주 이용 차량이 아니면
+                //주 이용 차량 설정 가능
+                gnsViewModel.reqGNS1004(new GNS_1004.Request(APPIAInfo.GM_CARLST01.getId(), StringUtil.isValidString(vehicleVO.getVin())));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
