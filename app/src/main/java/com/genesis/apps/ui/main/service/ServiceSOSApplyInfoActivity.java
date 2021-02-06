@@ -6,14 +6,13 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.SOS_1001;
 import com.genesis.apps.comm.model.api.gra.SOS_1004;
 import com.genesis.apps.comm.model.api.gra.SOS_1005;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.vo.SOSStateVO;
-import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.SOSViewModel;
 import com.genesis.apps.databinding.ActivityServiceSosApplyInfoBinding;
@@ -22,9 +21,6 @@ import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
-
-import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_SOS_AREA_CLS_CODE_H;
-import static com.genesis.apps.comm.model.constants.VariableType.SERVICE_SOS_AREA_CLS_CODE_R;
 
 /**
  * @author hjpark

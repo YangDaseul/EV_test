@@ -462,8 +462,8 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
             ui.lCarRegNo.setError(getString(R.string.sm_emgc01_18));
             return false;
         }else if(!StringRe2j.matches(carRegNo, getString(R.string.check_car_vrn))){
-            ui.etCelPhNo.requestFocus();
-            ui.lCelPhNo.setError(getString(R.string.sm_emgc01_27));
+            ui.etCarRegNo.requestFocus();
+            ui.lCarRegNo.setError(getString(R.string.sm_emgc01_27));
             return false;
         }else{
             ui.lCarRegNo.setError(null);
