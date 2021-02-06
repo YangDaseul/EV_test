@@ -247,7 +247,7 @@ class MYPViewModel extends ViewModel {
         Future<PrivilegeVO> future = es.getListeningExecutorService().submit(()->{
             PrivilegeVO privilegeVO = null;
             try {
-                privilegeVO = pvilList.stream().filter(data->data.getJoinPsblCd().equalsIgnoreCase(JOIN_CODE_APPLY_POSSIBLE)||data.getJoinPsblCd().equalsIgnoreCase(JOIN_CODE_APPLYED)).findFirst().orElse(null);
+                privilegeVO = pvilList.stream().filter(data->StringUtil.isValidString(data.getJoinPsblCd()).equalsIgnoreCase(JOIN_CODE_APPLY_POSSIBLE)||StringUtil.isValidString(data.getJoinPsblCd()).equalsIgnoreCase(JOIN_CODE_APPLYED)).findFirst().orElse(null);
             } catch (Exception ignore) {
                 ignore.printStackTrace();
                 privilegeVO = null;
