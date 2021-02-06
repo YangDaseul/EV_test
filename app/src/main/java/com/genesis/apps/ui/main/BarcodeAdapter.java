@@ -104,7 +104,7 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
 
         @Override
         public void onBindView(CardVO item, final int pos) {
-            getBinding().tvCardBg.setText("");
+            getBinding().tvCardBg.setVisibility(View.GONE);
             getBinding().tvInfo.setVisibility(View.GONE);
             getBinding().tvMembershipInfo.setVisibility(View.GONE);
             getBinding().tvMembershipInfo.setTag(R.id.item, item);
@@ -183,8 +183,8 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
                     });
                 }else{
                     getBinding().tvIntegration.setVisibility(View.GONE);
-                    getBinding().tvCardBg.setText(R.string.bcode01_5);
-                    getBinding().ivBarcode.setVisibility(View.GONE);
+                    getBinding().tvCardBg.setVisibility(View.VISIBLE);
+                    getBinding().ivBarcode.setVisibility(View.INVISIBLE);
                 }
             }
 
