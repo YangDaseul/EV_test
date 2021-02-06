@@ -30,6 +30,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="stateHidden"
+        android:resizeableActivity="true"
         tools:replace="android:allowBackup">
         <activity
             android:name=".ui.intro.IntroActivity"

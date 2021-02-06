@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30dp"
+            android:paddingTop="40dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="20dp">
+
+            <include
+                android:id="@+id/l_title"
+                layout="@layout/layout_titlebar_dialog"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/l_title"
+                app:layout_constraintHeight_max="300dp"
+                app:mcv_dateTextAppearance="@style/calendarStyle"
+                app:mcv_headerTextAppearance="@style/calendarStyleHeader"
+                app:mcv_leftArrowMask="@drawable/btn_arrow_open_l"
+                app:mcv_rightArrowMask="@drawable/btn_arrow_open_r"
+                app:mcv_selectionColor="@color/x_000000"
+                app:mcv_showOtherDates="all"
+                app:mcv_weekDayTextAppearance="@style/calendarStyleWeekendTitle" />
+
+
+            <TextView
+                android:id="@+id/tv_category_1"
+                style="@style/BtrFilterEnable2"
+                android:layout_marginTop="20dp"
+                android:tag="A"
+                android:text="@string/sm_r_rsv02_01_p02_2"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@+id/tv_category_2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/calendarView"
+                tools:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_category_2"
+                style="@style/BtrFilterDisable2"
+                android:layout_marginStart="10dp"
+                android:tag="P"
+                android:text="@string/sm_r_rsv02_01_p02_3"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_category_1"
+                app:layout_constraintTop_toTopOf="@+id/tv_category_1"
+                app:layout_goneMarginStart="0dp"
+                tools:visibility="gone" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/l_repair_group"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/calendarView"
+                tools:visibility="visible">
+
+                <TextView
+                    android:id="@+id/tv_title_rsvthopetm"
+                    style="@style/CommonSpinnerTitle"
+                    android:text="@string/sm_r_rsv02_04_11"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_rsvthopetm"
+                    style="@style/CommonTextViewFix2"
+                    android:text="@string/sm_r_rsv02_04_18"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_rsvthopetm" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_rsvthopetm"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_rsvthopetm" />
+
+                <!--            <TextView-->
+                <!--                android:id="@+id/btn_time_10"-->
+                <!--                style="@style/BtrFilterEnable2"-->
+                <!--                android:text="@string/sm_r_rsv02_04_15"-->
+                <!--                android:tag="1000"-->
+                <!--                android:visibility="gone"-->
+                <!--                app:layout_constraintStart_toStartOf="parent"-->
+                <!--                app:layout_constraintEnd_toStartOf="@+id/btn_time_14"-->
+                <!--                app:layout_constraintBottom_toBottomOf="@+id/tv_rsvthopetm"-->
+                <!--                app:layout_constraintTop_toTopOf="@+id/tv_rsvthopetm"-->
+                <!--                tools:visibility="gone"/>-->
+
+                <!--            <TextView-->
+                <!--                android:id="@+id/btn_time_14"-->
+                <!--                style="@style/BtrFilterDisable2"-->
+                <!--                android:text="@string/sm_r_rsv02_04_16"-->
+                <!--                android:tag="1400"-->
+                <!--                android:visibility="gone"-->
+                <!--                android:layout_marginStart="10dp"-->
+                <!--                app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                app:layout_constraintStart_toEndOf="@+id/btn_time_10"-->
+                <!--                app:layout_constraintTop_toTopOf="@+id/btn_time_10"-->
+                <!--                app:layout_constraintBottom_toBottomOf="@+id/btn_time_10"-->
+                <!--                app:layout_goneMarginStart="0dp"-->
+                <!--                tools:visibility="gone"/>-->
+
+                <TextView
+                    android:id="@+id/tv_title_repair_group"
+                    style="@style/ViewMsgInputSubTitle"
+                    android:text="@string/sm_r_rsv02_04_12"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_rsvthopetm" />
+
+                <TextView
+                    android:id="@+id/tv_repair_group"
+                    style="@style/CommonSpinnerItemDisable"
+                    android:text="@string/sm_r_rsv02_04_12"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_repair_group" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="tv_category_1,l_repair_group" />
+
+            <TextView
+                android:id="@+id/btn_next"
+                style="@style/ViewBottomOkBtn"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/gm_carlst_01_32"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/barrier" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <include
+            android:id="@+id/l_progress"
+            layout="@layout/layout_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
+</layout>
