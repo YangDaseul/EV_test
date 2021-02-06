@@ -2,25 +2,24 @@ package com.genesis.apps.ui.main.service;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.api.gra.WSH_1007;
-import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.DDS_1005;
+import com.genesis.apps.comm.model.api.gra.EVL_1001;
+import com.genesis.apps.comm.model.api.gra.WSH_1007;
 import com.genesis.apps.comm.model.api.gra.WSH_1008;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.DDSViewModel;
@@ -28,7 +27,10 @@ import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.ActivityServiceReviewBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
-import com.genesis.apps.ui.main.home.LeasingCarRegisterInputActivity;
+
+import java.util.Locale;
+
+import androidx.lifecycle.ViewModelProvider;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
@@ -59,8 +61,23 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
         getDataFromIntent();
         setViewModel();
         setObserver();
+        reqEval();
 
-        setTitleMsg();
+//        setTitleMsg();
+    }
+
+    private void reqEval() {
+        final String evlScnUri = "genesisapp://menu?id=%s&PI=%s";
+        switch (reviewType) {
+            case REVIEW_WASH:
+                //세차
+                wshViewModel.reqEVL1001(new EVL_1001.Request(APPIAInfo.SM_REVIEW01_P01.getId(), String.format(Locale.getDefault(), evlScnUri,APPIAInfo.SM_REVIEW01_P01.getId(), rsvtSeqNo)));
+                break;
+            case REVIEW_DRIVE:
+                //대리운전
+                ddsViewModel.reqEVL1001(new EVL_1001.Request(APPIAInfo.SM_REVIEW01_P03.getId(), String.format(Locale.getDefault(), evlScnUri,APPIAInfo.SM_REVIEW01_P03.getId(), transId)));
+                break;
+        }
     }
 
     @Override
@@ -184,6 +201,36 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
         Log.d(TAG, "setObserver: type:" + reviewType);
         switch (reviewType) {
             case REVIEW_WASH:
+                wshViewModel.getRES_EVL_1001().observe(this, result -> {
+                    switch (result.status){
+                        case LOADING:
+                            showProgressDialog(true);
+                            break;
+                        case SUCCESS:
+                            showProgressDialog(false);
+                            if(result.data!=null){
+                                if(StringUtil.isValidString(result.data.getEvlFinYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_NO)){
+                                    setTitleMsg();
+                                }else{
+                                    rejectReview();
+                                }
+                            }
+                            break;
+                        default:
+                            showProgressDialog(false);
+                            String serverMsg = "";
+                            try {
+                                serverMsg = result.data.getRtMsg();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            } finally {
+                                SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                            }
+                            break;
+                    }
+                });
+
+
                 //세차 리뷰 옵저버
                 wshViewModel.getRES_WSH_1007().observe(this, result -> {
                     Log.d(TAG, "wash review title obs: " + result.status);
@@ -254,6 +301,34 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
 
             case REVIEW_DRIVE:
                 //대리운전 리뷰 옵저버
+                ddsViewModel.getRES_EVL_1001().observe(this, result -> {
+                    switch (result.status){
+                        case LOADING:
+                            showProgressDialog(true);
+                            break;
+                        case SUCCESS:
+                            showProgressDialog(false);
+                            if(result.data!=null){
+                                if(!StringUtil.isValidString(result.data.getEvlFinYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_NO)){
+                                    rejectReview();
+                                }
+                            }
+                            break;
+                        default:
+                            showProgressDialog(false);
+                            String serverMsg = "";
+                            try {
+                                serverMsg = result.data.getRtMsg();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            } finally {
+                                SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                            }
+                            break;
+                    }
+                });
+
+
                 ddsViewModel.getRES_DDS_1005().observe(this, result -> {
                     Log.d(TAG, "getRES_DDS_1005 service drive review obs: " + result.status);
                     switch (result.status) {
@@ -295,7 +370,6 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
 
 
     private void setTitleMsg() {
-        Log.d(TAG, "setTitleMsg: ");
         if (reviewType == REVIEW_DRIVE) {
             //대리운전 리뷰 메시지는 항상 고정(xml에 박은 값 그냥 사용)
             return;

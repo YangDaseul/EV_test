@@ -165,6 +165,8 @@ public enum APIInfo {
     GRA_WSH_1007("service + 소낙스 평가지 요청", "WSH-1007", HttpRequest.METHOD_POST, "/graapi/wsh/evlpFormsInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_WSH_1008("service + 소낙스 평가 요청", "WSH-1008", HttpRequest.METHOD_POST, "/graapi/wsh/rqstEvlp.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
+    GRA_EVL_1001("service + 평가완료 여부 (대리,세차 등)", "EVL-1001", HttpRequest.METHOD_POST, "/graapi/evl/evlFinYn.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+
     GRA_CMS_1001("MyG+ 커머스연동", "CMS-1001", HttpRequest.METHOD_POST, "/graapi/cms/sso.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     //DEVELOPERS API에서는 ifCd를 url 파라미터 형태로 사용

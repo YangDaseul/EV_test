@@ -6,8 +6,10 @@ import com.genesis.apps.comm.model.api.gra.DDS_1003;
 import com.genesis.apps.comm.model.api.gra.DDS_1004;
 import com.genesis.apps.comm.model.api.gra.DDS_1005;
 import com.genesis.apps.comm.model.api.gra.DDS_1006;
+import com.genesis.apps.comm.model.api.gra.EVL_1001;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.DDSRepo;
+import com.genesis.apps.comm.model.repo.EVLRepo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
@@ -26,6 +28,7 @@ public @Data
 class DDSViewModel extends ViewModel {
 
     private final DDSRepo repository;
+    private final EVLRepo evlRepo;
     private final SavedStateHandle savedStateHandle;
     private final DBVehicleRepository dbVehicleRepository;
 
@@ -35,6 +38,8 @@ class DDSViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<DDS_1004.Response>> RES_DDS_1004;
     private MutableLiveData<NetUIResponse<DDS_1005.Response>> RES_DDS_1005;
     private MutableLiveData<NetUIResponse<DDS_1006.Response>> RES_DDS_1006;
+
+    private MutableLiveData<NetUIResponse<EVL_1001.Response>> RES_EVL_1001;
 //    public final LiveData<VehicleVO> carVO =
 //            Transformations.switchMap(RES_DDS_0001, new Function<NetUIResponse<DDS_0001.Response>, LiveData<VehicleVO>>() {
 //                @Override
@@ -47,9 +52,11 @@ class DDSViewModel extends ViewModel {
     DDSViewModel(
             DDSRepo repository,
             DBVehicleRepository dbVehicleRepository,
+            EVLRepo evlRepo,
             @Assisted SavedStateHandle savedStateHandle) {
         this.repository = repository;
         this.dbVehicleRepository = dbVehicleRepository;
+        this.evlRepo = evlRepo;
         this.savedStateHandle = savedStateHandle;
 
         RES_DDS_1001 = repository.RES_DDS_1001;
@@ -58,6 +65,7 @@ class DDSViewModel extends ViewModel {
         RES_DDS_1004 = repository.RES_DDS_1004;
         RES_DDS_1005 = repository.RES_DDS_1005;
         RES_DDS_1006 = repository.RES_DDS_1006;
+        RES_EVL_1001 = evlRepo.RES_EVL_1001;
     }
 
     public void reqDDS1001(final DDS_1001.Request reqData) {
@@ -82,6 +90,10 @@ class DDSViewModel extends ViewModel {
 
     public void reqDDS1006(final DDS_1006.Request reqData) {
         repository.REQ_DDS_1006(reqData);
+    }
+
+    public void reqEVL1001(final EVL_1001.Request reqData) {
+        evlRepo.REQ_EVL_1001(reqData);
     }
 
     public VehicleVO getMainVehicle() throws ExecutionException, InterruptedException {
