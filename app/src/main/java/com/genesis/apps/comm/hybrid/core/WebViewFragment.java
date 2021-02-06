@@ -378,7 +378,7 @@ public abstract class WebViewFragment extends Fragment {
 		settings.setSupportMultipleWindows(true);
 		settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
 		settings.setJavaScriptCanOpenWindowsAutomatically(true);
-
+		settings.setTextZoom(100);//웹뷰에서 시스템폰트 영향을 받지 않도록 설정
 		if (useZoom) {
 			settings.setSupportZoom(true);
 			settings.setBuiltInZoomControls(true);
@@ -435,7 +435,7 @@ public abstract class WebViewFragment extends Fragment {
 		settings.setUseWideViewPort(true);
 		settings.setLoadWithOverviewMode(true);
 		settings.setDisplayZoomControls(false);
-
+		settings.setTextZoom(100);//웹뷰에서 시스템폰트 영향을 받지 않도록 설정
 		String userAgentString = settings.getUserAgentString();
 		Log.v(TAG, "userAgentString[" + userAgentString + "]");
 		Level16Apis.enableUniversalAccess(settings);
