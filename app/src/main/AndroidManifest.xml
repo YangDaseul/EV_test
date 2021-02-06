@@ -25,13 +25,17 @@
         android:icon="@mipmap/ic_launcher_genesis"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
+        android:resizeableActivity="true"
         android:roundIcon="@mipmap/ic_launcher_genesis_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="stateHidden"
-        android:resizeableActivity="true"
         tools:replace="android:allowBackup">
+        <meta-data
+            android:name="android.allow_multiple_resumed_activities"
+            android:value="true" />
+
         <activity
             android:name=".ui.intro.IntroActivity"
             android:label="@string/app_name">
@@ -43,6 +47,7 @@
         </activity>
         <activity
             android:name=".ui.common.activity.DeepLinkActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
@@ -55,373 +60,456 @@
         </activity>
         <activity
             android:name=".ui.main.MainActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.common.activity.WebviewActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" /> <!-- 결제 웹뷰 -->
         <activity
             android:name=".ui.main.store.StoreWebActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.common.activity.PaymentWebViewActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.contents.ContentsSearchActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.contents.ContentsDetailWebActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.myg.MyGEntranceActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.common.activity.LoginActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.common.activity.PushDummyActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.common.activity.GAWebActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.intro.PermissionsActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.BarcodeActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/CardViewTheme" />
         <activity
             android:name=".ui.myg.MyGNotiActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.myg.MyGPrivilegeApplyActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.myg.MyGVersioniActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.myg.MyGCouponActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.myg.MyGMembershipInfoActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.myg.MyGMembershipExtncActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.myg.MyGHomeActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.myg.MyGPrivilegeStateActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.myg.MyGTermsActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.myg.MyGTerms1000Activity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.myg.MyGTerms2000Activity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.myg.MyGMenuActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.main.home.SearchAddressActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.myg.MyGOilPointActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.myg.MyGGAActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.myg.MyGMembershipActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.myg.MyGMembershipUseCaseActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.myg.MyGMembershipUseListActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.myg.MyGMembershipCardPasswordActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".ui.myg.MyGOilIntegrationActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.myg.MyGOilTermActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" /> <!-- <activity -->
         <!-- android:name=".ui.myg.MyGOilTermDetailActivity" -->
         <!-- android:exported="false" -->
-        <!-- android:screenOrientation="portrait" /> -->
+        <!-- android:screenOrientation="portrait" android:configChanges="screenSize|smallestScreenSize|screenLayout" /> -->
         <activity
             android:name=".ui.main.home.MyCarActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout" />
         <activity
             android:name=".ui.main.home.MyCarDetailActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout" />
         <activity
             android:name=".ui.main.home.BtrServiceInfoActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.home.BtrBluehandsActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.home.BtrBluehandsMapActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.home.BtrConsultTypeActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.home.BtrConsultApplyActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.main.home.BtrConslHistActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.home.MyLocationActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.home.BtrBluehandsListActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" /> <!-- <activity -->
         <!-- android:name=".ui.main.home.BtrBluehandsFilterActivity" -->
-        <!-- android:screenOrientation="portrait" -->
+        <!-- android:screenOrientation="portrait" android:configChanges="screenSize|smallestScreenSize|screenLayout" -->
         <!-- android:exported="false"/> -->
         <activity
             android:name=".ui.main.AlarmCenterActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.AlarmCenterSearchActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.main.SimilarCarActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.SimilarCarContractHistoryActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.SimilarCarContractDetailActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.home.LeasingCarVinRegisterActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.main.home.WarrantyRepairGuideActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.home.LeasingCarInfoActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.home.LeasingCarRegisterInputActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.main.ServiceNetworkActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.ServiceNetworkPriceActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.home.LeasingCarHistActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.home.LeasingCarHistDetailActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.main.insight.InsightExpnMainActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.insight.InsightExpnMembershipActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.insight.InsightExpnInputActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.main.insight.InsightExpnModifyActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.main.home.RegisterUsedCarActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.main.home.TsAuthWebViewActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.service.ServiceSOSApplyActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.main.service.ServiceSOSApplyInfoActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.service.ServiceSOSRouteInfoActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.service.ServiceSOSPayInfoActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.service.MapSearchMyPositionActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.ServiceJoinActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.ServiceTermDetailActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.service.ServiceAutocare2ApplyActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.main.service.ServiceAutocare3CheckActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.main.service.ServiceAutocare4ResultActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.service.ServiceHomeToHome2ApplyActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.main.service.ServiceHomeToHome3CheckActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.main.service.ServiceHomeToHome4ResultActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.service.ServiceRepair2ApplyActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.service.ServiceRepair3CheckActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.main.service.ServiceRepair4ResultActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.service.ServiceRepairReserveHistoryActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.service.ServiceRepairImageActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.service.ServiceAirport2ApplyActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" /> <!-- 원격 진단 : 신청 -->
         <activity
             android:name=".ui.main.service.ServiceRemoteRegisterActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" /> <!-- 원격 진단 : 내역 -->
         <activity
             android:name=".ui.main.service.ServiceRemoteListActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -429,74 +517,89 @@
             android:theme="@style/Base.Theme.AppCompat" /> <!-- optional (needed if default theme has no action bar) -->
         <activity
             android:name=".ui.main.service.ServiceRelapseHistoryActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" /> <!-- 하자 재발 현황 조회 -->
         <activity
             android:name=".ui.main.service.ServiceRelapseReqResultActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" /> <!-- 하자 재발 신청 1단계 -->
         <activity
             android:name=".ui.main.service.ServiceRelapseApply1Activity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" /> <!-- 하자 재발 신청 2단계 -->
         <activity
             android:name=".ui.main.service.ServiceRelapseApply2Activity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" /> <!-- 하자 재발 3단계 -->
         <activity
             android:name=".ui.main.service.ServiceRelapse3Activity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustPan" /> <!-- 하자 재발 신청 예시) -->
         <activity
             android:name=".ui.main.service.ServiceRelapseApplyExampleActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" /> <!-- 세차 지점검색 -->
         <activity
             android:name=".ui.main.service.CarWashSearchActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout" /> <!-- 세차 예약내역 -->
         <activity
             android:name=".ui.main.service.CarWashHistoryActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout" /> <!-- 대리운전 신청 -->
         <activity
             android:name=".ui.main.service.ServiceDriveReqActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" /> <!-- 대리운전 신청 완료 (신청하고 결제 성공하면 나오는 거) -->
         <activity
             android:name=".ui.main.service.ServiceDriveReqCompleteActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" /> <!-- 대리운전 신청 결과 (현황 조회하면 나오는 거) -->
         <activity
             android:name=".ui.main.service.ServiceDriveReqResultActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" /> <!-- 대리운전 이용내역 -->
         <activity
             android:name=".ui.main.service.ServiceDriveHistoryActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" /> <!-- 세차, 대리운전 리뷰 -->
         <activity
             android:name=".ui.main.service.ServiceReviewActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.service.MaintenanceReserveActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.main.service.ServiceRepair2PreCheckActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout" />
