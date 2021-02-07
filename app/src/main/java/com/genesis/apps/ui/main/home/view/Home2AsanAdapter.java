@@ -37,6 +37,7 @@ public class Home2AsanAdapter extends BaseRecyclerViewAdapter2<MainHistVO> {
     private static class ItemAsanListNew extends BaseViewHolder<MainHistVO, ItemAsanListNewBinding> {
         public ItemAsanListNew(View itemView) {
             super(itemView);
+            getBinding().setListener(onSingleClickListener);
         }
 
         @Override
@@ -54,7 +55,9 @@ public class Home2AsanAdapter extends BaseRecyclerViewAdapter2<MainHistVO> {
             if(item.getAsnHist().equalsIgnoreCase("")&&item.getArrivDt().equalsIgnoreCase("")&&item.getAsnNm().equalsIgnoreCase("")){
                 getBinding().tvAsanEmpty.setVisibility(View.VISIBLE);
                 getBinding().lAsan.setVisibility(View.GONE);
+                getBinding().btnAsanDetail.lWhole.setVisibility(View.GONE);
             }else{
+                getBinding().btnAsanDetail.lWhole.setVisibility(View.VISIBLE);
                 getBinding().tvAsanEmpty.setVisibility(View.GONE);
                 getBinding().lAsan.setVisibility(View.VISIBLE);
                 getBinding().setData(item);

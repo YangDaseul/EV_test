@@ -39,6 +39,7 @@ import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.GNSViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentHome2Binding;
+import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
@@ -47,6 +48,7 @@ import com.genesis.apps.ui.main.home.view.Home2AsanAdapter;
 import com.genesis.apps.ui.main.home.view.Home2BtrAdapter;
 import com.genesis.apps.ui.main.home.view.Home2DataMilesAdapter;
 import com.genesis.apps.ui.main.home.view.Home2WarrantyAdapter;
+import com.genesis.apps.ui.main.service.ServiceRepairReserveHistoryActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -418,6 +420,10 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
                 // 데이터 마일스 : 소모품 현황 새로 고침.
                 developersViewModel.reqReplacements(new Replacements.Request(developersViewModel.getCarId(vehicleVO.getVin())));
                 break;
+            case R.id.btn_asan_detail:
+                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRepairReserveHistoryActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
+
         }
     }
 
