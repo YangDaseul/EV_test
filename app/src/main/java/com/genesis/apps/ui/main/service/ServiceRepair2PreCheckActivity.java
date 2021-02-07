@@ -80,23 +80,27 @@ public class ServiceRepair2PreCheckActivity extends SubActivity<ActivityPrecheck
                 mSvyDivCd = "L";
 
                 List<SurveyItemVO> majorItems = (List<SurveyItemVO>) mItemBinding.tvPrecheckMajor.getTag();
-                surveyList = new ArrayList<>();
-                for(int i=0; i<majorItems.size(); i++) {
-                    surveyList.add(majorItems.get(i).getSvyPrvsNm());
-                }
+                if(majorItems!=null) {
+                    surveyList = new ArrayList<>();
+                    for (int i = 0; i < majorItems.size(); i++) {
+                        surveyList.add(majorItems.get(i).getSvyPrvsNm());
+                    }
 
-                showBottomDialog();
+                    showBottomDialog();
+                }
                 break;
             case R.id.tv_precheck_middle:
                 mSvyDivCd = "M";
 
                 List<SurveyItemVO> middleItems = (List<SurveyItemVO>) mItemBinding.tvPrecheckMiddle.getTag();
-                surveyList = new ArrayList<>();
-                for(int i=0; i<middleItems.size(); i++) {
-                    surveyList.add(middleItems.get(i).getSvyPrvsNm());
-                }
+                if(middleItems!=null) {
+                    surveyList = new ArrayList<>();
+                    for (int i = 0; i < middleItems.size(); i++) {
+                        surveyList.add(middleItems.get(i).getSvyPrvsNm());
+                    }
 
-                showBottomDialog();
+                    showBottomDialog();
+                }
                 break;
             case R.id.ll_minor_contain:
             case R.id.tv_precheck_minor:
@@ -110,12 +114,14 @@ public class ServiceRepair2PreCheckActivity extends SubActivity<ActivityPrecheck
                 }
 
                 List<SurveyItemVO> minorItems = (List<SurveyItemVO>) mItemBinding.tvPrecheckMinor.getTag();
-                surveyList = new ArrayList<>();
-                for(int i=0; i<minorItems.size(); i++) {
-                    surveyList.add(minorItems.get(i).getSvyPrvsNm());
-                }
+                if(minorItems!=null) {
+                    surveyList = new ArrayList<>();
+                    for (int i = 0; i < minorItems.size(); i++) {
+                        surveyList.add(minorItems.get(i).getSvyPrvsNm());
+                    }
 
-                showCheckBottomDialog();
+                    showCheckBottomDialog();
+                }
                 break;
             case R.id.ll_delete:
                 ui.llContain.removeViewAt(0);
@@ -507,9 +513,9 @@ public class ServiceRepair2PreCheckActivity extends SubActivity<ActivityPrecheck
                                     mItemBinding.tvPrecheckMinor.performClick();
                                 }
                             }
+                            break;
                         }
                     }
-                    break;
                 default:
                     showProgressDialog(false);
                     String serverMsg="";
