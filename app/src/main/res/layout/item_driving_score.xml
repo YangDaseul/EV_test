@@ -126,9 +126,9 @@
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:layout_marginStart="3dp"
-                android:background="@drawable/sel_icon_driving_before_score"
+                android:adjustViewBounds="true"
                 android:padding="0dp"
-                android:scaleType="fitXY"
+                android:src="@drawable/sel_icon_driving_before_score"
                 app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_before_score"
                 app:layout_constraintStart_toEndOf="@id/tv_datamiles_before_score"
                 app:layout_constraintTop_toTopOf="@id/tv_datamiles_before_score" />
