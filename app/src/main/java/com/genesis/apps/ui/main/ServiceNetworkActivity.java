@@ -724,6 +724,18 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 }
             });
         } else {
+            switch (pageType){
+                case PAGE_TYPE_REPAIR:
+                case PAGE_TYPE_SERVICE:
+                default:
+                    if(!StringUtil.isValidString(btrVO.getAcps1Cd()).equalsIgnoreCase("2")){//서비스 센터가 아닌 경우
+                        bottomSelectBinding.btnLeftWhite.setVisibility(View.VISIBLE);
+                        bottomSelectBinding.btnLeftWhite.setText(R.string.bt06_25);
+                    }else{
+                        bottomSelectBinding.btnLeftWhite.setVisibility(View.GONE);
+                    }
+                    break;
+            }
             bottomSelectBinding.setData(btrVO);
             setAuthView(btrVO);
         }
@@ -751,7 +763,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
         Integer[] authNM;
 
         if(btrVO.getAcps1Cd().equalsIgnoreCase("2")){
-            bottomSelectBinding.btnLeftWhite.setVisibility(View.GONE);
             //서비스 네트워크인 경우
             authNM = new Integer[]{
                     !TextUtils.isEmpty(btrVO.getGenLngYn()) && btrVO.getGenLngYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? R.string.bt06_27 : 0
@@ -761,7 +772,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             };
 
         }else{
-            bottomSelectBinding.btnLeftWhite.setVisibility(View.VISIBLE);
             //특화 서비스인 경우
             authNM = new Integer[]{
                     !TextUtils.isEmpty(btrVO.getPntgXclYn()) && btrVO.getPntgXclYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? R.string.bt06_17 : 0
