@@ -12,7 +12,6 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.net.NetResult;
-import com.genesis.apps.comm.net.ga.CCSP;
 import com.genesis.apps.comm.net.ga.GA;
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -41,8 +40,6 @@ public class LoginActivity extends WebviewActivity {
     private String ccspType ="";
     @Inject
     public GA ga;
-    @Inject
-    public CCSP ccsp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

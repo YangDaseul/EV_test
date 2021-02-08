@@ -5,7 +5,6 @@ import android.app.Application;
 import com.genesis.apps.comm.model.vo.DeviceDTO;
 import com.genesis.apps.comm.net.HttpRequestUtil;
 import com.genesis.apps.comm.net.NetCaller;
-import com.genesis.apps.comm.net.ga.CCSP;
 import com.genesis.apps.comm.net.ga.GA;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.PreferenceUtil;
@@ -54,11 +53,11 @@ public class ApplicationModule {
         return new NetCaller(httpRequestUtil,ga);
     }
 
-    @Provides
-    @Singleton
-    public CCSP getCCSP(HttpRequestUtil httpRequestUtil, Application application, LoginInfoDTO loginInfoDTO){
-        return new CCSP(httpRequestUtil, application, loginInfoDTO);
-    }
+//    @Provides
+//    @Singleton
+//    public CCSP getCCSP(HttpRequestUtil httpRequestUtil, Application application, LoginInfoDTO loginInfoDTO){
+//        return new CCSP(httpRequestUtil, application, loginInfoDTO);
+//    }
 
     @Provides
     @Singleton

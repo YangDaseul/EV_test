@@ -276,8 +276,11 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
 
     /**
      * @brief 기 로그인된 정보 초기화
-     * CCSP 로그인 정보는 있으나 DB에 유저 정보가 없을 경우
+     * 1) CCSP 로그인 정보는 있으나 DB에 유저 정보가 없을 경우
      * CCSP 로그인 정보 초기화
+     *
+     * 2) 액세스 트콘 정보가 없고 DB에 유저 정보가 있을 경우
+     * DB 정보 초기화
      */
     private void initData() {
         if(loginInfoDTO.loadLoginInfo()!=null){
@@ -288,12 +291,15 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
                 e.printStackTrace();
             }finally {
                 if(userVO==null||TextUtils.isEmpty(userVO.getCustNo())||userVO.getCustNo().equalsIgnoreCase("0000")){
+                    //GRA정보는 DB에 없는데 CCSP 로그인 정보가 살아있을 경우 CCSP 로그인 정보 제거
                     loginInfoDTO.clearLoginInfo();
+                }else if (TextUtils.isEmpty(loginInfoDTO.getAccessToken())&&userVO!=null&&!TextUtils.isEmpty(userVO.getCustGbCd())&&!userVO.getCustGbCd().equalsIgnoreCase("0000")){
+                    //엑세스토큰이 없는데 DB에 GRA 커스터머 정보가 살아있을 경우 DB 정보 클리어
+                    lgnViewModel.removeDBTable();
                 }
             }
         }
     }
-
 
     private boolean isPermissions() {
         updateProgressBar(progressValue.PERMISSION.getProgress());
@@ -540,6 +546,5 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
         progressV = i;
         progressValue = PROGRESS.find(i);
     }
-
 
 }

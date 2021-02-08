@@ -27,7 +27,7 @@ import static com.genesis.apps.comm.model.constants.GAInfo.TAG_MSG_LOGININFO;
 @AllArgsConstructor
 public @Data
 class LoginInfoDTO extends BaseData {
-    private final String TAG = CCSP.class.getSimpleName();
+    private final String TAG = LoginInfoDTO.class.getSimpleName();
     private byte[] key = new byte[]{
             (byte)0xDC, 0x0F, 0x79, (byte)0xCA, 0x39, 0x7E, (byte)0xB3, (byte)0x8C, 0x0A, 0x2E, (byte)0xB8, (byte)0x80, (byte)0xB2, 0x39, (byte)0x8B, 0x7D};
 
@@ -275,6 +275,7 @@ class LoginInfoDTO extends BaseData {
         this.profile = null;
         this.refreshTokenExpriesDate = 0;
         this.tokenCode = "";
+
     }
 
 }

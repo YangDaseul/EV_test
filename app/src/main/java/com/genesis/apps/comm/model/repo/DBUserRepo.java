@@ -36,7 +36,8 @@ public class DBUserRepo {
     public boolean clearUserInfo(){
         boolean isClear = false;
         try{
-            databaseHolder.getDatabase().userDao().deleteAll();
+            databaseHolder.getDatabase().clearAllTables();
+//            databaseHolder.getDatabase().userDao().deleteAll();
             isClear=true;
         }catch (Exception e){
             e.printStackTrace();
