@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.myg.view;
 
+import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,18 @@ public class MenuAdapter extends BaseRecyclerViewAdapter2<MenuVO> {
 
     private static boolean isRecently=false;
     private static OnPositionClickListener onItemClickListener;
+    private static boolean isSearch=false;
+
     public MenuAdapter(OnPositionClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public boolean isIsSearch() {
+        return isSearch;
+    }
+
+    public void setIsSearch(boolean isSearch) {
+        this.isSearch = isSearch;
     }
 
     @Override
@@ -74,6 +85,13 @@ public class MenuAdapter extends BaseRecyclerViewAdapter2<MenuVO> {
                     onItemClickListener.onClick(v,pos);
                 }
             });
+
+            if(!isSearch&&!TextUtils.isEmpty(item.getCategory())){
+                getBinding().tvCategory.setVisibility(View.VISIBLE);
+                getBinding().tvCategory.setText(item.getCategory());
+            }else{
+                getBinding().tvCategory.setVisibility(View.GONE);
+            }
         }
 
         @Override

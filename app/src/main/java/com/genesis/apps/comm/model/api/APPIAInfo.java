@@ -316,11 +316,34 @@ public enum APPIAInfo {
                 .sorted(Comparator.comparing(APPIAInfo::getCategory).thenComparing(APPIAInfo::getDescription))
                 .collect(Collectors.toList());
         List<MenuVO> list = new ArrayList<>();
+        boolean[] isCategory={false, false, false, false};
         for(APPIAInfo menu : menuList){
             MenuVO menuVO = new MenuVO();
             menuVO.setCode(menu.getId());
             menuVO.setName(menu.getDescription());
             menuVO.setActivity(menu.getActivity());
+
+            try {
+                if (!isCategory[menu.getCategory()]) {
+                    switch (menu.getCategory()) {
+                        case VariableType.QUICK_MENU_CATEGORY_HOME:
+                            menuVO.setCategory("HOME");
+                            break;
+                        case VariableType.QUICK_MENU_CATEGORY_INSIGHT:
+                            menuVO.setCategory("INSIGHT");
+                            break;
+                        case VariableType.QUICK_MENU_CATEGORY_SERVICE:
+                            menuVO.setCategory("SERVICE");
+                            break;
+                        case VariableType.QUICK_MENU_CATEGORY_MYG:
+                            menuVO.setCategory("MY G");
+                            break;
+                    }
+                    isCategory[menu.getCategory()] = true;
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             list.add(menuVO);
         }
         return list;

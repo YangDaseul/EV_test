@@ -117,16 +117,19 @@ public class MyGMenuActivity extends SubActivity<ActivityMygMenuBinding> {
     public void setObserver() {
         menuViewModel.getMenuList().observe(this, result -> {
             adapter.setRecently(false);
+            adapter.setIsSearch(false);
             ui.lSearchParent.tvTitleSub.setText("전체메뉴");
             setListView(result.data);
         });
         menuViewModel.getRecentlyMenuList().observe(this, result -> {
             adapter.setRecently(true);
+            adapter.setIsSearch(true);
             ui.lSearchParent.tvTitleSub.setText(R.string.mg00_word_2);
             setListView(result.data);
         });
         menuViewModel.getKeywordMenuList().observe(this, result -> {
             adapter.setRecently(false);
+            adapter.setIsSearch(true);
             ui.lSearchParent.tvTitleSub.setText(R.string.mg00_word_3);
             setListView(result.data);
         });
