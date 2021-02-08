@@ -92,12 +92,14 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         super.setContentView(base.getRoot());
 
         try {
-            findViewById(R.id.back).setOnClickListener(new OnSingleClickListener() {
-                @Override
-                public void onSingleClick(View v) {
-                    onBackButton();
-                }
-            });
+            if(findViewById(R.id.back)!=null) {
+                findViewById(R.id.back).setOnClickListener(new OnSingleClickListener() {
+                    @Override
+                    public void onSingleClick(View v) {
+                        onBackButton();
+                    }
+                });
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
