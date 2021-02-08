@@ -118,19 +118,16 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
                 case OIL_CODE_HDOL:
                     imageId = R.drawable.bg_025ea9_round_10;
                     iconId = R.drawable.logo_hyundaioilbank_w;
-                    getBinding().tvMembershipInfo.setVisibility(View.VISIBLE);
                     isReg = StringUtil.isValidString(item.getRgstYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)&&!TextUtils.isEmpty(item.getCardNo());
                     break;
                 case OIL_CODE_GSCT:
                     imageId = R.drawable.bg_009999_round_10;
                     iconId = R.drawable.logo_gs_w;
-                    getBinding().tvMembershipInfo.setVisibility(View.VISIBLE);
                     isReg = StringUtil.isValidString(item.getRgstYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)&&!TextUtils.isEmpty(item.getCardNo());
                     break;
                 case OIL_CODE_SOIL:
                     imageId = R.drawable.bg_fbb900_round_10;
                     iconId = R.drawable.logo_soil_w;
-                    getBinding().tvMembershipInfo.setVisibility(View.VISIBLE);
                     isReg = StringUtil.isValidString(item.getRgstYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)&&!TextUtils.isEmpty(item.getCardNo());
                     break;
                 case OIL_CODE_BLUE:
@@ -140,6 +137,7 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
                     getBinding().tvInfo.setVisibility(View.VISIBLE);
                     isReg = !TextUtils.isEmpty(item.getCardNo());
                     isIntegration = false;
+
                     break;
             }
             getBinding().ivCard.setImageResource(imageId);
@@ -166,6 +164,7 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
             }else{
                 getBinding().tvCardNo.setVisibility(View.INVISIBLE);
                 if(isIntegration) {
+                    getBinding().tvMembershipInfo.setVisibility(View.VISIBLE);
                     getBinding().tvIntegration.setVisibility(View.VISIBLE);
                     getBinding().ivBarcode.setVisibility(View.VISIBLE);
                     getBinding().ivBarcode.setAlpha(.1f);
