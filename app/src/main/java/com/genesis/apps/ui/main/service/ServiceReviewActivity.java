@@ -243,9 +243,10 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
                             if (result.data != null) {
                                 showProgressDialog(false);
 
-                                if("0000".equals(result.data.getRtCd()) && result.data.getEvalQst() != null) {
-                                    ui.tvServiceReviewTitleMsg.setText(result.data.getEvalQst());
-
+                                if("0000".equals(result.data.getRtCd())) {
+                                    if(!TextUtils.isEmpty(result.data.getEvalQst())){
+                                        ui.tvServiceReviewTitleMsg.setText(result.data.getEvalQst());
+                                    }
                                     break;
                                 } else if("9030".equals(result.data.getRtCd())) {
                                     rejectReview();
