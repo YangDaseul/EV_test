@@ -51,6 +51,6 @@
     <string name="sm_r_rsv03_03_15">정비 완료 후</string>
 
     <string name="sm_r_rsv04_03_1">홈투홈 예약이\n신청되었습니다.</string>
-    <string name="sm_r_rsv04_03_2">콜센터에서 예약 확정 통화를 드립니다.\n예약 내역은 제네시스 정비 현황/예약/이력\n메뉴에서 확인 가능합니다.</string>
+    <string name="sm_r_rsv04_03_2">콜센터에서 예약 확정 통화를 드립니다.\n예약 내역은 제네시스 정비 현황/내역/이력\n메뉴에서 확인 가능합니다.</string>
     <string name="sm_r_rsv04_03_3">확인</string>
 </resources>

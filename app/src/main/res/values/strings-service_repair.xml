@@ -34,7 +34,7 @@
     <string name="sm_r_rsv03_04_12">차량 번호</string>
 
     <string name="sm_r_rsv04_04_1">서비스 네트워크 예약이\n완료되었습니다.</string>
-    <string name="sm_r_rsv04_04_2">예약 내역은 제네시스 정비 현황/예약/이력\n메뉴에서 확인 가능합니다.</string>
+    <string name="sm_r_rsv04_04_2">예약 내역은 제네시스 정비 현황/내역/이력\n메뉴에서 확인 가능합니다.</string>
     <string name="sm_r_rsv04_04_3">예약 번호 %s</string>
     <string name="sm_r_rsv04_04_4">업체명</string>
     <string name="sm_r_rsv04_04_5">주소</string>
