@@ -47,11 +47,13 @@ public class Home2AsanAdapter extends BaseRecyclerViewAdapter2<MainHistVO> {
 
         @Override
         public void onBindView(MainHistVO item, final int pos) {
-            if(pos==0)
+            if(pos==0) {
                 getBinding().tvTitleAsan.setVisibility(View.VISIBLE);
-            else
+                getBinding().btnAsanDetail.lWhole.setVisibility(View.VISIBLE);
+            }else {
                 getBinding().tvTitleAsan.setVisibility(View.GONE);
-
+                getBinding().btnAsanDetail.lWhole.setVisibility(View.GONE);
+            }
             if(item.getAsnHist().equalsIgnoreCase("")&&item.getArrivDt().equalsIgnoreCase("")&&item.getAsnNm().equalsIgnoreCase("")){
                 getBinding().tvAsanEmpty.setVisibility(View.VISIBLE);
                 getBinding().lAsan.setVisibility(View.GONE);
