@@ -144,7 +144,7 @@
 
 
         <TextView
-            style="@style/BigBtn.Black"
+            style="@style/BigBtn.White"
             android:id="@+id/btn_cancel"
             android:layout_width="0dp"
             android:layout_height="52dp"
@@ -164,7 +164,7 @@
 
 
         <TextView
-            style="@style/BigBtn.White"
+            style="@style/BigBtn.Black"
             android:id="@+id/btn_ok"
             android:layout_width="0dp"
             android:layout_height="52dp"

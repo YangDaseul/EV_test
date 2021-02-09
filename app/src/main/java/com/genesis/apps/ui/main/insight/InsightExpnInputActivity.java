@@ -48,8 +48,8 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
 
     private CBKViewModel cbkViewModel;
 
-    private final int[] layouts = {R.layout.activity_insight_expn_input_1, R.layout.activity_insight_expn_input_2, R.layout.activity_insight_expn_input_3, R.layout.activity_insight_expn_input_4};
-    private final int[] textMsgId = {R.string.tm_exps01_01_6, R.string.tm_exps01_01_2, R.string.tm_exps01_01_9, R.string.tm_exps01_01_12};
+    private final int[] layouts = {R.layout.activity_insight_expn_input_1, R.layout.activity_insight_expn_input_2, R.layout.activity_insight_expn_input_3, R.layout.activity_insight_expn_input_4, R.layout.activity_insight_expn_input_5};
+    private final int[] textMsgId = {R.string.tm_exps01_01_2, R.string.tm_exps01_01_9, R.string.tm_exps01_01_6, R.string.tm_exps01_01_12, R.string.tm_exps01_01_19};
     private ConstraintSet[] constraintSets = new ConstraintSet[layouts.length];
     private View[] views;
     private View[] edits;
@@ -72,7 +72,6 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
 
     private void initView() {
         initConstraintSets();
-        setViewDtm(Calendar.getInstance(Locale.getDefault()));
         ui.etAccmMilg.setOnEditorActionListener(editorActionListener);
         ui.etExpnAmt.setOnEditorActionListener(editorActionListener);
         ui.etExpnPlc.setOnEditorActionListener(editorActionListener);
@@ -124,6 +123,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
             }
         });
 
+        selectDivCd();
 
     }
 
@@ -266,8 +266,9 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
     }
 
     private void initConstraintSets() {
-        views = new View[]{ui.lAccmMilg, ui.lExpnDivCd, ui.lExpnAmt, ui.lExpnPlc};
-        edits = new View[]{ui.etAccmMilg, ui.tvExpnDivCd, ui.etExpnAmt, ui.etExpnPlc};
+        views = new View[]{ui.lExpnDivCd, ui.lExpnAmt, ui.lAccmMilg, ui.lExpnPlc, ui.lExpnDtm};
+        edits = new View[]{ui.tvExpnDivCd, ui.etExpnAmt, ui.etAccmMilg, ui.etExpnPlc, ui.tvExpnDtm};
+
         for (int i = 0; i < layouts.length; i++) {
             constraintSets[i] = new ConstraintSet();
 
@@ -294,16 +295,29 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
                 edits[pos].requestFocus();
             }
 
-            if(pos==1){
-                selectDivCd();
-            }else if(pos==views.length-1){
+            if(pos==views.length-1){
+                clearKeypad();
+                setViewDtm(Calendar.getInstance(Locale.getDefault()));
                 ui.btnNext.setText(R.string.tm_exps01_01_16);
+            }
+        }else{
+            //이미 view가 오픈되어있을 경우
+            if(pos==1&&views[3].getVisibility() == View.VISIBLE){//지출항목선택완료 시
+                if(cbkViewModel.isVisibleAccmMilg(expnDivCd)){
+                    //주유 및 정비일 경우
+                    views[2].setVisibility(View.VISIBLE);
+                }else{
+                    views[2].setVisibility(View.GONE);
+                    ui.etAccmMilg.setText("");
+                }
             }
         }
     }
 
-
     private boolean checkVaildAccmMilg(){
+
+        if(!cbkViewModel.isVisibleAccmMilg(expnDivCd))
+            return true;
 
         String accmMilg = ui.etAccmMilg.getText().toString().trim();
 
@@ -314,7 +328,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
         }else{
 //            ui.etAccmMilg.setText(StringUtil.getDigitGroupingString(accmMilg.replaceAll(",","")));
             ui.lAccmMilg.setError(null);
-            doTransition(1);
+            doTransition(3);
             return true;
         }
     }
@@ -322,7 +336,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
     private boolean checkVaildDivCd(){
         if(!TextUtils.isEmpty(expnDivCd)){
             ui.tvErrorExpnDivCd.setVisibility(View.INVISIBLE);
-            doTransition(2);
+            doTransition(1);
             return true;
         }else{
             ui.tvErrorExpnDivCd.setVisibility(View.VISIBLE);
@@ -332,7 +346,6 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
     }
 
     private boolean checkVaildAmt(){
-
         String amt = ui.etExpnAmt.getText().toString().trim();
 
         if(TextUtils.isEmpty(amt)){
@@ -342,7 +355,13 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
         }else{
 //            ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(amt.replaceAll(",","")));
             ui.lExpnAmt.setError(null);
-            doTransition(3);
+
+            if(cbkViewModel.isVisibleAccmMilg(expnDivCd)){
+                doTransition(2);
+            }else{
+                doTransition(3);
+                ui.lAccmMilg.setVisibility(View.GONE);
+            }
             return true;
         }
     }
@@ -358,7 +377,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
             return false;
         }else{
             ui.lExpnPlc.setError(null);
-            doTransition(3);
+            doTransition(4);
             return true;
         }
     }
@@ -369,16 +388,21 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
             if(view.getVisibility()==View.GONE) {
                 switch (view.getId()) {
                     //현재 페이지가 차량번호 입력하는 페이지일경우
-                    case R.id.l_expn_div_cd:
-                        return checkVaildAccmMilg()&&false;
                     case R.id.l_expn_amt:
-                        return checkVaildAccmMilg()&&checkVaildDivCd()&&false;
+                        return checkVaildDivCd()&&false;
+                    case R.id.l_accm_milg:
+                        if(cbkViewModel.isVisibleAccmMilg(expnDivCd))
+                            return checkVaildDivCd()&&checkVaildAmt()&&false;
+                        else
+                            break;
                     case R.id.l_expn_plc:
-                        return checkVaildAccmMilg()&&checkVaildDivCd()&&checkVaildAmt()&&false;
+                        return checkVaildDivCd()&&checkVaildAmt()&&checkVaildAccmMilg()&&false;
+                    case R.id.l_expn_dtm:
+                        return checkVaildDivCd()&&checkVaildAmt()&&checkVaildAccmMilg()&&checkVaildPlc()&&false;
                 }
             }
         }
-        return checkVaildAccmMilg()&&checkVaildDivCd()&&checkVaildAmt()&&checkVaildPlc();
+        return checkVaildDivCd()&&checkVaildAmt()&&checkVaildAccmMilg()&&checkVaildPlc();
     }
 
 

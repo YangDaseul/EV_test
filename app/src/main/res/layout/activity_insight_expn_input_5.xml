@@ -22,7 +22,7 @@
             android:id="@+id/l_expn_dtm"
             style="@style/CommonSpinnerLayout"
             android:layout_marginTop="5dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintTop_toBottomOf="@+id/tv_msg">
 
             <TextView
@@ -52,7 +52,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/l_expn_plc"
             style="@style/CommonTextInputLayout"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintTop_toBottomOf="@+id/l_expn_dtm">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -66,7 +66,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/l_accm_milg"
             style="@style/CommonTextInputLayout"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintTop_toBottomOf="@+id/l_expn_plc">
 
             <com.google.android.material.textfield.TextInputEditText

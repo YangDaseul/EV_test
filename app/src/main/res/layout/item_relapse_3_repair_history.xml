@@ -137,6 +137,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_relapse_3_defect_detail"
                     style="@style/CommonTextInputEditText"
+                    android:maxLength="130"
                     android:hint="@string/relapse_3_repair_defect"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -150,6 +151,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_relapse_3_repair_detail"
                     style="@style/CommonTextInputEditText"
+                    android:maxLength="130"
                     android:hint="@string/relapse_3_repair_detail"/>
                 <requestFocus/>
             </com.google.android.material.textfield.TextInputLayout>

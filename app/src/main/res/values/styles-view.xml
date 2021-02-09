@@ -59,28 +59,28 @@
     <!-- ok 버튼(검은색)-->
     <style name="ViewOkBlackBtn">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">50dp</item>
-        <item name="android:background">@drawable/ripple_bg_141414</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:background">@drawable/ripple_bg_111111</item>
         <item name="android:textColor">@color/x_ffffff</item>
         <item name="android:textSize">16dp</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:gravity">center</item>
-        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
     </style>
 
 
     <!-- cancel 버튼(흰색)-->
     <style name="ViewCancelBtn">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">50dp</item>
-        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_6f6f6f</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:background">@drawable/ripple_bg_ffffff_stroke_111111</item>
         <item name="android:textColor">@color/x_141414</item>
         <item name="android:textSize">16dp</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:gravity">center</item>
-        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
     </style>
 
 

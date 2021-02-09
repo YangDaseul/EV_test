@@ -8,6 +8,7 @@ import com.genesis.apps.comm.model.api.gra.CBK_1005;
 import com.genesis.apps.comm.model.api.gra.CBK_1006;
 import com.genesis.apps.comm.model.api.gra.CBK_1007;
 import com.genesis.apps.comm.model.api.gra.CBK_1008;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.repo.CBKRepo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.vo.ExpnVO;
@@ -221,6 +222,10 @@ class CBKViewModel extends ViewModel {
         }finally {
             es.shutDownExcutor();
         }
+    }
+
+    public boolean isVisibleAccmMilg(String expnDivCd){
+        return expnDivCd.equalsIgnoreCase(VariableType.getExpnDivCd(VariableType.INSIGHT_EXPN_DIV_CODE_1000))||expnDivCd.equalsIgnoreCase(VariableType.getExpnDivCd(VariableType.INSIGHT_EXPN_DIV_CODE_2000));
     }
 
 

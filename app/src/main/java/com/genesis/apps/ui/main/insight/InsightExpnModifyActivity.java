@@ -125,12 +125,18 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
     }
 
     private void updateView() {
-        //지출 일자 //todo baseData.getExpnDtm()가 yyyyMMddHhmmss가 아니면..이슈 발생 가능
+        //지출 일자
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
         calendar.setTime(DateUtil.getDefaultDateFormat(baseData.getExpnDtm(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss));
         setViewDtm(calendar);
-        //누적주행거리
-        ui.etAccmMilg.setText(StringUtil.isValidString(baseData.getAccmMilg()).replaceAll(",",""));
+        if(cbkViewModel.isVisibleAccmMilg(expnDivCd)) {
+            //누적주행거리
+            ui.etAccmMilg.setText(StringUtil.isValidString(baseData.getAccmMilg()).replaceAll(",", ""));
+            ui.lAccmMilg.setVisibility(View.VISIBLE);
+        }else{
+            ui.lAccmMilg.setVisibility(View.GONE);
+            ui.etAccmMilg.setText("");
+        }
         //지출 항목
         ui.tvExpnDivCd.setText(baseData.getExpnDivNm());
         //지출액
@@ -223,8 +229,16 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
                 ui.tvTitleExpnDivCd.setVisibility(View.VISIBLE);
                 Paris.style(ui.tvExpnDivCd).apply(R.style.CommonSpinnerItemEnable);
                 ui.tvExpnDivCd.setText(result);
-
                 checkVaildDivCd();
+
+                if(cbkViewModel.isVisibleAccmMilg(expnDivCd)) {
+                    //누적주행거리
+                    ui.etAccmMilg.setText(StringUtil.isValidString(baseData.getAccmMilg()).replaceAll(",", ""));
+                    ui.lAccmMilg.setVisibility(View.VISIBLE);
+                }else{
+                    ui.lAccmMilg.setVisibility(View.GONE);
+                    ui.etAccmMilg.setText("");
+                }
             }
         });
         bottomListDialog.setDatas(divList);
@@ -359,11 +373,13 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
     }
 
     private void initConstraintSets() {
-        views = new View[]{ui.lAccmMilg, ui.lExpnDivCd, ui.lExpnAmt, ui.lExpnPlc};
-        edits = new View[]{ui.etAccmMilg, ui.tvExpnDivCd, ui.etExpnAmt, ui.etExpnPlc};
+        views = new View[]{ui.lExpnDivCd, ui.lExpnAmt, ui.lAccmMilg, ui.lExpnPlc, ui.lExpnDtm};
+        edits = new View[]{ui.tvExpnDivCd, ui.etExpnAmt, ui.etAccmMilg, ui.etExpnPlc, ui.tvExpnDtm};
     }
 
     private boolean checkVaildAccmMilg(){
+        if(!cbkViewModel.isVisibleAccmMilg(expnDivCd))
+            return true;
 
         String accmMilg = ui.etAccmMilg.getText().toString().trim();
 
@@ -420,21 +436,7 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
     }
 
     private boolean isValid(){
-//        ui.lAccmMilg, ui.lExpnDivCd, ui.lExpnAmt, ui.lExpnPlc
-        for(View view : views){
-            if(view.getVisibility()==View.GONE) {
-                switch (view.getId()) {
-                    //현재 페이지가 차량번호 입력하는 페이지일경우
-                    case R.id.l_expn_div_cd:
-                        return checkVaildAccmMilg()&&false;
-                    case R.id.l_expn_amt:
-                        return checkVaildAccmMilg()&&checkVaildDivCd()&&false;
-                    case R.id.l_expn_plc:
-                        return checkVaildAccmMilg()&&checkVaildDivCd()&&checkVaildAmt()&&false;
-                }
-            }
-        }
-        return checkVaildAccmMilg()&&checkVaildDivCd()&&checkVaildAmt()&&checkVaildPlc();
+        return checkVaildDivCd()&&checkVaildAmt()&&checkVaildAccmMilg()&&checkVaildPlc();
     }
 
 
