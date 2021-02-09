@@ -433,6 +433,7 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
 
 
     private void showDialogRepairType(final List<RepairTypeVO> list) {
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
 
         if (list == null || list.size() < 1)
             return;
