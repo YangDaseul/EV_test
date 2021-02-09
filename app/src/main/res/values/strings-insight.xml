@@ -70,7 +70,7 @@
     <string name="tm_exps01_01_16">등록</string>
     <string name="tm_exps01_01_17">지출 내역이 추가되었습니다.</string>
     <string name="tm_exps01_01_18">어떤 종류의 지출을 하셨나요?</string>
-
+    <string name="tm_exps01_01_19">지출 일자를\n선택해 주세요.</string>
 
     <string name="tm_exps01_02_1">지출 내역 수정</string>
     <string name="tm_exps01_02_2">지출 대상 차량</string>

@@ -48,8 +48,8 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
 
     private CBKViewModel cbkViewModel;
 
-    private final int[] layouts = {R.layout.activity_insight_expn_input_1, R.layout.activity_insight_expn_input_2, R.layout.activity_insight_expn_input_3, R.layout.activity_insight_expn_input_4};
-    private final int[] textMsgId = {R.string.tm_exps01_01_6, R.string.tm_exps01_01_2, R.string.tm_exps01_01_9, R.string.tm_exps01_01_12};
+    private final int[] layouts = {R.layout.activity_insight_expn_input_1, R.layout.activity_insight_expn_input_2, R.layout.activity_insight_expn_input_3, R.layout.activity_insight_expn_input_4, R.layout.activity_insight_expn_input_5};
+    private final int[] textMsgId = {R.string.tm_exps01_01_2, R.string.tm_exps01_01_9, R.string.tm_exps01_01_6, R.string.tm_exps01_01_12, R.string.tm_exps01_01_19};
     private ConstraintSet[] constraintSets = new ConstraintSet[layouts.length];
     private View[] views;
     private View[] edits;
