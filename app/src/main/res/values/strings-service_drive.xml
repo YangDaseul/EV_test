@@ -18,8 +18,8 @@
     <string name="service_drive_input_02">출발지 상세 주소를\n입력해 주세요.</string>
     <string name="service_drive_input_03">도착지 주소를\n입력해 주세요.</string>
     <string name="service_drive_input_04">도착지 상세 주소를\n입력해 주세요.</string>
-    <string name="service_drive_input_05">출발지 상세 주소</string>
-    <string name="service_drive_input_06">도착지 상세 주소</string>
+    <string name="service_drive_input_05">출발지 상세 주소 (선택)</string>
+    <string name="service_drive_input_06">도착지 상세 주소 (선택)</string>
     <string name="service_drive_input_07">필수 입력 사항입니다.</string>
     <string name="service_drive_input_08">출발지 주소</string>
     <string name="service_drive_input_09">도착지 주소</string>

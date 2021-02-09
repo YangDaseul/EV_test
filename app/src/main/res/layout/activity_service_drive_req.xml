@@ -27,27 +27,6 @@
             app:textBtnListener="@{activity.onSingleClickListener}"
             app:value="@{@string/sm01_service_driver_1}" />
 
-        <!-- 상단 정보 : 차종/번호판 서비스 요금 등 뷰 -->
-        <include
-            android:id="@+id/l_service_drive_req_top_panel"
-            layout="@layout/layout_service_drive_req_panel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="40dp"
-            app:isRound="@{true}" />
-
-        <View
-            android:id="@+id/view_line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="40dp"
-            android:background="@color/x_e5e5e5" />
-
-
-        <!-- 스크롤 범위 : 입력내용 안내 메시지 ~ 입력 창 네 개 -->
         <ScrollView
             android:id="@+id/l_service_drive_req_scroll_view"
             android:layout_width="match_parent"
@@ -58,6 +37,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <!-- 상단 정보 : 차종/번호판 서비스 요금 등 뷰 -->
+                <include
+                    android:id="@+id/l_service_drive_req_top_panel"
+                    layout="@layout/layout_service_drive_req_panel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="40dp"
+                    app:isRound="@{true}" />
+
+                <View
+                    android:id="@+id/view_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="40dp"
+                    android:background="@color/x_e5e5e5" />
+
+
                 <!-- "출발/도착지 주소를 입력해라" : 01 ~ 04 번 str -->
                 <TextView
                     android:id="@+id/tv_service_drive_req_please_input_xxx"
