@@ -6,10 +6,11 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/x_f8f8f8">
+        android:background="@color/x_f8f8f8"
+        android:orientation="vertical">
         <!-- 타이틀바-->
         <include
             android:id="@+id/l_service_remote_list_titlebar"
@@ -19,24 +20,19 @@
         <TextView
             android:id="@+id/tv_service_remote_no_data"
             style="@style/ServiceRemote.TextView_Font_RGSTG.262626"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:text="@string/sm_remote01_no_data"
             android:textSize="18dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/l_service_remote_list_titlebar" />
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_service_remote_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_marginTop="74dp"
-            android:background="@android:color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/l_service_remote_list_titlebar" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_weight="1"
+            android:background="@android:color/white" />
+    </LinearLayout>
 </layout>

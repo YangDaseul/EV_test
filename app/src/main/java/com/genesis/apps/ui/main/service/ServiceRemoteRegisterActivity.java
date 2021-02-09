@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
@@ -259,7 +259,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
     private String vin;
 
     // FIXME : 해당 버튼 위젯은 바인딩이 되지 않아 우선 수동으로 매칭처리. - 나중에 원인 찾아 수정 필요.
-    private Button btnNextStep;
+    private TextView btnNextStep;
 
     /****************************************************************************************************
      * Override Method - LifeCycle
@@ -309,8 +309,8 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                 rmtViewModel.reqRMT1002(new RMT_1002.Request(
                         APPIAInfo.R_REMOTE01.getId(),
                         vin,
-                        ui.lServiceRemoteStep2.etServiceRemoteRegisterStepInput.getText().toString(),
-                        ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.getText().toString(),
+                        ui.etServiceRemoteStep2.getText().toString(),
+                        ui.etServiceRemoteStep1.getText().toString(),
                         fltCd.code,
                         fltCd == FLT_CODE.CODE_3000 ? wrnLghtCd.code : "",
                         rsrvMiss,
@@ -477,7 +477,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                                         try {
                                             vin = rmtViewModel.getMainVehicle().getVin();
                                             String carId = developersViewModel.getCarId(vin);
-                                            if(TextUtils.isEmpty(carId)) {
+                                            if (TextUtils.isEmpty(carId)) {
                                                 // Car ID가 조회되지 않으면 GCS 가입 안내 팝업표시.
                                                 MiddleDialog.dialogServiceRemoteOneButton(
                                                         this,
@@ -596,19 +596,19 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
 
         String phoneNum = data.getCelphNo();
         // 휴대폰 번호 입력항목은 기본 노출
-        ui.lServiceRemoteStep1.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);
+        ui.lServiceRemoteStep1.setVisibility(View.VISIBLE);
         if (!TextUtils.isEmpty(phoneNum)) {
             // 휴대폰 번호가 있는 경우.
-            ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.setText(PhoneNumberUtils.formatNumber(phoneNum, Locale.getDefault().getCountry()));
+            ui.etServiceRemoteStep1.setText(PhoneNumberUtils.formatNumber(phoneNum, Locale.getDefault().getCountry()));
 
             // 차량 입력 영역을 활성화
-            ui.lServiceRemoteStep2.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);
+            ui.lServiceRemoteStep2.setVisibility(View.VISIBLE);
         }
 
         String carNum = data.getCarRgstNo();
         if (!TextUtils.isEmpty(carNum)) {
             // 차량 번호가 있는 경우.
-            ui.lServiceRemoteStep2.etServiceRemoteRegisterStepInput.setText(carNum);
+            ui.etServiceRemoteStep2.setText(carNum);
 
             // 고장 선택 항목을 활성화.
             ui.lServiceRemoteStep3.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);
@@ -650,13 +650,13 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
     private void executeStep(REGISTER_STEP step) {
         switch (step) {
             case INPUT_PHONE: {
-                ui.lServiceRemoteStep1.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);
-                ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.requestFocusFromTouch();
+                ui.lServiceRemoteStep1.setVisibility(View.VISIBLE);
+                ui.etServiceRemoteStep1.requestFocus();
                 break;
             }
             case INPUT_CAR_NUM: {
-                ui.lServiceRemoteStep2.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);
-                ui.lServiceRemoteStep2.etServiceRemoteRegisterStepInput.requestFocusFromTouch();
+                ui.lServiceRemoteStep2.setVisibility(View.VISIBLE);
+                ui.etServiceRemoteStep2.requestFocus();
                 break;
             }
             case SERVICE_TYPE: {
@@ -688,7 +688,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
         // 휴대폰 번호가 입력되어 있는지 체크.
         boolean isEmptyPhoneNum;
         try {
-            String phoneNum = ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.getText().toString().trim();
+            String phoneNum = ui.etServiceRemoteStep1.getText().toString().trim();
             if (TextUtils.isEmpty(phoneNum)) {
                 // 휴대폰 번호가 입력되어 있지 않음.
                 isEmptyPhoneNum = true;
@@ -701,13 +701,13 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
             isEmptyPhoneNum = true;
         }
 
-        ui.lServiceRemoteStep1.tvServiceRemoteRegisterStepGuide.setVisibility(isEmptyPhoneNum ? View.VISIBLE : View.GONE);
-        ui.lServiceRemoteStep1.etServiceRemoteRegisterStepInput.setSelected(isEmptyPhoneNum);
+        ui.lServiceRemoteStep1.setError(isEmptyPhoneNum ? getString(R.string.sm_remote01_input_phone_number) : null);
+        ui.etServiceRemoteStep1.setSelected(isEmptyPhoneNum);
 
         // 차량 번호가 입력되어 있는지 체크.
         boolean isEmptyCarNum;
         try {
-            String carNum = ui.lServiceRemoteStep2.etServiceRemoteRegisterStepInput.getText().toString().trim();
+            String carNum = ui.etServiceRemoteStep2.getText().toString().trim();
 
             if (TextUtils.isEmpty(carNum)) {
                 // 차량 번호가 입력되어 있지 않음.
@@ -721,8 +721,8 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
             isEmptyCarNum = true;
         }
 
-        ui.lServiceRemoteStep2.tvServiceRemoteRegisterStepGuide.setVisibility(isEmptyCarNum ? View.VISIBLE : View.GONE);
-        ui.lServiceRemoteStep2.etServiceRemoteRegisterStepInput.setSelected(isEmptyCarNum);
+        ui.lServiceRemoteStep2.setError(isEmptyCarNum ? getString(R.string.sm_remote01_input_car_number) : null);
+        ui.etServiceRemoteStep2.setSelected(isEmptyCarNum);
 
         // 고장 코드가 없거나 경고등인데 상세 경고등 선택항목이 없는지 체크.
         boolean isEmptyErrorCode = (fltCd == null) || (fltCd == FLT_CODE.CODE_3000 && wrnLghtCd == null);

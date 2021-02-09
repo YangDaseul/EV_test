@@ -13,7 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:paddingTop="40dp">
 
         <TextView
             android:id="@+id/tv_datamiles_title"
@@ -27,47 +28,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <ImageView
             android:id="@+id/tv_datamiles_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingEnd="20dp"
             android:paddingBottom="30dp"
-            android:fontFamily="@font/regular_genesissanstextglobal"
-            android:textColor="@color/x_000000"
-            android:textSize="14dp"
-            android:text="@string/gm01_more"
-            app:layout_constraintEnd_toStartOf="@id/iv_datamiles_arrow"
-            app:layout_constraintTop_toTopOf="@id/tv_datamiles_title" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@android:color/black"
-            app:layout_constraintEnd_toEndOf="@id/tv_datamiles_more"
-            app:layout_constraintStart_toStartOf="@id/tv_datamiles_more"
-            app:layout_constraintTop_toBottomOf="@id/iv_datamiles_arrow" />
-
-        <ImageView
-            android:id="@+id/iv_datamiles_arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            android:src="@drawable/ic_btn_arrow_open_r"
+            android:src="@drawable/btn_mydata_hub"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="@id/tv_datamiles_title" />
 
         <!--안전 운전 점수-->
 
         <!--소모품 현황-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_datamiles_driving_score_container"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:paddingBottom="40dp"
             app:layout_constraintBottom_toTopOf="@id/l_datamiles_expenables_container"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_datamiles_title"
             app:layout_constraintVertical_chainStyle="packed">
@@ -97,47 +79,96 @@
             <!--안내 가이드 영역-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/l_datamiles_guide_container"
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="17dp"
                 android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_datamiles_driving_score_title"
-                tools:visibility="visible">
+                tools:visibility="gone">
 
                 <ImageView
                     android:id="@+id/iv_datamiles_service_guide"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
                     android:contentDescription="@null"
                     android:src="@drawable/datamiles_service_guide"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_datamiles_driving_score_error"
-                    style="@style/DataMiles.TextView_Font_RGSHG.Black"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/x_f8f8f8"
-                    android:gravity="center"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6dp"
-                    android:text="@string/gm01_error_response_fail"
-                    android:textSize="16dp"
-                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+                <!--
+                                <TextView
+                                    android:id="@+id/tv_datamiles_driving_score_error"
+                                    style="@style/DataMiles.TextView_Font_RGSHG.Black"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/x_f8f8f8"
+                                    android:gravity="center"
+                                    android:letterSpacing="-0.01"
+                                    android:lineSpacingExtra="6dp"
+                                    android:text="@string/gm01_error_response_fail"
+                                    android:textSize="16dp"
+                                    android:visibility="gone"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                -->
+
+                <LinearLayout
+                    android:id="@+id/ll_datamiles_driving_score_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/x_f8f8f8"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingTop="47dp"
+                    android:paddingBottom="47dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/DataMiles.TextView_Font_RGSHG.Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/x_f8f8f8"
+                        android:gravity="center"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="6dp"
+                        android:text="@string/gm01_error_response_fail"
+                        android:textSize="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_datamiles_driving_score_error"
+                        style="@style/DataMiles.TextView_Font_RGSTG.Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/bg_trans_underline_000000"
+                        android:gravity="center"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="6dp"
+                        android:text="@string/gm01_error_response_fail_01"
+                        android:textSize="14dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!--안전 운전 점수 Container-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/l_driving_score_container"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="17dp"
                 android:background="@color/x_f8f8f8"
@@ -154,9 +185,9 @@
                     android:layout_width="14dp"
                     android:layout_height="14dp"
                     android:layout_marginStart="3dp"
-                    android:background="@drawable/sel_icon_driving_before_score"
+                    android:adjustViewBounds="true"
                     android:padding="0dp"
-                    android:scaleType="fitXY"
+                    android:src="@drawable/sel_icon_driving_before_score"
                     app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_before_score"
                     app:layout_constraintStart_toEndOf="@id/tv_datamiles_before_score"
                     app:layout_constraintTop_toTopOf="@id/tv_datamiles_before_score" />
@@ -313,7 +344,7 @@
                 <TextView
                     android:id="@+id/tv_datamiles_driving_score_description"
                     style="@style/DataMiles.TextView_Font_RGSTG.Black"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="66dp"
@@ -363,7 +394,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_datamiles_expenables_container"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:paddingStart="20dp"
@@ -420,7 +451,7 @@
             <!--소모품 목록-->
             <LinearLayout
                 android:id="@+id/l_datamiles_expenables_list"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@color/x_f8f8f8"
@@ -435,10 +466,10 @@
 
                 <LinearLayout
                     android:id="@+id/ll_datamiles_expenables_error"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:orientation="vertical"
                     android:paddingTop="47dp"
                     android:paddingBottom="47dp">
 
@@ -463,10 +494,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
+                        android:background="@drawable/bg_trans_underline_000000"
                         android:gravity="center"
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="6dp"
-                        android:background="@drawable/bg_trans_underline_000000"
                         android:text="@string/gm01_error_response_fail_01"
                         android:textSize="14dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -481,7 +512,7 @@
         <!--차량 진단-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_datamiles_diagnostic_container"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:paddingStart="20dp"
@@ -512,7 +543,7 @@
                 app:layout_constraintTop_toTopOf="@id/tv_datamiles_vehicle_diagnostic_title" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="17dp"
                 android:background="@color/x_000000"
