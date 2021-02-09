@@ -13,6 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="40dp"
         android:background="@android:color/white">
 
         <TextView
@@ -27,35 +28,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <ImageView
             android:id="@+id/tv_datamiles_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/regular_genesissanstextglobal"
             android:paddingBottom="30dp"
-            android:text="@string/gm01_more"
-            android:textColor="@color/x_000000"
-            android:textSize="14dp"
-            app:layout_constraintEnd_toStartOf="@id/iv_datamiles_arrow"
-            app:layout_constraintTop_toTopOf="@id/tv_datamiles_title" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@android:color/black"
-            app:layout_constraintEnd_toEndOf="@id/tv_datamiles_more"
-            app:layout_constraintStart_toStartOf="@id/tv_datamiles_more"
-            app:layout_constraintTop_toBottomOf="@id/iv_datamiles_arrow" />
-
-        <ImageView
-            android:id="@+id/iv_datamiles_arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            android:src="@drawable/ic_btn_arrow_open_r"
+            android:paddingEnd="20dp"
+            android:src="@drawable/btn_mydata_hub"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="@id/tv_datamiles_title" />
 
         <!--안전 운전 점수-->
 

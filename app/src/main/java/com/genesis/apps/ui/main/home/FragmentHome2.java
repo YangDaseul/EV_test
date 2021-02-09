@@ -40,6 +40,7 @@ import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.GNSViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentHome2Binding;
+import com.genesis.apps.ui.common.activity.DataMilesWebViewActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
@@ -419,8 +420,13 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
                 break;
             case R.id.tv_datamiles_more:
                 // 데이터 마일스 : 더보기 버튼
-                // TODO 데이터 마일스 상세 웹뷰 연결 처기 코드 추가 필요.
-
+                Object tag = v.getTag();
+                if (tag instanceof String) {
+                    ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), DataMilesWebViewActivity.class)
+                                    .putExtra(KeyNames.KEY_NAME_URL, (String) tag)
+                            , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                            , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                }
                 break;
             case R.id.tv_datamiles_driving_score_error:
                 // 데이터 마일스 : 안전 운전 점수 새로 고침.
@@ -449,8 +455,14 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
         SubActivity.setStatusBarColor(getActivity(), R.color.x_f8f8f8);
         lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
         String carId = developersViewModel.getCarId(vehicleVO.getVin());
+        String userId = loginInfoDTO.getProfile().getId();
         // Car ID 값이 있는 경우에만 데이터 마일스 정보를 노출.
-        if (!TextUtils.isEmpty(carId) && developersViewModel.checkCarInfoToDevelopers(vehicleVO.getVin(), loginInfoDTO.getProfile().getId()) == STAT_AGREEMENT) {
+        if (!TextUtils.isEmpty(carId) && developersViewModel.checkCarInfoToDevelopers(vehicleVO.getVin(), userId) == STAT_AGREEMENT) {
+            // CarId가 존재하고, 동의 상태 인 경우.
+
+            // 데이터 마일스 상세 URL 설정.
+            home2DataMilesAdapter.setMoreUrl(developersViewModel.getDataMilesDetailUrl(loginInfoDTO.getAccessToken(), userId, carId));
+            // 데이터 마일스 연동 시작.
             developersViewModel.reqTarget(new Target.Request(developersViewModel.getCarId(vehicleVO.getVin())));
         }
         ((MainActivity) getActivity()).setGNB("", View.GONE);

@@ -46,6 +46,8 @@ import java.util.List;
 public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO> {
     private static OnSingleClickListener onSingleClickListener;
 
+    private String moreUrl;
+
     public Home2DataMilesAdapter(OnSingleClickListener listener) {
         onSingleClickListener = listener;
     }
@@ -54,6 +56,15 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ItemDataMilesAdapter(getView(parent, R.layout.item_datamiles));
+    }
+
+    /**
+     * 데이터 마일스 상세 화면으로 이동할 Url 설정 함수.
+     *
+     * @param url
+     */
+    public void setMoreUrl(String url) {
+        moreUrl = url;
     }
 
     /**
@@ -151,6 +162,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             animatorSet.cancel();
 
             // 더보기 버튼 이벤트 등록.
+            binding.tvDatamilesMore.setTag(moreUrl);
             binding.tvDatamilesMore.setOnClickListener(view -> onSingleClickListener.onClick(view));
 
             /**
