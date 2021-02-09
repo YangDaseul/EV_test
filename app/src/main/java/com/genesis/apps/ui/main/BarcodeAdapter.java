@@ -145,6 +145,9 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
 
 
             if(isReg) {
+                if(!isIntegration)
+                    getBinding().tvMembershipInfo.setVisibility(View.VISIBLE);
+
                 getBinding().tvIntegration.setVisibility(View.GONE);
                 getBinding().tvCardNo.setVisibility(View.VISIBLE);
                 getBinding().tvCardNo.setText(StringRe2j.replaceAll(item.getCardNo(), getContext().getString(R.string.card_original), getContext().getString(R.string.card_mask)));
@@ -164,7 +167,6 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
             }else{
                 getBinding().tvCardNo.setVisibility(View.INVISIBLE);
                 if(isIntegration) {
-                    getBinding().tvMembershipInfo.setVisibility(View.VISIBLE);
                     getBinding().tvIntegration.setVisibility(View.VISIBLE);
                     getBinding().ivBarcode.setVisibility(View.VISIBLE);
                     getBinding().ivBarcode.setAlpha(.1f);
