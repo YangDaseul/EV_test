@@ -2,6 +2,7 @@ package com.genesis.apps.ui.main.insight;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -49,6 +50,8 @@ public class InsightExpnMembershipActivity extends SubActivity<ActivityInsightEx
                 ui.tlTabs.getTabAt(0).view.performClick();
                 break;
         }
+
+        setOilView();
     }
 
 
@@ -74,6 +77,9 @@ public class InsightExpnMembershipActivity extends SubActivity<ActivityInsightEx
         }catch (Exception ignore){
 
         }
+        if(TextUtils.isEmpty(oilRfnCd)){
+            oilRfnCd = OilPointVO.OIL_CODE_HDOL;
+        }
     }
 
 
@@ -91,14 +97,20 @@ public class InsightExpnMembershipActivity extends SubActivity<ActivityInsightEx
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()){
                     case 0:
+                        oilRfnCd = OilPointVO.OIL_CODE_HDOL;
                         break;
                     case 1:
+                        oilRfnCd = OilPointVO.OIL_CODE_GSCT;
                         break;
                     case 2:
+                        oilRfnCd = OilPointVO.OIL_CODE_SOIL;
+                        break;
                     default:
+                        //nothing
                         break;
                 }
 
+                setOilView();
             }
 
             @Override
@@ -111,5 +123,11 @@ public class InsightExpnMembershipActivity extends SubActivity<ActivityInsightEx
 
             }
         });
+    }
+
+    private void setOilView() {
+        ui.ivOil1.setImageResource(OilCodes.findCode(oilRfnCd).getBigSrc());
+        ui.ivOil2.setImageResource(OilCodes.findCode(oilRfnCd).getBigSrc2());
+        ui.ivOil3.setImageResource(OilCodes.findCode(oilRfnCd).getBigSrc3());
     }
 }

@@ -31,8 +31,9 @@ public class MyGOilIntegrationActivity extends SubActivity<ActivityMygOilIntegra
 
     private void setView() {
         ui.setActivity(this);
-        ui.tv1.setText(getString(OilCodes.findCode(oilRfnCd).getOilNm())+"\n"+getString(R.string.mg_con02_2));
-        ui.ivOil.setImageResource(OilCodes.findCode(oilRfnCd).getBigSrc());
+        ui.ivOil1.setImageResource(OilCodes.findCode(oilRfnCd).getBigSrc());
+        ui.ivOil2.setImageResource(OilCodes.findCode(oilRfnCd).getBigSrc2());
+        ui.ivOil3.setImageResource(OilCodes.findCode(oilRfnCd).getBigSrc3());
     }
 
     @Override

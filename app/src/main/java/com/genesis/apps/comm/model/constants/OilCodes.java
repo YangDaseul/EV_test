@@ -10,10 +10,10 @@ import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_SKNO;
 import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_SOIL;
 
 public enum OilCodes {
-    GSCT(OIL_CODE_GSCT, "kr.co.gscaltex.gsnpoint", R.layout.view_oil_1_1, R.string.oil_name_gs, R.string.oil_point_name_gs,  R.drawable.img_connect_gs,R.drawable.logo_gs_l),
-    HDOL(OIL_CODE_HDOL, "com.hyundaioilbank.android", R.layout.view_oil_1_2,R.string.oil_name_ho,R.string.oil_point_name_ho,R.drawable.img_connect_ho,R.drawable.logo_hyundaioilbank_l),
+    GSCT(OIL_CODE_GSCT, "kr.co.gscaltex.gsnpoint", R.layout.view_oil_1_1, R.string.oil_name_gs, R.string.oil_point_name_gs,  R.drawable.gs_meber_img_01,R.drawable.logo_gs_l,R.drawable.gs_meber_img_03,R.drawable.gs_meber_img_02),
+    HDOL(OIL_CODE_HDOL, "com.hyundaioilbank.android", R.layout.view_oil_1_2,R.string.oil_name_ho,R.string.oil_point_name_ho,R.drawable.hy_meber_img_01,R.drawable.logo_hyundaioilbank_l,R.drawable.hy_meber_img_03,R.drawable.hy_meber_img_02),
 //    SKNO(OIL_CODE_SKNO, "com.ske.phone.epay", R.layout.view_oil_1_3,R.string.oil_name_sk,R.string.oil_point_name_sk,R.drawable.img_connect_sk,R.drawable.logo_sk_l),
-    SOIL(OIL_CODE_SOIL, "com.soilbonus.goodoilfamily", R.layout.view_oil_1_4,R.string.oil_name_soil,R.string.oil_point_name_soil,R.drawable.img_connect_soil,R.drawable.logo_s_oil_l);
+    SOIL(OIL_CODE_SOIL, "com.soilbonus.goodoilfamily", R.layout.view_oil_1_4,R.string.oil_name_soil,R.string.oil_point_name_soil,R.drawable.so_meber_img_01,R.drawable.logo_s_oil_l,R.drawable.so_meber_img_03,R.drawable.so_meber_img_02);
 
     public static final String KEY_OIL_CODE="oilRfnCd";
 
@@ -24,8 +24,10 @@ public enum OilCodes {
     private int oilPontNm;
     private int bigSrc;
     private int smallSrc;
+    private int bigSrc2;
+    private int bigSrc3;
 
-    OilCodes(String code, String schema, int layout, int oilNm, int oilPontNm, int bigSrc, int smallSrc) {
+    OilCodes(String code, String schema, int layout, int oilNm, int oilPontNm, int bigSrc, int smallSrc, int bigSrc2, int bigSrc3) {
         this.code = code;
         this.schema = schema;
         this.layout = layout;
@@ -33,6 +35,8 @@ public enum OilCodes {
         this.oilPontNm = oilPontNm;
         this.bigSrc = bigSrc;
         this.smallSrc = smallSrc;
+        this.bigSrc2 = bigSrc2;
+        this.bigSrc3 = bigSrc3;
     }
 
     public static OilCodes findCode(String code) {
@@ -93,5 +97,21 @@ public enum OilCodes {
 
     public void setOilPontNm(int oilPontNm) {
         this.oilPontNm = oilPontNm;
+    }
+
+    public int getBigSrc2() {
+        return bigSrc2;
+    }
+
+    public void setBigSrc2(int bigSrc2) {
+        this.bigSrc2 = bigSrc2;
+    }
+
+    public int getBigSrc3() {
+        return bigSrc3;
+    }
+
+    public void setBigSrc3(int bigSrc3) {
+        this.bigSrc3 = bigSrc3;
     }
 }
