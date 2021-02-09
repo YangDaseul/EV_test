@@ -303,7 +303,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
         }else{
             //이미 view가 오픈되어있을 경우
             if(pos==1&&views[3].getVisibility() == View.VISIBLE){//지출항목선택완료 시
-                if(isVisibleAccmMilg()){
+                if(cbkViewModel.isVisibleAccmMilg(expnDivCd)){
                     //주유 및 정비일 경우
                     views[2].setVisibility(View.VISIBLE);
                 }else{
@@ -314,14 +314,9 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
         }
     }
 
-    private boolean isVisibleAccmMilg(){
-        return expnDivCd.equalsIgnoreCase(VariableType.getExpnDivCd(VariableType.INSIGHT_EXPN_DIV_CODE_1000))||expnDivCd.equalsIgnoreCase(VariableType.getExpnDivCd(VariableType.INSIGHT_EXPN_DIV_CODE_2000));
-    }
-
-
     private boolean checkVaildAccmMilg(){
 
-        if(!isVisibleAccmMilg())
+        if(!cbkViewModel.isVisibleAccmMilg(expnDivCd))
             return true;
 
         String accmMilg = ui.etAccmMilg.getText().toString().trim();
@@ -361,7 +356,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
 //            ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(amt.replaceAll(",","")));
             ui.lExpnAmt.setError(null);
 
-            if(isVisibleAccmMilg()){
+            if(cbkViewModel.isVisibleAccmMilg(expnDivCd)){
                 doTransition(2);
             }else{
                 doTransition(3);
@@ -396,7 +391,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
                     case R.id.l_expn_amt:
                         return checkVaildDivCd()&&false;
                     case R.id.l_accm_milg:
-                        if(isVisibleAccmMilg())
+                        if(cbkViewModel.isVisibleAccmMilg(expnDivCd))
                             return checkVaildDivCd()&&checkVaildAmt()&&false;
                         else
                             break;

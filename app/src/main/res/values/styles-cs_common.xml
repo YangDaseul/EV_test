@@ -61,6 +61,7 @@
     <style name="CommonSpinnerItemReject" parent="CommonSpinnerItem">
         <item name="android:textColor">@color/x_525252</item>
         <item name="android:background">@drawable/bg_f5f6f8_stroke_e5e5e5</item>
+        <item name="android:drawableRight">@null</item>
     </style>
 
 
