@@ -59,7 +59,7 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
             setViewType(item.getRsvtStusCd(), item.getPaymtWayCd());
 
             //날짜
-            setDate(item.getRsvtDtm());
+            setDate(item.isFirst(), item.getRsvtDtm());
 
             //지점명
             setBranchName(item.getBrnhNm());
@@ -123,8 +123,8 @@ public class CarWashHistoryAdapter extends BaseRecyclerViewAdapter2<WashReserveV
         }
 
         //날짜. 서버 값은 YYYYMMDDHH24MISS / UI 출력은 YYYY.MM.DD
-        private void setDate(String dateOriginal) {
-            if(TextUtils.isEmpty(dateOriginal)){
+        private void setDate(boolean isFirst, String dateOriginal) {
+            if(!isFirst||TextUtils.isEmpty(dateOriginal)){
                 getBinding().tvCarWashHistoryDate.setVisibility(View.GONE);
             }else {
                 getBinding().tvCarWashHistoryDate.setVisibility(View.VISIBLE);
