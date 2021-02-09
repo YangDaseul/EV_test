@@ -182,8 +182,8 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                         case FAIL: {
                             binding.lDrivingScoreContainer.setVisibility(View.GONE);
                             binding.lDatamilesGuideContainer.setVisibility(View.VISIBLE);
-                            binding.tvDatamilesDrivingScoreError.setVisibility(View.VISIBLE);
-                            binding.tvDatamilesDrivingScoreError.setOnClickListener(view -> onSingleClickListener.onClick(view));
+                            binding.llDatamilesDrivingScoreError.setVisibility(View.VISIBLE);
+                            binding.llDatamilesDrivingScoreError.setOnClickListener(view -> onSingleClickListener.onClick(view));
                             binding.ivDatamilesServiceGuide.setVisibility(View.GONE);
                             break;
                         }
@@ -222,7 +222,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                     binding.tvDatamilesExpendablesTotalDistanceTitle.setVisibility(View.GONE);
                     binding.tvDatamilesExpendablesTotalDistance.setVisibility(View.GONE);
                     binding.llDatamilesExpenablesError.setVisibility(View.VISIBLE);
-                    binding.tvDatamilesExpenablesError.setOnClickListener(view -> onSingleClickListener.onClick(view));
+                    binding.llDatamilesExpenablesError.setOnClickListener(view -> onSingleClickListener.onClick(view));
                     break;
                 }
             }

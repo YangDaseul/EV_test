@@ -50,6 +50,7 @@ import com.genesis.apps.ui.main.home.view.Home2BtrAdapter;
 import com.genesis.apps.ui.main.home.view.Home2DataMilesAdapter;
 import com.genesis.apps.ui.main.home.view.Home2WarrantyAdapter;
 import com.genesis.apps.ui.main.service.ServiceRepairReserveHistoryActivity;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -166,6 +167,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
                     if (dataMilesVO != null) {
                         dataMilesVO.setDetailStatus(DataMilesVO.STATUS.FAIL);
                     }
+                    home2DataMilesAdapter.notifyDataSetChanged();
                     break;
                 }
                 case SUCCESS: {
@@ -428,11 +430,11 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
                             , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }
                 break;
-            case R.id.tv_datamiles_driving_score_error:
+            case R.id.ll_datamiles_driving_score_error:
                 // 데이터 마일스 : 안전 운전 점수 새로 고침.
                 developersViewModel.reqDetail(new Detail.Request(developersViewModel.getCarId(vehicleVO.getVin())));
                 break;
-            case R.id.tv_datamiles_expenables_error:
+            case R.id.ll_datamiles_expenables_error:
                 // 데이터 마일스 : 소모품 현황 새로 고침.
                 developersViewModel.reqReplacements(new Replacements.Request(developersViewModel.getCarId(vehicleVO.getVin())));
                 break;

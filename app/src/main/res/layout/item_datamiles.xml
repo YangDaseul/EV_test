@@ -13,8 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="40dp"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:paddingTop="40dp">
 
         <TextView
             android:id="@+id/tv_datamiles_title"
@@ -32,8 +32,8 @@
             android:id="@+id/tv_datamiles_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="30dp"
             android:paddingEnd="20dp"
+            android:paddingBottom="30dp"
             android:src="@drawable/btn_mydata_hub"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_datamiles_title" />
@@ -99,23 +99,69 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+                <!--
+                                <TextView
+                                    android:id="@+id/tv_datamiles_driving_score_error"
+                                    style="@style/DataMiles.TextView_Font_RGSHG.Black"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/x_f8f8f8"
+                                    android:gravity="center"
+                                    android:letterSpacing="-0.01"
+                                    android:lineSpacingExtra="6dp"
+                                    android:text="@string/gm01_error_response_fail"
+                                    android:textSize="16dp"
+                                    android:visibility="gone"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                -->
 
-                <TextView
-                    android:id="@+id/tv_datamiles_driving_score_error"
-                    style="@style/DataMiles.TextView_Font_RGSHG.Black"
+                <LinearLayout
+                    android:id="@+id/ll_datamiles_driving_score_error"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/x_f8f8f8"
                     android:gravity="center"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="6dp"
-                    android:text="@string/gm01_error_response_fail"
-                    android:textSize="16dp"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:orientation="vertical"
+                    android:paddingTop="47dp"
+                    android:paddingBottom="47dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/DataMiles.TextView_Font_RGSHG.Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/x_f8f8f8"
+                        android:gravity="center"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="6dp"
+                        android:text="@string/gm01_error_response_fail"
+                        android:textSize="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_datamiles_driving_score_error"
+                        style="@style/DataMiles.TextView_Font_RGSTG.Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/bg_trans_underline_000000"
+                        android:gravity="center"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="6dp"
+                        android:text="@string/gm01_error_response_fail_01"
+                        android:textSize="14dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
