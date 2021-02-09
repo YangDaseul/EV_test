@@ -7,6 +7,7 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.gra.STO_1003;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ActivitySimilarCarContractDetailBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 
@@ -34,6 +35,7 @@ public class SimilarCarContractDetailActivity extends SubActivity<ActivitySimila
     @Override
     public void setViewModel() {
         ui.setLifecycleOwner(this);
+        ui.setActivity(this);
     }
 
     @Override
@@ -54,5 +56,9 @@ public class SimilarCarContractDetailActivity extends SubActivity<ActivitySimila
                 ui.setData(response);
             }
         }
+    }
+
+    public boolean isGone(String value){
+        return StringUtil.isValidString(value).equalsIgnoreCase("")||StringUtil.isValidString(value).equalsIgnoreCase("0");
     }
 }
