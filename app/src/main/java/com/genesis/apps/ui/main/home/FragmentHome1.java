@@ -357,7 +357,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 && StringUtil.isValidString(isFirstLogin).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)//최초로그인이면
         ) {
             me.ivIndicator.setVisibility(View.VISIBLE);
-            VibratorUtil.makeMeShakeY(me.ivIndicator, 200, 20);
+            VibratorUtil.makeMeShakeY(me.ivIndicator, 2500, 15,2);
             lgnViewModel.updateGlobalDataToDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_ISFIRSTLOGIN, VariableType.COMMON_MEANS_NO);
         } else {
             me.ivIndicator.setVisibility(View.INVISIBLE);
