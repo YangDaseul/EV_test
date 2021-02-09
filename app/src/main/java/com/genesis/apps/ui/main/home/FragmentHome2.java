@@ -33,13 +33,13 @@ import com.genesis.apps.comm.model.vo.DataMilesVO;
 import com.genesis.apps.comm.model.vo.MainHistVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
 import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.GNSViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentHome2Binding;
-import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
@@ -54,7 +54,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+import static com.genesis.apps.comm.viewmodel.DevelopersViewModel.CCSSTAT.STAT_AGREEMENT;
+
+@AndroidEntryPoint
 public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
+
+    @Inject
+    public LoginInfoDTO loginInfoDTO;
 
     private ConcatAdapter concatAdapter;
     private Home2DataMilesAdapter home2DataMilesAdapter;
@@ -440,7 +450,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
         lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
         String carId = developersViewModel.getCarId(vehicleVO.getVin());
         // Car ID 값이 있는 경우에만 데이터 마일스 정보를 노출.
-        if (!TextUtils.isEmpty(carId)) {
+        if (!TextUtils.isEmpty(carId) && developersViewModel.checkCarInfoToDevelopers(vehicleVO.getVin(), loginInfoDTO.getProfile().getId()) == STAT_AGREEMENT) {
             developersViewModel.reqTarget(new Target.Request(developersViewModel.getCarId(vehicleVO.getVin())));
         }
         ((MainActivity) getActivity()).setGNB("", View.GONE);
