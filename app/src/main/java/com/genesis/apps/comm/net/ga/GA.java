@@ -155,9 +155,14 @@ public class GA {
                 accessToken = ret.get("access_token").getAsString();
             }
         }
-        loginInfoDTO.setAccessToken(accessToken);
-        loginInfoDTO.updateLoginInfo(loginInfoDTO);
-//        ccsp.updateLoginInfo(); //todo 2020-11-19 logininfodto는 singleton이라 여기에서 진행.
+        //2021-02-08 액세스 토큰이 만료상태면 로그아웃 처리
+        //인트로에서 앱 실행 시 액세스토큰이 없으면 db를 클리어 진행
+        if(!TextUtils.isEmpty(accessToken)) {
+            loginInfoDTO.setAccessToken(accessToken);
+            loginInfoDTO.updateLoginInfo(loginInfoDTO);
+        }else{
+            loginInfoDTO.clearLoginInfo();
+        }
 
         request.disconnect();
     }
@@ -447,6 +452,7 @@ public class GA {
 
     public JsonObject postDataWithToken(String url, String data, String token) throws NetException {
         HttpRequest request = httpRequestUtil.getPostRequest(url);
+        Log.e(TAG, "TEST NETWORK URL:"+url +"   data:"+data);
         if(!TextUtils.isEmpty(token)) request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + token);
         Log.d(TAG, "Authorization:Bearer " + token);
         JsonObject ret = null;

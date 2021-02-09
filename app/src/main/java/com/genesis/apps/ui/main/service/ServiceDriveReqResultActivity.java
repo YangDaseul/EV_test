@@ -127,10 +127,10 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
                             case DDS_1001.STATUS_NO_DRIVER:
                                 serviceReqData = result.data;
                                 initView();
-                                break;
+                                return;
                             default:
                                 exitPage("기사정보가 존재하지 않습니다.", ResultCodes.RES_CODE_NETWORK.getCode());
-                                break;
+                                return;
                         }
                     }
                 default:

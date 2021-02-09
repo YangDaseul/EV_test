@@ -67,4 +67,8 @@ class WashReserveVO extends BaseData {
     @Expose
     @SerializedName("dsctNm")
     private String dsctNm;
+
+    //LOCAL 에서만 사용
+    //yyyyMMdd를 기준으로 가장 빠른 데이터 확인
+    private boolean isFirst;
 }

@@ -307,4 +307,7 @@ class LGNViewModel extends ViewModel {
         return dbGlobalDataRepository.select(keyName);
     }
 
+    public void removeDBTable(){
+        dbUserRepo.clearUserInfo();
+    }
 }

@@ -105,6 +105,7 @@ class DevelopersViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<CarCheck.Response>> RES_CAR_CHECK;
     private MutableLiveData<NetUIResponse<CarId.Response>> RES_CAR_ID;
     private MutableLiveData<NetUIResponse<CarConnect.Response>> RES_CAR_CONNECT;
+    private MutableLiveData<NetUIResponse<Agreements.Response>> RES_CAR_AGREEMENTS;
 
 
     @ViewModelInject
@@ -127,6 +128,7 @@ class DevelopersViewModel extends ViewModel {
         RES_CAR_CHECK = repository.RES_CAR_CHECK;
         RES_CAR_ID = repository.RES_CAR_ID;
         RES_CAR_CONNECT = repository.RES_CAR_CONNECT;
+        RES_CAR_AGREEMENTS = repository.RES_CAR_AGREEMENTS;
     }
 
     public void reqDtc(final Dtc.Request reqData) {
@@ -177,6 +179,10 @@ class DevelopersViewModel extends ViewModel {
         repository.REQ_CAR_CONNECT(reqData);
     }
 
+    public void reqAgreementsAsync(final Agreements.Request reqData) {
+        repository.REQ_AGREEMENTS_ASYNC(reqData);
+    }
+
     public Boolean reqAgreements(Agreements.Request reqData, boolean isUpdate) throws ExecutionException, InterruptedException {
         ExecutorService es = new ExecutorService("");
         Future<Boolean> future = es.getListeningExecutorService().submit(() -> {
@@ -186,7 +192,7 @@ class DevelopersViewModel extends ViewModel {
                 try {
                     result = response.isResult();
                     if (isUpdate) {
-                        dbVehicleRepository.updateCarConnect(result, reqData.getCarId());
+                        updateCarConnectResult(result, reqData.getCarId());
                     }
                 } catch (Exception ignore) {
                     ignore.printStackTrace();
@@ -199,6 +205,15 @@ class DevelopersViewModel extends ViewModel {
             return future.get();
         } finally {
             es.shutDownExcutor();
+        }
+    }
+
+    public boolean updateCarConnectResult(boolean result, String carId){
+        try {
+            dbVehicleRepository.updateCarConnect(result, carId);
+            return true;
+        }catch (Exception e){
+            return false;
         }
     }
 
@@ -522,6 +537,7 @@ class DevelopersViewModel extends ViewModel {
         STAT_DISAGREEMENT,
         STAT_DISABLE
     }
+
     public CCSSTAT checkCarInfoToDevelopers(String vin, String userId) {
         CarConnectVO carConnectVO = getCarConnectVO(vin);
         //ccs 연동된 상태일 경우
@@ -529,28 +545,44 @@ class DevelopersViewModel extends ViewModel {
             if (carConnectVO.isResult()) {
                 return CCSSTAT.STAT_AGREEMENT;
             } else {
-                //정보제공 미동의상태 인 경우
-                boolean result = false;
-
-                try {
-                    //정보 동의를 상태를 확인
-                    result = reqAgreements(new Agreements.Request(userId, carConnectVO.getCarId()), true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                if (result) {
-                    //동의가 된 경우
-                    return CCSSTAT.STAT_AGREEMENT;
-                } else {
-                    //동의되지 않은 경우
-                    return CCSSTAT.STAT_DISAGREEMENT;
-                }
+                return CCSSTAT.STAT_DISAGREEMENT;
             }
         } else {
             //ccs 미 연동 상태일 경우
             return CCSSTAT.STAT_DISABLE;
         }
     }
+
+
+//    public CCSSTAT checkCarInfoToDevelopers(String vin, String userId) {
+//        CarConnectVO carConnectVO = getCarConnectVO(vin);
+//        //ccs 연동된 상태일 경우
+//        if (carConnectVO != null && !TextUtils.isEmpty(carConnectVO.getCarId())) {
+//            if (carConnectVO.isResult()) {
+//                return CCSSTAT.STAT_AGREEMENT;
+//            } else {
+//                //정보제공 미동의상태 인 경우
+//                boolean result = false;
+//
+//                try {
+//                    //정보 동의를 상태를 확인
+//                    result = reqAgreements(new Agreements.Request(userId, carConnectVO.getCarId()), true);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//                if (result) {
+//                    //동의가 된 경우
+//                    return CCSSTAT.STAT_AGREEMENT;
+//                } else {
+//                    //동의되지 않은 경우
+//                    return CCSSTAT.STAT_DISAGREEMENT;
+//                }
+//            }
+//        } else {
+//            //ccs 미 연동 상태일 경우
+//            return CCSSTAT.STAT_DISABLE;
+//        }
+//    }
 
 
 }

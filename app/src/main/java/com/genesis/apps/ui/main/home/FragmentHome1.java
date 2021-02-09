@@ -36,7 +36,6 @@ import com.genesis.apps.comm.model.vo.DownMenuVO;
 import com.genesis.apps.comm.model.vo.MessageVO;
 import com.genesis.apps.comm.model.vo.QuickMenuVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
-import com.genesis.apps.comm.model.vo.developers.CarConnectVO;
 import com.genesis.apps.comm.model.vo.developers.OdometerVO;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.DeviceUtil;
@@ -217,6 +216,27 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             lgnViewModel.reqLGN0005(new LGN_0005.Request(APPIAInfo.GM01.getId(), String.valueOf(doubles.get(1)), String.valueOf(doubles.get(0))));
         });
 
+        //정보제공동의유무확인
+        developersViewModel.getRES_CAR_AGREEMENTS().observe(getViewLifecycleOwner(), result -> {
+            switch (result.status){
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    if(result.data!=null){
+                        try{
+                            developersViewModel.updateCarConnectResult(result.data.isResult(), developersViewModel.getCarId(lgnViewModel.getMainVehicleSimplyFromDB().getVin()));
+                            setViewDevelopers();
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                    break;
+                default:
+                    setViewDevelopers();
+                    break;
+            }
+        });
+
         //주행가능거리표기
         developersViewModel.getRES_DTE().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
@@ -315,10 +335,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             me.lCarInfo.setVisibility(visibility);
             me.vpInsight.setVisibility(visibility);
             if (visibility == View.GONE) {
-                me.tvCarCode.setVisibility(visibility);
-                me.tvCarModel.setVisibility(visibility);
                 me.tvRepairStatus.setVisibility(visibility);
-                me.tvCarVrn.setVisibility(visibility);
                 me.lFloating.setVisibility(visibility);
                 me.lDistance.setVisibility(visibility);
                 me.tvDeveloperAggrements.setVisibility(visibility);
@@ -337,7 +354,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 && StringUtil.isValidString(isFirstLogin).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)//최초로그인이면
         ) {
             me.ivIndicator.setVisibility(View.VISIBLE);
-            VibratorUtil.makeMeShakeY(me.ivIndicator, 200, 20);
+            VibratorUtil.makeMeShakeY(me.ivIndicator, 2500, 15,2);
             lgnViewModel.updateGlobalDataToDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_ISFIRSTLOGIN, VariableType.COMMON_MEANS_NO);
         } else {
             me.ivIndicator.setVisibility(View.INVISIBLE);
@@ -492,6 +509,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     private void setViewVehicle() {
         VehicleVO vehicleVO = null;
+
         try {
             vehicleVO = lgnViewModel.getMainVehicleFromDB();
             if (vehicleVO != null) {
@@ -506,15 +524,13 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         .error(R.drawable.main_img_car)
                         .placeholder(R.drawable.main_img_car)
                         .into(me.ivCar);
-
-//                me.ivMore.setVisibility(View.GONE);
-                me.lDistance.setVisibility(View.GONE);
-                me.tvDeveloperAggrements.setVisibility(View.GONE);
                 me.lFloating.setVisibility(View.GONE);
                 switch (vehicleVO.getCustGbCd()) {
                     case VariableType.MAIN_VEHICLE_TYPE_OV:
+                        String carId = developersViewModel.getCarId(vehicleVO.getVin());
+                        String userId = loginInfoDTO.getProfile().getId();
                         lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
-                        setViewDevelopers(vehicleVO.getVin());
+                        developersViewModel.reqAgreementsAsync(new Agreements.Request(userId, carId));
                         makeQuickMenu(vehicleVO.getCustGbCd(), vehicleVO);
                         break;
                     case VariableType.MAIN_VEHICLE_TYPE_CV:
@@ -530,12 +546,16 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         }
     }
 
-    private void setViewDevelopers(String vin) {
-        String carId = developersViewModel.getCarId(vin);
-        String userId = loginInfoDTO.getProfile().getId();
+    private void setViewDevelopers() {
+        me.tvDeveloperAggrements.setVisibility(View.GONE);
+        me.lDistance.setVisibility(View.GONE);
+        VehicleVO vehicleVO;
         try {
+            vehicleVO = lgnViewModel.getMainVehicleSimplyFromDB();
+            String carId = developersViewModel.getCarId(vehicleVO.getVin());
+            String userId = loginInfoDTO.getProfile().getId();
             //정보제공동의유무확인
-            switch (developersViewModel.checkCarInfoToDevelopers(vin, userId)){
+            switch (developersViewModel.checkCarInfoToDevelopers(vehicleVO.getVin(), userId)){
                 case STAT_AGREEMENT:
                     //동의한경우
                     reqCarInfoToDevelopers(carId);
@@ -553,8 +573,9 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     break;
             }
         }catch (Exception e){
-            e.printStackTrace();
+
         }
+
     }
 
     private void reqCarInfoToDevelopers(String carId) {

@@ -39,6 +39,7 @@ import com.genesis.apps.databinding.ActivityServiceDriveReqBinding;
 import com.genesis.apps.ui.common.activity.PaymentWebViewActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomDialogReqNowOrReserve;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -739,4 +740,24 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
         //새 상태 표시
         statusViews[newStatus].setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public void onBackPressed() {
+        dialogExit();
+    }
+
+    @Override
+    public void onBackButton() {
+        dialogExit();
+    }
+
+    private void dialogExit() {
+        MiddleDialog.dialogDriveApplyCancel(this, () -> {
+            finish();
+            closeTransition();
+        }, () -> {
+
+        });
+    }
+
 }

@@ -11,13 +11,22 @@ import com.genesis.apps.comm.model.api.gra.WSH_1007;
 import com.genesis.apps.comm.model.api.gra.WSH_1008;
 import com.genesis.apps.comm.model.repo.EVLRepo;
 import com.genesis.apps.comm.model.repo.WSHRepo;
+import com.genesis.apps.comm.model.vo.WashReserveVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.excutor.ExecutorService;
 
 import androidx.hilt.Assisted;
 import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.stream.Collectors;
+
 import lombok.Data;
 
 //CarWashHistory : 세차 예약 내역 뷰 모델
@@ -97,5 +106,43 @@ class WSHViewModel extends ViewModel {
     public void reqEVL1001(final EVL_1001.Request reqData) {
         evlRepo.REQ_EVL_1001(reqData);
     }
+
+
+    public List<WashReserveVO> getWashList(List<WashReserveVO> oriList) throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<List<WashReserveVO>> future = es.getListeningExecutorService().submit(() -> {
+
+            final List<String> distinctRsvtDtm = oriList.stream().map(x -> x.getRsvtDtm().substring(0, 8)).distinct().sorted().collect(Collectors.toList());
+            try {
+
+                for (int i = 0; i < distinctRsvtDtm.size(); i++) {
+                    for (int n = 0; n < oriList.size(); n++) {
+                        String subRsvtDtm = "";
+                        try {
+                            subRsvtDtm = oriList.get(n).getRsvtDtm().substring(0, 8);
+                        } catch (Exception e) {
+                            subRsvtDtm = "";
+                        }
+                        if (subRsvtDtm.equalsIgnoreCase(distinctRsvtDtm.get(i))) {
+                            oriList.get(n).setFirst(true);
+                            break;
+                        }
+                    }
+                }
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+            }
+            oriList.sort(Comparator.comparing(WashReserveVO::getRsvtDtm).reversed());
+            return oriList;
+        });
+
+        try {
+            return future.get();
+        } finally {
+            //todo 테스트 필요
+            es.shutDownExcutor();
+        }
+    }
+    
 
 }

@@ -429,6 +429,39 @@ public class MiddleDialog {
         );
     }
 
+
+    public static void dialogDriveApplyCancel(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                new CustomDialog(activity, dialog -> {
+                    DialogMiddleTwoButtonBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_middle_two_button, null, false);
+                    dialog.setContentView(binding.getRoot());
+
+                    binding.tvTitle.setText(R.string.sm_drv01_p04_1);
+                    binding.tvMsg.setText(R.string.sm_drv01_p04_2);
+                    binding.tvMsg.setMovementMethod(new ScrollingMovementMethod());
+
+                    binding.btnCancel.setText(R.string.dialog_common_1);
+                    binding.btnOk.setText(R.string.dialog_common_2);
+
+                    binding.btnCancel.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (cancel != null) cancel.run();
+                    });
+                    binding.btnOk.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (ok != null) ok.run();
+                    });
+                }).show()
+        );
+    }
+
+
+
+
+
     public static void dialogPermission(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
         if (activity.isFinishing()) {
             return;

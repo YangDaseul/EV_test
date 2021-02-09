@@ -31,6 +31,10 @@ class MenuVO extends BaseData {
     @SerializedName("name")
     private String name;
 
+
+    @Ignore
+    private String category;
+
     @Ignore
     private Class activity;
 }

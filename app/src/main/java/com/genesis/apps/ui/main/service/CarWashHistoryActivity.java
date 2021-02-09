@@ -133,14 +133,17 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
                     showProgressDialog(false);
 
                     if (result.data != null && result.data.getRsvtList() != null) {
-                        List<WashReserveVO> list = result.data.getRsvtList();
 
-                        if(list.size() == 0) {
+                        if(result.data.getRsvtList()==null||result.data.getRsvtList().size() == 0) {
                             ui.rvCarWashHistoryList.setVisibility(View.GONE);
                             ui.tvEmpty.setVisibility(View.VISIBLE);
                         } else {
-                            adapter.setRows(list);
-                            adapter.notifyDataSetChanged();
+                            try {
+                                adapter.setRows(viewModel.getWashList(result.data.getRsvtList()));
+                                adapter.notifyDataSetChanged();
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
                         }
                     } else {
                         ui.rvCarWashHistoryList.setVisibility(View.GONE);

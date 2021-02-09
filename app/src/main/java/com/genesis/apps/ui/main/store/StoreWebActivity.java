@@ -232,7 +232,7 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
             this.fn = uri.getQueryParameter("fn");
             return true;
         } else if (url.startsWith("genesisapp://menu?id=")||url.startsWith("genesisapps://menu?id=")){
-            moveToNativePage(url, false);
+            moveToNativePage(url, false, "");
             return true;
         } else if(!url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("javascript")) {
             Intent intent;

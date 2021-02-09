@@ -42,11 +42,29 @@ public class VibratorUtil {
         return view;
     }
 
-    public static View makeMeShakeY(View view, int duration, int offset) {
+    public static View makeMeShakeY(View view, int duration, int offset, int repeatCnt) {
         Animation anim = new TranslateAnimation(0,0,-offset,offset);
         anim.setDuration(duration);
         anim.setRepeatMode(Animation.REVERSE);
-        anim.setRepeatCount(5);
+        anim.setRepeatCount(repeatCnt);
+
+        anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                view.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
         view.startAnimation(anim);
         return view;
     }

@@ -13,17 +13,18 @@
             android:id="@+id/tv_car_wash_history_date"
             style="@style/CarWashHistoryLight"
             android:layout_marginStart="20dp"
+            android:layout_marginBottom="20dp"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:textSize="14dp"
             android:textColor="@color/x_262626"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="2020.12.31" />
+            tools:text="2020.12.31"
+            tools:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/bg_ffffff_stroke_e5e5e5"

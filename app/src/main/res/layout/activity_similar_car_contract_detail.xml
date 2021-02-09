@@ -16,6 +16,10 @@
         <!--            type="com.genesis.apps.ui.main.service.ServiceRepair4ResultActivity" />-->
 
         <variable
+            name="activity"
+            type="com.genesis.apps.ui.main.SimilarCarContractDetailActivity" />
+
+        <variable
             name="data"
             type="com.genesis.apps.comm.model.api.gra.STO_1003.Response" />
     </data>
@@ -76,6 +80,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="15dp"
                     android:text="@string/gm02_ctr03_2"
+                    android:visibility="@{activity.isGone(data.carCtyAmt)? View.GONE : View.VISIBLE }"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_msg" />
 
@@ -83,6 +88,7 @@
                     android:id="@+id/tv_car_cty_amt"
                     style="@style/AmountMsg"
                     android:text="@{StringUtil.getPriceString(data.carCtyAmt)}"
+                    android:visibility="@{activity.isGone(data.carCtyAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_car_cty_amt"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="90,000,000 원" />
@@ -93,6 +99,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="25dp"
                     android:text="@string/gm02_ctr03_3"
+                    android:visibility="@{activity.isGone(data.optCpndCtyAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_car_cty_amt" />
 
@@ -100,6 +107,7 @@
                     android:id="@+id/tv_opt_cpnd_cty_amt"
                     style="@style/AmountMsg"
                     android:text="@{@string/gm02_ctr03_17(StringUtil.getPriceString(data.optCpndCtyAmt))}"
+                    android:visibility="@{activity.isGone(data.optCpndCtyAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_opt_cpnd_cty_amt"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="+ 10,000,000 원" />
@@ -110,6 +118,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="15dp"
                     android:text="@string/gm02_ctr03_4"
+                    android:visibility="@{activity.isGone(data.xrclCtyAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_opt_cpnd_cty_amt" />
 
@@ -117,6 +126,7 @@
                     android:id="@+id/tv_xrcl_cty_amt"
                     style="@style/AmountMsg"
                     android:text="@{@string/gm02_ctr03_17(StringUtil.getPriceString(data.xrclCtyAmt))}"
+                    android:visibility="@{activity.isGone(data.xrclCtyAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_xrcl_cty_amt"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="+ 10,000,000 원" />
@@ -127,6 +137,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="15dp"
                     android:text="@string/gm02_ctr03_5"
+                    android:visibility="@{activity.isGone(data.ieclCtyAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_xrcl_cty_amt" />
 
@@ -134,6 +145,7 @@
                     android:id="@+id/tv_iecl_cty_amt"
                     style="@style/AmountMsg"
                     android:text="@{@string/gm02_ctr03_17(StringUtil.getPriceString(data.ieclCtyAmt))}"
+                    android:visibility="@{activity.isGone(data.ieclCtyAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_iecl_cty_amt"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="+ 10,000,000 원" />
@@ -144,6 +156,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="15dp"
                     android:text="@string/gm02_ctr03_6"
+                    android:visibility="@{activity.isGone(data.rscc2Amt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_iecl_cty_amt" />
 
@@ -151,6 +164,7 @@
                     android:id="@+id/tv_rscc_2amt"
                     style="@style/AmountMsg"
                     android:text="@{@string/gm02_ctr03_17(StringUtil.getPriceString(data.rscc2Amt))}"
+                    android:visibility="@{activity.isGone(data.rscc2Amt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_rscc_2amt"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="+ 10,000,000 원" />
@@ -161,6 +175,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="15dp"
                     android:text="@string/gm02_ctr03_7"
+                    android:visibility="@{activity.isGone(data.csptCpndCtyAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_rscc_2amt" />
 
@@ -168,6 +183,7 @@
                     android:id="@+id/tv_cspt_cpnd_cty_amt"
                     style="@style/AmountMsg"
                     android:text="@{@string/gm02_ctr03_17(StringUtil.getPriceString(data.csptCpndCtyAmt))}"
+                    android:visibility="@{activity.isGone(data.csptCpndCtyAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_cspt_cpnd_cty_amt"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="+ 10,000,000 원" />
@@ -191,6 +207,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="15dp"
                     android:text="@string/gm02_ctr03_8"
+                    android:visibility="@{activity.isGone(data.carTtlAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/iv_line_1" />
 
@@ -198,6 +215,7 @@
                     android:id="@+id/tv_car_ttl_amt"
                     style="@style/AmountMsg"
                     android:text="@{StringUtil.getPriceString(data.carTtlAmt)}"
+                    android:visibility="@{activity.isGone(data.carTtlAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_car_ttl_amt"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="90,000,000 원" />
@@ -208,6 +226,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="25dp"
                     android:text="@string/gm02_ctr03_9"
+                    android:visibility="@{activity.isGone(data.dcTtlAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_car_ttl_amt" />
 
@@ -215,6 +234,7 @@
                     android:id="@+id/tv_dc_ttl_amt"
                     style="@style/AmountMsg"
                     android:text="@{@string/gm02_ctr03_18(StringUtil.getPriceString(data.dcTtlAmt))}"
+                    android:visibility="@{activity.isGone(data.dcTtlAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_dc_ttl_amt"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="- 10,000,000 원" />
@@ -238,6 +258,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="15dp"
                     android:text="@string/gm02_ctr03_10"
+                    android:visibility="@{activity.isGone(data.saleAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/iv_line_2" />
 
@@ -245,6 +266,7 @@
                     android:id="@+id/tv_sale_amt"
                     style="@style/AmountMsg"
                     android:text="@{StringUtil.getPriceString(data.saleAmt)}"
+                    android:visibility="@{activity.isGone(data.saleAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_sale_amt"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="90,000,000 원" />
@@ -256,12 +278,14 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="25dp"
                     android:text="@string/gm02_ctr03_11"
+                    android:visibility="@{activity.isGone(data.mfsAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_sale_amt" />
 
                 <TextView
                     android:id="@+id/tv_mfs_amt"
                     style="@style/AmountMsg"
+                    android:visibility="@{activity.isGone(data.mfsAmt) ? View.GONE : View.VISIBLE }"
                     android:text="@{@string/gm02_ctr03_17(StringUtil.getPriceString(data.mfsAmt))}"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_mfs_amt"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -273,6 +297,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="15dp"
                     android:text="@string/gm02_ctr03_12"
+                    android:visibility="@{activity.isGone(data.cnsgCtyAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_mfs_amt" />
 
@@ -280,6 +305,7 @@
                     android:id="@+id/tv_cnsg_cty_amt"
                     style="@style/AmountMsg"
                     android:text="@{@string/gm02_ctr03_17(StringUtil.getPriceString(data.cnsgCtyAmt))}"
+                    android:visibility="@{activity.isGone(data.cnsgCtyAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_cnsg_cty_amt"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="+ 10,000,000 원" />
@@ -303,6 +329,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="15dp"
                     android:text="@string/gm02_ctr03_13"
+                    android:visibility="@{activity.isGone(data.ttlSaleAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/iv_line_3" />
 
@@ -310,6 +337,7 @@
                     android:id="@+id/tv_ttl_sale_amt"
                     style="@style/AmountMsg"
                     android:text="@{StringUtil.getPriceString(data.ttlSaleAmt)}"
+                    android:visibility="@{activity.isGone(data.ttlSaleAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_ttl_sale_amt"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="90,000,000 원" />
@@ -321,6 +349,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="25dp"
                     android:text="@string/gm02_ctr03_14"
+                    android:visibility="@{activity.isGone(data.incidExp) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_ttl_sale_amt" />
 
@@ -328,6 +357,7 @@
                     android:id="@+id/tv_incid_exp"
                     style="@style/AmountMsg"
                     android:text="@{@string/gm02_ctr03_17(StringUtil.getPriceString(data.incidExp))}"
+                    android:visibility="@{activity.isGone(data.incidExp) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_incid_exp"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="+ 10,000,000 원" />
@@ -339,6 +369,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="15dp"
                     android:text="@string/gm02_ctr03_15"
+                    android:visibility="@{activity.isGone(data.fncIntAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_incid_exp" />
 
@@ -346,6 +377,7 @@
                     android:id="@+id/tv_fnc_int_amt"
                     style="@style/AmountMsg"
                     android:text="@{@string/gm02_ctr03_17(StringUtil.getPriceString(data.fncIntAmt))}"
+                    android:visibility="@{activity.isGone(data.fncIntAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_fnc_int_amt"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="+ 10,000,000 원" />
@@ -368,6 +400,7 @@
                     style="@style/AmountTitleGold"
                     android:layout_marginStart="20dp"
                     android:text="@string/gm02_ctr03_16"
+                    android:visibility="@{activity.isGone(data.ttlBuyAmt) ? View.GONE : View.VISIBLE }"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_ttl_buy_amt"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_ttl_buy_amt" />
@@ -379,6 +412,7 @@
                     android:fontFamily="@font/light_genesissansheadglobal"
                     android:lineSpacingExtra="-9dp"
                     android:text="@{StringUtil.getPriceString(data.ttlBuyAmt)}"
+                    android:visibility="@{activity.isGone(data.ttlBuyAmt) ? View.GONE : View.VISIBLE }"
                     android:textSize="24dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/iv_line_4"

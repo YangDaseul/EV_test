@@ -692,15 +692,23 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                             bottomSelectBinding.btnRightBlack.setText(R.string.bt06_24);
                             break;
                         case PAGE_TYPE_REPAIR:
-                            bottomSelectBinding.btnLeftWhite.setVisibility(View.VISIBLE);
-                            bottomSelectBinding.btnLeftWhite.setText(R.string.bt06_25);
+                            if(!StringUtil.isValidString(btrVO.getAcps1Cd()).equalsIgnoreCase("2")){//서비스 센터가 아닌 경우
+                                bottomSelectBinding.btnLeftWhite.setVisibility(View.VISIBLE);
+                                bottomSelectBinding.btnLeftWhite.setText(R.string.bt06_25);
+                            }else{
+                                bottomSelectBinding.btnLeftWhite.setVisibility(View.GONE);
+                            }
                             bottomSelectBinding.btnRightBlack.setVisibility(View.VISIBLE);
                             bottomSelectBinding.btnRightBlack.setText(R.string.bt06_26);
                             break;
                         case PAGE_TYPE_SERVICE:
                         default:
-                            bottomSelectBinding.btnLeftWhite.setVisibility(View.VISIBLE);
-                            bottomSelectBinding.btnLeftWhite.setText(R.string.bt06_25);
+                            if(!StringUtil.isValidString(btrVO.getAcps1Cd()).equalsIgnoreCase("2")){//서비스 센터가 아닌 경우
+                                bottomSelectBinding.btnLeftWhite.setVisibility(View.VISIBLE);
+                                bottomSelectBinding.btnLeftWhite.setText(R.string.bt06_25);
+                            }else{
+                                bottomSelectBinding.btnLeftWhite.setVisibility(View.GONE);
+                            }
 
                             String custGbCd = lgnViewModel.getDbUserRepo().getUserVO().getCustGbCd();
                             if(!TextUtils.isEmpty(custGbCd)&&custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)){//서비스네트워크에서는 차량 소유 고객에게만 예약버튼 제공
@@ -716,6 +724,18 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 }
             });
         } else {
+            switch (pageType){
+                case PAGE_TYPE_REPAIR:
+                case PAGE_TYPE_SERVICE:
+                default:
+                    if(!StringUtil.isValidString(btrVO.getAcps1Cd()).equalsIgnoreCase("2")){//서비스 센터가 아닌 경우
+                        bottomSelectBinding.btnLeftWhite.setVisibility(View.VISIBLE);
+                        bottomSelectBinding.btnLeftWhite.setText(R.string.bt06_25);
+                    }else{
+                        bottomSelectBinding.btnLeftWhite.setVisibility(View.GONE);
+                    }
+                    break;
+            }
             bottomSelectBinding.setData(btrVO);
             setAuthView(btrVO);
         }
@@ -750,6 +770,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     , !TextUtils.isEmpty(btrVO.getHealZnYn()) && btrVO.getHealZnYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? R.string.bt06_29 : 0
                     , !TextUtils.isEmpty(btrVO.getCsmrPcYn()) && btrVO.getCsmrPcYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES) ? R.string.bt06_30 : 0
             };
+
         }else{
             //특화 서비스인 경우
             authNM = new Integer[]{

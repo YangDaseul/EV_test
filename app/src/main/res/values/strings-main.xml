@@ -99,8 +99,8 @@
     <string name="sm01_maintenance_1">서비스 네트워크 찾기</string>
     <string name="sm01_maintenance_2">정비예약</string>
     <string name="sm01_maintenance_3">원하는 시간,\n원하는 장소에서\n정비 서비스를 받으세요!</string>
-    <string name="sm01_maintenance_4">정비 현황 · 예약 내역 · 이력</string>
-    <string name="sm01_maintenance_5">정비 현황 · 예약 내역과\n과거 이력 내용을\n확인하실 수 있습니다.</string>
+    <string name="sm01_maintenance_4">정비 현황/내역/이력</string>
+    <string name="sm01_maintenance_5">정비 현황/예약 내역과\n과거 이력 내용을\n확인하실 수 있습니다.</string>
     <string name="sm01_maintenance_6">긴급 출동 서비스</string>
     <string name="sm01_maintenance_7">출동 중</string>
     <string name="sm01_maintenance_8">보증기간 내 차량고장으로\n주행이 어려운 상황에\n처할 경우 즉시 출동합니다.</string>
