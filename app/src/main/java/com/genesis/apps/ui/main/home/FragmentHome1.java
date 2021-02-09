@@ -36,6 +36,7 @@ import com.genesis.apps.comm.model.vo.DownMenuVO;
 import com.genesis.apps.comm.model.vo.MessageVO;
 import com.genesis.apps.comm.model.vo.QuickMenuVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.model.vo.developers.CarConnectVO;
 import com.genesis.apps.comm.model.vo.developers.OdometerVO;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.DeviceUtil;
@@ -634,8 +635,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     }
                     break;
                 case GM01_01: //주차위치확인
-                    String carId = developersViewModel.getCarId(vehicleVO.getVin());
-                    if (!TextUtils.isEmpty(carId)) {//GCS 미가입 차 일 경우 미노출
+                    CarConnectVO carConnectVO = developersViewModel.getCarConnectVO(vehicleVO.getVin());
+                    if (!TextUtils.isEmpty(carConnectVO.getCarId())&&carConnectVO.isResult()) {//GCS 미가입 차 일 경우 미노출
                         quickBtn[i].setVisibility(View.VISIBLE);
                         visibleCnt++;
                     } else {
