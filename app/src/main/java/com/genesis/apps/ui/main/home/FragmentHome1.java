@@ -335,10 +335,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             me.lCarInfo.setVisibility(visibility);
             me.vpInsight.setVisibility(visibility);
             if (visibility == View.GONE) {
-                me.tvCarCode.setVisibility(visibility);
-                me.tvCarModel.setVisibility(visibility);
                 me.tvRepairStatus.setVisibility(visibility);
-                me.tvCarVrn.setVisibility(visibility);
                 me.lFloating.setVisibility(visibility);
                 me.lDistance.setVisibility(visibility);
                 me.tvDeveloperAggrements.setVisibility(visibility);
