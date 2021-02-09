@@ -501,17 +501,21 @@
             android:name=".ui.main.service.ServiceAirport2ApplyActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" /> <!-- 원격 진단 : 신청 -->
+            android:screenOrientation="portrait" />
+        <!-- 원격 진단 : 신청 -->
         <activity
             android:name=".ui.main.service.ServiceRemoteRegisterActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" /> <!-- 원격 진단 : 내역 -->
+            android:screenOrientation="portrait"
+            android:theme="@style/TextInputLayout" />
+        <!-- 원격 진단 : 내역 -->
         <activity
             android:name=".ui.main.service.ServiceRemoteListActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/TextInputLayout" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" /> <!-- optional (needed if default theme has no action bar) -->

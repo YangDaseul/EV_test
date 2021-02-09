@@ -72,22 +72,39 @@
                     app:title="@{@string/sm_remote01_service_type}" />
 
                 <!--차량 번호-->
-                <include
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/l_service_remote_step_2"
-                    layout="@layout/item_service_remote_register_step_0"
-                    app:inputGuideMessage="@{@string/sm_remote01_input_car_number}"
-                    app:inputHintText="@{@string/sm_remote01_car_number}"
-                    app:inputType="@{InputType.TYPE_CLASS_TEXT}"
-                    app:title="@{@string/sm_remote01_car_number}" />
+                    style="@style/CommonTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="12dp"
+                    app:layout_constraintTop_toBottomOf="@+id/l_expn_plc">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_service_remote_step_2"
+                        style="@style/CommonTextInputEditText"
+                        android:hint="@string/sm_remote01_car_number"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <!--휴대폰 번호-->
-                <include
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/l_service_remote_step_1"
-                    layout="@layout/item_service_remote_register_step_0"
-                    app:inputGuideMessage="@{@string/sm_remote01_input_phone_number}"
-                    app:inputHintText="@{@string/sm_remote01_phone_number}"
-                    app:inputType="@{InputType.TYPE_CLASS_PHONE}"
-                    app:title="@{@string/sm_remote01_phone_number}" />
+                    style="@style/CommonTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="12dp"
+                    app:errorEnabled="true"
+                    app:layout_constraintTop_toBottomOf="@+id/l_expn_plc">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_service_remote_step_1"
+                        style="@style/CommonTextInputEditText"
+                        android:hint="@string/sm_remote01_phone_number"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <!--서비스 안내 가이드 문구-->
                 <include
@@ -208,7 +225,7 @@
         </ScrollView>
 
         <!--다음 & 신청 버튼-->
-        <Button
+        <TextView
             android:id="@+id/btn_service_remote_register_step"
             style="@style/ServiceRemote.TextView_Font_RGSTG.White"
             android:layout_width="match_parent"
@@ -217,8 +234,9 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:background="@color/x_111111"
-            android:stateListAnimator="@null"
+            android:gravity="center"
             android:onClick="@{(view) -> activity.onClickCommon(view)}"
+            android:stateListAnimator="@null"
             android:text="@string/sm_remote01_next"
             android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
