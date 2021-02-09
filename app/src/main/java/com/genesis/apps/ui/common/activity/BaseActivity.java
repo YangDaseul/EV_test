@@ -15,6 +15,7 @@ import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.TopicVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.fcm.PushVO;
@@ -125,17 +126,19 @@ public class BaseActivity extends AppCompatActivity {
     public void checkPushCode() {
         if (isPushData()) {
             String url="";
+            String body="";
             try {
-                if(pushVO!=null&&pushVO.getData()!=null)
+                if(pushVO!=null&&pushVO.getData()!=null) {
                     url = !TextUtils.isEmpty(pushVO.getData().getMsgLnkUri()) ? pushVO.getData().getMsgLnkUri() : pushVO.getData().getDtlLnkUri();
+                    body = StringUtil.isValidString(pushVO.getData().getBody());
+                }
             } catch (Exception e) {
                 e.printStackTrace();
-                url="";
             }
             if (TextUtils.isEmpty(url))
                 url = "";
 
-            moveToNativePage(url, true);
+            moveToNativePage(url, true, body);
             this.getIntent().removeExtra(PUSH_VO);
             this.getIntent().removeExtra(NOTIFICATION_ID);
             ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancel(notificationId);
@@ -147,7 +150,7 @@ public class BaseActivity extends AppCompatActivity {
             if(lnkTypCd.equalsIgnoreCase("I")||lnkTypCd.equalsIgnoreCase("IM")){
                 if(lnkUri.startsWith(KeyNames.KEY_NAME_INTERNAL_LINK)||lnkUri.startsWith(KeyNames.KEY_NAME_INTERNAL_LINK2)){
                     //내부링크로 이동
-                    moveToNativePage(lnkUri, isPush);
+                    moveToNativePage(lnkUri, isPush, "");
                 }else if(lnkUri.startsWith("http")){
                     //웹뷰로 이동
                     moveToExternalPage(lnkUri, VariableType.COMMON_MEANS_YES);
@@ -160,7 +163,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
-    public void moveToNativePage(String lnkUri, boolean isPush) {
+    public void moveToNativePage(String lnkUri, boolean isPush, String body) {
         Uri uri = null;
         String id = "";
         String PI = "";
@@ -195,7 +198,7 @@ public class BaseActivity extends AppCompatActivity {
                 }
                 break;
             default:
-                if(!isPush) {
+                if(!isPush||(isPush&&TextUtils.isEmpty(body)&&!TextUtils.isEmpty(lnkUri))) {
                     APPIAInfo appiaInfo = APPIAInfo.findCode(id);
                     if (appiaInfo != null && appiaInfo.getActivity() != null) {
                         startActivitySingleTop(new Intent(this, appiaInfo.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
