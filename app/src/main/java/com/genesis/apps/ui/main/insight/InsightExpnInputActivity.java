@@ -300,6 +300,17 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
                 setViewDtm(Calendar.getInstance(Locale.getDefault()));
                 ui.btnNext.setText(R.string.tm_exps01_01_16);
             }
+
+            if(pos>1){
+                if(cbkViewModel.isVisibleAccmMilg(expnDivCd)){
+                    //주유 및 정비일 경우
+                    views[2].setVisibility(View.VISIBLE);
+                }else{
+                    views[2].setVisibility(View.GONE);
+                    ui.etAccmMilg.setText("");
+                }
+            }
+
         }else{
             //이미 view가 오픈되어있을 경우
             if(pos==1&&views[3].getVisibility() == View.VISIBLE){//지출항목선택완료 시
@@ -310,6 +321,8 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
                     views[2].setVisibility(View.GONE);
                     ui.etAccmMilg.setText("");
                 }
+            }else if(pos==1&&views[2].getVisibility() == View.VISIBLE&&views[3].getVisibility() == View.GONE&&!cbkViewModel.isVisibleAccmMilg(expnDivCd)){//지출항목 변경 시 누적주행거리 표시까지 활성화 되어있는 경우
+                doTransition(3);
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.insight;
 
+import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,7 +128,16 @@ public class InsightExpnAdapter extends BaseRecyclerViewAdapter2<ExpnVO> {
             }
 
             getBinding().tvExpnPlc.setText(item.getExpnPlc());
-            getBinding().tvAccmMilg.setText(StringUtil.getDigitGroupingString(item.getAccmMilg())+"km");
+
+            if(TextUtils.isEmpty(item.getAccmMilg())){
+                getBinding().tvTitleAccmMilg.setVisibility(View.GONE);
+                getBinding().tvAccmMilg.setVisibility(View.GONE);
+            }else{
+                getBinding().tvTitleAccmMilg.setVisibility(View.VISIBLE);
+                getBinding().tvAccmMilg.setVisibility(View.VISIBLE);
+                getBinding().tvAccmMilg.setText(StringUtil.getDigitGroupingString(item.getAccmMilg())+"km");
+            }
+
             getBinding().tvExpnAmt.setText(StringUtil.getDigitGroupingString(item.getExpnAmt())+"원");
 
             getBinding().btnDelete.lWhole.setOnClickListener(onSingleClickListener);
