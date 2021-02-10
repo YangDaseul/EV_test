@@ -336,7 +336,7 @@ public enum APPIAInfo {
                             menuVO.setCategory("SERVICE");
                             break;
                         case VariableType.QUICK_MENU_CATEGORY_MYG:
-                            menuVO.setCategory("MY G");
+                            menuVO.setCategory("마이 페이지");
                             break;
                     }
                     isCategory[menu.getCategory()] = true;
