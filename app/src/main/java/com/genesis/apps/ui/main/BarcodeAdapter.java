@@ -144,8 +144,8 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
             getBinding().ivLogo.setImageResource(iconId);
 
 
-            if(isReg) {
-                if(!isIntegration)
+            if(isReg) {//등록된 카드인 경우
+                if(isIntegration)//주유소 카드인 경우
                     getBinding().tvMembershipInfo.setVisibility(View.VISIBLE);
 
                 getBinding().tvIntegration.setVisibility(View.GONE);
@@ -164,7 +164,7 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
                         }
                     }
                 });
-            }else{
+            }else{//미등록된 카드인 경우
                 getBinding().tvCardNo.setVisibility(View.INVISIBLE);
                 if(isIntegration) {
                     getBinding().tvIntegration.setVisibility(View.VISIBLE);

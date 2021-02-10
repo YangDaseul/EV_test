@@ -2,8 +2,6 @@ package com.genesis.apps.comm.model.repo;
 
 import android.text.TextUtils;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.net.NetUIResponse;
@@ -22,6 +20,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
+
+import androidx.lifecycle.MutableLiveData;
 
 import static com.genesis.apps.comm.model.vo.CardVO.CARD_STATUS_20;
 import static com.genesis.apps.comm.model.vo.CardVO.CARD_STATUS_30;
@@ -166,6 +166,14 @@ public class CardRepository {
                     }
                 }
             }
+
+            long membersCardCnt= list.stream().filter(data -> StringUtil.isValidString(data.getIsncCd()).equalsIgnoreCase(OilPointVO.OIL_CODE_BLUE)).count();
+            //제네시스 멤버스 카드가 없으면
+            if(membersCardCnt==0){
+                //임의로 추가
+                list.add(new CardVO(OilPointVO.OIL_CODE_BLUE));
+            }
+
 
             //LOCAL DB에 저장되어 있는 정렬 순서를 서버 데이터에 UPDATE 진행
             final List<CardVO> dbList = databaseHolder.getDatabase().cardDao().selectAll();
