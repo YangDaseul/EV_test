@@ -168,10 +168,16 @@
         <item name="errorIconDrawable">@null</item>
 
         <item name="hintEnabled">true</item>
-        <!--포커스가 있는 상태의 hint 컬러-->
-        <item name="hintTextColor">@color/x_262626</item>
-        <!--포커스가 없는 상태의 hint 컬러-->
-        <item name="android:textColorHint">@color/x_262626</item>
+<!--        &lt;!&ndash;포커스가 있는 상태의 hint 컬러&ndash;&gt;-->
+        <item name="hintTextColor">@color/selector_hint_color_textinputlayout</item>
+
+
+<!--        &lt;!&ndash;포커스가 없는 상태의 hint 컬러&ndash;&gt;-->
+<!--        <item name="android:textColorHint">@color/x_a2a2a2</item>-->
+
+
+
+
         <item name="hintTextAppearance">@style/CommonTextInputEditTextHint</item>
         <!--        <item name="placeholderTextAppearance">@style/CommonTextInputEditTextHint</item>-->
         <item name="errorTextAppearance">@style/CommonTextInputEditTextError</item>
@@ -190,6 +196,7 @@
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:padding">16dp</item>
+        <item name="android:textColorHint">@color/x_a2a2a2</item>
         <item name="android:textColor">@color/x_000000</item>
         <item name="android:textCursorDrawable">@drawable/cursor_141414</item>
         <item name="android:textSize">15dp</item>
