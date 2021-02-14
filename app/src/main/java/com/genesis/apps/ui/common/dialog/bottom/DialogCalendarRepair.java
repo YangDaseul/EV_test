@@ -74,7 +74,7 @@ public class DialogCalendarRepair extends BaseBottomDialog<DialogBottomCalendarB
         setContentView(R.layout.dialog_bottom_calendar);
         setAllowOutTouch(true);
         ui.lTitle.setValue(title);
-        ui.calendarView.setDynamicHeightEnabled(true); //달력 높이를 wrap로 설정
+        ui.calendarView.setDynamicHeightEnabled(false); //달력 높이를 wrap로 설정
         initDecorator();
 
         ui.calendarView.setOnDateChangedListener((widget, date, selected) -> {
