@@ -59,7 +59,6 @@ public class Home2AsanAdapter extends BaseRecyclerViewAdapter2<MainHistVO> {
                 getBinding().lAsan.setVisibility(View.GONE);
                 getBinding().btnAsanDetail.lWhole.setVisibility(View.GONE);
             }else{
-                getBinding().btnAsanDetail.lWhole.setVisibility(View.VISIBLE);
                 getBinding().tvAsanEmpty.setVisibility(View.GONE);
                 getBinding().lAsan.setVisibility(View.VISIBLE);
                 getBinding().setData(item);
