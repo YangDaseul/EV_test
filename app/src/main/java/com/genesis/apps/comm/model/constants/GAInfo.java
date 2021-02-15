@@ -28,7 +28,7 @@ public interface GAInfo {
             "/G/"
             , "https://prd-kr-ccapi.genesis.com:8081/api/v1", "/api/authorize/ccsp/redirect", "f66fc416-3871-42c4-809b-abf780bee474", "o6KwPbwlFUP7xV4hAJ6fZlUsxK1Cl3OBtCPMSXVEUW0R1Qn4"
             , "https://accounts.genesis.com", "/api/cmmn/message", "/api/test/redirect.do"
-    }
+            }
             // 2: 제네시스 개발계 접속 (ccSP:개발, DKC:개발, GA:개발)
             , {
             "/G/"
@@ -48,6 +48,7 @@ public interface GAInfo {
     String GA_DATAMILES_KEY_TOKEN="token";
     String GA_DATAMILES_KEY_USER_ID="userId";
     String GA_DATAMILES_KEY_CAR_ID="carId";
+    //데이터마일즈 정보 동의 및 상세 페이지는 운영계만 존재
     String GA_DATAMILES_AGREEMENTS_URL="https://prd-kr-ccapi.genesis.com:8081/web/v1/data-service/agreements";
     String GA_DATAMILES_DETAIL_URL="https://prd-kr-ccapi.genesis.com:8081/web/v1/data-service";
 }

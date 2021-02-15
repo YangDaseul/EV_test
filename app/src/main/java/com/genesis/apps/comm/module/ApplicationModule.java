@@ -53,12 +53,6 @@ public class ApplicationModule {
         return new NetCaller(httpRequestUtil,ga);
     }
 
-//    @Provides
-//    @Singleton
-//    public CCSP getCCSP(HttpRequestUtil httpRequestUtil, Application application, LoginInfoDTO loginInfoDTO){
-//        return new CCSP(httpRequestUtil, application, loginInfoDTO);
-//    }
-
     @Provides
     @Singleton
     public GA getGA(HttpRequestUtil httpRequestUtil, LoginInfoDTO loginInfoDTO){

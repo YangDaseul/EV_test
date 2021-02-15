@@ -7,7 +7,6 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.net.ga.GA;
 import com.genesis.apps.comm.model.constants.GAInfo;
-import com.genesis.apps.comm.net.model.BeanReqParm;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.google.common.reflect.TypeToken;
 import com.google.common.util.concurrent.FutureCallback;
@@ -42,72 +41,6 @@ public class NetCaller {
         this.httpRequestUtil = httpRequestUtil;
         this.ga = ga;
     }
-
-
-    public void sendData(BeanReqParm beanReqParm) {
-        ExecutorService es = new ExecutorService("");
-        Futures.addCallback(es.getListeningExecutorService().submit(() -> {
-            JsonObject jsonObject = null;
-            try {
-                switch (beanReqParm.getType()) {
-                    case HttpRequest.METHOD_GET:
-                        jsonObject = httpRequestUtil.getData(beanReqParm.getUrl(), ga.getAccessToken());
-                        break;
-                    case HttpRequest.METHOD_PUT:
-                        jsonObject = httpRequestUtil.sendPut(beanReqParm.getUrl(), beanReqParm.getData());
-                        break;
-                    case HttpRequest.METHOD_POST:
-                        jsonObject = httpRequestUtil.send(beanReqParm.getUrl(), beanReqParm.getData());
-                        break;
-                    default:
-                        break;
-                }
-
-                if (jsonObject != null && !TextUtils.isEmpty(jsonObject.toString())) {
-                    return new NetResult(NetStatusCode.SUCCESS, 0, jsonObject);
-                } else {
-                    return new NetResult(NetStatusCode.ERR_DATA_NULL, R.string.error_msg_1, null);
-                }
-            } catch (HttpRequest.HttpRequestException e) {
-                e.printStackTrace();
-                return new NetResult(NetStatusCode.ERR_EXCEPTION_HTTP, R.string.error_msg_2, null);
-            } catch (Exception e1) {
-                e1.printStackTrace();
-                return new NetResult(NetStatusCode.ERR_EXCEPTION_UNKNOWN, R.string.error_msg_3, null);
-            }
-
-        }), new FutureCallback<NetResult>() {
-            @Override
-            public void onSuccess(@NullableDecl NetResult result) {
-                if(result!=null) {
-                    switch (result.getCode()) {
-                        case SUCCESS:
-                            beanReqParm.getCallback().onSuccess(((JsonObject) result.getData()).toString());
-                            break;
-                        case ERR_EXCEPTION_DKC:
-                        case ERR_EXCEPTION_HTTP:
-                        case ERR_EXCEPTION_UNKNOWN:
-                        case ERR_DATA_NULL:
-                        case ERR_ISSUE_SOURCE:
-                        case ERR_DATA_INCORRECT:
-                        default:
-                            beanReqParm.getCallback().onFail(result);
-                            break;
-                    }
-                }else{
-                    beanReqParm.getCallback().onFail(null);
-                }
-                es.shutDownExcutor();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                beanReqParm.getCallback().onError(new NetResult(NetStatusCode.ERR_ISSUE_SOURCE, R.string.error_msg_4, t));
-                es.shutDownExcutor();
-            }
-        }, es.getUiThreadExecutor());
-    }
-
 
     public <RESPONSE, FORMAT> void reqDataFromAnonymous(Callable<RESPONSE> callable, NetCallback callback) {
         ExecutorService es = new ExecutorService("");
