@@ -638,7 +638,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     break;
                 case GM01_01: //주차위치확인
                     CarConnectVO carConnectVO = developersViewModel.getCarConnectVO(vehicleVO.getVin());
-                    if (!TextUtils.isEmpty(carConnectVO.getCarId())&&carConnectVO.isResult()) {//GCS 미가입 차 일 경우 미노출
+                    if (carConnectVO!=null&&!TextUtils.isEmpty(carConnectVO.getCarId())&&carConnectVO.isResult()) {//GCS 미가입 차 일 경우 미노출
                         quickBtn[i].setVisibility(View.VISIBLE);
                         visibleCnt++;
                     } else {
