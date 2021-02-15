@@ -69,6 +69,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -183,6 +184,12 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     try {
                         MessageVO weather = cmnViewModel.getHomeWeatherInsight(weatherCodes, dayCd, sigungu, t1h);
                         if (weather != null) {
+
+                            //2021-02-15 요건 변경
+                            //기존 txtMsg에는 서버로 부터 전달받은 날씨 별 메시지를 랜덤으로 출력하고 있었으나
+                            //사용자 로그인 상태에 따라 인사 메시지로 변경
+                            //해당 코드에서 변경하기 전까지는 날씨 랜덤 메시지를 저장 중
+                            weather.setTxtMsg(getGreetingMsg());
                             adapter.addRow(weather);
 //                    adapter.setRealItemCnt(adapter.getRealItemCnt() + 1);
                         }
@@ -321,6 +328,14 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
         });
 
+    }
+
+    private String getGreetingMsg() {
+        String greetingMsg=getString(R.string.gm01_4);
+        if(loginInfoDTO!=null&&loginInfoDTO.getProfile()!=null&&!TextUtils.isEmpty(loginInfoDTO.getProfile().getName())){
+            greetingMsg = String.format(Locale.getDefault(), getString(R.string.gm01_5), loginInfoDTO.getProfile().getName());
+        }
+        return greetingMsg;
     }
 
     private void initView() {

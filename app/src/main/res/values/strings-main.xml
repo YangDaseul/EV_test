@@ -8,6 +8,8 @@
     <string name="gm01_1">총 주행 거리</string>
     <string name="gm01_2">일별 주행 거리</string>
     <string name="gm01_3">주행 가능 거리</string>
+    <string name="gm01_4">안녕하세요.</string>
+    <string name="gm01_5">안녕하세요. %s 님</string>
     <string name="gm01_repair_status_1">긴급 출동 중</string>
     <string name="gm01_repair_status_2">차량 정비 중</string>
     <string name="gm01_bottom_1">소모품 현황</string>
