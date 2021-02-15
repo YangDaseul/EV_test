@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.DDS_1001;
@@ -26,6 +27,7 @@ import com.genesis.apps.databinding.FragmentServiceDriveBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
+import com.genesis.apps.ui.main.insight.InsightExpnMainActivity;
 
 import java.util.concurrent.ExecutionException;
 
@@ -49,6 +51,16 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView(): start");
         return super.setContentView(inflater, R.layout.fragment_service_drive);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        //결제 성공
+        if (resultCode == ResultCodes.REQ_CODE_PAYMENT_SUCC.getCode()) {
+            onClickReqBtn();
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
@@ -206,6 +218,6 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
         Intent intent = new Intent(getActivity(), ServiceDriveReqActivity.class);
 //                .putExtra(KeyNames.KEY_NAME_VEHICLE_VO, mainVehicle);
 
-        ((BaseActivity) getActivity()).startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        ((BaseActivity) getActivity()).startActivitySingleTop(intent, RequestCodes.REQ_CODE_SERVICE_DRIVE_REQ.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 }

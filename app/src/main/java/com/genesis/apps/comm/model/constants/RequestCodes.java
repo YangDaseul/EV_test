@@ -22,8 +22,10 @@ public enum RequestCodes {
 
     REQ_CODE_FROM_ADDRESS(3001,"출발지 주소"),
     REQ_CODE_TO_ADDRESS(3002,"도착지 주소"),
+    REQ_CODE_SERVICE_DRIVE_REQ(3003,"대리운전 신청"),
 
     REQ_CODE_PAYMENT_WEB_VIEW(4001,"결제 웹뷰"),
+    REQ_CODE_PAYMENT_COMPLETE(4002,"결제 완료"),
     REQ_CODE_RELAPSE_REQ(5001,"하자 재발 통보"),
 
     REQ_CODE_TS_AUTH(6001,"중고차 인증"),
