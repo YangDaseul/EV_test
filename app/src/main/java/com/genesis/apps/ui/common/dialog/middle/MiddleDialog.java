@@ -1,9 +1,14 @@
 package com.genesis.apps.ui.common.dialog.middle;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import androidx.databinding.DataBindingUtil;
 
 import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
@@ -19,12 +24,6 @@ import com.genesis.apps.databinding.DialogServiceRemoteInfoBinding;
 import com.genesis.apps.databinding.DialogServiceRemoteNotTimeBinding;
 import com.genesis.apps.databinding.DialogUpdateBinding;
 import com.genesis.apps.databinding.DialogUsedCarInfoBinding;
-import com.genesis.apps.ui.main.ServiceMembershipJoinFragment;
-import com.genesis.apps.ui.main.service.FragmentMaintenance;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
-import androidx.databinding.DataBindingUtil;
 
 public class MiddleDialog {
 
@@ -570,7 +569,14 @@ public class MiddleDialog {
                     binding.lExpn.tvExpnDtm.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(item.getExpnDtm(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot));
 
                     binding.lExpn.tvExpnPlc.setText(item.getExpnPlc());
-                    binding.lExpn.tvAccmMilg.setText(StringUtil.getDigitGroupingString(item.getAccmMilg()) + "km");
+                    if(TextUtils.isEmpty(item.getAccmMilg())){
+                        binding.lExpn.tvTitleAccmMilg.setVisibility(View.GONE);
+                        binding.lExpn.tvAccmMilg.setVisibility(View.GONE);
+                    }else{
+                        binding.lExpn.tvTitleAccmMilg.setVisibility(View.VISIBLE);
+                        binding.lExpn.tvAccmMilg.setVisibility(View.VISIBLE);
+                        binding.lExpn.tvAccmMilg.setText(StringUtil.getDigitGroupingString(item.getAccmMilg())+"km");
+                    }
                     binding.lExpn.tvExpnAmt.setText(StringUtil.getDigitGroupingString(item.getExpnAmt()) + "원");
                     binding.lExpn.btnDelete.lWhole.setVisibility(View.GONE);
                     binding.lExpn.btnModify.setVisibility(View.GONE);
