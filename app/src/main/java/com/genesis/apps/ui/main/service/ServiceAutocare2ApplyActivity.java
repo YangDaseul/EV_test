@@ -122,10 +122,7 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
         switch (v.getId()){
             //에약서비스선택
             case R.id.tv_autocare_service:
-            case R.id.tv_reservation_1:
-            case R.id.tv_reservation_2:
-            case R.id.tv_reservation_3:
-            case R.id.tv_reservation_4:
+            case R.id.btn_change_autocare_service:
                 selectAutocareService();
                 break;
             //주소검색
@@ -382,11 +379,13 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
             ui.tvReservation2.setVisibility(View.GONE);
             ui.tvReservation3.setVisibility(View.GONE);
             ui.tvReservation4.setVisibility(View.GONE);
+            ui.btnChangeAutocareService.lWhole.setVisibility(View.GONE);
             ui.tvAutocareService.setVisibility(View.VISIBLE);
             ui.tvErrorAutocareService.setVisibility(View.VISIBLE);
             ui.tvErrorAutocareService.setText(R.string.sm_r_rsv02_01_17);
             return false;
         }else{
+            ui.btnChangeAutocareService.lWhole.setVisibility(View.VISIBLE);
             ui.tvTitleAutocareService.setVisibility(View.VISIBLE);
             ui.tvAutocareService.setVisibility(View.GONE);
             ui.tvErrorAutocareService.setVisibility(View.GONE);

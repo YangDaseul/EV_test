@@ -111,6 +111,17 @@
                 android:text="@string/sm_r_rsv02_01_3"
                 android:visibility="visible" />
 
+            <!-- 변경 버튼 -->
+            <include
+                android:id="@+id/btn_change_autocare_service"
+                layout="@layout/item_btn_underline_mark_gold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:btnNm="@{@string/sm_r_rsv02_01_9}"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_autocare_service"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
             <TextView
                 android:id="@+id/tv_autocare_service"
                 style="@style/CommonSpinnerItemDisable"
@@ -133,7 +144,7 @@
                 android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toStartOf="@+id/tv_reservation_2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_autocare_service"
+                app:layout_constraintTop_toBottomOf="@+id/btn_change_autocare_service"
                 tools:text="엔진오일"
                 tools:visibility="visible" />
 
