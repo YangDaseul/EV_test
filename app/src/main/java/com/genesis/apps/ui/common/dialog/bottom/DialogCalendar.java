@@ -31,6 +31,7 @@ public class DialogCalendar extends BaseBottomDialog<DialogBottomCalendarBinding
     private RemoveWeekendsDecorator removeWeekendsDecorator = new RemoveWeekendsDecorator();
     private SelectedDayDecorator selectedDayDecorator;
     private RejectDecorator rejectDecorator;
+    private RejectDecorator rejectSundayDecorator;
     private MinMaxDecorator minMaxDecorator;
     private MinMaxDecorator minMaxSundayDecorator;
     public Calendar calendar = null;
@@ -64,7 +65,7 @@ public class DialogCalendar extends BaseBottomDialog<DialogBottomCalendarBinding
             if (isRemoveWeekends) ui.calendarView.addDecorator(removeWeekendsDecorator);
 
             if (rejectDecorator != null) {
-                ui.calendarView.addDecorator(rejectDecorator);
+                ui.calendarView.addDecorators(rejectDecorator, rejectSundayDecorator);
             }
 
             if (minMaxDecorator!=null) {
@@ -112,8 +113,9 @@ public class DialogCalendar extends BaseBottomDialog<DialogBottomCalendarBinding
         ui.calendarView.addDecorator(highlightWeekendsDecorator);
 
         if (getReserveDateVOList() != null) {
-            rejectDecorator = new RejectDecorator(getReserveDateVOList());
-            ui.calendarView.addDecorator(rejectDecorator);
+            rejectDecorator = new RejectDecorator(getReserveDateVOList(), ContextCompat.getColor(getContext(), R.color.x_33000000), false);
+            rejectSundayDecorator = new RejectDecorator(getReserveDateVOList(), ContextCompat.getColor(getContext(), R.color.x_4dce2d2d), true);
+            ui.calendarView.addDecorators(rejectDecorator, rejectSundayDecorator);
         }
 
         if (calendarMaximum != null || calendarMinimum != null) {

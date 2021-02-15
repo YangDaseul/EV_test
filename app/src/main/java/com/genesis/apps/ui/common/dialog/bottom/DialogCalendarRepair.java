@@ -1,16 +1,16 @@
 package com.genesis.apps.ui.common.dialog.bottom;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
@@ -28,19 +28,12 @@ import com.genesis.apps.ui.common.dialog.bottom.view.RemoveWeekendsDecorator;
 import com.genesis.apps.ui.common.dialog.bottom.view.SelectedDayDecorator;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.main.service.view.ServiceRepairReserveTimeHorizontalAdapter;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.DayViewDecorator;
-import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.format.DateFormatTitleFormatter;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class DialogCalendarRepair extends BaseBottomDialog<DialogBottomCalendarBinding> {
 
@@ -50,6 +43,7 @@ public class DialogCalendarRepair extends BaseBottomDialog<DialogBottomCalendarB
     private RemoveWeekendsDecorator removeWeekendsDecorator = new RemoveWeekendsDecorator();
     private SelectedDayDecorator selectedDayDecorator;
     private RejectDecorator rejectDecorator;
+    private RejectDecorator rejectSundayDecorator;
     private MinMaxDecorator minMaxDecorator;
     private MinMaxDecorator minMaxSundayDecorator;
     public Calendar calendar = null;
@@ -84,7 +78,7 @@ public class DialogCalendarRepair extends BaseBottomDialog<DialogBottomCalendarB
             if (isRemoveWeekends) ui.calendarView.addDecorator(removeWeekendsDecorator);
 
             if (rejectDecorator != null) {
-                ui.calendarView.addDecorator(rejectDecorator);
+                ui.calendarView.addDecorators(rejectDecorator, rejectSundayDecorator);
             }
 
             selectRsvtDt(DateUtil.getDate(ui.calendarView.getSelectedDate().getCalendar().getTime(), DateUtil.DATE_FORMAT_yyyyMMdd));
@@ -133,7 +127,7 @@ public class DialogCalendarRepair extends BaseBottomDialog<DialogBottomCalendarB
 
         initTimeAdapter();
     }
-
+    //todo 데코레이터가 너무 많아서 select 시 느린 현상 발생.. 정리 필요
     private void initDecorator() {
         selectedDayDecorator = new SelectedDayDecorator(0, ContextCompat.getColor(getContext(), R.color.x_ffffff));
         highlightWeekendsDecorator = new HighlightWeekendsDecorator(isRemoveWeekends);
@@ -143,8 +137,9 @@ public class DialogCalendarRepair extends BaseBottomDialog<DialogBottomCalendarB
         ui.calendarView.addDecorator(highlightWeekendsDecorator);
 
         if (getReserveDateVOList() != null) {
-            rejectDecorator = new RejectDecorator(getReserveDateVOList());
-            ui.calendarView.addDecorator(rejectDecorator);
+            rejectDecorator = new RejectDecorator(getReserveDateVOList(), ContextCompat.getColor(getContext(), R.color.x_33000000), false);
+            rejectSundayDecorator = new RejectDecorator(getReserveDateVOList(), ContextCompat.getColor(getContext(), R.color.x_4dce2d2d), true);
+            ui.calendarView.addDecorators(rejectDecorator, rejectSundayDecorator);
         }
 
         if (calendarMaximum != null || calendarMinimum != null) {
