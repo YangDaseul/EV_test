@@ -1,9 +1,11 @@
 package com.genesis.apps.ui.main;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.webkit.WebView;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -42,10 +44,24 @@ public class SimilarCarContractHistoryActivity extends SubActivity<ActivitySimil
     @Override
     public void onClickCommon(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_msg: //계약서 상세 조회
-                if(lgnViewModel.getRES_STO_1003().getValue().data!=null)
+                if (lgnViewModel.getRES_STO_1003().getValue().data != null)
                     startActivitySingleTop(new Intent(this, SimilarCarContractDetailActivity.class).putExtra(KeyNames.KEY_NAME_STO_1003, lgnViewModel.getRES_STO_1003().getValue().data), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_VERTICAL_SLIDE);
+                break;
+            case R.id.btn_call:
+                try {
+                    if (lgnViewModel.getRES_STO_1003().getValue().data != null) {
+                        String tel = lgnViewModel.getRES_STO_1003().getValue().data.getEeHpTn();
+                        if (!TextUtils.isEmpty(tel)) {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + tel)));
+                        } else {
+                            SnackBarUtil.show(this, "카마스터 번호가 존재하지 않습니다.");
+                        }
+                    }
+                } catch (Exception e) {
+
+                }
                 break;
         }
 
@@ -61,12 +77,12 @@ public class SimilarCarContractHistoryActivity extends SubActivity<ActivitySimil
     @Override
     public void setObserver() {
         lgnViewModel.getRES_STO_1003().observe(this, result -> {
-            switch (result.status){
+            switch (result.status) {
                 case LOADING:
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)){
+                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)) {
                         showProgressDialog(false);
                         ui.setData(result.data);
                         break;
@@ -98,16 +114,16 @@ public class SimilarCarContractHistoryActivity extends SubActivity<ActivitySimil
         } finally {
             if (TextUtils.isEmpty(ctrctNo)) {
                 exitPage("계약 번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
-            }else{
+            } else {
                 lgnViewModel.reqSTO1003(new STO_1003.Request(APPIAInfo.GM02_CTR01.getId(), ctrctNo));
             }
         }
     }
 
-    public String getCnttStNm(String cnttStCd){
-        String cnttStNm="";
+    public String getCnttStNm(String cnttStCd) {
+        String cnttStNm = "";
 
-        if(!TextUtils.isEmpty(cnttStCd)) {
+        if (!TextUtils.isEmpty(cnttStCd)) {
             switch (cnttStCd) {
                 case "1000"://대기
                     cnttStNm = getString(R.string.gm02_ctr02_14);
@@ -131,7 +147,7 @@ public class SimilarCarContractHistoryActivity extends SubActivity<ActivitySimil
                     cnttStNm = getString(R.string.gm02_ctr02_23);
                     break;
                 default:
-                    cnttStNm="상태 없음";
+                    cnttStNm = "상태 없음";
                     break;
             }
         }
@@ -139,10 +155,10 @@ public class SimilarCarContractHistoryActivity extends SubActivity<ActivitySimil
         return cnttStNm;
     }
 
-    public boolean isFinish(String cnttStCd){
-        boolean isFinsih=false;
+    public boolean isFinish(String cnttStCd) {
+        boolean isFinsih = false;
 
-        if(!TextUtils.isEmpty(cnttStCd)) {
+        if (!TextUtils.isEmpty(cnttStCd)) {
             switch (cnttStCd) {
                 case "3000"://생산완료
                 case "5000"://출고완료
