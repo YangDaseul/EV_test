@@ -28,6 +28,7 @@ import com.genesis.apps.ui.main.contents.ContentsSearchActivity;
 import com.genesis.apps.ui.main.home.FragmentHome1;
 import com.genesis.apps.ui.main.insight.FragmentInsight;
 import com.genesis.apps.ui.main.service.FragmentService;
+import com.genesis.apps.ui.main.service.FragmentServiceDrive;
 import com.genesis.apps.ui.main.store.FragmentStore;
 import com.genesis.apps.ui.myg.MyGEntranceActivity;
 import com.genesis.apps.ui.myg.MyGHomeActivity;
@@ -289,6 +290,14 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         }else if(resultCode==ResultCodes.REQ_CODE_INSIGHT_EXPN_ADD.getCode()){
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                 if (fragment instanceof FragmentInsight) {
+                    fragment.onActivityResult(requestCode, resultCode, data);
+                    return;
+                }
+            }
+        } else if(requestCode == RequestCodes.REQ_CODE_SERVICE_DRIVE_REQ.getCode()) {
+            // 대리운전 결제 완료
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if (fragment instanceof FragmentService) {
                     fragment.onActivityResult(requestCode, resultCode, data);
                     return;
                 }

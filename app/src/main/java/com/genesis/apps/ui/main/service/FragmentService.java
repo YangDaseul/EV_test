@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -146,6 +147,14 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
                             .putExtra(KeyNames.KEY_NAME_BTR, btrVO)
                     , RequestCodes.REQ_CODE_ACTIVITY.getCode()
                     , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        } else if(requestCode == RequestCodes.REQ_CODE_SERVICE_DRIVE_REQ.getCode()) {
+            // 대리운전 결제 완료
+            for (Fragment fragment : getChildFragmentManager().getFragments()) {
+                if (fragment instanceof FragmentServiceDrive) {
+                    fragment.onActivityResult(requestCode, resultCode, data);
+                    return;
+                }
+            }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }

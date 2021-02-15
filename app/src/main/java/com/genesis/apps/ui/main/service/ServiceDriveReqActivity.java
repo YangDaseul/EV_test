@@ -151,10 +151,9 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
                 startActivitySingleTop(
                         intent,
-                        RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                        RequestCodes.REQ_CODE_PAYMENT_COMPLETE.getCode(),
                         VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 
-                exitPage("", 0);
                 return;
             }
             //결제 실패
@@ -167,6 +166,10 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
             }
 
             if(paymentResultId!=INVALID_ID) SnackBarUtil.show(this, getString(paymentResultId));
+        }  else if(requestCode == RequestCodes.REQ_CODE_PAYMENT_COMPLETE.getCode()) {
+            // 대리운전 결제 완료
+
+            exitPage("", ResultCodes.REQ_CODE_PAYMENT_SUCC.getCode());
         }
     }
 
