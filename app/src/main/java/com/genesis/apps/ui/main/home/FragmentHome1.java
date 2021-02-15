@@ -486,15 +486,17 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                getActivity().runOnUiThread(() -> {
-                    try {
-                        if (adapter.getRealItemCnt() > 1) {
-                            me.vpInsight.setCurrentItem(me.vpInsight.getCurrentItem() + 1, true);
+                if(getActivity()!=null) {
+                    getActivity().runOnUiThread(() -> {
+                        try {
+                            if (adapter.getRealItemCnt() > 1) {
+                                me.vpInsight.setCurrentItem(me.vpInsight.getCurrentItem() + 1, true);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                });
+                    });
+                }
             }
         }, 6000, 5000);
 
