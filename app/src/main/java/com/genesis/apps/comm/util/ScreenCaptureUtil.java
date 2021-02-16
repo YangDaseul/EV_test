@@ -58,7 +58,7 @@ public class ScreenCaptureUtil {
 
             mediaProjection.createVirtualDisplay(
                     "sample",
-                    displayMetrics.widthPixels, displayMetrics.heightPixels, displayMetrics.densityDpi, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
+                    1080, 1920, displayMetrics.densityDpi, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
                     screenRecorder.getSurface(), null, null);
 
             screenRecorder.start();
@@ -81,20 +81,13 @@ public class ScreenCaptureUtil {
 //        mediaRecorder.setVideoFrameRate(30);
         mediaRecorder.setVideoFrameRate(camcorderProfile.videoFrameRate);
 
-        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
+//        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
 
 //        mediaRecorder.setVideoSize(displayMetrics.widthPixels, displayMetrics.heightPixels);
         mediaRecorder.setVideoSize(1080, 1920);
 //        mediaRecorder.setVideoSize(camcorderProfile.videoFrameWidth, camcorderProfile.videoFrameHeight);
         mediaRecorder.setOutputFile(videoFile);
 
-//        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-//        Display display = wm.getDefaultDisplay();
-//
-//        Point size = new Point();
-//        display.getSize(size);
-//
-//        Log.d("JJJJ", "width : " + size.x + ", height : " + size.y);
         try {
             mediaRecorder.prepare();
         } catch (IOException e) {
