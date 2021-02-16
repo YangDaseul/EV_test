@@ -731,6 +731,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 }
                 break;
             case GM01_03://sns 공유하기
+                isRecord = true;
                 recordUtil.checkRecordPermission();
                 break;
             case GM_BTO1://BTO
