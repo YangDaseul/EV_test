@@ -108,6 +108,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                                         new Handler().postDelayed(() -> {
                                             ui.vpCar.setCurrentItem(0, true);
                                             ui.indicator.createIndicators(list.size(), 0);
+                                            checkFavoriteCar();
                                         }, 100);
                                     }
                                 } catch (Exception e) {
@@ -721,6 +722,19 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
             }
         } catch (Exception e) {
 
+        }
+    }
+
+    /**
+     * @brief 주 이용 차량 확인
+     * gns-1001 호출 후 정렬된 차량 정보 중
+     * 가장 첫번째 차량이 주 이용 차량이 아닐 경우
+     * 주 이용 차량 설정 요청 (단 소유 차량에 한해서)
+     */
+    private void checkFavoriteCar(){
+        VehicleVO vehicleVO = adapter.getItem(0);
+        if(vehicleVO!=null){
+            setFavoriteCar(vehicleVO);
         }
     }
 
