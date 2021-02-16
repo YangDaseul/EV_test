@@ -108,7 +108,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                                         new Handler().postDelayed(() -> {
                                             ui.vpCar.setCurrentItem(0, true);
                                             ui.indicator.createIndicators(list.size(), 0);
-                                            checkFavoriteCar();
+//                                            checkFavoriteCar();
                                         }, 100);
                                     }
                                 } catch (Exception e) {
@@ -730,6 +730,10 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
      * gns-1001 호출 후 정렬된 차량 정보 중
      * 가장 첫번째 차량이 주 이용 차량이 아닐 경우
      * 주 이용 차량 설정 요청 (단 소유 차량에 한해서)
+     *
+     * 현재 서버에서 마이페이지 정보를 자체적으로 동기화
+     * 할 수 있도록 반영 대기
+     *
      */
     private void checkFavoriteCar(){
         VehicleVO vehicleVO = adapter.getItem(0);
