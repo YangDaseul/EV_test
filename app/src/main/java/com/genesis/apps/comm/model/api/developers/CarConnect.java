@@ -42,7 +42,6 @@ public class CarConnect extends BaseData {
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
-    abstract
     class Response extends DevelopersBaseResponse {
 
     }

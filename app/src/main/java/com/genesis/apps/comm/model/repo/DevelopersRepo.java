@@ -1,5 +1,7 @@
 package com.genesis.apps.comm.model.repo;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.developers.Agreements;
@@ -24,8 +26,6 @@ import com.genesis.apps.comm.net.NetUIResponse;
 import com.google.gson.Gson;
 
 import javax.inject.Inject;
-
-import androidx.lifecycle.MutableLiveData;
 
 public class DevelopersRepo {
 
@@ -235,7 +235,13 @@ public class DevelopersRepo {
         netCaller.reqDataFromAnonymous(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
-                RES_DISTANCE.setValue(NetUIResponse.success(new Gson().fromJson(object, Distance.Response.class)));
+                Distance.Response response = null;
+                try {
+                    response = new Gson().fromJson(object, Distance.Response.class);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                RES_DISTANCE.setValue(NetUIResponse.success(response));
             }
 
             @Override

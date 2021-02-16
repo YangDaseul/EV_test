@@ -44,7 +44,6 @@ public class ParkLocation extends BaseData {
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
-    abstract
     class Response extends DevelopersBaseResponse {
         @Expose
         @SerializedName("timestamp")

@@ -18,6 +18,10 @@ public class StringUtil {
         return NumberFormat.getInstance(Locale.getDefault()).format(value);
     }
 
+    public static String getDigitGrouping(double value) {
+        return NumberFormat.getInstance(Locale.getDefault()).format(value);
+    }
+
     public static String getDigitGroupingString(String value) {
         long valueLong=0;
         try{

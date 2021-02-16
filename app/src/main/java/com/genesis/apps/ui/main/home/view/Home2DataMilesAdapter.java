@@ -3,7 +3,6 @@ package com.genesis.apps.ui.main.home.view;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -346,8 +345,8 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             }
 
             binding.tvDatamilesExpendablesTotalDistance.setText(DevelopersViewModel.getDistanceFormatByUnit(
-                    replacements.getOdometer().getValue(),
-                    replacements.getOdometer().getUnit()
+                    (int)replacements.getOdometer().getValue(),
+                    (int)replacements.getOdometer().getUnit()
             ));
 
             try {

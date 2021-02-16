@@ -232,7 +232,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 case SUCCESS:
                     if(result.data!=null){
                         try{
-                            developersViewModel.updateCarConnectResult(result.data.getResult()==0 ? false : true, developersViewModel.getCarId(lgnViewModel.getMainVehicleSimplyFromDB().getVin()));
+                            developersViewModel.updateCarConnectResult(result.data.getData().getResult()==0 ? false : true, developersViewModel.getCarId(lgnViewModel.getMainVehicleSimplyFromDB().getVin()));
                             setViewDevelopers();
                         }catch (Exception e){
                             e.printStackTrace();
@@ -252,7 +252,12 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     break;
                 case SUCCESS:
                     if (result.data != null) {
-                        me.tvDistancePossible.setText(StringUtil.getDigitGrouping(result.data.getValue()) + developersViewModel.getDistanceUnit(result.data.getUnit()));
+                        try {
+                            me.tvDistancePossible.setText(StringUtil.getDigitGrouping((int)result.data.getValue()) + developersViewModel.getDistanceUnit((int) result.data.getUnit()));
+                            break;
+                        }catch (Exception e){
+
+                        }
                     }
                 default:
                     me.tvDistancePossible.setText("--km");
@@ -266,9 +271,12 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 case LOADING:
                     break;
                 case SUCCESS:
-                    if (result.data != null && result.data.getOdometers() != null) {
-                        me.tvDistanceTotal.setText(StringUtil.getDigitGrouping(result.data.getOdometers().getValue()) + developersViewModel.getDistanceUnit(result.data.getOdometers().getUnit()));
-                        break;
+                    if (result.data != null && result.data.getOdometers() != null && result.data.getOdometers().size()>0) {
+                        OdometerVO odometerVO = result.data.getOdometers().stream().max(Comparator.comparingInt(data -> Integer.parseInt(data.getDate()))).orElse(null);
+                        if(odometerVO!=null){
+                            me.tvDistanceTotal.setText(StringUtil.getDigitGrouping((int)odometerVO.getValue()) + developersViewModel.getDistanceUnit((int)odometerVO.getUnit()));
+                            break;
+                        }
                     }
                 default:
                     me.tvDistanceTotal.setText("--km");
@@ -276,16 +284,18 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             }
         });
 
-        //최근주행거리표기
+        //일별 운행 거리
         developersViewModel.getRES_DISTANCE().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
                     break;
                 case SUCCESS:
                     if (result.data != null && result.data.getDistances() != null && result.data.getDistances().size() > 0) {
-                        OdometerVO odometerVO = result.data.getDistances().stream().max(Comparator.comparingInt(data -> Integer.parseInt(data.getDate()))).get();
-                        me.tvDistanceRecently.setText(StringUtil.getDigitGrouping(odometerVO.getValue()) + developersViewModel.getDistanceUnit(odometerVO.getUnit()));
-                        break;
+                        OdometerVO odometerVO = result.data.getDistances().stream().max(Comparator.comparingInt(data -> Integer.parseInt(data.getDate()))).orElse(null);
+                        if(odometerVO!=null) {
+                            me.tvDistanceRecently.setText(StringUtil.getDigitGrouping((int)odometerVO.getValue()) + developersViewModel.getDistanceUnit((int)odometerVO.getUnit()));
+                            break;
+                        }
                     }
                 default:
                     me.tvDistanceRecently.setText("--km");

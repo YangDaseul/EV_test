@@ -1,7 +1,12 @@
 package com.genesis.apps.comm.viewmodel;
 
 import android.text.TextUtils;
-import android.view.View;
+
+import androidx.hilt.Assisted;
+import androidx.hilt.lifecycle.ViewModelInject;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
+import androidx.lifecycle.ViewModel;
 
 import com.genesis.apps.comm.model.api.developers.Agreements;
 import com.genesis.apps.comm.model.api.developers.CarCheck;
@@ -26,7 +31,6 @@ import com.genesis.apps.comm.model.vo.developers.CarVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.QueryString;
-import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 
 import java.util.ArrayList;
@@ -36,16 +40,8 @@ import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import androidx.hilt.Assisted;
-import androidx.hilt.lifecycle.ViewModelInject;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.SavedStateHandle;
-import androidx.lifecycle.ViewModel;
-
 import lombok.Data;
 
-import static com.genesis.apps.comm.model.constants.GAInfo.CCSP_CLIENT_ID;
-import static com.genesis.apps.comm.model.constants.GAInfo.GA_URL;
 import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_OV;
 
 public @Data
@@ -190,7 +186,7 @@ class DevelopersViewModel extends ViewModel {
             Agreements.Response response = repository.REQ_AGREEMENTS(reqData);
             if (response != null) {
                 try {
-                    result = response.getResult()==0 ? false : true;
+                    result = response.getData().getResult()==0 ? false : true;
                     if (isUpdate) {
                         updateCarConnectResult(result, reqData.getCarId());
                     }

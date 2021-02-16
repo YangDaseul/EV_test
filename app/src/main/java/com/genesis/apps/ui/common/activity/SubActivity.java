@@ -64,10 +64,14 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
 
 
         if (base == null) base = (ActivityBaseBinding) inflate(R.layout.activity_base);
-
-        setFirebaseAnalyticsLog(this.getClass());
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        setFirebaseAnalyticsLog();
+    }
 
     public static void setStatusBarColor(Activity activity, int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -313,7 +317,6 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         return address;
     }
 
-
     public void loginChk(String url, String custGbCd) {
         if (!TextUtils.isEmpty(custGbCd) && !custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)) {
             startActivitySingleTop(new Intent(this, StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, url), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
@@ -326,13 +329,23 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         }
     }
 
-    public void setFirebaseAnalyticsLog(Class activity){
-        APPIAInfo appiaInfo = APPIAInfo.findCode(activity);
+    public void setFirebaseAnalyticsLog(){
+        Class classNm = this.getClass();
+        APPIAInfo appiaInfo = APPIAInfo.findCode(classNm);
+//        if(appiaInfo!=null&&appiaInfo!=APPIAInfo.DEFAULT) {
+//            Bundle bundle = new Bundle();
+////            bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, appiaInfo.getId());
+//            bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, appiaInfo.getId());
+////            bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, classNm.getSimpleName());
+//            FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
+//        }
+
         if(appiaInfo!=null&&appiaInfo!=APPIAInfo.DEFAULT) {
             Bundle bundle = new Bundle();
-            bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, appiaInfo.getId());
-            bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, activity.getSimpleName());
-            FirebaseAnalytics.getInstance(getApplication()).logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
+//            bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, appiaInfo.getId());
+            bundle.putString("menu_id", appiaInfo.getId());
+//            bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, classNm.getSimpleName());
+            FirebaseAnalytics.getInstance(this).logEvent("app_menu_id", bundle);
         }
     }
 

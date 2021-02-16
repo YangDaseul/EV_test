@@ -48,7 +48,15 @@ public class Agreements extends BaseData {
     public @Data
     class Response extends DevelopersBaseResponse {
         @Expose
+        @SerializedName("data")
+        private DetailData data;
+    }
+
+    public @Data
+    class DetailData{
+        @Expose
         @SerializedName("result")
         private int result;
     }
+
 }

@@ -44,17 +44,16 @@ public class Dte extends BaseData {
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
-    abstract
     class Response extends DevelopersBaseResponse {
         @Expose
         @SerializedName("timestamp")
         private String timestamp;
         @Expose
         @SerializedName("value")
-        private int value;
+        private float value;
         @Expose
         @SerializedName("unit")
-        private int unit;
+        private float unit;
         @Expose
         @SerializedName("phevTotalValue")
         private int phevTotalValue;

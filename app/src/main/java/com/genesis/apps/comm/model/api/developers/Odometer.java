@@ -5,6 +5,8 @@ import com.genesis.apps.comm.model.vo.developers.OdometerVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -40,11 +42,10 @@ public class Odometer extends BaseData {
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
-    abstract
     class Response extends DevelopersBaseResponse {
         @Expose
         @SerializedName("odometers")
-        private OdometerVO odometers;
+        private List<OdometerVO> odometers;
         @Expose
         @SerializedName("msgId")
         private String msgId;
