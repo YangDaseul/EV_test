@@ -607,6 +607,9 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     @Override
     public void onPause() {
         super.onPause();
+        if (isRecord)
+            return;
+
         pauseTimer();
         videoPauseAndResume(false);
         resumeAndPauseLottie(false);

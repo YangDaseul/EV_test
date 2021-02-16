@@ -25,6 +25,9 @@ public class MyWebView extends WebView {
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
 			onScrollChanged(getScrollX(), getScrollY(), getScrollX(),getScrollY());
+			if (!hasFocus())
+				requestFocus();
+			break;
 		case MotionEvent.ACTION_UP:
 			if (!hasFocus())
 				requestFocus();
