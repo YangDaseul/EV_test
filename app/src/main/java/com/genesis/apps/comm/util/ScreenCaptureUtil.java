@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.hardware.display.DisplayManager;
+import android.media.ImageReader;
 import android.media.MediaRecorder;
 import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
@@ -33,31 +34,36 @@ public class ScreenCaptureUtil {
     }
 
     public void screenRecorder(int resultCode, @Nullable Intent data) {
-        final MediaRecorder screenRecorder = createRecorder();
-        MediaProjectionManager mediaProjectionManager = (MediaProjectionManager) context.getSystemService(MEDIA_PROJECTION_SERVICE);
-        mediaProjection = mediaProjectionManager.getMediaProjection(resultCode, data);
-        MediaProjection.Callback callback = new MediaProjection.Callback() {
-            @Override
-            public void onStop() {
-                super.onStop();
-                if (screenRecorder != null) {
-                    screenRecorder.stop();
-                    screenRecorder.reset();
-                    screenRecorder.release();
+        try {
+            final MediaRecorder screenRecorder = createRecorder();
+            MediaProjectionManager mediaProjectionManager = (MediaProjectionManager) context.getSystemService(MEDIA_PROJECTION_SERVICE);
+            mediaProjection = mediaProjectionManager.getMediaProjection(resultCode, data);
+            MediaProjection.Callback callback = new MediaProjection.Callback() {
+                @Override
+                public void onStop() {
+                    super.onStop();
+                    if (screenRecorder != null) {
+                        screenRecorder.stop();
+                        screenRecorder.reset();
+                        screenRecorder.release();
+                    }
+                    mediaProjection.unregisterCallback(this);
+                    mediaProjection = null;
                 }
-                mediaProjection.unregisterCallback(this);
-                mediaProjection = null;
-            }
-        };
-        mediaProjection.registerCallback(callback, null);
+            };
+            mediaProjection.registerCallback(callback, null);
 
-        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
-        mediaProjection.createVirtualDisplay(
-                "sample",
-                displayMetrics.widthPixels, displayMetrics.heightPixels, displayMetrics.densityDpi, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
-                screenRecorder.getSurface(), null, null);
+            DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
 
-        screenRecorder.start();
+            mediaProjection.createVirtualDisplay(
+                    "sample",
+                    displayMetrics.widthPixels, displayMetrics.heightPixels, displayMetrics.densityDpi, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
+                    screenRecorder.getSurface(), null, null);
+
+            screenRecorder.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -72,7 +78,9 @@ public class ScreenCaptureUtil {
         mediaRecorder.setVideoFrameRate(30);
 
         DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
-        mediaRecorder.setVideoSize(displayMetrics.widthPixels, (int) (displayMetrics.heightPixels * 0.9));
+
+//        mediaRecorder.setVideoSize(displayMetrics.widthPixels, displayMetrics.heightPixels);
+        mediaRecorder.setVideoSize(1080, 1920);
         mediaRecorder.setOutputFile(videoFile);
 
 //        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
