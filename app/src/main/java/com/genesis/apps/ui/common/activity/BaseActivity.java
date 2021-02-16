@@ -19,11 +19,9 @@ import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.fcm.PushVO;
-import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.intro.IntroActivity;
 import com.genesis.apps.ui.main.AlarmCenterActivity;
 import com.genesis.apps.ui.main.service.ServiceReviewActivity;
-import com.genesis.apps.ui.myg.MyGEntranceActivity;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
@@ -33,10 +31,8 @@ import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import dagger.hilt.android.AndroidEntryPoint;
 
-import static com.genesis.apps.comm.model.api.APPIAInfo.SM_REVIEW01_P03;
 import static com.genesis.apps.comm.model.constants.KeyNames.NOTIFICATION_ID;
 import static com.genesis.apps.comm.model.constants.KeyNames.PUSH_VO;
 
@@ -225,14 +221,14 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==RequestCodes.REQ_CODE_ACTIVITY.getCode()&&
                 (resultCode==ResultCodes.RES_CODE_NETWORK.getCode()||
                         resultCode==ResultCodes.REQ_CODE_EMPTY_INTENT.getCode()||
-                        resultCode==ResultCodes.REQ_CODE_NORMAL.getCode())){
+                        resultCode==ResultCodes.REQ_CODE_NORMAL.getCode())||
+                        resultCode==ResultCodes.REQ_CODE_TS_AUTH.getCode()){
 
             String errorMsg="";
             try {

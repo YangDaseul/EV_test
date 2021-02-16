@@ -6,10 +6,6 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 
-import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.GNS_1001;
@@ -38,12 +34,15 @@ import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.bottom.DialogCarRgstNo;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.main.home.view.CarHorizontalAdapter;
-import com.genesis.apps.ui.myg.MyGHomeActivity;
 import com.genesis.apps.ui.myg.MyGPrivilegeStateActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
 
@@ -817,6 +816,17 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
 
         if(resultCode == ResultCodes.REQ_CODE_TS_AUTH.getCode()){
            gnsViewModel.reqGNS1001(new GNS_1001.Request(APPIAInfo.GM_CARLST01.getId()));
+
+            String msg="";
+            try {
+                if(data!=null) msg = data.getStringExtra("msg");
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally{
+                if(!TextUtils.isEmpty(msg)){
+                    SnackBarUtil.show(this, msg);
+                }
+            }
         }
     }
 }

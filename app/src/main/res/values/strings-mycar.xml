@@ -197,37 +197,25 @@
 
     <!-- 교통안전공단 -->
     <string name="ts_auth_html">
-        <![CDATA[<!doctype html>
-        <html lang="ko">
-        <head>
-            <title>car365연동</title>
-            <meta charset="UTF-8">
-            <script type="text/javascript">
-                function goPopup() {
-                    window.open("", "privde", "height=0, width=0");
-                    document.provideHashFromUnfixed.target = "privde";
-                    document.provideHashFromUnfixed.submit();
-                }
-            </script>
-        </head>
-        <body>
-            <form id="provideHashFromUnfixed" name="provideHashFromUnfixed" method="post" accept-charset="EUC-KR" action="https://car365.go.kr/aio365/provide/ProvideContent.do">
-                <input type="hidden" name="hashValue"  id="hashValue" value="%1$s">
-                <input type="hidden" name="timeStamp"  id="timeStamp" value="%2$s">
-                <input type="hidden" name="svcCodeArr" id="svcCodeArr" value="%3$s">
-                <input type="hidden" name="svcType"    id="svcType" value="%4$s"">
-                <input type="hidden" name="returnURLA" id="returnURLA" value="%5$s">
-                <input type="hidden" name="returnURLD" id="returnURLD" value="%6$s">
-                <input type="hidden" name="carOwner"   id="carOwner" value="%7$s">
-                <input type="hidden" name="carRegNo"   id="carRegNo" value="%8$s">
-                <input type="hidden" name="carVinNo"   id="carVinNo" value="%9$s">
-            </form>
-            <script type="text/javascript">
-                goPopup();
-            </script>
-        </body>
-        </html>]]>
-    </string>
+        <![CDATA["<html><script type=\"text/javascript\"></script>
+                            <script>function goPopup() {window.open(\"\", \"privde\", 'height=0, width=0');
+                            document.provideHashFromFixed.target = \"privde\";
+                            document.provideHashFromFixed.submit();}
+                            </script>
+                           <body>테스트</body>
+                           <form id=\"provideHashFromFixed\" name=\"provideHashFromFixed\" method=\"post\" accept-charset=\"EUC-KR\" action=\"https://car365.go.kr/aio365/provide/ProvideContent.do\">
+                            <input type=\"hidden\" name=\"hashValue\" id=\"hashValue\" value=\"%1$s\">
+                            <input type=\"hidden\" name=\"timeStamp\" id=\"timeStamp\" value=\"%2$s\">
+                            <input type=\"hidden\" name=\"svcCodeArr\" id=\"svcCodeArr\" value=\"%3$s\">
+        <input type=\"hidden\" name=\"svcType\" id=\"svcType\" value=\"%4$s"\">
+        <input type=\"hidden\" name=\"returnURLA\" id=\"returnURLA\" value=\"%5$s\">
+        <input type=\"hidden\" name=\"returnURLD\" id=\"returnURLD\" value=\"%6$s\">
+        <input type=\"hidden\" name=\"carOwner\" id=\"carOwner\" value=\"%7$s\">
+        <input type=\"hidden\" name=\"carRegNo\" id=\"carRegNo\" value=\"%8$s\">
+        <input type=\"hidden\" name=\"carVinNo\" id=\"carVinNo\" value=\"%9$s\">
+    </form>
+    <script>goPopup(); </script>
+    </html>]]></string>
 
 
 
