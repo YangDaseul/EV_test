@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.hardware.display.DisplayManager;
+import android.media.CamcorderProfile;
 import android.media.ImageReader;
 import android.media.MediaRecorder;
 import android.media.projection.MediaProjection;
@@ -57,7 +58,7 @@ public class ScreenCaptureUtil {
 
             mediaProjection.createVirtualDisplay(
                     "sample",
-                    displayMetrics.widthPixels, displayMetrics.heightPixels, displayMetrics.densityDpi, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
+                    1080, 1920, displayMetrics.densityDpi, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
                     screenRecorder.getSurface(), null, null);
 
             screenRecorder.start();
@@ -68,28 +69,25 @@ public class ScreenCaptureUtil {
 
 
     private MediaRecorder createRecorder() {
+        CamcorderProfile camcorderProfile = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
         MediaRecorder mediaRecorder = new MediaRecorder();
 //        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mediaRecorder.setVideoSource(MediaRecorder.VideoSource.SURFACE);
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
 //        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-        mediaRecorder.setVideoEncodingBitRate(512 * 1000);
-        mediaRecorder.setVideoFrameRate(30);
+//        mediaRecorder.setVideoEncodingBitRate(1024 * 1000);
+        mediaRecorder.setVideoEncodingBitRate(camcorderProfile.videoBitRate);
+//        mediaRecorder.setVideoFrameRate(30);
+        mediaRecorder.setVideoFrameRate(camcorderProfile.videoFrameRate);
 
-        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
+//        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
 
 //        mediaRecorder.setVideoSize(displayMetrics.widthPixels, displayMetrics.heightPixels);
         mediaRecorder.setVideoSize(1080, 1920);
+//        mediaRecorder.setVideoSize(camcorderProfile.videoFrameWidth, camcorderProfile.videoFrameHeight);
         mediaRecorder.setOutputFile(videoFile);
 
-//        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-//        Display display = wm.getDefaultDisplay();
-//
-//        Point size = new Point();
-//        display.getSize(size);
-//
-//        Log.d("JJJJ", "width : " + size.x + ", height : " + size.y);
         try {
             mediaRecorder.prepare();
         } catch (IOException e) {
