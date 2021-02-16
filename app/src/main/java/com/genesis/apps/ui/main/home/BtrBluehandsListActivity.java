@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * @author hjpark
- * @brief 블루핸즈찾기
+ * @brief 블루핸즈 목록 보기
  */
 public class BtrBluehandsListActivity extends SubActivity<ActivityBtrBluehandsHistBinding> {
     private BtrBluehandsAdapter adapter;

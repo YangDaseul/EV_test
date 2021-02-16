@@ -2,20 +2,33 @@ package com.genesis.apps.comm.model.api;
 
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.MenuVO;
-import com.genesis.apps.comm.model.vo.RentStatusVO;
+import com.genesis.apps.ui.common.activity.DataMilesWebViewActivity;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
+import com.genesis.apps.ui.common.activity.PaymentWebViewActivity;
+import com.genesis.apps.ui.intro.IntroActivity;
+import com.genesis.apps.ui.intro.PermissionsActivity;
 import com.genesis.apps.ui.main.AlarmCenterActivity;
 import com.genesis.apps.ui.main.BarcodeActivity;
 import com.genesis.apps.ui.main.ServiceNetworkActivity;
-import com.genesis.apps.ui.main.ServiceTermDetailActivity;
 import com.genesis.apps.ui.main.SimilarCarActivity;
 import com.genesis.apps.ui.main.SimilarCarContractHistoryActivity;
+import com.genesis.apps.ui.main.contents.ContentsDetailWebActivity;
+import com.genesis.apps.ui.main.contents.ContentsSearchActivity;
 import com.genesis.apps.ui.main.home.BtrBluehandsActivity;
+import com.genesis.apps.ui.main.home.BtrBluehandsListActivity;
+import com.genesis.apps.ui.main.home.BtrBluehandsMapActivity;
+import com.genesis.apps.ui.main.home.BtrConslHistActivity;
 import com.genesis.apps.ui.main.home.BtrConsultTypeActivity;
+import com.genesis.apps.ui.main.home.BtrServiceInfoActivity;
+import com.genesis.apps.ui.main.home.LeasingCarHistActivity;
+import com.genesis.apps.ui.main.home.LeasingCarHistDetailActivity;
+import com.genesis.apps.ui.main.home.LeasingCarInfoActivity;
+import com.genesis.apps.ui.main.home.LeasingCarRegisterInputActivity;
 import com.genesis.apps.ui.main.home.LeasingCarVinRegisterActivity;
 import com.genesis.apps.ui.main.home.MyCarActivity;
 import com.genesis.apps.ui.main.home.MyLocationActivity;
 import com.genesis.apps.ui.main.home.RegisterUsedCarActivity;
+import com.genesis.apps.ui.main.home.SearchAddressActivity;
 import com.genesis.apps.ui.main.home.WarrantyRepairGuideActivity;
 import com.genesis.apps.ui.main.insight.InsightExpnInputActivity;
 import com.genesis.apps.ui.main.insight.InsightExpnMainActivity;
@@ -48,8 +61,8 @@ import java.util.stream.Collectors;
 public enum APPIAInfo {
     DEFAULT("default", null, VariableType.QUICK_MENU_CODE_NONE, "기본",VariableType.QUICK_MENU_CATEGORY_NONE),
     LOG01("LOG01", MyGEntranceActivity.class, VariableType.QUICK_MENU_CODE_NONE, "로그인 화면",VariableType.QUICK_MENU_CATEGORY_NONE),
-    INT01("INT01", null, VariableType.QUICK_MENU_CODE_NONE, "스플래시",VariableType.QUICK_MENU_CATEGORY_NONE),
-    INT02("INT02", null, VariableType.QUICK_MENU_CODE_NONE, "접근 권한 알림",VariableType.QUICK_MENU_CATEGORY_NONE), //TODO 로그인/회원가입과 IA 아이디가 같음..
+    INT01("INT01", IntroActivity.class, VariableType.QUICK_MENU_CODE_NONE, "스플래시",VariableType.QUICK_MENU_CATEGORY_NONE),
+    INT02("INT02", PermissionsActivity.class, VariableType.QUICK_MENU_CODE_NONE, "접근 권한 알림",VariableType.QUICK_MENU_CATEGORY_NONE), //TODO 로그인/회원가입과 IA 아이디가 같음..
     INT02_P01("INT02_P01", null, VariableType.QUICK_MENU_CODE_NONE, "접근권한 설정 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     INT03("INT03", null, VariableType.QUICK_MENU_CODE_NONE, "서비스 가입",VariableType.QUICK_MENU_CATEGORY_NONE),
     INT03_01("INT03_01", null, VariableType.QUICK_MENU_CODE_NONE, "제네시스 앱 이용약관",VariableType.QUICK_MENU_CATEGORY_NONE),
@@ -68,6 +81,7 @@ public enum APPIAInfo {
     GM01_01("GM01_01", MyLocationActivity.class, VariableType.QUICK_MENU_CODE_OV, "내 차 위치찾기",VariableType.QUICK_MENU_CATEGORY_HOME),
     GM01_02("GM01_02", WarrantyRepairGuideActivity.class, VariableType.QUICK_MENU_CODE_OV, "보증 수리 안내",VariableType.QUICK_MENU_CATEGORY_HOME),
     GM01_03("GM01_03", null, VariableType.QUICK_MENU_CODE_NONE, "공유 미리보기",VariableType.QUICK_MENU_CATEGORY_NONE),
+    GM01_04("GM01_04", DataMilesWebViewActivity.class, VariableType.QUICK_MENU_CODE_NONE, "데이터마일스 상세",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_BTO1("GM_BTO1", GAWebActivity.class, VariableType.QUICK_MENU_CODE_0000, "견적내기",VariableType.QUICK_MENU_CATEGORY_HOME),
     GM_BTO2("GM_BTO2", null, VariableType.QUICK_MENU_CODE_NONE, "BTO",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM02_CTR01("GM02_CTR01", SimilarCarContractHistoryActivity.class, VariableType.QUICK_MENU_CODE_NONE, "구매 계약 내역",VariableType.QUICK_MENU_CATEGORY_NONE),
@@ -75,35 +89,35 @@ public enum APPIAInfo {
     GM02_INV01("GM02_INV01", SimilarCarActivity.class, VariableType.QUICK_MENU_CODE_NONE, "유사 재고 조회 / 예약",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM02_BF01("GM02_BF01", null, VariableType.QUICK_MENU_CODE_NONE, "대기고객 혜택",VariableType.QUICK_MENU_CATEGORY_NONE),
 
-    GM_BT01_P01("GM_BT01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "버틀러 서비스 안내 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
+    GM_BT01_P01("GM_BT01_P01", BtrServiceInfoActivity.class, VariableType.QUICK_MENU_CODE_NONE, "버틀러 서비스 안내 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_BT01_P02("GM_BT01_P02", null, VariableType.QUICK_MENU_CODE_NONE, "버틀러 신청 안내 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_BT02("GM_BT02", BtrBluehandsActivity.class, VariableType.QUICK_MENU_CODE_NONE, "전담 블루핸즈/버틀러",VariableType.QUICK_MENU_CATEGORY_HOME), //2021-01-16 요청으로 삭제
-    GM_BT03("GM_BT03", null, VariableType.QUICK_MENU_CODE_NONE, "블루핸즈 위치 상세",VariableType.QUICK_MENU_CATEGORY_NONE),
+    GM_BT03("GM_BT03", BtrBluehandsMapActivity.class, VariableType.QUICK_MENU_CODE_NONE, "블루핸즈 위치 상세",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_BT04("GM_BT04", BtrConsultTypeActivity.class, VariableType.QUICK_MENU_CODE_NONE, "버틀러 1:1 문의",VariableType.QUICK_MENU_CATEGORY_HOME), //2021-01-16 요청으로 삭제
     GM_BT04_P01("GM_BT04_P01", null, VariableType.QUICK_MENU_CODE_NONE, "버틀러 문의 종료 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
-    GM_BT05("GM_BT05", null, VariableType.QUICK_MENU_CODE_NONE, "상담 이력",VariableType.QUICK_MENU_CATEGORY_NONE),
+    GM_BT05("GM_BT05", BtrConslHistActivity.class, VariableType.QUICK_MENU_CODE_NONE, "상담 이력",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_BT06_P01("GM_BT06_P01", null, VariableType.QUICK_MENU_CODE_NONE, "GPS 설정 안내 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_BT06("GM_BT06", null, VariableType.QUICK_MENU_CODE_NONE, "버틀러 변경",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_BT06_01("GM_BT06_01", null, VariableType.QUICK_MENU_CODE_NONE, "블루핸즈 필터",VariableType.QUICK_MENU_CATEGORY_NONE),
-    GM_BT06_02("GM_BT06_02", null, VariableType.QUICK_MENU_CODE_NONE, "블루핸즈 목록 보기",VariableType.QUICK_MENU_CATEGORY_NONE),
+    GM_BT06_02("GM_BT06_02", BtrBluehandsListActivity.class, VariableType.QUICK_MENU_CODE_NONE, "블루핸즈 목록 보기",VariableType.QUICK_MENU_CATEGORY_NONE),
 
     GM_CARLST01("GM_CARLST01", MyCarActivity.class, VariableType.QUICK_MENU_CODE_CV, "보유 차량 리스트",VariableType.QUICK_MENU_CATEGORY_HOME),
     GM_CARLST_P01("GM_CARLST_P01", null, VariableType.QUICK_MENU_CODE_NONE, "차량 번호 수정 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_CARLST_P02("GM_CARLST_P02", null, VariableType.QUICK_MENU_CODE_NONE, "차량 삭제 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_CARLST_01("GM_CARLST_01", LeasingCarVinRegisterActivity.class, VariableType.QUICK_MENU_CODE_NV, "렌트/리스 실운행자 등록 확인",VariableType.QUICK_MENU_CATEGORY_HOME),
-    GM_CARLST_01_01("GM_CARLST_01_01", null, VariableType.QUICK_MENU_CODE_NONE, "등록 신청",VariableType.QUICK_MENU_CATEGORY_NONE),
+    GM_CARLST_01_01("GM_CARLST_01_01", LeasingCarRegisterInputActivity.class, VariableType.QUICK_MENU_CODE_NONE, "등록 신청",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_CARLST_01_B01("GM_CARLST_01_B01", null, VariableType.QUICK_MENU_CODE_NONE, "전담블루핸즈/버틀러 선택 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_CARLST_01_B02("GM_CARLST_01_B02", null, VariableType.QUICK_MENU_CODE_NONE, "블루핸즈 필터",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_CARLST_01_B03("GM_CARLST_01_B03", null, VariableType.QUICK_MENU_CODE_NONE, "블루핸즈 목록 보기",VariableType.QUICK_MENU_CATEGORY_NONE),
-    GM_CARLST_01_A01("GM_CARLST_01_A01", null, VariableType.QUICK_MENU_CODE_NONE, "수령지 주소 검색",VariableType.QUICK_MENU_CATEGORY_NONE),
-    GM_CARLST_01_result("GM_CARLST_01_result", null, VariableType.QUICK_MENU_CODE_NONE, "상세 페이지",VariableType.QUICK_MENU_CATEGORY_NONE),
-    GM_CARLST_01_P01("GM_CARLST_01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "유의사항",VariableType.QUICK_MENU_CATEGORY_NONE),
+    GM_CARLST_01_A01("GM_CARLST_01_A01", SearchAddressActivity.class, VariableType.QUICK_MENU_CODE_NONE, "수령지 주소 검색",VariableType.QUICK_MENU_CATEGORY_NONE),
+    GM_CARLST_01_result("GM_CARLST_01_result", LeasingCarHistDetailActivity.class, VariableType.QUICK_MENU_CODE_NONE, "상세 페이지",VariableType.QUICK_MENU_CATEGORY_NONE),
+    GM_CARLST_01_P01("GM_CARLST_01_P01", LeasingCarInfoActivity.class, VariableType.QUICK_MENU_CODE_NONE, "유의사항",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_CARLST_01_P02("GM_CARLST_01_P02", null, VariableType.QUICK_MENU_CODE_NONE, "계약서 종류",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_CARLST_01_P03("GM_CARLST_01_P03", null, VariableType.QUICK_MENU_CODE_NONE, "대여기간",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_CARLST_01_P04("GM_CARLST_01_P04", null, VariableType.QUICK_MENU_CODE_NONE, "신청 초기화 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_CARLST_01_P05("GM_CARLST_01_P05", null, VariableType.QUICK_MENU_CODE_NONE, "신청 취소 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
 
-    GM_CARLST_02("GM_CARLST_02", null, VariableType.QUICK_MENU_CODE_NONE, "렌트/리스 실운행자 등록 내역",VariableType.QUICK_MENU_CATEGORY_NONE),
+    GM_CARLST_02("GM_CARLST_02", LeasingCarHistActivity.class, VariableType.QUICK_MENU_CODE_NONE, "렌트/리스 실운행자 등록 내역",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_CARLST_03("GM_CARLST_03", RegisterUsedCarActivity.class, VariableType.QUICK_MENU_CODE_NV, "중고차 등록",VariableType.QUICK_MENU_CATEGORY_HOME),
     GM_CARLST_03_P01("GM_CARLST_03_P01", null, VariableType.QUICK_MENU_CODE_NONE, "중고차 안내사항",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_CARLST_04("GM_CARLST_04", null, VariableType.QUICK_MENU_CODE_NONE, "차량 상세",VariableType.QUICK_MENU_CATEGORY_NONE),
@@ -218,7 +232,7 @@ public enum APPIAInfo {
     SM_DRV01_P01("SM_DRV01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "대리운전 신청 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
 
     SM_DRV02("SM_DRV02", null, VariableType.QUICK_MENU_CODE_NONE, "대리운전 신청 정보 확인",VariableType.QUICK_MENU_CATEGORY_NONE),
-    SM_DRV03("SM_DRV03", null, VariableType.QUICK_MENU_CODE_NONE, "대리운전 결제",VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_DRV03("SM_DRV03", PaymentWebViewActivity.class, VariableType.QUICK_MENU_CODE_NONE, "대리운전 결제",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM_DRV04("SM_DRV04", null, VariableType.QUICK_MENU_CODE_NONE, "대리운전 신청완료",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM_DRV05("SM_DRV05", null, VariableType.QUICK_MENU_CODE_NONE, "대리운전 신청 내역",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM_DRV06("SM_DRV06", ServiceDriveReqResultActivity.class, VariableType.QUICK_MENU_CODE_NONE, "신청 상태 확인",VariableType.QUICK_MENU_CATEGORY_NONE),
@@ -237,10 +251,9 @@ public enum APPIAInfo {
     CM03("CM03", null, VariableType.QUICK_MENU_CODE_NONE, "메인 4 Contents (로그인/차량미보유)",VariableType.QUICK_MENU_CATEGORY_NONE),
     CM04("CM04", null, VariableType.QUICK_MENU_CODE_NONE, "메인 4 Contents (비로그인)",VariableType.QUICK_MENU_CATEGORY_NONE),
 
-    CM_LIFE01("CM_LIFE01", null, VariableType.QUICK_MENU_CODE_NONE, "라이프 스타일 컨텐츠 상세",VariableType.QUICK_MENU_CATEGORY_NONE),
+    CM_LIFE01("CM_LIFE01", ContentsDetailWebActivity.class, VariableType.QUICK_MENU_CODE_NONE, "라이프 스타일 컨텐츠 상세",VariableType.QUICK_MENU_CATEGORY_NONE),
     CM_EVENT01("CM_EVENT01", null, VariableType.QUICK_MENU_CODE_NONE, "이벤트 상세",VariableType.QUICK_MENU_CATEGORY_NONE),
-
-    CM_SRCH01("CM_SRCH01", null, VariableType.QUICK_MENU_CODE_NONE, "콘텐츠 검색",VariableType.QUICK_MENU_CATEGORY_NONE),
+    CM_SRCH01("CM_SRCH01", ContentsSearchActivity.class, VariableType.QUICK_MENU_CODE_NONE, "콘텐츠 검색",VariableType.QUICK_MENU_CATEGORY_NONE),
     MG01("MG01", MyGHomeActivity.class, VariableType.QUICK_MENU_CODE_NV, "마이 페이지",VariableType.QUICK_MENU_CATEGORY_MYG),
     MG02("MG02", MyGHomeActivity.class, VariableType.QUICK_MENU_CODE_NONE, "마이 페이지",VariableType.QUICK_MENU_CATEGORY_MYG),
     MG03("MG03", MyGHomeActivity.class, VariableType.QUICK_MENU_CODE_NONE, "마이 페이지",VariableType.QUICK_MENU_CATEGORY_MYG),
@@ -359,6 +372,10 @@ public enum APPIAInfo {
 
     public static APPIAInfo findCode(String id){
         return Arrays.asList(APPIAInfo.values()).stream().filter(data->data.getId().equalsIgnoreCase(id)).findAny().orElse(DEFAULT);
+    }
+
+    public static APPIAInfo findCode(Class activity){
+        return Arrays.asList(APPIAInfo.values()).stream().filter(data->data.getActivity()==activity).findAny().orElse(DEFAULT);
     }
 
     public int getCategory() {

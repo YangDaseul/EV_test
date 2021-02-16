@@ -237,12 +237,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout" />
         <activity
-            android:name=".ui.main.home.MyCarDetailActivity"
-            android:configChanges="screenSize|smallestScreenSize|screenLayout"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout" />
-        <activity
             android:name=".ui.main.home.BtrServiceInfoActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"

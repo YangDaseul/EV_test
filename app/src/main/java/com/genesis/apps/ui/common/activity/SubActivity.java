@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
@@ -28,6 +29,7 @@ import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.main.service.CarWashFindSonaxBranchFragment;
 import com.genesis.apps.ui.main.store.StoreWebActivity;
 import com.genesis.apps.ui.myg.MyGEntranceActivity;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +64,8 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
 
 
         if (base == null) base = (ActivityBaseBinding) inflate(R.layout.activity_base);
+
+        setFirebaseAnalyticsLog(this.getClass());
     }
 
 
@@ -319,6 +323,16 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
             }, () -> {
 
             });
+        }
+    }
+
+    public void setFirebaseAnalyticsLog(Class activity){
+        APPIAInfo appiaInfo = APPIAInfo.findCode(activity);
+        if(appiaInfo!=null&&appiaInfo!=APPIAInfo.DEFAULT) {
+            Bundle bundle = new Bundle();
+            bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, appiaInfo.getId());
+            bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, activity.getSimpleName());
+            FirebaseAnalytics.getInstance(getApplication()).logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
         }
     }
 
