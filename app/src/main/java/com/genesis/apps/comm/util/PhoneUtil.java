@@ -7,7 +7,11 @@ import android.net.Uri;
 public class PhoneUtil {
     //전화 액티비티 호출 : 지정된 번호가 입력된 상태
     public static void phoneDial(Activity activity, String phoneNumber) {
-        activity.startActivity(getDialIntent(makePhoneNumberUri(phoneNumber)));
+        try {
+            activity.startActivity(getDialIntent(makePhoneNumberUri(phoneNumber)));
+        }catch (Exception e){
+            
+        }
     }
 
     private static String makePhoneNumberUri(String phoneNumber) {

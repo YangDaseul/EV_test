@@ -1,21 +1,22 @@
 package com.genesis.apps.ui.main.home;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.view.View;
-import android.webkit.WebView;
+
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.BTR_1001;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.BTR_1001;
 import com.genesis.apps.comm.model.vo.BtrVO;
+import com.genesis.apps.comm.util.PhoneUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.BTRViewModel;
@@ -23,11 +24,6 @@ import com.genesis.apps.databinding.ActivityBtrBluehandsBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.main.ServiceNetworkActivity;
-
-import java.util.Locale;
-
-import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
 
 public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBinding> {
 
@@ -142,7 +138,11 @@ public class BtrBluehandsActivity extends GpsBaseActivity<ActivityBtrBluehandsBi
                 startActivitySingleTop(new Intent(this, BtrConsultTypeActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.btn_call://통화하기
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + btrVO.getCelphNo())));
+                if(btrVO!=null&&!TextUtils.isEmpty(btrVO.getCelphNo())) {
+                    PhoneUtil.phoneDial(this, StringUtil.isValidString(btrVO.getCelphNo()));
+                }else{
+                    SnackBarUtil.show(this,"버틀러 전화번호가 존재하지 않습니다.");
+                }
                 break;
         }
     }

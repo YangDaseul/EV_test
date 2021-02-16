@@ -1,14 +1,12 @@
 package com.genesis.apps.ui.main.home;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +33,7 @@ import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.DeviceUtil;
+import com.genesis.apps.comm.util.PhoneUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
 import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.GNSViewModel;
@@ -50,7 +49,6 @@ import com.genesis.apps.ui.main.home.view.Home2BtrAdapter;
 import com.genesis.apps.ui.main.home.view.Home2DataMilesAdapter;
 import com.genesis.apps.ui.main.home.view.Home2WarrantyAdapter;
 import com.genesis.apps.ui.main.service.ServiceRepairReserveHistoryActivity;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -393,7 +391,8 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
         switch (v.getId()) {
             case R.id.tv_btr_apply:
                 MiddleDialog.dialogBtrApply(getActivity(), () -> {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + getString(R.string.word_home_14))));
+                    PhoneUtil.phoneDial(getActivity(), getString(R.string.word_home_14));
+//                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + getString(R.string.word_home_14))));
                 }, () -> {
 
                 });

@@ -8,12 +8,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
 
+import androidx.annotation.NonNull;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.gra.SOS_1006;
 import com.genesis.apps.databinding.DialogBottomSosDriverInfoBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
-
-import androidx.annotation.NonNull;
 
 public class DialogSOSDriverInfo extends BaseBottomDialog<DialogBottomSosDriverInfoBinding> {
 
