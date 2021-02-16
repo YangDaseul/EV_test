@@ -190,7 +190,7 @@ class DevelopersViewModel extends ViewModel {
             Agreements.Response response = repository.REQ_AGREEMENTS(reqData);
             if (response != null) {
                 try {
-                    result = response.isResult();
+                    result = response.getResult()==0 ? false : true;
                     if (isUpdate) {
                         updateCarConnectResult(result, reqData.getCarId());
                     }
@@ -241,7 +241,7 @@ class DevelopersViewModel extends ViewModel {
     }
 
 
-    public List<CarConnectVO> checkCarId(String userId) throws ExecutionException, InterruptedException {
+    public List<CarConnectVO> checkCarId(String userId, String accessToken) throws ExecutionException, InterruptedException {
         ExecutorService es = new ExecutorService("");
         Future<List<CarConnectVO>> future = es.getListeningExecutorService().submit(() -> {
             List<CarConnectVO> targetList = new ArrayList<>();
@@ -253,7 +253,7 @@ class DevelopersViewModel extends ViewModel {
                         //제네시스 앱 CARID가 발급되어있는지 확인하고 발급되어 있지 않으면 신청 진행
                         updateCarInfoToDevelopers(targetList, userId);
                         //제네시스 앱 CARID가 발급되어있는지 최종 확인하고 car id를 DB에 바로 갱신
-                        updateCarInfoToLocal(targetList, userId);
+                        updateCarInfoToLocal(targetList, userId, accessToken);
                     }
                 } catch (Exception ignore) {
                     ignore.printStackTrace();
@@ -269,7 +269,7 @@ class DevelopersViewModel extends ViewModel {
         }
     }
 
-    private void updateCarInfoToLocal(List<CarConnectVO> targetList, String userId) {
+    private void updateCarInfoToLocal(List<CarConnectVO> targetList, String userId, String accessToken) {
         if (targetList != null && targetList.size() > 0 && !TextUtils.isEmpty(userId)) {
             CarId.Response carIdResLast = repository.REQ_SYNC_CAR_ID(new CarId.Request(userId));
             if (carIdResLast != null && carIdResLast.getCars() != null && carIdResLast.getCars().size() > 0) {
@@ -278,7 +278,7 @@ class DevelopersViewModel extends ViewModel {
                         if (targetList.get(i).getVin().equalsIgnoreCase(carVO.getVin())) {
                             targetList.get(i).setCarId(carVO.getCarId());
                             try {
-                                targetList.get(i).setResult(reqAgreements(new Agreements.Request(userId, carVO.getCarId()), false));
+                                targetList.get(i).setResult(reqAgreements(new Agreements.Request(userId, carVO.getCarId(), accessToken), false));
                             } catch (Exception ignore) {
 
                             }

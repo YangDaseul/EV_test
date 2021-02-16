@@ -29,10 +29,14 @@ public class Agreements extends BaseData {
         @Expose
         @SerializedName("carId")
         private String carId;
+        @Expose
+        @SerializedName("token")
+        private String token;
 
-        public Request(String userId, String carId) {
+        public Request(String userId, String carId, String token) {
             this.userId = userId;
             this.carId = carId;
+            this.token = token;
         }
     }
 
@@ -45,6 +49,6 @@ public class Agreements extends BaseData {
     class Response extends DevelopersBaseResponse {
         @Expose
         @SerializedName("result")
-        private boolean result;
+        private int result;
     }
 }

@@ -232,7 +232,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 case SUCCESS:
                     if(result.data!=null){
                         try{
-                            developersViewModel.updateCarConnectResult(result.data.isResult(), developersViewModel.getCarId(lgnViewModel.getMainVehicleSimplyFromDB().getVin()));
+                            developersViewModel.updateCarConnectResult(result.data.getResult()==0 ? false : true, developersViewModel.getCarId(lgnViewModel.getMainVehicleSimplyFromDB().getVin()));
                             setViewDevelopers();
                         }catch (Exception e){
                             e.printStackTrace();
@@ -547,8 +547,9 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     case VariableType.MAIN_VEHICLE_TYPE_OV:
                         String carId = developersViewModel.getCarId(vehicleVO.getVin());
                         String userId = loginInfoDTO.getProfile().getId();
+                        String accessToken = loginInfoDTO.getAccessToken();
                         lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
-                        developersViewModel.reqAgreementsAsync(new Agreements.Request(userId, carId));
+                        developersViewModel.reqAgreementsAsync(new Agreements.Request(userId, carId, accessToken));
                         makeQuickMenu(vehicleVO.getCustGbCd(), vehicleVO);
                         break;
                     case VariableType.MAIN_VEHICLE_TYPE_CV:
@@ -924,10 +925,14 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == RequestCodes.REQ_CODE_GPS.getCode() && resultCode == RESULT_OK) {
             reqMyLocation();
-        } else if (requestCode == RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode() && resultCode == RESULT_OK) {
+        } else if (requestCode == RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode()) {
             Log.v("testRecord", "testRecord:resultOk");
-            isRecord = true;
-            recordUtil.doRecordService(me.vClickReject, resultCode, data);
+            if(resultCode == RESULT_OK) {
+                isRecord = true;
+                recordUtil.doRecordService(me.vClickReject, resultCode, data);
+            }else{
+                isRecord = false;
+            }
             return;
         } else if (requestCode == RequestCodes.REQ_CODE_PLAY_VIDEO.getCode()) {
             isRecord = false;

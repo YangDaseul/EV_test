@@ -231,8 +231,9 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
         try {
             String vin = lgnViewModel.getDbVehicleRepository().getMainVehicleFromDB().getVin();
             String userId = loginInfoDTO.getProfile().getId();
-            if (!TextUtils.isEmpty(vin)&&!TextUtils.isEmpty(userId)&&developersViewModel.checkJoinCCS(new CheckJoinCCS.Request(userId, vin))) {
-                developersViewModel.checkCarId(userId);
+            String accessToken = loginInfoDTO.getAccessToken();
+            if (!TextUtils.isEmpty(accessToken)&&!TextUtils.isEmpty(vin)&&!TextUtils.isEmpty(userId)&&developersViewModel.checkJoinCCS(new CheckJoinCCS.Request(userId, vin))) {
+                developersViewModel.checkCarId(userId, accessToken);
             }
         }catch (Exception ignore){
 
