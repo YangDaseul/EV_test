@@ -183,7 +183,7 @@
     <string name="bcode01_2">완료</string>
     <string name="bcode01_3">제네시스 멤버십 카드</string>
     <string name="bcode01_4">사용 방법</string>
-    <string name="bcode01_5">제네시스 멤버십에 가입되어 있지 않습니다.</string>
+    <string name="bcode01_5">사용 가능한 제네시스 카드가 없습니다.</string>
     <string name="bcode01_6">멤버십 연동 하기</string>
     <string name="bcode01_7">이용 가능한 카드가 없습니다.</string>
 
