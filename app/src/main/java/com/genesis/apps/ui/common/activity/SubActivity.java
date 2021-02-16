@@ -332,21 +332,26 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
     public void setFirebaseAnalyticsLog(){
         Class classNm = this.getClass();
         APPIAInfo appiaInfo = APPIAInfo.findCode(classNm);
-//        if(appiaInfo!=null&&appiaInfo!=APPIAInfo.DEFAULT) {
-//            Bundle bundle = new Bundle();
-////            bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, appiaInfo.getId());
-//            bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, appiaInfo.getId());
-////            bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, classNm.getSimpleName());
-//            FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
-//        }
-
         if(appiaInfo!=null&&appiaInfo!=APPIAInfo.DEFAULT) {
             Bundle bundle = new Bundle();
-//            bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, appiaInfo.getId());
-            bundle.putString("menu_id", appiaInfo.getId());
-//            bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, classNm.getSimpleName());
-            FirebaseAnalytics.getInstance(this).logEvent("app_menu_id", bundle);
+            bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, appiaInfo.getId());
+            bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, classNm.getSimpleName());
+            FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
         }
+
+//        if(appiaInfo!=null&&appiaInfo!=APPIAInfo.DEFAULT) {
+//            Bundle bundle = new Bundle();
+//            bundle.putString("menu_id", appiaInfo.getId());
+//            FirebaseAnalytics.getInstance(this).logEvent("app_menu_id", bundle);
+//        }
+
+
+//        if(appiaInfo!=null&&appiaInfo!=APPIAInfo.DEFAULT) {
+////            Bundle bundle = new Bundle();
+////            bundle.putString("menu_id", appiaInfo.getId());
+////            FirebaseAnalytics.getInstance(this).logEvent("app_menu_id", bundle);
+//            FirebaseAnalytics.getInstance(this).setCurrentScreen(this, appiaInfo.getId(), classNm.getSimpleName());
+//        }
     }
 
 }
