@@ -28,7 +28,7 @@ class SestVO extends BaseData {
     private String sestName;
     @Expose
     @SerializedName("stdDistance")
-    private int stdDistance;
+    private float stdDistance;
     @Expose
     @SerializedName("lastInfo")
     private LastinfoVO lastInfo;

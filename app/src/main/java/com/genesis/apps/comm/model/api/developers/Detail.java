@@ -70,13 +70,13 @@ public class Detail extends BaseData {
         private int nightDrvCount;
         @Expose
         @SerializedName("rangeDrvDist")
-        private int rangeDrvDist;
+        private float rangeDrvDist;
         @Expose
         @SerializedName("distribution")
-        private int distribution;
+        private float distribution;
         @Expose
         @SerializedName("modelDistribution")
-        private int modelDistribution;
+        private float modelDistribution;
         @Expose
         @SerializedName("insightMsg")
         private String insightMsg;

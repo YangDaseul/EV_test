@@ -56,10 +56,10 @@ public class Dte extends BaseData {
         private float unit;
         @Expose
         @SerializedName("phevTotalValue")
-        private int phevTotalValue;
+        private float phevTotalValue;
         @Expose
         @SerializedName("phevTotalUnit")
-        private int phevTotalUnit;
+        private float phevTotalUnit;
         @Expose
         @SerializedName("msgId")
         private String msgId;

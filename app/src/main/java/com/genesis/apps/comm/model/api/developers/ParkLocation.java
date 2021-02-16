@@ -56,10 +56,10 @@ public class ParkLocation extends BaseData {
         private double lon;
         @Expose
         @SerializedName("alt")
-        private int alt;
+        private double alt;
         @Expose
         @SerializedName("type")
-        private int type;
+        private float type;
         @Expose
         @SerializedName("msgId")
         private String msgId;

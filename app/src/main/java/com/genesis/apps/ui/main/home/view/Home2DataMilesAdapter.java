@@ -273,7 +273,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             }
             // 주행 기준
             binding.tvDatamilesDrivingScoreGuide.setText(String.format(getContext().getString(R.string.gm01_format_driving_score_guide),
-                    detail.getRangeDrvDist()));
+                    (int)detail.getRangeDrvDist()));
 
             // Insight 메시지
             binding.tvDatamilesDrivingScoreDescription.setText(detail.getInsightMsg());
@@ -298,7 +298,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
 
             String rankTemplate = getContext().getString(R.string.gm01_format_rank);
             // 전체 차량 대비 상위 %
-            ValueAnimator distributionAni = ValueAnimator.ofInt(detail.getDistribution())
+            ValueAnimator distributionAni = ValueAnimator.ofInt((int)detail.getDistribution())
                     .setDuration(ANI_DURATION);
             distributionAni.addUpdateListener(animation -> {
                 binding.tvDatamilesDrivingScoreRankAll.setText(
@@ -307,7 +307,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             });
 
             // 동일 차종 대비 상위 %
-            ValueAnimator modelDistributionAni = ValueAnimator.ofInt(detail.getModelDistribution())
+            ValueAnimator modelDistributionAni = ValueAnimator.ofInt((int)detail.getModelDistribution())
                     .setDuration(ANI_DURATION);
             modelDistributionAni.addUpdateListener(animation -> {
                 binding.tvDatamilesDrivingScoreRankCategory.setText(
@@ -354,7 +354,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                 final String distanceFormat = context.getString(R.string.gm01_format_distance);
                 for (SestVO sestVO : replacements.getSests()) {
                     // 평균 교체 필요 거리
-                    int stdDistance = sestVO.getStdDistance();
+                    int stdDistance = (int)sestVO.getStdDistance();
                     // 최종 교체 후 주행 거리
                     int odoMeter = Integer.parseInt(sestVO.getLastInfo().getOdometer());
 

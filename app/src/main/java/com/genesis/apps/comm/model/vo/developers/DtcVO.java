@@ -31,5 +31,5 @@ class DtcVO extends BaseData {
     private String description;
     @Expose
     @SerializedName("dtcCnt")
-    private int dtcCnt;
+    private float dtcCnt;
 }
