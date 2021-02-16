@@ -33,6 +33,7 @@ import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
+import com.genesis.apps.ui.main.MainActivity;
 import com.genesis.apps.ui.main.ServiceNetworkActivity;
 
 public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceBinding> {
@@ -168,27 +169,35 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
 
     private void startSOSActivity() {
 
-        String pgrsStusCd = "";
-        try {
-            pgrsStusCd = reqViewModel.getRES_REQ_1001().getValue().data.getPgrsStusCd();
-        } catch (Exception e) {
-            pgrsStusCd = "";
-        }
+        if (!((MainActivity) getActivity()).isGpsEnable()) {
+            MiddleDialog.dialogGPS(getActivity(), () -> ((MainActivity) getActivity()).turnGPSOn(isGPSEnable -> {
+                Log.v("test","value:"+isGPSEnable);
+            }), () -> {
+                //현대양재사옥위치
+            });
+        } else {
+            String pgrsStusCd = "";
+            try {
+                pgrsStusCd = reqViewModel.getRES_REQ_1001().getValue().data.getPgrsStusCd();
+            } catch (Exception e) {
+                pgrsStusCd = "";
+            }
 
-        if (!TextUtils.isEmpty(pgrsStusCd)) {
-            switch (pgrsStusCd) {
-                case VariableType.SERVICE_SOS_STATUS_CODE_W://접수
-                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceSOSApplyInfoActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                    break;
-                case VariableType.SERVICE_SOS_STATUS_CODE_S://출동
-                    sosViewModel.reqSOS1001(new SOS_1001.Request(APPIAInfo.SM01.getId()));
-                    break;
-                case VariableType.SERVICE_SOS_STATUS_CODE_R://신청
-                case VariableType.SERVICE_SOS_STATUS_CODE_E://완료
-                case VariableType.SERVICE_SOS_STATUS_CODE_C://취소
-                default:
-                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceSOSApplyActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                    break;
+            if (!TextUtils.isEmpty(pgrsStusCd)) {
+                switch (pgrsStusCd) {
+                    case VariableType.SERVICE_SOS_STATUS_CODE_W://접수
+                        ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceSOSApplyInfoActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        break;
+                    case VariableType.SERVICE_SOS_STATUS_CODE_S://출동
+                        sosViewModel.reqSOS1001(new SOS_1001.Request(APPIAInfo.SM01.getId()));
+                        break;
+                    case VariableType.SERVICE_SOS_STATUS_CODE_R://신청
+                    case VariableType.SERVICE_SOS_STATUS_CODE_E://완료
+                    case VariableType.SERVICE_SOS_STATUS_CODE_C://취소
+                    default:
+                        ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceSOSApplyActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        break;
+                }
             }
         }
     }
