@@ -298,14 +298,16 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                 try {
                     switch (lgnViewModel.getUserInfoFromDB().getCustGbCd()) {
                         case VariableType.MAIN_VEHICLE_TYPE_OV://소유
-                            if(insightCarAdapter.getViewType()==InsightCarAdapter.TYPE_EMPTY){
-                                //empty일 경우 바로 입력 화면으로 이동
-                                if(mainVehicleInfo!=null&&!TextUtils.isEmpty(mainVehicleInfo.getVin())) {
-                                    ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), InsightExpnInputActivity.class).putExtra(KeyNames.KEY_NAME_VIN, mainVehicleInfo.getVin()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                                }
-                            }else {
-                                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), InsightExpnMainActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                            }
+                            //2021-02-16 요건 재 변경으로 차계부 empty일 경우에도 차계부 메인으로 가도록 재수정
+                            ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), InsightExpnMainActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                            if(insightCarAdapter.getViewType()==InsightCarAdapter.TYPE_EMPTY){
+//                                //empty일 경우 바로 입력 화면으로 이동
+//                                if(mainVehicleInfo!=null&&!TextUtils.isEmpty(mainVehicleInfo.getVin())) {
+//                                    ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), InsightExpnInputActivity.class).putExtra(KeyNames.KEY_NAME_VIN, mainVehicleInfo.getVin()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                                }
+//                            }else {
+//                                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), InsightExpnMainActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                            }
                             break;
                         default:
                             SnackBarUtil.show(getActivity(), getString(R.string.sm01_snack_bar));
