@@ -61,7 +61,6 @@ public class MyGOilIntegrationActivity extends SubActivity<ActivityMygOilIntegra
             oilRfnCd = getIntent().getStringExtra(OilCodes.KEY_OIL_CODE);
         }catch (Exception e){
             e.printStackTrace();
-            exitPage("정유소 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
         }
 
         if(TextUtils.isEmpty(oilRfnCd)){

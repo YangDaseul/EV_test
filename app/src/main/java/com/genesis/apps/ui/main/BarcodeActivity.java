@@ -176,7 +176,7 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
                     if(StringUtil.isValidString(item.getRgstYn()).equalsIgnoreCase(OilPointVO.OIL_JOIN_CODE_R)){
                         oilViewModel.reqOIL0005(new OIL_0005.Request(APPIAInfo.MG01.getId(), StringUtil.isValidString(item.getIsncCd())));
                     }else{
-                        startActivitySingleTop(new Intent(this, MyGOilTermActivity.class).putExtra(OilCodes.KEY_OIL_CODE, StringUtil.isValidString(item.getIsncCd())), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        startActivitySingleTop(new Intent(this, MyGOilIntegrationActivity.class).putExtra(OilCodes.KEY_OIL_CODE, StringUtil.isValidString(item.getIsncCd())), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     }
                 }
                 break;
@@ -290,7 +290,7 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == ResultCodes.REQ_CODE_OIL_INTEGRATION_SUCCESS.getCode()){
+        if(resultCode == ResultCodes.REQ_CODE_NORMAL.getCode()){
             String msg="";
             try {
                 if(data!=null) msg = data.getStringExtra("msg");
