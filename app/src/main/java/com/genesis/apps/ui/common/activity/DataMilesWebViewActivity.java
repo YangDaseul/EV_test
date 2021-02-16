@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.common.activity;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.genesis.apps.R;
 
@@ -14,6 +15,6 @@ public class DataMilesWebViewActivity extends WebviewActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ui.setValue(getString(R.string.gm01_more));
+        ui.lTitle.lTitleBar.setVisibility(View.GONE);
     }
 } // end of class DataMilesWebViewActivity
