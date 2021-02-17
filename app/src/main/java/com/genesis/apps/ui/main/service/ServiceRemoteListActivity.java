@@ -159,7 +159,7 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
      ****************************************************************************************************/
     private void initView() {
         if (datas != null && datas.size() > 0) {
-            ui.tvServiceRemoteNoData.setVisibility(View.INVISIBLE);
+            ui.tvServiceRemoteNoData.setVisibility(View.GONE);
             ui.rvServiceRemoteList.setVisibility(View.VISIBLE);
 
             ServiceRemoteListAdapter adapter = new ServiceRemoteListAdapter(onSingleClickListener);
