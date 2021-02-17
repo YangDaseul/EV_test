@@ -154,6 +154,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                             int pos = ui.vpCar.getCurrentItem();
                             VehicleVO vehicleVO = ((VehicleVO) adapter.getItem(pos));
                             vehicleVO.setCarRgstNo(tmpCarRgstNo);
+                            gnsViewModel.updateVehicleToDB(vehicleVO);
                             tmpCarRgstNo = "";
                             updateDataToAdapter(vehicleVO, pos);
                         } catch (Exception e) {
