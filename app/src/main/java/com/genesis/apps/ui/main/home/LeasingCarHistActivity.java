@@ -141,7 +141,10 @@ public class LeasingCarHistActivity extends SubActivity<ActivityLeasingCarHistBi
                             ui.tvEmpty.setVisibility(View.VISIBLE);
                         }
 
-                        if (isApply) SnackBarUtil.show(this, getString(R.string.gm_carlist_01_01_snackbar_1));
+                        if (isApply) {
+                            isApply=false;
+                            SnackBarUtil.show(this, getString(R.string.gm_carlist_01_01_snackbar_1));
+                        }
                         showProgressDialog(false);
                         break;
                     }
