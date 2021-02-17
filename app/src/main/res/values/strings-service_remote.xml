@@ -62,7 +62,7 @@
     <string name="sm_remote01_result">원격 진단 결과</string>
 
     <string name="sm_remote01_status_0">예약 신청 중</string>
-    <string name="sm_remote01_status_1">예약 대기</string>
+    <string name="sm_remote01_status_1">예약 대기 중</string>
     <string name="sm_remote01_status_2">예약 확정</string>
     <string name="sm_remote01_status_3">진단 완료</string>
     <string name="sm_remote01_status_4">통신 상태 불량</string>

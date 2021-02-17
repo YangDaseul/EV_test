@@ -135,19 +135,26 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
     private void setViewSOSStatus(String pgrsStusCd) {
         if (!TextUtils.isEmpty(pgrsStusCd)) {
             switch (pgrsStusCd) {
+                case VariableType.SERVICE_SOS_STATUS_CODE_R://신청
+                    me.lServiceMaintenanceEmergencyBtn.tvMovingNow.setVisibility(View.VISIBLE);
+                    me.lServiceMaintenanceEmergencyBtn.tvMovingNow.setText(R.string.sm01_maintenance_41);
+                    me.lServiceMaintenanceEmergencyBtn.tvServiceMaintenanceBtnBlack.setText(R.string.sm01_maintenance_42);
+                    break;
                 case VariableType.SERVICE_SOS_STATUS_CODE_W://접수
                     me.lServiceMaintenanceEmergencyBtn.tvMovingNow.setVisibility(View.VISIBLE);
                     me.lServiceMaintenanceEmergencyBtn.tvMovingNow.setText(R.string.sm01_maintenance_13);
+                    me.lServiceMaintenanceEmergencyBtn.tvServiceMaintenanceBtnBlack.setText(R.string.sm01_maintenance_42);
                     break;
                 case VariableType.SERVICE_SOS_STATUS_CODE_S://출동
                     me.lServiceMaintenanceEmergencyBtn.tvMovingNow.setVisibility(View.VISIBLE);
                     me.lServiceMaintenanceEmergencyBtn.tvMovingNow.setText(R.string.sm01_maintenance_7);
+                    me.lServiceMaintenanceEmergencyBtn.tvServiceMaintenanceBtnBlack.setText(R.string.sm01_maintenance_42);
                     break;
-                case VariableType.SERVICE_SOS_STATUS_CODE_R://신청
                 case VariableType.SERVICE_SOS_STATUS_CODE_E://완료
                 case VariableType.SERVICE_SOS_STATUS_CODE_C://취소
                 default:
                     me.lServiceMaintenanceEmergencyBtn.tvMovingNow.setVisibility(View.GONE);
+                    me.lServiceMaintenanceEmergencyBtn.tvServiceMaintenanceBtnBlack.setText(R.string.sm01_maintenance_40);
                     break;
             }
         }
@@ -185,13 +192,13 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
 
             if (!TextUtils.isEmpty(pgrsStusCd)) {
                 switch (pgrsStusCd) {
+                    case VariableType.SERVICE_SOS_STATUS_CODE_R://신청
                     case VariableType.SERVICE_SOS_STATUS_CODE_W://접수
                         ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceSOSApplyInfoActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                         break;
                     case VariableType.SERVICE_SOS_STATUS_CODE_S://출동
                         sosViewModel.reqSOS1001(new SOS_1001.Request(APPIAInfo.SM01.getId()));
                         break;
-                    case VariableType.SERVICE_SOS_STATUS_CODE_R://신청
                     case VariableType.SERVICE_SOS_STATUS_CODE_E://완료
                     case VariableType.SERVICE_SOS_STATUS_CODE_C://취소
                     default:

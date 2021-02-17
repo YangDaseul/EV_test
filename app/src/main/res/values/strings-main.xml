@@ -138,7 +138,8 @@
     <string name="sm01_maintenance_38">원하시는 지역의 블루핸즈에 견적을\n비교하실 수 있습니다.</string>
     <string name="sm01_maintenance_39">전화 신청</string>
     <string name="sm01_maintenance_40">앱으로 신청</string>
-
+    <string name="sm01_maintenance_41">신청 중</string>
+    <string name="sm01_maintenance_42">신청 내역</string>
     <!-- SERVICE 탭 세차 -->
     <string name="sm01_car_wash_1">세차 서비스 예약 내역</string>
     <string name="sm01_car_wash_2">기다릴 필요 없어요.\n간펀하게 세차장 검색하고 예약하세요.</string>
