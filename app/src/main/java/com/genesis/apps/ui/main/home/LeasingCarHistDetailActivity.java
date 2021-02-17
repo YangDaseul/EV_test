@@ -45,6 +45,7 @@ public class LeasingCarHistDetailActivity extends SubActivity<ActivityLeasingCar
     private AddressZipVO newAddressZipVO;
     private AddressZipVO privilegeAddressZipVO = null;
     private BottomListDialog bottomListDialog;
+    private boolean isInit=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -173,6 +174,12 @@ public class LeasingCarHistDetailActivity extends SubActivity<ActivityLeasingCar
                         rentStatusVO.setRentPeriod(rentPeriod);
                         initView();
                         showProgressDialog(false);
+
+                        if(!TextUtils.isEmpty(rentStatusVO.getGodsNm())) {
+                            gnsViewModel.reqGNS1016(new GNS_1016.Request(APPIAInfo.GM_CARLST_01_result.getId(), rentStatusVO.getCtrctNo(), rentStatusVO.getMdlNm()));
+                        }else{
+                            isInit=false;
+                        }
                         break;
                     }
                 default:
@@ -295,6 +302,7 @@ public class LeasingCarHistDetailActivity extends SubActivity<ActivityLeasingCar
                         e.printStackTrace();
                     }finally{
                         SnackBarUtil.show(this, serverMsg);
+                        isInit=false;
                     }
                     break;
             }
@@ -360,23 +368,34 @@ public class LeasingCarHistDetailActivity extends SubActivity<ActivityLeasingCar
     }
 
     private void selectPrivilegeService() {
-        clearKeypad();
-        final List<String> periodList = gnsViewModel.getGodsNmList(gnsViewModel.getRES_GNS_1016().getValue().data.getGodsList());
-        showMapDialog(periodList, R.string.gm_carlst_01_01_17, dialogInterface -> {
-            String result = bottomListDialog.getSelectItem();
-            if (!TextUtils.isEmpty(result)) {
-                RentStatusVO selectPrivilege = gnsViewModel.getGodsByNm(result,gnsViewModel.getRES_GNS_1016().getValue().data.getGodsList());
-                if(selectPrivilege!=null) {
-                    rentStatusVO.setGodsId(selectPrivilege.getGodsId());
-                    rentStatusVO.setGodsNm(selectPrivilege.getGodsNm());
-                    rentStatusVO.setAdrYn(selectPrivilege.getAdrYn());
-
-                    ui.setData(rentStatusVO);
-                    Paris.style(ui.tvPrivilegeService).apply(R.style.CommonSpinnerItemEnable);
-                    ui.tvPrivilegeService.setText(result);
-                }
+        if(isInit){
+            isInit=false;
+            if(!TextUtils.isEmpty(rentStatusVO.getGodsNm())) {
+                RentStatusVO selectPrivilege = gnsViewModel.getGodsByNm(rentStatusVO.getGodsNm(), gnsViewModel.getRES_GNS_1016().getValue().data.getGodsList());
+                setViewPrivilege(selectPrivilege);
             }
-        });
+        }else {
+            clearKeypad();
+            final List<String> periodList = gnsViewModel.getGodsNmList(gnsViewModel.getRES_GNS_1016().getValue().data.getGodsList());
+            showMapDialog(periodList, R.string.gm_carlst_01_01_17, dialogInterface -> {
+                String result = bottomListDialog.getSelectItem();
+                if (!TextUtils.isEmpty(result)) {
+                    RentStatusVO selectPrivilege = gnsViewModel.getGodsByNm(result, gnsViewModel.getRES_GNS_1016().getValue().data.getGodsList());
+                    setViewPrivilege(selectPrivilege);
+                }
+            });
+        }
+    }
+
+    private void setViewPrivilege(RentStatusVO selectPrivilege) {
+        if (selectPrivilege != null) {
+            rentStatusVO.setGodsId(selectPrivilege.getGodsId());
+            rentStatusVO.setGodsNm(selectPrivilege.getGodsNm());
+            rentStatusVO.setAdrYn(selectPrivilege.getAdrYn());
+            ui.setData(rentStatusVO);
+            Paris.style(ui.tvPrivilegeService).apply(R.style.CommonSpinnerItemEnable);
+            ui.tvPrivilegeService.setText(selectPrivilege.getGodsNm());
+        }
     }
 
     public boolean isPrivilege() {
