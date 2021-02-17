@@ -193,6 +193,19 @@ public class ServiceMembershipJoinFragment extends SubFragment<ActivityMembershi
                     e.printStackTrace();
                 }
                 break;
+            case R.id.cb_all:
+                Log.d("JJJJ", "checked : " + me.cbAll.isChecked());
+
+                for(int i=0; i<me.lTermBottom.getChildCount(); i++) {
+                    ItemTermBinding binding = DataBindingUtil.bind(me.lTermBottom.getChildAt(i));
+
+                    binding.cb.setChecked(me.cbAll.isChecked());
+                    setCheckBoxsAdAll(me.cbAll.isChecked());
+                }
+
+                checkAgree();
+
+                break;
         }
     }
 
@@ -216,6 +229,16 @@ public class ServiceMembershipJoinFragment extends SubFragment<ActivityMembershi
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    }
+
+    private void isAllCheck() {
+        boolean isAllCheck = true;
+        for(int i=0; i<checkBoxs.size(); i++){
+            if(!checkBoxs.get(i).getCheckBox().isChecked()){
+                isAllCheck = false;
+            }
+        }
+        me.cbAll.setChecked(isAllCheck);
     }
 
     private void checkAgree() {
@@ -272,7 +295,7 @@ public class ServiceMembershipJoinFragment extends SubFragment<ActivityMembershi
                 int start = termVO.getTermNm().indexOf(target.charAt(0));
                 int end = start + target.length();
                 Spannable span = (Spannable)itemTermBinding.cb.getText();
-                span.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getActivity(), R.color.x_ba544d)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                span.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getActivity(), R.color.x_996449)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
             itemTermBinding.ivArrow.setTag(R.id.term, termVO);
             checkBoxs.add(new TermView(termVO, itemTermBinding.cb));
@@ -281,7 +304,7 @@ public class ServiceMembershipJoinFragment extends SubFragment<ActivityMembershi
 
             if(termVO.getTermCd().equalsIgnoreCase(TERM_SERVICE_JOIN_BLM0003)){
                 itemTermAd = itemTermBinding;
-                itemTermAd.ivArrow.setImageResource(R.drawable.btn_accodian_open);
+                itemTermAd.ivArrow.setImageResource(R.drawable.btn_accodian_close);
                 itemTermAd.cb.setOnCheckedChangeListener(listenerAdAll);
             }
         }
@@ -296,12 +319,14 @@ public class ServiceMembershipJoinFragment extends SubFragment<ActivityMembershi
     CompoundButton.OnCheckedChangeListener listener = (compoundButton, b) -> {
         if(compoundButton.isPressed()) {
             checkAgree();
+            isAllCheck();
         }
     };
 
     CompoundButton.OnCheckedChangeListener listenerAdAll = (compoundButton, b) -> {
         if(compoundButton.isPressed()) {
             setCheckBoxsAdAll(compoundButton.isChecked());
+            isAllCheck();
         }
     };
 
@@ -310,6 +335,7 @@ public class ServiceMembershipJoinFragment extends SubFragment<ActivityMembershi
             if(itemTermAd!=null&&itemTermAd.cb!=null){
                 itemTermAd.cb.setChecked(checkBoxsAd[0].isChecked()||checkBoxsAd[1].isChecked()||checkBoxsAd[2].isChecked()||checkBoxsAd[3].isChecked());
             }
+            isAllCheck();
         }
     };
 
