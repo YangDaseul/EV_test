@@ -109,7 +109,7 @@ public class LeasingCarHistDetailActivity extends SubActivity<ActivityLeasingCar
 
         switch (v.getId()){
             case R.id.tv_privilege_service:
-                gnsViewModel.reqGNS1016(new GNS_1016.Request(APPIAInfo.GM_CARLST_01_result.getId(), rentStatusVO.getVin(), rentStatusVO.getSeqNo()));
+                gnsViewModel.reqGNS1016(new GNS_1016.Request(APPIAInfo.GM_CARLST_01_result.getId(), rentStatusVO.getCtrctNo(), rentStatusVO.getMdlNm()));
                 break;
             case R.id.btn_privilege_post_no:
                 selectPostNo(true);
@@ -362,22 +362,18 @@ public class LeasingCarHistDetailActivity extends SubActivity<ActivityLeasingCar
     private void selectPrivilegeService() {
         clearKeypad();
         final List<String> periodList = gnsViewModel.getGodsNmList(gnsViewModel.getRES_GNS_1016().getValue().data.getGodsList());
-        showMapDialog(periodList, R.string.gm_carlst_01_01_17, new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-                String result = bottomListDialog.getSelectItem();
-                if (!TextUtils.isEmpty(result)) {
-                    RentStatusVO selectPrivilege = gnsViewModel.getGodsByNm(result,gnsViewModel.getRES_GNS_1016().getValue().data.getGodsList());
-                    if(selectPrivilege!=null) {
-                        rentStatusVO.setGodsId(selectPrivilege.getGodsId());
-                        rentStatusVO.setGodsNm(selectPrivilege.getGodsNm());
-                        rentStatusVO.setAdrYn(selectPrivilege.getAdrYn());
+        showMapDialog(periodList, R.string.gm_carlst_01_01_17, dialogInterface -> {
+            String result = bottomListDialog.getSelectItem();
+            if (!TextUtils.isEmpty(result)) {
+                RentStatusVO selectPrivilege = gnsViewModel.getGodsByNm(result,gnsViewModel.getRES_GNS_1016().getValue().data.getGodsList());
+                if(selectPrivilege!=null) {
+                    rentStatusVO.setGodsId(selectPrivilege.getGodsId());
+                    rentStatusVO.setGodsNm(selectPrivilege.getGodsNm());
+                    rentStatusVO.setAdrYn(selectPrivilege.getAdrYn());
 
-                        ui.setData(rentStatusVO);
-                        Paris.style(ui.tvPrivilegeService).apply(R.style.CommonSpinnerItemEnable);
-                        ui.tvPrivilegeService.setText(result);
-                    }
-//                    checkValidPrivilege(true);
+                    ui.setData(rentStatusVO);
+                    Paris.style(ui.tvPrivilegeService).apply(R.style.CommonSpinnerItemEnable);
+                    ui.tvPrivilegeService.setText(result);
                 }
             }
         });
