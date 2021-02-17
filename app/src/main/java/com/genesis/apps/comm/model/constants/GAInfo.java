@@ -2,12 +2,6 @@ package com.genesis.apps.comm.model.constants;
 
 public interface GAInfo {
     int SERVER_TYPE = 0;
-    int CONNECTION_TIME_OUT = 10 * 1000;
-    int READ_TIME_OUT = 10 * 1000;
-    String GRANT_TYPE_AUTHORIZATION_CODE = "authorization_code";
-    String GRANT_TYPE_REFRESH_TOKEN = "refresh_token";
-    String GRANT_TYPE_DELETE = "delete";
-    String LANG_KR = "kr";
     String HTTP_HEADER_NAME = "Authorization";
     String HTTP_HEADER_VALUE = "Bearer ";
     String TAG_MSG_BODY = "recv body [%s]";

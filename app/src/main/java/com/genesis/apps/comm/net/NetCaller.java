@@ -29,8 +29,6 @@ import javax.inject.Inject;
 
 public class NetCaller {
     private static String TAG_LOG = NetCaller.class.getSimpleName();
-    private static final int CONNECTION_TIME_OUT = 10 * 1000;
-    private static final int READ_TIME_OUT = 10 * 1000;
     private static final String LOG_JSON_NULL="jsonObject is null";
 
     private HttpRequestUtil httpRequestUtil;

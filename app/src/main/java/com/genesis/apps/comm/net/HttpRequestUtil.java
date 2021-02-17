@@ -19,8 +19,8 @@ import static com.genesis.apps.comm.model.constants.GAInfo.TAG_MSG_BODY;
 
 public class HttpRequestUtil {
     private static String TAG_LOG = HttpRequestUtil.class.getSimpleName();
-    private static final int CONNECTION_TIME_OUT = 10 * 1000;
-    private static final int READ_TIME_OUT = 10 * 1000;
+    private static final int CONNECTION_TIME_OUT = 20 * 1000;
+    private static final int READ_TIME_OUT = 20 * 1000;
 
 
     public HttpRequest getDeleteRequest(String url) {
