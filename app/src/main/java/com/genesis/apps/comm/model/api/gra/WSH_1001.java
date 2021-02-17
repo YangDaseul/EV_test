@@ -33,8 +33,13 @@ public class WSH_1001 extends BaseData {
         @SerializedName("cmpyCd")
         private String cmpyCd;
 
-        public Request(String menuId,String cmpyCd){
+        @Expose
+        @SerializedName("vin")
+        private String vin;
+
+        public Request(String menuId,String cmpyCd, String vin){
             this.cmpyCd = cmpyCd;
+            this.vin = vin;
             setData(APIInfo.GRA_WSH_1001.getIfCd(), menuId);
         }
     }
