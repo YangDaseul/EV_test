@@ -28,6 +28,8 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import java.util.concurrent.ExecutionException;
+
 public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> {
     private static final String TAG = FragmentCarWash.class.getSimpleName();
 
@@ -105,7 +107,13 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
 
     @Override
     public void onRefresh() {
-        viewModel.reqWSH1001(new WSH_1001.Request(APPIAInfo.SM_CW01_A01.getId(), WSHViewModel.SONAX));
+        try {
+            viewModel.reqWSH1001(new WSH_1001.Request(APPIAInfo.SM_CW01_A01.getId(), WSHViewModel.SONAX, lgnViewModel.getMainVehicleFromDB().getVin()));
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
