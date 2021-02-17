@@ -41,7 +41,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceReserveBinding> {
-    private static final String TAG = MaintenanceReserveActivity.class.getSimpleName();
 
     private REQViewModel reqViewModel;
     private RepairTypeVO selectRepairTypeVO;

@@ -16,7 +16,6 @@ import com.genesis.apps.comm.model.api.gra.WSH_1004;
 import com.genesis.apps.comm.model.api.gra.WSH_1005;
 import com.genesis.apps.comm.model.api.gra.WSH_1006;
 import com.genesis.apps.comm.model.vo.WashReserveVO;
-import com.genesis.apps.comm.util.PhoneUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringUtil;
@@ -25,8 +24,6 @@ import com.genesis.apps.databinding.ActivityCarWashHistoryBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomDialogInputBranchCode;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
-
-import java.util.List;
 
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
