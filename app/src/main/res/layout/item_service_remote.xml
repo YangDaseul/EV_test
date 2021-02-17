@@ -171,13 +171,13 @@
         <!--예약 취소 버튼-->
         <TextView
             android:id="@+id/tv_service_remote_cancel_btn"
-            style="@style/ServiceRemote.TextView_Font_RGSTG.White"
+            style="@style/ServiceRemote.TextView_Font_RGSTG.Black"
             android:layout_width="0dp"
-            android:layout_height="53dp"
+            android:layout_height="52dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
-            android:background="@color/x_111111"
+            android:background="@drawable/ripple_bg_ffffff_stroke_111111"
             android:gravity="center"
             android:text="@string/sm_remote01_cancel"
             android:textSize="16dp"

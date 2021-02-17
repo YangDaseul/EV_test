@@ -57,5 +57,8 @@ public class REQ_1001 extends BaseData {
         @Expose
         @SerializedName("pgrsStusCd")
         private String pgrsStusCd;
+        @Expose
+        @SerializedName("rsvtStusCd")
+        private String rsvtStusCd;
     }
 }
