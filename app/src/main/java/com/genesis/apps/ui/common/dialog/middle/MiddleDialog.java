@@ -55,6 +55,24 @@ public class MiddleDialog {
 
     private static final String VERSION_TYPE_M = "M"; //필수업데이트)
 
+
+
+    public static void dialogAbnormal(@NonNull Activity activity, String title, String msg, Runnable ok) {
+        if (activity.isFinishing()) {
+            return;
+        }
+
+        activity.runOnUiThread(() ->
+                getOneButtonDialog(activity,
+                        ok,
+                        title,
+                        msg,
+                        R.string.dialog_common_4
+                ).show()
+        );
+    }
+
+
     public static void dialogUpdate(@NonNull Activity activity, final Runnable ok, final Runnable cancel, String newVersion, String versionType) {
         if (activity.isFinishing()) {
             return;
@@ -90,6 +108,11 @@ public class MiddleDialog {
                 }).show()
         );
     }
+
+
+
+
+
 
     //MY 차고 차량 옵션
     public static void dialogCarOption(@NonNull Activity activity, String msg, final Runnable ok) {

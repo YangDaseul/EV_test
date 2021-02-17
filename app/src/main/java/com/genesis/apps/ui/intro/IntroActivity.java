@@ -7,9 +7,12 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import androidx.lifecycle.ViewModelProvider;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.developers.CheckJoinCCS;
+import com.genesis.apps.comm.model.api.etc.AbnormalCheck;
 import com.genesis.apps.comm.model.api.gra.CMN_0001;
 import com.genesis.apps.comm.model.api.gra.CMN_0002;
 import com.genesis.apps.comm.model.api.gra.LGN_0001;
@@ -17,12 +20,12 @@ import com.genesis.apps.comm.model.api.gra.LGN_0004;
 import com.genesis.apps.comm.model.api.gra.LGN_0007;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.vo.CCSVO;
 import com.genesis.apps.comm.model.vo.DeviceDTO;
 import com.genesis.apps.comm.model.vo.NotiVO;
 import com.genesis.apps.comm.model.vo.UserVO;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.PackageUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -36,7 +39,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
@@ -78,6 +80,23 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
 
     @Override
     public void setObserver() {
+        cmnViewModel.getRES_ABNORMAL_CHECK().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    if(result.data!=null){
+                        if(result.data.isAbnormal()){
+                            MiddleDialog.dialogAbnormal(this, StringUtil.isValidString(result.data.getTitle()), StringUtil.isValidString(result.data.getMessage()), () -> finish());
+                            break;
+                        }
+                    }
+                default:
+                    cmnViewModel.reqCMN0001(new CMN_0001.Request(APPIAInfo.INT01.getId(), PackageUtil.getApplicationVersionName(this, getPackageName())));
+                    break;
+            }
+        });
+
         cmnViewModel.getRES_CMN_0001().observe(this, result -> {
 
             switch (result.status){
@@ -272,7 +291,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
         setObserver();
         updateProgressBar(progressValue.INTRO.getProgress());
         initData();
-        cmnViewModel.reqCMN0001(new CMN_0001.Request(APPIAInfo.INT01.getId(), PackageUtil.getApplicationVersionName(this, getPackageName())));
+        cmnViewModel.reqAbnormalCheck(new AbnormalCheck.Request());
     }
 
     /**

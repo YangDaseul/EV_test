@@ -51,4 +51,6 @@ public interface GAInfo {
     //데이터마일즈 정보 동의 및 상세 페이지는 운영계만 존재
     String GA_DATAMILES_AGREEMENTS_URL="https://prd-kr-ccapi.genesis.com:8081/web/v1/data-service/agreements";
     String GA_DATAMILES_DETAIL_URL="https://prd-kr-ccapi.genesis.com:8081/web/v1/data-service";
+
+    String[] ETC_ABNORMAL_CHECK_URL = {"https://stg-kr-ccapi.genesis.com:8081/api/v1/graapi/nl","https://grabizadmin.genesis.com"};
 }

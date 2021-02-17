@@ -2,6 +2,7 @@ package com.genesis.apps.comm.viewmodel;
 
 import android.text.TextUtils;
 
+import com.genesis.apps.comm.model.api.etc.AbnormalCheck;
 import com.genesis.apps.comm.model.api.gra.BAR_1001;
 import com.genesis.apps.comm.model.api.gra.CMN_0001;
 import com.genesis.apps.comm.model.api.gra.CMN_0002;
@@ -19,6 +20,7 @@ import com.genesis.apps.comm.model.repo.CMNRepo;
 import com.genesis.apps.comm.model.repo.CardRepository;
 import com.genesis.apps.comm.model.repo.DBContentsRepository;
 import com.genesis.apps.comm.model.repo.DBGlobalDataRepository;
+import com.genesis.apps.comm.model.repo.EtcRepo;
 import com.genesis.apps.comm.model.repo.MBRRepo;
 import com.genesis.apps.comm.model.repo.NOTRepo;
 import com.genesis.apps.comm.model.vo.AlarmMsgTypeVO;
@@ -65,6 +67,7 @@ class CMNViewModel extends ViewModel {
     private final MBRRepo mbrRepo;
     private final NOTRepo notRepo;
     private final CMNRepo repository;
+    private final EtcRepo etcRepo;
     private final CardRepository cardRepository;
     private final BARRepo barRepo;
     private final DBGlobalDataRepository dbGlobalDataRepository;
@@ -86,11 +89,15 @@ class CMNViewModel extends ViewModel {
 
     private MutableLiveData<MBR_0001.Request> REQ_MBR_0001;
 
+
+    private MutableLiveData<NetUIResponse<AbnormalCheck.Response>> RES_ABNORMAL_CHECK;
+
     @ViewModelInject
     CMNViewModel(
             MBRRepo mbrRepo,
             NOTRepo notRepo,
             CMNRepo repository,
+            EtcRepo etcRepo,
             CardRepository cardRepository,
             BARRepo barRepo,
             DBGlobalDataRepository dbGlobalDataRepository,
@@ -101,6 +108,7 @@ class CMNViewModel extends ViewModel {
         this.repository = repository;
         this.cardRepository = cardRepository;
         this.barRepo = barRepo;
+        this.etcRepo = etcRepo;
         this.dbGlobalDataRepository = dbGlobalDataRepository;
         this.dbContentsRepository = dbContentsRepository;
         this.savedStateHandle = savedStateHandle;
@@ -119,6 +127,8 @@ class CMNViewModel extends ViewModel {
         RES_MBR_0001 = mbrRepo.RES_MBR_0001;
 
         REQ_MBR_0001 = new MutableLiveData<>();
+
+        RES_ABNORMAL_CHECK = etcRepo.RES_ABNORMAL_CHECK;;
     }
 
     public void reqMBR0001(final MBR_0001.Request reqData) {
@@ -156,6 +166,10 @@ class CMNViewModel extends ViewModel {
 
     public void reqNOT0003(final NOT_0003.Request reqData) {
         notRepo.REQ_NOT_0003(reqData);
+    }
+
+    public void reqAbnormalCheck(final AbnormalCheck.Request reqData){
+        etcRepo.REQ_ABNORMAL_CHECK(reqData);
     }
 
     public void updateNotiDt(String notiDt) {

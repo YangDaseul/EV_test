@@ -192,7 +192,9 @@ public enum APIInfo {
 
     ROADWIN_SERVICE_AREA_CHECK("서비스 가능 지역 확인", "", HttpRequest.METHOD_POST, "/areaCheck", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     ROADWIN_WORK("기사 위치 확인", "", HttpRequest.METHOD_GET, "/work/w.php", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    ROADWIN_CHECK_PRICE("가격 정보 확인", "", HttpRequest.METHOD_POST, "/checkPrice", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8);
+    ROADWIN_CHECK_PRICE("가격 정보 확인", "", HttpRequest.METHOD_POST, "/checkPrice", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+
+    ETC_ABNORMAL_CHECK("긴급공지팝업(서버장애시)", "", HttpRequest.METHOD_GET, "/granas/etc/abnormal.json", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8);
 
 
     private String description;
