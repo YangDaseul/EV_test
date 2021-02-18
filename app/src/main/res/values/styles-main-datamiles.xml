@@ -69,10 +69,10 @@
     </style>
 
     <style name="DataMiles.TextView_Font_RGSTG.757575.Update">
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">14dp</item>
     </style>
 
     <style name="DataMiles.TextView_Font_MGSTG.Black.Rank">
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">16dp</item>
     </style>
 </resources>
