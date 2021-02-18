@@ -455,7 +455,6 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        SubActivity.setStatusBarColor(getActivity(), R.color.x_f8f8f8);
         lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
         String carId = developersViewModel.getCarId(vehicleVO.getVin());
         String userId = loginInfoDTO.getProfile().getId();
@@ -467,6 +466,9 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
             home2DataMilesAdapter.setMoreUrl(developersViewModel.getDataMilesDetailUrl(loginInfoDTO.getAccessToken(), userId, carId));
             // 데이터 마일스 연동 시작.
             developersViewModel.reqTarget(new Target.Request(developersViewModel.getCarId(vehicleVO.getVin())));
+            SubActivity.setStatusBarColor(getActivity(), R.color.x_ffffff);
+        }else{
+            SubActivity.setStatusBarColor(getActivity(), R.color.x_f8f8f8);
         }
         ((MainActivity) getActivity()).setGNB("", View.GONE);
     }
