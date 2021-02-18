@@ -117,7 +117,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
             switch (status) {
                 case SUCCESS: {
                     // TODO 데미 데이터 삭제 필요.
-//                    String dummyData = "{\"targetYn\":\"Y\",\"supportedYn\":\"Y\",\"msgId\":\"11e77efa-aff0-4b3c-a5a0-c4cde4674963\"}";
+//                    String dummyData = "{\"targetYn\":\"N\",\"supportedYn\":\"Y\",\"msgId\":\"11e77efa-aff0-4b3c-a5a0-c4cde4674963\"}";
 //                    data = new Gson().fromJson(dummyData, Target.Response.class);
 
                     String carId = developersViewModel.getCarId(vehicleVO.getVin());
@@ -139,6 +139,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
                         }
                     }
                     home2DataMilesAdapter.setRows(Collections.singletonList(dataMilesVO));
+                    home2DataMilesAdapter.notifyDataSetChanged();
 
                     // 소모품 현황 데이터 조회
                     developersViewModel.reqReplacements(new Replacements.Request(carId));
@@ -156,7 +157,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
             NetUIResponse.Status status = result.status;
 
             // TODO 더미 데이터. 삭제 필요.
-//            status = NetUIResponse.Status.SUCCESS;
+//            status = NetUIResponse.Status.ERROR;
 
             switch (status) {
                 case ERROR: {
@@ -266,7 +267,8 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
         // TODO : 더미데이터이므로 실제로는 삭제 필요.
         String dummyData = "{\"safetyDrvScore\":75,\"prevSafetyDrvScore\":76,\"isDiscountYn\":\"Y\",\"bsrtAccCount\":4,\"bsrtDecCount\":0,\"nightDrvCount\":2,\"rangeDrvDist\":1201,\"distribution\":10,\"modelDistribution\":21,\"insightMsg\":\"최고의 모범 안전 운전자입니다.\n안전운전 유지하시고 자동차 보험 혜택을 받아보세요!\n(최대 12% 할인)\",\"scoreDate\":20200408223039,\"msgId\":\"11e77efa-aff0-4b3c-a5a0-c4cde4674963\"}";
         home2DataMilesAdapter.setDetail(carId, new Gson().fromJson(dummyData, Detail.Response.class));
-         */
+        home2DataMilesAdapter.notifyDataSetChanged();
+        */
 
         if (data != null) {
             home2DataMilesAdapter.setDetail(carId, result.data);
@@ -288,7 +290,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
                 "],\"odometer\":{\"timestamp\":\"20200114152139\",\"value\":12320,\"unit\":1},\"msgId\":\"5db9fc02-1b36-448e-9307-52761fd9ad92\"}";
         home2DataMilesAdapter.setReplacements(carId, new Gson().fromJson(dummyData, Replacements.Response.class));
         home2DataMilesAdapter.notifyDataSetChanged();
-         */
+        */
 
         if (data != null) {
             home2DataMilesAdapter.setReplacements(carId, result.data);
@@ -307,7 +309,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
                 "{\"itemDivCd\":\"13\",\"itemNm\":\"에어컨필터\",\"totCnt\":\"0\",\"remCnt\":\"11\",\"useCnt\":\"0\"}," +
                 "{\"itemDivCd\":\"34\",\"itemNm\":\"브레이크 오일\",\"totCnt\":\"0\",\"remCnt\":\"7\",\"useCnt\":\"0\"}]}";
         data = new Gson().fromJson(dummyData, GNS_1010.Response.class);
-         */
+        */
 
         if (data != null) {
             home2DataMilesAdapter.setCoupons(carId, data.getCpnList());
@@ -322,7 +324,8 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
         // TODO : 더미데이터이므로 실제로는 삭제 필요.
         String dummyData = "{\"dtcList\":[{\"timestamp\":\"20200114152139\",\"dtcType\":\"에어백 제어 시스템\",\"description\":\"시동을 키고 6초 동안 경고등이 켜지지 않거나, 6초 후에도 경고등이 꺼지지 않거나 주행 중에 경고등이 켜지면 에어백 및 프리텐셔너 시트벨트 장치에 이상이 있는 것이므로 가까운 자사 직영 서비스센터나 지정정비센터에서 점검을 받으십시오.\",\"dtcCnt\":2}],\"msgId\":\"11e77efa-aff0-4b3c-a5a0-c4cde4674963\"}";
         home2DataMilesAdapter.setDtc(carId, new Gson().fromJson(dummyData, Dtc.Response.class));
-        */
+        home2DataMilesAdapter.notifyDataSetChanged();
+         */
 
         if (data != null) {
             home2DataMilesAdapter.setDtc(carId, result.data);
