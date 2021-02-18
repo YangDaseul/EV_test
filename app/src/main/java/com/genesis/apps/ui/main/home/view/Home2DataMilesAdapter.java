@@ -171,19 +171,17 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                 case JOIN: {
                     // UBI 가입 상태.
                     binding.lDatamilesDrivingScoreContainer.setVisibility(View.VISIBLE);
+                    binding.lDatamilesGuideContainer.setVisibility(View.GONE);
                     switch (item.getDetailStatus()) {
                         case SUCCESS: {
                             binding.lDrivingScoreContainer.setVisibility(View.VISIBLE);
-                            binding.lDatamilesGuideContainer.setVisibility(View.GONE);
                             bindDrivingScore(binding, detail);
                             break;
                         }
                         case FAIL: {
                             binding.lDrivingScoreContainer.setVisibility(View.GONE);
-                            binding.lDatamilesGuideContainer.setVisibility(View.VISIBLE);
                             binding.llDatamilesDrivingScoreError.setVisibility(View.VISIBLE);
                             binding.llDatamilesDrivingScoreError.setOnClickListener(view -> onSingleClickListener.onClick(view));
-                            binding.ivDatamilesServiceGuide.setVisibility(View.GONE);
                             break;
                         }
                     }
@@ -191,10 +189,9 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                 }
                 case NOT_JOIN: {
                     // UBI 미가입, 가입 가능 상태. - 안내 가이드 표시.
-                    binding.lDrivingScoreContainer.setVisibility(View.GONE);
+                    binding.lDatamilesDrivingScoreContainer.setVisibility(View.GONE);
                     binding.lDatamilesGuideContainer.setVisibility(View.VISIBLE);
-                    binding.tvDatamilesDrivingScoreError.setVisibility(View.GONE);
-                    binding.ivDatamilesServiceGuide.setVisibility(View.VISIBLE);
+                    binding.llDatamilesDrivingScoreError.setVisibility(View.GONE);
                     break;
                 }
                 case NOT_SUPPORTED:

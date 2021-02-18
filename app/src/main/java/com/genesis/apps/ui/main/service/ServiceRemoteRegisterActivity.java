@@ -20,9 +20,8 @@ import com.genesis.apps.comm.model.api.gra.RMT_1001;
 import com.genesis.apps.comm.model.api.gra.RMT_1002;
 import com.genesis.apps.comm.model.api.gra.RMT_1006;
 import com.genesis.apps.comm.model.api.gra.SOS_1004;
-import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
-import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringRe2j;
 import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
@@ -438,13 +437,11 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                     break;
                 }
                 case SUCCESS: {
+                    // 원격 진단 신청 완료 - 해당 Activity 종료
                     showProgressDialog(false);
-                    SnackBarUtil.show(this, getString(R.string.sm_remote01_msg_register_success));
-                    startActivitySingleTop(
-                            new Intent(this, ServiceRemoteListActivity.class),
-                            RequestCodes.REQ_CODE_ACTIVITY.getCode(),
-                            VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
-                    );
+                    exitPage(new Intent().putExtra(KeyNames.KEY_NAME_VIN, vin)
+                                    .putExtra(KeyNames.KEY_NAME_IS_SHOW_COMPLETE, true)
+                            , ResultCodes.REQ_CODE_SERVICE_RESERVE_REMOTE.getCode());
                     break;
                 }
                 case ERROR: {

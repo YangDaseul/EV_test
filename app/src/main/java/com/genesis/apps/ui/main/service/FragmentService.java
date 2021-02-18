@@ -137,7 +137,11 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
             }
 
         } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REMOTE.getCode()&&data!=null) {
-            //todo 원격진단 서비스 예약 완료 시 페이지 이동
+            //원격진단 서비스 예약 완료 시 페이지 이동
+            ((SubActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRemoteListActivity.class)
+                            .putExtras(data)
+                    , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                    , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
         } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_NETWORK_RESERVE.getCode()&&data!=null) {
             //서비스네트워크에서 예약 선택 시
             RepairTypeVO repairTypeVO = (RepairTypeVO) data.getSerializableExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE);

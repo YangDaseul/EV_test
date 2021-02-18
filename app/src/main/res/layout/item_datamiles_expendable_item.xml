@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="엔진오일/필터"
-            android:textSize="12dp"
+            android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_expendables_need_change"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_datamiles_expendables_need_change" />
@@ -39,6 +39,7 @@
             android:paddingEnd="6dp"
             android:paddingBottom="3dp"
             android:text="@string/gm01_need_change"
+            android:textSize="12dp"
             app:layout_constraintStart_toEndOf="@id/tv_datamiles_expendables_item_name"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,6 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="3dp"
+            android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_expendables_need_change"
             app:layout_constraintEnd_toStartOf="@id/tv_datamiles_expendables_coupon"
             app:layout_constraintTop_toTopOf="@id/tv_datamiles_expendables_need_change" />
@@ -59,6 +61,7 @@
             style="@style/DataMiles.TextView_Font_MGSTG.757575"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_expendables_need_change"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_datamiles_expendables_need_change" />

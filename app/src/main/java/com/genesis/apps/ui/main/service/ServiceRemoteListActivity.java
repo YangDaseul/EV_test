@@ -1,8 +1,8 @@
 package com.genesis.apps.ui.main.service;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -14,14 +14,12 @@ import com.genesis.apps.comm.model.api.gra.RMT_1003;
 import com.genesis.apps.comm.model.api.gra.RMT_1005;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
-import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.RemoteHistoryVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.RMTViewModel;
 import com.genesis.apps.databinding.ActivityServiceRemoteListBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -38,6 +36,7 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
 
     private ArrayList<RemoteHistoryVO> datas = new ArrayList<>();
     private String vin;
+    private boolean isShowRegistComplete = false;
 
     /****************************************************************************************************
      * Override Method - LifeCycle
@@ -51,6 +50,11 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
         setObserver();
 
         rmtViewModel.reqRMT1003(new RMT_1003.Request(APPIAInfo.R_REMOTE01.getId(), vin));
+
+        if(isShowRegistComplete) {
+            // 등록 완료인 경우 1회 안내 팝업 1회 표시.
+            SnackBarUtil.show(this, getString(R.string.sm_remote01_msg_register_success));
+        }
     }
 
     /****************************************************************************************************
@@ -145,7 +149,9 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
     @Override
     public void getDataFromIntent() {
         try {
-            vin = getIntent().getStringExtra(KeyNames.KEY_NAME_VIN);
+            Intent getIntent = getIntent();
+            vin = getIntent.getStringExtra(KeyNames.KEY_NAME_VIN);
+            isShowRegistComplete = getIntent.getBooleanExtra(KeyNames.KEY_NAME_IS_SHOW_COMPLETE, false);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
