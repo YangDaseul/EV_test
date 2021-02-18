@@ -81,4 +81,6 @@ public interface KeyNames {
     String KEY_NAME_STO_1003 ="sto1003";
 
     String KEY_NAME_BARCODE ="isBarcode";
+
+    String KEY_NAME_IS_SHOW_COMPLETE = "isShowComplete";
 }
