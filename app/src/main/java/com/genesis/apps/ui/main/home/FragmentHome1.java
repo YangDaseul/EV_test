@@ -210,7 +210,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         setVideo(false);
                         videoPauseAndResume(true);
                         resumeAndPauseLottie(true);
-                        setIndicator(lgnViewModel.getMainVehicleFromDB().getCustGbCd());
                         startTimer();
                     } catch (Exception e) {
 
@@ -375,12 +374,13 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     }
 
     private void setIndicator(String custGbCd) {
-        String isFirstLogin = lgnViewModel.selectGlobalDataFromDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_ISFIRSTLOGIN);
+        String isIndicator = lgnViewModel.selectGlobalDataFromDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_ISINDICATOR);
         if (StringUtil.isValidString(custGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)//소유차량이고
-                && StringUtil.isValidString(isFirstLogin).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)//최초로그인이면
+                && !StringUtil.isValidString(isIndicator).equalsIgnoreCase(VariableType.COMMON_MEANS_NO)//하단메뉴를 확인하지 않았으면
         ) {
             me.ivIndicator.setVisibility(View.VISIBLE);
             VibratorUtil.makeMeShakeY(me.ivIndicator, 2500, 15,2);
+            //최초로그인이 아니라는 상태 값은 그대로 유지
             lgnViewModel.updateGlobalDataToDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_ISFIRSTLOGIN, VariableType.COMMON_MEANS_NO);
         } else {
             me.ivIndicator.setVisibility(View.INVISIBLE);
@@ -500,6 +500,11 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         setViewVehicle();
         ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == 1 ? true : false);
         goneQuickMenu();
+        try {
+            setIndicator(lgnViewModel.getMainVehicleFromDB().getCustGbCd());
+        }catch (Exception e){
+
+        }
         if (!isInit) startTimer();
     }
 
@@ -824,7 +829,10 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
             for (int i = 0; i < menuSize; i++) {
                 floatingBtns[i].setVisibility(View.VISIBLE);
-                floatingBtns[i].setText(list.get(i).getMenuNm());
+
+
+
+                floatingBtns[i].setText(list.get(i).getMenuNm().replace("\\n","\n"));
                 floatingBtns[i].setTag(R.id.menu_id, list.get(i));
                 floatingBtns[i].setOnClickListener(new OnSingleClickListener() {
                     @Override

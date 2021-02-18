@@ -8,6 +8,7 @@ public interface KeyNames {
     String IS_FOREGROUND_SERVICE="IS_FOREGROUND_SERVICE";
 
     String KEY_NAME_DB_GLOBAL_DATA_ISFIRSTLOGIN="isFirstLogin";
+    String KEY_NAME_DB_GLOBAL_DATA_ISINDICATOR="isIndicator";
     String KEY_NAME_DB_GLOBAL_DATA_NOTIDT="notiDt";
     String KEY_NAME_VEHICLE="vehicle";
     String KEY_NAME_VEHICLE_OWNER_COUNT="vehicleOwnerCnt";
@@ -80,5 +81,5 @@ public interface KeyNames {
 
     String KEY_NAME_STO_1003 ="sto1003";
 
-    String KEY_NAME_BARCODE ="isBarcode";
+    String KEY_NAME_TAB_TWO ="tabTwo";
 }

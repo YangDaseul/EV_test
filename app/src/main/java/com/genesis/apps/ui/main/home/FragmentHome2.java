@@ -438,7 +438,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
                 developersViewModel.reqReplacements(new Replacements.Request(developersViewModel.getCarId(vehicleVO.getVin())));
                 break;
             case R.id.btn_asan_detail:
-                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRepairReserveHistoryActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRepairReserveHistoryActivity.class).putExtra(KeyNames.KEY_NAME_TAB_TWO, true), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
 
         }
@@ -450,6 +450,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
         Log.e("onResume", "onReusme FragmentHome2");
         try {
             vehicleVO = lgnViewModel.getMainVehicleFromDB();
+            lgnViewModel.updateGlobalDataToDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_ISINDICATOR, VariableType.COMMON_MEANS_NO);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -10,6 +10,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.vo.RentStatusVO;
 import com.genesis.apps.databinding.ActivityServiceRepairHistoryBinding;
 import com.genesis.apps.databinding.ItemTabRepairImageBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -25,7 +28,7 @@ public class ServiceRepairReserveHistoryActivity extends SubActivity<ActivitySer
     private ServiceRepairHistoryViewpagerAdapter serviceRepairHistoryViewpagerAdapter;
     private final int PAGE_NUM = 2;//현황예약, 이력
     private final int[] TAB_ID_LIST = {R.string.sm_r_rsv05_2, R.string.sm_r_rsv05_3};
-
+    private boolean isTwo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +68,11 @@ public class ServiceRepairReserveHistoryActivity extends SubActivity<ActivitySer
             ui.tlTabs.getTabAt(i).setCustomView(view);
         }
 
+
+        if(isTwo){
+            isTwo=false;
+            ui.tlTabs.getTabAt(1).view.performClick();
+        }
     }
 
     @Override
@@ -84,6 +92,12 @@ public class ServiceRepairReserveHistoryActivity extends SubActivity<ActivitySer
     }
     @Override
     public void getDataFromIntent() {
+
+        try {
+            isTwo = getIntent().getBooleanExtra(KeyNames.KEY_NAME_TAB_TWO,false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 }
