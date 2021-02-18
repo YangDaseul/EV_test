@@ -161,6 +161,7 @@ public enum APPIAInfo {
     SM01("SM01", null, VariableType.QUICK_MENU_CODE_NONE, "메인 3 Service",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM02("SM02", null, VariableType.QUICK_MENU_CODE_NONE, "상품 전체 보기",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM03("SM03", null, VariableType.QUICK_MENU_CODE_NONE, "상품 상세",VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM04("SM04", null, VariableType.QUICK_MENU_CODE_NONE, "미로그인",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM_SNFIND01("SM_SNFIND01", ServiceNetworkActivity.class, VariableType.QUICK_MENU_CODE_0000, "서비스 네트워크 찾기",VariableType.QUICK_MENU_CATEGORY_SERVICE),
     SM_SNFIND01_P01("SM_SNFIND01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "정비 예약하기",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM_SNFIND02("SM_SNFIND02", null, VariableType.QUICK_MENU_CODE_NONE, "서비스 네트워크 필터",VariableType.QUICK_MENU_CATEGORY_NONE),
@@ -278,10 +279,15 @@ public enum APPIAInfo {
     SM_REVIEW01_P02("SM_REVIEW01_P02", null, VariableType.QUICK_MENU_CODE_NONE, "서비스 리뷰 종료 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM_REVIEW01_P03("SM_REVIEW01_P03", ServiceReviewActivity.class, VariableType.QUICK_MENU_CODE_NONE, "이용후기 (대리)",VariableType.QUICK_MENU_CATEGORY_NONE),
 
-    CM01("CM01", null, VariableType.QUICK_MENU_CODE_NONE, "메인 4 Contents (로그인/차량보유)",VariableType.QUICK_MENU_CATEGORY_NONE),
-    CM02("CM02", null, VariableType.QUICK_MENU_CODE_NONE, "메인 4 Contents (로그인/예약대기)",VariableType.QUICK_MENU_CATEGORY_NONE),
-    CM03("CM03", null, VariableType.QUICK_MENU_CODE_NONE, "메인 4 Contents (로그인/차량미보유)",VariableType.QUICK_MENU_CATEGORY_NONE),
-    CM04("CM04", null, VariableType.QUICK_MENU_CODE_NONE, "메인 4 Contents (비로그인)",VariableType.QUICK_MENU_CATEGORY_NONE),
+    RM01("RM01", null, VariableType.QUICK_MENU_CODE_NONE, "스토어(로그인)",VariableType.QUICK_MENU_CATEGORY_NONE),
+    RM02("RM02", null, VariableType.QUICK_MENU_CODE_NONE, "스토어(비로그인)",VariableType.QUICK_MENU_CATEGORY_NONE),
+
+
+
+    CM01("CM01", null, VariableType.QUICK_MENU_CODE_NONE, "메인 5 Contents (로그인/차량보유)",VariableType.QUICK_MENU_CATEGORY_NONE),
+    CM02("CM02", null, VariableType.QUICK_MENU_CODE_NONE, "메인 5 Contents (로그인/예약대기)",VariableType.QUICK_MENU_CATEGORY_NONE),
+    CM03("CM03", null, VariableType.QUICK_MENU_CODE_NONE, "메인 5 Contents (로그인/차량미보유)",VariableType.QUICK_MENU_CATEGORY_NONE),
+    CM04("CM04", null, VariableType.QUICK_MENU_CODE_NONE, "메인 5 Contents (비로그인)",VariableType.QUICK_MENU_CATEGORY_NONE),
 
     CM_LIFE01("CM_LIFE01", ContentsDetailWebActivity.class, VariableType.QUICK_MENU_CODE_NONE, "라이프 스타일 컨텐츠 상세",VariableType.QUICK_MENU_CATEGORY_NONE),
     CM_EVENT01("CM_EVENT01", null, VariableType.QUICK_MENU_CODE_NONE, "이벤트 상세",VariableType.QUICK_MENU_CATEGORY_NONE),

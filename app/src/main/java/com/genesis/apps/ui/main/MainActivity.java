@@ -141,19 +141,6 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 break;
             case R.id.btn_profile:
                 startActivitySingleTop(new Intent(this, MyGHomeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                try {
-//                    switch (lgnViewModel.getUserInfoFromDB().getCustGbCd()){
-//                        case VariableType.MAIN_VEHICLE_TYPE_0000:
-//                            startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                            break;
-//                        case VariableType.MAIN_VEHICLE_TYPE_OV:
-//                        default:
-//                            startActivitySingleTop(new Intent(this, MyGHomeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                            break;
-//                    }
-//                }catch (Exception ignore){
-//                    ignore.printStackTrace();
-//                }
                 break;
             case R.id.btn_search:
                 startActivitySingleTop(new Intent(this, MyGMenuActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
@@ -217,12 +204,10 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 case SUCCESS:
                     if(result.data!=null&&result.data.getCardList()!=null&&result.data.getCardList().size()>0){
                         ui.lGnb.setUseBarcode(true);
-//                        ui.lGnb.btnBarcode.setVisibility(View.VISIBLE);
                         break;
                     }
                 default:
                     ui.lGnb.setUseBarcode(false);
-//                    ui.lGnb.btnBarcode.setVisibility(View.GONE);
                     break;
             }
         });
@@ -460,81 +445,59 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     }
 
 
-//    public boolean moveToMainTab(String lnkUri, String lnkTypCd){
-//        boolean isMoveToTab=false;
-//
-//        Uri uri = null;
-//        String id = "";
-//        try {
-//            uri = Uri.parse(lnkUri);
-//            id = uri.getQueryParameter(KeyNames.KEY_NAME_URI_PARSER_ID);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }finally {
-//            if(TextUtils.isEmpty(id))
-//                id="";
-//        }
-//
-//        if (!TextUtils.isEmpty(id)) {
-//
-//            switch (APPIAInfo.findCode(id)) {
-//                case GM01:
-//                case GM02:
-//                case GM03:
-//                case GM04:
-//                    //home
-//                    break;
-//
-//                case TM01:
-//                case TM02:
-//                case TM03:
-//                case TM04:
-//                    //insight
-//                    break;
-//
-//                case SM01:
-//                case SM02:
-//                case SM03:
-//                    //service
-//                break;
-//
-//                case
-//
-//
-//
-//
-//                case SM_REVIEW01_P01:
-//                    if (!TextUtils.isEmpty(PI)) {
-//                        startActivitySingleTop(new Intent(this, ServiceReviewActivity.class).putExtra(KeyNames.KEY_NAME_REVIEW_RSVT_SEQ_NO, PI), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                    } else {
-//                        SnackBarUtil.show(this, "예약번호가 존재하지 않습니다.");
-//                    }
-//                    break;
-//                case SM_REVIEW01_P03:
-//                    if (!TextUtils.isEmpty(PI)) {
-//                        startActivitySingleTop(new Intent(this, ServiceReviewActivity.class).putExtra(KeyNames.KEY_NAME_REVIEW_TRANS_ID, PI), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                    } else {
-//                        SnackBarUtil.show(this, "트랜잭션 ID가 존재하지 않습니다.");
-//                    }
-//                    break;
-//                default:
-//                    if (!isPush || (isPush && TextUtils.isEmpty(body) && !TextUtils.isEmpty(lnkUri))) {
-//                        APPIAInfo appiaInfo = APPIAInfo.findCode(id);
-//                        if (appiaInfo != null && appiaInfo.getActivity() != null) {
-//                            startActivitySingleTop(new Intent(this, appiaInfo.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                        } else {
-//                            SnackBarUtil.show(this, "메뉴 ID가 올바르지 않습니다.");
-//                        }
-//                    } else {
-//                        startActivitySingleTop(new Intent(this, AlarmCenterActivity.class).putExtra(PUSH_VO, pushVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                    }
-//                    break;
-//            }
-//
-//        }
-//
-//
-//
-//        return isMoveToTab;
-//    }
+    public boolean moveToMainTab(String lnkUri){
+        Uri uri = null;
+        String id = "";
+        try {
+            uri = Uri.parse(lnkUri);
+            id = uri.getQueryParameter(KeyNames.KEY_NAME_URI_PARSER_ID);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(TextUtils.isEmpty(id))
+                id="";
+        }
+
+        if (!TextUtils.isEmpty(id)) {
+
+            switch (APPIAInfo.findCode(id)) {
+                case GM01:
+                case GM02:
+                case GM03:
+                case GM04:
+                    //home
+                    ui.viewpager.setCurrentItem(0, true);
+                    return true;
+                case TM01:
+                case TM02:
+                case TM03:
+                case TM04:
+                    //insight
+                    ui.viewpager.setCurrentItem(1, true);
+                    return true;
+                case SM01:
+                case SM02:
+                case SM03:
+                case SM04:
+                    //service
+                    ui.viewpager.setCurrentItem(2, true);
+                    return true;
+                case RM01:
+                case RM02:
+                    //stroe
+                    ui.viewpager.setCurrentItem(3, true);
+                    return true;
+                case CM01:
+                case CM02:
+                case CM03:
+                case CM04:
+                    ui.viewpager.setCurrentItem(4, true);
+                    //contents
+                    return true;
+                default:
+                    break;
+            }
+        }
+        return false;
+    }
 }

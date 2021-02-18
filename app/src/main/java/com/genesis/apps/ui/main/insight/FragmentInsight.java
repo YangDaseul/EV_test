@@ -34,6 +34,7 @@ import com.genesis.apps.comm.model.vo.map.FindPathReqVO;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewDecoration;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.ISTViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.MapViewModel;
@@ -331,8 +332,11 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                     messageVO = null;
                     e.printStackTrace();
                 }finally{
-                    if(messageVO!=null)
-                        ((MainActivity)getActivity()).moveToPage(messageVO.getLnkUri(), messageVO.getLnkTypCd(), false);
+                    if(messageVO!=null) {
+                        if(!((MainActivity) getActivity()).moveToMainTab(StringUtil.isValidString(messageVO.getLnkUri()))){
+                            ((MainActivity) getActivity()).moveToPage(messageVO.getLnkUri(), messageVO.getLnkTypCd(), false);
+                        }
+                    }
                 }
                 break;
 

@@ -437,7 +437,9 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     e.printStackTrace();
                 } finally {
                     if (messageVO != null) {
-                        ((MainActivity) getActivity()).moveToPage(StringUtil.isValidString(messageVO.getLnkUri()), StringUtil.isValidString(messageVO.getLnkTypCd()), false);
+                        if(!((MainActivity) getActivity()).moveToMainTab(StringUtil.isValidString(messageVO.getLnkUri()))){
+                            ((MainActivity) getActivity()).moveToPage(StringUtil.isValidString(messageVO.getLnkUri()), StringUtil.isValidString(messageVO.getLnkTypCd()), false);
+                        }
                     }
                 }
                 break;
