@@ -12,6 +12,7 @@ import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.graph.AxisValueFormatter;
 import com.genesis.apps.comm.util.graph.RoundedBarChartRenderer;
 import com.genesis.apps.databinding.ItemInsightCarBinding;
+import com.genesis.apps.databinding.ItemInsightCarEmpty2Binding;
 import com.genesis.apps.databinding.ItemInsightCarEmptyBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
@@ -34,6 +35,7 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
     private static String prvsToUseAmt="0";
     public static final int TYPE_CAR = 0;
     public static final int TYPE_EMPTY = 1;
+    public static final int TYPE_EMPTY2 = 2;
     private int VIEW_TYPE = TYPE_CAR;
 
     public int getViewType() {
@@ -56,6 +58,8 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
         switch (viewType){
             case TYPE_EMPTY:
                 return new ItemInsightCarEmpty(getView(parent, R.layout.item_insight_car_empty));
+            case TYPE_EMPTY2:
+                return new ItemInsightCarEmpty2(getView(parent, R.layout.item_insight_car_empty2));
             default:
                 return new ItemInsightCar(getView(parent, R.layout.item_insight_car));
         }
@@ -292,6 +296,29 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
         @Override
         public void onBindView(ISTAmtVO item, final int pos) {
             getBinding().lCarExpnGraph.setOnClickListener(onSingleClickListener);
+        }
+
+        @Override
+        public void onBindView(ISTAmtVO item, int pos, SparseBooleanArray selectedItems) {
+
+        }
+
+
+    }
+
+
+    private static class ItemInsightCarEmpty2 extends BaseViewHolder<ISTAmtVO, ItemInsightCarEmpty2Binding> {
+        public ItemInsightCarEmpty2(View itemView) {
+            super(itemView);
+        }
+
+        @Override
+        public void onBindView(ISTAmtVO item) {
+
+        }
+
+        @Override
+        public void onBindView(ISTAmtVO item, final int pos) {
         }
 
         @Override

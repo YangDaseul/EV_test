@@ -364,13 +364,12 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                 case VariableType.MAIN_VEHICLE_TYPE_OV://소유
                     istViewModel.reqIST1002(new IST_1002.Request(APPIAInfo.TM01.getId(), "INSGT", "CBK", mainVehicleInfo.getVin()));
                     istViewModel.reqIST1004(new IST_1004.Request(APPIAInfo.TM01.getId(), "INSGT", "INS-02", mainVehicleInfo.getVin()));
+                    reqCommonCall();
+                    break;
                 case VariableType.MAIN_VEHICLE_TYPE_CV://계약
                 case VariableType.MAIN_VEHICLE_TYPE_NV://차량없음
-                    istViewModel.reqIST1003(new IST_1003.Request(APPIAInfo.TM01.getId(), "INSGT", "INS-01"));
-                    istViewModel.reqIST1005(new IST_1005.Request(APPIAInfo.TM01.getId(), "INSGT", "INS-03", String.valueOf(lgnViewModel.getPositionValue().get(1)), String.valueOf(lgnViewModel.getPositionValue().get(0)), mainVehicleInfo.getVin(), mainVehicleInfo.getMdlNm()));
-                    me.ivInfo1.setVisibility(View.GONE);
-                    me.ivInfo2.setVisibility(View.GONE);
-                    me.rvInsight.setVisibility(View.VISIBLE);
+                    setViewEmptyToCarAdapter();
+                    reqCommonCall();
                     break;
                 case VariableType.MAIN_VEHICLE_TYPE_0000: //미로그인
                 default:
@@ -394,4 +393,23 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
         }
     }
 
+    /**
+     * @brief 상단 안내 메시지
+     * 로그인상태인데 차량 소유 고객이 아닐 경우 사용
+     */
+    private void setViewEmptyToCarAdapter(){
+        List<ISTAmtVO> list = new ArrayList<>();
+        list.add(new ISTAmtVO("0", "0", "0", "0", "0"));
+        insightCarAdapter.setViewType(InsightCarAdapter.TYPE_EMPTY2);
+        insightCarAdapter.setRows(list);
+        insightCarAdapter.notifyDataSetChanged();
+    }
+
+    private void reqCommonCall(){
+        istViewModel.reqIST1003(new IST_1003.Request(APPIAInfo.TM01.getId(), "INSGT", "INS-01"));
+        istViewModel.reqIST1005(new IST_1005.Request(APPIAInfo.TM01.getId(), "INSGT", "INS-03", String.valueOf(lgnViewModel.getPositionValue().get(1)), String.valueOf(lgnViewModel.getPositionValue().get(0)), mainVehicleInfo.getVin(), mainVehicleInfo.getMdlNm()));
+        me.ivInfo1.setVisibility(View.GONE);
+        me.ivInfo2.setVisibility(View.GONE);
+        me.rvInsight.setVisibility(View.VISIBLE);
+    }
 }
