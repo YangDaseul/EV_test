@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--데이터 마일스 : 공통-->
-    <string name="gm01_datamiles_title">나의 드라이빙\n데이터</string>
+    <string name="gm01_datamiles_title">드라이빙 데이터</string>
     <string name="gm01_more">MY DATA HUB</string>
     <string name="gm01_update">업데이트</string>
 

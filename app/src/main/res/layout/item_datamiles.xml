@@ -24,6 +24,7 @@
             android:layout_marginStart="20dp"
             android:paddingBottom="30dp"
             android:text="@string/gm01_datamiles_title"
+            android:letterSpacing="-0.01"
             android:textSize="25dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -86,6 +87,7 @@
                 android:orientation="vertical"
                 android:paddingTop="47dp"
                 android:paddingBottom="47dp"
+                android:layout_marginTop="20dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/l_driving_score_container"
                 app:layout_constraintEnd_toEndOf="parent"
