@@ -643,7 +643,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
         list.add(0, new QuickMenuVO("GM_CARLST01", "I", "보유 차량 리스트", "1", "genesisapp://menu?id=GM_CARLST01", "NV"));
         list.add(1, new QuickMenuVO("GM01_01", "I", "내 차 위치 찾기", "2", "genesisapp://menu?id=GM01_01", "OV"));
-        list.add(2, new QuickMenuVO("GM01_03", "I", "SNS 공유하기", "3", "genesisapp://menu?id=GM01_03", "OV"));
+        //2021-02-18 해당 기능 제거로 요건 확정 됨
+//        list.add(2, new QuickMenuVO("GM01_03", "I", "SNS 공유하기", "3", "genesisapp://menu?id=GM01_03", "OV"));
 
         int menuSize = list.size() > quickBtn.length ? quickBtn.length : list.size();
 
