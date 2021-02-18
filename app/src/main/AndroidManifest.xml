@@ -601,11 +601,6 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout" />
-        <activity
-            android:name=".ui.common.activity.DataMilesWebViewActivity"
-            android:configChanges="screenSize|smallestScreenSize|screenLayout"
-            android:exported="false"
-            android:screenOrientation="portrait" />
 
         <service android:name=".fcm.FirebaseMessagingService">
             <intent-filter>

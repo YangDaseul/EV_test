@@ -8,14 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.ConcatAdapter;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.developers.Detail;
@@ -39,7 +31,7 @@ import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.GNSViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentHome2Binding;
-import com.genesis.apps.ui.common.activity.DataMilesWebViewActivity;
+import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
@@ -56,6 +48,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ConcatAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static com.genesis.apps.comm.viewmodel.DevelopersViewModel.CCSSTAT.STAT_AGREEMENT;
@@ -426,10 +425,9 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
                 // 데이터 마일스 : 더보기 버튼
                 Object tag = v.getTag();
                 if (tag instanceof String) {
-                    ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), DataMilesWebViewActivity.class)
-                                    .putExtra(KeyNames.KEY_NAME_URL, (String) tag)
-                            , RequestCodes.REQ_CODE_ACTIVITY.getCode()
-                            , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class)
+                            .putExtra(KeyNames.KEY_NAME_URL,  (String)tag)
+                            , RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }
                 break;
             case R.id.ll_datamiles_driving_score_error:

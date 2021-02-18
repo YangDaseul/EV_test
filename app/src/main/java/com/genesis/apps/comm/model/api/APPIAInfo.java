@@ -2,7 +2,6 @@ package com.genesis.apps.comm.model.api;
 
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.MenuVO;
-import com.genesis.apps.ui.common.activity.DataMilesWebViewActivity;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.PaymentWebViewActivity;
 import com.genesis.apps.ui.intro.IntroActivity;
@@ -103,7 +102,7 @@ public enum APPIAInfo {
     GM01_01("GM01_01", MyLocationActivity.class, VariableType.QUICK_MENU_CODE_OV, "내 차 위치찾기",VariableType.QUICK_MENU_CATEGORY_HOME),
     GM01_02("GM01_02", WarrantyRepairGuideActivity.class, VariableType.QUICK_MENU_CODE_OV, "보증 수리 안내",VariableType.QUICK_MENU_CATEGORY_HOME),
     GM01_03("GM01_03", null, VariableType.QUICK_MENU_CODE_NONE, "공유 미리보기",VariableType.QUICK_MENU_CATEGORY_NONE),
-    GM01_04("GM01_04", DataMilesWebViewActivity.class, VariableType.QUICK_MENU_CODE_NONE, "데이터마일스 상세",VariableType.QUICK_MENU_CATEGORY_NONE),
+    GM01_04("GM01_04", null, VariableType.QUICK_MENU_CODE_NONE, "데이터마일스 상세",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_BTO1("GM_BTO1", GAWebActivity.class, VariableType.QUICK_MENU_CODE_0000, "견적내기",VariableType.QUICK_MENU_CATEGORY_HOME),
     GM_BTO2("GM_BTO2", null, VariableType.QUICK_MENU_CODE_NONE, "BTO",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM02_CTR01("GM02_CTR01", SimilarCarContractHistoryActivity.class, VariableType.QUICK_MENU_CODE_NONE, "구매 계약 내역",VariableType.QUICK_MENU_CATEGORY_NONE),
