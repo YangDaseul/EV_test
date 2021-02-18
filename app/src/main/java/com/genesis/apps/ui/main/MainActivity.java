@@ -2,6 +2,7 @@ package com.genesis.apps.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,6 +14,7 @@ import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.BAR_1001;
 import com.genesis.apps.comm.model.api.gra.NOT_0003;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.StoreInfo;
@@ -29,6 +31,7 @@ import com.genesis.apps.ui.main.home.FragmentHome1;
 import com.genesis.apps.ui.main.insight.FragmentInsight;
 import com.genesis.apps.ui.main.service.FragmentService;
 import com.genesis.apps.ui.main.service.FragmentServiceDrive;
+import com.genesis.apps.ui.main.service.ServiceReviewActivity;
 import com.genesis.apps.ui.main.store.FragmentStore;
 import com.genesis.apps.ui.myg.MyGEntranceActivity;
 import com.genesis.apps.ui.myg.MyGHomeActivity;
@@ -42,6 +45,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
+
+import static com.genesis.apps.comm.model.constants.KeyNames.PUSH_VO;
 
 public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     private final int pageNum = 5;
@@ -453,4 +458,83 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             super.onBackPressed();
         }
     }
+
+
+//    public boolean moveToMainTab(String lnkUri, String lnkTypCd){
+//        boolean isMoveToTab=false;
+//
+//        Uri uri = null;
+//        String id = "";
+//        try {
+//            uri = Uri.parse(lnkUri);
+//            id = uri.getQueryParameter(KeyNames.KEY_NAME_URI_PARSER_ID);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }finally {
+//            if(TextUtils.isEmpty(id))
+//                id="";
+//        }
+//
+//        if (!TextUtils.isEmpty(id)) {
+//
+//            switch (APPIAInfo.findCode(id)) {
+//                case GM01:
+//                case GM02:
+//                case GM03:
+//                case GM04:
+//                    //home
+//                    break;
+//
+//                case TM01:
+//                case TM02:
+//                case TM03:
+//                case TM04:
+//                    //insight
+//                    break;
+//
+//                case SM01:
+//                case SM02:
+//                case SM03:
+//                    //service
+//                break;
+//
+//                case
+//
+//
+//
+//
+//                case SM_REVIEW01_P01:
+//                    if (!TextUtils.isEmpty(PI)) {
+//                        startActivitySingleTop(new Intent(this, ServiceReviewActivity.class).putExtra(KeyNames.KEY_NAME_REVIEW_RSVT_SEQ_NO, PI), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                    } else {
+//                        SnackBarUtil.show(this, "예약번호가 존재하지 않습니다.");
+//                    }
+//                    break;
+//                case SM_REVIEW01_P03:
+//                    if (!TextUtils.isEmpty(PI)) {
+//                        startActivitySingleTop(new Intent(this, ServiceReviewActivity.class).putExtra(KeyNames.KEY_NAME_REVIEW_TRANS_ID, PI), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                    } else {
+//                        SnackBarUtil.show(this, "트랜잭션 ID가 존재하지 않습니다.");
+//                    }
+//                    break;
+//                default:
+//                    if (!isPush || (isPush && TextUtils.isEmpty(body) && !TextUtils.isEmpty(lnkUri))) {
+//                        APPIAInfo appiaInfo = APPIAInfo.findCode(id);
+//                        if (appiaInfo != null && appiaInfo.getActivity() != null) {
+//                            startActivitySingleTop(new Intent(this, appiaInfo.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                        } else {
+//                            SnackBarUtil.show(this, "메뉴 ID가 올바르지 않습니다.");
+//                        }
+//                    } else {
+//                        startActivitySingleTop(new Intent(this, AlarmCenterActivity.class).putExtra(PUSH_VO, pushVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                    }
+//                    break;
+//            }
+//
+//        }
+//
+//
+//
+//        return isMoveToTab;
+//    }
 }

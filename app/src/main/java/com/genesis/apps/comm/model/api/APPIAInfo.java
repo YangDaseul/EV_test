@@ -156,7 +156,7 @@ public enum APPIAInfo {
     TM_EXPS01_P02("TM_EXPS01_P02", null, VariableType.QUICK_MENU_CODE_NONE, "입력 취소 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     TM_EXPS01_02("TM_EXPS01_02", InsightExpnModifyActivity.class, VariableType.QUICK_MENU_CODE_NONE, "지출 내역 수정",VariableType.QUICK_MENU_CATEGORY_NONE),
     TM_EXPS01_02_P01("TM_EXPS01_02_P01", null, VariableType.QUICK_MENU_CODE_NONE, "지출대상 차량 수정 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
-    TM_EXPS01_03("TM_EXPS01_03", InsightExpnMembershipActivity.class, VariableType.QUICK_MENU_CODE_NONE, "멤버십 사용안내",VariableType.QUICK_MENU_CATEGORY_NONE),
+    MG_CON03("MG_CON03", InsightExpnMembershipActivity.class, VariableType.QUICK_MENU_CODE_NONE, "멤버십 사용안내",VariableType.QUICK_MENU_CATEGORY_NONE),
 
     TM_EXPS01_P03("TM_EXPS01_P03", null, VariableType.QUICK_MENU_CODE_NONE, "수정 취소 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM01("SM01", null, VariableType.QUICK_MENU_CODE_NONE, "메인 3 Service",VariableType.QUICK_MENU_CATEGORY_NONE),
