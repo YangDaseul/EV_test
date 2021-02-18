@@ -727,23 +727,20 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         //TODO 확인 클릭
                     });
                 } else {
-                    try {
-                        if (developersViewModel.getRES_PARKLOCATION().getValue() != null
-                                && developersViewModel.getRES_PARKLOCATION().getValue().data != null
-                                && developersViewModel.getRES_PARKLOCATION().getValue().data.getLat() != 0
-                                && developersViewModel.getRES_PARKLOCATION().getValue().data.getLon() != 0) {
-                            List<Double> position = new ArrayList<>();
-                            position.add(developersViewModel.getRES_PARKLOCATION().getValue().data.getLat());
-                            position.add(developersViewModel.getRES_PARKLOCATION().getValue().data.getLon());
-                            ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MyLocationActivity.class).putExtra(KeyNames.KEY_NAME_VEHICLE_LOCATION, new Gson().toJson(position)), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                            return;
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        //todo 20201204 메시지 정의 필요
-                        SnackBarUtil.show(getActivity(), "주차 위치 정보가 존재하지 않습니다.");
-                    }
+                    ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MyLocationActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                    try {
+//                        if (developersViewModel.getRES_PARKLOCATION().getValue() != null
+//                                && developersViewModel.getRES_PARKLOCATION().getValue().data != null
+//                                && developersViewModel.getRES_PARKLOCATION().getValue().data.getLat() != 0
+//                                && developersViewModel.getRES_PARKLOCATION().getValue().data.getLon() != 0) {
+//                            List<Double> position = new ArrayList<>();
+//                            position.add(developersViewModel.getRES_PARKLOCATION().getValue().data.getLat());
+//                            position.add(developersViewModel.getRES_PARKLOCATION().getValue().data.getLon());
+//                            ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), MyLocationActivity.class).putExtra(KeyNames.KEY_NAME_VEHICLE_LOCATION, new Gson().toJson(position)), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                        }
+//                    } catch (Exception e) {
+//                        SnackBarUtil.show(getActivity(), "주차 위치 정보가 존재하지 않습니다.");
+//                    }
                 }
                 break;
             case GM01_03://sns 공유하기
