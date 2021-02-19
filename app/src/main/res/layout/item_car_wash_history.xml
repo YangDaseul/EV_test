@@ -198,7 +198,10 @@
                 android:id="@+id/tv_car_wash_history_branch_name_end"
                 style="@style/CarWashHistoryRegular"
                 android:layout_width="match_parent"
-                android:padding="28dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="30dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:textSize="16dp"
                 android:visibility="gone"
                 tools:text="SONAX 지구 반대편 출장소"  />
