@@ -183,7 +183,7 @@
     <string name="gm_carlst_03_8">안내 사항</string>
     <string name="gm_carlst_03_9">등록조회</string>
     <string name="gm_carlst_03_10">차대번호 17자리를 입력해 주세요.</string>
-    <string name="gm_carlst_03_11">차량 번호 (차량 등록 번호)를\n입력해 주세요.</string>
+    <string name="gm_carlst_03_11">차량 번호를\n입력해 주세요.</string>
     <string name="gm_carlst_03_12">차량 번호를 입력해주세요.</string>
     <string name="gm_carlst_03_13">중고차 등록이 완료되었습니다.</string>
     <string name="gm_carlst_03_14">중고차 등록 알림</string>
