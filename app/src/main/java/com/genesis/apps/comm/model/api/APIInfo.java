@@ -177,6 +177,7 @@ public enum APIInfo {
     DEVELOPERS_CARLIST("내 차량 리스트 조회", "", HttpRequest.METHOD_GET, "/car/profile/carlist", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     DEVELOPERS_DTE("주행 가능 거리 조회", "carId", HttpRequest.METHOD_GET, "/car/status/%s/dte", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     DEVELOPERS_ODOMETER("누적 운행 거리 조회", "carId", HttpRequest.METHOD_GET, "/car/status/%s/odometer", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    DEVELOPERS_ODOMETERS("일별누적 운행 거리 조회", "carId", HttpRequest.METHOD_GET, "/car/status/%s/odometers", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8), //일별 운행거리 조회 전문을 대체
     DEVELOPERS_PARKLOCATION("최종 주차 위치 조회", "carId", HttpRequest.METHOD_GET, "/car/status/%s/parklocation", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     DEVELOPERS_DISTANCE("일별 운행 거리 조회", "carId", HttpRequest.METHOD_GET, "/car/trip/%s/distance", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     DEVELOPERS_CAR_CHECK("GCS 차량 목록 조회(대상 차량 존재 유무 확인)", "", HttpRequest.METHOD_GET, "/user/cars", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),

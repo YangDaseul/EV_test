@@ -15,6 +15,7 @@ import com.genesis.apps.comm.model.api.developers.Distance;
 import com.genesis.apps.comm.model.api.developers.Dtc;
 import com.genesis.apps.comm.model.api.developers.Dte;
 import com.genesis.apps.comm.model.api.developers.Odometer;
+import com.genesis.apps.comm.model.api.developers.Odometers;
 import com.genesis.apps.comm.model.api.developers.ParkLocation;
 import com.genesis.apps.comm.model.api.developers.Replacements;
 import com.genesis.apps.comm.model.api.developers.Target;
@@ -38,6 +39,7 @@ public class DevelopersRepo {
     public final MutableLiveData<NetUIResponse<CarList.Response>> RES_CARLIST = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<Dte.Response>> RES_DTE = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<Odometer.Response>> RES_ODOMETER = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<Odometers.Response>> RES_ODOMETERS = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<ParkLocation.Response>> RES_PARKLOCATION = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<Distance.Response>> RES_DISTANCE = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<CarCheck.Response>> RES_CAR_CHECK = new MutableLiveData<>();
@@ -207,6 +209,30 @@ public class DevelopersRepo {
 
         return RES_ODOMETER;
     }
+
+    public MutableLiveData<NetUIResponse<Odometers.Response>> REQ_ODOMETERS(final Odometers.Request reqData) {
+        RES_ODOMETERS.setValue(NetUIResponse.loading(null));
+        netCaller.reqDataFromAnonymous(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_ODOMETERS.setValue(NetUIResponse.success(new Gson().fromJson(object, Odometers.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_ODOMETERS.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_ODOMETERS.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, GAInfo.CCSP_URL, APIInfo.DEVELOPERS_ODOMETERS, reqData);
+
+        return RES_ODOMETERS;
+    }
+
+
 
     public MutableLiveData<NetUIResponse<ParkLocation.Response>> REQ_PARKLOCATION(final ParkLocation.Request reqData) {
         RES_PARKLOCATION.setValue(NetUIResponse.loading(null));

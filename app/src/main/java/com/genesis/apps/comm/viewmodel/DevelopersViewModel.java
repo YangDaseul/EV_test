@@ -19,6 +19,7 @@ import com.genesis.apps.comm.model.api.developers.Distance;
 import com.genesis.apps.comm.model.api.developers.Dtc;
 import com.genesis.apps.comm.model.api.developers.Dte;
 import com.genesis.apps.comm.model.api.developers.Odometer;
+import com.genesis.apps.comm.model.api.developers.Odometers;
 import com.genesis.apps.comm.model.api.developers.ParkLocation;
 import com.genesis.apps.comm.model.api.developers.Replacements;
 import com.genesis.apps.comm.model.api.developers.Target;
@@ -96,6 +97,7 @@ class DevelopersViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<CarList.Response>> RES_CARLIST;
     private MutableLiveData<NetUIResponse<Dte.Response>> RES_DTE;
     private MutableLiveData<NetUIResponse<Odometer.Response>> RES_ODOMETER;
+    private MutableLiveData<NetUIResponse<Odometers.Response>> RES_ODOMETERS;
     private MutableLiveData<NetUIResponse<ParkLocation.Response>> RES_PARKLOCATION;
     private MutableLiveData<NetUIResponse<Distance.Response>> RES_DISTANCE;
     private MutableLiveData<NetUIResponse<CarCheck.Response>> RES_CAR_CHECK;
@@ -119,6 +121,7 @@ class DevelopersViewModel extends ViewModel {
         RES_CARLIST = repository.RES_CARLIST;
         RES_DTE = repository.RES_DTE;
         RES_ODOMETER = repository.RES_ODOMETER;
+        RES_ODOMETERS = repository.RES_ODOMETERS;
         RES_PARKLOCATION = repository.RES_PARKLOCATION;
         RES_DISTANCE = repository.RES_DISTANCE;
         RES_CAR_CHECK = repository.RES_CAR_CHECK;
@@ -154,7 +157,9 @@ class DevelopersViewModel extends ViewModel {
     public void reqOdometer(final Odometer.Request reqData) {
         repository.REQ_ODOMETER(reqData);
     }
-
+    public void reqOdometers(final Odometers.Request reqData) {
+        repository.REQ_ODOMETERS(reqData);
+    }
     public void reqParkLocation(final ParkLocation.Request reqData) {
         repository.REQ_PARKLOCATION(reqData);
     }

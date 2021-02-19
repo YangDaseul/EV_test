@@ -22,9 +22,9 @@ import com.bumptech.glide.Glide;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.developers.Agreements;
-import com.genesis.apps.comm.model.api.developers.Distance;
 import com.genesis.apps.comm.model.api.developers.Dte;
 import com.genesis.apps.comm.model.api.developers.Odometer;
+import com.genesis.apps.comm.model.api.developers.Odometers;
 import com.genesis.apps.comm.model.api.gra.IST_1001;
 import com.genesis.apps.comm.model.api.gra.LGN_0003;
 import com.genesis.apps.comm.model.api.gra.LGN_0005;
@@ -281,16 +281,21 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         });
 
         //일별 운행 거리
-        developersViewModel.getRES_DISTANCE().observe(getViewLifecycleOwner(), result -> {
+        developersViewModel.getRES_ODOMETERS().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
                     break;
                 case SUCCESS:
-                    if (result.data != null && result.data.getDistances() != null && result.data.getDistances().size() > 0) {
-                        OdometerVO odometerVO = result.data.getDistances().stream().max(Comparator.comparingInt(data -> Integer.parseInt(data.getDate()))).orElse(null);
-                        if(odometerVO!=null) {
-                            me.tvDistanceRecently.setText(StringUtil.getDigitGrouping((int)odometerVO.getValue()) + developersViewModel.getDistanceUnit((int)odometerVO.getUnit()));
-                            break;
+                    if (result.data != null && result.data.getOdometers() != null && result.data.getOdometers().size() > 1) {
+                        OdometerVO odometerMax = result.data.getOdometers().stream().max(Comparator.comparingInt(data -> Integer.parseInt(data.getDate()))).orElse(null);
+                        OdometerVO odometerMin = result.data.getOdometers().stream().min(Comparator.comparingInt(data -> Integer.parseInt(data.getDate()))).orElse(null);
+
+                        if(odometerMax!=null&&odometerMin!=null) {
+                            int distance = (int)(odometerMax.getValue() - odometerMin.getValue());
+                            if(distance>=0) {
+                                me.tvDistanceRecently.setText(StringUtil.getDigitGrouping(distance) + developersViewModel.getDistanceUnit((int) odometerMax.getUnit()));
+                                break;
+                            }
                         }
                     }
                 default:
@@ -298,6 +303,26 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     break;
             }
         });
+
+
+//        //일별 운행 거리
+//        developersViewModel.getRES_DISTANCE().observe(getViewLifecycleOwner(), result -> {
+//            switch (result.status) {
+//                case LOADING:
+//                    break;
+//                case SUCCESS:
+//                    if (result.data != null && result.data.getDistances() != null && result.data.getDistances().size() > 0) {
+//                        OdometerVO odometerVO = result.data.getDistances().stream().max(Comparator.comparingInt(data -> Integer.parseInt(data.getDate()))).orElse(null);
+//                        if(odometerVO!=null) {
+//                            me.tvDistanceRecently.setText(StringUtil.getDigitGrouping((int)odometerVO.getValue()) + developersViewModel.getDistanceUnit((int)odometerVO.getUnit()));
+//                            break;
+//                        }
+//                    }
+//                default:
+//                    me.tvDistanceRecently.setText("--km");
+//                    break;
+//            }
+//        });
 
         istViewModel.getRES_IST_1001().observe(getViewLifecycleOwner(), result -> {
 
@@ -459,7 +484,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         String carId = developersViewModel.getCarId(vehicleVO.getVin());
                         ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class)
                                 .putExtra(KeyNames.KEY_NAME_URL, developersViewModel.getDataMilesAgreementsUrl(loginInfoDTO.getAccessToken(), loginInfoDTO.getProfile().getId(), carId))
-                                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.gm01_bottom_12), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                                , RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     }
                 } catch (Exception e) {
 
@@ -622,7 +647,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         me.tvDeveloperAggrements.setVisibility(View.GONE);
         developersViewModel.reqDte(new Dte.Request(carId));
         developersViewModel.reqOdometer(new Odometer.Request(carId));
-        developersViewModel.reqDistance(new Distance.Request(carId, developersViewModel.getDateYyyyMMdd(-7), developersViewModel.getDateYyyyMMdd(0)));
+        developersViewModel.reqOdometers(new Odometers.Request(carId, developersViewModel.getDateYyyyMMdd(-1), developersViewModel.getDateYyyyMMdd(0)));
+//        developersViewModel.reqDistance(new Distance.Request(carId, developersViewModel.getDateYyyyMMdd(-7), developersViewModel.getDateYyyyMMdd(0)));
     }
 
     @Override
