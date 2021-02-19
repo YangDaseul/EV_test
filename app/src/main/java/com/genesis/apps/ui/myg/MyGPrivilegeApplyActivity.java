@@ -88,9 +88,6 @@ public class MyGPrivilegeApplyActivity extends SubActivity<ActivityPrivilegeAppl
                 case R.id.btn_status:
                     titleId = R.string.mg_prvi01_word_1_2;
                     break;
-                case R.id.btn_benefit:
-                    titleId = R.string.mg_prvi01_word_1_3;
-                    break;
                 case R.id.btn_apply:
                     titleId = R.string.mg_prvi01_word_1;
                     break;

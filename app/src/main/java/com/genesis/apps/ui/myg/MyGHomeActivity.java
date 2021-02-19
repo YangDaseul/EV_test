@@ -418,7 +418,6 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     }
 
                     break;
-                case R.id.btn_benefit:
                 case R.id.btn_apply:
                     String url = v.getTag(R.id.url).toString();
                     goPrivilege(v.getId(), url);
@@ -531,9 +530,6 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
             switch (id){
                 case R.id.btn_status:
                     titleId = R.string.mg_prvi01_word_1_2;
-                    break;
-                case R.id.btn_benefit:
-                    titleId = R.string.mg_prvi01_word_1_3;
                     break;
                 case R.id.btn_apply:
                     titleId = R.string.mg_prvi01_word_1;

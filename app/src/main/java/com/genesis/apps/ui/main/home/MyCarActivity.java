@@ -367,17 +367,13 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                 switch (StringUtil.isValidString(data.getPvilList().get(0).getJoinPsblCd())) {
                     case PrivilegeVO.JOIN_CODE_APPLY_POSSIBLE:
                         ui.btnStatus.setVisibility(View.INVISIBLE);
-//                        ui.btnBenefit.setVisibility(View.INVISIBLE);
                         ui.btnApply.setVisibility(View.VISIBLE);
                         ui.btnApply.setTag(R.id.url, data.getPvilList().get(0).getServiceUrl());
                         break;
                     case PrivilegeVO.JOIN_CODE_APPLYED:
                         ui.btnStatus.setVisibility(View.VISIBLE);
-//                        ui.btnBenefit.setVisibility(View.VISIBLE);
                         ui.btnApply.setVisibility(View.INVISIBLE);
-
                         ui.btnStatus.setTag(R.id.item, data.getPvilList().get(0));
-//                        ui.btnBenefit.setTag(R.id.url, data.getPvilList().get(0).getServiceDetailUrl());
                         break;
                     default:
                         ui.lPrivilege.setVisibility(View.GONE);
@@ -786,9 +782,6 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
             switch (id) {
                 case R.id.btn_status:
                     titleId = R.string.mg_prvi01_word_1_2;
-                    break;
-                case R.id.btn_benefit:
-                    titleId = R.string.mg_prvi01_word_1_3;
                     break;
                 case R.id.btn_apply:
                     titleId = R.string.mg_prvi01_word_1;
