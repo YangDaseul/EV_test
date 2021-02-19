@@ -534,8 +534,6 @@
                     style="@style/DataMiles.TextView_Font_RGSHG.White"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ico_failure_code"
-                    android:drawablePadding="15.2dp"
                     android:gravity="center_vertical"
                     android:text="@string/gm01_breakdown_code"
                     android:textSize="16dp"
