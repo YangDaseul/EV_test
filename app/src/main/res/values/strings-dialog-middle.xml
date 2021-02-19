@@ -80,9 +80,9 @@
 
     <!-- 세차 -->
     <string name="cw_reserve_title">서비스 신청하기</string>
-    <string name="cw_reserve_msg">신청 하시겠습니까?</string>
-    <string name="cw_reserve_cancel_title">세차 서비스 예약 취소</string>
-    <string name="cw_reserve_cancel_msg">세차 서비스를\n취소하시겠습니까?</string>
+    <string name="cw_reserve_msg">신청하시겠습니까?</string>
+    <string name="cw_reserve_cancel_title">서비스 신청 취소</string>
+    <string name="cw_reserve_cancel_msg">서비스\n신청을 취소하시겠습니까?\n\n지난달에 신청한 내역 취소 시,\n다시 이용할 수 없습니다.</string>
 
     <!-- 대리운전 -->
     <string name="sd_cancel_title">취소 안내</string>

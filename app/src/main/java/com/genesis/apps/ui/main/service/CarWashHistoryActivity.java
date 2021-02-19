@@ -15,10 +15,12 @@ import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.api.gra.WSH_1004;
 import com.genesis.apps.comm.model.api.gra.WSH_1005;
 import com.genesis.apps.comm.model.api.gra.WSH_1006;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.model.vo.WashReserveVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringUtil;
+import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.ActivityCarWashHistoryBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -28,11 +30,15 @@ import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import java.util.concurrent.ExecutionException;
+
 public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBinding> {
     private static final String TAG = CarWashHistoryActivity.class.getSimpleName();
 
     private WSHViewModel viewModel;
+    private LGNViewModel lgnViewModel;
     private CarWashHistoryAdapter adapter;
+    private VehicleVO mainVehicle;
 
     private int itemPosition;
 
@@ -43,6 +49,7 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
 
         setAdapter();
         setViewModel();
+        initMainVehicle();
         setObserver();
 
         viewModel.reqWSH1004(new WSH_1004.Request(APPIAInfo.SM_CW01.getId(), WSHViewModel.SONAX));
@@ -52,6 +59,7 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
     public void setViewModel() {
         ui.setLifecycleOwner(this);
         viewModel = new ViewModelProvider(this).get(WSHViewModel.class);
+        lgnViewModel = new ViewModelProvider(this).get(LGNViewModel.class);
     }
 
     @Override
@@ -92,10 +100,14 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
             case R.id.tv_car_wash_history_cancel:
                 rsvtSeqNo = tag.getRsvtSeqNo();
                 String brnhCd = tag.getBrnhCd();
+                WashReserveVO item = (WashReserveVO) v.getTag(R.id.tag_wash_history);
                 itemPosition = (int) v.getTag(R.id.item_position); //결과 처리할 곳에서 쓰기 위해 저장
+
+                String msg = mainVehicle.getMdlNm() + " " + item.getGodsNm() + " " + getString(R.string.cw_reserve_cancel_msg);
 
                 MiddleDialog.dialogCarWashCancel(
                         this,
+                        msg,
                         () -> viewModel.reqWSH1006(new WSH_1006.Request(APPIAInfo.SM_CW01_P01.getId(), rsvtSeqNo, brnhCd)));
 
                 break;
@@ -243,6 +255,17 @@ public class CarWashHistoryActivity extends SubActivity<ActivityCarWashHistoryBi
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    private void initMainVehicle() {
+        try {
+            mainVehicle = lgnViewModel.getMainVehicleSimplyFromDB();
+        } catch (ExecutionException e){
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            Log.d(TAG, "InterruptedException");
+            Thread.currentThread().interrupt();
+        }
     }
 
     private void setAdapter() {
