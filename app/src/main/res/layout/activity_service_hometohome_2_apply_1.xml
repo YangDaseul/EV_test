@@ -126,26 +126,27 @@
                         android:id="@+id/tv_error_dlvry_addr"
                         style="@style/CommonSpinnerError"
                         app:layout_constraintTop_toBottomOf="@+id/tv_dlvry_addr"
-                        tools:visibility="invisible" />
+                        android:visibility="gone" />
 
-<!--                    <CheckBox-->
-<!--                        android:id="@+id/cb_pckp"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:button="@null"-->
-<!--                        android:drawableStart="@drawable/checkbox_selector"-->
-<!--                        android:drawablePadding="8dp"-->
-<!--                        android:fontFamily="@font/light_genesissansheadglobal"-->
-<!--                        android:letterSpacing="-0.01"-->
-<!--                        android:text="@string/sm_r_rsv02_03_18"-->
-<!--                        android:textColor="@color/x_000000"-->
-<!--                        android:textSize="15dp"-->
-<!--                        app:layout_constrainedWidth="true"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintHorizontal_bias="0"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/tv_error_dlvry_addr" />-->
+                    <CheckBox
+                        android:id="@+id/cb_pckp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:button="@null"
+                        android:drawableStart="@drawable/checkbox_selector"
+                        android:drawablePadding="8dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:letterSpacing="-0.01"
+                        android:text="@string/sm_r_rsv02_03_18"
+                        android:textColor="@color/x_000000"
+                        android:textSize="15dp"
+                        android:background="@android:color/transparent"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_error_dlvry_addr" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

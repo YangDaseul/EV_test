@@ -94,6 +94,7 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
         } finally {
             initConstraintSets();
             initEditView();
+            initViewCheckBox();
             selectHomeToHomeService();
         }
     }
@@ -115,6 +116,35 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
                 , isPckp ? RequestCodes.REQ_CODE_SERVICE_HOMETOHOME_PCKP.getCode() : RequestCodes.REQ_CODE_SERVICE_HOMETOHOME_DELIVERY.getCode()
                 , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
+
+
+
+    private void initViewCheckBox(){
+        ui.cbPckp.setOnCheckedChangeListener((compoundButton, b) -> {
+
+            if (compoundButton.isPressed() && b) {
+                if (pckpAddressVO != null) {
+                    try {
+                        dlvryAddressVO = ((AddressVO) pckpAddressVO.clone());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (dlvryAddressVO != null) {
+                            checkValidDlvryAddr();
+                            String addrDtl = ui.etPckpAddrDtl.getText().toString();
+                            if(!TextUtils.isEmpty(addrDtl)) {
+                                ui.etDlvryAddrDtl.setText(addrDtl);
+                                ui.etDlvryAddrDtl.setSelection(addrDtl.length());
+                            }
+                        }
+                    }
+                }
+            }
+
+        });
+    }
+
+
 
 ////    //스피너를 선택하거나 doTranstion이 발생될 떄 ..
 //    private void setViewPckpDivCd(){
@@ -361,10 +391,11 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
         dlvryAddressVO = null;
         ui.lDlvryAddr.setVisibility(View.GONE);
         ui.tvDlvryAddr.setText("");
-        ui.tvErrorDlvryAddr.setVisibility(View.INVISIBLE);
+        ui.tvErrorDlvryAddr.setVisibility(View.GONE);
         ui.lDlvryAddrDtl.setVisibility(View.GONE);
         ui.etDlvryAddrDtl.setText("");
         ui.lDlvryAddrDtl.setError(null);
+        ui.cbPckp.setChecked(false);
     }
 
 
@@ -485,7 +516,7 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
             ui.tvTitleDlvryAddr.setVisibility(View.INVISIBLE);
             return isOnlyPickUp()||false;
         } else {
-            ui.tvErrorDlvryAddr.setVisibility(View.INVISIBLE);
+            ui.tvErrorDlvryAddr.setVisibility(View.GONE);
             Paris.style(ui.tvDlvryAddr).apply(R.style.CommonInputItemEnable);
             ui.tvDlvryAddr.setText(getAddress(dlvryAddressVO)[0]);
             ui.tvTitleDlvryAddr.setVisibility(View.VISIBLE);
