@@ -263,7 +263,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_tel"
                         app:msg="@{data.carRgstNo}"
-                        app:title="@{@string/sm_r_rsv03_10}"
+                        app:title="@{@string/sm_emgc03_p01_9}"
                         app:isLeft="@{true}"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

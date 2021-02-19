@@ -46,7 +46,7 @@
     <string name="sm_remote01_select_service_time">상담 시간을 선택해 주세요.</string>
     <string name="sm_remote01_service_type">차량 문제</string>
     <string name="sm_remote01_service_type_guide">차량 문제를\n선택해 주세요.</string>
-    <string name="sm_remote01_car_number">차량 번호</string>
+    <string name="sm_remote01_car_number">차량 번호 (예 : 12가3456)</string>
     <string name="sm_remote01_car_number_guide">차량 번호를\n입력해 주세요.</string>
     <string name="sm_remote01_input_car_number">차량 번호를 입력해 주세요.</string>
     <string name="sm_remote01_phone_number">휴대폰 번호</string>

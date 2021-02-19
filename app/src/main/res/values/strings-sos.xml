@@ -15,7 +15,7 @@
     <string name="sm_emgc01_14">상세 주소</string>
     <string name="sm_emgc01_15">상세 주소를 입력해 주세요.</string>
     <string name="sm_emgc01_16">차량 번호를\n입력해 주세요.</string>
-    <string name="sm_emgc01_17">차량 번호</string>
+    <string name="sm_emgc01_17">차량 번호 (예 : 12가3456)</string>
     <string name="sm_emgc01_18">차량 번호를 입력해 주세요.</string>
     <string name="sm_emgc01_19">메모를\n입력해 주세요.</string>
     <string name="sm_emgc01_20">메모 입력</string>
