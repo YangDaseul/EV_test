@@ -103,7 +103,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-
+                initFragmentHome(position);
 //                ui.indicator.animatePageSelected(position%num_page);
             }
 
@@ -499,5 +499,20 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             }
         }
         return false;
+    }
+
+    private void initFragmentHome(int currentPosition){
+        try {
+            if (currentPosition > 0) {
+                for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                    if (fragment instanceof FragmentHome) {
+                        ((FragmentHome) fragment).moveToFirstPage();
+                        return;
+                    }
+                }
+            }
+        }catch (Exception e){
+
+        }
     }
 }

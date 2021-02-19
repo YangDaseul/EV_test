@@ -2,6 +2,7 @@ package com.genesis.apps.ui.main;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,6 +100,12 @@ public class FragmentHome extends SubFragment<FragmentHomeBinding> {
             }
         }
 
+    }
+
+    public void moveToFirstPage(){
+        if(me.vpVehicle.getCurrentItem()!=0) {
+            me.vpVehicle.setCurrentItem(0);
+        }
     }
 
 }
