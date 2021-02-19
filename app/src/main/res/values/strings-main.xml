@@ -101,7 +101,7 @@
     <string name="sm01_maintenance_1">서비스 네트워크 찾기</string>
     <string name="sm01_maintenance_2">정비예약</string>
     <string name="sm01_maintenance_3">원하는 시간과 장소에서\n정비 서비스를 받으세요.</string>
-    <string name="sm01_maintenance_4">정비 현황/내역/이력</string>
+    <string name="sm01_maintenance_4">정비 예약 내역/이력</string>
     <string name="sm01_maintenance_5">정비 예약 현황과\n정비 내역을 확인하세요.</string>
     <string name="sm01_maintenance_6">긴급 출동 서비스</string>
     <string name="sm01_maintenance_7">출동 중</string>
