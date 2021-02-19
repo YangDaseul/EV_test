@@ -147,7 +147,7 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
 
 
     private void initVehicleBtnStatus() {
-        ui.tvVehicle.setText(selectVehicle.getMdlCd() +" "+selectVehicle.getCarRgstNo());
+        ui.tvVehicle.setText(selectVehicle.getMdlNm() +" "+selectVehicle.getCarRgstNo());
         int size = vehicleList.size();
         if(size<2){ //1대일경우
             ui.tvVehicle.setCompoundDrawables(null, null, null, null);
