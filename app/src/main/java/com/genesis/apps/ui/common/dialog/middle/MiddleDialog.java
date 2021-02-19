@@ -173,7 +173,7 @@ public class MiddleDialog {
                     binding.tvMsg.setText(R.string.r_bt06_p01_msg_1);
                     binding.tvMsg.setMovementMethod(new ScrollingMovementMethod());
 
-                    binding.btnCancel.setText(R.string.dialog_common_4);
+                    binding.btnCancel.setText(R.string.dialog_common_6);
                     binding.btnOk.setText(R.string.dialog_common_3);
 //                    Paris.style(binding.btnCancel).apply(R.style.BigBtn_Black2);
 
@@ -498,7 +498,7 @@ public class MiddleDialog {
                     binding.tvMsg.setMovementMethod(new ScrollingMovementMethod());
 
 //                    Paris.style(binding.btnCancel).apply(R.style.BigBtn_Black2);
-                    binding.btnCancel.setText(R.string.dialog_common_4);
+                    binding.btnCancel.setText(R.string.dialog_common_6);
                     binding.btnOk.setText(R.string.dialog_common_3);
 
                     binding.btnCancel.setOnClickListener(v -> {
