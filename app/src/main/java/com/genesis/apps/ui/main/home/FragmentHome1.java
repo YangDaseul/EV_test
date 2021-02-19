@@ -411,7 +411,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             }
 
             getActivity().runOnUiThread(() -> {
-                //TODO 테스트 필요
                 lgnViewModel.setPosition(location.getLatitude(), location.getLongitude());
             });
         }, 5000, GpsBaseActivity.GpsRetType.GPS_RETURN_FIRST, false);
@@ -541,8 +540,9 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     private void setViewVehicle() {
         VehicleVO vehicleVO = null;
-
+        String userCustGbCd = "";
         try {
+            userCustGbCd = lgnViewModel.getDbUserRepo().getUserVO().getCustGbCd();
             vehicleVO = lgnViewModel.getMainVehicleFromDB();
             if (vehicleVO != null) {
                 me.tvCarCode.setText(StringUtil.isValidString(vehicleVO.getMdlNm()));
@@ -565,13 +565,18 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         String accessToken = loginInfoDTO.getAccessToken();
                         lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
                         developersViewModel.reqAgreementsAsync(new Agreements.Request(userId, carId, accessToken));
-                        makeQuickMenu(vehicleVO.getCustGbCd(), vehicleVO);
+                        makeQuickMenu(vehicleVO.getCustGbCd(), vehicleVO, userCustGbCd);
                         break;
                     case VariableType.MAIN_VEHICLE_TYPE_CV:
-                    case VariableType.MAIN_VEHICLE_TYPE_NV:
-                    default:
                         makeDownMenu(vehicleVO.getCustGbCd());
-                        makeQuickMenu(vehicleVO.getCustGbCd(), vehicleVO);
+                        makeQuickMenu(vehicleVO.getCustGbCd(), vehicleVO, userCustGbCd);
+                        break;
+                    case VariableType.MAIN_VEHICLE_TYPE_NV:
+                    case VariableType.MAIN_VEHICLE_TYPE_0000:
+                    default:
+                        //차량 소유자의 차량이 삭제 예정 상태가되고 디폴트 차량이 보여질 경우 로그인/미소유(NV) 상태로 보여줌)
+                        makeDownMenu(userCustGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV) ? VariableType.MAIN_VEHICLE_TYPE_NV : vehicleVO.getCustGbCd());
+                        makeQuickMenu(vehicleVO.getCustGbCd(), vehicleVO, userCustGbCd);
                         break;
                 }
             }
@@ -631,7 +636,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         resumeAndPauseLottie(false);
     }
 
-    private void makeQuickMenu(String custGbCd, VehicleVO vehicleVO) {
+    private void makeQuickMenu(String custGbCd, VehicleVO vehicleVO, String userCustGbCd) {
         final TextView[] quickBtn = {me.btnQuick1, me.btnQuick2, me.btnQuick3, me.btnQuick4, me.btnQuick5, me.btnQuick6};
         List<QuickMenuVO> list = cmnViewModel.getQuickMenuList(custGbCd);
         quickBtn[0].setVisibility(View.GONE);
@@ -647,13 +652,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 //        list.add(2, new QuickMenuVO("GM01_03", "I", "SNS 공유하기", "3", "genesisapp://menu?id=GM01_03", "OV"));
 
         int menuSize = list.size() > quickBtn.length ? quickBtn.length : list.size();
-
-        String userCustGbCd = "";
-        try {
-            userCustGbCd = lgnViewModel.getDbUserRepo().getUserVO().getCustGbCd();
-        } catch (Exception e) {
-
-        }
 
         int visibleCnt = 0; //버튼이 활성화 된 갯수
 
@@ -801,7 +799,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             me.btnFloating1.setVisibility(View.GONE);
             me.btnFloating2.setVisibility(View.GONE);
             me.btnFloating3.setVisibility(View.GONE);
-            int menuSize = list.size() > 3 ? 3 : list.size();
+            int menuSize = Math.min(list.size(), 3);
 
             //차량이 없는 고객인 경우 흰색배경의 검은글씨 활성화
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) me.lFloating.getLayoutParams();
