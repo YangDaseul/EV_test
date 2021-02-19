@@ -52,6 +52,7 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
     private String url = "";
     private boolean isClearHistory=false;
     public String fn=""; //javascript 함수
+    private String mCustInfo = "";
 
     private String isDlp = "NO";
 
@@ -87,7 +88,8 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
                     if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
                         Log.d("JJJJ", "getCustInfo : " + result.data.getCustInfo());
                         try {
-                            String postData = "data=" + URLEncoder.encode(result.data.getCustInfo(), "UTF-8");
+                            mCustInfo = result.data.getCustInfo();
+                            String postData = "data=" + URLEncoder.encode(mCustInfo, "UTF-8");
                             fragment.postUrl(url, postData.getBytes());
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
@@ -233,6 +235,9 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
             return true;
         } else if (url.startsWith("genesisapp://menu?id=")||url.startsWith("genesisapps://menu?id=")){
             moveToNativePage(url, false, "");
+            return true;
+        } else if(url.startsWith("genesisapp://getSsoInfo")) {
+            fragment.loadUrl("javascript:setSsoInfo('" + mCustInfo + "');");
             return true;
         } else if(!url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("javascript")) {
             Intent intent;

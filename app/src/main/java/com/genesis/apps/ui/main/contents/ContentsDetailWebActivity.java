@@ -20,20 +20,20 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.hybrid.core.WebViewFragment;
 import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.CMS_1001;
 import com.genesis.apps.comm.model.api.gra.CTT_1002;
 import com.genesis.apps.comm.model.api.gra.CTT_1004;
 import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.ContentsVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.viewmodel.CMSViewModel;
 import com.genesis.apps.comm.viewmodel.CTTViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityContentsDetailWebBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.common.activity.WebviewActivity;
 import com.genesis.apps.ui.main.store.StoreWebActivity;
 
 import java.util.concurrent.ExecutionException;
@@ -43,6 +43,8 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
     private ContentsDetailWebActivity mActivity = this;
     private CTTViewModel cttViewModel;
     private LGNViewModel lgnViewModel;
+    private CMSViewModel cmsViewModel;
+
     private CTT_1004.Response contentsVO;
     private View[] ratingViews;
     private int mRate = 0;
@@ -139,6 +141,7 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
 
         cttViewModel = new ViewModelProvider(mActivity).get(CTTViewModel.class);
         lgnViewModel = new ViewModelProvider(mActivity).get(LGNViewModel.class);
+        cmsViewModel = new ViewModelProvider(mActivity).get(CMSViewModel.class);
     }
 
     @Override
@@ -160,6 +163,18 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
                     break;
                 default:
                     showProgressDialog(false);
+
+                    break;
+            }
+        });
+
+        cmsViewModel.getRES_CMS_1001().observe(mActivity, result -> {
+
+            switch (result.status) {
+                case SUCCESS:
+                    if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
+                        fragment.loadUrl("javascript:setSsoInfo('" + result.data.getCustInfo() + "');");
+                    }
 
                     break;
             }
@@ -275,6 +290,9 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
             return true;
         } else if (url.startsWith("genesisapp://menu?id=")||url.startsWith("genesisapps://menu?id=")){
             moveToNativePage(url, false, "");
+            return true;
+        } else if(url.startsWith("genesisapp://getSsoInfo")) {
+            cmsViewModel.reqCMS1001(new CMS_1001.Request(APPIAInfo.CM_LIFE01.getId()));
             return true;
         }
         return false;

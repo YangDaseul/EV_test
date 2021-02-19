@@ -57,6 +57,7 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
     public String fn=""; //javascript 함수
     private boolean isClearHistory=false;
     private Handler mHandler = null;
+    private String mCustInfo = "";
 
     public String isDlp = "NO";
 
@@ -102,7 +103,8 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
 //                        Log.d("JJJJ", "json str : " + jsonStr);
 
                         try {
-                            String postData = "data=" + URLEncoder.encode(result.data.getCustInfo(), "UTF-8");
+                            mCustInfo = result.data.getCustInfo();
+                            String postData = "data=" + URLEncoder.encode(mCustInfo, "UTF-8");
                             fragment.postUrl(url, postData.getBytes());
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
@@ -254,6 +256,9 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
             return true;
         } else if (url.startsWith("genesisapp://menu?id=")||url.startsWith("genesisapps://menu?id=")){
             ((MainActivity) getActivity()).moveToNativePage(url, false, "");
+            return true;
+        } else if(url.startsWith("genesisapp://getSsoInfo")) {
+            fragment.loadUrl("javascript:setSsoInfo('" + mCustInfo + "');");
             return true;
         } else if(!url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("javascript")) {
             Intent intent = null;
