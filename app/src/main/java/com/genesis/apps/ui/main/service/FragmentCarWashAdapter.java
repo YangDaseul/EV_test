@@ -48,6 +48,18 @@ public class FragmentCarWashAdapter extends BaseRecyclerViewAdapter2<WashGoodsVO
 
         @Override
         public void onBindView(WashGoodsVO item, int pos) {
+            if("Y".equals(item.getRsvtAblYn())) {
+                getBinding().llCheck.setVisibility(View.GONE);
+
+                getBinding().lServiceCarWashItem.setEnabled(true);
+                getBinding().lServiceCarWashItem.setClickable(true);
+            } else {
+                getBinding().llCheck.setVisibility(View.VISIBLE);
+
+                getBinding().lServiceCarWashItem.setEnabled(false);
+                getBinding().lServiceCarWashItem.setClickable(false);
+            }
+
             //상품명
             getBinding().tvCarWashItemName.setText(item.getGodsNm());
 

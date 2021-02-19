@@ -36,4 +36,7 @@ class WashGoodsVO extends BaseData {
     @Expose
     @SerializedName("godsImgUri")
     private String godsImgUri;
+    @Expose
+    @SerializedName("rsvtAblYn")
+    private String rsvtAblYn;
 }

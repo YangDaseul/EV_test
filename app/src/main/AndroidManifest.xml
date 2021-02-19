@@ -32,9 +32,6 @@
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="stateHidden"
         tools:replace="android:allowBackup">
-        <meta-data
-            android:name="android.allow_multiple_resumed_activities"
-            android:value="true" />
 
         <activity
             android:name=".ui.intro.IntroActivity"
@@ -45,6 +42,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.common.activity.DeepLinkActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
@@ -67,12 +65,12 @@
             android:name=".ui.common.activity.WebviewActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" /> <!-- 결제 웹뷰 -->
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.store.StoreWebActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" /> <!-- 결제 웹뷰 -->
         <activity
             android:name=".ui.common.activity.PaymentWebViewActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
@@ -226,16 +224,16 @@
             android:name=".ui.myg.MyGOilTermActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" /> <!-- <activity -->
-        <!-- android:name=".ui.myg.MyGOilTermDetailActivity" -->
-        <!-- android:exported="false" -->
-        <!-- android:screenOrientation="portrait" android:configChanges="screenSize|smallestScreenSize|screenLayout" /> -->
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.home.MyCarActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout" />
+            android:theme="@style/TextInputLayout" /> <!-- <activity -->
+        <!-- android:name=".ui.myg.MyGOilTermDetailActivity" -->
+        <!-- android:exported="false" -->
+        <!-- android:screenOrientation="portrait" android:configChanges="screenSize|smallestScreenSize|screenLayout" /> -->
         <activity
             android:name=".ui.main.home.BtrServiceInfoActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
@@ -277,15 +275,15 @@
             android:name=".ui.main.home.BtrBluehandsListActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" /> <!-- <activity -->
-        <!-- android:name=".ui.main.home.BtrBluehandsFilterActivity" -->
-        <!-- android:screenOrientation="portrait" android:configChanges="screenSize|smallestScreenSize|screenLayout" -->
-        <!-- android:exported="false"/> -->
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.AlarmCenterActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" /> <!-- <activity -->
+        <!-- android:name=".ui.main.home.BtrBluehandsFilterActivity" -->
+        <!-- android:screenOrientation="portrait" android:configChanges="screenSize|smallestScreenSize|screenLayout" -->
+        <!-- android:exported="false"/> -->
         <activity
             android:name=".ui.main.AlarmCenterSearchActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
@@ -496,98 +494,101 @@
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
-        <!-- 원격 진단 : 신청 -->
         <activity
             android:name=".ui.main.service.ServiceRemoteRegisterActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout" />
-        <!-- 원격 진단 : 내역 -->
+            android:theme="@style/TextInputLayout" /> <!-- 원격 진단 : 신청 -->
         <activity
             android:name=".ui.main.service.ServiceRemoteListActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout" />
+            android:theme="@style/TextInputLayout" /> <!-- 원격 진단 : 내역 -->
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" /> <!-- optional (needed if default theme has no action bar) -->
+            android:theme="@style/Base.Theme.AppCompat" />
         <activity
             android:name=".ui.main.service.ServiceRelapseHistoryActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" /> <!-- 하자 재발 현황 조회 -->
+            android:screenOrientation="portrait" /> <!-- optional (needed if default theme has no action bar) -->
         <activity
             android:name=".ui.main.service.ServiceRelapseReqResultActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" /> <!-- 하자 재발 신청 1단계 -->
+            android:screenOrientation="portrait" /> <!-- 하자 재발 현황 조회 -->
         <activity
             android:name=".ui.main.service.ServiceRelapseApply1Activity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
-            android:windowSoftInputMode="adjustResize" /> <!-- 하자 재발 신청 2단계 -->
+            android:windowSoftInputMode="adjustResize" /> <!-- 하자 재발 신청 1단계 -->
         <activity
             android:name=".ui.main.service.ServiceRelapseApply2Activity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
-            android:windowSoftInputMode="adjustResize" /> <!-- 하자 재발 3단계 -->
+            android:windowSoftInputMode="adjustResize" /> <!-- 하자 재발 신청 2단계 -->
         <activity
             android:name=".ui.main.service.ServiceRelapse3Activity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
-            android:windowSoftInputMode="adjustPan" /> <!-- 하자 재발 신청 예시) -->
+            android:windowSoftInputMode="adjustPan" /> <!-- 하자 재발 3단계 -->
         <activity
             android:name=".ui.main.service.ServiceRelapseApplyExampleActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" /> <!-- 세차 지점검색 -->
+            android:screenOrientation="portrait" /> <!-- 하자 재발 신청 예시) -->
         <activity
             android:name=".ui.main.service.CarWashSearchActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout" /> <!-- 세차 예약내역 -->
+            android:theme="@style/TextInputLayout" /> <!-- 세차 지점검색 -->
         <activity
             android:name=".ui.main.service.CarWashHistoryActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/TextInputLayout" /> <!-- 대리운전 신청 -->
+            android:theme="@style/TextInputLayout" /> <!-- 세차 예약내역 -->
+        <activity
+            android:name=".ui.main.service.CarWashRequestActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.service.ServiceDriveReqActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
-            android:windowSoftInputMode="adjustResize" /> <!-- 대리운전 신청 완료 (신청하고 결제 성공하면 나오는 거) -->
+            android:windowSoftInputMode="adjustResize" /> <!-- 대리운전 신청 -->
         <activity
             android:name=".ui.main.service.ServiceDriveReqCompleteActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" /> <!-- 대리운전 신청 결과 (현황 조회하면 나오는 거) -->
+            android:screenOrientation="portrait" /> <!-- 대리운전 신청 완료 (신청하고 결제 성공하면 나오는 거) -->
         <activity
             android:name=".ui.main.service.ServiceDriveReqResultActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" /> <!-- 대리운전 이용내역 -->
+            android:screenOrientation="portrait" /> <!-- 대리운전 신청 결과 (현황 조회하면 나오는 거) -->
         <activity
             android:name=".ui.main.service.ServiceDriveHistoryActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" /> <!-- 세차, 대리운전 리뷰 -->
+            android:screenOrientation="portrait" /> <!-- 대리운전 이용내역 -->
         <activity
             android:name=".ui.main.service.ServiceReviewActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" /> <!-- 세차, 대리운전 리뷰 -->
         <activity
             android:name=".ui.main.service.MaintenanceReserveActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
@@ -601,6 +602,9 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout" />
+        <meta-data
+            android:name="android.allow_multiple_resumed_activities"
+            android:value="true" />
 
         <service android:name=".fcm.FirebaseMessagingService">
             <intent-filter>
