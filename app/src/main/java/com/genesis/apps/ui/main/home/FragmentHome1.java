@@ -546,7 +546,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             vehicleVO = lgnViewModel.getMainVehicleFromDB();
             if (vehicleVO != null) {
                 me.tvCarCode.setText(StringUtil.isValidString(vehicleVO.getMdlNm()));
-                me.tvCarModel.setText(StringUtil.isValidString(vehicleVO.getSaleMdlNm()).replace(StringUtil.isValidString(vehicleVO.getMdlNm()), ""));
+                //2021-02-19 요건으로 제거됨
+//                me.tvCarModel.setText(StringUtil.isValidString(vehicleVO.getSaleMdlNm()).replace(StringUtil.isValidString(vehicleVO.getMdlNm()), ""));
 
                 me.tvCarVrn.setText(vehicleVO.getCarRgstNo());
                 Glide
