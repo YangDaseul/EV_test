@@ -34,15 +34,15 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp">
+                android:padding="15dp">
 
                 <!-- 서비스 이름-->
                 <TextView
                     android:id="@+id/tv_car_wash_history_name"
-                    style="@style/CarWashHistoryLight"
-                    android:layout_height="70dp"
+                    style="@style/CarWashHistoryRegular"
+                    android:layout_height="55dp"
                     android:layout_width="0dp"
-                    android:textSize="22dp"
+                    android:textSize="16dp"
                     android:gravity="center_vertical"
                     android:lineSpacingExtra="6dp"
                     android:maxLines="2"
@@ -59,6 +59,7 @@
                     style="@style/CarWashHistoryRegular"
                     android:layout_marginTop="5dp"
                     android:textSize="16dp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_car_wash_history_name"
                     tools:text="10% 할인" />
@@ -81,21 +82,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
                     android:gravity="center"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
                     android:textColor="@color/x_996449"
-                    android:textSize="14dp"
+                    android:textSize="12dp"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="6dp"
                     android:visibility="visible"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_car_wash_history_price"
-                    app:layout_constraintRight_toLeftOf="@+id/iv_car_wash_history_img"
-                    app:layout_constraintTop_toTopOf="@id/tv_car_wash_history_price"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_car_wash_history_name"
                     tools:text="이용 완료" />
 
                 <!-- 사진 -->
                 <ImageView
                     android:id="@+id/iv_car_wash_history_img"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -114,8 +115,8 @@
                 android:id="@+id/l_car_wash_history_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
                 android:paddingBottom="20dp">
 
                 <!-- 예약 안내 -->

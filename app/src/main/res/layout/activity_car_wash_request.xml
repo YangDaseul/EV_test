@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/x_ffffff"
+        android:orientation="vertical"
+        android:showDividers="middle"
+        android:divider="@drawable/divider_20">
+
+        <include
+            layout="@layout/layout_titlebar"
+            app:value="@{@string/sm_cw_req_01}" />
+
+        <!--  아이템으로 사용되는 뷰 파일 : item_service_car_wash -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_service_car_wash_item_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/x_ffffff"
+            tools:listitem="@layout/item_service_car_wash" />
+
+    </LinearLayout>
+
+</layout>

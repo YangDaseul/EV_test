@@ -26,23 +26,43 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/roadwin_img_02" />
+                    android:src="@drawable/main_sonax_img_01" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/roadwin_img_01" />
+                    android:src="@drawable/main_sonax_img_02" />
 
-                <!--  아이템으로 사용되는 뷰 파일 : item_service_car_wash -->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_service_car_wash_item_list"
+                <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone"
-                    android:nestedScrollingEnabled="false"
-                    tools:background="#a0f040"
-                    tools:listitem="@layout/item_service_car_wash" />
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/main_sonax_img_03" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/main_sonax_img_04" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/main_sonax_img_05" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/main_sonax_img_06" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/main_sonax_img_07" />
 
             </LinearLayout>
 

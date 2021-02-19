@@ -8,15 +8,18 @@
     <string name="sm_cw_find_06">해당 시도에 SONAX 지점이 없습니다.</string>
     <string name="sm_cw_find_07">인근 다른 시도 지점을 이용해 주세요.</string>
 
-    <string name="sm_cw_history_01">세차 서비스 예약 내역</string>
-    <string name="sm_cw_history_02">· 예약한 Sonax 지점에서 전화를 드린 후, 세차 예약 확정됩니다.</string>
+    <string name="sm_cw_history_01">세차 신청 내역</string>
+    <string name="sm_cw_history_02">· 신청한 Sonax 지점에서 전화를 드린 후, 세차 예약 확정됩니다.</string>
     <string name="sm_cw_history_03">현장 결제</string>
     <string name="sm_cw_history_04">통화하기</string>
     <string name="sm_cw_history_05">직원에게 확인</string>
-    <string name="sm_cw_history_06">예약 취소</string>
+    <string name="sm_cw_history_06">신청 취소</string>
     <string name="sm_cw_history_07">이용 완료</string>
 
     <string name="sm_cw_history_empty">세차 서비스 예약 내역이 없습니다.</string>
+
+    <string name="sm_cw_req_01">세차 상품 선택</string>
+    <string name="sm_cw_req_02">이미 신청 혹은 이용 완료 하셨습니다.\n매달 1회 가능</string>
 
     <string name="sm_cw_pay_type_01">현금 결제</string>
     <string name="sm_cw_pay_type_xx">결제 정보 누락</string>
