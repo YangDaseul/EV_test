@@ -402,7 +402,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
             case R.id.tv_title_btr_term:
                 String annMgmtCd;
                 try {
-                    annMgmtCd = "BTR-" + vehicleVO.getMdlNm();
+                    annMgmtCd = "BTR-" + vehicleVO.getMdlCd();
                     ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), BtrServiceInfoActivity.class)
                                     .putExtra(KeyNames.KEY_NAME_ADMIN_CODE, annMgmtCd)
                             , RequestCodes.REQ_CODE_ACTIVITY.getCode()
