@@ -33,12 +33,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/roadwin_img_02" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
                     android:src="@drawable/roadwin_img_01" />
 
                 <!-- 본문 최상위 레이아웃 -->
