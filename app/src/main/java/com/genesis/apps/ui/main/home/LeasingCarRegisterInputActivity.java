@@ -73,7 +73,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
 
     private BottomListDialog bottomListDialog;
     private final int[] layouts = {R.layout.activity_leasing_car_register_input_1, R.layout.activity_leasing_car_register_input_3, R.layout.activity_leasing_car_register_input_4, R.layout.activity_leasing_car_register_input_5, R.layout.activity_leasing_car_register_input_6, R.layout.activity_leasing_car_register_input_7};
-    private final int[] textMsgId = {R.string.gm_carlst_01_29, R.string.gm_carlst_01_34, R.string.gm_carlst_01_39, R.string.gm_carlst_01_43, R.string.gm_carlst_01_46, R.string.gm_carlst_01_01_10};
+    private int[] textMsgId = {R.string.gm_carlst_01_29, R.string.gm_carlst_01_34, R.string.gm_carlst_01_39, R.string.gm_carlst_01_43, R.string.gm_carlst_01_46, R.string.gm_carlst_01_01_10};
     private ConstraintSet[] constraintSets = new ConstraintSet[layouts.length];
     private View[] views;
     private String vin;
@@ -104,7 +104,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
         initConstraintSets();
         initPhoneNumber();
         ui.tvVin.setText(vin);
-        ui.tvCsmrScnCd.setText(StringUtil.isValidString(csmrScnCd).equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14) ? R.string.gm_carlst_01_62 : R.string.gm_carlst_01_61);
+        setViewCsmrScnCd();
         ui.etRentPeriodEtc.setOnFocusChangeListener(focusChangeListener);
         ui.etAddrDetail.setOnFocusChangeListener(focusChangeListener);
         ui.lPrivilege.etAddrDetail.setOnFocusChangeListener(focusChangeListener);
@@ -141,6 +141,23 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
             SnackBarUtil.show(LeasingCarRegisterInputActivity.this, getString(R.string.gm_carlst_01_snackbar_1));
             selectRentPeriod();
         }, 100);
+    }
+
+    private void setViewCsmrScnCd() {
+        if(StringUtil.isValidString(csmrScnCd).equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14)){
+            //개인
+            ui.tvCsmrScnCd.setText(R.string.gm_carlst_01_62);
+            textMsgId[2] = R.string.gm_carlst_01_65;
+            ui.tvTitleEmpCertiImg.setText(R.string.gm_carlst_01_66);
+            Paris.style(ui.tvEmpCertiImg).apply(R.style.TextViewEmpCertiImgDisable2);
+        }else{
+            //법인
+            ui.tvCsmrScnCd.setText(R.string.gm_carlst_01_61);
+            textMsgId[2] = R.string.gm_carlst_01_39;
+            ui.tvTitleEmpCertiImg.setText(R.string.gm_carlst_01_40);
+            Paris.style(ui.tvEmpCertiImg).apply(R.style.TextViewEmpCertiImgDisable);
+
+        }
     }
 
     private void initPhoneNumber() {
@@ -221,7 +238,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                     addressZipVO.getRoadAddr(),
                     ui.etAddrDetail.getText().toString().trim(),
                     "Y",
-                    (csmrScnCd.equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14) ? "N" : "Y"),
+                    empCertImagPath==null ? "N" : "Y",
                     StringUtil.isValidString(gns1011Response.getCtrctNo()),
                     selectPrivilege !=null ? StringUtil.isValidString(selectPrivilege.getGodsId()) : "",
                     selectPrivilege !=null ? StringUtil.isValidString(selectPrivilege.getGodsNm()) : "",
@@ -358,8 +375,8 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                 case SUCCESS:
                 default:
                     showProgressDialog(false);
-                    if (StringUtil.isValidString(csmrScnCd).equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14)) {
-                        //개인일 때
+                    if (empCertImagPath==null) {
+                        //추가 증빙 서류가 없을 경우
                         moveToHist();
                     } else {
                         //법인일 때
@@ -433,9 +450,9 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
             constraintSets[pos].applyTo(ui.container);
             ui.tvMsg.setText(textMsgId[pos]);
 
-            if (csmrScnCd.equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14) && pos > 2) {
-                views[2].setVisibility(View.GONE);
-            }
+//            if (csmrScnCd.equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14) && pos > 2) {
+//                views[2].setVisibility(View.GONE);
+//            }
 
             if (pos == 1) {
                 targetImgId = R.id.btn_cnt_img;
@@ -499,15 +516,19 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
             mimeType = "";
         }
 
-        if (TextUtils.isEmpty(mimeType)) {
+        if(targetImgId==R.id.btn_emp_certi_img&&StringUtil.isValidString(csmrScnCd).equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14)){
+            //개인인데 추가증빙서류 선택 인경우
+            doTransition(3);
+            return true;
+        }else if (TextUtils.isEmpty(mimeType)) {
             //파일이 첨부되지 않은 경우
             switch (targetImgId) {
                 case R.id.btn_emp_certi_img:
                     Paris.style(ui.tvEmpCertiImg).apply(R.style.TextViewEmpCertiImgError2);
-                    ui.tvErrorEmpCertiImg.setText(R.string.gm_carlst_01_42);
+                    ui.tvErrorEmpCertiImg.setText(!StringUtil.isValidString(csmrScnCd).equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_14) ? R.string.gm_carlst_01_42 : R.string.gm_carlst_01_68);
                     break;
                 case R.id.btn_cnt_img:
-                default: //아무 선택도 하지 않은 상태 0
+                default: //아무 선택도 하지 않은 상태
                     Paris.style(ui.tvCntImg).apply(R.style.TextViewCntImgError2);
                     ui.tvErrorCntImg.setText(R.string.gm_carlst_01_55);
                     break;
@@ -531,14 +552,8 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
 
             switch (targetImgId) {
                 case R.id.btn_cnt_img:
-
-                    if (csmrScnCd.equalsIgnoreCase(VariableType.LEASING_CAR_CSMR_SCN_CD_1)) {
-                        doTransition(2);
-                        targetImgId = R.id.btn_emp_certi_img;
-                    } else {
-                        doTransition(3);
-                    }
-
+                    doTransition(2);
+                    targetImgId = R.id.btn_emp_certi_img;
                     break;
                 case R.id.btn_emp_certi_img:
                     doTransition(3);

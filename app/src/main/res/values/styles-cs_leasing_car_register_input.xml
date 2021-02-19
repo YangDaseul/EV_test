@@ -375,6 +375,12 @@
         <item name="android:text">@string/gm_carlst_01_41</item>
     </style>
 
+    <style name="TextViewEmpCertiImgDisable2" parent="TextViewEmpCertiImg">
+        <item name="android:background">@drawable/bg_ffffff_stroke_e5e5e5</item>
+        <item name="android:textColor">@color/x_a2a2a2</item>
+        <item name="android:text">@string/gm_carlst_01_67</item>
+    </style>
+
     <style name="TextViewEmpCertiImgError" parent="TextViewEmpCertiImg">
         <item name="android:background">@drawable/bg_ffffff_stroke_ce2d2d</item>
         <item name="android:textColor">@color/x_000000</item>
