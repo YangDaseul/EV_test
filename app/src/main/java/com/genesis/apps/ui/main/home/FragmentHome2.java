@@ -469,6 +469,10 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
             SubActivity.setStatusBarColor(getActivity(), R.color.x_ffffff);
         }else{
             SubActivity.setStatusBarColor(getActivity(), R.color.x_f8f8f8);
+            if(home2DataMilesAdapter!=null&&home2AsanAdapter.getItemCount()>0){
+                home2DataMilesAdapter.clear();
+                home2DataMilesAdapter.notifyDataSetChanged();
+            }
         }
         ((MainActivity) getActivity()).setGNB("", View.GONE);
     }
