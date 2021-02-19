@@ -41,7 +41,6 @@ import com.genesis.apps.comm.model.vo.developers.OdometerVO;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecordUtil;
-import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.VibratorUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
@@ -64,9 +63,7 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.upstream.DataSpec;
 import com.google.android.exoplayer2.upstream.RawResourceDataSource;
-import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -554,7 +551,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 me.tvCarVrn.setText(vehicleVO.getCarRgstNo());
                 Glide
                         .with(getContext())
-                        .load(vehicleVO.getMainImgUri())
+                        .load(dayCd == 1 ? vehicleVO.getMainImgUri() : vehicleVO.getMainNgtImgUr())
                         .fitCenter()
                         .error(R.drawable.main_img_car)
                         .placeholder(R.drawable.main_img_car)
