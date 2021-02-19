@@ -6,7 +6,7 @@
         android:id="@+id/l_service_car_wash"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/ripple_bg_ffffff_stroke_111111"
+        android:background="@drawable/ripple_bg_111111"
         android:clickable="true"
         android:focusable="true"
         android:paddingTop="18dp"
@@ -14,11 +14,11 @@
 
         <!--  세차 예약 내역 타이틀-->
         <TextView
-            android:id="@+id/iv_service_car_wash_reserv_history_title"
+            android:id="@+id/iv_service_car_wash_request_history_title"
             style="@style/TextBasic"
             android:fontFamily="@font/regular_genesissanstextglobal"
-            android:text="@string/sm01_car_wash_1"
-            android:textColor="@color/x_000000"
+            android:text="@string/sm01_car_wash_5"
+            android:textColor="@color/x_ffffff"
             android:textSize="16dp"
             android:lineSpacingExtra="8dp"
             app:layout_constraintTop_toTopOf="parent"

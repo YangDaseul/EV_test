@@ -57,7 +57,7 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
 
     private void setOnSingleClickListener() {
         me.lServiceCarWashHistoryBtn.lServiceCarWash.setOnClickListener(onSingleClickListener);
-        me.lServiceCarWashCostBtn.lServiceCarWashCost.setOnClickListener(onSingleClickListener);
+        me.lServiceCarWashRequestBtn.lServiceCarWash.setOnClickListener(onSingleClickListener);
     }
 
     private void setViewModel() {
@@ -138,19 +138,22 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
             case R.id.l_service_car_wash_history_btn:
                 ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), CarWashHistoryActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
-            case R.id.l_service_car_wash_cost_btn:
-                String url = "";
-                try{
-                    url = viewModel.getRES_WSH_1001().getValue().data.getGodsCostUri();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }finally {
-                    if(TextUtils.isEmpty(url)){
-                        SnackBarUtil.show(getActivity(), "가격 정보가 존재하지 않습니다.");
-                    }else{
-                        ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, url).putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.sm01_car_wash_4), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                    }
-                }
+//            case R.id.l_service_car_wash_cost_btn:
+//                String url = "";
+//                try{
+//                    url = viewModel.getRES_WSH_1001().getValue().data.getGodsCostUri();
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }finally {
+//                    if(TextUtils.isEmpty(url)){
+//                        SnackBarUtil.show(getActivity(), "가격 정보가 존재하지 않습니다.");
+//                    }else{
+//                        ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, url).putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.sm01_car_wash_4), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                    }
+//                }
+//                break;
+            case R.id.l_service_car_wash_request_btn:
+
                 break;
             //세차 쿠폰 선택(지점 검색(지도) 액티비티 열기)
             case R.id.l_service_car_wash_item:
