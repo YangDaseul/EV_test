@@ -870,7 +870,7 @@ public class MiddleDialog {
     }
 
     //세차 예약 취소
-    public static void dialogCarWashCancel(@NonNull Activity activity, final Runnable ok) {
+    public static void dialogCarWashCancel(@NonNull Activity activity, String msg, final Runnable ok) {
         if (activity.isFinishing()) {
             return;
         }
@@ -878,8 +878,8 @@ public class MiddleDialog {
                 getTwoButtonDialog(activity,
                         ok,
                         null,
-                        R.string.cw_reserve_cancel_title,
-                        R.string.cw_reserve_cancel_msg,
+                        activity.getString(R.string.cw_reserve_cancel_title),
+                        msg,
                         R.string.dialog_common_1,
                         R.string.dialog_common_2
                 ).show()
