@@ -4,7 +4,6 @@ import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.hmns.playmap.PlayMapPoint;
-import com.hmns.playmap.network.PlayMapRestApi;
 
 import java.util.ArrayList;
 

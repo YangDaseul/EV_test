@@ -3,24 +3,16 @@ package com.genesis.apps.comm.util;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidadvance.topsnackbar.TSnackbar;
 import com.genesis.apps.R;
-import com.genesis.apps.comm.MyApplication;
-import com.genesis.apps.databinding.ItemPriceTitleBinding;
-import com.genesis.apps.databinding.ItemSnackbarBinding;
 import com.google.android.material.snackbar.Snackbar;
-import com.kishandonga.csbx.CustomSnackbar;
 
 import androidx.core.content.res.ResourcesCompat;
-import androidx.databinding.DataBindingUtil;
 
 public class SnackBarUtil {
 

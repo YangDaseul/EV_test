@@ -20,7 +20,7 @@ public class Home2BtrAdapter extends BaseRecyclerViewAdapter2<LGN_0003.Response>
     private static OnSingleClickListener onSingleClickListener;
 
     public Home2BtrAdapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        Home2BtrAdapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override

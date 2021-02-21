@@ -20,7 +20,7 @@ public class InsightArea2Adapter extends BaseRecyclerViewAdapter2<SOSDriverVO> {
     private static OnSingleClickListener onSingleClickListener;
 
     public InsightArea2Adapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        InsightArea2Adapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override

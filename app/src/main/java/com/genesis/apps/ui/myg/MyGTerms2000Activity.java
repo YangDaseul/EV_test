@@ -2,7 +2,6 @@ package com.genesis.apps.ui.myg;
 
 import android.os.Bundle;
 
-import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0001;
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0002;
 
 /**

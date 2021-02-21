@@ -32,7 +32,7 @@ public class InsightExpnAdapter extends BaseRecyclerViewAdapter2<ExpnVO> {
     private String deleteExpnSeqNo;
 
     public InsightExpnAdapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        InsightExpnAdapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override

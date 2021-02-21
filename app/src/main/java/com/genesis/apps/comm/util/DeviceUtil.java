@@ -186,8 +186,7 @@ public class DeviceUtil {
      */
     public static float dip2Pixel(Context context, float dpi) {
         float density = context.getResources().getDisplayMetrics().densityDpi;
-        float pixel = dpi * (density / (float) DisplayMetrics.DENSITY_DEFAULT);
-        return pixel;
+        return dpi * (density / (float) DisplayMetrics.DENSITY_DEFAULT);
     }
 
     /**
@@ -199,8 +198,7 @@ public class DeviceUtil {
      */
     public static float pixel2Dip(Context context, float pixel) {
         float density = context.getResources().getDisplayMetrics().densityDpi;
-        float dpi = pixel / (density / (float) DisplayMetrics.DENSITY_DEFAULT);
-        return dpi;
+        return pixel / (density / (float) DisplayMetrics.DENSITY_DEFAULT);
     }
 
     public static Spanned fromHtml(String text) {

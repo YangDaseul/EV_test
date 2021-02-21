@@ -18,7 +18,7 @@ public class Home2WarrantyAdapter extends BaseRecyclerViewAdapter2<VehicleVO> {
     private static OnSingleClickListener onSingleClickListener;
 
     public Home2WarrantyAdapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        Home2WarrantyAdapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override

@@ -11,12 +11,10 @@ import android.view.ViewTreeObserver;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.comm.util.BarcodeUtil;
-import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.StringRe2j;
 import com.genesis.apps.databinding.ItemCardBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
-import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 import com.google.zxing.BarcodeFormat;
@@ -31,7 +29,7 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
     private static OnSingleClickListener onSingleClickListener;
 
     public CardHorizontalAdapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        CardHorizontalAdapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override

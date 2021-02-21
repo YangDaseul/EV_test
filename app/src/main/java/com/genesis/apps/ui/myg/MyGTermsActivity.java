@@ -11,7 +11,6 @@ import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.MYP_8001;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
-import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.ui.common.activity.WebviewActivity;
 
 import java.io.BufferedReader;

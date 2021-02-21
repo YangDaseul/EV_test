@@ -21,7 +21,6 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.util.EmptyStackException;
 import java.util.List;
 
 import androidx.lifecycle.ViewModelProvider;

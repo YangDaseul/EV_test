@@ -4,7 +4,6 @@ import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.BaseRequest;
 import com.genesis.apps.comm.model.api.BaseResponse;
-import com.genesis.apps.comm.model.vo.RepCostVO;
 import com.genesis.apps.comm.model.vo.RepImageVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

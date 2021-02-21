@@ -27,7 +27,6 @@ import com.genesis.apps.databinding.FragmentServiceDriveBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
-import com.genesis.apps.ui.main.insight.InsightExpnMainActivity;
 
 import java.util.concurrent.ExecutionException;
 

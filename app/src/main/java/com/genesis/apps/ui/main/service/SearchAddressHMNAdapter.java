@@ -22,7 +22,7 @@ public class SearchAddressHMNAdapter extends BaseRecyclerViewAdapter2<AddressVO>
     private static int TYPE=TYPE_RECENTLY;
 
     public SearchAddressHMNAdapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        SearchAddressHMNAdapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class SearchAddressHMNAdapter extends BaseRecyclerViewAdapter2<AddressVO>
     }
 
     public void setType(int type){
-        this.TYPE = type;
+        TYPE = type;
     }
 
     public int getPosition(AddressVO addressVO){

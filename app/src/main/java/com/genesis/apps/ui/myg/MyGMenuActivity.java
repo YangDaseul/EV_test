@@ -8,7 +8,6 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.repo.MenuRepository;
 import com.genesis.apps.comm.model.vo.MenuVO;

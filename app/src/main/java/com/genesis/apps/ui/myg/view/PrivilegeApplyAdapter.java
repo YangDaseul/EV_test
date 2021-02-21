@@ -12,15 +12,13 @@ import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
-import static com.genesis.apps.comm.model.vo.PrivilegeVO.JOIN_CODE_UNABLE_APPLY;
-
 
 public class PrivilegeApplyAdapter extends BaseRecyclerViewAdapter2<PrivilegeVO> {
 
     private static OnSingleClickListener onSingleClickListener;
 
     public PrivilegeApplyAdapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        PrivilegeApplyAdapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override

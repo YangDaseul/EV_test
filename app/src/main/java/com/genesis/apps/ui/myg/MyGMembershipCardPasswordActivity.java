@@ -20,8 +20,6 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 
 import androidx.lifecycle.ViewModelProvider;
 
-import java.util.ArrayList;
-
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
 public class MyGMembershipCardPasswordActivity extends SubActivity<ActivityMygMembershipCardPasswordBinding> {

@@ -26,7 +26,7 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
 //    private int realItemCnt = 0;
 
     public HomeInsightHorizontalAdapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        HomeInsightHorizontalAdapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override

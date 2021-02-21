@@ -17,7 +17,7 @@ public class ServiceRepairReserveTimeHorizontalAdapter extends BaseRecyclerViewA
     private static View.OnClickListener onClickListener;
 
     public ServiceRepairReserveTimeHorizontalAdapter(View.OnClickListener onClickListener) {
-        this.onClickListener = onClickListener;
+        ServiceRepairReserveTimeHorizontalAdapter.onClickListener = onClickListener;
     }
 
     @Override

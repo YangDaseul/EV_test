@@ -18,13 +18,10 @@ import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ActivityMap2Binding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomAddressBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
-import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.hmns.playmap.PlayMapPoint;
-import com.hmns.playmap.extension.PlayMapGeoItem;
 import com.hmns.playmap.shape.PlayMapMarker;
 
-import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.Nullable;

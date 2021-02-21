@@ -24,7 +24,7 @@ public class BtrBluehandsAdapter extends BaseRecyclerViewAdapter2<BtrVO> {
     private static OnSingleClickListener onSingleClickListener;
 
     public BtrBluehandsAdapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        BtrBluehandsAdapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override

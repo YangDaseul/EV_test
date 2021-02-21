@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewStub;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;

@@ -5,7 +5,6 @@ import com.genesis.apps.ui.main.home.FragmentHome2;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 

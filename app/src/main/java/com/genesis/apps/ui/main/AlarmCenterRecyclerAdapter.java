@@ -25,7 +25,7 @@ public class AlarmCenterRecyclerAdapter extends BaseRecyclerViewAdapter2<NotiInf
     private int pageNo = 0;
     private static OnSingleClickListener onSingleClickListener;
     public AlarmCenterRecyclerAdapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        AlarmCenterRecyclerAdapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.genesis.apps.ui.main.service;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -19,11 +18,8 @@ import com.genesis.apps.comm.model.vo.WashGoodsVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.WSHViewModel;
-import com.genesis.apps.databinding.ActivityCarWashHistoryBinding;
 import com.genesis.apps.databinding.ActivityCarWashRequestBinding;
-import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.main.MainActivity;
 
 import java.util.concurrent.ExecutionException;
 

@@ -1,20 +1,19 @@
 package com.genesis.apps.ui.common.dialog.bottom.view;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.ItemSurveyCheckBinding;
 import com.genesis.apps.ui.common.dialog.bottom.BottomCheckListDialog;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class BottomCheckListAdapter extends RecyclerView.Adapter<BottomCheckListAdapter.ViewHolder> {
 
@@ -32,9 +31,8 @@ public class BottomCheckListAdapter extends RecyclerView.Adapter<BottomCheckList
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_survey_check, parent, false);
-        ViewHolder holder = new ViewHolder(v);
 
-        return holder;
+        return new ViewHolder(v);
     }
 
     @Override

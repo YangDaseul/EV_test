@@ -43,7 +43,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0005;
-import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_MYP0004;
 import static com.genesis.apps.comm.model.vo.TermVO.TERM_ESN_AGMT_N;
 
 public class ServiceJoinActivity extends SubActivity<ActivityServiceJoinBinding> {

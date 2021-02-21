@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
@@ -30,12 +29,10 @@ import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.CTTViewModel;
 import com.genesis.apps.databinding.FragmentContentsBinding;
-import com.genesis.apps.databinding.ItemTabBinding;
 import com.genesis.apps.databinding.ItemTabContentsBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
-import com.genesis.apps.ui.main.service.ServiceViewpagerAdapter;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;

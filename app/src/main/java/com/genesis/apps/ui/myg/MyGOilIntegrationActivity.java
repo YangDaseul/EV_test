@@ -8,7 +8,6 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.OilCodes;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;

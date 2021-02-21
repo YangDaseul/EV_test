@@ -27,7 +27,6 @@ import com.genesis.apps.databinding.ActivityMygGaBinding;
 import com.genesis.apps.ui.common.activity.LoginActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
-import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
 
 import javax.inject.Inject;
 

@@ -22,7 +22,7 @@ public class SimilarCarAdapter extends BaseRecyclerViewAdapter2<SimilarVehicleVO
     private static final int BODY=1;
     private static View.OnClickListener onClickListener;
     public SimilarCarAdapter(View.OnClickListener onClickListener) {
-        this.onClickListener = onClickListener;
+        SimilarCarAdapter.onClickListener = onClickListener;
     }
 
     @Override

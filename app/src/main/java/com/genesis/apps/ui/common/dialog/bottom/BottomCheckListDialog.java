@@ -2,12 +2,8 @@ package com.genesis.apps.ui.common.dialog.bottom;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.DialogBottomCheckListBinding;
@@ -15,6 +11,9 @@ import com.genesis.apps.ui.common.dialog.bottom.view.BottomCheckListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class BottomCheckListDialog extends BaseBottomDialog<DialogBottomCheckListBinding> {
 

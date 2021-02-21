@@ -23,7 +23,7 @@ public class ContentsAdapter extends BaseRecyclerViewAdapter2<ContentsVO> {
     private static OnSingleClickListener onSingleClickListener;
 
     public ContentsAdapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        ContentsAdapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override

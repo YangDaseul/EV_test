@@ -1,6 +1,5 @@
 package com.genesis.apps.ui.common.dialog.bottom;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.KeyEvent;
 import android.view.View;

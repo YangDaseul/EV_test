@@ -3,18 +3,13 @@ package com.genesis.apps.ui.common.dialog.bottom;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.DialogBottomContentBinding;
-
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 
 public class BottomContentDialog extends BaseBottomDialog<DialogBottomContentBinding> {
 

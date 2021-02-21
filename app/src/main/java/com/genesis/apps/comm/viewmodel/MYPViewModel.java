@@ -45,7 +45,6 @@ import lombok.Data;
 
 import static com.genesis.apps.comm.model.vo.PrivilegeVO.JOIN_CODE_APPLYED;
 import static com.genesis.apps.comm.model.vo.PrivilegeVO.JOIN_CODE_APPLY_POSSIBLE;
-import static com.genesis.apps.comm.model.vo.PrivilegeVO.JOIN_CODE_UNABLE_APPLY;
 
 public @Data
 class MYPViewModel extends ViewModel {

@@ -4,7 +4,6 @@ import androidx.room.Dao;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import com.genesis.apps.comm.model.vo.AlarmMsgTypeVO;
 import com.genesis.apps.comm.model.vo.CatTypeVO;
 
 import java.util.List;

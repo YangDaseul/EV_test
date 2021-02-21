@@ -1,11 +1,8 @@
 package com.genesis.apps.comm.model.api.developers;
 
 import com.genesis.apps.comm.model.BaseData;
-import com.genesis.apps.comm.model.vo.developers.CarVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

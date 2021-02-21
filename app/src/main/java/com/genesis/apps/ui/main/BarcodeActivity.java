@@ -17,7 +17,6 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.BAR_1001;
 import com.genesis.apps.comm.model.api.gra.OIL_0005;
-import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.OilCodes;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
@@ -33,10 +32,9 @@ import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.OILViewModel;
 import com.genesis.apps.databinding.ActivityBarcodeBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.common.activity.test.ItemMoveCallback;
+import com.genesis.apps.ui.common.view.ItemMoveCallback;
 import com.genesis.apps.ui.main.insight.InsightExpnMembershipActivity;
 import com.genesis.apps.ui.myg.MyGOilIntegrationActivity;
-import com.genesis.apps.ui.myg.MyGOilTermActivity;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 

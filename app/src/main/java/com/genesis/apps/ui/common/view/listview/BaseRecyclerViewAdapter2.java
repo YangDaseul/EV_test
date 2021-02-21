@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.genesis.apps.comm.model.BaseData;
-import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
 import java.util.ArrayList;

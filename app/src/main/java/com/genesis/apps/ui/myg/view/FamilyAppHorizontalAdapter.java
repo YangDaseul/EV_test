@@ -21,7 +21,7 @@ public class FamilyAppHorizontalAdapter extends BaseRecyclerViewAdapter2<FamilyA
     private static OnSingleClickListener onSingleClickListener;
 
     public FamilyAppHorizontalAdapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        FamilyAppHorizontalAdapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override

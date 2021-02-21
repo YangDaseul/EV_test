@@ -17,7 +17,7 @@ import com.genesis.apps.comm.util.StringRe2j;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ItemBarcodeBinding;
 import com.genesis.apps.databinding.ItemBarcodeModifyBinding;
-import com.genesis.apps.ui.common.activity.test.ItemMoveCallback;
+import com.genesis.apps.ui.common.view.ItemMoveCallback;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
@@ -50,7 +50,7 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
     private static OnSingleClickListener onSingleClickListener;
 
     public BarcodeAdapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        BarcodeAdapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override

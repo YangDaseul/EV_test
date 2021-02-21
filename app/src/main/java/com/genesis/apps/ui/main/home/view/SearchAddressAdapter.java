@@ -18,7 +18,7 @@ public class SearchAddressAdapter extends BaseRecyclerViewAdapter2<AddressZipVO>
     private static OnSingleClickListener onSingleClickListener;
 
     public SearchAddressAdapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        SearchAddressAdapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override

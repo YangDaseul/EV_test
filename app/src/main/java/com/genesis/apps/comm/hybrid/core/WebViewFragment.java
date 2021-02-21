@@ -11,7 +11,6 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
-import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
@@ -455,7 +454,7 @@ public abstract class WebViewFragment extends Fragment {
 	public void enableCookies(WebView webView) {
 		Log.d("JJJJ", "Cokies Setting");
 		CookieManager cookieManager = CookieManager.getInstance();
-		cookieManager.setAcceptFileSchemeCookies(true);
+		CookieManager.setAcceptFileSchemeCookies(true);
 		cookieManager.setAcceptCookie(true);
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

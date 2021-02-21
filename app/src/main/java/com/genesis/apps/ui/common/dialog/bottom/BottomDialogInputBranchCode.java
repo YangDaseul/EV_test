@@ -3,7 +3,6 @@ package com.genesis.apps.ui.common.dialog.bottom;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.inputmethod.EditorInfo;
 
@@ -11,7 +10,6 @@ import androidx.annotation.NonNull;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.WashReserveVO;
-import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.databinding.DialogBottomSonaxBranchBinding;
 

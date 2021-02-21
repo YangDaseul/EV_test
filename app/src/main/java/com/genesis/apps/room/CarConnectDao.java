@@ -2,9 +2,7 @@ package com.genesis.apps.room;
 
 import androidx.room.Dao;
 import androidx.room.Query;
-import androidx.room.Transaction;
 
-import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.comm.model.vo.developers.CarConnectVO;
 
 import java.util.List;

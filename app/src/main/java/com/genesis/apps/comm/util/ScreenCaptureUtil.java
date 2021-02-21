@@ -5,15 +5,11 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.hardware.display.DisplayManager;
 import android.media.CamcorderProfile;
-import android.media.ImageReader;
 import android.media.MediaRecorder;
 import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
 import android.os.Environment;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
-import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 

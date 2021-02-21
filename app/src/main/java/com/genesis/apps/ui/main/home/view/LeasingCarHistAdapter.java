@@ -23,7 +23,7 @@ public class LeasingCarHistAdapter extends BaseRecyclerViewAdapter2<RentStatusVO
     private int pageLimit=2;
     private boolean isMore=false;
     public LeasingCarHistAdapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        LeasingCarHistAdapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override

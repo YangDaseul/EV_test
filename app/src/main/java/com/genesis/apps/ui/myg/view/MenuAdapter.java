@@ -21,7 +21,7 @@ public class MenuAdapter extends BaseRecyclerViewAdapter2<MenuVO> {
     private static boolean isSearch=false;
 
     public MenuAdapter(OnPositionClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
+        MenuAdapter.onItemClickListener = onItemClickListener;
     }
 
     public boolean isIsSearch() {
@@ -29,7 +29,7 @@ public class MenuAdapter extends BaseRecyclerViewAdapter2<MenuVO> {
     }
 
     public void setIsSearch(boolean isSearch) {
-        this.isSearch = isSearch;
+        MenuAdapter.isSearch = isSearch;
     }
 
     @Override

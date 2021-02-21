@@ -8,11 +8,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
@@ -34,7 +30,6 @@ import com.genesis.apps.comm.viewmodel.VOCViewModel;
 import com.genesis.apps.databinding.ActivityServiceRelapseApply3Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomDialogAskAgreeTerms;
-import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.ServiceTermDetailActivity;
 import com.genesis.apps.ui.main.service.ServiceRelapse3Adapter.RepairData;
@@ -43,7 +38,6 @@ import java.util.List;
 
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseApply3Binding> {
     private static final String TAG = ServiceRelapse3Activity.class.getSimpleName();

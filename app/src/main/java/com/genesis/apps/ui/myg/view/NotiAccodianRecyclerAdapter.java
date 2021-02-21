@@ -25,7 +25,7 @@ public class NotiAccodianRecyclerAdapter extends BaseRecyclerViewAdapter2<NotiVO
 
 
     public NotiAccodianRecyclerAdapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        NotiAccodianRecyclerAdapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override

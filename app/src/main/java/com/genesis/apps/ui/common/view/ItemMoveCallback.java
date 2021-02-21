@@ -1,4 +1,4 @@
-package com.genesis.apps.ui.common.activity.test;
+package com.genesis.apps.ui.common.view;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

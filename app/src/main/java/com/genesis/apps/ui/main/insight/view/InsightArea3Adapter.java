@@ -24,7 +24,7 @@ public class InsightArea3Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
     private static OnSingleClickListener onSingleClickListener;
 
     public InsightArea3Adapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        InsightArea3Adapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override

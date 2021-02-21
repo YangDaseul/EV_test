@@ -34,7 +34,7 @@ public class ServiceRepairReserveStatusAdapter extends BaseRecyclerViewAdapter2<
     private static final int SERVICE_STATUS_ITEM_EMPTY = 5;
 
     public ServiceRepairReserveStatusAdapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        ServiceRepairReserveStatusAdapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override

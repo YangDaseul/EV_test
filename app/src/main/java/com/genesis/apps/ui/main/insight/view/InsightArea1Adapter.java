@@ -1,11 +1,9 @@
 package com.genesis.apps.ui.main.insight.view;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
@@ -30,7 +28,7 @@ public class InsightArea1Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
     private static OnSingleClickListener onSingleClickListener;
 
     public InsightArea1Adapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        InsightArea1Adapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override

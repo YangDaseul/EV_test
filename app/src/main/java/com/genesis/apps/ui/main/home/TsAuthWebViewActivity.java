@@ -8,17 +8,10 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 
-import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
-import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.BTR_1010;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
-import com.genesis.apps.comm.util.SnackBarUtil;
-import com.genesis.apps.comm.viewmodel.BTRViewModel;
 import com.genesis.apps.ui.common.activity.HtmlActivity;
-
-import androidx.lifecycle.ViewModelProvider;
 
 public class TsAuthWebViewActivity extends HtmlActivity {
     public static final String TAG_TS_AUTH_WEBVIEW_ACTIVITY = TsAuthWebViewActivity.class.getSimpleName();

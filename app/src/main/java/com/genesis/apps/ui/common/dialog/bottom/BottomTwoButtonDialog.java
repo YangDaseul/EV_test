@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.DialogBottomTwoButtonBinding;
-import com.genesis.apps.databinding.DialogTestBinding;
 
 public class BottomTwoButtonDialog extends BaseBottomDialog<DialogBottomTwoButtonBinding> {
 

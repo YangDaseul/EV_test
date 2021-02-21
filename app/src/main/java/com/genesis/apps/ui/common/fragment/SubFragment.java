@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.util.ScreenCaptureUtil;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;

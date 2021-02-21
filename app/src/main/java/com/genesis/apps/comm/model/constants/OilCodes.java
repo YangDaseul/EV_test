@@ -6,7 +6,6 @@ import java.util.Arrays;
 
 import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_GSCT;
 import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_HDOL;
-import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_SKNO;
 import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_SOIL;
 
 public enum OilCodes {

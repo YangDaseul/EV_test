@@ -49,7 +49,7 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
     private static OnSingleClickListener onSingleClickListener;
 
     public InsightCarAdapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        InsightCarAdapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override
@@ -83,7 +83,7 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
         if(TextUtils.isEmpty(prvsToUseAmt))
             prvsToUseAmt="0";
 
-        this.prvsToUseAmt = prvsToUseAmt;
+        InsightCarAdapter.prvsToUseAmt = prvsToUseAmt;
     }
 
     private static class ItemInsightCar extends BaseViewHolder<ISTAmtVO, ItemInsightCarBinding> {

@@ -13,7 +13,6 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.databinding.ItemMyCarNormalBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
-import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
@@ -22,7 +21,7 @@ public class CarHorizontalAdapter extends BaseRecyclerViewAdapter2<VehicleVO> {
     private static OnSingleClickListener onSingleClickListener;
 
     public CarHorizontalAdapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        CarHorizontalAdapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override

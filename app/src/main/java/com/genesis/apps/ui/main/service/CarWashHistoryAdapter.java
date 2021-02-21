@@ -14,7 +14,6 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.gra.WSH_1004;
 import com.genesis.apps.comm.model.vo.WashReserveVO;
 import com.genesis.apps.comm.util.DateUtil;
-import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ItemCarWashHistoryBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;

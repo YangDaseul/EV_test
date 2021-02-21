@@ -21,7 +21,6 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.RepairReserveVO;
 import com.genesis.apps.comm.model.vo.SurveyItemVO;
 import com.genesis.apps.comm.model.vo.SurveyVO;
@@ -292,18 +291,16 @@ public class ServiceRepair2PreCheckActivity extends SubActivity<ActivityPrecheck
             List<SurveyItemVO> majorItems = (List<SurveyItemVO>) binding.tvPrecheckMajor.getTag();
             for(SurveyItemVO item: majorItems) {
                 if(majorNm.equals(item.getSvyPrvsNm())) {
-                    SurveyItemVO itemVO = item;
-                    itemVO.setSvySetNo(String.valueOf(position));
-                    tempItems.add(itemVO);
+                    item.setSvySetNo(String.valueOf(position));
+                    tempItems.add(item);
                 }
             }
 
             List<SurveyItemVO> middleItems = (List<SurveyItemVO>) binding.tvPrecheckMiddle.getTag();
             for(SurveyItemVO item: middleItems) {
                 if(middleNm.equals(item.getSvyPrvsNm())) {
-                    SurveyItemVO itemVO = item;
-                    itemVO.setSvySetNo(String.valueOf(position));
-                    tempItems.add(itemVO);
+                    item.setSvySetNo(String.valueOf(position));
+                    tempItems.add(item);
                 }
             }
 
@@ -312,9 +309,8 @@ public class ServiceRepair2PreCheckActivity extends SubActivity<ActivityPrecheck
                 for(int j=0; j<binding.llMinorContain.getChildCount(); j++) {
                     TextView tvMinor = (TextView) ((LinearLayout) binding.llMinorContain.getChildAt(j)).getChildAt(0);
                     if(tvMinor.getText().toString().equals(item.getSvyPrvsNm())) {
-                        SurveyItemVO itemVO = item;
-                        itemVO.setSvySetNo(String.valueOf(position));
-                        tempItems.add(itemVO);
+                        item.setSvySetNo(String.valueOf(position));
+                        tempItems.add(item);
                     }
                 }
             }

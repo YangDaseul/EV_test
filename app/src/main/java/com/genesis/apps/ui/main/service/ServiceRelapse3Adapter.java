@@ -18,7 +18,6 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.vo.VOCInfoVO;
 import com.genesis.apps.comm.util.DateUtil;
-import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.databinding.ItemRelapse3BottomBinding;
 import com.genesis.apps.databinding.ItemRelapse3RepairHistoryBinding;

@@ -2,7 +2,6 @@ package com.genesis.apps.ui.common.dialog.bottom;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 
 import androidx.annotation.NonNull;

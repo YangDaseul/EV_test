@@ -379,7 +379,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                         //추가 증빙 서류가 없을 경우
                         moveToHist();
                     } else {
-                        //법인일 때
+                        //법인 : 재직증명서, 개인 : 추가 증빙 서류가 있을 경우
                         reqUploadImageCert();
                     }
                     break;

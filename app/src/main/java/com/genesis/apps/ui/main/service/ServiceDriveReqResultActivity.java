@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
 
-import androidx.core.util.Pair;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -35,7 +34,6 @@ import com.genesis.apps.databinding.LayoutServiceDriveStatusDriverBinding;
 import com.genesis.apps.databinding.LayoutServiceDriveStatusReservedBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
-import com.genesis.apps.ui.main.MainActivity;
 
 import java.util.Date;
 import java.util.Locale;

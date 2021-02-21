@@ -1,20 +1,15 @@
 package com.genesis.apps.ui.common.dialog.bottom;
 
 import android.text.Html;
-import android.text.Spannable;
-import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.TermVO;
-import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ItemTermBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;

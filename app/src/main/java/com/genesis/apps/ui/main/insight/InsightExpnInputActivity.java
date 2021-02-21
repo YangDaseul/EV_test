@@ -26,7 +26,6 @@ import com.genesis.apps.comm.model.api.gra.CBK_1006;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
-import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CBKViewModel;
 import com.genesis.apps.databinding.ActivityInsightExpnInput1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;

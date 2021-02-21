@@ -30,8 +30,6 @@ import com.genesis.apps.ui.main.contents.ContentsSearchActivity;
 import com.genesis.apps.ui.main.home.FragmentHome1;
 import com.genesis.apps.ui.main.insight.FragmentInsight;
 import com.genesis.apps.ui.main.service.FragmentService;
-import com.genesis.apps.ui.main.service.FragmentServiceDrive;
-import com.genesis.apps.ui.main.service.ServiceReviewActivity;
 import com.genesis.apps.ui.main.store.FragmentStore;
 import com.genesis.apps.ui.myg.MyGEntranceActivity;
 import com.genesis.apps.ui.myg.MyGHomeActivity;
@@ -45,8 +43,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
-
-import static com.genesis.apps.comm.model.constants.KeyNames.PUSH_VO;
 
 public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     private final int pageNum = 5;

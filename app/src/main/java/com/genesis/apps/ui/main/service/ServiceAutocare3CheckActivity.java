@@ -26,7 +26,6 @@ import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.ActivityServiceAutocare3CheckBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

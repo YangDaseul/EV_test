@@ -19,7 +19,7 @@ public class Home2AsanAdapter extends BaseRecyclerViewAdapter2<MainHistVO> {
     private static OnSingleClickListener onSingleClickListener;
 
     public Home2AsanAdapter(OnSingleClickListener onSingleClickListener) {
-        this.onSingleClickListener = onSingleClickListener;
+        Home2AsanAdapter.onSingleClickListener = onSingleClickListener;
     }
 
     @Override

@@ -114,12 +114,12 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
                         cmnViewModel.updateFamilyApp(result.data.getFmlyAppList());
 
                     reqDownloadCarInfo = () -> {
-                        updateProgressBar(progressValue.VEHICLE.getProgress());
+                        updateProgressBar(PROGRESS.VEHICLE.getProgress());
                         lgnViewModel.reqLGN0001(new LGN_0001.Request(APPIAInfo.INT01.getId(), PackageUtil.getApplicationVersionName(IntroActivity.this, getPackageName()),""));
                     };
 
                     reqContentsDownload = () -> {
-                        updateProgressBar(progressValue.CONTENTS.getProgress());
+                        updateProgressBar(PROGRESS.CONTENTS.getProgress());
                         cmnViewModel.reqCMN0002(new CMN_0002.Request(APPIAInfo.INT01.getId()));
                     };
 
@@ -289,7 +289,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
         getDataFromIntent();
         setViewModel();
         setObserver();
-        updateProgressBar(progressValue.INTRO.getProgress());
+        updateProgressBar(PROGRESS.INTRO.getProgress());
         initData();
         cmnViewModel.reqAbnormalCheck(new AbnormalCheck.Request());
     }
@@ -322,7 +322,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
     }
 
     private boolean isPermissions() {
-        updateProgressBar(progressValue.PERMISSION.getProgress());
+        updateProgressBar(PROGRESS.PERMISSION.getProgress());
         // 최초에 실행해서 권한 팝업으로 이동
         // 한번 권한 팝업을 받는다.
         // 필수 권한이 없는 경우 다시 권한 동의 팝업으로 이동한다.
@@ -345,7 +345,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
 
 
     private boolean checkVersion(String newVersion, String versionType, Runnable runnable) {
-        updateProgressBar(progressValue.VERSION.getProgress());
+        updateProgressBar(PROGRESS.VERSION.getProgress());
         boolean needUpdate = false;
 
         if (PackageUtil.versionCompare(PackageUtil.getApplicationVersionName(this, getPackageName()), newVersion) < 0) {
@@ -361,7 +361,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
     }
 
     private boolean checkNoti(List<NotiVO> list, Runnable runnable) {
-        updateProgressBar(progressValue.NOTI.getProgress());
+        updateProgressBar(PROGRESS.NOTI.getProgress());
         NotiVO notiVO = null;
 
         try {
@@ -457,7 +457,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            updateProgressBar(progressValue.START.getProgress());
+            updateProgressBar(PROGRESS.START.getProgress());
         }
 
         @Override

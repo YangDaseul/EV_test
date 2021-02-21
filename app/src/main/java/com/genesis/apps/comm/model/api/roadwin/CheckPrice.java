@@ -1,7 +1,6 @@
 package com.genesis.apps.comm.model.api.roadwin;
 
 import com.genesis.apps.comm.model.BaseData;
-import com.genesis.apps.comm.model.api.BaseResponse;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

@@ -103,8 +103,7 @@ public class HttpRequestUtil {
 
         if(!TextUtils.isEmpty(accessToken)) request.header(HTTP_HEADER_NAME, HTTP_HEADER_VALUE + accessToken);
 
-        JsonObject ret = getData(request);
-        return ret;
+        return getData(request);
     }
 
     public JsonObject sendPut(String url, String data) throws NetException {
@@ -267,8 +266,7 @@ public class HttpRequestUtil {
 
     public JsonObject postData(String url, Map<String, Object> params) throws NetException {
         HttpRequest request = getPostRequest(url);
-        JsonObject ret = send(request, params);
-        return ret;
+        return send(request, params);
     }
 
     public boolean download(String accessToken, String url, Map<String, Object> params, File targetFIle) throws NetException {

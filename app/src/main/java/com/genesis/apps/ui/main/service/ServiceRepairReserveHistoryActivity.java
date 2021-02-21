@@ -4,15 +4,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.ResultCodes;
-import com.genesis.apps.comm.model.vo.RentStatusVO;
 import com.genesis.apps.databinding.ActivityServiceRepairHistoryBinding;
 import com.genesis.apps.databinding.ItemTabRepairImageBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
