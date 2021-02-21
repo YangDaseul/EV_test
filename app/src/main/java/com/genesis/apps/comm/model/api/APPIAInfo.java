@@ -7,9 +7,12 @@ import com.genesis.apps.ui.common.activity.PaymentWebViewActivity;
 import com.genesis.apps.ui.intro.IntroActivity;
 import com.genesis.apps.ui.intro.PermissionsActivity;
 import com.genesis.apps.ui.main.AlarmCenterActivity;
+import com.genesis.apps.ui.main.AlarmCenterSearchActivity;
 import com.genesis.apps.ui.main.BarcodeActivity;
 import com.genesis.apps.ui.main.ServiceNetworkActivity;
+import com.genesis.apps.ui.main.ServiceNetworkPriceActivity;
 import com.genesis.apps.ui.main.SimilarCarActivity;
+import com.genesis.apps.ui.main.SimilarCarContractDetailActivity;
 import com.genesis.apps.ui.main.SimilarCarContractHistoryActivity;
 import com.genesis.apps.ui.main.contents.ContentsDetailWebActivity;
 import com.genesis.apps.ui.main.contents.ContentsSearchActivity;
@@ -65,9 +68,18 @@ import com.genesis.apps.ui.myg.MyGEntranceActivity;
 import com.genesis.apps.ui.myg.MyGGAActivity;
 import com.genesis.apps.ui.myg.MyGHomeActivity;
 import com.genesis.apps.ui.myg.MyGMembershipActivity;
+import com.genesis.apps.ui.myg.MyGMembershipCardPasswordActivity;
+import com.genesis.apps.ui.myg.MyGMembershipExtncActivity;
+import com.genesis.apps.ui.myg.MyGMembershipInfoActivity;
 import com.genesis.apps.ui.myg.MyGMembershipUseCaseActivity;
 import com.genesis.apps.ui.myg.MyGMembershipUseListActivity;
+import com.genesis.apps.ui.myg.MyGMenuActivity;
 import com.genesis.apps.ui.myg.MyGNotiActivity;
+import com.genesis.apps.ui.myg.MyGOilIntegrationActivity;
+import com.genesis.apps.ui.myg.MyGOilPointActivity;
+import com.genesis.apps.ui.myg.MyGOilTermActivity;
+import com.genesis.apps.ui.myg.MyGPrivilegeApplyActivity;
+import com.genesis.apps.ui.myg.MyGPrivilegeStateActivity;
 import com.genesis.apps.ui.myg.MyGTerms1000Activity;
 import com.genesis.apps.ui.myg.MyGTerms2000Activity;
 import com.genesis.apps.ui.myg.MyGTermsActivity;
@@ -93,7 +105,7 @@ public enum APPIAInfo {
     POP02("POP02", null, VariableType.QUICK_MENU_CODE_NONE, "네트워크 불안정 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     ALRM01("ALRM01", AlarmCenterActivity.class, VariableType.QUICK_MENU_CODE_NV, "알림센터",VariableType.QUICK_MENU_CATEGORY_HOME),
     ALRM01_01("ALRM01_01", null, VariableType.QUICK_MENU_CODE_NONE, "알림 상세",VariableType.QUICK_MENU_CATEGORY_NONE),
-    ALRM01_SRCH01("ALRM01_SRCH01", null, VariableType.QUICK_MENU_CODE_NONE, "알림 검색",VariableType.QUICK_MENU_CATEGORY_NONE),
+    ALRM01_SRCH01("ALRM01_SRCH01", AlarmCenterSearchActivity.class, VariableType.QUICK_MENU_CODE_NONE, "알림 검색",VariableType.QUICK_MENU_CATEGORY_NONE),
     Bcode01("Bcode01", BarcodeActivity.class, VariableType.QUICK_MENU_CODE_NV, "바코드",VariableType.QUICK_MENU_CATEGORY_HOME),
     GM01("GM01", null, VariableType.QUICK_MENU_CODE_NONE, "메인 1 Home (로그인/차량보유)",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM02("GM02", null, VariableType.QUICK_MENU_CODE_NONE, "메인 1 Home (로그인/예약대기)",VariableType.QUICK_MENU_CATEGORY_NONE),
@@ -106,7 +118,7 @@ public enum APPIAInfo {
     GM_BTO1("GM_BTO1", GAWebActivity.class, VariableType.QUICK_MENU_CODE_0000, "견적내기",VariableType.QUICK_MENU_CATEGORY_HOME),
     GM_BTO2("GM_BTO2", null, VariableType.QUICK_MENU_CODE_NONE, "BTO",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM02_CTR01("GM02_CTR01", SimilarCarContractHistoryActivity.class, VariableType.QUICK_MENU_CODE_NONE, "구매 계약 내역",VariableType.QUICK_MENU_CATEGORY_NONE),
-    GM02_CTR01_P01("GM02_CTR01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "차량 가격 정보 상세 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
+    GM02_CTR01_P01("GM02_CTR01_P01", SimilarCarContractDetailActivity.class, VariableType.QUICK_MENU_CODE_NONE, "차량 가격 정보 상세 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM02_INV01("GM02_INV01", SimilarCarActivity.class, VariableType.QUICK_MENU_CODE_NONE, "유사 재고 조회 / 예약",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM02_BF01("GM02_BF01", null, VariableType.QUICK_MENU_CODE_NONE, "대기고객 혜택",VariableType.QUICK_MENU_CATEGORY_NONE),
 
@@ -164,6 +176,7 @@ public enum APPIAInfo {
     SM04("SM04", null, VariableType.QUICK_MENU_CODE_NONE, "미로그인",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM_SNFIND01("SM_SNFIND01", ServiceNetworkActivity.class, VariableType.QUICK_MENU_CODE_0000, "서비스 네트워크 찾기",VariableType.QUICK_MENU_CATEGORY_SERVICE),
     SM_SNFIND01_P01("SM_SNFIND01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "정비 예약하기",VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_SNFIND01_P02("SM_SNFIND01_P02", ServiceNetworkPriceActivity.class, VariableType.QUICK_MENU_CODE_NONE, "대표 가격 보기",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM_SNFIND02("SM_SNFIND02", null, VariableType.QUICK_MENU_CODE_NONE, "서비스 네트워크 필터",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM_SNFIND03("SM_SNFIND03", null, VariableType.QUICK_MENU_CODE_NONE, "서비스 네트워크 목록",VariableType.QUICK_MENU_CATEGORY_NONE),
 
@@ -282,8 +295,6 @@ public enum APPIAInfo {
     RM01("RM01", null, VariableType.QUICK_MENU_CODE_NONE, "스토어(로그인)",VariableType.QUICK_MENU_CATEGORY_NONE),
     RM02("RM02", null, VariableType.QUICK_MENU_CODE_NONE, "스토어(비로그인)",VariableType.QUICK_MENU_CATEGORY_NONE),
 
-
-
     CM01("CM01", null, VariableType.QUICK_MENU_CODE_NONE, "메인 5 Contents (로그인/차량보유)",VariableType.QUICK_MENU_CATEGORY_NONE),
     CM02("CM02", null, VariableType.QUICK_MENU_CODE_NONE, "메인 5 Contents (로그인/예약대기)",VariableType.QUICK_MENU_CATEGORY_NONE),
     CM03("CM03", null, VariableType.QUICK_MENU_CODE_NONE, "메인 5 Contents (로그인/차량미보유)",VariableType.QUICK_MENU_CATEGORY_NONE),
@@ -296,30 +307,31 @@ public enum APPIAInfo {
     MG02("MG02", MyGHomeActivity.class, VariableType.QUICK_MENU_CODE_NONE, "마이 페이지",VariableType.QUICK_MENU_CATEGORY_MYG),
     MG03("MG03", MyGHomeActivity.class, VariableType.QUICK_MENU_CODE_NONE, "마이 페이지",VariableType.QUICK_MENU_CATEGORY_MYG),
     MG04("MG04", null, VariableType.QUICK_MENU_CODE_NONE, "마이 페이지",VariableType.QUICK_MENU_CATEGORY_MYG),
-    MG_GA00("MG_GA00", null, VariableType.QUICK_MENU_CODE_NONE, "메뉴 검색",VariableType.QUICK_MENU_CATEGORY_NONE),
+    MG_GA00("MG_GA00", MyGMenuActivity.class, VariableType.QUICK_MENU_CODE_NONE, "메뉴 검색",VariableType.QUICK_MENU_CATEGORY_NONE),
     MG_GA01("MG_GA01", MyGGAActivity.class, VariableType.QUICK_MENU_CODE_NV, "내 정보 상세보기",VariableType.QUICK_MENU_CATEGORY_MYG),
     MG_MEMBER01("MG_MEMBER01", MyGMembershipActivity.class, VariableType.QUICK_MENU_CODE_NV, "멤버십",VariableType.QUICK_MENU_CATEGORY_MYG),
 
-    MG_MEMBER01_P01("MG_MEMBER01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "소멸 예정 포인트 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
+    MG_MEMBER01_P01("MG_MEMBER01_P01", MyGMembershipExtncActivity.class, VariableType.QUICK_MENU_CODE_NONE, "소멸 예정 포인트 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     MG_MEMBER02("MG_MEMBER02", MyGMembershipUseCaseActivity.class, VariableType.QUICK_MENU_CODE_NV, "포인트 사용 제휴처 안내",VariableType.QUICK_MENU_CATEGORY_MYG),
-    MG_MEMBER01_P02("MG_MEMBER01_P02", null, VariableType.QUICK_MENU_CODE_NONE, "멤버십 카드 안내 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
+    MG_MEMBER01_P02("MG_MEMBER01_P02", MyGMembershipInfoActivity.class, VariableType.QUICK_MENU_CODE_NONE, "멤버십 카드 안내 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     MG_MEMBER04("MG_MEMBER04", MyGMembershipUseListActivity.class, VariableType.QUICK_MENU_CODE_NV, "포인트 사용 내역",VariableType.QUICK_MENU_CATEGORY_MYG),
 
-    MG_MEMBER03("MG_MEMBER03", null, VariableType.QUICK_MENU_CODE_NONE, "카드 비밀번호 변경",VariableType.QUICK_MENU_CATEGORY_NONE),
+    MG_MEMBER03("MG_MEMBER03", MyGMembershipCardPasswordActivity.class, VariableType.QUICK_MENU_CODE_NONE, "카드 비밀번호 변경",VariableType.QUICK_MENU_CATEGORY_NONE),
     MG_BF01("MG_BF01", MyGCouponActivity.class, VariableType.QUICK_MENU_CODE_OV, "혜택/쿠폰",VariableType.QUICK_MENU_CATEGORY_MYG),
     MG_BF01_01("MG_BF01_01", null, VariableType.QUICK_MENU_CODE_NONE, "사용 내역",VariableType.QUICK_MENU_CATEGORY_NONE),
     MG_BF01_02("MG_BF01_02", null, VariableType.QUICK_MENU_CODE_NONE, "설문",VariableType.QUICK_MENU_CATEGORY_NONE),
     MG_PRVI01("MG_PRVI01", null, VariableType.QUICK_MENU_CODE_NONE, "프리빌리지 차량 목록",VariableType.QUICK_MENU_CATEGORY_NONE),
 
-    MG_PRVI02("MG_PRVI02", null, VariableType.QUICK_MENU_CODE_NONE, "프리빌리지 신청",VariableType.QUICK_MENU_CATEGORY_NONE),
+    MG_PRVI02("MG_PRVI02", MyGPrivilegeApplyActivity.class, VariableType.QUICK_MENU_CODE_NONE, "프리빌리지 신청",VariableType.QUICK_MENU_CATEGORY_NONE),
     MG_PRVI03("MG_PRVI03", null, VariableType.QUICK_MENU_CODE_NONE, "프리빌리지 혜택",VariableType.QUICK_MENU_CATEGORY_NONE),
     MG_PRVI04("MG_PRVI04", null, VariableType.QUICK_MENU_CODE_NONE, "프리빌리지 현황",VariableType.QUICK_MENU_CATEGORY_NONE),
-    MG_CON01("MG_CON01", null, VariableType.QUICK_MENU_CODE_NONE, "주유 포인트 조회",VariableType.QUICK_MENU_CATEGORY_NONE),
+    MG_PRVI05("MG_PRVI05", MyGPrivilegeStateActivity.class, VariableType.QUICK_MENU_CODE_NONE, "프리빌리지 현황(멤버스 차량)",VariableType.QUICK_MENU_CATEGORY_NONE),
+    MG_CON01("MG_CON01", MyGOilPointActivity.class, VariableType.QUICK_MENU_CODE_NONE, "주유 포인트 조회",VariableType.QUICK_MENU_CATEGORY_NONE),
 
     MG_CON01_P01("MG_CON01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "포인트 연동 해제 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
-    MG_CON02("MG_CON02", null, VariableType.QUICK_MENU_CODE_NONE, "포인트 연동 안내",VariableType.QUICK_MENU_CATEGORY_NONE),
+    MG_CON02("MG_CON02", MyGOilIntegrationActivity.class, VariableType.QUICK_MENU_CODE_NONE, "포인트 연동 안내",VariableType.QUICK_MENU_CATEGORY_NONE),
 
-    MG_CON02_01("MG_CON02_01", null, VariableType.QUICK_MENU_CODE_NONE, "포인트 연동 동의",VariableType.QUICK_MENU_CATEGORY_NONE),
+    MG_CON02_01("MG_CON02_01", MyGOilTermActivity.class, VariableType.QUICK_MENU_CODE_NONE, "포인트 연동 동의",VariableType.QUICK_MENU_CATEGORY_NONE),
     MG_CON02_02("MG_CON02_02", null, VariableType.QUICK_MENU_CODE_NONE, "포인트 연동 동의 상세",VariableType.QUICK_MENU_CATEGORY_NONE),
     MG_CON02_03("MG_CON02_03", null, VariableType.QUICK_MENU_CODE_NONE, "포인트 연동 제3자 제공",VariableType.QUICK_MENU_CATEGORY_NONE),
 

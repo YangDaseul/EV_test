@@ -1,7 +1,5 @@
 package com.genesis.apps.ui.myg;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 
