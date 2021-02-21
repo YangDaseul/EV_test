@@ -26,7 +26,7 @@
             android:text="@string/word_home_7"
             android:textColor="@color/x_000000"
             android:textSize="16dp"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
 
@@ -34,7 +34,7 @@
             android:id="@+id/tv_oil"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:letterSpacing="-0.01"
@@ -53,12 +53,12 @@
             android:layout_height="80dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/item_4f585b_round_10"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
             android:paddingBottom="20dp"
             android:visibility="gone"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title_oil">
 
 
@@ -69,7 +69,7 @@
                 android:src="@drawable/logo_sk_w"
                 android:scaleType="centerInside"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -83,7 +83,7 @@
                 android:onClick="@{(view)->listener.onClick(view)}"
                 android:tag="@string/oil_sk"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 />
 
@@ -92,10 +92,10 @@
                 android:id="@+id/tv_point_sk"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/regular_genesissansheadglobal"
-                android:gravity="center_vertical|right"
+                android:gravity="center_vertical|end"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="2dp"
                 android:visibility="gone"
@@ -124,7 +124,7 @@
                 android:background="@drawable/bg_trans_stroke_under_ffffff"
                 android:onClick="@{(view)->listener.onClick(view)}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -135,12 +135,12 @@
             android:layout_height="80dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/item_82898b_round_10"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
             android:paddingBottom="20dp"
             android:elevation="1dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/l_sk">
 
 
@@ -151,7 +151,7 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/logo_soil_w"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -165,7 +165,7 @@
                 android:onClick="@{(view)->listener.onClick(view)}"
                 android:tag="@string/oil_soil"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="visible"
                 />
@@ -175,10 +175,10 @@
                 android:id="@+id/tv_point_soil"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/regular_genesissansheadglobal"
-                android:gravity="center_vertical|right"
+                android:gravity="center_vertical|end"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="2dp"
                 android:visibility="gone"
@@ -208,7 +208,7 @@
                 android:background="@drawable/bg_trans_stroke_under_ffffff"
                 android:onClick="@{(view)->listener.onClick(view)}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="gone"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -220,12 +220,12 @@
             android:layout_height="80dp"
             android:layout_marginTop="60dp"
             android:background="@drawable/item_000000_round_10"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
             android:paddingBottom="20dp"
             android:elevation="2dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/l_soil">
 
 
@@ -236,7 +236,7 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/logo_gs_w"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -250,7 +250,7 @@
                 android:onClick="@{(view)->listener.onClick(view)}"
                 android:tag="@string/oil_gs"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 />
 
@@ -259,10 +259,10 @@
                 android:id="@+id/tv_point_gs"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/regular_genesissansheadglobal"
-                android:gravity="center_vertical|right"
+                android:gravity="center_vertical|end"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="2dp"
                 android:visibility="gone"
@@ -291,7 +291,7 @@
                 android:text="@string/word_home_8"
                 android:background="@drawable/bg_trans_stroke_under_ffffff"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -302,11 +302,11 @@
             android:layout_height="70dp"
             android:layout_marginTop="60dp"
             android:background="@drawable/item_323a3d_round_10"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
             android:elevation="3dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/l_gs">
 
 
@@ -317,7 +317,7 @@
                 android:src="@drawable/logo_hyundaioilbank_w"
                 android:scaleType="centerInside"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -331,7 +331,7 @@
                 android:onClick="@{(view)->listener.onClick(view)}"
                 android:tag="@string/oil_ho"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 />
 
@@ -340,10 +340,10 @@
                 android:id="@+id/tv_point_ho"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/regular_genesissansheadglobal"
-                android:gravity="center_vertical|right"
+                android:gravity="center_vertical|end"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="2dp"
                 android:visibility="gone"
@@ -372,7 +372,7 @@
                 android:background="@drawable/bg_trans_stroke_under_ffffff"
                 android:onClick="@{(view)->listener.onClick(view)}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

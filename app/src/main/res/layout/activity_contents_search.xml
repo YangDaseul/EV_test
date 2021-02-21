@@ -23,16 +23,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             app:hintEnabled="false"
             app:counterEnabled="false"
             app:hintAnimationEnabled="false"
             app:endIconMode="clear_text"
             app:boxBackgroundMode="none"
             app:layout_constraintTop_toBottomOf="@+id/l_title"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_search"
@@ -57,7 +57,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:gravity="left|center_vertical"
+            android:gravity="start|center_vertical"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:lineSpacingExtra="9dp"
             android:textColor="@color/x_262626"
@@ -77,23 +77,23 @@
             android:layout_marginTop="10dp"
             android:background="@color/x_525252"
             app:layout_constraintTop_toBottomOf="@+id/tv_title_sub"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="40dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             android:clipChildren="false"
             android:clipToPadding="false"
             app:constraintSet="@layout/fragment_contents_vp"
             app:layout_constraintTop_toBottomOf="@+id/v_line_1"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/tv_empty"
@@ -108,8 +108,8 @@
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:background="@color/x_f8f8f8"
             app:layout_constraintTop_toBottomOf="@+id/v_line_1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

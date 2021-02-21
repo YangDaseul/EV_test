@@ -392,7 +392,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
             }
         }
 
-        return notiVO == null ? false : true;
+        return notiVO != null;
     }
 
     private ProgressbarTask progressbarTask = null;

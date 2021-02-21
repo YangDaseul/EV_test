@@ -253,9 +253,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             }
 
             // 안전운전 점수 그래프 터치 비활성화 처리.
-            binding.asbDatamilesDrivingScore.setOnTouchListener((view, event) -> {
-                return true;
-            });
+            binding.asbDatamilesDrivingScore.setOnTouchListener((view, event) -> true);
 
             try {
                 binding.tvDatamilesDrivingScoreUpdateDate.setText(
@@ -369,7 +367,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                     TextView txtDistance = view.findViewById(R.id.tv_datamiles_expendables_distance);
                     ProgressBar progDistance = view.findViewById(R.id.progress_datamiles_expendables);
 
-                    progDistance.setEnabled(stdDistance <= odoMeter ? false : true);
+                    progDistance.setEnabled(stdDistance > odoMeter);
 
                     // 잔여 거리 대비 퍼센트 계산을 진행. 최대 값 기준은 ProgressBar의 최대치를 기준.
                     if (diff > 0) {

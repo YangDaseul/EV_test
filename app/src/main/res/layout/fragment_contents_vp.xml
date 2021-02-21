@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -69,7 +68,7 @@
 <!--&lt;!&ndash;            tools:text="category"&ndash;&gt;-->
 <!--&lt;!&ndash;            android:gravity="center|left"&ndash;&gt;-->
 <!--&lt;!&ndash;            app:layout_constraintTop_toBottomOf="@+id/g_center"&ndash;&gt;-->
-<!--&lt;!&ndash;            app:layout_constraintLeft_toLeftOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
 <!--&lt;!&ndash;            app:layout_constraintBottom_toTopOf="@+id/tv_title"&ndash;&gt;-->
 <!--&lt;!&ndash;            app:layout_constraintHeight_percent=".1"/>&ndash;&gt;-->
 
@@ -81,7 +80,7 @@
 <!--&lt;!&ndash;            android:gravity="center|left"&ndash;&gt;-->
 <!--&lt;!&ndash;            app:layout_constraintTop_toBottomOf="@+id/g_center"&ndash;&gt;-->
 <!--&lt;!&ndash;            app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
-<!--&lt;!&ndash;            app:layout_constraintLeft_toLeftOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
 <!--&lt;!&ndash;            app:layout_constraintHeight_percent=".2"/>&ndash;&gt;-->
 
 <!--&lt;!&ndash;        <TextView&ndash;&gt;-->
@@ -91,7 +90,7 @@
 <!--&lt;!&ndash;            tools:text="description"&ndash;&gt;-->
 <!--&lt;!&ndash;            android:gravity="center|left"&ndash;&gt;-->
 <!--&lt;!&ndash;            app:layout_constraintTop_toBottomOf="@+id/tv_title"&ndash;&gt;-->
-<!--&lt;!&ndash;            app:layout_constraintLeft_toLeftOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
 <!--&lt;!&ndash;            app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
 <!--&lt;!&ndash;            app:layout_constraintHeight_percent=".1"/>&ndash;&gt;-->
 

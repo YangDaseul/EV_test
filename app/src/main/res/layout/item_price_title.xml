@@ -8,7 +8,7 @@
             android:paddingTop="30dp"
             android:paddingBottom="21dp"
             android:fontFamily="@font/light_genesissansheadglobal"
-            android:gravity="left|center_vertical"
+            android:gravity="start|center_vertical"
             android:lineSpacingExtra="12dp"
             android:letterSpacing="-0.01"
             android:textColor="@color/x_000000"

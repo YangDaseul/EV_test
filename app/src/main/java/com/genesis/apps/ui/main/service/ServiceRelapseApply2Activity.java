@@ -99,11 +99,7 @@ public class ServiceRelapseApply2Activity extends SubActivity<ActivityServiceRel
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (!TextUtils.isEmpty(validVin) && charSequence.toString().equalsIgnoreCase(validVin)) {
-                    isValidVin = true;
-                } else {
-                    isValidVin = false;
-                }
+                isValidVin = !TextUtils.isEmpty(validVin) && charSequence.toString().equalsIgnoreCase(validVin);
             }
 
             @Override

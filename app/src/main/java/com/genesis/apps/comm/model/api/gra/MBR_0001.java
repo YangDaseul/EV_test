@@ -29,7 +29,6 @@ public class MBR_0001 extends BaseData {
      * GA 회원 가입 요청 api(GA-COM-030) 호출 할때 사용하는 값.
      * @see #terms 약관정보
      * @see #blueTerms 블루멤버스약관정보
-     * @see #mypgTerms 마이페이지약관정보
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data

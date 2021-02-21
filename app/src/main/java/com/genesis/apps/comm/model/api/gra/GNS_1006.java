@@ -17,20 +17,6 @@ import lombok.EqualsAndHashCode;
  */
 public class GNS_1006 extends BaseData {
 
-    //TODO 아래 전역변수는 1007 SUBCRIBECARINFO와 함께 쓰이므로 옴겨야함
-    public static final String CUSTOMER_CORPORATION="1";
-    public static final String CUSTOMER_INDIVIDUAL="14";
-
-    public static final String RENT_PERIOD_12="12";
-    public static final String RENT_PERIOD_24="24";
-    public static final String RENT_PERIOD_36="36";
-    public static final String RENT_PERIOD_48="48";
-    public static final String RENT_PERIOD_ETC="99";
-
-    public static final String CARD_RECEIVE_AREA_HOME="1";
-    public static final String CARD_RECEIVE_AREA_COMPANY="2";
-    public static final String CARD_RECEIVE_AREA_ETC="3";
-
     /**
      * @brief GNS_1006 요청 항목
      * @see #vin 차대번호

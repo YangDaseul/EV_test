@@ -34,7 +34,7 @@
             android:layout_height="80dp"
             android:ellipsize="end"
             android:fontFamily="@font/regular_genesissansheadglobal"
-            android:gravity="center_vertical|left"
+            android:gravity="center_vertical|start"
             android:lineSpacingExtra="15dp"
             android:maxLines="1"
             android:paddingStart="20dp"

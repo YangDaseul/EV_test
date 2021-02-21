@@ -44,8 +44,8 @@
             android:layout_height="0dp"
             android:layout_marginBottom="64dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -66,8 +66,8 @@
             android:layout_height="0dp"
             android:background="@drawable/main_img_bottom"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent=".5"/>
 
         <ImageView
@@ -163,7 +163,7 @@
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_car_code"
                 app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintLeft_toLeftOf="@+id/tv_car_code"
+                app:layout_constraintStart_toStartOf="@+id/tv_car_code"
                 tools:text="가솔린 2.5 터보 2WD" />
 
             <TextView
@@ -222,8 +222,8 @@
                 android:textSize="14dp"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toTopOf="@+id/tv_title_distance_total"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="@+id/tv_title_distance_total"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tv_title_distance_total"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="1000km" />
 
@@ -239,7 +239,7 @@
                 android:textColor="@{activity.getColor(WeatherCodes.getTextColorResource(dayCd))}"
                 android:textSize="14dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintWidth_percent=".333" />
 
 
@@ -258,7 +258,7 @@
                 android:scaleType="centerInside"
                 android:src="@{dayCd==VariableType.HOME_TIME_DAY ? @drawable/division_line_b : @drawable/division_line_w}"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_title_distance_total"
-                app:layout_constraintLeft_toRightOf="@+id/barrier_distance_1"
+                app:layout_constraintStart_toEndOf="@+id/barrier_distance_1"
                 app:layout_constraintTop_toTopOf="@+id/tv_distance_total" />
 
 
@@ -276,8 +276,8 @@
                 android:textColor="@{activity.getColor(WeatherCodes.getTextColorResource(dayCd))}"
                 android:textSize="14dp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_title_distance_recently"
-                app:layout_constraintLeft_toLeftOf="@+id/tv_title_distance_recently"
-                app:layout_constraintRight_toRightOf="@+id/tv_title_distance_recently"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_distance_recently"
+                app:layout_constraintEnd_toEndOf="@+id/tv_title_distance_recently"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="135km" />
 
@@ -293,7 +293,7 @@
                 android:textColor="@{activity.getColor(WeatherCodes.getTextColorResource(dayCd))}"
                 android:textSize="14dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/barrier_distance_1"
+                app:layout_constraintStart_toEndOf="@+id/barrier_distance_1"
                 app:layout_constraintWidth_percent=".333" />
 
 
@@ -312,7 +312,7 @@
                 android:scaleType="centerInside"
                 android:src="@{dayCd==VariableType.HOME_TIME_DAY ? @drawable/division_line_b : @drawable/division_line_w}"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_title_distance_recently"
-                app:layout_constraintLeft_toRightOf="@+id/barrier_distance_2"
+                app:layout_constraintStart_toEndOf="@+id/barrier_distance_2"
                 app:layout_constraintTop_toTopOf="@+id/tv_distance_recently" />
 
 
@@ -330,8 +330,8 @@
                 android:textColor="@{activity.getColor(WeatherCodes.getTextColorResource(dayCd))}"
                 android:textSize="14dp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_title_distance_possible"
-                app:layout_constraintLeft_toLeftOf="@+id/tv_title_distance_possible"
-                app:layout_constraintRight_toRightOf="@+id/tv_title_distance_possible"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_distance_possible"
+                app:layout_constraintEnd_toEndOf="@+id/tv_title_distance_possible"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="538km" />
 
@@ -347,8 +347,8 @@
                 android:textColor="@{activity.getColor(WeatherCodes.getTextColorResource(dayCd))}"
                 android:textSize="14dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/barrier_distance_2"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/barrier_distance_2"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintWidth_percent=".333" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -469,8 +469,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_loop="true"
             app:lottie_speed="0.6" />

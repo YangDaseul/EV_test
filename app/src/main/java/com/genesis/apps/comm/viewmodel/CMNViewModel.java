@@ -128,7 +128,7 @@ class CMNViewModel extends ViewModel {
 
         REQ_MBR_0001 = new MutableLiveData<>();
 
-        RES_ABNORMAL_CHECK = etcRepo.RES_ABNORMAL_CHECK;;
+        RES_ABNORMAL_CHECK = etcRepo.RES_ABNORMAL_CHECK;
     }
 
     public void reqMBR0001(final MBR_0001.Request reqData) {

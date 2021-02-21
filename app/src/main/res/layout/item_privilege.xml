@@ -7,8 +7,8 @@
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         tools:background="@drawable/bg_ffffff_stroke_e2e2e2">
@@ -68,9 +68,9 @@
 <!--            android:id="@+id/btn_benefit"-->
 <!--            android:layout_width="wrap_content"-->
 <!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginRight="6dp"-->
-<!--            android:paddingLeft="13dp"-->
-<!--            android:paddingRight="13dp"-->
+<!--            android:layout_marginEnd="6dp"-->
+<!--            android:paddingStart="13dp"-->
+<!--            android:paddingEnd="13dp"-->
 <!--            android:paddingTop="8dp"-->
 <!--            android:paddingBottom="8dp"-->
 <!--            android:background="@drawable/ripple_bg_ffffff_stroke_6f6f6f"-->
@@ -98,8 +98,8 @@
             android:layout_marginTop="30dp"
             android:paddingTop="30dp"
             android:paddingBottom="30dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:background="@color/x_f8f8f8"
             app:layout_constraintTop_toBottomOf="@+id/tv_sale_mdl_nm"
             app:layout_constraintStart_toStartOf="parent"
@@ -125,7 +125,7 @@
                 android:id="@+id/tv_vin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:letterSpacing="-0.01"
                 android:textColor="@color/x_4d4d4d"
@@ -158,8 +158,8 @@
             android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/cl_vin"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:visibility="visible"/>
 
         <TextView
@@ -180,8 +180,8 @@
             android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/cl_vin"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:visibility="visible"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -176,7 +176,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
                     SubActivity.setStatusBarColor(getActivity(), dayCd == 1 ? R.color.x_ffffff : R.color.x_000000);
                     ((MainActivity) getActivity()).setTab(dayCd);
-                    ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == 1 ? true : false);
+                    ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == 1);
 
                     try {
                         MessageVO weather = cmnViewModel.getHomeWeatherInsight(weatherCodes, dayCd, sigungu, t1h);
@@ -228,7 +228,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 case SUCCESS:
                     if(result.data!=null){
                         try{
-                            developersViewModel.updateCarConnectResult(result.data.getData().getResult()==0 ? false : true, developersViewModel.getCarId(lgnViewModel.getMainVehicleSimplyFromDB().getVin()));
+                            developersViewModel.updateCarConnectResult(result.data.getData().getResult() != 0, developersViewModel.getCarId(lgnViewModel.getMainVehicleSimplyFromDB().getVin()));
                             setViewDevelopers();
                         }catch (Exception e){
                             e.printStackTrace();
@@ -521,7 +521,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         resumeAndPauseLottie(true);
         videoPauseAndResume(true);
         setViewVehicle();
-        ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == 1 ? true : false);
+        ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == 1);
         goneQuickMenu();
         try {
             setIndicator(lgnViewModel.getMainVehicleFromDB().getCustGbCd());

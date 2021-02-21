@@ -22,8 +22,8 @@
         android:layout_height="wrap_content"
         android:background="@color/x_ffffff"
         android:paddingTop="30dp"
-        android:paddingRight="30dp"
-        android:paddingLeft="30dp">
+        android:paddingEnd="30dp"
+        android:paddingStart="30dp">
 
 
         <ImageView
@@ -41,7 +41,7 @@
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="10dp"

@@ -37,7 +37,7 @@
             android:background="@color/x_ffffff"
             android:ellipsize="end"
             android:fontFamily="@font/regular_genesissanstextglobal"
-            android:gravity="center_vertical|right"
+            android:gravity="center_vertical|end"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="4dp"
             android:maxLines="1"

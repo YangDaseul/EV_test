@@ -61,13 +61,10 @@ public class BottomDialogInputBranchCode extends BaseBottomDialog<DialogBottomSo
         ui.etSonaxBranchNo.selectAll();
 
         ui.etSonaxBranchNo.setOnEditorActionListener((textView, actionId, keyEvent) -> {
-            switch (actionId) {
-                case EditorInfo.IME_ACTION_DONE:
-                    ui.btnOk.performClick();
-                    break;
-                default:
-                    // 기본 엔터키 동작
-                    return false;
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                ui.btnOk.performClick();
+            } else {// 기본 엔터키 동작
+                return false;
             }
             return true;
         });

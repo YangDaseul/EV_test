@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/regular_genesissanstextglobal"
-        android:gravity="left"
+        android:gravity="start"
         android:letterSpacing="-0.01"
         android:lineSpacingExtra="10dp"
         android:padding="30dp"

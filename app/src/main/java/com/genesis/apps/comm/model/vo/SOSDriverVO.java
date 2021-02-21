@@ -19,7 +19,6 @@ import lombok.EqualsAndHashCode;
  * @see #gXpos 출동자 현재위치 X (WGS84 좌표계)
  * @see #gYpos 출동자 현재위치 Y (WGS84 좌표계)
  * @see #gCustX 고객 현재위치 X (WGS84 좌표계)
- * @see #gcustY 고객 현재위치 Y (WGS84 좌표계)
  * @see #startX 경로탐색 용도 시작 위치 X
  * 출동자 현재위치 X (Beseesl 좌표계) * 360000
  * @see #startY 경로탐색 용도 시작 위치 Y

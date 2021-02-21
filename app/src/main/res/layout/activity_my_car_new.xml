@@ -147,7 +147,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:drawableRight="@drawable/car_m_edit"
+                        android:drawableEnd="@drawable/car_m_edit"
                         android:drawablePadding="4dp"
                         android:ellipsize="end"
                         android:fontFamily="@font/regular_genesissansheadglobal"
@@ -158,7 +158,7 @@
                         android:textSize="14dp"
                         android:visibility="gone"
                         android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
-                        app:layout_constraintLeft_toLeftOf="@+id/tv_car_model"
+                        app:layout_constraintStart_toStartOf="@+id/tv_car_model"
                         app:layout_constraintTop_toBottomOf="@+id/tv_car_model"
                         tools:text="129차 2916"
                         tools:visibility="visible" />
@@ -173,7 +173,7 @@
                         android:visibility="gone"
                         android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
                         app:btnNm="@{@string/gm_carlst_04_22}"
-                        app:layout_constraintLeft_toLeftOf="@+id/tv_car_model"
+                        app:layout_constraintStart_toStartOf="@+id/tv_car_model"
                         app:layout_constraintTop_toBottomOf="@+id/tv_car_model"
                         tools:visibility="visible" />
 
@@ -216,8 +216,8 @@
                     android:clipChildren="false"
                     android:clipToPadding="false"
                     android:minHeight="196dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/l_car_info" />
 
 
@@ -253,8 +253,8 @@
 <!--                    android:layout_marginTop="10dp"-->
 <!--                    android:clipChildren="false"-->
 <!--                    android:clipToPadding="false"-->
-<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
-<!--                    app:layout_constraintRight_toRightOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
 <!--                    app:layout_constraintTop_toBottomOf="@+id/l_car_info"-->
 <!--                    app:layout_constraintDimensionRatio="1.63:1"/>-->
 
@@ -275,8 +275,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:paddingTop="18dp"
                     android:paddingBottom="18dp"
                     android:gravity="center_horizontal"
@@ -290,8 +290,8 @@
                     android:visibility="gone"
                     android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
                     app:layout_constraintTop_toBottomOf="@+id/indicator"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     tools:visibility="visible"/>
 
                 <!--유사 재고 조회 버튼-->
@@ -300,8 +300,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:paddingTop="18dp"
                     android:paddingBottom="18dp"
                     android:gravity="center_horizontal"
@@ -315,8 +315,8 @@
                     android:visibility="gone"
                     android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
                     app:layout_constraintTop_toBottomOf="@+id/btn_contract"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     tools:visibility="visible"/>
 
 
@@ -415,7 +415,7 @@
                             android:layout_marginTop="20dp"
                             android:ellipsize="end"
                             android:fontFamily="@font/regular_genesissanstextglobal"
-                            android:gravity="left"
+                            android:gravity="start"
                             android:letterSpacing="-0.01"
                             android:lineSpacingExtra="4dp"
                             android:maxLines="1"
@@ -423,8 +423,8 @@
                             android:textColor="@color/x_262626"
                             android:textSize="14dp"
                             app:layout_constraintHorizontal_bias=".1"
-                            app:layout_constraintLeft_toRightOf="@+id/tv_title_part_engine"
-                            app:layout_constraintRight_toLeftOf="@+id/tv_part_engine_oil_cnt"
+                            app:layout_constraintStart_toEndOf="@+id/tv_title_part_engine"
+                            app:layout_constraintEnd_toStartOf="@+id/tv_part_engine_oil_cnt"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
@@ -451,7 +451,7 @@
                             android:layout_marginTop="15dp"
                             android:ellipsize="end"
                             android:fontFamily="@font/regular_genesissanstextglobal"
-                            android:gravity="left"
+                            android:gravity="start"
                             android:letterSpacing="-0.01"
                             android:lineSpacingExtra="4dp"
                             android:maxLines="1"
@@ -459,7 +459,7 @@
                             android:textColor="@color/x_262626"
                             android:textSize="14dp"
                             app:layout_constraintHorizontal_bias="0"
-                            app:layout_constraintRight_toLeftOf="@+id/tv_part_engine_oil_cnt"
+                            app:layout_constraintEnd_toStartOf="@+id/tv_part_engine_oil_cnt"
                             app:layout_constraintStart_toStartOf="@+id/tv_title_part_engine_oil"
                             app:layout_constraintTop_toBottomOf="@+id/tv_title_part_engine_oil" />
 
@@ -494,7 +494,7 @@
                             android:textSize="14dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintHorizontal_bias="0"
-                            app:layout_constraintRight_toLeftOf="@+id/tv_part_engine_oil_cnt"
+                            app:layout_constraintEnd_toStartOf="@+id/tv_part_engine_oil_cnt"
                             app:layout_constraintStart_toStartOf="@+id/tv_title_part_engine_oil"
                             app:layout_constraintTop_toBottomOf="@+id/tv_title_part_oil_filter" />
 
@@ -517,8 +517,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:background="@color/x_ffffff"
-                        app:layout_constraintLeft_toLeftOf="@+id/l_part_engine"
-                        app:layout_constraintRight_toRightOf="@+id/l_part_engine"
+                        app:layout_constraintStart_toStartOf="@+id/l_part_engine"
+                        app:layout_constraintEnd_toEndOf="@+id/l_part_engine"
                         app:layout_constraintTop_toBottomOf="@+id/l_part_engine">
 
 
@@ -537,7 +537,7 @@
                             android:textColor="@color/x_000000"
                             android:textSize="14dp"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -554,7 +554,7 @@
                             android:textColor="@color/x_ad7b61"
                             android:textSize="14dp"
                             tools:text="0 회"
-                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -567,8 +567,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:background="@color/x_ffffff"
-                        app:layout_constraintLeft_toLeftOf="@+id/l_part_engine"
-                        app:layout_constraintRight_toRightOf="@+id/l_part_engine"
+                        app:layout_constraintStart_toStartOf="@+id/l_part_engine"
+                        app:layout_constraintEnd_toEndOf="@+id/l_part_engine"
                         app:layout_constraintTop_toBottomOf="@+id/l_part_air_conditioner_filter">
 
 
@@ -587,7 +587,7 @@
                             android:textColor="@color/x_000000"
                             android:textSize="14dp"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -604,7 +604,7 @@
                             android:textColor="@color/x_ad7b61"
                             android:textSize="14dp"
                             tools:text="0 회"
-                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -616,8 +616,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:background="@color/x_ffffff"
-                        app:layout_constraintLeft_toLeftOf="@+id/l_part_engine"
-                        app:layout_constraintRight_toRightOf="@+id/l_part_engine"
+                        app:layout_constraintStart_toStartOf="@+id/l_part_engine"
+                        app:layout_constraintEnd_toEndOf="@+id/l_part_engine"
                         app:layout_constraintTop_toBottomOf="@+id/l_part_break_pad">
 
 
@@ -636,7 +636,7 @@
                             android:textColor="@color/x_000000"
                             android:textSize="14dp"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -653,7 +653,7 @@
                             android:textColor="@color/x_ad7b61"
                             android:textSize="14dp"
                             tools:text="0 회"
-                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -666,8 +666,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:background="@color/x_ffffff"
-                        app:layout_constraintLeft_toLeftOf="@+id/l_part_engine"
-                        app:layout_constraintRight_toRightOf="@+id/l_part_engine"
+                        app:layout_constraintStart_toStartOf="@+id/l_part_engine"
+                        app:layout_constraintEnd_toEndOf="@+id/l_part_engine"
                         app:layout_constraintTop_toBottomOf="@+id/l_part_wiper">
 
 
@@ -686,7 +686,7 @@
                             android:textColor="@color/x_000000"
                             android:textSize="14dp"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -703,7 +703,7 @@
                             android:textColor="@color/x_ad7b61"
                             android:textSize="14dp"
                             tools:text="0 회"
-                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -717,8 +717,8 @@
                         android:layout_marginTop="1dp"
                         android:layout_marginBottom="50dp"
                         android:background="@drawable/bg_ffffff_underline_e4e4e4"
-                        app:layout_constraintLeft_toLeftOf="@+id/l_part_engine"
-                        app:layout_constraintRight_toRightOf="@+id/l_part_engine"
+                        app:layout_constraintStart_toStartOf="@+id/l_part_engine"
+                        app:layout_constraintEnd_toEndOf="@+id/l_part_engine"
                         app:layout_constraintTop_toBottomOf="@+id/l_part_break"
                         app:layout_constraintBottom_toBottomOf="parent">
 
@@ -738,7 +738,7 @@
                             android:textColor="@color/x_000000"
                             android:textSize="14dp"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -755,7 +755,7 @@
                             android:textColor="@color/x_ad7b61"
                             android:textSize="14dp"
                             tools:text="0 회"
-                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent" />
 
@@ -775,8 +775,8 @@
                         android:textSize="18dp"
                         android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/iv_bg"
                         tools:visibility="gone" />
 
@@ -826,8 +826,8 @@
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="6dp"
-                android:paddingLeft="55dp"
-                android:paddingRight="55dp"
+                android:paddingStart="55dp"
+                android:paddingEnd="55dp"
                 android:paddingTop="18dp"
                 android:paddingBottom="18dp"
                 android:textColor="@color/x_000000"
@@ -878,8 +878,8 @@
             android:textSize="18dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/l_title"
             tools:visibility="gone" />
 

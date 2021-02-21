@@ -187,8 +187,8 @@
         <item name="android:textColor">@color/x_262626</item>
         <item name="android:textSize">14dp</item>
         <item name="android:background">@color/x_f8f8f8</item>
-        <item name="android:paddingLeft">20dp</item>
-        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
         <item name="android:paddingTop">30dp</item>
         <item name="android:paddingBottom">30dp</item>
     </style>

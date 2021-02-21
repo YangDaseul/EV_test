@@ -36,8 +36,8 @@
             <TextView
                 android:id="@+id/tv_rsvt_hope_dt"
                 style="@style/CommonSpinnerItemCalendarDisable"
-                android:drawableRight="@drawable/ic_calendar"
-                android:paddingRight="12dp"
+                android:drawableEnd="@drawable/ic_calendar"
+                android:paddingEnd="12dp"
                 android:text="@string/sm_r_rsv02_01_16"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_rsvt_hope_dt" />
 
@@ -201,9 +201,9 @@
         <TextView
             android:id="@+id/tv_msg_bottom"
             style="@style/ViewMsgInputTile"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
             android:text="@string/sm_r_rsv02_01_4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

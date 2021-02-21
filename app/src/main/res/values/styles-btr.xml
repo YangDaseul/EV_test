@@ -2,28 +2,28 @@
     <style name="BtrConsultTypeDisable">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">50dp</item>
-        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingStart">16dp</item>
         <item name="android:textColor">@color/x_a2a2a2</item>
         <item name="android:textSize">15dp</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_e5e5e5</item>
-        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:gravity">start|center_vertical</item>
         <item name="android:drawableRight">@drawable/btn_dropdown</item>
     </style>
 
     <style name="BtrConsultTypeEnable">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">50dp</item>
-        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingStart">16dp</item>
         <item name="android:textColor">@color/x_000000</item>
         <item name="android:textSize">15dp</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_000000</item>
-        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:gravity">start|center_vertical</item>
         <item name="android:drawableRight">@drawable/btn_dropdown</item>
     </style>
 
@@ -44,15 +44,15 @@
     <style name="BtrPositionDisable">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">50dp</item>
-        <item name="android:paddingLeft">15dp</item>
-        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingStart">15dp</item>
+        <item name="android:paddingEnd">15dp</item>
         <item name="android:textColor">@color/x_a2a2a2</item>
         <item name="android:textSize">15dp</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">16dp</item>
         <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_e2e2e2</item>
-        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:gravity">start|center_vertical</item>
         <item name="android:drawableRight">@drawable/btn_arrow_open_r</item>
     </style>
 
@@ -60,15 +60,15 @@
     <style name="BtrPositionEnable">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">50dp</item>
-        <item name="android:paddingLeft">15dp</item>
-        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingStart">15dp</item>
+        <item name="android:paddingEnd">15dp</item>
         <item name="android:textColor">@color/x_000000</item>
         <item name="android:textSize">15dp</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">16dp</item>
         <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_000000</item>
-        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:gravity">start|center_vertical</item>
         <item name="android:drawableRight">@drawable/btn_arrow_open_r</item>
     </style>
 

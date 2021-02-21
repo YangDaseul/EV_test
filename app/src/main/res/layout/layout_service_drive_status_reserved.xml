@@ -26,13 +26,13 @@
         <TextView
             android:id="@+id/tv_service_drive_status_reserved_data"
             style="@style/ServiceDriveReqResult.Status.Text.Regular"
-            android:layout_marginLeft="14dp"
+            android:layout_marginStart="14dp"
             android:textColor="@color/x_4d4d4d"
             android:text="@{date}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_service_drive_status_reserved_title"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:text="2020.13.32 오전 -11:67" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

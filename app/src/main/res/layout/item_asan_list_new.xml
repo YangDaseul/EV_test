@@ -36,8 +36,8 @@
             android:text="@string/gm01_bottom_2"
             android:textColor="@color/x_000000"
             android:textSize="18dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible"/>
 
@@ -58,9 +58,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/bg_ffffff_stroke_e5e5e5"
-            android:paddingLeft="15dp"
+            android:paddingStart="15dp"
             android:paddingTop="20dp"
-            android:paddingRight="15dp"
+            android:paddingEnd="15dp"
             android:paddingBottom="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -79,8 +79,8 @@
                 android:text="@{data.asnHist ?? ``}"
                 android:textColor="@color/x_000000"
                 android:textSize="16dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="엔진오일/필터/에어크리너/엔진오일/\n필터/에어크리너/엔진오일/필터/에어크리너" />
 
@@ -89,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
-                android:drawableRight="@drawable/bar_525252_height_15"
+                android:drawableEnd="@drawable/bar_525252_height_15"
                 android:drawablePadding="8dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/light_genesissansheadglobal"
@@ -102,8 +102,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/tv_dt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_dt"
                 app:layout_constraintTop_toBottomOf="@+id/tv_asnhist"
                 tools:text="(주) 염리점현대자동차" />
 
@@ -111,7 +111,7 @@
                 android:id="@+id/tv_dt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/light_genesissansheadglobal"
                 android:lineSpacingExtra="76dp"
@@ -122,8 +122,8 @@
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintLeft_toRightOf="@+id/tv_asnnm"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_asnnm"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_asnnm"
                 app:layout_constraintWidth_percent=".3"
                 tools:text="2020.08.20" />

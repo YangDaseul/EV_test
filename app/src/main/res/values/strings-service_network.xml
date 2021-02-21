@@ -2,8 +2,4 @@
 <resources>
     <string name="sm_snfind01_p02_1">대표 가격 안내</string>
     <string name="sm_snfind01_p02_2">(단위 : 원, VAT 포함)</string>
-    <string name="sm_snfind01_p02_3"></string>
-    <string name="sm_snfind01_p02_4"></string>
-    <string name="sm_snfind01_p02_5"></string>
-    <string name="sm_snfind01_p02_6"></string>
 </resources>

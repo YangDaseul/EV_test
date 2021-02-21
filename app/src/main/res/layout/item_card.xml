@@ -7,8 +7,8 @@
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/bg_ffffff_top_round_10_stroke_e5e5e5">
 
 
@@ -39,7 +39,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
             app:layout_constraintEnd_toEndOf="parent"
@@ -88,7 +88,7 @@
             android:id="@+id/tv_card_no_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginBottom="70dp"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:letterSpacing="-0.01"
@@ -103,7 +103,7 @@
 <!--            android:id="@+id/tv_card_date"-->
 <!--            android:layout_width="wrap_content"-->
 <!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginRight="20dp"-->
+<!--            android:layout_marginEnd="20dp"-->
 <!--            android:layout_marginBottom="25dp"-->
 <!--            android:fontFamily="@font/regular_genesissansheadglobal"-->
 <!--            android:letterSpacing="-0.01"-->
@@ -168,9 +168,9 @@
             android:id="@+id/iv_barcode"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="15dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginEnd="30dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             app:layout_constraintEnd_toEndOf="parent"

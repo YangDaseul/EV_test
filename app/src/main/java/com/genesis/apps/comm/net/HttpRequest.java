@@ -883,7 +883,7 @@ public class HttpRequest {
         String host = parsed.getHost();
         int port = parsed.getPort();
         if (port != -1)
-            host = host + ':' + Integer.toString(port);
+            host = host + ':' + port;
 
         try {
             String encoded = new URI(parsed.getProtocol(), host, parsed.getPath(),

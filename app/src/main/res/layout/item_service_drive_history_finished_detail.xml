@@ -62,7 +62,7 @@
                 android:textSize="14dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintVertical_chainStyle="packed"
                 tools:text="울랄라" />
 
@@ -85,8 +85,8 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="30dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:background="@color/x_e5e5e5" />
 
         <!-- 요금/할인/결제금액 -->
@@ -181,7 +181,7 @@
             <TextView
                 android:id="@+id/tv_service_drive_history_opened_paid_value"
                 style="@style/TextBasic"
-                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp"
                 android:fontFamily="@font/light_genesissansheadglobal"
                 android:text="@{holder.paidPrice}"
                 android:textColor="@color/x_000000"
@@ -189,7 +189,7 @@
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="-9dp"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_opened_paid_title"
-                app:layout_constraintRight_toLeftOf="@+id/tv_won"
+                app:layout_constraintEnd_toStartOf="@+id/tv_won"
                 tools:text="500,000" />
 
             <TextView
@@ -201,7 +201,7 @@
                 android:textSize="14dp"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="1dp"
-                app:layout_constraintLeft_toRightOf="@+id/tv_service_drive_history_opened_paid_value"
+                app:layout_constraintStart_toEndOf="@+id/tv_service_drive_history_opened_paid_value"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_opened_paid_title"
                 app:layout_constraintEnd_toEndOf="parent" />
 

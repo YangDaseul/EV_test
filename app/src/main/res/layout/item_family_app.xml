@@ -30,8 +30,8 @@
                 android:scaleType="centerInside"
                 android:onClick="@{(view)->listener.onClick(view)}"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 tools:src="@drawable/logo_app_connected"/>
 
             <TextView
@@ -47,8 +47,8 @@
                 android:maxLines="1"
                 android:ellipsize="end"
                 app:layout_constraintTop_toBottomOf="@+id/iv_app"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 tools:text="패밀리앱"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

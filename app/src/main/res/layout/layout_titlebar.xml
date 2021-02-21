@@ -36,11 +36,11 @@
             android:id="@+id/back"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:scaleType="centerInside"
             android:src="@drawable/btn_back"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -56,8 +56,8 @@
             android:textSize="18dp"
             android:visibility='@{TextUtils.isEmpty(value) ? View.INVISIBLE : View.VISIBLE}'
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Title" />
 
@@ -66,7 +66,7 @@
             android:id="@+id/iv_titlebar_img_btn"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
             android:scaleType="centerInside"
             android:src="@{iconId}"
             android:visibility='@{iconId==null ? View.GONE : View.VISIBLE}'

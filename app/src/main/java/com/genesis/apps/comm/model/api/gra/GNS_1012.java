@@ -50,7 +50,7 @@ public class GNS_1012 extends BaseData {
     public @Data
     class Response extends BaseResponse {
         private RentStatusVO rentStatusVO;
-        //TODO 별도처리필요
+        // 별도처리필요
         // new Gson().fromJson(result, GNS_1012.Response.class)   -> MSG 및 CODE 참조
         // GNS_1012.Response.setRentStatusVO(new Gson().fromJson(result, RentStatusVO.class))
         //

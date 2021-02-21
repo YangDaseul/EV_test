@@ -9,9 +9,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:background="@drawable/bg_ffffff_stroke_e5e5e5"
-        android:paddingLeft="15dp"
+        android:paddingStart="15dp"
         android:paddingTop="22dp"
-        android:paddingRight="15dp"
+        android:paddingEnd="15dp"
         android:paddingBottom="22dp">
 
         <TextView

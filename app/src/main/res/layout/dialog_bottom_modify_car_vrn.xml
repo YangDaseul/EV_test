@@ -7,9 +7,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="30dp"
+        android:paddingStart="30dp"
         android:paddingTop="40dp"
-        android:paddingRight="30dp"
+        android:paddingEnd="30dp"
         android:paddingBottom="20dp">
 
         <include
@@ -38,7 +38,7 @@
             android:id="@+id/iv_dot_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="6dp"
+            android:layout_marginEnd="6dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/rect_666666_2dp"
             android:visibility="gone"
@@ -67,7 +67,7 @@
             android:id="@+id/iv_dot_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="6dp"
+            android:layout_marginEnd="6dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/rect_666666_2dp"
             app:layout_constraintEnd_toStartOf="@+id/tv_warning_2"
@@ -94,7 +94,7 @@
             android:id="@+id/iv_dot_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="6dp"
+            android:layout_marginEnd="6dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/rect_666666_2dp"
             app:layout_constraintEnd_toStartOf="@+id/tv_warning_3"

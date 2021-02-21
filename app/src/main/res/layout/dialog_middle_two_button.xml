@@ -7,9 +7,9 @@
         android:layout_height="wrap_content"
         android:background="@color/x_ffffff"
         android:orientation="vertical"
-        android:paddingLeft="15dp"
+        android:paddingStart="15dp"
         android:paddingTop="30dp"
-        android:paddingRight="15dp"
+        android:paddingEnd="15dp"
         android:paddingBottom="29dp">
 
         <TextView
@@ -30,9 +30,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="40dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="40dp">
 
             <LinearLayout

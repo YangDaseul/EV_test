@@ -57,8 +57,8 @@
             android:gravity="center_vertical|end"
             android:orientation="horizontal"
             app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/l_new_version"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/l_new_version"
             app:layout_constraintTop_toBottomOf="@+id/iv_icon">
 
             <TextView
@@ -78,7 +78,7 @@
                 android:id="@+id/tv_current_version"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:gravity="center"
                 android:letterSpacing="-0.01"
@@ -111,8 +111,8 @@
             android:paddingStart="10dp"
             android:orientation="horizontal"
             android:layout_marginEnd="40dp"
-            app:layout_constraintLeft_toRightOf="@+id/l_current_version"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/l_current_version"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/l_current_version">
 
             <TextView
@@ -131,7 +131,7 @@
                 android:id="@+id/tv_new_version"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:gravity="center"
                 android:letterSpacing="-0.01"
@@ -146,8 +146,8 @@
             android:id="@+id/tv_update2"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/ripple_bg_111111"
             android:gravity="center"
@@ -157,8 +157,8 @@
             android:textSize="16dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:text="@string/word_version_3"
             tools:visibility="visible"/>
 

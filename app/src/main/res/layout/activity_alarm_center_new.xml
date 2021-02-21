@@ -79,8 +79,8 @@
             android:visibility="gone"
             android:background="@color/x_f8f8f8"
             app:layout_constraintTop_toTopOf="@+id/rv_noti"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:visibility="visible"/>
 

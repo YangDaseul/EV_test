@@ -191,7 +191,7 @@ class DevelopersViewModel extends ViewModel {
             Agreements.Response response = repository.REQ_AGREEMENTS(reqData);
             if (response != null) {
                 try {
-                    result = response.getData().getResult()==0 ? false : true;
+                    result = response.getData().getResult() != 0;
                     if (isUpdate) {
                         updateCarConnectResult(result, reqData.getCarId());
                     }

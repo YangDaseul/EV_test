@@ -37,13 +37,13 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:paddingTop="30dp">
                 <TextView
                     android:id="@+id/tv_msg"
                     style="@style/ViewMsgInputTile"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:paddingBottom="30dp"
                     android:text="@string/gm_carlst_01_8"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -284,8 +284,8 @@
             style="@style/ViewBottomOkBtn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:onClick="@{(view)->listener.onSingleClick(view)}"
             android:text="@string/comm_next" />

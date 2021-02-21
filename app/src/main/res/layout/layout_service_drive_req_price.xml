@@ -34,7 +34,7 @@
             <!-- 값 -->
             <TextView
                 style="@style/TextBasic"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:fontFamily="@font/light_genesissansheadglobal"
                 android:textColor="@color/x_000000"
                 android:textSize="12dp"

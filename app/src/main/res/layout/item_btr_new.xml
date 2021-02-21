@@ -32,8 +32,8 @@
             android:text="@string/gm01_bottom_6"
             android:textColor="@color/x_000000"
             android:textSize="18dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -43,12 +43,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/ripple_bg_ffffff_stroke_e5e5e5"
-            android:paddingLeft="15dp"
+            android:paddingStart="15dp"
             android:paddingTop="20dp"
-            android:paddingRight="15dp"
+            android:paddingEnd="15dp"
             android:paddingBottom="20dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title_btr">
 
             <ImageView
@@ -57,14 +57,14 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/btn_arrow_open_r"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_title_btr_term"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableRight="@drawable/btn_question"
+                android:drawableEnd="@drawable/btn_question"
                 android:drawablePadding="6dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/regular_genesissansheadglobal"
@@ -75,7 +75,7 @@
                 android:text="@string/gm01_bottom_7"
                 android:textColor="@color/x_000000"
                 android:textSize="16dp"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -90,8 +90,8 @@
                 android:textSize="16dp"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_btr_term" />
 
 
@@ -106,7 +106,7 @@
                 android:textColor="@color/x_996449"
                 android:textSize="12dp"
                 android:visibility="gone"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBaseline_toBaselineOf="@+id/tv_title_btr_term"
                 tools:visibility="visible" />
 
@@ -119,9 +119,9 @@
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="7dp"
                 android:onClick="@{(view)->listener.onClick(view)}"
-                android:paddingLeft="14dp"
+                android:paddingStart="14dp"
                 android:paddingTop="10dp"
-                android:paddingRight="14dp"
+                android:paddingEnd="14dp"
                 android:paddingBottom="10dp"
                 android:text="@string/gm01_bottom_9"
                 android:textColor="@color/x_ffffff"
@@ -129,7 +129,7 @@
                 android:visibility="gone"
                 android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="visible" />
 

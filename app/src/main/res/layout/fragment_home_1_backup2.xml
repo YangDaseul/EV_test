@@ -31,8 +31,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -54,8 +54,8 @@
             android:adjustViewBounds="true"
             android:src="@drawable/main_img_bottom"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <!--        <ImageView-->
         <!--            android:id="@+id/iv_car_bottom_shade"-->
@@ -64,8 +64,8 @@
         <!--            android:adjustViewBounds="true"-->
         <!--            android:src="@drawable/car_bottom_shadow_2"-->
         <!--            app:layout_constraintBottom_toBottomOf="@+id/iv_car_bottom"-->
-        <!--            app:layout_constraintLeft_toLeftOf="@+id/iv_car_bottom"-->
-        <!--            app:layout_constraintRight_toRightOf="@+id/iv_car_bottom"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/iv_car_bottom"-->
+        <!--            app:layout_constraintEnd_toEndOf="@+id/iv_car_bottom"-->
         <!--            app:layout_constraintTop_toTopOf="@+id/iv_car_bottom" />-->
 
 
@@ -164,8 +164,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_loop="true"
             app:lottie_speed="0.6" />
@@ -221,7 +221,7 @@
             <!--                android:id="@+id/btn_location"-->
             <!--                android:layout_width="wrap_content"-->
             <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginLeft="6dp"-->
+            <!--                android:layout_marginStart="6dp"-->
             <!--                android:onClick="@{(view)->fragment.onSingleClickListener.onClick(view)}"-->
             <!--                android:scaleType="centerInside"-->
             <!--                android:src="@drawable/ic_carinfo"-->
@@ -246,7 +246,7 @@
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_car_code"
                 app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintLeft_toLeftOf="@+id/tv_car_code"
+                app:layout_constraintStart_toStartOf="@+id/tv_car_code"
                 tools:text="가솔린 2.5 터보 2WD" />
 
 
@@ -327,8 +327,8 @@
                 android:textSize="14dp"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toTopOf="@+id/tv_title_distance_total"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="@+id/tv_title_distance_total"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tv_title_distance_total"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="1000km" />
 
@@ -344,7 +344,7 @@
                 android:textColor="@color/x_ffffff"
                 android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintWidth_percent=".333" />
 
 
@@ -363,7 +363,7 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_dotline"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_title_distance_total"
-                app:layout_constraintLeft_toRightOf="@+id/barrier_distance_1"
+                app:layout_constraintStart_toEndOf="@+id/barrier_distance_1"
                 app:layout_constraintTop_toTopOf="@+id/tv_distance_total" />
 
 
@@ -381,8 +381,8 @@
                 android:textColor="@color/x_ffffff"
                 android:textSize="14dp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_title_distance_recently"
-                app:layout_constraintLeft_toLeftOf="@+id/tv_title_distance_recently"
-                app:layout_constraintRight_toRightOf="@+id/tv_title_distance_recently"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_distance_recently"
+                app:layout_constraintEnd_toEndOf="@+id/tv_title_distance_recently"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="135km" />
 
@@ -398,7 +398,7 @@
                 android:textColor="@color/x_ffffff"
                 android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/barrier_distance_1"
+                app:layout_constraintStart_toEndOf="@+id/barrier_distance_1"
                 app:layout_constraintWidth_percent=".333" />
 
 
@@ -417,7 +417,7 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_dotline"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_title_distance_recently"
-                app:layout_constraintLeft_toRightOf="@+id/barrier_distance_2"
+                app:layout_constraintStart_toEndOf="@+id/barrier_distance_2"
                 app:layout_constraintTop_toTopOf="@+id/tv_distance_recently" />
 
 
@@ -435,8 +435,8 @@
                 android:textColor="@color/x_ffffff"
                 android:textSize="14dp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_title_distance_possible"
-                app:layout_constraintLeft_toLeftOf="@+id/tv_title_distance_possible"
-                app:layout_constraintRight_toRightOf="@+id/tv_title_distance_possible"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_distance_possible"
+                app:layout_constraintEnd_toEndOf="@+id/tv_title_distance_possible"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="538km" />
 
@@ -452,8 +452,8 @@
                 android:textColor="@color/x_ffffff"
                 android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/barrier_distance_2"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/barrier_distance_2"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintWidth_percent=".333" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

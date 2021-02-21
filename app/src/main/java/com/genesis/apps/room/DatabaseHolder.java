@@ -20,7 +20,7 @@ public class DatabaseHolder {
     }
 
     public synchronized AppDatabase getDatabase() {
-        if (isOpen() == false) {
+        if (!isOpen()) {
             throw new IllegalStateException("open first");
         }
         if (db == null) {

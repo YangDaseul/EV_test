@@ -296,7 +296,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         return ui.viewpager;
     }
 
-    private final int TAB_INFO[][]={
+    private final int[][] TAB_INFO ={
             {R.string.main_word_1, R.drawable.ic_tabbar_home_bs},
             {R.string.main_word_2, R.drawable.ic_tabbar_insight_w},
             {R.string.main_word_3, R.drawable.ic_tabbar_service_w},
@@ -386,11 +386,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         }catch (Exception e){
             newNotiCnt_i = 0;
         }
-        if (newNotiCnt_i > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return newNotiCnt_i > 0;
 
     }
 

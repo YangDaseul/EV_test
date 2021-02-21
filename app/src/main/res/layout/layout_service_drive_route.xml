@@ -44,7 +44,7 @@
             android:textSize="18dp"
             android:textColor="@color/x_000000"
             android:letterSpacing="-0.01"
-            android:lineSpacingExtra="14sp"
+            android:lineSpacingExtra="14dp"
             app:layout_constraintStart_toEndOf="@id/iv_service_drive_route_from_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -87,7 +87,7 @@
             android:textSize="18dp"
             android:textColor="@color/x_000000"
             android:letterSpacing="-0.01"
-            android:lineSpacingExtra="14sp"
+            android:lineSpacingExtra="14dp"
             app:layout_constraintStart_toStartOf="@id/tv_service_drive_route_from_title"
             app:layout_constraintTop_toBottomOf="@id/tv_service_drive_route_from_address" />
 

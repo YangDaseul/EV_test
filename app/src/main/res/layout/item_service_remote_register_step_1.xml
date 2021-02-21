@@ -47,7 +47,7 @@
             android:layout_marginTop="6dp"
             android:background="@drawable/selector_service_remote_register_step_bg_1"
             android:clickable="false"
-            android:drawableRight="@drawable/ic_btn_dropdown"
+            android:drawableEnd="@drawable/ic_btn_dropdown"
             android:hint="@{inputHintText}"
             android:padding="16dp"
             android:textColorHint="@color/x_a2a2a2"

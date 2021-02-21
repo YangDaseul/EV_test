@@ -36,7 +36,7 @@
             android:id="@+id/tv_map_top_msg_time"
             style="@style/MapOverlay.Sonax.Service.Title"
             android:textSize="16dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_map_top_msg_1"
             app:layout_constraintStart_toEndOf="@id/tv_map_top_msg_1"
             tools:text="17분 후" />

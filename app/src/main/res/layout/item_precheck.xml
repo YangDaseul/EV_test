@@ -21,8 +21,8 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:visibility="gone"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/tv_precheck_minor_title">
 
@@ -42,8 +42,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:onClick="@{(v) -> activity.onSingleClickListener.onClick(v)}">
 
                 <ImageView
@@ -63,8 +63,8 @@
             style="@style/Precheck.Title"
             android:id="@+id/tv_precheck_minor_title"
             android:text="@string/sm01_maintenance_21"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/ll_minor_contain" />
 
         <LinearLayout
@@ -77,8 +77,8 @@
             android:showDividers="middle"
             android:divider="@drawable/divider_10"
             android:onClick="@{(v) -> activity.onSingleClickListener.onClick(v)}"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/tv_precheck_minor"/>
 
         <TextView
@@ -89,8 +89,8 @@
             android:onClick="@{(v) -> activity.onSingleClickListener.onClick(v)}"
             app:layout_goneMarginBottom="20dp"
             app:layout_constraintBottom_toTopOf="@+id/tv_minor_error_repair"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
             android:id="@+id/tv_minor_error_repair"
@@ -104,8 +104,8 @@
             style="@style/Precheck.Title"
             android:id="@+id/tv_precheck_middle_title"
             android:text="@string/sm01_maintenance_19"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/tv_precheck_middle" />
 
         <TextView
@@ -116,8 +116,8 @@
             android:onClick="@{(v) -> activity.onSingleClickListener.onClick(v)}"
             app:layout_goneMarginBottom="20dp"
             app:layout_constraintBottom_toTopOf="@+id/tv_middle_error_repair"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
             android:id="@+id/tv_middle_error_repair"
@@ -131,8 +131,8 @@
             style="@style/Precheck.Title"
             android:id="@+id/tv_precheck_major_title"
             android:text="@string/sm01_maintenance_17"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/tv_precheck_major" />
 
         <TextView
@@ -141,8 +141,8 @@
             android:text="@string/sm01_maintenance_18"
             android:onClick="@{(v) -> activity.onSingleClickListener.onClick(v)}"
             app:layout_constraintBottom_toTopOf="@+id/tv_major_error_repair"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
             android:id="@+id/tv_major_error_repair"

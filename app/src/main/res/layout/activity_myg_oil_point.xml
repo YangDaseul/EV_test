@@ -33,8 +33,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/l_title">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,7 +48,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
                     android:scaleType="centerInside"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:src="@drawable/logo_gs_l" />
 
@@ -104,7 +104,7 @@
                     android:src="@drawable/btn_repeat"
                     android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_point"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_point"
                     app:layout_constraintVertical_bias=".5" />
 
@@ -130,8 +130,8 @@
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:scaleType="centerInside"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
@@ -199,11 +199,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:background="@drawable/bg_f8f8f8_stroke_e5e5e5"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
                     android:paddingBottom="50dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btn_check_point">
 
                     <include
@@ -213,8 +213,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="40dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:listener="@{view.onClickListener}"
                         app:view="@{view}" />

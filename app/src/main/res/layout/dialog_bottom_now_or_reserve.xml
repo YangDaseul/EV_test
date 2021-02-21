@@ -102,7 +102,7 @@
                     android:layout_width="match_parent"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/ripple_bg_ffffff_stroke_141414"
-                    android:drawableRight="@drawable/ic_calendar"
+                    android:drawableEnd="@drawable/ic_calendar"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:gravity="center_vertical"
                     android:padding="16dp"

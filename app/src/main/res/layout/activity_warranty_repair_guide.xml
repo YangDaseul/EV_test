@@ -21,8 +21,8 @@
         <TextView
             android:id="@+id/tv_msg"
             style="@style/ViewMsgInputTile"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginTop="30dp"
             android:text="@string/gm01_02_2"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,8 +34,8 @@
             android:id="@+id/tabs"
             android:layout_width="0dp"
             android:layout_height="55dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
             android:visibility="visible"
             app:layout_constraintTop_toBottomOf="@+id/tv_msg"
@@ -50,8 +50,8 @@
 <!--            android:id="@+id/tabs"-->
 <!--            android:layout_width="0dp"-->
 <!--            android:layout_height="50dp"-->
-<!--            android:layout_marginRight="20dp"-->
-<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            android:layout_marginStart="20dp"-->
 <!--            android:layout_marginTop="30dp"-->
 <!--            android:visibility="visible"-->
 <!--            app:layout_constraintTop_toBottomOf="@+id/tv_msg"-->

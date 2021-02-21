@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -28,15 +27,15 @@
             style="@style/TextBasic"
             android:layout_width="0dp"
             android:layout_marginStart="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/light_genesissansheadglobal"
             android:lineSpacingExtra="8dp"
             android:text="@string/service_review_02"
             android:textColor="@color/x_000000"
             android:textSize="22dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/l_service_review_titlebar" />
 
         <!-- 별점 주세요 -->

@@ -42,8 +42,6 @@
     <string name="r_flaw05_p01_4">번호 : 자동차 등록증의 ① 자동차등록번호 확인</string>
     <string name="r_flaw05_p01_5">차대번호 : 자동차 등록증의 ⑥ 차대번호 확인</string>
     <string name="r_flaw05_p01_6">등록연월일 : 자동차 등록증의 최초등록일 확인</string>
-    <string name="r_flaw05_p01_7"></string>
-    <string name="r_flaw05_p01_8"></string>
 
 
 </resources>

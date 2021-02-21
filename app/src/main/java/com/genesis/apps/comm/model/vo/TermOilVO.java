@@ -19,8 +19,6 @@ import lombok.EqualsAndHashCode;
  * 광고성 정보 수신동의 : 4000
  * 제네시스 멤버십 가입 약관  : 5000
  * @see #termNm 약관명
- * @see #termCont 약관내용
- * html 형식에 문자열
  * @see #termEsnAgmtYn 약관필수동의여부
  * Y:필수동의약관 N:선택동의약관
  */

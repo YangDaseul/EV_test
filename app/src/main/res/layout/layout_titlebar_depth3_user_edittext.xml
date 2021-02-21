@@ -26,7 +26,7 @@
             android:src="@drawable/btn_close"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
             android:id="@+id/title"
@@ -42,8 +42,8 @@
             android:visibility='@{TextUtils.isEmpty(value) ? View.INVISIBLE : View.VISIBLE}'
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:text="Title"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

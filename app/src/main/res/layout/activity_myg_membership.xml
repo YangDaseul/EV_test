@@ -41,13 +41,13 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/l_title">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/tv_point"
@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
-                    android:gravity="center_vertical|left"
+                    android:gravity="center_vertical|start"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="9dp"
                     android:text="@{String.format(@string/mg_member01_2, ((DateUtil.getDate(DateUtil.getDefaultDateFormat(data.extncDtm,DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_mmdd)) ?? ``))}"
@@ -137,9 +137,9 @@
                     android:layout_marginTop="40dp"
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/bg_ffffff_stroke_e5e5e5"
-                    android:paddingLeft="15dp"
+                    android:paddingStart="15dp"
                     android:paddingTop="20dp"
-                    android:paddingRight="15dp"
+                    android:paddingEnd="15dp"
                     android:paddingBottom="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tv_extnc_pont"
@@ -336,7 +336,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:drawableLeft="@drawable/ic_star_s"
+                        android:drawableStart="@drawable/ic_star_s"
                         android:drawablePadding="3dp"
                         android:fontFamily="@font/regular_genesissanstextglobal"
                         android:letterSpacing="-0.01"

@@ -17,7 +17,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingTop">16dp</item>
         <item name="android:paddingBottom">16dp</item>
-        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingStart">16dp</item>
     </style>
 
     <!-- Select 영역 위 "대분류" or "중분류" of "소분류" -->

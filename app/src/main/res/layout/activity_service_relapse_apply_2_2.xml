@@ -8,9 +8,9 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
         android:paddingTop="30dp"
-        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
         android:paddingBottom="10dp">
 
         <TextView
@@ -175,8 +175,8 @@
                 android:layout_height="0dp"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="7dp"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
                 android:text="@string/r_flaw05_8"
                 android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="@+id/et_vin"

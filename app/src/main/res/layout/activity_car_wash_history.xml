@@ -31,7 +31,7 @@
                 android:gravity="center"
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:letterSpacing="-0.01"
-                android:lineSpacingExtra="10sp"
+                android:lineSpacingExtra="10dp"
                 android:textColor="@color/x_262626"
                 android:textSize="18dp"
                 android:text="@string/sm_cw_history_empty"

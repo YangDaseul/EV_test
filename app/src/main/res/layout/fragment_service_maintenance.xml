@@ -30,7 +30,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/ripple_bg_000000"
                 android:clickable="true"
-                android:drawableRight="@drawable/btn_arrow_open_r_w"
+                android:drawableEnd="@drawable/btn_arrow_open_r_w"
                 android:focusable="true"
                 android:fontFamily="@font/regular_genesissansheadglobal"
                 android:gravity="center_vertical"

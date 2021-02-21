@@ -132,7 +132,7 @@ public class PackageUtil {
         int retv=0;
 
         try (Scanner s1 = new Scanner(str1);
-             Scanner s2 = new Scanner(str2);) {
+             Scanner s2 = new Scanner(str2)) {
             s1.useDelimiter("\\.");
             s2.useDelimiter("\\.");
 

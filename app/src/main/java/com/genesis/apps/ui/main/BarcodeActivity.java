@@ -82,15 +82,7 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                switch (state) {
-                    case ViewPager2.SCROLL_STATE_IDLE:
-//                        animationStartNeeded = true;
-                        break;
-                    default:
-//                        if(animationStartNeeded){
-//                            animationStartNeeded=false;
-//                        }
-                        break;
+                if (state == ViewPager2.SCROLL_STATE_IDLE) {
                 }
 
                 super.onPageScrollStateChanged(state);

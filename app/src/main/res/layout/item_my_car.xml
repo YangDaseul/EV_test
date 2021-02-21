@@ -14,22 +14,22 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="30dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginBottom="30dp"
-            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
             android:paddingTop="30dp"
-            android:paddingRight="20dp"
+            android:paddingEnd="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_model"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
             android:ellipsize="end"
             android:fontFamily="@font/regular_genesissansheadglobal"
@@ -39,8 +39,8 @@
             android:textColor="@color/x_000000"
             android:textSize="20dp"
             app:layout_constrainedWidth="true"
-            app:layout_constraintLeft_toLeftOf="@+id/l_bg"
-            app:layout_constraintRight_toLeftOf="@+id/iv_favorite"
+            app:layout_constraintStart_toStartOf="@+id/l_bg"
+            app:layout_constraintEnd_toStartOf="@+id/iv_favorite"
             app:layout_constraintTop_toTopOf="@+id/l_bg"
             tools:text="GV 80\n2.5 가솔린 2WD" />
 
@@ -55,8 +55,8 @@
             android:maxLines="1"
             android:textColor="@color/x_aaabaf"
             android:textSize="18dp"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_model"
-            app:layout_constraintRight_toRightOf="@+id/tv_model"
+            app:layout_constraintStart_toStartOf="@+id/tv_model"
+            app:layout_constraintEnd_toEndOf="@+id/tv_model"
             app:layout_constraintTop_toBottomOf="@+id/tv_model"
             tools:text="123차 4578" />
 
@@ -64,9 +64,9 @@
             android:id="@+id/iv_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
             android:scaleType="centerInside"
-            app:layout_constraintRight_toRightOf="@+id/l_bg"
+            app:layout_constraintEnd_toEndOf="@+id/l_bg"
             app:layout_constraintTop_toTopOf="@+id/tv_model"
             tools:src="@drawable/ic_star_l_s" />
 
@@ -78,14 +78,14 @@
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="2dp"
-            android:paddingLeft="14dp"
+            android:paddingStart="14dp"
             android:paddingTop="8dp"
-            android:paddingRight="14dp"
+            android:paddingEnd="14dp"
             android:paddingBottom="8dp"
             android:textColor="@color/x_ffffff"
             android:textSize="14dp"
             android:visibility="gone"
-            app:layout_constraintRight_toRightOf="@+id/iv_favorite"
+            app:layout_constraintEnd_toEndOf="@+id/iv_favorite"
             app:layout_constraintTop_toTopOf="@+id/tv_model"
             tools:text="삭제 예정 D-4"
             tools:visibility="visible" />
@@ -105,7 +105,7 @@
             android:textSize="15dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/tv_car_rgst_no"
-            app:layout_constraintRight_toRightOf="@+id/iv_favorite"
+            app:layout_constraintEnd_toEndOf="@+id/iv_favorite"
             tools:visibility="visible" />
 
 
@@ -113,7 +113,7 @@
             android:id="@+id/btn_modify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/bg_00000000_underline_6f6f6f"
             android:fontFamily="@font/light_genesissansheadglobal"
             android:letterSpacing="-0.01"
@@ -123,7 +123,7 @@
             android:textSize="15dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/btn_delete"
-            app:layout_constraintRight_toLeftOf="@+id/btn_delete"
+            app:layout_constraintEnd_toStartOf="@+id/btn_delete"
             tools:visibility="visible" />
 
 
@@ -141,7 +141,7 @@
             android:textSize="15dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/tv_car_rgst_no"
-            app:layout_constraintRight_toRightOf="@+id/iv_favorite"
+            app:layout_constraintEnd_toEndOf="@+id/iv_favorite"
             tools:visibility="visible" />
 
 
@@ -149,7 +149,7 @@
             android:id="@+id/iv_car"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:adjustViewBounds="true"

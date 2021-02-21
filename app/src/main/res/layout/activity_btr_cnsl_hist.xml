@@ -21,7 +21,7 @@
             android:id="@+id/tv_cnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:letterSpacing="-0.01"
@@ -36,7 +36,7 @@
             android:id="@+id/tv_cnt_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="-2dp"
@@ -53,8 +53,8 @@
             android:layout_height="0dp"
             android:layout_margin="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_cnt"
             tools:listitem="@layout/item_btr_cnsl" />
 
