@@ -64,11 +64,12 @@
             android:id="@+id/iv_car_bottom"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/main_img_bottom"
+            android:background="@{dayCd==VariableType.HOME_TIME_DAY ? @drawable/main_img_bottom_day : @drawable/main_img_bottom_night}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent=".5"/>
+            app:layout_constraintHeight_percent=".5"
+            tools:background="@drawable/main_img_bottom_day"/>
 
         <ImageView
             android:id="@+id/iv_bg_bottom"
