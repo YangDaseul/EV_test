@@ -72,6 +72,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     @Override
     protected void onResume() {
         super.onResume();
+        mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
         mypViewModel.reqMYP1005(new MYP_1005.Request(APPIAInfo.MG01.getId(), ""));
         reqInsightExpn();
     }
@@ -308,7 +309,6 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     private void reqData() {
         mypViewModel.reqMYP0001(new MYP_0001.Request(APPIAInfo.MG01.getId()));
         mypViewModel.reqMYP1003(new MYP_1003.Request(APPIAInfo.MG01.getId()));
-        mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
     }
 
 

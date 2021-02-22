@@ -32,7 +32,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_service_drive_status_reserved_title"
-            app:layout_constraintEnd_toEndOf="parent"
             tools:text="2020.13.32 오전 -11:67" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

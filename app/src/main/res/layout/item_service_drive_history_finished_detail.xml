@@ -190,6 +190,7 @@
                 android:lineSpacingExtra="-9dp"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_opened_paid_title"
                 app:layout_constraintEnd_toStartOf="@+id/tv_won"
+                app:layout_constraintEnd_toEndOf="parent"
                 tools:text="500,000" />
 
             <TextView
@@ -201,7 +202,6 @@
                 android:textSize="14dp"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="1dp"
-                app:layout_constraintStart_toEndOf="@+id/tv_service_drive_history_opened_paid_value"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_opened_paid_title"
                 app:layout_constraintEnd_toEndOf="parent" />
 

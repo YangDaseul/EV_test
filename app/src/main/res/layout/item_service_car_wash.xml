@@ -27,6 +27,7 @@
             <TextView
                 android:id="@+id/tv_car_wash_item_name"
                 style="@style/TextBasic"
+                android:layout_width="0dp"
                 android:fontFamily="@font/regular_genesissansheadglobal"
                 android:lineSpacingExtra="8dp"
                 android:textColor="@color/x_000000"
