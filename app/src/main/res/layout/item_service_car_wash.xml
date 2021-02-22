@@ -97,7 +97,7 @@
             android:id="@+id/ll_check"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/x_88ffffff"
+            android:background="@color/x_e6ffffff"
             android:gravity="center"
             android:layout_margin="1dp"
             android:visibility="gone"
