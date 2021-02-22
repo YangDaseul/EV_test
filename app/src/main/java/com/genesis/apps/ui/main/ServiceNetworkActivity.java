@@ -51,6 +51,9 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
+
 /**
  * @brief 서비스 네트워크
  * 버틀러 변경, 렌트리스 차량 등록, 서비스 네트워크 찾기 등에서 이용 가능하며
@@ -377,9 +380,13 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 case SUCCESS:
                     showProgressDialog(false);
                     List<RepairTypeVO> list = new ArrayList<>();
-                    if(StringUtil.isValidString(result.data.getPrctYn()).equalsIgnoreCase("Y")&&result.data.getRparTypList()!=null&&result.data.getRparTypList().size()>0){
-                        list.addAll(result.data.getRparTypList());
-                        showDialogRepairType(list);
+                    if(result.data!=null && result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)){
+                        if(StringUtil.isValidString(result.data.getPrctYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)&&result.data.getRparTypList()!=null&&result.data.getRparTypList().size()>0){
+                            list.addAll(result.data.getRparTypList());
+                            showDialogRepairType(list);
+                        }else{
+                            SnackBarUtil.show(this, getString(R.string.sm_snfind01_snackbar_2));
+                        }
                         break;
                     }
                 default:
