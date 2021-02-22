@@ -1,6 +1,7 @@
 package com.genesis.apps.comm.hybrid;
 
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
@@ -17,8 +18,11 @@ import androidx.databinding.ViewDataBinding;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.core.WebViewFragment;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
+import com.genesis.apps.ui.main.MainActivity;
+import com.genesis.apps.ui.myg.MyGEntranceActivity;
 
 
 /**
@@ -88,7 +92,16 @@ public class MyWebViewFrament extends WebViewFragment {
         if(getActivity() == null) return false;
 
         final JsResult res = result;
-        MiddleDialog.dialogCommonTwoButton(getActivity(), R.string.comm_word_3, message, () -> res.confirm(), () -> res.cancel());
+
+        if(getActivity() instanceof MainActivity) {
+            if(((MainActivity) getActivity()).loginChk(((MainActivity) getActivity()).getCustGbCd())) {
+                MiddleDialog.dialogCommonTwoButton(getActivity(), R.string.comm_word_3, message, () -> res.confirm(), () -> res.cancel());
+            } else {
+                MiddleDialog.dialogLogin(getActivity(), () -> res.confirm(), () -> res.cancel());
+            }
+        } else {
+            MiddleDialog.dialogCommonTwoButton(getActivity(), R.string.comm_word_3, message, () -> res.confirm(), () -> res.cancel());
+        }
 
         return true;
     }
