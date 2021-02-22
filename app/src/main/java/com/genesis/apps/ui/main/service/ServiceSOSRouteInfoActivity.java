@@ -98,7 +98,7 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
         //내 위치로 이동 버튼 제거
         ui.btnMyPosition.setVisibility(View.GONE);
         //기본위치 갱신 시 맵 초기화
-        ui.pmvMapView.initMap(Double.parseDouble(sosDriverVO.getGCustY()), Double.parseDouble(sosDriverVO.getGCustX()), 17);
+        ui.pmvMapView.initMap(Double.parseDouble(sosDriverVO.getGCustY()), Double.parseDouble(sosDriverVO.getGCustX()), DEFAULT_ZOOM);
 //        mapViewModel.reqFindPathPolyLine("0","0","0","2",new PlayMapPoint(Double.parseDouble(sosDriverVO.getGXpos()), Double.parseDouble(sosDriverVO.getGYpos())), new PlayMapPoint(Double.parseDouble(sosDriverVO.getGCustX()), Double.parseDouble(sosDriverVO.getGCustY())));
         reqFindPath();
     }
@@ -109,6 +109,7 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
 
     private void drawMaker(boolean isFit) {
         //운전자 마커 생성
+        ui.pmvMapView.removeMarkerItem("start");
         PlayMapPoint point1 = new PlayMapPoint(Double.parseDouble(sosDriverVO.getGYpos()), Double.parseDouble(sosDriverVO.getGXpos()));
         PlayMapMarker driverMarker = new PlayMapMarker();
         driverMarker.setMapPoint(point1);

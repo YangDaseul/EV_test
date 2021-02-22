@@ -144,7 +144,7 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
             }
             binding.tvMapAddressAddress.setText(item.addr);
         });
-        ui.pmvMapView.initMap( Double.parseDouble(vehiclePosition.get(0)), Double.parseDouble(vehiclePosition.get(1)),17);
+        ui.pmvMapView.initMap( Double.parseDouble(vehiclePosition.get(0)), Double.parseDouble(vehiclePosition.get(1)),DEFAULT_ZOOM);
         drawMarkerItem(vehiclePosition.get(0),vehiclePosition.get(1));
         ui.btnMyPosition.setOnClickListener(onSingleClickListener);
         ui.lMapOverlayTitle.tvMapTitleText.setVisibility(View.GONE);
@@ -167,6 +167,9 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
      * drawMarkerItem 지도에 마커를 그린다.
      */
     public void drawMarkerItem(String mapYcooNm, String mapXcooNm) {
+
+        ui.pmvMapView.removeAllMarkerItem();
+
         PlayMapMarker markerItem = new PlayMapMarker();
 //        PlayMapPoint point = mapView.getMapCenterPoint();
         PlayMapPoint point = new PlayMapPoint(Double.parseDouble(mapYcooNm), Double.parseDouble(mapXcooNm));

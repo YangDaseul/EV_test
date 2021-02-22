@@ -115,7 +115,7 @@ public class BtrBluehandsMapActivity extends GpsBaseActivity<ActivityMap2Binding
             binding.tvMapAddressAddress.setText(btrVO.getPbzAdr()+ (!TextUtils.isEmpty(btrVO.getRepTn())  ? "\n"+PhoneNumberUtils.formatNumber(StringUtil.isValidString(btrVO.getRepTn()), Locale.getDefault().getCountry()) : ""));
             binding.tvMapAddressBtn.setVisibility(View.GONE);
         });
-        ui.pmvMapView.initMap( Double.parseDouble(btrVO.getMapYcooNm()), Double.parseDouble(btrVO.getMapXcooNm()),17);
+        ui.pmvMapView.initMap( Double.parseDouble(btrVO.getMapYcooNm()), Double.parseDouble(btrVO.getMapXcooNm()),DEFAULT_ZOOM);
         drawMarkerItem();
         ui.btnMyPosition.setOnClickListener(onSingleClickListener);
         ui.lMapOverlayTitle.tvMapTitleText.setVisibility(View.GONE);
@@ -137,6 +137,8 @@ public class BtrBluehandsMapActivity extends GpsBaseActivity<ActivityMap2Binding
      * drawMarkerItem 지도에 마커를 그린다.
      */
     public void drawMarkerItem() {
+        ui.pmvMapView.removeAllMarkerItem();
+
         PlayMapMarker markerItem = new PlayMapMarker();
         PlayMapPoint point = new PlayMapPoint(Double.parseDouble(btrVO.getMapYcooNm()), Double.parseDouble(btrVO.getMapXcooNm()));
         markerItem.setMapPoint(point);

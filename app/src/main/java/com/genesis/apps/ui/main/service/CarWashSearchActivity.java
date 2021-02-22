@@ -45,8 +45,6 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
     public static final int LATITUDE = 0;   //Y 소낙스만 xy 뒤집힌 모양이랬던가...LATITUDE
     public static final int LONGITUDE = 1;  //X LONGITUDE
 
-    private static final int DEFAULT_ZOOM = 17;
-
     private WSHViewModel wshViewModel;
     private LGNViewModel lgnViewModel;
     private VehicleVO mainVehicle;

@@ -89,7 +89,7 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
         ui.ivCenterMaker.setVisibility(View.VISIBLE);
         ui.ivCenterMaker.setImageResource(getPinMarker());
         //기본위치 갱신 시 맵 초기화
-        ui.pmvMapView.initMap(latitude, longitude, 17);
+        ui.pmvMapView.initMap(latitude, longitude, DEFAULT_ZOOM);
 
         //todo 2020-12-22 맵 변경 정책으로 아이콘 변경 진행했으나 대리운전은 디자인 확인 필요
         ui.lMapOverlayTitle.tvMapTitleText.setVisibility(View.VISIBLE);

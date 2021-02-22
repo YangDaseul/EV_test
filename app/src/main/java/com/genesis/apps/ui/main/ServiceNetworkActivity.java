@@ -151,7 +151,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                             e.printStackTrace();
                         }finally {
                             if (btrVO != null) {
-                                ui.pmvMapView.removeAllMarkerItem();
                                 setPosition(list, btrVO);
                             }
                         }
@@ -194,7 +193,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     public void setObserver() {
 
         lgnViewModel.getPosition().observe(this, doubles -> {
-            ui.pmvMapView.initMap(doubles.get(0), doubles.get(1), 17);
+            ui.pmvMapView.initMap(doubles.get(0), doubles.get(1), DEFAULT_ZOOM);
 
 
             //기본 버틀러 정보가 없고 렌트리스 인 경우에는 제네시스 전담으로 기본 필터 전달
@@ -652,6 +651,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     }
 
     private void setPosition(List<BtrVO> list, BtrVO btrVO) {
+        ui.pmvMapView.removeAllMarkerItem();
 
         if(list==null||btrVO==null)
             return;
