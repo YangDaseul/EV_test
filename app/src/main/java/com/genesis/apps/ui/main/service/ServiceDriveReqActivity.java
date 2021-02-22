@@ -45,6 +45,8 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Arrays;
 
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
+
 public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReqBinding> {
     private static final String TAG = ServiceDriveReqActivity.class.getSimpleName();
     private static final int INVALID_ID = 0;
@@ -291,7 +293,7 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
                     break;
 
                 case SUCCESS:
-                    if (result.data != null && result.data.getTransId() != null) {
+                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)&&result.data.getTransId() != null) {
 
                         Intent intent = new Intent(this, PaymentWebViewActivity.class)
                                 .putExtra(KeyNames.KEY_NAME_URL,
