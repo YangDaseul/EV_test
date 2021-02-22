@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.MYP_8005;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
+import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.model.vo.NotiVO;
 import com.genesis.apps.databinding.ActivityNotiListBinding;
@@ -29,6 +32,7 @@ public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
     private final String TAG = MyGNotiActivity.class.getSimpleName();
     private static final int PAGE_SIZE = 20;
     private MYPViewModel mypViewModel;
+    private CMNViewModel cmnViewModel;
     private NotiAccodianRecyclerAdapter adapter;
 
     @Override
@@ -39,11 +43,11 @@ public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
         setViewModel();
         setObserver();
         initView();
-
         reqMYP8005();
     }
 
     private void initView() {
+        cmnViewModel.updateGlobalDataToDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_CHECKNOTIDT, StringUtil.isValidString(cmnViewModel.selectGlobalDataFromDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_NOTIDT)));
         adapter = new NotiAccodianRecyclerAdapter(onSingleClickListener);
 //        ((SimpleItemAnimator) ui.rvNoti.getItemAnimator()).setSupportsChangeAnimations(true);
         ui.rvNoti.setLayoutManager(new LinearLayoutManager(this));
@@ -82,6 +86,7 @@ public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
     public void setViewModel() {
         ui.setLifecycleOwner(this);
         mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
+        cmnViewModel = new ViewModelProvider(this).get(CMNViewModel.class);
     }
 
     @Override

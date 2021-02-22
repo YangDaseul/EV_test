@@ -27,6 +27,7 @@ import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
+import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.ISTViewModel;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.viewmodel.OILViewModel;
@@ -51,6 +52,7 @@ import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JO
 public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
     private MYPViewModel mypViewModel;
+    private CMNViewModel cmnViewModel;
     private OILViewModel oilViewModel;
     private ISTViewModel istViewModel;
     private OilView oilView;
@@ -74,7 +76,12 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         super.onResume();
         mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
         mypViewModel.reqMYP1005(new MYP_1005.Request(APPIAInfo.MG01.getId(), ""));
+        setViewNotiBadge();
         reqInsightExpn();
+    }
+
+    private void setViewNotiBadge() {
+        ui.ivBadge1.setVisibility(StringUtil.isValidString(cmnViewModel.selectGlobalDataFromDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_NOTIDT)).equalsIgnoreCase(StringUtil.isValidString(cmnViewModel.selectGlobalDataFromDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_CHECKNOTIDT))) ? View.GONE : View.VISIBLE);
     }
 
     private void reqInsightExpn(){
@@ -96,6 +103,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     @Override
     public void setViewModel() {
         ui.setLifecycleOwner(this);
+        cmnViewModel = new ViewModelProvider(this).get(CMNViewModel.class);
         mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
         oilViewModel = new ViewModelProvider(this).get(OILViewModel.class);
         istViewModel = new ViewModelProvider(this).get(ISTViewModel.class);

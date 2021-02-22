@@ -10,6 +10,7 @@ public interface KeyNames {
     String KEY_NAME_DB_GLOBAL_DATA_ISFIRSTLOGIN="isFirstLogin";
     String KEY_NAME_DB_GLOBAL_DATA_ISINDICATOR="isIndicator";
     String KEY_NAME_DB_GLOBAL_DATA_NOTIDT="notiDt";
+    String KEY_NAME_DB_GLOBAL_DATA_CHECKNOTIDT="checkNotiDt";
     String KEY_NAME_VEHICLE="vehicle";
     String KEY_NAME_VEHICLE_OWNER_COUNT="vehicleOwnerCnt";
     String KEY_NAME_INSIGHT_EXPN="expnVO";
