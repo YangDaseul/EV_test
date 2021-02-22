@@ -95,116 +95,131 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
 
     private void intViewModel() {
         cmnViewModel = new ViewModelProvider(getActivity()).get(CMNViewModel.class);
-        cttViewModel = new ViewModelProvider(this).get(CTTViewModel.class);
+//        cttViewModel = new ViewModelProvider(this).get(CTTViewModel.class);
         me.setLifecycleOwner(getViewLifecycleOwner());
         me.setFragment(this);
 
-        cttViewModel.getRES_CTT_1001().observe(getViewLifecycleOwner(), result -> {
+        mCatTypeList = new ArrayList<>();
+        mCatTypeList.add(new CatTypeVO("", "전체"));
 
-            switch (result.status){
-                case LOADING:
-                    ((MainActivity)getActivity()).showProgressDialog(true);
-                    break;
-                case SUCCESS:
-                    ((MainActivity)getActivity()).showProgressDialog(false);
+        if(cmnViewModel != null && cmnViewModel.getCatTypeList() != null && cmnViewModel.getCatTypeList().size() > 0) {
+            for(int i=0; i<cmnViewModel.getCatTypeList().size(); i++) {
+                CatTypeVO catItem = cmnViewModel.getCatTypeList().get(i);
 
-                    mCatTypeList = new ArrayList<>();
-                    mCatTypeList.add(new CatTypeVO("", "전체"));
-
-                    if(cmnViewModel != null && cmnViewModel.getCatTypeList() != null && cmnViewModel.getCatTypeList().size() > 0) {
-                        for(int i=0; i<cmnViewModel.getCatTypeList().size(); i++) {
-                            CatTypeVO catItem = cmnViewModel.getCatTypeList().get(i);
-
-                            if(result.data!=null&&result.data.getTtlList()!=null){
-                                for(int j=0; j<result.data.getTtlList().size(); j++) {
-                                    ContentsVO item = result.data.getTtlList().get(j);
-
-                                    if(catItem.getCd().equals(item.getCatCd())) {
-                                        mCatTypeList.add(catItem);
-
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    initView();
-                    initTabView();
-
-//                    if(result.data!=null&&result.data.getTtlList()!=null){
-//                        list.addAll(result.data.getTtlList());
-//                    }
-//
-//                    int itemSizeBefore = 0;
-//                    if (contentsAdapter.getPageNo() == 0) {
-//                        contentsAdapter.setRows(list);
-//                    } else {
-//                        itemSizeBefore = contentsAdapter.getItemCount();
-//                        contentsAdapter.addRows(list);
-//                    }
-//
-//                    contentsAdapter.notifyDataSetChanged();
-//                    if (contentsAdapter.getPageNo() == 0) {
-//                        me.vp.setCurrentItem(0);
-//                    }
-//
-//
-//                    contentsAdapter.setPageNo(contentsAdapter.getPageNo() + 1);
-//                    me.lEmpty.setVisibility(contentsAdapter.getItemCount()==0 ? View.VISIBLE : View.GONE);
-                    break;
-                default:
-                    String serverMsg="";
-                    try {
-                        serverMsg = result.data.getRtMsg();
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }finally{
-                        SnackBarUtil.show(getActivity(), TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
-                        ((MainActivity)getActivity()).showProgressDialog(false);
-                    }
-                    break;
+                mCatTypeList.add(catItem);
             }
-        });
+        }
+
+        initView();
+        initTabView();
+
+//        cttViewModel.getRES_CTT_1001().observe(getViewLifecycleOwner(), result -> {
+//
+//            switch (result.status){
+//                case LOADING:
+//                    ((MainActivity)getActivity()).showProgressDialog(true);
+//                    break;
+//                case SUCCESS:
+//                    ((MainActivity)getActivity()).showProgressDialog(false);
+//
+//                    mCatTypeList = new ArrayList<>();
+//                    mCatTypeList.add(new CatTypeVO("", "전체"));
+//
+//                    // 컨텐츠 내용 없는건 표시 포함 안함
+//                    if(cmnViewModel != null && cmnViewModel.getCatTypeList() != null && cmnViewModel.getCatTypeList().size() > 0) {
+//                        for(int i=0; i<cmnViewModel.getCatTypeList().size(); i++) {
+//                            CatTypeVO catItem = cmnViewModel.getCatTypeList().get(i);
+//
+//                            if(result.data!=null&&result.data.getTtlList()!=null){
+//                                for(int j=0; j<result.data.getTtlList().size(); j++) {
+//                                    ContentsVO item = result.data.getTtlList().get(j);
+//
+//                                    if(catItem.getCd().equals(item.getCatCd())) {
+//                                        mCatTypeList.add(catItem);
+//
+//                                        break;
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//
+//                    initView();
+//                    initTabView();
+//
+////                    if(result.data!=null&&result.data.getTtlList()!=null){
+////                        list.addAll(result.data.getTtlList());
+////                    }
+////
+////                    int itemSizeBefore = 0;
+////                    if (contentsAdapter.getPageNo() == 0) {
+////                        contentsAdapter.setRows(list);
+////                    } else {
+////                        itemSizeBefore = contentsAdapter.getItemCount();
+////                        contentsAdapter.addRows(list);
+////                    }
+////
+////                    contentsAdapter.notifyDataSetChanged();
+////                    if (contentsAdapter.getPageNo() == 0) {
+////                        me.vp.setCurrentItem(0);
+////                    }
+////
+////
+////                    contentsAdapter.setPageNo(contentsAdapter.getPageNo() + 1);
+////                    me.lEmpty.setVisibility(contentsAdapter.getItemCount()==0 ? View.VISIBLE : View.GONE);
+//                    break;
+//                default:
+//                    String serverMsg="";
+//                    try {
+//                        serverMsg = result.data.getRtMsg();
+//                    }catch (Exception e){
+//                        e.printStackTrace();
+//                    }finally{
+//                        SnackBarUtil.show(getActivity(), TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+//                        ((MainActivity)getActivity()).showProgressDialog(false);
+//                    }
+//                    break;
+//            }
+//        });
 
 
 
-        cttViewModel.getRES_CTT_1004().observe(getViewLifecycleOwner(), result -> {
+//        cttViewModel.getRES_CTT_1004().observe(getViewLifecycleOwner(), result -> {
+//
+//            switch (result.status){
+//                case LOADING:
+//                    ((MainActivity)getActivity()).showProgressDialog(true);
+//                    break;
+//                case SUCCESS:
+//                    ((MainActivity)getActivity()).showProgressDialog(false);
+//                    if(result.data!=null
+//                            &&result.data.getRtCd().equalsIgnoreCase("0000")
+//                            &&!TextUtils.isEmpty(result.data.getDtlViewCd())
+//                            &&result.data.getDtlList()!=null
+//                            &&result.data.getDtlList().size()>0){
+//
+////                        String linkUrl = result.data.getDtlViewCd().equalsIgnoreCase("3000") ? result.data.getDtlList().get(0).getHtmlFilUri() : result.data.getDtlList().get(0).getImgFilUri() ;
+//                        CTT_1004.Response contentsVO = result.data;
+//
+//                        ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), ContentsDetailWebActivity.class).putExtra(KeyNames.KEY_NAME_CONTENTS_VO, contentsVO),RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//
+//                        break;
+//                    }
+//                default:
+//                    String serverMsg="";
+//                    try {
+//                        serverMsg = result.data.getRtMsg();
+//                    }catch (Exception e){
+//                        e.printStackTrace();
+//                    }finally{
+//                        SnackBarUtil.show(getActivity(), TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+//                        ((MainActivity)getActivity()).showProgressDialog(false);
+//                    }
+//                    break;
+//            }
+//        });
 
-            switch (result.status){
-                case LOADING:
-                    ((MainActivity)getActivity()).showProgressDialog(true);
-                    break;
-                case SUCCESS:
-                    ((MainActivity)getActivity()).showProgressDialog(false);
-                    if(result.data!=null
-                            &&result.data.getRtCd().equalsIgnoreCase("0000")
-                            &&!TextUtils.isEmpty(result.data.getDtlViewCd())
-                            &&result.data.getDtlList()!=null
-                            &&result.data.getDtlList().size()>0){
-
-//                        String linkUrl = result.data.getDtlViewCd().equalsIgnoreCase("3000") ? result.data.getDtlList().get(0).getHtmlFilUri() : result.data.getDtlList().get(0).getImgFilUri() ;
-                        CTT_1004.Response contentsVO = result.data;
-
-                        ((MainActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), ContentsDetailWebActivity.class).putExtra(KeyNames.KEY_NAME_CONTENTS_VO, contentsVO),RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-
-                        break;
-                    }
-                default:
-                    String serverMsg="";
-                    try {
-                        serverMsg = result.data.getRtMsg();
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }finally{
-                        SnackBarUtil.show(getActivity(), TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
-                        ((MainActivity)getActivity()).showProgressDialog(false);
-                    }
-                    break;
-            }
-        });
-
-        cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(),"",""));
+//        cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(),"",""));
     }
 
     private void initTabView() {
