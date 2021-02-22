@@ -223,6 +223,17 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         reqNewNotiCnt();
     }
 
+    public String getCustGbCd() {
+        String custGbCd="";
+        try{
+            custGbCd = lgnViewModel.getUserInfoFromDB().getCustGbCd();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            return custGbCd;
+        }
+    }
+
     private void reqNewNotiCnt() {
         String custGbCd="";
         try{

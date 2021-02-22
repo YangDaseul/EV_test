@@ -317,6 +317,14 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         return address;
     }
 
+    public boolean loginChk(String custGbCd) {
+        if (!TextUtils.isEmpty(custGbCd) && !custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void loginChk(String url, String custGbCd) {
         if (!TextUtils.isEmpty(custGbCd) && !custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)) {
             startActivitySingleTop(new Intent(this, StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, url), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
