@@ -91,6 +91,10 @@ public class FragmentServiceDrive extends SubFragment<FragmentServiceDriveBindin
                 onClickReqBtn();
                 break;
 
+            case R.id.l_service_drive_list_btn:
+                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceDriveHistoryActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
+
             default:
                 //do nothing
                 break;

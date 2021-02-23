@@ -188,9 +188,9 @@ public class ServiceDriveReqActivity extends SubActivity<ActivityServiceDriveReq
 
         switch (v.getId()) {
             //이용 내역
-            case R.id.tv_titlebar_text_btn:
-                startActivitySingleTop(new Intent(this, ServiceDriveHistoryActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                break;
+//            case R.id.tv_titlebar_text_btn:
+//                startActivitySingleTop(new Intent(this, ServiceDriveHistoryActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                break;
 
             //출발주소 검색버튼
             case R.id.tv_service_drive_req_search_from_address_btn:
