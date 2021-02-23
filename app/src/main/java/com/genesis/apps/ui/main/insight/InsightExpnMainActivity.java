@@ -143,7 +143,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                         String month = date.replace(yyyy+"년", "").trim().replace("월", "");
                         String mm = String.format(Locale.getDefault(), "%02d", Integer.parseInt(month));
                         basYymm = yyyy+mm;
-                        ui.btnMonth.setText(month+"월");
+                        ui.btnMonth.setText(yyyy+"년 "+month+"월");
                         reqCBKData();
                     }
                 });
