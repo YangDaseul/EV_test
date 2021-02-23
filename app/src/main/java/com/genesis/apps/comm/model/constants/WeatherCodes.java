@@ -63,7 +63,7 @@ public enum WeatherCodes {
     //0 없음
     //1 비
     //2 눈
-    public static final int[] EFFECT_RESOURCE={0, R.raw.rainfall_project2, R.raw.snow};
+    public static final int[] EFFECT_RESOURCE={0, R.raw.rain, R.raw.snow};
     public static int getEffectResource(WeatherCodes weatherCodes) {
         return EFFECT_RESOURCE[weatherCodes.getPosEffect()];
     }
