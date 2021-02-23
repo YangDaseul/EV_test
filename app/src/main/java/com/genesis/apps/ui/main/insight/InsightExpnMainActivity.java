@@ -287,7 +287,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
             if(vehicleVOList!=null&&vehicleVOList.size()>0) {
                 selectVehicle = vehicleVOList.get(0);
                 basYymm = cbkViewModel.getCurrentDateyyyyMM();
-                ui.btnMonth.setText(cbkViewModel.getCurrentMM());
+                ui.btnMonth.setText(cbkViewModel.getCurrentYYYY()+" "+cbkViewModel.getCurrentMM());
                 initVehicleBtnStatus();
             }
         });
