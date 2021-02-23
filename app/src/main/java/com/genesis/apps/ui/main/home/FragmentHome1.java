@@ -583,7 +583,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         .with(getContext())
                         .load(dayCd == 1 ? vehicleVO.getMainImgUri() : vehicleVO.getMainNgtImgUr())
                         .fitCenter()
-//                        .error(R.drawable.main_img_car)
+                        .error(R.drawable.main_img_car)
 //                        .placeholder(R.drawable.main_img_car)
                         .into(me.ivCar);
                 me.lFloating.setVisibility(View.GONE);

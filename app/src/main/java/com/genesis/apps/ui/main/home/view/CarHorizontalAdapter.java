@@ -64,7 +64,7 @@ public class CarHorizontalAdapter extends BaseRecyclerViewAdapter2<VehicleVO> {
                     .with(getContext())
                     .load(item.getMygImgUri())
                     .format(DecodeFormat.PREFER_ARGB_8888)
-//                    .error(R.drawable.img_car)
+                    .error(R.drawable.img_car)
 //                    .placeholder(R.drawable.img_car)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(getBinding().ivCar);
