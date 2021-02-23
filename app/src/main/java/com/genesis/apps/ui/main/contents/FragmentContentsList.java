@@ -112,6 +112,7 @@ public class FragmentContentsList extends SubFragment<FragmentContentsListBindin
 
                     contentsAdapter.setPageNo(contentsAdapter.getPageNo() + 1);
                     me.lEmpty.setVisibility(contentsAdapter.getItemCount()==0 ? View.VISIBLE : View.GONE);
+                    me.tvEmpty.setText("9001".equals(result.data.getRtCd()) ? getString(R.string.cm02_14) : getString(R.string.cm02_2));
                     me.tvEmpty1.setVisibility("9001".equals(result.data.getRtCd()) ? View.GONE : View.VISIBLE);
                     me.btnRetry.setVisibility("9001".equals(result.data.getRtCd()) ? View.GONE : View.VISIBLE);
                     break;
@@ -125,6 +126,7 @@ public class FragmentContentsList extends SubFragment<FragmentContentsListBindin
                         SnackBarUtil.show(getActivity(), TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
                         ((MainActivity)getActivity()).showProgressDialog(false);
                         me.lEmpty.setVisibility(contentsAdapter.getItemCount()==0 ? View.VISIBLE : View.GONE);
+                        me.tvEmpty.setText(getString(R.string.cm02_2));
                         me.tvEmpty1.setVisibility(View.VISIBLE);
                         me.btnRetry.setVisibility(View.VISIBLE);
                     }
