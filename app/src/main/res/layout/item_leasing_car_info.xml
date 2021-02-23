@@ -167,7 +167,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
             android:onClick="@{(view)->listener.onSingleClick(view)}"
-            app:btnNm="@{@string/gm_carlst_01_21}"
+            app:btnNm="@{@string/gm_carlst_03_8}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/v_line_4" />

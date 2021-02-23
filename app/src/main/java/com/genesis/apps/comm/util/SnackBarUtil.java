@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.androidadvance.topsnackbar.TSnackbar;
 import com.genesis.apps.R;
+import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.core.content.res.ResourcesCompat;
@@ -33,12 +34,19 @@ public class SnackBarUtil {
             TextView textView = snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
             textView.setTextColor(Color.WHITE);
             textView.setTypeface(ResourcesCompat.getFont(activity, R.font.regular_genesissanstextglobal));
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP,14);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP,15);
             int padding = (int)(DeviceUtil.dip2Pixel(activity,30));
 //            textView.setPadding(padding,padding,padding,padding);
 //            textView.setPa
             textView.setMinHeight((int)(DeviceUtil.dip2Pixel(activity,100)));
             textView.setMaxLines(Integer.MAX_VALUE);
+            textView.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    if(snackbar!=null)
+                        snackbar.dismiss();
+                }
+            });
             snackbar.show();
 
 //                TSnackbar.make(activity.findViewById(android.R.id.content), StringUtil.isValidString(msg), TSnackbar.LENGTH_LONG).show();
