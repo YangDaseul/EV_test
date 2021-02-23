@@ -50,7 +50,6 @@ public class ServiceHomeToHome3CheckActivity extends SubActivity<ActivityService
         setViewModel();
         setObserver();
         initEditView();
-        isValid();
     }
 
     private void initEditView() {
@@ -217,8 +216,19 @@ public class ServiceHomeToHome3CheckActivity extends SubActivity<ActivityService
         }
     }
 
+    private boolean checkValidRqrm(){
+        String rqrm = ui.etRqrm.getText().toString();
+
+        if(TextUtils.isEmpty(rqrm)){
+            SnackBarUtil.show(this, getString(R.string.sm_r_rsv02_01_18));
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     private boolean isValid() {
-        return checkValidCarRegNo() && checkValidPhoneNumber();
+        return checkValidCarRegNo() && checkValidPhoneNumber() && checkValidRqrm();
     }
 
 
