@@ -24,7 +24,8 @@ import java.util.TimerTask;
 
 public abstract class GpsBaseActivity<T extends ViewDataBinding> extends SubActivity<T> {
     private final static String TAG = GpsBaseActivity.class.getSimpleName();
-    public final int DEFAULT_ZOOM = 12;
+    public final int DEFAULT_ZOOM = 17;
+    public final int DEFAULT_ZOOM_WIDE = 12;
     private GpsUtils gpsUtils;
     public enum GpsRetType {
         GPS_RETURN_HIGH, // searchTime 까지 기다렸다가 정확도가 가장 높은 1회만 보냄 ex) 경로찾기

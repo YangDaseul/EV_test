@@ -297,7 +297,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
                 myPosition[LONGITUDE] = location.getLongitude();
 
                 //지도 초기화
-                ui.pmvMapView.initMap(myPosition[LATITUDE], myPosition[LONGITUDE], DEFAULT_ZOOM);
+                ui.pmvMapView.initMap(myPosition[LATITUDE], myPosition[LONGITUDE], DEFAULT_ZOOM_WIDE);
 
                 //최근거리 지점을 기본값으로 보여주기 위해 지점 목록 정보를 요청
                 reqBranchList();

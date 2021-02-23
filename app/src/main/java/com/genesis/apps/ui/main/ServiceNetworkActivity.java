@@ -196,7 +196,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     public void setObserver() {
 
         lgnViewModel.getPosition().observe(this, doubles -> {
-            ui.pmvMapView.initMap(doubles.get(0), doubles.get(1), DEFAULT_ZOOM);
+            ui.pmvMapView.initMap(doubles.get(0), doubles.get(1), DEFAULT_ZOOM_WIDE);
 
 
             //기본 버틀러 정보가 없고 렌트리스 인 경우에는 제네시스 전담으로 기본 필터 전달
