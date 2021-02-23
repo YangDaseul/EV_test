@@ -171,7 +171,7 @@ public enum APIInfo {
 
     //DEVELOPERS API에서는 ifCd를 url 파라미터 형태로 사용
     DEVELOPERS_DTC("고장 코드 조회", "carId", HttpRequest.METHOD_GET, "/car/status/%s/dtc", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    DEVELOPERS_REPLACEMENTS("소모품 교환 정보 조회", "carId", HttpRequest.METHOD_GET, "/car/care/%s/replacements", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    DEVELOPERS_REPLACEMENTS("소모품 교환 정보 조회", "carId", HttpRequest.METHOD_GET, "/data-service/car/care/%s/replacements", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     DEVELOPERS_TARGET("안전운전점수 가입여부 조회", "carId", HttpRequest.METHOD_GET, "/car/model/%s/ubi/target", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     DEVELOPERS_DETAIL("안전운전점수 상세 조회", "carId", HttpRequest.METHOD_GET, "/car/model/%s/ubi/detail", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     DEVELOPERS_CARLIST("내 차량 리스트 조회", "", HttpRequest.METHOD_GET, "/car/profile/carlist", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
