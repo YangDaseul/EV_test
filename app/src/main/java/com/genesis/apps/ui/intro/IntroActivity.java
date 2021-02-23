@@ -64,8 +64,12 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
         setContentView(R.layout.activity_intro);
         setStatusBarColor(this, R.color.x_000000);
         startProgressTask();
+        updateProgressBar(PROGRESS.PERMISSION.getProgress());
         if(isPermissions()){
             init();
+        }else{
+            //권한 확인 페이지로 이동
+            startActivitySingleTop(new Intent(this, PermissionsActivity.class), RequestCodes.REQ_CODE_PERMISSIONS.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
         }
     }
 
@@ -320,29 +324,6 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
             }
         }
     }
-
-    private boolean isPermissions() {
-        updateProgressBar(PROGRESS.PERMISSION.getProgress());
-        // 최초에 실행해서 권한 팝업으로 이동
-        // 한번 권한 팝업을 받는다.
-        // 필수 권한이 없는 경우 다시 권한 동의 팝업으로 이동한다.
-        for (String p : PermissionsActivity.requiredPermissions) {
-            boolean check = PackageUtil.checkPermission(this, p);
-            for (String permission : PermissionsActivity.permissions) {
-                if (permission.equals(p)) {
-                    check = true;
-                }
-            }
-            if (!check) {
-                // 권한동의로 이동
-                startActivitySingleTop(new Intent(this, PermissionsActivity.class), RequestCodes.REQ_CODE_PERMISSIONS.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                return false;
-            }
-        }
-
-        return true;
-    }
-
 
     private boolean checkVersion(String newVersion, String versionType, Runnable runnable) {
         updateProgressBar(PROGRESS.VERSION.getProgress());

@@ -14,12 +14,14 @@ import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.TopicVO;
+import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.fcm.PushVO;
 import com.genesis.apps.ui.intro.IntroActivity;
+import com.genesis.apps.ui.intro.PermissionsActivity;
 import com.genesis.apps.ui.main.AlarmCenterActivity;
 import com.genesis.apps.ui.main.service.ServiceReviewActivity;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -40,7 +42,7 @@ import static com.genesis.apps.comm.model.constants.KeyNames.PUSH_VO;
 public class BaseActivity extends AppCompatActivity {
 
     @Inject
-    ExecutorService executorService;
+    public ExecutorService executorService;
 
     //About PUSH
     public PushVO pushVO;
@@ -284,9 +286,8 @@ public class BaseActivity extends AppCompatActivity {
         final Intent intent = new Intent(this, IntroActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
         startActivity(intent);
-        finish();
+        finishAffinity();
     }
-
     public void exitApp(){
 //        moveTaskToBack(true);//태스크를 백그라운드로 이동
 //        finishAndRemoveTask();// 액티비티 종료 + 태스크 리스트에서 지우기
@@ -322,6 +323,28 @@ public class BaseActivity extends AppCompatActivity {
 
         }
     }
+
+
+    public boolean isPermissions() {
+        // 최초에 실행해서 권한 팝업으로 이동
+        // 한번 권한 팝업을 받는다.
+        // 필수 권한이 없는 경우 다시 권한 동의 팝업으로 이동한다.
+        for (String p : PermissionsActivity.requiredPermissions) {
+            boolean check = PackageUtil.checkPermission(this, p);
+            for (String permission : PermissionsActivity.permissions) {
+                if (permission.equals(p)) {
+                    check = true;
+                }
+            }
+            if (!check) {
+                // 권한동의로 이동 필요
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 
 
 

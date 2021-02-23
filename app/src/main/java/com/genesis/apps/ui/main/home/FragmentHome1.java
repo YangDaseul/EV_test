@@ -428,16 +428,20 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         Log.v("test", "test start");
         ((MainActivity) getActivity()).showProgressDialog(true);
         ((MainActivity) getActivity()).findMyLocation(location -> {
-            Log.v("test", "test finish");
-            ((MainActivity) getActivity()).showProgressDialog(false);
-            if (location == null) {
-                Log.v("location", "location null");
-                return;
-            }
+            try {
+                Log.v("test", "test finish");
+                ((MainActivity) getActivity()).showProgressDialog(false);
+                if (location == null) {
+                    Log.v("location", "location null");
+                    return;
+                }
 
-            getActivity().runOnUiThread(() -> {
-                lgnViewModel.setPosition(location.getLatitude(), location.getLongitude());
-            });
+                getActivity().runOnUiThread(() -> {
+                    lgnViewModel.setPosition(location.getLatitude(), location.getLongitude());
+                });
+            }catch (Exception e){
+
+            }
         }, 5000, GpsBaseActivity.GpsRetType.GPS_RETURN_FIRST, false);
     }
 

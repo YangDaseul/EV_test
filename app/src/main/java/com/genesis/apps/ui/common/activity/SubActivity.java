@@ -26,6 +26,8 @@ import com.genesis.apps.databinding.ActivityBaseBinding;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
+import com.genesis.apps.ui.intro.IntroActivity;
+import com.genesis.apps.ui.intro.PermissionsActivity;
 import com.genesis.apps.ui.main.service.CarWashFindSonaxBranchFragment;
 import com.genesis.apps.ui.main.store.StoreWebActivity;
 import com.genesis.apps.ui.myg.MyGEntranceActivity;
@@ -71,6 +73,19 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         super.onResume();
 
         setFirebaseAnalyticsLog();
+        Log.e("permission test", "permission test:start");
+        if(!isPermissions()&&isTargetPermissionCheck()){
+            Log.e("permission test", "permission test:restart");
+            //권한이 하나라도 없으면 앱 재실행
+            restart();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Log.e("permission test", "permission test:activity killed:"+ this.getClass().getSimpleName());
     }
 
     public static void setStatusBarColor(Activity activity, int color) {
@@ -363,5 +378,15 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
 //            FirebaseAnalytics.getInstance(this).setCurrentScreen(this, appiaInfo.getId(), classNm.getSimpleName());
 //        }
     }
+
+    /**
+     * @brief onResume에서 권한 확인 대상 액티비티인지 확인
+     * @return
+     */
+    private boolean isTargetPermissionCheck(){
+        return this.getClass()!=IntroActivity.class&&this.getClass()!=PermissionsActivity.class;
+    }
+
+
 
 }
