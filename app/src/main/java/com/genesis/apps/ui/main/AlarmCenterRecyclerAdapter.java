@@ -133,8 +133,8 @@ public class AlarmCenterRecyclerAdapter extends BaseRecyclerViewAdapter2<NotiInf
                                 .with(getContext())
                                 .load(item.getImgFilUri1())
                                 .format(DecodeFormat.PREFER_ARGB_8888)
-                                .error(R.drawable.img_car_339_2) //todo 대체 이미지 필요
-                                .placeholder(R.drawable.img_car_339_2) //todo 에러시 대체 이미지 필요
+//                                .error(R.drawable.img_car_339_2) //todo 대체 이미지 필요
+//                                .placeholder(R.drawable.img_car_339_2) //todo 에러시 대체 이미지 필요
                                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                                 .into(getBinding().ivImg);
                     }

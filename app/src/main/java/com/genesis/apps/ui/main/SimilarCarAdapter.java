@@ -91,8 +91,8 @@ public class SimilarCarAdapter extends BaseRecyclerViewAdapter2<SimilarVehicleVO
                     .with(getContext())
                     .load(item.getVhclImgUri())
                     .format(DecodeFormat.PREFER_ARGB_8888)
-                    .error(R.drawable.img_car) //todo 대체 이미지 필요
-                    .placeholder(R.drawable.img_car) //todo 에러시 대체 이미지 필요
+//                    .error(R.drawable.img_car) //todo 대체 이미지 필요
+//                    .placeholder(R.drawable.img_car) //todo 에러시 대체 이미지 필요
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(getBinding().ivCar);
         }
