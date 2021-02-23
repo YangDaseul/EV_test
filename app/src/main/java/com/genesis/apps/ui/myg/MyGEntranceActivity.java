@@ -77,7 +77,6 @@ public class MyGEntranceActivity extends SubActivity<ActivityMygEntranceBinding>
     @Override
     public void setObserver() {
         lgnViewModel.getRES_LGN_0007().observe(this, result -> {
-            restart();
             switch (result.status){
                 case LOADING:
 
