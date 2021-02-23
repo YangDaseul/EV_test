@@ -3,13 +3,20 @@ package com.genesis.apps.ui.myg;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Spannable;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
@@ -29,6 +36,7 @@ import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.OILViewModel;
 import com.genesis.apps.databinding.ActivityMygOilTermBinding;
 import com.genesis.apps.databinding.ItemTermOilBinding;
@@ -41,14 +49,11 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_OIL_JOIN_GSCT0007;
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_OIL_JOIN_HDOL0005;
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_OIL_JOIN_SOIL0003;
+import static com.genesis.apps.comm.model.vo.TermOilVO.TERM_ESN_AGMT_Y;
 
 public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
 
@@ -264,8 +269,18 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
             final View view = itemTermOilBinding.getRoot();
 
             itemTermOilBinding.cb.setOnCheckedChangeListener(listener);
-//            itemTermBinding.cb.setText(termVO.getTermNm() + (termVO.getTermEsnAgmtYn().equalsIgnoreCase(TERM_ESN_AGMT_N) ? getString(R.string.mg_con02_01_13) : getString(R.string.mg_con02_01_14)));
-            itemTermOilBinding.cb.setText(termVO.getTermNm());
+            termVO.setTermNm(termVO.getTermNm().replace(getString(R.string.mg_con02_01_14), "").replace(getString(R.string.mg_con02_01_13), ""));
+            String termNm = termVO.getTermNm()+" "+ (StringUtil.isValidString(termVO.getTermEsnAgmtYn()).equalsIgnoreCase(TERM_ESN_AGMT_Y) ? getString(R.string.mg_con02_01_14) : getString(R.string.mg_con02_01_13));
+            itemTermOilBinding.cb.setText(termNm);
+            String target = getString(R.string.mg_con02_01_14); //(필수)
+            if(termNm.contains(getString(R.string.mg_con02_01_14))){
+                int start = termNm.lastIndexOf(target.charAt(0));
+                int end = start + target.length();
+                Spannable span = (Spannable)itemTermOilBinding.cb.getText();
+                span.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color.x_996449)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+
+
             itemTermOilBinding.ivArrow.setTag(R.id.oil_term, termVO);
             itemTermOilBinding.setListener(onSingleClickListener);
             checkBoxs.add(new TermView(termVO, itemTermOilBinding.cb));

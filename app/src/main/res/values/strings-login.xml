@@ -24,6 +24,7 @@
     <string name="int03_13">수집 항목 : 이메일, 휴대폰번호, 주소</string>
     <string name="int03_14">보유 및 이용기간 : 홈페이지 회원 자격 유지 기간</string>
     <string name="int03_15">모두 동의</string>
+    <string name="int03_16">(선택)</string>
 
 
     <string name="int04">멤버스 가입</string>
