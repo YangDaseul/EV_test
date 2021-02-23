@@ -29,4 +29,6 @@ class LastinfoVO extends BaseData {
     @Expose
     @SerializedName("odometer")
     private String odometer;
+
+    private int temp;
 }

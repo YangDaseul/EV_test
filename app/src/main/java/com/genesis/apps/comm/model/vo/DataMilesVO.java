@@ -57,6 +57,11 @@ class DataMilesVO extends BaseData {
     private Detail.Response drivingScoreDetail;
 
     /**
+     * 안전운전 점수 데이터 갱신 여부 값.
+     */
+    private boolean isChangedDrivingScore;
+
+    /**
      * 소모품 현황 데이터 상태.
      */
     private STATUS replacementsStatus = STATUS.NONE;
@@ -65,6 +70,11 @@ class DataMilesVO extends BaseData {
      * 소모품 현황 데이터.
      */
     private Replacements.Response replacements;
+
+    /**
+     * 소모품 현황 데이터 갱신 여부 값.
+     */
+    private boolean isChangedReplacements;
 
     /**
      * GRA-GNS-1010 서비스 쿠폰 데이터 리스트.
