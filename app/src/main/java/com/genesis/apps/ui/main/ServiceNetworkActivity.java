@@ -80,7 +80,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     private String addr = "";
     private String addrDtl = "";
     private VehicleVO mainVehicle=null;
-    private ServiceNetworkPopUpView serviceNetworkPopUpView;
 
     public final static int PAGE_TYPE_BTR=0;//버틀러 변경
     public final static int PAGE_TYPE_RENT=1;//렌트리스 등록
@@ -119,8 +118,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     }
 
     private void initView() {
-        serviceNetworkPopUpView = new ServiceNetworkPopUpView(ui.lPopup);
-
         ui.lMapOverlayTitle.tvMapTitleText.setVisibility(View.GONE);
         ui.lMapOverlayTitle.lServiceNetworkTitle.setVisibility(View.VISIBLE);
         ui.lMapOverlayTitle.btnSearch.setOnClickListener(onSingleClickListener);
@@ -445,9 +442,26 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             case R.id.tv_auth_2:
             case R.id.tv_auth_3:
             case R.id.tv_auth_4:
+                if(btrVO==null||StringUtil.isValidString(btrVO.getAcps1Cd()).equalsIgnoreCase("2"))
+                    return;
+
                 int authId = Integer.parseInt(v.getTag(R.id.item).toString());
-                if(serviceNetworkPopUpView!=null&&btrVO!=null&&authId!=0){
-                    serviceNetworkPopUpView.showPopUp(btrVO, authId);
+                String msg;
+                switch (authId){
+                    case R.string.bt06_17://차체도장
+                        msg = btrVO.getPntgXclSvcSbc();
+                        break;
+                    case R.string.bt06_18://기술력우수
+                        msg = btrVO.getPrimTechSvcSbc();
+                        break;
+                    case R.string.bt06_23://cs우수인증
+                        msg = btrVO.getPrimCsSvcSbc();
+                        break;
+                    default:
+                        return;
+                }
+                if(!TextUtils.isEmpty(msg)){
+                    SnackBarUtil.show(this, msg);
                 }
                 break;
             case R.id.btn_left_white: //대표가격보기
