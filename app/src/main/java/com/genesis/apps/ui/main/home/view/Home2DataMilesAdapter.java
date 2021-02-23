@@ -21,6 +21,7 @@ import com.genesis.apps.comm.model.vo.DataMilesVO;
 import com.genesis.apps.comm.model.vo.developers.DtcVO;
 import com.genesis.apps.comm.model.vo.developers.SestVO;
 import com.genesis.apps.comm.util.DateUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.databinding.ItemDatamilesBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
@@ -372,11 +373,13 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                 final String distanceFormat = context.getString(R.string.gm01_format_distance);
                 for (SestVO sestVO : replacements.getSests()) {
                     // 평균 교체 필요 거리
-                    int stdDistance = (int) sestVO.getStdDistance();
+                    float stdDistance = sestVO.getStdDistance();
                     // 최종 교체 후 주행 거리
-                    int odoMeter = Integer.parseInt(sestVO.getLastInfo().getOdometer());
+                    float odoMeter = replacements.getOdometer().getValue() - Integer.parseInt(sestVO.getLastInfo().getOdometer());
+                    if(odoMeter<0)
+                        odoMeter = 0;
 
-                    int diff = stdDistance - odoMeter;
+                    int diff = (int)(stdDistance - odoMeter);
                     int progress = 0;
 
                     View view = LayoutInflater.from(context).inflate(R.layout.item_datamiles_expendable_item, binding.lDatamilesExpenablesList, false);
@@ -384,7 +387,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                     TextView txtNme = view.findViewById(R.id.tv_datamiles_expendables_item_name);
                     txtNme.setText(sestVO.getSestName());
                     // 교체 필요 아이콘
-                    view.findViewById(R.id.tv_datamiles_expendables_need_change).setVisibility(stdDistance <= odoMeter ? View.VISIBLE : View.INVISIBLE);
+                    view.findViewById(R.id.tv_datamiles_expendables_need_change).setVisibility(stdDistance!=0&&stdDistance <= odoMeter ? View.VISIBLE : View.INVISIBLE);
 
                     // 잔여 거리. 마이너스 남은 거리는 0으로 처리.
                     TextView txtDistance = view.findViewById(R.id.tv_datamiles_expendables_distance);
@@ -398,16 +401,36 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                         ValueAnimator diffAni = ValueAnimator.ofInt(diff)
                                 .setDuration(ANI_DURATION);
                         diffAni.addUpdateListener(animation -> {
-                            txtDistance.setText(String.format(distanceFormat, (int) animation.getAnimatedValue()));
+                            txtDistance.setText(String.format(distanceFormat, StringUtil.getDigitGrouping(((int)animation.getAnimatedValue()))));
                         });
                         replacementAniSet.playTogether(diffAni);
 
                         // 잔여 비율 계산.
-                        progress = (diff * progDistance.getMax()) / stdDistance;
-                    } else {
+                        progress = 1000 - ((diff * progDistance.getMax()) / (int)stdDistance);
+
+                    } else if(diff < 0&&stdDistance>0){
+                        progress = 1000 - ((diff * progDistance.getMax()) / (int)stdDistance);
+
+                        if(diff<0)
+                            diff=0;
+
+                        // 잔여 거리가 있을 경우 애니메이션 처리 진행.
+                        ValueAnimator diffAni = ValueAnimator.ofInt(diff)
+                                .setDuration(ANI_DURATION);
+                        diffAni.addUpdateListener(animation -> {
+                            txtDistance.setText(String.format(distanceFormat, StringUtil.getDigitGrouping(((int)animation.getAnimatedValue()))));
+                        });
+                        replacementAniSet.playTogether(diffAni);
+
+                        // 잔여 비율 계산.
+
+                        if(progress==0&&stdDistance>0){
+                            progress = 1000;
+                        }
+                    } else{
                         // 잔여 거리가 없는 경우
-                        txtDistance.setText(String.format(context.getString(R.string.gm01_format_distance), 0));
-                        progress = progDistance.getMax();
+                        txtDistance.setText(String.format(context.getString(R.string.gm01_format_distance), "0"));
+                        progress = 0;
                     }
 
                     progDistance.setProgress(sestVO.getLastInfo().getTemp());
