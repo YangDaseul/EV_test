@@ -167,6 +167,11 @@ class CBKViewModel extends ViewModel {
         return String.format(Locale.getDefault(),"%d월", cal.get(Calendar.MONTH)+1);
     }
 
+    public String getCurrentYYYY(){
+        Calendar cal = Calendar.getInstance();
+        return String.format(Locale.getDefault(),"%d년", cal.get(Calendar.YEAR));
+    }
+
     public List<ExpnVO> getExpnList(List<ExpnVO> oriList) throws ExecutionException, InterruptedException {
         ExecutorService es = new ExecutorService("");
         Future<List<ExpnVO>> future = es.getListeningExecutorService().submit(() -> {
