@@ -208,6 +208,12 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         videoPauseAndResume(true);
                         resumeAndPauseLottie(true);
                         startTimer();
+                        setViewCarImg();
+
+
+
+
+
                     } catch (Exception e) {
 
                     }
@@ -359,6 +365,25 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
         });
 
+    }
+
+    private void setViewCarImg() {
+
+        VehicleVO vehicleVO = null;
+        try {
+            vehicleVO = lgnViewModel.getMainVehicleSimplyFromDB();
+            if (vehicleVO != null) {
+                Glide
+                        .with(getContext())
+                        .load(dayCd == 1 ? StringUtil.isValidString(vehicleVO.getMainImgUri()) : StringUtil.isValidString(vehicleVO.getMainNgtImgUri()))
+                        .fitCenter()
+                        .error(R.drawable.main_img_car)
+//                        .placeholder(R.drawable.main_img_car)
+                        .into(me.ivCar);
+            }
+        } catch (Exception e) {
+
+        }
     }
 
     private String getGreetingMsg() {
@@ -579,13 +604,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 //                me.tvCarModel.setText(StringUtil.isValidString(vehicleVO.getSaleMdlNm()).replace(StringUtil.isValidString(vehicleVO.getMdlNm()), ""));
 
                 me.tvCarVrn.setText(vehicleVO.getCarRgstNo());
-                Glide
-                        .with(getContext())
-                        .load(dayCd == 1 ? vehicleVO.getMainImgUri() : vehicleVO.getMainNgtImgUr())
-                        .fitCenter()
-                        .error(R.drawable.main_img_car)
-//                        .placeholder(R.drawable.main_img_car)
-                        .into(me.ivCar);
                 me.lFloating.setVisibility(View.GONE);
                 switch (vehicleVO.getCustGbCd()) {
                     case VariableType.MAIN_VEHICLE_TYPE_OV:

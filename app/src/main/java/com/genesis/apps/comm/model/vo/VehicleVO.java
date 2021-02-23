@@ -91,8 +91,8 @@ class VehicleVO extends BaseData {
     @SerializedName("mainImgUri")
     private String mainImgUri;
     @Expose
-    @SerializedName("mainNgtImgUr")
-    private String mainNgtImgUr;
+    @SerializedName("mainNgtImgUri")
+    private String mainNgtImgUri;
     @Expose
     @SerializedName("mygImgUri")
     private String mygImgUri;
