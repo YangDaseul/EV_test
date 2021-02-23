@@ -112,7 +112,7 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
             }
 
 
-            getBinding().tvCardName.setText(item.getCardNm() + " " + item.getCardClsNm());
+            getBinding().tvCardName.setText(item.getCardClsNm());
 
             if (!TextUtils.isEmpty(item.getCardNo())) {
                 getBinding().tvCardNo2.setText(StringRe2j.replaceAll(item.getCardNo(), getContext().getString(R.string.card_original), getContext().getString(R.string.card_mask)));
