@@ -182,6 +182,7 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
                 case R.id.l_service_car_wash_request_btn: //세차 서비스 신청 버튼
                 case R.id.l_service_car_wash_item: // 세차 쿠폰 선택
                 case R.id.l_service_drive_req_btn: //대리운전 신청 버튼
+                case R.id.l_service_drive_list_btn: //대리운전 신청 내역 버튼
                     switch (custGbCd) {
                         //소유차량인 경우 기존 메뉴 정상 이용
                         case VariableType.MAIN_VEHICLE_TYPE_OV:
