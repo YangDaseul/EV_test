@@ -77,6 +77,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
         if (item != null) {
             item.setDetailStatus(DataMilesVO.STATUS.SUCCESS);
             item.setDrivingScoreDetail(detail);
+            item.setChangedDrivingScore(true);
         }
     }
 
@@ -92,6 +93,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
         if (item != null) {
             item.setReplacementsStatus(DataMilesVO.STATUS.SUCCESS);
             item.setReplacements(replacements);
+            item.setChangedReplacements(true);
         }
     }
 
@@ -141,7 +143,9 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
 
     private class ItemDataMilesAdapter extends BaseViewHolder<DataMilesVO, ItemDatamilesBinding> {
         private final long ANI_DURATION = 1000;
-        private AnimatorSet animatorSet = new AnimatorSet();
+        //        private AnimatorSet animatorSet = new AnimatorSet();
+        private AnimatorSet drivingAniSet = new AnimatorSet();
+        private AnimatorSet replacementAniSet = new AnimatorSet();
 
         public ItemDataMilesAdapter(View itemView) {
             super(itemView);
@@ -156,9 +160,9 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             Dtc.Response dtc = item.getDtc();
 
             // 기존 애니메이션 처리는 멈춤.
-            animatorSet.removeAllListeners();
-            animatorSet.end();
-            animatorSet.cancel();
+//            animatorSet.removeAllListeners();
+//            animatorSet.end();
+//            animatorSet.cancel();
 
             // 더보기 버튼 이벤트 등록.
             binding.tvDatamilesMore.setTag(moreUrl);
@@ -167,61 +171,80 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             /**
              * 안전 운전 점수
              */
-            switch (item.getUbiStatus()) {
-                case JOIN: {
-                    // UBI 가입 상태.
-                    binding.lDatamilesDrivingScoreContainer.setVisibility(View.VISIBLE);
-                    binding.lDatamilesGuideContainer.setVisibility(View.GONE);
-                    switch (item.getDetailStatus()) {
-                        case SUCCESS: {
-                            binding.lDrivingScoreContainer.setVisibility(View.VISIBLE);
-                            bindDrivingScore(binding, detail);
-                            break;
+            if (item.isChangedDrivingScore()) {
+                item.setChangedDrivingScore(false);
+                switch (item.getUbiStatus()) {
+                    case JOIN: {
+                        // UBI 가입 상태.
+                        binding.lDatamilesDrivingScoreContainer.setVisibility(View.VISIBLE);
+                        binding.lDatamilesGuideContainer.setVisibility(View.GONE);
+                        switch (item.getDetailStatus()) {
+                            case SUCCESS: {
+                                binding.lDrivingScoreContainer.setVisibility(View.VISIBLE);
+                                drivingAniSet.removeAllListeners();
+                                drivingAniSet.end();
+                                drivingAniSet.cancel();
+                                bindDrivingScore(binding, detail);
+                                drivingAniSet.start();
+                                break;
+                            }
+                            case FAIL: {
+                                binding.lDrivingScoreContainer.setVisibility(View.GONE);
+                                binding.llDatamilesDrivingScoreError.setVisibility(View.VISIBLE);
+                                binding.llDatamilesDrivingScoreError.setOnClickListener(view -> onSingleClickListener.onClick(view));
+                                break;
+                            }
                         }
-                        case FAIL: {
-                            binding.lDrivingScoreContainer.setVisibility(View.GONE);
-                            binding.llDatamilesDrivingScoreError.setVisibility(View.VISIBLE);
-                            binding.llDatamilesDrivingScoreError.setOnClickListener(view -> onSingleClickListener.onClick(view));
-                            break;
-                        }
+                        break;
                     }
-                    break;
-                }
-                case NOT_JOIN: {
-                    // UBI 미가입, 가입 가능 상태. - 안내 가이드 표시.
-                    binding.lDatamilesDrivingScoreContainer.setVisibility(View.GONE);
-                    binding.lDatamilesGuideContainer.setVisibility(View.VISIBLE);
-                    binding.llDatamilesDrivingScoreError.setVisibility(View.GONE);
-                    break;
-                }
-                case NOT_SUPPORTED:
-                default: {
-                    // UBI 미가입, 가입 불가 상태.
-                    binding.lDatamilesDrivingScoreContainer.setVisibility(View.GONE);
-                    binding.lDatamilesGuideContainer.setVisibility(View.GONE);
-                    break;
+                    case NOT_JOIN: {
+                        // UBI 미가입, 가입 가능 상태. - 안내 가이드 표시.
+                        binding.lDatamilesDrivingScoreContainer.setVisibility(View.GONE);
+                        binding.lDatamilesGuideContainer.setVisibility(View.VISIBLE);
+                        binding.llDatamilesDrivingScoreError.setVisibility(View.GONE);
+                        break;
+                    }
+                    case NOT_SUPPORTED:
+                    default: {
+                        // UBI 미가입, 가입 불가 상태.
+                        binding.lDatamilesDrivingScoreContainer.setVisibility(View.GONE);
+                        binding.lDatamilesGuideContainer.setVisibility(View.GONE);
+                        break;
+                    }
                 }
             }
 
             /**
              * 소모품 현황
              */
-            switch (item.getReplacementsStatus()) {
-                case SUCCESS: {
-                    binding.tvDatamilesExpendablesTotalDistanceTitle.setVisibility(View.VISIBLE);
-                    binding.tvDatamilesExpendablesTotalDistance.setVisibility(View.VISIBLE);
-                    binding.llDatamilesExpenablesError.setVisibility(View.GONE);
-                    bindReplacements(context, binding, replacements, item.getServiceCouponList());
-                    break;
-                }
-                case FAIL: {
-                    binding.tvDatamilesExpendablesTotalDistanceTitle.setVisibility(View.GONE);
-                    binding.tvDatamilesExpendablesTotalDistance.setVisibility(View.GONE);
-                    binding.llDatamilesExpenablesError.setVisibility(View.VISIBLE);
-                    binding.llDatamilesExpenablesError.setOnClickListener(view -> onSingleClickListener.onClick(view));
-                    break;
+            if (item.isChangedReplacements()) {
+                item.setChangedReplacements(false);
+                switch (item.getReplacementsStatus()) {
+                    case SUCCESS: {
+                        binding.tvDatamilesExpendablesTotalDistanceTitle.setVisibility(View.VISIBLE);
+                        binding.tvDatamilesExpendablesTotalDistance.setVisibility(View.VISIBLE);
+                        binding.llDatamilesExpenablesError.setVisibility(View.GONE);
+                        replacementAniSet.removeAllListeners();
+                        replacementAniSet.end();
+                        replacementAniSet.cancel();
+                        bindReplacements(context, binding, replacements, item.getServiceCouponList());
+                        replacementAniSet.start();
+                        break;
+                    }
+                    case FAIL: {
+                        binding.tvDatamilesExpendablesTotalDistanceTitle.setVisibility(View.GONE);
+                        binding.tvDatamilesExpendablesTotalDistance.setVisibility(View.GONE);
+                        binding.llDatamilesExpenablesError.setVisibility(View.VISIBLE);
+                        binding.llDatamilesExpenablesError.setOnClickListener(view -> onSingleClickListener.onClick(view));
+                        break;
+                    }
                 }
             }
+
+            /**
+             * 쿠폰 정보 갱신.
+             */
+            bindCoupon(context, binding, item.getServiceCouponList());
 
             /**
              * 차량 진단.
@@ -229,7 +252,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             bindDtc(binding, dtc);
 
             // 애니메이션 시작!!
-            animatorSet.start();
+//            animatorSet.start();
         }
 
         @Override
@@ -268,7 +291,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             }
             // 주행 기준
             binding.tvDatamilesDrivingScoreGuide.setText(String.format(getContext().getString(R.string.gm01_format_driving_score_guide),
-                    (int)detail.getRangeDrvDist()));
+                    (int) detail.getRangeDrvDist()));
 
             // Insight 메시지
             binding.tvDatamilesDrivingScoreDescription.setText(detail.getInsightMsg());
@@ -293,7 +316,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
 
             String rankTemplate = getContext().getString(R.string.gm01_format_rank);
             // 전체 차량 대비 상위 %
-            ValueAnimator distributionAni = ValueAnimator.ofInt((int)detail.getDistribution())
+            ValueAnimator distributionAni = ValueAnimator.ofInt((int) detail.getDistribution())
                     .setDuration(ANI_DURATION);
             distributionAni.addUpdateListener(animation -> {
                 binding.tvDatamilesDrivingScoreRankAll.setText(
@@ -302,7 +325,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             });
 
             // 동일 차종 대비 상위 %
-            ValueAnimator modelDistributionAni = ValueAnimator.ofInt((int)detail.getModelDistribution())
+            ValueAnimator modelDistributionAni = ValueAnimator.ofInt((int) detail.getModelDistribution())
                     .setDuration(ANI_DURATION);
             modelDistributionAni.addUpdateListener(animation -> {
                 binding.tvDatamilesDrivingScoreRankCategory.setText(
@@ -311,7 +334,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             });
 
             // 운전 점수의 일괄 애니메이션 처리.
-            animatorSet.playTogether(scoreAni, distributionAni, modelDistributionAni);
+            drivingAniSet.playTogether(scoreAni, distributionAni, modelDistributionAni);
         }
 
         /**
@@ -340,8 +363,8 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             }
 
             binding.tvDatamilesExpendablesTotalDistance.setText(DevelopersViewModel.getDistanceFormatByUnit(
-                    (int)replacements.getOdometer().getValue(),
-                    (int)replacements.getOdometer().getUnit()
+                    (int) replacements.getOdometer().getValue(),
+                    (int) replacements.getOdometer().getUnit()
             ));
 
             try {
@@ -349,7 +372,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                 final String distanceFormat = context.getString(R.string.gm01_format_distance);
                 for (SestVO sestVO : replacements.getSests()) {
                     // 평균 교체 필요 거리
-                    int stdDistance = (int)sestVO.getStdDistance();
+                    int stdDistance = (int) sestVO.getStdDistance();
                     // 최종 교체 후 주행 거리
                     int odoMeter = Integer.parseInt(sestVO.getLastInfo().getOdometer());
 
@@ -377,7 +400,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                         diffAni.addUpdateListener(animation -> {
                             txtDistance.setText(String.format(distanceFormat, (int) animation.getAnimatedValue()));
                         });
-                        animatorSet.playTogether(diffAni);
+                        replacementAniSet.playTogether(diffAni);
 
                         // 잔여 비율 계산.
                         progress = (diff * progDistance.getMax()) / stdDistance;
@@ -387,25 +410,48 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                         progress = progDistance.getMax();
                     }
 
+                    progDistance.setProgress(sestVO.getLastInfo().getTemp());
+
                     // 잔여 거리 ProgressBar 애니메이션 처리.
                     ValueAnimator progressAni = ValueAnimator.ofInt(progress)
                             .setDuration(ANI_DURATION);
                     progressAni.addUpdateListener(animation -> {
-                        progDistance.setProgress((int) animation.getAnimatedValue());
+                        int value = (int) animation.getAnimatedValue();
+                        sestVO.getLastInfo().setTemp(value);
+                        progDistance.setProgress(value);
                     });
-                    animatorSet.playTogether(progressAni);
+                    replacementAniSet.playTogether(progressAni);
 
-                    // 쿠폰 갯수
-                    TextView txtCoupon = view.findViewById(R.id.tv_datamiles_expendables_coupon);
-                    txtCoupon.setText(
-                            String.format(context.getString(R.string.gm01_format_coupon_count),
-                                    getCouponCount(coupons, DevelopersViewModel.getServiceCodeBySestCode(sestVO.getSestCode())))
-                    );
+//                    // 쿠폰 갯수
+//                    TextView txtCoupon = view.findViewById(R.id.tv_datamiles_expendables_coupon);
+//                    txtCoupon.setText(
+//                            String.format(context.getString(R.string.gm01_format_coupon_count),
+//                                    getCouponCount(coupons, DevelopersViewModel.getServiceCodeBySestCode(sestVO.getSestCode())))
+//                    );
 
+                    view.setTag(sestVO);
                     binding.lDatamilesExpenablesList.addView(view);
                 }
             } catch (Exception e) {
 
+            }
+        }
+
+        private void bindCoupon(Context context, ItemDatamilesBinding binding, List<CouponVO> coupons) {
+            int count = binding.lDatamilesExpenablesList.getChildCount();
+            int i = 0;
+            while (i < count) {
+                View view = binding.lDatamilesExpenablesList.getChildAt(i);
+                Object tag = view.getTag();
+                if (tag instanceof SestVO) {
+                    // 쿠폰 갯수
+                    TextView txtCoupon = view.findViewById(R.id.tv_datamiles_expendables_coupon);
+                    txtCoupon.setText(
+                            String.format(context.getString(R.string.gm01_format_coupon_count),
+                                    getCouponCount(coupons, DevelopersViewModel.getServiceCodeBySestCode(((SestVO) tag).getSestCode())))
+                    );
+                }
+                i++;
             }
         }
 
