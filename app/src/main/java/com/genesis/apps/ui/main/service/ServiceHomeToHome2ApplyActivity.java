@@ -472,12 +472,13 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
         }
     }
 
+    //상세 주소 자동 입력 취소 요청
     private void setViewPckpAddrDetail() {
-        String addrDetail = (TextUtils.isEmpty(pckpAddressVO.getTitle()) ? "" : pckpAddressVO.getTitle()) + (TextUtils.isEmpty(pckpAddressVO.getCname()) ? "" : " " + pckpAddressVO.getCname());
-        if (!TextUtils.isEmpty(addrDetail.trim())) {
-            ui.etPckpAddrDtl.setText(addrDetail.trim());
-            ui.etPckpAddrDtl.setSelection(ui.etPckpAddrDtl.length());
-        }
+//        String addrDetail = (TextUtils.isEmpty(pckpAddressVO.getTitle()) ? "" : pckpAddressVO.getTitle()) + (TextUtils.isEmpty(pckpAddressVO.getCname()) ? "" : " " + pckpAddressVO.getCname());
+//        if (!TextUtils.isEmpty(addrDetail.trim())) {
+//            ui.etPckpAddrDtl.setText(addrDetail.trim());
+//            ui.etPckpAddrDtl.setSelection(ui.etPckpAddrDtl.length());
+//        }
     }
 
 
@@ -525,12 +526,13 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
         }
     }
 
+    //딜리버리 주소 자동 입력 제거 요청
     private void setViewDlvryAddrDetail() {
-        String addrDetail = (TextUtils.isEmpty(dlvryAddressVO.getTitle()) ? "" : dlvryAddressVO.getTitle()) + (TextUtils.isEmpty(dlvryAddressVO.getCname()) ? "" : " " + dlvryAddressVO.getCname());
-        if (!TextUtils.isEmpty(addrDetail.trim())) {
-            ui.etDlvryAddrDtl.setText(addrDetail.trim());
-            ui.etDlvryAddrDtl.setSelection(ui.etDlvryAddrDtl.length());
-        }
+//        String addrDetail = (TextUtils.isEmpty(dlvryAddressVO.getTitle()) ? "" : dlvryAddressVO.getTitle()) + (TextUtils.isEmpty(dlvryAddressVO.getCname()) ? "" : " " + dlvryAddressVO.getCname());
+//        if (!TextUtils.isEmpty(addrDetail.trim())) {
+//            ui.etDlvryAddrDtl.setText(addrDetail.trim());
+//            ui.etDlvryAddrDtl.setSelection(ui.etDlvryAddrDtl.length());
+//        }
     }
 
     private boolean checkValidDlvryAddrDtl() {
