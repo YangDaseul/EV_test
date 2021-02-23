@@ -164,8 +164,8 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
                     DataMilesVO dataMilesVO = home2DataMilesAdapter.findVOByCarId(carId);
                     if (dataMilesVO != null) {
                         dataMilesVO.setDetailStatus(DataMilesVO.STATUS.FAIL);
+                        dataMilesVO.setChangedDrivingScore(true);
                     }
-                    home2DataMilesAdapter.notifyDataSetChanged();
                     break;
                 }
                 case SUCCESS: {
@@ -188,6 +188,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
                     DataMilesVO dataMilesVO = home2DataMilesAdapter.findVOByCarId(carId);
                     if (dataMilesVO != null) {
                         dataMilesVO.setReplacementsStatus(DataMilesVO.STATUS.FAIL);
+                        dataMilesVO.setChangedReplacements(true);
                     }
                     break;
                 }

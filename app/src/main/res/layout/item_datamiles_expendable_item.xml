@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -9,8 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp">
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
 
         <!--소모품 항목 이름-->
         <TextView
@@ -43,6 +44,19 @@
             app:layout_constraintStart_toEndOf="@id/tv_datamiles_expendables_item_name"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!--소모품 가용 거리 그래프-->
+        <ProgressBar
+            android:id="@+id/progress_datamiles_expendables"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:layout_marginTop="14dp"
+            android:max="1000"
+            android:progressDrawable="@drawable/sel_datamiles_expendables_progress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_datamiles_expendables_item_name" />
+
         <!--잔여 거리-->
         <TextView
             android:id="@+id/tv_datamiles_expendables_distance"
@@ -51,9 +65,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="3dp"
             android:textSize="12dp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_expendables_need_change"
+            app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_expendables_coupon"
             app:layout_constraintEnd_toStartOf="@id/tv_datamiles_expendables_coupon"
-            app:layout_constraintTop_toTopOf="@id/tv_datamiles_expendables_need_change" />
+            app:layout_constraintTop_toTopOf="@id/tv_datamiles_expendables_coupon"
+            tools:text="잔여거리 0km" />
 
         <!--잔여 쿠폰 횟수-->
         <TextView
@@ -61,22 +76,10 @@
             style="@style/DataMiles.TextView_Font_MGSTG.757575"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:textSize="12dp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_expendables_need_change"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_datamiles_expendables_need_change" />
-
-        <!--소모품 가용 거리 그래프-->
-        <ProgressBar
-            android:id="@+id/progress_datamiles_expendables"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_width="0dp"
-            android:layout_height="6dp"
-            android:layout_marginTop="14dp"
-            android:max="1000"
-            android:progressDrawable="@drawable/sel_datamiles_expendables_progress"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_datamiles_expendables_item_name" />
+            app:layout_constraintEnd_toEndOf="@id/progress_datamiles_expendables"
+            app:layout_constraintTop_toBottomOf="@id/progress_datamiles_expendables"
+            tools:text="잔여 쿠폰 0회" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
