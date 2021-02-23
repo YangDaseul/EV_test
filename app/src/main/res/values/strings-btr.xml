@@ -55,8 +55,8 @@
     <string name="bt06_5">시/군/구</string>
     <string name="bt06_6">제네시스 전담</string>
     <string name="bt06_7">일반 블루핸즈</string>
-    <string name="bt06_8">종합 블루핸즈</string>
-    <string name="bt06_9">전문 블루핸즈</string>
+    <string name="bt06_8">종합</string>
+    <string name="bt06_9">전문</string>
     <string name="bt06_10">건설기계를 제외한 모든 차량의 보증 수리 및 일반 정비가 가능한 블루핸즈</string>
     <string name="bt06_11">판금/도색, 엔진/미션 작업 등을 제외한 보증 수리 및 일반 정비가 가능한 블루핸즈</string>
     <string name="bt06_12">일반 블루핸즈를 전담 업체로 선택할 경우, 1:1 차량 관리 서비스인 제네시스 버틀러 서비스를 받으실 수 없습니다.</string>
