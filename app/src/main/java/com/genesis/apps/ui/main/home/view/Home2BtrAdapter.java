@@ -55,36 +55,41 @@ public class Home2BtrAdapter extends BaseRecyclerViewAdapter2<LGN_0003.Response>
 
             getBinding().setListener(onSingleClickListener);
 
-            if(item != null && item.getButlSubsCd() != null) {
-                switch (item.getButlSubsCd()) {
-                    case VariableType.BTR_APPLY_CODE_2000:
-                        getBinding().tvBtrApply.setVisibility(View.GONE);
-                        getBinding().tvBtrStatus.setVisibility(View.GONE);
-                        getBinding().ivBtrArrow.setVisibility(View.VISIBLE);
-                        getBinding().lBtr.setOnClickListener(view -> onSingleClickListener.onClick(view));
-                        break;
+            getBinding().tvBtrApply.setVisibility(View.GONE);
+            getBinding().tvBtrStatus.setVisibility(View.GONE);
+            getBinding().ivBtrArrow.setVisibility(View.VISIBLE);
+            getBinding().lBtr.setOnClickListener(view -> onSingleClickListener.onClick(view));
 
-                    case VariableType.BTR_APPLY_CODE_3000:
-                        getBinding().tvBtrApply.setVisibility(View.GONE);
-                        getBinding().tvBtrStatus.setVisibility(View.VISIBLE);
-                        getBinding().ivBtrArrow.setVisibility(View.VISIBLE);
-                        getBinding().lBtr.setOnClickListener(view -> onSingleClickListener.onClick(view));
-                        break;
-
-                    case VariableType.BTR_APPLY_CODE_1000:
-                    default:
-                        getBinding().tvBtrApply.setVisibility(View.VISIBLE);
-                        getBinding().tvBtrStatus.setVisibility(View.GONE);
-                        getBinding().ivBtrArrow.setVisibility(View.GONE);
-                        getBinding().lBtr.setOnClickListener(null);
-                        break;
-                }
-            } else {
-                getBinding().tvBtrApply.setVisibility(View.VISIBLE);
-                getBinding().tvBtrStatus.setVisibility(View.GONE);
-                getBinding().ivBtrArrow.setVisibility(View.GONE);
-                getBinding().lBtr.setOnClickListener(null);
-            }
+//            if(item != null && item.getButlSubsCd() != null) {
+//                switch (item.getButlSubsCd()) {
+//                    case VariableType.BTR_APPLY_CODE_2000:
+//                        getBinding().tvBtrApply.setVisibility(View.GONE);
+//                        getBinding().tvBtrStatus.setVisibility(View.GONE);
+//                        getBinding().ivBtrArrow.setVisibility(View.VISIBLE);
+//                        getBinding().lBtr.setOnClickListener(view -> onSingleClickListener.onClick(view));
+//                        break;
+//
+//                    case VariableType.BTR_APPLY_CODE_3000:
+//                        getBinding().tvBtrApply.setVisibility(View.GONE);
+//                        getBinding().tvBtrStatus.setVisibility(View.VISIBLE);
+//                        getBinding().ivBtrArrow.setVisibility(View.VISIBLE);
+//                        getBinding().lBtr.setOnClickListener(view -> onSingleClickListener.onClick(view));
+//                        break;
+//
+//                    case VariableType.BTR_APPLY_CODE_1000:
+//                    default:
+//                        getBinding().tvBtrApply.setVisibility(View.VISIBLE);
+//                        getBinding().tvBtrStatus.setVisibility(View.GONE);
+//                        getBinding().ivBtrArrow.setVisibility(View.GONE);
+//                        getBinding().lBtr.setOnClickListener(null);
+//                        break;
+//                }
+//            } else {
+//                getBinding().tvBtrApply.setVisibility(View.VISIBLE);
+//                getBinding().tvBtrStatus.setVisibility(View.GONE);
+//                getBinding().ivBtrArrow.setVisibility(View.GONE);
+//                getBinding().lBtr.setOnClickListener(null);
+//            }
             
         }
 
