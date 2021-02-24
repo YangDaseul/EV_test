@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentServiceCarWashBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
@@ -41,6 +42,7 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
     private void setOnSingleClickListener() {
         me.lServiceCarWashHistoryBtn.lServiceCarWash.setOnClickListener(onSingleClickListener);
         me.lServiceCarWashRequestBtn.lServiceCarWash.setOnClickListener(onSingleClickListener);
+        me.llCost.setOnClickListener(onSingleClickListener);
     }
 
     private void setViewModel() {
@@ -66,18 +68,27 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
         int id = v.getId();
         Log.d(TAG, "onClickCommon: view id :" + id);
 
-        try {
-            if (!((FragmentService) getParentFragment()).checkCustGbCd(id, lgnViewModel.getUserInfoFromDB().getCustGbCd()))
-                return;
-        } catch (Exception e) {
+        if(v.getId() == R.id.ll_cost) {
+            if(me.clSonaxCostImg.getVisibility() == View.GONE) {
+                me.ivArrow.setImageResource(R.drawable.btn_arrow_close);
+                InteractionUtil.expand(me.clSonaxCostImg, null);
+            } else {
+                me.ivArrow.setImageResource(R.drawable.btn_arrow_open);
+                InteractionUtil.collapse(me.clSonaxCostImg, null, 200);
+            }
+        } else {
+            try {
+                if (!((FragmentService) getParentFragment()).checkCustGbCd(id, lgnViewModel.getUserInfoFromDB().getCustGbCd()))
+                    return;
+            } catch (Exception e) {
 
-        }
+            }
 
-        switch (id) {
-            //세차 서비스 예약내역 버튼
-            case R.id.l_service_car_wash_history_btn:
-                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), CarWashHistoryActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                break;
+            switch (id) {
+                //세차 서비스 예약내역 버튼
+                case R.id.l_service_car_wash_history_btn:
+                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), CarWashHistoryActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    break;
 //            case R.id.l_service_car_wash_cost_btn:
 //                String url = "";
 //                try{
@@ -92,14 +103,15 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
 //                    }
 //                }
 //                break;
-            case R.id.l_service_car_wash_request_btn:
-                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), CarWashRequestActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                case R.id.l_service_car_wash_request_btn:
+                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), CarWashRequestActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 
-                break;
+                    break;
 
-            default:
-                //do nothing
-                break;
+                default:
+                    //do nothing
+                    break;
+            }
         }
     }
 }

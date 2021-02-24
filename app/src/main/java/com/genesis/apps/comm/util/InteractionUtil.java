@@ -159,4 +159,49 @@ public class InteractionUtil {
         a.setDuration( ((int) (initialHeight / v.getContext().getResources().getDisplayMetrics().density)));
         v.startAnimation(a);
     }
+
+    public static void collapse(final View v, @Nullable final View scrollView, int duration) {
+        final int initialHeight = v.getMeasuredHeight();
+
+        Animation a = new Animation() {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                if (interpolatedTime == 1) {
+                    v.setVisibility(View.GONE);
+                } else {
+                    v.getLayoutParams().height = initialHeight - (int) (initialHeight * interpolatedTime);
+                    v.requestLayout();
+                }
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        if (scrollView != null) {
+            a.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    //스크롤 막음
+                    scrollView.setOnTouchListener((v1, event) -> true);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    //스크롤 살림
+                    scrollView.setOnTouchListener(null);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                    //do nothing
+                }
+            });
+        }
+
+        a.setDuration(duration);
+        v.startAnimation(a);
+    }
 }
