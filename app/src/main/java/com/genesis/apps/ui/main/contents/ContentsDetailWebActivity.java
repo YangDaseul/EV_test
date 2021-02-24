@@ -28,6 +28,7 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.ContentsVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.DeviceUtil;
+import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CMSViewModel;
 import com.genesis.apps.comm.viewmodel.CTTViewModel;
@@ -104,14 +105,6 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
                     }
                 }
 
-                break;
-            case R.id.btn_rate:
-                if(mRate == 0) {
-                    SnackBarUtil.show(this, getString(R.string.rate_error_1));
-
-                    return;
-                }
-
                 VehicleVO vehicleVO;
                 try {
                     vehicleVO = lgnViewModel.getMainVehicleSimplyFromDB();
@@ -127,11 +120,43 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
                     cttViewModel.reqCTT1002(new CTT_1002.Request(APPIAInfo.CM01.getId(), contentsVO.getListSeqNo(), String.valueOf(mRate), vehicleVO.getMdlNm(), vehicleVO.getVin()));
 
                 break;
-            case R.id.btn_link:
-                if(!TextUtils.isEmpty(contentsVO.getLnkUri())) {
-                    moveToPage(contentsVO.getLnkUri(), contentsVO.getLnkTypCd(), false);
-                }
+//            case R.id.btn_rate:
+//                if(mRate == 0) {
+//                    SnackBarUtil.show(this, getString(R.string.rate_error_1));
+//
+//                    return;
+//                }
+//
+//                VehicleVO vehicleVO;
+//                try {
+//                    vehicleVO = lgnViewModel.getMainVehicleSimplyFromDB();
+//                } catch (ExecutionException e){
+//                    vehicleVO = null;
+//                    e.printStackTrace();
+//                } catch (InterruptedException e) {
+//                    vehicleVO = null;
+//                    Log.d(TAG, "InterruptedException");
+//                    Thread.currentThread().interrupt();
+//                }
+//                if(vehicleVO!=null)
+//                    cttViewModel.reqCTT1002(new CTT_1002.Request(APPIAInfo.CM01.getId(), contentsVO.getListSeqNo(), String.valueOf(mRate), vehicleVO.getMdlNm(), vehicleVO.getVin()));
+//
+//                break;
+            case R.id.ll_evaluation:
+                ui.llEvaluation.setVisibility(View.GONE);
+                InteractionUtil.expand(ui.llRate, null);
+
                 break;
+            case R.id.iv_close:
+                ui.llEvaluation.setVisibility(View.VISIBLE);
+                InteractionUtil.collapse(ui.llRate, null);
+
+                break;
+//            case R.id.btn_link:
+//                if(!TextUtils.isEmpty(contentsVO.getLnkUri())) {
+//                    moveToPage(contentsVO.getLnkUri(), contentsVO.getLnkTypCd(), false);
+//                }
+//                break;
         }
     }
 
@@ -226,15 +251,18 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
         ft.add(R.id.fm_holder, fragment);
         ft.commitAllowingStateLoss();
 
-        ratingViews = new View[] {ui.includeLayout.llRate1, ui.includeLayout.llRate2, ui.includeLayout.llRate3, ui.includeLayout.llRate4, ui.includeLayout.llRate5};
+        ratingViews = new View[] {ui.llRate1, ui.llRate2, ui.llRate3, ui.llRate4, ui.llRate5};
 
         try {
-            if("Y".equals(contentsVO.getEvalYn()) && !VariableType.MAIN_VEHICLE_TYPE_0000.equals(lgnViewModel.getUserInfoFromDB().getCustGbCd())) {
-//                ui.includeLayout.llRate.setVisibility(View.VISIBLE);
-                ui.includeLayout.tvRateContent.setText(DeviceUtil.fromHtml(contentsVO.getEvalQst()));
+            if(!VariableType.MAIN_VEHICLE_TYPE_0000.equals(lgnViewModel.getUserInfoFromDB().getCustGbCd())) {
+                ui.llEvaluation.setVisibility(View.VISIBLE);
+                if("Y".equals(contentsVO.getEvalYn())) {
+                    ui.tvRateContent.setText(DeviceUtil.fromHtml(contentsVO.getEvalQst()));
+                }
             } else {
-                ui.includeLayout.llRate.setVisibility(View.GONE);
+                ui.llEvaluation.setVisibility(View.GONE);
             }
+
         } catch (ExecutionException e){
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -244,7 +272,7 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
 
         if("Y".equals(contentsVO.getLnkUseYn())) {
 //            ui.includeLayout.llLink.setVisibility(View.VISIBLE);
-            ui.includeLayout.btnLink.setText(contentsVO.getLnkNm());
+//            ui.includeLayout.btnLink.setText(contentsVO.getLnkNm());
         } else {
 //            ui.includeLayout.llLink.setVisibility(View.GONE);
         }

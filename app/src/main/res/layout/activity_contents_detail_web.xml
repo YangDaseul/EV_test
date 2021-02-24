@@ -17,11 +17,221 @@
             layout="@layout/content_contents_detail_web"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:layout_constraintVertical_weight="1"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/ll_rate"
             app:activity="@{activity}" />
+
+        <LinearLayout
+            android:id="@+id/ll_evaluation"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="15dp"
+            android:elevation="2dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/ripple_bg_111111"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/estimate" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:textSize="14dp"
+                android:textColor="@color/x_ffffff"
+                android:text="@string/cm02_15" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ll_rate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/x_ffffff"
+            android:visibility="gone"
+            android:elevation="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_layout"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="13dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/btn_close"
+                android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <LinearLayout
+                android:id="@+id/ll_rate_contain"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:layout_marginTop="36dp"
+                android:layout_gravity="center_horizontal"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/ll_txt_contain"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/ll_rate_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:onClick="@{(v) -> activity.onClickCommon(v)}">
+
+                    <ImageView
+                        android:id="@+id/iv_rate_1"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_star_l_n_c" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_rate_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:onClick="@{(v) -> activity.onClickCommon(v)}">
+
+                    <ImageView
+                        android:id="@+id/iv_rate_2"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_star_l_n_c" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_rate_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:onClick="@{(v) -> activity.onClickCommon(v)}">
+
+                    <ImageView
+                        android:id="@+id/iv_rate_3"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_star_l_n_c" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_rate_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:onClick="@{(v) -> activity.onClickCommon(v)}">
+
+                    <ImageView
+                        android:id="@+id/iv_rate_4"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_star_l_n_c"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_rate_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:onClick="@{(v) -> activity.onClickCommon(v)}">
+
+                    <ImageView
+                        android:id="@+id/iv_rate_5"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_star_l_n_c"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_txt_contain"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center_vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_rate_contain">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
+
+<!--                    <View-->
+<!--                        android:layout_width="2dp"-->
+<!--                        android:layout_height="2dp"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:background="@color/x_262626" />-->
+
+                    <TextView
+                        android:id="@+id/tv_rate_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:gravity="center_horizontal"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:textSize="14dp"
+                        android:textColor="@color/x_262626"
+                        tools:text="@string/cm02_10" />
+
+                </LinearLayout>
+
+                <include
+                    android:id="@+id/btn_rate"
+                    layout="@layout/item_btn_underline_mark_gold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:onClick="@{(v) -> activity.onSingleClickListener.onClick(v)}"
+                    android:visibility="gone"
+                    app:btnNm="@{@string/cm02_11}" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

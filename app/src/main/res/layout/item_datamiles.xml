@@ -22,9 +22,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:letterSpacing="-0.01"
             android:paddingBottom="30dp"
             android:text="@string/gm01_datamiles_title"
-            android:letterSpacing="-0.01"
             android:textSize="25dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -49,11 +49,13 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:paddingBottom="40dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/l_datamiles_expenables_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_datamiles_title"
-            app:layout_constraintVertical_chainStyle="packed">
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:visibility="visible">
 
             <!--타이틀 : 안전운전 점수-->
             <TextView
@@ -82,18 +84,18 @@
                 android:id="@+id/ll_datamiles_driving_score_error"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:background="@color/x_f8f8f8"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:paddingTop="47dp"
                 android:paddingBottom="47dp"
-                android:layout_marginTop="20dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/l_driving_score_container"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_datamiles_driving_score_title"
-                tools:visibility="visible">
+                tools:visibility="gone">
 
                 <TextView
                     style="@style/DataMiles.TextView_Font_RGSHG.Black"
@@ -142,7 +144,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ll_datamiles_driving_score_error"
-                tools:visibility="gone">
+                tools:visibility="visible">
 
                 <ImageView
                     android:id="@+id/iv_datamiles_driving_score_icon"
@@ -185,13 +187,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
-                    android:layout_marginEnd="100dp"
-                    android:gravity="top"
+                    android:layout_marginEnd="120dp"
                     android:includeFontPadding="false"
                     android:lineSpacingExtra="0dp"
-                    android:textSize="44dp"
+                    android:textSize="48dp"
                     app:layout_constraintEnd_toEndOf="@id/asb_datamiles_driving_score"
-                    app:layout_constraintTop_toTopOf="@id/asb_datamiles_driving_score" />
+                    app:layout_constraintTop_toTopOf="@id/asb_datamiles_driving_score"
+                    tools:text="100" />
 
                 <!--전월 대비-->
                 <TextView
@@ -201,6 +203,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:layout_marginTop="10dp"
+                    android:includeFontPadding="false"
                     android:text="@string/gm01_driving_before_score_title"
                     android:textSize="12dp"
                     android:textStyle="normal"
@@ -214,9 +217,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
+                    android:includeFontPadding="false"
                     android:textSize="16dp"
                     app:layout_constraintStart_toStartOf="@id/tv_datamiles_before_score_title"
-                    app:layout_constraintTop_toBottomOf="@id/tv_datamiles_before_score_title" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_datamiles_before_score_title"
+                    tools:text="2점" />
 
                 <!--점수 산정 가이드 문구-->
                 <TextView
@@ -228,88 +233,101 @@
                     android:textSize="14dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/asb_datamiles_driving_score" />
+                    app:layout_constraintTop_toTopOf="@id/asb_datamiles_driving_score"
+                    tools:text="90일간 1,200km 주행 기준" />
 
-                <!--점수 전체 랭킹 : 타이틀-->
-                <TextView
-                    android:id="@+id/tv_datamiles_driving_score_rank_all_title"
-                    style="@style/DataMiles.TextView_Font_RGSTG.757575"
+                <LinearLayout
+                    android:id="@+id/l_datamiles_rank_container"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/gm01_all"
-                    android:textSize="12dp"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_driving_score_rank_all"
-                    app:layout_constraintEnd_toStartOf="@id/tv_datamiles_driving_score_rank_title_1"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tv_datamiles_driving_score_rank_all" />
-
-                <!--점수 전체 랭킹 : 상위 텍스트-->
-                <TextView
-                    android:id="@+id/tv_datamiles_driving_score_rank_title_1"
-                    style="@style/DataMiles.TextView_Font_MGSTG.Black.Rank"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/gm01_rank"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_driving_score_rank_all"
-                    app:layout_constraintEnd_toStartOf="@id/tv_datamiles_driving_score_rank_all"
-                    app:layout_constraintStart_toEndOf="@id/tv_datamiles_driving_score_rank_all_title"
-                    app:layout_constraintTop_toTopOf="@id/tv_datamiles_driving_score_rank_all" />
-
-                <!--점수 전체 랭킹 : 퍼센트-->
-                <TextView
-                    android:id="@+id/tv_datamiles_driving_score_rank_all"
-                    style="@style/DataMiles.TextView_Font_MGSTG.Black.Rank"
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:gravity="end"
-                    app:layout_constraintBottom_toBottomOf="@id/v_datamiles_verticalline"
-                    app:layout_constraintEnd_toStartOf="@id/v_datamiles_verticalline"
-                    app:layout_constraintStart_toEndOf="@id/tv_datamiles_driving_score_rank_title_1"
-                    app:layout_constraintTop_toTopOf="@id/v_datamiles_verticalline" />
-
-                <!--점수 동일차종 랭킹 : 타이틀-->
-                <TextView
-                    android:id="@+id/tv_datamiles_driving_score_rank_category_title"
-                    style="@style/DataMiles.TextView_Font_RGSTG.757575"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/gm01_same_car"
-                    android:textSize="12dp"
-                    app:layout_constraintBottom_toBottomOf="@id/v_datamiles_verticalline"
-                    app:layout_constraintEnd_toStartOf="@id/tv_datamiles_driving_score_rank_title_2"
-                    app:layout_constraintStart_toEndOf="@id/v_datamiles_verticalline"
-                    app:layout_constraintTop_toTopOf="@id/v_datamiles_verticalline" />
-
-                <!--점수 동일차종 랭킹 : 상위 텍스트-->
-                <TextView
-                    android:id="@+id/tv_datamiles_driving_score_rank_title_2"
-                    style="@style/DataMiles.TextView_Font_MGSTG.Black.Rank"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/gm01_rank"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_driving_score_rank_category_title"
-                    app:layout_constraintEnd_toStartOf="@id/tv_datamiles_driving_score_rank_category"
-                    app:layout_constraintStart_toEndOf="@id/tv_datamiles_driving_score_rank_category_title"
-                    app:layout_constraintTop_toTopOf="@id/tv_datamiles_driving_score_rank_category_title" />
-
-
-                <!--점수 동일차종 랭킹 : 퍼센트-->
-                <TextView
-                    android:id="@+id/tv_datamiles_driving_score_rank_category"
-                    style="@style/DataMiles.TextView_Font_MGSTG.Black.Rank"
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:gravity="end"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_driving_score_rank_category_title"
+                    android:layout_marginTop="32dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/tv_datamiles_driving_score_rank_title_2"
-                    app:layout_constraintTop_toTopOf="@id/tv_datamiles_driving_score_rank_category_title" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_datamiles_driving_score_guide"
+                    tools:visibility="visible">
 
+                    <!--점수 전체 랭킹 : 타이틀-->
+                    <TextView
+                        android:id="@+id/tv_datamiles_driving_score_rank_all_title"
+                        style="@style/DataMiles.TextView_Font_RGSTG.757575"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:includeFontPadding="false"
+                        android:text="@string/gm01_all"
+                        android:textSize="12dp"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_datamiles_driving_score_rank_all"
+                        app:layout_constraintEnd_toStartOf="@id/tv_datamiles_driving_score_rank_title_1"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_datamiles_driving_score_rank_all" />
+
+                    <!--점수 전체 랭킹 : 상위 텍스트-->
+                    <TextView
+                        android:id="@+id/tv_datamiles_driving_score_rank_title_1"
+                        style="@style/DataMiles.TextView_Font_MGSTG.Black.Rank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:includeFontPadding="false"
+                        android:text="@string/gm01_rank" />
+
+                    <!--점수 전체 랭킹 : 퍼센트-->
+                    <TextView
+                        android:id="@+id/tv_datamiles_driving_score_rank_all"
+                        style="@style/DataMiles.TextView_Font_MGSTG.Black.Rank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:gravity="end"
+                        android:includeFontPadding="false"
+                        android:minWidth="30dp"
+                        tools:text="100%" />
+
+                    <!--점수 랭킹 구분 라인-->
+                    <View
+                        android:id="@+id/v_datamiles_verticalline"
+                        android:layout_width="1dp"
+                        android:layout_height="10dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:background="@color/x_e5e5e5" />
+
+                    <!--점수 동일차종 랭킹 : 타이틀-->
+                    <TextView
+                        android:id="@+id/tv_datamiles_driving_score_rank_category_title"
+                        style="@style/DataMiles.TextView_Font_RGSTG.757575"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:includeFontPadding="false"
+                        android:text="@string/gm01_same_car"
+                        android:textSize="12dp" />
+
+                    <!--점수 동일차종 랭킹 : 상위 텍스트-->
+                    <TextView
+                        android:id="@+id/tv_datamiles_driving_score_rank_title_2"
+                        style="@style/DataMiles.TextView_Font_MGSTG.Black.Rank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:includeFontPadding="false"
+                        android:text="@string/gm01_rank" />
+
+                    <!--점수 동일차종 랭킹 : 퍼센트-->
+                    <TextView
+                        android:id="@+id/tv_datamiles_driving_score_rank_category"
+                        style="@style/DataMiles.TextView_Font_MGSTG.Black.Rank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:gravity="end"
+                        android:includeFontPadding="false"
+                        android:minWidth="30dp"
+                        tools:text="100%" />
+                </LinearLayout>
                 <!--운전 점수 평가-->
                 <TextView
                     android:id="@+id/tv_datamiles_driving_score_description"
@@ -317,7 +335,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:layout_marginTop="66dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginEnd="15dp"
                     android:background="@drawable/bg_ffffff_stroke_e5e5e5"
                     android:letterSpacing="-0.01"
@@ -329,25 +347,13 @@
                     android:textSize="14dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/asb_datamiles_driving_score" />
+                    app:layout_constraintTop_toBottomOf="@id/l_datamiles_rank_container" />
 
-                <!--점수 랭킹 구분 라인-->
-                <View
-                    android:id="@+id/v_datamiles_verticalline"
-                    android:layout_width="1dp"
-                    android:layout_height="10dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@color/x_e5e5e5"
-                    app:layout_constraintEnd_toStartOf="@id/tv_datamiles_driving_score_rank_category_title"
-                    app:layout_constraintStart_toEndOf="@id/tv_datamiles_driving_score_rank_all"
-                    app:layout_constraintTop_toBottomOf="@id/tv_datamiles_driving_score_guide" />
 
                 <com.marcinmoskala.arcseekbar.ArcSeekBar
                     android:id="@+id/asb_datamiles_driving_score"
-                    android:layout_width="220dp"
-                    android:layout_height="128dp"
+                    android:layout_width="240dp"
+                    android:layout_height="140dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -491,11 +497,12 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:paddingBottom="40dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/l_datamiles_guide_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/l_datamiles_expenables_container"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <!--타이틀 : 차량 진단-->
             <TextView
