@@ -64,15 +64,17 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
                 android:fontFamily="@font/regular_genesissansheadglobal"
                 android:gravity="center_vertical"
+                android:includeFontPadding="false"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="6dp"
                 android:textColor="@color/x_262626"
                 android:textSize="14dp"
-                android:includeFontPadding="false"
+                app:layout_goneMarginEnd="0dp"
                 app:layout_constrainedWidth="true"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/iv_icon"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title"
@@ -84,17 +86,17 @@
                 android:id="@+id/tv_link_nm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="15dp"
                 android:paddingBottom="2dp"
                 android:background="@drawable/bg_00000000_underline_000000"
                 android:fontFamily="@font/regular_genesissansheadglobal"
-                android:lineSpacingExtra="29dp"
+                android:lineSpacingExtra="6dp"
                 android:textColor="@color/x_000000"
                 android:textSize="14dp"
                 app:layout_constrainedWidth="true"
-                app:layout_constraintEnd_toStartOf="@+id/iv_icon"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_msg"
                 tools:text="@string/tm01_10"
                 tools:visibility="visible" />
@@ -103,10 +105,9 @@
                 android:id="@+id/iv_icon"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginTop="2dp"
                 android:scaleType="centerInside"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_msg"
+                app:layout_constraintTop_toTopOf="@+id/tv_msg"
                 tools:src="@drawable/ic_service_emergency" />
 
             <androidx.constraintlayout.widget.Barrier
@@ -114,7 +115,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:barrierDirection="bottom"
-                app:constraint_referenced_ids="iv_icon,tv_link_nm" />
+                app:constraint_referenced_ids="tv_link_nm" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/vp_image"
