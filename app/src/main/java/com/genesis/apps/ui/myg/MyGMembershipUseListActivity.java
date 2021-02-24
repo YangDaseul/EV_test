@@ -38,7 +38,9 @@ import static com.genesis.apps.comm.model.vo.MembershipPointVO.TYPE_TRANS_USE;
 
 public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembershipUseListBinding> {
     private static final int PAGE_SIZE = 20;
-
+    private final String TRANS_TYPE_CODE_SAVE="20";
+    private final String TRANS_TYPE_CODE_USE="40";
+    private final String TRANS_TYPE_CODE_CANCEL="80";
     private MYPViewModel mypViewModel;
     private PointUseListAdapter adapter;
     private String mbrshMbrMgmtNo;
@@ -53,7 +55,7 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
         setViewModel();
         setObserver();
         initView();
-        reqMYP2002(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd),1 );
+        reqMYP2002(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd),1);
     }
 
     private void reqMYP2002(String transStrDt, String transEndDt, int pageNo){
@@ -64,7 +66,8 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
                         transStrDt,
                         transEndDt,
                         ""+ pageNo,
-                        "" + PAGE_SIZE));
+                        "" + PAGE_SIZE,
+                        getTransTypCd()));
     }
 
     private void initView() {
@@ -257,38 +260,21 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
 
 
     private void setFilter(){
-
-        String transTypNm;
-        switch (ui.rGroup2.getCheckedRadioButtonId()){
-            case R.id.r_use:
-                transTypNm = TYPE_TRANS_USE;
-                break;
-            case R.id.r_save:
-                transTypNm = TYPE_TRANS_SAVE;
-                break;
-            case R.id.r_cancel:
-                transTypNm = TYPE_TRANS_CANCEL;
-                break;
-            case R.id.r_all:
-            default:
-                transTypNm = getString(R.string.word_membership_7);
-                break;
-        }
-
-
         List<MembershipPointVO> list = new ArrayList<>();
         if (mypViewModel.getRES_MYP_2002().getValue() != null
                 && mypViewModel.getRES_MYP_2002().getValue().data != null
                 && mypViewModel.getRES_MYP_2002().getValue().data.getTransList() != null
                 && mypViewModel.getRES_MYP_2002().getValue().data.getTransList().size() > 0) {
 
-            if(StringUtil.isValidString(transTypNm).equalsIgnoreCase(getString(R.string.word_membership_7))){
-                //전체
-                list.addAll(mypViewModel.getRES_MYP_2002().getValue().data.getTransList());
-            }else{
-                //선택
-                list.addAll(mypViewModel.getRES_MYP_2002().getValue().data.getTransList().stream().filter(data -> data.getTransTypNm().equalsIgnoreCase(transTypNm)).collect(Collectors.toList()));
-            }
+            list.addAll(mypViewModel.getRES_MYP_2002().getValue().data.getTransList());
+
+//            if(StringUtil.isValidString(transTypNm).equalsIgnoreCase(getString(R.string.word_membership_7))){
+//                //전체
+//                list.addAll(mypViewModel.getRES_MYP_2002().getValue().data.getTransList());
+//            }else{
+//                //선택
+//                list.addAll(mypViewModel.getRES_MYP_2002().getValue().data.getTransList().stream().filter(data -> data.getTransTypNm().equalsIgnoreCase(transTypNm)).collect(Collectors.toList()));
+//            }
         }
 
         if (list != null && list.size() > 0) {
@@ -310,6 +296,26 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
 
         ui.tvPointSave.setText(StringUtil.getDigitGrouping(adapter.getTotalSavePoint()));
         String totalUsePoint = StringUtil.getDigitGrouping(adapter.getTotalUsePoint());
-        ui.tvPointUse.setText((!StringUtil.isValidString(totalUsePoint).equalsIgnoreCase("0") ? "-" : "")+totalUsePoint);
+        ui.tvPointUse.setText(totalUsePoint);
+    }
+
+    private String getTransTypCd(){
+        String transTypCd;
+        switch (ui.rGroup2.getCheckedRadioButtonId()){
+            case R.id.r_use:
+                transTypCd = TRANS_TYPE_CODE_USE;
+                break;
+            case R.id.r_save:
+                transTypCd = TRANS_TYPE_CODE_SAVE;
+                break;
+            case R.id.r_cancel:
+                transTypCd = TRANS_TYPE_CODE_CANCEL;
+                break;
+            case R.id.r_all:
+            default:
+                transTypCd = "";
+                break;
+        }
+        return transTypCd;
     }
 }

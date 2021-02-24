@@ -49,14 +49,18 @@ public class MYP_2002 extends BaseData {
         @Expose
         @SerializedName("searchCnt")
         private String searchCnt;
+        @Expose
+        @SerializedName("transTypCd")
+        private String transTypCd;
 
 
-        public Request(String menuId, String mbrshMbrMgmtNo, String transSrtDt, String transEndDt, String pageNo, String searchCnt){
+        public Request(String menuId, String mbrshMbrMgmtNo, String transSrtDt, String transEndDt, String pageNo, String searchCnt, String transTypCd){
             this.mbrshMbrMgmtNo = mbrshMbrMgmtNo;
             this.transSrtDt = transSrtDt;
             this.transEndDt = transEndDt;
             this.pageNo = pageNo;
             this.searchCnt = searchCnt;
+            this.transTypCd = transTypCd;
             setData(APIInfo.GRA_MYP_2002.getIfCd(), menuId);
         }
     }
