@@ -140,6 +140,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
                             // UBI 가입 불가능한 상태.
                             dataMilesVO.setUbiStatus(DataMilesVO.UBI_STATUS.NOT_SUPPORTED);
                         }
+                        dataMilesVO.setChangedDrivingScore(true);
                     }
                     home2DataMilesAdapter.setRows(Collections.singletonList(dataMilesVO));
                     home2DataMilesAdapter.notifyDataSetChanged();

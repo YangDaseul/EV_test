@@ -182,6 +182,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                         switch (item.getDetailStatus()) {
                             case SUCCESS: {
                                 binding.lDrivingScoreContainer.setVisibility(View.VISIBLE);
+                                binding.llDatamilesDrivingScoreError.setVisibility(View.GONE);
                                 drivingAniSet.removeAllListeners();
                                 drivingAniSet.end();
                                 drivingAniSet.cancel();
@@ -202,7 +203,6 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                         // UBI 미가입, 가입 가능 상태. - 안내 가이드 표시.
                         binding.lDatamilesDrivingScoreContainer.setVisibility(View.GONE);
                         binding.lDatamilesGuideContainer.setVisibility(View.VISIBLE);
-                        binding.llDatamilesDrivingScoreError.setVisibility(View.GONE);
                         break;
                     }
                     case NOT_SUPPORTED:
