@@ -73,6 +73,7 @@
                 android:lineSpacingExtra="6dp"
                 android:textColor="@color/x_262626"
                 android:textSize="14dp"
+                android:minHeight="60dp"
                 app:layout_goneMarginEnd="0dp"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintEnd_toStartOf="@+id/iv_icon"
