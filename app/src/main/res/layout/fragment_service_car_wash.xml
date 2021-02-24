@@ -34,6 +34,63 @@
                     android:adjustViewBounds="true"
                     android:src="@drawable/main_sonax_img_02" />
 
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:showDividers="beginning|end"
+                    android:divider="@drawable/divider_1dp_e5e5e5"
+                    android:background="@color/x_ffffff">
+
+                    <LinearLayout
+                        android:id="@+id/ll_cost"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="29dp"
+                        android:paddingBottom="29dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:textColor="@color/x_262626"
+                            android:textSize="14dp"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="10dp"
+                            android:text="@string/sm01_car_wash_6"/>
+
+                        <ImageView
+                            android:id="@+id/iv_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/btn_arrow_close"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_sonax_cost_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/main_sonax_img_03"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
