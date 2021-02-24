@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.text.TextUtils" />
+        <import type="android.view.View" />
 
         <variable
             name="date"
@@ -11,6 +13,10 @@
 
         <variable
             name="carInfo"
+            type="String" />
+
+        <variable
+            name="rsvDt"
             type="String" />
     </data>
 
@@ -27,7 +33,6 @@
         <TextView
             android:id="@+id/tv_service_drive_history_canceled_date_desc"
             style="@style/ServiceDrive.History.Data.Desc"
-            android:layout_marginStart="13dp"
             android:text="@{date}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,60 +65,51 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/ll_info"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
+        <include
+            android:id="@+id/l_rsv_dt"
+            layout="@layout/item_rpar_status"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@+id/view_line_1">
+            android:visibility="@{TextUtils.isEmpty(rsvDt) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_line_1"
+            app:msg="@{rsvDt}"
+            app:title="@{@string/service_drive_history_rsv_dt}"
+            app:isLeft="@{true}"
+            tools:visibility="gone"/>
 
-            <!-- "차량정보" -->
-            <TextView
-                android:id="@+id/tv_service_drive_history_canceled_term_title"
-                style="@style/ServiceDrive.History.Data.Title"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:background="@color/x_f8f8f8"
-                android:fontFamily="@font/regular_genesissanstextglobal"
-                android:textSize="14dp"
-                android:text="@string/service_drive_history_car_info"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="4dp" />
+        <View
+            android:id="@+id/view_line_1_1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/x_e5e5e5"
+            android:visibility="@{TextUtils.isEmpty(rsvDt) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintTop_toBottomOf="@+id/l_rsv_dt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="gone"/>
 
-            <!-- 대여기간 데이터 -->
-            <TextView
-                android:id="@+id/tv_service_drive_history_canceled_term_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="4dp"
-                android:fontFamily="@font/regular_genesissanstextglobal"
-                android:textColor="@color/x_262626"
-                android:text="@{carInfo}"
-                tools:text="GV70 123제 4567" />
-
-        </LinearLayout>
+        <include
+            android:id="@+id/l_car_info"
+            layout="@layout/item_rpar_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_line_1_1"
+            app:msg="@{carInfo}"
+            app:title="@{@string/service_drive_history_car_info}"
+            app:isLeft="@{true}"/>
 
         <View
             android:id="@+id/view_line_2"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:background="@color/x_e5e5e5"
-            app:layout_constraintTop_toBottomOf="@+id/ll_info"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_car_info"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
-
-
-
-
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

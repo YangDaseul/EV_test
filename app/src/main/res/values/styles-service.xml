@@ -140,8 +140,8 @@
     <!-- 패널, 데이터 값 -->
     <style name="ServiceDrive.History.Data.Desc" parent="TextBasic">
         <item name="android:layout_width">0dp</item>
-        <item name="android:textColor">@color/x_000000</item>
-        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/x_262626</item>
+        <item name="android:textSize">14dp</item>
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:layout_marginEnd">10dp</item>
     </style>
