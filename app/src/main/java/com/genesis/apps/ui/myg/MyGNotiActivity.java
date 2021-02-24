@@ -114,6 +114,9 @@ public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
                         adapter.notifyItemRangeInserted(itemSizeBefore, adapter.getItemCount());
                         ui.tvEmpty.setVisibility(result.data.getNotiList().size()==0 ? View.VISIBLE : View.GONE);
                         break;
+                    }else if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("2005")){
+                        ui.tvEmpty.setVisibility(View.VISIBLE);
+                        break;
                     }
                 default:
                     ui.tvEmpty.setVisibility(View.VISIBLE);
