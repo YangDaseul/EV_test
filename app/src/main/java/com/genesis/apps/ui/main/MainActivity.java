@@ -45,7 +45,15 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
-    private final int pageNum = 5;
+    public enum MainPageDiv {
+        HOME,
+        INSIGHT,
+        SERVICE,
+        STORE,
+        CONTENTS
+    }
+
+    private final int pageNum = MainPageDiv.values().length;
     public FragmentStateAdapter pagerAdapter;
     private LGNViewModel lgnViewModel;
     private CMNViewModel cmnViewModel;
@@ -60,17 +68,16 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         setObserver();
         initView();
         initBarcode();
-//        startActivitySingleTop(new Intent(this, APPIAInfo.GM_CARLST01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
     private void initBarcode() {
-        String custGbCd="";
+        String custGbCd = "";
         try {
             custGbCd = lgnViewModel.getUserInfoFromDB().getCustGbCd();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            if(!TextUtils.isEmpty(custGbCd)&&!custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)){
+        } finally {
+            if (!TextUtils.isEmpty(custGbCd) && !custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)) {
                 cmnViewModel.reqBAR1001(new BAR_1001.Request(APPIAInfo.GM01.getId()));
             }
         }
@@ -84,7 +91,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 
         //ViewPager Setting
         ui.viewpager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-        ui.viewpager.setCurrentItem(0);
+        ui.viewpager.setCurrentItem(MainPageDiv.HOME.ordinal());
         ui.viewpager.setOffscreenPageLimit(4);
 
         ui.viewpager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -105,7 +112,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 
         });
 
-        final float pageMargin= getResources().getDimensionPixelOffset(R.dimen.pageMargin);
+        final float pageMargin = getResources().getDimensionPixelOffset(R.dimen.pageMargin);
         final float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset);
         ui.viewpager.setPageTransformer((page, position) -> {
             float myOffset = position * -(2 * pageOffset + pageMargin);
@@ -125,7 +132,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     @Override
     public void onClickCommon(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_barcode:
                 startActivitySingleTop(new Intent(this, BarcodeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
                 break;
@@ -144,21 +151,21 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             case R.id.btn_cart_list:
                 try {
                     loginChk(StoreInfo.STORE_PURCHASE_URL, lgnViewModel.getUserInfoFromDB().getCustGbCd());
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case R.id.btn_store_cart:
                 try {
                     loginChk(StoreInfo.STORE_CART_URL, lgnViewModel.getUserInfoFromDB().getCustGbCd());
-                }catch (Exception ignore){
+                } catch (Exception ignore) {
 
                 }
                 break;
             case R.id.btn_store_search:
                 try {
                     loginChk(StoreInfo.STORE_SEARCH_URL, lgnViewModel.getUserInfoFromDB().getCustGbCd());
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
 
@@ -181,9 +188,9 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     public void setObserver() {
 
         cmnViewModel.getRES_NOT_0003().observe(this, result -> {
-            switch (result.status){
+            switch (result.status) {
                 case SUCCESS:
-                    if(result.data!=null){
+                    if (result.data != null) {
                         setGnB();
                     }
                     break;
@@ -194,11 +201,11 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         });
 
         cmnViewModel.getRES_BAR_1001().observe(this, result -> {
-            switch (result.status){
+            switch (result.status) {
                 case LOADING:
                     break;
                 case SUCCESS:
-                    if(result.data!=null&&result.data.getCardList()!=null&&result.data.getCardList().size()>0){
+                    if (result.data != null && result.data.getCardList() != null && result.data.getCardList().size() > 0) {
                         ui.lGnb.setUseBarcode(true);
                         break;
                     }
@@ -216,33 +223,33 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-        Log.e("onResume","onReusme Mainactivity");
+        Log.e("onResume", "onReusme Mainactivity");
         checkPushCode();
         reqNewNotiCnt();
     }
 
     public String getCustGbCd() {
-        String custGbCd="";
-        try{
+        String custGbCd = "";
+        try {
             custGbCd = lgnViewModel.getUserInfoFromDB().getCustGbCd();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             return custGbCd;
         }
     }
 
     private void reqNewNotiCnt() {
-        String custGbCd="";
-        try{
+        String custGbCd = "";
+        try {
             custGbCd = lgnViewModel.getUserInfoFromDB().getCustGbCd();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             //고객구분코드가 0000(비회원)이 아니면 신규 알림 갯수 요청
-            if(!TextUtils.isEmpty(custGbCd)&&!custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)){
+            if (!TextUtils.isEmpty(custGbCd) && !custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)) {
                 cmnViewModel.reqNOT0003(new NOT_0003.Request(APPIAInfo.GM03.getId()));
             }
         }
@@ -255,17 +262,16 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if ( (requestCode == RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode())
-                ||requestCode == RequestCodes.REQ_CODE_PLAY_VIDEO.getCode()
-                ||(requestCode == RequestCodes.REQ_CODE_GPS.getCode() && resultCode == RESULT_OK)
+        if ((requestCode == RequestCodes.REQ_CODE_PERMISSIONS_MEDIAPROJECTION.getCode())
+                || requestCode == RequestCodes.REQ_CODE_PLAY_VIDEO.getCode()
+                || (requestCode == RequestCodes.REQ_CODE_GPS.getCode() && resultCode == RESULT_OK)
         ) {
             for (Fragment fragmentParent : getSupportFragmentManager().getFragments()) {
                 if (fragmentParent instanceof FragmentHome) {
-                    for(Fragment fragmentChild : fragmentParent.getChildFragmentManager().getFragments()){
+                    for (Fragment fragmentChild : fragmentParent.getChildFragmentManager().getFragments()) {
                         if (fragmentChild instanceof FragmentHome1) {
                             fragmentChild.onActivityResult(requestCode, resultCode, data);
                             return;
@@ -273,25 +279,25 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                     }
                 }
             }
-        }else if(resultCode==ResultCodes.REQ_CODE_SERVICE_RESERVE_AUTOCARE.getCode()
-                ||resultCode==ResultCodes.REQ_CODE_SERVICE_RESERVE_HOMETOHOME.getCode()
-                ||resultCode==ResultCodes.REQ_CODE_SERVICE_RESERVE_REPAIR.getCode()
-                ||resultCode==ResultCodes.REQ_CODE_SERVICE_RESERVE_REMOTE.getCode()
-                ||resultCode==ResultCodes.REQ_CODE_SERVICE_NETWORK_RESERVE.getCode()){
+        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_AUTOCARE.getCode()
+                || resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_HOMETOHOME.getCode()
+                || resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REPAIR.getCode()
+                || resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REMOTE.getCode()
+                || resultCode == ResultCodes.REQ_CODE_SERVICE_NETWORK_RESERVE.getCode()) {
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                 if (fragment instanceof FragmentService) {
                     fragment.onActivityResult(requestCode, resultCode, data);
                     return;
                 }
             }
-        }else if(resultCode==ResultCodes.REQ_CODE_INSIGHT_EXPN_ADD.getCode()){
+        } else if (resultCode == ResultCodes.REQ_CODE_INSIGHT_EXPN_ADD.getCode()) {
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                 if (fragment instanceof FragmentInsight) {
                     fragment.onActivityResult(requestCode, resultCode, data);
                     return;
                 }
             }
-        } else if(requestCode == RequestCodes.REQ_CODE_SERVICE_DRIVE_REQ.getCode()) {
+        } else if (requestCode == RequestCodes.REQ_CODE_SERVICE_DRIVE_REQ.getCode()) {
             // 대리운전 결제 완료
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                 if (fragment instanceof FragmentService) {
@@ -303,11 +309,11 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 
     }
 
-    public ViewPager2 getViewPager(){
+    public ViewPager2 getViewPager() {
         return ui.viewpager;
     }
 
-    private final int[][] TAB_INFO ={
+    private final int[][] TAB_INFO = {
             {R.string.main_word_1, R.drawable.ic_tabbar_home_bs},
             {R.string.main_word_2, R.drawable.ic_tabbar_insight_w},
             {R.string.main_word_3, R.drawable.ic_tabbar_service_w},
@@ -315,12 +321,12 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             {R.string.main_word_4, R.drawable.ic_tabbar_contents_w}
     };
 
-    private void setTabView(){
+    private void setTabView() {
         new TabLayoutMediator(ui.tabs, ui.viewpager, (tab, position) -> {
 
         }).attach();
 
-        for(int i=0 ; i<pageNum; i++) {
+        for (int i = 0; i < pageNum; i++) {
             final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             final ItemTabBinding itemTabBinding = DataBindingUtil.inflate(inflater, R.layout.item_tab, null, false);
             final View view = itemTabBinding.getRoot();
@@ -331,7 +337,6 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     }
 
     /**
-     *
      * @param dayCd 낮 : 1 , 밤 : 2
      */
     public void setTab(int dayCd) {
@@ -341,10 +346,10 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 
         }).attach();
 
-        for(int i=0 ; i<pageNum; i++) {
+        for (int i = 0; i < pageNum; i++) {
             final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = null;
-            if(dayCd == 1) {
+            if (dayCd == 1) {
                 final ItemTabDayBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_tab_day, null, false);
 
                 view = binding.getRoot();
@@ -374,27 +379,27 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             ui.lGnb.lWhole.setVisibility(isVisibility);
             ui.lGnb.setIsStore(isStore);
             ui.lGnb.setIsBgWhite(isBgWhite);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void setGnB(){
+    private void setGnB() {
         try {
             ui.lGnb.setIsAlarm(isNewAlarm());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    private boolean isNewAlarm(){
+    private boolean isNewAlarm() {
         String newNotiCnt = "";
-        int newNotiCnt_i=0;
-        try{
+        int newNotiCnt_i = 0;
+        try {
             newNotiCnt = cmnViewModel.getRES_NOT_0003().getValue().data.getNewNotiCnt();
             newNotiCnt_i = Integer.parseInt(newNotiCnt);
-        }catch (Exception e){
+        } catch (Exception e) {
             newNotiCnt_i = 0;
         }
         return newNotiCnt_i > 0;
@@ -403,33 +408,34 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 
 
     private long backKeyPressedTime = 0;
+
     @Override
     public void onBackPressed() {
         // 현재 화면이 Store 화면일때 WebView 뒤로가기 처리
-        if(getViewPager().getCurrentItem() == 3) {
-            for(Fragment fragment : getSupportFragmentManager().getFragments()) {
-                if(fragment instanceof FragmentStore) {
+        if (getViewPager().getCurrentItem() == MainPageDiv.STORE.ordinal()) {
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if (fragment instanceof FragmentStore) {
                     FragmentStore fragmentStore = (FragmentStore) fragment;
                     MyWebViewFrament webFragment = (MyWebViewFrament) fragment.getChildFragmentManager().findFragmentById(R.id.fm_holder);
 
-                    if(base.lProgress.lProgress.getVisibility() == View.VISIBLE) {
+                    if (base.lProgress.lProgress.getVisibility() == View.VISIBLE) {
                         showProgressDialog(false);
 
                         return;
                     }
 
-                    if(fragmentStore.isDlp.equals("YES")) {
+                    if (fragmentStore.isDlp.equals("YES")) {
                         webFragment.loadUrl("javascript:bwcAppClose();");
                     } else {
                         Log.d("JJJJ", "canGoBack : " + webFragment.canGoBack());
-                        if(!TextUtils.isEmpty(fragmentStore.fn)){
-                            if(webFragment.openWindows.size()>0){
-                                webFragment.openWindows.get(0).loadUrl("javascript:"+fragmentStore.fn);
-                            }else{
-                                webFragment.loadUrl("javascript:"+fragmentStore.fn);
+                        if (!TextUtils.isEmpty(fragmentStore.fn)) {
+                            if (webFragment.openWindows.size() > 0) {
+                                webFragment.openWindows.get(0).loadUrl("javascript:" + fragmentStore.fn);
+                            } else {
+                                webFragment.loadUrl("javascript:" + fragmentStore.fn);
                             }
                         } else {
-                            if(webFragment.canGoBack()) {
+                            if (webFragment.canGoBack()) {
                                 webFragment.goBack();
                                 return;
                             }
@@ -438,8 +444,9 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 }
             }
         }
-
-        if (System.currentTimeMillis() > backKeyPressedTime + (2 * 1000)) {
+        if(!isHome()) {
+            ui.viewpager.setCurrentItem(MainPageDiv.HOME.ordinal(), true);
+        }else if (System.currentTimeMillis() > backKeyPressedTime + (2 * 1000)) {
             backKeyPressedTime = System.currentTimeMillis();
             SnackBarUtil.show(this, getString(R.string.comm_msg_1));
         } else {
@@ -447,18 +454,22 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         }
     }
 
+    public boolean isHome() {
+        return getViewPager().getCurrentItem() == MainPageDiv.HOME.ordinal();
+    }
 
-    public boolean moveToMainTab(String lnkUri){
+
+    public boolean moveToMainTab(String lnkUri) {
         Uri uri = null;
         String id = "";
         try {
             uri = Uri.parse(lnkUri);
             id = uri.getQueryParameter(KeyNames.KEY_NAME_URI_PARSER_ID);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            if(TextUtils.isEmpty(id))
-                id="";
+        } finally {
+            if (TextUtils.isEmpty(id))
+                id = "";
         }
 
         if (!TextUtils.isEmpty(id)) {
@@ -469,32 +480,32 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 case GM03:
                 case GM04:
                     //home
-                    ui.viewpager.setCurrentItem(0, true);
+                    ui.viewpager.setCurrentItem(MainPageDiv.HOME.ordinal(), true);
                     return true;
                 case TM01:
                 case TM02:
                 case TM03:
                 case TM04:
                     //insight
-                    ui.viewpager.setCurrentItem(1, true);
+                    ui.viewpager.setCurrentItem(MainPageDiv.INSIGHT.ordinal(), true);
                     return true;
                 case SM01:
                 case SM02:
                 case SM03:
                 case SM04:
                     //service
-                    ui.viewpager.setCurrentItem(2, true);
+                    ui.viewpager.setCurrentItem(MainPageDiv.SERVICE.ordinal(), true);
                     return true;
                 case RM01:
                 case RM02:
                     //stroe
-                    ui.viewpager.setCurrentItem(3, true);
+                    ui.viewpager.setCurrentItem(MainPageDiv.STORE.ordinal(), true);
                     return true;
                 case CM01:
                 case CM02:
                 case CM03:
                 case CM04:
-                    ui.viewpager.setCurrentItem(4, true);
+                    ui.viewpager.setCurrentItem(MainPageDiv.CONTENTS.ordinal(), true);
                     //contents
                     return true;
                 default:
@@ -504,7 +515,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         return false;
     }
 
-    private void initFragmentHome(int currentPosition){
+    private void initFragmentHome(int currentPosition) {
         try {
             if (currentPosition > 0) {
                 for (Fragment fragment : getSupportFragmentManager().getFragments()) {
@@ -514,7 +525,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                     }
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
