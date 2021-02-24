@@ -342,4 +342,10 @@ public class VariableType {
         }
         return rsvtCnclCd;
     }
+
+    public static final String SERVICE_REMOTE_CHECK_ITEM_NM_BATTERY="01";
+    public static final String SERVICE_REMOTE_CHECK_ITEM_NM_ENGINE="02";
+    public static final String SERVICE_REMOTE_CHECK_ITEM_NM_BREAK="03";
+    public static final String SERVICE_REMOTE_CHECK_ITEM_NM_MISSION="04";
+    public static final String SERVICE_REMOTE_CHECK_ITEM_NM_TPMS="05";
 }

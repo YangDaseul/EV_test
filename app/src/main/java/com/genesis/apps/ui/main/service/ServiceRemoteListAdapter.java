@@ -12,9 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.RemoteCheckVO;
 import com.genesis.apps.comm.model.vo.RemoteHistoryVO;
 import com.genesis.apps.comm.util.DateUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ItemServiceRemoteBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
@@ -245,7 +247,7 @@ public class ServiceRemoteListAdapter extends BaseRecyclerViewAdapter2<RemoteHis
                                 itemView.findViewById(R.id.line0).setVisibility(index == 0 ? View.VISIBLE : View.GONE);
                                 TextView tvTitle = itemView.findViewById(R.id.tv_title);
                                 TextView tvDetail = itemView.findViewById(R.id.tv_detail);
-                                tvTitle.setText(vo.getChckItemNm());
+                                tvTitle.setText(getCheckItemNm(vo.getChckItemNm()));
                                 if ("Y".equals(vo.getChckItemRslt())) {
                                     // 정상.
                                     tvDetail.setText(R.string.sm_remote01_result_normal);
@@ -318,5 +320,24 @@ public class ServiceRemoteListAdapter extends BaseRecyclerViewAdapter2<RemoteHis
             }
             return category;
         }
+
+        private String getCheckItemNm(String chckItemNm){
+            switch (StringUtil.isValidString(chckItemNm)){
+                case VariableType.SERVICE_REMOTE_CHECK_ITEM_NM_BATTERY:
+                    return "배터리";
+                case VariableType.SERVICE_REMOTE_CHECK_ITEM_NM_ENGINE:
+                    return "엔진";
+                case VariableType.SERVICE_REMOTE_CHECK_ITEM_NM_BREAK:
+                    return "브레이크";
+                case VariableType.SERVICE_REMOTE_CHECK_ITEM_NM_MISSION:
+                    return "미션";
+                case VariableType.SERVICE_REMOTE_CHECK_ITEM_NM_TPMS:
+                    return "TPMS";
+                default:
+                    return "기타";
+            }
+        }
+
+
     } // end of class ViewHolder
 } // end of class ServiceRemoteListAdapter
