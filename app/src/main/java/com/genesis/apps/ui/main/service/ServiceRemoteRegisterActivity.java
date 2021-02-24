@@ -309,7 +309,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                         APPIAInfo.R_REMOTE01.getId(),
                         vin,
                         ui.etServiceRemoteStep2.getText().toString(),
-                        ui.etServiceRemoteStep1.getText().toString(),
+                        data.getCelphNo(),
                         fltCd.code,
                         fltCd == FLT_CODE.CODE_3000 ? wrnLghtCd.code : "",
                         rsrvMiss,
@@ -596,7 +596,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
         ui.lServiceRemoteStep1.setVisibility(View.VISIBLE);
         if (!TextUtils.isEmpty(phoneNum)) {
             // 휴대폰 번호가 있는 경우.
-            ui.etServiceRemoteStep1.setText(PhoneNumberUtils.formatNumber(phoneNum, Locale.getDefault().getCountry()));
+            ui.tvServiceRemoteStep1.setText(PhoneNumberUtils.formatNumber(phoneNum, Locale.getDefault().getCountry()));
 
             // 차량 입력 영역을 활성화
             ui.lServiceRemoteStep2.setVisibility(View.VISIBLE);
@@ -646,11 +646,11 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
      */
     private void executeStep(REGISTER_STEP step) {
         switch (step) {
-            case INPUT_PHONE: {
-                ui.lServiceRemoteStep1.setVisibility(View.VISIBLE);
-                ui.etServiceRemoteStep1.requestFocus();
-                break;
-            }
+//            case INPUT_PHONE: {
+//                ui.lServiceRemoteStep1.setVisibility(View.VISIBLE);
+//                ui.etServiceRemoteStep1.requestFocus();
+//                break;
+//            }
             case INPUT_CAR_NUM: {
                 ui.lServiceRemoteStep2.setVisibility(View.VISIBLE);
                 ui.etServiceRemoteStep2.requestFocus();
@@ -683,23 +683,23 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
      */
     private REGISTER_STEP checkStep() {
         // 휴대폰 번호가 입력되어 있는지 체크.
-        boolean isEmptyPhoneNum;
-        try {
-            String phoneNum = ui.etServiceRemoteStep1.getText().toString().trim();
-            if (TextUtils.isEmpty(phoneNum)) {
-                // 휴대폰 번호가 입력되어 있지 않음.
-                isEmptyPhoneNum = true;
-            } else {
-                // 휴대폰 번호가 입력되어 있음. - 휴대폰 번호 형식 체크.
-                isEmptyPhoneNum = !StringRe2j.matches(phoneNum, getString(R.string.check_phone_number));
-            }
-        } catch (NullPointerException e) {
-            // Phone Number 조회시 null 가능성이 있어 해당 Exception 발생시 입력이 안된 것으로 판단.
-            isEmptyPhoneNum = true;
-        }
-
-        ui.lServiceRemoteStep1.setError(isEmptyPhoneNum ? getString(R.string.sm_remote01_input_phone_number) : null);
-        ui.etServiceRemoteStep1.setSelected(isEmptyPhoneNum);
+//        boolean isEmptyPhoneNum;
+//        try {
+//            String phoneNum = ui.etServiceRemoteStep1.getText().toString().trim();
+//            if (TextUtils.isEmpty(phoneNum)) {
+//                // 휴대폰 번호가 입력되어 있지 않음.
+//                isEmptyPhoneNum = true;
+//            } else {
+//                // 휴대폰 번호가 입력되어 있음. - 휴대폰 번호 형식 체크.
+//                isEmptyPhoneNum = !StringRe2j.matches(phoneNum, getString(R.string.check_phone_number));
+//            }
+//        } catch (NullPointerException e) {
+//            // Phone Number 조회시 null 가능성이 있어 해당 Exception 발생시 입력이 안된 것으로 판단.
+//            isEmptyPhoneNum = true;
+//        }
+//
+//        ui.lServiceRemoteStep1.setError(isEmptyPhoneNum ? getString(R.string.sm_remote01_input_phone_number) : null);
+//        ui.etServiceRemoteStep1.setSelected(isEmptyPhoneNum);
 
         // 차량 번호가 입력되어 있는지 체크.
         boolean isEmptyCarNum;
@@ -730,9 +730,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
 
         btnNextStep.setText(R.string.sm_remote01_next);
 
-        if (isEmptyPhoneNum) {
-            return REGISTER_STEP.INPUT_PHONE;
-        } else if (isEmptyCarNum) {
+        if (isEmptyCarNum) {
             return REGISTER_STEP.INPUT_CAR_NUM;
         } else if (isEmptyErrorCode) {
             return REGISTER_STEP.SERVICE_TYPE;
