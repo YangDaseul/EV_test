@@ -315,27 +315,33 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             binding.ivDatamilesDrivingScoreIcon.setVisibility(prevScore == currentScore ? View.INVISIBLE : View.VISIBLE);
             binding.ivDatamilesDrivingScoreIcon.setEnabled(prevScore < currentScore);
 
-            String rankTemplate = getContext().getString(R.string.gm01_format_rank);
-            // 전체 차량 대비 상위 %
-            ValueAnimator distributionAni = ValueAnimator.ofInt((int) detail.getDistribution())
-                    .setDuration(ANI_DURATION);
-            distributionAni.addUpdateListener(animation -> {
-                binding.tvDatamilesDrivingScoreRankAll.setText(
-                        String.format(rankTemplate, (int) animation.getAnimatedValue())
-                );
-            });
+            if (currentScore < 70) {
+                binding.lDatamilesRankContainer.setVisibility(View.GONE);
+                drivingAniSet.playTogether(scoreAni);
+            } else {
+                binding.lDatamilesRankContainer.setVisibility(View.VISIBLE);
+                String rankTemplate = getContext().getString(R.string.gm01_format_rank);
+                // 전체 차량 대비 상위 %
+                ValueAnimator distributionAni = ValueAnimator.ofInt((int) detail.getDistribution())
+                        .setDuration(ANI_DURATION);
+                distributionAni.addUpdateListener(animation -> {
+                    binding.tvDatamilesDrivingScoreRankAll.setText(
+                            String.format(rankTemplate, (int) animation.getAnimatedValue())
+                    );
+                });
 
-            // 동일 차종 대비 상위 %
-            ValueAnimator modelDistributionAni = ValueAnimator.ofInt((int) detail.getModelDistribution())
-                    .setDuration(ANI_DURATION);
-            modelDistributionAni.addUpdateListener(animation -> {
-                binding.tvDatamilesDrivingScoreRankCategory.setText(
-                        String.format(rankTemplate, (int) animation.getAnimatedValue())
-                );
-            });
+                // 동일 차종 대비 상위 %
+                ValueAnimator modelDistributionAni = ValueAnimator.ofInt((int) detail.getModelDistribution())
+                        .setDuration(ANI_DURATION);
+                modelDistributionAni.addUpdateListener(animation -> {
+                    binding.tvDatamilesDrivingScoreRankCategory.setText(
+                            String.format(rankTemplate, (int) animation.getAnimatedValue())
+                    );
+                });
 
-            // 운전 점수의 일괄 애니메이션 처리.
-            drivingAniSet.playTogether(scoreAni, distributionAni, modelDistributionAni);
+                // 운전 점수의 일괄 애니메이션 처리.
+                drivingAniSet.playTogether(scoreAni, distributionAni, modelDistributionAni);
+            }
         }
 
         /**
@@ -376,10 +382,10 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                     float stdDistance = sestVO.getStdDistance();
                     // 최종 교체 후 주행 거리
                     float odoMeter = replacements.getOdometer().getValue() - Integer.parseInt(sestVO.getLastInfo().getOdometer());
-                    if(odoMeter<0)
+                    if (odoMeter < 0)
                         odoMeter = 0;
 
-                    int diff = (int)(stdDistance - odoMeter);
+                    int diff = (int) (stdDistance - odoMeter);
                     int progress = 0;
 
                     View view = LayoutInflater.from(context).inflate(R.layout.item_datamiles_expendable_item, binding.lDatamilesExpenablesList, false);
@@ -387,7 +393,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                     TextView txtNme = view.findViewById(R.id.tv_datamiles_expendables_item_name);
                     txtNme.setText(sestVO.getSestName());
                     // 교체 필요 아이콘
-                    view.findViewById(R.id.tv_datamiles_expendables_need_change).setVisibility(stdDistance!=0&&stdDistance <= odoMeter ? View.VISIBLE : View.INVISIBLE);
+                    view.findViewById(R.id.tv_datamiles_expendables_need_change).setVisibility(stdDistance != 0 && stdDistance <= odoMeter ? View.VISIBLE : View.INVISIBLE);
 
                     // 잔여 거리. 마이너스 남은 거리는 0으로 처리.
                     TextView txtDistance = view.findViewById(R.id.tv_datamiles_expendables_distance);
@@ -401,33 +407,33 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                         ValueAnimator diffAni = ValueAnimator.ofInt(diff)
                                 .setDuration(ANI_DURATION);
                         diffAni.addUpdateListener(animation -> {
-                            txtDistance.setText(String.format(distanceFormat, StringUtil.getDigitGrouping(((int)animation.getAnimatedValue()))));
+                            txtDistance.setText(String.format(distanceFormat, StringUtil.getDigitGrouping(((int) animation.getAnimatedValue()))));
                         });
                         replacementAniSet.playTogether(diffAni);
 
                         // 잔여 비율 계산.
-                        progress = 1000 - ((diff * progDistance.getMax()) / (int)stdDistance);
+                        progress = 1000 - ((diff * progDistance.getMax()) / (int) stdDistance);
 
-                    } else if(diff < 0&&stdDistance>0){
-                        progress = 1000 - ((diff * progDistance.getMax()) / (int)stdDistance);
+                    } else if (diff < 0 && stdDistance > 0) {
+                        progress = 1000 - ((diff * progDistance.getMax()) / (int) stdDistance);
 
-                        if(diff<0)
-                            diff=0;
+                        if (diff < 0)
+                            diff = 0;
 
                         // 잔여 거리가 있을 경우 애니메이션 처리 진행.
                         ValueAnimator diffAni = ValueAnimator.ofInt(diff)
                                 .setDuration(ANI_DURATION);
                         diffAni.addUpdateListener(animation -> {
-                            txtDistance.setText(String.format(distanceFormat, StringUtil.getDigitGrouping(((int)animation.getAnimatedValue()))));
+                            txtDistance.setText(String.format(distanceFormat, StringUtil.getDigitGrouping(((int) animation.getAnimatedValue()))));
                         });
                         replacementAniSet.playTogether(diffAni);
 
                         // 잔여 비율 계산.
 
-                        if(progress==0&&stdDistance>0){
+                        if (progress == 0 && stdDistance > 0) {
                             progress = 1000;
                         }
-                    } else{
+                    } else {
                         // 잔여 거리가 없는 경우
                         txtDistance.setText(String.format(context.getString(R.string.gm01_format_distance), "0"));
                         progress = 0;
