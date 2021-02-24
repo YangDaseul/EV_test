@@ -431,6 +431,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             lgnViewModel.updateGlobalDataToDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_ISFIRSTLOGIN, VariableType.COMMON_MEANS_NO);
         } else {
             me.ivIndicator.setVisibility(View.INVISIBLE);
+            me.ivIndicator.clearAnimation();
         }
     }
 
