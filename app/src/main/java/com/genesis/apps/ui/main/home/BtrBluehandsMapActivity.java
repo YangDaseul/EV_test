@@ -5,8 +5,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
+
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
@@ -18,14 +20,10 @@ import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ActivityMap2Binding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomAddressBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
-import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.hmns.playmap.PlayMapPoint;
 import com.hmns.playmap.shape.PlayMapMarker;
 
 import java.util.Locale;
-
-import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 
 public class BtrBluehandsMapActivity extends GpsBaseActivity<ActivityMap2Binding> {
     private BtrVO btrVO;
@@ -56,21 +54,8 @@ public class BtrBluehandsMapActivity extends GpsBaseActivity<ActivityMap2Binding
                 setViewModel();
                 setObserver();
                 initView();
-                checkEnableGPS();
+                checkEnableGPS(() -> myPosition = VariableType.DEFAULT_POSITION.clone(), () -> reqMyLocation());
             }
-        }
-    }
-
-    private void checkEnableGPS() {
-        if (!isGpsEnable()) {
-            MiddleDialog.dialogGPS(this, () -> turnGPSOn(isGPSEnable -> {
-                Log.v("test","value:"+isGPSEnable);
-            }), () -> {
-                //현대양재사옥위치
-                myPosition = VariableType.DEFAULT_POSITION.clone();
-            });
-        } else {
-            reqMyLocation();
         }
     }
 

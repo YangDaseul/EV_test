@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -15,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.roadwin.ServiceAreaCheck;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.map.AroundPOIReqVO;
@@ -26,7 +26,6 @@ import com.genesis.apps.comm.viewmodel.RoadWinViewModel;
 import com.genesis.apps.databinding.ActivityMap2Binding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomAddressBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
-import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.google.gson.Gson;
 import com.hmns.playmap.PlayMapPoint;
@@ -60,19 +59,21 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
         setViewModel();
         setObserver();
 
-        checkEnableGPS(() -> {
-            if (selectAddressVO == null) {
-                //기 선택된 위치 정보가 없으면 map을 내 위치로 초기화
-                initView(37.463936, 127.042953);
-                lgnViewModel.setPosition(37.463936, 127.042953);
-            } else {
-                initView(selectAddressVO.getCenterLat(), selectAddressVO.getCenterLon());
-                lgnViewModel.setPosition(selectAddressVO.getCenterLat(), selectAddressVO.getCenterLon());
-            }
-            //내위치는 항상 저장
-            lgnViewModel.setMyPosition(37.463936, 127.042953);
-        }, () -> reqMyLocation());
+        checkEnableGPS(() -> initLocation(), () -> reqMyLocation());
 
+    }
+
+    private void initLocation(){
+        if (selectAddressVO == null) {
+            //기 선택된 위치 정보가 없으면 map을 내 위치로 초기화
+            initView(37.463936, 127.042953);
+            lgnViewModel.setPosition(37.463936, 127.042953);
+        } else {
+            initView(selectAddressVO.getCenterLat(), selectAddressVO.getCenterLon());
+            lgnViewModel.setPosition(selectAddressVO.getCenterLat(), selectAddressVO.getCenterLon());
+        }
+        //내위치는 항상 저장
+        lgnViewModel.setMyPosition(37.463936, 127.042953);
     }
 
     //요구사항 변경에 따라 비활성화
@@ -315,8 +316,10 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
                 }
                 break;
             case R.id.btn_my_position:
-                lgnViewModel.setPosition(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1));
-                ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)), 500);
+                checkEnableGPS(() -> initLocation(), () -> {
+                    lgnViewModel.setPosition(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1));
+                    ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)), 500);
+                });
                 break;
             case R.id.tv_map_title_text:
             case R.id.tv_map_title_address:
@@ -372,23 +375,17 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
         }, 5000, GpsRetType.GPS_RETURN_HIGH, false);
     }
 
-    private void checkEnableGPS(Runnable disableGPS, Runnable enableGPS) {
-        if (!isGpsEnable()) {
-            MiddleDialog.dialogGPS(this, () -> turnGPSOn(isGPSEnable -> {
-                Log.v("test","value:"+isGPSEnable);
-            }), () -> {
-                //현대양재사옥위치
-                disableGPS.run();
-            });
-        } else {
-            enableGPS.run();
-        }
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RequestCodes.REQ_CODE_GPS.getCode()) {
+            if(resultCode == RESULT_OK)
+                reqMyLocation();
+            else{
+                initLocation();
+            }
+        }
 //        if (resultCode == ResultCodes.REQ_CODE_BTR.getCode()) {
 //            btrVO = (BtrVO) data.getSerializableExtra(KeyNames.KEY_NAME_BTR);
 //            List<BtrVO> list = btrViewModel.getRES_BTR_1008().getValue().data.getAsnList();
@@ -479,4 +476,7 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
             super.onBackPressed();
         }
     }
+
+
+
 }

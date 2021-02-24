@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.ViewDataBinding;
 
 import com.genesis.apps.comm.util.GpsUtils;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -161,5 +162,19 @@ public abstract class GpsBaseActivity<T extends ViewDataBinding> extends SubActi
             }
         }
     };
+
+
+    public void checkEnableGPS(Runnable disableGPS, Runnable enableGPS) {
+        if (!isGpsEnable()) {
+            MiddleDialog.dialogGPS(this, () -> turnGPSOn(isGPSEnable -> {
+                Log.v("test","value:"+isGPSEnable);
+            }), () -> {
+                //현대양재사옥위치
+                disableGPS.run();
+            });
+        } else {
+            enableGPS.run();
+        }
+    }
 
 }

@@ -5,12 +5,16 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewStub;
 import android.webkit.WebView;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
@@ -35,7 +39,6 @@ import com.genesis.apps.databinding.ActivityMap2Binding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomSelectNewBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
-import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.home.BluehandsFilterFragment;
 import com.genesis.apps.ui.main.home.BtrBluehandsListActivity;
@@ -46,11 +49,6 @@ import com.hmns.playmap.shape.PlayMapMarker;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
@@ -102,19 +100,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
         }, () -> {
             reqMyLocation();
         });
-    }
-
-    private void checkEnableGPS(Runnable disableGPS, Runnable enableGPS) {
-        if (!isGpsEnable()) {
-            MiddleDialog.dialogGPS(this, () -> turnGPSOn(isGPSEnable -> {
-                Log.v("test","value:"+isGPSEnable);
-            }), () -> {
-                //현대양재사옥위치
-                disableGPS.run();
-            });
-        } else {
-            enableGPS.run();
-        }
     }
 
     private void initView() {
