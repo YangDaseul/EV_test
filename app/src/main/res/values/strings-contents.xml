@@ -14,6 +14,7 @@
 
     <string name="cm02_10">컨텐츠 정보가 맘에 드셨나요?</string>
     <string name="cm02_11">평점 제출하기</string>
+    <string name="cm02_15">평가하기</string>
 
     <string name="cm02_12">이벤트</string>
 </resources>
