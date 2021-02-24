@@ -282,7 +282,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             try {
                 binding.tvDatamilesDrivingScoreUpdateDate.setText(
                         DateUtil.getDate(
-                                DateUtil.getDefaultDateFormat(detail.getScoreDate(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss),
+                                DateUtil.getDefaultDateFormat(detail.getScoreDate(), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm_ss),
                                 DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm
                         ) + " " + getContext().getString(R.string.gm01_update)
                 );
