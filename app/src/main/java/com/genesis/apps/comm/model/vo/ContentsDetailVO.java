@@ -57,4 +57,7 @@ class ContentsDetailVO extends BaseData {
     @Expose
     @SerializedName("nttOrd")
     private String nttOrd;
+    @Expose
+    @SerializedName("evalstarCnt")
+    private String evalstarCnt;
 }

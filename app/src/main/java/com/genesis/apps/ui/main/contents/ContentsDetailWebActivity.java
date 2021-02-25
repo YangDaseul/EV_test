@@ -25,11 +25,13 @@ import com.genesis.apps.comm.model.api.gra.CTT_1002;
 import com.genesis.apps.comm.model.api.gra.CTT_1004;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.ContentsDetailVO;
 import com.genesis.apps.comm.model.vo.ContentsVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CMSViewModel;
 import com.genesis.apps.comm.viewmodel.CTTViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -251,7 +253,36 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
         ft.add(R.id.fm_holder, fragment);
         ft.commitAllowingStateLoss();
 
+        ContentsDetailVO detailVO = contentsVO.getDtlList().get(0);
+        if(detailVO != null) {
+            mRate = StringUtil.isValidInteger(detailVO.getEvalstarCnt());
+        }
+
         ratingViews = new View[] {ui.llRate1, ui.llRate2, ui.llRate3, ui.llRate4, ui.llRate5};
+
+        for(int i=0; i<ratingViews.length; i++) {
+            LinearLayout linearLayout = (LinearLayout) ratingViews[i];
+
+            if(linearLayout.getChildCount() != 0) {
+                if(i < mRate) {
+                    Glide.with(this)
+                            .load(R.drawable.ic_star_l_s_c)
+                            .format(DecodeFormat.PREFER_ARGB_8888)
+                            .error(R.drawable.ic_star_l_s_c)
+                            .placeholder(R.drawable.ic_star_l_s_c)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .into((ImageView) linearLayout.getChildAt(0));
+                } else {
+                    Glide.with(this)
+                            .load(R.drawable.ic_star_l_n_c)
+                            .format(DecodeFormat.PREFER_ARGB_8888)
+                            .error(R.drawable.ic_star_l_n_c)
+                            .placeholder(R.drawable.ic_star_l_n_c)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .into((ImageView) linearLayout.getChildAt(0));
+                }
+            }
+        }
 
         try {
             if(!VariableType.MAIN_VEHICLE_TYPE_0000.equals(lgnViewModel.getUserInfoFromDB().getCustGbCd())) {
