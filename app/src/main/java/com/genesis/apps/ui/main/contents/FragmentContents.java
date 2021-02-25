@@ -69,7 +69,7 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
         serviceTabAdapter = new ContentsViewpagerAdapter(this, mCatTypeList);
 
         me.vpContentsViewPager.setAdapter(serviceTabAdapter);
-        me.vpContentsViewPager.setUserInputEnabled(false);
+//        me.vpContentsViewPager.setUserInputEnabled(false);
 
         //ViewPager Setting
         me.vpContentsViewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
