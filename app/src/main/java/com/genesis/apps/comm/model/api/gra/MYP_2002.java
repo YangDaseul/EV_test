@@ -88,7 +88,12 @@ public class MYP_2002 extends BaseData {
         @Expose
         @SerializedName("transTotCnt")
         private String transTotCnt;
-
+        @Expose
+        @SerializedName("usedBlueMbrPoint")
+        private String usedBlueMbrPoint;
+        @Expose
+        @SerializedName("savedBlueMbrPoint")
+        private String savedBlueMbrPoint;
         @Expose
         @SerializedName("transList")
         private List<MembershipPointVO> transList;

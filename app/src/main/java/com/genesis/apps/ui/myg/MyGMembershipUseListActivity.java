@@ -294,9 +294,36 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
             ui.tvEmpty.setVisibility(View.VISIBLE);
         }
 
-        ui.tvPointSave.setText(StringUtil.getDigitGrouping(adapter.getTotalSavePoint()));
-        String totalUsePoint = StringUtil.getDigitGrouping(adapter.getTotalUsePoint());
-        ui.tvPointUse.setText(totalUsePoint);
+        setViewSavePoint();
+        setViewUsePoint();
+    }
+
+    private void setViewUsePoint() {
+        String usePoint = "0";
+        try{
+            usePoint = mypViewModel.getRES_MYP_2002().getValue().data.getUsedBlueMbrPoint();
+            if(TextUtils.isEmpty(usePoint)){
+                usePoint = "0";
+            }
+        }catch (Exception e){
+            usePoint = "0";
+        }
+
+        ui.tvPointUse.setText(StringUtil.getDigitGroupingString(usePoint));
+    }
+
+    private void setViewSavePoint() {
+        String savedPoint = "0";
+        try{
+            savedPoint = mypViewModel.getRES_MYP_2002().getValue().data.getSavedBlueMbrPoint();
+            if(TextUtils.isEmpty(savedPoint)){
+                savedPoint = "0";
+            }
+        }catch (Exception e){
+            savedPoint = "0";
+        }
+
+        ui.tvPointSave.setText(StringUtil.getDigitGroupingString(savedPoint));
     }
 
     private String getTransTypCd(){
