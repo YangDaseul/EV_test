@@ -116,6 +116,11 @@ public class ServiceHomeToHome3CheckActivity extends SubActivity<ActivityService
             repairReserveVO.setRqrm(ui.etRqrm.getText().toString().trim());
             repairReserveVO.setHpNo(ui.etTel.getText().toString().trim().replaceAll("-", ""));
             repairReserveVO.setCarRgstNo(ui.etVrn.getText().toString().trim());
+
+            //02-25 레거시에서 픽업서비스라도 딜리버리서비스 주소가 필수기 때문에 임의로 처리
+            if(TextUtils.isEmpty(repairReserveVO.getDlvryAddr())){
+                repairReserveVO.setDlvryAddr(repairReserveVO.getPckpAddr());
+            }
             Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create(); //expose처리되어 있는 필드에 대해서만 파싱 진행
             REQ_1009.Request request = gson.fromJson(new Gson().toJson(repairReserveVO), REQ_1009.Request.class);
             request.updateData(APPIAInfo.SM_R_RSV03.getId());
