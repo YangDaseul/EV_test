@@ -72,6 +72,7 @@
     <string name="sm_remote01_result_error">점검 필요</string>
 
     <string name="sm_remote01_no_data">원격 진단 신청내역이 없습니다.</string>
+    <string name="sm_remote01_no_insight_message">안전운전 후 보험 할인 혜택을 받아보세요.</string>
 
     <string name="sm_remote01_guide_dot">ㆍ</string>
     <string name="sm_remote01_guide_0">원격진단 서비스를 신청하시면, 지정한 시간에 전화드리겠습니다.</string>
