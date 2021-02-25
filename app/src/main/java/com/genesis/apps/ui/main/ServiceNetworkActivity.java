@@ -136,7 +136,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                             e.printStackTrace();
                         }finally {
                             if (btrVO != null) {
-                                setPosition(list, btrVO);
+                                setPosition(list, btrVO, true);
                             }
                         }
                         break;
@@ -234,7 +234,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                             e.printStackTrace();
                         }
 
-                        setPosition(result.data.getAsnList(), result.data.getAsnList().get(0));
+                        setPosition(result.data.getAsnList(), result.data.getAsnList().get(0),false);
                         break;
                     }
                 default:
@@ -334,7 +334,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                             e.printStackTrace();
                         }
 
-                        setPosition(result.data.getAsnList(), result.data.getAsnList().get(0));
+                        setPosition(result.data.getAsnList(), result.data.getAsnList().get(0), false);
                         break;
                     }
                 default:
@@ -537,7 +537,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     }
 
                     if(btrVOList!=null&&btrVOList.size()>0){
-                        setPosition(btrVOList, btrVOList.get(0));
+                        setPosition(btrVOList, btrVOList.get(0),false);
                     }else{
                         SnackBarUtil.show(this, "선택가능한 지점이 존재하지 않습니다.");
                     }
@@ -569,6 +569,26 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
         String strId = btrVO.getAsnCd();
         ui.pmvMapView.addMarkerItem(strId, markerItem);
     }
+
+
+    public void modifyMarkerItem(BtrVO btrVO, int iconId) {
+        PlayMapMarker markerItem = new PlayMapMarker();
+//        PlayMapPoint point = mapView.getMapCenterPoint();
+        PlayMapPoint point = new PlayMapPoint(Double.parseDouble(btrVO.getMapYcooNm()),Double.parseDouble(btrVO.getMapXcooNm()) );
+        markerItem.setMapPoint(point);
+//        markerItem.setCalloutTitle("제목");
+//        markerItem.setCalloutSubTitle("내용");
+        markerItem.setCanShowCallout(false);
+        markerItem.setAutoCalloutVisible(false);
+        markerItem.setIcon(((BitmapDrawable) getResources().getDrawable(iconId, null)).getBitmap());
+
+
+        String strId = btrVO.getAsnCd();
+        ui.pmvMapView.removeMarkerItem(strId);
+        ui.pmvMapView.addMarkerItem(strId, markerItem);
+    }
+
+
 
 
     private void reqMyLocation() {
@@ -605,7 +625,6 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             List<BtrVO> list = null;
 
             try {
-
                 switch (pageType) {
                     case PAGE_TYPE_BTR:
                     case PAGE_TYPE_RENT:
@@ -622,7 +641,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             }
 
 
-            setPosition(list, btrVO);
+            setPosition(list, btrVO, false);
         } else if (resultCode == ResultCodes.REQ_CODE_ADDR_FILTER.getCode()) {
 //            try {
 //                fillerCd = data.getStringExtra(KeyNames.KEY_NAME_MAP_FILTER);
@@ -656,8 +675,18 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
 
     }
 
-    private void setPosition(List<BtrVO> list, BtrVO btrVO) {
-        ui.pmvMapView.removeAllMarkerItem();
+    private void setPosition(List<BtrVO> list, BtrVO btrVO, boolean isSelect) {
+        BtrVO beforeBtrInfo=null;
+
+        if(!isSelect)
+            ui.pmvMapView.removeAllMarkerItem();
+        else{
+            try {
+                beforeBtrInfo = ((BtrVO) this.btrVO.clone());
+            }catch (Exception e){
+
+            }
+        }
 
         if(list==null||btrVO==null)
             return;
@@ -746,12 +775,17 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             setAuthView(btrVO);
         }
 
-        for (int i = 0; i < list.size(); i++) {
-            if (StringUtil.isValidString(btrVO.getAsnCd()).equalsIgnoreCase(list.get(i).getAsnCd())) {
-                drawMarkerItem(list.get(i), R.drawable.ic_pin_carcenter);
-            } else {
-                drawMarkerItem(list.get(i), R.drawable.ic_pin);
+        if(!isSelect) {
+            for (int i = 0; i < list.size(); i++) {
+                if (StringUtil.isValidString(btrVO.getAsnCd()).equalsIgnoreCase(list.get(i).getAsnCd())) {
+                    drawMarkerItem(list.get(i), R.drawable.ic_pin_carcenter);
+                } else {
+                    drawMarkerItem(list.get(i), R.drawable.ic_pin);
+                }
             }
+        }else{
+            if(beforeBtrInfo!=null) modifyMarkerItem(beforeBtrInfo, R.drawable.ic_pin);
+            if(btrVO!=null) modifyMarkerItem(btrVO, R.drawable.ic_pin_carcenter);
         }
         ui.pmvMapView.setMapCenterPoint(new PlayMapPoint( Double.parseDouble(btrVO.getMapYcooNm()), Double.parseDouble(btrVO.getMapXcooNm())), 500);
     }
