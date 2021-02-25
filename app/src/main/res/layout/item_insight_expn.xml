@@ -87,7 +87,7 @@
                 android:includeFontPadding="false"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="6dp"
-                android:maxLines="2"
+                android:maxLines="1"
                 android:textColor="@color/x_000000"
                 android:textSize="16dp"
                 app:layout_constraintEnd_toEndOf="parent"

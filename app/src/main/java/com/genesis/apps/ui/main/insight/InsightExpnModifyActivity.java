@@ -147,7 +147,7 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
 
 
     private void initVehicleBtnStatus() {
-        ui.tvVehicle.setText(selectVehicle.getMdlNm() +" "+selectVehicle.getCarRgstNo());
+        ui.tvVehicle.setText(selectVehicle.getMdlNm() +" "+StringUtil.isValidString(selectVehicle.getCarRgstNo()));
         int size = vehicleList.size();
         if(size<2){ //1대일경우
             ui.tvVehicle.setCompoundDrawables(null, null, null, null);
@@ -265,12 +265,12 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
             String expnPlc = ui.etExpnPlc.getText().toString().trim();
 
             //하나라도 변경된 데이터가 있는지 확인
-            if (!baseData.getVin().equalsIgnoreCase(vin)
+            if (!StringUtil.isValidString(baseData.getVin()).equalsIgnoreCase(vin)
                     || !VariableType.getExpnDivCd(baseData.getExpnDivNm()).equalsIgnoreCase(expnDivCd)
-                    || !baseData.getExpnDtm().substring(0,8).equalsIgnoreCase(expnDtm)
-                    || !baseData.getExpnAmt().equalsIgnoreCase(expnAmt)
-                    || !baseData.getAccmMilg().equalsIgnoreCase(accmMilg)
-                    || !baseData.getExpnPlc().equalsIgnoreCase(expnPlc)) {
+                    || !StringUtil.isValidString(baseData.getExpnDtm()).substring(0,8).equalsIgnoreCase(expnDtm)
+                    || !StringUtil.isValidString(baseData.getExpnAmt()).equalsIgnoreCase(expnAmt)
+                    || !StringUtil.isValidString(baseData.getAccmMilg()).equalsIgnoreCase(accmMilg)
+                    || !StringUtil.isValidString(baseData.getExpnPlc()).equalsIgnoreCase(expnPlc)) {
                 cbkViewModel.reqCBK1008(new CBK_1008.Request(APPIAInfo.TM_EXPS01_02.getId(), baseData.getExpnSeqNo(), selectVehicle, expnDivCd,expnDtm,expnAmt,accmMilg,expnPlc,"1000"));
             }else{
                 SnackBarUtil.show(this, "수정된 데이터가 존재하지 않습니다.\n확인 후 다시 시도해 주세요.");

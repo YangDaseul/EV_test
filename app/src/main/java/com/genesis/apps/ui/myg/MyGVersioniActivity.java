@@ -46,8 +46,10 @@ public class MyGVersioniActivity extends SubActivity<ActivityMygVersionBinding> 
         mypViewModel.getRES_MYP_8004().observe(this, result -> {
             switch (result.status){
                 case SUCCESS:
-                    showProgressDialog(false);
-                    setView(PackageUtil.getApplicationVersionName(this, getPackageName()), result.data.getVer());
+                    if(result.data!=null) {
+                        showProgressDialog(false);
+                        setView(PackageUtil.getApplicationVersionName(this, getPackageName()), result.data.getVer());
+                    }
                     break;
 //                    if(responseNetUIResponse.data!=null&&!TextUtils.isEmpty(responseNetUIResponse.data.getVer())){
 //                        showProgressDialog(false);
@@ -60,8 +62,6 @@ public class MyGVersioniActivity extends SubActivity<ActivityMygVersionBinding> 
                 default: //ERROR 포함
                     SnackBarUtil.show(this,"네트워크 이슈");
                     showProgressDialog(false);
-                    //TODO 에러 팝업 및 처리 필요
-                    //TODO 스낵바는 이전페이지의 onActivityResult에서 처리필요함.
                     setView(PackageUtil.getApplicationVersionName(this, getPackageName()), null);
                     break;
             }
@@ -77,9 +77,6 @@ public class MyGVersioniActivity extends SubActivity<ActivityMygVersionBinding> 
         if (PackageUtil.versionCompare(currentVersion,newVersion)<0) {
             //업데이트필요한경우
             ui.tvMsg.setText(R.string.msg_version_2);
-//            ui.lNewVersion.setBackgroundResource(R.drawable.bg_ffffff_stroke_cd9a81);
-//            ui.tvNewTitle.setTextColor(getColor(R.color.x_cd9a81));
-//            ui.tvNewVersion.setTextColor(getColor(R.color.x_cd9a81));
             ui.tvUpdate2.setVisibility(View.VISIBLE);
             ui.tvUpdate2.setOnClickListener(new OnSingleClickListener() {
                 @Override
@@ -90,9 +87,6 @@ public class MyGVersioniActivity extends SubActivity<ActivityMygVersionBinding> 
         }else{
             //최신버전일경우
             ui.tvMsg.setText(R.string.msg_version_1);
-//            ui.lNewVersion.setBackgroundColor(getColor(R.color.x_f4f4f4));
-//            ui.tvNewTitle.setTextColor(getColor(R.color.x_525252));
-//            ui.tvNewVersion.setTextColor(getColor(R.color.x_141414));
             ui.tvUpdate2.setVisibility(View.GONE);
         }
         ui.tvCurrentVersion.setText(PackageUtil.changeVersionToAppFormat(currentVersion));
