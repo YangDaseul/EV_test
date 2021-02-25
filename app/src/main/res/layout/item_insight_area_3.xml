@@ -95,6 +95,7 @@
                 android:lineSpacingExtra="6dp"
                 android:textColor="@color/x_000000"
                 android:textSize="14dp"
+                app:layout_goneMarginTop="30dp"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="parent"

@@ -52,10 +52,8 @@ public class InsightArea3Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
         @Override
         public void onBindView(MessageVO item, final int pos) {
 
-            //todo 2020-11-24 park 인사이트1 및 3영역은 링크 이동 및 이미지 처리에 대한 부분을 서버에 재 확인 요청 후 적용 필요.
-
             getBinding().tvTitle.setVisibility(View.GONE);
-            getBinding().tvMsg.setVisibility(View.INVISIBLE);
+            getBinding().tvMsg.setVisibility(View.GONE);
             getBinding().tvLinkNm.setVisibility(View.GONE);
             getBinding().ivIcon.setVisibility(View.INVISIBLE);
             getBinding().lWhole.setOnClickListener(null);
@@ -75,7 +73,6 @@ public class InsightArea3Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
                         .with(getContext())
                         .load(item.getIconImgUri())
                         .format(DecodeFormat.PREFER_ARGB_8888)
-                        .error(R.drawable.ic_service_membership)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(getBinding().ivIcon);
             } else {
@@ -94,7 +91,7 @@ public class InsightArea3Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
                         }
 
                         if (TextUtils.isEmpty(item.getTxtMsg2())) {
-                            getBinding().tvMsg.setVisibility(View.INVISIBLE);
+                            getBinding().tvMsg.setVisibility(View.GONE);
                         } else {
                             getBinding().tvMsg.setVisibility(View.VISIBLE);
                             getBinding().tvMsg.setText(item.getTxtMsg2());
@@ -111,7 +108,7 @@ public class InsightArea3Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
                         }
 
                         if (TextUtils.isEmpty(item.getTxtMsg2())) {
-                            getBinding().tvMsg.setVisibility(View.INVISIBLE);
+                            getBinding().tvMsg.setVisibility(View.GONE);
                         } else {
                             getBinding().tvMsg.setVisibility(View.VISIBLE);
                             getBinding().tvMsg.setText(item.getTxtMsg2());
