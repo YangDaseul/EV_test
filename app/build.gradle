@@ -34,6 +34,15 @@ android {
             keyAlias "genesis"
             keyPassword "g2021!"
         }
+
+        debug {
+            storeFile file(getRootDir().getAbsolutePath() + "/GenesisKeyStore.jks")
+//            storeFile file("/opt/KeyStore/KSmartech/KSmarTech.googleKey")
+//            storeFile file("E:/KSmarTech/KSmarTech.googleKey")
+            storePassword "g2021!"
+            keyAlias "genesis"
+            keyPassword "g2021!"
+        }
     }
 
 
