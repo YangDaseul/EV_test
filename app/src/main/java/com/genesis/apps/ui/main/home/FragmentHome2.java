@@ -247,7 +247,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
                         } catch (Exception e) {
 
                         }
-                        if (btrVO != null && btrVO.getBltrChgYn().equalsIgnoreCase("Y") && btrVO.getBltrChgYn().equalsIgnoreCase("N") && btrVO.getBltrChgYn().equalsIgnoreCase("C")) {
+                        if (btrVO != null) {
                             ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), BtrBluehandsActivity.class)
                                     , RequestCodes.REQ_CODE_ACTIVITY.getCode()
                                     , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
