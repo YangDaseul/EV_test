@@ -357,8 +357,13 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
     };
 
     public boolean back(String currentUrl) {
-
-        return false;
+        if (fragment.canGoBack()) {
+            fragment.goBack();
+            return false;
+        } else {
+            finish();
+            return true;
+        }
     }
 
     public boolean clearWindowOpens() {
