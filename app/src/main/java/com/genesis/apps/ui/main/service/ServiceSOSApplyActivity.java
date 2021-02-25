@@ -121,7 +121,10 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
     }
 
     private void startMapView(){
-        startActivitySingleTop(new Intent(this, MapSearchMyPositionActivity.class).putExtra(KeyNames.KEY_NAME_ADDR, addressVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        startActivitySingleTop(new Intent(this, MapSearchMyPositionActivity.class)
+                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.sm_emgc01_28)
+                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, R.string.sm_emgc01_29)
+                .putExtra(KeyNames.KEY_NAME_ADDR, addressVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
     @Override
