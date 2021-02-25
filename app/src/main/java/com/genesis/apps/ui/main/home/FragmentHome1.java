@@ -310,26 +310,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             }
         });
 
-
-//        //일별 운행 거리
-//        developersViewModel.getRES_DISTANCE().observe(getViewLifecycleOwner(), result -> {
-//            switch (result.status) {
-//                case LOADING:
-//                    break;
-//                case SUCCESS:
-//                    if (result.data != null && result.data.getDistances() != null && result.data.getDistances().size() > 0) {
-//                        OdometerVO odometerVO = result.data.getDistances().stream().max(Comparator.comparingInt(data -> Integer.parseInt(data.getDate()))).orElse(null);
-//                        if(odometerVO!=null) {
-//                            me.tvDistanceRecently.setText(StringUtil.getDigitGrouping((int)odometerVO.getValue()) + developersViewModel.getDistanceUnit((int)odometerVO.getUnit()));
-//                            break;
-//                        }
-//                    }
-//                default:
-//                    me.tvDistanceRecently.setText("--km");
-//                    break;
-//            }
-//        });
-
         istViewModel.getRES_IST_1001().observe(getViewLifecycleOwner(), result -> {
 
             switch (result.status) {
@@ -581,7 +561,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     });
                 }
             }
-        }, 6000, 5000);
+        }, 6000, 6000);
 
     }
 
