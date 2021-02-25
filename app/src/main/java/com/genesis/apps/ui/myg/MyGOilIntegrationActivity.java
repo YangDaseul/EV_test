@@ -32,7 +32,6 @@ public class MyGOilIntegrationActivity extends SubActivity<ActivityMygOilIntegra
         ui.setActivity(this);
         ui.ivOil1.setImageResource(OilCodes.findCode(oilRfnCd).getBigSrc());
         ui.ivOil2.setImageResource(OilCodes.findCode(oilRfnCd).getBigSrc2());
-        ui.ivOil3.setImageResource(OilCodes.findCode(oilRfnCd).getBigSrc3());
     }
 
     @Override

@@ -9,10 +9,10 @@ import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_HDOL;
 import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_SOIL;
 
 public enum OilCodes {
-    GSCT(OIL_CODE_GSCT, "kr.co.gscaltex.gsnpoint", R.layout.view_oil_1_1, R.string.oil_name_gs, R.string.oil_point_name_gs,  R.drawable.gs_meber_img_01,R.drawable.logo_gs_l,R.drawable.gs_meber_img_03,R.drawable.gs_meber_img_02),
-    HDOL(OIL_CODE_HDOL, "com.hyundaioilbank.android", R.layout.view_oil_1_2,R.string.oil_name_ho,R.string.oil_point_name_ho,R.drawable.hy_meber_img_01,R.drawable.logo_hyundaioilbank_l,R.drawable.hy_meber_img_03,R.drawable.hy_meber_img_02),
+    GSCT(OIL_CODE_GSCT, "kr.co.gscaltex.gsnpoint", R.layout.view_oil_1_1, R.string.oil_name_gs, R.string.oil_point_name_gs,  R.drawable.gs_meber_img_01,R.drawable.logo_gs_l,R.drawable.gs_meber_img_02,R.drawable.gs_meber_img_02),
+    HDOL(OIL_CODE_HDOL, "com.hyundaioilbank.android", R.layout.view_oil_1_2,R.string.oil_name_ho,R.string.oil_point_name_ho,R.drawable.hy_meber_img_01,R.drawable.logo_hyundaioilbank_l,R.drawable.hy_meber_img_02,R.drawable.hy_meber_img_02),
 //    SKNO(OIL_CODE_SKNO, "com.ske.phone.epay", R.layout.view_oil_1_3,R.string.oil_name_sk,R.string.oil_point_name_sk,R.drawable.img_connect_sk,R.drawable.logo_sk_l),
-    SOIL(OIL_CODE_SOIL, "com.soilbonus.goodoilfamily", R.layout.view_oil_1_4,R.string.oil_name_soil,R.string.oil_point_name_soil,R.drawable.so_meber_img_01,R.drawable.logo_s_oil_l,R.drawable.so_meber_img_03,R.drawable.so_meber_img_02);
+    SOIL(OIL_CODE_SOIL, "com.soilbonus.goodoilfamily", R.layout.view_oil_1_4,R.string.oil_name_soil,R.string.oil_point_name_soil,R.drawable.so_meber_img_01,R.drawable.logo_s_oil_l,R.drawable.so_meber_img_02,R.drawable.so_meber_img_02);
 
     public static final String KEY_OIL_CODE="oilRfnCd";
 

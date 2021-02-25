@@ -128,6 +128,5 @@ public class InsightExpnMembershipActivity extends SubActivity<ActivityInsightEx
     private void setOilView() {
         ui.ivOil1.setImageResource(OilCodes.findCode(oilRfnCd).getBigSrc());
         ui.ivOil2.setImageResource(OilCodes.findCode(oilRfnCd).getBigSrc2());
-        ui.ivOil3.setImageResource(OilCodes.findCode(oilRfnCd).getBigSrc3());
     }
 }

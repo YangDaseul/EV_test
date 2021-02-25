@@ -65,3 +65,302 @@
         android:duration="50"/>
 
 </animation-list>
+
+
+
+
+<!--<animation-list xmlns:android="http://schemas.android.com/apk/res/android">-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_01"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_02"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_03"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_04"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_05"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_06"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_07"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_08"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_09"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_10"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_11"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_12"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_13"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_14"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_15"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_16"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_17"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_18"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_19"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_20"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_21"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_22"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_23"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_24"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_25"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_26"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_27"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_28"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_29"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_30"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_31"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_32"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_33"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_34"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_35"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_36"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_37"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_38"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_39"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_40"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_41"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_42"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_43"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_44"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_45"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_46"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_47"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_48"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_49"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_50"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_51"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_52"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_53"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_54"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_55"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_56"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_57"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_58"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_59"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_60"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_61"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_62"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_63"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_64"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_65"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_66"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_67"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_68"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_69"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_70"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_71"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_72"-->
+<!--    android:duration="33" />-->
+
+<!--<item-->
+<!--    android:drawable="@drawable/loading_c_73"-->
+<!--    android:duration="33" />-->
+
+<!--</animation-list>-->
