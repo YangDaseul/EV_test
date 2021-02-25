@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main.home.view;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -280,22 +281,36 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             binding.asbDatamilesDrivingScore.setOnTouchListener((view, event) -> true);
 
             try {
-                binding.tvDatamilesDrivingScoreUpdateDate.setText(
-                        DateUtil.getDate(
-                                DateUtil.getDefaultDateFormat(detail.getScoreDate(), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm_ss),
-                                DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm
-                        ) + " " + getContext().getString(R.string.gm01_update)
+                String updateDate = DateUtil.getDate(
+                        DateUtil.getDefaultDateFormat(detail.getScoreDate(), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm_ss),
+                        DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm
                 );
+
+                if (TextUtils.isEmpty(updateDate)) {
+                    // 업데이트 일자가 없는 경우 해당 영역 표시 안함.
+                    binding.tvDatamilesDrivingScoreUpdateDate.setText("");
+                } else {
+                    // 업데이트 일자가 있는 경우 해당 영역 표시.
+                    binding.tvDatamilesDrivingScoreUpdateDate.setText(
+                            updateDate + " " + getContext().getString(R.string.gm01_update)
+                    );
+                }
             } catch (Exception e) {
                 // Date 파싱 에러.
-                // TODO 필요에 따라 에러 예외 처리 필요.
+                binding.tvDatamilesDrivingScoreUpdateDate.setText("");
             }
             // 주행 기준
             binding.tvDatamilesDrivingScoreGuide.setText(String.format(getContext().getString(R.string.gm01_format_driving_score_guide),
                     (int) detail.getRangeDrvDist()));
 
             // Insight 메시지
-            binding.tvDatamilesDrivingScoreDescription.setText(detail.getInsightMsg());
+            if (TextUtils.isEmpty(detail.getInsightMsg())) {
+                // Insight Message가 없는 경우. - 기본 안내 문구 표시.
+                binding.tvDatamilesDrivingScoreDescription.setText(R.string.sm_remote01_no_insight_message);
+            } else {
+                // Insight Message가 있는 경우. - Insight Message 표시.
+                binding.tvDatamilesDrivingScoreDescription.setText(detail.getInsightMsg());
+            }
 
             // 운전 점수
             int prevScore = detail.getPrevSafetyDrvScore();
@@ -358,15 +373,23 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             }
 
             try {
-                binding.tvDatamilesExpendablesUpdateDate.setText(
-                        DateUtil.getDate(
-                                DateUtil.getDefaultDateFormat(replacements.getOdometer().getTimestamp(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss),
-                                DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm
-                        ) + " " + getContext().getString(R.string.gm01_update)
+                String updateDate = DateUtil.getDate(
+                        DateUtil.getDefaultDateFormat(replacements.getOdometer().getTimestamp(), DateUtil.DATE_FORMAT_yyyyMMddHHmmss),
+                        DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm
                 );
+
+                if (TextUtils.isEmpty(updateDate)) {
+                    // 업데이트 일자가 없는 경우 해당 영역 표시 안함.
+                    binding.tvDatamilesExpendablesUpdateDate.setText("");
+                } else {
+                    // 업데이트 일자가 있는 경우 해당 영역 표시.
+                    binding.tvDatamilesExpendablesUpdateDate.setText(
+                            updateDate + " " + getContext().getString(R.string.gm01_update)
+                    );
+                }
             } catch (Exception e) {
                 // Date 파싱 에러.
-                // TODO 필요에 따라 에러 예외 처리 필요.
+                binding.tvDatamilesExpendablesUpdateDate.setText("");
             }
 
             binding.tvDatamilesExpendablesTotalDistance.setText(DevelopersViewModel.getDistanceFormatByUnit(
@@ -530,13 +553,20 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                     }
                 }
                 try {
-                    binding.tvDatamilesVehicleDiagnosticUpdateDate.setText(
-                            DateUtil.getDate(latestTime, DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm
-                            ) + " " + getContext().getString(R.string.gm01_update)
-                    );
+                    String updateDate = DateUtil.getDate(latestTime, DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm);
+
+                    if (TextUtils.isEmpty(updateDate)) {
+                        // 업데이트 일자가 없는 경우 해당 영역 표시 안함.
+                        binding.tvDatamilesVehicleDiagnosticUpdateDate.setText("");
+                    } else {
+                        // 업데이트 일자가 있는 경우 해당 영역 표시.
+                        binding.tvDatamilesVehicleDiagnosticUpdateDate.setText(
+                                updateDate + " " + getContext().getString(R.string.gm01_update)
+                        );
+                    }
                 } catch (Exception e) {
                     // Date 파싱 에러.
-                    // TODO 필요에 따라 에러 예외 처리 필요.
+                    binding.tvDatamilesVehicleDiagnosticUpdateDate.setText("");
                 }
             } else {
                 // 차량 진단 데이터가 없거나, 고장 코드가 없는 경우.
