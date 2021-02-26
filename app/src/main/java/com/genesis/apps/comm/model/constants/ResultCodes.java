@@ -27,6 +27,7 @@ public enum ResultCodes {
     REQ_CODE_TS_AUTH(26,"중고차 등록 완료"),
     REQ_CODE_ADDR_ZIP_PRIVILEGE(27,"프리빌리지 주소(우편) 정보"),
     REQ_CODE_APPLY_RELAPSE(28,"하자재발신청완료"),
+    REQ_CODE_APPLY_RELAPSE_EXIT(29,"하자재발신청종료"),
 
     REQ_CODE_PAYMENT_SUCC(1001,"결제 성공"),
     REQ_CODE_PAYMENT_FAIL(1002,"결제 실패"),

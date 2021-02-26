@@ -221,7 +221,7 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
             this.fn = uri.getQueryParameter("fn");
             return true;
         } else if (url.startsWith("genesisapp://menu?id=")||url.startsWith("genesisapps://menu?id=")){
-            moveToNativePage(url, false, "");
+            moveToNativePage(url, false);
             return true;
         } else if(url.startsWith("genesisapp://getSsoInfo")) {
             fragment.loadUrl("javascript:setSsoInfo('" + mCustInfo + "');");

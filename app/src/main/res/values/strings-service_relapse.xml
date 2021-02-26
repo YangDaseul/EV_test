@@ -31,6 +31,9 @@
     <string name="relapse_3_msg_03">수리 시도 횟수가\n4회 이상인가요?</string>
     <string name="relapse_3_msg_04">누적 수리 기간은\n며칠인가요?</string>
     <string name="relapse_3_msg_05">수리 시도 횟수가 4회 이상인가요?</string>
+    <string name="relapse_3_msg_06">누적 추가 수리 횟수가 4회 이상인가요?</string>
+    <string name="relapse_3_msg_07">수리 시도 횟수를\n확인해 주세요.</string>
+
     <string name="relapse_3_which">하자 구분</string>
     <string name="relapse_3_repair_count">회</string>
     <string name="relapse_3_repair_day">일</string>

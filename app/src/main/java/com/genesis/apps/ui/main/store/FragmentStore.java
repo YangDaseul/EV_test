@@ -255,7 +255,7 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
             this.fn = uri.getQueryParameter("fn");
             return true;
         } else if (url.startsWith("genesisapp://menu?id=")||url.startsWith("genesisapps://menu?id=")){
-            ((MainActivity) getActivity()).moveToNativePage(url, false, "");
+            ((MainActivity) getActivity()).moveToNativePage(url, false);
             return true;
         } else if(url.startsWith("genesisapp://getSsoInfo")) {
             fragment.loadUrl("javascript:setSsoInfo('" + mCustInfo + "');");
