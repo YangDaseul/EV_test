@@ -76,25 +76,18 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layouts[0]);
-        getDataFromIntent();
         setViewModel();
+        getDataFromIntent();
         setObserver();
         initView();
     }
 
     private void initView() {
-        try {
-            //주 이용 차량 정보를 DB에서 GET
-            mainVehicle = reqViewModel.getMainVehicle();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            initConstraintSets();
-            setViewRparTypCd();
-            MiddleDialog.dialogServiceCantReserveInfo(this, () -> {
-                initChoiceView();
-            });
-        }
+        initConstraintSets();
+        setViewRparTypCd();
+        MiddleDialog.dialogServiceCantReserveInfo(this, () -> {
+            initChoiceView();
+        });
     }
 
     private void initChoiceView() {
@@ -358,6 +351,11 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
         try {
             repairTypeVO = (RepairTypeVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE);
             btrVO = (BtrVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_BTR);
+            mainVehicle = reqViewModel.getMainVehicle();
+            String carRegNo = getIntent().getStringExtra(KeyNames.KEY_NAME_CAR_REG_NO);
+            if(!TextUtils.isEmpty(carRegNo)){
+                if(mainVehicle!=null) mainVehicle.setCarRgstNo(carRegNo);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

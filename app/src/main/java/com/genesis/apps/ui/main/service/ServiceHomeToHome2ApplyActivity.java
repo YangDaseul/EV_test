@@ -79,24 +79,17 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
         super.onCreate(savedInstanceState);
         setResizeScreen();
         setContentView(layouts[0]);
-        getDataFromIntent();
         setViewModel();
+        getDataFromIntent();
         setObserver();
         initView();
     }
 
     private void initView() {
-        try {
-            //주 이용 차량 정보를 DB에서 GET
-            mainVehicle = reqViewModel.getMainVehicle();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            initConstraintSets();
-            initEditView();
-            initViewCheckBox();
-            selectHomeToHomeService();
-        }
+        initConstraintSets();
+        initEditView();
+        initViewCheckBox();
+        selectHomeToHomeService();
     }
 
     private void initEditView() {
@@ -316,6 +309,11 @@ public class ServiceHomeToHome2ApplyActivity extends SubActivity<ActivityService
     public void getDataFromIntent() {
         try {
             rparTypCd = getIntent().getStringExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE);
+            mainVehicle = reqViewModel.getMainVehicle();
+            String carRegNo = getIntent().getStringExtra(KeyNames.KEY_NAME_CAR_REG_NO);
+            if(!TextUtils.isEmpty(carRegNo)){
+                if(mainVehicle!=null) mainVehicle.setCarRgstNo(carRegNo);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

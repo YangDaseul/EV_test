@@ -179,6 +179,7 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
                 startActivitySingleTop(new Intent(this, ServiceAutocare2ApplyActivity.class)
                                 .putExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE, selectRepairTypeVO.getRparTypCd())
                                 .putExtra(KeyNames.KEY_NAME_SERVICE_COUPON_LIST, new Gson().toJson(couponList))
+                                .putExtra(KeyNames.KEY_NAME_CAR_REG_NO, mainVehicle.getCarRgstNo())
                         , RequestCodes.REQ_CODE_ACTIVITY.getCode()
                         , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
@@ -192,23 +193,17 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
             case R.id.l_maintenance_hometohome:
                 startActivitySingleTop(new Intent(this, ServiceHomeToHome2ApplyActivity.class)
                                 .putExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE, selectRepairTypeVO.getRparTypCd())
+                                .putExtra(KeyNames.KEY_NAME_CAR_REG_NO, mainVehicle.getCarRgstNo())
                         , RequestCodes.REQ_CODE_ACTIVITY.getCode()
                         , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
 
             case R.id.l_maintenance_repair:
-
                 startActivitySingleTop(new Intent(this, ServiceRepair2ApplyActivity.class)
                                 .putExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE, selectRepairTypeVO)
+                                .putExtra(KeyNames.KEY_NAME_CAR_REG_NO, mainVehicle.getCarRgstNo())
                         , RequestCodes.REQ_CODE_ACTIVITY.getCode()
                         , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-
-//                MiddleDialog.dialogServiceCantReserveInfo(this, () ->
-//                    startActivitySingleTop(new Intent(this, ServiceRepair2ApplyActivity.class)
-//                                    .putExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE, selectRepairTypeVO)
-//                            , RequestCodes.REQ_CODE_ACTIVITY.getCode()
-//                            , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE));
-
                 break;
         }
     }

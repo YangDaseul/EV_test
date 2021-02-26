@@ -77,9 +77,9 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
         super.onCreate(savedInstanceState);
         setResizeScreen();
         setContentView(layouts[0]);
+        setViewModel();
         getDataFromIntent();
         try {
-            setViewModel();
             setObserver();
             initView();
         }catch (Exception e){
@@ -88,16 +88,9 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
     }
 
     private void initView() {
-        try {
-            //주 이용 차량 정보를 DB에서 GET
-            mainVehicle = reqViewModel.getMainVehicle();
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally{
-            initConstraintSets();
-            initEditView();
-            selectAutocareService();
-        }
+        initConstraintSets();
+        initEditView();
+        selectAutocareService();
     }
 
     private void initEditView() {
@@ -230,34 +223,6 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
 
     @Override
     public void setObserver() {
-//        sosViewModel.getRES_SOS_1002().observe(this, result -> {
-//            switch (result.status){
-//                case LOADING:
-//                    showProgressDialog(true);
-//                    break;
-//                case SUCCESS:
-//                    showProgressDialog(false);
-//                    if(result.data!=null&&!TextUtils.isEmpty(result.data.getRtCd())&&result.data.getRtCd().equalsIgnoreCase("0000")&&!TextUtils.isEmpty(result.data.getTmpAcptNo())){
-//                        startActivitySingleTop(new Intent(this, ServiceSOSApplyInfoActivity.class).putExtra(KeyNames.KEY_NAME_SOS_TMP_NO, result.data.getTmpAcptNo()).addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT),0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-//                        finish();
-//                        break;
-//                    }
-//                default:
-//                    String serverMsg="";
-//                    try {
-//                        serverMsg = result.data.getRtMsg();
-//                    }catch (Exception e){
-//                        e.printStackTrace();
-//                    }finally{
-//                        if (TextUtils.isEmpty(serverMsg)){
-//                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
-//                        }
-//                        SnackBarUtil.show(this, serverMsg);
-//                        showProgressDialog(false);
-//                    }
-//                    break;
-//            }
-//        });
 
     }
 
@@ -266,6 +231,11 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
         try {
             rparTypCd = getIntent().getStringExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE);
             couponVOList = new Gson().fromJson(getIntent().getStringExtra(KeyNames.KEY_NAME_SERVICE_COUPON_LIST), new TypeToken<List<CouponVO>>(){}.getType());
+            mainVehicle = reqViewModel.getMainVehicle();
+            String carRegNo = getIntent().getStringExtra(KeyNames.KEY_NAME_CAR_REG_NO);
+            if(!TextUtils.isEmpty(carRegNo)){
+                if(mainVehicle!=null) mainVehicle.setCarRgstNo(carRegNo);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
