@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,7 +25,7 @@ import com.genesis.apps.comm.model.vo.RepairReserveVO;
 import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.databinding.FragmentServiceBinding;
-import com.genesis.apps.databinding.ItemTabContentsBinding;
+import com.genesis.apps.databinding.ItemTabServiceBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
@@ -67,7 +66,7 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
 
         for(int i=0 ; i<PAGE_NUM; i++) {
             final LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            final ItemTabContentsBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_tab_contents, null, false);
+            final ItemTabServiceBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_tab_service, null, false);
             final View view = binding.getRoot();
             binding.tvTab.setText(TAB_ID_LIST[i]);
             me.tlServiceTabs.getTabAt(i).setCustomView(view);
