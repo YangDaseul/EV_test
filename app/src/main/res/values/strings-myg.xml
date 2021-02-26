@@ -161,8 +161,8 @@
     <string name="mg_member01_16">사용 가능한\n제네시스 카드가 없습니다.</string>
 
     <string name="mg_member04_1">포인트 사용 내역</string>
-    <string name="mg_member04_2">적립 포인트</string>
-    <string name="mg_member04_3">사용 포인트</string>
+    <string name="mg_member04_2">총 적립 포인트</string>
+    <string name="mg_member04_3">총 사용 포인트</string>
     <string name="mg_member04_4">p&#160;&#160;적립</string>
     <string name="mg_member04_5">p&#160;&#160;잔여</string>
     <string name="mg_member04_6">p&#160;&#160;사용</string>
