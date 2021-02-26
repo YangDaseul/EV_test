@@ -17,27 +17,31 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_service_tabs"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginTop="50dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="70dp"
             android:layout_marginStart="20dp"
             android:background="@color/x_ffffff"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tabIndicatorColor="@color/x_996449"
-            app:tabIndicatorHeight="1dp"
+            app:tabRippleColor="@android:color/transparent"
+            app:tabPaddingTop="0dp"
+            app:tabPaddingBottom="0dp"
+            app:tabPaddingStart="0dp"
+            app:tabPaddingEnd="0dp"
+            app:tabIndicatorHeight="0dp"
             app:tabMode="fixed">
 
         </com.google.android.material.tabs.TabLayout>
 
-        <!--  탭 아래 부분 배경색 변경을 위한 더미 뷰  -->
-        <ImageView
+        <View
+            android:id="@+id/view_line"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/bg_f8f8f8_topline_e5e5e5"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="1dp"
+            android:background="@color/x_e5e5e5"
+            app:layout_constraintTop_toBottomOf="@+id/tl_service_tabs"
+            app:layout_constraintBottom_toTopOf="@+id/fl_service_contents"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tl_service_tabs" />
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <!-- 서비스 탭 본문 -->
         <FrameLayout
@@ -48,7 +52,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tl_service_tabs">
+            app:layout_constraintTop_toBottomOf="@id/view_line">
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/vp_service_contents_view_pager"
