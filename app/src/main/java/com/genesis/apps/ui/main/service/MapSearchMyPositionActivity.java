@@ -137,7 +137,7 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
                 return R.drawable.ic_pin_to;
             case 0:
             default://그 외
-                return R.drawable.ic_pin_car;
+                return R.drawable.ico_map_pin_active_b;
         }
     }
 
