@@ -381,8 +381,8 @@ public class ServiceRelapse3Activity extends SubActivity<ActivityServiceRelapseA
     //4번 넘었나요?
     private void changeStatusToAskOver4() {
         currentState = STATE_ASK_OVER_4;
-        ui.tvRelapse3Desc.setText(R.string.relapse_3_msg_03);
-
+        ui.tvRelapse3Desc.setText(R.string.relapse_3_msg_07);
+        ui.tvRelapse3TotalCountTitle.setVisibility(View.VISIBLE);
         ui.clRelapseBtnContainer.setVisibility(View.VISIBLE);
 //        ui.tvRelapse3Yes.setVisibility(View.VISIBLE);
 //        ui.tvRelapse3No.setVisibility(View.VISIBLE);

@@ -47,6 +47,7 @@
                 android:fontFamily="@font/light_genesissansheadglobal"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="8dp"
+                android:paddingBottom="30dp"
                 android:text="@string/relapse_3_msg_01"
                 android:textColor="@color/x_000000"
                 android:textSize="22dp"
@@ -58,12 +59,10 @@
                 android:id="@+id/l_relapse_3_period_container"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_relapse_3_desc"
-                app:layout_goneMarginTop="30dp"
                 tools:visibility="visible">
 
                 <!-- 누적 수리 기간 입력창 -->
@@ -108,12 +107,13 @@
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:textSize="15dp"
                 android:textColor="@color/x_000000"
-                android:text="@string/relapse_3_msg_05"
+                android:text="@string/relapse_3_msg_06"
                 android:visibility="gone"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintTop_toBottomOf="@+id/tv_relapse_3_desc"
                 app:layout_constraintBottom_toTopOf="@+id/cl_relapse_btn_container"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:visibility="visible"/>
+                app:layout_constraintEnd_toEndOf="parent"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_relapse_btn_container"
@@ -131,6 +131,7 @@
                     android:id="@+id/tv_relapse_3_yes"
                     style="@style/BtrFilterDisable2"
                     android:onClick="@{(view)->activity.onClickCommon(view)}"
+
                     android:text="@string/dialog_common_2"
                     app:layout_constraintEnd_toStartOf="@id/tv_relapse_3_no"
                     app:layout_constraintStart_toStartOf="parent"
@@ -224,7 +225,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_dummy"
-            app:layout_goneMarginTop="30dp"
             tools:visibility="visible"/>
 
         <!-- 다음버튼이 위쪽 UI 덮어버리지 않도록 공간 확보(같은 크기의 뷰) -->
