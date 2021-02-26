@@ -167,7 +167,7 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
         if (datas != null && datas.size() > 0) {
             ui.tvServiceRemoteNoData.setVisibility(View.GONE);
             ui.rvServiceRemoteList.setVisibility(View.VISIBLE);
-
+            ui.tvServiceRemoteInfo.setVisibility(View.VISIBLE);
             ServiceRemoteListAdapter adapter = new ServiceRemoteListAdapter(onSingleClickListener);
             adapter.setRows(datas);
             LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -177,6 +177,7 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
         } else {
             ui.tvServiceRemoteNoData.setVisibility(View.VISIBLE);
             ui.rvServiceRemoteList.setVisibility(View.INVISIBLE);
+            ui.tvServiceRemoteInfo.setVisibility(View.INVISIBLE);
         }
     }
 } // end of class ServiceRemoteListActivity

@@ -33,5 +33,23 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@android:color/white" />
+
+        <TextView
+            android:id="@+id/tv_service_remote_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_f8f8f8_topline_e5e5e5"
+            android:drawablePadding="6dp"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="40dp"
+            android:text="@string/sm_remote01_info"
+            android:textColor="@color/x_666666"
+            android:textSize="14dp"
+            android:visibility="gone"
+            app:drawableStartCompat="@drawable/mark_666666" />
+
     </LinearLayout>
 </layout>
