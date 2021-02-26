@@ -136,7 +136,15 @@ public class BaseActivity extends AppCompatActivity {
             if (TextUtils.isEmpty(url))
                 url = "";
 
-            moveToNativePage(url, true, body);
+            //링크는 있는데 바디가 있을 경우 푸쉬를 클릭 한 이후에 특정 메뉴 아이디로 이동.
+            if(TextUtils.isEmpty(body)&&!TextUtils.isEmpty(url)){
+                moveToPage(url, pushVO.getData().getMsgLnkCd(),false);
+            }else{
+                //그 외에는 알림센터로 이동
+                //바디는 사용하지 않음
+                moveToNativePage(url, true);
+            }
+
             this.getIntent().removeExtra(PUSH_VO);
             this.getIntent().removeExtra(NOTIFICATION_ID);
             ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancel(notificationId);
@@ -148,7 +156,7 @@ public class BaseActivity extends AppCompatActivity {
             if(lnkTypCd.equalsIgnoreCase("I")||lnkTypCd.equalsIgnoreCase("IM")){
                 if(lnkUri.startsWith(KeyNames.KEY_NAME_INTERNAL_LINK)||lnkUri.startsWith(KeyNames.KEY_NAME_INTERNAL_LINK2)){
                     //내부링크로 이동
-                    moveToNativePage(lnkUri, isPush, "");
+                    moveToNativePage(lnkUri, isPush);
                 }else if(lnkUri.startsWith("http")){
                     //웹뷰로 이동
                     moveToExternalPage(lnkUri, VariableType.COMMON_MEANS_YES);
@@ -161,7 +169,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
-    public void moveToNativePage(String lnkUri, boolean isPush, String body) {
+    public void moveToNativePage(String lnkUri, boolean isPush) {
         Uri uri = null;
         String id = "";
         String PI = "";
@@ -196,7 +204,7 @@ public class BaseActivity extends AppCompatActivity {
                 }
                 break;
             default:
-                if(!isPush||(isPush&&TextUtils.isEmpty(body)&&!TextUtils.isEmpty(lnkUri))) {
+                if(!isPush) {
                     APPIAInfo appiaInfo = APPIAInfo.findCode(id);
                     if (appiaInfo != null && appiaInfo.getActivity() != null) {
                         startActivitySingleTop(new Intent(this, appiaInfo.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);

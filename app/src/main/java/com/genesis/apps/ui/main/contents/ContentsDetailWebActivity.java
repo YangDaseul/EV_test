@@ -348,7 +348,7 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
             this.fn = uri.getQueryParameter("fn");
             return true;
         } else if (url.startsWith("genesisapp://menu?id=")||url.startsWith("genesisapps://menu?id=")){
-            moveToNativePage(url, false, "");
+            moveToNativePage(url, false);
             return true;
         } else if(url.startsWith("genesisapp://getSsoInfo")) {
             cmsViewModel.reqCMS1001(new CMS_1001.Request(APPIAInfo.CM_LIFE01.getId()));
