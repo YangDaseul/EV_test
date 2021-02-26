@@ -68,6 +68,8 @@ public class AlarmCenterSearchActivity extends SubActivity<ActivityAlarmCenterSe
 
         });
 
+        ui.lSearchParent.tvTitleSub.setText(R.string.mg00_word_3);
+        ui.lSearchParent.tvEmpty.setVisibility(View.VISIBLE);
         //키보드에서 search 버튼 클릭할 경우 정의 스토리보드에 정의되어있지 않아 삭선처리
 //        ui.etSearch.setOnEditorActionListener(editorActionListener);
     }
@@ -152,10 +154,10 @@ public class AlarmCenterSearchActivity extends SubActivity<ActivityAlarmCenterSe
 
     private void reqListData(String keyword) {
         if (TextUtils.isEmpty(keyword)) {
-            ui.lSearchParent.etSearch.setBackgroundResource(R.drawable.bg_ffffff_stroke_dadde3);
+            ui.lSearchParent.etSearch.setBackgroundResource(R.drawable.bg_ffffff_stroke_e5e5e5);
             ui.lSearchParent.tvEmpty.setVisibility(View.VISIBLE);
         } else {
-            ui.lSearchParent.etSearch.setBackgroundResource(R.drawable.bg_ffffff_stroke_141414);
+            ui.lSearchParent.etSearch.setBackgroundResource(R.drawable.bg_ffffff_stroke_000000);
             try {
                 setListView(cmnViewModel.getNotiInfoFromDB("", "%" + keyword + "%"));
             } catch (Exception e) {
