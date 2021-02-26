@@ -53,8 +53,8 @@
     <string name="word_version_1">현재 버전</string>
     <string name="word_version_2">최신 버전</string>
     <string name="word_version_3">업데이트</string>
-    <string name="msg_version_1">\'제네시스 앱\'\n최신 업데이트 버전입니다.</string>
-    <string name="msg_version_2">\'제네시스 앱\'의\n최신 업데이트가 필요합니다.</string>
+    <string name="msg_version_1">최신 업데이트 버전입니다.</string>
+    <string name="msg_version_2">최신 업데이트가 필요합니다.</string>
 
     <string name="word_ga_1">%s 님</string>
     <string name="word_ga_2">휴대폰</string>

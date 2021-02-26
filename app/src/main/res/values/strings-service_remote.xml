@@ -73,7 +73,7 @@
 
     <string name="sm_remote01_no_data">원격 진단 신청내역이 없습니다.</string>
     <string name="sm_remote01_no_insight_message">안전운전 후 보험 할인 혜택을 받아보세요.</string>
-    <string name="sm_remote01_info">마이 제네시스 앱을 통해 신청한 내역만 표시됩니다.</string>
+    <string name="sm_remote01_info">MY GENESIS를 통해 신청한 내역만 표시됩니다.</string>
 
 
     <string name="sm_remote01_guide_dot">ㆍ</string>

@@ -8,7 +8,7 @@
     <string name="intro_word_7">앱이 시작됩니다.</string>
 
     <string name="int02_1">접근 권한 알림</string>
-    <string name="int02_2">제네시스 앱 사용을 위해\n다음 접근 권한들을\n허용해 주십시오.</string>
+    <string name="int02_2">MY GENESIS 사용을 위해\n다음 접근 권한들을\n허용해 주십시오.</string>
     <string name="int02_3">저장공간</string>
     <string name="int02_4">(필수)</string>
     <string name="int02_5">로그인 정보 저장, 등록된 차량 정보 저장, 모바일 앱 내 컨텐츠 저장을 위해 필요합니다.</string>
@@ -20,11 +20,11 @@
     <string name="int02_11">카메라에 대한 설명이 들어갈 예정입니다.</string>
     <string name="int02_12">음성녹화</string>
     <string name="int02_13">모바일 앱 화면 공유하기 기능 사용 시 음성 녹화를 위해 필요합니다.</string>
-    <string name="int02_14">\'마이 제네시스 앱\'은 반드시 필요한 권한만 사용하고 있으며, 단순 정보수집의 목적으로 서비스에 불필요한 권한은 요구하지 않습니다.</string>
+    <string name="int02_14">MY GENESIS는 반드시 필요한 권한만 사용하고 있으며, 단순 정보수집의 목적으로 서비스에 불필요한 권한은 요구하지 않습니다.</string>
     <string name="int02_15">휴대폰의 설정 메뉴 ▶ 애플리케이션 관리자\n에서 설정하실 수 있습니다.</string>
     <string name="int02_16">확인</string>
     <string name="int02_17">접근 권한 설정 안내</string>
     <string name="int02_18">접근 권한에 동의하지 않으면 서비스 이용이 제한될 수 있습니다.\n\n애플리케이션 설정에서 권한을 모두 허용 후 이용 부탁드립니다.</string>
-    <string name="int02_19">필수 권한을 허용하지 않으면 \'마이 제네시스 앱\'을 이용하실 수 없습니다.</string>
+    <string name="int02_19">필수 권한을 허용하지 않으면 MY GENESIS를 이용하실 수 없습니다.</string>
 
 </resources>
