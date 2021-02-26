@@ -376,7 +376,7 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
             hideFragment(fragments.get(0));
         } else {
             MiddleDialog.dialogServiceRelapseApplyExit(this, () -> {
-                finish();
+                exitPage("", ResultCodes.REQ_CODE_APPLY_RELAPSE_EXIT.getCode());
                 closeTransition();
             }, () -> {
 

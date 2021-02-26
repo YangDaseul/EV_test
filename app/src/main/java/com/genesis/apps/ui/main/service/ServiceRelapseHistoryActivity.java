@@ -56,6 +56,10 @@ public class ServiceRelapseHistoryActivity extends GpsBaseActivity<ActivityServi
         if(resultCode == ResultCodes.REQ_CODE_APPLY_RELAPSE.getCode()){
             SnackBarUtil.show(this, getString(R.string.relapse_succ));
             reqNextPage();
+        } else if(resultCode == ResultCodes.REQ_CODE_APPLY_RELAPSE_EXIT.getCode()){
+            //신청하기 페이지에서 나가기를 진행하면 페이지 종료
+            finish();
+            closeTransition();
         }
     }
 
