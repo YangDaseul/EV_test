@@ -273,7 +273,24 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
         setObserver();
         reqMyLocation();
 
-        rmtViewModel.reqRMT1006(new RMT_1006.Request(APPIAInfo.R_REMOTE01.getId()));
+
+        try {
+            vin = rmtViewModel.getMainVehicle().getVin();
+            String carId = developersViewModel.getCarId(vin);
+            if (TextUtils.isEmpty(carId)) {
+                // Car ID가 조회되지 않으면 GCS 가입 안내 팝업표시.
+                MiddleDialog.dialogServiceRemoteOneButton(
+                        this,
+                        R.string.sm_remote01_dialog_title_error,
+                        R.string.sm_remote01_msg_error_2404,
+                        () -> exitPage("", 0));
+            } else {
+                rmtViewModel.reqRMT1001(new RMT_1001.Request(APPIAInfo.R_REMOTE01.getId(), vin));
+            }
+        } catch (ExecutionException ee) {
+        } catch (InterruptedException ie) {
+            Thread.currentThread().interrupt();
+        }
 
 //        MiddleDialog.dialogServiceRemoteInfo(this, () -> {
 //            try {
@@ -351,7 +368,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                             // 성공.
                             if ("N".equalsIgnoreCase(data.getRmtExitYn())) {
                                 // 신청건이 없는 경우.
-                                initView();
+                                rmtViewModel.reqRMT1006(new RMT_1006.Request(APPIAInfo.R_REMOTE01.getId()));
                             } else {
                                 // 신청건이 있는 경우. - 안내 팝업 표시.
                                 MiddleDialog.dialogServiceRemoteOneButton(
@@ -471,23 +488,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                                     getString(R.string.sm_romte_p01_1),
                                     response.getCont(),
                                     () -> {
-                                        try {
-                                            vin = rmtViewModel.getMainVehicle().getVin();
-                                            String carId = developersViewModel.getCarId(vin);
-                                            if (TextUtils.isEmpty(carId)) {
-                                                // Car ID가 조회되지 않으면 GCS 가입 안내 팝업표시.
-                                                MiddleDialog.dialogServiceRemoteOneButton(
-                                                        this,
-                                                        R.string.sm_remote01_dialog_title_error,
-                                                        R.string.sm_remote01_msg_error_2404,
-                                                        () -> exitPage("", 0));
-                                            } else {
-                                                rmtViewModel.reqRMT1001(new RMT_1001.Request(APPIAInfo.R_REMOTE01.getId(), vin));
-                                            }
-                                        } catch (ExecutionException ee) {
-                                        } catch (InterruptedException ie) {
-                                            Thread.currentThread().interrupt();
-                                        }
+                                        initView();
                                     }, () -> exitPage("", 0));
                         } else if (SERVICE_REMOTE_RES_CODE_9000.equals(rtCd)) {
                             // 시스템 오류.
