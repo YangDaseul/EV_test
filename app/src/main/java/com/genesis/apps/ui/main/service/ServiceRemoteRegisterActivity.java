@@ -580,6 +580,11 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
         );
     }
 
+    @Override
+    public void onBackButton() {
+        onBackPressed();
+    }
+
     /****************************************************************************************************
      * Method - Private
      ****************************************************************************************************/
