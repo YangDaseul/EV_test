@@ -35,13 +35,13 @@
             android:id="@+id/l_empty"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/bg_f8f8f8_topline_e5e5e5"
+            android:background="@color/x_f8f8f8"
             android:visibility="gone"
-            app:layout_constraintTop_toTopOf="@+id/vp"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
 
             <TextView

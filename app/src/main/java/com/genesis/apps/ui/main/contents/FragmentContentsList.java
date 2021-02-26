@@ -199,6 +199,11 @@ public class FragmentContentsList extends SubFragment<FragmentContentsListBindin
         });
 
         final float pageMargin= getResources().getDimensionPixelOffset(R.dimen.vpMargin);
+//        me.vp.setPageTransformer((view, position) -> {
+//
+//            // Next line scales the item's height. You can remove it if you don't want this effect
+//            view.setScaleY(1 - (0.08f * abs(position))) ;
+//        });
 
         me.vp.setPageTransformer((view, position) -> {
             float myOffset = position * -(pageMargin);

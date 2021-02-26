@@ -6,13 +6,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_tab"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@drawable/selector_tab_contents">
 
         <TextView
             android:id="@+id/tv_tab"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:paddingStart="15dp"
