@@ -19,6 +19,7 @@ import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.StoreInfo;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -37,6 +38,7 @@ import com.genesis.apps.ui.myg.MyGMenuActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -355,15 +357,25 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 view = binding.getRoot();
                 binding.tvTab.setText(TAB_INFO[i][0]);
                 binding.ivTab.setImageResource(TAB_INFO[i][1]);
+                setPaddingTab(binding.lTab, i);
             } else {
                 final ItemTabBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_tab, null, false);
 
                 view = binding.getRoot();
                 binding.tvTab.setText(TAB_INFO[i][0]);
                 binding.ivTab.setImageResource(TAB_INFO[i][1]);
+                setPaddingTab(binding.lTab, i);
             }
 
             ui.tabs.getTabAt(i).setCustomView(view);
+        }
+    }
+
+    private void setPaddingTab(ConstraintLayout lTab, int pos) {
+        if(pos==0||pos==1) {
+            lTab.setPadding((int) DeviceUtil.dip2Pixel(this, 10), 0, 0, 0);
+        }else if(pos==pageNum-1||pos==pageNum-2) {
+            lTab.setPadding(0, 0, (int) DeviceUtil.dip2Pixel(this, 10), 0);
         }
     }
 
