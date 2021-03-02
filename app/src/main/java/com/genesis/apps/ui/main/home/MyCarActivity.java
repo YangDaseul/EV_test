@@ -558,10 +558,13 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                     }
 
                     //주 이용 차량 셋팅
-                    ui.ivFavorite.setVisibility(View.VISIBLE);
+                    ui.ivFavorite.setVisibility(adapter.getItemCount()==1 ? View.GONE : View.VISIBLE);
                     ui.ivFavorite.setImageResource(StringUtil.isValidString(vehicleVO.getMainVhclYn()).equalsIgnoreCase(VariableType.MAIN_VEHICLE_N) ? R.drawable.ic_star_l_s_d : R.drawable.ic_star_l_s);
                     //주 차량 표기
-                    ui.tvCarStatus.setText(StringUtil.isValidString(vehicleVO.getMainVhclYn()).equalsIgnoreCase(VariableType.MAIN_VEHICLE_N) ? "" : getString(R.string.gm_carlst_01_4));
+                    ui.tvCarStatus.setText((adapter.getItemCount()==1||StringUtil.isValidString(vehicleVO.getMainVhclYn()).equalsIgnoreCase(VariableType.MAIN_VEHICLE_N)) ? "" : getString(R.string.gm_carlst_01_4));
+
+
+
                     //삭제버튼 활성화
                     ui.btnDelete.lWhole.setVisibility(View.VISIBLE);
                 }
