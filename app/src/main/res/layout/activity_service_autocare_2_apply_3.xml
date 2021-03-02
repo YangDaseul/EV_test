@@ -108,6 +108,7 @@
                 android:id="@+id/tv_title_autocare_service"
                 style="@style/CommonSpinnerTitle"
                 android:text="@string/sm_r_rsv02_01_3"
+                android:textSize="14dp"
                 android:visibility="visible" />
 
             <!-- 변경 버튼 -->
@@ -140,7 +141,7 @@
                 style="@style/MapOverlayServiceNetwork"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toStartOf="@+id/tv_reservation_2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_change_autocare_service"
