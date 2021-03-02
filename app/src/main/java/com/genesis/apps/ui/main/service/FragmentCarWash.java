@@ -71,7 +71,13 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
         if(v.getId() == R.id.ll_cost) {
             if(me.clSonaxCostImg.getVisibility() == View.GONE) {
                 me.ivArrow.setImageResource(R.drawable.btn_arrow_close);
-                InteractionUtil.expand(me.clSonaxCostImg, null);
+                InteractionUtil.expand2(me.clSonaxCostImg, new Runnable() {
+                    @Override
+                    public void run() {
+                        me.nsScroll.smoothScrollTo(0, me.llCost.getTop());
+                    }
+                });
+
             } else {
                 me.ivArrow.setImageResource(R.drawable.btn_arrow_open);
                 InteractionUtil.collapse(me.clSonaxCostImg, null, 200);
