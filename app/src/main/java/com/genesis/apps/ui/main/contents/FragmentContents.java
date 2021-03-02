@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,7 @@ import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.CatTypeVO;
 import com.genesis.apps.comm.model.vo.ContentsVO;
+import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.CTTViewModel;
@@ -233,6 +235,18 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
             final View view = binding.getRoot();
             binding.tvTab.setText(mCatTypeList.get(i).getCdNm());
             me.tlCategoryTabs.getTabAt(i).setCustomView(view);
+
+            if(i == 0) {
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                params.setMarginStart((int) DeviceUtil.dip2Pixel(getActivity(), 20));
+                me.tlCategoryTabs.getTabAt(i).view.setLayoutParams(params);
+            }
+
+            if(i == mCatTypeList.size()-1) {
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                params.setMarginEnd((int) DeviceUtil.dip2Pixel(getActivity(), 20));
+                me.tlCategoryTabs.getTabAt(i).view.setLayoutParams(params);
+            }
         }
     }
 

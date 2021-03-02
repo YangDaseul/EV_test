@@ -29,7 +29,6 @@
                 android:id="@+id/tl_category_tabs"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="20dp"
                 android:background="@color/x_ffffff"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -42,6 +41,22 @@
                 app:tabPaddingEnd="0dp"
                 app:tabIndicatorHeight="0dp"
                 app:tabMode="scrollable"/>
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_contents_gradient_left"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_contents_gradient_right"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
