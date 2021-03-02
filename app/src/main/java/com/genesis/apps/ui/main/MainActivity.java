@@ -357,14 +357,14 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 view = binding.getRoot();
                 binding.tvTab.setText(TAB_INFO[i][0]);
                 binding.ivTab.setImageResource(TAB_INFO[i][1]);
-                setPaddingTab(binding.lTab, i);
+//                setPaddingTab(binding.lTab, i);
             } else {
                 final ItemTabBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_tab, null, false);
 
                 view = binding.getRoot();
                 binding.tvTab.setText(TAB_INFO[i][0]);
                 binding.ivTab.setImageResource(TAB_INFO[i][1]);
-                setPaddingTab(binding.lTab, i);
+//                setPaddingTab(binding.lTab, i);
             }
 
             ui.tabs.getTabAt(i).setCustomView(view);
