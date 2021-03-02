@@ -35,7 +35,7 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.v("recyclerview test2", "create :");
-        return new ItemCard(getView(parent, R.layout.item_card));
+        return new ItemCard(getView(parent, R.layout.item_card), getItemCount());
     }
 
     @Override
@@ -47,8 +47,12 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
     }
 
     private static class ItemCard extends BaseViewHolder<CardVO, ItemCardBinding> {
-        public ItemCard(View itemView) {
+
+        private int totalCnt=0;
+
+        public ItemCard(View itemView, int totalCnt) {
             super(itemView);
+            this.totalCnt = totalCnt;
         }
 
         @Override
@@ -62,7 +66,7 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
             getBinding().tvCardNo2.setVisibility(View.VISIBLE);
             getBinding().tvCardNo.setVisibility(View.VISIBLE);
             getBinding().ivBarcode.setVisibility(View.VISIBLE);
-            getBinding().ivFavorite.setVisibility(View.VISIBLE);
+            getBinding().ivFavorite.setVisibility(totalCnt>1 ? View.VISIBLE : View.INVISIBLE);
             getBinding().tvFavorite.setVisibility(View.VISIBLE);
             getBinding().ivCard.setImageResource(0);
             getBinding().ivCard.setImageResource(R.drawable.img_card_320);
@@ -96,13 +100,13 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
                 case CardVO.CARD_STATUS_10://정상
                     getBinding().ivFavorite.setBackgroundResource(item.isFavorite() ? R.drawable.ic_star_card : R.drawable.ic_star_l_s_d);
                     getBinding().ivFavorite.setOnClickListener(onSingleClickListener);
-                    getBinding().tvFavorite.setVisibility(item.isFavorite() ? View.VISIBLE : View.INVISIBLE);
+                    getBinding().tvFavorite.setVisibility(isFavorite(item.isFavorite()) ? View.VISIBLE : View.INVISIBLE);
                     break;
                 case CardVO.CARD_STATUS_0://발급중
                     getBinding().tvStatus.setVisibility(View.VISIBLE);
                     getBinding().ivFavorite.setBackgroundResource(item.isFavorite() ? R.drawable.ic_star_card : R.drawable.ic_star_l_s_d);
                     getBinding().ivFavorite.setOnClickListener(onSingleClickListener);
-                    getBinding().tvFavorite.setVisibility(item.isFavorite() ? View.VISIBLE : View.INVISIBLE);
+                    getBinding().tvFavorite.setVisibility(isFavorite(item.isFavorite()) ? View.VISIBLE : View.INVISIBLE);
                     break;
 
                 case CARD_STATUS_20://정지 처리안함
@@ -141,6 +145,10 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
         @Override
         public void onBindView(CardVO item, int pos, SparseBooleanArray selectedItems) {
 
+        }
+
+        private boolean isFavorite(boolean isFavorite){
+            return totalCnt>1&&isFavorite;
         }
 
     }
