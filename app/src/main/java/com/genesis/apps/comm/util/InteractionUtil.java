@@ -64,6 +64,52 @@ public class InteractionUtil {
         v.startAnimation(a);
     }
 
+    public static void expand3(final View v, @Nullable final View scrollView) {
+        v.measure(ViewGroup.LayoutParams.MATCH_PARENT, View.MeasureSpec.UNSPECIFIED);
+        final int targetHeight = v.getMeasuredHeight();
+        v.getLayoutParams().height = 0;
+        v.setVisibility(View.VISIBLE);
+        Animation a = new Animation() {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                if(v.getLayoutParams().height!=ViewGroup.LayoutParams.WRAP_CONTENT) {
+                    v.getLayoutParams().height = (interpolatedTime == 1) ? ViewGroup.LayoutParams.WRAP_CONTENT : (int) (targetHeight * interpolatedTime);
+                    Log.v("expandtest", "expand:" + v.getLayoutParams().height);
+                    v.requestLayout();
+                }
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        if (scrollView != null) {
+            a.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    //스크롤 막음
+                    scrollView.setOnTouchListener((v1, event) -> true);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    //스크롤 살림
+                    scrollView.setOnTouchListener(null);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                    //do nothing
+                }
+            });
+        }
+
+        a.setDuration(((int) (targetHeight / v.getContext().getResources().getDisplayMetrics().density))*UNIT_DURATION_TWO);
+        v.startAnimation(a);
+    }
+
 
     public static void expand2(final View v, @Nullable Runnable runnable) {
         v.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);

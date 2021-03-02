@@ -146,7 +146,7 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
 //                break;
             case R.id.ll_evaluation:
                 ui.llEvaluation.setVisibility(View.GONE);
-                InteractionUtil.expand(ui.llRate, null);
+                InteractionUtil.expand3(ui.llRate, null);
 
                 break;
             case R.id.iv_close:
@@ -301,12 +301,12 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
             Thread.currentThread().interrupt();
         }
 
-        if("Y".equals(contentsVO.getLnkUseYn())) {
+//        if("Y".equals(contentsVO.getLnkUseYn())) {
 //            ui.includeLayout.llLink.setVisibility(View.VISIBLE);
 //            ui.includeLayout.btnLink.setText(contentsVO.getLnkNm());
-        } else {
+//        } else {
 //            ui.includeLayout.llLink.setVisibility(View.GONE);
-        }
+//        }
     }
 
     public boolean parseURL(String url) {
