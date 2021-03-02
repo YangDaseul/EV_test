@@ -155,6 +155,40 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="-500,000원" />
 
+            <!-- "프로모션할인" -->
+            <TextView
+                android:id="@+id/tv_service_drive_history_opened_prmt_dc_price_title"
+                style="@style/TextBasic"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:text="@string/service_drive_history_prmt_dc_price"
+                android:textColor="@color/x_111111"
+                android:textSize="14dp"
+                android:visibility="@{holder.prmtDcPriceVisibility}"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="14dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_service_drive_history_opened_discount_title" />
+
+            <!-- 프로모션할인(값) -->
+            <TextView
+                android:id="@+id/tv_service_drive_history_opened_prmt_dc_price_value"
+                style="@style/TextBasic"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:text="@{holder.prmtDcPrice}"
+                android:textColor="@color/x_000000"
+                android:textSize="14dp"
+                android:visibility="@{holder.prmtDcPriceVisibility}"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="14dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_service_drive_history_opened_prmt_dc_price_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="-500,000원" />
+
+
+
+
+
             <!-- 회색실선 -->
             <ImageView
                 android:id="@+id/iv_dummy"
@@ -164,7 +198,7 @@
                 android:src="@color/x_000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_service_drive_history_opened_discount_title" />
+                app:layout_constraintTop_toBottomOf="@id/tv_service_drive_history_opened_prmt_dc_price_title" />
 
             <!-- "결제금액" -->
             <TextView

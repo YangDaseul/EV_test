@@ -87,6 +87,9 @@ class DriveServiceVO extends BaseData {
     @SerializedName("payPrice")
     private String payPrice;
     @Expose
+    @SerializedName("prmtDcPrice")
+    private String prmtDcPrice;
+    @Expose
     @SerializedName("payDt")
     private String payDt;
     @Expose

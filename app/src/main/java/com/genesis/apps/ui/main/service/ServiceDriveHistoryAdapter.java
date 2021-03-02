@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.main.service;
 
 import android.telephony.PhoneNumberUtils;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
@@ -118,9 +119,11 @@ public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveSe
         public String date;
         public String carInfo;
         public String paidPrice;
+        public String prmtDcPrice;
         public String originalPrice;
         public String blueMemberPoint;//포인트로 차감한 금액
         public int discountVisibility;
+        public int prmtDcPriceVisibility;
         public String rdwnDc;//로드윈 특별할인 TODO  삭제될 것 같음. 일단 미적용
         public PositionVO from;
         public PositionVO to;
@@ -198,11 +201,22 @@ public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveSe
 
             //가격 : 숫자를 가격으로
             paidPrice = StringUtil.getDigitGroupingString(StringUtil.isValidString(item.getPayPrice()));
+
             originalPrice = StringUtil.getPriceString(StringUtil.isValidString(item.getExpPrice()));
+
+            //프로모션 할인 : 숫자를 할인가(음수 붙은 가격)로, 단, 할인 0원이면 뷰를 숨김
+            prmtDcPrice = item.getPrmtDcPrice();
+            if (TextUtils.isEmpty(prmtDcPrice)||prmtDcPrice.equals("0")) {
+                prmtDcPriceVisibility = View.GONE;
+            } else {
+                prmtDcPriceVisibility = View.VISIBLE;
+                prmtDcPrice = StringUtil.getDiscountString(prmtDcPrice);
+            }
+
 
             //할인가 : 숫자를 할인가(음수 붙은 가격)로, 단, 할인 0원이면 뷰를 숨김
             blueMemberPoint = item.getBluMbrDcPrice();
-            if (blueMemberPoint.equals("0")) {
+            if (TextUtils.isEmpty(blueMemberPoint)||blueMemberPoint.equals("0")) {
                 discountVisibility = View.GONE;
             } else {
                 discountVisibility = View.VISIBLE;
