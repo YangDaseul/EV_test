@@ -61,14 +61,27 @@
                 <TextView
                     android:id="@+id/tv_info_1"
                     style="@style/ViewMsgInputSub"
+                    android:layout_width="wrap_content"
                     android:text="@string/sm_romte_p01_3"
-                    android:textColor="@color/x_525252"
+                    android:textColor="@color/x_000000"
                     android:textSize="16dp"
                     android:layout_marginTop="20dp"
                     app:layout_constraintStart_toEndOf="@+id/tv_mark_1"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_info"/>
 
+                <TextView
+                    android:id="@+id/tv_info_1_1"
+                    style="@style/ViewMsgInputSub"
+                    android:layout_width="wrap_content"
+                    android:text="@string/sm_romte_p01_3_1"
+                    android:textColor="@color/x_000000"
+                    android:textSize="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="6dp"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toEndOf="@+id/tv_info_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info"/>
 
                 <TextView
                     android:id="@+id/tv_mark_2"
@@ -80,13 +93,38 @@
                 <TextView
                     android:id="@+id/tv_info_2"
                     style="@style/ViewMsgInputSub"
-                    android:layout_marginTop="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="13dp"
                     android:text="@string/sm_romte_p01_4"
-                    android:textColor="@color/x_525252"
+                    android:textColor="@color/x_000000"
                     android:textSize="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tv_mark_2"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_info_1" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_1_1" />
+
+
+                <TextView
+                    android:id="@+id/tv_info_2_1"
+                    style="@style/ViewMsgInputSub"
+                    android:layout_width="wrap_content"
+                    android:text="@string/sm_romte_p01_4_1"
+                    android:textColor="@color/x_000000"
+                    android:textSize="16dp"
+                    android:layout_marginStart="6dp"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toEndOf="@+id/tv_info_2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_info_2"/>
+
+                <ImageView
+                    android:id="@+id/iv_line_1"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/x_e5e5e5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_2_1"/>
+
 
                 <TextView
                     android:id="@+id/tv_mark_4"
@@ -98,13 +136,13 @@
                 <TextView
                     android:id="@+id/tv_info_4"
                     style="@style/ViewMsgInputSub"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="20dp"
                     android:text="@string/sm_romte_p01_5"
                     android:textColor="@color/x_525252"
                     android:textSize="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tv_mark_4"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_info_2" />
+                    app:layout_constraintTop_toBottomOf="@+id/iv_line_1" />
 
 
                 <TextView
@@ -140,12 +178,12 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/ripple_bg_ffffff_stroke_6f6f6f"
-                android:fontFamily="@font/light_genesissansheadglobal"
+                android:background="@drawable/ripple_bg_ffffff_stroke_111111"
+                android:fontFamily="@font/regular_genesissanstextglobal"
                 android:gravity="center"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="6dp"
-                android:text="@string/dialog_common_1"
+                android:text="@string/dialog_common_7"
                 android:textColor="@color/x_141414"
                 android:visibility="visible"
                 android:textSize="16dp"/>
@@ -156,12 +194,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/ripple_bg_000000"
-                android:fontFamily="@font/light_genesissansheadglobal"
+                android:background="@drawable/ripple_bg_111111"
+                android:fontFamily="@font/regular_genesissanstextglobal"
                 android:gravity="center"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="6dp"
-                android:text="@string/dialog_common_2"
+                android:text="@string/dialog_common_4"
                 android:textColor="@color/x_ffffff"
                 android:textSize="16dp"/>
         </LinearLayout>

@@ -30,9 +30,11 @@
     <string name="sm_emgc01_p06_2">현재 원격진단 이용이 어렵습니다.\nGCS 서비스 사용 신청하시고, 차량 등록 후 이용해 주세요.</string>
 
     <string name="sm_romte_p01_1">원격진단 서비스 안내</string>
-    <string name="sm_romte_p01_2">원격진단은 모바일로 신청하면 지정된 시간에 고객센터에서 전화 드리겠습니다.\n원격진단을 신청하시겠습니까?</string>
-    <string name="sm_romte_p01_3">이용 시간 : 평일 08:00 – 16:00 (토/일요일, 공휴일 제외)</string>
-    <string name="sm_romte_p01_4">GV80, GV70, The All-new Genesis G80 차량만 서비스 제공이 가능합니다.</string>
+    <string name="sm_romte_p01_2">원격진단을 신청하시면 지정된 시간에 고객센터에서 전화 드리겠습니다.</string>
+    <string name="sm_romte_p01_3">이용 가능 시간 :</string>
+    <string name="sm_romte_p01_3_1">평일 08:00 - 16:00\n(토/일요일, 공휴일 제외)</string>
+    <string name="sm_romte_p01_4">이용 가능 차량 :</string>
+    <string name="sm_romte_p01_4_1">GV80, GV70,\nTHE ALL-NEW G80</string>
     <string name="sm_romte_p01_5">고장 발생 시 긴급 상담을 제공하며, 정비를 위해서는 별도의 예약이 필요합니다.</string>
     <string name="sm_romte_p01_6">상담 결과는 차량 데이터를 원격에서 점검하여 추정한 결과로, 상세 점검을 위해서는 서비스센터 및 블루핸즈 방문이 필요합니다.</string>
 

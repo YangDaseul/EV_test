@@ -368,7 +368,11 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                             // 성공.
                             if ("N".equalsIgnoreCase(data.getRmtExitYn())) {
                                 // 신청건이 없는 경우.
-                                rmtViewModel.reqRMT1006(new RMT_1006.Request(APPIAInfo.R_REMOTE01.getId()));
+                                //2021-03-02 요건 변경으로 팝업 하드코딩 (재 변경 사항)
+                                MiddleDialog.dialogServiceRemoteInfo(this,
+                                        () -> initView(),
+                                        () -> exitPage("", 0));
+//                                rmtViewModel.reqRMT1006(new RMT_1006.Request(APPIAInfo.R_REMOTE01.getId()));
                             } else {
                                 // 신청건이 있는 경우. - 안내 팝업 표시.
                                 MiddleDialog.dialogServiceRemoteOneButton(
@@ -469,7 +473,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                 }
             }
         });
-
+        //2021-03-02 이후로 RMT1006을 사용하지 않음
         rmtViewModel.getRES_RMT_1006().observe(this, result -> {
             switch (result.status) {
                 case LOADING: {
@@ -483,13 +487,16 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                     if (response != null) {
                         String rtCd = response.getRtCd();
                         if (BaseResponse.RETURN_CODE_SUCC.equals(rtCd)) {
-                            MiddleDialog.dialogServiceRemoteTwoButton(
-                                    this,
-                                    getString(R.string.sm_romte_p01_1),
-                                    response.getCont(),
-                                    () -> {
-                                        initView();
-                                    }, () -> exitPage("", 0));
+                            MiddleDialog.dialogServiceRemoteInfo(this,
+                                    () -> initView(),
+                                    () -> exitPage("", 0));//아니오 클릭시 페이지 종료
+//                            MiddleDialog.dialogServiceRemoteTwoButton(
+//                                    this,
+//                                    getString(R.string.sm_romte_p01_1),
+//                                    response.getCont(),
+//                                    () -> {
+//                                        initView();
+//                                    }, () -> exitPage("", 0));
                         } else if (SERVICE_REMOTE_RES_CODE_9000.equals(rtCd)) {
                             // 시스템 오류.
                             MiddleDialog.dialogServiceRemoteOneButton(
