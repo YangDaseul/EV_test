@@ -3,10 +3,16 @@ package com.genesis.apps.ui.main;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import androidx.fragment.app.FragmentTransaction;
+
+import com.genesis.apps.R;
+import com.genesis.apps.comm.hybrid.MyWebViewFrament;
+import com.genesis.apps.comm.hybrid.core.WebViewFragment;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.TermVO;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.ui.common.activity.HtmlActivity;
 
 public class ServiceTermDetailActivity extends HtmlActivity {
@@ -17,8 +23,11 @@ public class ServiceTermDetailActivity extends HtmlActivity {
         getDataFromIntent();
         setViewModel();
         setObserver();
-        loadTermVo(termVO);
-
+        if(termVO!=null&& StringUtil.isValidString(termVO.getTermCont()).startsWith("http")){
+            loadTermsUrl(termVO.getTermCont());
+        }else {
+            loadTermVo(termVO);
+        }
 //        //todo 2020-10-26 임시 조치 코드...... 무조건 제거 및 기존 코드 테스트 필요
 //        switch (termVO.getTermCd()){
 //            case "2000":
@@ -92,5 +101,21 @@ public class ServiceTermDetailActivity extends HtmlActivity {
 
     @Override
     public void setObserver() {
+    }
+
+    @Override
+    public void loadTermsUrl(String url) {
+        Bundle bundle = new Bundle();
+        bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
+        bundle.putBoolean(WebViewFragment.EXTRA_USE_ZOOM, true);
+
+        MyWebViewFrament fragment = new MyWebViewFrament();
+        if(webViewListener==null) webViewListener=webViewListenerNormal;
+        fragment.setWebViewListener(webViewListener);
+        fragment.setArguments(bundle);
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.fm_holder, fragment);
+        ft.commitAllowingStateLoss();
     }
 }

@@ -28,7 +28,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class HtmlActivity extends SubActivity<ActivityHtmlBinding>  {
 
-    private MyWebViewFrament.WebViewListener webViewListener;
+    public MyWebViewFrament.WebViewListener webViewListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
