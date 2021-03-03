@@ -248,6 +248,25 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
                 me.tlCategoryTabs.getTabAt(i).view.setLayoutParams(params);
             }
         }
+
+
+        me.tlCategoryTabs.setOnScrollChangeListener((view, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            if(scrollX>0){
+                me.vGradientStart.setVisibility(View.VISIBLE);
+            }else{
+                me.vGradientStart.setVisibility(View.GONE);
+            }
+
+            final int maxScrollX = me.tlCategoryTabs.getChildAt(0).getRight() - me.tlCategoryTabs.getWidth() + me.tlCategoryTabs.getPaddingLeft();
+            if(maxScrollX<=scrollX){
+                me.vGradientEnd.setVisibility(View.GONE);
+            }else{
+                me.vGradientEnd.setVisibility(View.VISIBLE);
+            }
+
+            Log.e("testScroll","testScroll:scrollX:"+scrollX+"      scrollY:"+scrollY+ "    oldScrollX:"+oldScrollX + "     max x:"+(me.tlCategoryTabs.getChildAt(0).getRight() - me.tlCategoryTabs.getWidth() + me.tlCategoryTabs.getPaddingLeft()));
+        });
+
     }
 
     @Override

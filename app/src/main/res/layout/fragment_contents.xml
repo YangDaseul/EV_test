@@ -43,17 +43,21 @@
                 app:tabMode="scrollable"/>
 
             <View
-                android:layout_width="20dp"
+                android:id="@+id/v_gradient_start"
+                android:layout_width="50dp"
                 android:layout_height="0dp"
                 android:background="@drawable/bg_contents_gradient_left"
+                android:visibility="gone"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <View
-                android:layout_width="20dp"
+                android:id="@+id/v_gradient_end"
+                android:layout_width="50dp"
                 android:layout_height="0dp"
                 android:background="@drawable/bg_contents_gradient_right"
+                android:visibility="visible"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
