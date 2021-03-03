@@ -148,7 +148,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
 
                     // 소모품 현황 데이터 조회
                     developersViewModel.reqReplacements(new Replacements.Request(carId));
-                    gnsViewModel.reqGNS1010(new GNS_1010.Request(APPIAInfo.GM_CARLST_04.getId(), vehicleVO.getVin(), vehicleVO.getMdlNm()));
+//                    gnsViewModel.reqGNS1010(new GNS_1010.Request(APPIAInfo.GM_CARLST_04.getId(), vehicleVO.getVin(), vehicleVO.getMdlNm()));
 
                     // 고장 코드 데이터 조회
                     developersViewModel.reqDtc(new Dtc.Request(carId));

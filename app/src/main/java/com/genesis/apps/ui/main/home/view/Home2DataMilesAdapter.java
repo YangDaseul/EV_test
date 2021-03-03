@@ -31,6 +31,7 @@ import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Class Name : Home2DataMilesAdapter
@@ -94,6 +95,11 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
 
         if (item != null) {
             item.setReplacementsStatus(DataMilesVO.STATUS.SUCCESS);
+            //2021-03-03 브레이크 패드 제거 로직으로 API에서 제거되면 의미가 없어짐
+            //API에서 언제 제거될지 모르기 때문에 현업 요청으로 반영
+            if(replacements!=null&&replacements.getSests()!=null&&replacements.getSests().size()>0){
+                replacements.setSests(replacements.getSests().stream().filter(data->!StringUtil.isValidString(data.getSestName()).equalsIgnoreCase("브레이크 패드")).collect(Collectors.toList()));
+            }
             item.setReplacements(replacements);
             item.setChangedReplacements(true);
         }
@@ -246,7 +252,7 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             /**
              * 쿠폰 정보 갱신.
              */
-            bindCoupon(context, binding, item.getServiceCouponList());
+//            bindCoupon(context, binding, item.getServiceCouponList());
 
             /**
              * 차량 진단.
