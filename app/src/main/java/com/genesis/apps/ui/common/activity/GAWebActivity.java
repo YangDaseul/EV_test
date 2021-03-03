@@ -7,8 +7,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebChromeClient;
 
+import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.STO_1002;
+import com.genesis.apps.comm.model.constants.GAInfo;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.vo.BtoVO;
@@ -34,6 +36,15 @@ public class GAWebActivity extends WebviewActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         reqHTML();
+        setStatusBarColor();
+    }
+
+    //데이터마일즈 동의, 상세 페이지만 스테이터스바 색상 변경
+    private void setStatusBarColor() {
+        if(!TextUtils.isEmpty(url)&&
+                (url.contains(GAInfo.GA_DATAMILES_AGREEMENTS_URL)||url.contains(GAInfo.GA_DATAMILES_DETAIL_URL))){
+            setStatusBarColor(this, R.color.x_05141f);
+        }
     }
 
     private void reqHTML() {

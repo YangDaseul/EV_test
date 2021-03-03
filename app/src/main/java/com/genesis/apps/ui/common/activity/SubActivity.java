@@ -94,7 +94,7 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
 //            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 //            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(activity.getColor(color));
-            if(color==R.color.x_000000){
+            if(color==R.color.x_000000||color==R.color.x_05141f){
                 window.getDecorView().setSystemUiVisibility(0);
             }else{
                 window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
