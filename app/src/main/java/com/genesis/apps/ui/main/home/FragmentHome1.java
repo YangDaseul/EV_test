@@ -401,9 +401,15 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     }
 
     private void setIndicator(String custGbCd) {
-        String isIndicator = lgnViewModel.selectGlobalDataFromDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_ISINDICATOR);
+        int indicatorCnt = 0;
+        try{
+            indicatorCnt = Integer.parseInt(lgnViewModel.selectGlobalDataFromDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_ISINDICATOR));
+        }catch (Exception e){
+            indicatorCnt = 0;
+        }
+
         if (StringUtil.isValidString(custGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV)//소유차량이고
-                && !StringUtil.isValidString(isIndicator).equalsIgnoreCase(VariableType.COMMON_MEANS_NO)//하단메뉴를 확인하지 않았으면
+                && indicatorCnt<10//하단 메뉴를 10회 미만 확인했을 경우
         ) {
             me.ivIndicator.setVisibility(View.VISIBLE);
             VibratorUtil.makeMeShakeY(me.ivIndicator, 2500, 15,2);

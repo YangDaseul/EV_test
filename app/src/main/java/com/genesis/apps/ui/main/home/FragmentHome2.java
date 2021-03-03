@@ -511,7 +511,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
         Log.e("onResume", "onReusme FragmentHome2");
         try {
             vehicleVO = lgnViewModel.getMainVehicleFromDB();
-            lgnViewModel.updateGlobalDataToDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_ISINDICATOR, VariableType.COMMON_MEANS_NO);
+            checkIndicatorCnt();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -539,6 +539,19 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
             }
         }
         ((MainActivity) getActivity()).setGNB("", View.GONE);
+    }
+
+    private void checkIndicatorCnt() {
+        int indicatorCnt = 0;
+        try{
+            indicatorCnt = Integer.parseInt(lgnViewModel.selectGlobalDataFromDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_ISINDICATOR));
+        }catch (Exception e){
+            indicatorCnt = 0;
+        }
+        if(indicatorCnt<10)
+            indicatorCnt++;
+
+        lgnViewModel.updateGlobalDataToDB(KeyNames.KEY_NAME_DB_GLOBAL_DATA_ISINDICATOR, indicatorCnt+"");
     }
 
 }
