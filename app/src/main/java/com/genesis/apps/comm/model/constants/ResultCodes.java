@@ -29,6 +29,8 @@ public enum ResultCodes {
     REQ_CODE_APPLY_RELAPSE(28,"하자재발신청완료"),
     REQ_CODE_APPLY_RELAPSE_EXIT(29,"하자재발신청종료"),
 
+    REQ_CODE_CONTENTS_RELOAD(30,"컨텐츠 Reload Action"),
+
     REQ_CODE_PAYMENT_SUCC(1001,"결제 성공"),
     REQ_CODE_PAYMENT_FAIL(1002,"결제 실패"),
     REQ_CODE_PAYMENT_CANCEL(1003,"결제 취소")

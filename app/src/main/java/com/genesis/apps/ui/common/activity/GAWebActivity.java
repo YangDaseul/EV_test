@@ -153,7 +153,7 @@ public class GAWebActivity extends WebviewActivity {
             //TODO 테스트 필요 0001
             finish();
             return true;
-        } else if(url.startsWith("genesisapps://close")){
+        } else if(url.startsWith("genesisapp://close") || url.startsWith("genesisapps://close")){
             //TODO 테스트 필요 0004
             if(url.contains("all=y")){
                 finish();
@@ -165,21 +165,21 @@ public class GAWebActivity extends WebviewActivity {
                 }
             }
             return true;
-        } else if (url.startsWith("genesisapps://open")) {
+        } else if (url.startsWith("genesisapp://open") || url.startsWith("genesisapps://open")) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
 //            intent.setData(QueryString.encode(uri.getQueryParameter("url")));
             intent.setData(Uri.parse(uri.getQueryParameter("url")));
             startActivity(intent); //TODO 테스트 필요 0002
             return true;
-        } else if (url.startsWith("genesisapps://newView")) {
+        } else if (url.startsWith("genesisapp://newView") || url.startsWith("genesisapps://newView")) {
             fragment.createChildWebView(uri.getQueryParameter("url"));
             return true;
-        } else if (url.startsWith("genesisapps://sendAction")) {
+        } else if (url.startsWith("genesisapp://sendAction") || url.startsWith("genesisapps://sendAction")) {
 //            fragment.loadUrl(QueryString.encodeString(uri.getQueryParameter("fn")));
 //            fragment.loadUrl("javascript:"+QueryString.encodeString(uri.getQueryParameter("fn")));
             fragment.loadUrl("javascript:"+uri.getQueryParameter("fn"));
             return true;
-        } else if (url.startsWith("genesisapps://backAction")){
+        } else if (url.startsWith("genesisapp://backAction") || url.startsWith("genesisapps://backAction")){
             this.fn = uri.getQueryParameter("fn");
             return true;
         } else if (url.startsWith("genesisapp://menu?id=")||url.startsWith("genesisapps://menu?id=")){

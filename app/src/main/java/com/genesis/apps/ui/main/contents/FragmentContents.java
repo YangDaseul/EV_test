@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
@@ -23,9 +24,13 @@ import com.genesis.apps.comm.model.api.gra.CTT_1001;
 import com.genesis.apps.comm.model.api.gra.CTT_1004;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.CatTypeVO;
 import com.genesis.apps.comm.model.vo.ContentsVO;
+import com.genesis.apps.comm.model.vo.RepairReserveVO;
+import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
@@ -35,6 +40,12 @@ import com.genesis.apps.databinding.ItemTabContentsBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
+import com.genesis.apps.ui.main.service.FragmentServiceDrive;
+import com.genesis.apps.ui.main.service.ServiceAutocare4ResultActivity;
+import com.genesis.apps.ui.main.service.ServiceHomeToHome4ResultActivity;
+import com.genesis.apps.ui.main.service.ServiceRemoteListActivity;
+import com.genesis.apps.ui.main.service.ServiceRepair2ApplyActivity;
+import com.genesis.apps.ui.main.service.ServiceRepair4ResultActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
@@ -65,6 +76,13 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
         super.onActivityCreated(savedInstanceState);
 
         intViewModel();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == ResultCodes.REQ_CODE_CONTENTS_RELOAD.getCode()) {
+            intViewModel();
+        }
     }
 
     private void initView() {
