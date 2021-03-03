@@ -175,7 +175,7 @@
     <string name="gm02_inv01_4">외장 색상</string>
     <string name="gm02_inv01_5">내장 색상</string>
     <string name="gm02_inv01_6">옵션</string>
-    <string name="gm02_inv01_7">문의하기</string>
+    <string name="gm02_inv01_7">유사 재고 문의</string>
     <string name="gm02_inv01_8">[유사 차량 재고 문의]\n안녕하세요, 아래 차량 출고 가능 여부 확인 후 연락 부탁 드립니다.\n이름:%s\n차량코드:%s</string>
     <string name="gm02_inv01_9">계약하신 차량과\n유사한 차량이 없습니다.</string>
 
