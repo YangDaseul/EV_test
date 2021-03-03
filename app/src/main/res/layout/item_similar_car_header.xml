@@ -10,6 +10,11 @@
         <variable
             name="data"
             type="com.genesis.apps.comm.model.vo.SimilarVehicleVO" />
+
+        <variable
+            name="totalCnt"
+            type="int" />
+
     </data>
 
 
@@ -186,7 +191,7 @@
             android:paddingTop="40dp"
             android:paddingEnd="20dp"
             android:paddingBottom="40dp"
-            android:text="@string/gm02_inv01_3"
+            android:text="@{totalCnt==1 ? @string/gm02_inv01_9 : @string/gm02_inv01_3}"
             android:textColor="@color/x_000000"
             android:textSize="22dp"
             app:layout_constraintEnd_toEndOf="parent"

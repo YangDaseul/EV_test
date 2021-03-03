@@ -28,7 +28,7 @@ public class SimilarCarAdapter extends BaseRecyclerViewAdapter2<SimilarVehicleVO
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(viewType==HEADER)
-            return new ItemSimilarCarHeader(getView(parent, R.layout.item_similar_car_header));
+            return new ItemSimilarCarHeader(getView(parent, R.layout.item_similar_car_header), getItemCount());
         else
             return new ItemSimilarCar(getView(parent, R.layout.item_similar_car), !TextUtils.isEmpty(((SimilarVehicleVO)getItem(0)).getCelphNo()));
     }
@@ -75,8 +75,12 @@ public class SimilarCarAdapter extends BaseRecyclerViewAdapter2<SimilarVehicleVO
 
 
     private static class ItemSimilarCarHeader extends BaseViewHolder<SimilarVehicleVO, ItemSimilarCarHeaderBinding> {
-        public ItemSimilarCarHeader(View itemView) {
+
+        int totalCnt;
+
+        public ItemSimilarCarHeader(View itemView, int totalCnt) {
             super(itemView);
+            this.totalCnt = totalCnt;
         }
 
         @Override
@@ -87,6 +91,7 @@ public class SimilarCarAdapter extends BaseRecyclerViewAdapter2<SimilarVehicleVO
         @Override
         public void onBindView(SimilarVehicleVO item, int pos) {
             getBinding().setData(item);
+            getBinding().setTotalCnt(totalCnt);
             Glide
                     .with(getContext())
                     .load(item.getVhclImgUri())
@@ -133,7 +138,6 @@ public class SimilarCarAdapter extends BaseRecyclerViewAdapter2<SimilarVehicleVO
                     .load(item.getVhclImgUri())
                     .format(DecodeFormat.PREFER_ARGB_8888)
                     .error(R.drawable.img_car) //todo 대체 이미지 필요
-                    .placeholder(R.drawable.img_car) //todo 에러시 대체 이미지 필요
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(getBinding().ivCar);
 
