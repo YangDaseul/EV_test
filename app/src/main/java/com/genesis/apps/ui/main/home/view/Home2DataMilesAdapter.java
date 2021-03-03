@@ -167,8 +167,8 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
 //            animatorSet.cancel();
 
             // 더보기 버튼 이벤트 등록.
-            binding.tvDatamilesMore.setTag(moreUrl);
-            binding.tvDatamilesMore.setOnClickListener(view -> onSingleClickListener.onClick(view));
+            binding.tvDatamilesMore.lWhole.setTag(moreUrl);
+            binding.tvDatamilesMore.lWhole.setOnClickListener(view -> onSingleClickListener.onClick(view));
 
             /**
              * 안전 운전 점수
