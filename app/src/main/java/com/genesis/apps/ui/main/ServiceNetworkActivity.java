@@ -762,13 +762,15 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             switch (pageType){
                 case PAGE_TYPE_REPAIR:
                 case PAGE_TYPE_SERVICE:
-                default:
                     if(!StringUtil.isValidString(btrVO.getAcps1Cd()).equalsIgnoreCase("2")){//서비스 센터가 아닌 경우
                         bottomSelectBinding.btnLeftWhite.setVisibility(View.VISIBLE);
                         bottomSelectBinding.btnLeftWhite.setText(R.string.bt06_25);
                     }else{
                         bottomSelectBinding.btnLeftWhite.setVisibility(View.GONE);
                     }
+                    break;
+                default:
+                    bottomSelectBinding.btnLeftWhite.setVisibility(View.GONE);
                     break;
             }
             bottomSelectBinding.setData(btrVO);
