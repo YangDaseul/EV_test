@@ -328,6 +328,7 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
                 if (!TextUtils.isEmpty(getMainVehicleVin())) {
                     ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRelapseHistoryActivity.class)
                                     .putExtra(KeyNames.KEY_NAME_ADDR, addressVO)
+                                    .putExtra(KeyNames.KEY_NAME_MDL_NM, getMainVehicleMdlNm())
                                     .putExtra(KeyNames.KEY_NAME_VIN, getMainVehicleVin())
                             , RequestCodes.REQ_CODE_ACTIVITY.getCode()
                             , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
@@ -348,5 +349,15 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
             e.printStackTrace();
         }
         return mainVehicle == null ? "" : mainVehicle.getVin();
+    }
+
+    private String getMainVehicleMdlNm() {
+        VehicleVO mainVehicle = null;
+        try {
+            mainVehicle = reqViewModel.getMainVehicle();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mainVehicle == null ? "" : mainVehicle.getMdlNm();
     }
 }

@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.service;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
@@ -11,11 +12,13 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.VOCInfoVO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.databinding.ItemRelapseHistoryNewBinding;
+import com.genesis.apps.databinding.ItemRelapseHistoryNotiBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
 import java.util.Date;
+import java.util.Locale;
 
 public class ServiceRelapseHistoryAdapter extends BaseRecyclerViewAdapter2<VOCInfoVO> {
     private static final String TAG = ServiceRelapseHistoryAdapter.class.getSimpleName();
@@ -26,9 +29,11 @@ public class ServiceRelapseHistoryAdapter extends BaseRecyclerViewAdapter2<VOCIn
     private static final int TYPE_NOTI = 3;
 
     private static OnSingleClickListener onSingleClickListener;
+    private String mdlNm;
 
-    ServiceRelapseHistoryAdapter(OnSingleClickListener listener) {
+    ServiceRelapseHistoryAdapter(OnSingleClickListener listener, String mdlNm) {
         onSingleClickListener = listener;
+        this.mdlNm = mdlNm;
     }
 
     @Override
@@ -75,7 +80,7 @@ public class ServiceRelapseHistoryAdapter extends BaseRecyclerViewAdapter2<VOCIn
                 return new RelapseHistoryViewHolder(getView(parent, R.layout.item_relapse_history_new));
 
             case TYPE_NOTI:
-                return new RelapseHistoryViewHolder(getView(parent, R.layout.item_relapse_history_noti));
+                return new RelapseHistoryNotiViewHolder(getView(parent, R.layout.item_relapse_history_noti), mdlNm);
 
             case TYPE_NO_DATA:
             default:
@@ -161,6 +166,40 @@ public class ServiceRelapseHistoryAdapter extends BaseRecyclerViewAdapter2<VOCIn
         private void setTagAndListener(VOCInfoVO item) {
             getBinding().getRoot().setOnClickListener(onSingleClickListener);
             getBinding().getRoot().setTag(R.id.tag_relapse_history, item);
+        }
+    }
+
+
+
+
+
+    //하자 재발 뷰 홀더
+    public static class RelapseHistoryNotiViewHolder extends BaseViewHolder<VOCInfoVO, ItemRelapseHistoryNotiBinding> {
+        public String mdlNm;
+
+        public RelapseHistoryNotiViewHolder(View itemView, String mdlNm) {
+            super(itemView);
+            this.mdlNm = mdlNm;
+        }
+
+        @Override
+        public void onBindView(VOCInfoVO item) {
+            //do nothing
+        }
+
+        @Override
+        public void onBindView(VOCInfoVO item, int pos) {
+            Log.d(TAG, "Holder. onBindView: ");
+            if(!TextUtils.isEmpty(mdlNm)&& (mdlNm.equalsIgnoreCase("G90")||mdlNm.equalsIgnoreCase("EQ900"))){
+                getBinding().tvRelapseNoti2.setText(String.format(Locale.getDefault(), getContext().getString(R.string.relapse_history_noti_02), getContext().getString(R.string.word_home_25)));
+            }else{
+                getBinding().tvRelapseNoti2.setText(String.format(Locale.getDefault(), getContext().getString(R.string.relapse_history_noti_02), getContext().getString(R.string.word_home_14)));
+            }
+        }
+
+        @Override
+        public void onBindView(VOCInfoVO item, int pos, SparseBooleanArray selectedItems) {
+            //do nothing
         }
     }
 }

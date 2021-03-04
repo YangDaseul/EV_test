@@ -17,6 +17,7 @@ public interface KeyNames {
     String KEY_NAME_URL="url";
     String KEY_NAME_ADMIN_CODE="annMgmtCd";
     String KEY_NAME_VIN="vin";
+    String KEY_NAME_MDL_NM="mdlNm";
     String KEY_NAME_CSMR_SCN_CD="csmrScnCd";
     String KEY_NAME_GNS_1001_RESPONSE="GNS1001";
     String KEY_NAME_BTR="btr";

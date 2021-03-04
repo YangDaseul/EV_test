@@ -37,6 +37,7 @@ public class ServiceRelapseHistoryActivity extends GpsBaseActivity<ActivityServi
     private ServiceRelapseHistoryAdapter adapter;
     private AddressVO addressVO;
     private String vin;
+    private String mdlNm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,6 +168,7 @@ public class ServiceRelapseHistoryActivity extends GpsBaseActivity<ActivityServi
         try {
             addressVO = (AddressVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_ADDR);
             vin = getIntent().getStringExtra(KeyNames.KEY_NAME_VIN);
+            mdlNm = getIntent().getStringExtra(KeyNames.KEY_NAME_MDL_NM);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -179,7 +181,7 @@ public class ServiceRelapseHistoryActivity extends GpsBaseActivity<ActivityServi
 
     private void setAdapter() {
         //하자 재발 신청 내역 어댑터 (인스턴스 타입 맞나 확인)
-        adapter = new ServiceRelapseHistoryAdapter(onSingleClickListener);
+        adapter = new ServiceRelapseHistoryAdapter(onSingleClickListener, mdlNm);
         ui.rvServiceDriveHistoryList.addItemDecoration(new RecyclerViewDecoration((int) DeviceUtil.dip2Pixel(this,4.0f)));
         ui.rvServiceDriveHistoryList.setLayoutManager(new LinearLayoutManager(this));
         ui.rvServiceDriveHistoryList.setHasFixedSize(true);
