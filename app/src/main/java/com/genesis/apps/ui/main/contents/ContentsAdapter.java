@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.Target;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.ContentsVO;
 import com.genesis.apps.databinding.ItemContentsBinding;
@@ -62,11 +63,13 @@ public class ContentsAdapter extends BaseRecyclerViewAdapter2<ContentsVO> {
         public void onBindView(ContentsVO item, final int pos) {
             Glide
                     .with(getContext())
+                    .asBitmap()
                     .load(item.getTtImgUri())
-                    .format(DecodeFormat.PREFER_ARGB_8888)
+                    .format(DecodeFormat.PREFER_RGB_565)
 //                    .error(getDefaultImg(pos)) //todo 정의 필요
 //                    .placeholder(getDefaultImg(pos)) //todo 정의 필요
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .override(600, 840)
                     .into(getBinding().ivImage);
 
             getBinding().ivImage.setTag(R.id.item, item);
