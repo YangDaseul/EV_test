@@ -39,7 +39,7 @@
                 style="@style/ServiceRemote.TextView_Font_RGSTG.Black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sm_remote01_msg_error_2403"
+                android:text="@string/sm_remote01_msg_error_2402_1"
                 android:textSize="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:includeFontPadding="false"
-                android:text="@string/sm_remote01_info_2"
+                android:text="@string/sm_remote01_msg_error_2402_2"
                 android:textSize="16dp"
                 app:layout_constraintStart_toEndOf="@id/v_service_remote_register_guide_dot"
                 app:layout_constraintTop_toBottomOf="@id/tv_service_remote_register_message" />
@@ -78,7 +78,7 @@
                 android:layout_marginStart="4dp"
                 android:includeFontPadding="false"
                 android:lineSpacingExtra="8dp"
-                android:text="@string/sm_remote01_info_3"
+                android:text="@string/sm_remote01_msg_error_2402_3"
                 android:textSize="16dp"
                 app:layout_constraintStart_toEndOf="@id/tv_service_remote_register_using_time_title"
                 app:layout_constraintTop_toTopOf="@id/tv_service_remote_register_using_time_title" />

@@ -21,6 +21,7 @@ import com.genesis.apps.databinding.DialogInsightExpnDeleteBinding;
 import com.genesis.apps.databinding.DialogMiddleTwoButtonBinding;
 import com.genesis.apps.databinding.DialogServiceCantReserveInfoBinding;
 import com.genesis.apps.databinding.DialogServiceRemoteInfoBinding;
+import com.genesis.apps.databinding.DialogServiceRemoteNotTargetBinding;
 import com.genesis.apps.databinding.DialogServiceRemoteNotTimeBinding;
 import com.genesis.apps.databinding.DialogUpdateBinding;
 import com.genesis.apps.databinding.DialogUsedCarInfoBinding;
@@ -297,6 +298,29 @@ public class MiddleDialog {
                 }).show()
         );
     }
+
+    /**
+     * 원격 진단 대상 차량 불가 팝업
+     * @param activity
+     * @param ok
+     */
+    public static void dialogServiceRemoteNotServiceNotTarget(@NonNull Activity activity, Runnable ok) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                new CustomDialog(activity, dialog -> {
+                    DialogServiceRemoteNotTargetBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_service_remote_not_target, null, false);
+                    dialog.setContentView(binding.getRoot());
+
+                    binding.btnOk.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (ok != null) ok.run();
+                    });
+                }).show()
+        );
+    }
+
 
     public static void dialogCommonOneButton(@NonNull Activity activity, @StringRes int titleResId, String msg, Runnable ok) {
         if (activity.isFinishing()) {

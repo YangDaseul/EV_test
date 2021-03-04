@@ -390,11 +390,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                                     () -> exitPage("", 0));
                         } else if (SERVICE_REMOTE_RES_CODE_2402.equals(data.getRtCd())) {
                             // 원격 진단 이용 대상 차량이 아닌 경우.
-                            MiddleDialog.dialogServiceRemoteOneButton(
-                                    this,
-                                    R.string.sm_remote01_dialog_title_error,
-                                    R.string.sm_remote01_msg_error_2402,
-                                    () -> exitPage("", 0));
+                            MiddleDialog.dialogServiceRemoteNotServiceNotTarget(this, () -> exitPage("", 0));
                         } else if (SERVICE_REMOTE_RES_CODE_2403.equals(data.getRtCd())) {
                             // 원격 진단 이용 가능 시간이 아님.
                             MiddleDialog.dialogServiceRemoteNotServiceTime(
