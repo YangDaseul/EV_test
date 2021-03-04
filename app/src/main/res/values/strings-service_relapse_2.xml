@@ -16,7 +16,7 @@
     <string name="r_flaw05_13">운행 지역 (시/군/구)</string>
     <string name="r_flaw05_14">차대번호를\n확인해 주세요.</string>
     <string name="r_flaw05_15">입력하신 차대번호가 유효하지 않습니다.\n차대번호를 확인해 주세요.</string>
-    <string name="r_flaw05_16">차량번호(자동차등록번호)를\n입력해 주세요.</string>
+    <string name="r_flaw05_16">차량번호를\n입력해 주세요.</string>
     <string name="r_flaw05_17">등록연월일을\n선택해 주세요.</string>
     <string name="r_flaw05_18">주행거리를\n입력해 주세요.</string>
     <string name="r_flaw05_19">운행 지역(시/도)을\n선택해 주세요.</string>
