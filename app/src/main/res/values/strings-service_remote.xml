@@ -83,7 +83,7 @@
     <string name="sm_remote01_info_1">서비스 이용 안내</string>
     <string name="sm_remote01_info_2">이용 시간 :</string>
     <string name="sm_remote01_info_3">평일 08:00 – 16:00\n(토/일요일, 공휴일 제외)</string>
-    <string name="sm_remote01_info_4">GV80, GV70, The All-new Genesis G80 차량만 서비스 제공이 가능합니다. </string>
+    <string name="sm_remote01_info_4">GV80, GV70, THE ALL-NEW GENESIS G80 차량만 서비스 제공이 가능합니다. </string>
     <string name="sm_remote01_info_5">고장 발생 시 긴급 상담을 제공하며, 정비를 위해서는 별도의 예약이 필요합니다. </string>
     <string name="sm_remote01_info_6">상담 결과는 차량 데이터를 원격에서 점검하여 추정한 결과로, 상세 점검을 위해서는 서비스센터 및 블루핸즈 방문이 필요합니다.</string>
 
@@ -94,7 +94,7 @@
 
     <string name="sm_remote01_msg_error_2402_1">원격진단 대상 차량이 아닙니다.</string>
     <string name="sm_remote01_msg_error_2402_2">이용 가능 차량 :</string>
-    <string name="sm_remote01_msg_error_2402_3">GV80, GV70,\nTHE ALL-NEW G80</string>
+    <string name="sm_remote01_msg_error_2402_3">GV80, GV70,\nTHE ALL-NEW GENESIS G80</string>
     <string name="sm_remote01_msg_error_2403">현재 원격진단 이용시간이 아닙니다.</string>
     <string name="sm_remote01_msg_error_2404">현재 원격진단 이용이 어렵습니다.\n\nGCS 서비스 사용 신청하시고,\n차량 등록 후 이용해 주세요.</string>
     <string name="sm_remote01_msg_error_9000">처리 중 오류가 발생했습니다.</string>
