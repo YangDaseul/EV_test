@@ -16,6 +16,7 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.DDS_1003;
 import com.genesis.apps.comm.model.vo.DriveServiceVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.DDSViewModel;
 import com.genesis.apps.databinding.ActivityServiceDriveHistoryBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -65,7 +66,7 @@ public class ServiceDriveHistoryActivity extends SubActivity<ActivityServiceDriv
                     break;
 
                 case SUCCESS:
-                    if (result.data != null && result.data.getSvcInfo() != null) {
+                    if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("0000") && result.data.getSvcInfo() != null) {
                         //수신 성공했으니 페이지 카운트 증가
                         // (목록이 비었어도 상관없음, 그러면 어차피 더는 없는 거니까 다음 페이지 요청도 더 이상 안 하게 됨)
                         adapter.incPageNo();
@@ -92,6 +93,10 @@ public class ServiceDriveHistoryActivity extends SubActivity<ActivityServiceDriv
                         }
 
                         //성공 후 데이터 로딩까지 다 되면 로딩 치우고 break;
+                        showProgressDialog(false);
+                        break;
+                    }else if(result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("2005")){
+                        hideList();
                         showProgressDialog(false);
                         break;
                     }
@@ -146,7 +151,7 @@ public class ServiceDriveHistoryActivity extends SubActivity<ActivityServiceDriv
                 //scroll end
                 // 페이지 포화 검사해서 데이터가 더 없는 것 같으면 다음 거 달라고 안 할 생각이었는데
                 // 서버에서 받은 것 중에 버리는 데이터가 있어서 단순히 목록 길이만 보고 판단이 안 돼서 그냥 스크롤만 보고 판단
-                if (!ui.rvServiceDriveHistoryList.canScrollVertically(1)&&ui.rvServiceDriveHistoryList.getScrollState()==RecyclerView.SCROLL_STATE_IDLE) {
+                if (!ui.rvServiceDriveHistoryList.canScrollVertically(1) && ui.rvServiceDriveHistoryList.getScrollState() == RecyclerView.SCROLL_STATE_IDLE) {
                     reqNextPage();
                 }
             }
