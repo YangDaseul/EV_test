@@ -219,11 +219,9 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
         Uri uri = Uri.parse(url);
         if (url.equalsIgnoreCase("https://www.genesis.com/kr/ko")
                 || url.equalsIgnoreCase("https://www.genesis.com/kr/ko/genesis-membership.html")){
-            //TODO 테스트 필요 0001
             getActivity().finish();
             return true;
         } else if(url.startsWith("genesisapp://close") || url.startsWith("genesisapps://close")){
-            //TODO 테스트 필요 0004
             if(url.contains("all=y")){
                 getActivity().finish();
             }else{

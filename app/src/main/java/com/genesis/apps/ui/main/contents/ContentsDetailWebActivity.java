@@ -315,11 +315,9 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
         Log.d("JJJJ", "parseURL : " + url);
         if (url.equalsIgnoreCase("https://www.genesis.com/kr/ko")
                 || url.equalsIgnoreCase("https://www.genesis.com/kr/ko/genesis-membership.html")){
-            //TODO 테스트 필요 0001
             finish();
             return true;
         } else if(url.startsWith("genesisapp://close") || url.startsWith("genesisapps://close")){
-            //TODO 테스트 필요 0004
             if(url.contains("all=y")){
                 finish();
             }else{
@@ -421,7 +419,7 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
 
 
     public boolean clearWindowOpens2() {
-        Log.d("JJJJ", "fn : " + fn);
+
         if(!TextUtils.isEmpty(fn)){
             if(fragment.openWindows.size()>0){
                 fragment.openWindows.get(0).loadUrl("javascript:"+fn);

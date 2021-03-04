@@ -184,11 +184,9 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
         Log.d("JJJJ", "parseURL : " + url);
         if (url.equalsIgnoreCase("https://www.genesis.com/kr/ko")
                 || url.equalsIgnoreCase("https://www.genesis.com/kr/ko/genesis-membership.html")){
-            //TODO 테스트 필요 0001
             finish();
             return true;
         } else if(url.startsWith("genesisapp://close") || url.startsWith("genesisapps://close")){
-            //TODO 테스트 필요 0004
             if(url.contains("all=y")){
                 finish();
             }else{

@@ -150,11 +150,9 @@ public class GAWebActivity extends WebviewActivity {
         final Uri uri = Uri.parse(url);
         if (url.equalsIgnoreCase("https://www.genesis.com/kr/ko")
                 || url.equalsIgnoreCase("https://www.genesis.com/kr/ko/genesis-membership.html")){
-            //TODO 테스트 필요 0001
             finish();
             return true;
         } else if(url.startsWith("genesisapp://close") || url.startsWith("genesisapps://close")){
-            //TODO 테스트 필요 0004
             if(url.contains("all=y")){
                 finish();
             }else{
@@ -193,37 +191,30 @@ public class GAWebActivity extends WebviewActivity {
     //TODO 테스트 필요 0003
     @Override
     public boolean back(String currentUrl) {
-//        if (fragment.canGoBack()) {
-//            fragment.goBack();
-//        } else {
-//            finish();
-//        }
+        if (fragment.canGoBack()) {
+            fragment.goBack();
+            return false;
+        } else {
+            finish();
+            return true;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
         if(!TextUtils.isEmpty(fn)){
             if(fragment.openWindows.size()>0){
                 fragment.openWindows.get(0).loadUrl("javascript:"+fn);
             }else{
                 fragment.loadUrl("javascript:"+fn);
             }
-//            fn="";
-            return true;
         } else {
-            finish();
-            closeTransition();
+            if(fragment.canGoBack()) {
+                fragment.goBack();
+            } else {
+                super.onBackPressed();
+            }
         }
-
-
-        return true;
-//        if (currentUrl.startsWith(GA_URL)) {
-//            if(!fragment.canGoBack()) {
-//                finish();
-//                return true;
-//            }
-//        }else if(currentUrl.contains(URL_PURCHASE_CONSULTING)
-//                ||currentUrl.contains(URL_TEST_DRIVE)
-//                ||currentUrl.contains(URL_SIMILAR_STOCKS) ){
-//            finish();
-//            return true;
-//        }
     }
 
 
