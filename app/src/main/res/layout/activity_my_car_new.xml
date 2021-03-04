@@ -796,7 +796,7 @@
             android:paddingBottom="25dp"
             android:paddingStart="30dp"
             android:paddingEnd="20dp"
-            android:background="@drawable/bg_111111_top_round_20"
+            android:background="@color/x_111111"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
