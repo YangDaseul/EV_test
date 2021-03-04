@@ -31,13 +31,12 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:layout_marginRight="15dp"
-            android:elevation="2dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:gravity="center_vertical"
-            android:background="@drawable/ripple_bg_111111"
+            android:background="@drawable/ripple_bg_e6a2a2a2_stroke_4d4d4d"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -54,7 +53,7 @@
                 android:layout_marginStart="4dp"
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:textSize="14dp"
-                android:textColor="@color/x_ffffff"
+                android:textColor="@color/x_000000"
                 android:text="@string/cm02_15" />
 
         </LinearLayout>
