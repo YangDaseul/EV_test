@@ -1,0 +1,123 @@
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_000"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_001"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_002"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_003"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_004"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_005"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_006"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_007"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_008"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_009"
+        android:duration="67" />
+
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_010"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_011"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_012"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_013"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_014"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_015"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_016"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_017"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_018"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_019"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_020"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_021"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_022"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_023"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_024"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_025"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_026"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_027"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_028"
+        android:duration="67" />
+
+    <item
+        android:drawable="@drawable/mygen_splash_15fps_029"
+        android:duration="1057" />
+
+</animation-list>

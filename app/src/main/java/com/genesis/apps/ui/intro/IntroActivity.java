@@ -1,6 +1,7 @@
 package com.genesis.apps.ui.intro;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -65,6 +66,8 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
         setStatusBarColor(this, R.color.x_000000);
         startProgressTask();
         updateProgressBar(PROGRESS.PERMISSION.getProgress());
+
+
         if(isPermissions()){
             init();
         }else{
@@ -290,6 +293,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
     }
 
     private void init() {
+        ((AnimationDrawable) ui.ivLogo.getDrawable()).start();
         getDataFromIntent();
         setViewModel();
         setObserver();
@@ -387,8 +391,12 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
         @Override
         protected Integer doInBackground(Void... voids) {
 
+            //로고 로딩 시간 3초를 기다리기 위한 변수
+            int time=0;
+
             try {
-                while (!isCancelled() && progressC < 100) {
+                while (!isCancelled() && progressC < 100 && time < 3000) {
+                    time++;
                     Thread.sleep(100);
                     if(progressC<progressV) {
                         progressC += 5;
@@ -444,7 +452,7 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
         @Override
         protected Integer doInBackground(Void... voids) {
 
-            if(progressbarTask.getStatus()!= Status.FINISHED){
+            if(progressbarTask.getStatus() != Status.FINISHED){
                 waitNotify.mWait();
             }
 
