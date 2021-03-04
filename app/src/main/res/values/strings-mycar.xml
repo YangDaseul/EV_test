@@ -177,7 +177,7 @@
 
 
     <string name="gm_carlst_03_1">중고차 등록</string>
-    <string name="gm_carlst_03_2">차대번호 17자리를\n입력해 주세요.</string>
+    <string name="gm_carlst_03_2">차대번호를\n입력해 주세요.</string>
     <string name="gm_carlst_03_3">차대번호 (예 : KMTGA12BCDE3456789)</string>
     <string name="gm_carlst_03_4">차량 번호 (예 : 12가3456)</string>
     <string name="gm_carlst_03_5">주명의자(대표자)</string>
