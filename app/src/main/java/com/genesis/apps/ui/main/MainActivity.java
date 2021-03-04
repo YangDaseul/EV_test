@@ -28,6 +28,7 @@ import com.genesis.apps.databinding.ItemTabBinding;
 import com.genesis.apps.databinding.ItemTabDayBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.main.contents.ContentsSearchActivity;
+import com.genesis.apps.ui.main.contents.FragmentContents;
 import com.genesis.apps.ui.main.home.FragmentHome1;
 import com.genesis.apps.ui.main.insight.FragmentInsight;
 import com.genesis.apps.ui.main.service.FragmentService;
@@ -305,6 +306,15 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 if (fragment instanceof FragmentService) {
                     fragment.onActivityResult(requestCode, resultCode, data);
                     return;
+                }
+            }
+        } else if (requestCode == RequestCodes.REQ_CODE_CONTENTS_RELOAD.getCode()) {
+            if(resultCode == ResultCodes.REQ_CODE_CONTENTS_RELOAD.getCode()) {
+                for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                    if (fragment instanceof FragmentContents) {
+                        fragment.onActivityResult(requestCode, resultCode, data);
+                        return;
+                    }
                 }
             }
         }

@@ -30,6 +30,8 @@ public enum RequestCodes {
 
     REQ_CODE_TS_AUTH(6001,"중고차 인증"),
 
+    REQ_CODE_CONTENTS_RELOAD(7001,"컨텐츠 상세 Reload Action"),
+
     REQ_CODE_DEFAULT(0,"기본");
 
     private int code;

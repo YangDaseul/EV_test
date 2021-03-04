@@ -24,6 +24,7 @@ import com.genesis.apps.comm.model.api.gra.CMS_1001;
 import com.genesis.apps.comm.model.api.gra.CTT_1002;
 import com.genesis.apps.comm.model.api.gra.CTT_1004;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.ContentsDetailVO;
 import com.genesis.apps.comm.model.vo.ContentsVO;
@@ -317,7 +318,7 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
             //TODO 테스트 필요 0001
             finish();
             return true;
-        } else if(url.startsWith("genesisapps://close")){
+        } else if(url.startsWith("genesisapp://close") || url.startsWith("genesisapps://close")){
             //TODO 테스트 필요 0004
             if(url.contains("all=y")){
                 finish();
@@ -329,29 +330,33 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
                 }
             }
             return true;
-        } else if (url.startsWith("genesisapps://openView")) {
+        } else if (url.startsWith("genesisapp://openView") || url.startsWith("genesisapps://openView")) {
             startActivitySingleTop(new Intent(this, StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, uri.getQueryParameter("url")), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
             return true;
-        } else if (url.startsWith("genesisapps://open")) {
+        } else if (url.startsWith("genesisapp://open") || url.startsWith("genesisapps://open")) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
 //            intent.setData(QueryString.encode(uri.getQueryParameter("url")));
             intent.setData(Uri.parse(uri.getQueryParameter("url")));
             startActivity(intent); //TODO 테스트 필요 0002
             return true;
-        } else if (url.startsWith("genesisapps://newView")) {
+        } else if (url.startsWith("genesisapp://newView") || url.startsWith("genesisapps://newView")) {
             fragment.createChildWebView(uri.getQueryParameter("url"));
             return true;
-        } else if (url.startsWith("genesisapps://sendAction")) {
+        } else if (url.startsWith("genesisapp://sendAction") || url.startsWith("genesisapps://sendAction")) {
             fragment.loadUrl("javascript:"+uri.getQueryParameter("fn"));
             return true;
-        } else if (url.startsWith("genesisapps://backAction")){
+        } else if (url.startsWith("genesisapp://backAction") || url.startsWith("genesisapps://backAction")){
             this.fn = uri.getQueryParameter("fn");
             return true;
         } else if (url.startsWith("genesisapp://menu?id=")||url.startsWith("genesisapps://menu?id=")){
             moveToNativePage(url, false);
             return true;
-        } else if(url.startsWith("genesisapp://getSsoInfo")) {
+        } else if(url.startsWith("genesisapp://getSsoInfo") || url.startsWith("genesisapps://getSsoInfo")) {
             cmsViewModel.reqCMS1001(new CMS_1001.Request(APPIAInfo.CM_LIFE01.getId()));
+            return true;
+        } else if(url.startsWith("genesisapp://cmReload") || url.startsWith("genesisapps://cmReload")) {
+            setResult(ResultCodes.REQ_CODE_CONTENTS_RELOAD.getCode());
+            finish();
             return true;
         }
         return false;
