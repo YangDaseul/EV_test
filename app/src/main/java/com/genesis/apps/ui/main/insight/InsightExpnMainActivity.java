@@ -470,9 +470,11 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                 try {
                     int position = (int) e.getX();
                     int expn = (int) e.getY();
-                    String item = AxisValueFormatter.xNames[position];
-                    String msg = String.format(Locale.getDefault(), getString(position==3 ? R.string.tm_exps01_28 : R.string.tm_exps01_27), item, StringUtil.getDigitGroupingString(Integer.toString(expn)));
-                    SnackBarUtil.show(InsightExpnMainActivity.this, msg);
+                    if(expn>0) {
+                        String item = AxisValueFormatter.xNames[position];
+                        String msg = String.format(Locale.getDefault(), getString(position == 3 ? R.string.tm_exps01_28 : R.string.tm_exps01_27), item, StringUtil.getDigitGroupingString(Integer.toString(expn)));
+                        SnackBarUtil.show(InsightExpnMainActivity.this, msg);
+                    }
                 }catch (Exception ignore){
 
                 }
