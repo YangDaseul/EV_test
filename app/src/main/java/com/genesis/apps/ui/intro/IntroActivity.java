@@ -293,13 +293,19 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
     }
 
     private void init() {
-        ((AnimationDrawable) ui.ivLogo.getDrawable()).start();
+        startLogo();
         getDataFromIntent();
         setViewModel();
         setObserver();
         updateProgressBar(PROGRESS.INTRO.getProgress());
         initData();
         cmnViewModel.reqAbnormalCheck(new AbnormalCheck.Request());
+    }
+
+    private void startLogo() {
+        AnimationDrawable animationDrawable = ((AnimationDrawable) ui.ivLogo.getDrawable());
+        animationDrawable.setOneShot(true);
+        animationDrawable.start();
     }
 
     /**
