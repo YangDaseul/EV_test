@@ -511,7 +511,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
         final int maxSize = adapter.getItemCount();
         ui.btnPre.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
         ui.btnNext.setVisibility((maxSize-1)==position? View.GONE : View.VISIBLE);
-        ui.indicator.setVisibility((maxSize-1)==position? View.GONE : View.VISIBLE);
+        ui.indicator.setVisibility(maxSize<2? View.GONE : View.VISIBLE);
     }
 
     private void setVehicleInfo(VehicleVO vehicleVO, boolean isUpdate) {
