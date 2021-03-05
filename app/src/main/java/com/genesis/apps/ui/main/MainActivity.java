@@ -433,40 +433,9 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 
     @Override
     public void onBackPressed() {
-        // 현재 화면이 Store 화면일때 WebView 뒤로가기 처리
-        if (getViewPager().getCurrentItem() == MainPageDiv.STORE.ordinal()) {
-            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-                if (fragment instanceof FragmentStore) {
-                    FragmentStore fragmentStore = (FragmentStore) fragment;
-                    MyWebViewFrament webFragment = (MyWebViewFrament) fragment.getChildFragmentManager().findFragmentById(R.id.fm_holder);
-
-                    if (base.lProgress.lProgress.getVisibility() == View.VISIBLE) {
-                        showProgressDialog(false);
-
-                        return;
-                    }
-
-                    if (fragmentStore.isDlp.equals("YES")) {
-                        webFragment.loadUrl("javascript:bwcAppClose();");
-                    } else {
-                        Log.d("JJJJ", "canGoBack : " + webFragment.canGoBack());
-                        if (!TextUtils.isEmpty(fragmentStore.fn)) {
-                            if (webFragment.openWindows.size() > 0) {
-                                webFragment.openWindows.get(0).loadUrl("javascript:" + fragmentStore.fn);
-                            } else {
-                                webFragment.loadUrl("javascript:" + fragmentStore.fn);
-                            }
-                        } else {
-                            if (webFragment.canGoBack()) {
-                                webFragment.goBack();
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        if(!isHome()) {
+        if(isFragmentBack()){
+            //do nothing
+        }else if(!isHome()) {
             ui.viewpager.setCurrentItem(MainPageDiv.HOME.ordinal(), true);
         }else if (System.currentTimeMillis() > backKeyPressedTime + (2 * 1000)) {
             backKeyPressedTime = System.currentTimeMillis();
@@ -476,10 +445,47 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         }
     }
 
+    private boolean isFragmentBack() {
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            if (getViewPager().getCurrentItem() == MainPageDiv.STORE.ordinal() && fragment instanceof FragmentStore) {
+                FragmentStore fragmentStore = (FragmentStore) fragment;
+                MyWebViewFrament webFragment = (MyWebViewFrament) fragment.getChildFragmentManager().findFragmentById(R.id.fm_holder);
+
+                if (base.lProgress.lProgress.getVisibility() == View.VISIBLE) {
+                    showProgressDialog(false);
+
+                    return true;
+                }
+
+                if (fragmentStore.isDlp.equals("YES")) {
+                    webFragment.loadUrl("javascript:bwcAppClose();");
+                } else {
+                    Log.d("JJJJ", "canGoBack : " + webFragment.canGoBack());
+                    if (!TextUtils.isEmpty(fragmentStore.fn)) {
+                        if (webFragment.openWindows.size() > 0) {
+                            webFragment.openWindows.get(0).loadUrl("javascript:" + fragmentStore.fn);
+                        } else {
+                            webFragment.loadUrl("javascript:" + fragmentStore.fn);
+                        }
+                    } else {
+                        if (webFragment.canGoBack()) {
+                            webFragment.goBack();
+                            return true;
+                        }
+                    }
+                }
+            } else if (getViewPager().getCurrentItem() == MainPageDiv.HOME.ordinal() && fragment instanceof FragmentHome) {
+                if (((FragmentHome) fragment).isBottom()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public boolean isHome() {
         return getViewPager().getCurrentItem() == MainPageDiv.HOME.ordinal();
     }
-
 
     public boolean moveToMainTab(String lnkUri) {
         Uri uri = null;

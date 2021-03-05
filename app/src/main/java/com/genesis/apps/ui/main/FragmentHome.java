@@ -107,4 +107,13 @@ public class FragmentHome extends SubFragment<FragmentHomeBinding> {
         }
     }
 
+    public boolean isBottom(){
+        if(me.vpVehicle.getCurrentItem()!=0) {
+            me.vpVehicle.setCurrentItem(0,true);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }
