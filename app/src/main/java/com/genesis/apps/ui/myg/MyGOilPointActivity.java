@@ -161,9 +161,9 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
             case R.id.tv_integration_ho: //hyundai oilbank 연동하기
                 oilView.reqIntegrateOil(OIL_CODE_HDOL);
                 break;
-            case R.id.tv_integration_sk: //sk에너지 연동하기
-                oilView.reqIntegrateOil(OIL_CODE_SKNO);
-                break;
+//            case R.id.tv_integration_sk: //sk에너지 연동하기
+//                oilView.reqIntegrateOil(OIL_CODE_SKNO);
+//                break;
             case R.id.tv_integration_soil: //S-OIL 연동하기
                 oilView.reqIntegrateOil(OIL_CODE_SOIL);
                 break;
@@ -182,7 +182,7 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
                 break;
             case R.id.btn_barcode_soil:
             case R.id.btn_barcode_ho:
-            case R.id.btn_barcode_sk:
+//            case R.id.btn_barcode_sk:
             case R.id.btn_barcode_gs:
                 oilRfnCd = v.getTag().toString();
                 doTransition(OilCodes.findCode(oilRfnCd).ordinal());

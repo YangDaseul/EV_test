@@ -34,7 +34,7 @@ import lombok.EqualsAndHashCode;
  * 주차량여부 (Y: 주차량, N: 주차량이 아님)
  * 차량 1대인 경우는 기본차량으로 설정하지 않아도 주차량으로 간주
  * @see #mainImgUri 메인주간차량이미지URI
- * @see #mainNgtImgUr 메인야간차량이미지URI
+ * @see #mainNgtImgUri 메인야간차량이미지URI
  * @see #mygImgUri MYG이미지URI
  *
  * @see #saleMdlCd 판매모델코드

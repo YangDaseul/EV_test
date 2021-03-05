@@ -152,7 +152,6 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
     }
 
-    private static NotificationCompat.Builder mBuilder = null;
 //    public static void notifyMessageTest(Context context, PushVO pushVO, PushCode code) {
 //        String data = "{\n" +
 //                "  \"msgLnkUri\": \"\",\n" +

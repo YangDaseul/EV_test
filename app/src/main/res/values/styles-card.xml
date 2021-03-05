@@ -11,10 +11,6 @@
         <item name="android:background">@drawable/bg_009999_round_10</item>
     </style>
 
-    <style name="CardRoundSK">
-        <item name="android:background">@drawable/bg_4f585b_round_10</item>
-    </style>
-
     <style name="CardRoundSOIL">
         <item name="android:background">@drawable/bg_fbb900_round_10</item>
     </style>

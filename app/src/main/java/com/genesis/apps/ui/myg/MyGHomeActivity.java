@@ -440,9 +440,9 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                 case R.id.tv_integration_ho: //hyundai oilbank 연동하기
                     oilView.reqIntegrateOil(OilPointVO.OIL_CODE_HDOL);
                     break;
-                case R.id.tv_integration_sk: //sk에너지 연동하기
-                    oilView.reqIntegrateOil(OilPointVO.OIL_CODE_SKNO);
-                    break;
+//                case R.id.tv_integration_sk: //sk에너지 연동하기
+//                    oilView.reqIntegrateOil(OilPointVO.OIL_CODE_SKNO);
+//                    break;
                 case R.id.tv_integration_soil: //S-OIL 연동하기
                     oilView.reqIntegrateOil(OilPointVO.OIL_CODE_SOIL);
                     break;
@@ -452,9 +452,9 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                 case R.id.btn_barcode_ho: //hyundai oilbank 바코드, 포인트 화면 이동
                     startActivitySingleTop(new Intent(this, MyGOilPointActivity.class).putExtra(OilCodes.KEY_OIL_CODE, OilPointVO.OIL_CODE_HDOL), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
-                case R.id.btn_barcode_sk: //sk 에너지 바코드, 포인트 화면 이동
-                    startActivitySingleTop(new Intent(this, MyGOilPointActivity.class).putExtra(OilCodes.KEY_OIL_CODE, OilPointVO.OIL_CODE_SKNO), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                    break;
+//                case R.id.btn_barcode_sk: //sk 에너지 바코드, 포인트 화면 이동
+//                    startActivitySingleTop(new Intent(this, MyGOilPointActivity.class).putExtra(OilCodes.KEY_OIL_CODE, OilPointVO.OIL_CODE_SKNO), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                    break;
                 case R.id.btn_barcode_soil: //S-OIL 바코드, 포인트 화면 이동
                     startActivitySingleTop(new Intent(this, MyGOilPointActivity.class).putExtra(OilCodes.KEY_OIL_CODE, OilPointVO.OIL_CODE_SOIL), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
