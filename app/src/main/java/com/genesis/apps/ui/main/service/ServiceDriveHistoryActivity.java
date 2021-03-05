@@ -172,7 +172,8 @@ public class ServiceDriveHistoryActivity extends SubActivity<ActivityServiceDriv
 
     //이용 내역이 없으면 "내역이 없습니다"를 보여줌(목록 뷰가 '내역없음'메시지를 가리고있음)
     private void hideList() {
-        ui.rvServiceDriveHistoryList.setVisibility(View.GONE);
+        if(adapter==null||adapter.getItemCount()==0)
+            ui.rvServiceDriveHistoryList.setVisibility(View.GONE);
     }
 
 }

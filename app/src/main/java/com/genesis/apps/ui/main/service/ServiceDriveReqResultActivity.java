@@ -356,8 +356,8 @@ public class ServiceDriveReqResultActivity extends SubActivity<ActivityServiceDr
     private void setReserveViewStub() {
         setViewStub(R.layout.layout_service_drive_status_reserved,
                 (stub, inflated) -> {
-                    String rsvDt = serviceReqData.getRsvDt();
-                    Date date = DateUtil.getDefaultDateFormat(rsvDt, DateUtil.DATE_FORMAT_yyyyMMddHHmm, Locale.KOREA);
+                    String rsvDt = StringUtil.isValidString(serviceReqData.getRsvDt());
+                    Date date = DateUtil.getDefaultDateFormat(rsvDt, rsvDt.length()>12 ? DateUtil.DATE_FORMAT_yyyyMMddHHmmss : DateUtil.DATE_FORMAT_yyyyMMddHHmm, Locale.KOREA);
                     String dateStr = DateUtil.getDate(date, DateUtil.DATE_FORMAT_yyyy_MM_dd_e_hh_mm);
                     ((LayoutServiceDriveStatusReservedBinding) DataBindingUtil.bind(inflated)).setDate(dateStr);
                 });

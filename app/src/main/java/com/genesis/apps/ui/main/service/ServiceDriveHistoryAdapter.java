@@ -193,7 +193,7 @@ public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveSe
             Date date = DateUtil.getDefaultDateFormat(StringUtil.isValidString(item.getRgstDt()), DateUtil.DATE_FORMAT_yyyyMMddHHmmss, Locale.KOREA);
             this.date = DateUtil.getDate(date, DateUtil.DATE_FORMAT_yyyy_MM_dd_e_hh_mm);
 
-            Date rsvDt = DateUtil.getDefaultDateFormat(StringUtil.isValidString(item.getRsvDt()), DateUtil.DATE_FORMAT_yyyyMMddHHmmss, Locale.KOREA);
+            Date rsvDt = DateUtil.getDefaultDateFormat(StringUtil.isValidString(item.getRsvDt()), (StringUtil.isValidString(item.getRsvDt()).length() > 12 ? DateUtil.DATE_FORMAT_yyyyMMddHHmmss : DateUtil.DATE_FORMAT_yyyyMMddHHmm), Locale.KOREA);
             this.rsvDt = DateUtil.getDate(rsvDt, DateUtil.DATE_FORMAT_yyyy_MM_dd_e_hh_mm);
 
             //차량정보 : 차종 + 번호판
@@ -275,7 +275,7 @@ public class ServiceDriveHistoryAdapter extends BaseRecyclerViewAdapter2<DriveSe
             String dateStr = DateUtil.getDate(date, DateUtil.DATE_FORMAT_yyyy_MM_dd_e_hh_mm);
             getBinding().setDate(dateStr);
 
-            Date rsvDt = DateUtil.getDefaultDateFormat(StringUtil.isValidString(item.getRsvDt()), DateUtil.DATE_FORMAT_yyyyMMddHHmmss, Locale.KOREA);
+            Date rsvDt = DateUtil.getDefaultDateFormat(StringUtil.isValidString(item.getRsvDt()), (StringUtil.isValidString(item.getRsvDt()).length() > 12 ? DateUtil.DATE_FORMAT_yyyyMMddHHmmss : DateUtil.DATE_FORMAT_yyyyMMddHHmm), Locale.KOREA);
             String rsvDtStr = DateUtil.getDate(rsvDt, DateUtil.DATE_FORMAT_yyyy_MM_dd_e_hh_mm);
             getBinding().setRsvDt(rsvDtStr);
 
