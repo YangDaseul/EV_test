@@ -176,12 +176,13 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
         adapter.setType(type);
         adapter.setRows(list);
         adapter.notifyDataSetChanged();
-        setEmptyView();
+        setEmptyView(type);
     }
 
-    private void setEmptyView(){
+    private void setEmptyView(int type){
         if (adapter != null && adapter.getItemCount() < 1) {
             me.lSearchParent.tvEmpty.setVisibility(View.VISIBLE);
+            me.lSearchParent.tvEmpty.setText(type == SearchAddressHMNAdapter.TYPE_RECENTLY ? R.string.mg00_msg_5 : R.string.mg00_msg_2);
         } else {
             me.lSearchParent.tvEmpty.setVisibility(View.GONE);
         }
@@ -237,7 +238,7 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
                 }catch (Exception e){
                     e.printStackTrace();
                 }finally{
-                    setEmptyView();
+                    setEmptyView(SearchAddressHMNAdapter.TYPE_RECENTLY);
                 }
                 break;
         }
