@@ -17,10 +17,13 @@ import android.webkit.WebView;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
+import com.genesis.apps.comm.hybrid.core.WebViewFragment;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CMS_1001;
 import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.viewmodel.CMSViewModel;
+import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityStoreWebBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 
@@ -33,6 +36,7 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
 
     public MyWebViewFrament fragment;
 
+    private LGNViewModel lgnViewModel;
     private CMSViewModel cmsViewModel;
 
     private Handler mHandler = null;
@@ -63,6 +67,7 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
     public void setViewModel() {
         ui.setLifecycleOwner(this);
 
+        lgnViewModel = new ViewModelProvider(this).get(LGNViewModel.class);
         cmsViewModel = new ViewModelProvider(this).get(CMSViewModel.class);
     }
 
@@ -84,6 +89,10 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
                     }
 
                     break;
+                case ERROR:
+                    fragment.loadUrl(url);
+
+                    break;
             }
         });
     }
@@ -99,7 +108,6 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
         url = intent.getStringExtra(KeyNames.KEY_NAME_URL);
 
         Log.d("JJJJ", "store url : " + url);
-        cmsViewModel.reqCMS1001(new CMS_1001.Request(APPIAInfo.SM02.getId()));
     }
 
     // 하드웨어/소프트웨어 이전 키 설정
@@ -127,7 +135,12 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
 
     private void initView() {
         Bundle bundle = new Bundle();
-//        bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
+
+        if (!TextUtils.isEmpty(getCustGbCd()) && !getCustGbCd().equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)) {
+            cmsViewModel.reqCMS1001(new CMS_1001.Request(APPIAInfo.SM02.getId()));
+        } else {
+            bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
+        }
 
         fragment = new MyWebViewFrament();
         fragment.setWebViewListener(webViewListener);
@@ -137,6 +150,17 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.fm_holder, fragment);
         ft.commitAllowingStateLoss();
+    }
+
+    public String getCustGbCd() {
+        String custGbCd = "";
+        try {
+            custGbCd = lgnViewModel.getUserInfoFromDB().getCustGbCd();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            return custGbCd;
+        }
     }
 
     private MyWebViewFrament.WebViewListener webViewListener = new MyWebViewFrament.WebViewListener() {
