@@ -7,8 +7,14 @@
         <import type="android.view.View" />
         <import type="android.text.TextUtils" />
         <variable
+            name="activity"
+            type="com.genesis.apps.ui.common.activity.HtmlActivity" />
+        <variable
             name="value"
             type="String"/>
+        <variable
+            name="isBack"
+            type="Boolean"/>
     </data>
 
 
@@ -20,11 +26,25 @@
         android:background="@color/x_ffffff">
 
         <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_back"
+            android:visibility="@{isBack ? View.VISIBLE : View.GONE , default=gone}"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
             android:id="@+id/back"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:scaleType="centerInside"
             android:src="@drawable/btn_close"
+            android:visibility="@{isBack ? View.GONE : View.VISIBLE , default=visible}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>

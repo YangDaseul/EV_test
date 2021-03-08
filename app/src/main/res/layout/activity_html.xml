@@ -5,8 +5,16 @@
 
     <data>
         <variable
+            name="activity"
+            type="com.genesis.apps.ui.common.activity.HtmlActivity" />
+
+        <variable
             name="value"
             type="String"/>
+
+        <variable
+            name="isBack"
+            type="Boolean"/>
     </data>
 
 
@@ -21,7 +29,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:value="@{value}"/>
+            app:activity="@{activity}"
+            app:value="@{value}"
+            app:isBack="@{isBack}"/>
 
         <ViewStub
             android:id="@+id/vs_contents"

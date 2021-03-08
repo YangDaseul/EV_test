@@ -2,6 +2,7 @@ package com.genesis.apps.ui.main;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 
 import androidx.fragment.app.FragmentTransaction;
 
@@ -86,8 +87,10 @@ public class ServiceTermDetailActivity extends HtmlActivity {
                 exitPage("약관정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }else{
                 if(TextUtils.isEmpty(title)) {
+                    ui.setIsBack(true);
                     ui.setValue("자세히 보기");
                 }else{
+                    ui.setIsBack(false);
                     ui.setValue(title);
                 }
             }

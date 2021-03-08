@@ -34,12 +34,18 @@ public class HtmlActivity extends SubActivity<ActivityHtmlBinding>  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_html);
+        ui.setActivity(this);
         webViewListener = webViewListenerNormal;
     }
 
     @Override
     public void onClickCommon(View v) {
+        switch (v.getId()) {
+            case R.id.iv_back:
+                onBackPressed();
 
+                break;
+        }
     }
 
     @Override
