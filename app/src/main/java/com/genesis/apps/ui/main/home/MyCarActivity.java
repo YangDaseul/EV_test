@@ -362,7 +362,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
         if (!StringUtil.isValidString(data.getMbrshJoinYn()).equalsIgnoreCase("Y") || data.getPvilList()==null || data.getPvilList().size() < 1) {
             ui.lPrivilege.setVisibility(View.GONE);
         } else {
-            ui.lPrivilege.setVisibility(View.VISIBLE);
+//            ui.lPrivilege.setVisibility(View.VISIBLE);
             if (data.getPvilList().size() > 0) {
                 switch (StringUtil.isValidString(data.getPvilList().get(0).getJoinPsblCd())) {
                     case PrivilegeVO.JOIN_CODE_APPLY_POSSIBLE:
