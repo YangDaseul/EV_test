@@ -32,7 +32,7 @@ public class VariableType {
 
     public static final String TERM_OIL_JOIN_SOIL0003 = "SOIL0003"; //광고성 정보 수신 동의(선택)
     public static final String TERM_OIL_JOIN_HDOL0005 = "HDOL0005"; //광고성 정보 수신 동의(선택)
-    public static final String TERM_OIL_JOIN_GSCT0007 = "GSCT0007"; //광고성 정보 수신 동의(선택)
+    public static final String TERM_OIL_JOIN_GSCT0005 = "GSCT0005"; //광고성 정보 수신 동의(선택)
 
 
     public static final String NOTI_CODE_NOTI = "NOTI"; //일반공지

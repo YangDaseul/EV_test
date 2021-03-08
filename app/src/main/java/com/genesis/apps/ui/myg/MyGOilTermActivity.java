@@ -50,7 +50,7 @@ import java.util.List;
 import java.util.Locale;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
-import static com.genesis.apps.comm.model.constants.VariableType.TERM_OIL_JOIN_GSCT0007;
+import static com.genesis.apps.comm.model.constants.VariableType.TERM_OIL_JOIN_GSCT0005;
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_OIL_JOIN_HDOL0005;
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_OIL_JOIN_SOIL0003;
 import static com.genesis.apps.comm.model.vo.TermOilVO.TERM_ESN_AGMT_Y;
@@ -128,7 +128,7 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
             AgreeMeansVO agreeMeansVO = null;
             if(checkBoxs.get(i).getTermOilVO().getTermCd().equalsIgnoreCase(TERM_OIL_JOIN_SOIL0003)
                     ||checkBoxs.get(i).getTermOilVO().getTermCd().equalsIgnoreCase(TERM_OIL_JOIN_HDOL0005)
-                    ||checkBoxs.get(i).getTermOilVO().getTermCd().equalsIgnoreCase(TERM_OIL_JOIN_GSCT0007)){
+                    ||checkBoxs.get(i).getTermOilVO().getTermCd().equalsIgnoreCase(TERM_OIL_JOIN_GSCT0005)){
 //                agreeMeansVO = new AgreeMeansVO((ui.cbSms.isChecked() ? "Y" : "N"), (ui.cbMail.isChecked() ? "Y" : "N"),(ui.cbDm.isChecked() ? "Y" : "N"),(ui.cbPhone.isChecked() ? "Y" : "N"),null,null);
                 agreeMeansVO = new AgreeMeansVO(marketingCheckBox.isCheckedSms(),marketingCheckBox.isCheckedMail(),marketingCheckBox.isCheckedDm(),marketingCheckBox.isCheckedPhone(),null,null);
             }
