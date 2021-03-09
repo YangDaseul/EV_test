@@ -355,13 +355,13 @@
 
 
         <TextView
-            android:id="@+id/tv_developer_aggrements"
+            android:id="@+id/tv_developer_agreements"
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:layout_marginBottom="105dp"
             android:layout_marginStart="35dp"
             android:layout_marginEnd="35dp"
-            android:background="@color/x_ffffff"
+            android:background="@drawable/bg_ffffff_stroke_e5e5e5"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:text="@string/gm01_bottom_12"
             android:textSize="16dp"

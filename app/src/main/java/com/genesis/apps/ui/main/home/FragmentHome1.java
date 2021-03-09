@@ -390,7 +390,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 me.tvRepairStatus.setVisibility(visibility);
                 me.lFloating.setVisibility(visibility);
                 me.lDistance.setVisibility(visibility);
-                me.tvDeveloperAggrements.setVisibility(visibility);
+                me.tvDeveloperAgreements.setVisibility(visibility);
                 me.btnQuick.setVisibility(visibility);
             } else {
                 setViewVehicle();
@@ -492,7 +492,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             case R.id.fl_dim:
                 goneQuickMenu();
                 break;
-            case R.id.tv_developer_aggrements:
+            case R.id.tv_developer_agreements:
                 VehicleVO vehicleVO = null;
                 try {
                     vehicleVO = lgnViewModel.getMainVehicleSimplyFromDB();
@@ -620,7 +620,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     }
 
     private void setViewDevelopers() {
-        me.tvDeveloperAggrements.setVisibility(View.GONE);
+        me.tvDeveloperAgreements.setVisibility(View.GONE);
         me.lDistance.setVisibility(View.GONE);
         VehicleVO vehicleVO;
         try {
@@ -636,13 +636,13 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 case STAT_DISAGREEMENT:
                     //동의되지 않은 경우
                     me.lDistance.setVisibility(View.GONE);
-                    me.tvDeveloperAggrements.setVisibility(View.VISIBLE);
+                    me.tvDeveloperAgreements.setVisibility(View.VISIBLE);
                     break;
                 case STAT_DISABLE:
                 default:
                     //ccs 사용불가상태
                     me.lDistance.setVisibility(View.GONE);
-                    me.tvDeveloperAggrements.setVisibility(View.GONE);
+                    me.tvDeveloperAgreements.setVisibility(View.GONE);
                     break;
             }
         }catch (Exception e){
@@ -653,7 +653,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     private void reqCarInfoToDevelopers(String carId) {
         me.lDistance.setVisibility(View.VISIBLE);
-        me.tvDeveloperAggrements.setVisibility(View.GONE);
+        me.tvDeveloperAgreements.setVisibility(View.GONE);
         developersViewModel.reqDte(new Dte.Request(carId));
         developersViewModel.reqOdometer(new Odometer.Request(carId));
         developersViewModel.reqOdometers(new Odometers.Request(carId, developersViewModel.getDateYyyyMMdd(-1), developersViewModel.getDateYyyyMMdd(0)));
@@ -852,7 +852,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             me.lFloating.setLayoutParams(params);
 
 
-            me.lFloating.setBackgroundColor(menuSize == 1 ? getContext().getColor(R.color.x_ffffff) : 0);
+            me.lFloating.setBackgroundResource(menuSize == 1 ? R.drawable.bg_ffffff_stroke_e5e5e5 : 0);
             me.btnFloating1.setTextColor(menuSize == 1 ? getContext().getColor(R.color.x_000000) : (dayCd == VariableType.HOME_TIME_DAY ? getContext().getColor(R.color.x_000000) : getContext().getColor(R.color.x_ffffff)));
 
             me.btnFloating1.setTextSize(TypedValue.COMPLEX_UNIT_DIP, (menuSize == 1 ? 16 : 14));
