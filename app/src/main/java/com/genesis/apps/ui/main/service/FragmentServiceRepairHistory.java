@@ -83,8 +83,9 @@ public class FragmentServiceRepairHistory extends SubFragment<FragmentServiceRep
 
     @Override
     public void onRefresh() {
-        if (mainVehicle != null)
+        if (mainVehicle != null) {
             requestREQ1014("1");
+        }
     }
 
     private void setViewModel() {
@@ -180,6 +181,9 @@ public class FragmentServiceRepairHistory extends SubFragment<FragmentServiceRep
 
 
     private void requestREQ1014(String pageNo) {
+        if(adapter!=null&&pageNo.equalsIgnoreCase("1"))
+            adapter.setPageNo(0);
+
         reqViewModel.reqREQ1014(new REQ_1014.Request(APPIAInfo.SM_R_HISTORY01.getId(), mainVehicle.getVin(), pageNo, PAGE_SIZE + ""));
     }
 
