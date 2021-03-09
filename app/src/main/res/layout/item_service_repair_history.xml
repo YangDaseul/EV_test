@@ -19,6 +19,10 @@
         <variable
             name="data"
             type="com.genesis.apps.comm.model.vo.RepairHistVO" />
+
+        <variable
+            name="pos"
+            type="int" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,10 +37,10 @@
             android:layout_height="1dp"
             android:layout_marginTop="30dp"
             android:background="@color/x_e5e5e5"
+            android:visibility="@{(pos!=0) ? View.VISIBLE : View.GONE}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
-<!--        android:visibility="@{(pos!=0 &amp;&amp; data.isFirst) ? View.VISIBLE : View.GONE}"-->
 
 
         <TextView
