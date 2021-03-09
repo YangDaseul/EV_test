@@ -2,6 +2,7 @@ package com.genesis.apps.ui.main;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,10 @@ public class FragmentHome extends SubFragment<FragmentHomeBinding> {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
                 if (positionOffsetPixels == 0) {
                     me.vpVehicle.setCurrentItem(position);
+                    if(position==1){
+                        ((MainActivity) getActivity()).setMoveHomeBottom(true);
+                    }
+                    Log.e("onResume", "onPageScrolled FragmentHome:"+position);
                 }
 
                 if (position == 0) {

@@ -48,6 +48,14 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
+    public boolean isMoveHomeBottom() {
+        return moveHomeBottom;
+    }
+
+    public void setMoveHomeBottom(boolean moveHomeBottom) {
+        this.moveHomeBottom = moveHomeBottom;
+    }
+
     public enum MainPageDiv {
         HOME,
         INSIGHT,
@@ -60,6 +68,9 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     public FragmentStateAdapter pagerAdapter;
     private LGNViewModel lgnViewModel;
     private CMNViewModel cmnViewModel;
+    //ios와 동일한 구조를 맞추기 위한 변수
+    //홈하단에 있는 상태에서 onResume 호출 시 홈 상단으로 이동시킴
+    private boolean moveHomeBottom=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -543,7 +554,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         return false;
     }
 
-    private void initFragmentHome(int currentPosition) {
+    public void initFragmentHome(int currentPosition) {
         try {
             if (currentPosition > 0) {
                 for (Fragment fragment : getSupportFragmentManager().getFragments()) {

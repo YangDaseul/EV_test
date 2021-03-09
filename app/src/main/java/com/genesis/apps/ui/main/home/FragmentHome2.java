@@ -510,6 +510,16 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
     @Override
     public void onRefresh() {
         Log.e("onResume", "onReusme FragmentHome2");
+
+        //메인홈상단에서 하단으로 내려온 경우
+        if(((MainActivity)getActivity()).isMoveHomeBottom()){
+            ((MainActivity)getActivity()).setMoveHomeBottom(false);
+        }else{
+            //홈 하단에서 리프레쉬 된 경우
+            ((MainActivity)getActivity()).initFragmentHome(1);
+            return;
+        }
+
         try {
             vehicleVO = lgnViewModel.getMainVehicleFromDB();
             checkIndicatorCnt();
