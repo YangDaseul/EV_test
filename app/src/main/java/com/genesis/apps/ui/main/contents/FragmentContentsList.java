@@ -176,7 +176,7 @@ public class FragmentContentsList extends SubFragment<FragmentContentsListBindin
 
     private void initViewPager(){
         //ViewPager Setting
-        contentsAdapter = new ContentsAdapter(onSingleClickListener);
+        contentsAdapter = new ContentsAdapter(getActivity(), onSingleClickListener);
         me.vp.setAdapter(contentsAdapter);
         me.vp.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
         me.vp.setCurrentItem(0);

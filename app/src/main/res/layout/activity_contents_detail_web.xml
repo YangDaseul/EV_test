@@ -38,6 +38,7 @@
             android:gravity="center_vertical"
             android:background="@drawable/ripple_bg_e6a2a2a2_stroke_4d4d4d"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
