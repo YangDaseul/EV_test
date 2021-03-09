@@ -134,7 +134,7 @@ public enum APPIAInfo {
     GM_BT06_01("GM_BT06_01", null, VariableType.QUICK_MENU_CODE_NONE, "블루핸즈 필터",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_BT06_02("GM_BT06_02", BtrBluehandsListActivity.class, VariableType.QUICK_MENU_CODE_NONE, "블루핸즈 목록 보기",VariableType.QUICK_MENU_CATEGORY_NONE),
 
-    GM_CARLST01("GM_CARLST01", MyCarActivity.class, VariableType.QUICK_MENU_CODE_CV, "보유 차량 리스트",VariableType.QUICK_MENU_CATEGORY_HOME),
+    GM_CARLST01("GM_CARLST01", MyCarActivity.class, VariableType.QUICK_MENU_CODE_CV, "차량 상세",VariableType.QUICK_MENU_CATEGORY_HOME),
     GM_CARLST_P01("GM_CARLST_P01", null, VariableType.QUICK_MENU_CODE_NONE, "차량 번호 수정 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_CARLST_P02("GM_CARLST_P02", null, VariableType.QUICK_MENU_CODE_NONE, "차량 삭제 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_CARLST_01("GM_CARLST_01", LeasingCarVinRegisterActivity.class, VariableType.QUICK_MENU_CODE_NV, "렌트/리스 실운행자 등록 확인",VariableType.QUICK_MENU_CATEGORY_HOME),

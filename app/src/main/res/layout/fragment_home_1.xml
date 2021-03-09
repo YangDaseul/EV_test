@@ -219,7 +219,8 @@
                 app:textColor="@{activity.getColor(WeatherCodes.getTextColorResource(dayCd))}"
                 app:underLineColor="@{dayCd!=2 ? 0 : activity.getColor(WeatherCodes.getTextColorResource(dayCd))}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_genesis"/>
+                app:layout_constraintBottom_toBottomOf="@+id/tv_genesis"
+                app:layout_constraintTop_toTopOf="@+id/tv_genesis"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
