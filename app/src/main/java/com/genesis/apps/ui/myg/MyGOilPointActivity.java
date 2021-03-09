@@ -38,7 +38,6 @@ import java.util.List;
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_GSCT;
 import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_HDOL;
-import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_SKNO;
 import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_CODE_SOIL;
 import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_JOIN_CODE_Y;
 
@@ -57,9 +56,8 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
         setViewModel();
         setObserver();
         initConstraintSets();
-        oilView = new OilView(ui.lOil, v -> onSingleClickListener.onClick(v), oilViewModel);
+        oilView = new OilView(ui.lOil, v -> onSingleClickListener.onClick(v));
         ui.setView(oilView);
-        mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG_CON01.getId()));
     }
 
     private void initConstraintSets() {
@@ -245,33 +243,33 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
             }
         });
 
-        oilViewModel.getRES_OIL_0005().observe(this, result -> {
-            switch (result.status) {
-                case LOADING:
-                    showProgressDialog(true);
-                    break;
-                case SUCCESS:
-                    showProgressDialog(false);
-                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)) {
-                        mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
-                        SnackBarUtil.show(this, "연동이 완료되었습니다.");
-                        break;
-                    }
-                default:
-                    showProgressDialog(false);
-                    String serverMsg = "";
-                    try {
-                        serverMsg = result.data.getRtMsg();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        if (TextUtils.isEmpty(serverMsg))
-                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
-                        SnackBarUtil.show(this, serverMsg);
-                    }
-                    break;
-            }
-        });
+//        oilViewModel.getRES_OIL_0005().observe(this, result -> {
+//            switch (result.status) {
+//                case LOADING:
+//                    showProgressDialog(true);
+//                    break;
+//                case SUCCESS:
+//                    showProgressDialog(false);
+//                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)) {
+//                        mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
+//                        SnackBarUtil.show(this, "연동이 완료되었습니다.");
+//                        break;
+//                    }
+//                default:
+//                    showProgressDialog(false);
+//                    String serverMsg = "";
+//                    try {
+//                        serverMsg = result.data.getRtMsg();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    } finally {
+//                        if (TextUtils.isEmpty(serverMsg))
+//                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+//                        SnackBarUtil.show(this, serverMsg);
+//                    }
+//                    break;
+//            }
+//        });
 
 
     }
@@ -289,4 +287,9 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG_CON01.getId()));
+    }
 }

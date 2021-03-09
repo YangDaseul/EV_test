@@ -8,6 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.IST_1002;
@@ -42,10 +45,6 @@ import com.genesis.apps.ui.myg.view.OilView;
 
 import java.util.Locale;
 
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0001;
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0002;
 
@@ -105,7 +104,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         ui.setLifecycleOwner(this);
         cmnViewModel = new ViewModelProvider(this).get(CMNViewModel.class);
         mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
-        oilViewModel = new ViewModelProvider(this).get(OILViewModel.class);
+//        oilViewModel = new ViewModelProvider(this).get(OILViewModel.class);
         istViewModel = new ViewModelProvider(this).get(ISTViewModel.class);
     }
 
@@ -256,32 +255,32 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
             }
         });
 
-        oilViewModel.getRES_OIL_0005().observe(this, result -> {
-            switch (result.status){
-                case LOADING:
-                    showProgressDialog(true);
-                    break;
-                case SUCCESS:
-                    showProgressDialog(false);
-                    if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)){
-                        mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
-                        SnackBarUtil.show(this, "연동이 완료되었습니다.");
-                        break;
-                    }
-                default:
-                    showProgressDialog(false);
-                    String serverMsg="";
-                    try {
-                        serverMsg = result.data.getRtMsg();
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }finally{
-                        if(TextUtils.isEmpty(serverMsg)) serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
-                        SnackBarUtil.show(this, serverMsg);
-                    }
-                    break;
-            }
-        });
+//        oilViewModel.getRES_OIL_0005().observe(this, result -> {
+//            switch (result.status){
+//                case LOADING:
+//                    showProgressDialog(true);
+//                    break;
+//                case SUCCESS:
+//                    showProgressDialog(false);
+//                    if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)){
+//                        mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
+//                        SnackBarUtil.show(this, "연동이 완료되었습니다.");
+//                        break;
+//                    }
+//                default:
+//                    showProgressDialog(false);
+//                    String serverMsg="";
+//                    try {
+//                        serverMsg = result.data.getRtMsg();
+//                    }catch (Exception e){
+//                        e.printStackTrace();
+//                    }finally{
+//                        if(TextUtils.isEmpty(serverMsg)) serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+//                        SnackBarUtil.show(this, serverMsg);
+//                    }
+//                    break;
+//            }
+//        });
     }
 
     @Override
@@ -295,7 +294,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     }
 
     private void initView() {
-        oilView = new OilView(ui.lOil, v -> onSingleClickListener.onClick(v), oilViewModel);
+        oilView = new OilView(ui.lOil, v -> onSingleClickListener.onClick(v));
         ui.setActivity(this);
         ui.setOilView(oilView);
         ui.lTitle.ivTitlebarImgBtn.setOnClickListener(onSingleClickListener);

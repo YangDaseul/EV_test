@@ -15,6 +15,7 @@ public enum OilCodes {
     SOIL(OIL_CODE_SOIL, "com.soilbonus.goodoilfamily", R.layout.view_oil_1_4,R.string.oil_name_soil,R.string.oil_point_name_soil,R.drawable.so_meber_img_01,R.drawable.logo_s_oil_l,R.drawable.so_meber_img_02,R.drawable.so_meber_img_02);
 
     public static final String KEY_OIL_CODE="oilRfnCd";
+    public static final String KEY_OIL_RGSTYN="rgstYn";
 
     private String code;
     private String schema;

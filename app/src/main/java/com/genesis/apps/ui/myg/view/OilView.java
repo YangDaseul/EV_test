@@ -6,15 +6,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.MYP_1006;
-import com.genesis.apps.comm.model.api.gra.OIL_0005;
 import com.genesis.apps.comm.model.constants.OilCodes;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.util.StringUtil;
-import com.genesis.apps.comm.viewmodel.OILViewModel;
 import com.genesis.apps.databinding.ViewOilBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.view.listener.OnItemClickListener;
@@ -31,13 +28,11 @@ public class OilView {
     private Context context;
     private MYP_1006.Response data;
     public OnItemClickListener onClickListener;
-    private OILViewModel oilViewModel;
 
-    public OilView(ViewOilBinding ui, OnItemClickListener onClickListener, OILViewModel oilViewModel) {
+    public OilView(ViewOilBinding ui, OnItemClickListener onClickListener) {
         this.ui = ui;
         this.context = ui.getRoot().getContext();
         this.onClickListener = onClickListener;
-        this.oilViewModel = oilViewModel;
         setOilLayout(null);
     }
 
@@ -164,12 +159,12 @@ public class OilView {
 
     public void reqIntegrateOil(String rfnCd) {
         List<OilPointVO> list = new ArrayList<>();
-        //TODO 2021 01 18 임시 추가
-//        try {
-//            list.addAll(data.getOilRfnPontList());
-//        } catch (Exception e) {
-//            list = new ArrayList<>();
-//        }
+
+        try {
+            list.addAll(data.getOilRfnPontList());
+        } catch (Exception e) {
+            list = new ArrayList<>();
+        }
 
         //서버로부터 전달받은 오일정보가 없으면 임의로 생성
         if (list == null || list.size() == 0) {
@@ -183,17 +178,24 @@ public class OilView {
 
         for (int i = 0; i < list.size(); i++) {
             if (rfnCd.equalsIgnoreCase(list.get(i).getOilRfnCd())) {
+                ((BaseActivity) context).startActivitySingleTop(new Intent(context, MyGOilIntegrationActivity.class)
+                                .putExtra(OilCodes.KEY_OIL_CODE, rfnCd)
+                                .putExtra(OilCodes.KEY_OIL_RGSTYN, StringUtil.isValidString(list.get(i).getRgstYn()))
+                        , RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 
-                switch (list.get(i).getRgstYn()) {
-                    case OilPointVO.OIL_JOIN_CODE_R:
-                        oilViewModel.reqOIL0005(new OIL_0005.Request(APPIAInfo.MG01.getId(), rfnCd));
-                        break;
-                    case OilPointVO.OIL_JOIN_CODE_N:
-                        ((BaseActivity) context).startActivitySingleTop(new Intent(context, MyGOilIntegrationActivity.class).putExtra(OilCodes.KEY_OIL_CODE, rfnCd), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                        break;
-                    default:
-                        break;
-                }
+//                switch (list.get(i).getRgstYn()) {
+//                    case OilPointVO.OIL_JOIN_CODE_R:
+//                        oilViewModel.reqOIL0005(new OIL_0005.Request(APPIAInfo.MG01.getId(), rfnCd));
+//                        break;
+//                    case OilPointVO.OIL_JOIN_CODE_N:
+//                        ((BaseActivity) context).startActivitySingleTop(new Intent(context, MyGOilIntegrationActivity.class)
+//                                .putExtra(OilCodes.KEY_OIL_CODE, rfnCd)
+//                                .putExtra(OilCodes.KEY_OIL_RGSTYN, StringUtil.isValidString(list.get(i).getRgstYn()))
+//                                , RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+//                        break;
+//                    default:
+//                        break;
+//                }
             }
         }
     }
