@@ -1,0 +1,73 @@
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/insight_01"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/insight_02"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/insight_03"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/insight_04"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/insight_05"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/insight_06"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/insight_07"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/insight_08"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/insight_09"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/insight_10"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/insight_11"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/insight_12"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/insight_13"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/insight_14"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/insight_15"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/insight_16"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/insight_17"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/insight_18"
+        android:duration="80" />
+</animation-list>

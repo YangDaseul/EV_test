@@ -105,10 +105,10 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
         istViewModel.getRES_IST_1002().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
-                    ((MainActivity) getActivity()).showProgressDialog(true);
+                    ((MainActivity) getActivity()).showProgressDialog(true, SubActivity.PROGRESS_TYPE_INSIGHT);
                     break;
                 case SUCCESS:
-                    ((MainActivity) getActivity()).showProgressDialog(false);
+                    ((MainActivity) getActivity()).showProgressDialog(false, SubActivity.PROGRESS_TYPE_INSIGHT);
                     List<ISTAmtVO> list = new ArrayList<>();
                     ISTAmtVO current = null;
                     if (result.data != null
@@ -146,7 +146,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                     insightCarAdapter.notifyDataSetChanged();
                     break;
                 default:
-                    ((MainActivity) getActivity()).showProgressDialog(false);
+                    ((MainActivity) getActivity()).showProgressDialog(false, SubActivity.PROGRESS_TYPE_INSIGHT);
                     break;
             }
         });
@@ -155,17 +155,17 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
         istViewModel.getRES_IST_1003().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
-                    ((MainActivity) getActivity()).showProgressDialog(true);
+                    ((MainActivity) getActivity()).showProgressDialog(true, SubActivity.PROGRESS_TYPE_INSIGHT);
                     break;
                 case SUCCESS:
-                    ((MainActivity) getActivity()).showProgressDialog(false);
+                    ((MainActivity) getActivity()).showProgressDialog(false, SubActivity.PROGRESS_TYPE_INSIGHT);
                     if (result.data != null && result.data.getAdmMsgList() != null) {
                         insightArea1Adapter.setRows(result.data.getAdmMsgList());
                         insightArea1Adapter.notifyDataSetChanged();
                     }
                     break;
                 default:
-                    ((MainActivity) getActivity()).showProgressDialog(false);
+                    ((MainActivity) getActivity()).showProgressDialog(false, SubActivity.PROGRESS_TYPE_INSIGHT);
                     break;
             }
         });
@@ -174,17 +174,17 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
         istViewModel.getRES_IST_1005().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
-                    ((MainActivity) getActivity()).showProgressDialog(true);
+                    ((MainActivity) getActivity()).showProgressDialog(true, SubActivity.PROGRESS_TYPE_INSIGHT);
                     break;
                 case SUCCESS:
-                    ((MainActivity) getActivity()).showProgressDialog(false);
+                    ((MainActivity) getActivity()).showProgressDialog(false, SubActivity.PROGRESS_TYPE_INSIGHT);
                     if (result.data != null && result.data.getMsgList() != null) {
                         insightArea3Adapter.setRows(result.data.getMsgList());
                         insightArea3Adapter.notifyDataSetChanged();
                     }
                     break;
                 default:
-                    ((MainActivity) getActivity()).showProgressDialog(false);
+                    ((MainActivity) getActivity()).showProgressDialog(false, SubActivity.PROGRESS_TYPE_INSIGHT);
                     break;
             }
         });
@@ -192,10 +192,10 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
         istViewModel.getRES_IST_1004().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
-                    ((MainActivity) getActivity()).showProgressDialog(true);
+                    ((MainActivity) getActivity()).showProgressDialog(true, SubActivity.PROGRESS_TYPE_INSIGHT);
                     break;
                 case SUCCESS:
-                    ((MainActivity) getActivity()).showProgressDialog(false);
+                    ((MainActivity) getActivity()).showProgressDialog(false, SubActivity.PROGRESS_TYPE_INSIGHT);
                     if (result.data != null&&result.data.getSosStatus()!=null) {
                         SOSDriverVO sosDriverVO = null;
                         try{
@@ -207,7 +207,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                     }
                     break;
                 default:
-                    ((MainActivity) getActivity()).showProgressDialog(false);
+                    ((MainActivity) getActivity()).showProgressDialog(false, SubActivity.PROGRESS_TYPE_INSIGHT);
                     break;
             }
         });
@@ -216,7 +216,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
             if(result!=null&&result.status!=null) {
                 switch (result.status) {
                     case LOADING:
-                        ((SubActivity) getActivity()).showProgressDialog(true);
+                        ((SubActivity) getActivity()).showProgressDialog(true, SubActivity.PROGRESS_TYPE_INSIGHT);
                         break;
                     case SUCCESS:
                         if(result.data!=null&&result.data.getSummary()!=null) {
@@ -235,12 +235,12 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                             }finally {
                                 insightArea2Adapter.setRows(list);
                                 insightArea2Adapter.notifyDataSetChanged();
-                                ((SubActivity) getActivity()).showProgressDialog(false);
+                                ((SubActivity) getActivity()).showProgressDialog(false, SubActivity.PROGRESS_TYPE_INSIGHT);
                             }
                             break;
                         }
                     default:
-                        ((SubActivity) getActivity()).showProgressDialog(false);
+                        ((SubActivity) getActivity()).showProgressDialog(false, SubActivity.PROGRESS_TYPE_INSIGHT);
                         break;
                 }
             }
@@ -250,17 +250,17 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
         sosViewModel.getRES_SOS_1001().observe(getViewLifecycleOwner(), result -> {
             switch (result.status){
                 case LOADING:
-                    ((SubActivity)getActivity()).showProgressDialog(true);
+                    ((SubActivity)getActivity()).showProgressDialog(true, SubActivity.PROGRESS_TYPE_INSIGHT);
                     break;
                 case SUCCESS:
-                    ((SubActivity)getActivity()).showProgressDialog(false);
+                    ((SubActivity)getActivity()).showProgressDialog(false, SubActivity.PROGRESS_TYPE_INSIGHT);
                     tmpAcptNo = result.data.getTmpAcptNo();
                     if(result.data!=null&&!TextUtils.isEmpty(tmpAcptNo)){
                         sosViewModel.reqSOS1006(new SOS_1006.Request(APPIAInfo.SM01.getId(),tmpAcptNo));
                         break;
                     }
                 default:
-                    ((SubActivity)getActivity()).showProgressDialog(false);
+                    ((SubActivity)getActivity()).showProgressDialog(false, SubActivity.PROGRESS_TYPE_INSIGHT);
                     SnackBarUtil.show(getActivity(), getString(R.string.r_flaw06_p02_snackbar_1)+(" code:1"));
                     break;
             }
@@ -268,16 +268,16 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
         sosViewModel.getRES_SOS_1006().observe(getViewLifecycleOwner(), result -> {
             switch (result.status){
                 case LOADING:
-                    ((SubActivity)getActivity()).showProgressDialog(true);
+                    ((SubActivity)getActivity()).showProgressDialog(true, SubActivity.PROGRESS_TYPE_INSIGHT);
                     break;
                 case SUCCESS:
-                    ((SubActivity)getActivity()).showProgressDialog(false);
+                    ((SubActivity)getActivity()).showProgressDialog(false, SubActivity.PROGRESS_TYPE_INSIGHT);
                     if(result.data!=null&&result.data.getSosDriverVO()!=null&&!TextUtils.isEmpty(tmpAcptNo)){
                         ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceSOSRouteInfoActivity.class).putExtra(KeyNames.KEY_NAME_SOS_DRIVER_VO, result.data), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                         break;
                     }
                 default:
-                    ((SubActivity)getActivity()).showProgressDialog(false);
+                    ((SubActivity)getActivity()).showProgressDialog(false, SubActivity.PROGRESS_TYPE_INSIGHT);
                     SnackBarUtil.show(getActivity(), getString(R.string.r_flaw06_p02_snackbar_1));
                     break;
             }

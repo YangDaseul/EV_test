@@ -93,7 +93,7 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
                     break;
                 case SUCCESS:
                     if (result.data != null && result.data.getLat() != 0 && result.data.getLon() != 0) {
-                        showProgressDialog(false);
+                        showProgressDialog(false, PROGRESS_TYPE_LOCATION);
                         vehiclePosition = new ArrayList<>();
                         vehiclePosition.add(result.data.getLat()+"");
                         vehiclePosition.add(result.data.getLon()+"");
@@ -101,7 +101,7 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
                         break;
                     }
                 default:
-                    showProgressDialog(false);
+                    showProgressDialog(false, PROGRESS_TYPE_LOCATION);
                     exitPage("위치 정보가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.RES_CODE_NETWORK.getCode());
                     break;
             }
@@ -111,12 +111,12 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
 
             switch (result.status){
                 case LOADING:
-                    showProgressDialog(true);
+                    showProgressDialog(true, PROGRESS_TYPE_LOCATION);
 
 
                     break;
                 case SUCCESS:
-                    showProgressDialog(false);
+                    showProgressDialog(false, PROGRESS_TYPE_LOCATION);
 
                     if(result.data!=null){
                         initView(result.data);
@@ -124,7 +124,7 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
 
                     break;
                 default:
-                    showProgressDialog(false);
+                    showProgressDialog(false, PROGRESS_TYPE_LOCATION);
 
                     break;
             }
@@ -186,9 +186,9 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
 
 
     private void reqMyLocation() {
-        showProgressDialog(true);
+        showProgressDialog(true, PROGRESS_TYPE_LOCATION);
         findMyLocation(location -> {
-            showProgressDialog(false);
+            showProgressDialog(false, PROGRESS_TYPE_LOCATION);
             if (location == null) {
                 exitPage("위치 정보를 불러올 수 없습니다. GPS 상태를 확인 후 다시 시도해 주세요.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
                 return;

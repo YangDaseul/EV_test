@@ -1,0 +1,73 @@
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/location01"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/location02"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/location03"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/location04"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/location05"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/location06"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/location07"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/location08"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/location09"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/location10"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/location11"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/location12"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/location13"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/location14"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/location15"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/location16"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/location17"
+        android:duration="80" />
+
+    <item
+        android:drawable="@drawable/location18"
+        android:duration="80" />
+</animation-list>

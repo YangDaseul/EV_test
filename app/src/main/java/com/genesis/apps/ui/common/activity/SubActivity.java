@@ -41,7 +41,6 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
 
     public ActivityBaseBinding base;
     public T ui;
-    private ProgressDialog progressDialog;
     public OnSingleClickListener onSingleClickListener = new OnSingleClickListener() {
         @Override
         public void onSingleClick(View v) {
@@ -52,18 +51,6 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//        }
-//        if (Build.VERSION.SDK_INT >= 19) {
-//            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-//        }
-//        if (Build.VERSION.SDK_INT >= 21) {
-//            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//            getWindow().setStatusBarColor(Color.TRANSPARENT);
-//        }
-
-
 
         if (base == null) base = (ActivityBaseBinding) inflate(R.layout.activity_base);
     }
@@ -74,7 +61,7 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
 
         setFirebaseAnalyticsLog();
         Log.e("permission test", "permission test:start");
-        if(!isPermissions()&&isTargetPermissionCheck()){
+        if (!isPermissions() && isTargetPermissionCheck()) {
             Log.e("permission test", "permission test:restart");
             //권한이 하나라도 없으면 앱 재실행
             restart();
@@ -85,7 +72,7 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
     protected void onDestroy() {
         super.onDestroy();
 
-        Log.e("permission test", "permission test:activity killed:"+ this.getClass().getSimpleName());
+        Log.e("permission test", "permission test:activity killed:" + this.getClass().getSimpleName());
     }
 
     public static void setStatusBarColor(Activity activity, int color) {
@@ -94,16 +81,13 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
 //            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 //            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(activity.getColor(color));
-            if(color==R.color.x_000000||color==R.color.x_05141f){
+            if (color == R.color.x_000000 || color == R.color.x_05141f) {
                 window.getDecorView().setSystemUiVisibility(0);
-            }else{
+            } else {
                 window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             }
         }
     }
-
-
-
 
     @Override
     public void setContentView(int layoutResId) {
@@ -115,7 +99,7 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         super.setContentView(base.getRoot());
 
         try {
-            if(findViewById(R.id.back)!=null) {
+            if (findViewById(R.id.back) != null) {
                 findViewById(R.id.back).setOnClickListener(new OnSingleClickListener() {
                     @Override
                     public void onSingleClick(View v) {
@@ -137,6 +121,8 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         try {
             if (base.lProgress != null) {
                 runOnUiThread(() -> {
+                    base.lProgress.ivProgress.setImageResource(R.drawable.ic_loading_circle);
+                    base.lProgress.tvProgress.setVisibility(View.GONE);
                     base.lProgress.lProgress.setVisibility(show ? View.VISIBLE : View.GONE);
                     AnimationDrawable animationDrawable = (AnimationDrawable) base.lProgress.ivProgress.getDrawable();
                     if (show) {
@@ -152,27 +138,47 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         }
     }
 
-//    public final void showProgressDialog(final boolean show) {
-//        if(progressDialog==null) progressDialog = new ProgressDialog(SubActivity.this, AlertDialog.BUTTON_POSITIVE);
-//
-//        try {
-//            runOnUiThread(() -> {
-//                if (show) {
-//                    progressDialog.setTitle("");
-//                    progressDialog.setMessage("Loading");
-//                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//                    progressDialog.setCancelable(true);
-//                    progressDialog.setCanceledOnTouchOutside(false);
-//                    progressDialog.show();
-//                } else {
-//                    progressDialog.dismiss();
-//                    progressDialog = null;
-//                }
-//            });
-//        }catch (Exception ignore){
-//            ignore.printStackTrace();
-//        }
-//    }
+
+    public static final int PROGRESS_TYPE_NORMAL = 0;
+    public static final int PROGRESS_TYPE_INSIGHT = 1;
+    public static final int PROGRESS_TYPE_LOCATION = 2;
+
+    public final void showProgressDialog(final boolean show, int type) {
+        Log.v("test", "test show:" + show);
+        try {
+            if (base.lProgress != null) {
+                runOnUiThread(() -> {
+                    switch (type) {
+                        case PROGRESS_TYPE_INSIGHT:
+                            base.lProgress.tvProgress.setVisibility(View.VISIBLE);
+                            base.lProgress.tvProgress.setText(R.string.dialog_msg_2);
+                            base.lProgress.ivProgress.setImageResource(R.drawable.loading_insight);
+                            break;
+                        case PROGRESS_TYPE_LOCATION:
+                            base.lProgress.tvProgress.setVisibility(View.VISIBLE);
+                            base.lProgress.tvProgress.setText(R.string.dialog_msg_3);
+                            base.lProgress.ivProgress.setImageResource(R.drawable.loading_location);
+                            break;
+                        case PROGRESS_TYPE_NORMAL:
+                        default:
+                            base.lProgress.tvProgress.setVisibility(View.GONE);
+                            base.lProgress.ivProgress.setImageResource(R.drawable.ic_loading_circle);
+                            break;
+                    }
+                    base.lProgress.lProgress.setVisibility(show ? View.VISIBLE : View.GONE);
+                    AnimationDrawable animationDrawable = (AnimationDrawable) base.lProgress.ivProgress.getDrawable();
+                    if (show) {
+                        if (!animationDrawable.isRunning()) animationDrawable.start();
+                    } else {
+                        animationDrawable.stop();
+                    }
+                });
+            }
+//                runOnUiThread(() -> base.lProgress.lProgress.setVisibility(show ? View.VISIBLE : View.GONE));
+        } catch (Exception e) {
+
+        }
+    }
 
     public void onBackButton() {
         List<SubFragment> fragments = getFragments();
@@ -194,12 +200,6 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
 
     public void setResizeScreen() {
 //        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-
-
-
-
-
-
 
 
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
@@ -352,10 +352,10 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         }
     }
 
-    public void setFirebaseAnalyticsLog(){
+    public void setFirebaseAnalyticsLog() {
         Class classNm = this.getClass();
         APPIAInfo appiaInfo = APPIAInfo.findCode(classNm);
-        if(appiaInfo!=null&&appiaInfo!=APPIAInfo.DEFAULT) {
+        if (appiaInfo != null && appiaInfo != APPIAInfo.DEFAULT) {
             Bundle bundle = new Bundle();
             bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, appiaInfo.getId());
 //            bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, classNm.getSimpleName());
@@ -380,13 +380,12 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
     }
 
     /**
-     * @brief onResume에서 권한 확인 대상 액티비티인지 확인
      * @return
+     * @brief onResume에서 권한 확인 대상 액티비티인지 확인
      */
-    private boolean isTargetPermissionCheck(){
-        return this.getClass()!=IntroActivity.class&&this.getClass()!=PermissionsActivity.class;
+    private boolean isTargetPermissionCheck() {
+        return this.getClass() != IntroActivity.class && this.getClass() != PermissionsActivity.class;
     }
-
 
 
 }
