@@ -2,6 +2,7 @@ package com.genesis.apps.ui.main.service;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.util.Log;
@@ -42,6 +43,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.ChangeBounds;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 /**
@@ -80,14 +82,14 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
         initEditView();
         initEmail();
         initPhoneNumber();
-        ui.tvCsmrNm.setText(loginInfoDTO.getProfile()!=null ? loginInfoDTO.getProfile().getName() : "--");
-        ui.tvCsmrTymd.setText(loginInfoDTO.getProfile()!=null ? parseDate(loginInfoDTO.getProfile().getBirthdate()) : "--");
+        ui.tvCsmrNm.setText(loginInfoDTO.getProfile() != null ? loginInfoDTO.getProfile().getName() : "--");
+        ui.tvCsmrTymd.setText(loginInfoDTO.getProfile() != null ? parseDate(loginInfoDTO.getProfile().getBirthdate()) : "--");
     }
 
     private String parseDate(String dateOriginal) {
-        if(TextUtils.isEmpty(dateOriginal)) {
+        if (TextUtils.isEmpty(dateOriginal)) {
             return "";
-        }else {
+        } else {
             Date date = DateUtil.getDefaultDateFormat(dateOriginal, DateUtil.DATE_FORMAT_yyyyMMdd);
             return DateUtil.getDate(date, DateUtil.DATE_FORMAT_yyyy_mm_dd_dot);
         }
@@ -103,32 +105,31 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
     }
 
     private void initPhoneNumber() {
-        String phoneNumber = loginInfoDTO.getProfile()!=null ? loginInfoDTO.getProfile().getMobileNum() : "" ;
+        String phoneNumber = loginInfoDTO.getProfile() != null ? loginInfoDTO.getProfile().getMobileNum() : "";
 
-        if(TextUtils.isEmpty(phoneNumber)){
+        if (TextUtils.isEmpty(phoneNumber)) {
             ui.etRegnTn.requestFocus();
         } else {
             ui.etRegnTn.setText(
                     StringUtil.parsingPhoneNumber(
                             PhoneNumberUtils.formatNumber(
-                            phoneNumber.replaceAll("-",""), Locale.getDefault().getCountry()
-                    )));
+                                    phoneNumber.replaceAll("-", ""), Locale.getDefault().getCountry()
+                            )));
         }
     }
 
     private void initEmail() {
-        String email = loginInfoDTO.getProfile()!=null ? loginInfoDTO.getProfile().getEmail() : "" ;
+        String email = loginInfoDTO.getProfile() != null ? loginInfoDTO.getProfile().getEmail() : "";
 
-        if(TextUtils.isEmpty(email)){
+        if (TextUtils.isEmpty(email)) {
             ui.etEmlAdr.requestFocus();
-        }else{
+        } else {
             ui.etEmlAdr.setText(email);
         }
     }
 
 
-
-    private void startMapView(){
+    private void startMapView() {
         Bundle bundle = new Bundle();
         bundle.putInt(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.sm_flaw_02_14);
         bundle.putInt(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, R.string.sm_flaw_02_15);
@@ -137,7 +138,7 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
 
     @Override
     public void onClickCommon(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_addr:
             case R.id.l_addr_info:
                 clearKeypad();
@@ -152,38 +153,38 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
         }
     }
 
-    private void clearKeypad(){
-        for(View view : edits){
+    private void clearKeypad() {
+        for (View view : edits) {
             view.clearFocus();
         }
         SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
 
-    private void doNext(){
+    private void doNext() {
         final boolean isValid = isValid();
-        if(isValid){
+        if (isValid) {
             clearKeypad();
             VOCInfoVO vocInfoVO = new VOCInfoVO();
             vocInfoVO.setRdwNmDtlAdr(ui.etAddrDtl.getText().toString().trim());
             vocInfoVO.setRdwNmAdr(ui.tvAddrInfo2.getText().toString() + ui.tvAddrInfo1.getText().toString());
             vocInfoVO.setEmlAdr(ui.etEmlAdr.getText().toString().trim());
-            String phNo = ui.etRegnTn.getText().toString().replaceAll("-","").trim();
-            if(phNo.length()==10){
+            String phNo = ui.etRegnTn.getText().toString().replaceAll("-", "").trim();
+            if (phNo.length() == 10) {
                 //10자일때
-                vocInfoVO.setRegnTn(phNo.substring(0,3));
-                vocInfoVO.setFrtDgtTn(phNo.substring(3,6));
-                vocInfoVO.setRealDgtTn(phNo.substring(6,10));
-            }else{
+                vocInfoVO.setRegnTn(phNo.substring(0, 3));
+                vocInfoVO.setFrtDgtTn(phNo.substring(3, 6));
+                vocInfoVO.setRealDgtTn(phNo.substring(6, 10));
+            } else {
                 //11자일때
-                vocInfoVO.setRegnTn(phNo.substring(0,3));
-                vocInfoVO.setFrtDgtTn(phNo.substring(3,7));
-                vocInfoVO.setRealDgtTn(phNo.substring(7,11));
+                vocInfoVO.setRegnTn(phNo.substring(0, 3));
+                vocInfoVO.setFrtDgtTn(phNo.substring(3, 7));
+                vocInfoVO.setRealDgtTn(phNo.substring(7, 11));
             }
-            vocInfoVO.setCsmrTymd(ui.tvCsmrTymd.getText().toString().replaceAll("\\.",""));
+            vocInfoVO.setCsmrTymd(ui.tvCsmrTymd.getText().toString().replaceAll("\\.", ""));
             vocInfoVO.setCsmrNm(ui.tvCsmrNm.getText().toString());
             startActivitySingleTop(new Intent(this, ServiceRelapseApply2Activity.class).putExtra(KeyNames.KEY_NAME_SERVICE_VOC_INFO_VO, vocInfoVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-        }else{
-            Log.d(ServiceRelapseApply1Activity.class.getSimpleName(),"valid is false");
+        } else {
+            Log.d(ServiceRelapseApply1Activity.class.getSimpleName(), "valid is false");
             //do nothing
         }
     }
@@ -204,11 +205,11 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
     @Override
     public void getDataFromIntent() {
         try {
-            myPosition =(AddressVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_ADDR);
+            myPosition = (AddressVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_ADDR);
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            if(myPosition==null||myPosition.getCenterLat()==0||myPosition.getCenterLon()==0){
+        } finally {
+            if (myPosition == null || myPosition.getCenterLat() == 0 || myPosition.getCenterLon() == 0) {
                 myPosition = new AddressVO();
                 myPosition.setCenterLat(37.463936);
                 myPosition.setCenterLon(127.042953);
@@ -228,9 +229,9 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
 
             if (i == 0)
                 constraintSets[i].clone(ui.container);
-            else if(i==1) {
+            else if (i == 1) {
 
-            }else
+            } else
                 constraintSets[i].clone(this, layouts[i]);
         }
     }
@@ -243,15 +244,15 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
             constraintSets[pos].applyTo(ui.container);
             ui.tvMsg.setText(textMsgId[pos]);
 
-            if (edits[pos-1] instanceof TextInputEditText) {
+            if (edits[pos - 1] instanceof TextInputEditText) {
                 edits[pos].clearFocus();
             }
 
             if (edits[pos] instanceof TextInputEditText) {
-                edits[pos].requestFocus();
+                new Handler().postDelayed(() -> SoftKeyboardUtil.showKeyboard(this) ,1000);
             }
 
-            if(pos==2) {
+            if (pos == 2) {
                 //2020-12-01 화면 전체를 덮는 입력 페이지는 자동 진입 안하도록 수정
 //                startMapView();
             }
@@ -259,19 +260,18 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
     }
 
 
+    private boolean checkValidPhoneNumber() {
+        String celPhoneNo = ui.etRegnTn.getText().toString().replaceAll("-", "").trim();
 
-    private boolean checkValidPhoneNumber(){
-        String celPhoneNo = ui.etRegnTn.getText().toString().replaceAll("-","").trim();
-
-        if(TextUtils.isEmpty(celPhoneNo)){
+        if (TextUtils.isEmpty(celPhoneNo)) {
             ui.etRegnTn.requestFocus();
             ui.lRegnTn.setError(getString(R.string.sm_emgc01_5));
             return false;
-        }else if(!StringRe2j.matches(celPhoneNo, getString(R.string.check_phone_number))){
+        } else if (!StringRe2j.matches(celPhoneNo, getString(R.string.check_phone_number))) {
             ui.etRegnTn.requestFocus();
             ui.lRegnTn.setError(getString(R.string.sm_emgc01_26));
             return false;
-        }else{
+        } else {
             ui.etRegnTn.setText(PhoneNumberUtils.formatNumber(celPhoneNo, Locale.getDefault().getCountry()));
             ui.etRegnTn.setSelection(ui.etRegnTn.length());
             ui.etRegnTn.clearFocus();
@@ -280,17 +280,17 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
         }
     }
 
-    private boolean checkValidEmail(){
+    private boolean checkValidEmail() {
         String email = Objects.requireNonNull(ui.etEmlAdr.getText()).toString().trim();
-        if(TextUtils.isEmpty(email)){
+        if (TextUtils.isEmpty(email)) {
             ui.etEmlAdr.requestFocus();
             ui.lEmlAdr.setError(getString(R.string.sm_flaw_02_13));
             return false;
-        }else if(!StringRe2j.matches(email, getString(R.string.check_email))){
+        } else if (!StringRe2j.matches(email, getString(R.string.check_email))) {
             ui.etEmlAdr.requestFocus();
             ui.lEmlAdr.setError(getString(R.string.sm_flaw_02_11));
             return false;
-        }else{
+        } else {
             ui.etEmlAdr.clearFocus();
             ui.lEmlAdr.setError(null);
             doTransition(2);
@@ -299,13 +299,13 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
     }
 
 
-    private boolean checkValidAddr(){
+    private boolean checkValidAddr() {
         String addr = ui.tvAddrInfo1.getText().toString().trim() + ui.tvAddrInfo2.getText().toString().trim();
-        if(TextUtils.isEmpty(addr)){
+        if (TextUtils.isEmpty(addr)) {
             ui.tvErrorAddr.setVisibility(View.VISIBLE);
             ui.tvErrorAddr.setText(getString(R.string.sm_emgc01_12));
             return false;
-        }else{
+        } else {
             ui.lAddrInfo.setVisibility(View.VISIBLE);
             ui.tvTitleAddr.setVisibility(View.GONE);
             ui.tvAddr.setVisibility(View.GONE);
@@ -315,40 +315,40 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
         }
     }
 
-    private boolean checkValidAddrDtl(){
+    private boolean checkValidAddrDtl() {
         String addrDtl = ui.etAddrDtl.getText().toString().trim();
 
-        if(TextUtils.isEmpty(addrDtl)){
+        if (TextUtils.isEmpty(addrDtl)) {
             ui.etAddrDtl.requestFocus();
             ui.lAddrDtl.setError(getString(R.string.sm_emgc01_15));
             return false;
-        }else{
+        } else {
             ui.lAddrDtl.setError(null);
             return true;
         }
     }
 
-    private boolean isValid(){
-        for(View view : views){
-            if(view.getVisibility()==View.GONE) {
+    private boolean isValid() {
+        for (View view : views) {
+            if (view.getVisibility() == View.GONE) {
                 switch (view.getId()) {
                     case R.id.l_regn_tn:
                         return false;
                     case R.id.l_eml_adr:
-                        return checkValidPhoneNumber()&&false;
+                        return checkValidPhoneNumber() && false;
                     case R.id.l_addr:
-                        return checkValidPhoneNumber()&&checkValidEmail()&&false;
+                        return checkValidPhoneNumber() && checkValidEmail() && false;
                     case R.id.l_addr_dtl:
-                        return checkValidPhoneNumber()&&checkValidEmail()&&checkValidAddr()&&false;
+                        return checkValidPhoneNumber() && checkValidEmail() && checkValidAddr() && false;
                 }
             }
         }
-        return checkValidPhoneNumber()&&checkValidEmail()&&checkValidAddr()&&checkValidAddrDtl();
+        return checkValidPhoneNumber() && checkValidEmail() && checkValidAddr() && checkValidAddrDtl();
     }
 
 
     EditText.OnEditorActionListener editorActionListener = (textView, actionId, keyEvent) -> {
-        if(actionId== EditorInfo.IME_ACTION_DONE){
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
             doNext();
         }
         return false;
@@ -356,7 +356,7 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
 
     EditText.OnFocusChangeListener focusChangeListener = (view, hasFocus) -> {
         if (hasFocus) {
-            SoftKeyboardUtil.showKeyboard(getApplicationContext());
+            SoftKeyboardUtil.showKeyboard(this);
         }
     };
 
@@ -366,11 +366,11 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
     }
 
     @Override
-    public void onBackButton(){
+    public void onBackButton() {
         dialogExit();
     }
 
-    private void dialogExit(){
+    private void dialogExit() {
         List<SubFragment> fragments = getFragments();
         if (fragments != null && fragments.size() > 0) {
             hideFragment(fragments.get(0));
@@ -408,7 +408,7 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
 //    }
 
 
-    public void setAddressInfo(AddressVO addressVO){
+    public void setAddressInfo(AddressVO addressVO) {
         this.addressVO = addressVO;
         String[] addressInfo = getAddress(addressVO);
         ui.tvAddrInfo1.setText(addressInfo[1]);
