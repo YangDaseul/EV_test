@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -80,8 +81,12 @@
                 android:lineSpacingExtra="8dp"
                 android:text="@string/sm_remote01_msg_error_2402_3"
                 android:textSize="16dp"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_service_remote_register_using_time_title"
-                app:layout_constraintTop_toTopOf="@id/tv_service_remote_register_using_time_title" />
+                app:layout_constraintTop_toTopOf="@id/tv_service_remote_register_using_time_title"
+                tools:text="GV80, GV70,\nTHE ALL-NEW GENESIS G80"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
