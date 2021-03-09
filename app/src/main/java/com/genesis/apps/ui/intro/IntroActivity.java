@@ -185,17 +185,33 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
                         @Override
                         public void onSuccess(Object retv) {
                             if (((Boolean) retv)) {
-
-                                checkVehicleCarId();
-
-                                if(!TextUtils.isEmpty(result.data.getPushIdChgYn())&&result.data.getPushIdChgYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES)){
-                                    MiddleDialog.dialogDuplicateLogin(IntroActivity.this, () -> {
-                                        lgnViewModel.reqLGN0004(new LGN_0004.Request(APPIAInfo.INT01.getId()));
-                                    }, goToMain);
-
-                                }else{
-                                    goToMain.run();
+                                String vin="";
+                                String userId="";
+                                String accessToken="";
+                                try{
+                                    vin = lgnViewModel.getDbVehicleRepository().getMainVehicleFromDB().getVin();
+                                    userId = loginInfoDTO.getProfile().getId();
+                                    accessToken = loginInfoDTO.getAccessToken();
+                                }catch (Exception e){
+                                    e.printStackTrace();
                                 }
+                                developersViewModel.checkVehicleCarId(vin, userId, accessToken, new ResultCallback() {
+                                    @Override
+                                    public void onSuccess(Object object) {
+                                        if(!TextUtils.isEmpty(result.data.getPushIdChgYn())&&result.data.getPushIdChgYn().equalsIgnoreCase(VariableType.COMMON_MEANS_YES)){
+                                            MiddleDialog.dialogDuplicateLogin(IntroActivity.this, () -> {
+                                                lgnViewModel.reqLGN0004(new LGN_0004.Request(APPIAInfo.INT01.getId()));
+                                            }, goToMain);
+
+                                        }else{
+                                            goToMain.run();
+                                        }
+                                    }
+                                    @Override
+                                    public void onError(Object e) {
+                                        //사용하지 않음
+                                    }
+                                });
                             } else {
                                 MiddleDialog.dialogNetworkError(IntroActivity.this, () -> finish());
                             }
@@ -250,21 +266,21 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
 
     }
 
-    /**
-     * @brief Developers에 소유 차량에 대한 carId 확인 요청
-     */
-    private void checkVehicleCarId() {
-        try {
-            String vin = lgnViewModel.getDbVehicleRepository().getMainVehicleFromDB().getVin();
-            String userId = loginInfoDTO.getProfile().getId();
-            String accessToken = loginInfoDTO.getAccessToken();
-            if (!TextUtils.isEmpty(accessToken)&&!TextUtils.isEmpty(vin)&&!TextUtils.isEmpty(userId)&&developersViewModel.checkJoinCCS(new CheckJoinCCS.Request(userId, vin))) {
-                developersViewModel.checkCarId(userId, accessToken);
-            }
-        }catch (Exception ignore){
-
-        }
-    }
+//    /**
+//     * @brief Developers에 소유 차량에 대한 carId 확인 요청
+//     */
+//    private void checkVehicleCarId() {
+//        try {
+//            String vin = lgnViewModel.getDbVehicleRepository().getMainVehicleFromDB().getVin();
+//            String userId = loginInfoDTO.getProfile().getId();
+//            String accessToken = loginInfoDTO.getAccessToken();
+//            if (!TextUtils.isEmpty(accessToken)&&!TextUtils.isEmpty(vin)&&!TextUtils.isEmpty(userId)&&developersViewModel.checkJoinCCS(new CheckJoinCCS.Request(userId, vin))) {
+//                developersViewModel.checkCarId(userId, accessToken);
+//            }
+//        }catch (Exception ignore){
+//
+//        }
+//    }
 
     @Override
     public void getDataFromIntent() {

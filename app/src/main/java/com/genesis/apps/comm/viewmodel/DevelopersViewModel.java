@@ -2,12 +2,6 @@ package com.genesis.apps.comm.viewmodel;
 
 import android.text.TextUtils;
 
-import androidx.hilt.Assisted;
-import androidx.hilt.lifecycle.ViewModelInject;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.SavedStateHandle;
-import androidx.lifecycle.ViewModel;
-
 import com.genesis.apps.comm.model.api.developers.Agreements;
 import com.genesis.apps.comm.model.api.developers.CarCheck;
 import com.genesis.apps.comm.model.api.developers.CarConnect;
@@ -29,18 +23,30 @@ import com.genesis.apps.comm.model.repo.DevelopersRepo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.model.vo.developers.CarConnectVO;
 import com.genesis.apps.comm.model.vo.developers.CarVO;
+import com.genesis.apps.comm.model.vo.developers.OdometerVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.QueryString;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
+import com.genesis.apps.room.ResultCallback;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+
+import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
+import androidx.hilt.Assisted;
+import androidx.hilt.lifecycle.ViewModelInject;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
+import androidx.lifecycle.ViewModel;
 import lombok.Data;
 
 import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_OV;
@@ -209,6 +215,23 @@ class DevelopersViewModel extends ViewModel {
         }
     }
 
+    //누적주행거리 get
+    public int getOdometerValue(){
+        int value=0;
+        try {
+            if(getRES_ODOMETER().getValue()!=null&&getRES_ODOMETER().getValue().data!=null&&getRES_ODOMETER().getValue().data.getOdometers()!=null&&getRES_ODOMETER().getValue().data.getOdometers().size()>0){
+                OdometerVO odometerVO = getRES_ODOMETER().getValue().data.getOdometers().stream().max(Comparator.comparingInt(data -> Integer.parseInt(data.getDate()))).orElse(null);
+                if(odometerVO!=null){
+                    value = (int)odometerVO.getValue();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            value=0;
+        }
+        return value;
+    }
+
     public boolean updateCarConnectResult(boolean result, String carId){
         try {
             dbVehicleRepository.updateCarConnect(result, carId);
@@ -216,6 +239,35 @@ class DevelopersViewModel extends ViewModel {
         }catch (Exception e){
             return false;
         }
+    }
+
+    /**
+     * @brief Developers에 소유 차량에 대한 carId 확인 요청
+     */
+    public void checkVehicleCarId(String vin, String userId, String accessToken, ResultCallback callback) {
+        ExecutorService es = new ExecutorService("");
+        Futures.addCallback(es.getListeningExecutorService().submit(() -> {
+            try {
+                if (!TextUtils.isEmpty(accessToken)&&!TextUtils.isEmpty(vin)&&!TextUtils.isEmpty(userId)&&checkJoinCCS(new CheckJoinCCS.Request(userId, vin))) {
+                    checkCarId(userId, accessToken);
+                }
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+            return true;
+        }), new FutureCallback<Boolean>() {
+            @Override
+            public void onSuccess(@NullableDecl Boolean isSuccess) {
+                callback.onSuccess(isSuccess);
+                es.shutDownExcutor();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                callback.onSuccess(true);
+                es.shutDownExcutor();
+            }
+        }, es.getUiThreadExecutor());
     }
 
 
