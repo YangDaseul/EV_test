@@ -125,6 +125,7 @@ public class MyGMembershipActivity extends SubActivity<ActivityMygMembershipBind
                 ui.viewpager.setOffscreenPageLimit(result.data.size());
                 adapter.setRows(result.data);
                 adapter.notifyDataSetChanged();
+                ui.tvStar.setVisibility(adapter.getItemCount()<2 ? View.GONE : View.VISIBLE);
                 //이동효과를 주는데 노티파이체인지와 딜레이없이 콜하면 효과가 중첩되어 사라저서 100ms 후 처리 진행
                 new Handler().postDelayed(() -> ui.viewpager.setCurrentItem(0, true), 100);
             }
