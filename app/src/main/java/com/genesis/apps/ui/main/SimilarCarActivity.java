@@ -144,7 +144,7 @@ public class SimilarCarActivity extends SubActivity<ActivitySimilarCarBinding> {
 
         VehicleVO vehicleVO=null;
         try{
-            vehicleVO = lgnViewModel.getMainVehicleSimplyFromDB();
+            vehicleVO = lgnViewModel.getMainVehicleFromDB();
         }catch (Exception e){
 
         }
