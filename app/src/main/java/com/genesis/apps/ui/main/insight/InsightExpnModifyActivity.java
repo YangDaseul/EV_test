@@ -406,14 +406,19 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
     }
 
     private boolean checkVaildAmt(){
+        int amt;
+        try {
+            amt = Integer.parseInt(ui.etExpnAmt.getText().toString().trim());
+        }catch (Exception e){
+            amt = 0;
+        }
 
-        String amt = ui.etExpnAmt.getText().toString().trim();
-
-        if(TextUtils.isEmpty(amt)){
+        if(amt<1){
             ui.etExpnAmt.requestFocus();
             ui.lExpnAmt.setError(getString(R.string.tm_exps01_01_11));
             return false;
         }else{
+            ui.etExpnAmt.setText(amt+"");
 //            ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(amt.replaceAll(",","")));
             ui.lExpnAmt.setError(null);
             return true;

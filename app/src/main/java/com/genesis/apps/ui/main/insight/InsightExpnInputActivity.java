@@ -358,16 +358,21 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
     }
 
     private boolean checkVaildAmt(){
-        String amt = ui.etExpnAmt.getText().toString().trim();
+        int amt;
+        try {
+            amt = Integer.parseInt(ui.etExpnAmt.getText().toString().trim());
+        }catch (Exception e){
+            amt = 0;
+        }
 
-        if(TextUtils.isEmpty(amt)){
+        if(amt<1){
             ui.etExpnAmt.requestFocus();
             ui.lExpnAmt.setError(getString(R.string.tm_exps01_01_11));
             return false;
         }else{
 //            ui.etExpnAmt.setText(StringUtil.getDigitGroupingString(amt.replaceAll(",","")));
+            ui.etExpnAmt.setText(amt+"");
             ui.lExpnAmt.setError(null);
-
             if(cbkViewModel.isVisibleAccmMilg(expnDivCd)){
                 doTransition(2);
             }else{
