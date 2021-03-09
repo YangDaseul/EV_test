@@ -42,7 +42,7 @@ public class PermissionsActivity extends SubActivity<ActivityPermissionsBinding>
         requiredPermissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
         requiredPermissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
 //        requiredPermissions.add(Manifest.permission.CAMERA);
-        requiredPermissions.add(Manifest.permission.RECORD_AUDIO);
+//        requiredPermissions.add(Manifest.permission.RECORD_AUDIO);
 //        requiredPermissions.add(Manifest.permission.READ_CONTACTS);
 
         if (Build.VERSION_CODES.O <= Build.VERSION.SDK_INT) {
