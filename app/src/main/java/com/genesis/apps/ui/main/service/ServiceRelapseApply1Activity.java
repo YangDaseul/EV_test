@@ -249,7 +249,7 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
             }
 
             if (edits[pos] instanceof TextInputEditText) {
-                new Handler().postDelayed(() -> SoftKeyboardUtil.showKeyboard(this) ,1000);
+                new Handler().postDelayed(() -> SoftKeyboardUtil.showKeyboard(this) ,500);
             }
 
             if (pos == 2) {
