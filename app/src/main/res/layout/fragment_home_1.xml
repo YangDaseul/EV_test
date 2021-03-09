@@ -164,7 +164,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tv_car_code"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="@+id/tv_car_code"
-                tools:text="가솔린 2.5 터보 2WD" />
+                tools:text="" />
 
             <TextView
                 android:id="@+id/tv_car_vrn"
@@ -179,16 +179,49 @@
                 android:textSize="16dp"
                 app:layout_constraintStart_toEndOf="@+id/tv_car_model"
                 app:layout_constraintTop_toTopOf="@+id/tv_car_model"
-                tools:text="129차 2916" />
+                tools:text="129차 2916"
+                />
 
 
             <TextView
                 android:id="@+id/tv_repair_status"
                 style="@style/MainHomeBadgeSOS"
                 android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@+id/tv_car_code"
-                app:layout_constraintTop_toBottomOf="@+id/tv_car_vrn"
+                android:layout_marginStart="10dp"
+                app:layout_goneMarginStart="0dp"
+                app:layout_constraintStart_toEndOf="@+id/tv_car_vrn"
+                app:layout_constraintTop_toTopOf="@+id/tv_car_model"
                 tools:visibility="visible"/>
+
+
+            <include
+                android:id="@+id/btn_location"
+                layout="@layout/item_btn_underline_mark_gold"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:onClick="@{(view)->fragment.onClickCommon(view)}"
+                app:btnNm="@{@string/gm02_5}"
+                app:textColor="@{activity.getColor(WeatherCodes.getTextColorResource(dayCd))}"
+                app:underLineColor="@{dayCd!=2 ? 0 : activity.getColor(WeatherCodes.getTextColorResource(dayCd))}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_repair_status"/>
+
+            <include
+                android:id="@+id/btn_my_car"
+                layout="@layout/item_btn_underline_mark_gold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{(view)->fragment.onClickCommon(view)}"
+                android:visibility="gone"
+                app:btnNm="@{@string/gm02_6}"
+                app:textColor="@{activity.getColor(WeatherCodes.getTextColorResource(dayCd))}"
+                app:underLineColor="@{dayCd!=2 ? 0 : activity.getColor(WeatherCodes.getTextColorResource(dayCd))}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_genesis"/>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -497,7 +530,7 @@
             android:onClick="@{(view)->fragment.onClickCommon(view)}"
             android:scaleType="centerInside"
             android:src="@{dayCd==VariableType.HOME_TIME_DAY ? @drawable/ic_quick_black : @drawable/ic_quick_white}"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/l_car_info"
             tools:src="@drawable/ic_quick_black"/>

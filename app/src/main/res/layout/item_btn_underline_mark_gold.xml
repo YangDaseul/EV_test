@@ -8,9 +8,13 @@
             name="btnNm"
             type="String" />
 
-<!--        <variable-->
-<!--            name="listener"-->
-<!--            type="com.genesis.apps.ui.common.view.listener.OnSingleClickListener" />-->
+        <variable
+            name="textColor"
+            type="int" />
+
+        <variable
+            name="underLineColor"
+            type="int" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,11 +31,13 @@
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="30dp"
             android:maxLines="1"
-            android:textColor="@color/x_000000"
+            android:textColor="@{textColor==0 ? @color/x_000000 : textColor}"
             android:textSize="14dp"
             android:text="@{btnNm}"
             android:paddingBottom="2dp"
-            android:background="@drawable/bg_00000000_underline_000000"
+            android:background="@{underLineColor==0 ? @drawable/bg_00000000_underline_000000 : @drawable/bg_00000000_underline_ffffff }"
+
+
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -44,6 +50,7 @@
             android:src="@drawable/btn_arrow_open_r_g"
             android:layout_marginStart="2dp"
             android:visibility="visible"
+            android:tint="@{textColor==0 ? @color/x_996449 : textColor}"
             app:layout_constraintStart_toEndOf="@+id/btn_nm"
             app:layout_constraintTop_toTopOf="@+id/btn_nm"
             app:layout_constraintBottom_toBottomOf="@+id/btn_nm"/>

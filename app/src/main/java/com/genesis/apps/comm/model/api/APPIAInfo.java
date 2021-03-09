@@ -111,7 +111,7 @@ public enum APPIAInfo {
     GM02("GM02", null, VariableType.QUICK_MENU_CODE_NONE, "메인 1 Home (로그인/예약대기)",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM03("GM03", null, VariableType.QUICK_MENU_CODE_NONE, "메인 1 Home (로그인/차량미보유)",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM04("GM04", null, VariableType.QUICK_MENU_CODE_NONE, "메인 1 Home (비로그인)",VariableType.QUICK_MENU_CATEGORY_NONE),
-    GM01_01("GM01_01", MyLocationActivity.class, VariableType.QUICK_MENU_CODE_OV, "내 차 위치찾기",VariableType.QUICK_MENU_CATEGORY_HOME),
+    GM01_01("GM01_01", MyLocationActivity.class, VariableType.QUICK_MENU_CODE_OV, "내 차 위치",VariableType.QUICK_MENU_CATEGORY_HOME),
     GM01_02("GM01_02", WarrantyRepairGuideActivity.class, VariableType.QUICK_MENU_CODE_OV, "보증 수리 안내",VariableType.QUICK_MENU_CATEGORY_HOME),
     GM01_03("GM01_03", null, VariableType.QUICK_MENU_CODE_NONE, "공유 미리보기",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM01_04("GM01_04", null, VariableType.QUICK_MENU_CODE_NONE, "데이터마일스 상세",VariableType.QUICK_MENU_CATEGORY_NONE),
