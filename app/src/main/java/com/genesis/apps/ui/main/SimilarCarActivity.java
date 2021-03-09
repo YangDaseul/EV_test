@@ -13,7 +13,9 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.STO_1001;
 import com.genesis.apps.comm.model.vo.SimilarVehicleVO;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivitySimilarCarBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -29,17 +31,16 @@ import java.util.Locale;
 public class SimilarCarActivity extends SubActivity<ActivitySimilarCarBinding> {
     private LGNViewModel lgnViewModel;
     private SimilarCarAdapter adapter;
-
+    private String ctrctNo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_similar_car);
-        getDataFromIntent();
         setViewModel();
+        getDataFromIntent();
         setObserver();
         initView();
-
-        lgnViewModel.reqSTO1001(new STO_1001.Request(APPIAInfo.GM02_INV01.getId()));
+        lgnViewModel.reqSTO1001(new STO_1001.Request(APPIAInfo.GM02_INV01.getId(), ctrctNo));
     }
 
     private void initView() {
@@ -140,6 +141,17 @@ public class SimilarCarActivity extends SubActivity<ActivitySimilarCarBinding> {
 
     @Override
     public void getDataFromIntent() {
+
+        VehicleVO vehicleVO=null;
+        try{
+            vehicleVO = lgnViewModel.getMainVehicleSimplyFromDB();
+        }catch (Exception e){
+
+        }
+
+        if(vehicleVO!=null){
+            ctrctNo = StringUtil.isValidString(vehicleVO.getCtrctNo());
+        }
 
     }
 }

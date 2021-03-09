@@ -26,7 +26,12 @@ public class STO_1001 extends BaseData {
     public @Data
     static
     class Request extends BaseRequest {
-        public Request(String menuId){
+        @Expose
+        @SerializedName("ctrctNo")
+        private String ctrctNo;
+
+        public Request(String menuId, String ctrctNo){
+            this.ctrctNo = ctrctNo;
             setData(APIInfo.GRA_STO_1001.getIfCd(), menuId);
         }
     }
