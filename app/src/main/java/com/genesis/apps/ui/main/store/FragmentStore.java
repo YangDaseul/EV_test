@@ -228,6 +228,7 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
                 if(clearWindowOpens3()) {
                     return true;
                 }else {
+                    fragment.getWebView().clearHistory();
                     return back(fragment.getUrl());
                 }
             }

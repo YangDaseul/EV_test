@@ -217,6 +217,7 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
                 if(clearWindowOpens3()) {
                     return true;
                 }else {
+                    fragment.getWebView().clearHistory();
                     return back(fragment.getUrl());
                 }
             }

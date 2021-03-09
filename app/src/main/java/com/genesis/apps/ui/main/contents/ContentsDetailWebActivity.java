@@ -324,6 +324,7 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
                 if(clearWindowOpens3()) {
                     return true;
                 }else {
+                    fragment.getWebView().clearHistory();
                     return back(fragment.getUrl());
                 }
             }

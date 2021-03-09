@@ -159,6 +159,7 @@ public class GAWebActivity extends WebviewActivity {
                 if(clearWindowOpens3()) {
                     return true;
                 }else {
+                    fragment.getWebView().clearHistory();
                     return back(fragment.getUrl());
                 }
             }
