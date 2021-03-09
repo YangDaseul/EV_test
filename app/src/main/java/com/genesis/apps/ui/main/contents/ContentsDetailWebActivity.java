@@ -287,7 +287,7 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
 
         try {
             if(!VariableType.MAIN_VEHICLE_TYPE_0000.equals(lgnViewModel.getUserInfoFromDB().getCustGbCd())) {
-                ui.llEvaluation.setVisibility(View.VISIBLE);
+//                ui.llEvaluation.setVisibility(View.VISIBLE);
                 if("Y".equals(contentsVO.getEvalYn())) {
                     ui.tvRateContent.setText(DeviceUtil.fromHtml(contentsVO.getEvalQst()));
                 }
