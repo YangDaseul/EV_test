@@ -19,7 +19,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
-            tools:src="@drawable/ic_tabbar_home_on" />
+            tools:src="@drawable/ic_tabbar_home_w" />
 
 
         <TextView
