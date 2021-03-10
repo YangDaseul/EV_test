@@ -325,7 +325,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
     @Override
     public void setObserver() {
 
-        //렌트 리스 신청하기 결과
+        //렌트 리스 신청 대상 확인 결과
         gnsViewModel.getRES_GNS_1006().observe(this, result -> {
             switch (result.status) {
                 case LOADING:
@@ -333,6 +333,7 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                     break;
 
                 case SUCCESS:
+                    showProgressDialog(false);
                     if (result.data != null && result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)) {
                         reqUploadImageCnt();
                         break;
@@ -354,10 +355,11 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
             }
         });
 
-        //렌트 리스 재직증명서 등록 결과
+        //렌트 리스 재직증명서 등록 결과 (결과에 성관없이 무조건 내역으,로 이도ㅓㅇ)
         gnsViewModel.getRES_GNS_1009().observe(this, result -> {
             switch (result.status) {
                 case LOADING:
+                    showProgressDialog(true);
                     break;
                 case SUCCESS:
                 default:
@@ -371,16 +373,32 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
         gnsViewModel.getRES_GNS_1008().observe(this, result -> {
             switch (result.status) {
                 case LOADING:
+                    showProgressDialog(true);
                     break;
                 case SUCCESS:
+                    showProgressDialog(false);
+                    if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)) {
+                        if (empCertImagPath==null) {
+                            //추가 증빙 서류가 없을 경우
+                            moveToHist();
+                        } else {
+                            //법인 : 재직증명서, 개인 : 추가 증빙 서류가 있을 경우
+                            reqUploadImageCert();
+                        }
+                        break;
+                    }
                 default:
                     showProgressDialog(false);
-                    if (empCertImagPath==null) {
-                        //추가 증빙 서류가 없을 경우
-                        moveToHist();
-                    } else {
-                        //법인 : 재직증명서, 개인 : 추가 증빙 서류가 있을 경우
-                        reqUploadImageCert();
+                    String serverMsg = "";
+                    try {
+                        if (result.data != null)
+                            serverMsg = Objects.requireNonNull(result.data.getRtMsg(), getString(R.string.r_flaw06_p02_snackbar_1));
+                        else
+                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(this, serverMsg);
                     }
                     break;
             }
