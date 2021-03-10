@@ -106,24 +106,22 @@ public class SearchAddressActivity extends SubActivity<ActivitySearchAddressBind
                 case LOADING:
                     showProgressDialog(true);
                     break;
-
-
                 case SUCCESS:
                     showProgressDialog(false);
                     if(result.data!=null&&result.data.getZipList()!=null&&result.data.getZipList().size()>0){
-                        int itemSizeBefore = adapter.getItemCount();
                         if (adapter.getPageNo() == 0) {
                             adapter.setRows(result.data.getZipList());
                         } else {
                             adapter.addRows(result.data.getZipList());
                         }
                         adapter.setPageNo(adapter.getPageNo() + 1);
-                        adapter.notifyItemRangeInserted(itemSizeBefore, adapter.getItemCount());
-
+                        adapter.notifyDataSetChanged();
                     }
                 default:
                     showProgressDialog(false);
-                    if (adapter != null && adapter.getItemCount() < 1) {
+                    if ((adapter != null && adapter.getItemCount() < 1) || adapter.getPageNo()==0) {
+                        if(adapter!=null) adapter.clear();
+
                         ui.lSearchParent.tvEmpty.setVisibility(View.VISIBLE);
                     } else {
                         ui.lSearchParent.tvEmpty.setVisibility(View.GONE);
@@ -159,6 +157,9 @@ public class SearchAddressActivity extends SubActivity<ActivitySearchAddressBind
 
     EditText.OnEditorActionListener editorActionListener = (textView, actionId, keyEvent) -> {
         if(actionId== EditorInfo.IME_ACTION_SEARCH){
+            if(adapter!=null){
+                adapter.setPageNo(0);
+            }
             searchAddress();
         }
         return false;
