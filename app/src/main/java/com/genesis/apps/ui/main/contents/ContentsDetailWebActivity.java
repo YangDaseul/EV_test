@@ -205,6 +205,10 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
                     }
 
                     break;
+                case ERROR:
+                    fragment.loadUrl("javascript:setSsoInfo('');");
+
+                    break;
             }
         });
     }
