@@ -65,11 +65,10 @@ public class ContentsAdapter extends BaseRecyclerViewAdapter2<ContentsVO> {
                     .with(getContext())
                     .asBitmap()
                     .load(item.getTtImgUri())
-                    .format(DecodeFormat.PREFER_RGB_565)
+                    .format(DecodeFormat.PREFER_ARGB_8888)
 //                    .error(getDefaultImg(pos)) //todo 정의 필요
 //                    .placeholder(getDefaultImg(pos)) //todo 정의 필요
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .override(600, 840)
                     .into(getBinding().ivImage);
 
             getBinding().ivImage.setTag(R.id.item, item);
