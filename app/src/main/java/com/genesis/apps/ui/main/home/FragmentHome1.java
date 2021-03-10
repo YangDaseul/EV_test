@@ -34,7 +34,6 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.constants.WeatherCodes;
 import com.genesis.apps.comm.model.vo.DownMenuVO;
 import com.genesis.apps.comm.model.vo.MessageVO;
-import com.genesis.apps.comm.model.vo.QuickMenuVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.model.vo.developers.CarConnectVO;
 import com.genesis.apps.comm.model.vo.developers.OdometerVO;
@@ -120,7 +119,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         super.onActivityCreated(savedInstanceState);
         initViewModel();
         initView();
-        setViewWeather();
         recordUtil.regReceiver();
     }
 
@@ -452,6 +450,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 ((MainActivity) getActivity()).showProgressDialog(false);
                 if (location == null) {
                     Log.v("location", "location null");
+                    lgnViewModel.setPosition(37.463936, 127.042953);
                     return;
                 }
 
@@ -459,7 +458,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     lgnViewModel.setPosition(location.getLatitude(), location.getLongitude());
                 });
             } catch (Exception e) {
-
+                lgnViewModel.setPosition(37.463936, 127.042953);
             }
         }, 5000, GpsBaseActivity.GpsRetType.GPS_RETURN_FIRST, false);
     }
@@ -542,8 +541,13 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     public void onRefresh() {
         if (isRecord)
             return;
-        SubActivity.setStatusBarColor(getActivity(), dayCd == 1 ? R.color.x_ffffff : R.color.x_000000);
 
+        if (!isInit)
+            startTimer();
+        else
+            setViewWeather();
+
+        SubActivity.setStatusBarColor(getActivity(), dayCd == 1 ? R.color.x_ffffff : R.color.x_000000);
         resumeAndPauseLottie(true);
         videoPauseAndResume(true);
         setViewVehicle();
@@ -554,7 +558,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         } catch (Exception e) {
 
         }
-        if (!isInit) startTimer();
     }
 
     private void startTimer() {
