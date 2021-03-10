@@ -141,12 +141,12 @@
     <string name="pop03_1">안내</string>
     <string name="pop03_2">기존에 Push 메시지를 받으시는\n스마트폰이 존재합니다.\n\n변경하시겠습니까?</string>
 
-
-
     <string name="sm_drv01_p04_1">종료 안내</string>
     <string name="sm_drv01_p04_2">아직 대리운전 신청이\n완료되지 않았습니다.\n\n신청을 종료하시겠습니까?</string>
 
-
+    <string name="mg_con02_p02_1">연동 안내</string>
+    <string name="mg_con02_p02_2">과거에 주유포인트를 연동한\n기록이 있습니다.\n\n다시 연동하시겠습니까?</string>
+    <string name="mg_con02_p02_3">연동 해지 후의 주유 이력은 가지고 올 수 없습니다.</string>
 
 
 </resources>

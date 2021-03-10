@@ -20,6 +20,7 @@ import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.OILViewModel;
 import com.genesis.apps.databinding.ActivityMygOilIntegrationBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_JOIN_CODE_R;
@@ -50,10 +51,14 @@ public class MyGOilIntegrationActivity extends SubActivity<ActivityMygOilIntegra
     public void onClickCommon(View v) {
         switch (v.getId()) {
             case R.id.btn_integration:
-                if (TextUtils.isEmpty(rgstYn) || !rgstYn.equalsIgnoreCase(OIL_JOIN_CODE_R))
+                if (TextUtils.isEmpty(rgstYn) || !rgstYn.equalsIgnoreCase(OIL_JOIN_CODE_R)) {
                     startActivitySingleTop(new Intent(this, MyGOilTermActivity.class).putExtra(OilCodes.KEY_OIL_CODE, oilRfnCd), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                else
-                    oilViewModel.reqOIL0005(new OIL_0005.Request(APPIAInfo.MG01.getId(), StringUtil.isValidString(oilRfnCd)));
+                } else{
+                    MiddleDialog.dialogOilReConnectInfo(this,
+                            () -> oilViewModel.reqOIL0005(new OIL_0005.Request(APPIAInfo.MG01.getId(), StringUtil.isValidString(oilRfnCd))),
+                            () -> {}
+                            );
+                }
                 break;
         }
     }
