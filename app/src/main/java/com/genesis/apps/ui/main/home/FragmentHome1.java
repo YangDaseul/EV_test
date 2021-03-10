@@ -103,7 +103,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     private int rawLottie = 0;
     private int dayCd = 1;
     private boolean isInit = true; //최초 로딩 완료의 기준은 LGN-0005. LGN-0005(날씨정보요청)에 의해서 기본적인 뷰 표시가 결정됨
-
+    private WeatherCodes weatherCodes = WeatherCodes.SKY1;;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return super.setContentView(inflater, R.layout.fragment_home_1);
@@ -120,6 +120,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         initViewModel();
         initView();
         recordUtil.regReceiver();
+        setVideo(false);
     }
 
     private void initViewModel() {
@@ -137,7 +138,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         if (!TextUtils.isEmpty(result.data.getVirtRecptNo())) {
                             me.tvRepairStatus.setVisibility(View.VISIBLE);
                             Paris.style(me.tvRepairStatus).apply(R.style.MainHomeBadgeSOS);
-                        }  else {
+                        } else {
                             me.tvRepairStatus.setVisibility(View.INVISIBLE);
                         }
 
@@ -166,8 +167,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 default:
                     ((MainActivity) getActivity()).showProgressDialog(false);
 
-                    //날씨 정보 요청 전문에서는 에러가 발생되어도 기본 값으로 표시
-                    WeatherCodes weatherCodes = WeatherCodes.SKY1;
                     String sigungu = "";
                     String t1h = "";
 
@@ -181,6 +180,10 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                             weatherCodes = WeatherCodes.SKY1;
                         }
                     }
+
+                    //날씨 정보 요청 전문에서는 에러가 발생되어도 기본 값으로 표시
+                    if(weatherCodes==null)
+                        weatherCodes = WeatherCodes.SKY1;
 
                     SubActivity.setStatusBarColor(getActivity(), dayCd == 1 ? R.color.x_ffffff : R.color.x_000000);
                     ((MainActivity) getActivity()).setTab(dayCd);
@@ -212,13 +215,15 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     try {
                         rawBackground = WeatherCodes.getBackgroundResource(weatherCodes, dayCd);
                         rawLottie = WeatherCodes.getEffectResource(weatherCodes);
-                        setVideo(false);
+                        SubActivity.setStatusBarColor(getActivity(), dayCd == 1 ? R.color.x_ffffff : R.color.x_000000);
+                        ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == 1);
                         videoPauseAndResume(true);
                         resumeAndPauseLottie(true);
                         startTimer();
                         setViewCarImg();
-
-
+                        setViewVehicle();
+                        goneQuickMenu();
+                        setIndicator(lgnViewModel.getMainVehicleFromDB().getCustGbCd());
                     } catch (Exception e) {
 
                     }
@@ -487,10 +492,19 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 }
                 break;
             case R.id.btn_location:
-                moveToNativePage(KEY_NAME_INTERNAL_LINK+ GM01_01.getId());
+                moveToNativePage(KEY_NAME_INTERNAL_LINK + GM01_01.getId());
                 break;
             case R.id.btn_my_car:
-                moveToNativePage(KEY_NAME_INTERNAL_LINK+ GM_CARLST01.getId());
+            case R.id.iv_car:
+                String userCustGbCd = "";
+                try {
+                    userCustGbCd = lgnViewModel.getDbUserRepo().getUserVO().getCustGbCd();
+                    if (StringUtil.isValidString(userCustGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV) || StringUtil.isValidString(userCustGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_CV)) {
+                        moveToNativePage(KEY_NAME_INTERNAL_LINK + GM_CARLST01.getId());
+                    }
+                } catch (Exception e) {
+
+                }
                 break;
 //            case R.id.btn_share:
 //                recordUtil.checkRecordPermission();
@@ -542,22 +556,38 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         if (isRecord)
             return;
 
-        if (!isInit)
-            startTimer();
-        else
-            setViewWeather();
+        if(isInit)
+            setVideo(true);
 
-        SubActivity.setStatusBarColor(getActivity(), dayCd == 1 ? R.color.x_ffffff : R.color.x_000000);
-        resumeAndPauseLottie(true);
-        videoPauseAndResume(true);
-        setViewVehicle();
-        ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == 1);
-        goneQuickMenu();
-        try {
-            setIndicator(lgnViewModel.getMainVehicleFromDB().getCustGbCd());
-        } catch (Exception e) {
 
-        }
+        setViewWeather();
+
+
+
+
+
+
+
+
+//        if (isRecord)
+//            return;
+//
+//        if (!isInit)
+//            startTimer();
+//        else
+//            setViewWeather();
+//
+//        SubActivity.setStatusBarColor(getActivity(), dayCd == 1 ? R.color.x_ffffff : R.color.x_000000);
+//        resumeAndPauseLottie(true);
+//        videoPauseAndResume(true);
+//        setViewVehicle();
+//        ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == 1);
+//        goneQuickMenu();
+//        try {
+//            setIndicator(lgnViewModel.getMainVehicleFromDB().getCustGbCd());
+//        } catch (Exception e) {
+//
+//        }
     }
 
     private void startTimer() {
@@ -603,9 +633,9 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 //2021-02-19 요건으로 제거됨
 //                me.tvCarModel.setText(StringUtil.isValidString(vehicleVO.getSaleMdlNm()).replace(StringUtil.isValidString(vehicleVO.getMdlNm()), ""));
 
-                if(TextUtils.isEmpty(vehicleVO.getCarRgstNo())){
+                if (TextUtils.isEmpty(vehicleVO.getCarRgstNo())) {
                     me.tvCarVrn.setVisibility(View.GONE);
-                }else{
+                } else {
                     me.tvCarVrn.setVisibility(View.VISIBLE);
                     me.tvCarVrn.setText(vehicleVO.getCarRgstNo());
                 }
