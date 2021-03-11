@@ -18,7 +18,7 @@
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/x_ffffff">
+        android:background="@color/x_f8f8f8">
 
         <include
             android:id="@+id/l_title"
@@ -39,7 +39,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/x_ffffff">
 
                 <ImageView
                     android:id="@+id/iv_ci"
@@ -201,7 +202,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
-                    android:background="@drawable/bg_f8f8f8_stroke_e5e5e5"
+                    android:background="@drawable/bg_f8f8f8_topline_e5e5e5"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
                     android:paddingBottom="50dp"
