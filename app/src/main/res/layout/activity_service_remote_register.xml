@@ -238,7 +238,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
-            android:background="@color/x_111111"
+            android:background="@drawable/ripple_bg_111111"
             android:gravity="center"
             android:onClick="@{(view) -> activity.onClickCommon(view)}"
             android:stateListAnimator="@null"
