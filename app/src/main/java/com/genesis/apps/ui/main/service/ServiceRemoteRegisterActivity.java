@@ -23,6 +23,7 @@ import com.genesis.apps.comm.model.api.gra.SOS_1004;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringRe2j;
 import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.RMTViewModel;
@@ -662,25 +663,38 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
 //            }
             case INPUT_CAR_NUM: {
                 ui.lServiceRemoteStep2.setVisibility(View.VISIBLE);
-                ui.etServiceRemoteStep2.requestFocus();
+                if(TextUtils.isEmpty(ui.etServiceRemoteStep2.getText().toString())){
+                    ui.etServiceRemoteStep2.requestFocus();
+                    SoftKeyboardUtil.showKeyboard(this);
+                }else{
+                    ui.etServiceRemoteStep2.clearFocus();
+                }
                 break;
             }
             case SERVICE_TYPE: {
+                clearKeypad();
                 ui.lServiceRemoteStep3.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);
-                ui.lServiceRemoteStep3.lServiceRemoteRegisterStepContainer.performClick();
+                showSelectFltCd();
                 break;
             }
             case SERVICE_TIME: {
+                clearKeypad();
                 ui.lServiceRemoteStep4.lServiceRemoteRegisterStepContainer.setVisibility(View.VISIBLE);
                 ui.lServiceRemoteStep4.lServiceRemoteRegisterStepContainer.performClick();
                 break;
             }
             case COMPLETE: {
+                clearKeypad();
                 break;
             }
         }
 
         showStepGuide(step.guideResId);
+    }
+
+    private void clearKeypad() {
+        ui.etServiceRemoteStep2.clearFocus();
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
 
     /**
@@ -726,7 +740,6 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
             // 차량 번호 조회시 null 가능성이 있어 해당 Exception 발생시 입력이 안된 것으로 판단.
             isEmptyCarNum = true;
         }
-
         ui.lServiceRemoteStep2.setError(isEmptyCarNum ? getString(R.string.sm_remote01_input_car_number) : null);
         ui.etServiceRemoteStep2.setSelected(isEmptyCarNum);
 

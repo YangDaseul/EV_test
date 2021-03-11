@@ -39,7 +39,7 @@
     <string name="sm_remote01_wrn_lght_code_3700">충전 경고등</string>
 
     <!--원격진단-->
-    <string name="sm_remote01_list_title">원격진단 신청내역</string>
+    <string name="sm_remote01_list_title">원격 진단 신청 내역</string>
     <string name="sm_remote01_dialog_title_error">원격진단 신청 불가</string>
     <string name="sm_remote01_service_time">상담 시간</string>
     <string name="sm_remote01_service_time_guide">상담 시간을\n선택해 주세요.</string>
