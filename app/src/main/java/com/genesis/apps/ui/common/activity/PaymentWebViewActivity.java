@@ -51,6 +51,11 @@ public class PaymentWebViewActivity extends WebviewActivity {
     }
 
     @Override
+    public void onBackButton() {
+        exit(ResultCodes.REQ_CODE_PAYMENT_CANCEL.getCode());
+    }
+
+    @Override
     public void getDataFromIntent(){
         super.getDataFromIntent();
 //        Intent intent = getIntent();
