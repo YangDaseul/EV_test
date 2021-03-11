@@ -129,6 +129,7 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
             }
         } catch (Exception e) {
             e.printStackTrace();
+            me.lServiceMaintenanceHistoryBtn.tvMovingNow.setVisibility(View.GONE);
         }
     }
 
