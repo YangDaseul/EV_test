@@ -65,6 +65,7 @@
     <string name="gm02_ctr02_21">출고완료</string>
     <string name="gm02_ctr02_22">인도중</string>
     <string name="gm02_ctr02_23">인도완료</string>
+    <string name="gm02_ctr02_24">카마스터에게 계약상태 및 유사재고 관련 문의는 업무 시간(08:30 - 17:30)에 가능합니다.</string>
 
     <string name="gm02_ctr03_1">차량 가격 정보 상세</string>
     <string name="gm02_ctr03_2">차량 상품금액</string>

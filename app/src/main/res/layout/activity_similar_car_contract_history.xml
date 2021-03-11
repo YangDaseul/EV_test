@@ -160,6 +160,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
+                        android:visibility="@{TextUtils.isEmpty(data.saleMdlOptNm) ? View.GONE : View.VISIBLE}"
                         app:isLeft="@{true}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -343,6 +344,38 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_info_1" />
 
 
+                <TextView
+                    android:id="@+id/tv_mark_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:drawableStart="@drawable/mark_666666"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="6dp"
+                    android:textColor="@color/x_666666"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_info_3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_info_3" />
+
+                <TextView
+                    android:id="@+id/tv_info_3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="6dp"
+                    android:text="@string/gm02_ctr02_24"
+                    android:textColor="@color/x_666666"
+                    android:textSize="14dp"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_mark_3"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_2" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
@@ -355,6 +388,7 @@
             android:layout_marginEnd="20dp"
             android:text="@string/dialog_common_8"
             android:onClick="@{(view)->activity.onClickCommon(view)}"
+            android:visibility="@{activity.isCelPhNo(data.getEeHpTn()) ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>

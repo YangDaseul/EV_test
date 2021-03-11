@@ -10,10 +10,14 @@ import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.SimilarVehicleVO;
+import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.databinding.ItemSimilarCarBinding;
 import com.genesis.apps.databinding.ItemSimilarCarHeaderBinding;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
+
+import java.util.Calendar;
+import java.util.Locale;
 
 
 public class SimilarCarAdapter extends BaseRecyclerViewAdapter2<SimilarVehicleVO> {
@@ -25,12 +29,24 @@ public class SimilarCarAdapter extends BaseRecyclerViewAdapter2<SimilarVehicleVO
         SimilarCarAdapter.onClickListener = onClickListener;
     }
 
+    private boolean isCelPhNo(){
+        if(!TextUtils.isEmpty(((SimilarVehicleVO)getItem(0)).getCelphNo())){
+            int HHmm = Integer.parseInt(DateUtil.getDate(Calendar.getInstance(Locale.getDefault()).getTime(), DateUtil.DATE_FORMAT_HHmm));
+            if(HHmm < 830 || HHmm > 1730){
+                ((SimilarVehicleVO)getItem(0)).setCelphNo("");
+            }else{
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(viewType==HEADER)
             return new ItemSimilarCarHeader(getView(parent, R.layout.item_similar_car_header), getItemCount());
         else
-            return new ItemSimilarCar(getView(parent, R.layout.item_similar_car), !TextUtils.isEmpty(((SimilarVehicleVO)getItem(0)).getCelphNo()));
+            return new ItemSimilarCar(getView(parent, R.layout.item_similar_car), isCelPhNo());
     }
 
     @Override

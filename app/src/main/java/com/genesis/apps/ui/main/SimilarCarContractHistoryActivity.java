@@ -16,10 +16,15 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivitySimilarCarContractHistoryBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+
+import java.util.Calendar;
+import java.util.Locale;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
@@ -67,6 +72,32 @@ public class SimilarCarContractHistoryActivity extends SubActivity<ActivitySimil
 
     }
 
+    public boolean isCelPhNo(String celPhNo){
+        if(!TextUtils.isEmpty(celPhNo)){
+            int HHmm = Integer.parseInt(DateUtil.getDate(Calendar.getInstance(Locale.getDefault()).getTime(), DateUtil.DATE_FORMAT_HHmm));
+            if(HHmm < 830 || HHmm > 1730){
+
+            }else{
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    private void setViewCelPhNo(String celPhNo){
+        if(!TextUtils.isEmpty(celPhNo)){
+            int HHmm = Integer.parseInt(DateUtil.getDate(Calendar.getInstance(Locale.getDefault()).getTime(), DateUtil.DATE_FORMAT_HHmm));
+            if(HHmm < 830 || HHmm > 1730){
+            }else{
+                ui.btnCall.setVisibility(View.VISIBLE);
+                return;
+            }
+        }
+
+        ui.btnCall.setVisibility(View.GONE);
+    }
+
     @Override
     public void setViewModel() {
         ui.setLifecycleOwner(this);
@@ -85,6 +116,7 @@ public class SimilarCarContractHistoryActivity extends SubActivity<ActivitySimil
                     if (result.data != null && result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)) {
                         showProgressDialog(false);
                         ui.setData(result.data);
+                        setViewCelPhNo(StringUtil.isValidString(result.data.getEeHpTn()));
                         break;
                     }
                 default:
