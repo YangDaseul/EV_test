@@ -508,8 +508,10 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             case R.id.btn_location:
                 moveToNativePage(KEY_NAME_INTERNAL_LINK + GM01_01.getId());
                 break;
-            case R.id.btn_my_car:
             case R.id.iv_car:
+                //2021-03-11요건 변경으로 임시 제거
+                break;
+            case R.id.btn_my_car:
                 try {
                     userCustGbCd = lgnViewModel.getDbUserRepo().getUserVO().getCustGbCd();
                     if (StringUtil.isValidString(userCustGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV) || StringUtil.isValidString(userCustGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_CV)) {
