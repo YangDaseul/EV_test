@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.util.SnackBarUtil;
 
 import java.util.Calendar;
 import java.util.List;
@@ -64,7 +65,12 @@ public class ServiceRemoteTimeGridAdapter extends RecyclerView.Adapter<ServiceRe
             holder.tvTime.setTag(item);
             holder.tvTime.setOnClickListener(this);
         } else {
-            holder.tvTime.setOnClickListener(null);
+            //선택 불가능한 시간에 클릭 시 스낵바 안내 필요
+            //임의로 enable 해제 및 색상 변경처리 진행
+            holder.tvTime.setEnabled(true);
+            holder.tvTime.setBackgroundResource(R.drawable.bg_ffffff_stroke_cccccc);
+            holder.tvTime.setTextColor(holder.tvTime.getContext().getColor(R.color.x_cccccc));
+            holder.tvTime.setOnClickListener(view -> SnackBarUtil.show(holder.tvTime.getContext(), "선택하신 시간에 원격진단 상담이 어렵습니다.\n상담이 가능한 다른 시간을 선택해 주세요."));
         }
     }
 
