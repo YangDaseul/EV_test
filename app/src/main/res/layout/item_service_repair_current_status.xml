@@ -48,7 +48,7 @@
             android:text="@{Html.fromHtml(@string/sm_r_rsv05_43(adapter.getStusName(data.stusCd)), Html.FROM_HTML_MODE_COMPACT)   }"
             android:textColor="@color/x_996449"
             android:textSize="22dp"
-            android:visibility="@{TextUtils.isEmpty(data.stusCd) || data.stusCd.equalsIgnoreCase(`0000`) ? View.GONE : View.VISIBLE}"
+            android:visibility="@{TextUtils.isEmpty(data.stusCd) || data.stusCd.equalsIgnoreCase(`0000`) || data.stusCd.equalsIgnoreCase(`6800`) || data.stusCd.equalsIgnoreCase(`7800`) || data.stusCd.equalsIgnoreCase(`8800`) || data.stusCd.equalsIgnoreCase(`9800`) ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -59,8 +59,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:visibility="@{ (data==null || TextUtils.isEmpty(data.asnCd) || data.stusCd.equalsIgnoreCase(``)) ? View.GONE : View.VISIBLE}"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="@{ (data==null || TextUtils.isEmpty(data.asnCd) || data.stusCd.equalsIgnoreCase(``)) ? View.GONE : View.VISIBLE}"            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_stus_cd">
 
