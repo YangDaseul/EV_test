@@ -1,7 +1,9 @@
 package com.genesis.apps.ui.myg.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,6 +16,7 @@ import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ViewOilBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.view.listener.OnItemClickListener;
 import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
 import com.genesis.apps.ui.myg.MyGOilIntegrationActivity;
@@ -178,10 +181,22 @@ public class OilView {
 
         for (int i = 0; i < list.size(); i++) {
             if (rfnCd.equalsIgnoreCase(list.get(i).getOilRfnCd())) {
-                ((BaseActivity) context).startActivitySingleTop(new Intent(context, MyGOilIntegrationActivity.class)
-                                .putExtra(OilCodes.KEY_OIL_CODE, rfnCd)
-                                .putExtra(OilCodes.KEY_OIL_RGSTYN, StringUtil.isValidString(list.get(i).getRgstYn()))
-                        , RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                if(TextUtils.isEmpty(list.get(i).getErrMsg())) {
+
+                    ((BaseActivity) context).startActivitySingleTop(new Intent(context, MyGOilIntegrationActivity.class)
+                                    .putExtra(OilCodes.KEY_OIL_CODE, rfnCd)
+                                    .putExtra(OilCodes.KEY_OIL_RGSTYN, StringUtil.isValidString(list.get(i).getRgstYn()))
+                            , RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+
+                }else{
+                    try {
+                        if (((Activity) ui.getRoot().getContext() != null)) {
+                            MiddleDialog.dialogOilReject(((Activity) ui.getRoot().getContext()), list.get(i).getErrMsg(), null);
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
 
 //                switch (list.get(i).getRgstYn()) {
 //                    case OilPointVO.OIL_JOIN_CODE_R:

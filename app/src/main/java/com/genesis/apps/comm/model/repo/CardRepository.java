@@ -171,7 +171,7 @@ public class CardRepository {
             //제네시스 멤버스 카드가 없으면
             if(membersCardCnt==0){
                 //임의로 추가
-                list.add(0, new CardVO(OilPointVO.OIL_CODE_BLUE,"","","","","","","N",0,false));
+                list.add(0, new CardVO(OilPointVO.OIL_CODE_BLUE,"","","","","","","N","",0,false));
             }
 
 

@@ -92,6 +92,9 @@ class CardVO extends BaseData {
     @Expose
     @SerializedName("rgstYn")
     private String rgstYn;
+    @Expose
+    @SerializedName("errMsg")
+    private String errMsg;
 
     private int orderNumber=9999;
 

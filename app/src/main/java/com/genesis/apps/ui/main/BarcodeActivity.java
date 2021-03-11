@@ -29,6 +29,7 @@ import com.genesis.apps.comm.util.VibratorUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.databinding.ActivityBarcodeBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.view.ItemMoveCallback;
 import com.genesis.apps.ui.main.insight.InsightExpnMembershipActivity;
 import com.genesis.apps.ui.myg.MyGOilIntegrationActivity;
@@ -158,9 +159,13 @@ public class BarcodeActivity extends SubActivity<ActivityBarcodeBinding> {
             case R.id.tv_integration:
                 CardVO item = (CardVO) v.getTag(R.id.item);
                 if (item != null) {
-                    startActivitySingleTop(new Intent(this, MyGOilIntegrationActivity.class)
-                            .putExtra(OilCodes.KEY_OIL_CODE, StringUtil.isValidString(item.getIsncCd()))
-                            .putExtra(OilCodes.KEY_OIL_RGSTYN, StringUtil.isValidString(item.getRgstYn())), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    if (TextUtils.isEmpty(item.getErrMsg())) {
+                        startActivitySingleTop(new Intent(this, MyGOilIntegrationActivity.class)
+                                .putExtra(OilCodes.KEY_OIL_CODE, StringUtil.isValidString(item.getIsncCd()))
+                                .putExtra(OilCodes.KEY_OIL_RGSTYN, StringUtil.isValidString(item.getRgstYn())), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    } else {
+                        MiddleDialog.dialogOilReject(this, item.getErrMsg(), null);
+                    }
                 }
                 break;
             case R.id.tv_membership_info:

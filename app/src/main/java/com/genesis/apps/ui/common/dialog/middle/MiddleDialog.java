@@ -354,6 +354,29 @@ public class MiddleDialog {
     }
 
     /**
+     * @biref 주유포인트 연동 불가 팝업
+     *
+     *
+     * @param activity
+     * @param ok
+     */
+    public static void dialogOilReject(@NonNull Activity activity, String msg, Runnable ok) {
+        if (activity.isFinishing()) {
+            return;
+        }
+
+        activity.runOnUiThread(() ->
+                getOneButtonDialog(activity,
+                        ok,
+                       "서비스 준비 중",
+                        msg,
+                        R.string.dialog_common_4
+                ).show()
+        );
+    }
+
+
+    /**
      * 원격 진단 신청 이용 시간이 아닌 안내 팝업.
      * @param activity
      * @param ok
