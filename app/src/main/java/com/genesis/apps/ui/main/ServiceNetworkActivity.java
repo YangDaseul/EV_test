@@ -297,7 +297,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 addrDtl = "";
             }
 
-            if (!TextUtils.isEmpty(fillerCd) || !TextUtils.isEmpty(addr) || !TextUtils.isEmpty(addrDtl)) {
+//            if (!TextUtils.isEmpty(fillerCd) || !TextUtils.isEmpty(addr) || !TextUtils.isEmpty(addrDtl)) {
                 try {
                     switch (pageType) {
                         case PAGE_TYPE_BTR:
@@ -313,7 +313,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 }catch (Exception e){
 
                 }
-            }
+//            }
         });
 
 
@@ -518,29 +518,30 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 checkEnableGPS(() -> {
 
                 }, () -> {
-                    List<BtrVO> btrVOList = new ArrayList<>();
-
-                    try {
-                        switch (pageType) {
-                            case PAGE_TYPE_BTR:
-                            case PAGE_TYPE_RENT:
-                                btrVOList = btrViewModel.getRES_BTR_1008().getValue().data.getAsnList();
-                                break;
-                            case PAGE_TYPE_REPAIR:
-                            case PAGE_TYPE_SERVICE:
-                            default:
-                                btrVOList = reqViewModel.getRES_REQ_1002().getValue().data.getAsnList();
-                                break;
-                        }
-                    }catch (Exception e){
-
-                    }
-
-                    if(btrVOList!=null&&btrVOList.size()>0){
-                        setPosition(btrVOList, btrVOList.get(0),false);
-                    }else{
-                        SnackBarUtil.show(this, "선택가능한 지점이 존재하지 않습니다.");
-                    }
+                    pubViewModel.setFilterInfo("", "", "");
+//                    List<BtrVO> btrVOList = new ArrayList<>();
+//
+//                    try {
+//                        switch (pageType) {
+//                            case PAGE_TYPE_BTR:
+//                            case PAGE_TYPE_RENT:
+//                                btrVOList = btrViewModel.getRES_BTR_1008().getValue().data.getAsnList();
+//                                break;
+//                            case PAGE_TYPE_REPAIR:
+//                            case PAGE_TYPE_SERVICE:
+//                            default:
+//                                btrVOList = reqViewModel.getRES_REQ_1002().getValue().data.getAsnList();
+//                                break;
+//                        }
+//                    }catch (Exception e){
+//
+//                    }
+//
+//                    if(btrVOList!=null&&btrVOList.size()>0){
+//                        setPosition(btrVOList, btrVOList.get(0),false);
+//                    }else{
+//                        SnackBarUtil.show(this, "선택가능한 지점이 존재하지 않습니다.");
+//                    }
                 });
 
                 break;
