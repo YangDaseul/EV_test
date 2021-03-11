@@ -48,6 +48,7 @@ import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.main.MainActivity;
 import com.genesis.apps.ui.main.home.view.HomeInsightHorizontalAdapter;
+import com.genesis.apps.ui.myg.MyGHomeActivity;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
@@ -480,6 +481,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     @Override
     public void onClickCommon(View v) {
+        String userCustGbCd = "";
+
         switch (v.getId()) {
             case R.id.iv_indicator:
                 ((MainActivity)getActivity()).movePage(1);
@@ -488,12 +491,15 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 MessageVO messageVO = null;
                 try {
                     messageVO = ((MessageVO) v.getTag(R.id.item));
+                    userCustGbCd = lgnViewModel.getDbUserRepo().getUserVO().getCustGbCd();
                 } catch (Exception e) {
-                    messageVO = null;
                     e.printStackTrace();
                 } finally {
                     if (messageVO != null) {
-                        if (!((MainActivity) getActivity()).moveToMainTab(StringUtil.isValidString(messageVO.getLnkUri()))) {
+                        if(messageVO.getWeatherCodes()!=null&&!StringUtil.isValidString(userCustGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)){
+                            //날씨 인사이트이고 로그인이 되어있는 상태면 마이페이지로 이동
+                            ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getContext(), MyGHomeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        }else if (!((MainActivity) getActivity()).moveToMainTab(StringUtil.isValidString(messageVO.getLnkUri()))) {
                             ((MainActivity) getActivity()).moveToPage(StringUtil.isValidString(messageVO.getLnkUri()), StringUtil.isValidString(messageVO.getLnkTypCd()), false);
                         }
                     }
@@ -504,7 +510,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 break;
             case R.id.btn_my_car:
             case R.id.iv_car:
-                String userCustGbCd = "";
                 try {
                     userCustGbCd = lgnViewModel.getDbUserRepo().getUserVO().getCustGbCd();
                     if (StringUtil.isValidString(userCustGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_OV) || StringUtil.isValidString(userCustGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_CV)) {

@@ -176,6 +176,7 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
 
         public ItemHomeInsightWeather(View itemView) {
             super(itemView);
+            getBinding().lWhole.setOnClickListener(onSingleClickListener);
         }
 
         @Override
@@ -209,6 +210,7 @@ public class HomeInsightHorizontalAdapter extends BaseRecyclerViewAdapter2<Messa
 //            }finally {
 //                getBinding().tvMsg.setText(item.getTxtMsg());
 //            }
+            getBinding().lWhole.setTag(R.id.item, item);
             getBinding().setContext(getContext());
             getBinding().setData(item);
             getBinding().tvMsg.setText(item.getTxtMsg());
