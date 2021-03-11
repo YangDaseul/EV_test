@@ -148,5 +148,7 @@
     <string name="mg_con02_p02_2">과거에 주유포인트를 연동한\n기록이 있습니다.\n\n다시 연동하시겠습니까?</string>
     <string name="mg_con02_p02_3">연동 해지 후의 주유 이력은 가지고 올 수 없습니다.</string>
 
+    <string name="sm_romte02_p01_1">원격진단 예약 취소</string>
+    <string name="sm_romte02_p01_2">원격진단 예약을 취소하시겠습니까?</string>
 
 </resources>

@@ -20,6 +20,7 @@ import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.RMTViewModel;
 import com.genesis.apps.databinding.ActivityServiceRemoteListBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 
 import java.util.ArrayList;
 
@@ -66,8 +67,12 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
         Object tag = v.getTag();
         if (id == R.id.tv_service_remote_cancel_btn && tag instanceof RemoteHistoryVO) {
             // 예약 취소 버튼.
-            RemoteHistoryVO vo = (RemoteHistoryVO) tag;
-            rmtViewModel.reqRMT1005(new RMT_1005.Request(APPIAInfo.R_REMOTE01.getId(), vo.getTmpAcptCd(), vo.getRcptCd()));
+            MiddleDialog.dialogServiceRemoteCancel(this, () -> {
+                RemoteHistoryVO vo = (RemoteHistoryVO) tag;
+                rmtViewModel.reqRMT1005(new RMT_1005.Request(APPIAInfo.R_REMOTE01.getId(), vo.getTmpAcptCd(), vo.getRcptCd()));
+            }, () -> {
+
+            });
             return;
         }
 
