@@ -93,15 +93,15 @@ public class MyWebViewFrament extends WebViewFragment {
 
         final JsResult res = result;
 
-        if(getActivity() instanceof MainActivity) {
-            if(((MainActivity) getActivity()).loginChk(((MainActivity) getActivity()).getCustGbCd())) {
-                MiddleDialog.dialogCommonTwoButton(getActivity(), R.string.comm_word_3, message, () -> res.confirm(), () -> res.cancel());
-            } else {
-                MiddleDialog.dialogLogin(getActivity(), () -> res.confirm(), () -> res.cancel());
-            }
-        } else {
+//        if(getActivity() instanceof MainActivity) {
+//            if(((MainActivity) getActivity()).loginChk(((MainActivity) getActivity()).getCustGbCd())) {
+//                MiddleDialog.dialogCommonTwoButton(getActivity(), R.string.comm_word_3, message, () -> res.confirm(), () -> res.cancel());
+//            } else {
+//                MiddleDialog.dialogLogin(getActivity(), () -> res.confirm(), () -> res.cancel());
+//            }
+//        } else {
             MiddleDialog.dialogCommonTwoButton(getActivity(), R.string.comm_word_3, message, () -> res.confirm(), () -> res.cancel());
-        }
+//        }
 
         return true;
     }
