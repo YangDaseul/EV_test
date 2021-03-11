@@ -125,14 +125,15 @@ public class ServiceRepair2PreCheckActivity extends SubActivity<ActivityPrecheck
             case R.id.ll_delete:
                 isNext = false;
 
-                ui.llContain.removeViewAt((int) ((View)v.getParent().getParent()).getTag());
-
-                for(int i=0; i<ui.llContain.getChildCount(); i++) {
-                    int index = ui.llContain.getChildCount()-i;
-                    ItemPrecheckBinding binding = DataBindingUtil.bind(ui.llContain.getChildAt(i));
-
-                    binding.tvTitle.setText(getString(R.string.sm01_maintenance_25) + " " + index);
-                }
+                ui.llContain.removeViewAt(0);
+//                ui.llContain.removeViewAt((int) ((View)v.getParent().getParent()).getTag());
+//
+//                for(int i=0; i<ui.llContain.getChildCount(); i++) {
+//                    int index = ui.llContain.getChildCount()-i;
+//                    ItemPrecheckBinding binding = DataBindingUtil.bind(ui.llContain.getChildAt(i));
+//
+//                    binding.tvTitle.setText(getString(R.string.sm01_maintenance_25) + " " + index);
+//                }
 
 
                 setSurveyEnable();
@@ -197,11 +198,12 @@ public class ServiceRepair2PreCheckActivity extends SubActivity<ActivityPrecheck
 
                         for(int i=0; i<ui.llContain.getChildCount(); i++) {
                             ItemPrecheckBinding binding = DataBindingUtil.bind(ui.llContain.getChildAt(i));
-                            if(i == ui.llContain.getChildCount() - 1) {
-                                binding.llDelete.setVisibility(View.GONE);
-                            } else {
-                                binding.llDelete.setVisibility(View.VISIBLE);
-                            }
+                            binding.llDelete.setVisibility(View.GONE);
+//                            if(i == ui.llContain.getChildCount() - 1) {
+//                                binding.llDelete.setVisibility(View.GONE);
+//                            } else {
+//                                binding.llDelete.setVisibility(View.VISIBLE);
+//                            }
 
                             binding.llMinorContain.setEnabled(false);
                             binding.tvPrecheckMinor.setEnabled(false);
@@ -262,11 +264,11 @@ public class ServiceRepair2PreCheckActivity extends SubActivity<ActivityPrecheck
         mItemBinding.setActivity(this);
         ui.llContain.addView(mItemBinding.getRoot(), 0);
 
-        for(int i=0; i<ui.llContain.getChildCount(); i++) {
-            ItemPrecheckBinding binding = DataBindingUtil.bind(ui.llContain.getChildAt(i));
-
-            binding.clItem.setTag(i);
-        }
+//        for(int i=0; i<ui.llContain.getChildCount(); i++) {
+//            ItemPrecheckBinding binding = DataBindingUtil.bind(ui.llContain.getChildAt(i));
+//
+//            binding.clItem.setTag(i);
+//        }
 
         getSurveyList(mSvyDivCd, mSvyMgmtNo, mSvyPrvsNo);
     }
@@ -365,15 +367,18 @@ public class ServiceRepair2PreCheckActivity extends SubActivity<ActivityPrecheck
         } else {
             for(int i=0; i<ui.llContain.getChildCount(); i++) {
                 ItemPrecheckBinding binding = DataBindingUtil.bind(ui.llContain.getChildAt(i));
-                binding.clItem.setTag(i);
+//                binding.clItem.setTag(i);
                 if(i == 0) {
                     mItemBinding = binding;
+                    binding.llDelete.setVisibility(View.VISIBLE);
 
                     binding.llMinorContain.setEnabled(true);
                     binding.tvPrecheckMinor.setEnabled(true);
                     binding.tvPrecheckMiddle.setEnabled(true);
                     binding.tvPrecheckMajor.setEnabled(true);
                 } else {
+                    binding.llDelete.setVisibility(View.GONE);
+
                     binding.llMinorContain.setEnabled(false);
                     binding.tvPrecheckMinor.setEnabled(false);
                     binding.tvPrecheckMiddle.setEnabled(false);
