@@ -10,13 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
-
 import com.airbnb.paris.Paris;
 import com.bumptech.glide.Glide;
 import com.genesis.apps.R;
@@ -71,6 +64,12 @@ import java.util.TimerTask;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static android.app.Activity.RESULT_OK;
@@ -356,6 +355,12 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         });
 
     }
+
+//    private void applyAlphaAnimation(TextView v){
+//        Animation animation = new AlphaAnimation(0, 1);
+//        animation.setDuration(1000);
+//        v.setAnimation(animation);
+//    }
 
     private void setViewCarImg() {
 
@@ -893,6 +898,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     }
 
     private void makeDownMenu(String custGbCd) {
+        me.lDistance.setVisibility(View.GONE);
+        me.tvDeveloperAgreements.setVisibility(View.GONE);
         final TextView[] floatingBtns = {me.btnFloating1, me.btnFloating2, me.btnFloating3};
         List<DownMenuVO> list = cmnViewModel.getDownMenuList(custGbCd);
         if (list == null || list.size() == 0) {
@@ -1049,7 +1056,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             } else {
                 isRecord = false;
             }
-            return;
         } else if (requestCode == RequestCodes.REQ_CODE_PLAY_VIDEO.getCode()) {
             isRecord = false;
             recordUtil.requestShare();

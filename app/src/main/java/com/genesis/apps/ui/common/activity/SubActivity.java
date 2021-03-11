@@ -1,7 +1,6 @@
 package com.genesis.apps.ui.common.activity;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
@@ -11,11 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
@@ -35,6 +29,11 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 
 public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivity {
@@ -60,10 +59,12 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         super.onResume();
 
         setFirebaseAnalyticsLog();
-        Log.e("permission test", "permission test:start");
-        if (!isPermissions() && isTargetPermissionCheck()) {
-            Log.e("permission test", "permission test:restart");
-            //권한이 하나라도 없으면 앱 재실행
+        if (isTargetPermissionCheck() &&
+                (!isPermissions() || deviceDTO == null || TextUtils.isEmpty(deviceDTO.getDeviceId()))) {
+            //인트로 혹은 권한허용 이 외 화면에서
+            //권한이 하나라도 없거나 (os 설정에서 특정 권한을 빼는 경우)
+            //메모리 부족 혹은 기타 이슈로 프로세스가 강제종료 후 액티비티가 다시 활성화 되었으나 singleton 데이터가 소실된 경우 (디바이스 아이디를 기준으로 봄)
+            //앱 재시작
             restart();
         }
     }
