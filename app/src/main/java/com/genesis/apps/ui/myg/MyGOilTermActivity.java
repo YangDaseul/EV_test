@@ -41,6 +41,7 @@ import com.genesis.apps.comm.viewmodel.OILViewModel;
 import com.genesis.apps.databinding.ActivityMygOilTermBinding;
 import com.genesis.apps.databinding.ItemTermOilBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.view.TermView;
 import com.genesis.apps.ui.main.ServiceTermDetailActivity;
 
@@ -495,5 +496,25 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
             marketingCheckBox.setCheckPhone(b);
         }
     };
+
+
+    @Override
+    public void onBackPressed() {
+        dialogExit();
+    }
+
+    @Override
+    public void onBackButton(){
+        dialogExit();
+    }
+
+    private void dialogExit(){
+        MiddleDialog.dialogOilExit(this, () -> {
+            finish();
+            closeTransition();
+        }, () -> {
+
+        });
+    }
 
 }

@@ -329,7 +329,29 @@ public class MiddleDialog {
         );
     }
 
-
+    /**
+     * @biref 주유포인트 연동 종료 팝업
+     *
+     *
+     * @param activity
+     * @param ok
+     * @param cancel
+     */
+    public static void dialogOilExit(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        R.string.mg_con02_p01_1,
+                        R.string.mg_con02_p01_2,
+                        R.string.dialog_common_1,
+                        R.string.dialog_common_2
+                ).show()
+        );
+    }
 
     /**
      * 원격 진단 신청 이용 시간이 아닌 안내 팝업.
