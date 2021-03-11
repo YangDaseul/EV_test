@@ -487,7 +487,18 @@ public class ServiceRepair2PreCheckActivity extends SubActivity<ActivityPrecheck
                                 mItemBinding.llMinorContain.addView(binding.getRoot());
                             }
 
-                                ui.tvServicePrecheckNextBtn.performClick();
+                            if(ui.llContain.getChildCount() > 2) {
+                                isNext = true;
+
+                                ui.tvPrecheckContent.setText(getString(R.string.sm01_maintenance_26));
+                                ui.tvContent.setVisibility(View.VISIBLE);
+                            }
+
+//                                ui.tvServicePrecheckNextBtn.performClick();
+                            mItemBinding.llTitle.setVisibility(View.VISIBLE);
+                            mItemBinding.tvTitle.setText(getString(R.string.sm01_maintenance_25) + " " + ui.llContain.getChildCount());
+
+                            setSurveyEnable();
                         }
                     }
                 }
