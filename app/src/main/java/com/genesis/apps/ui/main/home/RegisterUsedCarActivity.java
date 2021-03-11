@@ -186,7 +186,7 @@ public class RegisterUsedCarActivity extends SubActivity<ActivityRegUsedCar1Bind
                     }catch (Exception e){
                         e.printStackTrace();
                     }finally{
-                        SnackBarUtil.show(this, TextUtils.isEmpty(serverMsg) ? getString(R.string.gm_carlst_03_19) : serverMsg);
+                        SnackBarUtil.show(this, getString(R.string.gm_carlst_03_19));
                     }
                     break;
             }
