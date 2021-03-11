@@ -17,7 +17,6 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.vo.DeviceDTO;
 import com.genesis.apps.comm.model.vo.UserVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringRe2j;
@@ -27,8 +26,6 @@ import com.genesis.apps.databinding.ActivityRegUsedCar1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.google.android.material.textfield.TextInputEditText;
-
-import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintSet;
@@ -46,9 +43,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class RegisterUsedCarActivity extends SubActivity<ActivityRegUsedCar1Binding> {
     protected String TAG = getClass().getSimpleName();
-
-    @Inject
-    public DeviceDTO deviceDTO;
 
     private GNSViewModel gnsViewModel;
     private TsAuthViewModel tsAuthViewModel;

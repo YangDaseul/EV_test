@@ -13,6 +13,7 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.DeviceDTO;
 import com.genesis.apps.comm.model.vo.TopicVO;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -40,6 +41,9 @@ import static com.genesis.apps.comm.model.constants.KeyNames.PUSH_VO;
 
 @AndroidEntryPoint
 public class BaseActivity extends AppCompatActivity {
+
+    @Inject
+    public DeviceDTO deviceDTO;
 
     @Inject
     public ExecutorService executorService;

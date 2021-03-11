@@ -8,11 +8,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.developers.CheckJoinCCS;
 import com.genesis.apps.comm.model.api.etc.AbnormalCheck;
 import com.genesis.apps.comm.model.api.gra.CMN_0001;
 import com.genesis.apps.comm.model.api.gra.CMN_0002;
@@ -21,7 +18,6 @@ import com.genesis.apps.comm.model.api.gra.LGN_0004;
 import com.genesis.apps.comm.model.api.gra.LGN_0007;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.vo.DeviceDTO;
 import com.genesis.apps.comm.model.vo.NotiVO;
 import com.genesis.apps.comm.model.vo.UserVO;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
@@ -40,6 +36,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
@@ -47,8 +44,6 @@ import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 @AndroidEntryPoint
 public class IntroActivity extends SubActivity<ActivityIntroBinding> {
 
-    @Inject
-    public DeviceDTO deviceDTO;
     @Inject
     public LoginInfoDTO loginInfoDTO;
 
