@@ -30,7 +30,8 @@ public class DialogCarRgstNo extends BaseBottomDialog<DialogBottomModifyCarVrnBi
 //        ui.lEdit.setError(getContext().getString(R.string.gm_carlst_p01_1));
 
         if(!TextUtils.isEmpty(currentRgstNo)){
-            ui.etCarRgstNo.setHint(currentRgstNo);
+            ui.etCarRgstNo.setText(currentRgstNo);
+            ui.etCarRgstNo.setSelection(currentRgstNo.length());
         }
 
         ui.etCarRgstNo.addTextChangedListener(new TextWatcher() {
