@@ -69,7 +69,7 @@ public class BtrConslHistActivity extends SubActivity<ActivityBtrCnslHistBinding
                     showProgressDialog(false);
                     if(result.data!=null&&result.data.getConslList()!=null&&result.data.getConslList().size()>0){
                         setEmptyView(false);
-                        ui.tvCntValue.setText(result.data.getConslList().size()+"");
+                        ui.tvCntValue.setText(result.data.getConslList().size()+"건");
                         adapter.setRows(result.data.getConslList());
                         adapter.notifyDataSetChanged();
                     }else{
@@ -102,7 +102,7 @@ public class BtrConslHistActivity extends SubActivity<ActivityBtrCnslHistBinding
         if(isVisibility){
             ui.tvEmpty.setVisibility(View.VISIBLE);
             ui.rvBtr.setVisibility(View.GONE);
-            ui.tvCntValue.setText("0");
+            ui.tvCntValue.setText("0건");
         }else{
             ui.tvEmpty.setVisibility(View.GONE);
             ui.rvBtr.setVisibility(View.VISIBLE);
