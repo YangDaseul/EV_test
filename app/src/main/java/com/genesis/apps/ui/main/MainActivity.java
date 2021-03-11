@@ -568,4 +568,18 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 
         }
     }
+
+
+    public void movePage(int page) {
+        try {
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if (fragment instanceof FragmentHome) {
+                    ((FragmentHome) fragment).movePage(page);
+                    return;
+                }
+            }
+        } catch (Exception e) {
+
+        }
+    }
 }

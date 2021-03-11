@@ -481,6 +481,9 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     @Override
     public void onClickCommon(View v) {
         switch (v.getId()) {
+            case R.id.iv_indicator:
+                ((MainActivity)getActivity()).movePage(1);
+                break;
             case R.id.l_whole:
                 MessageVO messageVO = null;
                 try {

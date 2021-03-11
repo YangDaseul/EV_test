@@ -121,4 +121,15 @@ public class FragmentHome extends SubFragment<FragmentHomeBinding> {
         }
     }
 
+    public void movePage(int page) {
+        try {
+            if (me.vpVehicle.getCurrentItem() != page) {
+                me.vpVehicle.setCurrentItem(page, true);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            //do nothing
+        }
+    }
+
 }
