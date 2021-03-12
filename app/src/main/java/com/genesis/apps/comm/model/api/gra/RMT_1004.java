@@ -48,6 +48,8 @@ public class RMT_1004 extends BaseData {
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse {
+        private String tmpAcptCd;
+        private String rcptCd;
         @Expose
         @SerializedName("chckCmnt")
         private String chckCmnt;

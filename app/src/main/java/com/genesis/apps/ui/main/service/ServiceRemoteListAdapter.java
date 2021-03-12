@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.gra.RMT_1004;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.RemoteCheckVO;
 import com.genesis.apps.comm.model.vo.RemoteHistoryVO;
@@ -32,6 +33,8 @@ import java.util.stream.Stream;
  * Created by Ki-man Kim on 12/22/20
  */
 public class ServiceRemoteListAdapter extends BaseRecyclerViewAdapter2<RemoteHistoryVO> {
+    public static final int TAG_KEY_ITEM = R.id.tv_service_remote_detail_btn;
+    public static final int TAG_KEY_POS = R.id.tv_service_remote_detail_title;
 
     /**
      * 원격 진단 신청 상태 enum class.
@@ -144,16 +147,33 @@ public class ServiceRemoteListAdapter extends BaseRecyclerViewAdapter2<RemoteHis
      * 임시 저장 변수에 플래그 값을 전환 처리.
      *
      * @param position 선택한 아이템의 포지션.
+     * @return 아이템 선택 결과 함수. 결과가 선택된 상태는 true, 선택이 안된 상태는 false를 반환.
      */
-    public void selectItems(int position) {
+    public boolean selectItems(int position) {
+        boolean result = false;
         if (selectedItems.get(position)) {
             // 펼쳐진 Item을 클릭 시
             selectedItems.delete(position);
         } else {
             // 클릭한 Item의 position을 저장
             selectedItems.put(position, true);
+            result = true;
         }
         notifyItemChanged(position);
+        return result;
+    }
+
+    public boolean setChckRslt(RMT_1004.Response data) {
+        List<RemoteHistoryVO> list = getItems();
+        try {
+            RemoteHistoryVO findItem = list.stream().filter(it -> data.getTmpAcptCd().equals(it.getTmpAcptCd()) && data.getRcptCd().equals(it.getRcptCd())).findFirst().get();
+            findItem.setChckCmnt(data.getChckCmnt());
+            findItem.setChckItemList(data.getChckItemList());
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /****************************************************************************************************
@@ -174,9 +194,12 @@ public class ServiceRemoteListAdapter extends BaseRecyclerViewAdapter2<RemoteHis
             getBinding().tvServiceRemoteDetailBtn.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
-                    Object tag = v.getTag();
+                    Object tag = v.getTag(TAG_KEY_POS);
                     if (tag instanceof Integer) {
-                        adapter.selectItems((int) tag);
+                        if (adapter.selectItems((int) tag)) {
+                            // 결과를 열 경우.
+                            adapter.onSingleClickListener.onClick(v);
+                        }
                     }
                 }
             });
@@ -223,14 +246,15 @@ public class ServiceRemoteListAdapter extends BaseRecyclerViewAdapter2<RemoteHis
 
                         binding.lServiceRemoteDetailContainer.setVisibility(View.GONE);
                         binding.tvServiceRemoteCancelBtn.setVisibility(View.VISIBLE);
-                        binding.tvServiceRemoteCancelBtn.setTag(item);
+                        binding.tvServiceRemoteCancelBtn.setTag(TAG_KEY_ITEM, item);
                         break;
                     }
                     // 진단 완료.
                     case CODE_E: {
                         boolean isSelected = selectedItems.get(pos);
                         binding.tvServiceRemoteDetailBtn.setVisibility(View.VISIBLE);
-                        binding.tvServiceRemoteDetailBtn.setTag(pos);
+                        binding.tvServiceRemoteDetailBtn.setTag(TAG_KEY_POS, pos);
+                        binding.tvServiceRemoteDetailBtn.setTag(TAG_KEY_ITEM, item);
                         binding.tvServiceRemoteDetailBtn.setSelected(isSelected);
 
                         binding.tvServiceRemoteCancelBtn.setVisibility(View.GONE);
@@ -275,7 +299,7 @@ public class ServiceRemoteListAdapter extends BaseRecyclerViewAdapter2<RemoteHis
                         break;
                     }
                 }
-            }else{
+            } else {
                 binding.tvServiceRemoteDetailBtn.setVisibility(View.GONE);
                 binding.lServiceRemoteDetailContainer.setVisibility(View.GONE);
                 binding.tvServiceRemoteCancelBtn.setVisibility(View.GONE);
@@ -321,8 +345,8 @@ public class ServiceRemoteListAdapter extends BaseRecyclerViewAdapter2<RemoteHis
             return category;
         }
 
-        private String getCheckItemNm(String chckItemNm){
-            switch (StringUtil.isValidString(chckItemNm)){
+        private String getCheckItemNm(String chckItemNm) {
+            switch (StringUtil.isValidString(chckItemNm)) {
                 case VariableType.SERVICE_REMOTE_CHECK_ITEM_NM_BATTERY:
                     return "배터리";
                 case VariableType.SERVICE_REMOTE_CHECK_ITEM_NM_ENGINE:
