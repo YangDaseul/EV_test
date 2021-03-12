@@ -44,7 +44,7 @@
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:background="@color/x_ffffff"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:gravity="center"
@@ -82,6 +82,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_title"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="메시지"/>
+            tools:text="메시지\m메시지\n메시지\n메시지"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
