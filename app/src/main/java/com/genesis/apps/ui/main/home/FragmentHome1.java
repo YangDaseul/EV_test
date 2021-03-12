@@ -31,6 +31,7 @@ import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.model.vo.developers.CarConnectVO;
 import com.genesis.apps.comm.model.vo.developers.OdometerVO;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
+import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecordUtil;
 import com.genesis.apps.comm.util.StringUtil;
@@ -57,6 +58,8 @@ import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.upstream.DataSpec;
 import com.google.android.exoplayer2.upstream.RawResourceDataSource;
 
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -99,11 +102,47 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     private Timer timer = null;
     private boolean isRecord = false;
 
+    private int preRawBackground = 0;
     private int rawBackground = 0;
     private int rawLottie = 0;
     private int dayCd = 1;
-    private boolean isInit = true; //최초 로딩 완료의 기준은 LGN-0005. LGN-0005(날씨정보요청)에 의해서 기본적인 뷰 표시가 결정됨
-    private WeatherCodes weatherCodes = WeatherCodes.SKY1;;
+    //    private boolean isInit = true; //최초 로딩 완료의 기준은 LGN-0005. LGN-0005(날씨정보요청)에 의해서 기본적인 뷰 표시가 결정됨
+    private WeatherCodes weatherCodes = WeatherCodes.SKY1;
+
+    public enum SunTime {
+        JANUARY(0, 739, 1729),
+        FEBRUARY(1, 715, 1803),
+        MARCH(2, 637, 1831),
+        APRIL(3, 551, 1859),
+        MAY(4, 515, 1927),
+        JUNE(5, 502, 1948),
+        JULY(6, 514, 1946),
+        AUGUST(7, 539, 1918),
+        SEPTEMBER(8, 606, 1834),
+        OCTOBER(9, 632, 1748),
+        NOVEMBER(10, 704, 1714),
+        DECEMBER(11, 732, 1707);
+
+        private int month;
+        private int sunRise;
+        private int sunSet;
+
+        SunTime(int month, int sunRise, int sunSet) {
+            this.month = month;
+            this.sunRise = sunRise;
+            this.sunSet = sunSet;
+        }
+
+        public static SunTime getSunTime(int month) {
+            return Arrays.asList(SunTime.values()).stream().filter(data -> data.getMonth() == month).findAny().orElse(JUNE);
+        }
+
+        public int getMonth() {
+            return month;
+        }
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return super.setContentView(inflater, R.layout.fragment_home_1);
@@ -112,6 +151,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initWeather();
     }
 
     @Override
@@ -121,6 +161,20 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         initView();
         recordUtil.regReceiver();
         setVideo(false);
+    }
+
+    private void initWeather() {
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        int HHmm = Integer.parseInt(DateUtil.getDate(calendar.getTime(), DateUtil.DATE_FORMAT_HHmm));
+        SunTime sunTime = SunTime.getSunTime(calendar.get(Calendar.MONTH));
+        dayCd = (HHmm < sunTime.sunRise || HHmm > sunTime.sunSet) ? VariableType.HOME_TIME_NIGHT : VariableType.HOME_TIME_DAY;
+        rawBackground = WeatherCodes.getBackgroundResource(weatherCodes, dayCd);
+        SubActivity.setStatusBarColor(getActivity(), dayCd == VariableType.HOME_TIME_DAY ? R.color.x_ffffff : R.color.x_000000);
+        ((MainActivity) getActivity()).setTab(dayCd);
+        ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == VariableType.HOME_TIME_DAY);
+        me.setActivity((MainActivity) getActivity());
+        me.setWeatherCode(weatherCodes);
+        me.setDayCd(dayCd);
     }
 
     private void initViewModel() {
@@ -180,14 +234,13 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                             weatherCodes = WeatherCodes.SKY1;
                         }
                     }
-
                     //날씨 정보 요청 전문에서는 에러가 발생되어도 기본 값으로 표시
-                    if(weatherCodes==null)
+                    if (weatherCodes == null)
                         weatherCodes = WeatherCodes.SKY1;
 
-                    SubActivity.setStatusBarColor(getActivity(), dayCd == 1 ? R.color.x_ffffff : R.color.x_000000);
+                    SubActivity.setStatusBarColor(getActivity(), dayCd == VariableType.HOME_TIME_DAY ? R.color.x_ffffff : R.color.x_000000);
                     ((MainActivity) getActivity()).setTab(dayCd);
-                    ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == 1);
+                    ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == VariableType.HOME_TIME_DAY);
 
                     try {
                         MessageVO weather = cmnViewModel.getHomeWeatherInsight(weatherCodes, dayCd, sigungu, t1h);
@@ -215,8 +268,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     try {
                         rawBackground = WeatherCodes.getBackgroundResource(weatherCodes, dayCd);
                         rawLottie = WeatherCodes.getEffectResource(weatherCodes);
-                        SubActivity.setStatusBarColor(getActivity(), dayCd == 1 ? R.color.x_ffffff : R.color.x_000000);
-                        ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == 1);
                         videoPauseAndResume(true);
                         resumeAndPauseLottie(true);
                         startTimer();
@@ -227,7 +278,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     } catch (Exception e) {
 
                     }
-                    isInit = false;
                     break;
             }
         });
@@ -485,7 +535,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
         switch (v.getId()) {
             case R.id.iv_indicator:
-                ((MainActivity)getActivity()).movePage(1);
+                ((MainActivity) getActivity()).movePage(1);
                 break;
             case R.id.l_whole:
                 MessageVO messageVO = null;
@@ -496,10 +546,10 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                     e.printStackTrace();
                 } finally {
                     if (messageVO != null) {
-                        if(messageVO.getWeatherCodes()!=null&&!StringUtil.isValidString(userCustGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)){
+                        if (messageVO.getWeatherCodes() != null && !StringUtil.isValidString(userCustGbCd).equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)) {
                             //날씨 인사이트이고 로그인이 되어있는 상태면 마이페이지로 이동
                             ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getContext(), MyGHomeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                        }else if (!((MainActivity) getActivity()).moveToMainTab(StringUtil.isValidString(messageVO.getLnkUri()))) {
+                        } else if (!((MainActivity) getActivity()).moveToMainTab(StringUtil.isValidString(messageVO.getLnkUri()))) {
                             ((MainActivity) getActivity()).moveToPage(StringUtil.isValidString(messageVO.getLnkUri()), StringUtil.isValidString(messageVO.getLnkTypCd()), false);
                         }
                     }
@@ -571,18 +621,10 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         if (isRecord)
             return;
 
-        if(isInit)
-            setVideo(true);
-
+        //날씨 효과가 있을 경우 중복이지만 onResume에서 한번더 호출 진행 (0005받기 전까지 대기 하면이 이질적으로 보임)
+        resumeAndPauseLottie(true);
 
         setViewWeather();
-
-
-
-
-
-
-
 
 //        if (isRecord)
 //            return;
@@ -1018,6 +1060,9 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     private void setVideo(boolean isForce) {
         try {
             if (player == null || isForce) {
+                releaseVideo();
+
+                Log.v("videoPlayerStatus", "init");
                 player = new SimpleExoPlayer.Builder(getContext()).build();
                 player.setVolume(0);
                 player.setRepeatMode(REPEAT_MODE_ALL);
@@ -1028,6 +1073,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
 
                 DataSpec dataSpec = new DataSpec(RawResourceDataSource.buildRawResourceUri(rawBackground));
+                preRawBackground = rawBackground;
                 final RawResourceDataSource rawResourceDataSource = new RawResourceDataSource(getContext());
                 rawResourceDataSource.open(dataSpec);
                 com.google.android.exoplayer2.upstream.DataSource.Factory factory = () -> rawResourceDataSource;
@@ -1042,14 +1088,18 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     private void videoPauseAndResume(boolean isResume) {
         if (rawBackground != 0) {
-            Log.v("video player status", "isResume:" + isResume);
+            Log.v("videoPlayerStatus", "isResume:" + isResume);
 
-            if (isResume && player != null && player.getPlaybackState() == STATE_IDLE) {
-                setVideo(true);
+            if (isResume
+                    && (player != null && player.getPlaybackState() == STATE_IDLE) //플레이어는 살아있는데 영상 재생 상태가 idle이거나
+                    || preRawBackground != rawBackground //영상 배경 리소스가 기존과 변경된 경우 (LGN 0005 이후 날씨가 변경되거나 밤낮이 바뀐 경우)
+            ) {
+                setVideo(true); //다시 초기화 진행
             }
 
             if (player != null)
                 player.setPlayWhenReady(isResume);
+
         }
     }
 
