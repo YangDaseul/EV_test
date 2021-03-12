@@ -36,6 +36,7 @@
 
         <TextView
             android:id="@+id/tv_service_remote_info"
+            style="@style/ServiceRemote.TextView_Font_RGSTG"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_f8f8f8_topline_e5e5e5"
