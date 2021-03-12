@@ -33,7 +33,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/x_ffffff"
-        android:paddingTop="50dp"
         android:paddingBottom="40dp"
         android:visibility="@{data==null ? View.GONE : View.VISIBLE}">
 
@@ -41,6 +40,7 @@
             android:id="@+id/tv_stus_cd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:gravity="center"
             android:letterSpacing="-0.01"
@@ -52,7 +52,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="차량 상태 정보 딜리버리 완료" />
+            tools:text="차량 상태 정보 딜리버리 완료"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_stus_detail"
@@ -143,6 +143,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/l_asn_nm"
+                    app:maxLine="@{Integer.MAX_VALUE}"
                     app:msg="@{data.asnAddr}"
                     app:title="@{@string/sm_r_rsv03_04_5}" />
 

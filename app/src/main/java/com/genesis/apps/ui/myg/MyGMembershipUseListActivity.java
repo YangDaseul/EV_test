@@ -246,12 +246,15 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
                 break;
             case R.id.r_7:
                 startDate.add(Calendar.WEEK_OF_MONTH, -1);
+                startDate.add(Calendar.DAY_OF_WEEK, 1);
                 break;
             case R.id.r_30:
                 startDate.add(Calendar.MONTH, -1);
+                startDate.add(Calendar.DAY_OF_WEEK, 1);
                 break;
             case R.id.r_180:
                 startDate.add(Calendar.MONTH, -6);
+                startDate.add(Calendar.DAY_OF_WEEK, 1);
                 break;
         }
 

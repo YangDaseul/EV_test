@@ -148,6 +148,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:maxLine="@{Integer.MAX_VALUE}"
                         app:msg="@{data.pckpAddr}"
                         app:title="@{@string/sm_r_rsv03_03_4}"
                         app:isLeft="@{true}"/>
@@ -175,6 +176,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_rsvt_hope_dt"
+                        app:maxLine="@{Integer.MAX_VALUE}"
                         app:msg="@{data.dlvryAddr}"
                         app:title="@{@string/sm_r_rsv03_03_6}"
                         app:isLeft="@{true}"/>

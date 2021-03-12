@@ -99,6 +99,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/l_defect"
                 app:msg="@{data.repairDetail ?? ``}"
+                app:maxLine="@{Integer.MAX_VALUE}"
                 app:title="@{@string/relapse_3_repair_detail}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

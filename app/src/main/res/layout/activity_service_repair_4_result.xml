@@ -192,6 +192,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_asn_nm"
+                        app:maxLine="@{Integer.MAX_VALUE}"
                         app:msg="@{data.pbzAdr}"
                         app:title="@{@string/sm_r_rsv04_04_5}" />
 
