@@ -416,9 +416,9 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     PrivilegeVO data = (PrivilegeVO) v.getTag(R.id.item);
 
                     if(data != null) {
-                        if("EQ900".equals(data.getMdlNm()) || "G90".equals(data.getMdlNm()) || "G80".equals(data.getMdlNm())) {
+                        if(!TextUtils.isEmpty(data.getPrvCount())&&!TextUtils.isEmpty(data.getPrvContent())&&!TextUtils.isEmpty(data.getPrvTerm())){
                             startActivitySingleTop(new Intent(this, MyGPrivilegeStateActivity.class).putExtra(KeyNames.KEY_NAME_PRIVILEGE_VO, data), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                        } else {
+                        }else{
                             String url = data.getServiceUrl();
                             goPrivilege(v.getId(), url);
                         }
