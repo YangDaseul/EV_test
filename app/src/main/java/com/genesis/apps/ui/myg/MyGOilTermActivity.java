@@ -281,10 +281,10 @@ public class MyGOilTermActivity extends SubActivity<ActivityMygOilTermBinding> {
             }
 
 
-            //SOIL에서 해당 약관에 대한 히스토리가 있으며 S-OIL 마케팅 정보 수신 동의가 생길 경우 해당 부분을 순서 정렬 이슈로 재 구현 필요
-            if(termVO.getTermCd().equalsIgnoreCase("SOIL0003")){
-                itemTermOilBinding.ivArrow.setVisibility(View.INVISIBLE);
-            }
+//            //SOIL에서 해당 약관에 대한 히스토리가 있으며 S-OIL 마케팅 정보 수신 동의가 생길 경우 해당 부분을 순서 정렬 이슈로 재 구현 필요
+//            if(termVO.getTermCd().equalsIgnoreCase("SOIL0003")){
+//                itemTermOilBinding.ivArrow.setVisibility(View.INVISIBLE);
+//            }
 
             itemTermOilBinding.ivArrow.setTag(R.id.oil_term, termVO);
             itemTermOilBinding.setListener(onSingleClickListener);
