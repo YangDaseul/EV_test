@@ -26,8 +26,7 @@
                 android:adjustViewBounds="true"
                 android:clickable="true"
                 android:focusable="true"
-                android:foreground="@drawable/ripple_bg_00000000"
-                tools:src="@drawable/banner_contents_1" />
+                android:foreground="@drawable/ripple_bg_00000000"/>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

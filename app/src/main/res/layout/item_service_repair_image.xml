@@ -8,8 +8,7 @@
         android:layout_height="wrap_content"
         android:minHeight="200dp"
         android:background="@drawable/bg_f8f8f8_stroke_e5e5e5"
-        android:adjustViewBounds="true"
-        tools:src="@drawable/banner_contents_1"/>
+        android:adjustViewBounds="true"/>
 
 <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
 <!--        android:layout_width="match_parent"-->
