@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.RMT_1003;
+import com.genesis.apps.comm.model.api.gra.RMT_1004;
 import com.genesis.apps.comm.model.api.gra.RMT_1005;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
@@ -35,6 +36,7 @@ import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemoteListBinding> {
     private RMTViewModel rmtViewModel;
 
+    private ServiceRemoteListAdapter adapter = new ServiceRemoteListAdapter(onSingleClickListener);
     private ArrayList<RemoteHistoryVO> datas = new ArrayList<>();
     private String vin;
     private boolean isShowRegistComplete = false;
@@ -52,7 +54,7 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
 
         rmtViewModel.reqRMT1003(new RMT_1003.Request(APPIAInfo.R_REMOTE01.getId(), vin));
 
-        if(isShowRegistComplete) {
+        if (isShowRegistComplete) {
             // 등록 완료인 경우 1회 안내 팝업 1회 표시.
             SnackBarUtil.show(this, getString(R.string.sm_remote01_msg_register_success));
         }
@@ -64,8 +66,14 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
     @Override
     public void onClickCommon(View v) {
         int id = v.getId();
-        Object tag = v.getTag();
-        if (id == R.id.tv_service_remote_cancel_btn && tag instanceof RemoteHistoryVO) {
+        Object tag = v.getTag(ServiceRemoteListAdapter.TAG_KEY_ITEM);
+
+        if (tag instanceof RemoteHistoryVO == false) {
+//                tag가 RemoteHistoryVO 객체가 아닌 경우 중지.
+            return;
+        }
+
+        if (id == R.id.tv_service_remote_cancel_btn) {
             // 예약 취소 버튼.
             MiddleDialog.dialogServiceRemoteCancel(this, () -> {
                 RemoteHistoryVO vo = (RemoteHistoryVO) tag;
@@ -76,6 +84,12 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
             return;
         }
 
+        if (id == R.id.tv_service_remote_detail_btn) {
+            // 진단 결과 정보 요청.
+            RemoteHistoryVO vo = (RemoteHistoryVO) tag;
+            rmtViewModel.reqRMT1004(new RMT_1004.Request(APPIAInfo.R_REMOTE01.getId(), vo.getTmpAcptCd(), vo.getRcptCd()));
+            return;
+        }
     }
 
     /****************************************************************************************************
@@ -115,6 +129,28 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
                     showProgressDialog(false);
                     // 통신 오류 안내.
                     exitPage(getString(R.string.r_flaw06_p02_snackbar_1), ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                    break;
+                }
+            }
+        });
+        rmtViewModel.getRES_RMT_1004().observe(this, result -> {
+            switch (result.status) {
+                case LOADING: {
+                    showProgressDialog(true);
+                    break;
+                }
+                case SUCCESS: {
+                    showProgressDialog(false);
+                    RMT_1004.Response response = result.data;
+                    if(adapter.setChckRslt(response)) {
+                        // 데이터 설정이 성공한 경우 목록 갱신
+                        adapter.notifyDataSetChanged();
+                    }
+                    break;
+                }
+                case ERROR: {
+                    showProgressDialog(false);
+                    SnackBarUtil.show(this, getString(R.string.r_flaw06_p02_snackbar_1));
                     break;
                 }
             }
@@ -173,7 +209,6 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
             ui.tvServiceRemoteNoData.setVisibility(View.GONE);
             ui.rvServiceRemoteList.setVisibility(View.VISIBLE);
             ui.tvServiceRemoteInfo.setVisibility(View.VISIBLE);
-            ServiceRemoteListAdapter adapter = new ServiceRemoteListAdapter(onSingleClickListener);
             adapter.setRows(datas);
             LinearLayoutManager layoutManager = new LinearLayoutManager(this);
             layoutManager.setOrientation(LinearLayoutManager.VERTICAL);

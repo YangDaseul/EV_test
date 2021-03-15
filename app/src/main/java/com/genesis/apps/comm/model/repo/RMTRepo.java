@@ -1,5 +1,7 @@
 package com.genesis.apps.comm.model.repo;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.gra.RMT_1001;
@@ -15,8 +17,6 @@ import com.genesis.apps.comm.net.NetUIResponse;
 import com.google.gson.Gson;
 
 import javax.inject.Inject;
-
-import androidx.lifecycle.MutableLiveData;
 
 public class RMTRepo {
 
@@ -107,7 +107,13 @@ public class RMTRepo {
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
-                RES_RMT_1004.setValue(NetUIResponse.success(new Gson().fromJson(object, RMT_1004.Response.class)));
+                /*
+                    Response 데이터가 어느 항목의 데이터인지 알 수 있는 tmpAcptCd, rcptCd 값을 Response 데이터에 저장하여 반환.
+                 */
+                RMT_1004.Response response = new Gson().fromJson(object, RMT_1004.Response.class);
+                response.setTmpAcptCd(reqData.getTmpAcptCd());
+                response.setRcptCd(reqData.getRcptCd());
+                RES_RMT_1004.setValue(NetUIResponse.success(response));
             }
 
             @Override
