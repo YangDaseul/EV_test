@@ -240,12 +240,13 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/l_membership"
-                    tools:listitem="@layout/item_insight_expn" />
+                    tools:listitem="@layout/item_insight_expn"
+                    tools:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/tv_empty"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="446dp"
                     android:layout_marginTop="30dp"
                     android:paddingTop="50dp"
                     android:paddingBottom="50dp"
@@ -257,8 +258,8 @@
                     android:text="@string/gm_carlst_02_29"
                     android:textColor="@color/x_262626"
                     android:textSize="18dp"
-                    app:layout_constraintEnd_toEndOf="@+id/rv"
-                    app:layout_constraintStart_toStartOf="@+id/rv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/l_membership"
                     tools:visibility="visible" />
             </androidx.constraintlayout.widget.ConstraintLayout>

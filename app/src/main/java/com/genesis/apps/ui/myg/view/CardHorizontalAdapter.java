@@ -78,7 +78,7 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
             getBinding().lWhole.setElevation(3);
             getBinding().lWhole.setTag(R.id.item_position, pos);
             getBinding().ivFavorite.setTag(R.id.item_position, pos);
-            getBinding().lWhole.setBackgroundResource(R.drawable.bg_ffffff_round_10);
+            getBinding().lWhole.setBackgroundResource(R.drawable.bg_ffffff_top_round_10_stroke_e5e5e5);
             switch (item.getCardStusNm()) {
                 case CardVO.CARD_STATUS_99://추가
                     getBinding().tvCardName.setVisibility(View.INVISIBLE);
