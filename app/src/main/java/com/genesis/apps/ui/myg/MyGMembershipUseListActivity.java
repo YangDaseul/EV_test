@@ -2,8 +2,13 @@ package com.genesis.apps.ui.myg;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.appeaser.sublimepickerlibrary.datepicker.SelectedDate;
 import com.appeaser.sublimepickerlibrary.helpers.SublimeOptions;
@@ -26,15 +31,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
-
-import static com.genesis.apps.comm.model.vo.MembershipPointVO.TYPE_TRANS_CANCEL;
-import static com.genesis.apps.comm.model.vo.MembershipPointVO.TYPE_TRANS_SAVE;
-import static com.genesis.apps.comm.model.vo.MembershipPointVO.TYPE_TRANS_USE;
 
 public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembershipUseListBinding> {
     private static final int PAGE_SIZE = 20;
@@ -78,7 +74,9 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (!ui.rv.canScrollVertically(1)&&ui.rv.getScrollState()==RecyclerView.SCROLL_STATE_IDLE) {//scroll end
+                //2021-03-15 park 해당 페이지는 스크롤뷰와 리사이클러뷰가 묶여있기 때문에 리사이클러뷰의 canScrollVertically 사용 불가함으로
+                //스크롤뷰의 전체 크기 중 현재 포지션으로 위치 확인
+                if ((ui.sc.getChildAt(0).getBottom() - ui.sc.getHeight())<=ui.sc.getScrollY()&&ui.rv.getScrollState()==RecyclerView.SCROLL_STATE_IDLE) {//scroll end
                     if(adapter.getItemCount()>0&&adapter.getItemCount() >= adapter.getPageNo() * PAGE_SIZE)
                         reqMYP2002(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), adapter.getPageNo() + 1);
                 }
@@ -270,33 +268,24 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
                 && mypViewModel.getRES_MYP_2002().getValue().data.getTransList().size() > 0) {
 
             list.addAll(mypViewModel.getRES_MYP_2002().getValue().data.getTransList());
-
-//            if(StringUtil.isValidString(transTypNm).equalsIgnoreCase(getString(R.string.word_membership_7))){
-//                //전체
-//                list.addAll(mypViewModel.getRES_MYP_2002().getValue().data.getTransList());
-//            }else{
-//                //선택
-//                list.addAll(mypViewModel.getRES_MYP_2002().getValue().data.getTransList().stream().filter(data -> data.getTransTypNm().equalsIgnoreCase(transTypNm)).collect(Collectors.toList()));
-//            }
         }
 
-        if (list != null && list.size() > 0) {
+        if (list.size() > 0) {
             if (adapter.getPageNo() == 0) {
                 adapter.setRows(list);
-                adapter.notifyDataSetChanged();
             } else {
                 adapter.addRows(list);
-                int itemSizeBefore = adapter.getItemCount();
-                adapter.notifyItemRangeInserted(itemSizeBefore, adapter.getItemCount());
             }
+            adapter.notifyDataSetChanged();
             adapter.setPageNo(adapter.getPageNo() + 1);
             ui.tvEmpty.setVisibility(View.GONE);
         }else{
-            adapter.clear();
-            adapter.notifyDataSetChanged();
-            ui.tvEmpty.setVisibility(View.VISIBLE);
+            if(adapter.getItemCount()<1){
+                adapter.clear();
+                adapter.notifyDataSetChanged();
+                ui.tvEmpty.setVisibility(View.VISIBLE);
+            }
         }
-
         setViewSavePoint();
         setViewUsePoint();
     }

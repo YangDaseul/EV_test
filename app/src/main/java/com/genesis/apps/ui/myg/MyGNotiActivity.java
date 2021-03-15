@@ -59,7 +59,7 @@ public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (!ui.rvNoti.canScrollVertically(1)&&ui.rvNoti.getScrollState()==RecyclerView.SCROLL_STATE_IDLE) { //scroll end
-                    if (adapter.getItemCount() >= adapter.getPageNo() * PAGE_SIZE)
+                    if (adapter.getItemCount()>0&&adapter.getItemCount() >= adapter.getPageNo() * PAGE_SIZE)
                         reqMYP8005();
                 }
             }
@@ -112,14 +112,14 @@ public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
                         adapter.setPageNo(adapter.getPageNo() + 1);
 //                      adapter.notifyDataSetChanged();
                         adapter.notifyItemRangeInserted(itemSizeBefore, adapter.getItemCount());
-                        ui.tvEmpty.setVisibility(result.data.getNotiList().size()==0 ? View.VISIBLE : View.GONE);
+                        setEmptyView();
                         break;
                     }else if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("2005")){
-                        ui.tvEmpty.setVisibility(View.VISIBLE);
+                        setEmptyView();
                         break;
                     }
                 default:
-                    ui.tvEmpty.setVisibility(View.VISIBLE);
+                    setEmptyView();
                     showProgressDialog(false);
                     String serverMsg="";
                     try {
@@ -132,6 +132,10 @@ public class MyGNotiActivity extends SubActivity<ActivityNotiListBinding> {
                     break;
             }
         });
+    }
+
+    private void setEmptyView() {
+        ui.tvEmpty.setVisibility(adapter==null||adapter.getItemCount() < 1 ? View.VISIBLE : View.GONE);
     }
 
     @Override

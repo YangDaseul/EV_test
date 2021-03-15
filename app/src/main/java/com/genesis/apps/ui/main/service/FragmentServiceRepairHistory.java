@@ -123,12 +123,7 @@ public class FragmentServiceRepairHistory extends SubFragment<FragmentServiceRep
                             }
                         }
 
-                        if (adapter != null && adapter.getItemCount() < 1) {
-                            setViewEmpty();
-                        } else {
-                            me.lEmpty.lWhole.setVisibility(View.GONE);
-                        }
-
+                        setViewEmpty();
                         ((SubActivity) getActivity()).showProgressDialog(false);
                         break;
                     }
@@ -164,7 +159,7 @@ public class FragmentServiceRepairHistory extends SubFragment<FragmentServiceRep
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (!me.rv.canScrollVertically(1)&&me.rv.getScrollState()==RecyclerView.SCROLL_STATE_IDLE) {//scroll end
-                    if (adapter.getItemCount() >= adapter.getPageNo() * PAGE_SIZE)
+                    if (adapter.getItemCount()>0&&adapter.getItemCount() >= adapter.getPageNo() * PAGE_SIZE)
                         requestREQ1014((adapter.getPageNo() + 1) + "");
                 }
             }
@@ -188,8 +183,12 @@ public class FragmentServiceRepairHistory extends SubFragment<FragmentServiceRep
     }
 
     private void setViewEmpty() {
-        me.rv.setVisibility(View.GONE);
-        me.lEmpty.lWhole.setVisibility(View.VISIBLE); //empty 뷰 활성화
+        if (adapter == null || adapter.getItemCount() < 1) {
+            me.rv.setVisibility(View.GONE);
+            me.lEmpty.lWhole.setVisibility(View.VISIBLE); //empty 뷰
+        } else {
+            me.lEmpty.lWhole.setVisibility(View.GONE);
+            me.rv.setVisibility(View.VISIBLE);
+        }
     }
-
 }

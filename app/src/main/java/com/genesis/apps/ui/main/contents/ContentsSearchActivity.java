@@ -110,12 +110,12 @@ public class ContentsSearchActivity extends SubActivity<ActivityContentsSearchBi
 //                    }
 //                    contentsAdapter.setPageNo(contentsAdapter.getPageNo() + 1);
                     contentsAdapter.notifyItemRangeInserted(itemSizeBefore, contentsAdapter.getItemCount());
-
-                    ui.tvEmpty.setVisibility(contentsAdapter.getItemCount()==0 ? View.VISIBLE : View.GONE);
+                    setViewEmpty();
                     break;
                 default:
                     String serverMsg="";
                     try {
+                        setViewEmpty();
                         serverMsg = result.data.getRtMsg();
                     }catch (Exception e){
                         e.printStackTrace();
@@ -161,6 +161,10 @@ public class ContentsSearchActivity extends SubActivity<ActivityContentsSearchBi
                     break;
             }
         });
+    }
+
+    private void setViewEmpty() {
+        ui.tvEmpty.setVisibility(contentsAdapter.getItemCount()<1 ? View.VISIBLE : View.GONE);
     }
 
     private void initViewPager(){

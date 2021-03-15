@@ -76,6 +76,7 @@
                 android:text="@string/sm_r_rsv05_17"
                 android:textColor="@color/x_000000"
                 android:textSize="22dp"
+                android:includeFontPadding="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

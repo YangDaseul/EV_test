@@ -86,7 +86,7 @@ public class ServiceRepairImageActivity extends SubActivity<ActivityServiceRepai
                         serviceRepairImageAdapter = new ServiceRepairImageAdapter();
                         serviceRepairImageAdapter.setRows(result.data.getImgList());
                         ui.rv.setAdapter(serviceRepairImageAdapter);
-                        ui.tvEmpty.setVisibility(serviceRepairImageAdapter.getItemCount()>0 ? View.GONE : View.VISIBLE);
+                        setViewEmpty();
                         break;
                     }
                 default:
@@ -97,12 +97,16 @@ public class ServiceRepairImageActivity extends SubActivity<ActivityServiceRepai
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
-                        ui.tvEmpty.setVisibility(View.VISIBLE);
+                        setViewEmpty();
                         SnackBarUtil.show(this, serverMsg);
                     }
                     break;
             }
         });
+    }
+
+    private void setViewEmpty() {
+        ui.tvEmpty.setVisibility(serviceRepairImageAdapter.getItemCount()>0 ? View.GONE : View.VISIBLE);
     }
 
     @Override
