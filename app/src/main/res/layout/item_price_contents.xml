@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
@@ -13,14 +14,16 @@
         <TextView
             android:id="@+id/tv_wk_nm"
             android:layout_width="0dp"
-            android:layout_height="55dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
             android:background="@color/x_f8f8f8"
             android:ellipsize="end"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:gravity="center_vertical"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="4dp"
-            android:maxLines="1"
+            android:maxLines="@{Integer.MAX_VALUE}"
             android:paddingStart="15dp"
             android:textColor="@color/x_000000"
             android:textSize="14dp"
@@ -28,12 +31,12 @@
             app:layout_constraintEnd_toStartOf="@+id/tv_rpr_amt"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="작업내용1" />
+            tools:text="작업내용1\n\n\n" />
 
         <TextView
             android:id="@+id/tv_rpr_amt"
             android:layout_width="0dp"
-            android:layout_height="55dp"
+            android:layout_height="0dp"
             android:background="@color/x_ffffff"
             android:ellipsize="end"
             android:fontFamily="@font/regular_genesissanstextglobal"

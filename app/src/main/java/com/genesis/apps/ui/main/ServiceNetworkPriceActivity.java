@@ -13,6 +13,7 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.vo.RepCostDetailVO;
 import com.genesis.apps.comm.model.vo.RepCostVO;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.ActivityServiceNetworkPriceBinding;
 import com.genesis.apps.databinding.ItemPriceContentsBinding;
@@ -109,7 +110,9 @@ public class ServiceNetworkPriceActivity extends SubActivity<ActivityServiceNetw
                     cnt++;
                     final ItemPriceContentsBinding itemPriceContentsBinding = DataBindingUtil.inflate((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE), R.layout.item_price_contents, null, false);
                     itemPriceContentsBinding.tvWkNm.setText(repCostDetailVO.getWkNm());
-                    itemPriceContentsBinding.tvRprAmt.setText(repCostDetailVO.getRprAmt());
+                    itemPriceContentsBinding.tvRprAmt.setText(StringUtil.getDigitGroupingString(StringUtil.isValidString(repCostDetailVO.getRprAmt())));
+
+
                     //각 항목의 마지막 라인에서 단위 및 라인 활성화
                     if (cnt == repCostVO.getCostList().size()) {
                         itemPriceContentsBinding.ivEndLine.setVisibility(View.VISIBLE);
