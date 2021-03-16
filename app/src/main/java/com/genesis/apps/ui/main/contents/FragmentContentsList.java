@@ -109,7 +109,6 @@ public class FragmentContentsList extends SubFragment<FragmentContentsListBindin
                         me.vp.setCurrentItem(0);
                     }
 
-
                     contentsAdapter.setPageNo(contentsAdapter.getPageNo() + 1);
                     me.lEmpty.setVisibility(contentsAdapter.getItemCount()==0 ? View.VISIBLE : View.GONE);
                     me.tvEmpty.setText("9001".equals(result.data.getRtCd()) ? getString(R.string.cm02_14) : getString(R.string.cm02_2));

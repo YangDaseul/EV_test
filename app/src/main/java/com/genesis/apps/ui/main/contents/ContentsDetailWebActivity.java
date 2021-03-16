@@ -202,12 +202,10 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
                 case SUCCESS:
                     if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
                         fragment.loadUrl("javascript:setSsoInfo('" + result.data.getCustInfo() + "');");
+                        break;
                     }
-
-                    break;
-                case ERROR:
+                default:
                     fragment.loadUrl("javascript:setSsoInfo('');");
-
                     break;
             }
         });
@@ -215,14 +213,16 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
 
     @Override
     public void getDataFromIntent() {
-        Intent intent = getIntent();
-        if(intent == null) {
-            finish();
-            return;
+        try{
+            contentsVO = (CTT_1004.Response) intent.getSerializableExtra(KeyNames.KEY_NAME_CONTENTS_VO);
+            url = contentsVO.getDtlList().get(0).getHtmlFilUri();
+        }catch (Exception e){
+
         }
 
-        contentsVO = (CTT_1004.Response) intent.getSerializableExtra(KeyNames.KEY_NAME_CONTENTS_VO);
-        url = contentsVO.getDtlViewCd().equalsIgnoreCase("3000") ? contentsVO.getDtlList().get(0).getHtmlFilUri() : contentsVO.getDtlList().get(0).getImgFilUri();
+        if(TextUtils.isEmpty(url)){
+            exitPage("URL 정보가 없습니다.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+        }
     }
 
     @Override
