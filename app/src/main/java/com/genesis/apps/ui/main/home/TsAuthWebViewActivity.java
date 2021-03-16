@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 
+import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
@@ -49,7 +50,7 @@ public class TsAuthWebViewActivity extends HtmlActivity {
     }
 
     private void initView() {
-//        ui.setValue(getString(R.string.gm_bt01_p01_1));
+        ui.setValue(getString(R.string.gm_carlst_03_0));
 //        setTopView(R.layout.layout_btr_service_info);
         loadTerms(url);
     }
