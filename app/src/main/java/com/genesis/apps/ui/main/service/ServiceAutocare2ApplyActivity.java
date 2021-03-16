@@ -159,7 +159,7 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
         Calendar minCalendar = Calendar.getInstance(Locale.getDefault());
         minCalendar.add(Calendar.DATE, 2);
         Calendar maxCalendar = Calendar.getInstance(Locale.getDefault());
-        maxCalendar.add(Calendar.DATE, 14);
+        maxCalendar.add(Calendar.DATE, 13);
 
         dialogCalendar.setCalendarMinimum(minCalendar);
         dialogCalendar.setCalendarMaximum(maxCalendar);
