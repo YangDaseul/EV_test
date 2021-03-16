@@ -132,6 +132,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:isLeft="@{true}"
                     app:msg="@{data.asnNm}"
                     app:title="@{@string/sm_r_rsv03_04_4}" />
 
@@ -146,6 +147,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/l_asn_nm"
                     app:maxLine="@{Integer.MAX_VALUE}"
                     app:msg="@{data.asnAddr}"
+                    app:isLeft="@{true}"
                     app:title="@{@string/sm_r_rsv03_04_5}" />
 
                 <include
@@ -157,6 +159,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/l_pbz_adr"
+                    app:isLeft="@{true}"
                     app:msg="@{PhoneNumberUtils.formatNumber((data.asnTelNo ?? ``), Locale.getDefault().getCountry())}"
                     app:title="@{@string/sm_r_rsv05_20}" />
 
