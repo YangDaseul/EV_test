@@ -94,7 +94,7 @@ public class ServiceSOSRouteInfoActivity extends GpsBaseActivity<ActivityMap2Bin
     }
 
     private void initView() {
-        ui.lMapOverlayTitle.lMapTitleBar.setVisibility(View.GONE);
+        ui.lMapOverlayTitle.lMapTitleBar.setVisibility(View.VISIBLE);
         //내 위치로 이동 버튼 제거
         ui.btnMyPosition.setVisibility(View.GONE);
         //기본위치 갱신 시 맵 초기화
