@@ -214,7 +214,7 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
     @Override
     public void getDataFromIntent() {
         try{
-            contentsVO = (CTT_1004.Response) intent.getSerializableExtra(KeyNames.KEY_NAME_CONTENTS_VO);
+            contentsVO = (CTT_1004.Response) getIntent().getSerializableExtra(KeyNames.KEY_NAME_CONTENTS_VO);
             url = contentsVO.getDtlList().get(0).getHtmlFilUri();
         }catch (Exception e){
 
