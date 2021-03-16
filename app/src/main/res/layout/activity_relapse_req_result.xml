@@ -221,7 +221,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/l_vin"
                         app:maxLine="@{Integer.MAX_VALUE}"
-                        app:msg="@{activity.vocInfoVO.getWpa() ?? ``}"
+                        app:msg="@{(activity.vocInfoVO.getWpa() ?? ``) +` `+(activity.vocInfoVO.getAdmz() ?? ``)}"
                         app:title="@{@string/relapse_req_result_car_location}" />
 
                     <!-- "인도일" -->
