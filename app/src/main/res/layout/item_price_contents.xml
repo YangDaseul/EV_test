@@ -25,6 +25,7 @@
             android:lineSpacingExtra="4dp"
             android:maxLines="@{Integer.MAX_VALUE}"
             android:paddingStart="15dp"
+            android:paddingEnd="15dp"
             android:textColor="@color/x_000000"
             android:textSize="14dp"
             app:layout_constraintBottom_toTopOf="@+id/iv_end_line"
