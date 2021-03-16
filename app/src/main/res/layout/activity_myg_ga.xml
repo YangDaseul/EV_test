@@ -162,6 +162,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
+                        android:visibility="gone"
                         app:isLeft="@{true}"
                         app:title="@{@string/word_ga_3}"
                         app:msg="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.getBrtdy()??``),DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)}"
