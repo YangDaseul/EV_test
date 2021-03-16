@@ -135,7 +135,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
 //                            //정책으로 데이터가 없을 때도 그래프를 정상적으로 출력 -> 2020-12-04 현재월 데이터가 없으면 출력하지 않도록 정책 재 변경
 //                            list.add(new ISTAmtVO("0", "0", "0", "0", "0"));
 //                        }else{
-                            list.add(current);
+                        list.add(current);
 //                        }
                         insightCarAdapter.setViewType(InsightCarAdapter.TYPE_CAR);
                     }else{
@@ -328,20 +328,18 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                 MessageVO messageVO = null;
                 try{
                     messageVO = ((MessageVO)v.getTag(R.id.item));
-                }catch (Exception e){
-                    messageVO = null;
-                    e.printStackTrace();
-                }finally{
                     if(messageVO!=null) {
                         if(!((MainActivity) getActivity()).moveToMainTab(StringUtil.isValidString(messageVO.getLnkUri()))){
                             ((MainActivity) getActivity()).moveToPage(messageVO.getLnkUri(), messageVO.getLnkTypCd(), false);
                         }
                     }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
                 break;
 
         }
-   }
+    }
 
 
     @Override
