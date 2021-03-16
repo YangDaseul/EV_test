@@ -155,7 +155,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/l_pckp_addr"
                     app:isLeft="@{true}"
-                    app:msg="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.rsvtHopeDt ?? ``), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_MM_dd_E)}"
+                    app:msg="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.rsvtHopeDt ?? ``), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_MM_dd_E)  +  (TextUtils.isEmpty(data.rsvtHopeTm) ? `` : ` / ` +  (DateUtil.getDate(DateUtil.getDefaultDateFormat((data.rsvtHopeTm ?? ``), DateUtil.DATE_FORMAT_HHmm), DateUtil.DATE_FORMAT_HH_mm)))}"
                     app:title="@{@string/sm_r_rsv03_04_6}" />
 
                 <include
