@@ -318,7 +318,11 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
             case R.id.btn_my_position:
                 checkEnableGPS(() -> initLocation(), () -> {
                     lgnViewModel.setPosition(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1));
-                    ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)), 500);
+                    try {
+                        ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)), 500);
+                    }catch (Exception e){
+
+                    }
                 });
                 break;
             case R.id.tv_map_title_text:
@@ -332,7 +336,11 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
                 }
 
                 lgnViewModel.setPosition(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1));
-                ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)), 500);
+                try {
+                    ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(lgnViewModel.getMyPosition().get(0), lgnViewModel.getMyPosition().get(1)), 500);
+                }catch (Exception e){
+
+                }
 
                 break;
         }
@@ -462,7 +470,11 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
         new Handler().postDelayed(() -> {
             if (addressVO != null) {
                 updateAddressInfo(addressVO);
-                ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(addressVO.getCenterLat(), addressVO.getCenterLon()), 500);
+                try {
+                    ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(addressVO.getCenterLat(), addressVO.getCenterLon()), 500);
+                }catch (Exception e){
+
+                }
             }
         }, 500);
     }
