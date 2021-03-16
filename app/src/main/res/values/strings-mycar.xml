@@ -175,7 +175,7 @@
     <string name="gm_carlst_04_26">계약 중</string>
     <string name="gm_carlst_04_27">옵션</string>
 
-
+    <string name="gm_carlst_03_0">중고차 인증</string>
     <string name="gm_carlst_03_1">중고차 등록</string>
     <string name="gm_carlst_03_2">차대번호를\n입력해 주세요.</string>
     <string name="gm_carlst_03_3">차대번호 (예 : KMTGA12BCDE3456789)</string>
