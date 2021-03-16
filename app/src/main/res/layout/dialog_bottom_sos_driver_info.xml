@@ -103,6 +103,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
+                        android:visibility="@{TextUtils.isEmpty(data.getSosDriverVO().getCarNo()) ? View.GONE : View.VISIBLE }"
                         app:isLeft="@{true}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
