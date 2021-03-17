@@ -77,7 +77,7 @@
             android:letterSpacing="-0.01"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:visibility="gone"
-            android:background="@color/x_f8f8f8"
+            android:background="@drawable/bg_f8f8f8_topline_e5e5e5"
             app:layout_constraintTop_toTopOf="@+id/rv_noti"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
