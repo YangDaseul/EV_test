@@ -276,8 +276,11 @@ public class FragmentContentsList extends SubFragment<FragmentContentsListBindin
     @Override
     public void onRefresh() {
         Log.e("onResume","onReusme contents");
-        if(contentsAdapter.getPageNo()==0)
+        if(contentsAdapter.getPageNo()<1)
             cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(), mCatCd,""));
+        else if(contentsAdapter.getItemCount()>1&&me.vp.getCurrentItem()>0){
+            me.vp.setAdapter(contentsAdapter);
+        }
     }
 
 
