@@ -75,6 +75,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
 
     private void initView() {
         initGraph();
+        setGraph(new CBK_1002.Response());
         adapter = new InsightExpnAdapter(onSingleClickListener);
         ui.rv.setLayoutManager(new LinearLayoutManager(this));
         ui.rv.addItemDecoration(new RecyclerViewDecoration((int) DeviceUtil.dip2Pixel(this, 4.0f)));
