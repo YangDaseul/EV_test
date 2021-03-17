@@ -56,6 +56,7 @@ public class ServiceRepairCurrentStatusAdapter extends BaseRecyclerViewAdapter2<
 
     public String getStusName(String stusCd) {
 
+        String stusName="";
         int textId=0;
 
         try {
@@ -124,11 +125,13 @@ public class ServiceRepairCurrentStatusAdapter extends BaseRecyclerViewAdapter2<
                     textId = R.string.sm_r_rsv05_31;
                     break;
             }
+            if(textId>0)
+                stusName = activity.getString(textId);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.v("test", "testStringLog:" + activity.getString(textId) + "      stusCd:" + stusCd);
-        return activity.getString(textId);
+        return stusName;
     }
 
 
