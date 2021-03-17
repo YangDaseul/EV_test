@@ -532,7 +532,10 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
         setViewBtrInfo(null);
 
         String carId = developersViewModel.getCarId(vehicleVO.getVin());
-        String userId = loginInfoDTO.getProfile().getId();
+        String userId = "";
+        if(loginInfoDTO.getProfile()!=null)
+            userId = loginInfoDTO.getProfile().getId();
+
         // Car ID 값이 있는 경우에만 데이터 마일스 정보를 노출.
         if (!TextUtils.isEmpty(carId) && developersViewModel.checkCarInfoToDevelopers(vehicleVO.getVin(), userId) == STAT_AGREEMENT) {
             // CarId가 존재하고, 동의 상태 인 경우.
