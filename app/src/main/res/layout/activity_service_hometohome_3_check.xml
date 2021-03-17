@@ -313,31 +313,66 @@
                         app:layout_constraintTop_toTopOf="@+id/tv_rqrm" />
 
 
-                    <EditText
-                        android:id="@+id/et_rqrm"
+
+                    <LinearLayout
+                        android:id="@+id/l_background"
                         android:layout_width="0dp"
                         android:layout_height="240dp"
-                        android:layout_marginStart="20dp"
                         android:layout_marginTop="30dp"
+                        android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:layout_marginBottom="20dp"
-                        android:background="@drawable/bg_ffffff_stroke_e5e5e5"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:gravity="top"
-                        android:maxLength="200"
-                        android:hint="@string/sm_r_rsv03_19"
-                        android:padding="16dp"
-                        android:textColor="@color/x_262626"
-                        android:textColorHint="@color/x_262626"
-                        android:textSize="13dp"
                         android:visibility="gone"
-                        android:textCursorDrawable="@drawable/cursor_141414"
-                        app:layout_constraintHeight_min="240dp"
+                        android:orientation="vertical"
+                        tools:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_rqrm"
-                        tools:visibility="gone"/>
+                        app:layout_constraintTop_toBottomOf="@+id/tv_rqrm">
+
+                        <EditText
+                            android:id="@+id/et_rqrm"
+                            android:layout_width="match_parent"
+                            android:layout_height="240dp"
+                            android:maxLength="200"
+                            android:padding="16dp"
+                            android:background="@drawable/bg_ffffff_stroke_e5e5e5"
+                            android:textSize="15dp"
+                            android:textColor="@color/x_262626"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:hint="@string/sm_r_rsv03_19"
+                            android:gravity="top|start"
+                            android:textCursorDrawable="@drawable/cursor_141414"
+                            android:minHeight="240dp"/>
+
+                    </LinearLayout>
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/et_rqrm"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="240dp"-->
+<!--                        android:layout_marginStart="20dp"-->
+<!--                        android:layout_marginTop="30dp"-->
+<!--                        android:layout_marginEnd="20dp"-->
+<!--                        android:layout_marginBottom="20dp"-->
+<!--                        android:background="@drawable/bg_ffffff_stroke_e5e5e5"-->
+<!--                        android:fontFamily="@font/regular_genesissanstextglobal"-->
+<!--                        android:gravity="top"-->
+<!--                        android:maxLength="200"-->
+<!--                        android:hint="@string/sm_r_rsv03_19"-->
+<!--                        android:padding="16dp"-->
+<!--                        android:textColor="@color/x_262626"-->
+<!--                        android:textColorHint="@color/x_262626"-->
+<!--                        android:textSize="13dp"-->
+<!--                        android:visibility="gone"-->
+<!--                        android:textCursorDrawable="@drawable/cursor_141414"-->
+<!--                        android:minHeight="240dp"-->
+<!--                        app:layout_constraintHeight_min="240dp"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/tv_rqrm"-->
+<!--                        tools:visibility="gone"/>-->
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

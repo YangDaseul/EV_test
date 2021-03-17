@@ -87,13 +87,13 @@ public class ServiceHomeToHome3CheckActivity extends SubActivity<ActivityService
                 doNext();
                 break;
             case R.id.iv_arrow:
-                if (ui.etRqrm.getVisibility() == View.VISIBLE) {
+                if (ui.lBackground.getVisibility() == View.VISIBLE) {
                     ui.ivArrow.setImageResource(R.drawable.btn_accodian_open);
-                    InteractionUtil.collapse(ui.etRqrm, null);
+                    InteractionUtil.collapse(ui.lBackground, null);
                     ui.etRqrm.clearFocus();
                 } else {
                     ui.ivArrow.setImageResource(R.drawable.btn_accodian_close);
-                    InteractionUtil.expand2(ui.etRqrm, () -> {
+                    InteractionUtil.expand2(ui.lBackground, () -> {
 //                        ui.sc.fullScroll(View.FOCUS_DOWN);
                         ui.etRqrm.requestFocus();
 
