@@ -269,7 +269,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         }
 
                         resumeAndPauseLottie(true);
-                        startTimer();
+                        setViewBanner();
+                        pauseTimer();
                         setViewCarImg();
                         setViewVehicle();
                         goneQuickMenu();
@@ -405,6 +406,15 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
         });
 
+    }
+
+    private void setViewBanner() {
+        if(adapter!=null&&adapter.getRealItemCnt() > 1){
+            me.vpInsight.setUserInputEnabled(true);
+            startTimer();
+        }else{
+            me.vpInsight.setUserInputEnabled(false);
+        }
     }
 
 //    private void applyAlphaAnimation(TextView v){
