@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.genesis.apps.ui.main.service.FragmentMaintenance" />
+    </data>
+
+    <!-- TODO  : 스크롤 범위 확정되면 그에 맞게 조치-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/x_f8f8f8"
+            android:orientation="vertical">
+            <!-- 서비스 네트워크 찾기 -->
+            <TextView
+                android:id="@+id/tv_service_maintenance_find_network_btn"
+                style="@style/TextBasic"
+                android:layout_width="match_parent"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/ripple_bg_000000"
+                android:clickable="true"
+                android:drawableEnd="@drawable/btn_arrow_open_r_w"
+                android:focusable="true"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:gravity="center_vertical"
+                android:padding="20dp"
+                android:text="@string/sm01_maintenance_1"
+                android:textColor="@color/x_ffffff"
+                android:textSize="16dp"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--  정비 예약 -->
+            <include
+                android:id="@+id/l_service_maintenance_reservation_btn"
+                layout="@layout/item_service_maintenance"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
+                app:desc="@{@string/sm01_maintenance_3}"
+                app:icon="@{@drawable/ic_service_reservation}"
+                app:title="@{@string/sm01_maintenance_2}"
+                app:btnWhite="@{@string/sm01_maintenance_35}"
+                app:btnBlack="@{@string/sm01_maintenance_36}"
+                app:fragment="@{fragment}"/>
+
+            <!--  정비 이력 -->
+            <include
+                android:id="@+id/l_service_maintenance_history_btn"
+                layout="@layout/item_service_maintenance"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
+                app:desc="@{@string/sm01_maintenance_5}"
+                app:icon="@{@drawable/ic_service_list}"
+                app:title="@{@string/sm01_maintenance_4}" />
+
+            <!--  정비 긴급출동 -->
+            <include
+                android:id="@+id/l_service_maintenance_emergency_btn"
+                layout="@layout/item_service_maintenance"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
+                app:desc="@{@string/sm01_maintenance_8}"
+                app:icon="@{@drawable/ic_service_emergency}"
+                app:title="@{@string/sm01_maintenance_6}"
+                app:btnWhite="@{@string/sm01_maintenance_39}"
+                app:btnBlack="@{@string/sm01_maintenance_40}"
+                app:fragment="@{fragment}"/>
+
+            <!--  정비 원격진단 -->
+            <include
+                android:id="@+id/l_service_maintenance_customercenter_btn"
+                layout="@layout/item_service_maintenance"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
+                app:desc="@{@string/sm01_maintenance_10}"
+                app:icon="@{@drawable/ic_service_customercenter}"
+                app:title="@{@string/sm01_maintenance_9}"/>
+
+            <!--  정비 원격 진단 내역 -->
+            <include
+                android:id="@+id/l_service_maintenance_remote_servie_list_btn"
+                layout="@layout/item_service_maintenance"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
+                app:desc="@{@string/sm01_maintenance_34}"
+                app:icon="@{@drawable/ic_service_customercenter_list}"
+                app:title="@{@string/sm01_maintenance_33}" />
+
+            <!--  하자 재발 -->
+            <include
+                android:id="@+id/l_service_maintenance_defect_btn"
+                layout="@layout/item_service_maintenance"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
+                app:desc="@{@string/sm01_maintenance_12}"
+                app:icon="@{@drawable/ic_service_defect}"
+                app:title="@{@string/sm01_maintenance_11}" />
+
+            <!--  견적 요청하기 (2021-01-28 이번 요건에 제외됨 추후 진행 필요)-->
+            <include
+                android:id="@+id/l_service_maintenance_req_price_btn"
+                layout="@layout/item_service_maintenance"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
+                app:desc="@{@string/sm01_maintenance_38}"
+                app:icon="@{@drawable/ic_service_price}"
+                app:title="@{@string/sm01_maintenance_37}"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+    </ScrollView>
+</layout>
