@@ -124,34 +124,36 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
 //                    String dummyData = "{\"targetYn\":\"N\",\"supportedYn\":\"Y\",\"msgId\":\"11e77efa-aff0-4b3c-a5a0-c4cde4674963\"}";
 //                    data = new Gson().fromJson(dummyData, Target.Response.class);
 
-                    String carId = developersViewModel.getCarId(vehicleVO.getVin());
-                    DataMilesVO dataMilesVO = new DataMilesVO(carId);
-                    if ("Y".equals(data.getTargetYn())) {
-                        // UBI 가입한 상태
-                        dataMilesVO.setUbiStatus(DataMilesVO.UBI_STATUS.JOIN);
-                        // 안전 운전 정보 조회
-                        developersViewModel.reqDetail(new Detail.Request(carId));
-                    } else {
-                        // UBI를 가입하지 않은 상태
-                        if ("Y".equals(data.getSupportedYn())) {
-                            // UBI 가입 가능한 상태
-                            // 안전 운전 점수 서비스 가이드 UI 표시.
-                            dataMilesVO.setUbiStatus(DataMilesVO.UBI_STATUS.NOT_JOIN);
+                    if(vehicleVO!=null) {
+                        String carId = developersViewModel.getCarId(vehicleVO.getVin());
+                        DataMilesVO dataMilesVO = new DataMilesVO(carId);
+                        if ("Y".equals(data.getTargetYn())) {
+                            // UBI 가입한 상태
+                            dataMilesVO.setUbiStatus(DataMilesVO.UBI_STATUS.JOIN);
+                            // 안전 운전 정보 조회
+                            developersViewModel.reqDetail(new Detail.Request(carId));
                         } else {
-                            // UBI 가입 불가능한 상태.
-                            dataMilesVO.setUbiStatus(DataMilesVO.UBI_STATUS.NOT_SUPPORTED);
+                            // UBI를 가입하지 않은 상태
+                            if ("Y".equals(data.getSupportedYn())) {
+                                // UBI 가입 가능한 상태
+                                // 안전 운전 점수 서비스 가이드 UI 표시.
+                                dataMilesVO.setUbiStatus(DataMilesVO.UBI_STATUS.NOT_JOIN);
+                            } else {
+                                // UBI 가입 불가능한 상태.
+                                dataMilesVO.setUbiStatus(DataMilesVO.UBI_STATUS.NOT_SUPPORTED);
+                            }
+                            dataMilesVO.setChangedDrivingScore(true);
                         }
-                        dataMilesVO.setChangedDrivingScore(true);
-                    }
-                    home2DataMilesAdapter.setRows(Collections.singletonList(dataMilesVO));
-                    home2DataMilesAdapter.notifyDataSetChanged();
+                        home2DataMilesAdapter.setRows(Collections.singletonList(dataMilesVO));
+                        home2DataMilesAdapter.notifyDataSetChanged();
 
-                    // 소모품 현황 데이터 조회
-                    developersViewModel.reqReplacements(new Replacements.Request(carId));
+                        // 소모품 현황 데이터 조회
+                        developersViewModel.reqReplacements(new Replacements.Request(carId));
 //                    gnsViewModel.reqGNS1010(new GNS_1010.Request(APPIAInfo.GM_CARLST_04.getId(), vehicleVO.getVin(), vehicleVO.getMdlNm()));
 
-                    // 고장 코드 데이터 조회
-                    developersViewModel.reqDtc(new Dtc.Request(carId));
+                        // 고장 코드 데이터 조회
+                        developersViewModel.reqDtc(new Dtc.Request(carId));
+                    }
                     break;
                 }
             }
@@ -446,63 +448,66 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
 
     @Override
     public void onClickCommon(View v) {
-
-        switch (v.getId()) {
-            case R.id.tv_btr_apply:
-                MiddleDialog.dialogBtrApply(getActivity(), () -> {
-                    PhoneUtil.phoneDial(getActivity(), getString(R.string.word_home_14));
+        try {
+            switch (v.getId()) {
+                case R.id.tv_btr_apply:
+                    MiddleDialog.dialogBtrApply(getActivity(), () -> {
+                        PhoneUtil.phoneDial(getActivity(), getString(R.string.word_home_14));
 //                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + getString(R.string.word_home_14))));
-                }, () -> {
+                    }, () -> {
 
-                });
-                break;
-            case R.id.tv_title_btr_term:
-                String annMgmtCd;
-                try {
-                    annMgmtCd = "BTR-" + vehicleVO.getMdlCd();
-                    ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), BtrServiceInfoActivity.class)
-                                    .putExtra(KeyNames.KEY_NAME_ADMIN_CODE, annMgmtCd)
-                            , RequestCodes.REQ_CODE_ACTIVITY.getCode()
-                            , VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
-            case R.id.l_btr:
-                if (vehicleVO != null && !TextUtils.isEmpty(vehicleVO.getVin())) {
-                    btrViewModel.reqBTR1001(new BTR_1001.Request(APPIAInfo.GM_BT02.getId(), vehicleVO.getVin()));
-                }
+                    });
+                    break;
+                case R.id.tv_title_btr_term:
+                    String annMgmtCd;
+                    try {
+                        annMgmtCd = "BTR-" + vehicleVO.getMdlCd();
+                        ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), BtrServiceInfoActivity.class)
+                                        .putExtra(KeyNames.KEY_NAME_ADMIN_CODE, annMgmtCd)
+                                , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                                , VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case R.id.l_btr:
+                    if (vehicleVO != null && !TextUtils.isEmpty(vehicleVO.getVin())) {
+                        btrViewModel.reqBTR1001(new BTR_1001.Request(APPIAInfo.GM_BT02.getId(), vehicleVO.getVin()));
+                    }
 //                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), BtrBluehandsActivity.class)
 //                        , RequestCodes.REQ_CODE_ACTIVITY.getCode()
 //                        , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                break;
-            case R.id.l_warranty:
-                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), WarrantyRepairGuideActivity.class)
-                        , RequestCodes.REQ_CODE_ACTIVITY.getCode()
-                        , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                break;
-            case R.id.tv_datamiles_more:
-            case R.id.iv_datamiles_service_guide:
-                // 데이터 마일스 : 더보기 버튼
-                Object tag = v.getTag();
-                if (tag instanceof String) {
-                    ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class)
-                                    .putExtra(KeyNames.KEY_NAME_URL, (String) tag)
-                            , RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                }
-                break;
-            case R.id.ll_datamiles_driving_score_error:
-                // 데이터 마일스 : 안전 운전 점수 새로 고침.
-                developersViewModel.reqDetail(new Detail.Request(developersViewModel.getCarId(vehicleVO.getVin())));
-                break;
-            case R.id.ll_datamiles_expenables_error:
-                // 데이터 마일스 : 소모품 현황 새로 고침.
-                developersViewModel.reqReplacements(new Replacements.Request(developersViewModel.getCarId(vehicleVO.getVin())));
-                break;
-            case R.id.btn_asan_detail:
-                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRepairReserveHistoryActivity.class).putExtra(KeyNames.KEY_NAME_TAB_TWO, true), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                break;
+                    break;
+                case R.id.l_warranty:
+                    ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), WarrantyRepairGuideActivity.class)
+                            , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                            , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    break;
+                case R.id.tv_datamiles_more:
+                case R.id.iv_datamiles_service_guide:
+                    // 데이터 마일스 : 더보기 버튼
+                    Object tag = v.getTag();
+                    if (tag instanceof String) {
+                        ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class)
+                                        .putExtra(KeyNames.KEY_NAME_URL, (String) tag)
+                                , RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    }
+                    break;
+                case R.id.ll_datamiles_driving_score_error:
+                    // 데이터 마일스 : 안전 운전 점수 새로 고침.
+                    developersViewModel.reqDetail(new Detail.Request(developersViewModel.getCarId(vehicleVO.getVin())));
+                    break;
+                case R.id.ll_datamiles_expenables_error:
+                    // 데이터 마일스 : 소모품 현황 새로 고침.
+                    developersViewModel.reqReplacements(new Replacements.Request(developersViewModel.getCarId(vehicleVO.getVin())));
+                    break;
+                case R.id.btn_asan_detail:
+                    ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRepairReserveHistoryActivity.class).putExtra(KeyNames.KEY_NAME_TAB_TWO, true), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    break;
 
+            }
+        }catch (Exception e){
+            //do nothing
         }
     }
 
