@@ -141,9 +141,9 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
      */
     private void requestPossibleTime() {
         Calendar minCalendar = Calendar.getInstance(Locale.getDefault());
-        minCalendar.add(Calendar.DATE, 2);
+        minCalendar.add(Calendar.DATE, 0);
         Calendar maxCalendar = Calendar.getInstance(Locale.getDefault());
-        maxCalendar.add(Calendar.DATE, 14);
+        maxCalendar.add(Calendar.DATE, 13);
 
         reqViewModel.reqREQ1010(new REQ_1010.Request(APPIAInfo.SM_R_RSV02_04.getId(),
                 mainVehicle.getVin(),
@@ -172,7 +172,7 @@ public class ServiceRepair2ApplyActivity extends SubActivity<ActivityServiceRepa
         Calendar minCalendar = Calendar.getInstance(Locale.getDefault());
         minCalendar.add(Calendar.DATE, 0);
         Calendar maxCalendar = Calendar.getInstance(Locale.getDefault());
-        maxCalendar.add(Calendar.DATE, 14);
+        maxCalendar.add(Calendar.DATE, 13);
 
         dialogCalendarRepair.setCalendarMinimum(minCalendar);
         dialogCalendarRepair.setCalendarMaximum(maxCalendar);
