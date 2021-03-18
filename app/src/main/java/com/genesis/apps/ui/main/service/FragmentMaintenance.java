@@ -119,7 +119,7 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
         try {
             if (!TextUtils.isEmpty(result)) {
                 int stusCd = Integer.parseInt(result);
-                if (stusCd > 4609 && stusCd < 4851) {
+                if (stusCd > 4609 && stusCd < 4850) {
                     //정비중 표시
                     me.lServiceMaintenanceHistoryBtn.tvMovingNow.setVisibility(View.VISIBLE);
                     me.lServiceMaintenanceHistoryBtn.tvMovingNow.setText(R.string.sm01_maintenance_14);
