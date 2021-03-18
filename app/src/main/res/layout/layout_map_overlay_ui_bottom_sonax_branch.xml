@@ -55,7 +55,7 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="SONAX 울랄라점" />
+            tools:text="소낙스 서비스 울랄라점" />
 
         <!-- 거리 -->
         <TextView
