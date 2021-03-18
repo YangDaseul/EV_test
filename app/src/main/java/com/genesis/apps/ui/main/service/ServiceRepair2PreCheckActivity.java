@@ -146,18 +146,21 @@ public class ServiceRepair2PreCheckActivity extends SubActivity<ActivityPrecheck
                     contentDialog.setTitle(getString(R.string.sm01_maintenance_28));
                     contentDialog.setOnDismissListener(
                             dialog -> {
-                                if(checkValidRepair()) {
-                                    if(!TextUtils.isEmpty(contentDialog.getContent())) {
-                                        ui.tvContent.setTextAppearance(R.style.Precheck_Content_Selected);
-                                        ui.tvContent.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_000000);
-                                        ui.tvContent.setText(contentDialog.getContent());
-                                    } else {
-                                        ui.tvContent.setTextAppearance(R.style.Precheck_Content_DeSelected);
-                                        ui.tvContent.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_e5e5e5);
-                                        ui.tvContent.setText(getString(R.string.sm01_maintenance_27));
-                                    }
+                                if(contentDialog.isClick) {
+                                    contentDialog.isClick=false;
+                                    if (checkValidRepair()) {
+                                        if (!TextUtils.isEmpty(contentDialog.getContent())) {
+                                            ui.tvContent.setTextAppearance(R.style.Precheck_Content_Selected);
+                                            ui.tvContent.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_000000);
+                                            ui.tvContent.setText(contentDialog.getContent());
+                                        } else {
+                                            ui.tvContent.setTextAppearance(R.style.Precheck_Content_DeSelected);
+                                            ui.tvContent.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_e5e5e5);
+                                            ui.tvContent.setText(getString(R.string.sm01_maintenance_27));
+                                        }
 
-                                    moveToNextPage();
+                                        moveToNextPage();
+                                    }
                                 }
                             }
                     );
