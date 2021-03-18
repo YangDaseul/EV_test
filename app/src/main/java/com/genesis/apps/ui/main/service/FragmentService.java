@@ -8,13 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
@@ -33,12 +26,18 @@ import com.genesis.apps.ui.main.MainActivity;
 import com.genesis.apps.ui.myg.MyGEntranceActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
+
 
 public class FragmentService extends SubFragment<FragmentServiceBinding> {
     private static final String TAG = FragmentService.class.getSimpleName();
 
-    private final int PAGE_NUM = 3;//정비 세차 대리
-    private final int[] TAB_ID_LIST = {R.string.sm01_header_1, R.string.sm01_header_2, R.string.sm01_header_3};
+    private final int[] TAB_ID_LIST = {R.string.sm01_header_1, R.string.sm01_header_2, R.string.sm01_header_3, R.string.sm01_header_4};
 
     public FragmentStateAdapter serviceTabAdapter;
 
@@ -48,7 +47,7 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
     }
 
     private void initView() {
-        serviceTabAdapter = new ServiceViewpagerAdapter(this, PAGE_NUM);
+        serviceTabAdapter = new ServiceViewpagerAdapter(this, TAB_ID_LIST.length);
         me.vpServiceContentsViewPager.setAdapter(serviceTabAdapter);
 //        me.vpServiceContentsViewPager.setUserInputEnabled(false);
         setTabView();
@@ -56,7 +55,7 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
         //ViewPager Setting
         me.vpServiceContentsViewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         me.vpServiceContentsViewPager.setCurrentItem(0);
-        me.vpServiceContentsViewPager.setOffscreenPageLimit(PAGE_NUM);
+        me.vpServiceContentsViewPager.setOffscreenPageLimit(TAB_ID_LIST.length);
     }
 
     //탭 헤더 세팅
@@ -64,7 +63,7 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
         new TabLayoutMediator(me.tlServiceTabs, me.vpServiceContentsViewPager, (tab, position) -> {
         }).attach();
 
-        for(int i=0 ; i<PAGE_NUM; i++) {
+        for(int i=0 ; i<TAB_ID_LIST.length; i++) {
             final LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             final ItemTabServiceBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_tab_service, null, false);
             final View view = binding.getRoot();
@@ -186,6 +185,9 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
                 case R.id.l_service_car_wash_item: // 세차 쿠폰 선택
                 case R.id.l_service_drive_req_btn: //대리운전 신청 버튼
                 case R.id.l_service_drive_list_btn: //대리운전 신청 내역 버튼
+                case R.id.l_service_charge_reservation_list://충전소 예약 내역
+                case R.id.l_service_charge_btr_service: //충전소 버틀러 서비스
+                case R.id.l_service_charge_service: //찾아가는 충전 서비스
                     switch (custGbCd) {
                         //소유차량인 경우 기존 메뉴 정상 이용
                         case VariableType.MAIN_VEHICLE_TYPE_OV:
@@ -201,14 +203,31 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
                         default:
                             //미로그인 고객인 경우 로그인 유도
                             isAllow=false;
-
-                            MiddleDialog.dialogLogin(getActivity(), () -> {
-                                ((SubActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                            }, () -> {
-
-                            });
+                            dialogLogin();
                             break;
                     }
+                    break;
+                case R.id.btn_service_charge_search: //충전소 검색
+                case R.id.l_service_charge_recommend_trip://여행 경로 추천
+                    switch (custGbCd) {
+                        //소유차량 및 계약차량인 경우 기존 메뉴 정상 이용
+                        case VariableType.MAIN_VEHICLE_TYPE_OV:
+                        case VariableType.MAIN_VEHICLE_TYPE_CV:
+                            isAllow=true;
+                            break;
+                        case VariableType.MAIN_VEHICLE_TYPE_NV:
+                            //미 보유 고객인 경우 스낵바 알림 메시지 노출
+                            isAllow=false;
+                            SnackBarUtil.show(getActivity(), getString(R.string.sm01_snack_bar));
+                            break;
+                        case VariableType.MAIN_VEHICLE_TYPE_0000:
+                        default:
+                            //미로그인 고객인 경우 로그인 유도
+                            isAllow=false;
+                            dialogLogin();
+                            break;
+                    }
+
                     break;
                 default:
                     //그 외 버튼
@@ -220,6 +239,14 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
         }
 
         return isAllow;
+    }
+
+    private void dialogLogin(){
+        MiddleDialog.dialogLogin(getActivity(), () -> {
+            ((SubActivity)getActivity()).startActivitySingleTop(new Intent(getActivity(), MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        }, () -> {
+
+        });
     }
 
 

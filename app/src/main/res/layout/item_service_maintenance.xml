@@ -30,7 +30,7 @@
 
         <variable
             name="fragment"
-            type="com.genesis.apps.ui.main.service.FragmentMaintenance" />
+            type="com.genesis.apps.ui.common.fragment.SubFragment" />
 
     </data>
 

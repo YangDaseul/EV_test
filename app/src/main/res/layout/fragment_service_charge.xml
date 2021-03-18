@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="fragment"
-            type="com.genesis.apps.ui.main.service.FragmentMaintenance" />
+            type="com.genesis.apps.ui.common.fragment.SubFragment" />
     </data>
 
-    <!-- TODO  : 스크롤 범위 확정되면 그에 맞게 조치-->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -18,101 +18,92 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/x_f8f8f8"
-            android:orientation="vertical">
-            <!-- 서비스 네트워크 찾기 -->
+            android:orientation="vertical"
+            android:paddingTop="30dp">
+
+
+            <!-- 충전 상태 -->
             <TextView
-                android:id="@+id/tv_service_maintenance_find_network_btn"
+                android:id="@+id/tv_charge_status"
                 style="@style/TextBasic"
                 android:layout_width="match_parent"
-                android:layout_marginTop="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/ripple_bg_ffffff_stroke_e5e5e5"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:gravity="center"
+                android:padding="20dp"
+                android:textColor="@color/x_000000"
+                android:textSize="16dp"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
+                tools:text="충전 종료 15분 전입니다." />
+
+
+            <!-- 충전소 검색 -->
+            <TextView
+                android:id="@+id/btn_service_charge_search"
+                style="@style/TextBasic"
+                android:layout_width="match_parent"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/ripple_bg_000000"
                 android:clickable="true"
-                android:drawableEnd="@drawable/btn_arrow_open_r_w"
                 android:focusable="true"
                 android:fontFamily="@font/regular_genesissansheadglobal"
                 android:gravity="center_vertical"
                 android:padding="20dp"
-                android:text="@string/sm01_maintenance_1"
+                android:text="@string/sm_cg_sm02_2"
                 android:textColor="@color/x_ffffff"
                 android:textSize="16dp"
                 android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:drawableEndCompat="@drawable/btn_arrow_open_r_w" />
 
-            <!--  정비 예약 -->
+            <!--  충전소 예약 내역 -->
             <include
-                android:id="@+id/l_service_maintenance_reservation_btn"
+                android:id="@+id/l_service_charge_reservation_list"
                 layout="@layout/item_service_maintenance"
                 android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
-                app:desc="@{@string/sm01_maintenance_3}"
+                app:desc="@{@string/sm_cg_sm02_4}"
                 app:icon="@{@drawable/ic_service_reservation}"
-                app:title="@{@string/sm01_maintenance_2}"
-                app:btnWhite="@{@string/sm01_maintenance_35}"
-                app:btnBlack="@{@string/sm01_maintenance_36}"
+                app:title="@{@string/sm_cg_sm02_3}"
                 app:fragment="@{fragment}"/>
 
-            <!--  정비 이력 -->
+            <!--  여행 경로 추천 -->
             <include
-                android:id="@+id/l_service_maintenance_history_btn"
+                android:id="@+id/l_service_charge_recommend_trip"
                 layout="@layout/item_service_maintenance"
                 android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
-                app:desc="@{@string/sm01_maintenance_5}"
+                app:desc="@{@string/sm_cg_sm02_6}"
                 app:icon="@{@drawable/ic_service_list}"
-                app:title="@{@string/sm01_maintenance_4}" />
+                app:title="@{@string/sm_cg_sm02_5}" />
 
-            <!--  정비 긴급출동 -->
+            <!--  충전 버틀러 서비스 -->
             <include
-                android:id="@+id/l_service_maintenance_emergency_btn"
+                android:id="@+id/l_service_charge_btr_service"
                 layout="@layout/item_service_maintenance"
                 android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
-                app:desc="@{@string/sm01_maintenance_8}"
+                app:desc="@{@string/sm_cg_sm02_8}"
                 app:icon="@{@drawable/ic_service_emergency}"
-                app:title="@{@string/sm01_maintenance_6}"
-                app:btnWhite="@{@string/sm01_maintenance_39}"
-                app:btnBlack="@{@string/sm01_maintenance_40}"
+                app:title="@{@string/sm_cg_sm02_7}"
+                app:btnWhite="@{@string/sm_cg_sm02_9}"
+                app:btnBlack="@{@string/sm_cg_sm02_10}"
                 app:fragment="@{fragment}"/>
 
-            <!--  정비 원격진단 -->
+            <!--  찾아가는 충전 서비스 -->
             <include
-                android:id="@+id/l_service_maintenance_customercenter_btn"
+                android:id="@+id/l_service_charge_service"
                 layout="@layout/item_service_maintenance"
                 android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
-                app:desc="@{@string/sm01_maintenance_10}"
+                app:desc="@{@string/sm_cg_sm02_12}"
                 app:icon="@{@drawable/ic_service_customercenter}"
-                app:title="@{@string/sm01_maintenance_9}"/>
-
-            <!--  정비 원격 진단 내역 -->
-            <include
-                android:id="@+id/l_service_maintenance_remote_servie_list_btn"
-                layout="@layout/item_service_maintenance"
-                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
-                app:desc="@{@string/sm01_maintenance_34}"
-                app:icon="@{@drawable/ic_service_customercenter_list}"
-                app:title="@{@string/sm01_maintenance_33}" />
-
-            <!--  하자 재발 -->
-            <include
-                android:id="@+id/l_service_maintenance_defect_btn"
-                layout="@layout/item_service_maintenance"
-                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
-                app:desc="@{@string/sm01_maintenance_12}"
-                app:icon="@{@drawable/ic_service_defect}"
-                app:title="@{@string/sm01_maintenance_11}" />
-
-            <!--  견적 요청하기 (2021-01-28 이번 요건에 제외됨 추후 진행 필요)-->
-            <include
-                android:id="@+id/l_service_maintenance_req_price_btn"
-                layout="@layout/item_service_maintenance"
-                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
-                app:desc="@{@string/sm01_maintenance_38}"
-                app:icon="@{@drawable/ic_service_price}"
-                app:title="@{@string/sm01_maintenance_37}"
-                android:visibility="gone"/>
-
+                app:title="@{@string/sm_cg_sm02_11}"
+                app:btnWhite="@{@string/sm_cg_sm02_13}"
+                app:btnBlack="@{@string/sm_cg_sm02_14}"
+                app:fragment="@{fragment}"/>
         </LinearLayout>
     </ScrollView>
 </layout>

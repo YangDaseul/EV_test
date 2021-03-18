@@ -93,6 +93,7 @@
     <string name="sm01_header_1">정비</string>
     <string name="sm01_header_2">세차</string>
     <string name="sm01_header_3">대리</string>
+    <string name="sm01_header_4">충전</string>
     <string name="sm01_snack_bar">차량 보유 고객용 서비스 입니다.</string>
 
     <!-- SERVICE 탭 정비 -->
@@ -157,6 +158,30 @@
     <string name="sm01_service_driver_5">예약 서비스</string>
     <string name="sm01_service_driver_6">\ 3시간 후 ~ 7일 이내까지 대리운전 서비스를\n\ \ 예약 할 수 있습니다.</string>
     <string name="sm01_service_driver_7">대리 신청</string>
+
+
+    <!-- SERVICE 탭 충전 -->
+    <string name="sm_cg_sm02_1">충전</string>
+    <string name="sm_cg_sm02_2">충전소 검색</string>
+    <string name="sm_cg_sm02_3">충전소 예약 내역</string>
+    <string name="sm_cg_sm02_4">충전소 예약 현황과\n신청 내역을 확인하세요.</string>
+    <string name="sm_cg_sm02_5">여행 경로 추천</string>
+    <string name="sm_cg_sm02_6">충전소 정보 기반의 최적화된\n여행 경로를 추천합니다.</string>
+    <string name="sm_cg_sm02_7">충전 버틀러 서비스</string>
+    <string name="sm_cg_sm02_8">내가 원하는 위치에서\n차를 픽업하여 충전 후\n처음 위치로 가져다 드립니다.</string>
+    <string name="sm_cg_sm02_9">신청 내역</string>
+    <string name="sm_cg_sm02_10">충전 버틀러 신청</string>
+    <string name="sm_cg_sm02_11">찾아가는 충전 서비스</string>
+    <string name="sm_cg_sm02_12">고객님이 원하는 곳으로\n방문하여 7kW를 무상으로\n충전해 드립니다.</string>
+    <string name="sm_cg_sm02_13">전화 신청</string>
+    <string name="sm_cg_sm02_14">앱으로 신청</string>
+    <string name="sm_cg_sm02_15">배터리 : %s% (주행 가능 거리 : %skm)</string>
+    <string name="sm_cg_sm02_16">충전 중입니다. 커넥터를 분리하지 마세요.\n(잔여 충전 시간 : %s)</string>
+    <string name="sm_cg_sm02_17">충전 종료 %s분 전 입니다.</string>
+    <string name="sm_cg_sm02_18">충전이 종료되었습니다.</string>
+    <string name="sm_cg_sm02_19">신청 가능한 잔여 횟수가 없습니다.</string>
+
+
 
 
     <string name="alrm01_1">알림센터</string>
