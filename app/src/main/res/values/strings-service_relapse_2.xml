@@ -9,7 +9,7 @@
     <string name="r_flaw05_6">인도날짜</string>
     <string name="r_flaw05_7">차대번호 (예 : KMTGA12BCDE3456789)</string>
     <string name="r_flaw05_8">차대번호 확인</string>
-    <string name="r_flaw05_9">차량 번호 (예 : 12가3456)</string>
+    <string name="r_flaw05_9">차량번호 (예 : 12가3456)</string>
     <string name="r_flaw05_10">등록연월일</string>
     <string name="r_flaw05_11">주행거리 km</string>
     <string name="r_flaw05_12">운행 지역 (시/도)</string>
@@ -22,8 +22,8 @@
     <string name="r_flaw05_19">운행 지역(시/도)을\n선택해 주세요.</string>
     <string name="r_flaw05_20">운행 지역(시/군/구)을\n선택해 주세요.</string>
     <string name="r_flaw05_21">차대번호가 올바르지 않습니다.</string>
-    <string name="r_flaw05_22">차량 번호를 입력해 주세요.</string>
-    <string name="r_flaw05_23">차량 번호가 올바르지 않습니다.</string>
+    <string name="r_flaw05_22">차량번호를 입력해 주세요.</string>
+    <string name="r_flaw05_23">차량번호가 올바르지 않습니다.</string>
     <string name="r_flaw05_24">등록연월일을 입력해 주세요.</string>
     <string name="r_flaw05_25">주행거리를 입력해 주세요.</string>
     <string name="r_flaw05_26">운행 지역 (시/도)을 입력해 주세요.</string>

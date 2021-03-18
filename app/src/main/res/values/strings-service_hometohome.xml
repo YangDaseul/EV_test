@@ -42,7 +42,7 @@
     <string name="sm_r_rsv03_03_8">예약자 정보</string>
     <string name="sm_r_rsv03_03_9">이름</string>
     <string name="sm_r_rsv03_03_10">휴대폰 번호</string>
-    <string name="sm_r_rsv03_03_11">차량 번호</string>
+    <string name="sm_r_rsv03_03_11">차량번호</string>
     <string name="sm_r_rsv03_03_12">요청 사항</string>
     <string name="sm_r_rsv03_03_13">%d/200</string>
     <string name="sm_r_rsv03_03_14">예약 하기</string>
