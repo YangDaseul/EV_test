@@ -84,12 +84,6 @@ public class FragmentHome extends SubFragment<FragmentHomeBinding> {
 
     @Override
     public void onRefresh() {
-        if (me.vpVehicle.getCurrentItem() == 0) {
-            ((MainActivity)getActivity()).setGNB("", View.VISIBLE);
-        } else {
-            ((MainActivity)getActivity()).setGNB("", View.GONE);
-        }
-
         VehicleVO vehicleVO = null;
         try{
             vehicleVO = lgnViewModel.getMainVehicleFromDB();
@@ -130,6 +124,10 @@ public class FragmentHome extends SubFragment<FragmentHomeBinding> {
             e.printStackTrace();
             //do nothing
         }
+    }
+
+    public boolean isFirstPage(){
+        return me.vpVehicle.getCurrentItem()==0;
     }
 
 }

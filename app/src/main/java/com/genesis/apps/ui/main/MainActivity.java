@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -101,7 +102,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         pagerAdapter = new MainViewpagerAdapter(this, pageNum);
         ui.viewpager.setAdapter(pagerAdapter);
         ui.viewpager.setUserInputEnabled(false);
-        setTabView();
+//        setTabView();
 
         //ViewPager Setting
         ui.viewpager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
@@ -344,52 +345,54 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             {R.string.main_word_4, R.drawable.ic_tabbar_contents_w}
     };
 
-    private void setTabView() {
-        new TabLayoutMediator(ui.tabs, ui.viewpager, (tab, position) -> {
-
-        }).attach();
-
-        for (int i = 0; i < pageNum; i++) {
-            final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            final ItemTabBinding itemTabBinding = DataBindingUtil.inflate(inflater, R.layout.item_tab, null, false);
-            final View view = itemTabBinding.getRoot();
-            itemTabBinding.tvTab.setText(TAB_INFO[i][0]);
-            itemTabBinding.ivTab.setImageResource(TAB_INFO[i][1]);
-            ui.tabs.getTabAt(i).setCustomView(view);
-        }
-    }
+//    private void setTabView() {
+//        new TabLayoutMediator(ui.tabs, ui.viewpager, (tab, position) -> {
+//
+//        }).attach();
+//
+//        for (int i = 0; i < pageNum; i++) {
+//            final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//            final ItemTabBinding itemTabBinding = DataBindingUtil.inflate(inflater, R.layout.item_tab, null, false);
+//            final View view = itemTabBinding.getRoot();
+//            itemTabBinding.tvTab.setText(TAB_INFO[i][0]);
+//            itemTabBinding.ivTab.setImageResource(TAB_INFO[i][1]);
+//            ui.tabs.getTabAt(i).setCustomView(view);
+//        }
+//    }
 
     /**
      * @param dayCd 낮 : 1 , 밤 : 2
      */
     public void setTab(int dayCd) {
-        ui.tabs.removeAllTabs();
         ui.tabs.setBackgroundResource(dayCd == 1 ? R.drawable.bg_ffffff_topline_f8f8f8 : R.drawable.bg_000000_topline_262626);
-        new TabLayoutMediator(ui.tabs, ui.viewpager, (tab, position) -> {
+        new Handler().postDelayed(() -> {
+            if(ui.tabs.getTabCount()>0) ui.tabs.removeAllTabs();
+            new TabLayoutMediator(ui.tabs, ui.viewpager, (tab, position) -> {
 
-        }).attach();
+            }).attach();
 
-        for (int i = 0; i < pageNum; i++) {
-            final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = null;
-            if (dayCd == 1) {
-                final ItemTabDayBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_tab_day, null, false);
+            for (int i = 0; i < pageNum; i++) {
+                final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view = null;
+                if (dayCd == 1) {
+                    final ItemTabDayBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_tab_day, null, false);
 
-                view = binding.getRoot();
-                binding.tvTab.setText(TAB_INFO[i][0]);
-                binding.ivTab.setImageResource(TAB_INFO[i][1]);
+                    view = binding.getRoot();
+                    binding.tvTab.setText(TAB_INFO[i][0]);
+                    binding.ivTab.setImageResource(TAB_INFO[i][1]);
 //                setPaddingTab(binding.lTab, i);
-            } else {
-                final ItemTabBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_tab, null, false);
+                } else {
+                    final ItemTabBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_tab, null, false);
 
-                view = binding.getRoot();
-                binding.tvTab.setText(TAB_INFO[i][0]);
-                binding.ivTab.setImageResource(TAB_INFO[i][1]);
+                    view = binding.getRoot();
+                    binding.tvTab.setText(TAB_INFO[i][0]);
+                    binding.ivTab.setImageResource(TAB_INFO[i][1]);
 //                setPaddingTab(binding.lTab, i);
+                }
+
+                ui.tabs.getTabAt(i).setCustomView(view);
             }
-
-            ui.tabs.getTabAt(i).setCustomView(view);
-        }
+        },500);
     }
 
     private void setPaddingTab(ConstraintLayout lTab, int pos) {
@@ -581,5 +584,18 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         } catch (Exception e) {
 
         }
+    }
+
+    public boolean isFirstPage(){
+        try {
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if (fragment instanceof FragmentHome) {
+                    return ((FragmentHome) fragment).isFirstPage()&&isHome();
+                }
+            }
+        } catch (Exception e) {
+
+        }
+        return false;
     }
 }
