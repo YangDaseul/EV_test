@@ -44,7 +44,7 @@
     <string name="gm_carlst_01_41">재직증명서 사진 첨부</string>
     <string name="gm_carlst_01_42">재직증명서 사진을 첨부해 주세요.</string>
     <string name="gm_carlst_01_43">전담 블루핸즈/버틀러를\n신청해 주세요.</string>
-    <string name="gm_carlst_01_44">전담 블루핸즈/버틀러</string>
+    <string name="gm_carlst_01_44">전담 블루핸즈/버틀러 선택</string>
     <string name="gm_carlst_01_45">차대번호 17자리를 입력해 주세요.</string>
     <string name="gm_carlst_01_46">제네시스 실물카드 배송지를\n입력해 주세요.</string>
     <string name="gm_carlst_01_47">수령지 주소</string>
@@ -178,7 +178,7 @@
     <string name="gm_carlst_03_0">중고차 인증</string>
     <string name="gm_carlst_03_1">중고차 등록</string>
     <string name="gm_carlst_03_2">차대번호를\n입력해 주세요.</string>
-    <string name="gm_carlst_03_3">차대번호 (예 : KMTGA12BCDE3456789)</string>
+    <string name="gm_carlst_03_3">차대번호 (예 : KMTGA12BCDE345678)</string>
     <string name="gm_carlst_03_4">차량번호 (예 : 12가3456)</string>
     <string name="gm_carlst_03_5">주명의자(대표자)</string>
     <string name="gm_carlst_03_6">도로교통공단에서 차량 확인이 되면 차량이 추가됩니다.</string>

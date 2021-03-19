@@ -45,7 +45,7 @@
                 <TextView
                     android:id="@+id/tv_msg"
                     style="@style/TextMsg"
-                    android:text="@string/gm_carlst_01_24" />
+                    android:text="@string/gm_carlst_01_29" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_privilege"
