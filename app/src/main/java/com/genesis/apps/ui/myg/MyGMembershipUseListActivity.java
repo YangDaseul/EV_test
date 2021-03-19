@@ -280,7 +280,7 @@ public class MyGMembershipUseListActivity extends SubActivity<ActivityMygMembers
             adapter.setPageNo(adapter.getPageNo() + 1);
             ui.tvEmpty.setVisibility(View.GONE);
         }else{
-            if(adapter.getItemCount()<1){
+            if(adapter.getItemCount()<1||adapter.getPageNo()==0){
                 adapter.clear();
                 adapter.notifyDataSetChanged();
                 ui.tvEmpty.setVisibility(View.VISIBLE);
