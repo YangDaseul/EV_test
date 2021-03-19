@@ -185,8 +185,8 @@ public class ServiceRepair2PreCheckActivity extends SubActivity<ActivityPrecheck
                         ui.tvContent.setVisibility(View.VISIBLE);
 
                         mItemBinding.llTitle.setVisibility(View.VISIBLE);
-                        mItemBinding.tvTitle.setText(getString(R.string.sm01_maintenance_25) + " " + ui.llContain.getChildCount());
-
+//                        mItemBinding.tvTitle.setText(getString(R.string.sm01_maintenance_25) + " " + ui.llContain.getChildCount());
+                        setViewTitle(mItemBinding.tvTitle);
                         setSurveyEnable();
 
                         return;
@@ -197,8 +197,8 @@ public class ServiceRepair2PreCheckActivity extends SubActivity<ActivityPrecheck
                     dialog.setButtonAction(() -> {
                         // "예" 버튼 선택 시
                         mItemBinding.llTitle.setVisibility(View.VISIBLE);
-                        mItemBinding.tvTitle.setText(getString(R.string.sm01_maintenance_25) + " " + ui.llContain.getChildCount());
-
+//                        mItemBinding.tvTitle.setText(getString(R.string.sm01_maintenance_25) + " " + ui.llContain.getChildCount());
+                        setViewTitle(mItemBinding.tvTitle);
                         for(int i=0; i<ui.llContain.getChildCount(); i++) {
                             ItemPrecheckBinding binding = DataBindingUtil.bind(ui.llContain.getChildAt(i));
                             binding.llDelete.setVisibility(View.GONE);
@@ -225,8 +225,8 @@ public class ServiceRepair2PreCheckActivity extends SubActivity<ActivityPrecheck
                         ui.tvContent.setVisibility(View.VISIBLE);
 
                         mItemBinding.llTitle.setVisibility(View.VISIBLE);
-                        mItemBinding.tvTitle.setText(getString(R.string.sm01_maintenance_25) + " " + ui.llContain.getChildCount());
-
+//                        mItemBinding.tvTitle.setText(getString(R.string.sm01_maintenance_25) + " " + ui.llContain.getChildCount());
+                        setViewTitle(mItemBinding.tvTitle);
                         setSurveyEnable();
 
                         dialog.dismiss();
@@ -237,6 +237,10 @@ public class ServiceRepair2PreCheckActivity extends SubActivity<ActivityPrecheck
 
                 break;
         }
+    }
+
+    private void setViewTitle(TextView tvTitle){
+        tvTitle.setText(getString(R.string.sm01_maintenance_25) + " " + ui.llContain.getChildCount());
     }
 
     @Override
@@ -499,8 +503,8 @@ public class ServiceRepair2PreCheckActivity extends SubActivity<ActivityPrecheck
 
 //                                ui.tvServicePrecheckNextBtn.performClick();
                             mItemBinding.llTitle.setVisibility(View.VISIBLE);
-                            mItemBinding.tvTitle.setText(getString(R.string.sm01_maintenance_25) + " " + ui.llContain.getChildCount());
-
+//                            mItemBinding.tvTitle.setText(getString(R.string.sm01_maintenance_25) + " " + ui.llContain.getChildCount());
+                            setViewTitle(mItemBinding.tvTitle);
                             setSurveyEnable();
                         }
                     }
