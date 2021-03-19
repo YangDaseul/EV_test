@@ -31,6 +31,7 @@ import com.genesis.apps.comm.model.vo.ContentsVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.InteractionUtil;
+import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CMSViewModel;
@@ -320,6 +321,17 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
         if (url.equalsIgnoreCase("https://www.genesis.com/kr/ko")
                 || url.equalsIgnoreCase("https://www.genesis.com/kr/ko/genesis-membership.html")){
             finish();
+            return true;
+        } else if(url.startsWith("genesisapp://exeApp") || url.startsWith("genesisapps://exeApp")){
+            String packgeName;
+            try{
+                packgeName = uri.getQueryParameter("schm");
+                if(!TextUtils.isEmpty(packgeName)){
+                    PackageUtil.runApp(this, packgeName);
+                }
+            }catch (Exception e){
+
+            }
             return true;
         } else if(url.startsWith("genesisapp://close") || url.startsWith("genesisapps://close")){
             if(url.contains("all=y")){

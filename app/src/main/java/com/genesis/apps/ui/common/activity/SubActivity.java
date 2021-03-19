@@ -11,6 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.constants.KeyNames;
@@ -29,11 +34,6 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 
 public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivity {
@@ -387,6 +387,5 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
     private boolean isTargetPermissionCheck() {
         return this.getClass() != IntroActivity.class && this.getClass() != PermissionsActivity.class;
     }
-
 
 }

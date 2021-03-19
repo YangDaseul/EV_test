@@ -22,6 +22,7 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CMS_1001;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.viewmodel.CMSViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityStoreWebBinding;
@@ -209,6 +210,17 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
         if (url.equalsIgnoreCase("https://www.genesis.com/kr/ko")
                 || url.equalsIgnoreCase("https://www.genesis.com/kr/ko/genesis-membership.html")){
             finish();
+            return true;
+        } else if(url.startsWith("genesisapp://exeApp") || url.startsWith("genesisapps://exeApp")){
+            String packgeName;
+            try{
+                packgeName = uri.getQueryParameter("schm");
+                if(!TextUtils.isEmpty(packgeName)){
+                    PackageUtil.runApp(this, packgeName);
+                }
+            }catch (Exception e){
+
+            }
             return true;
         } else if(url.startsWith("genesisapp://close") || url.startsWith("genesisapps://close")){
             if(url.contains("all=y")){

@@ -28,6 +28,7 @@ import com.genesis.apps.comm.model.api.gra.MYP_1003;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.StoreInfo;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CMSViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -220,6 +221,17 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
         if (url.equalsIgnoreCase("https://www.genesis.com/kr/ko")
                 || url.equalsIgnoreCase("https://www.genesis.com/kr/ko/genesis-membership.html")){
             getActivity().finish();
+            return true;
+        } else if(url.startsWith("genesisapp://exeApp") || url.startsWith("genesisapps://exeApp")){
+            String packgeName;
+            try{
+                packgeName = uri.getQueryParameter("schm");
+                if(!TextUtils.isEmpty(packgeName)){
+                    PackageUtil.runApp(getActivity(), packgeName);
+                }
+            }catch (Exception e){
+
+            }
             return true;
         } else if(url.startsWith("genesisapp://close") || url.startsWith("genesisapps://close")){
             if(url.contains("all=y")){

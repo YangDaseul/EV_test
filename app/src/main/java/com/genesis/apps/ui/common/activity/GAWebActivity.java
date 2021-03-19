@@ -7,6 +7,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebChromeClient;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.STO_1002;
@@ -15,12 +18,11 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.vo.BtoVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 
-import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -151,6 +153,17 @@ public class GAWebActivity extends WebviewActivity {
         if (url.equalsIgnoreCase("https://www.genesis.com/kr/ko")
                 || url.equalsIgnoreCase("https://www.genesis.com/kr/ko/genesis-membership.html")){
             finish();
+            return true;
+        } else if(url.startsWith("genesisapp://exeApp") || url.startsWith("genesisapps://exeApp")){
+            String packgeName;
+            try{
+                packgeName = uri.getQueryParameter("schm");
+                if(!TextUtils.isEmpty(packgeName)){
+                    PackageUtil.runApp(this, packgeName);
+                }
+            }catch (Exception e){
+
+            }
             return true;
         } else if(url.startsWith("genesisapp://close") || url.startsWith("genesisapps://close")){
             if(url.contains("all=y")){
