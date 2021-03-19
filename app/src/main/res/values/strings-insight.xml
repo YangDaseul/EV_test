@@ -1,10 +1,10 @@
 <resources>
-    <string name="tm01_1">이번 달 사용금액은\n총 %s 원 입니다.</string>
-    <string name="tm01_1_1">이번 달 사용금액은</string>
+    <string name="tm01_1">이번 달 사용 금액은\n총 %s 원 입니다.</string>
+    <string name="tm01_1_1">이번 달 사용 금액은</string>
     <string name="tm01_1_2">총</string>
     <string name="tm01_1_3">원 입니다.</string>
-    <string name="tm01_2">지난달 사용금액 %s원</string>
-    <string name="tm01_2_1">지난달 사용금액</string>
+    <string name="tm01_2">지난달 사용 금액 %s원</string>
+    <string name="tm01_2_1">지난달 사용 금액</string>
     <string name="tm01_2_2">원</string>
     <string name="tm01_3">이번 달 사용 금액</string>
     <string name="tm01_4">내차 유지비용은?</string>
@@ -68,7 +68,7 @@
     <string name="tm_exps01_01_15">지출 일자를 선택해 주세요.</string>
     <string name="tm_exps01_01_16">등록</string>
     <string name="tm_exps01_01_17">지출 내역이 추가되었습니다.</string>
-    <string name="tm_exps01_01_18">어떤 종류의 지출을 하셨나요?</string>
+    <string name="tm_exps01_01_18">어떤 종류의 지출하셨나요?</string>
     <string name="tm_exps01_01_19">지출 일자를\n선택해 주세요.</string>
 
     <string name="tm_exps01_02_1">지출 내역 수정</string>

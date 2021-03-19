@@ -54,7 +54,7 @@
     <string name="sm_remote01_input_phone_number">휴대폰 번호를 입력해 주세요.</string>
     <string name="sm_remote01_input_complete">원격 진단을\n신청해주세요.</string>
     <string name="sm_remote01_next">다음</string>
-    <string name="sm_remote01_submit">신청</string>
+    <string name="sm_remote01_submit">신청하기</string>
     <string name="sm_remote01_cancel">예약 취소</string>
     <string name="sm_remote01_detail_title_0">고장내용</string>
     <string name="sm_remote01_detail_title_1">요청 항목</string>
