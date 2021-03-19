@@ -20,15 +20,15 @@ public class ContentsAdapter extends BaseRecyclerViewAdapter2<ContentsVO> {
 
     private int pageNo=0;
 
-    private static OnSingleClickListener onSingleClickListener;
+    private OnSingleClickListener onSingleClickListener;
 
     public ContentsAdapter(OnSingleClickListener onSingleClickListener) {
-        ContentsAdapter.onSingleClickListener = onSingleClickListener;
+        this.onSingleClickListener = onSingleClickListener;
     }
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ItemContents(getView(parent, R.layout.item_contents));
+        return new ItemContents(getView(parent, R.layout.item_contents), onSingleClickListener);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ContentsAdapter extends BaseRecyclerViewAdapter2<ContentsVO> {
 
     private static class ItemContents extends BaseViewHolder<ContentsVO, ItemContentsBinding> {
 
-        public ItemContents(View itemView) {
+        public ItemContents(View itemView, OnSingleClickListener onSingleClickListener) {
             super(itemView);
             getBinding().ivImage.setOnClickListener(onSingleClickListener);
         }

@@ -30,7 +30,6 @@ import java.util.List;
 
 public class ContentsSearchActivity extends SubActivity<ActivityContentsSearchBinding> {
     private final String TAG = getClass().getSimpleName();
-    private ContentsSearchActivity mActivity = this;
     private CTTViewModel cttViewModel;
     private ContentsAdapter contentsAdapter;
 
@@ -49,7 +48,12 @@ public class ContentsSearchActivity extends SubActivity<ActivityContentsSearchBi
     protected void onDestroy() {
         super.onDestroy();
 
-        SoftKeyboardUtil.hideKeyboard(mActivity, mActivity.getWindow().getDecorView().getWindowToken());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
 
     @Override
@@ -81,10 +85,10 @@ public class ContentsSearchActivity extends SubActivity<ActivityContentsSearchBi
     }
 
     private void intViewModel() {
-        cttViewModel = new ViewModelProvider(mActivity).get(CTTViewModel.class);
-        ui.setLifecycleOwner(mActivity);
+        ui.setLifecycleOwner(this);
+        cttViewModel = new ViewModelProvider(this).get(CTTViewModel.class);
 
-        cttViewModel.getRES_CTT_1001().observe(mActivity, result -> {
+        cttViewModel.getRES_CTT_1001().observe(this, result -> {
 
             switch (result.status){
                 case LOADING:
@@ -120,14 +124,14 @@ public class ContentsSearchActivity extends SubActivity<ActivityContentsSearchBi
                     }catch (Exception e){
                         e.printStackTrace();
                     }finally{
-                        SnackBarUtil.show(mActivity, TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                        SnackBarUtil.show(this, TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
                         showProgressDialog(false);
                     }
                     break;
             }
         });
 
-        cttViewModel.getRES_CTT_1004().observe(mActivity, result -> {
+        cttViewModel.getRES_CTT_1004().observe(this, result -> {
 
             switch (result.status){
                 case LOADING:
@@ -142,7 +146,7 @@ public class ContentsSearchActivity extends SubActivity<ActivityContentsSearchBi
                             &&result.data.getDtlList().size()>0){
 
                         CTT_1004.Response contentsVO = result.data;
-                        startActivitySingleTop(new Intent(mActivity, ContentsDetailWebActivity.class).putExtra(KeyNames.KEY_NAME_CONTENTS_VO, contentsVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        startActivitySingleTop(new Intent(this, ContentsDetailWebActivity.class).putExtra(KeyNames.KEY_NAME_CONTENTS_VO, contentsVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 
                         break;
                     }
@@ -153,7 +157,7 @@ public class ContentsSearchActivity extends SubActivity<ActivityContentsSearchBi
                     }catch (Exception e){
                         e.printStackTrace();
                     }finally{
-                        SnackBarUtil.show(mActivity, TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                        SnackBarUtil.show(this, TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
                         showProgressDialog(false);
                     }
                     break;
@@ -246,8 +250,15 @@ public class ContentsSearchActivity extends SubActivity<ActivityContentsSearchBi
         String keyword = ui.etSearch.getText().toString().trim();
 
 //        contentsAdapter.setPageNo(0);
-        cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(),"",keyword));
-
-        SoftKeyboardUtil.hideKeyboard(mActivity, mActivity.getWindow().getDecorView().getWindowToken());
+        if(!TextUtils.isEmpty(keyword)) {
+            cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(), "", keyword));
+        }else{
+            if(contentsAdapter!=null) {
+                contentsAdapter.clear();
+                contentsAdapter.notifyDataSetChanged();
+            }
+            setViewEmpty();
+        }
+        SoftKeyboardUtil.hideKeyboard(this, this.getWindow().getDecorView().getWindowToken());
     }
 }
