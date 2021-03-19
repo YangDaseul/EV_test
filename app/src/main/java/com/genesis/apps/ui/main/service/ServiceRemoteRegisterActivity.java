@@ -86,7 +86,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
         /**
          * 신청을 위한 정보 입력 완료 상태.
          */
-        COMPLETE(R.string.sm_remote01_input_complete);
+        COMPLETE(R.string.sm_remote01_service_time_guide);
 
         private @StringRes
         final int guideResId;
