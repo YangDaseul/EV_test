@@ -181,7 +181,7 @@ public class RegisterUsedCarActivity extends SubActivity<ActivityRegUsedCar1Bind
                     showProgressDialog(false);
                     String serverMsg="";
                     try {
-                        if(result.data.getData()==null) serverMsg = result.data.getMessage();
+                        if(result.data==null||result.data.getData()==null) serverMsg = result.data.getMessage();
                         else serverMsg = result.data.getData().getAuthMessage();
                     }catch (Exception e){
                         e.printStackTrace();
