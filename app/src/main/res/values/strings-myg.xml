@@ -10,6 +10,7 @@
     <string name="title_terms_4">광고성 정보 수신 동의</string>
     <string name="title_terms_5">제네시스 멤버십 가입 약관</string>
     <string name="title_terms_6">오픈소스 라이선스</string>
+    <string name="title_terms_13">개인정보 수집·이용 약관 동의</string>
 
     <string name="word_home_0">Hello.</string>
     <string name="word_home_1">내 정보 상세보기</string>
@@ -60,7 +61,7 @@
     <string name="word_ga_2">휴대폰</string>
     <string name="word_ga_3">생년월일</string>
     <string name="word_ga_4">변경</string>
-    <string name="word_ga_5">마케팅 수신 동의</string>
+    <string name="word_ga_5">선택적 동의</string>
     <string name="word_ga_6">저장</string>
     <string name="word_ga_7">광고성 정보 수신에 대한 안내 (선택)</string>
     <string name="word_ga_8">수신 방법</string>
@@ -73,6 +74,8 @@
     <string name="word_ga_15">우편</string>
     <string name="word_ga_16">로그아웃</string>
     <string name="word_ga_17">광고성 정보 수신에 대한 안내</string>
+    <string name="word_ga_18">개인정보 수집·이용 약관 동의 (선택)</string>
+
     <string name="msg_ga_1">제네시스 어카운트 탈퇴하시면 최초 등록한 통합계정 (이메일 ID)가 삭제됩니다.\n다시 제네시스 어카운트 서비스를 이용하시려면, 신규 회원 가입이 필요합니다.</string>
     <string name="msg_ga_2">제네시스 어카운트 탈퇴 시 제네시스 커넥티드 서비스, 제네시스 디지털 키 등 제네시스 어카운트를 통해 제공하는 디지털 서비스가 자동으로 함께 탈퇴됩니다.</string>
     <string name="msg_ga_3">수집·이용 목적 : 신규 상품 서비스 안내, 이벤트 및 행사 안내, 최신 기업 정보 안내, 고객별 통계 분석, 시장 조사</string>

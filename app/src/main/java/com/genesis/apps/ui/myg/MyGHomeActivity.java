@@ -47,6 +47,7 @@ import java.util.Locale;
 
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0001;
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0002;
+import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0013;
 
 public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
 
@@ -482,12 +483,13 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     startActivitySingleTop(new Intent(this, MyGNotiActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.l_terms_2://이용약관
-//                    mypViewModel.reqMYP8001(new MYP_8001.Request(APPIAInfo.MG01.getId(), TERM_SERVICE_JOIN_GRA0001));
                     startActivitySingleTop(new Intent(this, MyGTermsActivity.class).putExtra(MyGTermsActivity.TERMS_CODE, TERM_SERVICE_JOIN_GRA0001), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.l_terms_3://개인정보처리방침
-//                    mypViewModel.reqMYP8001(new MYP_8001.Request(APPIAInfo.MG01.getId(), TERM_SERVICE_JOIN_GRA0002));
                     startActivitySingleTop(new Intent(this, MyGTermsActivity.class).putExtra(MyGTermsActivity.TERMS_CODE, TERM_SERVICE_JOIN_GRA0002), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    break;
+                case R.id.l_terms_3_1://개인정보 수집/이용(선택약관)
+                    startActivitySingleTop(new Intent(this, MyGTermsActivity.class).putExtra(MyGTermsActivity.TERMS_CODE, TERM_SERVICE_JOIN_GRA0013), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 case R.id.l_terms_4://오픈소스 라이선스
                     startActivitySingleTop(new Intent(this, MyGTermsActivity.class).putExtra(MyGTermsActivity.TERMS_CODE, MyGTermsActivity.TERMS_6000), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);

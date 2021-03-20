@@ -452,8 +452,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     private void initView() {
         playbackStateListener = new PlaybackStateListener();
-        SubActivity.setStatusBarColor(getActivity(), dayCd == VariableType.HOME_TIME_DAY ? R.color.x_ffffff : R.color.x_000000);
-//        setViewCarInfo(null);
         setViewCarImg();
         me.setActivity((MainActivity) getActivity());
         me.setWeatherCode(weatherCodes);
@@ -646,6 +644,8 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             setViewVehicle();
             //날씨 효과가 있을 경우 중복이지만 onResume에서 한번더 호출 진행 (0005받기 전까지 대기 화면이 이질적으로 보임)
             resumeAndPauseLottie(true);
+            //LGN-0005와 중복되지만 하->상 이동 시 바로 변경하기 위한 처리
+            SubActivity.setStatusBarColor(getActivity(), dayCd == VariableType.HOME_TIME_DAY ? R.color.x_ffffff : R.color.x_000000);
             setViewWeather();
             setIndicator(lgnViewModel.getMainVehicleFromDB().getCustGbCd());
             goneQuickMenu();

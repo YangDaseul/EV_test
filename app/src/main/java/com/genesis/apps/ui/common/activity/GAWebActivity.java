@@ -230,28 +230,4 @@ public class GAWebActivity extends WebviewActivity {
             }
         }
     }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode==RequestCodes.REQ_CODE_FILECHOOSER.getCode()){
-            if (resultCode == RESULT_OK) {
-                if (fragment.filePathCallbackLollipop == null) return;
-                if (data == null)
-                    data = new Intent();
-                if (data.getData() == null)
-                    data.setData(fragment.cameraImageUri);
-
-                fragment.filePathCallbackLollipop.onReceiveValue(WebChromeClient.FileChooserParams.parseResult(resultCode, data));
-                fragment.filePathCallbackLollipop = null;
-            }else{
-                if (fragment.filePathCallbackLollipop != null) {   //  resultCode에 RESULT_OK가 들어오지 않으면 null 처리하지 한다.(이렇게 하지 않으면 다음부터 input 태그를 클릭해도 반응하지 않음)
-                    fragment.filePathCallbackLollipop.onReceiveValue(null);
-                    fragment.filePathCallbackLollipop = null;
-                }
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
 }

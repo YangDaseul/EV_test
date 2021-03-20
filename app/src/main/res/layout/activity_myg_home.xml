@@ -1088,7 +1088,7 @@
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/l_terms_4"
+                    android:id="@+id/l_terms_3_1"
                     android:layout_width="0dp"
                     android:layout_height="76dp"
                     android:background="@drawable/ripple_bg_ffffff_underline_e5e5e5"
@@ -1096,6 +1096,43 @@
                     app:layout_constraintTop_toBottomOf="@+id/l_terms_3"
                     app:layout_constraintStart_toStartOf="@+id/l_terms_3"
                     app:layout_constraintEnd_toEndOf="@+id/l_terms_3">
+
+                    <TextView
+                        android:id="@+id/tv_terms_3_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:lineSpacingExtra="6dp"
+                        android:letterSpacing="-0.01"
+                        android:textColor="@color/x_000000"
+                        android:textSize="16dp"
+                        android:text="@string/title_terms_13"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/btn_arrow_terms_3_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/btn_open_r2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_terms_4"
+                    android:layout_width="0dp"
+                    android:layout_height="76dp"
+                    android:background="@drawable/ripple_bg_ffffff_underline_e5e5e5"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    app:layout_constraintTop_toBottomOf="@+id/l_terms_3_1"
+                    app:layout_constraintStart_toStartOf="@+id/l_terms_3_1"
+                    app:layout_constraintEnd_toEndOf="@+id/l_terms_3_1">
 
                     <TextView
                         android:id="@+id/tv_terms_4"

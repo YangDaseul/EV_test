@@ -86,5 +86,18 @@ public class MYP_0001 extends BaseData {
         @Expose
         @SerializedName("mrktCd")
         private String mrktCd;
+
+        @Expose
+        @SerializedName("prvcyCd")
+        private String prvcyCd;
+        @Expose
+        @SerializedName("prvcyVer")
+        private String prvcyVer;
+        @Expose
+        @SerializedName("prvcyYn")
+        private String prvcyYn;
+        @Expose
+        @SerializedName("prvcyDate")
+        private String prvcyDate;
     }
 }

@@ -32,6 +32,8 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
+import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0013;
+
 @AndroidEntryPoint
 public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
 
@@ -182,13 +184,20 @@ public class MyGGAActivity extends SubActivity<ActivityMygGaBinding> {
                     InteractionUtil.expand(ui.lAdInfo, null);
                 }
                 break;
+            case R.id.btn_arrow_terms_detail:
+                startActivitySingleTop(new Intent(this, MyGTermsActivity.class)
+                        .putExtra(MyGTermsActivity.TERMS_CODE, TERM_SERVICE_JOIN_GRA0013)
+                        , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                        ,VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                break;
             case R.id.btn_save_agree:
                 String mrktYn = ui.cbAd.isChecked() ? "Y" : "N";
                 String mrktCd = (ui.cbSms.isChecked() ? "1" : "0")
                             + (ui.cbEmail.isChecked() ? "1" : "0")
                              + (ui.cbPost.isChecked() ? "1" : "0")
                             + (ui.cbPhone.isChecked() ? "1" : "0");
-                mypViewModel.reqMYP0004(new MYP_0004.Request(APPIAInfo.MG_GA01.getId(), mrktYn, mrktCd));
+                String prvcyYn = ui.cbIndividual.isChecked() ? "Y" : "N";
+                mypViewModel.reqMYP0004(new MYP_0004.Request(APPIAInfo.MG_GA01.getId(), mrktYn, mrktCd, prvcyYn));
                 break;
             case R.id.btn_change_phone:
                 startActivitySingleTop(new Intent(this, LoginActivity.class)

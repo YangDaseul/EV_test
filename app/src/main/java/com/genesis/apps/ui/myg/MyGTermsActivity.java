@@ -23,6 +23,7 @@ import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JO
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0003;
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0004;
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0005;
+import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0013;
 
 /**
  * 앱 이용약관 : 1000
@@ -61,6 +62,10 @@ public class MyGTermsActivity extends WebviewActivity {
                 break;
             case TERM_SERVICE_JOIN_GRA0004:
                 titleId = R.string.title_terms_5;
+                break;
+            case TERM_SERVICE_JOIN_GRA0013:
+                titleId = R.string.title_terms_13;
+                menuId = APPIAInfo.MG_MENU04.getId();
                 break;
             default:
             case TERMS_6000:
