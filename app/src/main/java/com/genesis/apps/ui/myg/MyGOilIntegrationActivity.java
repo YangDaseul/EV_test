@@ -5,11 +5,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.MYP_0001;
+import com.genesis.apps.comm.model.api.gra.MYP_0004;
 import com.genesis.apps.comm.model.api.gra.OIL_0005;
 import com.genesis.apps.comm.model.constants.OilCodes;
 import com.genesis.apps.comm.model.constants.RequestCodes;
@@ -17,12 +16,18 @@ import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
+import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.comm.viewmodel.OILViewModel;
 import com.genesis.apps.databinding.ActivityMygOilIntegrationBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.bottom.BottomTwoButtonIndivTerm;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
+import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0013;
 import static com.genesis.apps.comm.model.vo.OilPointVO.OIL_JOIN_CODE_R;
 
 public class MyGOilIntegrationActivity extends SubActivity<ActivityMygOilIntegrationBinding> {
@@ -30,6 +35,8 @@ public class MyGOilIntegrationActivity extends SubActivity<ActivityMygOilIntegra
     private String oilRfnCd;
     private String rgstYn;
     private OILViewModel oilViewModel;
+    private MYPViewModel mypViewModel;
+    private BottomTwoButtonIndivTerm bottomTwoButtonIndivTerm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,25 +58,109 @@ public class MyGOilIntegrationActivity extends SubActivity<ActivityMygOilIntegra
     public void onClickCommon(View v) {
         switch (v.getId()) {
             case R.id.btn_integration:
-                if (TextUtils.isEmpty(rgstYn) || !rgstYn.equalsIgnoreCase(OIL_JOIN_CODE_R)) {
-                    startActivitySingleTop(new Intent(this, MyGOilTermActivity.class).putExtra(OilCodes.KEY_OIL_CODE, oilRfnCd), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                } else{
-                    MiddleDialog.dialogOilReConnectInfo(this,
-                            () -> oilViewModel.reqOIL0005(new OIL_0005.Request(APPIAInfo.MG01.getId(), StringUtil.isValidString(oilRfnCd))),
-                            () -> {}
-                            );
-                }
+                mypViewModel.reqMYP0001(new MYP_0001.Request(APPIAInfo.MG_GA01.getId()));
                 break;
         }
     }
 
+    private void reqIntregration(){
+        if (TextUtils.isEmpty(rgstYn) || !rgstYn.equalsIgnoreCase(OIL_JOIN_CODE_R)) {
+            startActivitySingleTop(new Intent(this, MyGOilTermActivity.class).putExtra(OilCodes.KEY_OIL_CODE, oilRfnCd), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        } else{
+            MiddleDialog.dialogOilReConnectInfo(this,
+                    () -> oilViewModel.reqOIL0005(new OIL_0005.Request(APPIAInfo.MG01.getId(), StringUtil.isValidString(oilRfnCd))),
+                    () -> {}
+            );
+        }
+    }
+
+
     @Override
     public void setViewModel() {
         oilViewModel = new ViewModelProvider(this).get(OILViewModel.class);
+        mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
     }
 
     @Override
     public void setObserver() {
+        mypViewModel.getRES_MYP_0001().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if(result.data!=null&&StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("0000")){
+                        //약관 동의가 되어있는 경우
+                        if(StringUtil.isValidString(result.data.getPrvcyYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES)){
+                            reqIntregration();
+                        }else{
+                        //약관 미동의 상태인 경우(동의팝업활성화)
+                            if(bottomTwoButtonIndivTerm==null)
+                                bottomTwoButtonIndivTerm = new BottomTwoButtonIndivTerm(this, R.style.BottomSheetDialogTheme);
+
+                            bottomTwoButtonIndivTerm.setButtonAction(() -> {
+                                //정보 제공 동의 요청
+                                String mrktYn="";
+                                String mrktCd="";
+                                try{
+                                    mrktYn = StringUtil.isValidString(result.data.getMrktYn());
+                                    mrktCd = StringUtil.isValidString(result.data.getMrktCd());
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                mypViewModel.reqMYP0004(new MYP_0004.Request(APPIAInfo.MG_GA01.getId(), mrktYn, mrktCd, VariableType.COMMON_MEANS_YES));
+                            }, () -> {
+                                //팝업 종료
+                            });
+                            //약관 내용 보기
+                            bottomTwoButtonIndivTerm.setEventTerm(() -> startActivitySingleTop(new Intent(MyGOilIntegrationActivity.this, MyGTermsActivity.class).putExtra(MyGTermsActivity.TERMS_CODE, TERM_SERVICE_JOIN_GRA0013), RequestCodes.REQ_CODE_ACTIVITY.getCode(),VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE));
+                            bottomTwoButtonIndivTerm.show();
+                        }
+                        break;
+                    }
+                default:
+                    showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if(TextUtils.isEmpty(serverMsg)) serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        SnackBarUtil.show(this, serverMsg);
+                    }
+                    break;
+            }
+        });
+
+        mypViewModel.getRES_MYP_0004().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if(result.data!=null&&StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("0000")){
+                        //동의 완료 응답을 받은 경우
+                        reqIntregration();
+                        break;
+                    }
+                default:
+                    showProgressDialog(false);
+                    String serverMsg="";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if(TextUtils.isEmpty(serverMsg)) serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        SnackBarUtil.show(this, serverMsg);
+                    }
+                    break;
+            }
+        });
+
         oilViewModel.getRES_OIL_0005().observe(this, result -> {
             switch (result.status) {
                 case LOADING:
