@@ -13,6 +13,7 @@ import com.genesis.apps.comm.model.api.gra.LGN_0007;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.UserVO;
 import com.genesis.apps.comm.net.ga.GA;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -224,7 +225,14 @@ public class MyGEntranceActivity extends SubActivity<ActivityMygEntranceBinding>
                 lgnViewModel.reqLGN0001(new LGN_0001.Request(APPIAInfo.INT01.getId(), PackageUtil.getApplicationVersionName(MyGEntranceActivity.this, getPackageName()),""));
             }
         }else{
-            ga.clearLoginInfo();
+            UserVO userVO = null;
+            try{
+                userVO = lgnViewModel.getUserInfoFromDB();
+            }catch (Exception e){
+                userVO = null;
+            }
+            if(userVO==null)
+                ga.clearLoginInfo();
         }
     }
 }
