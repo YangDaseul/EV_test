@@ -31,6 +31,7 @@ import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.main.contents.ContentsSearchActivity;
 import com.genesis.apps.ui.main.contents.FragmentContents;
 import com.genesis.apps.ui.main.home.FragmentHome1;
+import com.genesis.apps.ui.main.home.FragmentHome2;
 import com.genesis.apps.ui.main.insight.FragmentInsight;
 import com.genesis.apps.ui.main.service.FragmentService;
 import com.genesis.apps.ui.main.store.FragmentStore;
@@ -490,6 +491,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 }
             } else if (getViewPager().getCurrentItem() == MainPageDiv.HOME.ordinal() && fragment instanceof FragmentHome) {
                 if (((FragmentHome) fragment).isBottom()) {
+                    initFragmentHome(1);
                     return true;
                 }
             }
@@ -562,8 +564,16 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             if (currentPosition > 0) {
                 for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                     if (fragment instanceof FragmentHome) {
+                        //프래그먼트 HOME을 상단으로 이동
                         ((FragmentHome) fragment).moveToFirstPage();
-                        return;
+                        for (Fragment fragmentChild : fragment.getChildFragmentManager().getFragments()) {
+                            if (fragmentChild instanceof FragmentHome2) {
+                                //프래그먼트2 내의 리사이클러뷰 스크롤 포지션 초기화
+                                ((FragmentHome2) fragmentChild).initScrollPosition();
+                                break;
+                            }
+                        }
+                        break;
                     }
                 }
             }

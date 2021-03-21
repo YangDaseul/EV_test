@@ -511,6 +511,13 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
         }
     }
 
+    public void initScrollPosition(){
+        try {
+            me.rv.scrollToPosition(0);
+        }catch (Exception e){
+
+        }
+    }
 
     @Override
     public void onRefresh() {

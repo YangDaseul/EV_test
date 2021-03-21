@@ -112,6 +112,7 @@ public class MyWebViewFrament extends WebViewFragment {
         if(getActivity() == null) return false;
 
         final JsResult res = result;
+
         MiddleDialog.dialogCommonOneButton(getActivity(), R.string.comm_word_3, message, () -> res.confirm());
 
         return true;
