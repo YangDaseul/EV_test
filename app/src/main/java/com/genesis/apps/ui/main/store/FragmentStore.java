@@ -286,7 +286,9 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
             }
             return true;
         } else if (url.startsWith("genesisapp://openView") || url.startsWith("genesisapps://openView")) {
-            ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, uri.getQueryParameter("url")), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+            ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), StoreWebActivity.class)
+                    .putExtra(KeyNames.KEY_NAME_URL, uri.getQueryParameter("url"))
+                    .putExtra(KeyNames.KEY_NAME_CUST_INFO, mCustInfo), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
             return true;
         } else if (url.startsWith("genesisapp://open") || url.startsWith("genesisapps://open")) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
