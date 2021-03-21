@@ -91,7 +91,11 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
         cmsViewModel.getRES_CMS_1001().observe(getViewLifecycleOwner(), result -> {
 
             switch (result.status) {
+                case LOADING:
+                    ((MainActivity) getActivity()).showProgressDialog(true);
+                    break;
                 case SUCCESS:
+                    ((MainActivity) getActivity()).showProgressDialog(false);
                     if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
                         Log.d("JJJJ", "getCustInfo : " + result.data.getCustInfo());
 
@@ -106,7 +110,8 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
                         try {
                             mCustInfo = result.data.getCustInfo();
                             String postData = "data=" + URLEncoder.encode(mCustInfo, "UTF-8");
-                            fragment.postUrl(url, postData.getBytes());
+                            initWebView(url, postData.getBytes());
+//                            fragment.postUrl(url, postData.getBytes());
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
                         }
@@ -134,6 +139,9 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
 //                        }
                     }
 
+                    break;
+                default:
+                    ((MainActivity) getActivity()).showProgressDialog(false);
                     break;
             }
         });
@@ -167,6 +175,38 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
             Log.d(TAG, "InterruptedException");
             Thread.currentThread().interrupt();
         }
+    }
+
+    private void initView1(){
+        if(fragment != null) return;
+        url = StoreInfo.STORE_LIST_URL;
+        try {
+            if (!TextUtils.isEmpty(lgnViewModel.getUserInfoFromDB().getCustGbCd()) && !VariableType.MAIN_VEHICLE_TYPE_0000.equals(lgnViewModel.getUserInfoFromDB().getCustGbCd())) {
+                mypViewModel.reqMYP1003(new MYP_1003.Request(APPIAInfo.MG01.getId()));
+                cmsViewModel.reqCMS1001(new CMS_1001.Request(APPIAInfo.SM02.getId()));
+            }else{
+                initWebView(url, null);
+            }
+        }catch (Exception e){
+
+        }
+    }
+
+    private void initWebView(String url, byte[] postData) {
+        Bundle bundle = new Bundle();
+        bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
+        if (postData!=null) {
+            bundle.putByteArray(WebViewFragment.EXTRA_POST_DATA, postData);
+        }
+
+        fragment = new MyWebViewFrament();
+        fragment.setWebViewListener(webViewListener);
+        fragment.setJavaInterface(new ScriptInterface(), "isdlpshown");
+        fragment.setArguments(bundle);
+
+        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+        ft.add(R.id.fm_holder, fragment);
+        ft.commitAllowingStateLoss();
     }
 
     public void loadUrl(String url) {
@@ -207,7 +247,7 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
         SubActivity.setStatusBarColor(getActivity(), R.color.x_ffffff);
         ((MainActivity) getActivity()).setGNB(getString(R.string.main_word_5), View.VISIBLE, true, true);
 
-        initView();
+        initView1();
     }
 
     @Override
