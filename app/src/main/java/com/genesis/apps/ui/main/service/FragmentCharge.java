@@ -10,9 +10,12 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentServiceChargeBinding;
+import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 
 import androidx.annotation.Nullable;
@@ -119,17 +122,24 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         String title="";
         int id = v.getId();
         Log.d(TAG, "onClickCommon: view id :" + id);
+        /*
+        TODO 임의로 체크 로직 주석 처리.
         try {
             if (!((FragmentService) getParentFragment()).checkCustGbCd(id, lgnViewModel.getUserInfoFromDB().getCustGbCd()))
                 return;
         } catch (Exception e) {
 
         }
+        */
 
         switch (id) {
             //충전소 검색
             case R.id.btn_service_charge_search:
-//                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceNetworkActivity.class).putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_SERVICE), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                ((BaseActivity) getActivity()).startActivitySingleTop(
+                        new Intent(getActivity(), ChargeSearchActivity.class),
+                        RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                        VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
+                );
                 break;
             //충전소 예약 내역
             case R.id.l_service_charge_reservation_list:

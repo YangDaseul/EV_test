@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--TODO 아직 화면ID가 나오지 않아 임의 단어로 설정. 향후 나오면 변경 필요.-->
+    <string name="sm_servicecs_title">충전소 찾기</string>
+</resources>

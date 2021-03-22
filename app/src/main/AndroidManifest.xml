@@ -609,6 +609,11 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout" />
+        <activity android:name=".ui.main.service.ChargeSearchActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/TextInputLayout" />
         <meta-data
             android:name="android.allow_multiple_resumed_activities"
             android:value="true" />
