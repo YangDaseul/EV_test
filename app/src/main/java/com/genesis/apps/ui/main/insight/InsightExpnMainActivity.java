@@ -145,7 +145,16 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                         String month = date.replace(yyyy + "년", "").trim().replace("월", "");
                         String mm = String.format(Locale.getDefault(), "%02d", Integer.parseInt(month));
                         basYymm = yyyy + mm;
-                        ui.btnMonth.setText(yyyy + "년 " + month + "월");
+                        String yyyyMM = yyyy + "년 " + month + "월";
+                        ui.btnMonth.setText(yyyyMM);
+                        String yyyyMMCurrent=cbkViewModel.getCurrentYYYY() + " " + cbkViewModel.getCurrentMM();
+
+                        if(yyyyMM.equalsIgnoreCase(yyyyMMCurrent)){
+                            ui.tvCurrMthAmt1.setText(R.string.tm01_1_1);
+                        }else{
+                            ui.tvCurrMthAmt1.setText(yyyyMM+" 사용 금액은");
+                        }
+
                         reqCBKData();
                     }
                 });

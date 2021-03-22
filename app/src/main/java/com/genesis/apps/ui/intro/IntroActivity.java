@@ -328,20 +328,23 @@ public class IntroActivity extends SubActivity<ActivityIntroBinding> {
      * DB 정보 초기화
      */
     private void initData() {
+        UserVO userVO = null;
+        try {
+            userVO = lgnViewModel.getUserInfoFromDB();
+        }catch (Exception e){
+            userVO = null;
+        }
         if(loginInfoDTO.loadLoginInfo()!=null){
-            UserVO userVO = null;
-            try {
-                userVO = lgnViewModel.getUserInfoFromDB();
-            }catch (Exception e){
-                e.printStackTrace();
-            }finally {
-                if(userVO==null||TextUtils.isEmpty(userVO.getCustNo())||userVO.getCustNo().equalsIgnoreCase("0000")){
-                    //GRA정보는 DB에 없는데 CCSP 로그인 정보가 살아있을 경우 CCSP 로그인 정보 제거
-                    loginInfoDTO.clearLoginInfo();
-                }else if (TextUtils.isEmpty(loginInfoDTO.getAccessToken())&&userVO!=null&&!TextUtils.isEmpty(userVO.getCustGbCd())&&!userVO.getCustGbCd().equalsIgnoreCase("0000")){
-                    //엑세스토큰이 없는데 DB에 GRA 커스터머 정보가 살아있을 경우 DB 정보 클리어
-                    lgnViewModel.removeDBTable();
-                }
+            if (userVO == null || TextUtils.isEmpty(userVO.getCustNo()) || userVO.getCustNo().equalsIgnoreCase("0000")) {
+                //GRA정보는 DB에 없는데 CCSP 로그인 정보가 살아있을 경우 CCSP 로그인 정보 제거
+                loginInfoDTO.clearLoginInfo();
+            } else if (TextUtils.isEmpty(loginInfoDTO.getAccessToken()) && userVO != null && !TextUtils.isEmpty(userVO.getCustGbCd()) && !userVO.getCustGbCd().equalsIgnoreCase("0000")) {
+                //엑세스토큰이 없는데 DB에 GRA 커스터머 정보가 살아있을 경우 DB 정보 클리어
+                lgnViewModel.removeDBTable();
+            }
+        }else{
+            if(userVO!=null){
+                lgnViewModel.removeDBTable();
             }
         }
     }

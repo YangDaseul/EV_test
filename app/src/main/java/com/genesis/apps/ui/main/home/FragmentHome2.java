@@ -485,7 +485,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
                     break;
                 case R.id.tv_datamiles_more:
                 case R.id.iv_datamiles_service_guide:
-                    // 데이터 마일스 : 더보기 버튼
+//                     데이터 마일스 : 더보기 버튼
                     Object tag = v.getTag();
                     if (tag instanceof String) {
                         ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class)
@@ -511,6 +511,13 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
         }
     }
 
+    public void initScrollPosition(){
+        try {
+            me.rv.scrollToPosition(0);
+        }catch (Exception e){
+
+        }
+    }
 
     @Override
     public void onRefresh() {

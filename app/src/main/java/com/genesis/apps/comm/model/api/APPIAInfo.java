@@ -80,6 +80,7 @@ import com.genesis.apps.ui.myg.MyGOilPointActivity;
 import com.genesis.apps.ui.myg.MyGOilTermActivity;
 import com.genesis.apps.ui.myg.MyGPrivilegeApplyActivity;
 import com.genesis.apps.ui.myg.MyGPrivilegeStateActivity;
+import com.genesis.apps.ui.myg.MyGTerms0013Activity;
 import com.genesis.apps.ui.myg.MyGTerms1000Activity;
 import com.genesis.apps.ui.myg.MyGTerms2000Activity;
 import com.genesis.apps.ui.myg.MyGTermsActivity;
@@ -135,7 +136,7 @@ public enum APPIAInfo {
     GM_BT06_02("GM_BT06_02", BtrBluehandsListActivity.class, VariableType.QUICK_MENU_CODE_NONE, "블루핸즈 목록 보기",VariableType.QUICK_MENU_CATEGORY_NONE),
 
     GM_CARLST01("GM_CARLST01", MyCarActivity.class, VariableType.QUICK_MENU_CODE_CV, "차량 상세",VariableType.QUICK_MENU_CATEGORY_HOME),
-    GM_CARLST_P01("GM_CARLST_P01", null, VariableType.QUICK_MENU_CODE_NONE, "차량 번호 수정 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
+    GM_CARLST_P01("GM_CARLST_P01", null, VariableType.QUICK_MENU_CODE_NONE, "차량번호 수정 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_CARLST_P02("GM_CARLST_P02", null, VariableType.QUICK_MENU_CODE_NONE, "차량 삭제 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_CARLST_01("GM_CARLST_01", LeasingCarVinRegisterActivity.class, VariableType.QUICK_MENU_CODE_NV, "렌트/리스 실운행자 등록 확인",VariableType.QUICK_MENU_CATEGORY_HOME),
     GM_CARLST_01_01("GM_CARLST_01_01", LeasingCarRegisterInputActivity.class, VariableType.QUICK_MENU_CODE_NONE, "등록 신청",VariableType.QUICK_MENU_CATEGORY_NONE),
@@ -340,6 +341,7 @@ public enum APPIAInfo {
     MG_MENU01("MG_MENU01", MyGTerms1000Activity.class, VariableType.QUICK_MENU_CODE_NV, "이용약관",VariableType.QUICK_MENU_CATEGORY_MYG),
     MG_MENU02("MG_MENU02", MyGTerms2000Activity.class, VariableType.QUICK_MENU_CODE_NV, "개인정보처리방침",VariableType.QUICK_MENU_CATEGORY_MYG),
     MG_MENU03("MG_MENU03", MyGTermsActivity.class, VariableType.QUICK_MENU_CODE_NV, "오픈소스 라이선스",VariableType.QUICK_MENU_CATEGORY_MYG),
+    MG_MENU04("MG_MENU04", MyGTerms0013Activity.class, VariableType.QUICK_MENU_CODE_NV, "개인정보 수집 이용·약관 동의",VariableType.QUICK_MENU_CATEGORY_MYG),
     MG_VERSION01("MG_VERSION01", MyGVersioniActivity.class, VariableType.QUICK_MENU_CODE_NV, "버전 정보",VariableType.QUICK_MENU_CATEGORY_MYG);
 
     private String id;

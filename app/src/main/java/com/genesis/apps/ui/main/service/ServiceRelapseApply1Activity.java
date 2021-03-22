@@ -253,8 +253,11 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
             }
 
             if (pos == 2) {
+                ui.btnNext.setVisibility(View.INVISIBLE);
                 //2020-12-01 화면 전체를 덮는 입력 페이지는 자동 진입 안하도록 수정
 //                startMapView();
+            }else{
+                ui.btnNext.setVisibility(View.VISIBLE);
             }
         }
     }

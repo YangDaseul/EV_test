@@ -252,8 +252,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-            android:text="@string/sm_r_rsv03_18"
-            android:fontFamily="@font/light_genesissansheadglobal"/>
+            android:text="@string/sm_r_rsv03_18"/>
 
     </LinearLayout>
 

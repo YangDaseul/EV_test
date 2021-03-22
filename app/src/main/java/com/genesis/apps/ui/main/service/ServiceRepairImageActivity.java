@@ -119,7 +119,7 @@ public class ServiceRepairImageActivity extends SubActivity<ActivityServiceRepai
             e.printStackTrace();
         }finally {
             if (TextUtils.isEmpty(asnCd)||TextUtils.isEmpty(vhclInoutNo)){
-                exitPage("필수 정보(정비망 코드 및 차량입출고 번호)가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                exitPage("업체에서 수리 진행 사진을 준비중입니다.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }
         }
     }

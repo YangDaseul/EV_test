@@ -263,7 +263,7 @@ public class FragmentServiceRepairStatus extends SubFragment<FragmentServiceRepa
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    if (StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("2005"))//조회된 정보가 없을 경우 에러메시지 출력하지 않음
+                    if (result.data!=null&&StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("2005"))//조회된 정보가 없을 경우 에러메시지 출력하지 않음
                         return;
 
                     if (TextUtils.isEmpty(serverMsg)) {

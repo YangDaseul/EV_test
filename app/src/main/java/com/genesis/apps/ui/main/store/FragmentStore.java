@@ -28,6 +28,7 @@ import com.genesis.apps.comm.model.api.gra.MYP_1003;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.StoreInfo;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CMSViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -90,7 +91,11 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
         cmsViewModel.getRES_CMS_1001().observe(getViewLifecycleOwner(), result -> {
 
             switch (result.status) {
+                case LOADING:
+                    ((MainActivity) getActivity()).showProgressDialog(true);
+                    break;
                 case SUCCESS:
+                    ((MainActivity) getActivity()).showProgressDialog(false);
                     if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
                         Log.d("JJJJ", "getCustInfo : " + result.data.getCustInfo());
 
@@ -105,7 +110,8 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
                         try {
                             mCustInfo = result.data.getCustInfo();
                             String postData = "data=" + URLEncoder.encode(mCustInfo, "UTF-8");
-                            fragment.postUrl(url, postData.getBytes());
+                            initWebView(url, postData.getBytes());
+//                            fragment.postUrl(url, postData.getBytes());
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
                         }
@@ -133,6 +139,9 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
 //                        }
                     }
 
+                    break;
+                default:
+                    ((MainActivity) getActivity()).showProgressDialog(false);
                     break;
             }
         });
@@ -166,6 +175,38 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
             Log.d(TAG, "InterruptedException");
             Thread.currentThread().interrupt();
         }
+    }
+
+    private void initView1(){
+        if(fragment != null) return;
+        url = StoreInfo.STORE_LIST_URL;
+        try {
+            if (!TextUtils.isEmpty(lgnViewModel.getUserInfoFromDB().getCustGbCd()) && !VariableType.MAIN_VEHICLE_TYPE_0000.equals(lgnViewModel.getUserInfoFromDB().getCustGbCd())) {
+                mypViewModel.reqMYP1003(new MYP_1003.Request(APPIAInfo.MG01.getId()));
+                cmsViewModel.reqCMS1001(new CMS_1001.Request(APPIAInfo.SM02.getId()));
+            }else{
+                initWebView(url, null);
+            }
+        }catch (Exception e){
+
+        }
+    }
+
+    private void initWebView(String url, byte[] postData) {
+        Bundle bundle = new Bundle();
+        bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
+        if (postData!=null) {
+            bundle.putByteArray(WebViewFragment.EXTRA_POST_DATA, postData);
+        }
+
+        fragment = new MyWebViewFrament();
+        fragment.setWebViewListener(webViewListener);
+        fragment.setJavaInterface(new ScriptInterface(), "isdlpshown");
+        fragment.setArguments(bundle);
+
+        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+        ft.add(R.id.fm_holder, fragment);
+        ft.commitAllowingStateLoss();
     }
 
     public void loadUrl(String url) {
@@ -206,7 +247,7 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
         SubActivity.setStatusBarColor(getActivity(), R.color.x_ffffff);
         ((MainActivity) getActivity()).setGNB(getString(R.string.main_word_5), View.VISIBLE, true, true);
 
-        initView();
+        initView1();
     }
 
     @Override
@@ -221,6 +262,17 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
                 || url.equalsIgnoreCase("https://www.genesis.com/kr/ko/genesis-membership.html")){
             getActivity().finish();
             return true;
+        } else if(url.startsWith("genesisapp://exeApp") || url.startsWith("genesisapps://exeApp")){
+            String packgeName;
+            try{
+                packgeName = uri.getQueryParameter("schm");
+                if(!TextUtils.isEmpty(packgeName)){
+                    PackageUtil.runApp(getActivity(), packgeName);
+                }
+            }catch (Exception e){
+
+            }
+            return true;
         } else if(url.startsWith("genesisapp://close") || url.startsWith("genesisapps://close")){
             if(url.contains("all=y")){
                 getActivity().finish();
@@ -234,7 +286,9 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
             }
             return true;
         } else if (url.startsWith("genesisapp://openView") || url.startsWith("genesisapps://openView")) {
-            ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, uri.getQueryParameter("url")), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+            ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), StoreWebActivity.class)
+                    .putExtra(KeyNames.KEY_NAME_URL, uri.getQueryParameter("url"))
+                    .putExtra(KeyNames.KEY_NAME_CUST_INFO, mCustInfo), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
             return true;
         } else if (url.startsWith("genesisapp://open") || url.startsWith("genesisapps://open")) {
             Intent intent = new Intent(Intent.ACTION_VIEW);

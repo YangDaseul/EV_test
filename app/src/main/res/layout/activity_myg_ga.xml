@@ -213,6 +213,53 @@
                     app:layout_constraintTop_toBottomOf="@+id/btn_save_agree" />
 
                 <CheckBox
+                    android:id="@+id/cb_individual"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@android:color/transparent"
+                    android:button="@null"
+                    android:drawableStart="@drawable/checkbox_selector"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/regular_genesissansheadglobal"
+                    android:text="@string/word_ga_18"
+                    android:textColor="@color/x_000000"
+                    android:checked="@{data.prvcyYn.equalsIgnoreCase(`Y`) ? true : false}"
+                    android:textSize="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
+                    app:layout_constraintTop_toBottomOf="@+id/line_2" />
+
+                <ImageView
+                    android:id="@+id/btn_arrow_terms_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/btn_open_r2"
+                    android:layout_marginEnd="20dp"
+                    android:paddingStart="30dp"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    app:layout_constraintStart_toEndOf="@+id/cb_individual"
+                    app:layout_constraintTop_toTopOf="@+id/cb_individual"
+                    app:layout_constraintBottom_toBottomOf="@+id/cb_individual"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+
+                <ImageView
+                    android:id="@+id/line_21"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/x_e5e5e5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cb_individual" />
+
+
+                <CheckBox
                     android:id="@+id/cb_ad"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -228,7 +275,7 @@
                     android:textSize="15dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
-                    app:layout_constraintTop_toBottomOf="@+id/line_2" />
+                    app:layout_constraintTop_toBottomOf="@+id/line_21" />
 
                 <ImageView
                     android:id="@+id/iv_arrow"

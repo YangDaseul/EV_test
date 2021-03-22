@@ -15,7 +15,7 @@ public class BottomContentDialog extends BaseBottomDialog<DialogBottomContentBin
 
     private String title;
     private String content = "";
-
+    public boolean isClick=false;
     public BottomContentDialog(@NonNull Context context, int theme) {
         super(context, theme);
     }
@@ -59,13 +59,10 @@ public class BottomContentDialog extends BaseBottomDialog<DialogBottomContentBin
             }
         });
 
-        ui.tvNextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                content = ui.etContent.getText().toString();
-
-                dismiss();
-            }
+        ui.tvNextBtn.setOnClickListener(view -> {
+            isClick = true;
+            content = ui.etContent.getText().toString();
+            dismiss();
         });
     }
 

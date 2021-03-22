@@ -36,10 +36,13 @@ public class MYP_0004 extends BaseData {
         @Expose
         @SerializedName("mrktCd")
         private String mrktCd;
-
-        public Request(String menuId, String mrktYn, String mrktCd){
+        @Expose
+        @SerializedName("prvcyYn")
+        private String prvcyYn;
+        public Request(String menuId, String mrktYn, String mrktCd, String prvcyYn){
             this.mrktYn = mrktYn;
             this.mrktCd = mrktCd;
+            this.prvcyYn = prvcyYn;
             setData(APIInfo.GRA_MYP_0004.getIfCd(),menuId);
         }
     }

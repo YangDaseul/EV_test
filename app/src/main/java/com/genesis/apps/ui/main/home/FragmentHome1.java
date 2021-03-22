@@ -104,6 +104,9 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     private int rawBackground = 0;
     private int rawLottie = 0;
     private int dayCd = 1;
+    private String sigungu = "";
+    private String t1h = "";
+
     private boolean isInit = true; //최초 로딩 완료의 기준은 LGN-0005. LGN-0005(날씨정보요청)에 의해서 기본적인 뷰 표시가 결정됨
     private WeatherCodes weatherCodes = WeatherCodes.SKY1;
     private PlaybackStateListener playbackStateListener;
@@ -208,57 +211,28 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
             switch (result.status) {
                 case LOADING:
-                    ((MainActivity) getActivity()).showProgressDialog(true);
                     break;
                 case SUCCESS:
                 default:
-                    ((MainActivity) getActivity()).showProgressDialog(false);
-
-                    String sigungu = "";
-                    String t1h = "";
-
-                    if (result.data != null) {
+                    if (result.data != null&&StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("0000")) {
                         try {
                             dayCd = Integer.parseInt(StringUtil.isValidString(result.data.getDayCd()));
                             sigungu = StringUtil.isValidString(result.data.getSiGuGun());
                             t1h = StringUtil.isValidString(result.data.getT1h());
                             weatherCodes = WeatherCodes.decideCode(result.data.getLgt(), result.data.getPty(), result.data.getSky());
                         } catch (Exception e) {
-                            weatherCodes = WeatherCodes.SKY1;
                         }
                     }
                     //날씨 정보 요청 전문에서는 에러가 발생되어도 기본 값으로 표시
                     if (weatherCodes == null)
                         weatherCodes = WeatherCodes.SKY1;
 
-                    SubActivity.setStatusBarColor(getActivity(), dayCd == VariableType.HOME_TIME_DAY ? R.color.x_ffffff : R.color.x_000000);
-                    ((MainActivity) getActivity()).setTab(dayCd);
-                    ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == VariableType.HOME_TIME_DAY);
 
                     try {
-                        MessageVO weather = cmnViewModel.getHomeWeatherInsight(weatherCodes, dayCd, sigungu, t1h);
-                        if (weather != null) {
-
-                            //2021-02-15 요건 변경
-                            //기존 txtMsg에는 서버로 부터 전달받은 날씨 별 메시지를 랜덤으로 출력하고 있었으나
-                            //사용자 로그인 상태에 따라 인사 메시지로 변경
-                            //해당 코드에서 변경하기 전까지는 날씨 랜덤 메시지를 저장 중
-                            weather.setTxtMsg(getGreetingMsg());
-                            adapter.addRow(weather);
-//                    adapter.setRealItemCnt(adapter.getRealItemCnt() + 1);
-                        }
-
-//                adapter.notifyDataSetChanged();
+                        initViewBanner(false);
                         me.setActivity((MainActivity) getActivity());
                         me.setWeatherCode(weatherCodes);
                         me.setDayCd(dayCd);
-                    } catch (Exception e) {
-
-                    } finally {
-                        istViewModel.reqIST1001(new IST_1001.Request(APPIAInfo.GM01.getId(), "HOME", "TOP"));
-                    }
-
-                    try {
                         rawBackground = WeatherCodes.getBackgroundResource(weatherCodes, dayCd);
                         rawLottie = WeatherCodes.getEffectResource(weatherCodes);
 
@@ -268,17 +242,19 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                             initializePlayer();
                         }
 
-                        resumeAndPauseLottie(true);
-                        setViewBanner();
-                        pauseTimer();
-                        setViewCarImg();
-                        setViewVehicle();
-                        goneQuickMenu();
-                        setIndicator(lgnViewModel.getMainVehicleFromDB().getCustGbCd());
+                        if(((MainActivity) getActivity()).isFirstPage()) {
+                            ((MainActivity) getActivity()).setTab(dayCd);
+                            ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == VariableType.HOME_TIME_DAY);
+                            SubActivity.setStatusBarColor(getActivity(), dayCd == VariableType.HOME_TIME_DAY ? R.color.x_ffffff : R.color.x_000000);
+                            resumeAndPauseLottie(true);
+                            setViewCarImg();
+                        }
                     } catch (Exception e) {
 
+                    } finally {
+                        istViewModel.reqIST1001(new IST_1001.Request(APPIAInfo.GM01.getId(), "HOME", "TOP"));
                     }
-                    isInit = false;
+
                     break;
             }
         });
@@ -323,7 +299,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         }
                     }
                 default:
-                    me.tvDistancePossible.setText("--km");
+//                    me.tvDistancePossible.setText("--km");
                     break;
             }
         });
@@ -342,7 +318,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         }
                     }
                 default:
-                    me.tvDistanceTotal.setText("--km");
+//                    me.tvDistanceTotal.setText("--km");
                     break;
             }
         });
@@ -366,7 +342,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         }
                     }
                 default:
-                    me.tvDistanceRecently.setText("--km");
+//                    me.tvDistanceRecently.setText("--km");
                     break;
             }
         });
@@ -396,11 +372,12 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                             adapter.addRows(result.data.getBnrMsgList());
 //                            adapter.setRealItemCnt(adapter.getRealItemCnt() + result.data.getBnrMsgList().size());
                         }
-                        adapter.notifyItemRangeChanged(0, adapter.getRealItemCnt());
+                        adapter.notifyDataSetChanged();
+                        setViewBanner();
                         break;
                     }
                 default:
-                    adapter.notifyItemRangeChanged(0, adapter.getRealItemCnt());
+                    adapter.notifyDataSetChanged();
                     break;
             }
 
@@ -408,7 +385,30 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     }
 
+    private void initViewBanner(boolean isUpdate){
+        try {
+            MessageVO weather = cmnViewModel.getHomeWeatherInsight(weatherCodes, dayCd, sigungu, t1h);
+            if (weather != null) {
+                //2021-02-15 요건 변경
+                //기존 txtMsg에는 서버로 부터 전달받은 날씨 별 메시지를 랜덤으로 출력하고 있었으나
+                //사용자 로그인 상태에 따라 인사 메시지로 변경
+                //해당 코드에서 변경하기 전까지는 날씨 랜덤 메시지를 저장 중
+                adapter.clear();
+                weather.setTxtMsg(getGreetingMsg());
+                adapter.addRow(weather);
+                if(isUpdate){
+                    adapter.notifyDataSetChanged();
+                    setViewBanner();
+                }
+            }
+        }catch (Exception e){
+
+        }
+    }
+
+
     private void setViewBanner() {
+        pauseTimer();
         if(adapter!=null&&adapter.getRealItemCnt() > 1){
             me.vpInsight.setUserInputEnabled(true);
             startTimer();
@@ -452,10 +452,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
     private void initView() {
         playbackStateListener = new PlaybackStateListener();
-        SubActivity.setStatusBarColor(getActivity(), dayCd == VariableType.HOME_TIME_DAY ? R.color.x_ffffff : R.color.x_000000);
-        ((MainActivity) getActivity()).setTab(dayCd);
-        ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == VariableType.HOME_TIME_DAY);
-        setViewCarInfo(null);
         setViewCarImg();
         me.setActivity((MainActivity) getActivity());
         me.setWeatherCode(weatherCodes);
@@ -523,14 +519,11 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     }
 
     private void reqMyLocation() {
-        Log.v("test", "test start");
-        ((MainActivity) getActivity()).showProgressDialog(true);
+//        ((MainActivity) getActivity()).showProgressDialog(true);
         ((MainActivity) getActivity()).findMyLocation(location -> {
             try {
-                Log.v("test", "test finish");
-                ((MainActivity) getActivity()).showProgressDialog(false);
+//                ((MainActivity) getActivity()).showProgressDialog(false);
                 if (location == null) {
-                    Log.v("location", "location null");
                     lgnViewModel.setPosition(37.463936, 127.042953);
                     return;
                 }
@@ -641,12 +634,25 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         if (isRecord)
             return;
 
-        if (isInit) {
-            initializePlayer();
+        try {
+            if (isInit) {
+                isInit = false;
+                initViewBanner(true);
+                initializePlayer();
+                ((MainActivity) getActivity()).setTab(dayCd);
+            }
+            setViewVehicle();
+            //날씨 효과가 있을 경우 중복이지만 onResume에서 한번더 호출 진행 (0005받기 전까지 대기 화면이 이질적으로 보임)
+            resumeAndPauseLottie(true);
+            //LGN-0005와 중복되지만 하->상 이동 시 바로 변경하기 위한 처리
+            SubActivity.setStatusBarColor(getActivity(), dayCd == VariableType.HOME_TIME_DAY ? R.color.x_ffffff : R.color.x_000000);
+            setViewWeather();
+            setIndicator(lgnViewModel.getMainVehicleFromDB().getCustGbCd());
+            goneQuickMenu();
+            ((MainActivity) getActivity()).setGNB("", View.VISIBLE, false, dayCd == VariableType.HOME_TIME_DAY);
+        } catch (Exception e) {
+
         }
-        //날씨 효과가 있을 경우 중복이지만 onResume에서 한번더 호출 진행 (0005받기 전까지 대기 하면이 이질적으로 보임)
-        resumeAndPauseLottie(true);
-        setViewWeather();
     }
 
     private void startTimer() {

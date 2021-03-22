@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
+import com.genesis.apps.comm.viewmodel.CMSViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityMainBinding;
 import com.genesis.apps.databinding.ItemTabBinding;
@@ -30,6 +32,7 @@ import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.main.contents.ContentsSearchActivity;
 import com.genesis.apps.ui.main.contents.FragmentContents;
 import com.genesis.apps.ui.main.home.FragmentHome1;
+import com.genesis.apps.ui.main.home.FragmentHome2;
 import com.genesis.apps.ui.main.insight.FragmentInsight;
 import com.genesis.apps.ui.main.service.FragmentService;
 import com.genesis.apps.ui.main.store.FragmentStore;
@@ -68,6 +71,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     public FragmentStateAdapter pagerAdapter;
     private LGNViewModel lgnViewModel;
     private CMNViewModel cmnViewModel;
+    private CMSViewModel cmsViewModel;
     //ios와 동일한 구조를 맞추기 위한 변수
     //홈하단에 있는 상태에서 onResume 호출 시 홈 상단으로 이동시킴
     private boolean moveHomeBottom=false;
@@ -101,7 +105,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         pagerAdapter = new MainViewpagerAdapter(this, pageNum);
         ui.viewpager.setAdapter(pagerAdapter);
         ui.viewpager.setUserInputEnabled(false);
-        setTabView();
+//        setTabView();
 
         //ViewPager Setting
         ui.viewpager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
@@ -164,21 +168,21 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 break;
             case R.id.btn_cart_list:
                 try {
-                    loginChk(StoreInfo.STORE_PURCHASE_URL, lgnViewModel.getUserInfoFromDB().getCustGbCd());
+                    loginChk(StoreInfo.STORE_PURCHASE_URL, lgnViewModel.getUserInfoFromDB().getCustGbCd(), getCustInfo());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case R.id.btn_store_cart:
                 try {
-                    loginChk(StoreInfo.STORE_CART_URL, lgnViewModel.getUserInfoFromDB().getCustGbCd());
+                    loginChk(StoreInfo.STORE_CART_URL, lgnViewModel.getUserInfoFromDB().getCustGbCd(), getCustInfo());
                 } catch (Exception ignore) {
 
                 }
                 break;
             case R.id.btn_store_search:
                 try {
-                    loginChk(StoreInfo.STORE_SEARCH_URL, lgnViewModel.getUserInfoFromDB().getCustGbCd());
+                    loginChk(StoreInfo.STORE_SEARCH_URL, lgnViewModel.getUserInfoFromDB().getCustGbCd(), getCustInfo());
                 } catch (Exception e) {
 
                 }
@@ -192,10 +196,21 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 
     }
 
+    private String getCustInfo(){
+        String mUserInfo;
+        try{
+            mUserInfo = cmsViewModel.getRES_CMS_1001().getValue().data.getCustInfo();
+        }catch (Exception e){
+            mUserInfo = "";
+        }
+        return mUserInfo;
+    }
+
     @Override
     public void setViewModel() {
         lgnViewModel = new ViewModelProvider(this).get(LGNViewModel.class);
         cmnViewModel = new ViewModelProvider(this).get(CMNViewModel.class);
+        cmsViewModel = new ViewModelProvider(this).get(CMSViewModel.class);
     }
 
     @Override
@@ -344,52 +359,54 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             {R.string.main_word_4, R.drawable.ic_tabbar_contents_w}
     };
 
-    private void setTabView() {
-        new TabLayoutMediator(ui.tabs, ui.viewpager, (tab, position) -> {
-
-        }).attach();
-
-        for (int i = 0; i < pageNum; i++) {
-            final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            final ItemTabBinding itemTabBinding = DataBindingUtil.inflate(inflater, R.layout.item_tab, null, false);
-            final View view = itemTabBinding.getRoot();
-            itemTabBinding.tvTab.setText(TAB_INFO[i][0]);
-            itemTabBinding.ivTab.setImageResource(TAB_INFO[i][1]);
-            ui.tabs.getTabAt(i).setCustomView(view);
-        }
-    }
+//    private void setTabView() {
+//        new TabLayoutMediator(ui.tabs, ui.viewpager, (tab, position) -> {
+//
+//        }).attach();
+//
+//        for (int i = 0; i < pageNum; i++) {
+//            final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//            final ItemTabBinding itemTabBinding = DataBindingUtil.inflate(inflater, R.layout.item_tab, null, false);
+//            final View view = itemTabBinding.getRoot();
+//            itemTabBinding.tvTab.setText(TAB_INFO[i][0]);
+//            itemTabBinding.ivTab.setImageResource(TAB_INFO[i][1]);
+//            ui.tabs.getTabAt(i).setCustomView(view);
+//        }
+//    }
 
     /**
      * @param dayCd 낮 : 1 , 밤 : 2
      */
     public void setTab(int dayCd) {
-        ui.tabs.removeAllTabs();
         ui.tabs.setBackgroundResource(dayCd == 1 ? R.drawable.bg_ffffff_topline_f8f8f8 : R.drawable.bg_000000_topline_262626);
-        new TabLayoutMediator(ui.tabs, ui.viewpager, (tab, position) -> {
+        new Handler().postDelayed(() -> {
+            if(ui.tabs.getTabCount()>0) ui.tabs.removeAllTabs();
+            new TabLayoutMediator(ui.tabs, ui.viewpager, (tab, position) -> {
 
-        }).attach();
+            }).attach();
 
-        for (int i = 0; i < pageNum; i++) {
-            final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = null;
-            if (dayCd == 1) {
-                final ItemTabDayBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_tab_day, null, false);
+            for (int i = 0; i < pageNum; i++) {
+                final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view = null;
+                if (dayCd == 1) {
+                    final ItemTabDayBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_tab_day, null, false);
 
-                view = binding.getRoot();
-                binding.tvTab.setText(TAB_INFO[i][0]);
-                binding.ivTab.setImageResource(TAB_INFO[i][1]);
+                    view = binding.getRoot();
+                    binding.tvTab.setText(TAB_INFO[i][0]);
+                    binding.ivTab.setImageResource(TAB_INFO[i][1]);
 //                setPaddingTab(binding.lTab, i);
-            } else {
-                final ItemTabBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_tab, null, false);
+                } else {
+                    final ItemTabBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_tab, null, false);
 
-                view = binding.getRoot();
-                binding.tvTab.setText(TAB_INFO[i][0]);
-                binding.ivTab.setImageResource(TAB_INFO[i][1]);
+                    view = binding.getRoot();
+                    binding.tvTab.setText(TAB_INFO[i][0]);
+                    binding.ivTab.setImageResource(TAB_INFO[i][1]);
 //                setPaddingTab(binding.lTab, i);
+                }
+
+                ui.tabs.getTabAt(i).setCustomView(view);
             }
-
-            ui.tabs.getTabAt(i).setCustomView(view);
-        }
+        },500);
     }
 
     private void setPaddingTab(ConstraintLayout lTab, int pos) {
@@ -487,6 +504,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 }
             } else if (getViewPager().getCurrentItem() == MainPageDiv.HOME.ordinal() && fragment instanceof FragmentHome) {
                 if (((FragmentHome) fragment).isBottom()) {
+                    initFragmentHome(1);
                     return true;
                 }
             }
@@ -559,8 +577,16 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             if (currentPosition > 0) {
                 for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                     if (fragment instanceof FragmentHome) {
+                        //프래그먼트 HOME을 상단으로 이동
                         ((FragmentHome) fragment).moveToFirstPage();
-                        return;
+                        for (Fragment fragmentChild : fragment.getChildFragmentManager().getFragments()) {
+                            if (fragmentChild instanceof FragmentHome2) {
+                                //프래그먼트2 내의 리사이클러뷰 스크롤 포지션 초기화
+                                ((FragmentHome2) fragmentChild).initScrollPosition();
+                                break;
+                            }
+                        }
+                        break;
                     }
                 }
             }
@@ -581,5 +607,18 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         } catch (Exception e) {
 
         }
+    }
+
+    public boolean isFirstPage(){
+        try {
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if (fragment instanceof FragmentHome) {
+                    return ((FragmentHome) fragment).isFirstPage()&&isHome();
+                }
+            }
+        } catch (Exception e) {
+
+        }
+        return false;
     }
 }

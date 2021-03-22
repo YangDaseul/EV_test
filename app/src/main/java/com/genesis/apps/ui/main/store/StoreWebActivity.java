@@ -22,6 +22,7 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CMS_1001;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.viewmodel.CMSViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityStoreWebBinding;
@@ -76,7 +77,11 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
         cmsViewModel.getRES_CMS_1001().observe(this, result -> {
 
             switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
                 case SUCCESS:
+                    showProgressDialog(false);
                     if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
                         Log.d("JJJJ", "getCustInfo : " + result.data.getCustInfo());
                         try {
@@ -87,11 +92,10 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
                             e.printStackTrace();
                         }
                     }
-
                     break;
                 case ERROR:
+                    showProgressDialog(false);
                     fragment.loadUrl(url);
-
                     break;
             }
         });
@@ -106,7 +110,11 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
         }
 
         url = intent.getStringExtra(KeyNames.KEY_NAME_URL);
+        try{
+            mCustInfo = intent.getStringExtra(KeyNames.KEY_NAME_CUST_INFO);
+        }catch (Exception e){
 
+        }
         Log.d("JJJJ", "store url : " + url);
     }
 
@@ -136,10 +144,18 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
     private void initView() {
         Bundle bundle = new Bundle();
 
-        if (!TextUtils.isEmpty(getCustGbCd()) && !getCustGbCd().equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)) {
+        if (!TextUtils.isEmpty(getCustGbCd()) && !getCustGbCd().equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)&&TextUtils.isEmpty(mCustInfo)) {
             cmsViewModel.reqCMS1001(new CMS_1001.Request(APPIAInfo.SM02.getId()));
         } else {
             bundle.putString(WebViewFragment.EXTRA_MAIN_URL, url);
+            try {
+                if (!TextUtils.isEmpty(mCustInfo)) {
+                    String postData = "data=" + URLEncoder.encode(mCustInfo, "UTF-8");
+                    bundle.putByteArray(WebViewFragment.EXTRA_POST_DATA, postData.getBytes());
+                }
+            }catch (Exception e){
+
+            }
         }
 
         fragment = new MyWebViewFrament();
@@ -209,6 +225,17 @@ public class StoreWebActivity extends SubActivity<ActivityStoreWebBinding> {
         if (url.equalsIgnoreCase("https://www.genesis.com/kr/ko")
                 || url.equalsIgnoreCase("https://www.genesis.com/kr/ko/genesis-membership.html")){
             finish();
+            return true;
+        } else if(url.startsWith("genesisapp://exeApp") || url.startsWith("genesisapps://exeApp")){
+            String packgeName;
+            try{
+                packgeName = uri.getQueryParameter("schm");
+                if(!TextUtils.isEmpty(packgeName)){
+                    PackageUtil.runApp(this, packgeName);
+                }
+            }catch (Exception e){
+
+            }
             return true;
         } else if(url.startsWith("genesisapp://close") || url.startsWith("genesisapps://close")){
             if(url.contains("all=y")){

@@ -11,6 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.constants.KeyNames;
@@ -29,11 +34,6 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 
 public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivity {
@@ -341,9 +341,11 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         }
     }
 
-    public void loginChk(String url, String custGbCd) {
+    public void loginChk(String url, String custGbCd, String mCustInfo) {
         if (!TextUtils.isEmpty(custGbCd) && !custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)) {
-            startActivitySingleTop(new Intent(this, StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, url), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+            startActivitySingleTop(new Intent(this, StoreWebActivity.class)
+                    .putExtra(KeyNames.KEY_NAME_URL, url)
+                    .putExtra(KeyNames.KEY_NAME_CUST_INFO, mCustInfo), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
         } else {
             MiddleDialog.dialogLogin(this, () -> {
                 startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
@@ -387,6 +389,5 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
     private boolean isTargetPermissionCheck() {
         return this.getClass() != IntroActivity.class && this.getClass() != PermissionsActivity.class;
     }
-
 
 }

@@ -81,6 +81,7 @@
             android:name=".ui.main.contents.ContentsSearchActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
+            android:windowSoftInputMode="adjustNothing"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.contents.ContentsDetailWebActivity"
@@ -170,6 +171,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.myg.MyGTerms2000Activity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.myg.MyGTerms0013Activity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
