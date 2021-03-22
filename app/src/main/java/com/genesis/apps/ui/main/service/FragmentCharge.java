@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main.service;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +11,17 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.SOS_1001;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentServiceChargeBinding;
+import com.genesis.apps.ui.common.activity.BaseActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
+import com.genesis.apps.ui.main.MainActivity;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
@@ -35,23 +43,6 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         super.onActivityCreated(savedInstanceState);
         me.setLifecycleOwner(this);
         lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
-//        reqViewModel.getRES_REQ_1001().observe(getViewLifecycleOwner(), result -> {
-//            switch (result.status) {
-//                case LOADING:
-//                    ((SubActivity) getActivity()).showProgressDialog(true);
-//                    break;
-//                case SUCCESS:
-//                    ((SubActivity) getActivity()).showProgressDialog(false);
-//                    if (result.data != null) {
-//                        setViewSOSStatus(result.data.getPgrsStusCd());
-//                        setViewMaintenanceStatus(result.data.getStusCd());
-//                    }
-//                    break;
-//                default:
-//                    ((SubActivity) getActivity()).showProgressDialog(false);
-//                    break;
-//            }
-//        });
     }
 
 //    private void startSOSActivity() {
@@ -143,12 +134,12 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                 break;
             //찾아가는 충전 서비스
             case R.id.l_service_charge_service:
-
+                startServiceChargeActivity();
                 break;
             case R.id.tv_service_maintenance_btn_black:
                 title = v.getTag().toString();
                 if(StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm_cg_sm02_11))){
-                    //찾아가는 충전 서비스 앱으로 신청
+                    startServiceChargeActivity();
                 }else if(StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm_cg_sm02_7))){
                     //충전 버틀러 서비스 버틀러 신청
                 }
@@ -158,7 +149,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                 if(StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm_cg_sm02_11))){
                     //찾아가는 충전 서비스 전화 신청
 //                    String tel=mainVehicle.getMdlNm().equalsIgnoreCase("G90")||mainVehicle.getMdlNm().equalsIgnoreCase("EQ900") ? "080-900-6000" : "080-700-6000";
-                    String sample = "080-900-6000";
+                    String sample = "080-700-6000";
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + sample)));
                 }else if(StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm_cg_sm02_7))){
                     //충전 버틀러 서비스 신청 내역
@@ -167,6 +158,43 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
             default:
                 //do nothing
                 break;
+        }
+    }
+
+
+    //TODO 전문 활성화 시 수정 필요
+    private void startServiceChargeActivity() {
+
+        if (!((MainActivity) getActivity()).isGpsEnable()) {
+            MiddleDialog.dialogGPS(getActivity(), () -> ((MainActivity) getActivity()).turnGPSOn(isGPSEnable -> {
+                Log.v("test","value:"+isGPSEnable);
+            }), () -> {
+                //현대양재사옥위치
+            });
+        } else {
+            String pgrsStusCd = "test";
+            try {
+//                pgrsStusCd = reqViewModel.getRES_REQ_1001().getValue().data.getPgrsStusCd();
+            } catch (Exception e) {
+                pgrsStusCd = "";
+            }
+
+            if (!TextUtils.isEmpty(pgrsStusCd)) {
+                switch (pgrsStusCd) {
+                    case VariableType.SERVICE_SOS_STATUS_CODE_R://신청
+                    case VariableType.SERVICE_SOS_STATUS_CODE_W://접수
+                        ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceChargeApplyInfoActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        break;
+                    case VariableType.SERVICE_SOS_STATUS_CODE_S://출동
+//                        sosViewModel.reqSOS1001(new SOS_1001.Request(APPIAInfo.SM01.getId()));
+                        break;
+                    case VariableType.SERVICE_SOS_STATUS_CODE_E://완료
+                    case VariableType.SERVICE_SOS_STATUS_CODE_C://취소
+                    default:
+                        ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceChargeApplyActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        break;
+                }
+            }
         }
     }
 

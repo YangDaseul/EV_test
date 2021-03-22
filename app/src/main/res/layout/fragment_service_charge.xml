@@ -30,6 +30,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="15dp"
+                android:visibility="gone"
                 android:background="@drawable/ripple_bg_ffffff_stroke_e5e5e5"
                 android:clickable="true"
                 android:focusable="true"
@@ -70,6 +71,7 @@
                 app:desc="@{@string/sm_cg_sm02_4}"
                 app:icon="@{@drawable/ic_service_reservation}"
                 app:title="@{@string/sm_cg_sm02_3}"
+                app:isCharge="@{true}"
                 app:fragment="@{fragment}"/>
 
             <!--  여행 경로 추천 -->
@@ -77,8 +79,10 @@
                 android:id="@+id/l_service_charge_recommend_trip"
                 layout="@layout/item_service_maintenance"
                 android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
+                android:visibility="gone"
                 app:desc="@{@string/sm_cg_sm02_6}"
                 app:icon="@{@drawable/ic_service_list}"
+                app:isCharge="@{true}"
                 app:title="@{@string/sm_cg_sm02_5}" />
 
             <!--  충전 버틀러 서비스 -->
@@ -91,6 +95,7 @@
                 app:title="@{@string/sm_cg_sm02_7}"
                 app:btnWhite="@{@string/sm_cg_sm02_9}"
                 app:btnBlack="@{@string/sm_cg_sm02_10}"
+                app:isCharge="@{true}"
                 app:fragment="@{fragment}"/>
 
             <!--  찾아가는 충전 서비스 -->
@@ -103,6 +108,7 @@
                 app:title="@{@string/sm_cg_sm02_11}"
                 app:btnWhite="@{@string/sm_cg_sm02_13}"
                 app:btnBlack="@{@string/sm_cg_sm02_14}"
+                app:isCharge="@{true}"
                 app:fragment="@{fragment}"/>
         </LinearLayout>
     </ScrollView>

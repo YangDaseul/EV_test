@@ -32,6 +32,10 @@
             name="fragment"
             type="com.genesis.apps.ui.common.fragment.SubFragment" />
 
+        <variable
+            name="isCharge"
+            type="boolean" />
+
     </data>
 
     <!-- 아이콘 높이가 텍스트에 정렬됨 -->
@@ -43,7 +47,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="15dp"
-        android:background="@drawable/ripple_bg_ffffff"
+        android:background="@{!isCharge ? @drawable/ripple_bg_ffffff : @drawable/ripple_bg_ffffff_stroke_e5e5e5}"
         android:clickable="true"
         android:focusable="true"
         android:paddingStart="20dp"
