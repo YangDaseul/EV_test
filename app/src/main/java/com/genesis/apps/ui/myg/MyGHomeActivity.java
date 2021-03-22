@@ -522,7 +522,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     break;
                 case R.id.iv_titlebar_img_btn:
                     try {
-                        loginChk(StoreInfo.STORE_CART_URL, mypViewModel.getUserInfoFromDB().getCustGbCd());
+                        loginChk(StoreInfo.STORE_CART_URL, mypViewModel.getUserInfoFromDB().getCustGbCd(),"");
                     }catch (Exception ignore){
 
                     }

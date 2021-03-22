@@ -341,9 +341,11 @@ public abstract class SubActivity<T extends ViewDataBinding> extends BaseActivit
         }
     }
 
-    public void loginChk(String url, String custGbCd) {
+    public void loginChk(String url, String custGbCd, String mCustInfo) {
         if (!TextUtils.isEmpty(custGbCd) && !custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)) {
-            startActivitySingleTop(new Intent(this, StoreWebActivity.class).putExtra(KeyNames.KEY_NAME_URL, url), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+            startActivitySingleTop(new Intent(this, StoreWebActivity.class)
+                    .putExtra(KeyNames.KEY_NAME_URL, url)
+                    .putExtra(KeyNames.KEY_NAME_CUST_INFO, mCustInfo), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
         } else {
             MiddleDialog.dialogLogin(this, () -> {
                 startActivitySingleTop(new Intent(this, MyGEntranceActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);

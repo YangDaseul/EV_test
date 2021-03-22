@@ -23,6 +23,7 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
+import com.genesis.apps.comm.viewmodel.CMSViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivityMainBinding;
 import com.genesis.apps.databinding.ItemTabBinding;
@@ -70,6 +71,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     public FragmentStateAdapter pagerAdapter;
     private LGNViewModel lgnViewModel;
     private CMNViewModel cmnViewModel;
+    private CMSViewModel cmsViewModel;
     //ios와 동일한 구조를 맞추기 위한 변수
     //홈하단에 있는 상태에서 onResume 호출 시 홈 상단으로 이동시킴
     private boolean moveHomeBottom=false;
@@ -166,21 +168,21 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 break;
             case R.id.btn_cart_list:
                 try {
-                    loginChk(StoreInfo.STORE_PURCHASE_URL, lgnViewModel.getUserInfoFromDB().getCustGbCd());
+                    loginChk(StoreInfo.STORE_PURCHASE_URL, lgnViewModel.getUserInfoFromDB().getCustGbCd(), getCustInfo());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case R.id.btn_store_cart:
                 try {
-                    loginChk(StoreInfo.STORE_CART_URL, lgnViewModel.getUserInfoFromDB().getCustGbCd());
+                    loginChk(StoreInfo.STORE_CART_URL, lgnViewModel.getUserInfoFromDB().getCustGbCd(), getCustInfo());
                 } catch (Exception ignore) {
 
                 }
                 break;
             case R.id.btn_store_search:
                 try {
-                    loginChk(StoreInfo.STORE_SEARCH_URL, lgnViewModel.getUserInfoFromDB().getCustGbCd());
+                    loginChk(StoreInfo.STORE_SEARCH_URL, lgnViewModel.getUserInfoFromDB().getCustGbCd(), getCustInfo());
                 } catch (Exception e) {
 
                 }
@@ -194,10 +196,21 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 
     }
 
+    private String getCustInfo(){
+        String mUserInfo;
+        try{
+            mUserInfo = cmsViewModel.getRES_CMS_1001().getValue().data.getCustInfo();
+        }catch (Exception e){
+            mUserInfo = "";
+        }
+        return mUserInfo;
+    }
+
     @Override
     public void setViewModel() {
         lgnViewModel = new ViewModelProvider(this).get(LGNViewModel.class);
         cmnViewModel = new ViewModelProvider(this).get(CMNViewModel.class);
+        cmsViewModel = new ViewModelProvider(this).get(CMSViewModel.class);
     }
 
     @Override
