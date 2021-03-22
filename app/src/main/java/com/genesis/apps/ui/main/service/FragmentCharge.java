@@ -149,7 +149,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                 if(StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm_cg_sm02_11))){
                     //찾아가는 충전 서비스 전화 신청
 //                    String tel=mainVehicle.getMdlNm().equalsIgnoreCase("G90")||mainVehicle.getMdlNm().equalsIgnoreCase("EQ900") ? "080-900-6000" : "080-700-6000";
-                    String sample = "080-900-6000";
+                    String sample = "080-700-6000";
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + sample)));
                 }else if(StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm_cg_sm02_7))){
                     //충전 버틀러 서비스 신청 내역
@@ -172,7 +172,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                 //현대양재사옥위치
             });
         } else {
-            String pgrsStusCd = "";
+            String pgrsStusCd = "test";
             try {
 //                pgrsStusCd = reqViewModel.getRES_REQ_1001().getValue().data.getPgrsStusCd();
             } catch (Exception e) {

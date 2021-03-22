@@ -25,7 +25,7 @@
         <include
             android:id="@+id/l_title"
             layout="@layout/layout_titlebar_use_edittext"
-            app:value="@{@string/sm_emgc01_1}" />
+            app:value="@{@string/sm_cggo_01_1}" />
 
         <ScrollView
             android:id="@+id/sc"
@@ -84,6 +84,7 @@
                         android:id="@+id/tv_addr"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                         android:background="@drawable/ripple_bg_ffffff_stroke_e2e2e2"
                         android:drawableEnd="@drawable/btn_arrow_open_r"
                         android:fontFamily="@font/regular_genesissansheadglobal"
@@ -121,6 +122,7 @@
                         android:layout_marginTop="3dp"
                         android:layout_marginBottom="20dp"
                         android:background="@drawable/ripple_bg_ffffff_stroke_000000"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                         android:paddingStart="15dp"
                         android:paddingTop="20dp"
                         android:paddingEnd="15dp"
@@ -192,6 +194,7 @@
                         android:id="@+id/tv_area_cls_cd"
                         style="@style/CommonSpinnerItemDisable"
                         android:text="@string/sm_emgc01_8"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                         app:layout_constraintTop_toBottomOf="@+id/tv_title_area_cls_cd" />
 
 
@@ -272,6 +275,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/btn_question"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_info_1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_info_1" />
