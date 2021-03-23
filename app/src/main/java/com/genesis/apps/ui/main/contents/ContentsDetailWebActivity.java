@@ -89,7 +89,7 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
                         if(isSelect) {
                             Glide.with(this)
                                     .load(R.drawable.ic_star_l_n_c)
-                                    .format(DecodeFormat.PREFER_ARGB_8888)
+                                    .format(DecodeFormat.PREFER_RGB_565)
                                     .error(R.drawable.ic_star_l_n_c)
                                     .placeholder(R.drawable.ic_star_l_n_c)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -97,7 +97,7 @@ public class ContentsDetailWebActivity extends SubActivity<ActivityContentsDetai
                         } else {
                             Glide.with(this)
                                     .load(R.drawable.ic_star_l_s_c)
-                                    .format(DecodeFormat.PREFER_ARGB_8888)
+                                    .format(DecodeFormat.PREFER_RGB_565)
                                     .error(R.drawable.ic_star_l_s_c)
                                     .placeholder(R.drawable.ic_star_l_s_c)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)

@@ -143,7 +143,7 @@ public class FragmentCarWashBranchPreview extends SubFragment<FragmentCarWashBra
                 Log.d(TAG, "onBindView: ");
                 Glide.with(context)
                         .load(item)
-                        .format(DecodeFormat.PREFER_ARGB_8888)
+                        .format(DecodeFormat.PREFER_RGB_565)
                         .error(R.drawable.img_sonax)
                         .placeholder(R.drawable.img_sonax)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
