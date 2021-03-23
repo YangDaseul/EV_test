@@ -363,6 +363,9 @@ class DevelopersViewModel extends ViewModel {
 
                         //carId가 없는 차량을 리스트에 추가
                         targetList.add(new CarConnectVO(vehicleVO.getVin(), "", "", 2, ""));
+                    }else if(carConnectVO != null&&!TextUtils.isEmpty(carConnectVO.getCarId())&& !TextUtils.isEmpty(vehicleVO.getVin())){
+                        //차량정보가 있고 카아이디가 있고 vin도 있으면 (해당 carid가 유효한 carid인지 확인 필요
+                        targetList.add(new CarConnectVO(vehicleVO.getVin(), "", carConnectVO.getCarId(), 2, ""));
                     }
                 } catch (Exception ignore) {
 
@@ -377,6 +380,9 @@ class DevelopersViewModel extends ViewModel {
 
 
     private List<CarConnectVO> getDeveloperCarInfo(List<CarConnectVO> targetList) {
+
+        List<CarConnectVO> newTargetList = new ArrayList<>();
+
         if (targetList != null && targetList.size() > 0) {
             //GCS에 등록된 차량 리스트 확인
             CarCheck.Response carCheckRes = repository.REQ_SYNC_CAR_CHECK(new CarCheck.Request());
@@ -386,14 +392,21 @@ class DevelopersViewModel extends ViewModel {
                 for (CarVO carVO : carCheckRes.getCars()) {
                     for (int i = 0; i < targetList.size(); i++) {
                         if (carVO.getVin().equalsIgnoreCase(targetList.get(i).getVin())) {
-                            targetList.get(i).setMasterCarId(TextUtils.isEmpty(carVO.getCarId()) ? "" : carVO.getCarId());
-                            targetList.get(i).setCarName(TextUtils.isEmpty(carVO.getCarName()) ? "" : carVO.getCarName());
+                            if(!TextUtils.isEmpty(targetList.get(i).getMasterCarId())&&(targetList.get(i).getMasterCarId().equalsIgnoreCase(carVO.getCarId()))){
+                                //DB에 있는 카아이디와 서버로부터 받은 카 아이디가 같으면
+
+                            }else{
+                                //다르거나 없으면 (가입 혹은 재가입 대상)
+                                targetList.get(i).setMasterCarId(TextUtils.isEmpty(carVO.getCarId()) ? "" : carVO.getCarId());
+                                targetList.get(i).setCarName(TextUtils.isEmpty(carVO.getCarName()) ? "" : carVO.getCarName());
+                                newTargetList.add(targetList.get(i));
+                            }
                         }
                     }
                 }
             }
         }
-        return targetList;
+        return newTargetList;
     }
 
     private void updateCarInfoToDevelopers(List<CarConnectVO> targetList, String userId) {
