@@ -20,7 +20,7 @@ import com.genesis.apps.comm.model.vo.developers.CarConnectVO;
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {GlobalData.class, UserVO.class, MenuVO.class, WeatherVO.class, QuickMenuVO.class, DownMenuVO.class, VehicleVO.class, CardVO.class, NotiInfoVO.class, ContentsVO.class, AddressVO.class, CarConnectVO.class, BtoVO.class, FamilyAppVO.class, TopicVO.class, AlarmMsgTypeVO.class, CatTypeVO.class}, version = 1)
+@Database(entities = {GlobalData.class, UserVO.class, MenuVO.class, WeatherVO.class, QuickMenuVO.class, DownMenuVO.class, VehicleVO.class, CardVO.class, NotiInfoVO.class, ContentsVO.class, AddressVO.class, CarConnectVO.class, BtoVO.class, FamilyAppVO.class, TopicVO.class, AlarmMsgTypeVO.class, CatTypeVO.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract GlobalDataDao globalDataDao();
     public abstract UserDao userDao();

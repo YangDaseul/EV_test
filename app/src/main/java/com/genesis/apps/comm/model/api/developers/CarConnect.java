@@ -5,6 +5,8 @@ import com.genesis.apps.comm.model.vo.developers.CarConnectVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -24,13 +26,13 @@ public class CarConnect extends BaseData {
     class Request extends BaseData {
         @Expose
         @SerializedName("cars")
-        private CarConnectVO cars;
+        private List<CarConnectVO> cars;
         //여기서 userId는.. url 생성 용도로만 사용. 실제로 해당 규격서에서 해당 데이터를 요청하지 않음
         @Expose
         @SerializedName("userId")
         private String userId;
 
-        public Request(CarConnectVO cars, String userId) {
+        public Request(List<CarConnectVO> cars, String userId) {
             this.cars = cars;
             this.userId = userId;
         }

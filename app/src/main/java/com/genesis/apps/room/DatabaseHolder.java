@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 public class DatabaseHolder {
@@ -35,6 +36,7 @@ public class DatabaseHolder {
         }
         db = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "AppDatabase")
                 .allowMainThreadQueries()
+                .addMigrations(MIGRATION_1_2)
                 .addCallback(new RoomDatabase.Callback() {
                     @Override
                     public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -52,5 +54,17 @@ public class DatabaseHolder {
                 .build();
         db.globalDataDao().selectAll();
     }
+
+
+
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE `new_CarConnectVO` (`vin` TEXT NOT NULL, `carId` TEXT, `masterCarId` TEXT, `carGrantType` INTEGER NOT NULL, `carName` TEXT, `result` INTEGER NOT NULL, PRIMARY KEY(`vin`))");
+            database.execSQL("INSERT INTO new_CarConnectVO (vin, carId, masterCarId, carGrantType, carName, result) " + "SELECT vin, carId, masterCarId, 2, carName, result FROM CarConnectVO");
+            database.execSQL("DROP TABLE CarConnectVO");
+            database.execSQL("ALTER TABLE new_CarConnectVO RENAME TO CarConnectVO");
+        }
+    };
 
 }
