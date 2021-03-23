@@ -145,6 +145,12 @@ public class InsightExpnAdapter extends BaseRecyclerViewAdapter2<ExpnVO> {
             getBinding().btnModify.setOnClickListener(onSingleClickListener);
             getBinding().btnModify.setTag(R.id.insight_expn_vo, item);
 
+            if(StringUtil.isValidString(item.getRgstChnlCd()).equalsIgnoreCase("1000")){
+                getBinding().btnModify.setVisibility(View.VISIBLE);
+            }else{
+                getBinding().btnModify.setVisibility(View.INVISIBLE);
+            }
+
             int iconId=R.drawable.ic_service_potentiometer; //기타 이미지 변경 필요
             int expnDivNmId = R.string.tm_exps01_21;
 
