@@ -122,7 +122,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
             //충전소 검색
             case R.id.btn_service_charge_search:
                 ((BaseActivity) getActivity()).startActivitySingleTop(
-                        new Intent(getActivity(), ChargeSearchActivity.class),
+                        new Intent(getActivity(), ChargeFindActivity.class),
                         RequestCodes.REQ_CODE_ACTIVITY.getCode(),
                         VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
                 );

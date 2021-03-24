@@ -20,7 +20,7 @@ import java.util.List;
  * @author Ki-man Kim
  * @since 2021-03-22
  */
-public class ChargeSearchActivity extends SubActivity<ActivityChargeSearchBinding> {
+public class ChargeFindActivity extends SubActivity<ActivityChargeSearchBinding> {
     /****************************************************************************************************
      * Override Method - LifeCycle
      ****************************************************************************************************/
@@ -57,7 +57,7 @@ public class ChargeSearchActivity extends SubActivity<ActivityChargeSearchBindin
      ****************************************************************************************************/
     @Override
     public void setViewModel() {
-        ui.setLifecycleOwner(ChargeSearchActivity.this);
+        ui.setLifecycleOwner(ChargeFindActivity.this);
 
     }
 
@@ -85,7 +85,7 @@ public class ChargeSearchActivity extends SubActivity<ActivityChargeSearchBindin
     private void updateChargeList(List<ChargePlaceListAdapter.DummyData> list) {
         ChargePlaceListAdapter adapter = new ChargePlaceListAdapter();
         adapter.setRows(list);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(ChargeSearchActivity.this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(ChargeFindActivity.this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         ui.rvChargePlace.setLayoutManager(layoutManager);
         ui.rvChargePlace.setAdapter(adapter);
