@@ -6,7 +6,7 @@ import android.view.View;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
-import com.genesis.apps.databinding.ActivityChargeSearchBinding;
+import com.genesis.apps.databinding.ActivityChargeFindBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.main.service.view.ChargePlaceListAdapter;
 
@@ -20,14 +20,14 @@ import java.util.List;
  * @author Ki-man Kim
  * @since 2021-03-22
  */
-public class ChargeFindActivity extends SubActivity<ActivityChargeSearchBinding> {
+public class ChargeFindActivity extends SubActivity<ActivityChargeFindBinding> {
     /****************************************************************************************************
      * Override Method - LifeCycle
      ****************************************************************************************************/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_charge_search);
+        setContentView(R.layout.activity_charge_find);
         getDataFromIntent();
         setViewModel();
         setObserver();
