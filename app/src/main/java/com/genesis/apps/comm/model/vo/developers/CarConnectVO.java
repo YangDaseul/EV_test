@@ -34,7 +34,7 @@ class CarConnectVO extends BaseData {
     private String masterCarId;
     @Expose
     @SerializedName("carGrantType")
-    private String carGrantType;
+    private int carGrantType;
     @Expose
     @SerializedName("carName")
     private String carName;
@@ -42,7 +42,7 @@ class CarConnectVO extends BaseData {
     @SerializedName("result")
     private boolean result;
 
-    public CarConnectVO(@NonNull String vin, String carId, String masterCarId, String carGrantType, String carName){
+    public CarConnectVO(@NonNull String vin, String carId, String masterCarId, int carGrantType, String carName){
         this.vin = vin;
         this.carId = carId;
         this.masterCarId = masterCarId;

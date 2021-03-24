@@ -36,7 +36,6 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.e(TAG, "From:receive push");
         if (remoteMessage != null) {
-            Log.e(TAG, "From: " + remoteMessage.getFrom());
             PushVO.PushData data = getPushData(remoteMessage);
 //            PushVO.Notification notification = getNotification(remoteMessage);
             PushVO pushVO = new PushVO();
@@ -49,7 +48,6 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     private PushVO.PushData getPushData(RemoteMessage remoteMessage) {
         PushVO.PushData data = null;
         if (remoteMessage != null && remoteMessage.getData()!=null && remoteMessage.getData().size() > 0) {
-            Log.e(TAG, "Message data payload: " + remoteMessage.getData().toString());
             JSONObject json = new JSONObject(remoteMessage.getData());
             data = new Gson().fromJson(json.toString(), PushVO.PushData.class);
         }

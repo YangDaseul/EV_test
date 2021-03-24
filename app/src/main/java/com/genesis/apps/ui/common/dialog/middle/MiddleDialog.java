@@ -887,6 +887,29 @@ public class MiddleDialog {
         );
     }
 
+
+    /**
+     * @param activity
+     * @param ok
+     * @param cancel
+     * @brief 찾아가는 충전 서비스 신청 종료 팝업
+     */
+    public static void dialogServiceChargeApplyExit(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        R.string.sm_cggo_01_12,
+                        R.string.sm_cggo_01_9,
+                        R.string.dialog_common_1,
+                        R.string.dialog_common_2
+                ).show()
+        );
+    }
+
     /**
      * @param activity
      * @param ok

@@ -89,7 +89,6 @@ public class HttpRequestUtil {
     }
 
     public JsonObject getData(HttpRequest request) throws NetException {
-        Log.v(TAG_LOG, "getData request : " + request.toString());
         int statusCode = request.code();
         Log.v(TAG_LOG, "getData statusCode [" + statusCode + "]");
         String body = request.body();
@@ -108,7 +107,6 @@ public class HttpRequestUtil {
 
     public JsonObject sendPut(String url, String data) throws NetException {
         HttpRequest request = getPutRequest(url);
-        Log.v(TAG_LOG, "send request : " + request.toString());
 //        if (params != null) {
 //            Gson gson = new Gson();
 //            jsonStr = gson.toJson(params);

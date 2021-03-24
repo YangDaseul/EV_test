@@ -18,7 +18,7 @@
             android:id="@+id/tl_service_tabs"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="50dp"
             android:layout_marginStart="20dp"
             android:background="@color/x_ffffff"
             app:layout_constraintStart_toStartOf="parent"

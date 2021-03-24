@@ -54,7 +54,7 @@ public class FamilyAppHorizontalAdapter extends BaseRecyclerViewAdapter2<FamilyA
             Glide
                     .with(getContext())
                     .load(item.getImgUri())
-                    .format(DecodeFormat.PREFER_ARGB_8888)
+                    .format(DecodeFormat.PREFER_RGB_565)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.logo_app_connected)//todo 변경 필요
                     .error(R.drawable.logo_app_connected)//todo 변경 필요

@@ -18,6 +18,29 @@
         android:layout_height="match_parent"
         android:background="@color/x_ffffff">
 
+        <ImageView
+            android:id="@+id/iv_bg_rv_2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/x_f8f8f8"
+            app:layout_constraintTop_toTopOf="@+id/rv_insight"
+            app:layout_constraintBottom_toBottomOf="@+id/rv_insight"
+            app:layout_constraintStart_toStartOf="@+id/rv_insight"
+            app:layout_constraintEnd_toEndOf="@+id/rv_insight"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_insight"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="64dp"
+            android:paddingBottom="20dp"
+            android:scrollbars="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
 
         <ImageView
             android:id="@+id/iv_bg_rv_1"
@@ -27,29 +50,6 @@
             app:layout_constraintTop_toTopOf="@+id/rv_insight"
             app:layout_constraintStart_toStartOf="@+id/rv_insight"
             app:layout_constraintEnd_toEndOf="@+id/rv_insight"/>
-
-        <ImageView
-            android:id="@+id/iv_bg_rv_2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/x_f8f8f8"
-            app:layout_constraintTop_toBottomOf="@+id/iv_bg_rv_1"
-            app:layout_constraintBottom_toBottomOf="@+id/rv_insight"
-            app:layout_constraintStart_toStartOf="@+id/rv_insight"
-            app:layout_constraintEnd_toEndOf="@+id/rv_insight"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_insight"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="64dp"
-            android:paddingBottom="20dp"
-            android:scrollbars="vertical"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
 
         <ImageView
             android:id="@+id/iv_info_1"

@@ -30,6 +30,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
+        android:largeHeap="true"
         android:windowSoftInputMode="stateHidden"
         tools:replace="android:allowBackup">
 
@@ -614,6 +615,23 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout" />
+        <activity
+            android:name=".ui.main.service.ServiceChargeApplyActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/TextInputLayout"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.main.service.ServiceChargeApplyInfoActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.service.ServiceChargeRouteInfoActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <meta-data
             android:name="android.allow_multiple_resumed_activities"
             android:value="true" />

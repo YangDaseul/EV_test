@@ -31,7 +31,7 @@ import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringRe2j;
 import com.genesis.apps.comm.viewmodel.SOSViewModel;
-import com.genesis.apps.databinding.ActivityServiceSosApply1Binding;
+import com.genesis.apps.databinding.ActivityServiceChargeApply1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
@@ -50,21 +50,20 @@ import dagger.hilt.android.AndroidEntryPoint;
  */
 
 @AndroidEntryPoint
-public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply1Binding> {
+public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceChargeApply1Binding> {
 
     @Inject
     public LoginInfoDTO loginInfoDTO;
 
     private SOSViewModel sosViewModel;
     private VehicleVO mainVehicle;
-    private final int[] layouts = {R.layout.activity_service_sos_apply_1, R.layout.activity_service_sos_apply_2, R.layout.activity_service_sos_apply_3, R.layout.activity_service_sos_apply_4, R.layout.activity_service_sos_apply_5, R.layout.activity_service_sos_apply_6};
-    private final int[] textMsgId = {R.string.sm_emgc01_2, R.string.sm_emgc01_7, R.string.sm_emgc01_10, R.string.sm_emgc01_13, R.string.sm_emgc01_19, R.string.sm_emgc01_16};
+    private final int[] layouts = {R.layout.activity_service_charge_apply_1, R.layout.activity_service_charge_apply_2, R.layout.activity_service_charge_apply_3, R.layout.activity_service_charge_apply_4};
+    private final int[] textMsgId = {R.string.sm_emgc01_7, R.string.sm_emgc01_10, R.string.sm_emgc01_13, R.string.sm_emgc01_16};
     private ConstraintSet[] constraintSets = new ConstraintSet[layouts.length];
     private View[] views;
     private View[] edits;
 
     private String areaClsCd;
-    private String fltCd;
     private AddressVO addressVO;
 
     @Override
@@ -94,11 +93,9 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
     private void initEditView() {
         ui.etCelPhNo.setOnEditorActionListener(editorActionListener);
         ui.etAddrDtl.setOnEditorActionListener(editorActionListener);
-        ui.etMemo.setOnEditorActionListener(editorActionListener);
         ui.etCarRegNo.setOnEditorActionListener(editorActionListener);
         ui.etCelPhNo.setOnFocusChangeListener(focusChangeListener);
         ui.etAddrDtl.setOnFocusChangeListener(focusChangeListener);
-        ui.etMemo.setOnFocusChangeListener(focusChangeListener);
         ui.etCarRegNo.setOnFocusChangeListener(focusChangeListener);
     }
 
@@ -116,13 +113,13 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
         }else{
             ui.etCelPhNo.setText(PhoneNumberUtils.formatNumber(phoneNumber.replaceAll("-",""), Locale.getDefault().getCountry()));
             ui.etCelPhNo.setSelection(ui.etCelPhNo.length());
-            selectfltCd();
+            selectAreaClsCd();
         }
     }
 
     private void startMapView(){
         startActivitySingleTop(new Intent(this, MapSearchMyPositionActivity.class)
-                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.sm_emgc01_28)
+                .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.sm_cggo_01_5)
                 .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, R.string.sm_emgc01_29)
                 .putExtra(KeyNames.KEY_NAME_ADDR, addressVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
@@ -137,9 +134,6 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
                 break;
             case R.id.tv_area_cls_cd:
                 selectAreaClsCd();
-                break;
-            case R.id.tv_flt_cd:
-                selectfltCd();
                 break;
             case R.id.btn_question:
                 startActivitySingleTop(new Intent(this, ServiceSOSPayInfoActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
@@ -160,15 +154,14 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
     private void doNext(){
         if(isValid()){
             clearKeypad();
-            //TODO 긴급출동 접수 현황으로 이동해야함
             sosViewModel.reqSOS1002(new SOS_1002.Request(APPIAInfo.SM_EMGC01.getId(),
                     mainVehicle.getVin(),
                     ui.etCarRegNo.getText().toString().trim(),
                     mainVehicle.getMdlCd(),
-                    fltCd,
+                    "",
                     areaClsCd,
                     ui.tvAddrInfo1.getText().toString().trim() +" "+ui.tvAddrInfo2.getText().toString().trim()+" "+ui.etAddrDtl.getText().toString().trim(),
-                    addressVO.getCenterLon()+"",addressVO.getCenterLat()+"",ui.etCelPhNo.getText().toString().trim(),ui.etMemo.getText().toString().trim()));
+                    addressVO.getCenterLon()+"",addressVO.getCenterLat()+"",ui.etCelPhNo.getText().toString().trim(), ""));
 //            cbkViewModel.reqCBK1006(new CBK_1006.Request(APPIAInfo.TM_EXPS01_01.getId(), vin, expnDivCd, ui.etExpnAmt.getText().toString().replaceAll(",", ""), ui.tvExpnDtm.getText().toString().replaceAll(".", ""), ui.etExpnPlc.getText().toString(), ui.etAccmMilg.getText().toString().replaceAll(",", "")));
         }
     }
@@ -191,7 +184,7 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
                 case SUCCESS:
                     showProgressDialog(false);
                     if(result.data!=null&&!TextUtils.isEmpty(result.data.getRtCd())&&result.data.getRtCd().equalsIgnoreCase("0000")&&!TextUtils.isEmpty(result.data.getTmpAcptNo())){
-                        startActivitySingleTop(new Intent(this, ServiceSOSApplyInfoActivity.class).putExtra(KeyNames.KEY_NAME_SOS_TMP_NO, result.data.getTmpAcptNo()).addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT),0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        startActivitySingleTop(new Intent(this, ServiceChargeApplyInfoActivity.class).putExtra(KeyNames.KEY_NAME_SOS_TMP_NO, result.data.getTmpAcptNo()).addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT),0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                         finish();
                         break;
                     }
@@ -211,65 +204,11 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
                     break;
             }
         });
-
-//        cbkViewModel.getRES_CBK_1005().observe(this, result -> {
-//            switch (result.status){
-//                case LOADING:
-//                    showProgressDialog(true);
-//                    break;
-//                case SUCCESS:
-//                    showProgressDialog(false);
-//                    if(result.data!=null&&!TextUtils.isEmpty(result.data.getAccmMilg())){
-//                        ui.etAccmMilg.setText(result.data.getAccmMilg());
-//                        checkVaildAccmMilg();
-//                        break;
-//                    }
-//                default:
-//                    showProgressDialog(false);
-//                    break;
-//            }
-//        });
-//
-//        cbkViewModel.getRES_CBK_1006().observe(this, result -> {
-//            switch (result.status){
-//                case LOADING:
-//                    showProgressDialog(true);
-//                    break;
-//                case SUCCESS:
-//                    showProgressDialog(false);
-//                    if(result.data!=null&&!TextUtils.isEmpty(result.data.getRtCd())&&result.data.getRtCd().equalsIgnoreCase("0000")){
-//                        exitPage(getString(R.string.tm_exps01_01_17), ResultCodes.REQ_CODE_INSIGHT_EXPN_ADD.getCode());
-//                        break;
-//                    }
-//                default:
-//                    String serverMsg="";
-//                    try {
-//                        serverMsg = result.data.getRtMsg();
-//                    }catch (Exception e){
-//                        e.printStackTrace();
-//                    }finally{
-//                        if (TextUtils.isEmpty(serverMsg)){
-//                            serverMsg = getString(R.string.instability_network);
-//                        }
-//                        SnackBarUtil.show(this, serverMsg);
-//                        showProgressDialog(false);
-//                    }
-//                    break;
-//            }
-//        });
     }
 
     @Override
     public void getDataFromIntent() {
-//        try {
-//            vin = getIntent().getStringExtra(KeyNames.KEY_NAME_VIN);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            if (TextUtils.isEmpty(vin)) {
-//                exitPage("차대번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
-//            }
-//        }
+
     }
 
     /**
@@ -277,8 +216,8 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
      * @brief constraintSet 초기화
      */
     private void initConstraintSets() {
-        views = new View[]{ui.lFltCd, ui.lAreaClsCd, ui.lAddr, ui.lAddrDtl, ui.lMemo, ui.lCarRegNo};
-        edits = new View[]{ui.etCelPhNo, ui.tvAreaClsCd, ui.tvAddr, ui.etAddrDtl, ui.etMemo, ui.etCarRegNo};
+        views = new View[]{ui.lAreaClsCd, ui.lAddr, ui.lAddrDtl, ui.lCarRegNo};
+        edits = new View[]{ui.etCelPhNo, ui.tvAddr, ui.etAddrDtl, ui.etCarRegNo};
         for (int i = 0; i < layouts.length; i++) {
             constraintSets[i] = new ConstraintSet();
 
@@ -306,8 +245,6 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
             }
 
             if(pos==1){
-                selectAreaClsCd();
-            }else if(pos==2){
                 startMapView();
             }else if(pos==views.length-1){
                 String carRegNo = mainVehicle.getCarRgstNo();
@@ -348,23 +285,23 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
         bottomListDialog.show();
     }
 
-    private void selectfltCd(){
-        final List<String> divList = Arrays.asList(getResources().getStringArray(R.array.service_sos_fit));
-        final BottomListDialog bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
-        bottomListDialog.setOnDismissListener(dialogInterface -> {
-            String result = bottomListDialog.getSelectItem();
-            if(!TextUtils.isEmpty(result)){
-                fltCd  = VariableType.getFltCd(result);
-                ui.tvTitleFltCd.setVisibility(View.VISIBLE);
-                Paris.style(ui.tvFltCd).apply(R.style.CommonSpinnerItemEnable);
-                ui.tvFltCd.setText(result);
-                checkValidfltCd();
-            }
-        });
-        bottomListDialog.setDatas(divList);
-        bottomListDialog.setTitle(getString(R.string.sm_emgc01_23));
-        bottomListDialog.show();
-    }
+//    private void selectfltCd(){
+//        final List<String> divList = Arrays.asList(getResources().getStringArray(R.array.service_sos_fit));
+//        final BottomListDialog bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
+//        bottomListDialog.setOnDismissListener(dialogInterface -> {
+//            String result = bottomListDialog.getSelectItem();
+//            if(!TextUtils.isEmpty(result)){
+//                fltCd  = VariableType.getFltCd(result);
+//                ui.tvTitleFltCd.setVisibility(View.VISIBLE);
+//                Paris.style(ui.tvFltCd).apply(R.style.CommonSpinnerItemEnable);
+//                ui.tvFltCd.setText(result);
+//                checkValidfltCd();
+//            }
+//        });
+//        bottomListDialog.setDatas(divList);
+//        bottomListDialog.setTitle(getString(R.string.sm_emgc01_23));
+//        bottomListDialog.show();
+//    }
 
 
     private boolean checkValidPhoneNumber(){
@@ -388,23 +325,23 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
     }
 
 
-    private boolean checkValidfltCd(){
-        if(!TextUtils.isEmpty(fltCd)){
-            ui.tvErrorFltCd.setVisibility(View.INVISIBLE);
-            doTransition(1);
-            return true;
-        }else{
-            ui.tvErrorFltCd.setVisibility(View.VISIBLE);
-            ui.tvErrorFltCd.setText(R.string.sm_emgc01_24);
-            selectfltCd();
-            return false;
-        }
-    }
+//    private boolean checkValidfltCd(){
+//        if(!TextUtils.isEmpty(fltCd)){
+//            ui.tvErrorFltCd.setVisibility(View.INVISIBLE);
+//            doTransition(1);
+//            return true;
+//        }else{
+//            ui.tvErrorFltCd.setVisibility(View.VISIBLE);
+//            ui.tvErrorFltCd.setText(R.string.sm_emgc01_24);
+//            selectfltCd();
+//            return false;
+//        }
+//    }
 
     private boolean checkValidAreaClsCd(){
         if(!TextUtils.isEmpty(areaClsCd)){
             ui.tvErrorAreaClsCd.setVisibility(View.INVISIBLE);
-            doTransition(2);
+            doTransition(1);
             return true;
         }else{
             ui.tvErrorAreaClsCd.setVisibility(View.VISIBLE);
@@ -424,7 +361,7 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
             ui.tvTitleAddr.setVisibility(View.GONE);
             ui.tvAddr.setVisibility(View.GONE);
             ui.tvErrorAddr.setVisibility(View.INVISIBLE);
-            doTransition(3);
+            doTransition(2);
             return true;
         }
     }
@@ -438,21 +375,7 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
             return false;
         }else{
             ui.lAddrDtl.setError(null);
-            doTransition(4);
-            return true;
-        }
-    }
-
-    private boolean checkValidMemo(){
-        String memo = ui.etMemo.getText().toString().trim();
-
-        if(TextUtils.isEmpty(memo)){
-            ui.etMemo.requestFocus();
-            ui.lMemo.setError(getString(R.string.sm_emgc01_21));
-            return false;
-        }else{
-            ui.lMemo.setError(null);
-            doTransition(5);
+            doTransition(3);
             return true;
         }
     }
@@ -479,22 +402,18 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
             if(view.getVisibility()==View.GONE) {
                 switch (view.getId()) {
                     //현재 페이지가 차량번호 입력하는 페이지일경우
-                    case R.id.l_flt_cd:
-                        return checkValidPhoneNumber()&&false;
                     case R.id.l_area_cls_cd:
-                        return checkValidPhoneNumber()&&checkValidfltCd()&&false;
+                        return checkValidPhoneNumber()&&false;
                     case R.id.l_addr:
-                        return checkValidPhoneNumber()&&checkValidfltCd()&&checkValidAreaClsCd()&&false;
+                        return checkValidPhoneNumber()&&checkValidAreaClsCd()&&false;
                     case R.id.l_addr_dtl:
-                        return checkValidPhoneNumber()&&checkValidfltCd()&&checkValidAreaClsCd()&&checkValidAddr()&&false;
-                    case R.id.l_memo:
-                        return checkValidPhoneNumber()&&checkValidfltCd()&&checkValidAreaClsCd()&&checkValidAddr()&&checkValidAddrDtl()&&false;
+                        return checkValidPhoneNumber()&&checkValidAreaClsCd()&&checkValidAddr()&&false;
                     case R.id.l_car_reg_no:
-                        return checkValidPhoneNumber()&&checkValidfltCd()&&checkValidAreaClsCd()&&checkValidAddr()&&checkValidAddrDtl()&&checkValidMemo()&&false;
+                        return checkValidPhoneNumber()&&checkValidAreaClsCd()&&checkValidAddr()&&checkValidAddrDtl()&&false;
                 }
             }
         }
-        return checkValidPhoneNumber()&&checkValidfltCd()&&checkValidAreaClsCd()&&checkValidAddr()&&checkValidAddrDtl()&&checkValidMemo()&&checkValidCarRegNo();
+        return checkValidPhoneNumber()&&checkValidAreaClsCd()&&checkValidAddr()&&checkValidAddrDtl()&&checkValidCarRegNo();
     }
 
 
@@ -522,15 +441,13 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
     }
 
     private void dialogExit(){
-        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
-        MiddleDialog.dialogServiceSOSApplyExit(this, () -> {
+        MiddleDialog.dialogServiceChargeApplyExit(this, () -> {
             finish();
             closeTransition();
         }, () -> {
 
         });
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

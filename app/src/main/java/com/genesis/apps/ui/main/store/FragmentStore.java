@@ -114,6 +114,8 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
 //                            fragment.postUrl(url, postData.getBytes());
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
+                        } catch (NullPointerException e1){
+
                         }
 
 //                        try {

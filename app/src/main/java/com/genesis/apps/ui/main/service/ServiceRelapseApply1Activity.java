@@ -378,6 +378,7 @@ public class ServiceRelapseApply1Activity extends SubActivity<ActivityServiceRel
         if (fragments != null && fragments.size() > 0) {
             hideFragment(fragments.get(0));
         } else {
+            SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
             MiddleDialog.dialogServiceRelapseApplyExit(this, () -> {
                 exitPage("", ResultCodes.REQ_CODE_APPLY_RELAPSE_EXIT.getCode());
                 closeTransition();
