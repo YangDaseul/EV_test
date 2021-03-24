@@ -510,7 +510,6 @@ public abstract class WebViewFragment extends Fragment {
 
 		@Override
 		public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
-			Log.v(LOG_TAG, "onCreateWindow isDialog[" + isDialog + "] isUserGesture[" + isUserGesture + "] resultMsg[" + resultMsg + "] originalUrl [" + view.getOriginalUrl() + "]");
 			MyWebView newWebView = createNewWebView();
 			newWebViewSetting(newWebView);
 			enableCookies(newWebView);

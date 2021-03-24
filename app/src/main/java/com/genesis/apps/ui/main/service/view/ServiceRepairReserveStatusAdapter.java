@@ -84,7 +84,6 @@ public class ServiceRepairReserveStatusAdapter extends BaseRecyclerViewAdapter2<
 
     @Override
     public void onBindViewHolder(final BaseViewHolder holder, int position) {
-        Log.v("test","test position:"+position);
         holder.onBindView(getItem(position), position, selectedItems);
     }
 

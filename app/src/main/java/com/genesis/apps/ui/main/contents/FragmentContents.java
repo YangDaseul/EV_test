@@ -281,8 +281,6 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
             }else{
                 me.vGradientEnd.setVisibility(View.VISIBLE);
             }
-
-            Log.e("testScroll","testScroll:scrollX:"+scrollX+"      scrollY:"+scrollY+ "    oldScrollX:"+oldScrollX + "     max x:"+(me.tlCategoryTabs.getChildAt(0).getRight() - me.tlCategoryTabs.getWidth() + me.tlCategoryTabs.getPaddingLeft()));
         });
 
     }

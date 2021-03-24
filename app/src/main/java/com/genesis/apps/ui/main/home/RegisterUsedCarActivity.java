@@ -132,7 +132,6 @@ public class RegisterUsedCarActivity extends SubActivity<ActivityRegUsedCar1Bind
                     break;
                 case SUCCESS:
                     if(result.data!=null&&result.data.getResultCode().equalsIgnoreCase("0000")&&result.data.getData()!=null){
-                        Log.e(TAG, "mobileCarOwnerShip response: " + result.data.getData().toString());
 
                         String html = getString(R.string.ts_auth_html,
                                 result.data.getData().getHashValue(),

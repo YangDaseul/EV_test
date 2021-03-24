@@ -40,8 +40,6 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
 
     @Override
     public void onBindViewHolder(final BaseViewHolder holder, int position) {
-        Log.v("recyclerview onBindViewHolder", "position pos:" + position);
-//                super.onBindViewHolder(holder, position);
         holder.onBindView(getItem(position), position);
 
     }

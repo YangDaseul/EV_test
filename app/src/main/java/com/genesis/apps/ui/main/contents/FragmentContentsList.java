@@ -55,7 +55,6 @@ public class FragmentContentsList extends SubFragment<FragmentContentsListBindin
 
         if(getArguments() != null) {
             mCatCd = getArguments().getString(KeyNames.KEY_NAME_CAT_NO);
-            Log.e("JJJJ", "cat Cd : " + mCatCd);
         }
     }
 

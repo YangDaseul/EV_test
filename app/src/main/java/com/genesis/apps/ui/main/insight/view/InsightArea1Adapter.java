@@ -99,7 +99,7 @@ public class InsightArea1Adapter extends BaseRecyclerViewAdapter2<MessageVO> {
                 Glide
                         .with(getContext())
                         .load(item.getIconImgUri())
-                        .format(DecodeFormat.PREFER_ARGB_8888)
+                        .format(DecodeFormat.PREFER_RGB_565)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(getBinding().ivIcon);
             } else {
