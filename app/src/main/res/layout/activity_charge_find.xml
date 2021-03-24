@@ -17,7 +17,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:value="@{@string/sm_servicecs_title}" />
+            app:value="@{@string/sm_evss01_title}" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="0dp"

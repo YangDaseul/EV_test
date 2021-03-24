@@ -1,17 +1,23 @@
 package com.genesis.apps.ui.main.service;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.databinding.ActivityChargeFindBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.main.service.view.ChargePlaceListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.genesis.apps.comm.model.constants.KeyNames.KEY_NAME_CHARGE_TYPE;
 
 /**
  * Class Name : ChargeSearchActivity
@@ -49,6 +55,24 @@ public class ChargeFindActivity extends SubActivity<ActivityChargeFindBinding> {
      ****************************************************************************************************/
     @Override
     public void onClickCommon(View v) {
+        Log.d("FID", "test :: ChargeFindActivity :: onClickCommon ");
+        switch (v.getId()) {
+            case R.id.tv_more: {
+                Object tag = v.getTag();
+                if (tag instanceof ChargePlaceListAdapter.DummyData) {
+                    startActivitySingleTop(
+                            new Intent(ChargeFindActivity.this, ChargePlaceListActivity.class)
+                                    .putExtra(KEY_NAME_CHARGE_TYPE, ((ChargePlaceListAdapter.DummyData) tag).getName()),
+                            RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                            VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
+                    );
+                }
+                break;
+            }
+            default: {
+                break;
+            }
+        }
 
     }
 
@@ -83,7 +107,7 @@ public class ChargeFindActivity extends SubActivity<ActivityChargeFindBinding> {
     }
 
     private void updateChargeList(List<ChargePlaceListAdapter.DummyData> list) {
-        ChargePlaceListAdapter adapter = new ChargePlaceListAdapter();
+        ChargePlaceListAdapter adapter = new ChargePlaceListAdapter(ChargeFindActivity.this);
         adapter.setRows(list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(ChargeFindActivity.this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);

@@ -7,6 +7,10 @@
         <import type="com.genesis.apps.comm.util.StringUtil" />
 
         <variable
+            name="activity"
+            type="com.genesis.apps.ui.common.activity.SubActivity" />
+
+        <variable
             name="data"
             type="com.genesis.apps.ui.main.service.view.ChargePlaceListAdapter.DummyData" />
     </data>
@@ -28,6 +32,7 @@
             android:id="@+id/tv_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
             android:text="더보기>"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
