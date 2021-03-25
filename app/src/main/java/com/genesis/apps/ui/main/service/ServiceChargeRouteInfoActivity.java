@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.SOS_1006;
+import com.genesis.apps.comm.model.api.gra.SOS_3006;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.vo.SOSDriverVO;
@@ -25,7 +25,7 @@ import com.genesis.apps.comm.viewmodel.SOSViewModel;
 import com.genesis.apps.databinding.ActivityMap2Binding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomInfoBarBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
-import com.genesis.apps.ui.common.dialog.bottom.DialogSOSDriverInfo;
+import com.genesis.apps.ui.common.dialog.bottom.DialogSOSChargeDriverInfo;
 import com.hmns.playmap.PlayMapPoint;
 import com.hmns.playmap.shape.PlayMapMarker;
 import com.hmns.playmap.shape.PlayMapPolyLine;
@@ -43,13 +43,13 @@ public class ServiceChargeRouteInfoActivity extends GpsBaseActivity<ActivityMap2
 //    private LayoutMapOverlayUiTopMsgBinding topBinding;
     private LayoutMapOverlayUiBottomInfoBarBinding bottomBinding;
     private SOSDriverVO sosDriverVO;
-    private SOS_1006.Response response;
+    private SOS_3006.Response response;
     private String tmpAcptNo;
     private int minute = 0;
     private Timer timer = null;
     private boolean initCall = true;
 
-    private DialogSOSDriverInfo dialogSOSDriverInfo;
+    private DialogSOSChargeDriverInfo dialogSOSDriverInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +76,7 @@ public class ServiceChargeRouteInfoActivity extends GpsBaseActivity<ActivityMap2
                 runOnUiThread(() -> {
                     try {
 //                        TestCode.SOS_1006 = TestCode.SOS_1006_2;
-                        sosViewModel.reqSOS1006(new SOS_1006.Request(APPIAInfo.SM_EMGC03.getId(), tmpAcptNo));
+                        sosViewModel.reqSOS3006(new SOS_3006.Request(APPIAInfo.SM_EMGC03.getId(), tmpAcptNo));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -163,7 +163,7 @@ public class ServiceChargeRouteInfoActivity extends GpsBaseActivity<ActivityMap2
     @Override
     public void getDataFromIntent() {
         try {
-            response = (SOS_1006.Response) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SOS_DRIVER_VO);
+            response = (SOS_3006.Response) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SOS_DRIVER_VO);
             setData(response);
         } catch (Exception e) {
             e.printStackTrace();
@@ -174,7 +174,7 @@ public class ServiceChargeRouteInfoActivity extends GpsBaseActivity<ActivityMap2
         }
     }
 
-    private void setData(SOS_1006.Response response) {
+    private void setData(SOS_3006.Response response) {
         this.response = response;
         this.tmpAcptNo = response.getTmpAcptNo();
         this.sosDriverVO = response.getSosDriverVO();
@@ -190,7 +190,7 @@ public class ServiceChargeRouteInfoActivity extends GpsBaseActivity<ActivityMap2
     @Override
     public void setObserver() {
 
-        sosViewModel.getRES_SOS_1006().observe(this, result -> {
+        sosViewModel.getRES_SOS_3006().observe(this, result -> {
             switch (result.status) {
                 case LOADING:
                     showProgressDialog(true);
@@ -238,29 +238,6 @@ public class ServiceChargeRouteInfoActivity extends GpsBaseActivity<ActivityMap2
         });
     }
 
-//    private void updateTopView(FindPathResVO.Summary summary) {
-//        try {
-//            if (summary != null) {
-//                minute = summary.getTotalTime() / 60;
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            if (topBinding == null) {
-//                setViewStub(R.id.l_map_overlay_msg, R.layout.layout_map_overlay_ui_top_msg, new ViewStub.OnInflateListener() {
-//                    @Override
-//                    public void onInflate(ViewStub viewStub, View inflated) {
-//                        topBinding = DataBindingUtil.bind(inflated);
-//                        topBinding.tvMapTopMsgTime.setText(minute + "분 후");
-//                    }
-//                });
-//            } else {
-//                topBinding.tvMapTopMsgTime.setText(minute + "분 후");
-//            }
-//        }
-//    }
-
-
     private void updateBottomView(FindPathResVO.Summary summary) {
         try {
             if (summary != null) {
@@ -293,7 +270,7 @@ public class ServiceChargeRouteInfoActivity extends GpsBaseActivity<ActivityMap2
 
         switch (v.getId()) {
             case R.id.btn_driver_info:
-                dialogSOSDriverInfo = new DialogSOSDriverInfo(this, R.style.BottomSheetDialogTheme);
+                dialogSOSDriverInfo = new DialogSOSChargeDriverInfo(this, R.style.BottomSheetDialogTheme);
                 dialogSOSDriverInfo.setOnDismissListener(dialogInterface -> {
 
                 });
