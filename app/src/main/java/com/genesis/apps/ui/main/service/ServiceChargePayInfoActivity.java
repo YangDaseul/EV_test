@@ -4,30 +4,25 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.lifecycle.ViewModelProvider;
+
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.SOS_1003;
+import com.genesis.apps.comm.model.api.gra.SOS_3003;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.SOSViewModel;
 import com.genesis.apps.ui.common.activity.HtmlActivity;
 
-import androidx.lifecycle.ViewModelProvider;
-
-public class ServiceSOSPayInfoActivity extends HtmlActivity {
-
-    public SOSViewModel sosViewModel;
+public class ServiceChargePayInfoActivity extends ServiceSOSPayInfoActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getDataFromIntent();
-        setViewModel();
-        setObserver();
-        initView();
-        reqDataToServer();
     }
 
+    @Override
     public void reqDataToServer() {
-        sosViewModel.reqSOS1003(new SOS_1003.Request(APPIAInfo.SM_EMGC01_P04.getId()));
+        sosViewModel.reqSOS3003(new SOS_3003.Request(APPIAInfo.SM_EMGC01_P04.getId()));
     }
 
     @Override
@@ -44,7 +39,7 @@ public class ServiceSOSPayInfoActivity extends HtmlActivity {
     @Override
     public void setObserver() {
 
-        sosViewModel.getRES_SOS_1003().observe(this, result -> {
+        sosViewModel.getRES_SOS_3003().observe(this, result -> {
             switch (result.status) {
                 case LOADING:
                     showProgressDialog(true);
@@ -69,11 +64,6 @@ public class ServiceSOSPayInfoActivity extends HtmlActivity {
             }
         });
     }
-
-    private void initView() {
-
-    }
-
 
     @Override
     public void onClickCommon(View v) {

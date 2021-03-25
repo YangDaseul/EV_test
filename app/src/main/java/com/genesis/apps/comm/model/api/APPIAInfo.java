@@ -341,7 +341,7 @@ public enum APPIAInfo {
     MG_MENU01("MG_MENU01", MyGTerms1000Activity.class, VariableType.QUICK_MENU_CODE_NV, "이용약관",VariableType.QUICK_MENU_CATEGORY_MYG),
     MG_MENU02("MG_MENU02", MyGTerms2000Activity.class, VariableType.QUICK_MENU_CODE_NV, "개인정보처리방침",VariableType.QUICK_MENU_CATEGORY_MYG),
     MG_MENU03("MG_MENU03", MyGTermsActivity.class, VariableType.QUICK_MENU_CODE_NV, "오픈소스 라이선스",VariableType.QUICK_MENU_CATEGORY_MYG),
-    MG_MENU04("MG_MENU04", MyGTerms0013Activity.class, VariableType.QUICK_MENU_CODE_NV, "개인정보 수집 이용·약관 동의",VariableType.QUICK_MENU_CATEGORY_MYG),
+    MG_MENU04("MG_MENU04", MyGTerms0013Activity.class, VariableType.QUICK_MENU_CODE_NV, "개인정보 수집 이용·약관",VariableType.QUICK_MENU_CATEGORY_MYG),
     MG_VERSION01("MG_VERSION01", MyGVersioniActivity.class, VariableType.QUICK_MENU_CODE_NV, "버전 정보",VariableType.QUICK_MENU_CATEGORY_MYG);
 
     private String id;

@@ -10,6 +10,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.ViewCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.model.api.APPIAInfo;
@@ -40,15 +49,7 @@ import com.genesis.apps.ui.myg.MyGEntranceActivity;
 import com.genesis.apps.ui.myg.MyGHomeActivity;
 import com.genesis.apps.ui.myg.MyGMenuActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
-
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.ViewCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     public boolean isMoveHomeBottom() {
@@ -125,6 +126,9 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 initFragmentHome(position);
+                setFirebaseAnalyticsLog(position);
+
+
 //                ui.indicator.animatePageSelected(position%num_page);
             }
 
@@ -145,6 +149,32 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             }
         });
 
+    }
+
+    public void setFirebaseAnalyticsLog(int position){
+        try {
+            String menuId = "";
+            if (position == MainPageDiv.HOME.ordinal()) {
+                //HOME
+                menuId = "GNB_TAB_HOME";
+            } else if (position == MainPageDiv.INSIGHT.ordinal()) {
+                menuId = "GNB_TAB_INSIGHT";
+            } else if (position == MainPageDiv.SERVICE.ordinal()) {
+                menuId = "GNB_TAB_SERVICE";
+            } else if (position == MainPageDiv.STORE.ordinal()) {
+                menuId = "GNB_TAB_STORE";
+            } else if (position == MainPageDiv.CONTENTS.ordinal()) {
+                menuId = "GNB_TAB_CONTENTS";
+            } else {
+                //HOME
+                menuId = "GNB_TAB_HOME";
+            }
+            Bundle bundle = new Bundle();
+            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, menuId);
+            FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.SELECT_ITEM, bundle);
+        }catch (Exception e){
+
+        }
     }
 
     @Override

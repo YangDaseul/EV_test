@@ -522,6 +522,7 @@ public class ServiceSOSApplyActivity extends SubActivity<ActivityServiceSosApply
     }
 
     private void dialogExit(){
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
         MiddleDialog.dialogServiceSOSApplyExit(this, () -> {
             finish();
             closeTransition();

@@ -578,6 +578,7 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
 
     @Override
     public void onBackPressed() {
+        SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
         MiddleDialog.dialogRemoteExit(
                 this,
                 () -> exitPage("", 0)

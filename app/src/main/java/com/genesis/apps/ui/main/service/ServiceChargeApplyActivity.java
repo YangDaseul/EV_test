@@ -19,7 +19,7 @@ import androidx.transition.TransitionManager;
 import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.SOS_1002;
+import com.genesis.apps.comm.model.api.gra.SOS_3002;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
@@ -136,7 +136,7 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
                 selectAreaClsCd();
                 break;
             case R.id.btn_question:
-                startActivitySingleTop(new Intent(this, ServiceSOSPayInfoActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                startActivitySingleTop(new Intent(this, ServiceChargePayInfoActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.btn_next://다음
                 doNext();
@@ -154,15 +154,13 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
     private void doNext(){
         if(isValid()){
             clearKeypad();
-            sosViewModel.reqSOS1002(new SOS_1002.Request(APPIAInfo.SM_EMGC01.getId(),
+            sosViewModel.reqSOS3002(new SOS_3002.Request(APPIAInfo.SM_EMGC01.getId(),
                     mainVehicle.getVin(),
                     ui.etCarRegNo.getText().toString().trim(),
                     mainVehicle.getMdlCd(),
-                    "",
                     areaClsCd,
                     ui.tvAddrInfo1.getText().toString().trim() +" "+ui.tvAddrInfo2.getText().toString().trim()+" "+ui.etAddrDtl.getText().toString().trim(),
-                    addressVO.getCenterLon()+"",addressVO.getCenterLat()+"",ui.etCelPhNo.getText().toString().trim(), ""));
-//            cbkViewModel.reqCBK1006(new CBK_1006.Request(APPIAInfo.TM_EXPS01_01.getId(), vin, expnDivCd, ui.etExpnAmt.getText().toString().replaceAll(",", ""), ui.tvExpnDtm.getText().toString().replaceAll(".", ""), ui.etExpnPlc.getText().toString(), ui.etAccmMilg.getText().toString().replaceAll(",", "")));
+                    addressVO.getCenterLon()+"",addressVO.getCenterLat()+"",ui.etCelPhNo.getText().toString().trim()));
         }
     }
 
@@ -176,7 +174,7 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
 
     @Override
     public void setObserver() {
-        sosViewModel.getRES_SOS_1002().observe(this, result -> {
+        sosViewModel.getRES_SOS_3002().observe(this, result -> {
             switch (result.status){
                 case LOADING:
                     showProgressDialog(true);

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.genesis.apps.comm.model.constants.VariableType" />
+
+        <import type="com.genesis.apps.comm.util.DateUtil" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
+        <import type="android.telephony.PhoneNumberUtils" />
+
+        <import type="java.util.Locale" />
+
+        <variable
+            name="data"
+            type="com.genesis.apps.comm.model.api.gra.SOS_3006.Response" />
+
+        <variable
+            name="minute"
+            type="int" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/x_ffffff"
+        android:orientation="vertical"
+        android:paddingBottom="20dp">
+
+        <include
+            android:id="@+id/back"
+            layout="@layout/layout_map_overlay_ui_bottom_info_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:isDialog="@{true}"
+            app:minute="@{minute}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_vin" />
+
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_00000000_topline_e5e5e5"
+                android:paddingTop="40dp">
+
+
+                <!-- 기사정보 -->
+                <TextView
+                    android:id="@+id/tv_title_driver"
+                    style="@style/RelapseReqResultSubTitle"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/sm_emgc03_p01_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_driver_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/x_e5e5e5"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_driver">
+                    <!-- "전화번호" -->
+                    <include
+                        android:id="@+id/l_control_tel"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:msg="@{PhoneNumberUtils.formatNumber(data.getSosDriverVO().getControlTel(), Locale.getDefault().getCountry())}"
+                        app:title="@{@string/sm_emgc03_p01_2}" />
+
+                    <!-- "차량정보" -->
+                    <include
+                        android:id="@+id/l_car_no"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:visibility="@{TextUtils.isEmpty(data.getSosDriverVO().getCarNo()) ? View.GONE : View.VISIBLE }"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_control_tel"
+                        app:maxLine="@{Integer.MAX_VALUE}"
+                        app:msg="@{(data.getSosDriverVO().getCarNo() ?? ``)+` `+(data.getSosDriverVO().getCarTypeNm() ?? ``)}"
+                        app:title="@{@string/sm_emgc03_p01_3}" />
+
+                    <!-- "업체정보" -->
+                    <include
+                        android:id="@+id/l_alloc_nm"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_car_no"
+                        app:msg="@{data.getSosDriverVO().getSAllocNm() ?? ``}"
+                        app:title="@{@string/sm_emgc03_p01_4}" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <!-- 신청정보 -->
+                <TextView
+                    android:id="@+id/tv_title_apply"
+                    style="@style/RelapseReqResultSubTitle"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/sm_emgc03_p01_5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/l_driver_info" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_apply_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/x_e5e5e5"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_apply">
+                    <!-- "신청일시" -->
+                    <include
+                        android:id="@+id/l_tmp_acpt_dtm"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:msg="@{(!TextUtils.isEmpty(data.getTmpAcptDtm()) ? (DateUtil.getDate(DateUtil.getDefaultDateFormat(DateUtil.getYyyyMMddHHmmss(data.getTmpAcptDtm()), DateUtil.DATE_FORMAT_yyyyMMddHHmmss), DateUtil.DATE_FORMAT_yyyy_MM_dd_HH_mm)) : `--`)}"
+                        app:title="@{@string/sm_emgc03_p01_6}" />
+
+                    <!-- "위치유형" -->
+                    <include
+                        android:id="@+id/l_area_cls_cd"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_tmp_acpt_dtm"
+                        app:msg="@{data.getAreaClsCd().equalsIgnoreCase(`R`) ? VariableType.SERVICE_SOS_AREA_CLS_CODE_R : VariableType.SERVICE_SOS_AREA_CLS_CODE_H}"
+                        app:title="@{@string/sm_emgc03_p01_7}" />
+
+                    <!-- "차량위치" -->
+                    <include
+                        android:id="@+id/l_addr"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_area_cls_cd"
+                        app:maxLine="@{Integer.MAX_VALUE}"
+                        app:msg="@{data.getAddr() ?? ``}"
+                        app:title="@{@string/sm_emgc03_p01_8}" />
+
+
+                    <!-- "차량번호" -->
+                    <include
+                        android:id="@+id/l_car_reg_no"
+                        layout="@layout/item_rpar_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        app:isLeft="@{true}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_addr"
+                        app:msg="@{data.getCarRegNo() ?? ``}"
+                        app:title="@{@string/sm_emgc03_p01_9}" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/btn_call"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/ripple_bg_000000"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="center"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="0dp"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
+            android:text="@string/sm_emgc03_p01_11"
+            android:textColor="@color/x_ffffff"
+            android:textSize="16dp" />
+
+
+    </LinearLayout>
+</layout>

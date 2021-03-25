@@ -205,7 +205,7 @@ public class GAWebActivity extends WebviewActivity {
     //TODO 테스트 필요 0003
     @Override
     public boolean back(String currentUrl) {
-        if (fragment.canGoBack()) {
+        if (fragment!=null&&fragment.canGoBack()) {
             fragment.goBack();
             return false;
         } else {
@@ -216,18 +216,22 @@ public class GAWebActivity extends WebviewActivity {
 
     @Override
     public void onBackPressed() {
-        if(!TextUtils.isEmpty(fn)){
-            if(fragment.openWindows.size()>0){
-                fragment.openWindows.get(0).loadUrl("javascript:"+fn);
-            }else{
-                fragment.loadUrl("javascript:"+fn);
-            }
-        } else {
-            if(fragment.canGoBack()) {
-                fragment.goBack();
+        try {
+            if (!TextUtils.isEmpty(fn)) {
+                if (fragment.openWindows.size() > 0) {
+                    fragment.openWindows.get(0).loadUrl("javascript:" + fn);
+                } else {
+                    fragment.loadUrl("javascript:" + fn);
+                }
             } else {
-                super.onBackPressed();
+                if (fragment.canGoBack()) {
+                    fragment.goBack();
+                } else {
+                    super.onBackPressed();
+                }
             }
+        }catch (Exception e){
+            super.onBackPressed();
         }
     }
 }

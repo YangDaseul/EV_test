@@ -173,7 +173,6 @@ public class ServiceMembershipJoinFragment extends SubFragment<ActivityMembershi
             case R.id.iv_arrow:
                 try{
                     TermVO termVO = (TermVO)v.getTag(R.id.term);
-                    Log.v("test","test:"+termVO.getTermCd());
 
                     if(termVO.getTermCd().equalsIgnoreCase(TERM_SERVICE_JOIN_BLM0003)){ //광고성정보수신유무 선택 시
 

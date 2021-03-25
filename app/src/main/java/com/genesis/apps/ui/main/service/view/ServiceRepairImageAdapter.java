@@ -54,7 +54,7 @@ public class ServiceRepairImageAdapter extends BaseRecyclerViewAdapter2<RepImage
             Glide
                     .with(getContext())
                     .load(item.getImgUri())
-                    .format(DecodeFormat.PREFER_ARGB_8888)
+                    .format(DecodeFormat.PREFER_RGB_565)
 //                    .error(R.color.x_00000000) //todo 이미지
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(getBinding().ivImage);

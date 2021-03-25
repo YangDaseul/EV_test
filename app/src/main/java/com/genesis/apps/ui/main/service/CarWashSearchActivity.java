@@ -206,8 +206,8 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
             //내 위치 버튼
             case R.id.btn_my_position:
                 //최근거리 지점을 찾아서 정보 표시
-                showBranchInfo(findNearest(searchedBranchList), true);
-//                moveMapToInitPosition();
+//                showBranchInfo(findNearest(searchedBranchList), true);
+                reqBranchList();
                 break;
 
             //지역선택 프래그먼트 호출
@@ -402,7 +402,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
 
         Glide.with(CarWashSearchActivity.this)
                 .load(branchData.getBrnhImgUri1())
-                .format(DecodeFormat.PREFER_ARGB_8888)
+                .format(DecodeFormat.PREFER_RGB_565)
                 .error(R.drawable.img_sonax)
                 .placeholder(R.drawable.img_sonax)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

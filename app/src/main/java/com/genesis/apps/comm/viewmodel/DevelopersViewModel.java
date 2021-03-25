@@ -362,7 +362,10 @@ class DevelopersViewModel extends ViewModel {
                             && !TextUtils.isEmpty(vehicleVO.getVin())) {//로컬 db에 등록된 차대번호에 해당하는 carId가 있는지 확인
 
                         //carId가 없는 차량을 리스트에 추가
-                        targetList.add(new CarConnectVO(vehicleVO.getVin(), "", "", "", ""));
+                        targetList.add(new CarConnectVO(vehicleVO.getVin(), "", "", 2, ""));
+                    }else if(carConnectVO != null&&!TextUtils.isEmpty(carConnectVO.getCarId())&& !TextUtils.isEmpty(vehicleVO.getVin())){
+                        //차량정보가 있고 카아이디가 있고 vin도 있으면 (해당 carid가 유효한 carid인지 확인 필요
+                        targetList.add(new CarConnectVO(vehicleVO.getVin(), "", carConnectVO.getCarId(), 2, ""));
                     }
                 } catch (Exception ignore) {
 
@@ -377,6 +380,9 @@ class DevelopersViewModel extends ViewModel {
 
 
     private List<CarConnectVO> getDeveloperCarInfo(List<CarConnectVO> targetList) {
+
+        List<CarConnectVO> newTargetList = new ArrayList<>();
+
         if (targetList != null && targetList.size() > 0) {
             //GCS에 등록된 차량 리스트 확인
             CarCheck.Response carCheckRes = repository.REQ_SYNC_CAR_CHECK(new CarCheck.Request());
@@ -386,39 +392,49 @@ class DevelopersViewModel extends ViewModel {
                 for (CarVO carVO : carCheckRes.getCars()) {
                     for (int i = 0; i < targetList.size(); i++) {
                         if (carVO.getVin().equalsIgnoreCase(targetList.get(i).getVin())) {
-                            targetList.get(i).setMasterCarId(TextUtils.isEmpty(carVO.getCarId()) ? "" : carVO.getCarId());
-                            targetList.get(i).setCarName(TextUtils.isEmpty(carVO.getCarName()) ? "" : carVO.getCarName());
+                            if(!TextUtils.isEmpty(targetList.get(i).getMasterCarId())&&(targetList.get(i).getMasterCarId().equalsIgnoreCase(carVO.getCarId()))){
+                                //DB에 있는 카아이디와 서버로부터 받은 카 아이디가 같으면
+
+                            }else{
+                                //다르거나 없으면 (가입 혹은 재가입 대상)
+                                targetList.get(i).setMasterCarId(TextUtils.isEmpty(carVO.getCarId()) ? "" : carVO.getCarId());
+                                targetList.get(i).setCarName(TextUtils.isEmpty(carVO.getCarName()) ? "" : carVO.getCarName());
+                                newTargetList.add(targetList.get(i));
+                            }
                         }
                     }
                 }
             }
         }
-        return targetList;
+        return newTargetList;
     }
 
     private void updateCarInfoToDevelopers(List<CarConnectVO> targetList, String userId) {
         if (targetList != null && targetList.size() > 0 && !TextUtils.isEmpty(userId)) {
             //제네시스 앱 CARID가 발급되어있는지 확인하고 발급되어 있지 않으면 신청 진행
             CarId.Response carIdRes = repository.REQ_SYNC_CAR_ID(new CarId.Request(userId));
-            if (carIdRes != null && carIdRes.getCars() != null && carIdRes.getCars().size() > 0) {
-                for (int i = 0; i < targetList.size(); i++) {
-                    for (CarVO carVO : carIdRes.getCars()) {
+            List<CarConnectVO> list = new ArrayList<>();
+            for (int i = 0; i < targetList.size(); i++) {
+                if(carIdRes==null||carIdRes.getCars()==null||carIdRes.getCars().size()<1){
+                    CarConnectVO carConnectVO = new CarConnectVO("", targetList.get(i).getMasterCarId(), "", 2, targetList.get(i).getCarName());
+                    list.add(carConnectVO);
+                }else{
+                    for(CarVO carVO : carIdRes.getCars()) {
                         if (targetList.get(i).getVin().equalsIgnoreCase(carVO.getVin())) {
                             if (TextUtils.isEmpty(carVO.getCarId())) {
-                                //car id가 비어있으면 가입 신청 필요
-                                CarConnectVO carConnectVO = new CarConnectVO("", targetList.get(i).getMasterCarId(), "", "2", targetList.get(i).getCarName());
-                                CarConnect.Response carConnectRes = repository.REQ_SYNC_CAR_CONNECT(new CarConnect.Request(carConnectVO, userId));
+                                CarConnectVO carConnectVO = new CarConnectVO("", targetList.get(i).getMasterCarId(), "", 2, targetList.get(i).getCarName());
+                                list.add(carConnectVO);
                             }
-//                                    else{
-//                                        //car id가 있으면 해당 값을 저장
-//                                        targetList.get(i).setCarId(carVO.getCarId());
-//                                    }
                         }
                     }
                 }
             }
+            if(list!=null&&list.size()>0){
+                CarConnect.Response carConnectRes = repository.REQ_SYNC_CAR_CONNECT(new CarConnect.Request(list, userId));
+            }
         }
     }
+
 
 
     /**
