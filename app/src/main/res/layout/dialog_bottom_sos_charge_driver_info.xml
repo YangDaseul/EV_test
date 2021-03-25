@@ -210,22 +210,6 @@
                         app:layout_constraintTop_toBottomOf="@+id/l_addr"
                         app:msg="@{data.getCarRegNo() ?? ``}"
                         app:title="@{@string/sm_emgc03_p01_9}" />
-
-                    <!-- "메모" -->
-                    <include
-                        android:id="@+id/l_memo"
-                        layout="@layout/item_rpar_status"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
-                        app:isLeft="@{true}"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/l_car_reg_no"
-                        app:maxLine="@{Integer.MAX_VALUE}"
-                        app:msg="@{data.getMemo() ?? ``}"
-                        app:title="@{@string/sm_emgc03_p01_10}" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
