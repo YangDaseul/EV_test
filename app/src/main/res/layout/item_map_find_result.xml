@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:background="@drawable/ripple_bg_ffffff_stroke_e2e2e2"
+        android:background="@drawable/ripple_bg_ffffff_stroke_e5e5e5"
         android:clickable="true"
         android:focusable="true"
         android:paddingStart="15dp"
