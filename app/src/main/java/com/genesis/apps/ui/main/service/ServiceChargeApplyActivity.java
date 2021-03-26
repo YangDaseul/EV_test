@@ -3,7 +3,10 @@ package com.genesis.apps.ui.main.service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
@@ -35,7 +38,10 @@ import com.genesis.apps.databinding.ActivityServiceChargeApply1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
+import com.genesis.apps.ui.common.view.listener.OnRemoveClickListener;
+import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Arrays;
 import java.util.List;
@@ -103,6 +109,9 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
         ui.etCelPhNo.setOnFocusChangeListener(focusChangeListener);
         ui.etAddrDtl.setOnFocusChangeListener(focusChangeListener);
         ui.etCarRegNo.setOnFocusChangeListener(focusChangeListener);
+        ui.lCelPhNo.setEndIconOnClickListener(new OnRemoveClickListener(ui.etCelPhNo) {});
+        ui.lAddrDtl.setEndIconOnClickListener(new OnRemoveClickListener(ui.etAddrDtl) {});
+        ui.lCarRegNo.setEndIconOnClickListener(new OnRemoveClickListener(ui.etCarRegNo) {});
     }
 
     /**
@@ -310,7 +319,6 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
 
     private boolean checkValidPhoneNumber(){
         String celPhoneNo = ui.etCelPhNo.getText().toString().replaceAll("-","").trim();
-
         if(TextUtils.isEmpty(celPhoneNo)){
             ui.etCelPhNo.requestFocus();
             ui.lCelPhNo.setError(getString(R.string.sm_emgc01_5));
@@ -349,6 +357,7 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
             return true;
         }else{
             ui.tvErrorAreaClsCd.setVisibility(View.VISIBLE);
+            Paris.style(ui.tvAreaClsCd).apply(R.style.CommonSpinnerItemError);
             ui.tvErrorAreaClsCd.setText(R.string.sm_emgc01_9);
             return false;
         }
@@ -359,6 +368,7 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
         if(TextUtils.isEmpty(addr)){
             ui.tvErrorAddr.setVisibility(View.VISIBLE);
             ui.tvErrorAddr.setText(getString(R.string.sm_emgc01_12));
+            Paris.style(ui.tvAddr).apply(R.style.CommonInputItemError);
             return false;
         }else{
             ui.lAddrInfo.setVisibility(View.VISIBLE);
@@ -434,6 +444,8 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
         }
     };
 
+
+
     @Override
     public void onBackPressed() {
         dialogExit();
@@ -470,5 +482,6 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
         ui.tvAddrInfo2.setVisibility(TextUtils.isEmpty(addressInfo[0]) ? View.GONE : View.VISIBLE);
         checkValidAddr();
     }
+
 
 }
