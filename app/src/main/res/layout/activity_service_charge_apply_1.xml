@@ -85,18 +85,18 @@
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
-                        android:background="@drawable/ripple_bg_ffffff_stroke_e2e2e2"
+                        android:background="@drawable/ripple_bg_ffffff_stroke_e5e5e5"
                         android:drawableEnd="@drawable/btn_arrow_open_r"
-                        android:fontFamily="@font/regular_genesissansheadglobal"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
                         android:gravity="start|center_vertical"
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="16dp"
                         android:paddingStart="16dp"
                         android:paddingEnd="16dp"
                         android:text="@string/sm_emgc01_11"
-                        android:textColor="@color/x_aaabaf"
+                        android:textColor="@color/x_a2a2a2"
                         android:textSize="15dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -112,7 +112,7 @@
                         android:id="@+id/tv_title_addr"
                         style="@style/CommonSpinnerTitle"
                         android:text="@string/sm_emgc01_11"
-                        android:visibility="visible" />
+                        android:visibility="gone" />
 
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -127,7 +127,7 @@
                         android:paddingTop="20dp"
                         android:paddingEnd="15dp"
                         android:paddingBottom="20dp"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -238,7 +238,7 @@
                         android:id="@+id/tv_charge_cnt_info"
                         style="@style/CommonTextViewFix"
                         app:layout_constraintTop_toBottomOf="@+id/tv_title_charge_cnt"
-                        tools:text="년 10회 무상 제공" />
+                        android:text="@string/sm_cggo_01_3" />
 
 
                     <TextView

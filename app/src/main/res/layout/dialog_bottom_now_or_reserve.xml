@@ -74,7 +74,7 @@
                 android:layout_marginStart="30dp"
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:text="@string/now_or_reserve_desc"
-                android:textColor="@color/x_aaabaf"
+                android:textColor="@color/x_a2a2a2"
                 android:textSize="14dp" />
 
             <!-- "예약일시" 및 날짜선택버튼. visibility 컨트롤 한 번에 하려고 묶음 -->

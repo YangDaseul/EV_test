@@ -43,7 +43,7 @@
                 android:padding="16dp"
                 android:inputType="text"
                 android:imeOptions="actionSearch"
-                android:textColorHint="@color/x_aaabaf"
+                android:textColorHint="@color/x_a2a2a2"
                 android:background="@drawable/bg_ffffff_stroke_141414"
                 android:textSize="15dp"
                 android:letterSpacing="-0.01"

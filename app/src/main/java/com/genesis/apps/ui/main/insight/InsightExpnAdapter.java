@@ -53,7 +53,7 @@ public class InsightExpnAdapter extends BaseRecyclerViewAdapter2<ExpnVO> {
     @Override
     public int getItemViewType(int position) {
         try {
-            if (isMore&&getItemCount()>10&&position==(getItemCount()-1)) {
+            if (isMore&&position==(getItemCount()-1)) {
                 return BOTTOM;
             } else {
                 return BODY;
@@ -105,6 +105,28 @@ public class InsightExpnAdapter extends BaseRecyclerViewAdapter2<ExpnVO> {
         }
         return position;
     }
+
+
+//    public int getRefreshDatePos(String expnDtm) {
+//        int position = -1;
+//
+//        if (getItemCount() > 0) {
+//            try {
+//                position = IntStream.range(0, getItemCount())
+//                        .filter(pos -> getItems().get(pos).getExpnDtm().equalsIgnoreCase(expnDtm))
+//                        .findFirst()
+//                        .getAsInt();
+//            } catch (Exception e) {
+//                position = -1;
+//            }
+//
+//            if (position > -1) {
+//                getItems().get(position).setFirst(true);
+//            }
+//        }
+//
+//        return position;
+//    }
 
 
     private static class ItemInsightExpn extends BaseViewHolder<ExpnVO, ItemInsightExpnBinding> {

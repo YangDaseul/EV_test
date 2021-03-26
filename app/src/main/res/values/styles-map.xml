@@ -19,7 +19,7 @@
     <!-- 지도 UI 타이틀바 힌트 -->
     <style name="MapOverlayTitleBar.Hint" parent="MapOverlayTitleBar">
         <item name="android:background">@drawable/ripple_bg_ffffff_stroke_ffffff</item>
-        <item name="android:textColor">@color/x_aaabaf</item>
+        <item name="android:textColor">@color/x_a2a2a2</item>
     </style>
 
     <!-- 지도 UI 하단 검은상자 : 검은 상자 자체-->
