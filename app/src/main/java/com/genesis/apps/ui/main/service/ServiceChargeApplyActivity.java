@@ -87,7 +87,13 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
             initPhoneNumber();
             initConstraintSets();
             initEditView();
+            initData();
         }
+    }
+
+    private void initData() {
+        //TODO 잔여 횟수를 받아오는 전문 혹은 INTENT DATA 로직은 추가 필요 (현재 확인된 전문이 없음)
+        ui.tvChargeCnt.setText(String.format(Locale.getDefault(),getString(R.string.sm_cggo_01_4), "0"));
     }
 
     private void initEditView() {
