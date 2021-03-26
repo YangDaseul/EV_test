@@ -157,7 +157,6 @@
         <!--end icon-->
         <item name="endIconMode">clear_text</item>
         <item name="endIconTint">@color/x_000000</item>
-
         <item name="boxBackgroundColor">@color/x_ffffff</item>
         <item name="boxBackgroundMode">outline</item>
         <item name="boxCornerRadiusTopEnd">0dp</item>
@@ -179,7 +178,6 @@
 
 <!--        &lt;!&ndash;포커스가 없는 상태의 hint 컬러&ndash;&gt;-->
 <!--        <item name="android:textColorHint">@color/x_a2a2a2</item>-->
-
 
 
 
