@@ -368,8 +368,8 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
     private boolean checkValidRsvtHopeDt() {
         if(TextUtils.isEmpty(rsvtHopeDt)){
             ui.tvRsvtHopeDt.setText(R.string.sm_r_rsv02_01_16);
-            ui.tvRsvtHopeDt.setTextColor(getColor(R.color.x_aaabaf));
-            ui.tvRsvtHopeDt.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
+            ui.tvRsvtHopeDt.setTextColor(getColor(R.color.x_a2a2a2));
+            ui.tvRsvtHopeDt.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_e5e5e5);
             ui.tvTitleRsvtHopeDt.setVisibility(View.GONE);
             ui.tvErrorRsvtHopeDt.setVisibility(View.VISIBLE);
             ui.tvErrorRsvtHopeDt.setText(R.string.sm_r_rsv02_01_14);
@@ -439,8 +439,8 @@ public class ServiceAutocare2ApplyActivity extends SubActivity<ActivityServiceAu
             ui.tvErrorAddr.setVisibility(View.VISIBLE);
             ui.tvErrorAddr.setText(getString(R.string.sm_r_rsv02_01_14));
 //            ui.tvAddr.setTextAppearance(R.style.CommonInputItemDisable);
-            ui.tvAddr.setTextColor(getColor(R.color.x_aaabaf));
-            ui.tvAddr.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
+            ui.tvAddr.setTextColor(getColor(R.color.x_a2a2a2));
+            ui.tvAddr.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_e5e5e5);
             ui.tvAddr.setText(R.string.sm_r_rsv02_01_7);
             ui.tvTitleAddr.setVisibility(View.GONE);
             return false;
