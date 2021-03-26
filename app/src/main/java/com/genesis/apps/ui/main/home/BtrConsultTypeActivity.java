@@ -26,6 +26,7 @@ import com.genesis.apps.comm.viewmodel.BTRViewModel;
 import com.genesis.apps.databinding.ActivityBtrConsultType1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -452,6 +453,25 @@ public class BtrConsultTypeActivity extends SubActivity<ActivityBtrConsultType1B
                 break;
         }
         return pos;
+    }
+
+    @Override
+    public void onBackPressed() {
+        dialogExit();
+    }
+
+    @Override
+    public void onBackButton(){
+        dialogExit();
+    }
+
+    private void dialogExit(){
+        MiddleDialog.dialogBtrExit(this, () -> {
+            finish();
+            closeTransition();
+        }, () -> {
+
+        });
     }
 
 }

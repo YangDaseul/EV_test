@@ -2,10 +2,12 @@ package com.genesis.apps.ui.main.home;
 
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.view.View;
+import android.webkit.WebView;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -98,6 +100,9 @@ public class BtrBluehandsMapActivity extends GpsBaseActivity<ActivityMap2Binding
                 binding.tvMapAddressTitle.setText(btrVO.getAsnNm());
             }
             binding.tvMapAddressAddress.setText(btrVO.getPbzAdr()+ (!TextUtils.isEmpty(btrVO.getRepTn())  ? "\n"+PhoneNumberUtils.formatNumber(StringUtil.isValidString(btrVO.getRepTn()), Locale.getDefault().getCountry()) : ""));
+            if(!TextUtils.isEmpty(btrVO.getRepTn())){
+                binding.tvMapAddressAddress.setOnClickListener(onSingleClickListener);
+            }
             binding.tvMapAddressBtn.setVisibility(View.GONE);
         });
         ui.pmvMapView.initMap( Double.parseDouble(btrVO.getMapYcooNm()), Double.parseDouble(btrVO.getMapXcooNm()),DEFAULT_ZOOM);
@@ -113,6 +118,11 @@ public class BtrBluehandsMapActivity extends GpsBaseActivity<ActivityMap2Binding
             case R.id.btn_my_position:
                 if(myPosition!=null&&myPosition[0]!=0&&myPosition[1]!=0)
                     ui.pmvMapView.setMapCenterPoint(new PlayMapPoint(myPosition[0], myPosition[1]), 500);
+                break;
+            case R.id.tv_map_address_address://전화걸기
+                String tel = StringUtil.isValidString(btrVO.getRepTn()).trim().replaceAll("-","");
+                if(!TextUtils.isEmpty(tel))
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + tel)));
                 break;
         }
 

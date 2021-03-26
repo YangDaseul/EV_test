@@ -106,7 +106,7 @@
         <ImageView
             android:layout_width="1dp"
             android:layout_height="0dp"
-            android:src="@color/x_e2e2e2"
+            android:src="@color/x_e5e5e5"
             app:layout_constraintBottom_toTopOf="@id/iv_service_drive_route_to_icon"
             app:layout_constraintEnd_toEndOf="@id/iv_service_drive_route_from_icon"
             app:layout_constraintStart_toStartOf="@id/iv_service_drive_route_from_icon"

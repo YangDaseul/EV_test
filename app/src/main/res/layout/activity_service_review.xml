@@ -149,7 +149,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="20dp"
-            android:background="@drawable/bg_ffffff_stroke_dadde3"
+            android:background="@drawable/bg_ffffff_stroke_e5e5e5"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:gravity="start"
             android:hint="@string/service_review_04"
