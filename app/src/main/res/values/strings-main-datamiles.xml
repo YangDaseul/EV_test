@@ -11,7 +11,7 @@
     <string name="gm01_all">전체</string>
     <string name="gm01_same_car">동일차종</string>
     <string name="gm01_rank">상위</string>
-    <string name="gm01_format_driving_score_guide">90일간 %,3dkm 주행 기준</string>
+    <string name="gm01_format_driving_score_guide"><![CDATA[90일 간 <font color="#996449">%,3dkm</font> 주행 기준]]></string>
     <string name="gm01_format_rank">%d%%</string>
     <string name="gm01_pop_1">점수 산정 기준 안내</string>
     <string name="gm01_pop_2">동의일이 90일 이내일 경우 동의일을 기준으로 산정됩니다.</string>

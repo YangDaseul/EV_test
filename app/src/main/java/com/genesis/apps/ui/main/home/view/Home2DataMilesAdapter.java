@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main.home.view;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -308,8 +309,21 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                 binding.tvDatamilesDrivingScoreUpdateDate.setText("");
             }
             // 주행 기준
-            binding.tvDatamilesDrivingScoreGuide.setText(String.format(getContext().getString(R.string.gm01_format_driving_score_guide),
-                    (int) detail.getRangeDrvDist()));
+            binding.tvDatamilesDrivingScoreGuide.setText(Html.fromHtml(  String.format(getContext().getString(R.string.gm01_format_driving_score_guide), (int) detail.getRangeDrvDist()), Html.FROM_HTML_MODE_COMPACT));
+
+            binding.lDatamilesDrivingScoreInfo.setVisibility(View.GONE);
+            binding.btnDatamilesDrivingScoreGuide.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    binding.lDatamilesDrivingScoreInfo.setVisibility(View.VISIBLE);
+                }
+            });
+            binding.btnDatamilesDrivingScoreInfoClose.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    binding.lDatamilesDrivingScoreInfo.setVisibility(View.GONE);
+                }
+            });
 
             // Insight 메시지
             if (TextUtils.isEmpty(detail.getInsightMsg())) {
