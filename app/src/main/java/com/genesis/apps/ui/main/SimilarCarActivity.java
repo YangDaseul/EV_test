@@ -19,6 +19,7 @@ import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.ActivitySimilarCarBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,8 @@ public class SimilarCarActivity extends SubActivity<ActivitySimilarCarBinding> {
     private LGNViewModel lgnViewModel;
     private SimilarCarAdapter adapter;
     private String ctrctNo;
+    private SimilarVehicleVO similarVehicleVO = null;
+    private String celphNo="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +55,6 @@ public class SimilarCarActivity extends SubActivity<ActivitySimilarCarBinding> {
 
     @Override
     public void onClickCommon(View v) {
-        SimilarVehicleVO similarVehicleVO = null;
-        String celphNo="";
         switch (v.getId()) {
             case R.id.l_whole:
                 int pos = -1;
@@ -76,13 +77,16 @@ public class SimilarCarActivity extends SubActivity<ActivitySimilarCarBinding> {
                 }
                 break;
             case R.id.btn_request://문의하기
-                celphNo = ((SimilarVehicleVO)adapter.getItem(0)).getCelphNo(); //celphNo는 헤더인 계약차량에서
-                similarVehicleVO = adapter.getSelectItem(); //선택된 유사차량 정보
-                if (similarVehicleVO != null && !TextUtils.isEmpty(celphNo)) {
-                    String msg = String.format(Locale.getDefault(), getString(R.string.gm02_inv01_8), lgnViewModel.getDbUserRepo().getUserVO().getCustNm(), similarVehicleVO.getVhclCd());
-                    sendSmsIntent(celphNo, msg);
-                }
+                MiddleDialog.dialogSimilarInfo(this, () -> {
+                    celphNo = ((SimilarVehicleVO)adapter.getItem(0)).getCelphNo(); //celphNo는 헤더인 계약차량에서
+                    similarVehicleVO = adapter.getSelectItem(); //선택된 유사차량 정보
+                    if (similarVehicleVO != null && !TextUtils.isEmpty(celphNo)) {
+                        String msg = String.format(Locale.getDefault(), getString(R.string.gm02_inv01_8), lgnViewModel.getDbUserRepo().getUserVO().getCustNm(), similarVehicleVO.getVhclCd());
+                        sendSmsIntent(celphNo, msg);
+                    }
+                }, () -> {
 
+                });
                 break;
         }
 

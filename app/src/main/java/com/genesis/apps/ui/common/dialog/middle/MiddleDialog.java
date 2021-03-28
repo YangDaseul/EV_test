@@ -24,6 +24,7 @@ import com.genesis.apps.databinding.DialogServiceCantReserveInfoBinding;
 import com.genesis.apps.databinding.DialogServiceRemoteInfoBinding;
 import com.genesis.apps.databinding.DialogServiceRemoteNotTargetBinding;
 import com.genesis.apps.databinding.DialogServiceRemoteNotTimeBinding;
+import com.genesis.apps.databinding.DialogSimilarInfoBinding;
 import com.genesis.apps.databinding.DialogUpdateBinding;
 import com.genesis.apps.databinding.DialogUsedCarInfoBinding;
 
@@ -282,6 +283,33 @@ public class MiddleDialog {
         );
     }
 
+
+    /**
+     * @param activity
+     * @param ok
+     * @param cancel
+     * @brief 원격진단안내팝업
+     */
+    public static void dialogSimilarInfo(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                new CustomDialog(activity, dialog -> {
+                    DialogSimilarInfoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_similar_info, null, false);
+                    dialog.setContentView(binding.getRoot());
+
+                    binding.btnCancel.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (cancel != null) cancel.run();
+                    });
+                    binding.btnOk.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (ok != null) ok.run();
+                    });
+                }).show()
+        );
+    }
 
     /**
      * @param activity
