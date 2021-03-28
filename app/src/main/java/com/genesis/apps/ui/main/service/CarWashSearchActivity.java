@@ -391,7 +391,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
             ui.pmvMapView.initMap(
                     Double.parseDouble(branchData.getBrnhY()),
                     Double.parseDouble(branchData.getBrnhX()),
-                    ui.pmvMapView.getZoomLevel());
+                    DEFAULT_ZOOM_WIDE);
         }
 
         //지점 정보 뷰에 데이터 바인딩
