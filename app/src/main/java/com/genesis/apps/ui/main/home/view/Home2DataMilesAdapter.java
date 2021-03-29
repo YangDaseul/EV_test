@@ -30,8 +30,10 @@ import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**
@@ -290,11 +292,14 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             binding.asbDatamilesDrivingScore.setOnTouchListener((view, event) -> true);
 
             try {
+                //developers 요청으로 0001과 같은 날짜가 포함된 경우 현재시간으로 조정
+                if(StringUtil.isValidString(detail.getScoreDate()).contains("0001.01.01")){
+                    detail.setScoreDate(DateUtil.getDate(Calendar.getInstance(Locale.getDefault()).getTime(), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm_ss));
+                }
                 String updateDate = DateUtil.getDate(
                         DateUtil.getDefaultDateFormat(detail.getScoreDate(), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm_ss),
                         DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm
                 );
-
                 if (TextUtils.isEmpty(updateDate)) {
                     // 업데이트 일자가 없는 경우 해당 영역 표시 안함.
                     binding.tvDatamilesDrivingScoreUpdateDate.setText("");
