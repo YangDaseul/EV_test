@@ -121,7 +121,7 @@ public class SearchAddressActivity extends SubActivity<ActivitySearchAddressBind
                     }
                 default:
                     showProgressDialog(false);
-                    if(result.data!=null&& StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("9020")){
+                    if(result.data!=null&&(StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("9020")||StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("2022"))){
                         SnackBarUtil.show(this, StringUtil.isValidString(result.data.getRtMsg()));
                         return;
                     }
