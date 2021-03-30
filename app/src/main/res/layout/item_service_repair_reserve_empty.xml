@@ -5,21 +5,20 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/x_f4f4f4"
+        android:background="@color/x_f8f8f8"
         android:padding="20dp">
 
         <TextView
             android:id="@+id/tv_empty"
             android:layout_width="0dp"
             android:layout_height="200dp"
-            android:background="@drawable/bg_ffffff_stroke_e5e5e5"
-            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:fontFamily="@font/regular_genesissanstextglobal"
             android:gravity="center"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="2dp"
             android:text="@string/sm_r_rsv05_33"
-            android:textColor="@color/x_141414"
-            android:textSize="16dp"
+            android:textColor="@color/x_262626"
+            android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

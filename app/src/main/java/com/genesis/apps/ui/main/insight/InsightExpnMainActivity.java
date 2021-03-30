@@ -60,7 +60,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
     private List<String> vehicleList = new ArrayList<>();
     private VehicleVO selectVehicle = null;
     private String basYymm;
-    private final int PAGE_UNIT = 11;
+    private final int PAGE_UNIT = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,11 +189,8 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                     totalCnt = 0;
                 } finally {
                     if (totalCnt > 0) {
-                        if (adapter.getItemCount() >= totalCnt) {
-                            adapter.setMore(false);
-                            adapter.notifyItemChanged(adapter.getItemCount() - 1);
-                        } else {
-                            cbkViewModel.reqCBK1002(new CBK_1002.Request(APPIAInfo.TM_EXPS01_P03.getId(), selectVehicle.getVin(), basYymm, adapter.getPageNo() + 1 + "", "11"));
+                        if ((adapter.getItemCount()-(adapter.isMore() ? 1:0)) < totalCnt) {
+                            cbkViewModel.reqCBK1002(new CBK_1002.Request(APPIAInfo.TM_EXPS01_P03.getId(), selectVehicle.getVin(), basYymm, adapter.getPageNo() + 1 + "", PAGE_UNIT + ""));
                         }
                     }
                 }
@@ -311,13 +308,20 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                     break;
                 case SUCCESS:
                     if (result.data != null && result.data.getExpnList() != null && result.data.getExpnList().size() > 0) {
-                        List<ExpnVO> list = new ArrayList<>();
                         try {
-                            list.addAll(cbkViewModel.getExpnList(result.data.getExpnList()));
                             if (adapter.getPageNo() == 0) {
-                                adapter.setRows(list);
+                                adapter.setRows(cbkViewModel.getExpnList(result.data.getExpnList()));
                             } else {
-                                adapter.addRows(list);
+                                //더보기가 있으면 일단 제거
+                                if(adapter.isMore()){
+                                    adapter.remove(adapter.getItemCount()-1);
+                                }
+                                //adapter에 아이템 추가 후
+                                adapter.addRows(result.data.getExpnList());
+                                //adapter의 날짜 표기에대한 변경으로 다시 set 진행
+                                List<ExpnVO> list = new ArrayList<>();
+                                list.addAll(cbkViewModel.getExpnList(adapter.getItems()));
+                                adapter.setRows(list);
                             }
                             adapter.setPageNo(adapter.getPageNo() + 1);
 
@@ -328,8 +332,12 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                             } catch (Exception e) {
                                 totalCnt = 0;
                             } finally {
-                                adapter.setMore((adapter.getItemCount() < totalCnt) //현재 아이템 수가 총 카운트보다 적거나
-                                        || (adapter.getItemCount() % PAGE_UNIT == 0));//11번째 아이템일 경우 더보기 활성화
+                                if(adapter.getItemCount() < totalCnt){
+                                    adapter.setMore(true);
+                                    adapter.addRow(new ExpnVO("","","","","","","","","","","","",false));
+                                }else{
+                                    adapter.setMore(false);
+                                }
                             }
 
                             //그래프 셋팅. 첫번째 페이지 로드시에만
@@ -339,17 +347,15 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                         } catch (Exception e) {
                             e.printStackTrace();
                         } finally {
-                            adapter.notifyDataSetChanged();
                             setViewEmpty();
+                            adapter.notifyDataSetChanged();
                             showProgressDialog(false);
                         }
                         break;
                     }
                 default:
                     setViewEmpty();
-                    adapter.clear();
                     adapter.notifyDataSetChanged();
-                    setGraph(new CBK_1002.Response());
                     showProgressDialog(false);
                     break;
             }
@@ -363,54 +369,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                 case SUCCESS:
                     showProgressDialog(false);
                     if (result.data != null && !TextUtils.isEmpty(result.data.getRtCd()) && result.data.getRtCd().equalsIgnoreCase("0000")) {
-                        int deletePosition = adapter.getRemovePosition();
-                        ExpnVO deleteItem = null;
-                        if (deletePosition > -1) {
-                            deleteItem = adapter.getItem(deletePosition);
-
-                            CBK_1002.Response data = cbkViewModel.getRES_CBK_1002().getValue().data;
-                            data.setTotCnt((isValidInteger(data.getTotCnt()) - 1) + "");
-
-                            int amt = isValidInteger(deleteItem.getExpnAmt());
-                            int refulSumAmt = isValidInteger(data.getRefulSumAmt());
-                            int rparSumAmt = isValidInteger(data.getRparSumAmt());
-                            int carWshSumAmt = isValidInteger(data.getCarWshSumAmt());
-                            int etcSumAmt = isValidInteger(data.getEtcSumAmt());
-                            if (TextUtils.isEmpty(deleteItem.getExpnDivNm()))
-                                deleteItem.setExpnDivNm("");
-
-                            switch (deleteItem.getExpnDivNm()) {
-                                case VariableType.INSIGHT_EXPN_DIV_CODE_1000://refulSumAmt
-                                    refulSumAmt -= amt;
-                                    data.setRefulSumAmt(refulSumAmt + "");
-                                    break;
-                                case VariableType.INSIGHT_EXPN_DIV_CODE_2000://rparSumAmt
-                                    rparSumAmt -= amt;
-                                    data.setRparSumAmt(rparSumAmt + "");
-                                    break;
-                                case VariableType.INSIGHT_EXPN_DIV_CODE_3000://carWshSumAmt
-                                    carWshSumAmt -= amt;
-                                    data.setCarWshSumAmt(carWshSumAmt + "");
-                                    break;
-                                case VariableType.INSIGHT_EXPN_DIV_CODE_4000://etcSumAmt
-                                case VariableType.INSIGHT_EXPN_DIV_CODE_5000:
-                                case VariableType.INSIGHT_EXPN_DIV_CODE_6000:
-                                case VariableType.INSIGHT_EXPN_DIV_CODE_7000:
-                                case VariableType.INSIGHT_EXPN_DIV_CODE_8000:
-                                case VariableType.INSIGHT_EXPN_DIV_CODE_9000:
-                                default:
-                                    etcSumAmt -= amt;
-                                    data.setEtcSumAmt(etcSumAmt + "");
-                                    break;
-                            }
-
-                            data.setExpnList(adapter.getItems());
-                            setGraph(cbkViewModel.getRES_CBK_1002().getValue().data);
-                            adapter.setDeleteExpnSeqNo("");
-                            adapter.remove(deletePosition);
-                            adapter.notifyItemRemoved(deletePosition);
-                        }
-                        setViewEmpty();
+                        reqCBKData();
                         break;
                     }
                 default:
@@ -432,7 +391,13 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
     }
 
     private void setViewEmpty() {
-        ui.tvEmpty.setVisibility(adapter.getItemCount() < 1 ? View.VISIBLE : View.GONE);
+        if(adapter.getItemCount()<1){
+            ui.tvEmpty.setVisibility(View.VISIBLE);
+            adapter.clear();
+            setGraph(new CBK_1002.Response());
+        }else{
+            ui.tvEmpty.setVisibility(View.GONE);
+        }
     }
 
 

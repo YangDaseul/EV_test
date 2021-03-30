@@ -169,6 +169,16 @@ public enum APIInfo {
 
     GRA_CMS_1001("MyG+ 커머스연동", "CMS-1001", HttpRequest.METHOD_POST, "/graapi/cms/sso.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
+    GRA_SOS_3001("긴급충전출동 접수현황 체크", "SOS-3001", HttpRequest.METHOD_POST, "/graapi/sos/1.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_SOS_3002("긴급충전출동 신청", "SOS-3002", HttpRequest.METHOD_POST, "/graapi/sos/2.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_SOS_3003("추가 비용 안내", "SOS-3003", HttpRequest.METHOD_POST, "/graapi/sos/3.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_SOS_3004("신청 취소", "SOS-3004", HttpRequest.METHOD_POST, "/graapi/sos/4.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_SOS_3005("신청 상태 확인(상세)", "SOS-3005", HttpRequest.METHOD_POST, "/graapi/sos/5.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_SOS_3006("긴급충전출동 현황(위치)", "SOS-3006", HttpRequest.METHOD_POST, "/graapi/sos/6.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_SOS_3007("신청이력조회", "SOS-3007", HttpRequest.METHOD_POST, "/graapi/sos/7.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_SOS_3008("EV충전 잔여 횟수 조회", "SOS-3008", HttpRequest.METHOD_POST, "/graapi/sos/8.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+
+
     //DEVELOPERS API에서는 ifCd를 url 파라미터 형태로 사용
     DEVELOPERS_DTC("고장 코드 조회", "carId", HttpRequest.METHOD_GET, "/car/status/%s/dtc", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     DEVELOPERS_REPLACEMENTS("소모품 교환 정보 조회", "carId", HttpRequest.METHOD_GET, "/data-service/car/care/%s/replacements", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),

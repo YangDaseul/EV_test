@@ -638,6 +638,11 @@
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.service.ServiceChargePayInfoActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <meta-data
             android:name="android.allow_multiple_resumed_activities"
             android:value="true" />

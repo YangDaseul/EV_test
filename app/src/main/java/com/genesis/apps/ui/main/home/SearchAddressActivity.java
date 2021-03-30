@@ -18,7 +18,9 @@ import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.PUB_1001;
 import com.genesis.apps.comm.model.vo.AddressZipVO;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.PUBViewModel;
 import com.genesis.apps.databinding.ActivitySearchAddressBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -119,6 +121,11 @@ public class SearchAddressActivity extends SubActivity<ActivitySearchAddressBind
                     }
                 default:
                     showProgressDialog(false);
+                    if(result.data!=null&&(StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("9020")||StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("2022"))){
+                        SnackBarUtil.show(this, StringUtil.isValidString(result.data.getRtMsg()));
+                        return;
+                    }
+
                     if ((adapter != null && adapter.getItemCount() < 1) || adapter.getPageNo()==0) {
                         if(adapter!=null) adapter.clear();
 

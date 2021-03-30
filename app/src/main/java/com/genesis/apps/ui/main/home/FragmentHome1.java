@@ -726,7 +726,11 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         String userId = loginInfoDTO.getProfile().getId();
                         String accessToken = loginInfoDTO.getAccessToken();
                         lgnViewModel.reqLGN0003(new LGN_0003.Request(APPIAInfo.GM01.getId(), vehicleVO.getVin()));
-                        developersViewModel.reqAgreementsAsync(new Agreements.Request(userId, carId, accessToken));
+                        if(TextUtils.isEmpty(carId)){
+                            setViewDevelopers();
+                        }else {
+                            developersViewModel.reqAgreementsAsync(new Agreements.Request(userId, carId, accessToken));
+                        }
                         makeQuickMenu(vehicleVO.getCustGbCd(), vehicleVO, userCustGbCd);
                         break;
                     case VariableType.MAIN_VEHICLE_TYPE_CV:

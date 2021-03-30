@@ -338,10 +338,10 @@ class REQViewModel extends ViewModel {
     public List<CouponVO> getAutocareCouponList(List<CouponVO> couponList){
 
         List<CouponVO> list = new ArrayList<>();
-        list.add(new CouponVO(VariableType.SERVICE_CAR_CARE_COUPON_CODE_ENGINE, "","0","0","0"));
-        list.add(new CouponVO(VariableType.SERVICE_CAR_CARE_COUPON_CODE_AC_FILTER, "","0","0","0"));
-        list.add(new CouponVO(VariableType.SERVICE_CAR_CARE_COUPON_CODE_WIPER, "","0","0","0"));
-        list.add(new CouponVO(VariableType.SERVICE_CAR_CARE_COUPON_CODE_NAVIGATION, "","0","0","0"));
+        list.add(new CouponVO(VariableType.SERVICE_CAR_CARE_COUPON_CODE_ENGINE, "","0","0","0", ""));
+        list.add(new CouponVO(VariableType.SERVICE_CAR_CARE_COUPON_CODE_AC_FILTER, "","0","0","0", ""));
+        list.add(new CouponVO(VariableType.SERVICE_CAR_CARE_COUPON_CODE_WIPER, "","0","0","0", ""));
+        list.add(new CouponVO(VariableType.SERVICE_CAR_CARE_COUPON_CODE_NAVIGATION, "","0","0","0", ""));
 
         for(int i=0; i<list.size(); i++){
             for(CouponVO couponVO : couponList){

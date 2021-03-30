@@ -335,7 +335,7 @@
                         android:id="@+id/tv_star"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="30dp"
                         android:drawableStart="@drawable/ic_star_s"
                         android:drawablePadding="3dp"
                         android:fontFamily="@font/regular_genesissanstextglobal"
@@ -346,6 +346,24 @@
                         android:textSize="14dp"
                         app:layout_constraintStart_toStartOf="@+id/tv_title_card"
                         app:layout_constraintTop_toBottomOf="@+id/tv_title_card" />
+
+                    <TextView
+                        android:id="@+id/tv_blue_members_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/light_genesissansheadglobal"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="17dp"
+                        android:text="@string/mg_member01_17"
+                        android:textColor="@color/x_666666"
+                        android:textSize="13dp"
+                        app:layout_constraintStart_toStartOf="@+id/tv_title_card"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_star"
+                        app:layout_goneMarginTop="30dp"/>
+
+
 
 
                     <androidx.viewpager2.widget.ViewPager2
@@ -359,7 +377,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_star" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_blue_members_info" />
 
                     <TextView
                         android:id="@+id/tv_empty_card"

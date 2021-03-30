@@ -1,17 +1,21 @@
 package com.genesis.apps.ui.main.service;
 
+import android.telephony.PhoneNumberUtils;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.WashBrnVO;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ItemMapFindResultBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
 import androidx.annotation.NonNull;
+
+import java.util.Locale;
 
 public class CarWashFindSonaxBranchAdapter extends BaseRecyclerViewAdapter2<WashBrnVO> {
     private static OnSingleClickListener singleClickListener;
@@ -52,7 +56,7 @@ public class CarWashFindSonaxBranchAdapter extends BaseRecyclerViewAdapter2<Wash
             //주소
             getBinding().tvMapFindResultBranchAddress.setText(item.getBrnhAddr());
             //전화번호
-            getBinding().tvMapFindResultBranchPhone.setText(item.getTelNo());
+            getBinding().tvMapFindResultBranchPhone.setText(PhoneNumberUtils.formatNumber(StringUtil.isValidString(item.getTelNo()), Locale.getDefault().getCountry()));
             //클릭 리스너
             setSingleClickListenerAndData(pos);
         }

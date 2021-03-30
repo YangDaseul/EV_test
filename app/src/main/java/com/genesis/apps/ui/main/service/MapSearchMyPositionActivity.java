@@ -55,10 +55,10 @@ public class MapSearchMyPositionActivity extends GpsBaseActivity<ActivityMap2Bin
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map2);
+        ui.pmvMapView.initMap();
         getDataFromIntent();
         setViewModel();
         setObserver();
-
         checkEnableGPS(() -> initLocation(), () -> reqMyLocation());
 
     }

@@ -116,14 +116,20 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
 
 
     private void setOilDetailView(List<OilPointVO> list) {
-        initOilInfo(list);
-        for (OilPointVO pointVO : list) {
-            if (pointVO.getOilRfnCd().equalsIgnoreCase(oilRfnCd)) {
-                ui.ivCi.setImageResource(OilCodes.findCode(oilRfnCd).getSmallSrc());
-                ui.tvPoint.setText(StringUtil.getDigitGroupingString(TextUtils.isEmpty(pointVO.getPont()) ? "0" : pointVO.getPont()));
-                ui.tvCardNo.setText(StringRe2j.replaceAll(pointVO.getCardNo(), getString(R.string.card_original), getString(R.string.card_mask)));
-                setBarcode(pointVO.getCardNo());
-                break;
+        if(list!=null) {
+            initOilInfo(list);
+            for (OilPointVO pointVO : list) {
+                if (pointVO.getOilRfnCd().equalsIgnoreCase(oilRfnCd)) {
+                    ui.ivCi.setImageResource(OilCodes.findCode(oilRfnCd).getSmallSrc());
+                    ui.tvPoint.setText(StringUtil.getDigitGroupingString(TextUtils.isEmpty(pointVO.getPont()) ? "0" : pointVO.getPont()));
+                    if(!TextUtils.isEmpty(pointVO.getCardNo())) {
+                        ui.tvCardNo.setText(StringRe2j.replaceAll(pointVO.getCardNo(), getString(R.string.card_original), getString(R.string.card_mask)));
+                    }else{
+                        ui.tvCardNo.setText("");
+                    }
+                    setBarcode(pointVO.getCardNo());
+                    break;
+                }
             }
         }
     }
@@ -206,13 +212,25 @@ public class MyGOilPointActivity extends SubActivity<ActivityMygOilPointBinding>
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    oilView.setOilLayout(responseNetUI.data);
-                    doTransition(OilCodes.findCode(oilRfnCd).ordinal());
-                    setOilDetailView(responseNetUI.data.getOilRfnPontList());
-                    showProgressDialog(false);
+                    if(responseNetUI.data!=null&&StringUtil.isValidString(responseNetUI.data.getRtCd()).equalsIgnoreCase("0000")) {
+                        oilView.setOilLayout(responseNetUI.data);
+                        doTransition(OilCodes.findCode(oilRfnCd).ordinal());
+                        setOilDetailView(responseNetUI.data.getOilRfnPontList());
+                        showProgressDialog(false);
+                    }
                     break;
-                case ERROR:
+                default:
                     showProgressDialog(false);
+                    String serverMsg = "";
+                    try {
+                        serverMsg = responseNetUI.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg))
+                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        SnackBarUtil.show(this, serverMsg);
+                    }
                     break;
             }
         });

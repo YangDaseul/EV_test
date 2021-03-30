@@ -3,7 +3,10 @@ package com.genesis.apps.ui.main.service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
@@ -19,7 +22,7 @@ import androidx.transition.TransitionManager;
 import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.SOS_1002;
+import com.genesis.apps.comm.model.api.gra.SOS_3002;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
@@ -35,7 +38,10 @@ import com.genesis.apps.databinding.ActivityServiceChargeApply1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
+import com.genesis.apps.ui.common.view.listener.OnRemoveClickListener;
+import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Arrays;
 import java.util.List;
@@ -87,7 +93,13 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
             initPhoneNumber();
             initConstraintSets();
             initEditView();
+            initData();
         }
+    }
+
+    private void initData() {
+        //TODO 잔여 횟수를 받아오는 전문 혹은 INTENT DATA 로직은 추가 필요 (현재 확인된 전문이 없음)
+        ui.tvChargeCnt.setText(String.format(Locale.getDefault(),getString(R.string.sm_cggo_01_4), "0"));
     }
 
     private void initEditView() {
@@ -97,6 +109,9 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
         ui.etCelPhNo.setOnFocusChangeListener(focusChangeListener);
         ui.etAddrDtl.setOnFocusChangeListener(focusChangeListener);
         ui.etCarRegNo.setOnFocusChangeListener(focusChangeListener);
+        ui.lCelPhNo.setEndIconOnClickListener(new OnRemoveClickListener(ui.etCelPhNo) {});
+        ui.lAddrDtl.setEndIconOnClickListener(new OnRemoveClickListener(ui.etAddrDtl) {});
+        ui.lCarRegNo.setEndIconOnClickListener(new OnRemoveClickListener(ui.etCarRegNo) {});
     }
 
     /**
@@ -136,7 +151,7 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
                 selectAreaClsCd();
                 break;
             case R.id.btn_question:
-                startActivitySingleTop(new Intent(this, ServiceSOSPayInfoActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                startActivitySingleTop(new Intent(this, ServiceChargePayInfoActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case R.id.btn_next://다음
                 doNext();
@@ -154,15 +169,13 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
     private void doNext(){
         if(isValid()){
             clearKeypad();
-            sosViewModel.reqSOS1002(new SOS_1002.Request(APPIAInfo.SM_EMGC01.getId(),
+            sosViewModel.reqSOS3002(new SOS_3002.Request(APPIAInfo.SM_EMGC01.getId(),
                     mainVehicle.getVin(),
                     ui.etCarRegNo.getText().toString().trim(),
                     mainVehicle.getMdlCd(),
-                    "",
                     areaClsCd,
                     ui.tvAddrInfo1.getText().toString().trim() +" "+ui.tvAddrInfo2.getText().toString().trim()+" "+ui.etAddrDtl.getText().toString().trim(),
-                    addressVO.getCenterLon()+"",addressVO.getCenterLat()+"",ui.etCelPhNo.getText().toString().trim(), ""));
-//            cbkViewModel.reqCBK1006(new CBK_1006.Request(APPIAInfo.TM_EXPS01_01.getId(), vin, expnDivCd, ui.etExpnAmt.getText().toString().replaceAll(",", ""), ui.tvExpnDtm.getText().toString().replaceAll(".", ""), ui.etExpnPlc.getText().toString(), ui.etAccmMilg.getText().toString().replaceAll(",", "")));
+                    addressVO.getCenterLon()+"",addressVO.getCenterLat()+"",ui.etCelPhNo.getText().toString().trim()));
         }
     }
 
@@ -176,7 +189,7 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
 
     @Override
     public void setObserver() {
-        sosViewModel.getRES_SOS_1002().observe(this, result -> {
+        sosViewModel.getRES_SOS_3002().observe(this, result -> {
             switch (result.status){
                 case LOADING:
                     showProgressDialog(true);
@@ -306,7 +319,6 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
 
     private boolean checkValidPhoneNumber(){
         String celPhoneNo = ui.etCelPhNo.getText().toString().replaceAll("-","").trim();
-
         if(TextUtils.isEmpty(celPhoneNo)){
             ui.etCelPhNo.requestFocus();
             ui.lCelPhNo.setError(getString(R.string.sm_emgc01_5));
@@ -345,6 +357,7 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
             return true;
         }else{
             ui.tvErrorAreaClsCd.setVisibility(View.VISIBLE);
+            Paris.style(ui.tvAreaClsCd).apply(R.style.CommonSpinnerItemError);
             ui.tvErrorAreaClsCd.setText(R.string.sm_emgc01_9);
             return false;
         }
@@ -355,6 +368,7 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
         if(TextUtils.isEmpty(addr)){
             ui.tvErrorAddr.setVisibility(View.VISIBLE);
             ui.tvErrorAddr.setText(getString(R.string.sm_emgc01_12));
+            Paris.style(ui.tvAddr).apply(R.style.CommonInputItemError);
             return false;
         }else{
             ui.lAddrInfo.setVisibility(View.VISIBLE);
@@ -430,6 +444,8 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
         }
     };
 
+
+
     @Override
     public void onBackPressed() {
         dialogExit();
@@ -466,5 +482,6 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
         ui.tvAddrInfo2.setVisibility(TextUtils.isEmpty(addressInfo[0]) ? View.GONE : View.VISIBLE);
         checkValidAddr();
     }
+
 
 }

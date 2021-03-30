@@ -13,6 +13,7 @@ import com.genesis.apps.comm.model.vo.CardVO;
 import com.genesis.apps.comm.util.BarcodeUtil;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.StringRe2j;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.ItemCardBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
@@ -117,8 +118,8 @@ public class CardHorizontalAdapter extends BaseRecyclerViewAdapter2<CardVO> {
             getBinding().tvCardName.setText(item.getCardClsNm());
 
             if (!TextUtils.isEmpty(item.getCardNo())) {
-                getBinding().tvCardNo2.setText(StringRe2j.replaceAll(item.getCardNo(), getContext().getString(R.string.card_original), getContext().getString(R.string.card_mask)));
-                getBinding().tvCardNo.setText(StringRe2j.replaceAll(item.getCardNo(), getContext().getString(R.string.card_original), getContext().getString(R.string.card_mask)));
+                getBinding().tvCardNo2.setText(StringRe2j.replaceAll(StringUtil.isValidString(item.getCardNo()), getContext().getString(R.string.card_original), getContext().getString(R.string.card_mask)));
+                getBinding().tvCardNo.setText(StringRe2j.replaceAll(StringUtil.isValidString(item.getCardNo()), getContext().getString(R.string.card_original), getContext().getString(R.string.card_mask)));
                 getBinding().ivBarcode.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {

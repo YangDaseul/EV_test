@@ -10,6 +10,14 @@ import com.genesis.apps.comm.model.api.gra.SOS_1003;
 import com.genesis.apps.comm.model.api.gra.SOS_1004;
 import com.genesis.apps.comm.model.api.gra.SOS_1005;
 import com.genesis.apps.comm.model.api.gra.SOS_1006;
+import com.genesis.apps.comm.model.api.gra.SOS_3001;
+import com.genesis.apps.comm.model.api.gra.SOS_3002;
+import com.genesis.apps.comm.model.api.gra.SOS_3003;
+import com.genesis.apps.comm.model.api.gra.SOS_3004;
+import com.genesis.apps.comm.model.api.gra.SOS_3005;
+import com.genesis.apps.comm.model.api.gra.SOS_3006;
+import com.genesis.apps.comm.model.api.gra.SOS_3007;
+import com.genesis.apps.comm.model.api.gra.SOS_3008;
 import com.genesis.apps.comm.model.vo.SOSDriverVO;
 import com.genesis.apps.comm.model.vo.SOSStateVO;
 import com.genesis.apps.comm.net.NetCaller;
@@ -30,6 +38,17 @@ public class SOSRepo {
     public final MutableLiveData<NetUIResponse<SOS_1004.Response>> RES_SOS_1004 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<SOS_1005.Response>> RES_SOS_1005 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<SOS_1006.Response>> RES_SOS_1006 = new MutableLiveData<>();
+
+    public final MutableLiveData<NetUIResponse<SOS_3001.Response>> RES_SOS_3001 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<SOS_3002.Response>> RES_SOS_3002 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<SOS_3003.Response>> RES_SOS_3003 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<SOS_3004.Response>> RES_SOS_3004 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<SOS_3005.Response>> RES_SOS_3005 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<SOS_3006.Response>> RES_SOS_3006 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<SOS_3007.Response>> RES_SOS_3007 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<SOS_3008.Response>> RES_SOS_3008 = new MutableLiveData<>();
+
+
 
     @Inject
     public SOSRepo(NetCaller netCaller) {
@@ -224,4 +243,189 @@ public class SOSRepo {
         return RES_SOS_1006;
     }
 
+    public MutableLiveData<NetUIResponse<SOS_3001.Response>> REQ_SOS_3001(final SOS_3001.Request reqData) {
+        RES_SOS_3001.setValue(NetUIResponse.loading(null));
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_SOS_3001.setValue(NetUIResponse.success(new Gson().fromJson(object, SOS_3001.Response.class)));
+
+//                RES_SOS_3001.setValue(NetUIResponse.success(new Gson().fromJson("{\n" +
+//                        "  \"rtCd\": \"0000\",\n" +
+//                        "  \"rtMsg\": \"Success\",\n" +
+//                        "  \"subspYn\": \"Y\",\n" +
+//                        "  \"tmpAcptNo\": \"28843\",\n" +
+//                        "  \"pgrsStusCd\": \"S\"\n" +
+//                        "}", SOS_3001.Response.class)));
+
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_SOS_3001.setValue(NetUIResponse.error(e.getMseeage(), null));
+//                RES_SOS_3001.setValue(NetUIResponse.success(TestCode.SOS_3001));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_SOS_3001.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_SOS_3001, reqData);
+
+        return RES_SOS_3001;
+    }
+
+    public MutableLiveData<NetUIResponse<SOS_3002.Response>> REQ_SOS_3002(final SOS_3002.Request reqData) {
+        RES_SOS_3002.setValue(NetUIResponse.loading(null));
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_SOS_3002.setValue(NetUIResponse.success(new Gson().fromJson(object, SOS_3002.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_SOS_3002.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_SOS_3002.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_SOS_3002, reqData);
+
+        return RES_SOS_3002;
+    }
+
+    public MutableLiveData<NetUIResponse<SOS_3003.Response>> REQ_SOS_3003(final SOS_3003.Request reqData) {
+        RES_SOS_3003.setValue(NetUIResponse.loading(null));
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_SOS_3003.setValue(NetUIResponse.success(new Gson().fromJson(object, SOS_3003.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_SOS_3003.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_SOS_3003.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_SOS_3003, reqData);
+
+        return RES_SOS_3003;
+    }
+
+    public MutableLiveData<NetUIResponse<SOS_3004.Response>> REQ_SOS_3004(final SOS_3004.Request reqData) {
+        RES_SOS_3004.setValue(NetUIResponse.loading(null));
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_SOS_3004.setValue(NetUIResponse.success(new Gson().fromJson(object, SOS_3004.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_SOS_3004.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_SOS_3004.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_SOS_3004, reqData);
+
+        return RES_SOS_3004;
+    }
+
+    public MutableLiveData<NetUIResponse<SOS_3005.Response>> REQ_SOS_3005(final SOS_3005.Request reqData) {
+        RES_SOS_3005.setValue(NetUIResponse.loading(null));
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_SOS_3005.setValue(NetUIResponse.success(new Gson().fromJson(object, SOS_3005.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_SOS_3005.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_SOS_3005.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_SOS_3005, reqData);
+
+        return RES_SOS_3005;
+    }
+
+    public MutableLiveData<NetUIResponse<SOS_3006.Response>> REQ_SOS_3006(final SOS_3006.Request reqData) {
+        RES_SOS_3006.setValue(NetUIResponse.loading(null));
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_SOS_3006.setValue(NetUIResponse.success(new Gson().fromJson(object, SOS_3006.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_SOS_3006.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_SOS_3006.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_SOS_3006, reqData);
+
+        return RES_SOS_3006;
+    }
+
+    public MutableLiveData<NetUIResponse<SOS_3007.Response>> REQ_SOS_3007(final SOS_3007.Request reqData) {
+        RES_SOS_3007.setValue(NetUIResponse.loading(null));
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_SOS_3007.setValue(NetUIResponse.success(new Gson().fromJson(object, SOS_3007.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_SOS_3007.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_SOS_3007.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_SOS_3007, reqData);
+
+        return RES_SOS_3007;
+    }
+
+    public MutableLiveData<NetUIResponse<SOS_3008.Response>> REQ_SOS_3008(final SOS_3008.Request reqData) {
+        RES_SOS_3008.setValue(NetUIResponse.loading(null));
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_SOS_3008.setValue(NetUIResponse.success(new Gson().fromJson(object, SOS_3008.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_SOS_3008.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_SOS_3008.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_SOS_3008, reqData);
+
+        return RES_SOS_3008;
+    }
 }

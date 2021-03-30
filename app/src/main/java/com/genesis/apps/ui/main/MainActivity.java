@@ -518,7 +518,6 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 if (fragmentStore.isDlp.equals("YES")) {
                     webFragment.loadUrl("javascript:bwcAppClose();");
                 } else {
-                    Log.d("JJJJ", "canGoBack : " + webFragment.canGoBack());
                     if (!TextUtils.isEmpty(fragmentStore.fn)) {
                         if (webFragment.openWindows.size() > 0) {
                             webFragment.openWindows.get(0).loadUrl("javascript:" + fragmentStore.fn);
@@ -526,7 +525,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                             webFragment.loadUrl("javascript:" + fragmentStore.fn);
                         }
                     } else {
-                        if (webFragment.canGoBack()) {
+                        if (webFragment!=null&&webFragment.canGoBack()) {
                             webFragment.goBack();
                             return true;
                         }

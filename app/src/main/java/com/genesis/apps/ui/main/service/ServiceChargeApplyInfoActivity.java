@@ -13,6 +13,9 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.SOS_1001;
 import com.genesis.apps.comm.model.api.gra.SOS_1004;
 import com.genesis.apps.comm.model.api.gra.SOS_1005;
+import com.genesis.apps.comm.model.api.gra.SOS_3001;
+import com.genesis.apps.comm.model.api.gra.SOS_3004;
+import com.genesis.apps.comm.model.api.gra.SOS_3005;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.vo.SOSStateVO;
@@ -39,9 +42,9 @@ public class ServiceChargeApplyInfoActivity extends SubActivity<ActivityServiceC
         setViewModel();
         setObserver();
         if(TextUtils.isEmpty(tmpAcptNo)){//가접수번호가 없는 경우 (서비스 메인에서 바로 접수내역 화면으로 이동 시)
-            sosViewModel.reqSOS1001(new SOS_1001.Request(APPIAInfo.SM_EMGC02.getId()));
+            sosViewModel.reqSOS3001(new SOS_3001.Request(APPIAInfo.SM_EMGC02.getId()));
         }else{//가접수번호가 있는 경우 (신청 후)
-            sosViewModel.reqSOS1005(new SOS_1005.Request(APPIAInfo.SM_EMGC02.getId(), tmpAcptNo));
+            sosViewModel.reqSOS3005(new SOS_3005.Request(APPIAInfo.SM_EMGC02.getId(), tmpAcptNo));
         }
     }
 
@@ -54,7 +57,7 @@ public class ServiceChargeApplyInfoActivity extends SubActivity<ActivityServiceC
 
         switch (v.getId()){
             case R.id.btn_cancel:
-                MiddleDialog.dialogServiceSOSApplyCancel(this, () -> sosViewModel.reqSOS1004(new SOS_1004.Request(APPIAInfo.SM_EMGC02.getId(), tmpAcptNo)),
+                MiddleDialog.dialogServiceSOSApplyCancel(this, () -> sosViewModel.reqSOS3004(new SOS_3004.Request(APPIAInfo.SM_EMGC02.getId(), tmpAcptNo)),
                         () -> {
 
                         });
@@ -77,7 +80,7 @@ public class ServiceChargeApplyInfoActivity extends SubActivity<ActivityServiceC
     @Override
     public void setObserver() {
 
-        sosViewModel.getRES_SOS_1001().observe(this, result -> {
+        sosViewModel.getRES_SOS_3001().observe(this, result -> {
             switch (result.status){
                 case LOADING:
                   showProgressDialog(true);
@@ -98,7 +101,7 @@ public class ServiceChargeApplyInfoActivity extends SubActivity<ActivityServiceC
             }
         });
 
-        sosViewModel.getRES_SOS_1005().observe(this, result -> {
+        sosViewModel.getRES_SOS_3005().observe(this, result -> {
             switch (result.status) {
                 case LOADING:
                     showProgressDialog(true);
@@ -126,7 +129,7 @@ public class ServiceChargeApplyInfoActivity extends SubActivity<ActivityServiceC
         });
 
 
-        sosViewModel.getRES_SOS_1004().observe(this, result -> {
+        sosViewModel.getRES_SOS_3004().observe(this, result -> {
             switch (result.status){
                 case LOADING:
                     showProgressDialog(true);
@@ -135,9 +138,9 @@ public class ServiceChargeApplyInfoActivity extends SubActivity<ActivityServiceC
                     showProgressDialog(false);
                     if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
                         if(result.data.getSuccYn().equalsIgnoreCase("Y")){
-                            exitPage(getString(R.string.sm_emgc02_p01_snackbar_2), ResultCodes.REQ_CODE_NORMAL.getCode());
+                            exitPage(getString(R.string.sm_cggo_01_13), ResultCodes.REQ_CODE_NORMAL.getCode());
                         }else{
-                            SnackBarUtil.show(this, getString(R.string.sm_emgc02_p01_snackbar_1)+(TextUtils.isEmpty(result.data.getFailMsg()) ? "" : "\n"+result.data.getFailMsg()));
+                            SnackBarUtil.show(this, getString(R.string.r_flaw06_p02_snackbar_1)+(TextUtils.isEmpty(result.data.getFailMsg()) ? "" : "\n"+result.data.getFailMsg()));
                         }
                         break;
                     }
@@ -149,7 +152,7 @@ public class ServiceChargeApplyInfoActivity extends SubActivity<ActivityServiceC
                     }catch (Exception e){
                         e.printStackTrace();
                     }finally{
-                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg) ? getString(R.string.sm_emgc02_p01_snackbar_1) : serverMsg));
+                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg));
                     }
                     break;
             }

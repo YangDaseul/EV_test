@@ -18,6 +18,7 @@ import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.BTRViewModel;
 import com.genesis.apps.databinding.ActivityBtrConsultApplyBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -188,6 +189,25 @@ public class BtrConsultApplyActivity extends SubActivity<ActivityBtrConsultApply
             isValid=false;
         }
         return isValid;
+    }
+
+    @Override
+    public void onBackPressed() {
+        dialogExit();
+    }
+
+    @Override
+    public void onBackButton(){
+        dialogExit();
+    }
+
+    private void dialogExit(){
+        MiddleDialog.dialogBtrExit(this, () -> {
+            finish();
+            closeTransition();
+        }, () -> {
+
+        });
     }
 
 }

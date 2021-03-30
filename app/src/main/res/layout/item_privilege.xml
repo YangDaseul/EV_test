@@ -11,7 +11,7 @@
         android:paddingEnd="15dp"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
-        tools:background="@drawable/bg_ffffff_stroke_e2e2e2">
+        tools:background="@drawable/bg_ffffff_stroke_e5e5e5">
 
         <TextView
             android:id="@+id/tv_genesis"
