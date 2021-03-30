@@ -138,9 +138,9 @@ public class ServiceChargeApplyInfoActivity extends SubActivity<ActivityServiceC
                     showProgressDialog(false);
                     if(result.data!=null&&result.data.getRtCd().equalsIgnoreCase("0000")){
                         if(result.data.getSuccYn().equalsIgnoreCase("Y")){
-                            exitPage(getString(R.string.sm_emgc02_p01_snackbar_2), ResultCodes.REQ_CODE_NORMAL.getCode());
+                            exitPage(getString(R.string.sm_cggo_01_13), ResultCodes.REQ_CODE_NORMAL.getCode());
                         }else{
-                            SnackBarUtil.show(this, getString(R.string.sm_emgc02_p01_snackbar_1)+(TextUtils.isEmpty(result.data.getFailMsg()) ? "" : "\n"+result.data.getFailMsg()));
+                            SnackBarUtil.show(this, getString(R.string.r_flaw06_p02_snackbar_1)+(TextUtils.isEmpty(result.data.getFailMsg()) ? "" : "\n"+result.data.getFailMsg()));
                         }
                         break;
                     }
@@ -152,7 +152,7 @@ public class ServiceChargeApplyInfoActivity extends SubActivity<ActivityServiceC
                     }catch (Exception e){
                         e.printStackTrace();
                     }finally{
-                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg) ? getString(R.string.sm_emgc02_p01_snackbar_1) : serverMsg));
+                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg));
                     }
                     break;
             }
