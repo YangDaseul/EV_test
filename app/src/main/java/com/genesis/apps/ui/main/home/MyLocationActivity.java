@@ -36,6 +36,7 @@ public class MyLocationActivity extends GpsBaseActivity<ActivityMap2Binding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map2);
+        ui.pmvMapView.initMap();
         setViewModel();
         setObserver();
         getDataFromIntent();
