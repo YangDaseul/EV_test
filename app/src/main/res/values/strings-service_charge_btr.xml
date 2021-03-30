@@ -1,0 +1,49 @@
+<resources>
+
+    <!-- 타이틀 -->
+    <string name="service_charge_btr_00">충전 버틀러 신청하기</string>
+    <string name="service_charge_btr_01">충전 버틀러 픽업 주소 검색</string>
+    <string name="service_charge_btr_02">종료 안내</string>
+    <string name="service_charge_btr_03">예약 희망일 선택</string>
+    <string name="service_charge_btr_04">충전 버틀러 현황/내역/이력</string>
+
+    <!-- 문구 -->
+    <string name="service_charge_btr_txt_00">필수 입력 사항입니다.</string>
+    <string name="service_charge_btr_txt_01">픽업 주소를\n입력해 주세요.</string>
+    <string name="service_charge_btr_txt_02">픽업 주소</string>
+    <string name="service_charge_btr_txt_03">픽업 받으실 상세 주소를\n입력해 주세요.</string>
+    <string name="service_charge_btr_txt_04">픽업 상세 주소</string>
+    <string name="service_charge_btr_txt_05">예약 희망일을\n선택해 주세요.</string>
+    <string name="service_charge_btr_txt_06">예약 희망일</string>
+    <string name="service_charge_btr_txt_07">차량 키 전달 방식을\n선택해 주세요.</string>
+    <string name="service_charge_btr_txt_08">차량 키 전달</string>
+    <string name="service_charge_btr_txt_09">픽업 받으실 주소를\n검색해 주세요.</string>
+    <string name="service_charge_btr_txt_10">차량 키는 어떻게 전달 하시겠습니까?</string>
+    <string name="service_charge_btr_txt_11">기사님께 직접 전달하겠습니다.</string>
+    <string name="service_charge_btr_txt_12">디지털 키를 공유하겠습니다.</string>
+    <string name="service_charge_btr_txt_13">디지털 키 공유는 디지털 키 APP에 가입 후 차량등록 및 페어링 설정하시면 이용할 수 있습니다.</string>
+    <string name="service_charge_btr_txt_14">디지털 키 바로가기</string>
+    <string name="service_charge_btr_txt_15">디지털 키 APP</string>
+    <string name="service_charge_btr_txt_16">차량번호를\n입력해 주세요.</string>
+    <string name="service_charge_btr_txt_17">차량번호 (예 : 12가3456)</string>
+    <string name="service_charge_btr_txt_18">휴대폰 번호</string>
+
+    <!-- 에러 메시지 -->
+    <string name="service_charge_btr_err_01">픽업 주소를 입력해 주세요.</string>
+    <string name="service_charge_btr_err_02">픽업 상세 주소를 입력해 주세요.</string>
+    <string name="service_charge_btr_err_03">예약 희망일을 선택해 주세요.</string>
+    <string name="service_charge_btr_err_04">차량 키 전달 방식을 선택해 주세요.</string>
+    <string name="service_charge_btr_err_05">차량번호를 입력해 주세요.</string>
+    <string name="service_charge_btr_err_06">휴대폰 번호를 입력해 주세요.</string>
+    <string name="service_charge_btr_err_07">차량번호를 올바르게 입력해 주세요.</string>
+    <string name="service_charge_btr_err_08">휴대폰 번호를 올바르게 입력해 주세요.</string>
+
+
+    <!-- 충전 버틀러 서비스 안내 메시 -->
+    <string name="service_charge_btr_info_00">충전 버틀러 서비스</string>
+    <string name="service_charge_btr_info_01">내가 원하는 위치에서 차를 픽업하여 충전을 하고 다시 처음 위치로 가져다 주는 서비스</string>
+
+    <!-- 팝업 문구 -->
+    <string name="service_charge_btr_popup_msg_00">아직 충전 버틀러 신청이\n완료되지 않았습니다.\n신청을 종료하시겠습니까?</string>
+
+</resources>

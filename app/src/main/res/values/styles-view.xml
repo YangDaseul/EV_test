@@ -246,10 +246,10 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:button">@null</item>
         <item name="android:drawableStart">@drawable/radio_btn_selector</item>
-        <item name="android:fontFamily">@font/light_genesissansheadglobal</item>
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
         <item name="android:textColor">@color/x_000000</item>
         <item name="android:textSize">15dp</item>
-        <item name="android:drawablePadding">8dp</item>
+        <item name="android:drawablePadding">10dp</item>
     </style>
 
     <!-- 칸막이 회색 가로줄-->
