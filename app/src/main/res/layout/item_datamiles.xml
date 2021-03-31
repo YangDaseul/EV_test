@@ -341,7 +341,7 @@
                     <TextView
                         android:id="@+id/tv_datamiles_driving_score_rank_title_2"
                         style="@style/DataMiles.TextView_Font_MGSTG.Black.Rank"
-                        android:layout_width="25dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="10dp"
                         android:includeFontPadding="false"

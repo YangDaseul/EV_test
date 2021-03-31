@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.service;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -13,6 +14,7 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.WSH_1001;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.WashGoodsVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -51,7 +53,6 @@ public class CarWashRequestActivity extends SubActivity<ActivityCarWashRequestBi
                 Intent intent = new Intent(this, CarWashSearchActivity.class);
                 intent.putExtra(KeyNames.KEY_NAME_WASH_GOODS_SEQ_NUM, godsSeqNo);
                 intent.putExtra(KeyNames.KEY_NAME_WASH_GOODS_NAME, godsNm);
-
                 startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
         }
@@ -95,13 +96,13 @@ public class CarWashRequestActivity extends SubActivity<ActivityCarWashRequestBi
 
                 default:
                     showProgressDialog(false);
-                    String serverMsg="";
+                    String serverMsg = "";
                     try {
                         serverMsg = result.data.getRtMsg();
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    }finally{
-                        if (TextUtils.isEmpty(serverMsg)){
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
                             serverMsg = getString(R.string.instability_network);
                         }
                         SnackBarUtil.show(this, serverMsg);
@@ -123,5 +124,14 @@ public class CarWashRequestActivity extends SubActivity<ActivityCarWashRequestBi
         ui.rvServiceCarWashItemList.setLayoutManager(new LinearLayoutManager(this));
         ui.rvServiceCarWashItemList.setHasFixedSize(true);
         ui.rvServiceCarWashItemList.setAdapter(adapter);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ResultCodes.REQ_CODE_SERVICE_WASH_RESERVATION_FINISH.getCode()) {
+            exitPage(new Intent(), ResultCodes.REQ_CODE_SERVICE_WASH_RESERVATION_FINISH.getCode());
+        }
     }
 }

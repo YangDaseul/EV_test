@@ -98,9 +98,14 @@
         <item name="android:textColor">@color/x_000000</item>
     </style>
 
-    <!-- 지점 검색 결과 아이템 (지점명, 거리) -->
+    <!-- 지점 검색 결과 아이템 (지점명) -->
     <style name="MapResult.Item.Regular" parent="MapResult.Item">
         <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+    </style>
+
+    <!-- 지점 검색 결과 아이템 (거리) -->
+    <style name="MapResult.Item.RegularText" parent="MapResult.Item">
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
     </style>
 
     <!-- 지점 검색 결과 아이템 (주소, 동, 전화번호) -->

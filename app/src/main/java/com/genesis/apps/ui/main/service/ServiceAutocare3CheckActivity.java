@@ -58,7 +58,7 @@ public class ServiceAutocare3CheckActivity extends SubActivity<ActivityServiceAu
         ui.etTel.setOnFocusChangeListener(focusChangeListener);
         ui.etVrn.setOnEditorActionListener(editorActionListener);
         ui.etVrn.setOnFocusChangeListener(focusChangeListener);
-        ui.etTel.setText(TextUtils.isEmpty(repairReserveVO.getHpNo()) ? "" : StringUtil.parsingPhoneNumber(repairReserveVO.getHpNo()));
+        ui.etTel.setText(TextUtils.isEmpty(repairReserveVO.getHpNo()) ? "" : PhoneNumberUtils.formatNumber(StringUtil.parsingPhoneNumber(repairReserveVO.getHpNo()), Locale.getDefault().getCountry()));
         ui.etVrn.setText(TextUtils.isEmpty(repairReserveVO.getCarRgstNo()) ? "" : repairReserveVO.getCarRgstNo());
 
         ui.etRqrm.setOnFocusChangeListener(focusChangeListener);

@@ -113,10 +113,8 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
                 case SUCCESS:
                     if (result.data != null && result.data.getRtCd() != null) {
                         showProgressDialog(false);
-
+                        exitPage(new Intent(), ResultCodes.REQ_CODE_SERVICE_WASH_RESERVATION_FINISH.getCode());
                         //예약 내역 액티비티 열기
-                        startActivitySingleTop(new Intent(this, CarWashHistoryActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                        finish();
                         return;
                     }
                     //not break; 데이터 이상하면 default로 진입시킴

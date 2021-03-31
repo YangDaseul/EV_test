@@ -27,7 +27,7 @@
         <!-- 거리 -->
         <TextView
             android:id="@+id/tv_map_find_result_branch_distance"
-            style="@style/MapResult.Item.Regular"
+            style="@style/MapResult.Item.RegularText"
             android:layout_marginStart="10dp"
             app:layout_constraintStart_toEndOf="@id/tv_map_find_result_branch_name"
             app:layout_constraintTop_toTopOf="parent"

@@ -356,6 +356,13 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                     return;
                 }
             }
+        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_WASH_RESERVATION_FINISH.getCode()) {
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if (fragment instanceof FragmentService) {
+                    fragment.onActivityResult(requestCode, resultCode, data);
+                    return;
+                }
+            }
         } else if (requestCode == RequestCodes.REQ_CODE_SERVICE_DRIVE_REQ.getCode()) {
             // 대리운전 결제 완료
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
