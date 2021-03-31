@@ -7,16 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.InteractionUtil;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentServiceCarWashBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
-
-import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
 
 public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> {
     private static final String TAG = FragmentCarWash.class.getSimpleName();
@@ -110,7 +111,7 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
 //                }
 //                break;
                 case R.id.l_service_car_wash_request_btn:
-                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), CarWashRequestActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), CarWashRequestActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
 
                     break;
 
@@ -120,4 +121,5 @@ public class FragmentCarWash extends SubFragment<FragmentServiceCarWashBinding> 
             }
         }
     }
+
 }
