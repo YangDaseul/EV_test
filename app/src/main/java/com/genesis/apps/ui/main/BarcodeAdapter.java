@@ -150,7 +150,7 @@ public class BarcodeAdapter extends BaseRecyclerViewAdapter2<CardVO> implements 
 
                 getBinding().tvIntegration.setVisibility(View.GONE);
                 getBinding().tvCardNo.setVisibility(View.VISIBLE);
-                getBinding().tvCardNo.setText(StringRe2j.replaceAll(item.getCardNo(), getContext().getString(R.string.card_original), getContext().getString(R.string.card_mask)));
+                getBinding().tvCardNo.setText(StringRe2j.replaceAll(StringUtil.isValidString(item.getCardNo()), getContext().getString(R.string.card_original), getContext().getString(R.string.card_mask)));
                 getBinding().ivBarcode.setVisibility(View.VISIBLE);
                 getBinding().ivBarcode.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override

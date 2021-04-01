@@ -130,6 +130,18 @@
         <item name="android:gravity">left</item>
     </style>
 
+    <!-- 입력레이아웃의 서브 안내 메시지-->
+    <style name="ViewMsgInputSub3">
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">8dp</item>
+        <item name="android:textColor">@color/x_757575</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
     <!-- aaabaf 사각형 마크-->
     <style name="ViewMarkGrey">
         <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
@@ -150,6 +162,31 @@
         <item name="android:drawableLeft">@drawable/mark_000000</item>
         <item name="android:drawablePadding">6dp</item>
         <item name="android:textSize">14dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- 757575 원형 마크-->
+    <style name="ViewMark757575">
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">8dp</item>
+        <item name="android:drawableLeft">@drawable/mark_757575</item>
+        <item name="android:drawablePadding">6dp</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- 757575 대쉬 마크-->
+    <style name="ViewMarkDash757575">
+        <item name="android:fontFamily">@font/regular_genesissanstextglobal</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineSpacingExtra">10dp</item>
+        <item name="android:paddingEnd">4dp</item>
+        <item name="android:text">-</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/x_757575</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>

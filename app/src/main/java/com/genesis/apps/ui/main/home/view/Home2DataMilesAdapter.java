@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main.home.view;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -29,8 +30,10 @@ import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**
@@ -289,11 +292,14 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
             binding.asbDatamilesDrivingScore.setOnTouchListener((view, event) -> true);
 
             try {
+                //developers 요청으로 0001과 같은 날짜가 포함된 경우 현재시간으로 조정
+                if(StringUtil.isValidString(detail.getScoreDate()).contains("0001.01.01")){
+                    detail.setScoreDate(DateUtil.getDate(Calendar.getInstance(Locale.getDefault()).getTime(), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm_ss));
+                }
                 String updateDate = DateUtil.getDate(
                         DateUtil.getDefaultDateFormat(detail.getScoreDate(), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm_ss),
                         DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm
                 );
-
                 if (TextUtils.isEmpty(updateDate)) {
                     // 업데이트 일자가 없는 경우 해당 영역 표시 안함.
                     binding.tvDatamilesDrivingScoreUpdateDate.setText("");
@@ -308,8 +314,21 @@ public class Home2DataMilesAdapter extends BaseRecyclerViewAdapter2<DataMilesVO>
                 binding.tvDatamilesDrivingScoreUpdateDate.setText("");
             }
             // 주행 기준
-            binding.tvDatamilesDrivingScoreGuide.setText(String.format(getContext().getString(R.string.gm01_format_driving_score_guide),
-                    (int) detail.getRangeDrvDist()));
+            binding.tvDatamilesDrivingScoreGuide.setText(Html.fromHtml(  String.format(getContext().getString(R.string.gm01_format_driving_score_guide), (int) detail.getRangeDrvDist()), Html.FROM_HTML_MODE_COMPACT));
+
+            binding.lDatamilesDrivingScoreInfo.setVisibility(View.GONE);
+            binding.btnDatamilesDrivingScoreGuide.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    binding.lDatamilesDrivingScoreInfo.setVisibility(View.VISIBLE);
+                }
+            });
+            binding.btnDatamilesDrivingScoreInfoClose.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    binding.lDatamilesDrivingScoreInfo.setVisibility(View.GONE);
+                }
+            });
 
             // Insight 메시지
             if (TextUtils.isEmpty(detail.getInsightMsg())) {

@@ -356,6 +356,13 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                     return;
                 }
             }
+        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_WASH_RESERVATION_FINISH.getCode()) {
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if (fragment instanceof FragmentService) {
+                    fragment.onActivityResult(requestCode, resultCode, data);
+                    return;
+                }
+            }
         } else if (requestCode == RequestCodes.REQ_CODE_SERVICE_DRIVE_REQ.getCode()) {
             // 대리운전 결제 완료
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
@@ -518,7 +525,6 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                 if (fragmentStore.isDlp.equals("YES")) {
                     webFragment.loadUrl("javascript:bwcAppClose();");
                 } else {
-                    Log.d("JJJJ", "canGoBack : " + webFragment.canGoBack());
                     if (!TextUtils.isEmpty(fragmentStore.fn)) {
                         if (webFragment.openWindows.size() > 0) {
                             webFragment.openWindows.get(0).loadUrl("javascript:" + fragmentStore.fn);
@@ -526,7 +532,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                             webFragment.loadUrl("javascript:" + fragmentStore.fn);
                         }
                     } else {
-                        if (webFragment.canGoBack()) {
+                        if (webFragment!=null&&webFragment.canGoBack()) {
                             webFragment.goBack();
                             return true;
                         }

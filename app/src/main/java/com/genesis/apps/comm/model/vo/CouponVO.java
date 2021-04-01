@@ -39,4 +39,7 @@ class CouponVO extends BaseData {
     @Expose
     @SerializedName("useCnt")
     private String useCnt;
+    @Expose
+    @SerializedName("itemDate")
+    private String itemDate;
 }
