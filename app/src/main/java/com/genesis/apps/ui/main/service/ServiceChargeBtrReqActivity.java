@@ -36,6 +36,8 @@ import com.genesis.apps.ui.common.dialog.bottom.DialogCalendar;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.google.android.material.textfield.TextInputEditText;
 
+import org.w3c.dom.Text;
+
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -268,6 +270,12 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
      */
     private void selectKeyDeliveryCd(){
         final BottomSelectKeyDeliveryDialog selectKeyDeliveryDialog = new BottomSelectKeyDeliveryDialog(this, R.style.BottomSheetDialogTheme);
+        if(!TextUtils.isEmpty(ui.tvKeyDeliveryCd.getText())) {
+            if(TextUtils.equals(getString(R.string.service_charge_btr_txt_12), ui.tvKeyDeliveryCd.getText()))
+                selectKeyDeliveryDialog.setSelectItem("dk");
+            else if(TextUtils.equals(getString(R.string.service_charge_btr_txt_11), ui.tvKeyDeliveryCd.getText()))
+                selectKeyDeliveryDialog.setSelectItem("fob");
+        }
         selectKeyDeliveryDialog.setOnDismissListener(dialogInterface -> {
             String result = selectKeyDeliveryDialog.getSelectItem();
             if(!TextUtils.isEmpty(result)){
