@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="com.genesis.apps.ui.common.view.listener.OnSingleClickListener"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="92dp">
+
+        <!--카드 삭제 버튼-->
+        <ImageView
+            android:id="@+id/iv_btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:contentDescription="@null"
+            android:paddingStart="20dp"
+            android:paddingEnd="17dp"
+            android:src="@drawable/btn_minus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:onClick="@{(view)->listener.onSingleClick(view)}"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--카드 썸네일-->
+        <ImageView
+            android:id="@+id/iv_card_thumb"
+            android:layout_width="84dp"
+            android:layout_height="52dp"
+            android:background="#ff00ff"
+            android:contentDescription="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_btn_delete"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--카드 이름-->
+        <TextView
+            android:id="@+id/tv_card_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:includeFontPadding="false"
+            android:textColor="@color/x_000000"
+            android:textSize="16dp"
+            app:layout_constraintStart_toEndOf="@id/iv_card_thumb"
+            app:layout_constraintTop_toTopOf="@id/iv_card_thumb"
+            tools:text="현대카드" />
+
+        <!--카드 번호-->
+        <TextView
+            android:id="@+id/tv_card_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="6dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:includeFontPadding="false"
+            android:textColor="@color/x_262626"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_card_thumb"
+            app:layout_constraintStart_toEndOf="@id/iv_card_thumb"
+            tools:text="1234 5678 1234 7890" />
+
+        <!--위치 이동 버튼-->
+        <ImageView
+            android:id="@+id/iv_btn_move"
+            android:layout_width="60dp"
+            android:layout_height="0dp"
+            android:contentDescription="@null"
+            android:paddingStart="16dp"
+            android:paddingEnd="26dp"
+            android:src="@drawable/ic_btn_card_move"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
