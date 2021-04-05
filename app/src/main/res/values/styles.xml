@@ -50,7 +50,7 @@
     <style name="calendarStyle">
         <item name="android:textSize">14dp</item>
         <item name="android:textColor">@color/selector_calendar</item>
-        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+        <item name="android:fontFamily">@font/medium_genesissanstextglobal</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">16dp</item>
         <item name="android:gravity">center</item>
@@ -80,7 +80,7 @@
     <style name="calendarStyleWeekend">
         <item name="android:textSize">14dp</item>
         <item name="android:textColor">@color/selector_calendar</item>
-        <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
+    <item name="android:fontFamily">@font/regular_genesissansheadglobal</item>
         <item name="android:letterSpacing">-0.01</item>
         <item name="android:lineSpacingExtra">16dp</item>
         <item name="android:gravity">center</item>
