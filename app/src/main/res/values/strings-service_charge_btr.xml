@@ -1,0 +1,99 @@
+<resources>
+
+    <!-- 타이틀 -->
+    <string name="service_charge_btr_00">충전 버틀러 신청하기</string>
+    <string name="service_charge_btr_01">충전 버틀러 픽업 주소 검색</string>
+    <string name="service_charge_btr_02">종료 안내</string>
+    <string name="service_charge_btr_03">예약 희망일 선택</string>
+    <string name="service_charge_btr_04">충전 버틀러 현황/내역/이력</string>
+
+    <!-- 문구 -->
+    <string name="service_charge_btr_txt_00">필수 입력 사항입니다.</string>
+    <string name="service_charge_btr_txt_01">픽업 주소를\n입력해 주세요.</string>
+    <string name="service_charge_btr_txt_02">픽업 주소</string>
+    <string name="service_charge_btr_txt_03">픽업 받으실 상세 주소를\n입력해 주세요.</string>
+    <string name="service_charge_btr_txt_04">픽업 상세 주소</string>
+    <string name="service_charge_btr_txt_05">예약 희망일을\n선택해 주세요.</string>
+    <string name="service_charge_btr_txt_06">예약 희망일</string>
+    <string name="service_charge_btr_txt_07">차량 키 전달 방식을\n선택해 주세요.</string>
+    <string name="service_charge_btr_txt_08">차량 키 전달</string>
+    <string name="service_charge_btr_txt_09">픽업 받으실 주소를\n검색해 주세요.</string>
+    <string name="service_charge_btr_txt_10">차량 키는 어떻게 전달 하시겠습니까?</string>
+    <string name="service_charge_btr_txt_11">키 직접 전달(대면)</string>
+    <string name="service_charge_btr_txt_11_1">차량 픽업 시, 기사님께 직접 키를 전달하고 서비스 완료 시 카를 다시 전달해 드립니다</string>
+    <string name="service_charge_btr_txt_12">디지털 키를 공유(비대면)</string>
+    <string name="service_charge_btr_txt_13">기사님께서 픽업 위치 도착 시간에 맞추어 디지털 키가 자동 전달, 서비스 완료 시 회수됩니다.</string>
+    <string name="service_charge_btr_txt_14">디지털 키 바로가기</string>
+    <string name="service_charge_btr_txt_15">디지털 키 APP</string>
+    <string name="service_charge_btr_txt_16">차량번호를\n입력해 주세요.</string>
+    <string name="service_charge_btr_txt_17">차량번호 (예 : 12가3456)</string>
+    <string name="service_charge_btr_txt_18">휴대폰 번호</string>
+
+
+    <!-- 에러 메시지 -->
+    <string name="service_charge_btr_err_01">픽업 주소를 입력해 주세요.</string>
+    <string name="service_charge_btr_err_02">픽업 상세 주소를 입력해 주세요.</string>
+    <string name="service_charge_btr_err_03">예약 희망일을 선택해 주세요.</string>
+    <string name="service_charge_btr_err_04">차량 키 전달 방식을 선택해 주세요.</string>
+    <string name="service_charge_btr_err_05">차량번호를 입력해 주세요.</string>
+    <string name="service_charge_btr_err_06">휴대폰 번호를 입력해 주세요.</string>
+    <string name="service_charge_btr_err_07">차량번호를 올바르게 입력해 주세요.</string>
+    <string name="service_charge_btr_err_08">휴대폰 번호를 올바르게 입력해 주세요.</string>
+
+
+    <!-- 충전 버틀러 서비스 안내 메시 -->
+    <string name="service_charge_btr_info_00">충전 버틀러 서비스</string>
+    <string name="service_charge_btr_info_01">내가 원하는 위치에서 차를 픽업하여 충전을 하고 다시 처음 위치로 가져다 주는 서비스</string>
+
+    <!-- 팝업 문구 -->
+    <string name="service_charge_btr_popup_msg_00">아직 충전 버틀러 신청이\n완료되지 않았습니다.\n신청을 종료하시겠습니까?</string>
+
+
+    <!-- 충전 버틀러 서비스 상태 값 -->
+    <string name="service_charge_btr_status_00">예약 완료</string>
+    <string name="service_charge_btr_status_01">픽업 중</string>
+    <string name="service_charge_btr_status_02">서비스 중</string>
+    <string name="service_charge_btr_status_03">딜리버리 중</string>
+    <string name="service_charge_btr_status_04">이용 완료</string>
+    <string name="service_charge_btr_status_05">예약 취소</string>
+    <string name="service_charge_btr_status_06">차량 현재 상태</string>
+
+    <string name="service_charge_btr_status_msg_00">픽업 중입니다.</string>
+    <string name="service_charge_btr_status_msg_01">서비스 중입니다.</string>
+    <string name="service_charge_btr_status_msg_02">픽업 위치로 딜리버리 중입니다.</string>
+
+    <!-- 예약 현황/이력 공통 -->
+    <string name="service_charge_btr_word_00">차량번호</string>
+    <string name="service_charge_btr_word_01">사진보기</string>
+    <string name="service_charge_btr_word_02">예약일시</string>
+    <string name="service_charge_btr_word_03">픽업</string>
+    <string name="service_charge_btr_word_04">서비</string>
+    <string name="service_charge_btr_word_05">충전</string>
+    <string name="service_charge_btr_word_06">세차</string>
+    <string name="service_charge_btr_word_07">자세히 보기</string>
+    <string name="service_charge_btr_word_08">담당기사</string>
+    <string name="service_charge_btr_word_09">%s 기사님</string>
+    <string name="service_charge_btr_word_10">고객센터 연결</string>
+    <string name="service_charge_btr_word_11">서비스 내역</string>
+    <string name="service_charge_btr_word_12">충전금액</string>
+    <string name="service_charge_btr_word_13">탁송금액</string>
+    <string name="service_charge_btr_word_14">세차금액</string>
+    <string name="service_charge_btr_word_15">포인트사용</string>
+    <string name="service_charge_btr_word_16">결제금액</string>
+    <string name="service_charge_btr_word_17">예약 내역</string>
+    <string name="service_charge_btr_word_18">선결제</string>
+    <string name="service_charge_btr_word_19">충전 크레딧 포인트</string>
+    <string name="service_charge_btr_word_20">기사 정보</string>
+    <string name="service_charge_btr_word_21">전화번호</string>
+    <string name="service_charge_btr_word_22">업체정보</string>
+    <string name="service_charge_btr_word_23">기사님과 통화하기</string>
+    <string name="service_charge_btr_word_24">취소</string>
+    <string name="service_charge_btr_word_25">예약 취소</string>
+    <string name="service_charge_btr_word_26">고객센터</string>
+    <string name="service_charge_btr_word_27">전화 연결</string>
+
+
+    <string name="service_charge_btr_msg_01">서비스 이용 완료 시, 선결제 금액과 실제 충전금액이 다른 경우 크레딧 포인트가 우선 차감되며, 차액만큼 결제 취소 처리 됩니다. (포인트와 신용카드를 복합 결제한 경우, 신용카드 우선 취소)</string>
+    <string name="service_charge_btr_msg_02">충전 버틀러 예약 신청이\n완료되었습니다.</string>
+    <string name="service_charge_btr_msg_03">예약시간 1시간 이전에만 취소 가능합니다. 이후 부득이하게 취소가 필요한 경우, 고객센터로 연락주세요.</string>
+</resources>

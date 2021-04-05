@@ -142,6 +142,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     startServiceChargeActivity();
                 }else if(StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm_cg_sm02_7))){
                     //충전 버틀러 서비스 버틀러 신청
+                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceChargeBtrReqActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }
                 break;
             case R.id.tv_service_maintenance_btn_white:
