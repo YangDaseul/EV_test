@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.model.vo.developers.CarConnectVO;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.room.DatabaseHolder;
 
 import java.util.List;
@@ -118,6 +119,12 @@ public class DBVehicleRepository {
         }
 
         if(mainVehicle!=null){
+            for (VehicleVO row : list) {
+                if (!StringUtil.isValidString(mainVehicle.getVin()).equalsIgnoreCase(StringUtil.isValidString(row.getVin()))) {
+                    row.setMainVhclYn(VariableType.MAIN_VEHICLE_N);
+                    updateVehicle(row);
+                }
+            }
             mainVehicle.setMainVhclYn(VariableType.MAIN_VEHICLE_Y);
             updateVehicle(mainVehicle);
         }
