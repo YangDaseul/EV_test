@@ -163,6 +163,12 @@ public class CHBRepo {
 
     public MutableLiveData<NetUIResponse<CHB_1015.Response>> REQ_CHB_1015(final CHB_1015.Request reqData) {
         RES_CHB_1015.setValue(NetUIResponse.loading(null));
+
+        // TODO 테스트 데이터. API가 정상 작동시 삭제 필요.
+        String dummyData = "{\"rtCd\":\"0000\",\"rtMsg\":\"\",\"signInYN\":\"Y\",\"cardCount\":4,\"cardList\":[{\"cardType\":\"C\",\"cardId\":\"testid00\",\"cardCoCode\":\"C001\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"BC카드\",\"mainCardYN\":\"Y\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"},{\"cardType\":\"C\",\"cardId\":\"testid01\",\"cardCoCode\":\"C002\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"KB카드\",\"mainCardYN\":\"Y\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"},{\"cardType\":\"C\",\"cardId\":\"testid02\",\"cardCoCode\":\"C003\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"하나카드\",\"mainCardYN\":\"Y\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"},{\"cardType\":\"C\",\"cardId\":\"testid03\",\"cardCoCode\":\"C004\",\"cardNo\":\"0000 0000 0000 0000\",\"cardName\":\"삼성카드\",\"mainCardYN\":\"Y\",\"registerDt\":\"\",\"cardImageUrl\":\"\",\"lastUsedCardYN\":\"Y\",\"oneCardCode\":\"Y\",\"plccYN\":\"Y\"}]}";
+        RES_CHB_1015.setValue(NetUIResponse.success(new Gson().fromJson(dummyData, CHB_1015.Response.class)));
+
+        /*
         netCaller.reqDataToGRA(new NetResultCallback() {
             @Override
             public void onSuccess(String object) {
@@ -179,6 +185,7 @@ public class CHBRepo {
                 RES_CHB_1015.setValue(NetUIResponse.error(R.string.error_msg_4, null));
             }
         }, APIInfo.GRA_CHB_1015, reqData);
+        */
 
         return RES_CHB_1015;
     }

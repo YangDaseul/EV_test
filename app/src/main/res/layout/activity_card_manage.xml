@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.main.service.CardManageActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,6 +26,7 @@
             android:background="@drawable/bg_trans_underline_000000_1dp"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:gravity="center"
+            android:onClick="@{(view) -> activity.onClickCommon(view)}"
             android:text="카드추가"
             android:textColor="@color/x_000000"
             android:textSize="14dp"
@@ -66,6 +70,7 @@
             android:layout_marginBottom="11dp"
             android:background="@drawable/bg_trans_underline_000000_1dp"
             android:fontFamily="@font/regular_genesissansheadglobal"
+            android:onClick="@{(view) -> activity.onClickCommon(view)}"
             android:paddingTop="20dp"
             android:text="저장"
             android:textColor="@color/x_000000"
@@ -93,6 +98,8 @@
             app:layout_constraintTop_toBottomOf="@id/line0" />
 
 
+        <!--카드 탈퇴:기능이 삭제되어 주석 처리.-->
+        <!--
         <TextView
             android:id="@+id/tv_secession"
             android:layout_width="wrap_content"
@@ -115,5 +122,6 @@
             android:src="@drawable/btn_arrow_open_r_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_secession" />
+        -->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

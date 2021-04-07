@@ -8,6 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ItemMoveCallback extends ItemTouchHelper.Callback {
     private final ItemTouchHelperAdapter adapter;
 
+    /**
+     * Long Touch Drag 가능 여부 설정 변수.
+     */
+    private boolean isLongPressDragEnabled = true;
 
     public ItemMoveCallback(ItemTouchHelperAdapter adapter) {
         this.adapter = adapter;
@@ -52,7 +56,7 @@ public class ItemMoveCallback extends ItemTouchHelper.Callback {
 
     @Override
     public boolean isLongPressDragEnabled() {
-        return true; //롱터치 입력허용
+        return isLongPressDragEnabled; //롱터치 입력허용
     }
 
     @Override
@@ -80,6 +84,14 @@ public class ItemMoveCallback extends ItemTouchHelper.Callback {
     public interface ItemTouchHelperAdapter {
         void onItemMove(int fromPos, int targetPos);
         void onItemDismiss(int pos); //swipe 사용하려면 주석 해제 } }
+    }
+
+    /**
+     * Long Touch Drag 가능 여부 설정 함수.
+     * @param isEnabled 가능 여부.
+     */
+    public void setIsLongPressDragEnabled(boolean isEnabled) {
+        isLongPressDragEnabled = isEnabled;
     }
 }
 
