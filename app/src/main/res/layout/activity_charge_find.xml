@@ -19,6 +19,19 @@
             app:layout_constraintTop_toTopOf="parent"
             app:value="@{@string/sm_evss01_title}" />
 
+        <ImageView
+            android:id="@+id/iv_btn_map"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:contentDescription="@null"
+            android:paddingTop="8dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="8dp"
+            android:src="@drawable/ic_map_b"
+            app:layout_constraintBottom_toBottomOf="@id/l_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/l_title" />
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"

@@ -1,24 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:background="#30ff0000"
-        android:layout_height="500dp">
+        android:layout_height="500dp"
+        android:orientation="vertical"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/vg_charge_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/x_f8f8f8"
+            android:paddingBottom="20dp">
+
+            <!--배터리 아이콘-->
+            <ImageView
+                android:id="@+id/iv_ic_battery"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="39dp"
+                android:contentDescription="@null"
+                app:layout_constraintBottom_toBottomOf="@id/line0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/line0" />
+
+            <!--배터리 잔량 퍼센트-->
+            <TextView
+                android:id="@+id/tv_has_battery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/medium_genesissanstextglobal"
+                android:includeFontPadding="false"
+                android:textColor="@color/x_996449"
+                android:textSize="22dp"
+                app:layout_constraintStart_toEndOf="@id/iv_ic_battery"
+                app:layout_constraintTop_toTopOf="@id/iv_ic_battery"
+                tools:text="100%" />
+
+            <!--배터리 문구-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="배터리"
+                android:textColor="@color/x_000000"
+                android:textSize="12dp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_ic_battery"
+                app:layout_constraintStart_toStartOf="@id/tv_has_battery" />
+
+            <!--중앙 라인-->
+            <View
+                android:id="@+id/line0"
+                android:layout_width="1dp"
+                android:layout_height="36.2dp"
+                android:layout_marginTop="33.7dp"
+                android:background="@color/x_dbdbdb"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--주행거리 아이콘-->
+            <ImageView
+                android:id="@+id/iv_ic_distance"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="18.5dp"
+                android:contentDescription="@null"
+                app:layout_constraintBottom_toBottomOf="@id/line0"
+                app:layout_constraintStart_toEndOf="@id/line0"
+                app:layout_constraintTop_toTopOf="@id/line0" />
+
+            <!--주행가능거리-->
+            <TextView
+                android:id="@+id/tv_has_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/medium_genesissanstextglobal"
+                android:includeFontPadding="false"
+                android:textColor="@color/x_996449"
+                android:textSize="22dp"
+                app:layout_constraintStart_toEndOf="@id/iv_ic_distance"
+                app:layout_constraintTop_toTopOf="@id/iv_ic_distance"
+                tools:text="197km" />
+
+            <!--주행가능거리 문구-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="주행가능거리"
+                android:textColor="@color/x_000000"
+                android:textSize="12dp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_ic_distance"
+                app:layout_constraintStart_toStartOf="@id/tv_has_distance" />
+
+            <!--배터리 잔량 프로그래스바-->
+            <ProgressBar
+                android:id="@+id/progress"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="8dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="21.5dp"
+                android:layout_marginEnd="20dp"
+                android:max="100"
+                android:progress="30"
+                android:progressDrawable="@drawable/progress_b8bdbb_996449"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line0" />
+
+            <!--0 퍼센트 문구-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:includeFontPadding="false"
+                android:text="0%"
+                android:textColor="@color/x_757575"
+                android:textSize="12dp"
+                app:layout_constraintStart_toStartOf="@id/progress"
+                app:layout_constraintTop_toBottomOf="@id/progress" />
+
+            <!--100 퍼센트 문구-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:includeFontPadding="false"
+                android:text="100%"
+                android:textColor="@color/x_757575"
+                android:textSize="12dp"
+                app:layout_constraintEnd_toEndOf="@id/progress"
+                app:layout_constraintTop_toBottomOf="@id/progress" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--다시 시도 버튼-->
         <TextView
+            android:id="@+id/tv_btn_retry"
             android:layout_width="wrap_content"
-            android:layout_height="500dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_trans_underline_000000_1dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
             android:gravity="center"
-            android:text="차량 충전 상태 표시 영역"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:paddingTop="19dp"
+            android:text="다시 시도"
+            android:textColor="@color/x_000000"
+            android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@id/vg_charge_info" />
+    </LinearLayout>
 </layout>
