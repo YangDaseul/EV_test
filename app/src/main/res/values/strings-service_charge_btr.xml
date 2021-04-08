@@ -28,6 +28,7 @@
     <string name="service_charge_btr_txt_16">차량번호를\n입력해 주세요.</string>
     <string name="service_charge_btr_txt_17">차량번호 (예 : 12가3456)</string>
     <string name="service_charge_btr_txt_18">휴대폰 번호</string>
+    <string name="service_charge_btr_txt_19">(잔여 예약 수 : %s)</string>
 
 
     <!-- 에러 메시지 -->
@@ -39,6 +40,7 @@
     <string name="service_charge_btr_err_06">휴대폰 번호를 입력해 주세요.</string>
     <string name="service_charge_btr_err_07">차량번호를 올바르게 입력해 주세요.</string>
     <string name="service_charge_btr_err_08">휴대폰 번호를 올바르게 입력해 주세요.</string>
+    <string name="service_charge_btr_err_09">예약 시간을 선택해 주세요.</string>
 
 
     <!-- 충전 버틀러 서비스 안내 메시 -->

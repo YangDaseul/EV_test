@@ -12,13 +12,20 @@ import android.webkit.WebView;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.CHB_1006;
 import com.genesis.apps.comm.model.api.gra.SOS_1001;
+import com.genesis.apps.comm.model.api.gra.SOS_1006;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
+import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentServiceChargeBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
+import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
@@ -29,6 +36,7 @@ import androidx.lifecycle.ViewModelProvider;
 public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
     private static final String TAG = FragmentCharge.class.getSimpleName();
     private LGNViewModel lgnViewModel;
+    private CHBViewModel chbViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +51,31 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         super.onActivityCreated(savedInstanceState);
         me.setLifecycleOwner(this);
         lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
+        chbViewModel = new ViewModelProvider(getActivity()).get(CHBViewModel.class);
+
+        chbViewModel.getRES_CHB_1006().observe(getViewLifecycleOwner(), result -> {
+            switch (result.status) {
+                case LOADING:
+                    ((SubActivity) getActivity()).showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    ((SubActivity) getActivity()).showProgressDialog(false);
+
+                    String dkcKeyAvailableYN = result.data.getDkcKeyAvailableYN();
+                    if (result.data != null && !TextUtils.isEmpty(dkcKeyAvailableYN) && dkcKeyAvailableYN.equalsIgnoreCase("Y")) {
+                        startChargeBtrReqActivity(true);
+                        break;
+                    }
+                default:
+                    ((SubActivity) getActivity()).showProgressDialog(false);
+                    startChargeBtrReqActivity(false);
+                    break;
+            }
+        });
+    }
+
+    private void startChargeBtrReqActivity(boolean isDkAvl) {
+        ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceChargeBtrReqActivity.class).putExtra(KeyNames.KEY_NAME_IS_DK_AVL, isDkAvl), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
 //    private void startSOSActivity() {
@@ -142,7 +175,11 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     startServiceChargeActivity();
                 }else if(StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm_cg_sm02_7))){
                     //충전 버틀러 서비스 버틀러 신청
-                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceChargeBtrReqActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    String vin = getMainVehicleVin();
+                    if(!TextUtils.isEmpty(vin))
+                        chbViewModel.reqCHB1006(new CHB_1006.Request(APPIAInfo.SM_CG_SM01.getId(), getMainVehicleVin()));
+                    else
+                        SnackBarUtil.show(getActivity(), getString(R.string.r_flaw06_p02_snackbar_1));
                 }
                 break;
             case R.id.tv_service_maintenance_btn_white:
@@ -199,4 +236,13 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         }
     }
 
+    private String getMainVehicleVin() {
+        VehicleVO mainVehicle = null;
+        try {
+            mainVehicle = chbViewModel.getMainVehicleFromDB();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mainVehicle == null ? "" : mainVehicle.getVin();
+    }
 }

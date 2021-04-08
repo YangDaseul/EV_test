@@ -41,6 +41,7 @@ import com.genesis.apps.ui.main.service.CarWashSearchActivity;
 import com.genesis.apps.ui.main.service.MaintenanceReserveActivity;
 import com.genesis.apps.ui.main.service.ServiceAirport2ApplyActivity;
 import com.genesis.apps.ui.main.service.ServiceAutocare2ApplyActivity;
+import com.genesis.apps.ui.main.service.ServiceChargeBtrReqActivity;
 import com.genesis.apps.ui.main.service.ServiceDriveHistoryActivity;
 import com.genesis.apps.ui.main.service.ServiceDriveReqActivity;
 import com.genesis.apps.ui.main.service.ServiceDriveReqCompleteActivity;
@@ -292,6 +293,11 @@ public enum APPIAInfo {
     SM_REVIEW01_P01("SM_REVIEW01_P01", ServiceReviewActivity.class, VariableType.QUICK_MENU_CODE_NONE, "이용후기 (세차)",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM_REVIEW01_P02("SM_REVIEW01_P02", null, VariableType.QUICK_MENU_CODE_NONE, "서비스 리뷰 종료 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM_REVIEW01_P03("SM_REVIEW01_P03", ServiceReviewActivity.class, VariableType.QUICK_MENU_CODE_NONE, "이용후기 (대리)",VariableType.QUICK_MENU_CATEGORY_NONE),
+
+
+    SM_CG_SM01("SM_CG_SM01", null, VariableType.QUICK_MENU_CODE_NONE, "메인 3 Service 충전",VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_CGRV01("SM_CGRV01", ServiceChargeBtrReqActivity.class, VariableType.QUICK_MENU_CODE_NONE, "충전 버틀러 예약",VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_CGRV01_P03("SM_CGRV01_P03", null, VariableType.QUICK_MENU_CODE_NONE, "충전 버틀러 예약 희망일 선택 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
 
     RM01("RM01", null, VariableType.QUICK_MENU_CODE_NONE, "스토어(로그인)",VariableType.QUICK_MENU_CATEGORY_NONE),
     RM02("RM02", null, VariableType.QUICK_MENU_CODE_NONE, "스토어(비로그인)",VariableType.QUICK_MENU_CATEGORY_NONE),
