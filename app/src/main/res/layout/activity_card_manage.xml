@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -34,22 +35,25 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/l_card_manage_titlebar" />
 
+        <!--총 카드 갯수-->
         <TextView
             android:id="@+id/tv_card_total_count"
             android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:background="@color/x_f8f8f8"
+            android:layout_height="wrap_content"
+            android:background="@color/x_ffffff"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:gravity="center_vertical"
             android:paddingStart="20dp"
-            android:text="첫 번째 카드는 주 사용 카드로 설정됩니다."
+            android:paddingTop="30dp"
+            android:paddingBottom="10dp"
             android:textColor="@color/x_262626"
-            android:textSize="12dp"
+            android:textSize="13dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/l_card_manage_titlebar" />
+            app:layout_constraintTop_toBottomOf="@id/l_card_manage_titlebar"
+            tools:text="총 3개" />
 
-        <!--카드 정렬 버튼:기능 삭제-->
+        <!--카드 정렬 저장 버튼:기능 삭제-->
         <!--
                 <TextView
                     android:id="@+id/tv_sort_save"
@@ -81,6 +85,23 @@
             android:id="@+id/rv_card_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line0" />
+
+        <TextView
+            android:id="@+id/tv_empty_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/x_f8f8f8"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="center"
+            android:text="등록된 결제카드가 없습니다."
+            android:textColor="@color/x_262626"
+            android:textSize="18dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

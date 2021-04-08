@@ -100,6 +100,7 @@ public class CardManageListAdapter extends BaseRecyclerViewAdapter2<PaymtCardVO>
             binding.tvCardNumber.setText(item.getCardNo());
             binding.ivBtnDelete.setTag(item);
             binding.ivBtnFavorit.setTag(item);
+            binding.ivBtnFavorit.setSelected("Y".equalsIgnoreCase(item.getMainCardYN()));
 
             if (!TextUtils.isEmpty(item.getCardImageUrl())) {
                 Glide.with(getContext())

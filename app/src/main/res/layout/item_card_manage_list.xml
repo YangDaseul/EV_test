@@ -12,7 +12,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="92dp">
+        android:layout_height="92dp"
+        android:background="@color/x_ffffff">
 
         <!--카드 삭제 버튼-->
         <ImageView
@@ -22,7 +23,7 @@
             android:contentDescription="@null"
             android:onClick="@{(view)->listener.onSingleClick(view)}"
             android:paddingStart="20dp"
-            android:paddingEnd="17dp"
+            android:paddingEnd="15dp"
             android:src="@drawable/btn_minus"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,8 +32,8 @@
         <!--카드 썸네일-->
         <ImageView
             android:id="@+id/iv_card_thumb"
-            android:layout_width="84dp"
-            android:layout_height="52dp"
+            android:layout_width="67.6dp"
+            android:layout_height="42dp"
             android:background="#ff00ff"
             android:contentDescription="@null"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -45,11 +46,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="6dp"
-            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
             android:includeFontPadding="false"
             android:textColor="@color/x_000000"
-            android:textSize="16dp"
+            android:textSize="14dp"
             app:layout_constraintStart_toEndOf="@id/iv_card_thumb"
             app:layout_constraintTop_toTopOf="@id/iv_card_thumb"
             tools:text="현대카드" />
@@ -60,11 +61,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginBottom="6dp"
+            android:layout_marginBottom="2dp"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:includeFontPadding="false"
             android:textColor="@color/x_262626"
-            android:textSize="16dp"
+            android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="@id/iv_card_thumb"
             app:layout_constraintStart_toEndOf="@id/iv_card_thumb"
             tools:text="1234 5678 1234 7890" />
@@ -72,13 +73,13 @@
         <!--주카드 사용 설정/해제 버튼-->
         <ImageView
             android:id="@+id/iv_btn_favorit"
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:contentDescription="@null"
             android:onClick="@{(view)->listener.onSingleClick(view)}"
-            android:paddingStart="16dp"
-            android:paddingEnd="26dp"
-            android:src="@drawable/ic_btn_card_move"
+            android:paddingStart="10dp"
+            android:paddingEnd="21dp"
+            android:src="@drawable/selector_ic_star"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

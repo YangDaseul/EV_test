@@ -22,6 +22,12 @@ import java.util.List;
 
 /**
  * Class Name : CardManageActivity
+ * 결제수단관리 화면 Activity.
+ *
+ * 기능
+ * 1. 결제 카드 삭제.
+ * 2. 결제 카드 주사용 등록.
+ * 3. 카드 추가.
  *
  * @author Ki-man Kim
  * @since 2021-04-02
@@ -229,8 +235,15 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
      * @param list 목록에 표시할 카드 정보 리스트.
      */
     private void updateCardList(List<PaymtCardVO> list) {
-        adapter.setRows(list);
-        adapter.notifyDataSetChanged();
+        if (list.size() > 0) {
+            ui.rvCardList.setVisibility(View.VISIBLE);
+            ui.tvEmptyList.setVisibility(View.GONE);
+            adapter.setRows(list);
+            adapter.notifyDataSetChanged();
+        } else {
+            ui.rvCardList.setVisibility(View.GONE);
+            ui.tvEmptyList.setVisibility(View.VISIBLE);
+        }
         updateCardCount(adapter.getItemCount());
     }
 
