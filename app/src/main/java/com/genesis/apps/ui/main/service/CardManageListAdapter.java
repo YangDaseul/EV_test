@@ -2,7 +2,6 @@ package com.genesis.apps.ui.main.service;
 
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,12 +14,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.PaymtCardVO;
 import com.genesis.apps.databinding.ItemCardManageListBinding;
-import com.genesis.apps.ui.common.view.ItemMoveCallback;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
-
-import java.util.Collections;
 
 /**
  * Class Name : CardManageListAdapter
@@ -30,10 +26,13 @@ import java.util.Collections;
  * @author Ki-man Kim
  * @since 2021-04-05
  */
-public class CardManageListAdapter extends BaseRecyclerViewAdapter2<PaymtCardVO> implements ItemMoveCallback.ItemTouchHelperAdapter {
+public class CardManageListAdapter extends BaseRecyclerViewAdapter2<PaymtCardVO> {// implements ItemMoveCallback.ItemTouchHelperAdapter {
     private final OnSingleClickListener listener;
 
+    /*
+    카드 정렬 기능 삭제로 해당 코드 주석 처리.
     private ItemTouchHelper itemTouchHelper;
+     */
 
     public CardManageListAdapter(OnSingleClickListener listener) {
         this.listener = listener;
@@ -45,9 +44,13 @@ public class CardManageListAdapter extends BaseRecyclerViewAdapter2<PaymtCardVO>
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(this.listener, getView(parent, R.layout.item_card_manage_list)).setItemTouchHelper(this.itemTouchHelper);
+        return new ViewHolder(this.listener, getView(parent, R.layout.item_card_manage_list));
+        // 카드 정렬 기능 삭제로 해당 코드 주석 처리.
+        //.setItemTouchHelper(this.itemTouchHelper);
     }
 
+    /*
+    카드 정렬 기능 삭제로 해당 함수들 주석 처리.
     @Override
     public void onItemMove(int fromPos, int targetPos) {
         if (fromPos < targetPos) {
@@ -68,12 +71,10 @@ public class CardManageListAdapter extends BaseRecyclerViewAdapter2<PaymtCardVO>
         notifyItemRemoved(pos);
     }
 
-    /****************************************************************************************************
-     * Method - Public
-     ****************************************************************************************************/
     public void setItemTouchHelper(ItemTouchHelper helper) {
         this.itemTouchHelper = helper;
     }
+     */
 
     /****************************************************************************************************
      * Inner Class
@@ -98,6 +99,7 @@ public class CardManageListAdapter extends BaseRecyclerViewAdapter2<PaymtCardVO>
             binding.tvCardName.setText(item.getCardName());
             binding.tvCardNumber.setText(item.getCardNo());
             binding.ivBtnDelete.setTag(item);
+            binding.ivBtnFavorit.setTag(item);
 
             if (!TextUtils.isEmpty(item.getCardImageUrl())) {
                 Glide.with(getContext())
@@ -111,13 +113,16 @@ public class CardManageListAdapter extends BaseRecyclerViewAdapter2<PaymtCardVO>
             /*
                 iVBtnMove View에 Touch Event를 등록하여 Item View를 Drag 처리할 수 있도록 함.
                 Item View 전체 영역에서 Drag를 하는 것이 아니라 일부 View영역에서만 작동할수 있도록 처리하기 위함.
+                해당 기능 삭제로 인해 주석 처리.
              */
+            /*
             binding.ivBtnMove.setOnTouchListener((v, event) -> {
                 if (event.getAction() == MotionEvent.ACTION_DOWN && this.itemTouchHelper != null) {
                     this.itemTouchHelper.startDrag(this);
                 }
                 return false;
             });
+             */
         }
 
         @Override
@@ -133,10 +138,13 @@ public class CardManageListAdapter extends BaseRecyclerViewAdapter2<PaymtCardVO>
         /****************************************************************************************************
          * Method - Private
          ****************************************************************************************************/
+        /*
+        해당 기능 삭제로 인해 주석 처리.
         public ViewHolder setItemTouchHelper(ItemTouchHelper itemTouchHelper) {
             this.itemTouchHelper = itemTouchHelper;
             return this;
         }
+         */
     } // end of class ViewHolder
 } // end of class CardManageListAdapter
 

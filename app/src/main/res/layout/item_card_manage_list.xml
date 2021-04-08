@@ -7,7 +7,7 @@
 
         <variable
             name="listener"
-            type="com.genesis.apps.ui.common.view.listener.OnSingleClickListener"/>
+            type="com.genesis.apps.ui.common.view.listener.OnSingleClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,12 +20,12 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:contentDescription="@null"
+            android:onClick="@{(view)->listener.onSingleClick(view)}"
             android:paddingStart="20dp"
             android:paddingEnd="17dp"
             android:src="@drawable/btn_minus"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{(view)->listener.onSingleClick(view)}"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!--카드 썸네일-->
@@ -69,12 +69,13 @@
             app:layout_constraintStart_toEndOf="@id/iv_card_thumb"
             tools:text="1234 5678 1234 7890" />
 
-        <!--위치 이동 버튼-->
+        <!--주카드 사용 설정/해제 버튼-->
         <ImageView
-            android:id="@+id/iv_btn_move"
+            android:id="@+id/iv_btn_favorit"
             android:layout_width="60dp"
             android:layout_height="0dp"
             android:contentDescription="@null"
+            android:onClick="@{(view)->listener.onSingleClick(view)}"
             android:paddingStart="16dp"
             android:paddingEnd="26dp"
             android:src="@drawable/ic_btn_card_move"

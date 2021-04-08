@@ -35,7 +35,7 @@
             app:layout_constraintTop_toTopOf="@id/l_card_manage_titlebar" />
 
         <TextView
-            android:id="@+id/tv_guide_main_card"
+            android:id="@+id/tv_card_total_count"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:background="@color/x_f8f8f8"
@@ -49,44 +49,33 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/l_card_manage_titlebar" />
 
-        <TextView
-            android:id="@+id/tv_card_total_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/regular_genesissanstextglobal"
-            android:text="총 3개"
-            android:textColor="@color/x_262626"
-            android:textSize="13dp"
-            app:layout_constraintBottom_toTopOf="@id/line0"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_sort_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="11dp"
-            android:background="@drawable/bg_trans_underline_000000_1dp"
-            android:fontFamily="@font/regular_genesissansheadglobal"
-            android:onClick="@{(view) -> activity.onClickCommon(view)}"
-            android:paddingTop="20dp"
-            android:text="저장"
-            android:textColor="@color/x_000000"
-            android:textSize="14dp"
-            app:layout_constraintBottom_toTopOf="@id/line0"
-            app:layout_constraintEnd_toEndOf="parent" />
+        <!--카드 정렬 버튼:기능 삭제-->
+        <!--
+                <TextView
+                    android:id="@+id/tv_sort_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="11dp"
+                    android:background="@drawable/bg_trans_underline_000000_1dp"
+                    android:fontFamily="@font/regular_genesissansheadglobal"
+                    android:onClick="@{(view) -> activity.onClickCommon(view)}"
+                    android:paddingTop="20dp"
+                    android:text="저장"
+                    android:textColor="@color/x_000000"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toTopOf="@id/line0"
+                    app:layout_constraintEnd_toEndOf="parent" />
+        -->
 
         <View
             android:id="@+id/line0"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="57dp"
             android:background="@color/x_a2a2a2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_guide_main_card" />
+            app:layout_constraintTop_toBottomOf="@id/tv_card_total_count" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_card_list"
