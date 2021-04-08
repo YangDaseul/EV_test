@@ -643,6 +643,19 @@
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.main.service.CardManageActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+
+        <activity
+            android:name=".ui.main.service.ServiceChargeBtrReqActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/TextInputLayout"
+            android:windowSoftInputMode="adjustResize" /> <!-- 충전 버틀러 서비스 신청 -->
         <meta-data
             android:name="android.allow_multiple_resumed_activities"
             android:value="true" />
