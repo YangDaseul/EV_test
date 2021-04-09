@@ -31,6 +31,9 @@ public class EvChargeStatusFragment extends SubFragment<FragmentEvChargeStatusBi
     private EvChargeStatusFragment() {
     }
 
+    /****************************************************************************************************
+     * Override Method
+     ****************************************************************************************************/
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,4 +65,7 @@ public class EvChargeStatusFragment extends SubFragment<FragmentEvChargeStatusBi
     public void onClickCommon(View v) {
 
     }
+    /****************************************************************************************************
+     * Method - Private
+     ****************************************************************************************************/
 } // end of class EvChargeStatusFragment

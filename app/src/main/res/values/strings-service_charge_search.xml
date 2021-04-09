@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--충전소 찾기-->
-    <string name="sm_evss01_title">충전소 찾기</string>
+    <string name="sm_evss01_01">충전소 찾기</string>
+
+    <string name="sm_evss01_02">배터리</string>
+    <string name="sm_evss01_03">주행가능거리</string>
+    <string name="sm_evss01_04">0%</string>
+    <string name="sm_evss01_05">100%</string>
+    <string name="sm_evss01_06">다시 시도</string>
+    <string name="sm_evss01_07">내 현재위치에서\n가까운 충전소입니다.</string>
+    <string name="sm_evss01_08">내 차 위치에서\n가까운 충전소입니다.</string>
+    <string name="sm_evss01_09">건물명, 주소를 검색해 보세요.</string>
+    <string name="sm_evss01_10">필터</string>
+    <string name="sm_evss01_11">초기화</string>
 </resources>

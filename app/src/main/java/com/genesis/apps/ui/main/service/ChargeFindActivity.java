@@ -103,6 +103,7 @@ public class ChargeFindActivity extends SubActivity<ActivityChargeFindBinding> {
     private void updateEvChargeStatus() {
         getSupportFragmentManager().beginTransaction()
                 .add(ui.vgEvStatusConstainer.getId(), EvChargeStatusFragment.newInstance())
+                .add(ui.vgInputChargePlace.getId(), InputChargePlaceFragment.newInstance())
                 .commitAllowingStateLoss();
     }
 
@@ -111,8 +112,8 @@ public class ChargeFindActivity extends SubActivity<ActivityChargeFindBinding> {
         adapter.setRows(list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(ChargeFindActivity.this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        ui.rvChargePlace.setLayoutManager(layoutManager);
-        ui.rvChargePlace.setAdapter(adapter);
+        ui.rvSearchResult.setLayoutManager(layoutManager);
+        ui.rvSearchResult.setAdapter(adapter);
     }
 
     /**

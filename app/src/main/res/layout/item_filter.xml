@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+
+        <CheckBox
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@drawable/selector_bg_ffffff_757575_996449"
+            android:button="@null"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="center"
+            android:text="@string/bt06_21"
+            android:textColor="@drawable/selector_txt_757575_ffffff"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="제네시스 전용 충전소" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

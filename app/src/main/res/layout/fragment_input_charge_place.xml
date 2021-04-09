@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--검색 기준 : 위치-->
+        <TextView
+            android:id="@+id/tv_guide_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:text="@string/sm_evss01_07"
+            android:textColor="@color/x_000000"
+            android:textSize="22dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--내 위치/차량 위치 선택-->
+        <RadioGroup
+            android:id="@+id/rg_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@id/tv_guide_location"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_guide_location">
+
+            <RadioButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/selector_bg_person"
+                android:button="@null" />
+
+            <RadioButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/selector_bg_car"
+                android:button="@null" />
+
+        </RadioGroup>
+
+        <!--건물명, 주소 검색어 입력 영역-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/l_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            app:boxBackgroundMode="none"
+            app:counterEnabled="false"
+            app:endIconMode="clear_text"
+            app:hintAnimationEnabled="false"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_guide_location">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_ffffff_stroke_e5e5e5"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:hint="@string/sm_evss01_09"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="6dp"
+                android:padding="16dp"
+                android:textColorHint="@color/x_a2a2a2"
+                android:textSize="15dp" />
+
+            <requestFocus />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--필터 버튼-->
+        <TextView
+            android:id="@+id/tv_btn_filter"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/bg_00000000_topline_e5e5e5"
+            android:drawableEnd="@drawable/selector_ic_open_close"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/sm_evss01_10"
+            android:textColor="@color/x_000000"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/l_search" />
+
+        <!--초기화 버튼-->
+        <TextView
+            android:id="@+id/tv_btn_filter_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="60dp"
+            android:background="@drawable/bg_trans_underline_000000_1dp"
+            android:fontFamily="@font/regular_genesissansheadglobal"
+            android:gravity="center"
+            android:text="@string/sm_evss01_11"
+            android:textColor="@color/x_000000"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_btn_filter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_btn_filter" />
+
+        <!--검색 필터-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_filter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_f8f8f8_topline_e5e5e5"
+            android:paddingStart="15dp"
+            android:paddingTop="26dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="26dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_btn_filter" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
