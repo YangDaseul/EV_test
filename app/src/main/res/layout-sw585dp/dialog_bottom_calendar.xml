@@ -91,7 +91,7 @@
                 <TextView
                     android:id="@+id/tv_rsvthopetm"
                     style="@style/CommonTextViewFix2"
-                    android:text="@string/sm_r_rsv02_04_18"
+                    android:text="@string/sm_r_rsv02_04_14"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_rsvthopetm" />

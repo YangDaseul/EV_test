@@ -24,6 +24,7 @@ import com.genesis.apps.databinding.DialogServiceCantReserveInfoBinding;
 import com.genesis.apps.databinding.DialogServiceRemoteInfoBinding;
 import com.genesis.apps.databinding.DialogServiceRemoteNotTargetBinding;
 import com.genesis.apps.databinding.DialogServiceRemoteNotTimeBinding;
+import com.genesis.apps.databinding.DialogSimilarInfoBinding;
 import com.genesis.apps.databinding.DialogUpdateBinding;
 import com.genesis.apps.databinding.DialogUsedCarInfoBinding;
 
@@ -282,6 +283,33 @@ public class MiddleDialog {
         );
     }
 
+
+    /**
+     * @param activity
+     * @param ok
+     * @param cancel
+     * @brief 원격진단안내팝업
+     */
+    public static void dialogSimilarInfo(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                new CustomDialog(activity, dialog -> {
+                    DialogSimilarInfoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_similar_info, null, false);
+                    dialog.setContentView(binding.getRoot());
+
+                    binding.btnCancel.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (cancel != null) cancel.run();
+                    });
+                    binding.btnOk.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (ok != null) ok.run();
+                    });
+                }).show()
+        );
+    }
 
     /**
      * @param activity
@@ -1108,6 +1136,28 @@ public class MiddleDialog {
                         null,
                         activity.getString(R.string.sm_r_rsv05_p02_1),
                         msg,
+                        R.string.dialog_common_1,
+                        R.string.dialog_common_2
+                ).show()
+        );
+    }
+
+    /**
+     * @param activity
+     * @param ok
+     * @param cancel
+     * @brief 충전 버틀러 서비스 신청 종료 팝업
+     */
+    public static void dialogServiceChargeBtrReqExit(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        R.string.service_charge_btr_02,
+                        R.string.service_charge_btr_popup_msg_00,
                         R.string.dialog_common_1,
                         R.string.dialog_common_2
                 ).show()

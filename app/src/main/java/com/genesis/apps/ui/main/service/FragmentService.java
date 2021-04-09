@@ -19,6 +19,7 @@ import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.databinding.FragmentServiceBinding;
 import com.genesis.apps.databinding.ItemTabServiceBinding;
+import com.genesis.apps.ui.common.activity.BaseActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
@@ -161,7 +162,10 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
                     return;
                 }
             }
-        } else {
+        } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_WASH_RESERVATION_FINISH.getCode()) {
+            //예약 내역 액티비티 열기
+            ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), CarWashHistoryActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+        }else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }

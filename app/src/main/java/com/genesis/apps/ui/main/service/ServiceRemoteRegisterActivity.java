@@ -815,6 +815,13 @@ public class ServiceRemoteRegisterActivity extends GpsBaseActivity<ActivityServi
                 .build();
         adapter.setListener(selectItem -> {
             wrnLghtCd = selectItem;
+            try{
+                if(wrnLghtCd!=null&&wrnLghtCd.messageResId!=0){
+                    ui.lServiceRemoteStep3.tvServiceRemoteRegisterStepInput.setText(String.format(Locale.getDefault(), getString(R.string.sm_remote01_fit_code_3000_1), getString(wrnLghtCd.messageResId).replace(" 경고등","")));
+                }
+            }catch (Exception e){
+
+            }
             executeStep(checkStep());
             dialog.dismiss();
         });

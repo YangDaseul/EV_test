@@ -112,7 +112,7 @@
     <string name="word_entrance_1">로그인</string>
     <string name="word_entrance_2">회원가입</string>
     <string name="word_entrance_3">로그인 안내</string>
-    <string name="msg_entrance_1">로그인이 필요합니다.\n아직 회원이 아니시면 회원가입을 해주세요.</string>
+    <string name="msg_entrance_1">로그인이 필요합니다.\n아직 회원이 아니시면 회원가입을 해주세요.\n\n※\'제네시스 법인회원\' 로그인은 불가합니다.</string>
     <string name="msg_entrance_2">아이디를 잊어버리셨나요?</string>
 
     <string name="mg00_word_1">검색</string>
@@ -165,6 +165,7 @@
     <string name="mg_member01_14">발급 중</string>
     <string name="mg_member01_15">주 사용 카드</string>
     <string name="mg_member01_16">사용 가능한\n제네시스 카드가 없습니다.</string>
+    <string name="mg_member01_17">‘제네시스 멤버십’ 카드만 표시됩니다.</string>
 
     <string name="mg_member04_1">포인트 사용 내역</string>
     <string name="mg_member04_2">총 적립 포인트</string>

@@ -362,9 +362,29 @@
                         android:text="@string/gm_carlst_04_6"
                         android:textColor="@color/x_000000"
                         android:textSize="18dp"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_item_date"
                         app:layout_constraintStart_toStartOf="@+id/tv_title_mobility_care_1"
                         app:layout_constraintTop_toBottomOf="@+id/tv_title_mobility_care_1" />
+
+                    <TextView
+                        android:id="@+id/tv_item_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/light_genesissansheadglobal"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="17dp"
+                        android:maxLines="1"
+                        android:textColor="@color/x_000000"
+                        android:textSize="13dp"
+                        tools:text="(유효기간 : 2021.11.11까지)"
+                        tools:visibility="visible"
+                        app:layout_constraintHorizontal_bias="1"
+                        app:layout_constraintStart_toEndOf="@+id/tv_title_mobility_care_2"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_title_mobility_care_1"
+                        app:layout_constraintTop_toTopOf="@+id/tv_title_mobility_care_2"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_title_mobility_care_2"/>
+
 
                     <ImageView
                         android:id="@+id/iv_bg"

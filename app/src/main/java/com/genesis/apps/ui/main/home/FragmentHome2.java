@@ -96,6 +96,11 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
         initView();
         setViewModel();
         setObserver();
+        try {
+            vehicleVO = lgnViewModel.getMainVehicleFromDB();
+        }catch (Exception e){
+
+        }
     }
 
     private void setObserver() {
@@ -168,11 +173,13 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
 
             switch (status) {
                 case ERROR: {
-                    String carId = developersViewModel.getCarId(vehicleVO.getVin());
-                    DataMilesVO dataMilesVO = home2DataMilesAdapter.findVOByCarId(carId);
-                    if (dataMilesVO != null) {
-                        dataMilesVO.setDetailStatus(DataMilesVO.STATUS.FAIL);
-                        dataMilesVO.setChangedDrivingScore(true);
+                    if(vehicleVO!=null&&!TextUtils.isEmpty(vehicleVO.getVin())) {
+                        String carId = developersViewModel.getCarId(vehicleVO.getVin());
+                        DataMilesVO dataMilesVO = home2DataMilesAdapter.findVOByCarId(carId);
+                        if (dataMilesVO != null) {
+                            dataMilesVO.setDetailStatus(DataMilesVO.STATUS.FAIL);
+                            dataMilesVO.setChangedDrivingScore(true);
+                        }
                     }
                     break;
                 }
@@ -192,11 +199,13 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
 
             switch (status) {
                 case ERROR: {
-                    String carId = developersViewModel.getCarId(vehicleVO.getVin());
-                    DataMilesVO dataMilesVO = home2DataMilesAdapter.findVOByCarId(carId);
-                    if (dataMilesVO != null) {
-                        dataMilesVO.setReplacementsStatus(DataMilesVO.STATUS.FAIL);
-                        dataMilesVO.setChangedReplacements(true);
+                    if(vehicleVO!=null&&!TextUtils.isEmpty(vehicleVO.getVin())) {
+                        String carId = developersViewModel.getCarId(vehicleVO.getVin());
+                        DataMilesVO dataMilesVO = home2DataMilesAdapter.findVOByCarId(carId);
+                        if (dataMilesVO != null) {
+                            dataMilesVO.setReplacementsStatus(DataMilesVO.STATUS.FAIL);
+                            dataMilesVO.setChangedReplacements(true);
+                        }
                     }
                     break;
                 }
@@ -499,7 +508,9 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
                     break;
                 case R.id.ll_datamiles_expenables_error:
                     // 데이터 마일스 : 소모품 현황 새로 고침.
-                    developersViewModel.reqReplacements(new Replacements.Request(developersViewModel.getCarId(vehicleVO.getVin())));
+                    if(vehicleVO!=null&&!TextUtils.isEmpty(vehicleVO.getVin())) {
+                        developersViewModel.reqReplacements(new Replacements.Request(developersViewModel.getCarId(vehicleVO.getVin())));
+                    }
                     break;
                 case R.id.btn_asan_detail:
                     ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRepairReserveHistoryActivity.class).putExtra(KeyNames.KEY_NAME_TAB_TWO, true), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);

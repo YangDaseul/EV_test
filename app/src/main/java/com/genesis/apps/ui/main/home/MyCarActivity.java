@@ -22,6 +22,7 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.CouponVO;
 import com.genesis.apps.comm.model.vo.PrivilegeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.GNSViewModel;
@@ -39,6 +40,7 @@ import com.genesis.apps.ui.myg.MyGPrivilegeStateActivity;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
@@ -306,11 +308,13 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
+                    showProgressDialog(false);
                     if (result.data.getCpnList() != null && result.data.getCpnList().size() > 0) {
                         setViewCoupon(result.data.getCpnList());
                         break;
                     }
                 default:
+                    showProgressDialog(false);
                     setViewCoupon(null);
 //                    String serverMsg = "";
 //                    try {
@@ -362,7 +366,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
         if (!StringUtil.isValidString(data.getMbrshJoinYn()).equalsIgnoreCase("Y") || data.getPvilList()==null || data.getPvilList().size() < 1) {
             ui.lPrivilege.setVisibility(View.GONE);
         } else {
-//            ui.lPrivilege.setVisibility(View.VISIBLE);
+            ui.lPrivilege.setVisibility(View.VISIBLE);
             if (data.getPvilList().size() > 0) {
                 switch (StringUtil.isValidString(data.getPvilList().get(0).getJoinPsblCd())) {
                     case PrivilegeVO.JOIN_CODE_APPLY_POSSIBLE:
@@ -386,11 +390,13 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
     private void setViewCoupon(List<CouponVO> list) {
 
         int totalCnt = 0;//추후 잔여횟수가 없습니다. 등을 표시할 때 사용 가능
-
+        String itemDate="";
         if (list != null && list.size() > 0) {
             for (CouponVO couponVO : list) {
                 try {
                     totalCnt += Integer.parseInt(couponVO.getRemCnt());
+                    if(!TextUtils.isEmpty(couponVO.getItemDate())&&couponVO.getItemDate().length()==8)
+                        itemDate=couponVO.getItemDate();
                 } catch (Exception e) {
 
                 }
@@ -427,6 +433,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                         break;
                 }
             }
+
         } else {
             String cnt = "0 " + getString(R.string.gm_carlst_04_16);
             ui.tvPartEngineOilCnt.setText(cnt);
@@ -437,9 +444,16 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
             ui.tvPartHomeCnt.setText(cnt);
         }
 
-        reqPrivilegeDataToServer();
-    }
+        if(!TextUtils.isEmpty(itemDate)){
+            ui.tvItemDate.setVisibility(View.VISIBLE);
+            ui.tvItemDate.setText(String.format(Locale.getDefault(), getString(R.string.gm_carlst_04_28), DateUtil.getDate(DateUtil.getDefaultDateFormat(itemDate, DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)));
+        }else{
+            ui.tvItemDate.setVisibility(View.GONE);
+        }
 
+//        reqPrivilegeDataToServer();
+    }
+    //3월 통합테스트 결과에 따라 히든처리 (프리빌리지 레이아웃)
     private void reqPrivilegeDataToServer() {
         try {
             VehicleVO vehicleVO = ((VehicleVO) adapter.getItem(ui.vpCar.getCurrentItem()));
