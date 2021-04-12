@@ -38,6 +38,7 @@ import com.genesis.apps.ui.main.insight.InsightExpnMembershipActivity;
 import com.genesis.apps.ui.main.insight.InsightExpnModifyActivity;
 import com.genesis.apps.ui.main.service.CarWashHistoryActivity;
 import com.genesis.apps.ui.main.service.CarWashSearchActivity;
+import com.genesis.apps.ui.main.service.CardManageActivity;
 import com.genesis.apps.ui.main.service.MaintenanceReserveActivity;
 import com.genesis.apps.ui.main.service.ServiceAirport2ApplyActivity;
 import com.genesis.apps.ui.main.service.ServiceAutocare2ApplyActivity;
@@ -292,6 +293,8 @@ public enum APPIAInfo {
     SM_REVIEW01_P01("SM_REVIEW01_P01", ServiceReviewActivity.class, VariableType.QUICK_MENU_CODE_NONE, "이용후기 (세차)",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM_REVIEW01_P02("SM_REVIEW01_P02", null, VariableType.QUICK_MENU_CODE_NONE, "서비스 리뷰 종료 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM_REVIEW01_P03("SM_REVIEW01_P03", ServiceReviewActivity.class, VariableType.QUICK_MENU_CODE_NONE, "이용후기 (대리)",VariableType.QUICK_MENU_CATEGORY_NONE),
+
+    SM_CGRV02_P01("SM_CGRV02_P01", CardManageActivity.class, VariableType.QUICK_MENU_CODE_NONE, "결제수단 관리", VariableType.QUICK_MENU_CATEGORY_NONE),
 
     RM01("RM01", null, VariableType.QUICK_MENU_CODE_NONE, "스토어(로그인)",VariableType.QUICK_MENU_CATEGORY_NONE),
     RM02("RM02", null, VariableType.QUICK_MENU_CODE_NONE, "스토어(비로그인)",VariableType.QUICK_MENU_CATEGORY_NONE),

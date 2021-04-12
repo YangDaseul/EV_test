@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.STO_1001;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.vo.SimilarVehicleVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -145,17 +146,23 @@ public class SimilarCarActivity extends SubActivity<ActivitySimilarCarBinding> {
 
     @Override
     public void getDataFromIntent() {
-
         VehicleVO vehicleVO=null;
         try{
+            vehicleVO = (VehicleVO)getIntent().getSerializableExtra(KeyNames.KEY_NAME_VEHICLE);
+        }catch (Exception e){
+
+        }
+        if(vehicleVO==null) vehicleVO = getMainVehicle();
+        if(vehicleVO!=null) ctrctNo = StringUtil.isValidString(vehicleVO.getCtrctNo());
+    }
+
+    private VehicleVO getMainVehicle(){
+        VehicleVO vehicleVO = null;
+        try {
             vehicleVO = lgnViewModel.getMainVehicleFromDB();
         }catch (Exception e){
 
         }
-
-        if(vehicleVO!=null){
-            ctrctNo = StringUtil.isValidString(vehicleVO.getCtrctNo());
-        }
-
+        return vehicleVO;
     }
 }

@@ -630,7 +630,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
                     }
                     break;
                 case R.id.btn_similar://유사 재고 조회
-                    startActivitySingleTop(new Intent(this, APPIAInfo.GM02_INV01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    startActivitySingleTop(new Intent(this, APPIAInfo.GM02_INV01.getActivity()).putExtra(KeyNames.KEY_NAME_VEHICLE,vehicleVO), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
                 //이전 버튼과 다음버튼은 정책 변경으로 제거됨
                 case R.id.btn_pre://이전 버튼

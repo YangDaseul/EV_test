@@ -3,12 +3,27 @@ package com.genesis.apps.ui.main.contents;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import com.genesis.apps.R;
+import com.genesis.apps.comm.model.constants.ResultCodes;
+import com.genesis.apps.comm.model.vo.CatTypeVO;
+import com.genesis.apps.comm.util.DeviceUtil;
+import com.genesis.apps.comm.util.StringUtil;
+import com.genesis.apps.comm.viewmodel.CMNViewModel;
+import com.genesis.apps.databinding.FragmentContentsBinding;
+import com.genesis.apps.databinding.ItemTabContentsBinding;
+import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.fragment.SubFragment;
+import com.genesis.apps.ui.main.MainActivity;
+import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,44 +33,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.genesis.apps.R;
-import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.CTT_1001;
-import com.genesis.apps.comm.model.api.gra.CTT_1004;
-import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.constants.RequestCodes;
-import com.genesis.apps.comm.model.constants.ResultCodes;
-import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.vo.BtrVO;
-import com.genesis.apps.comm.model.vo.CatTypeVO;
-import com.genesis.apps.comm.model.vo.ContentsVO;
-import com.genesis.apps.comm.model.vo.RepairReserveVO;
-import com.genesis.apps.comm.model.vo.RepairTypeVO;
-import com.genesis.apps.comm.util.DeviceUtil;
-import com.genesis.apps.comm.util.SnackBarUtil;
-import com.genesis.apps.comm.viewmodel.CMNViewModel;
-import com.genesis.apps.comm.viewmodel.CTTViewModel;
-import com.genesis.apps.databinding.FragmentContentsBinding;
-import com.genesis.apps.databinding.ItemTabContentsBinding;
-import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.common.fragment.SubFragment;
-import com.genesis.apps.ui.main.MainActivity;
-import com.genesis.apps.ui.main.service.FragmentServiceDrive;
-import com.genesis.apps.ui.main.service.ServiceAutocare4ResultActivity;
-import com.genesis.apps.ui.main.service.ServiceHomeToHome4ResultActivity;
-import com.genesis.apps.ui.main.service.ServiceRemoteListActivity;
-import com.genesis.apps.ui.main.service.ServiceRepair2ApplyActivity;
-import com.genesis.apps.ui.main.service.ServiceRepair4ResultActivity;
-import com.google.android.material.tabs.TabLayoutMediator;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class FragmentContents extends SubFragment<FragmentContentsBinding> {
 
     private CMNViewModel cmnViewModel;
-    private CTTViewModel cttViewModel;
-    private boolean isEvent=false;
 
     private List<CatTypeVO> mCatTypeList;
 
@@ -108,6 +88,7 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
+                initContentsPageScrollPosition(position);
             }
 
         });
@@ -302,5 +283,33 @@ public class FragmentContents extends SubFragment<FragmentContentsBinding> {
         ((MainActivity)getActivity()).setGNB(getString(R.string.main_word_4), View.VISIBLE, false, true);
     }
 
+    private void initContentsPageScrollPosition(int position){
+        if(mCatTypeList!=null&&mCatTypeList.size()>position) {
+            for (Fragment fragmentChild : getChildFragmentManager().getFragments()) {
+                if (fragmentChild instanceof FragmentContentsList) {
+                    String mCatCd = "";
+                    try {
+                        mCatCd = ((FragmentContentsList) fragmentChild).getmCatCd();
+                    } catch (Exception e) {
+                        mCatCd = "";
+                    }
+                    if (mCatCd.equalsIgnoreCase(StringUtil.isValidString(mCatTypeList.get(position).getCd()))) {
+                        ((FragmentContentsList) fragmentChild).initAdapterPosition();
+                        break;
+                    }
+                }
+            }
+        }
+    }
 
+    public void initPage(){
+        //컨텐츠 이동 시 첫번째 탭이 선택되어있지 않은 경우
+        if(serviceTabAdapter!=null&&me.vpContentsViewPager.getCurrentItem()>0){
+            //첫번째 탭 선택 및 컨텐츠 리스트도 첫번째 아이템으로 초기화
+            me.vpContentsViewPager.setCurrentItem(0);
+        }else if(serviceTabAdapter!=null&&me.vpContentsViewPager.getCurrentItem()==0){
+            //첫번째 탭일경우 리스트도 초기화 진행
+            initContentsPageScrollPosition(0);
+        }
+    }
 }

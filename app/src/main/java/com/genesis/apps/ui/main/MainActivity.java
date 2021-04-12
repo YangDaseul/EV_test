@@ -10,15 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.ViewCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.model.api.APPIAInfo;
@@ -50,6 +41,15 @@ import com.genesis.apps.ui.myg.MyGHomeActivity;
 import com.genesis.apps.ui.myg.MyGMenuActivity;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.analytics.FirebaseAnalytics;
+
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.ViewCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     public boolean isMoveHomeBottom() {
@@ -126,8 +126,8 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 initFragmentHome(position);
+                initFragmentContents(position);
                 setFirebaseAnalyticsLog(position);
-
 
 //                ui.indicator.animatePageSelected(position%num_page);
             }
@@ -622,6 +622,22 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
                                 break;
                             }
                         }
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void initFragmentContents(int position) {
+        try {
+            if(position==MainPageDiv.CONTENTS.ordinal()) {
+                for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                    if (fragment instanceof FragmentContents) {
+                        //프래그먼트 HOME을 상단으로 이동
+                        ((FragmentContents) fragment).initPage();
                         break;
                     }
                 }
