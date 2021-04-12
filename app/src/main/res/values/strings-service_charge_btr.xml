@@ -6,6 +6,7 @@
     <string name="service_charge_btr_02">종료 안내</string>
     <string name="service_charge_btr_03">예약 희망일 선택</string>
     <string name="service_charge_btr_04">충전 버틀러 현황/내역/이력</string>
+    <string name="service_charge_btr_05">결제 정보 확인</string>
 
     <!-- 문구 -->
     <string name="service_charge_btr_txt_00">필수 입력 사항입니다.</string>
@@ -41,6 +42,7 @@
     <string name="service_charge_btr_err_07">차량번호를 올바르게 입력해 주세요.</string>
     <string name="service_charge_btr_err_08">휴대폰 번호를 올바르게 입력해 주세요.</string>
     <string name="service_charge_btr_err_09">예약 시간을 선택해 주세요.</string>
+    <string name="service_charge_btr_err_10">등록된 결제카드가 없습니다.</string>
 
 
     <!-- 충전 버틀러 서비스 안내 메시 -->
@@ -93,9 +95,23 @@
     <string name="service_charge_btr_word_25">예약 취소</string>
     <string name="service_charge_btr_word_26">고객센터</string>
     <string name="service_charge_btr_word_27">전화 연결</string>
+    <string name="service_charge_btr_word_28">변경</string>
+    <string name="service_charge_btr_word_29">서비스 금액</string>
+    <string name="service_charge_btr_word_30">충전금액</string>
+    <string name="service_charge_btr_word_31">충전 크레딧 포인트</string>
+    <string name="service_charge_btr_word_32">탁송금액</string>
+    <string name="service_charge_btr_word_33">세차금액</string>
+    <string name="service_charge_btr_word_34">세차서비스</string>
+    <string name="service_charge_btr_word_35">결제 수단</string>
+    <string name="service_charge_btr_word_36">등록</string>
+    <string name="service_charge_btr_word_37">관리</string>
+    <string name="service_charge_btr_word_38">결제 상세</string>
+    <string name="service_charge_btr_word_39">신청하기</string>
 
 
     <string name="service_charge_btr_msg_01">서비스 이용 완료 시, 선결제 금액과 실제 충전금액이 다른 경우 크레딧 포인트가 우선 차감되며, 차액만큼 결제 취소 처리 됩니다. (포인트와 신용카드를 복합 결제한 경우, 신용카드 우선 취소)</string>
     <string name="service_charge_btr_msg_02">충전 버틀러 예약 신청이\n완료되었습니다.</string>
     <string name="service_charge_btr_msg_03">예약시간 1시간 이전에만 취소 가능합니다. 이후 부득이하게 취소가 필요한 경우, 고객센터로 연락주세요.</string>
+    <string name="service_charge_btr_msg_04">충전금액은 충전 크레딧 포인트가 우선 차감됩니다. (충전 크레딧 포인트 16,000원 이상 보유 시에만 사용 가능)</string>
+    <string name="service_charge_btr_msg_05">서비스 이용 완료 시, 충전금액과 실제 충전금액이 다른 경우, 차액만큼 결제 취소 처리 됩니다.</string>
 </resources>
