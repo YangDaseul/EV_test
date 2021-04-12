@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main.service;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 
@@ -11,6 +12,8 @@ import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.databinding.ItemFilterBinding;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
+
+import java.util.List;
 
 /**
  * Class Name : ChargeSearchFilterAdapter
@@ -29,6 +32,14 @@ public class ChargeSearchFilterAdapter extends BaseRecyclerViewAdapter2<ChargeSe
         return new ItemViewHolder(getView(parent, R.layout.item_filter));
     }
 
+    public void clearCheckState() {
+        List<DummyFilterData> list = getItems();
+        for (DummyFilterData item : list) {
+            item.isCheck = false;
+        }
+        notifyDataSetChanged();
+    }
+
     public static class ItemViewHolder extends BaseViewHolder<DummyFilterData, ItemFilterBinding> {
         public ItemViewHolder(View itemView) {
             super(itemView);
@@ -38,6 +49,10 @@ public class ChargeSearchFilterAdapter extends BaseRecyclerViewAdapter2<ChargeSe
         public void onBindView(DummyFilterData item) {
             ItemFilterBinding binding = getBinding();
             binding.tvName.setText(item.getName());
+            binding.tvName.setChecked(item.isCheck);
+            binding.tvName.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                item.isCheck = isChecked;
+            });
         }
 
         @Override
@@ -53,6 +68,7 @@ public class ChargeSearchFilterAdapter extends BaseRecyclerViewAdapter2<ChargeSe
 
     public static class DummyFilterData extends BaseData {
         private String name;
+        private boolean isCheck;
 
         public DummyFilterData setName(String name) {
             this.name = name;
@@ -61,6 +77,14 @@ public class ChargeSearchFilterAdapter extends BaseRecyclerViewAdapter2<ChargeSe
 
         public String getName() {
             return name;
+        }
+
+        public boolean isCheck() {
+            return isCheck;
+        }
+
+        public void setCheck(boolean check) {
+            isCheck = check;
         }
     }
 } // end of class ChargeSearchFilterAdapter

@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="fragment"
+            type="com.genesis.apps.ui.main.service.InputChargePlaceFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -82,7 +85,6 @@
                 android:textColorHint="@color/x_a2a2a2"
                 android:textSize="15dp" />
 
-            <requestFocus />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--필터 버튼-->
@@ -95,6 +97,7 @@
             android:drawableEnd="@drawable/selector_ic_open_close"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:gravity="center_vertical"
+            android:onClick="@{(view) -> fragment.onSingleClickListener.onSingleClick(view)}"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:text="@string/sm_evss01_10"
@@ -113,6 +116,7 @@
             android:background="@drawable/bg_trans_underline_000000_1dp"
             android:fontFamily="@font/regular_genesissansheadglobal"
             android:gravity="center"
+            android:onClick="@{(view) -> fragment.onSingleClickListener.onSingleClick(view)}"
             android:text="@string/sm_evss01_11"
             android:textColor="@color/x_000000"
             android:textSize="14dp"

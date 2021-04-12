@@ -13,4 +13,5 @@
     <string name="sm_evss01_09">건물명, 주소를 검색해 보세요.</string>
     <string name="sm_evss01_10">필터</string>
     <string name="sm_evss01_11">초기화</string>
+    <string name="sm_evss01_12">상세 경로보기</string>
 </resources>

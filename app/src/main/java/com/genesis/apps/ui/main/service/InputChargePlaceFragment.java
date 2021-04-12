@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.FragmentInputChargePlaceBinding;
 import com.genesis.apps.ui.common.fragment.SubFragment;
-import com.genesis.apps.ui.main.service.view.ChargePlaceListAdapter;
 
 import java.util.ArrayList;
 
@@ -24,6 +23,8 @@ import java.util.ArrayList;
  * @since 2021-04-09
  */
 public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePlaceBinding> {
+    private ChargeSearchFilterAdapter adapter;
+
     public static InputChargePlaceFragment newInstance() {
         Bundle args = new Bundle();
         InputChargePlaceFragment fragment = new InputChargePlaceFragment();
@@ -52,6 +53,7 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         me.setLifecycleOwner(getViewLifecycleOwner());
+        me.setFragment(InputChargePlaceFragment.this);
         initView();
     }
 
@@ -67,7 +69,19 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
 
     @Override
     public void onClickCommon(View v) {
-
+        switch (v.getId()) {
+            // 필터 열기/닫기 버튼
+            case R.id.tv_btn_filter: {
+                v.setSelected(!v.isSelected());
+                me.rvFilter.setVisibility(v.isSelected() ? View.VISIBLE : View.GONE);
+                break;
+            }
+            // 필터 선택 초기화 버튼
+            case R.id.tv_btn_filter_reset: {
+                adapter.clearCheckState();
+                break;
+            }
+        }
     }
 
     /****************************************************************************************************
@@ -84,7 +98,7 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
         testlist.add(new ChargeSearchFilterAdapter.DummyFilterData().setName("PNC 결제 가능"));
         testlist.add(new ChargeSearchFilterAdapter.DummyFilterData().setName("카페이 결제 가능"));
 
-        ChargeSearchFilterAdapter adapter = new ChargeSearchFilterAdapter();
+        adapter = new ChargeSearchFilterAdapter();
         adapter.setRows(testlist);
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);

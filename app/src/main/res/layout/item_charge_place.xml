@@ -5,57 +5,67 @@
 
     <data>
 
-        <import type="com.genesis.apps.comm.util.StringUtil" />
-
-        <variable
-            name="data"
-            type="com.genesis.apps.ui.main.service.view.ChargePlaceListAdapter.DummyData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:paddingStart="20dp"
+        android:paddingTop="30dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="30dp">
 
-        <!--충전소 이름-->
+        <!--충전소 이름, 거리, 예약 상태-->
         <TextView
             android:id="@+id/tv_charge_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{StringUtil.isValidString(data.name)}"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:textColor="@color/x_000000"
+            android:textSize="16dp"
+            android:includeFontPadding="false"
+            app:layout_constraintEnd_toStartOf="@id/iv_arrow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="현대 EV 스테이션 강동" />
 
-        <!--충전소까지 거리-->
-        <TextView
-            android:id="@+id/tv_charge_distance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{StringUtil.isValidString(data.distance)}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="1.1km" />
-
-        <!--충전소 상태-->
+        <!--충전소 상태 상세-->
         <TextView
             android:id="@+id/tv_charge_status"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@{StringUtil.isValidString(data.status)}"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:includeFontPadding="false"
+            android:textColor="@color/x_666666"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toStartOf="@id/iv_arrow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_charge_name"
             tools:text="충전 중" />
 
-        <!--충전소 위치 전달-->
         <TextView
-            android:id="@+id/tv_send_location"
+            android:id="@+id/tv_btn_route_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="위치 전달"
+            android:background="@drawable/bg_trans_underline_000000_1dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="bottom"
+            android:paddingTop="20dp"
+            android:text="@string/sm_evss01_12"
+            android:textColor="@color/x_000000"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_charge_status" />
+
+        <ImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/btn_arrow_open_r"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_charge_distance" />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
