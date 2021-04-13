@@ -647,6 +647,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout"
             android:windowSoftInputMode="adjustResize" /> <!-- 충전 버틀러 서비스 신청 -->
+
+        <activity
+            android:name=".ui.main.service.ServiceChargeBtrCheckActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait" /><!-- 충전 버틀러 결제 정보 확인 -->
+
         <meta-data
             android:name="android.allow_multiple_resumed_activities"
             android:value="true" />

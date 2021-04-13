@@ -20,6 +20,7 @@ import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CHB_1008;
+import com.genesis.apps.comm.model.api.gra.CHB_1009;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
@@ -67,6 +68,7 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
     private String keyTransferType;     // 차량 키 전달 방식
     private String rsvtHopeDt; //예약희망일자
     private String rsvtHopeTm = ""; //예약희망시간
+    private String rsvtDate = ""; //예약희망일시
     private AddressVO addressVO;
 
 
@@ -173,10 +175,17 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
         SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
 
-    private void doNext(){
-        if(isValid()){
+    private void doNext() {
+        if (isValid()) {
             clearKeypad();
 //            moveToNextPage();
+
+            // 충전 버틀러 신청 전문 요청
+            chbViewModel.reqCHB1009(new CHB_1009.Request(APPIAInfo.SM_CGRV01.getId(),
+                    mainVehicle.getVin(),
+                    mainVehicle.getMdlCd(),
+                    rsvtDate
+            ));
         }
     }
 
@@ -200,6 +209,35 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
                     showProgressDialog(false);
                     if (result.data != null && result.data.getDailyBookingSlotList() != null && result.data.getDailyBookingSlotList().size() > 0) {
                         selectCalendar(result.data.getDailyBookingSlotList());
+                        break;
+                    }
+                default:
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
+                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                        showProgressDialog(false);
+                    }
+                    break;
+            }
+        });
+
+        chbViewModel.getRES_CHB_1009().observe(this, result -> {
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if (result.data != null) {
+                        CHB_1009.Response data = result.data;
+                        startActivitySingleTop(new Intent(this, ServiceChargeBtrCheckActivity.class).putExtra(KeyNames.KEY_NAME_CHB_RSVT_DT, rsvtDate).putExtra(KeyNames.KEY_NAME_CHB_CONTENTS_VO, data), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                         break;
                     }
                 default:
@@ -262,12 +300,12 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
                 edits[pos].requestFocus();
             }
 
-            if(pos==1){
+            if (pos == 1) {
                 startMapView();
-            }else if(pos==2){
-            }else if(pos==3){
+            } else if (pos == 2) {
+                ui.etAddrDtl.requestFocus();
+            } else if (pos == views.length - 1) {
                 requestPossibleTime();
-            }else if(pos==views.length-1){
                 ui.btnNext.setText(R.string.sm_emgc01_25);
             }
         }
@@ -431,16 +469,16 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
             ui.tvErrorRsvtHopeDt.setText(R.string.service_charge_btr_err_03);
             return false;
         }else{
-            String date = DateUtil.getDate(DateUtil.getDefaultDateFormat(rsvtHopeDt, DateUtil.DATE_FORMAT_yyyyMMdd, Locale.getDefault()), DateUtil.DATE_FORMAT_yyyy_MM_dd_E)
-                    + " / "
-                    + rsvtHopeTm.substring(0,2) + ":" + rsvtHopeTm.substring(2,4);
+            rsvtDate = rsvtHopeDt + rsvtHopeTm;
+//            String date = DateUtil.getDate(DateUtil.getDefaultDateFormat(rsvtHopeDt, DateUtil.DATE_FORMAT_yyyyMMdd, Locale.getDefault()), DateUtil.DATE_FORMAT_yyyy_MM_dd_E)
+//                    + " / "
+//                    + rsvtHopeTm.substring(0,2) + ":" + rsvtHopeTm.substring(2,4);
 
-            ui.tvRsvtHopeDt.setText(date);
+            ui.tvRsvtHopeDt.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(rsvtDate, DateUtil.DATE_FORMAT_yyyyMMddHHmm, Locale.getDefault()), DateUtil.DATE_FORMAT_yyyy_MM_dd_E_HH_mm));
             ui.tvRsvtHopeDt.setTextColor(getColor(R.color.x_000000));
             ui.tvRsvtHopeDt.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
             ui.tvTitleRsvtHopeDt.setVisibility(View.VISIBLE);
             ui.tvErrorRsvtHopeDt.setVisibility(View.INVISIBLE);
-
             return true;
         }
     }

@@ -84,10 +84,10 @@ public class CHB_1009 extends BaseData {
         private List<OptionVO> optionList;
         @Expose
         @SerializedName("strafficInfo")
-        private List<StrafficInfoVO> strafficInfo;
+        private StrafficInfoVO strafficInfo;
         @Expose
         @SerializedName("blueInfo")
-        private List<BlueInfoVO> blueInfo;
+        private BlueInfoVO blueInfo;
         @Expose
         @SerializedName("signInYN")
         private String signInYN;

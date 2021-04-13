@@ -19,7 +19,7 @@ import lombok.EqualsAndHashCode;
  * 0T02: 추가형
  *
  * @see #optionName 옵션 상품명
- * @see #productPrice   옵션 상품 금액
+ * @see #optionPrice   옵션 상품 금액
  */
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
@@ -35,6 +35,6 @@ class OptionVO extends BaseData {
     @SerializedName("optionName")
     private String optionName;
     @Expose
-    @SerializedName("productPrice")
-    private String productPrice;
+    @SerializedName("optionPrice")
+    private String optionPrice;
 }
