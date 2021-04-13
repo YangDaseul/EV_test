@@ -2,7 +2,6 @@ package com.genesis.apps.ui.main.service.view;
 
 import android.text.Html;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.constants.ChargePlaceStatus;
 import com.genesis.apps.databinding.ItemChargePlaceBinding;
-import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
@@ -25,10 +23,8 @@ import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
  * @since 2021-03-22
  */
 public class ChargePlaceListAdapter extends BaseRecyclerViewAdapter2<ChargePlaceListAdapter.DummyData> {
-    private SubActivity activity;
+    public ChargePlaceListAdapter() {
 
-    public ChargePlaceListAdapter(SubActivity activity) {
-        this.activity = activity;
     }
 
     @NonNull
@@ -45,7 +41,6 @@ public class ChargePlaceListAdapter extends BaseRecyclerViewAdapter2<ChargePlace
 
         @Override
         public void onBindView(DummyData item) {
-            Log.d("FID", "test :: 1111 :: onBindView :: item=" + item);
             ItemChargePlaceBinding binding = getBinding();
             binding.tvChargeName.setText(item.name + " " + item.distance);
 
@@ -74,7 +69,6 @@ public class ChargePlaceListAdapter extends BaseRecyclerViewAdapter2<ChargePlace
 
         @Override
         public void onBindView(DummyData item, int pos, SparseBooleanArray selectedItems) {
-            Log.d("FID", "test :: 2222 :: onBindView :: item=" + item + " :: pos=" + pos + " :: selectedItems=" + selectedItems);
 
         }
     }

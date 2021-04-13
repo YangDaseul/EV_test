@@ -110,7 +110,7 @@ public class ChargeFindActivity extends SubActivity<ActivityChargeFindBinding> {
         dividerItemDecoration.setDrawable(new ColorDrawable(getColor(R.color.x_e5e5e5)));
         ui.rvSearchResult.addItemDecoration(dividerItemDecoration);
 
-        adapter = new ChargePlaceListAdapter(ChargeFindActivity.this);
+        adapter = new ChargePlaceListAdapter();
         ui.rvSearchResult.setAdapter(adapter);
     }
 

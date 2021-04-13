@@ -3,7 +3,6 @@ package com.genesis.apps.ui.main.service;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 
