@@ -8,13 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
-
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CTT_1001;
@@ -32,6 +25,12 @@ import com.genesis.apps.ui.main.MainActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
+
 public class FragmentContentsList extends SubFragment<FragmentContentsListBinding> {
 
     private CTTViewModel cttViewModel;
@@ -39,7 +38,7 @@ public class FragmentContentsList extends SubFragment<FragmentContentsListBindin
 
     private String mCatCd = "";
 
-    public static Fragment newInstance(String catCd) {
+    public static FragmentContentsList newInstance(String catCd) {
         FragmentContentsList fragment = new FragmentContentsList();
 
         Bundle args = new Bundle();
@@ -277,10 +276,15 @@ public class FragmentContentsList extends SubFragment<FragmentContentsListBindin
         Log.e("onResume","onReusme contents");
         if(contentsAdapter.getPageNo()<1)
             cttViewModel.reqCTT1001(new CTT_1001.Request(APPIAInfo.CM01.getId(), mCatCd,""));
-        else if(contentsAdapter.getItemCount()>1&&me.vp.getCurrentItem()>0){
-            me.vp.setAdapter(contentsAdapter);
-        }
     }
 
+    public void initAdapterPosition(){
+        if(contentsAdapter.getItemCount()>1&&me.vp.getCurrentItem()>0)
+            me.vp.setAdapter(contentsAdapter);
+    }
+
+    public String getmCatCd(){
+        return mCatCd;
+    }
 
 }
