@@ -178,6 +178,14 @@ public enum APIInfo {
     GRA_SOS_3007("신청이력조회", "SOS-3007", HttpRequest.METHOD_POST, "/graapi/sos/7.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_SOS_3008("EV충전 잔여 횟수 조회", "SOS-3008", HttpRequest.METHOD_POST, "/graapi/sos/8.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
+    // 충전소 검색
+    GRA_STC_1001("service + S-트래픽 충전소 조회", "GRA-STC-1001", HttpRequest.METHOD_POST, "/graapi/stc/chgInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_STC_1002("service + S-트래픽 충전소 상세조회", "GRA-STC-1002", HttpRequest.METHOD_POST, "/graapi/stc/chgDtInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_STC_1003("service + S-트래픽 충전기 예약가능시간", "GRA-STC-1003", HttpRequest.METHOD_POST, "/graapi/stc/reservDt.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_STC_1004("service + S-트래픽 충전기 예약하기", "GRA-STC-1004", HttpRequest.METHOD_POST, "/graapi/stc/reservReg.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_STC_1005("service + S-트래픽 충전기 예약신청내역", "GRA-STC-1005", HttpRequest.METHOD_POST, "/graapi/stc/reservHist.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_STC_1006("service + S-트래픽 충전기 예약취소", "GRA-STC-1006", HttpRequest.METHOD_POST, "/graapi/stc/reservCancel.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+
     // 충전 버틀러 서비스/간편결제
     GRA_CHB_1001("service + 충전버틀러 서비스 상태", "CHB-1001", HttpRequest.METHOD_POST, "/graapi/chb/receStatus.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_CHB_1002("service + 충전버틀러 정보제공동의화면", "CHB-1002", HttpRequest.METHOD_POST, "/graapi/chb/receStatus.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
