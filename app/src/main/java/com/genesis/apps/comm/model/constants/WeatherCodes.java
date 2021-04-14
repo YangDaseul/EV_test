@@ -28,6 +28,48 @@ public enum WeatherCodes {
     LGT2("LGT_23", WEATHER_NAME_LGT, "2", "보통", 4, 6, 0, R.color.x_ffffff),
     LGT3("LGT_23", WEATHER_NAME_LGT, "3", "높음", 4, 6, 0, R.color.x_ffffff);
 
+
+    //0 0~10%
+    //1 11~30%
+    //2 31~60%
+    //3 61~99%
+    //4 100%
+    public static final int[][][] EV_BATTERY_RESOURCE = {
+            {
+                    {R.drawable.ic_battery_10_b, R.drawable.ic_battery_30_b, R.drawable.ic_battery_50_b, R.drawable.ic_battery_80_b, R.drawable.ic_battery_100_b, R.drawable.ic_battery_error_b},
+                    {R.drawable.ic_battery_10_w, R.drawable.ic_battery_30_w, R.drawable.ic_battery_50_w, R.drawable.ic_battery_80_w, R.drawable.ic_battery_100_w, R.drawable.ic_battery_error_w}
+            },
+            {
+                    {R.drawable.ic_battery_10_gb, R.drawable.ic_battery_30_gb, R.drawable.ic_battery_50_gb, R.drawable.ic_battery_80_gb, R.drawable.ic_battery_100_gb, R.drawable.ic_battery_error_b},
+                    {R.drawable.ic_battery_10_gw, R.drawable.ic_battery_30_gw, R.drawable.ic_battery_50_gw, R.drawable.ic_battery_80_gw, R.drawable.ic_battery_100_gw, R.drawable.ic_battery_error_w}
+            }
+    };
+
+    public static int getEvBatteryResource(int batteryCharge, int day, float soc){
+        if(day<VariableType.HOME_TIME_DAY) day=VariableType.HOME_TIME_DAY;//서버에서 주는 낮밤 코드는 1: 낮 2: 밤
+
+        int batteryRes;
+
+        if(soc<0){
+            //통신 실패 혹은 에러 발생 시
+            batteryRes = EV_BATTERY_RESOURCE[batteryCharge][day-1][5];
+        }else if(soc<=10){
+            batteryRes = EV_BATTERY_RESOURCE[batteryCharge][day-1][0];
+        }else if(soc<=30){
+            batteryRes = EV_BATTERY_RESOURCE[batteryCharge][day-1][1];
+        }else if(soc<=50){
+            batteryRes = EV_BATTERY_RESOURCE[batteryCharge][day-1][2];
+        }else if(soc<=80){
+            batteryRes = EV_BATTERY_RESOURCE[batteryCharge][day-1][3];
+        }else{
+            batteryRes = EV_BATTERY_RESOURCE[batteryCharge][day-1][4];
+        }
+
+        return batteryRes;
+    }
+    
+    
+    
     //0 맑음
     //1 흐림
     //2 눈

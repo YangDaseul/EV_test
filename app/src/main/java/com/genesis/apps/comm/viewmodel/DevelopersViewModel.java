@@ -12,6 +12,7 @@ import com.genesis.apps.comm.model.api.developers.Detail;
 import com.genesis.apps.comm.model.api.developers.Distance;
 import com.genesis.apps.comm.model.api.developers.Dtc;
 import com.genesis.apps.comm.model.api.developers.Dte;
+import com.genesis.apps.comm.model.api.developers.EvStatus;
 import com.genesis.apps.comm.model.api.developers.Odometer;
 import com.genesis.apps.comm.model.api.developers.Odometers;
 import com.genesis.apps.comm.model.api.developers.ParkLocation;
@@ -110,6 +111,7 @@ class DevelopersViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<CarId.Response>> RES_CAR_ID;
     private MutableLiveData<NetUIResponse<CarConnect.Response>> RES_CAR_CONNECT;
     private MutableLiveData<NetUIResponse<Agreements.Response>> RES_CAR_AGREEMENTS;
+    private MutableLiveData<NetUIResponse<EvStatus.Response>> RES_EV_STATUS;
 
 
     @ViewModelInject
@@ -134,6 +136,7 @@ class DevelopersViewModel extends ViewModel {
         RES_CAR_ID = repository.RES_CAR_ID;
         RES_CAR_CONNECT = repository.RES_CAR_CONNECT;
         RES_CAR_AGREEMENTS = repository.RES_CAR_AGREEMENTS;
+        RES_EV_STATUS = repository.RES_EV_STATUS;
     }
 
     public void reqDtc(final Dtc.Request reqData) {
@@ -168,6 +171,10 @@ class DevelopersViewModel extends ViewModel {
     }
     public void reqParkLocation(final ParkLocation.Request reqData) {
         repository.REQ_PARKLOCATION(reqData);
+    }
+
+    public void reqEvStatus(final EvStatus.Request reqData) {
+        repository.REQ_EV_STATUS(reqData);
     }
 
     public void reqDistance(final Distance.Request reqData) {

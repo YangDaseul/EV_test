@@ -221,6 +221,7 @@ public enum APIInfo {
     DEVELOPERS_CAR_CONNECT("GCS 차량 연결(등록)", "userId", HttpRequest.METHOD_POST, "/profile/users/%s/cars", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     DEVELOPERS_CHECK_JOIN_CCS("차주 여부 확인(CCS 연동 가능 여부 조회)", "userId", HttpRequest.METHOD_GET, "/profile/users/%s/car/ismaster?vin=%s", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     DEVELOPERS_AGREEMENTS("약관 동의 유무 확인", "", HttpRequest.METHOD_GET, "/data-service/agreements", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    DEVELOPERS_EVSTATUS("전기차 차량 상태 조회", "carId", HttpRequest.METHOD_GET, "/%s/evStatus", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
 
 //    DEVELOPERS_CAR_SAVE("CAR ID 조회 및 저장", "userId", HttpRequest.METHOD_GET, "/profile/users/%s/cars", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),

@@ -5,6 +5,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import lombok.AllArgsConstructor;
@@ -144,5 +145,10 @@ class VehicleVO extends BaseData {
     @Expose
     @SerializedName("ieclCtyNm")
     private String ieclCtyNm;
+
+
+    //서버 GNS-1001, MBR-0001, LGN-0001에 EV 관련 필드가 추가되면 IGNORE 제거 후 DB 마이그레이션 필요
+    @Ignore
+    private boolean isEV=true;
 
 }
