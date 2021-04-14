@@ -104,7 +104,7 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
                     ((SubActivity) getActivity()).showProgressDialog(false);
                     if (result.data != null) {
                         setViewSOSStatus(result.data.getPgrsStusCd());
-                        setViewMaintenanceStatus(result.data.getStusCd());
+//                        setViewMaintenanceStatus(result.data.getStusCd());
                     }
                     break;
                 default:
