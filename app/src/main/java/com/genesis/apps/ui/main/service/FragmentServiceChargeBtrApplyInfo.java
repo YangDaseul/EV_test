@@ -59,7 +59,7 @@ public class FragmentServiceChargeBtrApplyInfo extends SubFragment<FragmentServi
         }
 
         if (mainVehicle != null)
-            chbViewModel.reqCHB1021(new CHB_1021.Request(APPIAInfo.SM_CG_SM01.getId(), mainVehicle.getVin()));
+            chbViewModel.reqCHB1021(new CHB_1021.Request(APPIAInfo.SM_CGRV04_02.getId(), mainVehicle.getVin()));
 
     }
 
