@@ -10,11 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CHB_1006;
-import com.genesis.apps.comm.model.api.gra.SOS_1001;
-import com.genesis.apps.comm.model.api.gra.SOS_1006;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
@@ -29,9 +30,6 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
-
-import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
 
 public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
     private static final String TAG = FragmentCharge.class.getSimpleName();
@@ -143,17 +141,24 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         String title="";
         int id = v.getId();
         Log.d(TAG, "onClickCommon: view id :" + id);
+        /*
+        TODO 임의로 체크 로직 주석 처리.
         try {
             if (!((FragmentService) getParentFragment()).checkCustGbCd(id, lgnViewModel.getUserInfoFromDB().getCustGbCd()))
                 return;
         } catch (Exception e) {
 
         }
+        */
 
         switch (id) {
             //충전소 검색
             case R.id.btn_service_charge_search:
-//                ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceNetworkActivity.class).putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_SERVICE), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                ((BaseActivity) getActivity()).startActivitySingleTop(
+                        new Intent(getActivity(), ChargeFindActivity.class),
+                        RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                        VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
+                );
                 break;
             //충전소 예약 내역
             case R.id.l_service_charge_reservation_list:
@@ -177,7 +182,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     //충전 버틀러 서비스 버틀러 신청
                     String vin = getMainVehicleVin();
                     if(!TextUtils.isEmpty(vin))
-                        chbViewModel.reqCHB1006(new CHB_1006.Request(APPIAInfo.SM_CG_SM01.getId(), getMainVehicleVin()));
+                        chbViewModel.reqCHB1006(new CHB_1006.Request(APPIAInfo.SM01.getId(), getMainVehicleVin()));
                     else
                         SnackBarUtil.show(getActivity(), getString(R.string.r_flaw06_p02_snackbar_1));
                 }

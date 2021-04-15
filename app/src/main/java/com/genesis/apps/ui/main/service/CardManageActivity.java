@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.service;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -218,7 +219,8 @@ public class CardManageActivity extends SubActivity<ActivityCardManageBinding> {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         ui.rvCardList.setLayoutManager(layoutManager);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(CardManageActivity.this, DividerItemDecoration.VERTICAL);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(CardManageActivity.this, layoutManager.getOrientation());
+        dividerItemDecoration.setDrawable(new ColorDrawable(getColor(R.color.x_e5e5e5)));
         ui.rvCardList.addItemDecoration(dividerItemDecoration);
     }
 

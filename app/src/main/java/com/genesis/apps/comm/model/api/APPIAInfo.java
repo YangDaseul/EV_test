@@ -39,6 +39,7 @@ import com.genesis.apps.ui.main.insight.InsightExpnModifyActivity;
 import com.genesis.apps.ui.main.service.CarWashHistoryActivity;
 import com.genesis.apps.ui.main.service.CarWashSearchActivity;
 import com.genesis.apps.ui.main.service.CardManageActivity;
+import com.genesis.apps.ui.main.service.ChargeFindActivity;
 import com.genesis.apps.ui.main.service.MaintenanceReserveActivity;
 import com.genesis.apps.ui.main.service.ServiceAirport2ApplyActivity;
 import com.genesis.apps.ui.main.service.ServiceAutocare2ApplyActivity;
@@ -125,6 +126,13 @@ public enum APPIAInfo {
     GM02_INV01("GM02_INV01", SimilarCarActivity.class, VariableType.QUICK_MENU_CODE_NONE, "유사 재고 조회 / 예약",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM02_BF01("GM02_BF01", null, VariableType.QUICK_MENU_CODE_NONE, "대기고객 혜택",VariableType.QUICK_MENU_CATEGORY_NONE),
 
+    PAY01("PAY01", null, VariableType.QUICK_MENU_CODE_NONE, "디지털 월넛", VariableType.QUICK_MENU_CATEGORY_NONE),
+    PAY01_AOS01("PAY01_AOS01", null, VariableType.QUICK_MENU_CODE_NONE, "맴버쉽 직접 등록", VariableType.QUICK_MENU_CATEGORY_NONE),
+    PAY01_AOS02("PAY01_AOS02", null, VariableType.QUICK_MENU_CODE_NONE, "주 사용카드 변경", VariableType.QUICK_MENU_CATEGORY_NONE),
+    PAY01_AOS03("PAY01_AOS03", null, VariableType.QUICK_MENU_CODE_NONE, "맴버쉽 관리", VariableType.QUICK_MENU_CATEGORY_NONE),
+    PAY02("PAY02", null, VariableType.QUICK_MENU_CODE_NONE, "맴버십 바코드", VariableType.QUICK_MENU_CATEGORY_NONE),
+    PAY03("PAY03", null, VariableType.QUICK_MENU_CODE_NONE, "결제 수단 관리", VariableType.QUICK_MENU_CATEGORY_NONE),
+
     GM_BT01_P01("GM_BT01_P01", BtrServiceInfoActivity.class, VariableType.QUICK_MENU_CODE_NONE, "버틀러 서비스 안내 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_BT01_P02("GM_BT01_P02", null, VariableType.QUICK_MENU_CODE_NONE, "버틀러 신청 안내 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     GM_BT02("GM_BT02", BtrBluehandsActivity.class, VariableType.QUICK_MENU_CODE_NONE, "전담 블루핸즈/버틀러",VariableType.QUICK_MENU_CATEGORY_HOME), //2021-01-16 요청으로 삭제
@@ -173,6 +181,10 @@ public enum APPIAInfo {
     MG_CON03("MG_CON03", InsightExpnMembershipActivity.class, VariableType.QUICK_MENU_CODE_NONE, "멤버십 사용안내",VariableType.QUICK_MENU_CATEGORY_NONE),
 
     TM_EXPS01_P03("TM_EXPS01_P03", null, VariableType.QUICK_MENU_CODE_NONE, "수정 취소 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
+
+    TM_EXPS01_EV01("TM_EXPS01_EV01", null, VariableType.QUICK_MENU_CODE_NONE, "EV 차계부", VariableType.QUICK_MENU_CATEGORY_NONE),
+    TM_EXPS01_EV01_P01("TM_EXPS01_EV01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "지출항목 선택 팝업",  VariableType.QUICK_MENU_CATEGORY_NONE),
+
     SM01("SM01", null, VariableType.QUICK_MENU_CODE_NONE, "메인 3 Service",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM02("SM02", null, VariableType.QUICK_MENU_CODE_NONE, "상품 전체 보기",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM03("SM03", null, VariableType.QUICK_MENU_CODE_NONE, "상품 상세",VariableType.QUICK_MENU_CATEGORY_NONE),
@@ -294,12 +306,47 @@ public enum APPIAInfo {
     SM_REVIEW01_P01("SM_REVIEW01_P01", ServiceReviewActivity.class, VariableType.QUICK_MENU_CODE_NONE, "이용후기 (세차)",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM_REVIEW01_P02("SM_REVIEW01_P02", null, VariableType.QUICK_MENU_CODE_NONE, "서비스 리뷰 종료 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
     SM_REVIEW01_P03("SM_REVIEW01_P03", ServiceReviewActivity.class, VariableType.QUICK_MENU_CODE_NONE, "이용후기 (대리)",VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_REVIEW01_P04("SM_REVIEW01_P04", ServiceReviewActivity.class, VariableType.QUICK_MENU_CODE_NONE, "이용후기 (충전 버틀러)", VariableType.QUICK_MENU_CATEGORY_NONE),
 
+    SM_EVSS01("SM_EVSS01", ChargeFindActivity.class, VariableType.QUICK_MENU_CODE_CV, "충전소 찾기 리스트", VariableType.QUICK_MENU_CATEGORY_SERVICE),
+    SM_EVSS01_P01("SM_EVSS01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "충전소 찾기 리스트 검색 필터", VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_EVSS02("SM_EVSS02", null, VariableType.QUICK_MENU_CODE_NONE, "충전소 찾기 지도", VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_EVSS02_P01("SM_EVSS02_P01", null, VariableType.QUICK_MENU_CODE_NONE, "충전소 찾기 지도 검색 필터", VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_EVSS03("SM_EVSS03", null, VariableType.QUICK_MENU_CODE_NONE, "주소 검색", VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_EVSS04("SM_EVSS04", null, VariableType.QUICK_MENU_CODE_NONE, "충전소 상세정보(공통)", VariableType.QUICK_MENU_CATEGORY_NONE),
 
-    SM_CG_SM01("SM_CG_SM01", null, VariableType.QUICK_MENU_CODE_NONE, "메인 3 Service 충전",VariableType.QUICK_MENU_CATEGORY_NONE),
-    SM_CGRV01("SM_CGRV01", ServiceChargeBtrReqActivity.class, VariableType.QUICK_MENU_CODE_NONE, "충전 버틀러 예약",VariableType.QUICK_MENU_CATEGORY_NONE),
-    SM_CGRV01_P03("SM_CGRV01_P03", null, VariableType.QUICK_MENU_CODE_NONE, "충전 버틀러 예약 희망일 선택 팝업",VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_EVSB01("SM_EVSB01", null, VariableType.QUICK_MENU_CODE_OV, "충전소 예약", VariableType.QUICK_MENU_CATEGORY_SERVICE),
+    SM_EVSB01_P01("SM_EVSB01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "예약희망일 선택 팝업", VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_EVSB01_P02("SM_EVSB01_P02", null, VariableType.QUICK_MENU_CODE_NONE, "충전소 예약완료 팝업", VariableType.QUICK_MENU_CATEGORY_NONE),
+
+    SM_EVSB02("SM_EVSB02", null, VariableType.QUICK_MENU_CODE_OV, "충전소 예약내역", VariableType.QUICK_MENU_CATEGORY_SERVICE),
+
+    SM_CGRV01("SM_CGRV01", null, VariableType.QUICK_MENU_CODE_NONE, "충전 버틀러 서비스", VariableType.QUICK_MENU_CATEGORY_SERVICE),
+    SM_CGRV01_P01("SM_CGRV01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "서비스 이용 동의 팝업", VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_CGRV01_P02("SM_CGRV01_P02", null, VariableType.QUICK_MENU_CODE_NONE, "차량 키 전달 방식 선택 팝업", VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_CGRV01_01("SM_CGRV01_01", null, VariableType.QUICK_MENU_CODE_NONE, "지도 화면", VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_CGRV01_02("SM_CGRV01_02", null, VariableType.QUICK_MENU_CODE_NONE, "주소 검색", VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_CGRV01_P03("SM_CGRV01_P03", null, VariableType.QUICK_MENU_CODE_NONE, "예약 희망일/옵션 선택 팝업", VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_CGRV02("SM_CGRV02", null, VariableType.QUICK_MENU_CODE_NONE, "결제 정보 확인", VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_CGRV03("SM_CGRV03", null, VariableType.QUICK_MENU_CODE_NONE, "충전 버틀러 서비스 신청 완료", VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_CGRV01_P04("SM_CGRV01_P04", null, VariableType.QUICK_MENU_CODE_NONE, "충전 버틀러 서비스 소개 팝업", VariableType.QUICK_MENU_CATEGORY_NONE),
     SM_CGRV02_P01("SM_CGRV02_P01", CardManageActivity.class, VariableType.QUICK_MENU_CODE_NONE, "결제수단 관리", VariableType.QUICK_MENU_CATEGORY_NONE),
+
+    SM_CGRV04_01("SM_CGRV04_01", null, VariableType.QUICK_MENU_CODE_NONE, "신청내역 현황/예약 정보 없음", VariableType.QUICK_MENU_CATEGORY_SERVICE),
+    SM_CGRV04_02("SM_CGRV04_02", null, VariableType.QUICK_MENU_CODE_NONE, "신청내역 현황/예약 예약완료", VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_CGRV04_03("SM_CGRV04_03", null, VariableType.QUICK_MENU_CODE_NONE, "신청내역 현황/예약 픽업중/서비스중/딜리버리중", VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_CGRV04_04("SM_CGRV04_04", null, VariableType.QUICK_MENU_CODE_NONE, "신청내역 이력 정보 없음", VariableType.QUICK_MENU_CATEGORY_SERVICE),
+    SM_CGRV04_05("SM_CGRV04_05", null, VariableType.QUICK_MENU_CODE_NONE, "신청내역 이력 정보 있음", VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_CGRV04_06("SM_CGRV04_06", null, VariableType.QUICK_MENU_CODE_NONE, "사진보기", VariableType.QUICK_MENU_CATEGORY_NONE),
+
+    SM_CGGO01("SM_CGGO01", null, VariableType.QUICK_MENU_CODE_NONE, "찾아가는 충전 서비스", VariableType.QUICK_MENU_CATEGORY_SERVICE),
+    SM_CGGO01_P01("SM_CGGO01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "서비스 이용 동의 팝업", VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_CGGO01_P02("SM_CGGO01_P02", null, VariableType.QUICK_MENU_CODE_NONE, "도로 구분 팝업", VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_CGGO01_01("SM_CGGO01_01", null, VariableType.QUICK_MENU_CODE_NONE, "지도 화면", VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_CGGO01_02("SM_CGGO01_02", null, VariableType.QUICK_MENU_CODE_NONE, "주소 검색", VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_CGGO01_P03("SM_CGGO01_P03", null, VariableType.QUICK_MENU_CODE_NONE, "찾아가는 충전 서비스 소개 팝업", VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_CGGO02("SM_CGGO02", null, VariableType.QUICK_MENU_CODE_NONE, "신청완료", VariableType.QUICK_MENU_CATEGORY_NONE),
+    SM_CGGO03("SM_CGGO03", null, VariableType.QUICK_MENU_CODE_NONE, "서비스 이용 중", VariableType.QUICK_MENU_CATEGORY_NONE),
 
     RM01("RM01", null, VariableType.QUICK_MENU_CODE_NONE, "스토어(로그인)",VariableType.QUICK_MENU_CATEGORY_NONE),
     RM02("RM02", null, VariableType.QUICK_MENU_CODE_NONE, "스토어(비로그인)",VariableType.QUICK_MENU_CATEGORY_NONE),
@@ -326,6 +373,9 @@ public enum APPIAInfo {
     MG_MEMBER04("MG_MEMBER04", MyGMembershipUseListActivity.class, VariableType.QUICK_MENU_CODE_NV, "포인트 사용 내역",VariableType.QUICK_MENU_CATEGORY_MYG),
 
     MG_MEMBER03("MG_MEMBER03", MyGMembershipCardPasswordActivity.class, VariableType.QUICK_MENU_CODE_NONE, "카드 비밀번호 변경",VariableType.QUICK_MENU_CATEGORY_NONE),
+
+    MG_CP01("MG_CP01", null, VariableType.QUICK_MENU_CODE_CV, "크레딧 포인트 사용 내역",VariableType.QUICK_MENU_CATEGORY_NONE),
+
     MG_BF01("MG_BF01", MyGCouponActivity.class, VariableType.QUICK_MENU_CODE_NONE, "혜택/쿠폰",VariableType.QUICK_MENU_CATEGORY_NONE), //2021-03-04 요청으로 메뉴 제거
     MG_BF01_01("MG_BF01_01", null, VariableType.QUICK_MENU_CODE_NONE, "사용 내역",VariableType.QUICK_MENU_CATEGORY_NONE),
     MG_BF01_02("MG_BF01_02", null, VariableType.QUICK_MENU_CODE_NONE, "설문",VariableType.QUICK_MENU_CATEGORY_NONE),
