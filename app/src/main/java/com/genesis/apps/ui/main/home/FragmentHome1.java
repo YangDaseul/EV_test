@@ -361,6 +361,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         developersViewModel.getRES_EV_STATUS().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
+                    setProgressBattery(true);
                     break;
                 case SUCCESS:
                     if (result.data != null) {
@@ -418,12 +419,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         int batteryRes = WeatherCodes.getEvBatteryResource(batteryCharge ? 1 : 0, dayCd, soc);
         me.ivEvBattery.setBackgroundResource(batteryRes);
         me.tvEvBattery.setText(soc < 0 ? "- %" : (int)soc + "%");
-
-
-        new Handler().postDelayed(() -> {
-            setProgressBattery(false);
-        }, 10000);
-
+        setProgressBattery(false);
     }
 
     private void initViewBanner(boolean isUpdate){
@@ -653,7 +649,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 try {
                     vehicleVO = lgnViewModel.getMainVehicleSimplyFromDB();
                     if (vehicleVO != null && !TextUtils.isEmpty(vehicleVO.getVin())) {
-                        setProgressBattery(true);
                         String carId = developersViewModel.getCarId(vehicleVO.getVin());
                         requestEvStatus(vehicleVO, carId);
                     }
@@ -671,6 +666,9 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         } else {
             animationDrawable.stop();
         }
+        me.btnEvBattery.setEnabled(!isShow);
+        me.tvEvBattery.setEnabled(!isShow);
+        me.ivEvBattery.setEnabled(!isShow);
     }
 
     private void requestEvStatus(VehicleVO vehicleVO, String carId){
