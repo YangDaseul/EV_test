@@ -143,7 +143,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/iv_arrow_image"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:text="@{TextUtils.isEmpty(data.productPrice) ? (`-- 원`) : (StringUtil.getDigitGroupingString(data.productPrice)+`원`)}"
+                        android:text="@{StringUtil.getDigitGrouping(data.productPrice)+`원`}"
                         tools:text="25,000원" />
 
                     <ImageView
@@ -196,7 +196,7 @@
                         android:textSize="16dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:text="@{TextUtils.isEmpty(data.productPrice) ? (`-- 원`) : (StringUtil.getDigitGroupingString(data.productPrice)+`원`)}"
+                        android:text="@{StringUtil.getDigitGrouping(data.productPrice)+`원`}"
                         tools:text="16,000원" />
 
                     <ImageView
@@ -236,7 +236,7 @@
                         app:layout_constraintBottom_toBottomOf="@+id/tv_credit_point_tit"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_credit_point_tit"
-                        android:text="@{TextUtils.isEmpty(data.productPrice) ? (`-- 원`) : (StringUtil.getDigitGroupingString(data.productPrice)+`원`)}"
+                        android:text="@{StringUtil.getDigitGrouping(data.productPrice)+`원`}"
                         tools:text="-16,000원" />
 
                     <!-- 충전 크레딧 보유 포인트 정보 -->
@@ -277,7 +277,7 @@
                             android:textSize="15dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            android:text="@{TextUtils.isEmpty(data.productPrice) ? (`-- 원 보유`) : (StringUtil.getDigitGroupingString(data.productPrice)+`원 보유`)}"
+                            android:text="@{StringUtil.getDigitGrouping(data.productPrice)+`원 보유`}"
                             tools:text="1,000,000원 보유" />
 
                         <ImageView
@@ -298,7 +298,7 @@
                             android:layout_marginTop="20dp"
                             android:layout_marginStart="6dp"
                             android:gravity="center_vertical|start"
-                            android:text="@string/service_charge_btr_msg_04"
+                            android:text="@{String.format(@string/service_charge_btr_msg_04, data.productPrice)}"
                             android:textColor="@color/x_666666"
                             android:textSize="14dp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -344,7 +344,7 @@
                         app:layout_constraintBottom_toBottomOf="@+id/tv_delivery_paymt_tit"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_delivery_paymt_tit"
-                        android:text="@{TextUtils.isEmpty(data.productPrice) ? (`-- 원`) : (StringUtil.getDigitGroupingString(data.productPrice)+`원`)}"
+                        android:text="@{StringUtil.getDigitGrouping(data.productPrice)+`원`}"
                         tools:text="20,000원" />
 
                     <ImageView
@@ -429,7 +429,7 @@
                             app:layout_constraintBottom_toBottomOf="@+id/cb_carwash_option"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/cb_carwash_option"
-                            android:text="@{TextUtils.isEmpty(data.productPrice) ? (`-- 원`) : (StringUtil.getDigitGroupingString(data.productPrice)+`원`)}"
+                            android:text="@{StringUtil.getDigitGrouping(data.productPrice)+`원`}"
                             tools:text="5,000원" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -546,7 +546,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/iv_paymt_amt_arrow"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:text="@{TextUtils.isEmpty(data.productPrice) ? (`-- 원`) : (StringUtil.getDigitGroupingString(data.productPrice)+`원`)}"
+                        android:text="@{StringUtil.getDigitGrouping(data.productPrice)+`원`}"
                         tools:text="25,000원" />
 
                     <ImageView

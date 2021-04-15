@@ -13,8 +13,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.vo.BookingDateVO;
-import com.genesis.apps.comm.model.vo.BookingTimeVO;
+import com.genesis.apps.comm.model.vo.carlife.BookingDateVO;
+import com.genesis.apps.comm.model.vo.carlife.BookingTimeVO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.RecyclerViewHorizontalDecoration;

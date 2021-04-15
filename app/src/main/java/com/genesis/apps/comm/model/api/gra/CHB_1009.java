@@ -4,11 +4,10 @@ import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.BaseRequest;
 import com.genesis.apps.comm.model.api.BaseResponse;
-import com.genesis.apps.comm.model.vo.BlueInfoVO;
-import com.genesis.apps.comm.model.vo.BookingDateVO;
-import com.genesis.apps.comm.model.vo.OptionVO;
-import com.genesis.apps.comm.model.vo.PaymtCardVO;
-import com.genesis.apps.comm.model.vo.StrafficInfoVO;
+import com.genesis.apps.comm.model.vo.carlife.BlueInfoVO;
+import com.genesis.apps.comm.model.vo.carlife.OptionVO;
+import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
+import com.genesis.apps.comm.model.vo.carlife.StrafficInfoVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -78,7 +77,7 @@ public class CHB_1009 extends BaseData {
         private String productName;
         @Expose
         @SerializedName("productPrice")
-        private String productPrice;
+        private int productPrice;
         @Expose
         @SerializedName("optionList")
         private List<OptionVO> optionList;

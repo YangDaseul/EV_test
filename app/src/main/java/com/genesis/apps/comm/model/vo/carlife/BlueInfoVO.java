@@ -1,4 +1,4 @@
-package com.genesis.apps.comm.model.vo;
+package com.genesis.apps.comm.model.vo.carlife;
 
 import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
@@ -27,5 +27,5 @@ class BlueInfoVO extends BaseData {
     private String blueSignInYN;
     @Expose
     @SerializedName("blueBalance")
-    private String blueBalance;
+    private int blueBalance;
 }

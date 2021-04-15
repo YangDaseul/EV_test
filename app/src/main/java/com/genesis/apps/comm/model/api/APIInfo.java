@@ -204,6 +204,7 @@ public enum APIInfo {
     GRA_CHB_1023("service + 충전버틀러 서비스 신청이력 조회", "CHB-1023", HttpRequest.METHOD_POST, "/graapi/chb/receStatus.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_CHB_1024("service + 충전버틀러 서비스 신청쉬소", "CHB-1024", HttpRequest.METHOD_POST, "/graapi/chb/receStatus.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_CHB_1025("service + 회탈퇴(충전버틀러/간편결제)", "CHB-1025", HttpRequest.METHOD_POST, "/graapi/chb/receStatus.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_CHB_1026("service + 신청이력 상세정보", "CHB-1026", HttpRequest.METHOD_POST, "/graapi/chb/receStatus.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     //DEVELOPERS API에서는 ifCd를 url 파라미터 형태로 사용
     DEVELOPERS_DTC("고장 코드 조회", "carId", HttpRequest.METHOD_GET, "/car/status/%s/dtc", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),

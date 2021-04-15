@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.vo.PaymtCardVO;
+import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
 import com.genesis.apps.databinding.ItemCardManageListBinding;
 import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;

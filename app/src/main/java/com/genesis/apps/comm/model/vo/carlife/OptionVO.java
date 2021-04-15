@@ -1,4 +1,4 @@
-package com.genesis.apps.comm.model.vo;
+package com.genesis.apps.comm.model.vo.carlife;
 
 import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
@@ -15,11 +15,14 @@ import lombok.EqualsAndHashCode;
  *
  * @see #optionCode 옵션 상품 코드
  * @see #optionType 옵션 타입
- * OT01: 기본형
- * 0T02: 추가형
+ * OT01: 기본형(= 탁속)
+ * 0T02: 추가형(= 세차 서비스)
  *
  * @see #optionName 옵션 상품명
  * @see #optionPrice   옵션 상품 금액
+ *
+ * @see #optionApplyCount   옵션 선택 수량
+ * default = 1
  */
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
@@ -36,5 +39,8 @@ class OptionVO extends BaseData {
     private String optionName;
     @Expose
     @SerializedName("optionPrice")
-    private String optionPrice;
+    private int optionPrice;
+    @Expose
+    @SerializedName("optionApplyCount")
+    private int optionApplyCount;
 }

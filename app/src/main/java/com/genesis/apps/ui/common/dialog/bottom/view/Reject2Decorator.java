@@ -3,7 +3,7 @@ package com.genesis.apps.ui.common.dialog.bottom.view;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 
-import com.genesis.apps.comm.model.vo.BookingDateVO;
+import com.genesis.apps.comm.model.vo.carlife.BookingDateVO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;

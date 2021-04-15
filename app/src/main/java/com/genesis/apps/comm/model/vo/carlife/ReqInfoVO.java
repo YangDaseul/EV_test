@@ -1,0 +1,37 @@
+package com.genesis.apps.comm.model.vo.carlife;
+
+import com.genesis.apps.comm.model.BaseData;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+/**
+ * 충전 버틀러 기본 신청 정보 VO
+ * @author ljeun
+ * @since 2021. 4. 8.
+ *
+ * @see #bookingDtm 예약일시 YYYYMMDDHH24MISS
+ * @see #keyTransferType 차량 키 전달 방식
+ * KT_DKC : DKC
+ * KT_BLL : 블루링크(충전버틀러 사용하지 않늠)
+ * KT_FOB : 실물키
+ *
+ * @see #sameLocationYN 고객과 차량 동일 위치 여부(선택)
+ */
+@EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+public @Data
+class ReqInfoVO extends BaseData {
+    @Expose
+    @SerializedName("bookingDtm")
+    private String bookingDtm;
+    @Expose
+    @SerializedName("keyTransferType")
+    private String keyTransferType;
+    @Expose
+    @SerializedName("sameLocationYN")
+    private String sameLocationYN;
+}

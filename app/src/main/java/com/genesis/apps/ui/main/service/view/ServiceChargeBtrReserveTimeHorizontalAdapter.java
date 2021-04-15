@@ -6,8 +6,7 @@ import android.view.ViewGroup;
 
 import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.vo.BookingTimeVO;
-import com.genesis.apps.comm.util.DeviceUtil;
+import com.genesis.apps.comm.model.vo.carlife.BookingTimeVO;
 import com.genesis.apps.databinding.ItemServiceChargeReserveTimeBinding;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;

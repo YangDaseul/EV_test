@@ -13,7 +13,7 @@ import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CHB_1015;
 import com.genesis.apps.comm.model.api.gra.CHB_1016;
 import com.genesis.apps.comm.model.api.gra.CHB_1017;
-import com.genesis.apps.comm.model.vo.PaymtCardVO;
+import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
 import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.databinding.ActivityCardManageBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;

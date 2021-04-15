@@ -13,6 +13,7 @@ import com.genesis.apps.comm.model.api.gra.CHB_1009;
 import com.genesis.apps.comm.model.api.gra.CHB_1015;
 import com.genesis.apps.comm.model.api.gra.CHB_1016;
 import com.genesis.apps.comm.model.api.gra.CHB_1017;
+import com.genesis.apps.comm.model.api.gra.CHB_1021;
 import com.genesis.apps.comm.model.repo.CHBRepo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.vo.VehicleVO;
@@ -39,6 +40,7 @@ class CHBViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<CHB_1015.Response>> RES_CHB_1015;
     private MutableLiveData<NetUIResponse<CHB_1016.Response>> RES_CHB_1016;
     private MutableLiveData<NetUIResponse<CHB_1017.Response>> RES_CHB_1017;
+    private MutableLiveData<NetUIResponse<CHB_1021.Response>> RES_CHB_1021;
 
     private MutableLiveData<List<VehicleVO>> vehicleList;
 
@@ -59,6 +61,8 @@ class CHBViewModel extends ViewModel {
         RES_CHB_1015 = repository.RES_CHB_1015;
         RES_CHB_1016 = repository.RES_CHB_1016;
         RES_CHB_1017 = repository.RES_CHB_1017;
+
+        RES_CHB_1021 = repository.RES_CHB_1021;
         vehicleList = new MutableLiveData<>();
     }
 
@@ -82,6 +86,9 @@ class CHBViewModel extends ViewModel {
     }
     public void reqCHB1017(final CHB_1017.Request reqData) {
         repository.REQ_CHB_1017(reqData);
+    }
+    public void reqCHB1021(final CHB_1021.Request reqData) {
+        repository.REQ_CHB_1021(reqData);
     }
 
     public VehicleVO getMainVehicleFromDB() throws ExecutionException, InterruptedException {
