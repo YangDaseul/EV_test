@@ -4,8 +4,8 @@ import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.BaseRequest;
 import com.genesis.apps.comm.model.api.BaseResponse;
-import com.genesis.apps.comm.model.vo.ChargeSttInfo;
-import com.genesis.apps.comm.model.vo.ChargeVO;
+import com.genesis.apps.comm.model.vo.ChargeSttInfoVO;
+import com.genesis.apps.comm.model.vo.ChargerSttVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -64,9 +64,9 @@ public class STC_1002 extends BaseData {
     class Response extends BaseResponse {
         @Expose
         @SerializedName("chgSttnInfo")
-        private ChargeSttInfo chgSttnInfo;
+        private ChargeSttInfoVO chgSttnInfo;
         @Expose
         @SerializedName("chgrList")
-        private List<ChargeVO> chgrList;
+        private List<ChargerSttVO> chgrList;
     }
 } // end of class STC_1002

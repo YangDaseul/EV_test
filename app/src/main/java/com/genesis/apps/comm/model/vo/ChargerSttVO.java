@@ -29,7 +29,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
-class ChargeVO extends BaseData {
+class ChargerSttVO extends BaseData {
     @Expose
     @SerializedName("cid")
     private String cid;
@@ -39,4 +39,4 @@ class ChargeVO extends BaseData {
     @Expose
     @SerializedName("stusCd")
     private String stusCd;
-} // end of class ChargeVO
+} // end of class ChargerSttVO
