@@ -4,6 +4,10 @@
 
     <data>
 
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.main.service.ChargeFindActivity" />
+
     </data>
 
 
@@ -24,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:contentDescription="@null"
+            android:onClick="@{(view) -> activity.onSingleClickListener.onSingleClick(view)}"
             android:paddingTop="8dp"
             android:paddingEnd="20dp"
             android:paddingBottom="8dp"

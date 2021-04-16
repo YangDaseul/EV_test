@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
+        <import type="android.telephony.PhoneNumberUtils" />
+
+        <import type="java.util.Locale" />
+
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.common.activity.GpsBaseActivity" />
+
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/MapOverlayBoxWhite"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_width="match_parent">
+
+        <!-- 충전소 지점, 거리, 예약 상태 -->
+        <TextView
+            android:id="@+id/tv_charge_station_name"
+            style="@style/MapOverlayWhite.RegularText"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:includeFontPadding="false"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="현대EV스테이션 스테이션 강남 1.1km | 예약가능" />
+
+        <!-- 주소 -->
+        <TextView
+            android:id="@+id/tv_map_select_address"
+            style="@style/MapOverlayWhite.RegularText"
+            android:layout_width="0dp"
+            android:layout_marginTop="10dp"
+            android:includeFontPadding="false"
+            android:textColor="@color/x_666666"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toTopOf="@id/tv_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_charge_station_name"
+            app:layout_constraintVertical_bias="1"
+            tools:text="서울특별시 금천구 어딘가에  333 (가산동)" />
+
+        <!-- 시간 -->
+        <TextView
+            android:id="@+id/tv_time"
+            style="@style/MapOverlayWhite.RegularText"
+            android:layout_width="0dp"
+            android:layout_marginTop="20dp"
+            android:includeFontPadding="false"
+            android:textColor="@color/x_666666"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_map_select_address"
+            tools:text="00:00 - 24:00" />
+
+        <!--상세 경로 보기-->
+        <TextView
+            android:id="@+id/tv_btn_route_detail"
+            style="@style/MapOverlayWhite.RegularText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_trans_underline_000000_1dp"
+            android:includeFontPadding="false"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:paddingBottom="2dp"
+            android:text="@string/sm_evss01_12"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_time" />
+
+        <!--라인-->
+        <View
+            android:id="@+id/line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/x_e5e5e5"
+            app:layout_constraintBottom_toBottomOf="@id/barrier"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_time" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="line" />
+
+        <TextView
+            android:id="@+id/tv_charge_unit"
+            style="@style/MapOverlayWhite.RegularText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:textColor="@color/x_666666"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barrier"
+            tools:text="초고속 1대, 완속 3대 사용가능" />
+
+        <!--자세히 보기-->
+        <TextView
+            android:id="@+id/btn_right_black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/ripple_bg_111111"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="center"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="6dp"
+            android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+            android:paddingTop="17dp"
+            android:paddingBottom="17dp"
+            android:text="@string/sm_evss01_13"
+            android:textColor="@color/x_ffffff"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_charge_unit"
+            app:layout_goneMarginStart="0dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

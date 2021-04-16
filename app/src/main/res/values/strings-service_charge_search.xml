@@ -14,4 +14,10 @@
     <string name="sm_evss01_10">필터</string>
     <string name="sm_evss01_11">초기화</string>
     <string name="sm_evss01_12">상세 경로보기</string>
+    <string name="sm_evss01_13">자세히 보기</string>
+
+    <string name="sm_evss02_01">초고속 %d대</string>
+    <string name="sm_evss02_02">고속 %d대</string>
+    <string name="sm_evss02_03">완속 %d대</string>
+    <string name="sm_evss03_04">사용가능</string>
 </resources>
