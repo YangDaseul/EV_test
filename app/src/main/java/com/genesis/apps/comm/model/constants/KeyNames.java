@@ -90,4 +90,6 @@ public interface KeyNames {
     String KEY_NAME_IS_SHOW_COMPLETE = "isShowComplete";
 
     String KEY_NAME_CAR_REG_NO = "carRegNo";
+
+    String KEY_NAME_CHARGE_TYPE = "chargeType";
 }
