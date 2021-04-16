@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.myg.MyGCreditUseListActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/x_ffffff">
+
+        <include
+            android:id="@+id/l_title"
+            layout="@layout/layout_titlebar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:value="@{@string/mg_cp_01_1}" />
+
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/sc"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_title">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_point_save_info"
+                    android:layout_width="0dp"
+                    android:layout_height="83dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_ffffff_stroke_e5e5e5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_title_point_save"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:gravity="center"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="9dp"
+                        android:includeFontPadding="false"
+                        android:text="@string/mg_cp_01_2"
+                        android:textColor="@color/x_262626"
+                        android:textSize="14dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tv_point_save"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/light_genesissansheadglobal"
+                        android:gravity="center"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="-1dp"
+                        android:textColor="@color/x_996449"
+                        android:textSize="22dp"
+                        android:includeFontPadding="false"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintHorizontal_bias="1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_point_save_unit"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/tv_title_point_save"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="275,000,000" />
+
+                    <TextView
+                        android:id="@+id/tv_point_save_unit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginStart="2dp"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:gravity="center"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="6dp"
+                        android:text="원"
+                        android:textColor="@color/x_996449"
+                        android:textSize="12dp"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/tv_point_save"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/tv_point_save" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                <RadioGroup
+                    android:id="@+id/r_group"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/l_point_save_info"
+                    app:layout_constraintVertical_bias="0.8">
+
+
+                    <RadioButton
+                        android:id="@+id/r_1"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_date"
+                        android:button="@null"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:gravity="center"
+                        android:letterSpacing="-0.03"
+                        android:lineSpacingExtra="6dp"
+                        android:onClick="@{(view)->activity.setDateAuto(view)}"
+                        android:text="@string/mg_member04_8"
+                        android:textColor="@drawable/selector_tab_gold"
+                        android:textSize="14dp"
+                        tools:checked="true" />
+
+
+                    <RadioButton
+                        android:id="@+id/r_7"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_date"
+                        android:button="@null"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:gravity="center"
+                        android:letterSpacing="-0.03"
+                        android:lineSpacingExtra="6dp"
+                        android:onClick="@{(view)->activity.setDateAuto(view)}"
+                        android:text="@string/mg_member04_9"
+                        android:textColor="@drawable/selector_tab_gold"
+                        android:textSize="14dp" />
+
+
+                    <RadioButton
+                        android:id="@+id/r_30"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_date"
+                        android:button="@null"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:gravity="center"
+                        android:letterSpacing="-0.03"
+                        android:lineSpacingExtra="6dp"
+                        android:onClick="@{(view)->activity.setDateAuto(view)}"
+                        android:text="@string/mg_member04_10"
+                        android:textColor="@drawable/selector_tab_gold"
+                        android:textSize="14dp" />
+
+
+                    <RadioButton
+                        android:id="@+id/r_180"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_date"
+                        android:button="@null"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:gravity="center"
+                        android:letterSpacing="-0.03"
+                        android:lineSpacingExtra="6dp"
+                        android:onClick="@{(view)->activity.setDateAuto(view)}"
+                        android:text="@string/mg_member04_11"
+                        android:textColor="@drawable/selector_tab_gold"
+                        android:textSize="14dp" />
+                </RadioGroup>
+
+
+                <TextView
+                    android:id="@+id/btn_start_date"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/ripple_bg_ffffff_stroke_000000"
+                    android:drawableEnd="@drawable/ic_calendar"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:gravity="center_vertical"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="6dp"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:textColor="@color/x_000000"
+                    android:textSize="15dp"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_end_date"
+                    app:layout_constraintStart_toStartOf="@+id/r_group"
+                    app:layout_constraintTop_toBottomOf="@+id/r_group"
+                    tools:text="2020.07.29" />
+
+                <TextView
+                    android:id="@+id/btn_end_date"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/ripple_bg_ffffff_stroke_000000"
+                    android:drawableEnd="@drawable/ic_calendar"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:gravity="center_vertical"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="6dp"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:textColor="@color/x_000000"
+                    android:textSize="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btn_start_date"
+                    app:layout_constraintTop_toTopOf="@+id/btn_start_date"
+                    tools:text="2020.07.30" />
+
+
+                <RadioGroup
+                    android:id="@+id/r_group_2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_start_date">
+
+
+                    <RadioButton
+                        android:id="@+id/r_all"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_date"
+                        android:button="@null"
+                        android:checked="true"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:gravity="center"
+                        android:letterSpacing="-0.03"
+                        android:lineSpacingExtra="6dp"
+                        android:visibility="visible"
+                        android:text="@string/word_membership_7"
+                        android:textColor="@drawable/selector_tab_gold"
+                        android:textSize="14dp" />
+
+
+                    <RadioButton
+                        android:id="@+id/r_save"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:visibility="visible"
+                        android:background="@drawable/selector_date"
+                        android:button="@null"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:gravity="center"
+                        android:letterSpacing="-0.03"
+                        android:lineSpacingExtra="6dp"
+                        android:text="@string/word_membership_8"
+                        android:textColor="@drawable/selector_tab_gold"
+                        android:textSize="14dp" />
+
+
+                    <RadioButton
+                        android:id="@+id/r_use"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_date"
+                        android:button="@null"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:gravity="center"
+                        android:letterSpacing="-0.03"
+                        android:lineSpacingExtra="6dp"
+                        android:visibility="visible"
+                        android:text="@string/word_membership_9"
+                        android:textColor="@drawable/selector_tab_gold"
+                        android:textSize="14dp" />
+
+
+                    <RadioButton
+                        android:id="@+id/r_cancel"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_date"
+                        android:button="@null"
+                        android:fontFamily="@font/regular_genesissanstextglobal"
+                        android:gravity="center"
+                        android:letterSpacing="-0.03"
+                        android:lineSpacingExtra="6dp"
+                        android:visibility="visible"
+                        android:text="@string/word_membership_10"
+                        android:textColor="@drawable/selector_tab_gold"
+                        android:textSize="14dp" />
+                </RadioGroup>
+
+
+                <TextView
+                    android:id="@+id/btn_query"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/ripple_bg_111111"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:gravity="center"
+                    android:letterSpacing="-0.01"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
+                    android:text="@string/mg_member04_12"
+                    android:textColor="@color/x_ffffff"
+                    android:textSize="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/r_group_2" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_f8f8f8_stroke_e5e5e5"
+                    android:padding="20dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_query"
+                    tools:listitem="@layout/item_use_point" />
+
+
+                <TextView
+                    android:id="@+id/tv_empty"
+                    android:layout_width="0dp"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_f8f8f8_stroke_e5e5e5"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:gravity="center"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="10dp"
+                    android:text="@string/mg_member04_13"
+                    android:textColor="@color/x_262626"
+                    android:textSize="18dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_query"
+                    tools:visibility="visible" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

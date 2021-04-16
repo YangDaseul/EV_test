@@ -74,7 +74,15 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     @Override
     protected void onResume() {
         super.onResume();
-        mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
+        if(mainVehicle!=null&&mainVehicle.isEV()){
+            //todo 크레딧포인트 요청 전문 추가 필요
+            ui.lOil.lParent.setVisibility(View.GONE);
+            ui.vLine02.setVisibility(View.GONE);
+        }else {
+            mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
+            ui.lOil.lParent.setVisibility(View.VISIBLE);
+            ui.vLine02.setVisibility(View.VISIBLE);
+        }
         mypViewModel.reqMYP1005(new MYP_1005.Request(APPIAInfo.MG01.getId(), ""));
         setViewNotiBadge();
         reqInsightExpn();
@@ -291,7 +299,6 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
     private void initView() {
@@ -398,6 +405,9 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         Log.v("test duplicate", "id:" + v.getId());
         if (v != null) {
             switch (v.getId()) {
+                case R.id.l_credit://충전 크레딧 포인트 사용 내역
+                    startActivitySingleTop(new Intent(this, MyGCreditUseListActivity.class).putExtra(KeyNames.KEY_NAME_MEMBERSHIP_MBR_MGMT_NO, ""), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    break;
                 case R.id.btn_insight_expn://인사이트 자세히 보기
                     startActivitySingleTop(new Intent(this, InsightExpnMainActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
