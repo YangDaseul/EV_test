@@ -34,7 +34,52 @@ public class EPTRepo {
         RES_EPT_1001.setValue(NetUIResponse.loading(null));
 
         // TODO 테스트 데이터. API가 정상 작동시 삭제 필요.
-        String dummyData = "";
+        String dummyData = "{\n" +
+                "  \"rtCd\": \"0000\",\n" +
+                "  \"rtMsg\": \"test message\",\n" +
+                "  \"chgList\": [\n" +
+                "    {\n" +
+                "      \"bid\": \"11\",\n" +
+                "      \"sid\": \"12345\",\n" +
+                "      \"eid\": \"22\",\n" +
+                "      \"chgName\": \"현대EV스테이션 현대EV스테이션 현대EV스테이션 강남\",\n" +
+                "      \"dist\": \"1.1\",\n" +
+                "      \"addr\": \"서울특별시 금천구 시흥대로 333 (가산동)\",\n" +
+                "      \"lat\": \"37.480229\",\n" +
+                "      \"lot\": \"126.883700\",\n" +
+                "      \"opName\": \"운영사업자 1\",\n" +
+                "      \"opTime\": \"운영시간 1\",\n" +
+                "      \"opTelNo\": \"00-0000-0000\",\n" +
+                "      \"chgStusCd\": \"OPEN\",\n" +
+                "      \"chgPrice\": \"10000\",\n" +
+                "      \"chgTypCd\": \"GENESIS\",\n" +
+                "      \"carPayUseYn\": \"Y\",\n" +
+                "      \"superSpeedCnt\": \"11\",\n" +
+                "      \"highSpeedCnt\": \"2\",\n" +
+                "      \"slowSpeedCnt\": \"0\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"bid\": \"11\",\n" +
+                "      \"sid\": \"1234511\",\n" +
+                "      \"eid\": \"22\",\n" +
+                "      \"chgName\": \"EV스테이션 가산\",\n" +
+                "      \"dist\": \"11.5\",\n" +
+                "      \"addr\": \"서울특별시 금천구 50-3\",\n" +
+                "      \"lat\": \"37.478096\",\n" +
+                "      \"lot\": \"126.884548\",\n" +
+                "      \"opName\": \"운영사업자 1\",\n" +
+                "      \"opTime\": \"운영시간 1\",\n" +
+                "      \"opTelNo\": \"00-0000-0000\",\n" +
+                "      \"chgStusCd\": \"READY\",\n" +
+                "      \"chgPrice\": \"10000\",\n" +
+                "      \"chgTypCd\": \"GENESIS\",\n" +
+                "      \"carPayUseYn\": \"Y\",\n" +
+                "      \"superSpeedCnt\": \"11\",\n" +
+                "      \"highSpeedCnt\": \"2\",\n" +
+                "      \"slowSpeedCnt\": \"0\"\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}";
         RES_EPT_1001.setValue(NetUIResponse.success(new Gson().fromJson(dummyData, EPT_1001.Response.class)));
 
         /*

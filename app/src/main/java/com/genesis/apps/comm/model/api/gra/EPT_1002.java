@@ -64,18 +64,18 @@ public class EPT_1002 extends BaseData {
 
     /**
      * @brief EPT_1002 응답 항목
-     * @see #reservList 충전소정보
+     * @see #chgList 충전소정보
      * @see #chgrList 충전기 정보
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     static class Response extends BaseResponse {
         @Expose
-        @SerializedName("reservList")
-        private ChargeEptInfoVO reservList;
+        @SerializedName("chgList")
+        private ChargeEptInfoVO chgList;
 
         @Expose
         @SerializedName("chgrList")
         private List<ChargerEptVO> chgrList;
     }
-} // end of class EPT_1001
+} // end of class EPT_1002

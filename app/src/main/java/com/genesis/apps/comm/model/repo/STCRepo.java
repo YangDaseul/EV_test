@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APIInfo;
-import com.genesis.apps.comm.model.api.gra.CHB_1015;
 import com.genesis.apps.comm.model.api.gra.STC_1001;
 import com.genesis.apps.comm.model.api.gra.STC_1002;
 import com.genesis.apps.comm.model.api.gra.STC_1003;
@@ -41,7 +40,7 @@ public class STCRepo {
         RES_STC_1001.setValue(NetUIResponse.loading(null));
 
         // TODO 테스트 데이터. API가 정상 작동시 삭제 필요.
-        String dummyData = "";
+        String dummyData = "{\"rtCd\":\"0000\",\"rtMsg\":\"test message\",\"reservList\":[{\"sid\":\"123456\",\"chgName\":\"현대EV스테이션 현대EV스테이션 현대EV 스테이션 강남\",\"dist\":\"11.11\",\"reservYn\":\"Y\",\"carPayUseYn\":\"Y\",\"lat\":\"37.479928\",\"lot\":\"126.883741\",\"superSpeedCnt\":\"2\",\"highSpeedCnt\":\"1\",\"slowSpeedCnt\":\"7\"}],\"searchList\":[{\"sid\":\"234567\",\"chgName\":\"제네시스 EV 스테이션\",\"dist\":\"22.1\",\"reservYn\":\"Y\",\"carPayUseYn\":\"N\",\"lat\":\"37.479875\",\"lot\":\"126.884081\",\"superSpeedCnt\":\"1\",\"highSpeedCnt\":\"0\",\"slowSpeedCnt\":\"11\"},{\"sid\":\"11234567\",\"chgName\":\"제네시스 EV 스테이션 22\",\"dist\":\"11\",\"reservYn\":\"Y\",\"carPayUseYn\":\"N\",\"lat\":\"37.484728\",\"lot\":\"126.881471\",\"superSpeedCnt\":\"1\",\"highSpeedCnt\":\"0\",\"slowSpeedCnt\":\"11\"}]}";
         RES_STC_1001.setValue(NetUIResponse.success(new Gson().fromJson(dummyData, STC_1001.Response.class)));
         /*
         netCaller.reqDataToGRA(new NetResultCallback() {

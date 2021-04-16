@@ -48,8 +48,8 @@ class ChargerEptVO extends BaseData {
     @SerializedName("chgSpeedCd")
     private String chgSpeedCd;
     @Expose
-    @SerializedName("chgStusCd")
-    private String chgStusCd;
+    @SerializedName("chgrStusCd")
+    private String chgrStusCd;
     @Expose
     @SerializedName("reservYn")
     private String reservYn;

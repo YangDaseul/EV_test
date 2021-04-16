@@ -62,4 +62,4 @@ public class EPT_1003 extends BaseData {
         @SerializedName("revwList")
         private List<ReviewVO> revwList;
     }
-} // end of class EPT_1001
+} // end of class EPT_1003
