@@ -1,6 +1,7 @@
 package com.genesis.apps.comm.model.vo;
 
 import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.StringUtil;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -157,6 +158,6 @@ class VehicleVO extends BaseData {
     public boolean isEV(){
         //TODO 서버에서 EV차량에 대한 코드가 추가되면 아래 주석으로 변경 필요
 //        return StringUtil.isValidString(evCd).equalsIgnoreCase("EV");
-        return !StringUtil.isValidString(evCd).equalsIgnoreCase("EV");
+        return !StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV);
     }
 }

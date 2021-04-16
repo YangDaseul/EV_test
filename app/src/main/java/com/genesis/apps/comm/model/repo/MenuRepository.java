@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.MenuVO;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.SoundSearcher;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
@@ -43,9 +44,11 @@ public class MenuRepository {
      * @return
      */
     public MutableLiveData<NetUIResponse<List<MenuVO>>> getMenuList(){
-        menuList.setValue(NetUIResponse.success(APPIAInfo.getQuickMenus(VariableType.getQuickMenuCode(getCustGbCd()))));
+        menuList.setValue(NetUIResponse.success(APPIAInfo.getQuickMenus(VariableType.getQuickMenuCode(getCustGbCd()), getEvCd())));
         return menuList;
     }
+
+
 
     private String getCustGbCd(){
         String custGbCd="";
@@ -58,6 +61,19 @@ public class MenuRepository {
                 custGbCd = VariableType.MAIN_VEHICLE_TYPE_0000;
         }
         return custGbCd;
+    }
+
+    private String getEvCd(){
+        String evCd="";
+        try {
+            evCd = databaseHolder.getDatabase().vehicleDao().selectMainVehicle().getEvCd();
+        }catch (Exception e){
+            evCd = "";
+        }
+        //todo 하드코딩 제거 필요 (ev차량 구분)
+        evCd = VariableType.VEHICLE_CODE_EV;
+
+        return evCd;
     }
 
 
@@ -252,7 +268,7 @@ public class MenuRepository {
         if(TextUtils.isEmpty(keyword)){
 //            temps = databaseHolder.getDatabase().menuDao().selectAll();
         }else{
-            List<MenuVO> menuList = APPIAInfo.getQuickMenus(VariableType.getQuickMenuCode(getCustGbCd()));
+            List<MenuVO> menuList = APPIAInfo.getQuickMenus(VariableType.getQuickMenuCode(getCustGbCd()), getEvCd());
             for(MenuVO data : menuList){
                 String[] compares = {data.getName()};
                 for (String compare : compares) {
