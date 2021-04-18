@@ -78,10 +78,12 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
             //todo 크레딧포인트 요청 전문 추가 필요
             ui.lOil.lParent.setVisibility(View.GONE);
             ui.vLine02.setVisibility(View.GONE);
+            ui.lCredit.setVisibility(View.VISIBLE);
         }else {
             mypViewModel.reqMYP1006(new MYP_1006.Request(APPIAInfo.MG01.getId()));
             ui.lOil.lParent.setVisibility(View.VISIBLE);
             ui.vLine02.setVisibility(View.VISIBLE);
+            ui.lCredit.setVisibility(View.GONE);
         }
         mypViewModel.reqMYP1005(new MYP_1005.Request(APPIAInfo.MG01.getId(), ""));
         setViewNotiBadge();

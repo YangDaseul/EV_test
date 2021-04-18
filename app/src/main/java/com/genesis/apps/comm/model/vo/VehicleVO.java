@@ -156,8 +156,13 @@ class VehicleVO extends BaseData {
     private String evCd;
 
     public boolean isEV(){
-        //TODO 서버에서 EV차량에 대한 코드가 추가되면 아래 주석으로 변경 필요
-//        return StringUtil.isValidString(evCd).equalsIgnoreCase("EV");
-        return !StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV);
+//        if(Math.floor(Math.random() * 10) < 5){
+//            return !StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV);
+//        }else{
+//            return StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV);
+//        }
+//TODO 서버에서 EV차량에 대한 코드가 추가되면 아래 주석으로 변경 필요
+          return !StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV);
+//        return StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV);
     }
 }
