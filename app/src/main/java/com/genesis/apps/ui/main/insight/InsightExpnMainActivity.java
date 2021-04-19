@@ -28,6 +28,7 @@ import com.genesis.apps.comm.util.RecyclerViewDecoration;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.graph.AxisValueFormatter;
+import com.genesis.apps.comm.util.graph.EvAxisValueFormatter;
 import com.genesis.apps.comm.util.graph.RoundedBarChartRenderer;
 import com.genesis.apps.comm.viewmodel.CBKViewModel;
 import com.genesis.apps.databinding.ActivityInsightExpnMainBinding;
@@ -462,8 +463,8 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                     int position = (int) e.getX();
                     int expn = (int) e.getY();
                     if (expn > 0) {
-                        String item = AxisValueFormatter.xNames[position];
-                        String msg = String.format(Locale.getDefault(), getString(position == 3 ? R.string.tm_exps01_28 : R.string.tm_exps01_27), item, StringUtil.getDigitGroupingString(Integer.toString(expn)));
+                        String item = selectVehicle.isEV() ? EvAxisValueFormatter.xNames[position] :AxisValueFormatter.xNames[position];
+                        String msg = String.format(Locale.getDefault(), getString(position == (selectVehicle.isEV() ? 4 : 3) ? R.string.tm_exps01_28 : R.string.tm_exps01_27), item, StringUtil.getDigitGroupingString(Integer.toString(expn)));
                         SnackBarUtil.show(InsightExpnMainActivity.this, msg);
                     }
                 } catch (Exception ignore) {
@@ -479,10 +480,10 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
 
         //x축에 대한 정의
         XAxis xAxis = ui.chart.getXAxis();
-        xAxis.setValueFormatter(new AxisValueFormatter());
+        xAxis.setValueFormatter(selectVehicle.isEV() ? new EvAxisValueFormatter() : new AxisValueFormatter());
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
-        xAxis.setLabelCount(4);
+        xAxis.setLabelCount(selectVehicle.isEV() ? 5 : 4);
         xAxis.setTextColor(ContextCompat.getColor(this, R.color.x_bf000000));
         xAxis.setTextSize(12f);
         xAxis.setTypeface(ResourcesCompat.getFont(this, R.font.regular_genesissanstextglobal));
