@@ -16,7 +16,9 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.RepairReserveVO;
 import com.genesis.apps.comm.model.vo.RepairTypeVO;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentServiceBinding;
 import com.genesis.apps.databinding.ItemTabServiceBinding;
 import com.genesis.apps.ui.common.activity.BaseActivity;
@@ -31,45 +33,78 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 
 public class FragmentService extends SubFragment<FragmentServiceBinding> {
     private static final String TAG = FragmentService.class.getSimpleName();
+    private final int[] TAB_ID_LIST_EV = {R.string.sm01_header_4, R.string.sm01_header_1, R.string.sm01_header_2, R.string.sm01_header_3};
+    private final int[] TAB_ID_LIST_GN = {R.string.sm01_header_1, R.string.sm01_header_2, R.string.sm01_header_3};
 
-    private final int[] TAB_ID_LIST = {R.string.sm01_header_1, R.string.sm01_header_2, R.string.sm01_header_3, R.string.sm01_header_4};
-
-    public FragmentStateAdapter serviceTabAdapter;
-
+    public ServiceViewpagerAdapter serviceTabAdapter;
+    private LGNViewModel lgnViewModel;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return super.setContentView(inflater, R.layout.fragment_service);
     }
 
     private void initView() {
-        serviceTabAdapter = new ServiceViewpagerAdapter(this, TAB_ID_LIST.length);
+        serviceTabAdapter = new ServiceViewpagerAdapter(this);
         me.vpServiceContentsViewPager.setAdapter(serviceTabAdapter);
-//        me.vpServiceContentsViewPager.setUserInputEnabled(false);
-        setTabView();
-
+        initTabView();
         //ViewPager Setting
         me.vpServiceContentsViewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         me.vpServiceContentsViewPager.setCurrentItem(0);
-        me.vpServiceContentsViewPager.setOffscreenPageLimit(TAB_ID_LIST.length);
+        me.vpServiceContentsViewPager.setOffscreenPageLimit(TAB_ID_LIST_EV.length);
     }
 
     //탭 헤더 세팅
-    private void setTabView() {
-        new TabLayoutMediator(me.tlServiceTabs, me.vpServiceContentsViewPager, (tab, position) -> {
-        }).attach();
+    private void initTabView() {
+        new TabLayoutMediator(me.tlServiceTabs, me.vpServiceContentsViewPager, (tab, position) -> { }).attach();
 
-        for(int i=0 ; i<TAB_ID_LIST.length; i++) {
+        for(int i=0 ; i<TAB_ID_LIST_EV.length; i++) {
             final LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             final ItemTabServiceBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_tab_service, null, false);
             final View view = binding.getRoot();
-            binding.tvTab.setText(TAB_ID_LIST[i]);
+            binding.tvTab.setText(TAB_ID_LIST_EV[i]);
             me.tlServiceTabs.getTabAt(i).setCustomView(view);
+        }
+    }
+
+    //탭 헤더 세팅
+    private void refreshTabView(final int[] tabList) {
+        if(me.tlServiceTabs.getTabCount()>0)
+            me.tlServiceTabs.removeAllTabs();
+
+        new TabLayoutMediator(me.tlServiceTabs, me.vpServiceContentsViewPager, (tab, position) -> { }).attach();
+
+        for(int i=0 ; i<tabList.length; i++) {
+            final LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final ItemTabServiceBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_tab_service, null, false);
+            final View view = binding.getRoot();
+            binding.tvTab.setText(tabList[i]);
+            me.tlServiceTabs.getTabAt(i).setCustomView(view);
+        }
+    }
+
+    private void refreshTab(){
+        VehicleVO vehicleVO = null;
+        try{
+            vehicleVO = lgnViewModel.getMainVehicleSimplyFromDB();
+        }catch (Exception e){
+
+        }
+        if(vehicleVO!=null&&vehicleVO.isEV()){
+            if(serviceTabAdapter.getItemCount()<4){
+                serviceTabAdapter.addFragmentCharge();
+                refreshTabView(TAB_ID_LIST_EV);
+            }
+        }else{
+            if(serviceTabAdapter.getItemCount()>3) {
+                serviceTabAdapter.removeFragmentCharge();
+                refreshTabView(TAB_ID_LIST_GN);
+            }
         }
     }
 
@@ -85,6 +120,7 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
         me.setLifecycleOwner(getViewLifecycleOwner());
         me.setFragment(this);
         initViewPager();
+        lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
     }
 
     private void initViewPager() {
@@ -110,6 +146,7 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
         Log.e("onResume", "onReusme contents");
         SubActivity.setStatusBarColor(getActivity(), R.color.x_ffffff);
         ((MainActivity) getActivity()).setGNB(getString(R.string.main_word_3), View.VISIBLE, false, true);
+        refreshTab();
     }
 
     @Override

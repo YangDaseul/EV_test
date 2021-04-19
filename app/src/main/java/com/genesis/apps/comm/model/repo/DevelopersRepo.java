@@ -14,6 +14,7 @@ import com.genesis.apps.comm.model.api.developers.Detail;
 import com.genesis.apps.comm.model.api.developers.Distance;
 import com.genesis.apps.comm.model.api.developers.Dtc;
 import com.genesis.apps.comm.model.api.developers.Dte;
+import com.genesis.apps.comm.model.api.developers.EvStatus;
 import com.genesis.apps.comm.model.api.developers.Odometer;
 import com.genesis.apps.comm.model.api.developers.Odometers;
 import com.genesis.apps.comm.model.api.developers.ParkLocation;
@@ -46,6 +47,7 @@ public class DevelopersRepo {
     public final MutableLiveData<NetUIResponse<CarId.Response>> RES_CAR_ID = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<CarConnect.Response>> RES_CAR_CONNECT = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<Agreements.Response>> RES_CAR_AGREEMENTS = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<EvStatus.Response>> RES_EV_STATUS = new MutableLiveData<>();
 
 
 
@@ -371,6 +373,29 @@ public class DevelopersRepo {
 
         return RES_CAR_AGREEMENTS;
     }
+
+    public MutableLiveData<NetUIResponse<EvStatus.Response>> REQ_EV_STATUS(final EvStatus.Request reqData) {
+        RES_EV_STATUS.setValue(NetUIResponse.loading(null));
+        netCaller.reqDataFromAnonymous(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_EV_STATUS.setValue(NetUIResponse.success(new Gson().fromJson(object, EvStatus.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_EV_STATUS.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_EV_STATUS.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, GAInfo.CCSP_URL, APIInfo.DEVELOPERS_EVSTATUS, reqData);
+
+        return RES_EV_STATUS;
+    }
+
 
     public CarCheck.Response REQ_SYNC_CAR_CHECK(final CarCheck.Request reqData) {
         CarCheck.Response response;

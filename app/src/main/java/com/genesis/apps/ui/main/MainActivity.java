@@ -20,6 +20,7 @@ import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.StoreInfo;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
@@ -86,7 +87,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         setViewModel();
         setObserver();
         initView();
-        initBarcode();
+//        initBarcode();
     }
 
     private void initBarcode() {
@@ -101,6 +102,23 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
             }
         }
     }
+
+    private void setBarcode() {
+        String custGbCd = "";
+        VehicleVO vehicleVO = null;
+        try {
+            custGbCd = lgnViewModel.getUserInfoFromDB().getCustGbCd();
+            vehicleVO = lgnViewModel.getMainVehicleSimplyFromDB();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (!TextUtils.isEmpty(custGbCd) && !custGbCd.equalsIgnoreCase(VariableType.MAIN_VEHICLE_TYPE_0000)) {
+                ui.lGnb.setIsEV(vehicleVO!=null&&vehicleVO.isEV());
+                ui.lGnb.setUseBarcode(true);
+            }
+        }
+    }
+
 
     private void initView() {
         pagerAdapter = new MainViewpagerAdapter(this, pageNum);
@@ -182,7 +200,19 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 
         switch (v.getId()) {
             case R.id.btn_barcode:
-                startActivitySingleTop(new Intent(this, BarcodeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
+                boolean isEv=false;
+                try{
+                    isEv = (Boolean)v.getTag();
+                }catch (Exception ignore){
+
+                }finally {
+                    if(isEv){
+                        //TODO ev 차량인 경우 페이지 이동처리 필요
+                    }else{
+                        //내연기관 차량인 경우 바코드로 이동
+                        startActivitySingleTop(new Intent(this, BarcodeActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_NONE);
+                    }
+                }
                 break;
             case R.id.btn_alarm:
                 startActivitySingleTop(new Intent(this, AlarmCenterActivity.class), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
@@ -287,6 +317,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
         Log.e("onResume", "onReusme Mainactivity");
         checkPushCode();
         reqNewNotiCnt();
+        setBarcode();
     }
 
     public String getCustGbCd() {
