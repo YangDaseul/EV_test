@@ -28,6 +28,7 @@ import com.genesis.apps.comm.util.RecyclerViewDecoration;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.graph.AxisValueFormatter;
+import com.genesis.apps.comm.util.graph.CustomXAxisRenderer;
 import com.genesis.apps.comm.util.graph.EvAxisValueFormatter;
 import com.genesis.apps.comm.util.graph.RoundedBarChartRenderer;
 import com.genesis.apps.comm.viewmodel.CBKViewModel;
@@ -36,6 +37,7 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -67,8 +69,8 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insight_expn_main);
-        getDataFromIntent();
         setViewModel();
+        getDataFromIntent();
         setObserver();
         initView();
         cbkViewModel.reqCBK1001(new CBK_1001.Request(APPIAInfo.TM_EXPS01_P03.getId()));
@@ -352,6 +354,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
 
                             //그래프 셋팅. 첫번째 페이지 로드시에만
                             if (adapter.getPageNo() == 1) {
+                                initGraph();
                                 setGraph(result.data);
                             }
                         } catch (Exception e) {
@@ -404,6 +407,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
         if(adapter.getItemCount()<1){
             ui.tvEmpty.setVisibility(View.VISIBLE);
             adapter.clear();
+            initGraph();
             setGraph(new CBK_1002.Response());
         }else{
             ui.tvEmpty.setVisibility(View.GONE);
@@ -413,7 +417,12 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
 
     @Override
     public void getDataFromIntent() {
+        try {
+            //그래프 초기화를 위해 최초 진입 시 주 이용 차량으로 셋팅
+            selectVehicle = cbkViewModel.getMainVehicleSimplyFromDB();
+        }catch (Exception e){
 
+        }
     }
 
     private int isValidInteger(String value) {
@@ -440,13 +449,16 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
         ui.chart.getAxisRight().setSpaceBottom(0f);
         ui.chart.getAxisLeft().setSpaceTop(0f);
         ui.chart.getAxisRight().setSpaceTop(0f);
-        ui.chart.setExtraOffsets(0, 0, 0, 12);
+        ui.chart.setExtraOffsets(0, 20, 0, 12);
         ui.chart.setAutoScaleMinMaxEnabled(false);
+        //차트의 기본 패딩을 초기화
+        ui.chart.setMinOffset(0f);
 
         //좌측의 y축은 사용하지 않음
         ui.chart.getAxisLeft().setEnabled(false);
 
         //우측의 y축에 대한 정의
+        ui.chart.getAxisRight().setDrawZeroLine(true); //제로 라인 두께 설정
         ui.chart.getAxisRight().setZeroLineColor(ContextCompat.getColor(this, R.color.x_4d4d4d));
         ui.chart.getAxisRight().setGridColor(ContextCompat.getColor(this, R.color.x_e5e5e5));
         ui.chart.getAxisRight().setAxisLineColor(ContextCompat.getColor(this, R.color.x_00000000));
@@ -487,7 +499,10 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
         xAxis.setTextColor(ContextCompat.getColor(this, R.color.x_bf000000));
         xAxis.setTextSize(12f);
         xAxis.setTypeface(ResourcesCompat.getFont(this, R.font.regular_genesissanstextglobal));
-        //위 차트 속성에대한 정의는 최초1회만 진행
+        //        xAxis.setGranularity(1);
+        //x축 라벨이 2줄일 경우 2줄처리 진행
+        ui.chart.setExtraBottomOffset(12f+(12f*1.5f));
+        ui.chart.setXAxisRenderer(new CustomXAxisRenderer(ui.chart.getViewPortHandler(), ui.chart.getXAxis(), ui.chart.getTransformer(YAxis.AxisDependency.LEFT)));
     }
 
     private void setGraph(CBK_1002.Response item) {
@@ -519,11 +534,18 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
 
         //데이터 추가
         ArrayList<BarEntry> values = new ArrayList<>();
-        values.add(new BarEntry(0, Float.parseFloat(item.getRefulSumAmt())));
-        values.add(new BarEntry(1, Float.parseFloat(item.getRparSumAmt())));
-        values.add(new BarEntry(2, Float.parseFloat(item.getCarWshSumAmt())));
-        values.add(new BarEntry(3, Float.parseFloat(item.getEtcSumAmt())));
-
+        if(selectVehicle!=null&&selectVehicle.isEV()){
+            values.add(new BarEntry(0, Float.parseFloat(item.getRefulSumAmt())));
+            values.add(new BarEntry(1, Float.parseFloat(item.getChargeCreditSumAmt())));
+            values.add(new BarEntry(2, Float.parseFloat(item.getRparSumAmt())));
+            values.add(new BarEntry(3, Float.parseFloat(item.getCarWshSumAmt())));
+            values.add(new BarEntry(4, Float.parseFloat(item.getEtcSumAmt())));
+        }else {
+            values.add(new BarEntry(0, Float.parseFloat(item.getRefulSumAmt())));
+            values.add(new BarEntry(1, Float.parseFloat(item.getRparSumAmt())));
+            values.add(new BarEntry(2, Float.parseFloat(item.getCarWshSumAmt())));
+            values.add(new BarEntry(3, Float.parseFloat(item.getEtcSumAmt())));
+        }
         BarDataSet set1;
         //한번 데이터가 로드됬을 경우
         if (ui.chart.getData() != null &&
@@ -565,7 +587,8 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
             totalAmt = parsingStringToInt(item.getEtcSumAmt()) +
                     parsingStringToInt(item.getRefulSumAmt()) +
                     parsingStringToInt(item.getRparSumAmt()) +
-                    parsingStringToInt(item.getCarWshSumAmt());
+                    parsingStringToInt(item.getCarWshSumAmt()) +
+                    (selectVehicle!=null&&selectVehicle.isEV() ? parsingStringToInt(item.getChargeCreditSumAmt()) : 0);
 
             currentAmt = StringUtil.getDigitGroupingString((Integer.toString(totalAmt)));
         } catch (Exception e) {
@@ -595,6 +618,9 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
             list.add(TextUtils.isEmpty(data.getRparSumAmt()) ? 0 : Float.parseFloat(data.getRparSumAmt()));
             list.add(TextUtils.isEmpty(data.getCarWshSumAmt()) ? 0 : Float.parseFloat(data.getCarWshSumAmt()));
             list.add(TextUtils.isEmpty(data.getEtcSumAmt()) ? 0 : Float.parseFloat(data.getEtcSumAmt()));
+            if(selectVehicle!=null&&selectVehicle.isEV())
+                list.add(TextUtils.isEmpty(data.getChargeCreditSumAmt()) ? 0 : Float.parseFloat(data.getChargeCreditSumAmt()));
+
             maxValue = list.stream().max(Comparator.comparingDouble(o -> o)).orElse(0f);
         } catch (Exception e) {
             e.printStackTrace();

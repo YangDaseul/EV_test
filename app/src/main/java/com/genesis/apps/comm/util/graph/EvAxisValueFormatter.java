@@ -4,7 +4,6 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 
 /**
  * @brief X좌표 출력 처리
- * 그래프 사용 시 X좌표의 포맷을 month+월로 표기 처리
  */
 public class EvAxisValueFormatter extends ValueFormatter {
 
