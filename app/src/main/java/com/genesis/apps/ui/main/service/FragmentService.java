@@ -86,6 +86,8 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
             binding.tvTab.setText(tabList[i]);
             me.tlServiceTabs.getTabAt(i).setCustomView(view);
         }
+        //탭이 갱신되는 경우 무조건 첫번째로 초기화
+        if(me.vpServiceContentsViewPager.getCurrentItem()>0) me.vpServiceContentsViewPager.setCurrentItem(0);
     }
 
     private void refreshTab(){
