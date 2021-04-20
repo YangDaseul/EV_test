@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.constants.ChargePlaceStatus;
+import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
 import com.genesis.apps.databinding.ItemChargePlaceBinding;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
@@ -22,7 +22,7 @@ import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
  * @author Ki-man Kim
  * @since 2021-03-22
  */
-public class ChargePlaceListAdapter extends BaseRecyclerViewAdapter2<ChargePlaceListAdapter.DummyData> {
+public class ChargePlaceListAdapter extends BaseRecyclerViewAdapter2<ChargeEptInfoVO> {
     public ChargePlaceListAdapter() {
 
     }
@@ -34,72 +34,43 @@ public class ChargePlaceListAdapter extends BaseRecyclerViewAdapter2<ChargePlace
         return new ChargePlaceViewHolder(layoutInflater.inflate(R.layout.item_charge_place, parent, false));
     }
 
-    private static class ChargePlaceViewHolder extends BaseViewHolder<DummyData, ItemChargePlaceBinding> {
+    private static class ChargePlaceViewHolder extends BaseViewHolder<ChargeEptInfoVO, ItemChargePlaceBinding> {
         public ChargePlaceViewHolder(View itemView) {
             super(itemView);
         }
 
         @Override
-        public void onBindView(DummyData item) {
+        public void onBindView(ChargeEptInfoVO item) {
             ItemChargePlaceBinding binding = getBinding();
-            binding.tvChargeName.setText(item.name + " " + item.distance);
+            binding.tvChargeName.setText(item.getChgName() + " " + item.getDist());
 
-            switch (item.status) {
-                case FINISH_BOOK:
-                case ABLE_BOOK: {
-                    binding.tvChargeName.setText(Html.fromHtml(binding.tvChargeName.getText() + " | <font color=#996449>" + item.status.getName() + "</font>"));
-                    break;
-                }
-                default:
-                case CHECKING: {
-                    break;
-                }
-            }
+//            switch (item.status) {
+//                case FINISH_BOOK:
+//                case ABLE_BOOK: {
+//                    binding.tvChargeName.setText(Html.fromHtml(binding.tvChargeName.getText() + " | <font color=#996449>" + item.status.getName() + "</font>"));
+//                    break;
+//                }
+//                default:
+//                case CHECKING: {
+//                    break;
+//                }
+//            }
 
-            if (!TextUtils.isEmpty(item.statusDesc)) {
+            if (!TextUtils.isEmpty(item.getChgStusCd())) {
                 // 충전소 상태 표시.
-                binding.tvChargeStatus.setText(item.statusDesc);
+                ChargePlaceStatus status = ChargePlaceStatus.valueOf(item.getChgStusCd());
+                binding.tvChargeStatus.setText(status.getTitle());
             }
         }
 
         @Override
-        public void onBindView(DummyData item, int pos) {
+        public void onBindView(ChargeEptInfoVO item, int pos) {
 
         }
 
         @Override
-        public void onBindView(DummyData item, int pos, SparseBooleanArray selectedItems) {
+        public void onBindView(ChargeEptInfoVO item, int pos, SparseBooleanArray selectedItems) {
 
         }
-    }
-
-    public static class DummyData extends BaseData {
-        private String name;
-        private String distance;
-        private ChargePlaceStatus status;
-        private String statusDesc;
-
-        public DummyData(String name, String distance, ChargePlaceStatus status, String statusDesc) {
-            this.name = name;
-            this.distance = distance;
-            this.status = status;
-            this.statusDesc = statusDesc;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getDistance() {
-            return distance;
-        }
-
-        public ChargePlaceStatus getStatus() {
-            return status;
-        }
-
-        public String getStatusDesc() {
-            return statusDesc;
-        }
-    }
+    } // end of class ChargePlaceViewHolder
 } // end of class ChargePlaceListAdapter

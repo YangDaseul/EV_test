@@ -3,22 +3,32 @@ package com.genesis.apps.ui.main.service;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.constants.ChargePlaceStatus;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.EPT_1001;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
+import com.genesis.apps.comm.model.vo.ChargeSearchCategoryVO;
+import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.viewmodel.EPTViewModel;
+import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.ActivityChargeFindBinding;
-import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.main.ServiceNetworkActivity;
 import com.genesis.apps.ui.main.service.view.ChargePlaceListAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,8 +38,16 @@ import java.util.List;
  * @author Ki-man Kim
  * @since 2021-03-22
  */
-public class ChargeFindActivity extends SubActivity<ActivityChargeFindBinding> {
+public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBinding> implements InputChargePlaceFragment.FilterChangeListener {
+    private EvChargeStatusFragment evChargeStatusFragment;
+    private InputChargePlaceFragment inputChargePlaceFragment;
+
     private ChargePlaceListAdapter adapter;
+
+    private VehicleVO mainVehicleVO;
+
+    private REQViewModel reqViewModel;
+    private EPTViewModel eptViewModel;
 
     /****************************************************************************************************
      * Override Method - LifeCycle
@@ -42,17 +60,6 @@ public class ChargeFindActivity extends SubActivity<ActivityChargeFindBinding> {
         setViewModel();
         setObserver();
         initialize();
-
-        // TODO 테스트 코드
-        reqGetChargeList();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // TODO 테스트 코드
-        updateEvChargeStatus();
     }
 
     /****************************************************************************************************
@@ -64,9 +71,7 @@ public class ChargeFindActivity extends SubActivity<ActivityChargeFindBinding> {
             case R.id.iv_btn_map: {
                 // 충전소 찾기 지도 표시.
                 startActivitySingleTop(new Intent(this, ServiceNetworkActivity.class)
-//                        .putExtra(KeyNames.KEY_NAME_BTR, btrVO)
                                 .putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_EVCHARGE),
-//                                .putExtra(KeyNames.KEY_NAME_SERVICE_REPAIR_TYPE_CODE, repairTypeVO.getRparTypCd()),
                         RequestCodes.REQ_CODE_ACTIVITY.getCode(),
                         VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
@@ -85,11 +90,42 @@ public class ChargeFindActivity extends SubActivity<ActivityChargeFindBinding> {
     public void setViewModel() {
         ui.setLifecycleOwner(ChargeFindActivity.this);
         ui.setActivity(ChargeFindActivity.this);
+        reqViewModel = new ViewModelProvider(ChargeFindActivity.this).get(REQViewModel.class);
+        eptViewModel = new ViewModelProvider(ChargeFindActivity.this).get(EPTViewModel.class);
     }
 
     @Override
     public void setObserver() {
         // TODO 전문이 전달되면 해당 전문 코드 적용 필요
+        eptViewModel.getRES_EPT_1001().observe(ChargeFindActivity.this, result -> {
+            Log.d("FID", "test :: RES_EPT_1001 :: result.status=" + result.status);
+            switch (result.status) {
+                case LOADING: {
+                    showProgressDialog(true);
+                    break;
+                }
+                case SUCCESS: {
+                    showProgressDialog(false);
+                    Log.d("FID", "test :: 1111=" + result.data);
+                    if (result.data != null) {
+                        updateChargeList(result.data.getChgList());
+                    }
+                    break;
+                }
+                default: {
+                    String serverMsg = "";
+                    try {
+                        serverMsg = getString(R.string.snackbar_etc_3);
+                        //기획 요청으로 검색 결과가 없습니다 로 에러메시지 통일
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        showProgressDialog(false);
+                        SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    }
+                }
+            }
+        });
 
     }
 
@@ -99,10 +135,23 @@ public class ChargeFindActivity extends SubActivity<ActivityChargeFindBinding> {
 
     }
 
+    @Override
+    public void onFilterChanged(List<ChargeSearchCategoryVO> filterList) {
+        Log.d("FID", "test :: onFilterChanged :: filterList=" + filterList);
+    }
+
     /****************************************************************************************************
      * Method - Private
      ****************************************************************************************************/
     private void initialize() {
+        evChargeStatusFragment = EvChargeStatusFragment.newInstance();
+        inputChargePlaceFragment = InputChargePlaceFragment.newInstance();
+        inputChargePlaceFragment.setOnFilterChangedListener(ChargeFindActivity.this);
+        getSupportFragmentManager().beginTransaction()
+                .add(ui.vgEvStatusConstainer.getId(), evChargeStatusFragment)
+                .add(ui.vgInputChargePlace.getId(), inputChargePlaceFragment)
+                .commitAllowingStateLoss();
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(ChargeFindActivity.this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         ui.rvSearchResult.setLayoutManager(layoutManager);
@@ -113,33 +162,48 @@ public class ChargeFindActivity extends SubActivity<ActivityChargeFindBinding> {
 
         adapter = new ChargePlaceListAdapter();
         ui.rvSearchResult.setAdapter(adapter);
+
+        try {
+            mainVehicleVO = reqViewModel.getMainVehicle();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        reqMyLocation();
     }
 
-    private void updateEvChargeStatus() {
-        getSupportFragmentManager().beginTransaction()
-                .add(ui.vgEvStatusConstainer.getId(), EvChargeStatusFragment.newInstance())
-                .add(ui.vgInputChargePlace.getId(), InputChargePlaceFragment.newInstance())
-                .commitAllowingStateLoss();
+    private void reqMyLocation() {
+        Log.d("FID", "test :: reqMyLocation");
+        showProgressDialog(true);
+        findMyLocation(location -> {
+            showProgressDialog(false);
+            if (location == null) {
+                exitPage("위치 정보를 불러올 수 없습니다. GPS 상태를 확인 후 다시 시도해 주세요.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                return;
+            }
+            Log.d("FID", "test :: findMyLocation :: location=" + location);
+            runOnUiThread(() -> {
+                searchChargeStation(location.getLatitude(), location.getLongitude());
+            });
+
+        }, 5000, GpsRetType.GPS_RETURN_FIRST, false);
     }
 
-    private void updateChargeList(List<ChargePlaceListAdapter.DummyData> list) {
+    private void searchChargeStation(double lat, double lot) {
+        eptViewModel.reqEPT1001(new EPT_1001.Request(
+                APPIAInfo.SM_EVSS01.getId(),
+                mainVehicleVO.getVin(),
+                String.valueOf(lat),
+                String.valueOf(lot),
+                null,
+                null,
+                null,
+                null,
+                null
+        ));
+    }
+
+    private void updateChargeList(List<ChargeEptInfoVO> list) {
         adapter.setRows(list);
         adapter.notifyDataSetChanged();
-    }
-
-    /**
-     * 충전소 목록 조회 함수.
-     */
-    private void reqGetChargeList() {
-
-        /**
-         * 더미 데이터를 통해 View 정보를 호출
-         */
-        ArrayList<ChargePlaceListAdapter.DummyData> list = new ArrayList<>();
-        list.add(new ChargePlaceListAdapter.DummyData("현대EV스테이션 강동", "0.4km", ChargePlaceStatus.CHECKING, "점검중"));
-        list.add(new ChargePlaceListAdapter.DummyData("가산충전소", "0.8km", ChargePlaceStatus.ABLE_BOOK, "초고속 1대, 완속 3대 사용가능"));
-        list.add(new ChargePlaceListAdapter.DummyData("현대EV 현대EV스테이션 현대EV스테이션 강남", "1.1km", ChargePlaceStatus.FINISH_BOOK, "초고속 1대 사용가능"));
-
-        updateChargeList(list);
     }
 } // end of class ChargeSearchActivity

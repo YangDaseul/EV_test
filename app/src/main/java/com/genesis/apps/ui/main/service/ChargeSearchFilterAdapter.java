@@ -7,12 +7,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.comm.model.vo.ChargeSearchCategoryVO;
 import com.genesis.apps.databinding.ItemFilterBinding;
+import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Class Name : ChargeSearchFilterAdapter
@@ -20,70 +22,78 @@ import java.util.List;
  * @author Ki-man Kim
  * @since 2021-04-09
  */
-public class ChargeSearchFilterAdapter extends BaseRecyclerViewAdapter2<ChargeSearchFilterAdapter.DummyFilterData> {
+public class ChargeSearchFilterAdapter extends BaseRecyclerViewAdapter2<ChargeSearchCategoryVO> {
 
-    public ChargeSearchFilterAdapter() {
+    private SubFragment subFragment;
+
+    public ChargeSearchFilterAdapter(SubFragment subFragment) {
+        this.subFragment = subFragment;
     }
 
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ItemViewHolder(getView(parent, R.layout.item_filter));
+        return new ItemViewHolder(this.subFragment, getView(parent, R.layout.item_filter));
     }
 
-    public void clearCheckState() {
-        List<DummyFilterData> list = getItems();
-        for (DummyFilterData item : list) {
-            item.isCheck = false;
+    public List<ChargeSearchCategoryVO> getSelectedItems() {
+        return getItems().stream().filter(ChargeSearchCategoryVO::isSelected).collect(Collectors.toList());
+    }
+
+    public void clearSelectedItem() {
+        List<ChargeSearchCategoryVO> list = getItems();
+        for (ChargeSearchCategoryVO item : list) {
+            item.clearSelectedItems();
         }
-        notifyDataSetChanged();
     }
 
-    public static class ItemViewHolder extends BaseViewHolder<DummyFilterData, ItemFilterBinding> {
-        public ItemViewHolder(View itemView) {
+    public static class ItemViewHolder extends BaseViewHolder<ChargeSearchCategoryVO, ItemFilterBinding> {
+        private SubFragment subFragment;
+
+        public ItemViewHolder(SubFragment subFragment, View itemView) {
             super(itemView);
+            this.subFragment = subFragment;
         }
 
         @Override
-        public void onBindView(DummyFilterData item) {
+        public void onBindView(ChargeSearchCategoryVO item) {
             ItemFilterBinding binding = getBinding();
-            binding.tvName.setText(item.getName());
-            binding.tvName.setChecked(item.isCheck);
-            binding.tvName.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                item.isCheck = isChecked;
-            });
+            binding.setSubFragment(this.subFragment);
+
+            binding.tvName.setTag(item);
+            binding.tvName.setSelected(item.isSelected());
+            if (item.getSelectedItem().size() > 0) {
+                binding.tvName.setText(item.getSelectedItem().get(0).getTitleResId());
+            } else {
+                binding.tvName.setText(item.getTitleResId());
+            }
+
+            switch (item.getComponentType()) {
+                case CHECK:
+                case RADIO: {
+                    binding.tvName.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.selector_ic_open, 0);
+                    break;
+                }
+                case ONLY_ONE:
+                default: {
+                    binding.tvName.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0);
+                    break;
+                }
+            }
+//            binding.tvName.setChecked(item.isCheck);
+//            binding.tvName.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//                item.isCheck = isChecked;
+//            });
         }
 
         @Override
-        public void onBindView(DummyFilterData item, int pos) {
+        public void onBindView(ChargeSearchCategoryVO item, int pos) {
 
         }
 
         @Override
-        public void onBindView(DummyFilterData item, int pos, SparseBooleanArray selectedItems) {
+        public void onBindView(ChargeSearchCategoryVO item, int pos, SparseBooleanArray selectedItems) {
 
         }
     } // end of class ItemViewHolder
-
-    public static class DummyFilterData extends BaseData {
-        private String name;
-        private boolean isCheck;
-
-        public DummyFilterData setName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public boolean isCheck() {
-            return isCheck;
-        }
-
-        public void setCheck(boolean check) {
-            isCheck = check;
-        }
-    }
 } // end of class ChargeSearchFilterAdapter
