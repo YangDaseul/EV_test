@@ -15,6 +15,8 @@ import java.util.Scanner;
 public class PackageUtil {
     private static final String LOG_TAG = "PackageUtil";
 
+    // 커넥티드 카 패키지명.
+    public static final String PACKAGE_CONNECTED_CAR = "com.obigo.genesis";
 
     /**
      * @brief 패키지명에 해당하는 앱 실행

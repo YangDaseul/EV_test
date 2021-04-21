@@ -52,7 +52,6 @@ public class ChargePlaceListAdapter extends BaseRecyclerViewAdapter2<ChargeEptIn
             binding.setActivity(this.activity);
             binding.tvChargeName.setText(item.getChgName());
             binding.tvDist.setText(item.getDist() + "km");
-            binding.tvBtnRouteDetail.setTag(item);
             binding.ivArrow.setTag(item);
 
             if (ChargePlaceStatus.OPEN.name().equals(item.getChgStusCd())) {
