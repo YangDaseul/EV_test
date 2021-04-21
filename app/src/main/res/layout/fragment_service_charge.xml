@@ -86,7 +86,7 @@
                 app:isCharge="@{true}"
                 app:title="@{@string/sm_cg_sm02_5}" />
 
-            <!--  충전 버틀러 서비스 -->
+            <!--  픽업앤충전 서비스 -->
             <include
                 android:id="@+id/l_service_charge_btr_service"
                 layout="@layout/item_service_maintenance"

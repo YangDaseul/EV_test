@@ -1,4 +1,4 @@
-package com.genesis.apps.comm.model.vo;
+package com.genesis.apps.comm.model.vo.carlife;
 
 import androidx.room.Ignore;
 
@@ -13,7 +13,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 충전 버틀러 예약 가능 일자 VO
+ * 픽업앤충전 예약 가능 일자 VO
  * @author ljeun
  * @since 2021. 4. 5.
  *

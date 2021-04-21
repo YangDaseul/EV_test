@@ -10,35 +10,35 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-public class CHB_1002 extends BaseData {
+public class CHB_1024 extends BaseData {
     /**
-     * @brief CHB_1002 요청 항목
-     * @see #svcCd 서비스 코드
-     * CHRGBTR : 픽업앤충전
+     * @brief CHB_1024 요청 항목
+     * @see #orderId    주문ID
+     * @see #vin        차대번호
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     static
     class Request extends BaseRequest {
         @Expose
-        @SerializedName("svcCd")
-        private String svcCd;
+        @SerializedName("orderId")
+        private String orderId;
+        @Expose
+        @SerializedName("vin")
+        private String vin;
 
-        public Request(String menuId, String svcCd){
-            this.svcCd = svcCd;
-            setData(APIInfo.GRA_CHB_1002.getIfCd(), menuId);
+        public Request(String menuId, String orderId, String vin) {
+            this.orderId = orderId;
+            this.vin = vin;
+            setData(APIInfo.GRA_CHB_1024.getIfCd(), menuId);
         }
     }
 
     /**
-     * @brief CHB_1002 응답 항목
-     * @see #scrnCntn 동의화면 html 데이터
+     * @brief CHB_1024 응답 항목
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse {
-        @Expose
-        @SerializedName("scrnCntn")
-        private String scrnCntn;
     }
 }

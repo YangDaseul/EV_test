@@ -31,15 +31,15 @@ public class CHB_1007 extends BaseData {
         private String addressDetail;
         @Expose
         @SerializedName("latitude")
-        private String latitude;
+        private double latitude;
         @Expose
         @SerializedName("longitude")
-        private String longitude;
+        private double longitude;
         @Expose
         @SerializedName("buildingName")
         private String buildingName;
 
-        public Request(String menuId, String address, String addressDetail, String latitude, String longitude, String buildingName){
+        public Request(String menuId, String address, String addressDetail, double latitude, double longitude, String buildingName){
             this.address = address;
             this.addressDetail = addressDetail;
             this.latitude = latitude;

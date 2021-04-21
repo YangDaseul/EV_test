@@ -13,12 +13,18 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.CHB_1006;
+import com.genesis.apps.comm.model.constants.ChargeBtrStatus;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.api.developers.EvStatus;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.StringUtil;
+import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.databinding.FragmentServiceChargeBinding;
@@ -40,6 +46,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
     private static final String TAG = FragmentCharge.class.getSimpleName();
     private LGNViewModel lgnViewModel;
+    private CHBViewModel chbViewModel;
     private DevelopersViewModel developersViewModel;
     private VehicleVO vehicleVO;
     @Inject
@@ -67,6 +74,27 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         super.onActivityCreated(savedInstanceState);
         me.setLifecycleOwner(this);
         lgnViewModel = new ViewModelProvider(getActivity()).get(LGNViewModel.class);
+        chbViewModel = new ViewModelProvider(getActivity()).get(CHBViewModel.class);
+
+        chbViewModel.getRES_CHB_1006().observe(getViewLifecycleOwner(), result -> {
+            switch (result.status) {
+                case LOADING:
+                    ((SubActivity) getActivity()).showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    ((SubActivity) getActivity()).showProgressDialog(false);
+
+                    String dkcKeyAvailableYN = result.data.getDkcKeyAvailableYN();
+                    if (result.data != null && !TextUtils.isEmpty(dkcKeyAvailableYN) && dkcKeyAvailableYN.equalsIgnoreCase("Y")) {
+                        startChargeBtrReqActivity(true);
+                        break;
+                    }
+                default:
+                    ((SubActivity) getActivity()).showProgressDialog(false);
+                    startChargeBtrReqActivity(false);
+                    break;
+            }
+        });
         developersViewModel = new ViewModelProvider(getActivity()).get(DevelopersViewModel.class);
 
         developersViewModel.getRES_EV_STATUS().observe(getViewLifecycleOwner(), result -> {
@@ -153,6 +181,13 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
             }
         });
 
+    }
+
+    private void startChargeBtrReqActivity(boolean isDkAvl) {
+        ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceChargeBtrReqActivity.class).putExtra(KeyNames.KEY_NAME_IS_DK_AVL, isDkAvl), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+    }
+
+    private void startChargeBtrHistoryActivity(String statusCd){
     }
 
 //    private void startSOSActivity() {
@@ -252,7 +287,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
             //여행 경로 추천
             case R.id.l_service_charge_recommend_trip:
                 break;
-            //충전 버틀러 서비스
+            //픽업앤충전 서비스
             case R.id.l_service_charge_btr_service:
 
                 break;
@@ -265,8 +300,12 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                 if (StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm_cg_sm02_11))) {
                     startServiceChargeActivity();
                 } else if (StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm_cg_sm02_7))) {
-                    //충전 버틀러 서비스 버틀러 신청
-                    ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceChargeBtrReqActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    //픽업앤충전 서비스 신청
+                    String vin = getMainVehicleVin();
+                    if(!TextUtils.isEmpty(vin))
+                        chbViewModel.reqCHB1006(new CHB_1006.Request(APPIAInfo.SM01.getId(), getMainVehicleVin()));
+                    else
+                        SnackBarUtil.show(getActivity(), getString(R.string.r_flaw06_p02_snackbar_1));
                 }
                 break;
             case R.id.tv_service_maintenance_btn_white:
@@ -277,7 +316,8 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     String sample = "080-700-6000";
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + sample)));
                 } else if (StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm_cg_sm02_7))) {
-                    //충전 버틀러 서비스 신청 내역
+                    //픽업앤충전 서비스 신청 내역
+                    startChargeBtrHistoryActivity(ChargeBtrStatus.STATUS_1000.getStusCd());
                 }
                 break;
             default:
@@ -323,6 +363,15 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         }
     }
 
+    private String getMainVehicleVin() {
+        VehicleVO mainVehicle = null;
+        try {
+            mainVehicle = chbViewModel.getMainVehicleFromDB();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mainVehicle == null ? "" : mainVehicle.getVin();
+    }
 
     private void setViewBatteryStatus() {
         try {

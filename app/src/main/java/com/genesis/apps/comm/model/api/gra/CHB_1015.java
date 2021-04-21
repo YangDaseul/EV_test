@@ -4,7 +4,7 @@ import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.BaseRequest;
 import com.genesis.apps.comm.model.api.BaseResponse;
-import com.genesis.apps.comm.model.vo.PaymtCardVO;
+import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -43,7 +43,7 @@ public class CHB_1015 extends BaseData {
         private String signInYN;
         @Expose
         @SerializedName("cardCount")
-        private String cardCount;
+        private int cardCount;
         @Expose
         @SerializedName("cardList")
         private List<PaymtCardVO> cardList;
