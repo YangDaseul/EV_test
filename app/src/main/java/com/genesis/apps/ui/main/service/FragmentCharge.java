@@ -15,6 +15,7 @@ import android.webkit.WebView;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CHB_1006;
+import com.genesis.apps.comm.model.constants.ChargeBtrStatus;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.api.developers.EvStatus;
 import com.genesis.apps.comm.model.constants.RequestCodes;
@@ -186,6 +187,9 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
         ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceChargeBtrReqActivity.class).putExtra(KeyNames.KEY_NAME_IS_DK_AVL, isDkAvl), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
+    private void startChargeBtrHistoryActivity(String statusCd){
+    }
+
 //    private void startSOSActivity() {
 //
 //        if (!((MainActivity) getActivity()).isGpsEnable()) {
@@ -283,7 +287,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
             //여행 경로 추천
             case R.id.l_service_charge_recommend_trip:
                 break;
-            //충전 버틀러 서비스
+            //픽업앤충전 서비스
             case R.id.l_service_charge_btr_service:
 
                 break;
@@ -296,7 +300,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                 if (StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm_cg_sm02_11))) {
                     startServiceChargeActivity();
                 } else if (StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm_cg_sm02_7))) {
-                    //충전 버틀러 서비스 버틀러 신청
+                    //픽업앤충전 서비스 신청
                     String vin = getMainVehicleVin();
                     if(!TextUtils.isEmpty(vin))
                         chbViewModel.reqCHB1006(new CHB_1006.Request(APPIAInfo.SM01.getId(), getMainVehicleVin()));
@@ -312,7 +316,8 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                     String sample = "080-700-6000";
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + sample)));
                 } else if (StringUtil.isValidString(title).equalsIgnoreCase(getString(R.string.sm_cg_sm02_7))) {
-                    //충전 버틀러 서비스 신청 내역
+                    //픽업앤충전 서비스 신청 내역
+                    startChargeBtrHistoryActivity(ChargeBtrStatus.STATUS_1000.getStusCd());
                 }
                 break;
             default:

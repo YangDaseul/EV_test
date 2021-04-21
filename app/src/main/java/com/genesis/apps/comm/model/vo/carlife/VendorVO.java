@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 카라이프-충전버틀러 서비스 제공 업체 정보 VO
+ * 카라이프-픽업앤충전 서비스 제공 업체 정보 VO
  *
  * @author ljeun
  * @since 2021. 4. 14.
@@ -24,6 +24,7 @@ import lombok.EqualsAndHashCode;
  * @see #vendorAddress  위치
  * @see #vendorHomepageUrl  홈페이지
  * @see #vendorCSTelNo  고객센터 전화번호
+ * @see #vendorCSHours  고객센터 운영시간
  */
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
@@ -47,4 +48,7 @@ class VendorVO extends BaseData {
     @Expose
     @SerializedName("vendorCSTelNo")
     private String vendorCSTelNo;
+    @Expose
+    @SerializedName("vendorCSHours")
+    private String vendorCSHours;
 }

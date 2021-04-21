@@ -9,14 +9,14 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 충전 버틀러 기본 신청 정보 VO
+ * 픽업앤충전 기본 신청 정보 VO
  * @author ljeun
  * @since 2021. 4. 8.
  *
  * @see #bookingDtm 예약일시 YYYYMMDDHH24MISS
  * @see #keyTransferType 차량 키 전달 방식
  * KT_DKC : DKC
- * KT_BLL : 블루링크(충전버틀러 사용하지 않늠)
+ * KT_BLL : 블루링크(픽업앤충전 사용하지 않늠)
  * KT_FOB : 실물키
  *
  * @see #sameLocationYN 고객과 차량 동일 위치 여부(선택)

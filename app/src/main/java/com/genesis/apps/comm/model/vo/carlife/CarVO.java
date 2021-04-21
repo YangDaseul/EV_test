@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 충전 버틀러 차량 정보 VO
+ * 픽업앤충전 차량 정보 VO
  * @author ljeun
  * @since 2021. 4. 8.
  *

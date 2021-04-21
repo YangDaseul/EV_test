@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 충전 버틀러 예약 가능 시간 VO
+ * 픽업앤충전 예약 가능 시간 VO
  * @author ljeun
  * @since 2021. 4. 5.
  *

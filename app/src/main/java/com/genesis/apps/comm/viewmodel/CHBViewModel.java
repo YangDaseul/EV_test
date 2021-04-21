@@ -1,5 +1,8 @@
 package com.genesis.apps.comm.viewmodel;
 
+import android.text.TextUtils;
+import android.text.format.DateUtils;
+
 import androidx.hilt.Assisted;
 import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
@@ -14,12 +17,19 @@ import com.genesis.apps.comm.model.api.gra.CHB_1015;
 import com.genesis.apps.comm.model.api.gra.CHB_1016;
 import com.genesis.apps.comm.model.api.gra.CHB_1017;
 import com.genesis.apps.comm.model.api.gra.CHB_1021;
+import com.genesis.apps.comm.model.api.gra.CHB_1023;
+import com.genesis.apps.comm.model.api.gra.CHB_1024;
+import com.genesis.apps.comm.model.api.gra.CHB_1026;
 import com.genesis.apps.comm.model.repo.CHBRepo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
+import com.genesis.apps.comm.model.vo.RepairHistVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.model.vo.carlife.BookingVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -41,6 +51,9 @@ class CHBViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<CHB_1016.Response>> RES_CHB_1016;
     private MutableLiveData<NetUIResponse<CHB_1017.Response>> RES_CHB_1017;
     private MutableLiveData<NetUIResponse<CHB_1021.Response>> RES_CHB_1021;
+    private MutableLiveData<NetUIResponse<CHB_1023.Response>> RES_CHB_1023;
+    private MutableLiveData<NetUIResponse<CHB_1024.Response>> RES_CHB_1024;
+    private MutableLiveData<NetUIResponse<CHB_1026.Response>> RES_CHB_1026;
 
     private MutableLiveData<List<VehicleVO>> vehicleList;
 
@@ -63,6 +76,10 @@ class CHBViewModel extends ViewModel {
         RES_CHB_1017 = repository.RES_CHB_1017;
 
         RES_CHB_1021 = repository.RES_CHB_1021;
+        RES_CHB_1023 = repository.RES_CHB_1023;
+        RES_CHB_1024 = repository.RES_CHB_1024;
+        RES_CHB_1026 = repository.RES_CHB_1026;
+
         vehicleList = new MutableLiveData<>();
     }
 
@@ -90,6 +107,15 @@ class CHBViewModel extends ViewModel {
     public void reqCHB1021(final CHB_1021.Request reqData) {
         repository.REQ_CHB_1021(reqData);
     }
+    public void reqCHB1023(final CHB_1023.Request reqData) {
+        repository.REQ_CHB_1023(reqData);
+    }
+    public void reqCHB1024(final CHB_1024.Request reqData) {
+        repository.REQ_CHB_1024(reqData);
+    }
+    public void reqCHB1026(final CHB_1026.Request reqData) {
+        repository.REQ_CHB_1026(reqData);
+    }
 
     public VehicleVO getMainVehicleFromDB() throws ExecutionException, InterruptedException {
         ExecutorService es = new ExecutorService("");
@@ -110,6 +136,5 @@ class CHBViewModel extends ViewModel {
             es.shutDownExcutor();
         }
     }
-
 
 }

@@ -180,7 +180,7 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
             clearKeypad();
 //            moveToNextPage();
 
-            // 충전 버틀러 신청 전문 요청
+            // 픽업앤충전 신청 전문 요청
             chbViewModel.reqCHB1009(new CHB_1009.Request(APPIAInfo.SM_CGRV01.getId(),
                     mainVehicle.getVin(),
                     mainVehicle.getMdlCd(),

@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 카라이프-충전버틀러 멤버십 정보 VO
+ * 카라이프-픽업앤충전 멤버십 정보 VO
  * @author ljeun
  * @since 2021. 4. 15.
  *

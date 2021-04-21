@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 카라이프-충전버틀러 서비스 배정 기사 정보 VO
+ * 카라이프-픽업앤충전 서비스 배정 기사 정보 VO
  *
  * @author ljeun
  * @since 2021. 4. 14.

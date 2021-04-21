@@ -354,5 +354,5 @@ public class VariableType {
 
     public static final String SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_FOB = "KT_FOB";     // 실물 키 전달, 대면 서비스
     public static final String SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_DKC = "KT_DKC";     // 디지털 키 전달, 비대면 서비스
-    public static final String SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_BLL = "KT_BLL";     // 블루링크, 제네시스 충전 버틀러 서비스에서는 사용 안함.
+    public static final String SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_BLL = "KT_BLL";     // 블루링크, 제네시스 픽업앤충전 서비스에서는 사용 안함.
 }

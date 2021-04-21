@@ -9,15 +9,15 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 충전 버틀러 위치 정보 VO
+ * 픽업앤충전 위치 정보 VO
  * @author ljeun
  * @since 2021. 4. 8.
  *
  * @see #locationType   위치 구분 코드
- * 충전버틀러는 STRT 고정
+ * 픽업앤충전는 STRT 고정
  *
  * @see #inOutType  내외부 구분 코드(선택)
- * 충전 버틀러는 설정하지 않음
+ * 픽업앤충전는 설정하지 않음
  *
  * @see #latitude   위도
  * @see #longitude  경도
