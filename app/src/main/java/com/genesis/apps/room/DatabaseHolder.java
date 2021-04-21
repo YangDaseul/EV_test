@@ -37,6 +37,7 @@ public class DatabaseHolder {
         db = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "AppDatabase")
                 .allowMainThreadQueries()
                 .addMigrations(MIGRATION_1_2)
+                .addMigrations(MIGRATION_2_3)
                 .addCallback(new RoomDatabase.Callback() {
                     @Override
                     public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -64,6 +65,13 @@ public class DatabaseHolder {
             database.execSQL("INSERT INTO new_CarConnectVO (vin, carId, masterCarId, carGrantType, carName, result) " + "SELECT vin, carId, masterCarId, 2, carName, result FROM CarConnectVO");
             database.execSQL("DROP TABLE CarConnectVO");
             database.execSQL("ALTER TABLE new_CarConnectVO RENAME TO CarConnectVO");
+        }
+    };
+
+    static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE VehicleVO ADD COLUMN evCd TEXT");
         }
     };
 

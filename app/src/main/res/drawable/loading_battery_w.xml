@@ -1,0 +1,25 @@
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/btn_refreshify_01_w"
+        android:duration="100" />
+
+    <item
+        android:drawable="@drawable/btn_refreshify_02_w"
+        android:duration="100" />
+
+    <item
+        android:drawable="@drawable/btn_refreshify_03_w"
+        android:duration="100" />
+
+    <item
+        android:drawable="@drawable/btn_refreshify_04_w"
+        android:duration="100" />
+
+    <item
+        android:drawable="@drawable/btn_refreshify_05_w"
+        android:duration="100" />
+
+    <item
+        android:drawable="@drawable/btn_refreshify_06_w"
+        android:duration="100" />
+</animation-list>

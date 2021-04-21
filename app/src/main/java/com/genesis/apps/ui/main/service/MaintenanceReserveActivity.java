@@ -56,6 +56,7 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
         setViewModel();
         setObserver();
         initData();
+        initServiceItem();
     }
 
     private void initData() {
@@ -120,7 +121,7 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
 
     private void initServiceItem() {
         //오토케어
-        setViewVisibility(ui.lMaintenanceAutocare.lMaintenanceCategoryItemBtn, ui.lMaintenanceAutocare.btnBlock, true);
+        setViewVisibility(ui.lMaintenanceAutocare.lMaintenanceCategoryItemBtn, ui.lMaintenanceAutocare.btnBlock, !mainVehicle.isEV());
         //에어포트
         setViewVisibility(ui.lMaintenanceAirport.lMaintenanceCategoryItemBtn, ui.lMaintenanceAirport.btnBlock, true);
         //홈투홈서비스
@@ -360,7 +361,7 @@ public class MaintenanceReserveActivity extends SubActivity<ActivityMaintenanceR
         if (!TextUtils.isEmpty(avlRsrYn) && avlRsrYn.equalsIgnoreCase(VariableType.COMMON_MEANS_YES)) {
             //예약신청가능여부가 y인경우
             //오토케어 사용 가능 상태 + 소모성부품선택 + 픽앤딜리버리 횟수 1회 이상 + 엔진 횟수 1회 이상
-            setViewVisibility(ui.lMaintenanceAutocare.lMaintenanceCategoryItemBtn, ui.lMaintenanceAutocare.btnBlock, isPossibleReservation(autoRsvtPsblYn) && selectRepairTypeVO.getRparTypCd().equalsIgnoreCase(VariableType.SERVICE_REPAIR_CODE_CS) && reqViewModel.checkCoupon(couponList, VariableType.SERVICE_CAR_CARE_COUPON_CODE_PICKUP_DELIVERY) && reqViewModel.checkCoupon(couponList, VariableType.SERVICE_CAR_CARE_COUPON_CODE_ENGINE));
+            setViewVisibility(ui.lMaintenanceAutocare.lMaintenanceCategoryItemBtn, ui.lMaintenanceAutocare.btnBlock, !mainVehicle.isEV()&&isPossibleReservation(autoRsvtPsblYn) && selectRepairTypeVO.getRparTypCd().equalsIgnoreCase(VariableType.SERVICE_REPAIR_CODE_CS) && reqViewModel.checkCoupon(couponList, VariableType.SERVICE_CAR_CARE_COUPON_CODE_PICKUP_DELIVERY) && reqViewModel.checkCoupon(couponList, VariableType.SERVICE_CAR_CARE_COUPON_CODE_ENGINE));
             //에어포트 사용 가능 상태 + 소모성부품선택 + 픽앤딜리버리 횟수 1회 이상
             setViewVisibility(ui.lMaintenanceAirport.lMaintenanceCategoryItemBtn, ui.lMaintenanceAirport.btnBlock, isPossibleReservation(arptRsvtPsblYn) && selectRepairTypeVO.getRparTypCd().equalsIgnoreCase(VariableType.SERVICE_REPAIR_CODE_CS) && reqViewModel.checkCoupon(couponList, VariableType.SERVICE_CAR_CARE_COUPON_CODE_PICKUP_DELIVERY));
             //홈투홈서비스 사용 가능 상태 + 픽앤딜리버리 횟수 1회 이상

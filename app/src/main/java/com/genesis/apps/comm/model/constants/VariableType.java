@@ -82,6 +82,8 @@ public class VariableType {
     public static final int QUICK_MENU_CATEGORY_MYG=3;
     public static final int QUICK_MENU_CATEGORY_NONE=10;
 
+    public static final String VEHICLE_CODE_GN="GN"; //내연기관
+    public static final String VEHICLE_CODE_EV="EV"; //전기차
 
 
     //주 이용차량 유무
