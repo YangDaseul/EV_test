@@ -9,6 +9,13 @@ import com.github.mikephil.charting.utils.Transformer;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
+/**
+ * @brief x라벨 2줄 표기
+ * @author hjpark
+ * x라벨에 \n과 같은 줄바꿈이 진행
+ * 될 경우 2줄로 표시하도록 처리하기 위한 renderer.
+ * (해당 renderer을 사용하지 않으면 한줄로 표기됨)
+ */
 public class CustomXAxisRenderer extends XAxisRenderer {
 
     public CustomXAxisRenderer(ViewPortHandler viewPortHandler, XAxis xAxis, Transformer trans) {

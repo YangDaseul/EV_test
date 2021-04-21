@@ -354,7 +354,6 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
 
                             //그래프 셋팅. 첫번째 페이지 로드시에만
                             if (adapter.getPageNo() == 1) {
-                                initGraph();
                                 setGraph(result.data);
                             }
                         } catch (Exception e) {
@@ -407,7 +406,6 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
         if(adapter.getItemCount()<1){
             ui.tvEmpty.setVisibility(View.VISIBLE);
             adapter.clear();
-            initGraph();
             setGraph(new CBK_1002.Response());
         }else{
             ui.tvEmpty.setVisibility(View.GONE);
@@ -423,16 +421,6 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
         }catch (Exception e){
 
         }
-    }
-
-    private int isValidInteger(String value) {
-        int retv = 0;
-        try {
-            retv = Integer.parseInt(value);
-        } catch (Exception e) {
-            retv = 0;
-        }
-        return retv;
     }
 
     private void initGraph() {
@@ -476,7 +464,8 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                     int expn = (int) e.getY();
                     if (expn > 0) {
                         String item = selectVehicle.isEV() ? EvAxisValueFormatter.xNames[position] :AxisValueFormatter.xNames[position];
-                        String msg = String.format(Locale.getDefault(), getString(position == (selectVehicle.isEV() ? 4 : 3) ? R.string.tm_exps01_28 : R.string.tm_exps01_27), item, StringUtil.getDigitGroupingString(Integer.toString(expn)));
+                        item = item.replaceAll("\\n"," "); //줄바꿈 제거
+                        String msg = String.format(Locale.getDefault(), getString(position == (selectVehicle.isEV() ? (EvAxisValueFormatter.xNames.length-1) : (AxisValueFormatter.xNames.length-1)) ? R.string.tm_exps01_28 : R.string.tm_exps01_27), item, StringUtil.getDigitGroupingString(Integer.toString(expn)));
                         SnackBarUtil.show(InsightExpnMainActivity.this, msg);
                     }
                 } catch (Exception ignore) {
@@ -490,12 +479,13 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
             }
         });
 
+
         //x축에 대한 정의
         XAxis xAxis = ui.chart.getXAxis();
-        xAxis.setValueFormatter(selectVehicle.isEV() ? new EvAxisValueFormatter() : new AxisValueFormatter());
+//        xAxis.setValueFormatter(selectVehicle.isEV() ? new EvAxisValueFormatter() : new AxisValueFormatter());
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
-        xAxis.setLabelCount(selectVehicle.isEV() ? 5 : 4);
+//        xAxis.setLabelCount(selectVehicle.isEV() ? 5 : 4);
         xAxis.setTextColor(ContextCompat.getColor(this, R.color.x_bf000000));
         xAxis.setTextSize(12f);
         xAxis.setTypeface(ResourcesCompat.getFont(this, R.font.regular_genesissanstextglobal));
@@ -506,7 +496,6 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
     }
 
     private void setGraph(CBK_1002.Response item) {
-
         //데이터에 따른 max값 정의
         float maxValue = getMaxValue(item);
         if (maxValue == 0) {
@@ -534,13 +523,18 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
 
         //데이터 추가
         ArrayList<BarEntry> values = new ArrayList<>();
+        XAxis xAxis = ui.chart.getXAxis();
         if(selectVehicle!=null&&selectVehicle.isEV()){
+            xAxis.setLabelCount(EvAxisValueFormatter.xNames.length);
+            xAxis.setValueFormatter(new EvAxisValueFormatter());
             values.add(new BarEntry(0, Float.parseFloat(item.getRefulSumAmt())));
             values.add(new BarEntry(1, Float.parseFloat(item.getChargeCreditSumAmt())));
             values.add(new BarEntry(2, Float.parseFloat(item.getRparSumAmt())));
             values.add(new BarEntry(3, Float.parseFloat(item.getCarWshSumAmt())));
             values.add(new BarEntry(4, Float.parseFloat(item.getEtcSumAmt())));
         }else {
+            xAxis.setLabelCount(AxisValueFormatter.xNames.length);
+            xAxis.setValueFormatter(new AxisValueFormatter());
             values.add(new BarEntry(0, Float.parseFloat(item.getRefulSumAmt())));
             values.add(new BarEntry(1, Float.parseFloat(item.getRparSumAmt())));
             values.add(new BarEntry(2, Float.parseFloat(item.getCarWshSumAmt())));

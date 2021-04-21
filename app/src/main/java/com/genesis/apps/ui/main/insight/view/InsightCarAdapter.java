@@ -10,6 +10,8 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.ISTAmtVO;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.graph.AxisValueFormatter;
+import com.genesis.apps.comm.util.graph.CustomXAxisRenderer;
+import com.genesis.apps.comm.util.graph.EvAxisValueFormatter;
 import com.genesis.apps.comm.util.graph.RoundedBarChartRenderer;
 import com.genesis.apps.databinding.ItemInsightCarBinding;
 import com.genesis.apps.databinding.ItemInsightCarEmpty2Binding;
@@ -18,6 +20,7 @@ import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -37,6 +40,7 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
     public static final int TYPE_EMPTY = 1;
     public static final int TYPE_EMPTY2 = 2;
     private int VIEW_TYPE = TYPE_CAR;
+    private static boolean isEv=false;
 
     public int getViewType() {
         return VIEW_TYPE;
@@ -86,6 +90,14 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
         InsightCarAdapter.prvsToUseAmt = prvsToUseAmt;
     }
 
+    public boolean isEv() {
+        return isEv;
+    }
+
+    public void setEv(boolean ev) {
+        isEv = ev;
+    }
+
     private static class ItemInsightCar extends BaseViewHolder<ISTAmtVO, ItemInsightCarBinding> {
         public ItemInsightCar(View itemView) {
             super(itemView);
@@ -131,10 +143,23 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
 
             //데이터 추가
             ArrayList<BarEntry> values = new ArrayList<>();
-            values.add(new BarEntry(0, Float.parseFloat(item.getOilAmt())));
-            values.add(new BarEntry(1, Float.parseFloat(item.getRparAmt())));
-            values.add(new BarEntry(2, Float.parseFloat(item.getCarWshAmt())));
-            values.add(new BarEntry(3, Float.parseFloat(item.getEtcAmt())));
+            XAxis xAxis = getBinding().chart.getXAxis();
+            if(isEv) {
+                xAxis.setLabelCount(EvAxisValueFormatter.xNames.length);
+                xAxis.setValueFormatter(new EvAxisValueFormatter());
+                values.add(new BarEntry(0, getValue(item.getOilAmt())));
+                values.add(new BarEntry(1, getValue(item.getChargeCreditSumAmt())));
+                values.add(new BarEntry(2, getValue(item.getRparAmt())));
+                values.add(new BarEntry(3, getValue(item.getCarWshAmt())));
+                values.add(new BarEntry(4, getValue(item.getEtcAmt())));
+            }else{
+                xAxis.setLabelCount(AxisValueFormatter.xNames.length);
+                xAxis.setValueFormatter(new AxisValueFormatter());
+                values.add(new BarEntry(0, getValue(item.getOilAmt())));
+                values.add(new BarEntry(1, getValue(item.getRparAmt())));
+                values.add(new BarEntry(2, getValue(item.getCarWshAmt())));
+                values.add(new BarEntry(3, getValue(item.getEtcAmt())));
+            }
 
             BarDataSet set1;
             //한번 데이터가 로드됬을 경우
@@ -161,6 +186,8 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
                 getBinding().chart.getAxisRight().setSpaceTop(0f);
                 getBinding().chart.setExtraOffsets(0, 0, 0, 12);
                 getBinding().chart.setAutoScaleMinMaxEnabled(false);
+                //차트의 기본 패딩을 초기화
+                getBinding().chart.setMinOffset(0f);
 
                 //좌측의 y축은 사용하지 않음
                 getBinding().chart.getAxisLeft().setEnabled(false);
@@ -177,16 +204,15 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
                 getBinding().chart.getAxisLeft().setAxisMinimum(0); //좌측과 우측에대한 최소 값을 반드시 0으로 설정해야 정상적인 그래프가 출력됨 2
 
                 //x축에 대한 정의
-                XAxis xAxis = getBinding().chart.getXAxis();
-                xAxis.setValueFormatter(new AxisValueFormatter());
                 xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                 xAxis.setDrawGridLines(false);
-                xAxis.setLabelCount(4);
                 xAxis.setTextColor(ContextCompat.getColor(getContext(),R.color.x_bf000000));
                 xAxis.setTextSize(12f);
                 xAxis.setTypeface(ResourcesCompat.getFont(getContext(), R.font.regular_genesissanstextglobal));
                 //위 차트 속성에대한 정의는 최초1회만 진행
-
+                //x축 라벨이 2줄일 경우 2줄처리 진행
+                getBinding().chart.setExtraBottomOffset(12f+(12f*1.5f));
+                getBinding().chart.setXAxisRenderer(new CustomXAxisRenderer(getBinding().chart.getViewPortHandler(), getBinding().chart.getXAxis(), getBinding().chart.getTransformer(YAxis.AxisDependency.LEFT)));
 
 
                 //데이터 정의
@@ -274,6 +300,8 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
                 list.add(TextUtils.isEmpty(istAmtVO.getOilAmt()) ? 0 : Float.parseFloat(istAmtVO.getOilAmt()));
                 list.add(TextUtils.isEmpty(istAmtVO.getEtcAmt()) ? 0 : Float.parseFloat(istAmtVO.getEtcAmt()));
                 list.add(TextUtils.isEmpty(istAmtVO.getCarWshAmt()) ? 0 : Float.parseFloat(istAmtVO.getCarWshAmt()));
+                if(isEv) list.add(TextUtils.isEmpty(istAmtVO.getChargeCreditSumAmt()) ? 0 : Float.parseFloat(istAmtVO.getChargeCreditSumAmt()));
+
                 maxValue = list.stream().max(Comparator.comparingDouble(o -> o)).orElse(0f);
             }catch (Exception e){
                 e.printStackTrace();
@@ -329,4 +357,11 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
 
     }
 
+    private static Float getValue(String data){
+        if(data!=null){
+            return Float.parseFloat(data);
+        }else{
+            return 0f;
+        }
+    }
 }

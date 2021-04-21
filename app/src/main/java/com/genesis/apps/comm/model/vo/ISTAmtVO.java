@@ -35,4 +35,8 @@ class ISTAmtVO extends BaseData {
     @Expose
     @SerializedName("etcAmt")
     private String etcAmt;
+    //TODO 2021-04-21 PARK 인터페이스 설계서가 나오지 않아 임의로 추가한 데이터. 추후 변경 필요
+    @Expose
+    @SerializedName("chargeCreditSumAmt")
+    private String chargeCreditSumAmt;
 }

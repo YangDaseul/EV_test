@@ -3,7 +3,7 @@ package com.genesis.apps.comm.util.graph;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
 /**
- * @brief X좌표 출력 처리
+ * @brief EV 차량의 차계부 X좌표 출력 처리
  */
 public class EvAxisValueFormatter extends ValueFormatter {
 
