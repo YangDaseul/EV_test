@@ -404,10 +404,12 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
      * @biref 계약서&재직증명서 or 추가증빙서류 이미지 업로드
      */
     private void reqUploadImageCnt() {
-        File cntImag = new File(Objects.requireNonNull(FileUtil.getRealPathFromURI(this, cntImagPath)));
-        File empCertImag = new File(Objects.requireNonNull(FileUtil.getRealPathFromURI(this, empCertImagPath)));
+        File cntImag = null;
+        File empCertImag = null;
+        cntImag = new File(Objects.requireNonNull(FileUtil.getRealPathFromURI(this, cntImagPath)));
+        if(empCertImagPath!=null) empCertImag = new File(Objects.requireNonNull(FileUtil.getRealPathFromURI(this, empCertImagPath)));
         if (cntImag.length() > 0)
-            gnsViewModel.reqGNS1008(new GNS_1008.Request(APPIAInfo.GM_CARLST_01_01.getId(), vin, cntImag.getName(), cntImag, empCertImag.length() > 0 ? empCertImag.getName() : "", empCertImag.length() > 0 ? empCertImag : null));
+            gnsViewModel.reqGNS1008(new GNS_1008.Request(APPIAInfo.GM_CARLST_01_01.getId(), vin, cntImag.getName(), cntImag, empCertImag!=null&&empCertImag.length() > 0 ? empCertImag.getName() : "", empCertImag!=null&&empCertImag.length() > 0 ? empCertImag : null));
     }
 
 //    /**
