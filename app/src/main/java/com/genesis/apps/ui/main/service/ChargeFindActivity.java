@@ -1,14 +1,12 @@
 package com.genesis.apps.ui.main.service;
 
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
@@ -67,20 +65,19 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
      ****************************************************************************************************/
     @Override
     public void onClickCommon(View v) {
+        Object tag = v.getTag();
         switch (v.getId()) {
-            case R.id.iv_btn_map: {
-                // 충전소 찾기 지도 표시.
-                startActivitySingleTop(new Intent(this, ServiceNetworkActivity.class)
-                                .putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_EVCHARGE),
-                        RequestCodes.REQ_CODE_ACTIVITY.getCode(),
-                        VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+            case R.id.tv_btn_route_detail: {
+                // TODO 충전소 목록 아이템 - 상세 경로 보기 버튼 > 제네시스 커넥티드 앱 호출
+                Log.d("FID", "test :: onClickCommon :: tv_brn_route_detail :: tag=" + tag);
                 break;
             }
-            default: {
+            case R.id.iv_arrow: {
+                // TODO 충전소 목록 아이템 - 충전소 상세 버튼 > 충전소 상세 화면 이동.
+                Log.d("FID", "test :: onClickCommon :: iv_arrow :: tag=" + tag);
                 break;
             }
         }
-
     }
 
     /****************************************************************************************************
@@ -96,7 +93,6 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
 
     @Override
     public void setObserver() {
-        // TODO 전문이 전달되면 해당 전문 코드 적용 필요
         eptViewModel.getRES_EPT_1001().observe(ChargeFindActivity.this, result -> {
             Log.d("FID", "test :: RES_EPT_1001 :: result.status=" + result.status);
             switch (result.status) {
@@ -136,8 +132,23 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
     }
 
     @Override
-    public void onFilterChanged(List<ChargeSearchCategoryVO> filterList) {
+    public void onFilterChanged(InputChargePlaceFragment.SEARCH_TYPE type, List<ChargeSearchCategoryVO> filterList) {
         Log.d("FID", "test :: onFilterChanged :: filterList=" + filterList);
+    }
+
+    @Override
+    public void onSearchAddress() {
+        // TODO 주소 검색 이동.
+    }
+
+    @Override
+    public void onSearchMap() {
+        // TODO 지도 이동.
+        // 충전소 찾기 지도 표시.
+        startActivitySingleTop(new Intent(this, ServiceNetworkActivity.class)
+                        .putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_EVCHARGE),
+                RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
     /****************************************************************************************************
@@ -156,11 +167,11 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         ui.rvSearchResult.setLayoutManager(layoutManager);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(ChargeFindActivity.this, layoutManager.getOrientation());
-        dividerItemDecoration.setDrawable(new ColorDrawable(getColor(R.color.x_e5e5e5)));
-        ui.rvSearchResult.addItemDecoration(dividerItemDecoration);
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(ChargeFindActivity.this, layoutManager.getOrientation());
+//        dividerItemDecoration.setDrawable(new ColorDrawable(getColor(R.color.x_e5e5e5)));
+//        ui.rvSearchResult.addItemDecoration(dividerItemDecoration);
 
-        adapter = new ChargePlaceListAdapter();
+        adapter = new ChargePlaceListAdapter(ChargeFindActivity.this);
         ui.rvSearchResult.setAdapter(adapter);
 
         try {

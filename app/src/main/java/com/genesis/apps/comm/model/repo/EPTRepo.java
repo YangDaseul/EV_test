@@ -34,52 +34,7 @@ public class EPTRepo {
         RES_EPT_1001.setValue(NetUIResponse.loading(null));
 
         // TODO 테스트 데이터. API가 정상 작동시 삭제 필요.
-        String dummyData = "{\n" +
-                "  \"rtCd\": \"0000\",\n" +
-                "  \"rtMsg\": \"test message\",\n" +
-                "  \"chgList\": [\n" +
-                "    {\n" +
-                "      \"bid\": \"11\",\n" +
-                "      \"sid\": \"12345\",\n" +
-                "      \"eid\": \"22\",\n" +
-                "      \"chgName\": \"현대EV스테이션 현대EV스테이션 현대EV스테이션 강남\",\n" +
-                "      \"dist\": \"1.1\",\n" +
-                "      \"addr\": \"서울특별시 금천구 시흥대로 333 (가산동)\",\n" +
-                "      \"lat\": \"37.480229\",\n" +
-                "      \"lot\": \"126.883700\",\n" +
-                "      \"opName\": \"운영사업자 1\",\n" +
-                "      \"opTime\": \"운영시간 1\",\n" +
-                "      \"opTelNo\": \"00-0000-0000\",\n" +
-                "      \"chgStusCd\": \"OPEN\",\n" +
-                "      \"chgPrice\": \"10000\",\n" +
-                "      \"chgTypCd\": \"GENESIS\",\n" +
-                "      \"carPayUseYn\": \"Y\",\n" +
-                "      \"superSpeedCnt\": \"11\",\n" +
-                "      \"highSpeedCnt\": \"2\",\n" +
-                "      \"slowSpeedCnt\": \"0\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"bid\": \"11\",\n" +
-                "      \"sid\": \"1234511\",\n" +
-                "      \"eid\": \"22\",\n" +
-                "      \"chgName\": \"EV스테이션 가산\",\n" +
-                "      \"dist\": \"11.5\",\n" +
-                "      \"addr\": \"서울특별시 금천구 50-3\",\n" +
-                "      \"lat\": \"37.478096\",\n" +
-                "      \"lot\": \"126.884548\",\n" +
-                "      \"opName\": \"운영사업자 1\",\n" +
-                "      \"opTime\": \"운영시간 1\",\n" +
-                "      \"opTelNo\": \"00-0000-0000\",\n" +
-                "      \"chgStusCd\": \"READY\",\n" +
-                "      \"chgPrice\": \"10000\",\n" +
-                "      \"chgTypCd\": \"GENESIS\",\n" +
-                "      \"carPayUseYn\": \"Y\",\n" +
-                "      \"superSpeedCnt\": \"11\",\n" +
-                "      \"highSpeedCnt\": \"2\",\n" +
-                "      \"slowSpeedCnt\": \"0\"\n" +
-                "    }\n" +
-                "  ]\n" +
-                "}";
+        String dummyData = "{\"rtCd\":\"0000\",\"rtMsg\":\"test message\",\"chgList\":[{\"bid\":\"11\",\"sid\":\"12345\",\"eid\":\"22\",\"chgName\":\"현대EV스테이션 현대EV스테이션 현대EV스테이션 강남\",\"dist\":\"1.1\",\"addr\":\"서울특별시 금천구 시흥대로 333 (가산동)\",\"lat\":\"37.480229\",\"lot\":\"126.883700\",\"opName\":\"운영사업자 1\",\"opTime\":\"운영시간 1\",\"opTelNo\":\"00-0000-0000\",\"chgStusCd\":\"OPEN\",\"chgPrice\":\"10000\",\"chgTypCd\":\"GENESIS\",\"carPayUseYn\":\"Y\",\"superSpeedCnt\":\"11\",\"highSpeedCnt\":\"2\",\"slowSpeedCnt\":\"1\"},{\"bid\":\"11\",\"sid\":\"12345\",\"eid\":\"22\",\"chgName\":\"현대EV스테이션 1\",\"dist\":\"1.1\",\"addr\":\"서울특별시 금천구 시흥대로 333 (가산동)\",\"lat\":\"37.480229\",\"lot\":\"126.883700\",\"opName\":\"운영사업자 1\",\"opTime\":\"운영시간 1\",\"opTelNo\":\"00-0000-0000\",\"chgStusCd\":\"OPEN\",\"chgPrice\":\"10000\",\"chgTypCd\":\"GENESIS\",\"carPayUseYn\":\"Y\",\"superSpeedCnt\":\"1\",\"highSpeedCnt\":\"2\",\"slowSpeedCnt\":\"0\"},{\"bid\":\"11\",\"sid\":\"12345\",\"eid\":\"22\",\"chgName\":\"현대EV스테이션 2\",\"dist\":\"1.1\",\"addr\":\"서울특별시 금천구 시흥대로 333 (가산동)\",\"lat\":\"37.480229\",\"lot\":\"126.883700\",\"opName\":\"운영사업자 1\",\"opTime\":\"운영시간 1\",\"opTelNo\":\"00-0000-0000\",\"chgStusCd\":\"OPEN\",\"chgPrice\":\"10000\",\"chgTypCd\":\"GENESIS\",\"carPayUseYn\":\"Y\",\"superSpeedCnt\":\"1\",\"highSpeedCnt\":\"0\",\"slowSpeedCnt\":\"0\"},{\"bid\":\"11\",\"sid\":\"12345\",\"eid\":\"22\",\"chgName\":\"현대EV스테이션 3\",\"dist\":\"1.1\",\"addr\":\"서울특별시 금천구 시흥대로 333 (가산동)\",\"lat\":\"37.480229\",\"lot\":\"126.883700\",\"opName\":\"운영사업자 1\",\"opTime\":\"운영시간 1\",\"opTelNo\":\"00-0000-0000\",\"chgStusCd\":\"OPEN\",\"chgPrice\":\"10000\",\"chgTypCd\":\"GENESIS\",\"carPayUseYn\":\"Y\",\"superSpeedCnt\":\"0\",\"highSpeedCnt\":\"0\",\"slowSpeedCnt\":\"0\"},{\"bid\":\"11\",\"sid\":\"12345\",\"eid\":\"22\",\"chgName\":\"현대EV스테이션 4\",\"dist\":\"1.1\",\"addr\":\"서울특별시 금천구 시흥대로 333 (가산동)\",\"lat\":\"37.480229\",\"lot\":\"126.883700\",\"opName\":\"운영사업자 1\",\"opTime\":\"운영시간 1\",\"opTelNo\":\"00-0000-0000\",\"chgStusCd\":\"UNKNOWN\",\"chgPrice\":\"10000\",\"chgTypCd\":\"GENESIS\",\"carPayUseYn\":\"Y\",\"superSpeedCnt\":\"0\",\"highSpeedCnt\":\"0\",\"slowSpeedCnt\":\"0\"},{\"bid\":\"11\",\"sid\":\"12345\",\"eid\":\"22\",\"chgName\":\"현대EV스테이션 5\",\"dist\":\"1.1\",\"addr\":\"서울특별시 금천구 시흥대로 333 (가산동)\",\"lat\":\"37.480229\",\"lot\":\"126.883700\",\"opName\":\"운영사업자 1\",\"opTime\":\"운영시간 1\",\"opTelNo\":\"00-0000-0000\",\"chgStusCd\":\"CLOSE\",\"chgPrice\":\"10000\",\"chgTypCd\":\"GENESIS\",\"carPayUseYn\":\"Y\",\"superSpeedCnt\":\"0\",\"highSpeedCnt\":\"0\",\"slowSpeedCnt\":\"0\"},{\"bid\":\"11\",\"sid\":\"12345\",\"eid\":\"22\",\"chgName\":\"현대EV스테이션 6\",\"dist\":\"1.1\",\"addr\":\"서울특별시 금천구 시흥대로 333 (가산동)\",\"lat\":\"37.480229\",\"lot\":\"126.883700\",\"opName\":\"운영사업자 1\",\"opTime\":\"운영시간 1\",\"opTelNo\":\"00-0000-0000\",\"chgStusCd\":\"READY\",\"chgPrice\":\"10000\",\"chgTypCd\":\"GENESIS\",\"carPayUseYn\":\"Y\",\"superSpeedCnt\":\"0\",\"highSpeedCnt\":\"0\",\"slowSpeedCnt\":\"0\"},{\"bid\":\"11\",\"sid\":\"12345\",\"eid\":\"22\",\"chgName\":\"현대EV스테이션 7\",\"dist\":\"1.1\",\"addr\":\"서울특별시 금천구 시흥대로 333 (가산동)\",\"lat\":\"37.480229\",\"lot\":\"126.883700\",\"opName\":\"운영사업자 1\",\"opTime\":\"운영시간 1\",\"opTelNo\":\"00-0000-0000\",\"chgStusCd\":\"INACTIVE\",\"chgPrice\":\"10000\",\"chgTypCd\":\"GENESIS\",\"carPayUseYn\":\"Y\",\"superSpeedCnt\":\"0\",\"highSpeedCnt\":\"0\",\"slowSpeedCnt\":\"0\"},{\"bid\":\"11\",\"sid\":\"12345\",\"eid\":\"22\",\"chgName\":\"현대EV스테이션 8\",\"dist\":\"1.1\",\"addr\":\"서울특별시 금천구 시흥대로 333 (가산동)\",\"lat\":\"37.480229\",\"lot\":\"126.883700\",\"opName\":\"운영사업자 1\",\"opTime\":\"운영시간 1\",\"opTelNo\":\"00-0000-0000\",\"chgStusCd\":\"CHECKING\",\"chgPrice\":\"10000\",\"chgTypCd\":\"GENESIS\",\"carPayUseYn\":\"Y\",\"superSpeedCnt\":\"0\",\"highSpeedCnt\":\"0\",\"slowSpeedCnt\":\"0\"},{\"bid\":\"11\",\"sid\":\"12345\",\"eid\":\"22\",\"chgName\":\"현대EV스테이션 9\",\"dist\":\"1.1\",\"addr\":\"서울특별시 금천구 시흥대로 333 (가산동)\",\"lat\":\"37.480229\",\"lot\":\"126.883700\",\"opName\":\"운영사업자 1\",\"opTime\":\"운영시간 1\",\"opTelNo\":\"00-0000-0000\",\"chgStusCd\":\"UNINDENTIFIED\",\"chgPrice\":\"10000\",\"chgTypCd\":\"GENESIS\",\"carPayUseYn\":\"Y\",\"superSpeedCnt\":\"0\",\"highSpeedCnt\":\"0\",\"slowSpeedCnt\":\"0\"}]}";
         RES_EPT_1001.setValue(NetUIResponse.success(new Gson().fromJson(dummyData, EPT_1001.Response.class)));
 
         /*

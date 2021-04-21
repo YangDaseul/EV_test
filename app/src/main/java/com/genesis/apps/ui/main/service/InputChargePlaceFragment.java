@@ -3,7 +3,6 @@ package com.genesis.apps.ui.main.service;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,10 +33,14 @@ import java.util.List;
 public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePlaceBinding> {
 
     public interface FilterChangeListener {
-        void onFilterChanged(List<ChargeSearchCategoryVO> filterList);
+        void onFilterChanged(SEARCH_TYPE type, List<ChargeSearchCategoryVO> filterList);
+
+        void onSearchAddress();
+
+        void onSearchMap();
     }
 
-    private enum SEARCH_TYPE {
+    public enum SEARCH_TYPE {
         MY_LOCATION,
         MY_CAR,
         ADDRESS
@@ -50,6 +53,7 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
             new ChargeSearchCategoryVO(R.string.sm_evss01_25, ChargeSearchCategoryVO.COMPONENT_TYPE.CHECK, Arrays.asList(ChargeSearchCategorytype.S_TRAFFIC_CRADIT_PAY, ChargeSearchCategorytype.CAR_PAY))
     );
 
+    private SEARCH_TYPE currentType;
     private FilterChangeListener listener;
     private ChargeSearchFilterAdapter adapter;
 
@@ -102,16 +106,36 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
             case R.id.rb_btn_my_location: {
                 // 내 위치 기준 버튼
                 updateSearchType(SEARCH_TYPE.MY_LOCATION);
+                if (this.listener != null) {
+                    this.listener.onFilterChanged(currentType, adapter.getSelectedItems());
+                }
                 break;
             }
             case R.id.rb_btn_my_car: {
                 // 내 차 위치 기준 버튼.
                 updateSearchType(SEARCH_TYPE.MY_CAR);
+                if (this.listener != null) {
+                    this.listener.onFilterChanged(currentType, adapter.getSelectedItems());
+                }
                 break;
             }
             case R.id.rb_btn_search: {
                 // 주소 검색 기준 버튼.
                 updateSearchType(SEARCH_TYPE.ADDRESS);
+                break;
+            }
+            case R.id.tv_search_addr: {
+                // 주소 검색 버튼
+                if (this.listener != null) {
+                    this.listener.onSearchAddress();
+                }
+                break;
+            }
+            case R.id.iv_btn_map: {
+                // 지도 버튼
+                if (this.listener != null) {
+                    this.listener.onSearchMap();
+                }
                 break;
             }
             case R.id.tv_name: {
@@ -137,7 +161,7 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
                             chargeSearchCategoryVO.setSelected(!chargeSearchCategoryVO.isSelected());
                             adapter.notifyDataSetChanged();
                             if (this.listener != null) {
-                                this.listener.onFilterChanged(adapter.getSelectedItems());
+                                this.listener.onFilterChanged(currentType, adapter.getSelectedItems());
                             }
                             break;
                         }
@@ -166,6 +190,7 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
     }
 
     private void updateSearchType(SEARCH_TYPE type) {
+        currentType = type;
         switch (type) {
             case MY_LOCATION: {
                 // 내 현재 위치 기준
@@ -216,7 +241,7 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
                             data.addSelectedItem(data.getTypeList().stream().filter(it -> getString(it.getTitleResId()).equals(result)).findFirst().get());
                             adapter.notifyDataSetChanged();
                             if (this.listener != null) {
-                                this.listener.onFilterChanged(adapter.getSelectedItems());
+                                this.listener.onFilterChanged(currentType, adapter.getSelectedItems());
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -250,7 +275,7 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
                     }
                     adapter.notifyDataSetChanged();
                     if (this.listener != null) {
-                        this.listener.onFilterChanged(adapter.getSelectedItems());
+                        this.listener.onFilterChanged(currentType, adapter.getSelectedItems());
                     }
                 }
         );

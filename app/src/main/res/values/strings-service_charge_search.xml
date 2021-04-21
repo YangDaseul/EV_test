@@ -30,6 +30,10 @@
     <string name="sm_evss01_27">카페이 결제</string>
     <string name="sm_evss01_28">선택</string>
     <string name="sm_evss01_29">적용</string>
+    <string name="sm_evss01_30">예약가능</string>
+    <string name="sm_evss01_31">예약마감</string>
+    <string name="sm_evss01_32">점검중</string>
+    <string name="sm_evss01_33">사용중</string>
 
     <string name="sm_evss02_01">초고속 %d대</string>
     <string name="sm_evss02_02">고속 %d대</string>
