@@ -3,6 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="com.genesis.apps.comm.util.StringUtil" />
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="discount"
+            type="boolean" />
+
+        <variable
+            name="content"
+            type="int" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
@@ -15,6 +32,7 @@
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="6dp"
+            android:text="@{`└ ` + title}"
             android:textColor="@color/x_000000"
             android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -29,6 +47,7 @@
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="6dp"
+            android:text="@{content > 0 ? (discount ? StringUtil.getDiscountString(content) : StringUtil.getPriceString(content)) : (@string/service_charge_btr_word_42)}"
             android:textColor="@color/x_000000"
             android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -37,4 +56,5 @@
             tools:text="16,000원" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
