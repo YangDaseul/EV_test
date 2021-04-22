@@ -2,25 +2,19 @@ package com.genesis.apps.ui.common.dialog.bottom;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.text.Spannable;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.databinding.DialogBottomSelectKeyDeliveryBinding;
-import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
-
-import java.util.Calendar;
-import java.util.Locale;
 
 public class BottomSelectKeyDeliveryDialog extends BaseBottomDialog<DialogBottomSelectKeyDeliveryBinding> {
 
-    String keyDeliveryCd = null;
+    boolean isDkAvl;
+    String keyTransferType;
 
     public BottomSelectKeyDeliveryDialog(@NonNull Context context, int theme) {
         super(context, theme);
@@ -32,18 +26,13 @@ public class BottomSelectKeyDeliveryDialog extends BaseBottomDialog<DialogBottom
         setContentView(R.layout.dialog_bottom_select_key_delivery);
         setAllowOutTouch(true);
 
-//        ui.lTitle.setValue(title);
+        if (isDkAvl()) {
+            ui.rbDkBtn.setVisibility(View.VISIBLE);
+            ui.tvDkDesc.setVisibility(View.VISIBLE);
+        }
 
-//        String strDkDesc = ui.tvDkDesc.getText().toString();
-//        String target = getContext().getString(R.string.service_charge_btr_txt_15); // 디지털 키 APP
-//        if (strDkDesc.contains(target)) {
-//            int start = strDkDesc.lastIndexOf(target.charAt(0));
-//            int end = start + target.length();
-//            Spannable span = (Spannable) ui.tvDkDesc.getText();
-//            span.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.x_996449)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//        }
-        if(!TextUtils.isEmpty(keyDeliveryCd)) {
-            if(TextUtils.equals("dk", keyDeliveryCd))
+        if (!TextUtils.isEmpty(keyTransferType)) {
+            if (isDkAvl() && VariableType.SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_DKC.equals(keyTransferType))
                 ui.rbDkBtn.setChecked(true);
         }
 
@@ -52,23 +41,31 @@ public class BottomSelectKeyDeliveryDialog extends BaseBottomDialog<DialogBottom
             switch (ui.rgKeyDeliveryRadiogroup.getCheckedRadioButtonId()) {
                 case R.id.rb_fob_btn:
                     // 차량 키 직접 전달(대면)
-                    setSelectItem("fob");
+                    setSelectItem(VariableType.SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_FOB);
                     break;
                 case R.id.rb_dk_btn:
                     // 디지털 키 공유(비대면)
-                    setSelectItem("dk");
+                    setSelectItem(VariableType.SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_DKC);
                     break;
             }
             dismiss();
         });
     }
 
-    public String getSelectItem() {
-        return keyDeliveryCd;
+    public boolean isDkAvl() {
+        return isDkAvl;
     }
 
-    public void setSelectItem(String keyDeliveryCd) {
-        this.keyDeliveryCd = keyDeliveryCd;
+    public void setDkAvl(boolean dkAvl) {
+        isDkAvl = dkAvl;
+    }
+
+    public String getSelectItem() {
+        return keyTransferType;
+    }
+
+    public void setSelectItem(String type) {
+        this.keyTransferType = type;
     }
 }
 

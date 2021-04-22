@@ -29,9 +29,9 @@
                 android:layout_width="match_parent"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="30dp"
                 android:visibility="gone"
-                android:background="@drawable/ripple_bg_ffffff_stroke_e5e5e5"
+                android:background="@color/x_f8f8f8"
                 android:clickable="true"
                 android:focusable="true"
                 android:fontFamily="@font/regular_genesissanstextglobal"
@@ -40,7 +40,8 @@
                 android:textColor="@color/x_000000"
                 android:textSize="16dp"
                 android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
-                tools:text="충전 종료 15분 전입니다." />
+                tools:text="충전 종료 15분 전입니다."
+                tools:visibility="visible"/>
 
 
             <!-- 충전소 검색 -->
@@ -69,7 +70,7 @@
                 layout="@layout/item_service_maintenance"
                 android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
                 app:desc="@{@string/sm_cg_sm02_4}"
-                app:icon="@{@drawable/ic_service_reservation}"
+                app:icon="@{@drawable/ic_service}"
                 app:title="@{@string/sm_cg_sm02_3}"
                 app:isCharge="@{true}"
                 app:fragment="@{fragment}"/>
@@ -85,13 +86,13 @@
                 app:isCharge="@{true}"
                 app:title="@{@string/sm_cg_sm02_5}" />
 
-            <!--  충전 버틀러 서비스 -->
+            <!--  픽업앤충전 서비스 -->
             <include
                 android:id="@+id/l_service_charge_btr_service"
                 layout="@layout/item_service_maintenance"
                 android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
                 app:desc="@{@string/sm_cg_sm02_8}"
-                app:icon="@{@drawable/ic_service_emergency}"
+                app:icon="@{@drawable/ic_service_charge_btr}"
                 app:title="@{@string/sm_cg_sm02_7}"
                 app:btnWhite="@{@string/sm_cg_sm02_9}"
                 app:btnBlack="@{@string/sm_cg_sm02_10}"
@@ -104,7 +105,7 @@
                 layout="@layout/item_service_maintenance"
                 android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
                 app:desc="@{@string/sm_cg_sm02_12}"
-                app:icon="@{@drawable/ic_service_customercenter}"
+                app:icon="@{@drawable/ic_service_charge}"
                 app:title="@{@string/sm_cg_sm02_11}"
                 app:btnWhite="@{@string/sm_cg_sm02_13}"
                 app:btnBlack="@{@string/sm_cg_sm02_14}"

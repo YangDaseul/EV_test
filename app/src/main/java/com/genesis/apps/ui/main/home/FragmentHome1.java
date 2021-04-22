@@ -1,7 +1,9 @@
 package com.genesis.apps.ui.main.home;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -10,12 +12,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.airbnb.paris.Paris;
 import com.bumptech.glide.Glide;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.developers.Agreements;
 import com.genesis.apps.comm.model.api.developers.Dte;
+import com.genesis.apps.comm.model.api.developers.EvStatus;
 import com.genesis.apps.comm.model.api.developers.Odometer;
 import com.genesis.apps.comm.model.api.developers.Odometers;
 import com.genesis.apps.comm.model.api.gra.IST_1001;
@@ -67,12 +77,6 @@ import java.util.TimerTask;
 
 import javax.inject.Inject;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static android.app.Activity.RESULT_OK;
@@ -104,8 +108,14 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     private int rawBackground = 0;
     private int rawLottie = 0;
     private int dayCd = 1;
+    private boolean batteryCharge;
+    private float soc=-1;
+
+
     private String sigungu = "";
     private String t1h = "";
+
+
 
     private boolean isInit = true; //최초 로딩 완료의 기준은 LGN-0005. LGN-0005(날씨정보요청)에 의해서 기본적인 뷰 표시가 결정됨
     private WeatherCodes weatherCodes = WeatherCodes.SKY1;
@@ -248,6 +258,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                             SubActivity.setStatusBarColor(getActivity(), dayCd == VariableType.HOME_TIME_DAY ? R.color.x_ffffff : R.color.x_000000);
                             resumeAndPauseLottie(true);
                             setViewCarImg();
+                            setViewEvBattery(); //ev 충전 배터리를 낮밤에 따라 색상 변경하는 용도
                         }
                     } catch (Exception e) {
 
@@ -347,6 +358,25 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             }
         });
 
+        developersViewModel.getRES_EV_STATUS().observe(getViewLifecycleOwner(), result -> {
+            switch (result.status) {
+                case LOADING:
+                    setProgressBattery(true);
+                    break;
+                case SUCCESS:
+                    if (result.data != null) {
+                        batteryCharge = result.data.isBatteryCharge();
+                        soc = result.data.getSoc();
+                        setViewEvBattery();
+                    }
+                default:
+                    batteryCharge = false;
+                    soc = -1;
+                    setViewEvBattery();
+                    break;
+            }
+        });
+
         istViewModel.getRES_IST_1001().observe(getViewLifecycleOwner(), result -> {
 
             switch (result.status) {
@@ -383,6 +413,13 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
 
         });
 
+    }
+
+    private void setViewEvBattery() {
+        int batteryRes = WeatherCodes.getEvBatteryResource(batteryCharge ? 1 : 0, dayCd, soc);
+        me.ivEvBattery.setBackgroundResource(batteryRes);
+        me.tvEvBattery.setText(soc < 0 ? "- %" : (int)soc + "%");
+        setProgressBattery(false);
     }
 
     private void initViewBanner(boolean isUpdate){
@@ -545,7 +582,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     @Override
     public void onClickCommon(View v) {
         String userCustGbCd = "";
-
+        VehicleVO vehicleVO = null;
         switch (v.getId()) {
             case R.id.iv_indicator:
                 ((MainActivity) getActivity()).movePage(1);
@@ -594,7 +631,6 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 goneQuickMenu();
                 break;
             case R.id.tv_developer_agreements:
-                VehicleVO vehicleVO = null;
                 try {
                     vehicleVO = lgnViewModel.getMainVehicleSimplyFromDB();
                     if (vehicleVO != null && !TextUtils.isEmpty(vehicleVO.getVin())) {
@@ -606,8 +642,45 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 } catch (Exception e) {
 
                 }
-
                 break;
+            case R.id.btn_ev_battery:
+            case R.id.iv_ev_battery:
+            case R.id.tv_ev_battery:
+                try {
+                    vehicleVO = lgnViewModel.getMainVehicleSimplyFromDB();
+                    if (vehicleVO != null && !TextUtils.isEmpty(vehicleVO.getVin())) {
+                        String carId = developersViewModel.getCarId(vehicleVO.getVin());
+                        requestEvStatus(vehicleVO, carId);
+                    }
+                } catch (Exception e) {
+
+                }
+                break;
+        }
+    }
+
+    private void setProgressBattery(boolean isShow){
+        AnimationDrawable animationDrawable = (AnimationDrawable) me.btnEvBattery.getDrawable();
+        if (isShow) {
+            if (!animationDrawable.isRunning()) animationDrawable.start();
+        } else {
+            animationDrawable.stop();
+        }
+        me.btnEvBattery.setEnabled(!isShow);
+        me.tvEvBattery.setEnabled(!isShow);
+        me.ivEvBattery.setEnabled(!isShow);
+    }
+
+    private void requestEvStatus(VehicleVO vehicleVO, String carId){
+        try {
+            if (vehicleVO != null && !TextUtils.isEmpty(vehicleVO.getVin()) && !TextUtils.isEmpty(carId) && vehicleVO.isEV()) {
+                setViewEvBatteryVisibility(View.VISIBLE);
+                developersViewModel.reqEvStatus(new EvStatus.Request(carId));
+            }else{
+                setViewEvBatteryVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+
         }
     }
 
@@ -764,23 +837,32 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 case STAT_AGREEMENT:
                     //동의한경우
                     reqCarInfoToDevelopers(carId);
+                    requestEvStatus(vehicleVO, carId);
                     break;
                 case STAT_DISAGREEMENT:
                     //동의되지 않은 경우
                     me.lDistance.setVisibility(View.GONE);
                     me.tvDeveloperAgreements.setVisibility(View.VISIBLE);
+                    setViewEvBatteryVisibility(View.GONE);
                     break;
                 case STAT_DISABLE:
                 default:
                     //ccs 사용불가상태
                     me.lDistance.setVisibility(View.GONE);
                     me.tvDeveloperAgreements.setVisibility(View.GONE);
+                    setViewEvBatteryVisibility(View.GONE);
                     break;
             }
         } catch (Exception e) {
 
         }
 
+    }
+
+    private void setViewEvBatteryVisibility(int visibility){
+        me.tvEvBattery.setVisibility(visibility);
+        me.btnEvBattery.setVisibility(visibility);
+        me.ivEvBattery.setVisibility(visibility);
     }
 
     private void reqCarInfoToDevelopers(String carId) {

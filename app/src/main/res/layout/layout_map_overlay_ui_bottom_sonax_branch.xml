@@ -60,7 +60,7 @@
         <!-- 거리 -->
         <TextView
             android:id="@+id/tv_map_sonax_branch_distance"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/x_000000"
             android:maxLines="1"
@@ -69,6 +69,7 @@
             android:text="@{(data.getDist()??`0`)+`km`}"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_map_sonax_branch_title"
             app:layout_constraintStart_toEndOf="@id/tv_map_sonax_branch_title"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:text="1.7km" />
 
         <!-- 사진 -->

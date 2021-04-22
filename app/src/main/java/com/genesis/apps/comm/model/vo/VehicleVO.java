@@ -1,10 +1,13 @@
 package com.genesis.apps.comm.model.vo;
 
 import com.genesis.apps.comm.model.BaseData;
+import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.util.StringUtil;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import lombok.AllArgsConstructor;
@@ -49,6 +52,8 @@ import lombok.EqualsAndHashCode;
  * Y:삭제된 차량 N: 삭제안된 차량
  * @see #csmrCarRelCd 고객차량관계코드
  * 1:단독소유, 2:주계약자, 3:공동계약, 4:실운행자, 5:렌트리스
+ * @see #evCd 전기차 코드 구분
+ * GN: 내연기관차, EV: 전기차
  */
 @Entity(indices = {@Index(value = {"vin","ctrctNo"}, unique = true)})
 @EqualsAndHashCode(callSuper = false)
@@ -145,4 +150,19 @@ class VehicleVO extends BaseData {
     @SerializedName("ieclCtyNm")
     private String ieclCtyNm;
 
+    //ev구분
+    @Expose
+    @SerializedName("evCd")
+    private String evCd;
+
+    public boolean isEV(){
+//        if(Math.floor(Math.random() * 10) < 5){
+//            return !StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV);
+//        }else{
+//            return StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV);
+//        }
+//TODO 서버에서 EV차량에 대한 코드가 추가되면 아래 주석으로 변경 필요
+          return !StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV);
+//        return StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV);
+    }
 }

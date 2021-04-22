@@ -18,27 +18,31 @@ import androidx.transition.TransitionManager;
 
 import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
+import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.CHB_1008;
+import com.genesis.apps.comm.model.api.gra.CHB_1009;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
+import com.genesis.apps.comm.model.vo.carlife.BookingDateVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.DateUtil;
+import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.SoftKeyboardUtil;
 import com.genesis.apps.comm.util.StringRe2j;
-import com.genesis.apps.comm.viewmodel.SOSViewModel;
+import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.databinding.ActivityServiceChargeBtrReq1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomSelectKeyDeliveryDialog;
-import com.genesis.apps.ui.common.dialog.bottom.DialogCalendar;
+import com.genesis.apps.ui.common.dialog.bottom.DialogCalendarChargeBtr;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.google.android.material.textfield.TextInputEditText;
 
-import org.w3c.dom.Text;
-
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -51,7 +55,8 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
     @Inject
     public LoginInfoDTO loginInfoDTO;
 
-    private SOSViewModel sosViewModel;
+    private CHBViewModel chbViewModel;
+
     private VehicleVO mainVehicle;
     private final int[] layouts = {R.layout.activity_service_charge_btr_req_1, R.layout.activity_service_charge_btr_req_2, R.layout.activity_service_charge_btr_req_3, R.layout.activity_service_charge_btr_req_4};
     private final int[] textMsgId = {R.string.service_charge_btr_txt_07, R.string.service_charge_btr_txt_01, R.string.service_charge_btr_txt_03, R.string.service_charge_btr_txt_05};
@@ -59,9 +64,11 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
     private View[] views;
     private View[] edits;
 
-    private String keyDeliveryCd;
+    private boolean isDkAvl;    // 디지털 키 공유 가능 여부(비대면으로 서비스 신청 가능 여부)
+    private String keyTransferType;     // 차량 키 전달 방식
     private String rsvtHopeDt; //예약희망일자
-    private String autoAmpmCd="A"; //오전오후구분코드
+    private String rsvtHopeTm = ""; //예약희망시간
+    private String rsvtDate = ""; //예약희망일시
     private AddressVO addressVO;
 
 
@@ -79,7 +86,7 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
     private void initView() {
         try {
             //주 이용 차량 정보를 DB에서 GET
-            mainVehicle = sosViewModel.getMainVehicleFromDB();
+            mainVehicle = chbViewModel.getMainVehicleFromDB();
         }catch (Exception e){
             e.printStackTrace();
         }finally{
@@ -150,7 +157,7 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
                 break;
             //예약희망일
             case R.id.tv_rsvt_hope_dt:
-                selectCalendar();
+                requestPossibleTime();
                 break;
             case R.id.btn_question:
 //                startActivitySingleTop(new Intent(this, ServiceSOSPayInfoActivity.class), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
@@ -168,10 +175,17 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
         SoftKeyboardUtil.hideKeyboard(this, getWindow().getDecorView().getWindowToken());
     }
 
-    private void doNext(){
-        if(isValid()){
+    private void doNext() {
+        if (isValid()) {
             clearKeypad();
 //            moveToNextPage();
+
+            // 픽업앤충전 신청 전문 요청
+            chbViewModel.reqCHB1009(new CHB_1009.Request(APPIAInfo.SM_CGRV01.getId(),
+                    mainVehicle.getVin(),
+                    mainVehicle.getMdlCd(),
+                    rsvtDate
+            ));
         }
     }
 
@@ -181,16 +195,76 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
         ui.setLifecycleOwner(this);
         ui.setActivity(this);
 
-        sosViewModel = new ViewModelProvider(this).get(SOSViewModel.class);
+        chbViewModel = new ViewModelProvider(this).get(CHBViewModel.class);
     }
 
     @Override
     public void setObserver() {
+        chbViewModel.getRES_CHB_1008().observe(this, result ->{
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if (result.data != null && result.data.getDailyBookingSlotList() != null && result.data.getDailyBookingSlotList().size() > 0) {
+                        selectCalendar(result.data.getDailyBookingSlotList());
+                        break;
+                    }
+                default:
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
+                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                        showProgressDialog(false);
+                    }
+                    break;
+            }
+        });
 
+        chbViewModel.getRES_CHB_1009().observe(this, result -> {
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    showProgressDialog(false);
+                    if (result.data != null) {
+                        CHB_1009.Response data = result.data;
+                        startActivitySingleTop(new Intent(this, ServiceChargeBtrCheckActivity.class).putExtra(KeyNames.KEY_NAME_CHB_RSVT_DT, rsvtDate).putExtra(KeyNames.KEY_NAME_CHB_CONTENTS_VO, data), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                        break;
+                    }
+                default:
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (TextUtils.isEmpty(serverMsg)) {
+                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        }
+                        SnackBarUtil.show(this, serverMsg);
+                        showProgressDialog(false);
+                    }
+                    break;
+            }
+        });
     }
 
     @Override
     public void getDataFromIntent() {
+        try {
+            isDkAvl = getIntent().getBooleanExtra(KeyNames.KEY_NAME_IS_DK_AVL,false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -226,40 +300,54 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
                 edits[pos].requestFocus();
             }
 
-            if(pos==1){
+            if (pos == 1) {
                 startMapView();
-            }else if(pos==2){
-            }else if(pos==3){
-                selectCalendar();
-            }else if(pos==views.length-1){
+            } else if (pos == 2) {
+                ui.etAddrDtl.requestFocus();
+            } else if (pos == views.length - 1) {
+                requestPossibleTime();
                 ui.btnNext.setText(R.string.sm_emgc01_25);
             }
         }
     }
 
+    /**
+     * @brief 예약 가능 시간 요청
+     */
+    private void requestPossibleTime() {
+        Calendar minCalendar = Calendar.getInstance(Locale.getDefault());
+        minCalendar.add(Calendar.DATE, 1);
+        Calendar maxCalendar = Calendar.getInstance(Locale.getDefault());
+        maxCalendar.add(Calendar.DATE, 5);
 
-    private void selectCalendar() {
+        chbViewModel.reqCHB1008(new CHB_1008.Request(APPIAInfo.SM_CGRV01.getId(),
+                DateUtil.getDate(minCalendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd),
+                DateUtil.getDate(maxCalendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd)
+        ));
+    }
+
+    private void selectCalendar(List<BookingDateVO> list) {
         clearKeypad();
-        DialogCalendar dialogCalendar = new DialogCalendar(this, R.style.BottomSheetDialogTheme);
+        DialogCalendarChargeBtr dialogCalendar = new DialogCalendarChargeBtr(this, R.style.BottomSheetDialogTheme, onSingleClickListener);
         dialogCalendar.setOnDismissListener(dialogInterface -> {
             Calendar calendar = dialogCalendar.calendar;
             if(calendar!=null){
                 rsvtHopeDt = DateUtil.getDate(calendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd);
-                autoAmpmCd = dialogCalendar.getAutoAmpmCd();
+                rsvtHopeTm = dialogCalendar.getSelectBookingDate().getSelectBookingTime();
                 checkValidRsvtHopeDt();
-//                setViewDtm(calendar);
             }
         });
+
         dialogCalendar.setCalendarMaximum(Calendar.getInstance(Locale.getDefault()));
         dialogCalendar.setTitle(getString(R.string.service_charge_btr_03));
-        dialogCalendar.setUseAutoAmpmCd(true);
         Calendar minCalendar = Calendar.getInstance(Locale.getDefault());
         minCalendar.add(Calendar.DATE, 1);
         Calendar maxCalendar = Calendar.getInstance(Locale.getDefault());
-        maxCalendar.add(Calendar.DATE, 15);
+        maxCalendar.add(Calendar.DATE, 5);
 
         dialogCalendar.setCalendarMinimum(minCalendar);
         dialogCalendar.setCalendarMaximum(maxCalendar);
+        dialogCalendar.setBookingDateVOList(list);
         dialogCalendar.setRemoveWeekends(true);
         dialogCalendar.show();
 
@@ -268,22 +356,22 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
     /**
      * @brief 차량 키 전달 방식 선택
      */
-    private void selectKeyDeliveryCd(){
+    private void selectKeyDeliveryCd() {
         final BottomSelectKeyDeliveryDialog selectKeyDeliveryDialog = new BottomSelectKeyDeliveryDialog(this, R.style.BottomSheetDialogTheme);
-        if(!TextUtils.isEmpty(ui.tvKeyDeliveryCd.getText())) {
-            if(TextUtils.equals(getString(R.string.service_charge_btr_txt_12), ui.tvKeyDeliveryCd.getText()))
-                selectKeyDeliveryDialog.setSelectItem("dk");
-            else if(TextUtils.equals(getString(R.string.service_charge_btr_txt_11), ui.tvKeyDeliveryCd.getText()))
-                selectKeyDeliveryDialog.setSelectItem("fob");
+        selectKeyDeliveryDialog.setDkAvl(isDkAvl);
+        if (!TextUtils.isEmpty(ui.tvKeyDeliveryCd.getText())) {
+            if (TextUtils.equals(getString(R.string.service_charge_btr_txt_12), ui.tvKeyDeliveryCd.getText()))
+                selectKeyDeliveryDialog.setSelectItem(VariableType.SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_DKC);
+            else if (TextUtils.equals(getString(R.string.service_charge_btr_txt_11), ui.tvKeyDeliveryCd.getText()))
+                selectKeyDeliveryDialog.setSelectItem(VariableType.SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_FOB);
         }
         selectKeyDeliveryDialog.setOnDismissListener(dialogInterface -> {
             String result = selectKeyDeliveryDialog.getSelectItem();
-            if(!TextUtils.isEmpty(result)){
-//                keyDeliveryCd  = VariableType.getAreaClsCd(result);
-                keyDeliveryCd  = result;
+            if (!TextUtils.isEmpty(result)) {
+                keyTransferType = result;
                 ui.tvTitleKeyDeliveryCd.setVisibility(View.VISIBLE);
                 Paris.style(ui.tvKeyDeliveryCd).apply(R.style.CommonSpinnerItemEnable);
-                ui.tvKeyDeliveryCd.setText(TextUtils.equals(result, "dk") ? R.string.service_charge_btr_txt_12 : R.string.service_charge_btr_txt_11);
+                ui.tvKeyDeliveryCd.setText(VariableType.SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_DKC.equals(keyTransferType) ? R.string.service_charge_btr_txt_12 : R.string.service_charge_btr_txt_11);
                 checkValidKeyDeliveryCd();
             }
         });
@@ -327,7 +415,7 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
     }
 
     private boolean checkValidKeyDeliveryCd() {
-        if (!TextUtils.isEmpty(keyDeliveryCd)) {
+        if (!TextUtils.isEmpty(keyTransferType)) {
             ui.tvErrorKeyDeliveryCd.setVisibility(View.INVISIBLE);
             doTransition(1);
             return true;
@@ -381,16 +469,16 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
             ui.tvErrorRsvtHopeDt.setText(R.string.service_charge_btr_err_03);
             return false;
         }else{
-            String date = DateUtil.getDate(DateUtil.getDefaultDateFormat(rsvtHopeDt, DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)
-                    + " / "
-                    + (autoAmpmCd.equalsIgnoreCase("A") ? getString(R.string.sm_r_rsv02_01_p02_2) : getString(R.string.sm_r_rsv02_01_p02_3));
+            rsvtDate = rsvtHopeDt + rsvtHopeTm;
+//            String date = DateUtil.getDate(DateUtil.getDefaultDateFormat(rsvtHopeDt, DateUtil.DATE_FORMAT_yyyyMMdd, Locale.getDefault()), DateUtil.DATE_FORMAT_yyyy_MM_dd_E)
+//                    + " / "
+//                    + rsvtHopeTm.substring(0,2) + ":" + rsvtHopeTm.substring(2,4);
 
-            ui.tvRsvtHopeDt.setText(date);
+            ui.tvRsvtHopeDt.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(rsvtDate, DateUtil.DATE_FORMAT_yyyyMMddHHmm, Locale.getDefault()), DateUtil.DATE_FORMAT_yyyy_MM_dd_E_HH_mm));
             ui.tvRsvtHopeDt.setTextColor(getColor(R.color.x_000000));
             ui.tvRsvtHopeDt.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
             ui.tvTitleRsvtHopeDt.setVisibility(View.VISIBLE);
             ui.tvErrorRsvtHopeDt.setVisibility(View.INVISIBLE);
-
             return true;
         }
     }

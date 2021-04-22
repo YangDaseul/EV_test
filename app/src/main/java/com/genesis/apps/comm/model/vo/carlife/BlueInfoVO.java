@@ -1,4 +1,4 @@
-package com.genesis.apps.comm.model.vo;
+package com.genesis.apps.comm.model.vo.carlife;
 
 import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 충전 버틀러 블루멤버스 정보 VO
+ * 픽업앤충전 블루멤버스 정보 VO
  * @author ljeun
  * @since 2021. 4. 5.
  *
@@ -27,5 +27,5 @@ class BlueInfoVO extends BaseData {
     private String blueSignInYN;
     @Expose
     @SerializedName("blueBalance")
-    private String blueBalance;
+    private int blueBalance;
 }

@@ -1146,7 +1146,7 @@ public class MiddleDialog {
      * @param activity
      * @param ok
      * @param cancel
-     * @brief 충전 버틀러 서비스 신청 종료 팝업
+     * @brief 픽업앤충전 서비스 신청 종료 팝업
      */
     public static void dialogServiceChargeBtrReqExit(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
         if (activity.isFinishing()) {
@@ -1158,6 +1158,29 @@ public class MiddleDialog {
                         cancel,
                         R.string.service_charge_btr_02,
                         R.string.service_charge_btr_popup_msg_00,
+                        R.string.dialog_common_1,
+                        R.string.dialog_common_2
+                ).show()
+        );
+    }
+
+    /**
+     *
+     * @param activity
+     * @param ok
+     * @param cancel
+     * @brief 픽업앤충전 서비스 예약 취소 팝업
+     */
+    public static void dialogServiceChargeBtrCancel(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        R.string.service_charge_btr_06,
+                        R.string.service_charge_btr_popup_msg_02,
                         R.string.dialog_common_1,
                         R.string.dialog_common_2
                 ).show()

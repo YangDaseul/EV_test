@@ -163,23 +163,24 @@
     <!-- SERVICE 탭 충전 -->
     <string name="sm_cg_sm02_1">충전</string>
     <string name="sm_cg_sm02_2">충전소 검색</string>
-    <string name="sm_cg_sm02_3">충전소 예약 내역</string>
-    <string name="sm_cg_sm02_4">충전소 예약 현황과\n신청 내역을 확인하세요.</string>
+    <string name="sm_cg_sm02_3">충전소 예약/내역</string>
+    <string name="sm_cg_sm02_4">원하는 시간과 장소에서\n충전서비스를 받으세요.</string>
     <string name="sm_cg_sm02_5">여행 경로 추천</string>
     <string name="sm_cg_sm02_6">충전소 정보 기반의 최적화된\n여행 경로를 추천합니다.</string>
-    <string name="sm_cg_sm02_7">충전 버틀러 서비스</string>
-    <string name="sm_cg_sm02_8">내가 원하는 위치에서\n차를 픽업하여 충전 후\n처음 위치로 가져다 드립니다.</string>
+    <string name="sm_cg_sm02_7">픽업앤충전</string>
+    <string name="sm_cg_sm02_8">내가 원하는 위치에서\n차량을 픽업하여 충전 후\n처음 위치로 가져다 드립니다.</string>
     <string name="sm_cg_sm02_9">신청 내역</string>
-    <string name="sm_cg_sm02_10">충전 버틀러 신청</string>
+    <string name="sm_cg_sm02_10">픽업앤충전 신청</string>
     <string name="sm_cg_sm02_11">찾아가는 충전 서비스</string>
-    <string name="sm_cg_sm02_12">고객님이 원하는 곳으로\n방문하여 7kW를 무상으로\n충전해 드립니다.</string>
+    <string name="sm_cg_sm02_12">고객님이 원하는 곳으로\n방문하여 7KW를 무상으로\n충전해 드립니다.</string>
     <string name="sm_cg_sm02_13">전화 신청</string>
     <string name="sm_cg_sm02_14">앱으로 신청</string>
-    <string name="sm_cg_sm02_15">배터리 : %s% (주행 가능 거리 : %skm)</string>
-    <string name="sm_cg_sm02_16">충전 중입니다. 커넥터를 분리하지 마세요.\n(잔여 충전 시간 : %s)</string>
-    <string name="sm_cg_sm02_17">충전 종료 %s분 전 입니다.</string>
-    <string name="sm_cg_sm02_18">충전이 종료되었습니다.</string>
+    <string name="sm_cg_sm02_15"><![CDATA[배터리 : <font color="#996449">%d&#36;</font> (주행 가능 거리 : %s)]]></string>
+    <string name="sm_cg_sm02_16"><![CDATA[배터리 : <font color="#996449">%d&#36;</font> (주행 가능 거리 : %s)\n가까운 충전소를 이용해 주세요.]]></string>
+    <string name="sm_cg_sm02_17"><![CDATA[<font color="#996449">충전 중</font>입니다.\n(충전 잔여시간 : %s / 100&#36; 충전기준)]]></string>
+    <string name="sm_cg_sm02_18"><![CDATA[<font color="#996449">충전이 완료</font>되었습니다.\n충전 커넥터를 제거해 주세요.]]></string>
     <string name="sm_cg_sm02_19">신청 가능한 잔여 횟수가 없습니다.</string>
+    <string name="sm_cg_sm02_20">%d시간 %d분</string>
 
 
 

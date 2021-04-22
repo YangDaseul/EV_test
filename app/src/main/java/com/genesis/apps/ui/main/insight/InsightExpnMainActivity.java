@@ -217,10 +217,19 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
 
     private void reqCBKData() {
         if (selectVehicle != null) {
+            initViewEV();
             adapter.clear();
             adapter.setPageNo(0);
             adapter.setMore(false);
             cbkViewModel.reqCBK1002(new CBK_1002.Request(APPIAInfo.TM_EXPS01_P03.getId(), selectVehicle.getVin(), basYymm, "1", PAGE_UNIT + ""));
+        }
+    }
+
+    private void initViewEV() {
+        if(selectVehicle!=null&&selectVehicle.isEV()){
+            ui.lMembership.setVisibility(View.GONE);
+        }else{
+            ui.lMembership.setVisibility(View.VISIBLE);
         }
     }
 

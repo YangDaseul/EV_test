@@ -14,7 +14,7 @@ public class CHB_1003 extends BaseData {
     /**
      * @brief CHB_1003 요청 항목
      * @see #svcCd 서비스코드
-     * CHRGBTR : 충전버틀러
+     * CHRGBTR : 픽업앤충전
      *
      * @see #prvcyInfoAgmtYn 개인정보동의여부
      * Y: 동의, N:미동의
