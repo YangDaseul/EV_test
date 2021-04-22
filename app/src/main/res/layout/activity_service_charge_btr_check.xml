@@ -77,6 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     app:btnNm="@{@string/service_charge_btr_word_28}"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_reserve_dtm_title"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -109,6 +110,7 @@
                     android:layout_height="80dp"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/iv_line_1">
@@ -143,7 +145,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/iv_arrow_image"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:text="@{StringUtil.getDigitGrouping(data.productPrice)+`원`}"
+                        android:text="@{StringUtil.getPriceString(data.productPrice)}"
                         tools:text="25,000원" />
 
                     <ImageView
@@ -179,7 +181,7 @@
                         android:fontFamily="@font/regular_genesissanstextglobal"
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="6dp"
-                        android:text="@string/service_charge_btr_word_30"
+                        android:text="@string/service_charge_btr_word_12"
                         android:textColor="@color/x_000000"
                         android:textSize="16dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -196,7 +198,7 @@
                         android:textSize="16dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:text="@{StringUtil.getDigitGrouping(data.productPrice)+`원`}"
+                        android:text="@{StringUtil.getPriceString(data.productPrice)}"
                         tools:text="16,000원" />
 
                     <ImageView
@@ -218,7 +220,7 @@
                         android:fontFamily="@font/regular_genesissanstextglobal"
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="6dp"
-                        android:text="@string/service_charge_btr_word_31"
+                        android:text="@string/service_charge_btr_word_19"
                         android:textColor="@color/x_000000"
                         android:textSize="16dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -236,7 +238,7 @@
                         app:layout_constraintBottom_toBottomOf="@+id/tv_credit_point_tit"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_credit_point_tit"
-                        android:text="@{StringUtil.getDigitGrouping(data.productPrice)+`원`}"
+                        android:text="@{StringUtil.getDiscountString(data.productPrice)}"
                         tools:text="-16,000원" />
 
                     <!-- 충전 크레딧 보유 포인트 정보 -->
@@ -260,7 +262,7 @@
                             android:fontFamily="@font/regular_genesissanstextglobal"
                             android:letterSpacing="-0.01"
                             android:lineSpacingExtra="6dp"
-                            android:text="@string/service_charge_btr_word_31"
+                            android:text="@string/service_charge_btr_word_19"
                             android:textColor="@color/x_000000"
                             android:textSize="15dp"
                             app:layout_constraintStart_toStartOf="parent"
@@ -277,7 +279,7 @@
                             android:textSize="15dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            android:text="@{StringUtil.getDigitGrouping(data.productPrice)+`원 보유`}"
+                            android:text="@{StringUtil.getPriceString(data.productPrice) + (@string/service_charge_btr_word_41)}"
                             tools:text="1,000,000원 보유" />
 
                         <ImageView
@@ -298,7 +300,7 @@
                             android:layout_marginTop="20dp"
                             android:layout_marginStart="6dp"
                             android:gravity="center_vertical|start"
-                            android:text="@{String.format(@string/service_charge_btr_msg_04, data.productPrice)}"
+                            android:text="@{String.format(@string/service_charge_btr_msg_04, StringUtil.getDigitGrouping(data.productPrice))}"
                             android:textColor="@color/x_666666"
                             android:textSize="14dp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -326,7 +328,7 @@
                         android:fontFamily="@font/regular_genesissanstextglobal"
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="6dp"
-                        android:text="@string/service_charge_btr_word_32"
+                        android:text="@string/service_charge_btr_word_13"
                         android:textColor="@color/x_000000"
                         android:textSize="16dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -344,7 +346,7 @@
                         app:layout_constraintBottom_toBottomOf="@+id/tv_delivery_paymt_tit"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_delivery_paymt_tit"
-                        android:text="@{StringUtil.getDigitGrouping(data.productPrice)+`원`}"
+                        android:text="@{StringUtil.getPriceString(data.productPrice)}"
                         tools:text="20,000원" />
 
                     <ImageView
@@ -366,7 +368,7 @@
                         android:fontFamily="@font/regular_genesissanstextglobal"
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="6dp"
-                        android:text="@string/service_charge_btr_word_33"
+                        android:text="@string/service_charge_btr_word_14"
                         android:textColor="@color/x_000000"
                         android:textSize="16dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -381,6 +383,7 @@
                         android:lineSpacingExtra="6dp"
                         android:textColor="@color/x_000000"
                         android:textSize="16dp"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_carwash_paymt_tit"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_carwash_paymt_tit"
@@ -412,6 +415,7 @@
                             android:fontFamily="@font/regular_genesissanstextglobal"
                             android:letterSpacing="-0.01"
                             android:lineSpacingExtra="3dp"
+                            android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
                             android:text="@string/service_charge_btr_word_34"
                             android:textColor="@color/x_000000"
                             android:textSize="15dp"
@@ -419,6 +423,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
+                            android:id="@+id/tv_carwash_price"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/regular_genesissanstextglobal"
@@ -429,7 +434,6 @@
                             app:layout_constraintBottom_toBottomOf="@+id/cb_carwash_option"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/cb_carwash_option"
-                            android:text="@{StringUtil.getDigitGrouping(data.productPrice)+`원`}"
                             tools:text="5,000원" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -470,6 +474,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
                     app:btnNm="@{@string/service_charge_btr_word_36}"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_card_list_tit"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -483,6 +488,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
                     android:visibility="gone"
                     app:btnNm="@{@string/service_charge_btr_word_37}"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_card_list_tit"
@@ -491,14 +497,27 @@
                     app:layout_constraintVertical_bias=".5" />
 
                 <!-- 결제 수단 select box -->
-                <TextView
-                    android:id="@+id/tv_card_select"
-                    style="@style/CommonSpinnerItemReject"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_paymt_card_selector"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
-                    android:text="@string/service_charge_btr_err_10"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_card_list_tit" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_card_list_tit">
+
+                    <TextView
+                        android:id="@+id/l_noreg_paymt_card"
+                        style="@style/CommonSpinnerItemReject"
+                        android:text="@{@string/service_charge_btr_err_10}" />
+
+                    <TextView
+                        android:id="@+id/l_selected_paymt_card"
+                        style="@style/CommonSpinnerItemEnable"
+                        android:visibility="gone"
+                        android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <ImageView
                     android:id="@+id/iv_line_5"
@@ -508,13 +527,14 @@
                     android:background="@color/x_f8f8f8"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_card_select" />
+                    app:layout_constraintTop_toBottomOf="@+id/l_paymt_card_selector" />
 
                 <!-- 결제 상세 -->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/l_paymt_amt"
                     android:layout_width="0dp"
                     android:layout_height="80dp"
+                    android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -546,7 +566,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/iv_paymt_amt_arrow"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:text="@{StringUtil.getDigitGrouping(data.productPrice)+`원`}"
+                        android:text="@{StringUtil.getPriceString(data.productPrice)}"
                         tools:text="25,000원" />
 
                     <ImageView
@@ -582,6 +602,29 @@
                         android:background="@drawable/bg_00000000_underline_e5e5e5"
                         android:orientation="vertical"
                         android:paddingBottom="20dp">
+
+                        <include
+                            android:id="@+id/l_charge_price"
+                            layout="@layout/item_service_charge_btr_paymt_info"
+                            app:content="@{data.productPrice}"
+                            app:title="@{@string/service_charge_btr_word_12}" />
+
+                        <include
+                            android:id="@+id/l_credit_point"
+                            layout="@layout/item_service_charge_btr_paymt_info"
+                            app:discount="@{true}"
+                            app:content="@{data.productPrice}"
+                            app:title="@{@string/service_charge_btr_word_19}" />
+
+                        <include
+                            android:id="@+id/l_delivery_price"
+                            layout="@layout/item_service_charge_btr_paymt_info"
+                            app:title="@{@string/service_charge_btr_word_13}" />
+
+                        <include
+                            android:id="@+id/l_carwash_price"
+                            layout="@layout/item_service_charge_btr_paymt_info"
+                            app:title="@{@string/service_charge_btr_word_14}" />
                     </LinearLayout>
 
                     <ImageView
@@ -635,12 +678,13 @@
             android:background="@drawable/ripple_bg_111111"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:gravity="center"
+            android:onClick="@{(view)->activity.onSingleClickListener.onSingleClick(view)}"
             android:text="@string/service_charge_btr_word_39"
             android:textColor="@color/x_ffffff"
             android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
