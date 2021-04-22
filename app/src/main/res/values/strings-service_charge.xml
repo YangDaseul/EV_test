@@ -24,4 +24,29 @@
     <string name="sm_cggo_01_22"></string>
 
 
+    <string name="sm_evsb01_p02_1">충전소 예약이\n완료되었습니다.</string>
+    <string name="sm_evsb01_p02_2">예약 정보</string>
+    <string name="sm_evsb01_p02_3">예약일시</string>
+    <string name="sm_evsb01_p02_4">충전소</string>
+    <string name="sm_evsb01_p02_5">주소</string>
+    <string name="sm_evsb01_p02_6">충전기</string>
+    <string name="sm_evsb01_p02_7">운영업체</string>
+    <string name="sm_evsb01_p02_8">고객센터 연결</string>
+    <string name="sm_evsb02_1">충전소 예약 내역</string>
+    <string name="sm_evsb02_2">예약일시</string>
+    <string name="sm_evsb02_3">충전소</string>
+    <string name="sm_evsb02_4">충전기</string>
+    <string name="sm_evsb02_5">예약 취소</string>
+    <string name="sm_evsb02_6">충전금액</string>
+    <string name="sm_evsb02_7">작업내역</string>
+    <string name="sm_evsb02_8">주행거리</string>
+    <string name="sm_evsb02_9">예약 완료</string>
+    <string name="sm_evsb02_10">이용 완료</string>
+    <string name="sm_evsb02_11">예약 취소</string>
+    <string name="sm_evsb02_12">충전금액은 MY GENESIS 간편결제를 통해 결제된 내역만 표시됩니다.</string>
+    <string name="sm_evsb02_13">예약내역은 최근 90일까지 확인할 수 있습니다.</string>
+
+
+
+
 </resources>

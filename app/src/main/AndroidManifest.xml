@@ -627,6 +627,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/TextInputLayout" />
         <activity
+            android:name=".ui.main.service.ChargeResultActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.main.service.ServiceChargeApplyActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
