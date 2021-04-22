@@ -41,6 +41,41 @@
             <requestFocus/>
         </com.google.android.material.textfield.TextInputLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_svc_charge_btr_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/l_search"
+            app:layout_constraintStart_toStartOf="@+id/l_search"
+            app:layout_constraintTop_toBottomOf="@+id/l_search">
+
+            <ImageView
+                android:id="@+id/iv_mark_1"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:src="@drawable/mark_666666"
+                android:scaleType="centerInside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+
+            <TextView
+                android:id="@+id/tv_info_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="6dp"
+                android:textColor="@color/x_666666"
+                android:textSize="14dp"
+                android:text="@string/service_charge_btr_msg_07"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_mark_1"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/tv_title_sub"
@@ -55,7 +90,7 @@
             android:textSize="13dp"
             android:visibility="visible"
             app:layout_constrainedWidth="true"
-            app:layout_constraintTop_toBottomOf="@+id/l_search"
+            app:layout_constraintTop_toBottomOf="@+id/l_svc_charge_btr_info"
             app:layout_constraintStart_toStartOf="@+id/l_search"
             app:layout_constraintEnd_toEndOf="@+id/l_search"
             android:text="@string/mg00_word_2"

@@ -76,6 +76,9 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
                 default://그 외
                     me.llMyPosition.setVisibility(View.GONE);
             }
+
+            // 픽업앤충전 주소검색의 경우만 노출되는 서비스 가능 지역 안내문구
+            me.lSearchParent.lSvcChargeBtrInfo.setVisibility(titleId == R.string.service_charge_btr_01 ? View.VISIBLE : View.GONE);
         }catch (Exception ignore){
 
         }
