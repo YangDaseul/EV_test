@@ -2956,7 +2956,7 @@ public class HttpRequest {
         if (part2 != null) {
             try {
                 stream2 = new BufferedInputStream(new FileInputStream(part2));
-//                incrementTotalSize(part2.length());
+                incrementTotalSize(part2.length());
             } catch (IOException e) {
                 throw new HttpRequestException(e);
             }
@@ -3028,8 +3028,8 @@ public class HttpRequest {
             }
             if (part2 != null) {
                 writePartHeader(params, name2, filename2, contentType);
-                totalSize = -1;
-                totalWritten=0;
+//                totalSize = -1;
+//                totalWritten=0;
                 copy(part2, output);
             }
         } catch (IOException e) {
