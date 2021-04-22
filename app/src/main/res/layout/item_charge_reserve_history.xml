@@ -18,7 +18,7 @@
 
         <variable
             name="data"
-            type="com.genesis.apps.comm.model.vo.RepairHistVO" />
+            type="com.genesis.apps.comm.model.vo.ReserveHisVO" />
 
         <variable
             name="pos"
@@ -44,7 +44,7 @@
 
 
         <TextView
-            android:id="@+id/tv_wrhs_dtm"
+            android:id="@+id/tv_reserv_dtm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="33dp"
@@ -54,7 +54,8 @@
             android:lineSpacingExtra="4dp"
             android:textColor="@color/x_262626"
             android:textSize="14dp"
-            android:text="@{(DateUtil.getDate(DateUtil.getDefaultDateFormat((data.wrhsDtm ?? ``), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot))}"
+            android:text="@{(DateUtil.getDate(DateUtil.getDefaultDateFormat((data.reservDtm ?? ``), DateUtil.DATE_FORMAT_yyyyMMddHHmm), DateUtil.DATE_FORMAT_yyyy_mm_dd_hh_mm
+            ))}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_line_1"
             tools:text="2020.07.25" />
@@ -80,7 +81,7 @@
             android:onClick="@{(view)->listener.onClick(view)}"
             android:visibility="@{data.isRepairImage ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBaseline_toBaselineOf="@+id/tv_wrhs_dtm"/>
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_reserv_dtm"/>
 
         <ImageView
             android:id="@+id/iv_arrow_image"
@@ -109,7 +110,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_wrhs_dtm">
+            app:layout_constraintTop_toBottomOf="@+id/tv_reserv_dtm">
 
             <include
                 android:id="@+id/l_asn_nm"

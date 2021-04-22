@@ -16,8 +16,11 @@ import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.STCRepo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.excutor.ExecutorService;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import lombok.Data;
 
@@ -82,5 +85,25 @@ class STCViewModel extends ViewModel {
         repository.REQ_STC_1006(reqData);
     }
 
+
+    public VehicleVO getMainVehicle() throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<VehicleVO> future = es.getListeningExecutorService().submit(()->{
+            VehicleVO vehicleVO = null;
+            try {
+                vehicleVO = dbVehicleRepository.getMainVehicleSimplyFromDB();
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+                vehicleVO = null;
+            }
+            return vehicleVO;
+        });
+
+        try {
+            return future.get();
+        }finally {
+            es.shutDownExcutor();
+        }
+    }
 
 } // end of class STCViewModel
