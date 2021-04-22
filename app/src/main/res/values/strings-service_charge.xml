@@ -38,14 +38,16 @@
     <string name="sm_evsb02_4">충전기</string>
     <string name="sm_evsb02_5">예약 취소</string>
     <string name="sm_evsb02_6">충전금액</string>
-    <string name="sm_evsb02_7">작업내역</string>
-    <string name="sm_evsb02_8">주행거리</string>
     <string name="sm_evsb02_9">예약 완료</string>
     <string name="sm_evsb02_10">이용 완료</string>
     <string name="sm_evsb02_11">예약 취소</string>
     <string name="sm_evsb02_12">충전금액은 MY GENESIS 간편결제를 통해 결제된 내역만 표시됩니다.</string>
     <string name="sm_evsb02_13">예약내역은 최근 90일까지 확인할 수 있습니다.</string>
     <string name="sm_evsb02_14">충전 이력이 없습니다.</string>
+
+    <string name="sm_evsb02_p01_1">예약 취소 안내</string>
+    <string name="sm_evsb02_p01_2">신청하신 충전소 예약을\n취소하시겠습니까?</string>
+    <string name="sm_evsb02_p01_3">취소가 완료되었습니다.</string>
 
 
 

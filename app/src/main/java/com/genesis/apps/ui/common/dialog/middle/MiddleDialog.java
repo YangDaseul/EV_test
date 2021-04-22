@@ -361,6 +361,28 @@ public class MiddleDialog {
     }
 
     /**
+     * @biref 충전소 예약 취소 팝업
+     * @param activity
+     * @param ok
+     * @param cancel
+     */
+    public static void dialogChargeReserveCancel(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        R.string.sm_evsb02_p01_1,
+                        R.string.sm_evsb02_p01_2,
+                        R.string.dialog_common_1,
+                        R.string.dialog_common_2
+                ).show()
+        );
+    }
+
+    /**
      * @biref 원격진단 예약 취소 팝업
      *
      *

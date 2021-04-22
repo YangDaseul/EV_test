@@ -40,6 +40,7 @@ import com.genesis.apps.ui.main.service.CarWashHistoryActivity;
 import com.genesis.apps.ui.main.service.CarWashSearchActivity;
 import com.genesis.apps.ui.main.service.CardManageActivity;
 import com.genesis.apps.ui.main.service.ChargeFindActivity;
+import com.genesis.apps.ui.main.service.ChargeReserveHistoryActivity;
 import com.genesis.apps.ui.main.service.MaintenanceReserveActivity;
 import com.genesis.apps.ui.main.service.ServiceAirport2ApplyActivity;
 import com.genesis.apps.ui.main.service.ServiceAutocare2ApplyActivity;
@@ -316,7 +317,7 @@ public enum APPIAInfo {
     SM_EVSB01_P01("SM_EVSB01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "예약희망일 선택 팝업", VariableType.QUICK_MENU_CATEGORY_NONE,""),
     SM_EVSB01_P02("SM_EVSB01_P02", null, VariableType.QUICK_MENU_CODE_NONE, "충전소 예약완료 팝업", VariableType.QUICK_MENU_CATEGORY_NONE,""),
 
-    SM_EVSB02("SM_EVSB02", null, VariableType.QUICK_MENU_CODE_OV, "충전소 예약내역", VariableType.QUICK_MENU_CATEGORY_SERVICE,""),
+    SM_EVSB02("SM_EVSB02", ChargeReserveHistoryActivity.class, VariableType.QUICK_MENU_CODE_OV, "충전소 예약 내역", VariableType.QUICK_MENU_CATEGORY_SERVICE, VariableType.VEHICLE_CODE_EV),
 
     SM_CGRV01("SM_CGRV01", null, VariableType.QUICK_MENU_CODE_NONE, "픽업앤충전 서비스", VariableType.QUICK_MENU_CATEGORY_SERVICE,""),
     SM_CGRV01_P01("SM_CGRV01_P01", null, VariableType.QUICK_MENU_CODE_NONE, "서비스 이용 동의 팝업", VariableType.QUICK_MENU_CATEGORY_NONE,""),

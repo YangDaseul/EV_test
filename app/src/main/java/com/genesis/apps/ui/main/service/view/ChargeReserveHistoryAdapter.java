@@ -1,8 +1,10 @@
 package com.genesis.apps.ui.main.service.view;
 
+import android.graphics.Paint;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.vo.ReserveHisVO;
@@ -54,7 +56,9 @@ public class ChargeReserveHistoryAdapter extends BaseRecyclerViewAdapter2<Reserv
         public void onBindView(ReserveHisVO item, int pos) {
             getBinding().setData(item);
             getBinding().setPos(pos);
-            getBinding().btnRepairImage.setTag(R.id.item, item);
+            getBinding().tvChgName.setPaintFlags(getBinding().tvChgName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+//            getBinding().btnRepairImage.setTag(R.id.item, item);
         }
 
         @Override

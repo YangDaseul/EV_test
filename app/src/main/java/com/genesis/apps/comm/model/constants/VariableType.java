@@ -355,4 +355,40 @@ public class VariableType {
     public static final String SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_FOB = "KT_FOB";     // 실물 키 전달, 대면 서비스
     public static final String SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_DKC = "KT_DKC";     // 디지털 키 전달, 비대면 서비스
     public static final String SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_BLL = "KT_BLL";     // 블루링크, 제네시스 픽업앤충전 서비스에서는 사용 안함.
+
+    public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_NORMAL="100";
+    public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_FAST="010";
+    public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_FAST="001";
+
+    public static String getCsupport(String csupport){
+        switch (csupport){
+            case SERVICE_CHARGE_RESERVE_CSUPPORT_FAST:
+                return "급속";
+            case SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_FAST:
+                return "초급속";
+            case SERVICE_CHARGE_RESERVE_CSUPPORT_NORMAL:
+            default:
+                return "완속";
+        }
+    }
+
+
+    //TODO 2021-04-22 PARK STC-1005 코드 정의가 나오지 않아서 임의로 정의 진행
+    public static final String SERVICE_CHARGE_RESERVE_RESERVSTUSCD_RESERVE_COMPLETE="1000";
+    public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_USE_COMPLETE="2000";
+    public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_RESERVE_CANCEL="3000";
+
+    public static String getReservStusCd(String reservStusCd){
+        switch (reservStusCd){
+            case SERVICE_CHARGE_RESERVE_CSUPPORT_USE_COMPLETE:
+                return "이용 완료";
+            case SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_RESERVE_CANCEL:
+                return "예약 취소";
+            case SERVICE_CHARGE_RESERVE_RESERVSTUSCD_RESERVE_COMPLETE:
+                return "예약 완료";
+            default:
+                return "";
+
+        }
+    }
 }

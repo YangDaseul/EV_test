@@ -9,14 +9,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.STC_1004;
 import com.genesis.apps.comm.model.api.gra.STC_1005;
+import com.genesis.apps.comm.model.api.gra.STC_1006;
+import com.genesis.apps.comm.model.vo.ReserveHisVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.STCViewModel;
 import com.genesis.apps.databinding.ActivityChargeReserveHistoryBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.main.service.view.ChargeReserveHistoryAdapter;
+
+import java.util.ArrayList;
+
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
 /**
  * @author hjpark
@@ -27,7 +35,6 @@ public class ChargeReserveHistoryActivity extends SubActivity<ActivityChargeRese
     private ChargeReserveHistoryAdapter adapter;
     private STCViewModel stcViewModel;
     private VehicleVO mainVehicle;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +56,25 @@ public class ChargeReserveHistoryActivity extends SubActivity<ActivityChargeRese
     @Override
     public void onClickCommon(View v) {
         switch (v.getId()) {
-            //todo 취소버튼
+            case R.id.btn_cancel:
+                ReserveHisVO reserveHisVO;
+                try{
+                    reserveHisVO = (ReserveHisVO) v.getTag();
+                    if(reserveHisVO!=null){
+                        MiddleDialog.dialogChargeReserveCancel(this, () -> {
+                            stcViewModel.reqSTC1006(new STC_1006.Request(APPIAInfo.SM_EVSB02.getId(), reserveHisVO.getReservNo()));
+                        }, () -> {
+
+                        });
+                    }
+                }catch (Exception e){
+
+                }
+                break;
+            case R.id.tv_chg_name://충전소 클릭
+                //TODO 충전소 상세 정보 이동 처리 필요
+
+                break;
         }
     }
 
@@ -68,9 +93,8 @@ public class ChargeReserveHistoryActivity extends SubActivity<ActivityChargeRese
                     showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    if (result.data != null && result.data.getReservList() != null) {
+                    if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)) {
                         adapter.setRows(result.data.getReservList());
-                        adapter.setPageNo(adapter.getPageNo() + 1);
                         adapter.notifyDataSetChanged();
                         setViewEmpty();
                         showProgressDialog(false);
@@ -88,6 +112,35 @@ public class ChargeReserveHistoryActivity extends SubActivity<ActivityChargeRese
                     if (result.data!=null&& StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase("2005"))//조회된 정보가 없을 경우 에러메시지 출력하지 않음
                         return;
 
+                    if (TextUtils.isEmpty(serverMsg)) {
+                        serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                    }
+                    SnackBarUtil.show(this, serverMsg);
+                    break;
+            }
+        });
+
+        //예약 취소
+        stcViewModel.getRES_STC_1006().observe(this, result -> {
+            switch (result.status) {
+                case LOADING:
+                    showProgressDialog(true);
+                    break;
+                case SUCCESS:
+                    if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)) {
+                        showProgressDialog(false);
+                        SnackBarUtil.show(this, getString(R.string.sm_evsb02_p01_3));
+                        stcViewModel.reqSTC1005(new STC_1005.Request(APPIAInfo.SM_EVSB02.getId(), mainVehicle.getVin(), "", ""));
+                        break;
+                    }
+                default:
+                    showProgressDialog(false);
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     if (TextUtils.isEmpty(serverMsg)) {
                         serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
                     }

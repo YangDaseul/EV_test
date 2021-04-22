@@ -17,6 +17,7 @@ import lombok.EqualsAndHashCode;
  * @see #reservNo 예약번호
  * @see #reservDtm 예약일시
  * @see #reservStusCd 예약상태코드
+ * @see #chgAmt 충전금액
  */
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
@@ -40,4 +41,8 @@ class ReserveHisVO extends BaseData {
     @Expose
     @SerializedName("reservStusCd")
     private String reservStusCd;
+    @Expose
+    @SerializedName("chgAmt")
+    private String chgAmt;
+
 } // end of class ReserveHisVO
