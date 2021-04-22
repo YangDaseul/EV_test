@@ -61,13 +61,16 @@
             <RadioButton
                 android:id="@+id/rb_dk_btn"
                 style="@style/ServiceReqDialog"
+                android:visibility="gone"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp"
                 android:text="@string/service_charge_btr_txt_12" />
+
             <!-- 디지털 키 공유 안내 -->
             <TextView
                 android:id="@+id/tv_dk_desc"
                 style="@style/TextBasic"
+                android:visibility="gone"
                 android:fontFamily="@font/regular_genesissanstextglobal"
                 android:text="@string/service_charge_btr_txt_13"
                 android:textColor="@color/x_aaabaf"

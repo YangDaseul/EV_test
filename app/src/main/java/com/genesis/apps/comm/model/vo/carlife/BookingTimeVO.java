@@ -1,4 +1,4 @@
-package com.genesis.apps.comm.model.vo;
+package com.genesis.apps.comm.model.vo.carlife;
 
 import androidx.room.Ignore;
 
@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 충전 버틀러 예약 가능 시간 VO
+ * 픽업앤충전 예약 가능 시간 VO
  * @author ljeun
  * @since 2021. 4. 5.
  *
@@ -27,7 +27,7 @@ class BookingTimeVO extends BaseData {
     private String bookingTime;
     @Expose
     @SerializedName("remainCount")
-    private String remainCount;
+    private int remainCount;
 
     @Ignore
     private boolean isSelect;

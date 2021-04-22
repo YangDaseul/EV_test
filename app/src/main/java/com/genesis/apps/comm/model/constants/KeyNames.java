@@ -92,4 +92,9 @@ public interface KeyNames {
     String KEY_NAME_CAR_REG_NO = "carRegNo";
 
     String KEY_NAME_CHARGE_TYPE = "chargeType";
+
+    String KEY_NAME_IS_DK_AVL = "isDkAvl";
+    String KEY_NAME_CHB_CONTENTS_VO = "CHBContentsVo";
+    String KEY_NAME_CHB_RSVT_DT = "CHBRsvtDt";
+    String KEY_NAME_CHB_STUS_CD = "CHBStusCd";
 }

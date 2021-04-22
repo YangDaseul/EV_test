@@ -8,10 +8,35 @@
     <string name="sm_evss01_04">0%</string>
     <string name="sm_evss01_05">100%</string>
     <string name="sm_evss01_06">다시 시도</string>
-    <string name="sm_evss01_07">내 현재위치에서\n가까운 충전소입니다.</string>
-    <string name="sm_evss01_08">내 차 위치에서\n가까운 충전소입니다.</string>
-    <string name="sm_evss01_09">건물명, 주소를 검색해 보세요.</string>
-    <string name="sm_evss01_10">필터</string>
-    <string name="sm_evss01_11">초기화</string>
+    <string name="sm_evss01_07"><![CDATA[<font color="#996449">내 현재위치</font>에서<br/>]]>가까운 충전소입니다.</string>
+    <string name="sm_evss01_08"><![CDATA[<font color="#996449">내 차 위치</font>에서<br/>]]>가까운 충전소입니다.</string>
+    <string name="sm_evss01_09"><![CDATA[<font color="#996449">원하시는 위치</font>로<br/>]]>충전소를 검색하세요.</string>
+    <string name="sm_evss01_10">충전소 목록</string>
     <string name="sm_evss01_12">상세 경로보기</string>
+    <string name="sm_evss01_13">자세히 보기</string>
+    <string name="sm_evss01_14">건물명, 주소를 검색해 보세요.</string>
+    <string name="sm_evss01_15">예약가능 충전소</string>
+    <string name="sm_evss01_16">충전소 종류</string>
+    <string name="sm_evss01_17">전체</string>
+    <string name="sm_evss01_18">제네시스 전용 충전소</string>
+    <string name="sm_evss01_19">E-PIT 충전소</string>
+    <string name="sm_evss01_20">Hi Charger</string>
+    <string name="sm_evss01_21">충전 속도</string>
+    <string name="sm_evss01_22">초고속</string>
+    <string name="sm_evss01_23">고속</string>
+    <string name="sm_evss01_24">완속</string>
+    <string name="sm_evss01_25">결제 방식</string>
+    <string name="sm_evss01_26">S트레픽 크레딧 결제</string>
+    <string name="sm_evss01_27">카페이 결제</string>
+    <string name="sm_evss01_28">선택</string>
+    <string name="sm_evss01_29">적용</string>
+    <string name="sm_evss01_30">예약가능</string>
+    <string name="sm_evss01_31">예약마감</string>
+    <string name="sm_evss01_32">점검중</string>
+    <string name="sm_evss01_33">사용중</string>
+
+    <string name="sm_evss02_01">초고속 %d대</string>
+    <string name="sm_evss02_02">고속 %d대</string>
+    <string name="sm_evss02_03">완속 %d대</string>
+    <string name="sm_evss03_04">사용가능</string>
 </resources>

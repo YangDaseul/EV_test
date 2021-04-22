@@ -4,6 +4,10 @@
 
     <data>
 
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.main.service.ChargeFindActivity" />
+
     </data>
 
 
@@ -19,19 +23,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:value="@{@string/sm_evss01_01}" />
 
-        <ImageView
-            android:id="@+id/iv_btn_map"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:contentDescription="@null"
-            android:paddingTop="8dp"
-            android:paddingEnd="20dp"
-            android:paddingBottom="8dp"
-            android:src="@drawable/ic_map_b"
-            app:layout_constraintBottom_toBottomOf="@id/l_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/l_title" />
-
         <androidx.core.widget.NestedScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -43,6 +34,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/x_f8f8f8"
                 android:orientation="vertical"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -56,14 +48,19 @@
                 <FrameLayout
                     android:id="@+id/vg_input_charge_place"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" />
 
                 <!--충전소 검색 결과 목록-->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_search_result"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_ffffff_topline_e5e5e5" />
+                    android:clipToPadding="false"
+                    android:paddingStart="20dp"
+                    android:paddingTop="28dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="37dp" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

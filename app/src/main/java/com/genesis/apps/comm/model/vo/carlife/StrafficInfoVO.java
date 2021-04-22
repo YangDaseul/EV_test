@@ -1,4 +1,4 @@
-package com.genesis.apps.comm.model.vo;
+package com.genesis.apps.comm.model.vo.carlife;
 
 import com.genesis.apps.comm.model.BaseData;
 import com.google.gson.annotations.Expose;
@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 충전 버틀러 에스트래픽 선불 정보 VO
+ * 픽업앤충전 에스트래픽 선불 정보 VO
  * @author ljeun
  * @since 2021. 4. 5.
  *
@@ -33,5 +33,5 @@ class StrafficInfoVO extends BaseData {
     private String availableYN;
     @Expose
     @SerializedName("balance")
-    private String balance;
+    private int balance;
 }

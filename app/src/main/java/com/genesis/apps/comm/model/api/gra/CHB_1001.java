@@ -10,6 +10,11 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+/**
+ * (삭제) 긴급충전출동 서비스 상태조회(GRA-SOS-3001)과 통합
+ * @author ljeun
+ * @since 2021. 4. 8.
+ */
 public class CHB_1001 extends BaseData {
     /**
      * @brief CHB_1001 요청 항목

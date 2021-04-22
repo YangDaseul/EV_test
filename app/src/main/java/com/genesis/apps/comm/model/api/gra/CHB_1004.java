@@ -14,7 +14,7 @@ public class CHB_1004 extends BaseData {
     /**
      * @brief CHB_1004 요청 항목
      * @see #svcCd 서비스 코드
-     * CHRGBTR : 충전버틀러
+     * CHRGBTR : 픽업앤충전
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data

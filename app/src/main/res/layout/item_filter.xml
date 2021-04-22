@@ -5,22 +5,28 @@
 
     <data>
 
+        <variable
+            name="subFragment"
+            type="com.genesis.apps.ui.common.fragment.SubFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp">
 
-        <CheckBox
+        <TextView
             android:id="@+id/tv_name"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:background="@drawable/selector_bg_ffffff_757575_996449"
-            android:button="@null"
+            android:drawablePadding="5dp"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:gravity="center"
-            android:text="@string/bt06_21"
+            android:onClick="@{(view) -> subFragment.onSingleClickListener.onSingleClick(view)}"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
             android:textColor="@drawable/selector_txt_757575_ffffff"
             android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -20,6 +20,10 @@
             type="boolean" />
 
         <variable
+            name="isRight"
+            type="boolean" />
+
+        <variable
             name="textColor"
             type="int" />
 
@@ -68,7 +72,7 @@
             android:layout_marginStart="1dp"
             android:ellipsize="end"
             android:fontFamily="@font/regular_genesissanstextglobal"
-            android:gravity="@{isLeft ? Gravity.CENTER_VERTICAL : Gravity.CENTER}"
+            android:gravity="@{isLeft ? Gravity.CENTER_VERTICAL : (isRight ? Gravity.RIGHT : Gravity.CENTER)}"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="4dp"
             android:maxLines="@{maxLine==0 ? 1 : maxLine}"
