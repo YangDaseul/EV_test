@@ -632,6 +632,11 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.main.service.ChargeReserveHistoryActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.main.service.ServiceChargeApplyActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:exported="false"
