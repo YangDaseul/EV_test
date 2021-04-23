@@ -8,20 +8,22 @@ import java.util.Arrays;
  * @since 2021. 4. 16.
  */
 public enum ChargeBtrStatus {
-    STATUS_0000("0000", "신청가능"),
-    STATUS_1000("1000", "예약완료"),
-    STATUS_2000("2000", "픽업중"),
-    STATUS_3000("3000", "서비스중"),
-    STATUS_4000("4000", "딜리버리중"),
-    STATUS_5000("5000", "이용완료"),
-    STATUS_6000("6000", "예약취소");
+    STATUS_0000("0000", "신청가능", ""),
+    STATUS_1000("1000", "예약완료", ""),
+    STATUS_2000("2000", "픽업중", "픽업 중입니다."),
+    STATUS_3000("3000", "서비스중", "서비스 중입니다."),
+    STATUS_4000("4000", "딜리버리중", "픽업 위치로 딜리버리 중입니다."),
+    STATUS_5000("5000", "이용완료", ""),
+    STATUS_6000("6000", "예약취소", "");
 
     private String stusCd;
     private String stusNm;
+    private String stusMsg;
 
-    ChargeBtrStatus(String stusCd, String stusNm) {
+    ChargeBtrStatus(String stusCd, String stusNm, String stusMsg) {
         this.stusCd = stusCd;
         this.stusNm = stusNm;
+        this.stusMsg = stusMsg;
     }
 
     public static ChargeBtrStatus findCode(String stusCd) {
@@ -42,5 +44,13 @@ public enum ChargeBtrStatus {
 
     public void setStusNm(String stusNm) {
         this.stusNm = stusNm;
+    }
+
+    public String getStusMsg() {
+        return stusMsg;
+    }
+
+    public void setStusMsg(String stusMsg) {
+        this.stusMsg = stusMsg;
     }
 }

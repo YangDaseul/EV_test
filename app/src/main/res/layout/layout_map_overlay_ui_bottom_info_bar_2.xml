@@ -12,6 +12,10 @@
             name="driverNm"
             type="String" />
 
+        <variable
+            name="stusMsg"
+            type="String" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,7 +50,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:text="@string/service_charge_btr_word_09"
+            android:text="@{String.format(@string/service_charge_btr_word_09, driverNm)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,6 +63,7 @@
             android:textColor="@color/x_262626"
             app:layout_constraintStart_toStartOf="@+id/tv_map_top_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_map_top_title"
+            android:text="@{stusMsg}"
             tools:text="픽업 중입니다." />
 
 
