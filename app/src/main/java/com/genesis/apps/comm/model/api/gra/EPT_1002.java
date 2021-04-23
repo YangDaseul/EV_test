@@ -23,9 +23,8 @@ public class EPT_1002 extends BaseData {
     /**
      * @brief EPT_1002 요청 항목
      * @see #vin 차대번호
-     * @see #bid 충전사업자ID
-     * @see #sid 충전소ID
-     * @see #eid 환경부충전소ID
+     * @see #spid 환경부-기관ID
+     * @see #csid 환경부-충전소ID
      * @see #lat 고객위치-위도
      * @see #lot 고객위치-경도
      */
@@ -36,14 +35,11 @@ public class EPT_1002 extends BaseData {
         @SerializedName("vin")
         private String vin;
         @Expose
-        @SerializedName("bid")
-        private String bid;
+        @SerializedName("spid")
+        private String spid;
         @Expose
-        @SerializedName("sid")
-        private String sid;
-        @Expose
-        @SerializedName("eid")
-        private String eid;
+        @SerializedName("csid")
+        private String csid;
         @Expose
         @SerializedName("lat")
         private String lat;
@@ -51,11 +47,10 @@ public class EPT_1002 extends BaseData {
         @SerializedName("lot")
         private String lot;
 
-        public Request(String menuId, String vin, String bid, String sid, String eid, String lat, String lot) {
+        public Request(String menuId, String vin, String spid, String csid, String lat, String lot) {
             this.vin = vin;
-            this.bid = bid;
-            this.sid = sid;
-            this.eid = eid;
+            this.spid = spid;
+            this.csid = csid;
             this.lat = lat;
             this.lot = lot;
             setData(APIInfo.GRA_EPT_1002.getIfCd(), menuId);
@@ -64,15 +59,15 @@ public class EPT_1002 extends BaseData {
 
     /**
      * @brief EPT_1002 응답 항목
-     * @see #chgList 충전소정보
+     * @see #chgInfo 충전소정보
      * @see #chgrList 충전기 정보
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     static class Response extends BaseResponse {
         @Expose
-        @SerializedName("chgList")
-        private ChargeEptInfoVO chgList;
+        @SerializedName("chgInfo")
+        private ChargeEptInfoVO chgInfo;
 
         @Expose
         @SerializedName("chgrList")

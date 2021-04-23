@@ -248,8 +248,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                                 "",
                                 "",
                                 "",
-                                "",
-                                "Y"
+                                ""
                         ));
                     } catch (Exception e) {
 
@@ -1006,9 +1005,9 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 evBottomSelectBinding = DataBindingUtil.bind(inflated);
                 evBottomSelectBinding.setActivity(ServiceNetworkActivity.this);
 
-                evBottomSelectBinding.tvChargeStationName.setText(selectItemVo.getChgName());
-                evBottomSelectBinding.tvMapSelectAddress.setText(selectItemVo.getAddr());
-                evBottomSelectBinding.tvTime.setText(selectItemVo.getOpTime());
+                evBottomSelectBinding.tvChargeStationName.setText(selectItemVo.getCsnm());
+                evBottomSelectBinding.tvMapSelectAddress.setText(selectItemVo.getDaddr());
+                evBottomSelectBinding.tvTime.setText(selectItemVo.getUseTime());
                 int superSpeedCnt = 0;
                 int highSpeedCnt = 0;
                 int slowSpeedCnt = 0;
@@ -1035,9 +1034,16 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     }
                     sb.append(String.format(getString(R.string.sm_evss02_03), slowSpeedCnt));
                 }
+                if ("Y".equalsIgnoreCase(selectItemVo.getReservYn())) {
+                    // 예약 가능
+
+                } else {
+                    // 예약 불가
+
+                }
                 if (sb.length() > 0) {
                     evBottomSelectBinding.tvChargeUnit.setVisibility(View.VISIBLE);
-                    evBottomSelectBinding.tvChargeUnit.setText(sb.toString() + " " + selectItemVo.getChgStusCd());
+                    evBottomSelectBinding.tvChargeUnit.setText(sb.toString() + " " + getString(R.string.sm_evss03_04));
                 } else {
                     evBottomSelectBinding.tvChargeUnit.setVisibility(View.GONE);
                 }
@@ -1048,8 +1054,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
 
         try {
             for (ChargeEptInfoVO item : list) {
-                Log.d("FID", "test :: 1111 :: id=" + item.getSid() + " :: lat=" + item.getLat() + " :: " + item.getLot());
-                drawMarkerItem(item.getSid(),
+                drawMarkerItem(item.getEspid(),
                         Double.parseDouble(item.getLat()),
                         Double.parseDouble(item.getLot()),
                         item == selectItemVo ? R.drawable.ic_pin_carcenter : R.drawable.ic_pin);

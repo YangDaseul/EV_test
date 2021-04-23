@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main.service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -31,7 +32,9 @@ import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.main.ServiceNetworkActivity;
 import com.genesis.apps.ui.main.service.view.ChargePlaceListAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -49,11 +52,10 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
 
     private ChargePlaceListAdapter adapter;
 
+    private String reservYn;
     private String chgCd;
-    private String superSpeedYn;
-    private String highSpeedYn;
-    private String slowSpeedYn;
-    private String carPayYn;
+    private ArrayList<String> chgSpeedList = new ArrayList<>();
+    private ArrayList<String> payTypeList = new ArrayList<>();
 
     private VehicleVO mainVehicleVO;
 
@@ -154,11 +156,20 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         } else {
             // 나머지 내 위치, 내 차량 위치 기준 검색.
 
+            // 예약가능여부 값 초기화.
+            reservYn = null;
+            // 충전소 구분 코드 초기화.
+            chgCd = null;
+            // 충전 속도 값 초기화
+            chgSpeedList.clear();
+            // 결제 방식 값 초기화.
+            payTypeList.clear();
+
             // 설정된 필터값 적용.
             for (ChargeSearchCategoryVO item : filterList) {
                 if (item.getTitleResId() == R.string.sm_evss01_15) {
                     // 예약가능 충전소 필터
-                    // TODO 관련 코드 전문에 적용 방법 체크.
+                    reservYn = item.isSelected() ? "Y" : "N";
                 } else if (item.getTitleResId() == R.string.sm_evss01_16) {
                     // 충전소 종류 필터
                     if (item.getSelectedItem().size() > 0) {
@@ -181,36 +192,19 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                     }
                 } else {
                     // 충전 속도, 결제 방식 필터.
-
-                    // 충전 속도 값 초기화
-                    superSpeedYn = null;
-                    highSpeedYn = null;
-                    slowSpeedYn = null;
-                    // 결제 방식 값 초기화.
-                    carPayYn = null;
-                    // TODO S트래픽 필터 코드가 정의된다면 초기화 필요.
-
                     // 필터별 필터 코드 적용.
                     for (ChargeSearchCategorytype filterItem : item.getSelectedItem()) {
+                        Log.d("FID", "test :: 1111 :: item=" + filterItem);
                         switch (filterItem) {
-                            case SUPER_SPEED: {
-                                superSpeedYn = filterItem.getCode();
-                                break;
-                            }
-                            case HIGH_SPEED: {
-                                highSpeedYn = filterItem.getCode();
-                                break;
-                            }
+                            case SUPER_SPEED:
+                            case HIGH_SPEED:
                             case SLOW_SPEED: {
-                                slowSpeedYn = filterItem.getCode();
+                                chgSpeedList.add(filterItem.getCode());
                                 break;
                             }
-                            case CAR_PAY: {
-                                carPayYn = filterItem.getCode();
-                            }
+                            case CAR_PAY:
                             case S_TRAFFIC_CRADIT_PAY: {
-                                // TODO S트레픽 필터 코드는 체크가 필요.
-                                break;
+                                payTypeList.add(filterItem.getCode());
                             }
                             default: {
                                 // Nothing
@@ -309,16 +303,24 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
 
     private void searchChargeStation(double lat, double lot) {
         lgnViewModel.setMyPosition(lat, lot);
+        String chgSpeed = null;
+        String payType = null;
+        if (chgSpeedList.size() > 0) {
+            chgSpeed = chgSpeedList.stream().map(it -> "\"" + it + "\"").collect(Collectors.joining(",", "[", "]"));
+        }
+        if (payTypeList.size() > 0) {
+            payType = payTypeList.stream().map(it -> "\"" + it + "\"").collect(Collectors.joining(",", "[", "]"));
+        }
+
         eptViewModel.reqEPT1001(new EPT_1001.Request(
                 APPIAInfo.SM_EVSS01.getId(),
                 mainVehicleVO.getVin(),
                 String.valueOf(lat),
                 String.valueOf(lot),
+                reservYn,
                 chgCd,
-                superSpeedYn,
-                highSpeedYn,
-                slowSpeedYn,
-                carPayYn
+                chgSpeed,
+                payType
         ));
     }
 
