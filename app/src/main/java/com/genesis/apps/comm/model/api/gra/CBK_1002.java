@@ -80,12 +80,9 @@ public class CBK_1002 extends BaseData {
         @Expose
         @SerializedName("delYn")
         private String delYn;
-
-        //TODO 2021-04-19 PARK 인터페이스 설계서가 나오지 않아 임의로 추가한 데이터. 추후 변경 필요
         @Expose
-        @SerializedName("chargeCreditSumAmt")
-        private String chargeCreditSumAmt;
-
+        @SerializedName("chgCretSumAmt")
+        private String chgCretSumAmt;
         @Expose
         @SerializedName("refulSumAmt")
         private String refulSumAmt;
@@ -109,7 +106,7 @@ public class CBK_1002 extends BaseData {
             this.rparSumAmt="0";
             this.carWshSumAmt="0";
             this.etcSumAmt="0";
-            this.chargeCreditSumAmt="0";
+            this.chgCretSumAmt="0";
             this.expnList=new ArrayList<>();
         }
     }

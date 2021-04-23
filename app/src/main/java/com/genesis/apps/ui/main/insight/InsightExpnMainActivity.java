@@ -528,7 +528,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
             xAxis.setLabelCount(EvAxisValueFormatter.xNames.length);
             xAxis.setValueFormatter(new EvAxisValueFormatter());
             values.add(new BarEntry(0, Float.parseFloat(item.getRefulSumAmt())));
-            values.add(new BarEntry(1, Float.parseFloat(item.getChargeCreditSumAmt())));
+            values.add(new BarEntry(1, Float.parseFloat(item.getChgCretSumAmt())));
             values.add(new BarEntry(2, Float.parseFloat(item.getRparSumAmt())));
             values.add(new BarEntry(3, Float.parseFloat(item.getCarWshSumAmt())));
             values.add(new BarEntry(4, Float.parseFloat(item.getEtcSumAmt())));
@@ -582,7 +582,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                     parsingStringToInt(item.getRefulSumAmt()) +
                     parsingStringToInt(item.getRparSumAmt()) +
                     parsingStringToInt(item.getCarWshSumAmt()) +
-                    (selectVehicle!=null&&selectVehicle.isEV() ? parsingStringToInt(item.getChargeCreditSumAmt()) : 0);
+                    (selectVehicle!=null&&selectVehicle.isEV() ? parsingStringToInt(item.getChgCretSumAmt()) : 0);
 
             currentAmt = StringUtil.getDigitGroupingString((Integer.toString(totalAmt)));
         } catch (Exception e) {
@@ -613,7 +613,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
             list.add(TextUtils.isEmpty(data.getCarWshSumAmt()) ? 0 : Float.parseFloat(data.getCarWshSumAmt()));
             list.add(TextUtils.isEmpty(data.getEtcSumAmt()) ? 0 : Float.parseFloat(data.getEtcSumAmt()));
             if(selectVehicle!=null&&selectVehicle.isEV())
-                list.add(TextUtils.isEmpty(data.getChargeCreditSumAmt()) ? 0 : Float.parseFloat(data.getChargeCreditSumAmt()));
+                list.add(TextUtils.isEmpty(data.getChgCretSumAmt()) ? 0 : Float.parseFloat(data.getChgCretSumAmt()));
 
             maxValue = list.stream().max(Comparator.comparingDouble(o -> o)).orElse(0f);
         } catch (Exception e) {
