@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.STC_1004;
 import com.genesis.apps.comm.model.api.gra.STC_1005;
 import com.genesis.apps.comm.model.api.gra.STC_1006;
 import com.genesis.apps.comm.model.vo.ReserveHisVO;
@@ -21,8 +20,6 @@ import com.genesis.apps.databinding.ActivityChargeReserveHistoryBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.main.service.view.ChargeReserveHistoryAdapter;
-
-import java.util.ArrayList;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 

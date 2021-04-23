@@ -62,6 +62,7 @@ public interface KeyNames {
 
     String KEY_NAME_SERVICE_RESERVE_INFO="repairReserveVO";
     String KEY_NAME_SERVICE_VOC_INFO_VO="VocInfoVO";
+    String KEY_NAME_CHARGE_RESERVE_INFO="ReserveInfo";
 
     String KEY_NAME_REVIEW_RSVT_SEQ_NO = "rsvtSeqNo";
     String KEY_NAME_REVIEW_TRANS_ID = "transId";

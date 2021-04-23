@@ -18,13 +18,15 @@
 
         <import type="android.view.View" />
 
+        <import type="com.genesis.apps.comm.model.constants.VariableType" />
+
         <variable
             name="activity"
             type="com.genesis.apps.ui.main.service.ChargeResultActivity" />
 
         <variable
             name="data"
-            type="com.genesis.apps.comm.model.vo.RepairReserveVO" />
+            type="com.genesis.apps.comm.model.vo.ReserveInfo" />
     </data>
 
 
@@ -142,7 +144,7 @@
 
                     <!--예약일시-->
                     <include
-                        android:id="@+id/l_rsvt_hope_dt"
+                        android:id="@+id/l_reserv_dtm"
                         layout="@layout/item_rpar_status"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -150,12 +152,12 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:msg="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.rsvtHopeDt ?? ``), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_MM_dd_E) +` / ` + (DateUtil.getDate(DateUtil.getDefaultDateFormat((data.rsvtHopeTm ?? ``), DateUtil.DATE_FORMAT_HHmm), DateUtil.DATE_FORMAT_HH_mm))}"
+                        app:msg="@{DateUtil.getDate(DateUtil.getDefaultDateFormat((data.reservDtm ?? ``), DateUtil.DATE_FORMAT_yyyyMMddHHmm), DateUtil.DATE_FORMAT_yyyy_MM_dd_E_HH_mm) +` / ` + (DateUtil.getDate(DateUtil.getDefaultDateFormat((data.reservDtm ?? ``), DateUtil.DATE_FORMAT_yyyyMMddHHmm), DateUtil.DATE_FORMAT_HH_mm))}"
                         app:title="@{@string/sm_evsb01_p02_3}" />
 
                     <!--충전소-->
                     <include
-                        android:id="@+id/l_asn_nm"
+                        android:id="@+id/l_chg_name"
                         layout="@layout/item_rpar_status"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -164,13 +166,13 @@
                         app:isLeft="@{true}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/l_rsvt_hope_dt"
-                        app:msg="@{data.asnNm}"
+                        app:layout_constraintTop_toBottomOf="@+id/l_reserv_dtm"
+                        app:msg="@{data.chgName ?? ``}"
                         app:title="@{@string/sm_evsb01_p02_4}" />
 
                     <!--주소-->
                     <include
-                        android:id="@+id/l_pbz_adr"
+                        android:id="@+id/l_addr"
                         layout="@layout/item_rpar_status"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -178,14 +180,14 @@
                         app:isLeft="@{true}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/l_asn_nm"
+                        app:layout_constraintTop_toBottomOf="@+id/l_chg_name"
                         app:maxLine="@{Integer.MAX_VALUE}"
-                        app:msg="@{data.pbzAdr}"
+                        app:msg="@{(data.daddr ?? ``)+`&#160;`+(data.daddrDtl ?? ``)}"
                         app:title="@{@string/sm_evsb01_p02_5}" />
 
                     <!--충전기-->
                     <include
-                        android:id="@+id/l_charger"
+                        android:id="@+id/l_csupport"
                         layout="@layout/item_rpar_status"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -193,15 +195,15 @@
                         app:isLeft="@{true}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/l_pbz_adr"
+                        app:layout_constraintTop_toBottomOf="@+id/l_addr"
                         app:maxLine="@{Integer.MAX_VALUE}"
-                        app:msg="@{data.pbzAdr}"
+                        app:msg="@{VariableType.getCsupport(data.csupport ?? ``)}"
                         app:title="@{@string/sm_evsb01_p02_6}" />
 
 
                     <!--운영업체-->
                     <include
-                        android:id="@+id/l_operator"
+                        android:id="@+id/l_bname"
                         layout="@layout/item_rpar_status"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -209,9 +211,9 @@
                         app:isLeft="@{true}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/l_charger"
+                        app:layout_constraintTop_toBottomOf="@+id/l_csupport"
                         app:maxLine="@{Integer.MAX_VALUE}"
-                        app:msg="@{data.pbzAdr}"
+                        app:msg="@{data.bname ?? ``}"
                         app:title="@{@string/sm_evsb01_p02_7}" />
 
                     <!--고객센터 연결-->
@@ -231,8 +233,8 @@
                         android:visibility="visible"
                         android:onClick="@{(view)->activity.onSingleClickListener.onClick(view)}"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/l_operator"
-                        app:layout_constraintBottom_toBottomOf="@+id/l_operator"/>
+                        app:layout_constraintTop_toTopOf="@+id/l_bname"
+                        app:layout_constraintBottom_toBottomOf="@+id/l_bname"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
