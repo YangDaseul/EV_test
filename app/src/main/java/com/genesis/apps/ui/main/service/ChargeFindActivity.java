@@ -3,7 +3,6 @@ package com.genesis.apps.ui.main.service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -17,6 +16,7 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
 import com.genesis.apps.comm.model.vo.ChargeSearchCategoryVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
@@ -24,6 +24,7 @@ import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.EPTViewModel;
+import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.ActivityChargeFindBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
@@ -32,6 +33,8 @@ import com.genesis.apps.ui.main.service.view.ChargePlaceListAdapter;
 
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
 /**
  * Class Name : ChargeSearchActivity
  * 충전소 검색 Activity.
@@ -39,7 +42,8 @@ import java.util.List;
  * @author Ki-man Kim
  * @since 2021-03-22
  */
-public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBinding> implements InputChargePlaceFragment.FilterChangeListener {
+@AndroidEntryPoint
+public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBinding> implements InputChargePlaceFragment.FilterChangeListener, SearchAddressHMNFragment.AddressSelectListener {
     private EvChargeStatusFragment evChargeStatusFragment;
     private InputChargePlaceFragment inputChargePlaceFragment;
 
@@ -56,6 +60,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
     private DevelopersViewModel developersViewModel;
     private REQViewModel reqViewModel;
     private EPTViewModel eptViewModel;
+    private LGNViewModel lgnViewModel;
 
     /****************************************************************************************************
      * Override Method - LifeCycle
@@ -88,7 +93,6 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
             }
             case R.id.iv_arrow: {
                 // TODO 충전소 목록 아이템 - 충전소 상세 버튼 > 충전소 상세 화면 이동.
-                Log.d("FID", "test :: onClickCommon :: iv_arrow :: tag=" + tag);
                 break;
             }
         }
@@ -104,12 +108,12 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         developersViewModel = new ViewModelProvider(ChargeFindActivity.this).get(DevelopersViewModel.class);
         reqViewModel = new ViewModelProvider(ChargeFindActivity.this).get(REQViewModel.class);
         eptViewModel = new ViewModelProvider(ChargeFindActivity.this).get(EPTViewModel.class);
+        lgnViewModel = new ViewModelProvider(ChargeFindActivity.this).get(LGNViewModel.class);
     }
 
     @Override
     public void setObserver() {
         eptViewModel.getRES_EPT_1001().observe(ChargeFindActivity.this, result -> {
-            Log.d("FID", "test :: RES_EPT_1001 :: result.status=" + result.status);
             switch (result.status) {
                 case LOADING: {
                     showProgressDialog(true);
@@ -145,7 +149,6 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
 
     @Override
     public void onFilterChanged(InputChargePlaceFragment.SEARCH_TYPE type, List<ChargeSearchCategoryVO> filterList) {
-        Log.d("FID", "test :: onFilterChanged :: filterList=" + filterList);
         if (type == InputChargePlaceFragment.SEARCH_TYPE.ADDRESS) {
             // 주소 검색은 별도 처리 없음.
         } else {
@@ -226,19 +229,36 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         }
     }
 
+    /****************************************************************************************************
+     * Override Method - {@link InputChargePlaceFragment.FilterChangeListener}
+     ****************************************************************************************************/
     @Override
     public void onSearchAddress() {
-        // TODO 주소 검색 이동.
+        // 주소 검색
+        Bundle bundle = new Bundle();
+        bundle.putInt(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.sm_evss01_34);
+        bundle.putInt(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, R.string.sm_evss01_35);
+        SearchAddressHMNFragment fragment = new SearchAddressHMNFragment();
+        fragment.setAddressSelectListener(this);
+        showFragment(fragment, bundle);
     }
 
     @Override
     public void onSearchMap() {
-        // TODO 지도 이동.
         // 충전소 찾기 지도 표시.
         startActivitySingleTop(new Intent(this, ServiceNetworkActivity.class)
                         .putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_EVCHARGE),
                 RequestCodes.REQ_CODE_ACTIVITY.getCode(),
                 VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+    }
+
+    /****************************************************************************************************
+     * Override Method - {@link SearchAddressHMNFragment.AddressSelectListener}
+     ****************************************************************************************************/
+    @Override
+    public void onAddressSelected(AddressVO selectedAddr) {
+        inputChargePlaceFragment.setAddress(getAddress(selectedAddr));
+        searchChargeStation(selectedAddr.getCenterLat(), selectedAddr.getCenterLon());
     }
 
     /****************************************************************************************************
@@ -288,7 +308,7 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
     }
 
     private void searchChargeStation(double lat, double lot) {
-        Log.d("FID", "test :: searchChargeStation :: lat=" + lat + " :: lot=" + lot + " :: chgCd=" + chgCd + " :: superSpeedYn=" + superSpeedYn + " :: highSpeedYn=" + highSpeedYn + " :: slowSpeedYn=" + slowSpeedYn + " :: carPayYn=" + carPayYn);
+        lgnViewModel.setMyPosition(lat, lot);
         eptViewModel.reqEPT1001(new EPT_1001.Request(
                 APPIAInfo.SM_EVSS01.getId(),
                 mainVehicleVO.getVin(),
