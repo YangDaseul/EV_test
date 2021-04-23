@@ -1,8 +1,5 @@
 package com.genesis.apps.comm.viewmodel;
 
-import android.text.TextUtils;
-import android.text.format.DateUtils;
-
 import androidx.hilt.Assisted;
 import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
@@ -16,20 +13,20 @@ import com.genesis.apps.comm.model.api.gra.CHB_1009;
 import com.genesis.apps.comm.model.api.gra.CHB_1015;
 import com.genesis.apps.comm.model.api.gra.CHB_1016;
 import com.genesis.apps.comm.model.api.gra.CHB_1017;
+import com.genesis.apps.comm.model.api.gra.CHB_1019;
+import com.genesis.apps.comm.model.api.gra.CHB_1020;
 import com.genesis.apps.comm.model.api.gra.CHB_1021;
 import com.genesis.apps.comm.model.api.gra.CHB_1023;
 import com.genesis.apps.comm.model.api.gra.CHB_1024;
 import com.genesis.apps.comm.model.api.gra.CHB_1026;
+import com.genesis.apps.comm.model.api.gra.EVL_1001;
 import com.genesis.apps.comm.model.repo.CHBRepo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
-import com.genesis.apps.comm.model.vo.RepairHistVO;
+import com.genesis.apps.comm.model.repo.EVLRepo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
-import com.genesis.apps.comm.model.vo.carlife.BookingVO;
 import com.genesis.apps.comm.net.NetUIResponse;
-import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -40,6 +37,7 @@ public @Data
 class CHBViewModel extends ViewModel {
 
     private final CHBRepo repository;
+    private final EVLRepo evlRepo;
     private final DBVehicleRepository dbVehicleRepository;
     private final SavedStateHandle savedStateHandle;
 
@@ -50,21 +48,31 @@ class CHBViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<CHB_1015.Response>> RES_CHB_1015;
     private MutableLiveData<NetUIResponse<CHB_1016.Response>> RES_CHB_1016;
     private MutableLiveData<NetUIResponse<CHB_1017.Response>> RES_CHB_1017;
+
+    private MutableLiveData<NetUIResponse<CHB_1019.Response>> RES_CHB_1019;
+    private MutableLiveData<NetUIResponse<CHB_1020.Response>> RES_CHB_1020;
+
     private MutableLiveData<NetUIResponse<CHB_1021.Response>> RES_CHB_1021;
     private MutableLiveData<NetUIResponse<CHB_1023.Response>> RES_CHB_1023;
     private MutableLiveData<NetUIResponse<CHB_1024.Response>> RES_CHB_1024;
     private MutableLiveData<NetUIResponse<CHB_1026.Response>> RES_CHB_1026;
+
+    private MutableLiveData<NetUIResponse<EVL_1001.Response>> RES_EVL_1001;
 
     private MutableLiveData<List<VehicleVO>> vehicleList;
 
     @ViewModelInject
     CHBViewModel(
             CHBRepo repository,
+            EVLRepo evlRepo,
             DBVehicleRepository dbVehicleRepository,
             @Assisted SavedStateHandle savedStateHandle) {
+        this.evlRepo = evlRepo;
         this.repository = repository;
         this.dbVehicleRepository = dbVehicleRepository;
         this.savedStateHandle = savedStateHandle;
+
+        RES_EVL_1001 = evlRepo.RES_EVL_1001;
 
         RES_CHB_1006 = repository.RES_CHB_1006;
         RES_CHB_1007 = repository.RES_CHB_1007;
@@ -75,6 +83,8 @@ class CHBViewModel extends ViewModel {
         RES_CHB_1016 = repository.RES_CHB_1016;
         RES_CHB_1017 = repository.RES_CHB_1017;
 
+        RES_CHB_1019 = repository.RES_CHB_1019;
+        RES_CHB_1020 = repository.RES_CHB_1020;
         RES_CHB_1021 = repository.RES_CHB_1021;
         RES_CHB_1023 = repository.RES_CHB_1023;
         RES_CHB_1024 = repository.RES_CHB_1024;
@@ -82,7 +92,9 @@ class CHBViewModel extends ViewModel {
 
         vehicleList = new MutableLiveData<>();
     }
-
+    public void reqEVL1001(final EVL_1001.Request reqData) {
+        evlRepo.REQ_EVL_1001(reqData);
+    }
     public void reqCHB1006(final CHB_1006.Request reqData) {
         repository.REQ_CHB_1006(reqData);
     }
@@ -104,6 +116,14 @@ class CHBViewModel extends ViewModel {
     public void reqCHB1017(final CHB_1017.Request reqData) {
         repository.REQ_CHB_1017(reqData);
     }
+
+    public void reqCHB1019(final CHB_1019.Request reqData) {
+        repository.REQ_CHB_1019(reqData);
+    }
+    public void reqCHB1020(final CHB_1020.Request reqData) {
+        repository.REQ_CHB_1020(reqData);
+    }
+
     public void reqCHB1021(final CHB_1021.Request reqData) {
         repository.REQ_CHB_1021(reqData);
     }

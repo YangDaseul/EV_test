@@ -64,8 +64,12 @@ public interface KeyNames {
     String KEY_NAME_SERVICE_VOC_INFO_VO="VocInfoVO";
     String KEY_NAME_CHARGE_RESERVE_INFO="ReserveInfo";
 
-    String KEY_NAME_REVIEW_RSVT_SEQ_NO = "rsvtSeqNo";
-    String KEY_NAME_REVIEW_TRANS_ID = "transId";
+
+    String KEY_NAME_REVIEW_PI="PI";
+    String KEY_NAME_REVIEW_ID="MENUID";
+
+//    String KEY_NAME_REVIEW_RSVT_SEQ_NO = "rsvtSeqNo";
+//    String KEY_NAME_REVIEW_TRANS_ID = "transId";
     String KEY_NAME_REVIEW_VIN = "vin";
 
     String KEY_ANME_CCSP_TYPE="ccspType";

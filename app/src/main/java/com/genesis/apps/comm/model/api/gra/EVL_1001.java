@@ -23,6 +23,7 @@ public class EVL_1001 extends BaseData {
      * 알람 메시지로 전달받은 대리/세차 평가 URI
      * 대리 : genesisapp://menu?id=SM_REVIEW01_P03&PI=123456
      * 세차 : genesisapp://menu?id=SM_REVIEW01_P01&PI=456789
+     * 픽업앤충전 : genesisapp://menu?id=SM_REVIEW01_P04&PI=456789
      * 대리와 세차는 고정된 id 값으로 구분
      * 평가지 구분은 PI 일련번호로 구분
      */
