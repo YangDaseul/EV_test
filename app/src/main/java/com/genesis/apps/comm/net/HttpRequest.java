@@ -1769,7 +1769,7 @@ public class HttpRequest {
         }
     }
 
-    /**
+    /**f
      * Get response as {@link String} using character set returned from
      * {@link #charset()}
      *
@@ -3027,6 +3027,7 @@ public class HttpRequest {
                 copy(part, output);
             }
             if (part2 != null) {
+                send(CRLF);
                 writePartHeader(params, name2, filename2, contentType);
 //                totalSize = -1;
 //                totalWritten=0;
