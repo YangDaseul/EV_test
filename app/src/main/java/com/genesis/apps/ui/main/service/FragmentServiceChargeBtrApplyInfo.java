@@ -1,10 +1,13 @@
 package com.genesis.apps.ui.main.service;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,22 +15,42 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.api.gra.CHB_1021;
+import com.genesis.apps.comm.model.api.gra.CHB_1024;
+import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.databinding.FragmentServiceChargeBtrApplyInfoBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 
 public class FragmentServiceChargeBtrApplyInfo extends SubFragment<FragmentServiceChargeBtrApplyInfoBinding> {
 
-
     private CHBViewModel chbViewModel;
+
+    private CHB_1021.Response mData;
     private VehicleVO mainVehicle;
 
-    private int minute = 0;
+    public static FragmentServiceChargeBtrApplyInfo newInstance(CHB_1021.Response data) {
+        FragmentServiceChargeBtrApplyInfo fragment = new FragmentServiceChargeBtrApplyInfo();
 
+        Bundle args = new Bundle();
+        args.putSerializable(KeyNames.KEY_NAME_CHB_CONTENTS_VO, data);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(getArguments() != null) {
+            mData = (CHB_1021.Response) getArguments().getSerializable(KeyNames.KEY_NAME_CHB_CONTENTS_VO);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +72,7 @@ public class FragmentServiceChargeBtrApplyInfo extends SubFragment<FragmentServi
     }
 
     private void initView() {
+        me.setData(mData);
     }
 
     private void initData() {
@@ -57,10 +81,6 @@ public class FragmentServiceChargeBtrApplyInfo extends SubFragment<FragmentServi
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        if (mainVehicle != null)
-            chbViewModel.reqCHB1021(new CHB_1021.Request(APPIAInfo.SM_CGRV04_02.getId(), mainVehicle.getVin()));
-
     }
 
     @Override
@@ -71,33 +91,49 @@ public class FragmentServiceChargeBtrApplyInfo extends SubFragment<FragmentServi
     @Override
     public void onClickCommon(View v) {
         switch (v.getId()) {
+            case R.id.btn_cancel:
+                dialogCancel();
+                break;
+            case R.id.btn_call_cs:
+                if (!TextUtils.isEmpty(mData.getVendorInfo().getVendorCSTelNo())) {
+                    getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WebView.SCHEME_TEL + mData.getVendorInfo().getVendorCSTelNo())));
+                }
+                break;
             default:
                 break;
         }
     }
 
+    private void dialogCancel() {
+        MiddleDialog.dialogServiceChargeBtrCancel(getActivity(), () -> {
+            chbViewModel.reqCHB1024(new CHB_1024.Request(APPIAInfo.SM_CGRV04_02.getId(), mData.getOrderId(), mainVehicle.getVin()));
+        }, () -> {
+
+        });
+    }
+
     @Override
     public void onRefresh() {
+
     }
 
     private void setViewModel() {
         me.setLifecycleOwner(getViewLifecycleOwner());
         me.setFragment(this);
 
-        chbViewModel = new ViewModelProvider(this).get(CHBViewModel.class);
+        chbViewModel = new ViewModelProvider(getActivity()).get(CHBViewModel.class);
     }
 
     private void setObserver() {
-        chbViewModel.getRES_CHB_1021().observe(getViewLifecycleOwner(), result -> {
-
+        chbViewModel.getRES_CHB_1024().observe(getViewLifecycleOwner(), result -> {
             switch (result.status) {
                 case LOADING:
                     ((SubActivity) getActivity()).showProgressDialog(true);
                     break;
                 case SUCCESS:
-                    ((SubActivity) getActivity()).showProgressDialog(false);
-                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase("0000")) {
-                        me.setData(result.data);
+                    if (result.data != null && result.data.getRtCd().equals(BaseResponse.RETURN_CODE_SUCC)) {
+                        SnackBarUtil.show(getActivity(), getString(R.string.service_charge_btr_popup_msg_01));
+                        ((SubActivity) getActivity()).showProgressDialog(false);
                         break;
                     }
                 default:

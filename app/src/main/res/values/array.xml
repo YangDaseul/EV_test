@@ -104,5 +104,10 @@
         <item>일반 하자</item>
     </string-array>
 
+    <string-array name="service_parking_lot_inout">
+        <item>실내 주차장</item>
+        <item>실외 주차장</item>
+    </string-array>
+
 </resources>
 

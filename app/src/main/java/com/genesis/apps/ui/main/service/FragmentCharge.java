@@ -19,6 +19,7 @@ import com.genesis.apps.comm.model.constants.ChargeBtrStatus;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.api.developers.EvStatus;
 import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -188,6 +189,7 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
     }
 
     private void startChargeBtrHistoryActivity(String statusCd){
+        ((BaseActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceChargeBtrReserveHistoryActivity.class).putExtra(KeyNames.KEY_NAME_CHB_STUS_CD, statusCd), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
 //    private void startSOSActivity() {

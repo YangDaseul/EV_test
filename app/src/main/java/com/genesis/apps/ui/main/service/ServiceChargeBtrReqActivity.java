@@ -26,8 +26,9 @@ import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
-import com.genesis.apps.comm.model.vo.carlife.BookingDateVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.model.vo.carlife.BookingDateVO;
+import com.genesis.apps.comm.model.vo.carlife.LotVO;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -36,11 +37,13 @@ import com.genesis.apps.comm.util.StringRe2j;
 import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.databinding.ActivityServiceChargeBtrReq1Binding;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.bottom.BottomSelectKeyDeliveryDialog;
 import com.genesis.apps.ui.common.dialog.bottom.DialogCalendarChargeBtr;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -48,6 +51,8 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
+
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
 @AndroidEntryPoint
 public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChargeBtrReq1Binding> {
@@ -58,19 +63,18 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
     private CHBViewModel chbViewModel;
 
     private VehicleVO mainVehicle;
-    private final int[] layouts = {R.layout.activity_service_charge_btr_req_1, R.layout.activity_service_charge_btr_req_2, R.layout.activity_service_charge_btr_req_3, R.layout.activity_service_charge_btr_req_4};
-    private final int[] textMsgId = {R.string.service_charge_btr_txt_07, R.string.service_charge_btr_txt_01, R.string.service_charge_btr_txt_03, R.string.service_charge_btr_txt_05};
+    private final int[] layouts = {R.layout.activity_service_charge_btr_req_1, R.layout.activity_service_charge_btr_req_2, R.layout.activity_service_charge_btr_req_3, R.layout.activity_service_charge_btr_req_4, R.layout.activity_service_charge_btr_req_5};
+    private final int[] textMsgId = {R.string.service_charge_btr_txt_07, R.string.service_charge_btr_txt_01, R.string.service_charge_btr_txt_03, R.string.service_charge_btr_txt_20, R.string.service_charge_btr_txt_05};
     private ConstraintSet[] constraintSets = new ConstraintSet[layouts.length];
     private View[] views;
     private View[] edits;
 
     private boolean isDkAvl;    // 디지털 키 공유 가능 여부(비대면으로 서비스 신청 가능 여부)
     private String keyTransferType;     // 차량 키 전달 방식
-    private String rsvtHopeDt; //예약희망일자
-    private String rsvtHopeTm = ""; //예약희망시간
     private String rsvtDate = ""; //예약희망일시
     private AddressVO addressVO;
-
+    private String inOutCd;     // 주차장소 실내/실외 타입
+    private LotVO locationVo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,6 +159,10 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
                 clearKeypad();
                 startMapView();
                 break;
+            // 주차 장소 실내/실외 선택
+            case R.id.tv_inout_cd:
+                selectInOutCd();
+                break;
             //예약희망일
             case R.id.tv_rsvt_hope_dt:
                 requestPossibleTime();
@@ -178,15 +186,47 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
     private void doNext() {
         if (isValid()) {
             clearKeypad();
-//            moveToNextPage();
-
-            // 픽업앤충전 신청 전문 요청
-            chbViewModel.reqCHB1009(new CHB_1009.Request(APPIAInfo.SM_CGRV01.getId(),
-                    mainVehicle.getVin(),
-                    mainVehicle.getMdlCd(),
-                    rsvtDate
-            ));
+            reqChargeBtr();
         }
+    }
+
+    /**
+     * 픽업앤충전 상품 가격 정보 조회 전문 요청
+     */
+    private void reqChargeBtr() {
+
+        locationVo = new LotVO(VariableType.SERVICE_CHARGE_BTR_LOT_TYPE_STRT
+                , inOutCd
+                , addressVO.getCenterLat()
+                , addressVO.getCenterLon()
+                , getAddress(addressVO)[0]
+                , ui.etAddrDtl.getText().toString().trim()
+                , addressVO.getCname());
+
+        // 픽업앤충전 신청 전문 요청
+        chbViewModel.reqCHB1009(new CHB_1009.Request(APPIAInfo.SM_CGRV01.getId(),
+                mainVehicle.getVin(),
+                mainVehicle.getMdlCd(),
+                rsvtDate,
+                locationVo
+        ));
+    }
+
+    /**
+     * 픽업앤충전 결제정보 확인 페이지로 이동
+     *
+     * @param resVO
+     */
+    private void startServiceChargeBtrCheckActvity(CHB_1009.Response resVO) {
+        Intent intent = new Intent(this, ServiceChargeBtrCheckActivity.class);
+        intent.putExtra(KeyNames.KEY_NAME_CHB_HP_NO, ui.etCelPhNo.getText().toString().trim());
+        intent.putExtra(KeyNames.KEY_NAME_CHB_CAR_NO, ui.etCarRegNo.getText().toString().trim());
+        intent.putExtra(KeyNames.KEY_NAME_CHB_RSVT_DT, rsvtDate);
+        intent.putExtra(KeyNames.KEY_NAME_CHB_KEY_TRANS_TY, keyTransferType);
+        intent.putExtra(KeyNames.KEY_NAME_CHB_LOT_VO, locationVo);
+        intent.putExtra(KeyNames.KEY_NAME_CHB_CONTENTS_VO, resVO);
+
+        startActivitySingleTop(intent, RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
     }
 
 
@@ -235,9 +275,8 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
                     break;
                 case SUCCESS:
                     showProgressDialog(false);
-                    if (result.data != null) {
-                        CHB_1009.Response data = result.data;
-                        startActivitySingleTop(new Intent(this, ServiceChargeBtrCheckActivity.class).putExtra(KeyNames.KEY_NAME_CHB_RSVT_DT, rsvtDate).putExtra(KeyNames.KEY_NAME_CHB_CONTENTS_VO, data), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    if (result.data != null && result.data.getRtCd().equalsIgnoreCase(RETURN_CODE_SUCC)) {
+                        startServiceChargeBtrCheckActvity(result.data);
                         break;
                     }
                 default:
@@ -272,8 +311,8 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
      * @brief constraintSet 초기화
      */
     private void initConstraintSets() {
-        views = new View[]{ui.lKeyDeliveryCd, ui.lAddr, ui.lAddrDtl, ui.lRsvtHopeDt};
-        edits = new View[]{ui.tvKeyDeliveryCd, ui.tvAddr, ui.etAddrDtl, ui.tvRsvtHopeDt};
+        views = new View[]{ui.lKeyDeliveryCd, ui.lAddr, ui.lAddrDtl, ui.lInoutCd, ui.lRsvtHopeDt};
+        edits = new View[]{ui.tvKeyDeliveryCd, ui.tvAddr, ui.etAddrDtl, ui.tvInoutCd, ui.tvRsvtHopeDt};
         for (int i = 0; i < layouts.length; i++) {
             constraintSets[i] = new ConstraintSet();
 
@@ -304,53 +343,13 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
                 startMapView();
             } else if (pos == 2) {
                 ui.etAddrDtl.requestFocus();
+            } else if(pos == 3){
+                selectInOutCd();
             } else if (pos == views.length - 1) {
                 requestPossibleTime();
                 ui.btnNext.setText(R.string.sm_emgc01_25);
             }
         }
-    }
-
-    /**
-     * @brief 예약 가능 시간 요청
-     */
-    private void requestPossibleTime() {
-        Calendar minCalendar = Calendar.getInstance(Locale.getDefault());
-        minCalendar.add(Calendar.DATE, 1);
-        Calendar maxCalendar = Calendar.getInstance(Locale.getDefault());
-        maxCalendar.add(Calendar.DATE, 5);
-
-        chbViewModel.reqCHB1008(new CHB_1008.Request(APPIAInfo.SM_CGRV01.getId(),
-                DateUtil.getDate(minCalendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd),
-                DateUtil.getDate(maxCalendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd)
-        ));
-    }
-
-    private void selectCalendar(List<BookingDateVO> list) {
-        clearKeypad();
-        DialogCalendarChargeBtr dialogCalendar = new DialogCalendarChargeBtr(this, R.style.BottomSheetDialogTheme, onSingleClickListener);
-        dialogCalendar.setOnDismissListener(dialogInterface -> {
-            Calendar calendar = dialogCalendar.calendar;
-            if(calendar!=null){
-                rsvtHopeDt = DateUtil.getDate(calendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd);
-                rsvtHopeTm = dialogCalendar.getSelectBookingDate().getSelectBookingTime();
-                checkValidRsvtHopeDt();
-            }
-        });
-
-        dialogCalendar.setCalendarMaximum(Calendar.getInstance(Locale.getDefault()));
-        dialogCalendar.setTitle(getString(R.string.service_charge_btr_03));
-        Calendar minCalendar = Calendar.getInstance(Locale.getDefault());
-        minCalendar.add(Calendar.DATE, 1);
-        Calendar maxCalendar = Calendar.getInstance(Locale.getDefault());
-        maxCalendar.add(Calendar.DATE, 5);
-
-        dialogCalendar.setCalendarMinimum(minCalendar);
-        dialogCalendar.setCalendarMaximum(maxCalendar);
-        dialogCalendar.setBookingDateVOList(list);
-        dialogCalendar.setRemoveWeekends(true);
-        dialogCalendar.show();
-
     }
 
     /**
@@ -378,6 +377,88 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
         selectKeyDeliveryDialog.show();
     }
 
+    /**
+     * 주차 장소 실내/실외 선택
+     */
+    private void selectInOutCd() {
+        clearKeypad();
+
+        final List<String> parkingLotList = Arrays.asList(getResources().getStringArray(R.array.service_parking_lot_inout));
+        final BottomListDialog bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
+        bottomListDialog.setOnDismissListener(dialogInterface -> {
+            String result = bottomListDialog.getSelectItem();
+            if (!TextUtils.isEmpty(result)) {
+                try{
+                    inOutCd = VariableType.getInOutCd(result);
+                    ui.tvTitleInoutCd.setVisibility(View.VISIBLE);
+                    Paris.style(ui.tvInoutCd).apply(R.style.CommonSpinnerItemEnable);
+                    ui.tvInoutCd.setText(result);
+                    checkValidInOutCd();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        bottomListDialog.setDatas(parkingLotList);
+        bottomListDialog.setTitle(getString(R.string.service_charge_btr_err_14));
+        bottomListDialog.show();
+    }
+
+
+    /**
+     * @brief 예약 가능 시간 요청
+     */
+    private void requestPossibleTime() {
+        Calendar minCalendar = Calendar.getInstance(Locale.getDefault());
+        minCalendar.add(Calendar.DATE, 1);
+        Calendar maxCalendar = Calendar.getInstance(Locale.getDefault());
+        maxCalendar.add(Calendar.DATE, 5);
+
+        chbViewModel.reqCHB1008(new CHB_1008.Request(APPIAInfo.SM_CGRV01.getId(),
+                DateUtil.getDate(minCalendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd),
+                DateUtil.getDate(maxCalendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd)
+        ));
+    }
+
+    /**
+     * 예약 희망일 선택 달력
+     *
+     * @param list
+     */
+    private void selectCalendar(List<BookingDateVO> list) {
+        clearKeypad();
+        DialogCalendarChargeBtr dialogCalendar = new DialogCalendarChargeBtr(this, R.style.BottomSheetDialogTheme, onSingleClickListener);
+        dialogCalendar.setOnDismissListener(dialogInterface -> {
+            Calendar calendar = dialogCalendar.calendar;
+            if(calendar!=null){
+                rsvtDate = DateUtil.getDate(calendar.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd);
+                rsvtDate += dialogCalendar.getSelectBookingTime();
+                checkValidRsvtHopeDt();
+            }
+        });
+
+        dialogCalendar.setCalendarMaximum(Calendar.getInstance(Locale.getDefault()));
+        dialogCalendar.setTitle(getString(R.string.service_charge_btr_03));
+        Calendar minCalendar = Calendar.getInstance(Locale.getDefault());
+        minCalendar.add(Calendar.DATE, 1);
+        Calendar maxCalendar = Calendar.getInstance(Locale.getDefault());
+        maxCalendar.add(Calendar.DATE, 5);
+
+        dialogCalendar.setCalendarMinimum(minCalendar);
+        dialogCalendar.setCalendarMaximum(maxCalendar);
+        dialogCalendar.setBookingDateVOList(list);
+        if(!TextUtils.isEmpty(rsvtDate) && rsvtDate.length() > 8)
+            dialogCalendar.setSelectBookingDay(rsvtDate.substring(0, 8));
+        dialogCalendar.setRemoveWeekends(true);
+        dialogCalendar.show();
+
+    }
+
+    /**
+     * 휴대폰 번호 입력 여부 확인
+     *
+     * @return
+     */
     private boolean checkValidPhoneNumber() {
         String celPhoneNo = ui.etCelPhNo.getText().toString().replaceAll("-", "").trim();
         if (TextUtils.isEmpty(celPhoneNo)) {
@@ -397,6 +478,11 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
         }
     }
 
+    /**
+     * 차량번호 입력 여부 확인
+     *
+     * @return
+     */
     private boolean checkValidCarRegNo(){
         String carRegNo = ui.etCarRegNo.getText().toString().trim();
 
@@ -414,6 +500,11 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
         }
     }
 
+    /**
+     * 차량 키 전달 방식 선택 여부 확인
+     *
+     * @return
+     */
     private boolean checkValidKeyDeliveryCd() {
         if (!TextUtils.isEmpty(keyTransferType)) {
             ui.tvErrorKeyDeliveryCd.setVisibility(View.INVISIBLE);
@@ -427,6 +518,11 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
         }
     }
 
+    /**
+     * 픽업 주소 입력 여부 확인
+     *
+     * @return
+     */
     private boolean checkValidAddr(){
         String addr = ui.tvAddrInfo1.getText().toString().trim() + ui.tvAddrInfo2.getText().toString().trim();
         if(TextUtils.isEmpty(addr)){
@@ -444,6 +540,11 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
         }
     }
 
+    /**
+     * 상세 주소 입력 여부 확인
+     *
+     * @return
+     */
     private boolean checkValidAddrDtl(){
         String addrDtl = ui.etAddrDtl.getText().toString().trim();
 
@@ -458,8 +559,31 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
         }
     }
 
+    /**
+     * 주차 장소 실내/실외 선택 선택 여부 확인
+     *
+     * @return
+     */
+    private boolean checkValidInOutCd() {
+        if (!TextUtils.isEmpty(inOutCd)) {
+            ui.tvErrorInoutCd.setVisibility(View.INVISIBLE);
+            doTransition(4);
+            return true;
+        } else {
+            Paris.style(ui.tvInoutCd).apply(R.style.CommonSpinnerItemError);
+            ui.tvErrorInoutCd.setVisibility(View.VISIBLE);
+            ui.tvErrorInoutCd.setText(R.string.service_charge_btr_err_14);
+            return false;
+        }
+    }
+
+    /**
+     * 예약 희망일 선택 여부 확인
+     *
+     * @return
+     */
     private boolean checkValidRsvtHopeDt() {
-        if(TextUtils.isEmpty(rsvtHopeDt)){
+        if(TextUtils.isEmpty(rsvtDate)){
             ui.tvRsvtHopeDt.setText(R.string.sm_r_rsv02_01_16);
             ui.tvRsvtHopeDt.setTextColor(getColor(R.color.x_aaabaf));
             ui.tvRsvtHopeDt.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_dadde3);
@@ -469,11 +593,6 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
             ui.tvErrorRsvtHopeDt.setText(R.string.service_charge_btr_err_03);
             return false;
         }else{
-            rsvtDate = rsvtHopeDt + rsvtHopeTm;
-//            String date = DateUtil.getDate(DateUtil.getDefaultDateFormat(rsvtHopeDt, DateUtil.DATE_FORMAT_yyyyMMdd, Locale.getDefault()), DateUtil.DATE_FORMAT_yyyy_MM_dd_E)
-//                    + " / "
-//                    + rsvtHopeTm.substring(0,2) + ":" + rsvtHopeTm.substring(2,4);
-
             ui.tvRsvtHopeDt.setText(DateUtil.getDate(DateUtil.getDefaultDateFormat(rsvtDate, DateUtil.DATE_FORMAT_yyyyMMddHHmm, Locale.getDefault()), DateUtil.DATE_FORMAT_yyyy_MM_dd_E_HH_mm));
             ui.tvRsvtHopeDt.setTextColor(getColor(R.color.x_000000));
             ui.tvRsvtHopeDt.setBackgroundResource(R.drawable.ripple_bg_ffffff_stroke_141414);
@@ -494,12 +613,14 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
                         return checkValidPhoneNumber()&&checkValidCarRegNo()&&checkValidKeyDeliveryCd()&&false;
                     case R.id.l_addr_detail:
                         return checkValidPhoneNumber()&&checkValidCarRegNo()&&checkValidKeyDeliveryCd()&&checkValidAddr()&&false;
-                    case R.id.l_rsvt_hope_dt:
+                    case R.id.l_inout_cd:
                         return checkValidPhoneNumber()&&checkValidCarRegNo()&&checkValidKeyDeliveryCd()&&checkValidAddr()&&checkValidAddrDtl()&&false;
+                    case R.id.l_rsvt_hope_dt:
+                        return checkValidPhoneNumber()&&checkValidCarRegNo()&&checkValidKeyDeliveryCd()&&checkValidAddr()&&checkValidAddrDtl()&&checkValidInOutCd()&&false;
                 }
             }
         }
-        return checkValidPhoneNumber()&&checkValidCarRegNo()&&checkValidKeyDeliveryCd()&&checkValidAddr()&&checkValidAddrDtl()&&checkValidRsvtHopeDt();
+        return checkValidPhoneNumber()&&checkValidCarRegNo()&&checkValidKeyDeliveryCd()&&checkValidAddr()&&checkValidAddrDtl()&&checkValidInOutCd()&&checkValidRsvtHopeDt();
     }
 
     EditText.OnEditorActionListener editorActionListener = (textView, actionId, keyEvent) -> {
@@ -540,6 +661,8 @@ public class ServiceChargeBtrReqActivity extends SubActivity<ActivityServiceChar
         if(resultCode == ResultCodes.REQ_CODE_SERVICE_SOS_MAP.getCode()&&data!=null){
             addressVO = (AddressVO)data.getSerializableExtra(KeyNames.KEY_NAME_ADDR);
             setViewAddr(addressVO);
+        } else if(resultCode == ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode()) {
+            exitPage(new Intent(), ResultCodes.REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH.getCode());
         }
     }
 

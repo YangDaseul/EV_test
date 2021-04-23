@@ -8,6 +8,7 @@
         <import type="com.genesis.apps.comm.util.DateUtil" />
         <import type="com.genesis.apps.comm.util.StringUtil" />
         <import type="android.text.TextUtils" />
+        <import type="android.view.View" />
 
         <variable
             name="data"
@@ -22,15 +23,17 @@
         android:id="@+id/l_whole"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="40dp"
+        android:paddingTop="30dp"
         android:background="@color/x_ffffff">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:paddingBottom="40dp" >
 
                 <LinearLayout
                     android:id="@+id/l_stus_cd"
@@ -172,7 +175,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/l_pickup_addr"
-                            app:msg="@{data.getOrderInfo().getOptionCount() > 0 ? data.getOrderInfo().getOptionList().get(0).getOptionName() : `-`}"
+                            app:msg="@{data.getOrderInfo().getOptionCount() > 0 ? data.getOrderInfo().getOptionList().get(0).getOptionName() : ``}"
                             app:title="@{@string/service_charge_btr_word_04}" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -225,6 +228,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
+                            app:msg="@{data.getOrderInfo() != null ? StringUtil.getPriceString(data.getOrderInfo().getProductPrice()) : ``}"
                             app:title="@{@string/service_charge_btr_word_12}" />
 
                         <!-- 충전 금액-선결제 표시 -->
@@ -236,6 +240,7 @@
                             android:fontFamily="@font/regular_genesissanstextglobal"
                             android:letterSpacing="-0.01"
                             android:lineSpacingExtra="4dp"
+                            android:visibility="gone"
                             android:text="@string/service_charge_btr_word_18"
                             android:textColor="@color/x_262626"
                             android:textSize="14dp"
@@ -310,6 +315,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/l_credit_point"
+                            app:msg="@{data.getOrderInfo() != null ? StringUtil.getPriceString(data.getOrderInfo().getPaymentAmount()) : ``}"
                             app:title="@{@string/service_charge_btr_word_16}" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -320,7 +326,6 @@
                         android:layout_height="20dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/mark_666666"
-                        app:layout_constraintEnd_toStartOf="@+id/l_amt_info_desc"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/l_amt_info_desc" />
 
@@ -331,48 +336,56 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
                         android:gravity="center_vertical|start"
-                        android:paddingTop="20dp"
-                        android:text="@string/service_charge_btr_msg_01"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/service_charge_btr_msg_05"
                         android:textColor="@color/x_666666"
                         android:textSize="14dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/iv_mark_1"
                         app:layout_constraintTop_toBottomOf="@+id/l_amt_info" />
 
-                    <ImageView
-                        android:id="@+id/iv_line_3"
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="30dp"
-                        android:background="@color/x_e5e5e5"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/l_amt_info_desc" />
-
-
-                    <TextView
-                        android:id="@+id/btn_cancel"
-                        style="@style/ViewCancelBtn"
-                        android:layout_marginTop="30dp"
-                        android:text="@string/service_charge_btr_word_25"
-                        android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/iv_line_3" />
-
-                    <TextView
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:fontFamily="@font/regular_genesissanstextglobal"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="4dp"
-                        android:text="@string/service_charge_btr_msg_03"
-                        android:textColor="@color/x_262626"
-                        android:textSize="14dp"
+                        android:layout_marginTop="30dp"
+                        android:visibility="@{StringUtil.isValidString(data.getCancelableYN()).equalsIgnoreCase(`Y`) ? View.VISIBLE : View.GONE , default=visible}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/btn_cancel"  />
+                        app:layout_constraintTop_toBottomOf="@+id/l_amt_info_desc">
+
+                        <ImageView
+                            android:id="@+id/iv_line_3"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:background="@color/x_e5e5e5"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/btn_cancel"
+                            style="@style/ViewCancelBtn"
+                            android:layout_marginTop="30dp"
+                            android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
+                            android:text="@string/service_charge_btr_word_25"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/iv_line_3" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:fontFamily="@font/regular_genesissanstextglobal"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="4dp"
+                            android:text="@string/service_charge_btr_msg_03"
+                            android:textColor="@color/x_262626"
+                            android:textSize="14dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/btn_cancel" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -406,6 +419,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_cs_txt"
+                    android:text="@{data.getVendorInfo() != null ? data.getVendorInfo().getVendorName() : ``}"
                     tools:text="로드윈 주식회사 0000-0000" />
 
                 <TextView
@@ -422,6 +436,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_cs_cmpy_info"
+                    android:text="@{data.getVendorInfo() != null ? data.getVendorInfo().getVendorCSHours() : ``}"
                     tools:text="평일 09:00-19:00 (공휴일 휴무)" />
 
                 <TextView

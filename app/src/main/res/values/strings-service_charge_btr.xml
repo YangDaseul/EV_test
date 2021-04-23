@@ -32,6 +32,8 @@
     <string name="service_charge_btr_txt_17">차량번호 (예 : 12가3456)</string>
     <string name="service_charge_btr_txt_18">휴대폰 번호</string>
     <string name="service_charge_btr_txt_19">(잔여 예약 수 : %s)</string>
+    <string name="service_charge_btr_txt_20">주차 장소를\n선택해 주세요.</string>
+    <string name="service_charge_btr_txt_21">주차 장소</string>
 
 
     <!-- 에러 메시지 -->
@@ -48,6 +50,7 @@
     <string name="service_charge_btr_err_11">충전 현황 / 예약 내역이 없습니다.</string>
     <string name="service_charge_btr_err_12">충전 이력이 없습니다.</string>
     <string name="service_charge_btr_err_13">서비스 이용 가능 지역이 아닙니다.</string>
+    <string name="service_charge_btr_err_14">주차 장소를 선택해 주세요.</string>
 
 
     <!-- 픽업앤충전 서비스 안내 메시 -->
@@ -105,7 +108,7 @@
     <string name="service_charge_btr_word_27">전화 연결</string>
     <string name="service_charge_btr_word_28">변경</string>
     <string name="service_charge_btr_word_29">서비스 금액</string>
-    <string name="service_charge_btr_word_30"></string>
+    <string name="service_charge_btr_word_30">사용불가</string>
     <string name="service_charge_btr_word_31"></string>
     <string name="service_charge_btr_word_32"></string>
     <string name="service_charge_btr_word_33"></string>
@@ -115,8 +118,8 @@
     <string name="service_charge_btr_word_37">관리</string>
     <string name="service_charge_btr_word_38">결제 상세</string>
     <string name="service_charge_btr_word_39">신청하기</string>
-    <string name="service_charge_btr_word_40"></string>
-    <string name="service_charge_btr_word_41"> 보유</string>
+    <string name="service_charge_btr_word_40">└ </string>
+    <string name="service_charge_btr_word_41">%s 보유</string>
     <string name="service_charge_btr_word_42">0원</string>
 
 

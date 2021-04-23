@@ -22,7 +22,6 @@
             android:id="@+id/l_rsvt_hope_dt"
             style="@style/CommonSpinnerLayout"
             android:layout_marginTop="0dp"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/tv_msg"
             app:layout_constraintStart_toStartOf="@+id/tv_msg"
             app:layout_constraintTop_toBottomOf="@+id/tv_msg">
@@ -48,10 +47,10 @@
                 tools:visibility="invisible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_inout_cd"
             style="@style/CommonSpinnerLayout"
-            android:visibility="gone"
             android:layout_marginTop="0dp"
             app:layout_constraintEnd_toEndOf="@+id/tv_msg"
             app:layout_constraintStart_toStartOf="@+id/tv_msg"
@@ -82,7 +81,6 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/l_addr_dtl"
             style="@style/CommonTextInputLayout"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/tv_msg"
             app:layout_constraintStart_toStartOf="@+id/tv_msg"
             app:layout_constraintTop_toBottomOf="@+id/l_inout_cd">
@@ -116,7 +114,7 @@
                 android:text="@string/service_charge_btr_txt_02"
                 android:textColor="@color/x_aaabaf"
                 android:textSize="15dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -132,7 +130,7 @@
                 android:id="@+id/tv_title_addr"
                 style="@style/CommonSpinnerTitle"
                 android:text="@string/service_charge_btr_txt_02"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -146,7 +144,7 @@
                 android:paddingTop="20dp"
                 android:paddingEnd="15dp"
                 android:paddingBottom="20dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -292,6 +290,7 @@
             app:layout_constraintEnd_toEndOf="@+id/btn_question"
             app:layout_constraintStart_toStartOf="@+id/tv_msg_bottom"
             app:layout_constraintTop_toBottomOf="@+id/tv_msg_bottom" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

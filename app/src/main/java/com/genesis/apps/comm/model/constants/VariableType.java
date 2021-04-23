@@ -355,4 +355,26 @@ public class VariableType {
     public static final String SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_FOB = "KT_FOB";     // 실물 키 전달, 대면 서비스
     public static final String SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_DKC = "KT_DKC";     // 디지털 키 전달, 비대면 서비스
     public static final String SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_BLL = "KT_BLL";     // 블루링크, 제네시스 픽업앤충전 서비스에서는 사용 안함.
+
+    public static final String SERVICE_CHARGE_BTR_LOT_TYPE_STRT = "STRT";   // 위치 구분 코드, 픽업앤충전은 STRT 고정
+
+    public static final String SERVICE_CHARGE_BTR_IN_TYPE_CD = "I";         // 내외부 구분 코드, 실내
+    public static final String SERVICE_CHARGE_BTR_IN_TYPE_NM = "실내 주차장";         // 내외부 구분 코드, 실내
+    public static final String SERVICE_CHARGE_BTR_OUT_TYPE_CD = "O";        // 내외부 구분 코드, 실외
+    public static final String SERVICE_CHARGE_BTR_OUT_TYPE_NM = "실외 주차장";        // 내외부 구분 코드, 실외
+
+    public static String getInOutCd(String result) {
+        switch (result) {
+            case SERVICE_CHARGE_BTR_IN_TYPE_NM:
+                return SERVICE_CHARGE_BTR_IN_TYPE_CD;
+            case SERVICE_CHARGE_BTR_OUT_TYPE_NM:
+            default:
+                return SERVICE_CHARGE_BTR_OUT_TYPE_CD;
+        }
+    }
+
+    public static final String SERVICE_CHARGE_BTR_OPT_TYPE_1 = "OT01";  // 옵션 타입, 기본형(탁송)
+    public static final String SERVICE_CHARGE_BTR_OPT_TYPE_2 = "OT02";  // 옵션 타입, 추가형(세차)
+
+    public static final String SERVICE_CHARGE_BTR_MEMBERSHIP_CODE_STRFF = "STRFF";  // 멤버십 구분 코드, 에스트래픽
 }

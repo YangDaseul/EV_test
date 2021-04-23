@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <data>
+
+        <import type="com.genesis.apps.comm.model.constants.VariableType" />
+
+        <import type="com.genesis.apps.comm.util.DateUtil" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
+        <import type="android.telephony.PhoneNumberUtils" />
+
+        <import type="java.util.Locale" />
+
+        <variable
+            name="data"
+            type="com.genesis.apps.comm.model.api.gra.SOS_1006.Response" />
+
+        <variable
+            name="minute"
+            type="int" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_whole"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- 예약 내역 타이틀 -->
+        <TextView
+            android:id="@+id/l_apply_info_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="8dp"
+            android:text="@string/service_charge_btr_word_17"
+            android:textColor="@color/x_000000"
+            android:textSize="22dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 신청 일시 정보 -->
+        <TextView
+            android:id="@+id/l_apply_date"
+            tools:text="2021.03.02 12:04"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="4dp"
+            android:textColor="@color/x_000000"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_apply_info_title" />
+
+        <!-- 예약 내역 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_apply_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/x_e5e5e5"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_apply_date">
+
+
+            <!-- "차량정보" -->
+            <include
+                android:id="@+id/l_car_reg_no"
+                layout="@layout/item_rpar_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:isLeft="@{true}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:msg="@{data.getCarRegNo() ?? ``}"
+                app:title="@{@string/service_charge_btr_word_00}" />
+
+            <!-- 사진보기 버튼 -->
+            <include
+                android:id="@+id/btn_charge_btr_image"
+                layout="@layout/item_btn_underline_mark_gold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:btnNm="@{@string/service_charge_btr_word_01}"
+                app:layout_constraintVertical_bias=".5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/l_car_reg_no"
+                app:layout_constraintBottom_toBottomOf="@+id/l_car_reg_no" />
+
+            <!-- "예약일시" -->
+            <include
+                android:id="@+id/l_reserve_dtm"
+                layout="@layout/item_rpar_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                app:isLeft="@{true}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/l_car_reg_no"
+                app:title="@{@string/service_charge_btr_word_02}" />
+
+            <!-- "픽업 위치 정보" -->
+            <include
+                android:id="@+id/l_pickup_addr"
+                layout="@layout/item_rpar_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                app:isLeft="@{true}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/l_reserve_dtm"
+                app:maxLine="@{Integer.MAX_VALUE}"
+                app:msg="@{data.getAddr() ?? ``}"
+                app:title="@{@string/service_charge_btr_word_03}" />
+
+
+            <!-- "예약상품" -->
+            <include
+                android:id="@+id/l_reserve_info"
+                layout="@layout/item_rpar_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                app:isLeft="@{true}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/l_pickup_addr"
+                app:title="@{@string/service_charge_btr_word_04}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

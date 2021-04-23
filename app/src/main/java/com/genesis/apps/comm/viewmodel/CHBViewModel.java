@@ -13,6 +13,7 @@ import com.genesis.apps.comm.model.api.gra.CHB_1006;
 import com.genesis.apps.comm.model.api.gra.CHB_1007;
 import com.genesis.apps.comm.model.api.gra.CHB_1008;
 import com.genesis.apps.comm.model.api.gra.CHB_1009;
+import com.genesis.apps.comm.model.api.gra.CHB_1010;
 import com.genesis.apps.comm.model.api.gra.CHB_1015;
 import com.genesis.apps.comm.model.api.gra.CHB_1016;
 import com.genesis.apps.comm.model.api.gra.CHB_1017;
@@ -23,18 +24,23 @@ import com.genesis.apps.comm.model.api.gra.CHB_1026;
 import com.genesis.apps.comm.model.repo.CHBRepo;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.vo.RepairHistVO;
+import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.model.vo.carlife.BookingVO;
+import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
 import com.genesis.apps.comm.net.NetUIResponse;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import lombok.Data;
+
+import static java.util.stream.Collectors.toList;
 
 public @Data
 class CHBViewModel extends ViewModel {
@@ -47,6 +53,7 @@ class CHBViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<CHB_1007.Response>> RES_CHB_1007;
     private MutableLiveData<NetUIResponse<CHB_1008.Response>> RES_CHB_1008;
     private MutableLiveData<NetUIResponse<CHB_1009.Response>> RES_CHB_1009;
+    private MutableLiveData<NetUIResponse<CHB_1010.Response>> RES_CHB_1010;
     private MutableLiveData<NetUIResponse<CHB_1015.Response>> RES_CHB_1015;
     private MutableLiveData<NetUIResponse<CHB_1016.Response>> RES_CHB_1016;
     private MutableLiveData<NetUIResponse<CHB_1017.Response>> RES_CHB_1017;
@@ -70,6 +77,7 @@ class CHBViewModel extends ViewModel {
         RES_CHB_1007 = repository.RES_CHB_1007;
         RES_CHB_1008 = repository.RES_CHB_1008;
         RES_CHB_1009 = repository.RES_CHB_1009;
+        RES_CHB_1010 = repository.RES_CHB_1010;
 
         RES_CHB_1015 = repository.RES_CHB_1015;
         RES_CHB_1016 = repository.RES_CHB_1016;
@@ -94,6 +102,9 @@ class CHBViewModel extends ViewModel {
     }
     public void reqCHB1009(final CHB_1009.Request reqData) {
         repository.REQ_CHB_1009(reqData);
+    }
+    public void reqCHB1010(final CHB_1010.Request reqData) {
+        repository.REQ_CHB_1010(reqData);
     }
     public void reqCHB1015(final CHB_1015.Request reqData) {
         repository.REQ_CHB_1015(reqData);
@@ -137,4 +148,23 @@ class CHBViewModel extends ViewModel {
         }
     }
 
+    public List<String> getPaymtCardNm(List<PaymtCardVO> paymtCardVOList) throws ExecutionException, InterruptedException {
+        ExecutorService es = new ExecutorService("");
+        Future<List<String>> future = es.getListeningExecutorService().submit(() -> {
+            List<String> list = new ArrayList<>();
+            try {
+                list = paymtCardVOList.stream().map(PaymtCardVO::getCardName).collect(toList());
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+                list = null;
+            }
+            return list;
+        });
+
+        try {
+            return future.get();
+        } finally {
+            es.shutDownExcutor();
+        }
+    }
 }

@@ -97,4 +97,10 @@ public interface KeyNames {
     String KEY_NAME_CHB_CONTENTS_VO = "CHBContentsVo";
     String KEY_NAME_CHB_RSVT_DT = "CHBRsvtDt";
     String KEY_NAME_CHB_STUS_CD = "CHBStusCd";
+    String KEY_NAME_CHB_KEY_TRANS_TY = "CHBKeyTransferType";
+    String KEY_NAME_CHB_LOT_VO = "CHBLotVo";
+    String KEY_NAME_CHB_HP_NO = "CHBHpNo";
+    String KEY_NAME_CHB_CAR_NO = "CHBCarNo";
+    String KEY_NAME_CHB_ADDRESS = "CHBAddress";
+    String KEY_NAME_CHB_OPTION_TY = "CHBOptionTy";
 }
