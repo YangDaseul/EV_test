@@ -54,6 +54,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
+
 public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
     private ISTViewModel istViewModel;
     private LGNViewModel lgnViewModel;
@@ -254,14 +256,21 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                     break;
                 case SUCCESS:
                     ((SubActivity)getActivity()).showProgressDialog(false, SubActivity.PROGRESS_TYPE_INSIGHT);
-                    tmpAcptNo = result.data.getTmpAcptNo();
-                    if(result.data!=null&&!TextUtils.isEmpty(tmpAcptNo)){
-                        sosViewModel.reqSOS1006(new SOS_1006.Request(APPIAInfo.SM01.getId(),tmpAcptNo));
+                    if(result.data!=null&&StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)){
+                        tmpAcptNo = result.data.getTmpAcptNo();
+                        if(!TextUtils.isEmpty(tmpAcptNo)) sosViewModel.reqSOS1006(new SOS_1006.Request(APPIAInfo.SM01.getId(),tmpAcptNo));
                         break;
                     }
                 default:
                     ((SubActivity)getActivity()).showProgressDialog(false, SubActivity.PROGRESS_TYPE_INSIGHT);
-                    SnackBarUtil.show(getActivity(), getString(R.string.r_flaw06_p02_snackbar_1)+(" code:1"));
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(getActivity(), TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    }
                     break;
             }
         });
@@ -278,7 +287,14 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
                     }
                 default:
                     ((SubActivity)getActivity()).showProgressDialog(false, SubActivity.PROGRESS_TYPE_INSIGHT);
-                    SnackBarUtil.show(getActivity(), getString(R.string.r_flaw06_p02_snackbar_1));
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(getActivity(), TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    }
                     break;
             }
         });
