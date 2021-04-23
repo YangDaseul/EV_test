@@ -81,7 +81,7 @@ public class FragmentServiceChargeBtrMap extends SubFragment<FragmentMapBinding>
         if(data != null && data.getWorkerList().size() > 0) {
             driverNm = data.getWorkerList().get(0).getWorkerName();
         }
-        updateBottomView(driverNm);
+        updateBottomView(driverNm, data.getStatus());
     }
 
     private void initData() {
