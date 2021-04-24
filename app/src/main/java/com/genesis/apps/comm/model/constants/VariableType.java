@@ -84,6 +84,7 @@ public class VariableType {
 
     public static final String VEHICLE_CODE_GN="GN"; //내연기관
     public static final String VEHICLE_CODE_EV="EV"; //전기차
+    public static final String VEHICLE_CODE_SP="SP"; //스포츠패키지 차량
 
 
     //주 이용차량 유무
