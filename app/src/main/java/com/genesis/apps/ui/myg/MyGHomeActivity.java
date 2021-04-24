@@ -75,7 +75,6 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     protected void onResume() {
         super.onResume();
         if(mainVehicle!=null&&mainVehicle.isEV()){
-            //todo 크레딧포인트 요청 전문 추가 필요
             ui.lOil.lParent.setVisibility(View.GONE);
             ui.vLine02.setVisibility(View.GONE);
             ui.lCredit.setVisibility(View.VISIBLE);
@@ -205,6 +204,13 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     ui.tvPointConnectError.setVisibility(View.GONE);
                     ui.tvPointRetry.setVisibility(View.GONE);
                     ui.pPoint.show();
+
+                    if(mainVehicle!=null&&mainVehicle.isEV()) {
+                        ui.tvCreditPoint.setVisibility(View.INVISIBLE);
+                        ui.tvCreditConnectError.setVisibility(View.GONE);
+                        ui.tvCreditRetry.setVisibility(View.GONE);
+                        ui.pCredit.show();
+                    }
                     break;
                 case SUCCESS:
                     ui.tvPoint.setText((result.data==null||TextUtils.isEmpty(result.data.getBludMbrPoint()))
@@ -215,6 +221,16 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     ui.tvPointConnectError.setVisibility(View.GONE);
                     ui.tvPointRetry.setVisibility(View.GONE);
                     ui.pPoint.hide();
+
+                    if(mainVehicle!=null&&mainVehicle.isEV()) {
+                        ui.tvCreditPoint.setText((result.data==null||TextUtils.isEmpty(result.data.getCretPntTot()))
+                                ? "0원" : StringUtil.getPriceString(result.data.getCretPntTot()));
+                        ui.tvCreditPoint.setVisibility(View.VISIBLE);
+                        ui.tvCreditConnectError.setVisibility(View.GONE);
+                        ui.tvCreditRetry.setVisibility(View.GONE);
+                        ui.pCredit.hide();
+                    }
+
                     break;
                 default:
                     ui.tvPointUnit.setVisibility(View.INVISIBLE);
@@ -223,6 +239,13 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     ui.tvPointConnectError.setVisibility(View.VISIBLE);
                     ui.tvPointRetry.setVisibility(View.VISIBLE);
                     ui.pPoint.hide();
+
+                    if(mainVehicle!=null&&mainVehicle.isEV()) {
+                        ui.tvCreditPoint.setVisibility(View.INVISIBLE);
+                        ui.tvCreditConnectError.setVisibility(View.VISIBLE);
+                        ui.tvCreditRetry.setVisibility(View.VISIBLE);
+                        ui.pCredit.hide();
+                    }
                     break;
             }
         });

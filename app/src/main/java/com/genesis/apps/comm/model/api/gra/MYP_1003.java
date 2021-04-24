@@ -4,8 +4,11 @@ import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.BaseRequest;
 import com.genesis.apps.comm.model.api.BaseResponse;
+import com.genesis.apps.comm.model.vo.CreditPointVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -36,6 +39,8 @@ public class MYP_1003 extends BaseData {
      * @see #bludMbrPoint 블루멤버스 사용가능포인트
      * @see #blueMbrYn 블루멤버스 회원여부
      * 회원 : Y, 비회원 : N
+     * @see #cretPntTot 크레딧포인트 합계
+     * @see #cretPntList 크레딧 포인트리스트
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -49,5 +54,11 @@ public class MYP_1003 extends BaseData {
         @Expose
         @SerializedName("blueMbrYn")
         private String blueMbrYn;
+        @Expose
+        @SerializedName("cretPntTot")
+        private String cretPntTot;
+        @Expose
+        @SerializedName("cretPntList")
+        private List<CreditPointVO> cretPntList;
     }
 }
