@@ -546,6 +546,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                 case R.id.tv_user_retry://사용자 정보 다시 시도
                     mypViewModel.reqMYP0001(new MYP_0001.Request(APPIAInfo.MG01.getId()));
                     break;
+                case R.id.tv_credit_retry:
                 case R.id.tv_point_retry:
                     mypViewModel.reqMYP1003(new MYP_1003.Request(APPIAInfo.MG01.getId()));
                     break;
