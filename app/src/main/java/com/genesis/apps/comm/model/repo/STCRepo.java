@@ -10,6 +10,7 @@ import com.genesis.apps.comm.model.api.gra.STC_1003;
 import com.genesis.apps.comm.model.api.gra.STC_1004;
 import com.genesis.apps.comm.model.api.gra.STC_1005;
 import com.genesis.apps.comm.model.api.gra.STC_1006;
+import com.genesis.apps.comm.model.api.gra.STC_2001;
 import com.genesis.apps.comm.net.NetCaller;
 import com.genesis.apps.comm.net.NetResult;
 import com.genesis.apps.comm.net.NetResultCallback;
@@ -30,6 +31,8 @@ public class STCRepo {
     public final MutableLiveData<NetUIResponse<STC_1004.Response>> RES_STC_1004 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<STC_1005.Response>> RES_STC_1005 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<STC_1006.Response>> RES_STC_1006 = new MutableLiveData<>();
+
+    public final MutableLiveData<NetUIResponse<STC_2001.Response>> RES_STC_2001 = new MutableLiveData<>();
 
     @Inject
     public STCRepo(NetCaller netCaller) {
@@ -288,4 +291,26 @@ public class STCRepo {
 
         return RES_STC_1006;
     }
+
+    public MutableLiveData<NetUIResponse<STC_2001.Response>> REQ_STC_2001(final STC_2001.Request reqData) {
+        RES_STC_2001.setValue(NetUIResponse.loading(null));
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_STC_2001.setValue(NetUIResponse.success(new Gson().fromJson(object, STC_2001.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_STC_2001.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_STC_2001.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_STC_2001, reqData);
+        return RES_STC_2001;
+    }
+    
 } // end of class STCRepo
