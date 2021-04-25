@@ -172,57 +172,7 @@ public class InsightExpnAdapter extends BaseRecyclerViewAdapter2<ExpnVO> {
             }else{
                 getBinding().btnModify.setVisibility(View.INVISIBLE);
             }
-
-            int iconId=R.drawable.ic_service_potentiometer; //기타 이미지 변경 필요
-            int expnDivNmId = R.string.tm_exps01_21;
-
-            switch (item.getExpnDivNm()){
-                case VariableType.INSIGHT_EXPN_DIV_CODE_1000:
-                    expnDivNmId = R.string.tm_exps01_13;
-                    iconId = R.drawable.ic_service_refueling;
-                    break;
-                case VariableType.INSIGHT_EXPN_DIV_CODE_1100:
-                    expnDivNmId = R.string.tm_exps01_13_1;
-                    iconId = R.drawable.ic_service_refueling;
-                    break;
-                case VariableType.INSIGHT_EXPN_DIV_CODE_2000:
-                    expnDivNmId = R.string.tm_exps01_14;
-                    iconId = R.drawable.ic_service_repair;
-                    break;
-                case VariableType.INSIGHT_EXPN_DIV_CODE_3000:
-                    expnDivNmId = R.string.tm_exps01_15;
-                    iconId = R.drawable.ic_service_wash;
-                    break;
-                case VariableType.INSIGHT_EXPN_DIV_CODE_4000:
-                    expnDivNmId = R.string.tm_exps01_16;
-                    iconId = R.drawable.ic_service_hometohome; //TODO 주차 아이콘으로 변경 필요
-                    break;
-                case VariableType.INSIGHT_EXPN_DIV_CODE_5000:
-                    expnDivNmId = R.string.tm_exps01_17;
-                    iconId = R.drawable.ic_service_hometohome; //TODO 통행 아이콘으로 변경 필요
-                    break;
-                case VariableType.INSIGHT_EXPN_DIV_CODE_6000:
-                    expnDivNmId = R.string.tm_exps01_18;
-                    iconId = R.drawable.ic_service_hometohome; //TODO 보험 아이콘으로 변경 필요
-                    break;
-                case VariableType.INSIGHT_EXPN_DIV_CODE_7000:
-                    expnDivNmId = R.string.tm_exps01_19;
-                    iconId = R.drawable.ic_service_hometohome; //TODO 세금 아이콘으로 변경 필요
-                    break;
-                case VariableType.INSIGHT_EXPN_DIV_CODE_8000:
-                    expnDivNmId = R.string.tm_exps01_20;
-                    iconId = R.drawable.ic_service_hometohome; //TODO 용품 아이콘으로 변경 필요
-                    break;
-                case VariableType.INSIGHT_EXPN_DIV_CODE_9000:
-                default:
-                    expnDivNmId = R.string.tm_exps01_21;
-                    iconId = R.drawable.ic_service_potentiometer;
-                    break;
-            }
-
-            getBinding().tvExpnDivNm.setText(expnDivNmId);
-//            getBinding().ivIcon.setImageResource(iconId);
-
+            getBinding().tvExpnDivNm.setText(VariableType.getExpnDivNM(StringUtil.isValidString(item.getExpnDivCd())));
         }
 
         @Override

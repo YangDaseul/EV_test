@@ -139,7 +139,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
 //                        }
                         insightCarAdapter.setViewType(InsightCarAdapter.TYPE_CAR);
                     }else{
-                        list.add(new ISTAmtVO("0", "0", "0", "0", "0","0"));
+                        list.add(new ISTAmtVO("0", "0", "0", "0", "0","0","0"));
                         insightCarAdapter.setViewType(InsightCarAdapter.TYPE_EMPTY);
                     }
                     insightCarAdapter.setEv(mainVehicleInfo!=null&&mainVehicleInfo.isEV());
@@ -398,7 +398,7 @@ public class FragmentInsight extends SubFragment<FragmentInsightBinding> {
      */
     private void setViewEmptyToCarAdapter(){
         List<ISTAmtVO> list = new ArrayList<>();
-        list.add(new ISTAmtVO("0", "0", "0", "0", "0","0"));
+        list.add(new ISTAmtVO("0", "0", "0", "0", "0","0","0"));
         insightCarAdapter.setViewType(InsightCarAdapter.TYPE_EMPTY2);
         insightCarAdapter.setRows(list);
         insightCarAdapter.notifyDataSetChanged();

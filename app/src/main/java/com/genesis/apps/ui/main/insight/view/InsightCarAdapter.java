@@ -147,8 +147,8 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
             if(isEv) {
                 xAxis.setLabelCount(EvAxisValueFormatter.xNames.length);
                 xAxis.setValueFormatter(new EvAxisValueFormatter());
-                values.add(new BarEntry(0, getValue(item.getOilAmt())));
-                values.add(new BarEntry(1, getValue(item.getChargeCreditSumAmt())));
+                values.add(new BarEntry(0, getValue(item.getChgAmt())));
+                values.add(new BarEntry(1, getValue(item.getChgCretAmt())));
                 values.add(new BarEntry(2, getValue(item.getRparAmt())));
                 values.add(new BarEntry(3, getValue(item.getCarWshAmt())));
                 values.add(new BarEntry(4, getValue(item.getEtcAmt())));
@@ -297,11 +297,14 @@ public class InsightCarAdapter extends BaseRecyclerViewAdapter2<ISTAmtVO> {
             ArrayList<Float> list = new ArrayList<>();
             try{
                 list.add(TextUtils.isEmpty(istAmtVO.getRparAmt()) ? 0 : Float.parseFloat(istAmtVO.getRparAmt()));
-                list.add(TextUtils.isEmpty(istAmtVO.getOilAmt()) ? 0 : Float.parseFloat(istAmtVO.getOilAmt()));
                 list.add(TextUtils.isEmpty(istAmtVO.getEtcAmt()) ? 0 : Float.parseFloat(istAmtVO.getEtcAmt()));
                 list.add(TextUtils.isEmpty(istAmtVO.getCarWshAmt()) ? 0 : Float.parseFloat(istAmtVO.getCarWshAmt()));
-                if(isEv) list.add(TextUtils.isEmpty(istAmtVO.getChargeCreditSumAmt()) ? 0 : Float.parseFloat(istAmtVO.getChargeCreditSumAmt()));
-
+                if(isEv) {
+                    list.add(TextUtils.isEmpty(istAmtVO.getChgCretAmt()) ? 0 : Float.parseFloat(istAmtVO.getChgCretAmt()));
+                    list.add(TextUtils.isEmpty(istAmtVO.getChgAmt()) ? 0 : Float.parseFloat(istAmtVO.getChgAmt()));
+                }else{
+                    list.add(TextUtils.isEmpty(istAmtVO.getOilAmt()) ? 0 : Float.parseFloat(istAmtVO.getOilAmt()));
+                }
                 maxValue = list.stream().max(Comparator.comparingDouble(o -> o)).orElse(0f);
             }catch (Exception e){
                 e.printStackTrace();
