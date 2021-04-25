@@ -41,11 +41,7 @@ public class ServiceChargeApplyInfoActivity extends SubActivity<ActivityServiceC
         getDataFromIntent();
         setViewModel();
         setObserver();
-        if(TextUtils.isEmpty(tmpAcptNo)){//가접수번호가 없는 경우 (서비스 메인에서 바로 접수내역 화면으로 이동 시)
-            sosViewModel.reqSOS3001(new SOS_3001.Request(APPIAInfo.SM_EMGC02.getId()));
-        }else{//가접수번호가 있는 경우 (신청 후)
-            sosViewModel.reqSOS3005(new SOS_3005.Request(APPIAInfo.SM_EMGC02.getId(), tmpAcptNo));
-        }
+        sosViewModel.reqSOS3005(new SOS_3005.Request(APPIAInfo.SM_EMGC02.getId(), tmpAcptNo));
     }
 
     private void initView() {
@@ -80,26 +76,26 @@ public class ServiceChargeApplyInfoActivity extends SubActivity<ActivityServiceC
     @Override
     public void setObserver() {
 
-        sosViewModel.getRES_SOS_3001().observe(this, result -> {
-            switch (result.status){
-                case LOADING:
-                  showProgressDialog(true);
-                    break;
-                case SUCCESS:
-                   showProgressDialog(false);
-                    tmpAcptNo = result.data.getTmpAcptNo();
-                    if(result.data!=null&&!TextUtils.isEmpty(tmpAcptNo)){
-                        sosViewModel.reqSOS1005(new SOS_1005.Request(APPIAInfo.SM_EMGC02.getId(), tmpAcptNo));
-                        break;
-                    }
-                default:
-                    showProgressDialog(false);
-                    if (TextUtils.isEmpty(tmpAcptNo)) {
-                        exitPage("가접수번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
-                    }
-                    break;
-            }
-        });
+//        sosViewModel.getRES_SOS_3001().observe(this, result -> {
+//            switch (result.status){
+//                case LOADING:
+//                  showProgressDialog(true);
+//                    break;
+//                case SUCCESS:
+//                   showProgressDialog(false);
+//                    tmpAcptNo = result.data.getTmpAcptNo();
+//                    if(result.data!=null&&!TextUtils.isEmpty(tmpAcptNo)){
+//                        sosViewModel.reqSOS1005(new SOS_1005.Request(APPIAInfo.SM_EMGC02.getId(), tmpAcptNo));
+//                        break;
+//                    }
+//                default:
+//                    showProgressDialog(false);
+//                    if (TextUtils.isEmpty(tmpAcptNo)) {
+//                        exitPage("가접수번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+//                    }
+//                    break;
+//            }
+//        });
 
         sosViewModel.getRES_SOS_3005().observe(this, result -> {
             switch (result.status) {

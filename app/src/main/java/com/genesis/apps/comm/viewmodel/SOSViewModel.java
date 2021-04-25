@@ -16,12 +16,16 @@ import com.genesis.apps.comm.model.api.gra.SOS_3007;
 import com.genesis.apps.comm.model.api.gra.SOS_3008;
 import com.genesis.apps.comm.model.api.gra.SOS_3011;
 import com.genesis.apps.comm.model.api.gra.SOS_3013;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.SOSRepo;
+import com.genesis.apps.comm.model.vo.TermVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.NetUIResponse;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.util.excutor.ExecutorService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -172,5 +176,83 @@ class SOSViewModel extends ViewModel {
         }
     }
 
+    public boolean isValidSOS3001(){
+        return RES_SOS_3001!=null&&RES_SOS_3001.getValue()!=null&&RES_SOS_3001.getValue().data!=null&&RES_SOS_3001.getValue()!=null&&RES_SOS_3001.getValue().data!=null;
+    }
+
+    //찾아가는 충전 서비스 정보제공동의 유무
+    public boolean isTrmsAgmtYn() {
+        return isValidSOS3001() &&
+                RES_SOS_3001.getValue().data.getSosStus() != null &&
+                StringUtil.isValidString(RES_SOS_3001.getValue().data.getSosStus().getTrmsAgmtYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES);
+    }
+
+    //찾아가는 충전 서비스 신청 가능 유무
+    public boolean isUseYn() {
+        return isValidSOS3001() &&
+                RES_SOS_3001.getValue().data.getSosStus() != null &&
+                StringUtil.isValidString(RES_SOS_3001.getValue().data.getSosStus().getUseYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES);
+    }
+
+    //찾아가는 충전 서비스 신청 유무
+    public boolean isSubspYn() {
+        return isValidSOS3001() &&
+                RES_SOS_3001.getValue().data.getSosStus() != null &&
+                StringUtil.isValidString(RES_SOS_3001.getValue().data.getSosStus().getSubspYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_YES);
+    }
+
+    //찾아가는 충전 서비스 잔여 횟수 확인
+    public boolean isCnt() {
+        int cnt = 0;
+
+        if(isValidSOS3001() && RES_SOS_3001.getValue().data.getSosStus() != null){
+            try{
+                cnt = Integer.parseInt(RES_SOS_3001.getValue().data.getSosStus().getDataCount());
+            }catch (Exception e){
+                cnt = 0;
+            }
+        }
+
+        return cnt>0;
+    }
+
+    public String getPgrsStusCd(){
+        String pgrsStusCd = "";
+
+        if(isValidSOS3001() && RES_SOS_3001.getValue().data.getSosStus() != null){
+            try{
+                pgrsStusCd = RES_SOS_3001.getValue().data.getSosStus().getPgrsStusCd();
+            }catch (Exception e){
+                pgrsStusCd = "";
+            }
+        }
+        return pgrsStusCd;
+    }
+
+    public String getTmpAcptNo(){
+        String tmpAcptNo = "";
+
+        if(isValidSOS3001() && RES_SOS_3001.getValue().data.getSosStus() != null){
+            try{
+                tmpAcptNo = RES_SOS_3001.getValue().data.getSosStus().getTmpAcptNo();
+            }catch (Exception e){
+                tmpAcptNo = "";
+            }
+        }
+        return tmpAcptNo;
+    }
+
+    public List<TermVO> getChargeTermVO(){
+        List<TermVO> list = new ArrayList<>();
+
+        if(isValidSOS3001() && RES_SOS_3001.getValue().data.getSosStus() != null){
+            try{
+                list.addAll(RES_SOS_3001.getValue().data.getSosStus().getTermList());
+            }catch (Exception e){
+                list = new ArrayList<>();
+            }
+        }
+        return list;
+    }
 
 }

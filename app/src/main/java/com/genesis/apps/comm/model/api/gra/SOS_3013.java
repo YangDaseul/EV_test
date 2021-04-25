@@ -31,7 +31,8 @@ public class SOS_3013 extends BaseData {
         @SerializedName("termList")
         private List<AgreeTerm2VO> termList;
 
-        public Request(String menuId){
+        public Request(String menuId, List<AgreeTerm2VO> termList){
+            this.termList = termList;
             setData(APIInfo.GRA_SOS_3013.getIfCd(), menuId);
         }
     }
