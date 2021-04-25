@@ -14,6 +14,8 @@ import com.genesis.apps.comm.model.api.gra.SOS_3005;
 import com.genesis.apps.comm.model.api.gra.SOS_3006;
 import com.genesis.apps.comm.model.api.gra.SOS_3007;
 import com.genesis.apps.comm.model.api.gra.SOS_3008;
+import com.genesis.apps.comm.model.api.gra.SOS_3011;
+import com.genesis.apps.comm.model.api.gra.SOS_3013;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.SOSRepo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
@@ -53,6 +55,8 @@ class SOSViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<SOS_3006.Response>> RES_SOS_3006;
     private MutableLiveData<NetUIResponse<SOS_3007.Response>> RES_SOS_3007;
     private MutableLiveData<NetUIResponse<SOS_3008.Response>> RES_SOS_3008;
+    private MutableLiveData<NetUIResponse<SOS_3011.Response>> RES_SOS_3011;
+    private MutableLiveData<NetUIResponse<SOS_3013.Response>> RES_SOS_3013;
 
     private MutableLiveData<List<VehicleVO>> vehicleList;
 
@@ -79,6 +83,8 @@ class SOSViewModel extends ViewModel {
         RES_SOS_3006 = repository.RES_SOS_3006;
         RES_SOS_3007 = repository.RES_SOS_3007;
         RES_SOS_3008 = repository.RES_SOS_3008;
+        RES_SOS_3011 = repository.RES_SOS_3011;
+        RES_SOS_3013 = repository.RES_SOS_3013;
         vehicleList = new MutableLiveData<>();
     }
 
@@ -136,6 +142,14 @@ class SOSViewModel extends ViewModel {
 
     public void reqSOS3008(final SOS_3008.Request reqData) {
         repository.REQ_SOS_3008(reqData);
+    }
+
+    public void reqSOS3011(final SOS_3011.Request reqData) {
+        repository.REQ_SOS_3011(reqData);
+    }
+
+    public void reqSOS3013(final SOS_3013.Request reqData) {
+        repository.REQ_SOS_3013(reqData);
     }
     
     public VehicleVO getMainVehicleFromDB() throws ExecutionException, InterruptedException {
