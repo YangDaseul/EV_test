@@ -191,6 +191,8 @@ public enum APIInfo {
     GRA_STC_1005("service + S-트래픽 충전기 예약신청내역", "GRA-STC-1005", HttpRequest.METHOD_POST, "/graapi/stc/reservHist.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_STC_1006("service + S-트래픽 충전기 예약취소", "GRA-STC-1006", HttpRequest.METHOD_POST, "/graapi/stc/reservCancel.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
+    GRA_STC_2001("S-트래픽 크레딧내역조회", "STC-2001", HttpRequest.METHOD_POST, "/graapi/stc/creditList.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+
     // 픽업앤충전 서비스/간편결제
     GRA_CHB_1001("service + 픽업앤충전 서비스 상태", "CHB-1001", HttpRequest.METHOD_POST, "/graapi/chb/", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_CHB_1002("service + 픽업앤충전 정보제공동의화면", "CHB-1002", HttpRequest.METHOD_POST, "/graapi/chb/infoAgmtView", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),

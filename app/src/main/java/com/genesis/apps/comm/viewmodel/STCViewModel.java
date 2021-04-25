@@ -12,6 +12,7 @@ import com.genesis.apps.comm.model.api.gra.STC_1003;
 import com.genesis.apps.comm.model.api.gra.STC_1004;
 import com.genesis.apps.comm.model.api.gra.STC_1005;
 import com.genesis.apps.comm.model.api.gra.STC_1006;
+import com.genesis.apps.comm.model.api.gra.STC_2001;
 import com.genesis.apps.comm.model.repo.DBVehicleRepository;
 import com.genesis.apps.comm.model.repo.STCRepo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
@@ -40,6 +41,7 @@ class STCViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<STC_1004.Response>> RES_STC_1004;
     private MutableLiveData<NetUIResponse<STC_1005.Response>> RES_STC_1005;
     private MutableLiveData<NetUIResponse<STC_1006.Response>> RES_STC_1006;
+    private MutableLiveData<NetUIResponse<STC_2001.Response>> RES_STC_2001;
 
     private MutableLiveData<List<VehicleVO>> vehicleList;
 
@@ -83,6 +85,10 @@ class STCViewModel extends ViewModel {
 
     public void reqSTC1006(final STC_1006.Request reqData) {
         repository.REQ_STC_1006(reqData);
+    }
+
+    public void reqSTC2001(final STC_2001.Request reqData) {
+        repository.REQ_STC_2001(reqData);
     }
 
 

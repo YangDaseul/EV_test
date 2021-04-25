@@ -5,26 +5,24 @@ import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.appeaser.sublimepickerlibrary.datepicker.SelectedDate;
 import com.appeaser.sublimepickerlibrary.helpers.SublimeOptions;
 import com.appeaser.sublimepickerlibrary.recurrencepicker.SublimeRecurrencePicker;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.gra.MYP_2002;
-import com.genesis.apps.comm.model.constants.KeyNames;
-import com.genesis.apps.comm.model.vo.MembershipPointVO;
+import com.genesis.apps.comm.model.api.gra.STC_2001;
+import com.genesis.apps.comm.model.vo.CreditPointVO;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.CalenderUtil;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
-import com.genesis.apps.comm.viewmodel.MYPViewModel;
+import com.genesis.apps.comm.viewmodel.STCViewModel;
 import com.genesis.apps.databinding.ActivityMygCreditUseListBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
-import com.genesis.apps.ui.myg.view.PointUseListAdapter;
+import com.genesis.apps.ui.myg.view.CreditUseListAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,13 +30,13 @@ import java.util.List;
 import java.util.Locale;
 
 public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseListBinding> {
-    private static final int PAGE_SIZE = 20;
-    private final String TRANS_TYPE_CODE_SAVE="20";
-    private final String TRANS_TYPE_CODE_USE="40";
-    private final String TRANS_TYPE_CODE_CANCEL="80";
-    private MYPViewModel mypViewModel;
-    private PointUseListAdapter adapter;
-    private String mbrshMbrMgmtNo;
+//    private static final int PAGE_SIZE = 20;
+    public static final String TRANS_TYPE_CODE_SAVE="01";
+    public static final String TRANS_TYPE_CODE_USE="02";
+    public static final String TRANS_TYPE_CODE_CANCEL="09";
+    private STCViewModel stcViewModel;
+    private CreditUseListAdapter adapter;
+    private VehicleVO mainVehicleVO;
     private Calendar startDate = Calendar.getInstance(Locale.getDefault());
     private Calendar endDate = Calendar.getInstance(Locale.getDefault());
 
@@ -46,41 +44,41 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myg_credit_use_list);
-        getDataFromIntent();
         setViewModel();
+        getDataFromIntent();
         setObserver();
         initView();
-        reqMYP2002(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd),1);
+        reqSTC2001(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd),1);
     }
 
-    private void reqMYP2002(String transStrDt, String transEndDt, int pageNo){
-        mypViewModel.reqMYP2002(
-                new MYP_2002.Request(
-                        APPIAInfo.MG_MEMBER04.getId(),
-                        mbrshMbrMgmtNo,
+    private void reqSTC2001(String transStrDt, String transEndDt, int pageNo){
+        stcViewModel.reqSTC2001(
+                new STC_2001.Request(
+                        APPIAInfo.MG_CP01.getId(),
+                        mainVehicleVO.getVin(),
+                        mainVehicleVO.getMdlCd(),
+                        mainVehicleVO.getMdlNm(),
                         transStrDt,
                         transEndDt,
-                        ""+ pageNo,
-                        "" + PAGE_SIZE,
                         getTransTypCd()));
     }
 
     private void initView() {
-        adapter = new PointUseListAdapter();
+        adapter = new CreditUseListAdapter();
 //        ui.rv.setHasFixedSize(true);
         ui.rv.setAdapter(adapter);
-        ui.rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                //2021-03-15 park 해당 페이지는 스크롤뷰와 리사이클러뷰가 묶여있기 때문에 리사이클러뷰의 canScrollVertically 사용 불가함으로
-                //스크롤뷰의 전체 크기 중 현재 포지션으로 위치 확인
-                if ((ui.sc.getChildAt(0).getBottom() - ui.sc.getHeight())<=ui.sc.getScrollY()&&ui.rv.getScrollState()==RecyclerView.SCROLL_STATE_IDLE) {//scroll end
-                    if(adapter.getItemCount()>0&&adapter.getItemCount() >= adapter.getPageNo() * PAGE_SIZE)
-                        reqMYP2002(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), adapter.getPageNo() + 1);
-                }
-            }
-        });
+//        ui.rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//                //2021-03-15 park 해당 페이지는 스크롤뷰와 리사이클러뷰가 묶여있기 때문에 리사이클러뷰의 canScrollVertically 사용 불가함으로
+//                //스크롤뷰의 전체 크기 중 현재 포지션으로 위치 확인
+//                if ((ui.sc.getChildAt(0).getBottom() - ui.sc.getHeight())<=ui.sc.getScrollY()&&ui.rv.getScrollState()==RecyclerView.SCROLL_STATE_IDLE) {//scroll end
+//                    if(adapter.getItemCount()>0&&adapter.getItemCount() >= adapter.getPageNo() * PAGE_SIZE)
+//                        reqSTC2001(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), adapter.getPageNo() + 1);
+//                }
+//            }
+//        });
         ui.r1.performClick();
         setDateAuto(ui.r1);
     }
@@ -91,7 +89,7 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
         switch (v.getId()) {
             case R.id.btn_query:
                 adapter.setPageNo(0);
-                reqMYP2002(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd),1 );
+                reqSTC2001(DateUtil.getDate(startDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.getDate(endDate.getTime(), DateUtil.DATE_FORMAT_yyyyMMdd),1 );
                 break;
             case R.id.btn_start_date:
                 openDatePicker(startDateCallback, -1L, endDate == null ? CalenderUtil.getDateMils(0) : endDate.getTimeInMillis(), startDate);
@@ -106,12 +104,12 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
     public void setViewModel() {
         ui.setLifecycleOwner(this);
         ui.setActivity(this);
-        mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
+        stcViewModel = new ViewModelProvider(this).get(STCViewModel.class);
     }
 
     @Override
     public void setObserver() {
-        mypViewModel.getRES_MYP_2002().observe(this, result -> {
+        stcViewModel.getRES_STC_2001().observe(this, result -> {
             switch (result.status){
                 case LOADING:
                     showProgressDialog(true);
@@ -140,13 +138,9 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
     @Override
     public void getDataFromIntent() {
         try {
-            mbrshMbrMgmtNo = getIntent().getStringExtra(KeyNames.KEY_NAME_MEMBERSHIP_MBR_MGMT_NO);
-//            if (TextUtils.isEmpty(mbrshMbrMgmtNo)) {
-//                exitPage("블루멤버스 회원번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
-//            }
+            mainVehicleVO = stcViewModel.getMainVehicle();
         } catch (Exception e) {
             e.printStackTrace();
-//            exitPage("블루멤버스 회원번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
         }
     }
 
@@ -260,13 +254,13 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
 
 
     private void setFilter(){
-        List<MembershipPointVO> list = new ArrayList<>();
-        if (mypViewModel.getRES_MYP_2002().getValue() != null
-                && mypViewModel.getRES_MYP_2002().getValue().data != null
-                && mypViewModel.getRES_MYP_2002().getValue().data.getTransList() != null
-                && mypViewModel.getRES_MYP_2002().getValue().data.getTransList().size() > 0) {
+        List<CreditPointVO> list = new ArrayList<>();
+        if (stcViewModel.getRES_STC_2001().getValue() != null
+                && stcViewModel.getRES_STC_2001().getValue().data != null
+                && stcViewModel.getRES_STC_2001().getValue().data.getCreditList() != null
+                && stcViewModel.getRES_STC_2001().getValue().data.getCreditList().size() > 0) {
 
-            list.addAll(mypViewModel.getRES_MYP_2002().getValue().data.getTransList());
+            list.addAll(stcViewModel.getRES_STC_2001().getValue().data.getCreditList());
         }
 
         if (list.size() > 0) {
@@ -285,21 +279,21 @@ public class MyGCreditUseListActivity extends SubActivity<ActivityMygCreditUseLi
                 ui.tvEmpty.setVisibility(View.VISIBLE);
             }
         }
-        setViewSavePoint();
+        setViewCreditPoint();
     }
 
-    private void setViewSavePoint() {
-        String savedPoint = "0";
+    private void setViewCreditPoint() {
+        String chgCreditAmout = "0";
         try{
-            savedPoint = mypViewModel.getRES_MYP_2002().getValue().data.getSavedBlueMbrPoint();
-            if(TextUtils.isEmpty(savedPoint)){
-                savedPoint = "0";
+            chgCreditAmout = stcViewModel.getRES_STC_2001().getValue().data.getChgCreditAmout();
+            if(TextUtils.isEmpty(chgCreditAmout)){
+                chgCreditAmout = "0";
             }
         }catch (Exception e){
-            savedPoint = "0";
+            chgCreditAmout = "0";
         }
 
-        ui.tvPointSave.setText(StringUtil.getDigitGroupingString(savedPoint));
+        ui.tvPointSave.setText(StringUtil.getDigitGroupingString(chgCreditAmout));
     }
 
     private String getTransTypCd(){
