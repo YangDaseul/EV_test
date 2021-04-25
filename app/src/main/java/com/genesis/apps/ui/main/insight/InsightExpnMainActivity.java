@@ -527,7 +527,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
         if(selectVehicle!=null&&selectVehicle.isEV()){
             xAxis.setLabelCount(EvAxisValueFormatter.xNames.length);
             xAxis.setValueFormatter(new EvAxisValueFormatter());
-            values.add(new BarEntry(0, Float.parseFloat(item.getRefulSumAmt())));
+            values.add(new BarEntry(0, Float.parseFloat(item.getChgSumAmt())));
             values.add(new BarEntry(1, Float.parseFloat(item.getChgCretSumAmt())));
             values.add(new BarEntry(2, Float.parseFloat(item.getRparSumAmt())));
             values.add(new BarEntry(3, Float.parseFloat(item.getCarWshSumAmt())));
@@ -579,7 +579,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
         int totalAmt = 0;
         try {
             totalAmt = parsingStringToInt(item.getEtcSumAmt()) +
-                    parsingStringToInt(item.getRefulSumAmt()) +
+                    (selectVehicle!=null&&selectVehicle.isEV() ? parsingStringToInt(item.getChgSumAmt()) : parsingStringToInt(item.getRefulSumAmt())) +
                     parsingStringToInt(item.getRparSumAmt()) +
                     parsingStringToInt(item.getCarWshSumAmt()) +
                     (selectVehicle!=null&&selectVehicle.isEV() ? parsingStringToInt(item.getChgCretSumAmt()) : 0);
@@ -608,12 +608,15 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
         float maxValue = 0;
         ArrayList<Float> list = new ArrayList<>();
         try {
-            list.add(TextUtils.isEmpty(data.getRefulSumAmt()) ? 0 : Float.parseFloat(data.getRefulSumAmt()));
             list.add(TextUtils.isEmpty(data.getRparSumAmt()) ? 0 : Float.parseFloat(data.getRparSumAmt()));
             list.add(TextUtils.isEmpty(data.getCarWshSumAmt()) ? 0 : Float.parseFloat(data.getCarWshSumAmt()));
             list.add(TextUtils.isEmpty(data.getEtcSumAmt()) ? 0 : Float.parseFloat(data.getEtcSumAmt()));
-            if(selectVehicle!=null&&selectVehicle.isEV())
+            if(selectVehicle!=null&&selectVehicle.isEV()) {
                 list.add(TextUtils.isEmpty(data.getChgCretSumAmt()) ? 0 : Float.parseFloat(data.getChgCretSumAmt()));
+                list.add(TextUtils.isEmpty(data.getChgSumAmt()) ? 0 : Float.parseFloat(data.getChgSumAmt()));
+            }else{
+                list.add(TextUtils.isEmpty(data.getRefulSumAmt()) ? 0 : Float.parseFloat(data.getRefulSumAmt()));
+            }
 
             maxValue = list.stream().max(Comparator.comparingDouble(o -> o)).orElse(0f);
         } catch (Exception e) {

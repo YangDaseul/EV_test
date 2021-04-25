@@ -104,6 +104,7 @@ public class VariableType {
 
 
     public static final String INSIGHT_EXPN_DIV_CODE_1000 = "주유"; //주유
+    public static final String INSIGHT_EXPN_DIV_CODE_1100 = "충전"; //충전
     public static final String INSIGHT_EXPN_DIV_CODE_2000 = "정비"; //정비
     public static final String INSIGHT_EXPN_DIV_CODE_3000 = "세차"; //세차
     public static final String INSIGHT_EXPN_DIV_CODE_4000 = "주차"; //주차
@@ -117,6 +118,8 @@ public class VariableType {
         switch (result) {
             case INSIGHT_EXPN_DIV_CODE_1000:
                 return "1000";
+            case INSIGHT_EXPN_DIV_CODE_1100:
+                return "1100";
             case INSIGHT_EXPN_DIV_CODE_2000:
                 return "2000";
             case INSIGHT_EXPN_DIV_CODE_3000:

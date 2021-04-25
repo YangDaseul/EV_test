@@ -87,6 +87,9 @@ public class CBK_1002 extends BaseData {
         @SerializedName("refulSumAmt")
         private String refulSumAmt;
         @Expose
+        @SerializedName("chgSumAmt")
+        private String chgSumAmt;
+        @Expose
         @SerializedName("rparSumAmt")
         private String rparSumAmt;
         @Expose
@@ -103,6 +106,7 @@ public class CBK_1002 extends BaseData {
             this.totCnt="0";
             this.delYn="0";
             this.refulSumAmt="0";
+            this.chgSumAmt="0";
             this.rparSumAmt="0";
             this.carWshSumAmt="0";
             this.etcSumAmt="0";

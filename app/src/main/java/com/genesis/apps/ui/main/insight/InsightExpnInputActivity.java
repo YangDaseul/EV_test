@@ -17,6 +17,7 @@ import com.genesis.apps.comm.model.api.gra.CBK_1006;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -65,7 +66,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
 
     private String vin;
     private String expnDivCd = "";
-
+    private VehicleVO vehicleVO = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,7 +184,7 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
 
     private void selectDivCd() {
         clearKeypad();
-        final List<String> divList = Arrays.asList(getResources().getStringArray(R.array.insight_item));
+        final List<String> divList = Arrays.asList(getResources().getStringArray(vehicleVO.isEV() ? R.array.insight_item_ev : R.array.insight_item));
         final BottomListDialog bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
         bottomListDialog.setOnDismissListener(dialogInterface -> {
             String result = bottomListDialog.getSelectItem();
@@ -308,12 +309,16 @@ public class InsightExpnInputActivity extends SubActivity<ActivityInsightExpnInp
     public void getDataFromIntent() {
         try {
             vin = getIntent().getStringExtra(KeyNames.KEY_NAME_VIN);
-            if (TextUtils.isEmpty(vin))
-                vin = cbkViewModel.getMainVehicleSimplyFromDB().getVin();
+            if (TextUtils.isEmpty(vin)) {
+                vehicleVO = cbkViewModel.getMainVehicleSimplyFromDB();
+                vin = vehicleVO.getVin();
+            }else{
+                vehicleVO = cbkViewModel.getDbVehicleRepository().getVehicle(vin);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (TextUtils.isEmpty(vin)) {
+            if (TextUtils.isEmpty(vin)||vehicleVO==null) {
                 exitPage("차대번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
             }
         }

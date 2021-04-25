@@ -813,6 +813,10 @@ public class MiddleDialog {
                             expnDivNmId = R.string.tm_exps01_13;
                             iconId = R.drawable.ic_service_refueling;
                             break;
+                        case VariableType.INSIGHT_EXPN_DIV_CODE_1100:
+                            expnDivNmId = R.string.tm_exps01_13_1;
+                            iconId = R.drawable.ic_service_refueling;
+                            break;
                         case VariableType.INSIGHT_EXPN_DIV_CODE_2000:
                             expnDivNmId = R.string.tm_exps01_14;
                             iconId = R.drawable.ic_service_repair;
