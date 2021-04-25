@@ -629,6 +629,46 @@ class DevelopersViewModel extends ViewModel {
         }
     }
 
+    private final String TIME_FORMAT = "%d시간 %d분";
+    public String getBatteryChargeTime() {
+        String time = "";
+        if (RES_EV_STATUS!=null&&RES_EV_STATUS.getValue()!=null&&RES_EV_STATUS.getValue().data!=null&&RES_EV_STATUS.getValue().data.getRemainTime()!=null&&RES_EV_STATUS.getValue().data.getRemainTime().getUnit() < 4) {
+            int value = (int) RES_EV_STATUS.getValue().data.getRemainTime().getValue();
+            final int unit = (int) RES_EV_STATUS.getValue().data.getRemainTime().getUnit();
+            int hour;
+            int min;
+            switch (unit) {
+                case 0:
+                    //hour
+                    time = String.format(Locale.getDefault(), TIME_FORMAT, value, 0);
+                    break;
+                case 1:
+                    //min
+                    hour = value / 60;
+                    min = value % 60;
+                    time = String.format(Locale.getDefault(), TIME_FORMAT, hour, min);
+                    break;
+                case 2:
+                    //mesce
+                    hour = value / 3600000;
+                    min = value % 3600000;
+                    time = String.format(Locale.getDefault(), TIME_FORMAT, hour, min);
+                    break;
+                case 3:
+                    //sec
+                    hour = value / 3600;
+                    min = value % 3600;
+                    time = String.format(Locale.getDefault(), TIME_FORMAT, hour, min);
+                    break;
+                default:
+                    //none
+                    break;
+            }
+
+        }
+        return time;
+    }
+
 
 //    public CCSSTAT checkCarInfoToDevelopers(String vin, String userId) {
 //        CarConnectVO carConnectVO = getCarConnectVO(vin);

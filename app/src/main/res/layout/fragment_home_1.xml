@@ -218,11 +218,12 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:layout_marginTop="15dp"
+                android:layout_marginEnd="5dp"
                 android:visibility="gone"
                 android:onClick="@{(view)->fragment.onClickCommon(view)}"
                 android:src="@{dayCd==VariableType.HOME_TIME_DAY ? @drawable/ic_battery_error_b : @drawable/ic_battery_error_w}"
-                app:layout_constraintTop_toBottomOf="@+id/btn_location"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_my_car"
+                app:layout_constraintEnd_toStartOf="@+id/tv_ev_battery"
                 app:layout_goneMarginTop="15dp"
                 tools:src="@drawable/ic_battery_error_b"
                 tools:visibility="visible"/>
@@ -239,8 +240,8 @@
                 android:textSize="14dp"
                 android:visibility="gone"
                 android:includeFontPadding="false"
-                android:layout_marginStart="5dp"
-                app:layout_constraintStart_toEndOf="@+id/iv_ev_battery"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintEnd_toStartOf="@+id/btn_ev_battery"
                 app:layout_constraintTop_toTopOf="@+id/iv_ev_battery"
                 tools:textColor="@color/x_000000"
                 tools:text="100%"
@@ -250,15 +251,35 @@
                 android:id="@+id/btn_ev_battery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
                 android:adjustViewBounds="true"
                 android:visibility="gone"
                 android:onClick="@{(view)->fragment.onClickCommon(view)}"
                 android:src="@{dayCd==VariableType.HOME_TIME_DAY ? @drawable/loading_battery_b : @drawable/loading_battery_w}"
                 app:layout_constraintTop_toTopOf="@+id/tv_ev_battery"
-                app:layout_constraintStart_toEndOf="@+id/tv_ev_battery"
+                app:layout_constraintEnd_toEndOf="parent"
                 tools:src="@drawable/btn_refreshify_b"
                 tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ev_battery_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:gravity="end"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="4dp"
+                android:onClick="@{(view)->fragment.onClickCommon(view)}"
+                android:textColor="@{activity.getColor(WeatherCodes.getTextColorResource(dayCd))}"
+                android:textSize="12dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_ev_battery"
+                tools:text="1시간 20분 남음\n(100% 충전기준)"
+                tools:textColor="@color/x_000000"
+                tools:visibility="visible" />
+
 
             <include
                 android:id="@+id/btn_my_car"
@@ -272,7 +293,8 @@
                 app:underLineColor="@{dayCd!=2 ? 0 : activity.getColor(WeatherCodes.getTextColorResource(dayCd))}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_genesis"
-                app:layout_constraintTop_toTopOf="@+id/tv_genesis"/>
+                app:layout_constraintTop_toTopOf="@+id/tv_genesis"
+                tools:visibility="visible"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

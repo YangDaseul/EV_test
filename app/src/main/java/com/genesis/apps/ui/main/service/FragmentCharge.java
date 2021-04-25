@@ -124,43 +124,11 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                                 //충전완료
                                 evStatus = Html.fromHtml(getContext().getString(R.string.sm_cg_sm02_18), Html.FROM_HTML_MODE_COMPACT);
                             } else if (result.data.getRemainTime() != null && result.data.getRemainTime().getUnit() < 4) {
-                                String time = "";
-                                int value = (int) result.data.getRemainTime().getValue();
-                                final int unit = (int) result.data.getRemainTime().getUnit();
-                                int hour;
-                                int min;
-                                switch (unit) {
-                                    case 0:
-                                        //hour
-                                        time = String.format(Locale.getDefault(), getString(R.string.sm_cg_sm02_20), value, 0);
-                                        break;
-                                    case 1:
-                                        //min
-                                        hour = value / 60;
-                                        min = value % 60;
-                                        time = String.format(Locale.getDefault(), getString(R.string.sm_cg_sm02_20), hour, min);
-                                        break;
-                                    case 2:
-                                        //mesce
-                                        hour = value / 3600000;
-                                        min = value % 3600000;
-                                        time = String.format(Locale.getDefault(), getString(R.string.sm_cg_sm02_20), hour, min);
-                                        break;
-                                    case 3:
-                                        //sec
-                                        hour = value / 3600;
-                                        min = value % 3600;
-                                        time = String.format(Locale.getDefault(), getString(R.string.sm_cg_sm02_20), hour, min);
-                                        break;
-                                    default:
-                                        //none
-                                        break;
-                                }
+                                String time = developersViewModel.getBatteryChargeTime();
                                 if (!TextUtils.isEmpty(time)) {
                                     evStatus = Html.fromHtml(String.format(Locale.getDefault(), getString(R.string.sm_cg_sm02_17), time), Html.FROM_HTML_MODE_COMPACT);
                                 }
                             }
-
                         } else {
                             //충전 중 아님
                             if (result.data.getDte() != null && result.data.getDte().getDistance() != null) {
