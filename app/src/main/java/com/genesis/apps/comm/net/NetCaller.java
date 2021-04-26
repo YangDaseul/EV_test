@@ -328,7 +328,7 @@ public class NetCaller {
     }
 
 
-    public <REQ> void sendFileToGRA(NetResultCallback callback, APIInfo apiInfo, REQ reqVO, File file, String name) {
+    public <REQ> void sendFileToGRA(NetResultCallback callback, APIInfo apiInfo, REQ reqVO, File file, String name, File file2, String name2) {
         ExecutorService es = new ExecutorService("");
         Futures.addCallback(es.getListeningExecutorService().submit(() -> {
             JsonObject jsonObject = null;
@@ -338,7 +338,9 @@ public class NetCaller {
                 }.getType();
                 Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create(); //expose처리되어 있는 필드에 대해서만 파싱 진행
                 HashMap<String, String> params = new Gson().fromJson(gson.toJson(reqVO), type);
-                jsonObject = httpRequestUtil.upload(ga.getAccessToken(), serverUrl, params, name, file.getName(), file);
+                jsonObject = httpRequestUtil.upload(ga.getAccessToken(), serverUrl, params
+                        , name, file.getName(), file
+                        , name2, file2!=null ? file2.getName() : "", file2);
 
                 if (jsonObject != null && !TextUtils.isEmpty(jsonObject.toString())) {
                     setLog(apiInfo.getIfCd(), new Gson().toJson(reqVO), jsonObject.toString());

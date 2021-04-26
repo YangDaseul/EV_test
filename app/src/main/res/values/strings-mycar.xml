@@ -183,6 +183,7 @@
     <string name="gm_carlst_03_4">차량번호 (예 : 12가3456)</string>
     <string name="gm_carlst_03_5">주명의자(대표자)</string>
     <string name="gm_carlst_03_6">도로교통공단에서 차량 확인이 되면 차량이 추가됩니다.</string>
+    <string name="gm_carlst_03_6_1">등록 가능 차량은 ‘Genesis DH’, ‘EQ900’, ‘G80’, ‘G70’, ‘G90’, ‘The all new G80’, ‘GV80’, ‘GV70’, ‘The new G70’ 입니다.</string>
     <string name="gm_carlst_03_7">렌트/리스 차량은 법인 소유 차량이므로 개인이 도로교통공단에서 소유 인증을 받을 수 없습니다.</string>
     <string name="gm_carlst_03_8">안내 사항</string>
     <string name="gm_carlst_03_9">등록조회</string>

@@ -36,6 +36,8 @@ import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.MainActivity;
 import com.genesis.apps.ui.main.ServiceNetworkActivity;
 
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
+
 public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceBinding> {
     private static final String TAG = FragmentMaintenance.class.getSimpleName();
     private REQViewModel reqViewModel;
@@ -66,14 +68,21 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
                     break;
                 case SUCCESS:
                     ((SubActivity) getActivity()).showProgressDialog(false);
-                    tmpAcptNo = result.data.getTmpAcptNo();
-                    if (result.data != null && !TextUtils.isEmpty(tmpAcptNo)) {
-                        sosViewModel.reqSOS1006(new SOS_1006.Request(APPIAInfo.SM01.getId(), tmpAcptNo));
+                    if(result.data!=null&&StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)){
+                        tmpAcptNo = result.data.getTmpAcptNo();
+                        if(!TextUtils.isEmpty(tmpAcptNo)) sosViewModel.reqSOS1006(new SOS_1006.Request(APPIAInfo.SM01.getId(), tmpAcptNo));
                         break;
                     }
                 default:
                     ((SubActivity) getActivity()).showProgressDialog(false);
-                    SnackBarUtil.show(getActivity(), getString(R.string.r_flaw06_p02_snackbar_1) + (" code:1"));
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(getActivity(), TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    }
                     break;
             }
         });
@@ -90,7 +99,14 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
                     }
                 default:
                     ((SubActivity) getActivity()).showProgressDialog(false);
-                    SnackBarUtil.show(getActivity(), getString(R.string.r_flaw06_p02_snackbar_1));
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(getActivity(), TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    }
                     break;
             }
         });
@@ -104,7 +120,7 @@ public class FragmentMaintenance extends SubFragment<FragmentServiceMaintenanceB
                     ((SubActivity) getActivity()).showProgressDialog(false);
                     if (result.data != null) {
                         setViewSOSStatus(result.data.getPgrsStusCd());
-                        setViewMaintenanceStatus(result.data.getStusCd());
+//                        setViewMaintenanceStatus(result.data.getStusCd());
                     }
                     break;
                 default:
