@@ -14,6 +14,7 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.vo.SOSStateVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.SOSViewModel;
 import com.genesis.apps.databinding.ActivityServiceSosApplyInfoBinding;
 import com.genesis.apps.ui.common.activity.SubActivity;
@@ -21,6 +22,8 @@ import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
+
+import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
 /**
  * @author hjpark
@@ -89,15 +92,22 @@ public class ServiceSOSApplyInfoActivity extends SubActivity<ActivityServiceSosA
                     break;
                 case SUCCESS:
                    showProgressDialog(false);
-                    tmpAcptNo = result.data.getTmpAcptNo();
-                    if(result.data!=null&&!TextUtils.isEmpty(tmpAcptNo)){
-                        sosViewModel.reqSOS1005(new SOS_1005.Request(APPIAInfo.SM_EMGC02.getId(), tmpAcptNo));
-                        break;
+                    if(result.data!=null&& StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)) {
+                        tmpAcptNo = result.data.getTmpAcptNo();
+                        if (!TextUtils.isEmpty(tmpAcptNo)) {
+                            sosViewModel.reqSOS1005(new SOS_1005.Request(APPIAInfo.SM_EMGC02.getId(), tmpAcptNo));
+                            break;
+                        }
                     }
                 default:
                     showProgressDialog(false);
-                    if (TextUtils.isEmpty(tmpAcptNo)) {
-                        exitPage("가접수번호가 존재하지 않습니다.\n잠시후 다시 시도해 주십시오.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        exitPage(TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg, ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
                     }
                     break;
             }
