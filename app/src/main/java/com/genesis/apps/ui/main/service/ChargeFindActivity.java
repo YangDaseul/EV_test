@@ -17,6 +17,7 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
 import com.genesis.apps.comm.model.vo.ChargeSearchCategoryVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
@@ -24,13 +25,18 @@ import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.DevelopersViewModel;
 import com.genesis.apps.comm.viewmodel.EPTViewModel;
+import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.REQViewModel;
 import com.genesis.apps.databinding.ActivityChargeFindBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.main.ServiceNetworkActivity;
 import com.genesis.apps.ui.main.service.view.ChargePlaceListAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * Class Name : ChargeSearchActivity
@@ -39,23 +45,24 @@ import java.util.List;
  * @author Ki-man Kim
  * @since 2021-03-22
  */
-public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBinding> implements InputChargePlaceFragment.FilterChangeListener {
+@AndroidEntryPoint
+public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBinding> implements InputChargePlaceFragment.FilterChangeListener, SearchAddressHMNFragment.AddressSelectListener {
     private EvChargeStatusFragment evChargeStatusFragment;
     private InputChargePlaceFragment inputChargePlaceFragment;
 
     private ChargePlaceListAdapter adapter;
 
+    private String reservYn;
     private String chgCd;
-    private String superSpeedYn;
-    private String highSpeedYn;
-    private String slowSpeedYn;
-    private String carPayYn;
+    private ArrayList<String> chgSpeedList = new ArrayList<>();
+    private ArrayList<String> payTypeList = new ArrayList<>();
 
     private VehicleVO mainVehicleVO;
 
     private DevelopersViewModel developersViewModel;
     private REQViewModel reqViewModel;
     private EPTViewModel eptViewModel;
+    private LGNViewModel lgnViewModel;
 
     /****************************************************************************************************
      * Override Method - LifeCycle
@@ -88,7 +95,6 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
             }
             case R.id.iv_arrow: {
                 // TODO 충전소 목록 아이템 - 충전소 상세 버튼 > 충전소 상세 화면 이동.
-                Log.d("FID", "test :: onClickCommon :: iv_arrow :: tag=" + tag);
                 break;
             }
         }
@@ -104,12 +110,12 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         developersViewModel = new ViewModelProvider(ChargeFindActivity.this).get(DevelopersViewModel.class);
         reqViewModel = new ViewModelProvider(ChargeFindActivity.this).get(REQViewModel.class);
         eptViewModel = new ViewModelProvider(ChargeFindActivity.this).get(EPTViewModel.class);
+        lgnViewModel = new ViewModelProvider(ChargeFindActivity.this).get(LGNViewModel.class);
     }
 
     @Override
     public void setObserver() {
         eptViewModel.getRES_EPT_1001().observe(ChargeFindActivity.this, result -> {
-            Log.d("FID", "test :: RES_EPT_1001 :: result.status=" + result.status);
             switch (result.status) {
                 case LOADING: {
                     showProgressDialog(true);
@@ -145,17 +151,25 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
 
     @Override
     public void onFilterChanged(InputChargePlaceFragment.SEARCH_TYPE type, List<ChargeSearchCategoryVO> filterList) {
-        Log.d("FID", "test :: onFilterChanged :: filterList=" + filterList);
         if (type == InputChargePlaceFragment.SEARCH_TYPE.ADDRESS) {
             // 주소 검색은 별도 처리 없음.
         } else {
             // 나머지 내 위치, 내 차량 위치 기준 검색.
 
+            // 예약가능여부 값 초기화.
+            reservYn = null;
+            // 충전소 구분 코드 초기화.
+            chgCd = null;
+            // 충전 속도 값 초기화
+            chgSpeedList.clear();
+            // 결제 방식 값 초기화.
+            payTypeList.clear();
+
             // 설정된 필터값 적용.
             for (ChargeSearchCategoryVO item : filterList) {
                 if (item.getTitleResId() == R.string.sm_evss01_15) {
                     // 예약가능 충전소 필터
-                    // TODO 관련 코드 전문에 적용 방법 체크.
+                    reservYn = item.isSelected() ? "Y" : "N";
                 } else if (item.getTitleResId() == R.string.sm_evss01_16) {
                     // 충전소 종류 필터
                     if (item.getSelectedItem().size() > 0) {
@@ -178,36 +192,19 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
                     }
                 } else {
                     // 충전 속도, 결제 방식 필터.
-
-                    // 충전 속도 값 초기화
-                    superSpeedYn = null;
-                    highSpeedYn = null;
-                    slowSpeedYn = null;
-                    // 결제 방식 값 초기화.
-                    carPayYn = null;
-                    // TODO S트래픽 필터 코드가 정의된다면 초기화 필요.
-
                     // 필터별 필터 코드 적용.
                     for (ChargeSearchCategorytype filterItem : item.getSelectedItem()) {
+                        Log.d("FID", "test :: 1111 :: item=" + filterItem);
                         switch (filterItem) {
-                            case SUPER_SPEED: {
-                                superSpeedYn = filterItem.getCode();
-                                break;
-                            }
-                            case HIGH_SPEED: {
-                                highSpeedYn = filterItem.getCode();
-                                break;
-                            }
+                            case SUPER_SPEED:
+                            case HIGH_SPEED:
                             case SLOW_SPEED: {
-                                slowSpeedYn = filterItem.getCode();
+                                chgSpeedList.add(filterItem.getCode());
                                 break;
                             }
-                            case CAR_PAY: {
-                                carPayYn = filterItem.getCode();
-                            }
+                            case CAR_PAY:
                             case S_TRAFFIC_CRADIT_PAY: {
-                                // TODO S트레픽 필터 코드는 체크가 필요.
-                                break;
+                                payTypeList.add(filterItem.getCode());
                             }
                             default: {
                                 // Nothing
@@ -226,19 +223,36 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
         }
     }
 
+    /****************************************************************************************************
+     * Override Method - {@link InputChargePlaceFragment.FilterChangeListener}
+     ****************************************************************************************************/
     @Override
     public void onSearchAddress() {
-        // TODO 주소 검색 이동.
+        // 주소 검색
+        Bundle bundle = new Bundle();
+        bundle.putInt(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.sm_evss01_34);
+        bundle.putInt(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, R.string.sm_evss01_35);
+        SearchAddressHMNFragment fragment = new SearchAddressHMNFragment();
+        fragment.setAddressSelectListener(this);
+        showFragment(fragment, bundle);
     }
 
     @Override
     public void onSearchMap() {
-        // TODO 지도 이동.
         // 충전소 찾기 지도 표시.
         startActivitySingleTop(new Intent(this, ServiceNetworkActivity.class)
                         .putExtra(KeyNames.KEY_NAME_PAGE_TYPE, ServiceNetworkActivity.PAGE_TYPE_EVCHARGE),
                 RequestCodes.REQ_CODE_ACTIVITY.getCode(),
                 VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+    }
+
+    /****************************************************************************************************
+     * Override Method - {@link SearchAddressHMNFragment.AddressSelectListener}
+     ****************************************************************************************************/
+    @Override
+    public void onAddressSelected(AddressVO selectedAddr) {
+        inputChargePlaceFragment.setAddress(getAddress(selectedAddr));
+        searchChargeStation(selectedAddr.getCenterLat(), selectedAddr.getCenterLon());
     }
 
     /****************************************************************************************************
@@ -288,17 +302,25 @@ public class ChargeFindActivity extends GpsBaseActivity<ActivityChargeFindBindin
     }
 
     private void searchChargeStation(double lat, double lot) {
-        Log.d("FID", "test :: searchChargeStation :: lat=" + lat + " :: lot=" + lot + " :: chgCd=" + chgCd + " :: superSpeedYn=" + superSpeedYn + " :: highSpeedYn=" + highSpeedYn + " :: slowSpeedYn=" + slowSpeedYn + " :: carPayYn=" + carPayYn);
+        lgnViewModel.setMyPosition(lat, lot);
+        String chgSpeed = null;
+        String payType = null;
+        if (chgSpeedList.size() > 0) {
+            chgSpeed = chgSpeedList.stream().map(it -> "\"" + it + "\"").collect(Collectors.joining(",", "[", "]"));
+        }
+        if (payTypeList.size() > 0) {
+            payType = payTypeList.stream().map(it -> "\"" + it + "\"").collect(Collectors.joining(",", "[", "]"));
+        }
+
         eptViewModel.reqEPT1001(new EPT_1001.Request(
                 APPIAInfo.SM_EVSS01.getId(),
                 mainVehicleVO.getVin(),
                 String.valueOf(lat),
                 String.valueOf(lot),
+                reservYn,
                 chgCd,
-                superSpeedYn,
-                highSpeedYn,
-                slowSpeedYn,
-                carPayYn
+                chgSpeed,
+                payType
         ));
     }
 

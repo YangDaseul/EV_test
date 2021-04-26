@@ -70,20 +70,32 @@
         <!--건물명, 주소 검색어 입력 영역-->
         <TextView
             android:id="@+id/tv_search_addr"
-            style="@style/CommonSpinnerItemDisable"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="40dp"
+            android:background="@drawable/selector_bg_ffffff_stroke_e5e5e5_000000"
             android:drawableRight="@drawable/btn_arrow_open_r"
+            android:ellipsize="end"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="center_vertical"
+            android:lineSpacingExtra="6dp"
+            android:maxLines="2"
+            android:minHeight="50dp"
             android:onClick="@{(view) -> fragment.onSingleClickListener.onSingleClick(view)}"
+            android:padding="16dp"
             android:paddingEnd="15dp"
             android:text="@string/sm_evss01_14"
+            android:textColor="@drawable/selector_txt_a2a2a2_000000"
+            android:textSize="15dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_guide_location" />
+            app:layout_constraintTop_toBottomOf="@id/tv_guide_location"
+            tools:visibility="visible" />
 
         <!--충전소 목록 타이틀-->
         <TextView
