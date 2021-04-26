@@ -2,6 +2,7 @@ package com.genesis.apps.ui.main.service;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,14 +87,7 @@ public class FragmentServiceChargeBtrStatus extends SubFragment<FragmentServiceC
                         // TODO 업데이트 처리
                         me.vpStatus.setAdapter(new ServiceChargeBtrStatusViewpagerAdapter(this, PAGE_NUM, result.data));
 
-                        if(result.data.getStatus() != null && ChargeBtrStatus.STATUS_1000.getStusCd().equalsIgnoreCase(result.data.getStatus()))
-                            me.vpStatus.setCurrentItem(0);
-                        else
-                            me.vpStatus.setCurrentItem(1);
-
-                        me.vpStatus.setUserInputEnabled(false);
-                        me.vpStatus.setOffscreenPageLimit(PAGE_NUM);
-                        me.lEmpty.lWhole.setVisibility(View.GONE);
+                        setFragment(result.data.getStatus());
                         break;
                     }
                 default:
@@ -113,6 +107,35 @@ public class FragmentServiceChargeBtrStatus extends SubFragment<FragmentServiceC
                     break;
             }
         });
+    }
+
+    private void setFragment(String stusCd) {
+        ((ServiceChargeBtrReserveHistoryActivity) getActivity()).setInit(false);
+
+        if(!TextUtils.isEmpty(stusCd)) {
+            ChargeBtrStatus status = ChargeBtrStatus.findCode(stusCd);
+            switch (status) {
+                case STATUS_1000:
+                    setStatusFragment(0);
+                    return;
+                case STATUS_2000:
+                case STATUS_3000:
+                case STATUS_4000:
+                    setStatusFragment(1);
+                    return;
+            }
+        }
+
+        ((ServiceChargeBtrReserveHistoryActivity) getActivity()).moveChargeBtrHistTab(false);
+        me.lEmpty.lWhole.setVisibility(View.VISIBLE);
+    }
+
+    private void setStatusFragment(int index) {
+        me.vpStatus.setCurrentItem(index);
+
+        me.vpStatus.setUserInputEnabled(false);
+        me.vpStatus.setOffscreenPageLimit(PAGE_NUM);
+        me.lEmpty.lWhole.setVisibility(View.GONE);
     }
 
     private void initView() {

@@ -15,15 +15,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
-import com.genesis.apps.comm.model.api.BaseResponse;
 import com.genesis.apps.comm.model.api.gra.CHB_1021;
 import com.genesis.apps.comm.model.api.gra.CHB_1024;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.vo.VehicleVO;
-import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.databinding.FragmentServiceChargeBtrApplyInfoBinding;
-import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 
@@ -125,32 +122,33 @@ public class FragmentServiceChargeBtrApplyInfo extends SubFragment<FragmentServi
     }
 
     private void setObserver() {
-        chbViewModel.getRES_CHB_1024().observe(getViewLifecycleOwner(), result -> {
-            switch (result.status) {
-                case LOADING:
-                    ((SubActivity) getActivity()).showProgressDialog(true);
-                    break;
-                case SUCCESS:
-                    if (result.data != null && result.data.getRtCd().equals(BaseResponse.RETURN_CODE_SUCC)) {
-                        SnackBarUtil.show(getActivity(), getString(R.string.service_charge_btr_popup_msg_01));
-                        ((SubActivity) getActivity()).showProgressDialog(false);
-                        break;
-                    }
-                default:
-                    String serverMsg = "";
-                    try {
-                        serverMsg = result.data.getRtMsg();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        if (TextUtils.isEmpty(serverMsg)) {
-                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
-                        }
-                        SnackBarUtil.show(getActivity(), serverMsg);
-                        ((SubActivity) getActivity()).showProgressDialog(false);
-                    }
-                    break;
-            }
-        });
+//        chbViewModel.getRES_CHB_1024().observe(getViewLifecycleOwner(), result -> {
+//            switch (result.status) {
+//                case LOADING:
+//                    ((SubActivity) getActivity()).showProgressDialog(true);
+//                    break;
+//                case SUCCESS:
+//                    if (result.data != null && result.data.getRtCd().equals(BaseResponse.RETURN_CODE_SUCC)) {
+//                        SnackBarUtil.show(getActivity(), getString(R.string.service_charge_btr_popup_msg_01));
+//                        ((ServiceChargeBtrReserveHistoryActivity) getActivity()).moveChargeBtrHistTab(true);
+//                        ((SubActivity) getActivity()).showProgressDialog(false);
+//                        break;
+//                    }
+//                default:
+//                    String serverMsg = "";
+//                    try {
+//                        serverMsg = result.data.getRtMsg();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    } finally {
+//                        if (TextUtils.isEmpty(serverMsg)) {
+//                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+//                        }
+//                        SnackBarUtil.show(getActivity(), serverMsg);
+//                        ((SubActivity) getActivity()).showProgressDialog(false);
+//                    }
+//                    break;
+//            }
+//        });
     }
 }

@@ -1,8 +1,6 @@
 package com.genesis.apps.ui.main.service;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Path;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,7 +17,6 @@ import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
-import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.model.vo.carlife.BookingDateVO;
 import com.genesis.apps.comm.model.vo.carlife.CarVO;
@@ -39,7 +36,6 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.bottom.DialogCalendarChargeBtr;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
-import com.genesis.apps.ui.main.ServiceNetworkPriceActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
