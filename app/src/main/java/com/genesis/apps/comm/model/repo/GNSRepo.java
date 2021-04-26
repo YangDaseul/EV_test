@@ -236,33 +236,33 @@ public class GNSRepo {
             public void onError(NetResult e) {
                 RES_GNS_1008.setValue(NetUIResponse.error(R.string.error_msg_4, null));
             }
-        }, APIInfo.GRA_GNS_1008, reqData,reqData.getFile(),reqData.getImageKeyName());
+        }, APIInfo.GRA_GNS_1008, reqData,reqData.getFile(),reqData.getImageKeyName(), reqData.getImgFil2(), reqData.getImageKeyName2());
 
         return RES_GNS_1008;
     }
 
-    public MutableLiveData<NetUIResponse<GNS_1009.Response>> REQ_GNS_1009(final GNS_1009.Request reqData) {
-        RES_GNS_1009.setValue(NetUIResponse.loading(null));
-        netCaller.sendFileToGRA(new NetResultCallback() {
-            @Override
-            public void onSuccess(String object) {
-                RES_GNS_1009.setValue(NetUIResponse.success(new Gson().fromJson(object, GNS_1009.Response.class)));
-            }
-
-            @Override
-            public void onFail(NetResult e) {
-//                RES_GNS_1009.setValue(NetUIResponse.success(TestCode.GNS_1009));
-                RES_GNS_1009.setValue(NetUIResponse.error(e.getMseeage(), null));
-            }
-
-            @Override
-            public void onError(NetResult e) {
-                RES_GNS_1009.setValue(NetUIResponse.error(R.string.error_msg_4, null));
-            }
-        }, APIInfo.GRA_GNS_1009, reqData,reqData.getFile(),reqData.getImageKeyName());
-
-        return RES_GNS_1009;
-    }
+//    public MutableLiveData<NetUIResponse<GNS_1009.Response>> REQ_GNS_1009(final GNS_1009.Request reqData) {
+//        RES_GNS_1009.setValue(NetUIResponse.loading(null));
+//        netCaller.sendFileToGRA(new NetResultCallback() {
+//            @Override
+//            public void onSuccess(String object) {
+//                RES_GNS_1009.setValue(NetUIResponse.success(new Gson().fromJson(object, GNS_1009.Response.class)));
+//            }
+//
+//            @Override
+//            public void onFail(NetResult e) {
+////                RES_GNS_1009.setValue(NetUIResponse.success(TestCode.GNS_1009));
+//                RES_GNS_1009.setValue(NetUIResponse.error(e.getMseeage(), null));
+//            }
+//
+//            @Override
+//            public void onError(NetResult e) {
+//                RES_GNS_1009.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+//            }
+//        }, APIInfo.GRA_GNS_1009, reqData,reqData.getFile(),reqData.getImageKeyName());
+//
+//        return RES_GNS_1009;
+//    }
 
     public MutableLiveData<NetUIResponse<GNS_1010.Response>> REQ_GNS_1010(final GNS_1010.Request reqData) {
 

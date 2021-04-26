@@ -12,12 +12,18 @@ import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.transition.ChangeBounds;
+import androidx.transition.Transition;
+import androidx.transition.TransitionManager;
+
 import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.GNS_1006;
 import com.genesis.apps.comm.model.api.gra.GNS_1008;
-import com.genesis.apps.comm.model.api.gra.GNS_1009;
 import com.genesis.apps.comm.model.api.gra.GNS_1011;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
@@ -48,12 +54,6 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.transition.ChangeBounds;
-import androidx.transition.Transition;
-import androidx.transition.TransitionManager;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
@@ -342,32 +342,29 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                     showProgressDialog(false);
                     String serverMsg = "";
                     try {
-                        if (result.data != null)
-                            serverMsg = Objects.requireNonNull(result.data.getRtMsg(), getString(R.string.r_flaw06_p02_snackbar_1));
-                        else
-                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        serverMsg = result.data.getRtMsg();
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
-                        SnackBarUtil.show(this, serverMsg);
+                        SnackBarUtil.show(this, TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
                     }
                     break;
             }
         });
 
-        //렌트 리스 재직증명서 등록 결과 (결과에 성관없이 무조건 내역으,로 이도ㅓㅇ)
-        gnsViewModel.getRES_GNS_1009().observe(this, result -> {
-            switch (result.status) {
-                case LOADING:
-                    showProgressDialog(true);
-                    break;
-                case SUCCESS:
-                default:
-                    showProgressDialog(false);
-                    moveToHist();
-                    break;
-            }
-        });
+//        //렌트 리스 재직증명서 등록 결과 (결과에 성관없이 무조건 내역으,로 이도ㅓㅇ)
+//        gnsViewModel.getRES_GNS_1009().observe(this, result -> {
+//            switch (result.status) {
+//                case LOADING:
+//                    showProgressDialog(true);
+//                    break;
+//                case SUCCESS:
+//                default:
+//                    showProgressDialog(false);
+//                    moveToHist();
+//                    break;
+//            }
+//        });
 
         //렌트 리스 계약서 이미지 등록 결과
         gnsViewModel.getRES_GNS_1008().observe(this, result -> {
@@ -378,27 +375,25 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
                 case SUCCESS:
                     showProgressDialog(false);
                     if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)) {
-                        if (empCertImagPath==null) {
-                            //추가 증빙 서류가 없을 경우
-                            moveToHist();
-                        } else {
-                            //법인 : 재직증명서, 개인 : 추가 증빙 서류가 있을 경우
-                            reqUploadImageCert();
-                        }
+                        moveToHist();
+//                        if (empCertImagPath==null) {
+//                            //추가 증빙 서류가 없을 경우
+//                            moveToHist();
+//                        } else {
+//                            //법인 : 재직증명서, 개인 : 추가 증빙 서류가 있을 경우
+//                            reqUploadImageCert();
+//                        }
                         break;
                     }
                 default:
                     showProgressDialog(false);
                     String serverMsg = "";
                     try {
-                        if (result.data != null)
-                            serverMsg = Objects.requireNonNull(result.data.getRtMsg(), getString(R.string.r_flaw06_p02_snackbar_1));
-                        else
-                            serverMsg = getString(R.string.r_flaw06_p02_snackbar_1);
+                        serverMsg = result.data.getRtMsg();
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
-                        SnackBarUtil.show(this, serverMsg);
+                        SnackBarUtil.show(this, TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
                     }
                     break;
             }
@@ -406,23 +401,26 @@ public class LeasingCarRegisterInputActivity extends SubActivity<ActivityLeasing
     }
 
     /**
-     * @biref 계약서 이미지 업로드
+     * @biref 계약서&재직증명서 or 추가증빙서류 이미지 업로드
      */
     private void reqUploadImageCnt() {
-        File file = new File(Objects.requireNonNull(FileUtil.getRealPathFromURI(this, cntImagPath)));
-        if (file.length() > 0)
-            gnsViewModel.reqGNS1008(new GNS_1008.Request(APPIAInfo.GM_CARLST_01_01.getId(), vin, file.getName(), file));
+        File cntImag = null;
+        File empCertImag = null;
+        cntImag = new File(Objects.requireNonNull(FileUtil.getRealPathFromURI(this, cntImagPath)));
+        if(empCertImagPath!=null) empCertImag = new File(Objects.requireNonNull(FileUtil.getRealPathFromURI(this, empCertImagPath)));
+        if (cntImag.length() > 0)
+            gnsViewModel.reqGNS1008(new GNS_1008.Request(APPIAInfo.GM_CARLST_01_01.getId(), vin, cntImag.getName(), cntImag, empCertImag!=null&&empCertImag.length() > 0 ? empCertImag.getName() : "", empCertImag!=null&&empCertImag.length() > 0 ? empCertImag : null));
     }
 
-    /**
-     * @brief 재직증명서 이미지 업로드
-     * 계약서 이미지 업로드 먼저 진쟁하지 않고 시도하면 에러 발생
-     */
-    private void reqUploadImageCert() {
-        File file = new File(Objects.requireNonNull(FileUtil.getRealPathFromURI(this, empCertImagPath)));
-        if (file.length() > 0)
-            gnsViewModel.reqGNS1009(new GNS_1009.Request(APPIAInfo.GM_CARLST_01_01.getId(), vin, file.getName(), file));
-    }
+//    /**
+//     * @brief 재직증명서 이미지 업로드
+//     * 계약서 이미지 업로드 먼저 진쟁하지 않고 시도하면 에러 발생
+//     */
+//    private void reqUploadImageCert() {
+//        File file = new File(Objects.requireNonNull(FileUtil.getRealPathFromURI(this, empCertImagPath)));
+//        if (file.length() > 0)
+//            gnsViewModel.reqGNS1009(new GNS_1009.Request(APPIAInfo.GM_CARLST_01_01.getId(), vin, file.getName(), file));
+//    }
 
     private void moveToHist() {
         startActivitySingleTop(new Intent(this, LeasingCarHistActivity.class).putExtra(KeyNames.KEY_NAME_APPLY_LEASINGCAR, true), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);

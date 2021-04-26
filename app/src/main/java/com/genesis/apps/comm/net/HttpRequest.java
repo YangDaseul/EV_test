@@ -1769,7 +1769,7 @@ public class HttpRequest {
         }
     }
 
-    /**
+    /**f
      * Get response as {@link String} using character set returned from
      * {@link #charset()}
      *
@@ -2790,13 +2790,6 @@ public class HttpRequest {
      * @throws IOException
      */
     protected HttpRequest writePartHeader(HashMap<String, String> params, final String name, final String filename, final String contentType) throws IOException {
-        for (String key : params.keySet()) {
-            startPart();
-            final StringBuilder partBuffer = new StringBuilder();
-            partBuffer.append("form-data; name=\"").append(key);
-            partBuffer.append("\"" + CRLF + CRLF + params.get(key));
-            partHeader("Content-Disposition", partBuffer.toString());
-        }
         if (name != null) {
             startPart();
             final StringBuilder partBuffer = new StringBuilder();
@@ -2949,8 +2942,9 @@ public class HttpRequest {
      * @return
      * @throws HttpRequestException
      */
-    public HttpRequest part(HashMap<String, String> params, final String name, final String filename, final String contentType, final File part) throws HttpRequestException {
+    public HttpRequest part(HashMap<String, String> params, final String name, final String filename, final String contentType, final File part, final String name2, final String filename2, final File part2) throws HttpRequestException {
         InputStream stream = null;
+        InputStream stream2 = null;
         if (part != null) {
             try {
                 stream = new BufferedInputStream(new FileInputStream(part));
@@ -2959,7 +2953,16 @@ public class HttpRequest {
                 throw new HttpRequestException(e);
             }
         }
-        return part(params, name, filename, contentType, stream);
+        if (part2 != null) {
+            try {
+                stream2 = new BufferedInputStream(new FileInputStream(part2));
+                incrementTotalSize(part2.length());
+            } catch (IOException e) {
+                throw new HttpRequestException(e);
+            }
+        }
+
+        return part(params, name, filename, contentType, stream, name2, filename2, stream2);
     }
 
     /**
@@ -3009,19 +3012,32 @@ public class HttpRequest {
      * @return
      * @throws HttpRequestException
      */
-    public HttpRequest part(HashMap<String, String> params, final String name, final String filename, final String contentType, final InputStream part)
+    public HttpRequest part(HashMap<String, String> params, final String name, final String filename, final String contentType, final InputStream part, final String name2, final String filename2, final InputStream part2)
             throws HttpRequestException {
         try {
-            writePartHeader(params, name, filename, contentType);
+            for (String key : params.keySet()) {
+                startPart();
+                final StringBuilder partBuffer = new StringBuilder();
+                partBuffer.append("form-data; name=\"").append(key);
+                partBuffer.append("\"" + CRLF + CRLF + params.get(key));
+                partHeader("Content-Disposition", partBuffer.toString());
+            }
             if (part != null) {
+                writePartHeader(params, name, filename, contentType);
                 copy(part, output);
+            }
+            if (part2 != null) {
+                send(CRLF);
+                writePartHeader(params, name2, filename2, contentType);
+//                totalSize = -1;
+//                totalWritten=0;
+                copy(part2, output);
             }
         } catch (IOException e) {
             throw new HttpRequestException(e);
         }
         return this;
     }
-
     /**
      * Write a multipart header to the response body
      *

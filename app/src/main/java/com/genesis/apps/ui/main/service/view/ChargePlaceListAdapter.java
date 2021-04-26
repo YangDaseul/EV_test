@@ -54,9 +54,7 @@ public class ChargePlaceListAdapter extends BaseRecyclerViewAdapter2<ChargeEptIn
             binding.tvDist.setText(item.getDist() + "km");
             binding.ivArrow.setTag(item);
 
-            // TODO 이용 가능 시간에 대한 조건 추가 예정.
             if ("Y".equalsIgnoreCase(item.getUseYn())) {
-
                 // 운영중인 경우 - 예약 상태 표시
                 Context context = getContext();
                 StringBuilder strBuilder = new StringBuilder();
