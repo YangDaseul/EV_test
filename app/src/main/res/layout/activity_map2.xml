@@ -108,6 +108,21 @@
 
         </RadioGroup>
 
+        <!--필터 버튼-->
+        <ImageView
+            android:id="@+id/iv_btn_filter"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/ripple_bg_ffffff"
+            android:contentDescription="@null"
+            android:scaleType="center"
+            android:src="@drawable/btn_filter"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/rg_location"
+            tools:visibility="visible" />
+
 
         <ImageView
             android:id="@+id/iv_center_maker"

@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -114,6 +115,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             case PAGE_TYPE_EVCHARGE: {
                 // 충전소 검색
                 ui.rgLocation.setVisibility(View.VISIBLE);
+                ui.ivBtnFilter.setVisibility(View.VISIBLE);
                 ui.btnMyPosition.setVisibility(View.GONE);
                 ui.btnMyPosition2.setOnClickListener(onSingleClickListener);
                 ui.btnCarPosition.setOnClickListener(onSingleClickListener);
@@ -125,6 +127,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             case PAGE_TYPE_REPAIR:
             default: {
                 ui.rgLocation.setVisibility(View.GONE);
+                ui.ivBtnFilter.setVisibility(View.GONE);
                 ui.btnMyPosition.setVisibility(View.VISIBLE);
                 ui.btnMyPosition.setOnClickListener(onSingleClickListener);
                 break;
@@ -1007,45 +1010,51 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
 
                 evBottomSelectBinding.tvChargeStationName.setText(selectItemVo.getCsnm());
                 evBottomSelectBinding.tvMapSelectAddress.setText(selectItemVo.getDaddr());
+                evBottomSelectBinding.tvDist.setText(selectItemVo.getDist() + "km");
                 evBottomSelectBinding.tvTime.setText(selectItemVo.getUseTime());
-                int superSpeedCnt = 0;
-                int highSpeedCnt = 0;
-                int slowSpeedCnt = 0;
-                try {
-                    superSpeedCnt = Integer.parseInt(selectItemVo.getSuperSpeedCnt());
-                    highSpeedCnt = Integer.parseInt(selectItemVo.getHighSpeedCnt());
-                    slowSpeedCnt = Integer.parseInt(selectItemVo.getSlowSpeedCnt());
-                } catch (Exception e) {
-                    // 파싱 에러.
-                }
-                StringBuilder sb = new StringBuilder();
-                if (superSpeedCnt > 0) {
-                    sb.append(String.format(getString(R.string.sm_evss02_01), superSpeedCnt));
-                }
-                if (highSpeedCnt > 0) {
-                    if (sb.length() > 0) {
-                        sb.append(", ");
-                    }
-                    sb.append(String.format(getString(R.string.sm_evss02_02), highSpeedCnt));
-                }
-                if (slowSpeedCnt > 0) {
-                    if (sb.length() > 0) {
-                        sb.append(", ");
-                    }
-                    sb.append(String.format(getString(R.string.sm_evss02_03), slowSpeedCnt));
-                }
-                if ("Y".equalsIgnoreCase(selectItemVo.getReservYn())) {
-                    // 예약 가능
 
-                } else {
-                    // 예약 불가
+                if ("Y".equalsIgnoreCase(selectItemVo.getUseYn())) {
+                    // 운영중인 경우 - 예약 상태 표시
+                    StringBuilder strBuilder = new StringBuilder();
+                    int superSpeedCnt = 0;
+                    int highSpeedCnt = 0;
+                    int slowSpeedCnt = 0;
+                    try {
+                        superSpeedCnt = Integer.parseInt(selectItemVo.getSuperSpeedCnt());
+                        highSpeedCnt = Integer.parseInt(selectItemVo.getHighSpeedCnt());
+                        slowSpeedCnt = Integer.parseInt(selectItemVo.getSlowSpeedCnt());
+                    } catch (Exception e) {
 
-                }
-                if (sb.length() > 0) {
-                    evBottomSelectBinding.tvChargeUnit.setVisibility(View.VISIBLE);
-                    evBottomSelectBinding.tvChargeUnit.setText(sb.toString() + " " + getString(R.string.sm_evss03_04));
+                    }
+                    if (superSpeedCnt > 0) {
+                        strBuilder.append(String.format(getString(R.string.sm_evss02_01), superSpeedCnt));
+                    }
+                    if (highSpeedCnt > 0) {
+                        if (strBuilder.length() > 0) {
+                            strBuilder.append(", ");
+                        }
+                        strBuilder.append(String.format(getString(R.string.sm_evss02_02), highSpeedCnt));
+                    }
+                    if (slowSpeedCnt > 0) {
+                        if (strBuilder.length() > 0) {
+                            strBuilder.append(", ");
+                        }
+                        strBuilder.append(String.format(getString(R.string.sm_evss02_03), slowSpeedCnt));
+                    }
+                    if ("Y".equalsIgnoreCase(selectItemVo.getReservYn())) {
+                        // 예약 가능한 상태.
+                        evBottomSelectBinding.tvBookStatus.setVisibility(View.VISIBLE);
+                        evBottomSelectBinding.tvBookStatus.setText(R.string.sm_evss01_30);
+                        evBottomSelectBinding.tvChargeUnit.setText(strBuilder.toString() + " " + getString(R.string.sm_evss03_04));
+                    } else {
+                        // 예약 불가능한 상태.
+                        evBottomSelectBinding.tvBookStatus.setVisibility(View.GONE);
+                        evBottomSelectBinding.tvChargeUnit.setText(R.string.sm_evss01_33);
+                    }
                 } else {
-                    evBottomSelectBinding.tvChargeUnit.setVisibility(View.GONE);
+                    // 기타 상태 - 점검중으로 표시.
+                    evBottomSelectBinding.tvBookStatus.setVisibility(View.GONE);
+                    evBottomSelectBinding.tvChargeUnit.setText(R.string.sm_evss01_32);
                 }
             });
         } else {
