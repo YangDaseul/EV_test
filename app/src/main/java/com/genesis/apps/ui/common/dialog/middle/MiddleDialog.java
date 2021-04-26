@@ -17,6 +17,7 @@ import com.genesis.apps.comm.model.vo.ExpnVO;
 import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.StringUtil;
+import com.genesis.apps.databinding.DialogCarwashApplyInfoBinding;
 import com.genesis.apps.databinding.DialogInsightExpnDeleteBinding;
 import com.genesis.apps.databinding.DialogMiddleTwoButtonBinding;
 import com.genesis.apps.databinding.DialogOilReconnectInfoBinding;
@@ -1047,6 +1048,36 @@ public class MiddleDialog {
                 ).show()
         );
     }
+
+    /**
+     * @param activity
+     * @param ok
+     * @param cancel
+     * @brief 세차 서비스 신청하기
+     */
+    public static void dialogCarWashReserve(@NonNull Activity activity, final Runnable ok, final Runnable cancel, String brnhNm, String mdlNm) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                new CustomDialog(activity, dialog -> {
+                    DialogCarwashApplyInfoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_carwash_apply_info, null, false);
+                    dialog.setContentView(binding.getRoot());
+                    binding.tvBrnhNm.setText(brnhNm);
+                    binding.tvContetns.setText(mdlNm+" "+activity.getString(R.string.cw_reserve_msg));
+
+                    binding.btnCancel.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (cancel != null) cancel.run();
+                    });
+                    binding.btnOk.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (ok != null) ok.run();
+                    });
+                }).show()
+        );
+    }
+
 
     //세차 예약 취소
     public static void dialogCarWashCancel(@NonNull Activity activity, String msg, final Runnable ok) {

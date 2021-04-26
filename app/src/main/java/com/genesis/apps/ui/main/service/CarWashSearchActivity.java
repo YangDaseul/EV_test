@@ -445,17 +445,14 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
         }
     }
 
-    //예약 할래? 대화상자
     private void showReserveDialog() {
         if (pickedBranch == null) {
             SnackBarUtil.show(this, getString(R.string.cw_branch_no_data));
             return;
         }
 
-        String msg = mainVehicle.getMdlNm() + " " + godsNm + " 서비스를\n" + getString(R.string.cw_reserve_msg) + "\n\n" + pickedBranch.getBrnhNm();
-
-        //예약 할래? 대화상자
-        MiddleDialog.dialogCarWashReserve(this, this::reserveCarWash, msg);
+        MiddleDialog.dialogCarWashReserve(this, this::reserveCarWash, () -> {
+        }, pickedBranch.getBrnhNm(), mainVehicle.getMdlNm());
     }
 
     //예약 요청 보냄
