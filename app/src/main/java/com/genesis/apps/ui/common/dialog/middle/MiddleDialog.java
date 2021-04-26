@@ -29,6 +29,8 @@ import com.genesis.apps.databinding.DialogSimilarInfoBinding;
 import com.genesis.apps.databinding.DialogUpdateBinding;
 import com.genesis.apps.databinding.DialogUsedCarInfoBinding;
 
+import java.util.Locale;
+
 public class MiddleDialog {
 
     public static void dialogBtrExit(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
@@ -1032,22 +1034,6 @@ public class MiddleDialog {
     }
 
 
-    //세차 예약
-    public static void dialogCarWashReserve(@NonNull Activity activity, final Runnable ok, String msg) {
-        if (activity.isFinishing()) {
-            return;
-        }
-        activity.runOnUiThread(() ->
-                getTwoButtonDialog(activity,
-                        ok,
-                        null,
-                        activity.getString(R.string.cw_reserve_title),
-                        msg,
-                        R.string.dialog_common_1,
-                        R.string.dialog_common_2
-                ).show()
-        );
-    }
 
     /**
      * @param activity
@@ -1055,7 +1041,7 @@ public class MiddleDialog {
      * @param cancel
      * @brief 세차 서비스 신청하기
      */
-    public static void dialogCarWashReserve(@NonNull Activity activity, final Runnable ok, final Runnable cancel, String brnhNm, String mdlNm) {
+    public static void dialogCarWashReserve(@NonNull Activity activity, final Runnable ok, final Runnable cancel, String brnhNm, String mdlNm, String godsName) {
         if (activity.isFinishing()) {
             return;
         }
@@ -1064,7 +1050,7 @@ public class MiddleDialog {
                     DialogCarwashApplyInfoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_carwash_apply_info, null, false);
                     dialog.setContentView(binding.getRoot());
                     binding.tvBrnhNm.setText(brnhNm);
-                    binding.tvContetns.setText(mdlNm+" "+activity.getString(R.string.cw_reserve_msg));
+                    binding.tvContetns.setText(mdlNm+" "+String.format(Locale.getDefault(),activity.getString(R.string.cw_reserve_msg), godsName));
 
                     binding.btnCancel.setOnClickListener(v -> {
                         dialog.dismiss();

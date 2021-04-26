@@ -452,7 +452,7 @@ public class CarWashSearchActivity extends GpsBaseActivity<ActivityMap2Binding> 
         }
 
         MiddleDialog.dialogCarWashReserve(this, this::reserveCarWash, () -> {
-        }, pickedBranch.getBrnhNm(), mainVehicle.getMdlNm());
+        }, pickedBranch.getBrnhNm(), mainVehicle.getMdlNm(), godsNm);
     }
 
     //예약 요청 보냄

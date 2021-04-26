@@ -37,7 +37,7 @@
             android:lineSpacingExtra="8dp"
             android:textColor="@color/x_000000"
             android:textSize="16dp"
-            tools:text="GV80 세차 서비스를 신청하시겠습니까?"/>
+            tools:text="GV80 세차 서비스를\n신청하시겠습니까?"/>
 
 
         <ScrollView
