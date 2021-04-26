@@ -2,6 +2,7 @@ package com.genesis.apps.ui.common.dialog.bottom;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -10,15 +11,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.genesis.apps.R;
 import com.genesis.apps.databinding.DialogBottomRecyclerBinding;
 
+import java.util.ArrayList;
+
 public class BottomRecyclerDialog extends BaseBottomDialog<DialogBottomRecyclerBinding> {
 
     private String title;
+    private String bottomButtonTitle;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private OnItemSelectListener onItemSelectListener;
+    private ArrayList<RecyclerView.ItemDecoration> decorationList = new ArrayList<>();
+    private ButtonClickListener buttonClickListener;
 
-    public interface OnItemSelectListener<T> {
-        void onSelect(T item);
+    public interface ButtonClickListener {
+        void onBottomBtnClick(View view);
     }
 
     private BottomRecyclerDialog(@NonNull Context context, int theme) {
@@ -32,8 +37,22 @@ public class BottomRecyclerDialog extends BaseBottomDialog<DialogBottomRecyclerB
         setAllowOutTouch(true);
         ui.lTitle.setValue(title);
 
+        if (bottomButtonTitle != null) {
+            ui.tvBtnOk.setText(bottomButtonTitle);
+            ui.tvBtnOk.setVisibility(View.VISIBLE);
+            ui.tvBtnOk.setOnClickListener((view) -> {
+                this.dismiss();
+                if (this.buttonClickListener != null) {
+                    this.buttonClickListener.onBottomBtnClick(view);
+                }
+            });
+        }
+
         if (this.layoutManager != null) {
             ui.rv.setLayoutManager(this.layoutManager);
+        }
+        for (RecyclerView.ItemDecoration item : decorationList) {
+            ui.rv.addItemDecoration(item);
         }
 
         if (adapter != null) {
@@ -51,9 +70,11 @@ public class BottomRecyclerDialog extends BaseBottomDialog<DialogBottomRecyclerB
     public static class Builder {
         private Context context;
         private String title;
+        private String bottomButtonTitle;
         private RecyclerView.Adapter adapter;
         private RecyclerView.LayoutManager layoutManager;
-        private OnItemSelectListener onItemSelectListener;
+        private ArrayList<RecyclerView.ItemDecoration> decorationList = new ArrayList<>();
+        private ButtonClickListener buttonClickListener;
 
         public Builder(@NonNull Context context) {
             this.context = context;
@@ -73,13 +94,27 @@ public class BottomRecyclerDialog extends BaseBottomDialog<DialogBottomRecyclerB
             return this;
         }
 
+        public Builder setBottomButtonTitle(@StringRes int bottomButtonTitle) {
+            return setBottomButtonTitle(context.getString(bottomButtonTitle));
+        }
+
+        public Builder setBottomButtonTitle(String bottomButtonTitle) {
+            this.bottomButtonTitle = bottomButtonTitle;
+            return this;
+        }
+
         public Builder setLayoutManager(@NonNull RecyclerView.LayoutManager manager) {
             this.layoutManager = manager;
             return this;
         }
 
-        public Builder setOnItemSelectListener(OnItemSelectListener listener) {
-            this.onItemSelectListener = listener;
+        public Builder addDecoration(RecyclerView.ItemDecoration decoration) {
+            this.decorationList.add(decoration);
+            return this;
+        }
+
+        public Builder setButtonClickListener(ButtonClickListener buttonClickListener) {
+            this.buttonClickListener = buttonClickListener;
             return this;
         }
 
@@ -87,6 +122,10 @@ public class BottomRecyclerDialog extends BaseBottomDialog<DialogBottomRecyclerB
             BottomRecyclerDialog dialog = new BottomRecyclerDialog(this.context, R.style.BottomSheetDialogTheme);
             if (this.title != null) {
                 dialog.title = this.title;
+            }
+
+            if (this.bottomButtonTitle != null) {
+                dialog.bottomButtonTitle = this.bottomButtonTitle;
             }
 
             if (this.adapter != null) {
@@ -97,8 +136,12 @@ public class BottomRecyclerDialog extends BaseBottomDialog<DialogBottomRecyclerB
                 dialog.layoutManager = this.layoutManager;
             }
 
-            if (this.onItemSelectListener != null) {
-                dialog.onItemSelectListener = this.onItemSelectListener;
+            if (this.decorationList.size() > 0) {
+                dialog.decorationList.addAll(this.decorationList);
+            }
+
+            if (this.buttonClickListener != null) {
+                dialog.buttonClickListener = this.buttonClickListener;
             }
 
             return dialog;

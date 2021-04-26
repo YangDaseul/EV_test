@@ -3,6 +3,7 @@ package com.genesis.apps.ui.main;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,6 +18,8 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
@@ -25,14 +28,18 @@ import com.genesis.apps.comm.model.api.gra.BTR_1009;
 import com.genesis.apps.comm.model.api.gra.EPT_1001;
 import com.genesis.apps.comm.model.api.gra.REQ_1002;
 import com.genesis.apps.comm.model.api.gra.REQ_1003;
+import com.genesis.apps.comm.model.constants.ChargeSearchCategorytype;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
+import com.genesis.apps.comm.model.vo.AddressVO;
 import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
+import com.genesis.apps.comm.model.vo.ChargeSearchCategoryVO;
 import com.genesis.apps.comm.model.vo.RepairTypeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.BTRViewModel;
@@ -45,14 +52,18 @@ import com.genesis.apps.databinding.LayoutMapOverlayUiBottomEvChargeBinding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomSelectNewBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
+import com.genesis.apps.ui.common.dialog.bottom.BottomRecyclerDialog;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.home.BluehandsFilterFragment;
 import com.genesis.apps.ui.main.home.BtrBluehandsListActivity;
+import com.genesis.apps.ui.main.service.ChargeFindActivity;
+import com.genesis.apps.ui.main.service.SearchAddressHMNFragment;
 import com.google.gson.Gson;
 import com.hmns.playmap.PlayMapPoint;
 import com.hmns.playmap.shape.PlayMapMarker;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,7 +80,7 @@ import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
  * @see #PAGE_TYPE_SERVICE 서비스 네트워크 찾기
  * 하단 메뉴 이름 : 예약
  */
-public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding> {
+public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding> implements SearchAddressHMNFragment.AddressSelectListener {
 
     private BTRViewModel btrViewModel;
     private LGNViewModel lgnViewModel;
@@ -84,6 +95,8 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
     private String addr = "";
     private String addrDtl = "";
     private VehicleVO mainVehicle = null;
+
+    private List<ChargeSearchCategoryVO> searchCategoryList = new ArrayList<>();
 
     public final static int PAGE_TYPE_BTR = 0;//버틀러 변경
     public final static int PAGE_TYPE_RENT = 1;//렌트리스 등록
@@ -116,9 +129,19 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 // 충전소 검색
                 ui.rgLocation.setVisibility(View.VISIBLE);
                 ui.ivBtnFilter.setVisibility(View.VISIBLE);
+                ui.ivBtnFilter.setOnClickListener(onSingleClickListener);
                 ui.btnMyPosition.setVisibility(View.GONE);
                 ui.btnMyPosition2.setOnClickListener(onSingleClickListener);
                 ui.btnCarPosition.setOnClickListener(onSingleClickListener);
+                // 필터값 초기 셋팅
+                searchCategoryList.addAll(Arrays.asList(
+                        new ChargeSearchCategoryVO(R.string.sm_evss01_15, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null)
+                                .setSelected(true), // 기본 선택 값 설정.
+                        new ChargeSearchCategoryVO(R.string.sm_evss01_16, ChargeSearchCategoryVO.COMPONENT_TYPE.RADIO, Arrays.asList(ChargeSearchCategorytype.ALL, ChargeSearchCategorytype.GENESIS, ChargeSearchCategorytype.E_PIT, ChargeSearchCategorytype.HI_CHARGER))
+                                .addSelectedItem(ChargeSearchCategorytype.ALL),// 기본 선택 값 설정.
+                        new ChargeSearchCategoryVO(R.string.sm_evss01_21, ChargeSearchCategoryVO.COMPONENT_TYPE.CHECK, Arrays.asList(ChargeSearchCategorytype.SUPER_SPEED, ChargeSearchCategorytype.HIGH_SPEED, ChargeSearchCategorytype.SLOW_SPEED)),
+                        new ChargeSearchCategoryVO(R.string.sm_evss01_25, ChargeSearchCategoryVO.COMPONENT_TYPE.CHECK, Arrays.asList(ChargeSearchCategorytype.S_TRAFFIC_CRADIT_PAY, ChargeSearchCategorytype.CAR_PAY))
+                ));
                 break;
             }
             case PAGE_TYPE_BTR:
@@ -243,16 +266,7 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                     Log.d("FID", "test :: setObserver :: initMap");
                     try {
                         mainVehicle = reqViewModel.getMainVehicle();
-                        eptViewModel.reqEPT1001(new EPT_1001.Request(
-                                APPIAInfo.SM_EVSS02.getId(),
-                                mainVehicle.getVin(),
-                                String.valueOf(doubles.get(0)),
-                                String.valueOf(doubles.get(1)),
-                                "",
-                                "",
-                                "",
-                                ""
-                        ));
+                        reqSearchChargeStation(doubles.get(0), doubles.get(1), null);
                     } catch (Exception e) {
 
                     }
@@ -360,8 +374,8 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         btrViewModel.reqBTR1008(new BTR_1008.Request(APPIAInfo.GM_CARLST_01_B01.getId(), String.valueOf(lgnViewModel.getPosition().getValue().get(1)), String.valueOf(lgnViewModel.getPosition().getValue().get(0)), addr, addrDtl, fillerCd));
                         break;
                     case PAGE_TYPE_EVCHARGE: {
-                        // TODO 충전소 찾기
-                        Log.d("FID", "test :: setObserver :: getFilterInfo");
+                        // 충전소 찾기
+                        // Nothing
                         break;
                     }
                     case PAGE_TYPE_REPAIR:
@@ -508,6 +522,27 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
         }
     }
 
+    private void showDialogFilter(List<ChargeSearchCategoryVO> filterList) {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(ServiceNetworkActivity.this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        ChargerFilterListAdapter adapter = new ChargerFilterListAdapter();
+        adapter.setRows(filterList);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(ServiceNetworkActivity.this, DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(new ColorDrawable(getColor(R.color.x_e5e5e5)));
+        BottomRecyclerDialog dialog = new BottomRecyclerDialog.Builder(ServiceNetworkActivity.this)
+                .setTitle(R.string.sm_evss01_36)
+                .setBottomButtonTitle(R.string.sm_evss01_29)
+                .setAdapter(adapter)
+                .addDecoration(dividerItemDecoration)
+                .setLayoutManager(layoutManager)
+                .setButtonClickListener((view) -> {
+                    searchCategoryList = adapter.getItems();
+                    reqSearchChargeStation(lgnViewModel.getPosition().getValue().get(0), lgnViewModel.getPosition().getValue().get(1), adapter.getItems());
+                })
+                .build();
+        dialog.show();
+    }
+
 
     @Override
     public void onClickCommon(View v) {
@@ -556,8 +591,8 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                         }
                         break;
                     case PAGE_TYPE_EVCHARGE: {
-                        // TODO 충전소 찾기
-                        Log.d("FID", "test :: onClickCommon :: btn_left_white");
+                        // 충전소 찾기
+                        // Nothing
                         break;
                     }
                 }
@@ -596,12 +631,13 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                             list = btrViewModel.getRES_BTR_1008().getValue().data.getAsnList();
                             break;
                         case PAGE_TYPE_EVCHARGE: {
-                            // TODO 충전소 찾기 - 충전소 검색으로 이동
                             /*
                              다른 화면은 기존 로직으로 진행하면 되지만 EV 충전소 검색은 별도 화면이 있어
                              그 화면으로 이동 처리 및 return 처리
                              */
-                            Log.d("FID", "test :: onClickCommon :: btn_search_list");
+                            startActivitySingleTop(new Intent(ServiceNetworkActivity.this, ChargeFindActivity.class),
+                                    RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                                    VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                             return;
                         }
                         case PAGE_TYPE_REPAIR:
@@ -663,18 +699,33 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
 
                 break;
             case R.id.btn_my_position_2: {
-                Log.d("FID", "test :: onClickCommon :: btn_my_position_2");
+                // EV충전소 찾기 > 내 위치 기준 조회.
                 reqMyLocation();
                 break;
             }
             case R.id.btn_car_position: {
+                // EV 충전소 찾기 > 내 차량 위치 기준 조회.
                 Log.d("FID", "test :: onClickCommon :: btn_car_position");
                 // TODO 차량 위치로 조회 처리.
                 break;
             }
+            case R.id.iv_btn_filter: {
+                // EV 충전소 찾기 > 필터 - 필터 표시.
+                try {
+                    // 필터 데이터를 복사하여 팝업 표시.
+                    ArrayList<ChargeSearchCategoryVO> filterList = new ArrayList<>();
+                    for (ChargeSearchCategoryVO item : searchCategoryList) {
+                        filterList.add((ChargeSearchCategoryVO) item.clone());
+                    }
+                    showDialogFilter(filterList);
+                } catch (CloneNotSupportedException e) {
+
+                }
+                break;
+            }
             case R.id.tv_btn_route_detail: {
-                Log.d("FID", "test :: onClickCommon :: tv_btn_route_detail");
-                // TODO 상세 경로 보기.
+                // 상세 경로 보기. 제네시스 커넥티드 앱 호출
+                PackageUtil.runApp(ServiceNetworkActivity.this, PackageUtil.PACKAGE_CONNECTED_CAR);
                 break;
             }
             case R.id.btn_search:
@@ -682,8 +733,13 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 switch (pageType) {
                     case PAGE_TYPE_EVCHARGE: {
                         // 충전소 찾기
-                        // TODO 충전소 검색 화면으로 이동
-                        Log.d("FID", "test :: onClickCommon :: btn_search ");
+                        // 주소 검색
+                        Bundle bundle = new Bundle();
+                        bundle.putInt(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.sm_evss01_34);
+                        bundle.putInt(KeyNames.KEY_NAME_MAP_SEARCH_MSG_ID, R.string.sm_evss01_35);
+                        SearchAddressHMNFragment fragment = new SearchAddressHMNFragment();
+                        fragment.setAddressSelectListener(this);
+                        showFragment(fragment, bundle);
                         break;
                     }
                     case PAGE_TYPE_BTR:
@@ -698,6 +754,12 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
                 break;
         }
 
+    }
+
+    @Override
+    public void onAddressSelected(AddressVO selectedAddr) {
+        lgnViewModel.setMyPosition(selectedAddr.getCenterLat(), selectedAddr.getCenterLon());
+        reqSearchChargeStation(selectedAddr.getCenterLat(), selectedAddr.getCenterLon(), searchCategoryList);
     }
 
     /**
@@ -809,6 +871,59 @@ public class ServiceNetworkActivity extends GpsBaseActivity<ActivityMap2Binding>
             });
 
         }, 5000, GpsRetType.GPS_RETURN_FIRST, false);
+    }
+
+    private void reqSearchChargeStation(double lat, double lot, List<ChargeSearchCategoryVO> filterList) {
+        String reservYn = null;
+        String chgCd = null;
+        String chgSpeed = null;
+        String payType = null;
+        if (filterList != null && filterList.size() > 0) {
+            for (ChargeSearchCategoryVO item : filterList) {
+                if (item.isSelected()) {
+                    switch (item.getTitleResId()) {
+                        case R.string.sm_evss01_15: {
+                            // 예약 가능 충전소 체크 여부.
+                            reservYn = "Y";
+                            break;
+                        }
+                        case R.string.sm_evss01_16: {
+                            // 충전소 종류 필터.
+                            if (item.getSelectedItem().size() > 0) {
+                                chgCd = item.getSelectedItem().get(0).getCode();
+                            }
+                            break;
+                        }
+                        case R.string.sm_evss01_21: {
+                            // 충전 속도 필터.
+                            if (item.getSelectedItem().size() > 0) {
+                                chgSpeed = item.getSelectedItem().stream().map(it -> "\"" + it.getCode() + "\"").collect(Collectors.joining(",", "[", "]"));
+                            }
+
+                            break;
+                        }
+                        case R.string.sm_evss01_25: {
+                            // 결제 방식 필터.
+                            if (item.getSelectedItem().size() > 0) {
+                                payType = item.getSelectedItem().stream().map(it -> "\"" + it.getCode() + "\"").collect(Collectors.joining(",", "[", "]"));
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        eptViewModel.reqEPT1001(new EPT_1001.Request(
+                APPIAInfo.SM_EVSS02.getId(),
+                mainVehicle.getVin(),
+                String.valueOf(lat),
+                String.valueOf(lot),
+                reservYn,
+                chgCd,
+                chgSpeed,
+                payType
+        ));
     }
 
 

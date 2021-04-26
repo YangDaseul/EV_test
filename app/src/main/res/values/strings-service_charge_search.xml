@@ -36,6 +36,7 @@
     <string name="sm_evss01_33">사용중</string>
     <string name="sm_evss01_34">충전소 검색</string>
     <string name="sm_evss01_35">건물명 또는 주소를\n검색해 주세요.</string>
+    <string name="sm_evss01_36">충전소 검색 필터</string>
 
     <string name="sm_evss02_01">초고속 %d대</string>
     <string name="sm_evss02_02">고속 %d대</string>

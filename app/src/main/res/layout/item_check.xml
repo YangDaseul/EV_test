@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/x_00000000"
+        android:button="@null"
+        android:drawableStart="@drawable/checkbox_selector_2"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/regular_genesissanstextglobal"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="3dp"
+        android:paddingStart="10dp"
+        android:textColor="@color/x_000000"
+        android:textSize="15dp" />
+</layout>
