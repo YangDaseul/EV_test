@@ -109,7 +109,7 @@
     <string name="service_charge_btr_word_28">변경</string>
     <string name="service_charge_btr_word_29">서비스 금액</string>
     <string name="service_charge_btr_word_30">사용불가</string>
-    <string name="service_charge_btr_word_31"></string>
+    <string name="service_charge_btr_word_31">담당 : %s 님</string>
     <string name="service_charge_btr_word_32"></string>
     <string name="service_charge_btr_word_33"></string>
     <string name="service_charge_btr_word_34">세차서비스</string>

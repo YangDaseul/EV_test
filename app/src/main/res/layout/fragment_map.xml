@@ -7,6 +7,7 @@
         android:id="@+id/l_map_whole"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="30dp"
         tools:background="#ffff00">
 
         <!--  지도  -->

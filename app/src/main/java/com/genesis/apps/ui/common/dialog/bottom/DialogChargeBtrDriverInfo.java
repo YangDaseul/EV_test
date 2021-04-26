@@ -17,7 +17,9 @@ import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 
 public class DialogChargeBtrDriverInfo extends BaseBottomDialog<DialogBottomChargeBtrDriverInfoBinding> {
 
+    private String stusMsg;
     private CHB_1021.Response data;
+
     public DialogChargeBtrDriverInfo(@NonNull Context context, int theme) {
         super(context, theme);
     }
@@ -30,6 +32,7 @@ public class DialogChargeBtrDriverInfo extends BaseBottomDialog<DialogBottomChar
         ui.back.lWhole.setElevation(0);
 
         if(data!=null){
+            ui.setStusMsg(stusMsg);
             ui.setData(data);
             ui.btnCall.setOnClickListener(new OnSingleClickListener() {
                 @Override
@@ -49,14 +52,7 @@ public class DialogChargeBtrDriverInfo extends BaseBottomDialog<DialogBottomChar
         this.data = data;
     }
 
-    public void setMinute(int minute) {
-        try {
-            if (ui != null) {
-                ui.setMinute(minute);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            //ignore
-        }
+    public void setStusMsg(String stuMsg) {
+        this.stusMsg = stuMsg;
     }
 }

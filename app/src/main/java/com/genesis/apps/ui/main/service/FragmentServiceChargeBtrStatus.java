@@ -86,7 +86,7 @@ public class FragmentServiceChargeBtrStatus extends SubFragment<FragmentServiceC
                         // TODO 업데이트 처리
                         me.vpStatus.setAdapter(new ServiceChargeBtrStatusViewpagerAdapter(this, PAGE_NUM, result.data));
 
-                        if(result.data.getStatus() != null && !ChargeBtrStatus.STATUS_1000.getStusCd().equalsIgnoreCase(result.data.getStatus()))
+                        if(result.data.getStatus() != null && ChargeBtrStatus.STATUS_1000.getStusCd().equalsIgnoreCase(result.data.getStatus()))
                             me.vpStatus.setCurrentItem(0);
                         else
                             me.vpStatus.setCurrentItem(1);

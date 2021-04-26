@@ -16,7 +16,6 @@ import com.genesis.apps.comm.model.api.gra.CHB_1021;
 import com.genesis.apps.comm.model.constants.ChargeBtrStatus;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.vo.VehicleVO;
-import com.genesis.apps.comm.model.vo.map.FindPathResVO;
 import com.genesis.apps.databinding.FragmentMapBinding;
 import com.genesis.apps.databinding.LayoutMapOverlayUiBottomInfoBar2Binding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
@@ -98,6 +97,7 @@ public class FragmentServiceChargeBtrMap extends SubFragment<FragmentMapBinding>
             case R.id.btn_driver_info:
                 dialogCHBDriverInfo = new DialogChargeBtrDriverInfo(getContext(), R.style.BottomSheetDialogTheme);
                 dialogCHBDriverInfo.setData(data);
+                dialogCHBDriverInfo.setStusMsg(stusMsg);
                 dialogCHBDriverInfo.setOnDismissListener(dialogInterface -> {
 
                 });

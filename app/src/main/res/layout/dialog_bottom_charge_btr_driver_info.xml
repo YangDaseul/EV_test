@@ -22,8 +22,8 @@
             type="com.genesis.apps.comm.model.api.gra.CHB_1021.Response" />
 
         <variable
-            name="minute"
-            type="int" />
+            name="stusMsg"
+            type="String" />
     </data>
 
     <LinearLayout
@@ -39,6 +39,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:isDialog="@{true}"
+            app:driverNm="@{data.getWorkerList().get(0).getWorkerName()}"
+            app:stusMsg="@{stusMsg}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/l_vin" />
