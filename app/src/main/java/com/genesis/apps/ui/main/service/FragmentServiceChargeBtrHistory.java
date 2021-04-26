@@ -20,12 +20,16 @@ import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
 import com.genesis.apps.comm.model.api.gra.CHB_1023;
 import com.genesis.apps.comm.model.api.gra.CHB_1026;
+import com.genesis.apps.comm.model.constants.KeyNames;
+import com.genesis.apps.comm.model.constants.RequestCodes;
+import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.model.vo.carlife.BookingVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.databinding.FragmentServiceChargeBtrHistoryBinding;
+import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.fragment.SubFragment;
 import com.genesis.apps.ui.main.service.view.ServiceChargeBtrHistoryAdapter;
@@ -118,7 +122,9 @@ public class FragmentServiceChargeBtrHistory extends SubFragment<FragmentService
             case R.id.btn_charge_btr_image:
                 String strLink = (String) ((ConstraintLayout) v).getChildAt(0).getTag();
                 if (!TextUtils.isEmpty(strLink)) {
-                    getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(strLink)));
+                    ((SubActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GAWebActivity.class)
+                            .putExtra(KeyNames.KEY_NAME_URL, strLink)
+                            .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.service_charge_btr_08), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }
                 break;
             default:
