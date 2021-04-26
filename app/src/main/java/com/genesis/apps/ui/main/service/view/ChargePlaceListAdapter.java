@@ -50,11 +50,11 @@ public class ChargePlaceListAdapter extends BaseRecyclerViewAdapter2<ChargeEptIn
         public void onBindView(ChargeEptInfoVO item) {
             ItemChargePlaceBinding binding = getBinding();
             binding.setActivity(this.activity);
-            binding.tvChargeName.setText(item.getChgName());
+            binding.tvChargeName.setText(item.getCsnm());
             binding.tvDist.setText(item.getDist() + "km");
             binding.ivArrow.setTag(item);
 
-            if (ChargePlaceStatus.OPEN.name().equals(item.getChgStusCd())) {
+            if ("Y".equalsIgnoreCase(item.getUseYn())) {
                 // 운영중인 경우 - 예약 상태 표시
                 Context context = getContext();
                 StringBuilder strBuilder = new StringBuilder();
@@ -83,13 +83,13 @@ public class ChargePlaceListAdapter extends BaseRecyclerViewAdapter2<ChargeEptIn
                     }
                     strBuilder.append(String.format(context.getString(R.string.sm_evss02_03), slowSpeedCnt));
                 }
-                if (superSpeedCnt + highSpeedCnt + slowSpeedCnt > 0) {
-                    // 충전 가능한 충전기가 하나라도 있는 경우 예약 가능 표시.
+                if ("Y".equalsIgnoreCase(item.getReservYn())) {
+                    // 예약 가능한 상태.
                     binding.tvBookStatus.setVisibility(View.VISIBLE);
                     binding.tvBookStatus.setText(R.string.sm_evss01_30);
                     binding.tvChargeStatus.setText(strBuilder.toString() + " " + context.getString(R.string.sm_evss03_04));
                 } else {
-                    // 충전 가능한 충전기가 하나도 없는 경우 미표시.
+                    // 예약 불가능한 상태.
                     binding.tvBookStatus.setVisibility(View.GONE);
                     binding.tvChargeStatus.setText(R.string.sm_evss01_33);
                 }

@@ -53,6 +53,7 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
             new ChargeSearchCategoryVO(R.string.sm_evss01_25, ChargeSearchCategoryVO.COMPONENT_TYPE.CHECK, Arrays.asList(ChargeSearchCategorytype.S_TRAFFIC_CRADIT_PAY, ChargeSearchCategorytype.CAR_PAY))
     );
 
+    private String[] address;
     private SEARCH_TYPE currentType;
     private FilterChangeListener listener;
     private ChargeSearchFilterAdapter adapter;
@@ -91,7 +92,7 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
 
     @Override
     public void onRefresh() {
-
+        updateSearchType(currentType);
     }
 
     @Override
@@ -219,10 +220,30 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
                 me.tvGuideLocation.setText(Html.fromHtml(getString(R.string.sm_evss01_09), Html.FROM_HTML_MODE_COMPACT));
                 me.tvSearchAddr.setVisibility(View.VISIBLE);
 
-                me.tvFilter.setVisibility(View.GONE);
-                me.ivBtnMap.setVisibility(View.GONE);
-                me.rvFilter.setVisibility(View.GONE);
-                me.line0.setVisibility(View.GONE);
+                if (this.address == null || this.address.length == 0) {
+                    me.tvFilter.setVisibility(View.GONE);
+                    me.ivBtnMap.setVisibility(View.GONE);
+                    me.rvFilter.setVisibility(View.GONE);
+                    me.line0.setVisibility(View.GONE);
+                    me.tvSearchAddr.setText(R.string.sm_evss01_14);
+                    me.tvSearchAddr.setSelected(false);
+                } else {
+                    me.tvFilter.setVisibility(View.VISIBLE);
+                    me.ivBtnMap.setVisibility(View.VISIBLE);
+                    me.rvFilter.setVisibility(View.VISIBLE);
+                    me.line0.setVisibility(View.VISIBLE);
+                    StringBuilder stringBuilder = new StringBuilder();
+                    int i = 0;
+                    while (i < this.address.length) {
+                        if (i > 0) {
+                            stringBuilder.append("\n");
+                        }
+                        stringBuilder.append(this.address[i]);
+                        i++;
+                    }
+                    me.tvSearchAddr.setText(stringBuilder.toString());
+                    me.tvSearchAddr.setSelected(true);
+                }
                 break;
             }
         }
@@ -284,9 +305,15 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
         bottomDialog.show();
     }
 
+
     /****************************************************************************************************
      * Method - Public
      ****************************************************************************************************/
+    public void setAddress(String[] address) {
+        this.address = address;
+        updateSearchType(currentType);
+    }
+
     public void setOnFilterChangedListener(FilterChangeListener listener) {
         this.listener = listener;
     }

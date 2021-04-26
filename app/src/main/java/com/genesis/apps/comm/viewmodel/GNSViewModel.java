@@ -148,9 +148,9 @@ class GNSViewModel extends ViewModel {
     public void reqGNS1008(final GNS_1008.Request reqData){
         repository.REQ_GNS_1008(reqData);
     }
-    public void reqGNS1009(final GNS_1009.Request reqData){
-        repository.REQ_GNS_1009(reqData);
-    }
+//    public void reqGNS1009(final GNS_1009.Request reqData){
+//        repository.REQ_GNS_1009(reqData);
+//    }
 
     public void reqGNS1010(final GNS_1010.Request reqData){
         repository.REQ_GNS_1010(reqData);

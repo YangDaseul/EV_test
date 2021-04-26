@@ -23,13 +23,22 @@ public class EPT_1001 extends BaseData {
      * @brief EPT_1001 요청 항목
      * @see #vin 차대번호
      * @see #lat 고객위치-위도
+     * 현재위치/차량위치/지명검색위치
      * @see #lot 고객위치-경도
+     * 현재위치/차량위치/지명검색위치
+     * @see #reservYn 예약가능여부
+     * Y: 예약가능한 충전소 N:
      * @see #chgCd 충전소구분 코드
      * GN:제네시스전용충전소 EP : E-pit 충전소
-     * @see #superSpeedYn 초고속여부
-     * @see #highSpeedYn 급속여부
-     * @see #slowSpeedYn 완속여부
-     * @see #carPayYn 카페이지원여부
+     * @see #chgSpeed 충전속도
+     * SUPER 초고속 (260KW이상)
+     * HIGH 고속 (260KW 미만 140KW 이상)
+     * SLOW 완속
+     * ex) ["SUPER", "HIGH", "SLOW"]
+     * @see #payType 결제방식
+     * GCP : 제네시스카페이
+     * STP : S-트래픽 포인트
+     * ex) ["GCP", "STP" ]
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -44,30 +53,26 @@ public class EPT_1001 extends BaseData {
         @SerializedName("lot")
         private String lot;
         @Expose
+        @SerializedName("reservYn")
+        private String reservYn;
+        @Expose
         @SerializedName("chgCd")
         private String chgCd;
         @Expose
-        @SerializedName("superSpeedYn")
-        private String superSpeedYn;
+        @SerializedName("chgSpeed")
+        private String chgSpeed;
         @Expose
-        @SerializedName("highSpeedYn")
-        private String highSpeedYn;
-        @Expose
-        @SerializedName("slowSpeedYn")
-        private String slowSpeedYn;
-        @Expose
-        @SerializedName("carPayYn")
-        private String carPayYn;
+        @SerializedName("payType")
+        private String payType;
 
-        public Request(String menuId, String vin, String lat, String lot, String chgCd, String superSpeedYn, String highSpeedYn, String slowSpeedYn, String carPayYn) {
+        public Request(String menuId, String vin, String lat, String lot, String reservYn, String chgCd, String chgSpeed, String payType) {
             this.vin = vin;
             this.lat = lat;
             this.lot = lot;
+            this.reservYn = reservYn;
             this.chgCd = chgCd;
-            this.superSpeedYn = superSpeedYn;
-            this.highSpeedYn = highSpeedYn;
-            this.slowSpeedYn = slowSpeedYn;
-            this.carPayYn = carPayYn;
+            this.chgSpeed = chgSpeed;
+            this.payType = payType;
             setData(APIInfo.GRA_EPT_1001.getIfCd(), menuId);
         }
     }

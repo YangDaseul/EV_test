@@ -49,7 +49,8 @@
                     android:id="@+id/vg_input_charge_place"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp" />
+                    android:layout_marginTop="10dp"
+                    android:focusableInTouchMode="true" />
 
                 <!--충전소 검색 결과 목록-->
                 <androidx.recyclerview.widget.RecyclerView

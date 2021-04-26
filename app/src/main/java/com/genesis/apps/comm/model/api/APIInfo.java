@@ -181,17 +181,17 @@ public enum APIInfo {
     GRA_SOS_3013("긴급충전출동 약관동의", "SOS-3013", HttpRequest.METHOD_POST, "/graapi/sos/receAgreeEv.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     // 충전소 검색 - E-PIT
-    GRA_EPT_1001("service + E-PIT 충전소 목록 조회", "GRA-EPT-1001", HttpRequest.METHOD_POST, "/graapi/", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_EPT_1002("service + E-PIT 충전소 상세 조회", "GRA-EPT-1002", HttpRequest.METHOD_POST, "/graapi/", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_EPT_1003("service + E-PIT 충전소 상세 리뷰", "GRA-EPT-1003", HttpRequest.METHOD_POST, "/graapi/", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_EPT_1001("service + E-PIT 충전소 목록 조회", "EPT-1001", HttpRequest.METHOD_POST, "/graapi/chgListGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_EPT_1002("service + E-PIT 충전소 상세 조회", "EPT-1002", HttpRequest.METHOD_POST, "/graapi/chgDetailGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_EPT_1003("service + E-PIT 충전소 상세 리뷰", "EPT-1003", HttpRequest.METHOD_POST, "/graapi/detailRevwGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     // 충전소 검색 - 에스트레픽
-    GRA_STC_1001("service + S-트래픽 충전소 조회", "GRA-STC-1001", HttpRequest.METHOD_POST, "/graapi/stc/chgInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_STC_1002("service + S-트래픽 충전소 상세조회", "GRA-STC-1002", HttpRequest.METHOD_POST, "/graapi/stc/chgDtInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_STC_1003("service + S-트래픽 충전기 예약가능시간", "GRA-STC-1003", HttpRequest.METHOD_POST, "/graapi/stc/reservDt.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_STC_1004("service + S-트래픽 충전기 예약하기", "GRA-STC-1004", HttpRequest.METHOD_POST, "/graapi/stc/reservReg.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_STC_1005("service + S-트래픽 충전기 예약신청내역", "GRA-STC-1005", HttpRequest.METHOD_POST, "/graapi/stc/reservHist.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_STC_1006("service + S-트래픽 충전기 예약취소", "GRA-STC-1006", HttpRequest.METHOD_POST, "/graapi/stc/reservCancel.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_STC_1001("service + S-트래픽 충전소 조회", "STC-1001", HttpRequest.METHOD_POST, "/graapi/stc/chgInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_STC_1002("service + S-트래픽 충전소 상세조회", "STC-1002", HttpRequest.METHOD_POST, "/graapi/stc/chgDtInfo.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_STC_1003("service + S-트래픽 충전기 예약가능시간", "STC-1003", HttpRequest.METHOD_POST, "/graapi/stc/reservDt.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_STC_1004("service + S-트래픽 충전기 예약하기", "STC-1004", HttpRequest.METHOD_POST, "/graapi/stc/reservReg.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_STC_1005("service + S-트래픽 충전기 예약신청내역", "STC-1005", HttpRequest.METHOD_POST, "/graapi/stc/reservHist.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_STC_1006("service + S-트래픽 충전기 예약취소", "STC-1006", HttpRequest.METHOD_POST, "/graapi/stc/reservCancel.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     GRA_STC_2001("S-트래픽 크레딧내역조회", "STC-2001", HttpRequest.METHOD_POST, "/graapi/stc/creditList.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 

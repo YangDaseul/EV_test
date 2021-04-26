@@ -203,14 +203,12 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                                 case VariableType.SERVICE_CHARGE_BTR_CODE_DELIVERY://딜리버리 중
                                     me.lServiceChargeBtrService.tvMovingNow.setVisibility(View.VISIBLE);
                                     me.lServiceChargeBtrService.tvMovingNow.setText(StringUtil.isValidString(result.data.getChbStus().getStatusNm()));
-                                    me.lServiceChargeBtrService.tvServiceMaintenanceBtnBlack.setText(R.string.sm01_maintenance_42);
                                     break;
                                 case VariableType.SERVICE_CHARGE_BTR_CODE_FINISH:
                                 case VariableType.SERVICE_CHARGE_BTR_CODE_CANCEL:
                                 default:
                                     me.lServiceChargeService.tvMovingNow.setVisibility(View.GONE);
                                     me.lServiceChargeService.tvMovingNow.setText("");
-                                    me.lServiceChargeService.tvServiceMaintenanceBtnBlack.setText(R.string.sm_cg_sm02_10);
                                     break;
                             }
                         }

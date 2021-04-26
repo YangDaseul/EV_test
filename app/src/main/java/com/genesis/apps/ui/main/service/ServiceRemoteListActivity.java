@@ -128,7 +128,14 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
                 case ERROR: {
                     showProgressDialog(false);
                     // 통신 오류 안내.
-                    exitPage(getString(R.string.r_flaw06_p02_snackbar_1), ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        exitPage(TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg, ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+                    }
                     break;
                 }
             }
@@ -150,7 +157,14 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
                 }
                 case ERROR: {
                     showProgressDialog(false);
-                    SnackBarUtil.show(this, getString(R.string.r_flaw06_p02_snackbar_1));
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(this, TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    }
                     break;
                 }
             }
@@ -178,9 +192,16 @@ public class ServiceRemoteListActivity extends SubActivity<ActivityServiceRemote
 
                     break;
                 }
-                case ERROR: {
+                default: {
                     showProgressDialog(false);
-                    SnackBarUtil.show(this, getString(R.string.r_flaw06_p02_snackbar_1));
+                    String serverMsg = "";
+                    try {
+                        serverMsg = result.data.getRtMsg();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        SnackBarUtil.show(this, TextUtils.isEmpty(serverMsg) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                    }
                     break;
                 }
             }

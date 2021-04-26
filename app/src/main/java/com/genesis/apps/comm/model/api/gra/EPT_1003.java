@@ -21,8 +21,10 @@ import lombok.EqualsAndHashCode;
 public class EPT_1003 extends BaseData {
     /**
      * @brief EPT_1003 요청 항목
-     * @see #bid 충전사업자ID
-     * @see #sid 충전소ID
+     * @see #espid EPIT-기관ID
+     * E-PIT 발급한 ID
+     * @see #ecsid EPIT-충전소ID
+     * E-PIT 발급한 ID
      * @see #pgNo 페이지번호
      * @see #pgCnt 페이지당출력수
      */
@@ -30,11 +32,11 @@ public class EPT_1003 extends BaseData {
     public @Data
     static class Request extends BaseRequest {
         @Expose
-        @SerializedName("bid")
-        private String bid;
+        @SerializedName("espid")
+        private String espid;
         @Expose
-        @SerializedName("sid")
-        private String sid;
+        @SerializedName("ecsid")
+        private String ecsid;
         @Expose
         @SerializedName("pgNo")
         private String pgNo;
@@ -42,9 +44,9 @@ public class EPT_1003 extends BaseData {
         @SerializedName("pgCnt")
         private String pgCnt;
 
-        public Request(String menuId, String bid, String sid, String pgNo, String pgCnt) {
-            this.bid = bid;
-            this.sid = sid;
+        public Request(String menuId, String espid, String ecsid, String pgNo, String pgCnt) {
+            this.espid = espid;
+            this.ecsid = ecsid;
             this.pgNo = pgNo;
             this.pgCnt = pgCnt;
             setData(APIInfo.GRA_EPT_1003.getIfCd(), menuId);

@@ -11,46 +11,62 @@ import lombok.EqualsAndHashCode;
 /**
  * @author Ki-man Kim
  * @brief service + E-PIT 충전소 상세 조회
- * @see #stcYn S트래픽여부
- * Y:S-트래픽충전기 N:E-PIT충전기
- * @see #chgrId 충전기ID
- * 화면표시는 01, 02로 표시…..
- * @see #chgSpeedCd 충전속도코드
- * 001: 초급속
- * 010: 급속
- * 100: 완속
- * @see #chgStusCd 충전기상태코드
- * 0: 알수 없음
- * 1: 통신이상
- * 2: 충전대기
- * 3: 충전중
- * 4: 운영중지
- * 5: 점검중
- * 6: 예약중
- * 9: 상태 미확인
+ * @see #cpid 환경부-충전기ID
+ * cpid 필드는 환경부 충전기 ID
+ * @see #cpnm 충전기명
+ * @see #chargeUcost 충전가격
+ * @see #chargeDiv 충전기속도구분
+ * SUPER 초고속 (260KW이상)
+ * HIGH 고속 (260KW 미만 140KW 이상)
+ * SLOW 완속
+ * @see #useYn 충전기운영여부
+ * Y: 운영 N:미운영
+ * @see #statusCd 충전기상태코드
+ * UNKNOWN 상태 불분명
+ * AVAILABLE 충전가능
+ * CHARGING 충전중
+ * OUTOFORDER 고장/점검
+ * COM_ERROR 통신장애
+ * DISCONNECTION 통신미연결
+ * CHARGED 충전종료
+ * PLANNED 계획정지
+ * RESERVED 예약
  * @see #reservYn 예약가능여부
- * E-PIT 충전소인 경우 : N로 설정 (예약기능 없음)
- * - 화면에 표시하지 않음
- * S-트래픽 충전소인 경우 : Y/N 가능
- * - Y:예약가능 N:예약불가
+ * 환경부-기관ID = 'ST' (s-트래픽) 인경우에 'Y'
+ * 그 외는 'N'
+ * - S트래픽인 아닌경우는 화면에 표시하지 않음
+ * @see #payType 결제방식
+ * GCP : 제네시스카페이
+ * STP : S-트래픽 포인트
+ * CRT : 신용카드  ==> 디폴트
+ * ex) ["GCP", "STP", "CRT" ]
  */
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public @Data
 class ChargerEptVO extends BaseData {
     @Expose
-    @SerializedName("stcYn")
-    private String stcYn;
+    @SerializedName("cpid")
+    private String cpid;
     @Expose
-    @SerializedName("chgrId")
-    private String chgrId;
+    @SerializedName("cpnm")
+    private String cpnm;
     @Expose
-    @SerializedName("chgSpeedCd")
-    private String chgSpeedCd;
+    @SerializedName("chargeUcost")
+    private String chargeUcost;
     @Expose
-    @SerializedName("chgrStusCd")
-    private String chgrStusCd;
+    @SerializedName("chargeDiv")
+    private String chargeDiv;
+    @Expose
+    @SerializedName("useYn")
+    private String useYn;
+    @Expose
+    @SerializedName("statusCd")
+    private String statusCd;
     @Expose
     @SerializedName("reservYn")
     private String reservYn;
+    @Expose
+    @SerializedName("payType")
+    private String payType;
 } // end of class ChargerEptVO
