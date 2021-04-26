@@ -416,9 +416,11 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
     }
 
     private void setViewEvBattery() {
+        String time = developersViewModel.getBatteryChargeTime();
         int batteryRes = WeatherCodes.getEvBatteryResource(batteryCharge ? 1 : 0, dayCd, soc);
         me.ivEvBattery.setBackgroundResource(batteryRes);
         me.tvEvBattery.setText(soc < 0 ? "- %" : (int)soc + "%");
+        me.tvEvBatteryTime.setText((batteryCharge&&!TextUtils.isEmpty(time)) ? (String.format(Locale.getDefault(), getString(R.string.gm01_ev_1), time)) : "");
         setProgressBattery(false);
     }
 
@@ -646,6 +648,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             case R.id.btn_ev_battery:
             case R.id.iv_ev_battery:
             case R.id.tv_ev_battery:
+            case R.id.tv_ev_battery_time:
                 try {
                     vehicleVO = lgnViewModel.getMainVehicleSimplyFromDB();
                     if (vehicleVO != null && !TextUtils.isEmpty(vehicleVO.getVin())) {
@@ -863,6 +866,7 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
         me.tvEvBattery.setVisibility(visibility);
         me.btnEvBattery.setVisibility(visibility);
         me.ivEvBattery.setVisibility(visibility);
+        me.tvEvBatteryTime.setVisibility(visibility);
     }
 
     private void reqCarInfoToDevelopers(String carId) {

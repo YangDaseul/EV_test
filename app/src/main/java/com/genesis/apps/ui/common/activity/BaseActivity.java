@@ -194,17 +194,14 @@ public class BaseActivity extends AppCompatActivity {
 
         switch (APPIAInfo.findCode(id)) {
             case SM_REVIEW01_P01:
-                if (!TextUtils.isEmpty(PI)) {
-                    startActivitySingleTop(new Intent(this, ServiceReviewActivity.class).putExtra(KeyNames.KEY_NAME_REVIEW_RSVT_SEQ_NO, PI), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                }else{
-                    SnackBarUtil.show(this, "예약번호가 존재하지 않습니다.");
-                }
-                break;
             case SM_REVIEW01_P03:
+            case SM_REVIEW01_P04:
                 if (!TextUtils.isEmpty(PI)) {
-                    startActivitySingleTop(new Intent(this, ServiceReviewActivity.class).putExtra(KeyNames.KEY_NAME_REVIEW_TRANS_ID, PI), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    startActivitySingleTop(new Intent(this, ServiceReviewActivity.class)
+                            .putExtra(KeyNames.KEY_NAME_REVIEW_PI, PI)
+                            .putExtra(KeyNames.KEY_NAME_REVIEW_ID, APPIAInfo.findCode(id)), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 }else{
-                    SnackBarUtil.show(this, "트랜잭션 ID가 존재하지 않습니다.");
+                    SnackBarUtil.show(this, "평가번호가 존재하지 않습니다.");
                 }
                 break;
             default:

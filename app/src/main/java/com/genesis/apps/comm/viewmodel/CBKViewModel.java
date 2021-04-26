@@ -230,8 +230,7 @@ class CBKViewModel extends ViewModel {
     }
 
     public boolean isVisibleAccmMilg(String expnDivCd){
-        return expnDivCd.equalsIgnoreCase(VariableType.getExpnDivCd(VariableType.INSIGHT_EXPN_DIV_CODE_1000))||expnDivCd.equalsIgnoreCase(VariableType.getExpnDivCd(VariableType.INSIGHT_EXPN_DIV_CODE_2000));
+        return expnDivCd.equalsIgnoreCase(VariableType.INSIGHT_EXPN_DIV_CODE_1000)||expnDivCd.equalsIgnoreCase(VariableType.INSIGHT_EXPN_DIV_CODE_1100)||expnDivCd.equalsIgnoreCase(VariableType.INSIGHT_EXPN_DIV_CODE_2000);
     }
-
 
 }

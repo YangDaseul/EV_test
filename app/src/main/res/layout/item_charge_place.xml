@@ -5,64 +5,114 @@
 
     <data>
 
+        <variable
+            name="activity"
+            type="com.genesis.apps.ui.common.activity.SubActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="20dp"
-        android:paddingTop="30dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="30dp">
-
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/bg_ffffff_stroke_e5e5e5"
+        android:paddingStart="20dp">
         <!--충전소 이름, 거리, 예약 상태-->
         <TextView
             android:id="@+id/tv_charge_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/regular_genesissanstextglobal"
+            android:includeFontPadding="false"
             android:textColor="@color/x_000000"
             android:textSize="16dp"
-            android:includeFontPadding="false"
             app:layout_constraintEnd_toStartOf="@id/iv_arrow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="현대 EV 스테이션 강동" />
+
+        <!--충전소 거리-->
+        <TextView
+            android:id="@+id/tv_dist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:includeFontPadding="false"
+            android:textColor="@color/x_000000"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_charge_name"
+            tools:text="0.8km" />
+
+        <!--예약 가능 상태-->
+        <TextView
+            android:id="@+id/tv_book_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:drawableStart="@drawable/bar_525252_height_10"
+            android:drawablePadding="8.3dp"
+            android:fontFamily="@font/regular_genesissanstextglobal"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:textColor="@color/x_996449"
+            android:textSize="16dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@id/tv_dist"
+            app:layout_constraintTop_toTopOf="@id/tv_dist"
+            tools:text="예약가능"
+            tools:visibility="visible" />
 
         <!--충전소 상태 상세-->
         <TextView
             android:id="@+id/tv_charge_status"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:includeFontPadding="false"
+            android:maxLines="2"
             android:textColor="@color/x_666666"
             android:textSize="16dp"
             app:layout_constraintEnd_toStartOf="@id/iv_arrow"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_charge_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_dist"
             tools:text="충전 중" />
 
+        <!--상세 경로 보기-->
         <TextView
             android:id="@+id/tv_btn_route_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_trans_underline_000000_1dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/ripple_bg_trans_underline_000000"
             android:fontFamily="@font/regular_genesissanstextglobal"
             android:gravity="bottom"
+            android:onClick="@{(view) -> activity.onSingleClickListener.onSingleClick(view)}"
             android:paddingTop="20dp"
             android:text="@string/sm_evss01_12"
             android:textColor="@color/x_000000"
             android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_charge_status" />
 
+        <!--우측 화살표-->
         <ImageView
             android:id="@+id/iv_arrow"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
+            android:background="@drawable/ripple_bg_ffffff"
+            android:clickable="true"
             android:contentDescription="@null"
+            android:onClick="@{(view) -> activity.onSingleClickListener.onSingleClick(view)}"
+            android:paddingEnd="19dp"
             android:src="@drawable/btn_arrow_open_r"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

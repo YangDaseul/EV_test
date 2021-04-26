@@ -42,6 +42,11 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
     int titleId=0;
     int msgId=0;
 
+    private AddressSelectListener listener;
+    public interface AddressSelectListener {
+        void onAddressSelected(AddressVO selectedAddr);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
@@ -210,11 +215,15 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
                     if (addressVO != null) {
                         if (mapViewModel.insertRecentlyAddressVO(addressVO)) {
                             ((SubActivity)getActivity()).hideFragment(this);
+                            if (this.listener != null) {
+                                this.listener.onAddressSelected(addressVO);
+                            }
                             if(getActivity() instanceof ServiceRelapseApply1Activity){ //TODO 리펙토링..
                                 ((ServiceRelapseApply1Activity)getActivity()).setAddressInfo(addressVO);
                             }else{
                                 ((MapSearchMyPositionActivity)getActivity()).setAddressInfo(addressVO);
                             }
+
 
                         }
                     }
@@ -286,4 +295,7 @@ public class SearchAddressHMNFragment extends SubFragment<ActivitySearchAddressB
         SoftKeyboardUtil.hideKeyboard(getActivity(), getActivity().getWindow().getDecorView().getWindowToken());
     }
 
+    public void setAddressSelectListener(AddressSelectListener listener) {
+        this.listener = listener;
+    }
 }

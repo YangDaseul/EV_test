@@ -42,10 +42,10 @@
             android:id="@+id/l_map_overlay_msg"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:inflatedId="@+id/l_map_overlay_msg"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="20dp"
+            android:inflatedId="@+id/l_map_overlay_msg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/l_map_overlay_title"
@@ -59,9 +59,9 @@
             android:id="@+id/vs_map_overlay_bottom_box"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inflatedId="@+id/vs_map_overlay_bottom_box"
             android:clickable="true"
             android:focusable="true"
+            android:inflatedId="@+id/vs_map_overlay_bottom_box"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -79,34 +79,63 @@
             app:layout_constraintBottom_toTopOf="@id/vs_map_overlay_bottom_box"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <!--내 위치/차량 위치 선택-->
+        <RadioGroup
+            android:id="@+id/rg_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/vs_map_overlay_bottom_box"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <RadioButton
+                android:id="@+id/btn_my_position_2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/selector_bg_person"
+                android:button="@null" />
+
+            <RadioButton
+                android:id="@+id/btn_car_position"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/selector_bg_car"
+                android:button="@null" />
+
+        </RadioGroup>
+
 
         <ImageView
             android:id="@+id/iv_center_maker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:layout_constraintTop_toTopOf="@+id/pmv_map_view"
             app:layout_constraintBottom_toBottomOf="@+id/pmv_map_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/pmv_map_view"
             tools:src="@drawable/ic_pin_car"
             tools:visibility="visible" />
 
-<!--        <androidx.constraintlayout.widget.Guideline-->
-<!--            android:id="@+id/gl_center"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:orientation="horizontal"-->
-<!--            app:layout_constraintGuide_percent="0.5"/>-->
+        <!--        <androidx.constraintlayout.widget.Guideline-->
+        <!--            android:id="@+id/gl_center"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            app:layout_constraintGuide_percent="0.5"/>-->
 
         <include
             android:id="@+id/l_popup"
+            layout="@layout/item_service_network_popup"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            layout="@layout/item_service_network_popup"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

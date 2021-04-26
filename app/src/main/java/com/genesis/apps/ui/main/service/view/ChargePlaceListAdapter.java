@@ -1,5 +1,6 @@
 package com.genesis.apps.ui.main.service.view;
 
+import android.content.Context;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
@@ -10,9 +11,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.genesis.apps.R;
-import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.constants.ChargePlaceStatus;
+import com.genesis.apps.comm.model.vo.ChargeEptInfoVO;
 import com.genesis.apps.databinding.ItemChargePlaceBinding;
+import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.view.listview.BaseRecyclerViewAdapter2;
 import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
 
@@ -22,84 +24,92 @@ import com.genesis.apps.ui.common.view.viewholder.BaseViewHolder;
  * @author Ki-man Kim
  * @since 2021-03-22
  */
-public class ChargePlaceListAdapter extends BaseRecyclerViewAdapter2<ChargePlaceListAdapter.DummyData> {
-    public ChargePlaceListAdapter() {
+public class ChargePlaceListAdapter extends BaseRecyclerViewAdapter2<ChargeEptInfoVO> {
+    private SubActivity activity;
 
+    public ChargePlaceListAdapter(SubActivity activity) {
+        this.activity = activity;
     }
 
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        return new ChargePlaceViewHolder(layoutInflater.inflate(R.layout.item_charge_place, parent, false));
+        return new ChargePlaceViewHolder(this.activity, layoutInflater.inflate(R.layout.item_charge_place, parent, false));
     }
 
-    private static class ChargePlaceViewHolder extends BaseViewHolder<DummyData, ItemChargePlaceBinding> {
-        public ChargePlaceViewHolder(View itemView) {
+    private static class ChargePlaceViewHolder extends BaseViewHolder<ChargeEptInfoVO, ItemChargePlaceBinding> {
+        private SubActivity activity;
+
+        public ChargePlaceViewHolder(SubActivity activity, View itemView) {
             super(itemView);
+            this.activity = activity;
         }
 
         @Override
-        public void onBindView(DummyData item) {
+        public void onBindView(ChargeEptInfoVO item) {
             ItemChargePlaceBinding binding = getBinding();
-            binding.tvChargeName.setText(item.name + " " + item.distance);
+            binding.setActivity(this.activity);
+            binding.tvChargeName.setText(item.getCsnm());
+            binding.tvDist.setText(item.getDist() + "km");
+            binding.ivArrow.setTag(item);
 
-            switch (item.status) {
-                case FINISH_BOOK:
-                case ABLE_BOOK: {
-                    binding.tvChargeName.setText(Html.fromHtml(binding.tvChargeName.getText() + " | <font color=#996449>" + item.status.getName() + "</font>"));
-                    break;
-                }
-                default:
-                case CHECKING: {
-                    break;
-                }
-            }
+            // TODO 이용 가능 시간에 대한 조건 추가 예정.
+            if ("Y".equalsIgnoreCase(item.getUseYn())) {
 
-            if (!TextUtils.isEmpty(item.statusDesc)) {
-                // 충전소 상태 표시.
-                binding.tvChargeStatus.setText(item.statusDesc);
+                // 운영중인 경우 - 예약 상태 표시
+                Context context = getContext();
+                StringBuilder strBuilder = new StringBuilder();
+                int superSpeedCnt = 0;
+                int highSpeedCnt = 0;
+                int slowSpeedCnt = 0;
+                try {
+                    superSpeedCnt = Integer.parseInt(item.getSuperSpeedCnt());
+                    highSpeedCnt = Integer.parseInt(item.getHighSpeedCnt());
+                    slowSpeedCnt = Integer.parseInt(item.getSlowSpeedCnt());
+                } catch (Exception e) {
+
+                }
+                if (superSpeedCnt > 0) {
+                    strBuilder.append(String.format(context.getString(R.string.sm_evss02_01), superSpeedCnt));
+                }
+                if (highSpeedCnt > 0) {
+                    if (strBuilder.length() > 0) {
+                        strBuilder.append(", ");
+                    }
+                    strBuilder.append(String.format(context.getString(R.string.sm_evss02_02), highSpeedCnt));
+                }
+                if (slowSpeedCnt > 0) {
+                    if (strBuilder.length() > 0) {
+                        strBuilder.append(", ");
+                    }
+                    strBuilder.append(String.format(context.getString(R.string.sm_evss02_03), slowSpeedCnt));
+                }
+                if ("Y".equalsIgnoreCase(item.getReservYn())) {
+                    // 예약 가능한 상태.
+                    binding.tvBookStatus.setVisibility(View.VISIBLE);
+                    binding.tvBookStatus.setText(R.string.sm_evss01_30);
+                    binding.tvChargeStatus.setText(strBuilder.toString() + " " + context.getString(R.string.sm_evss03_04));
+                } else {
+                    // 예약 불가능한 상태.
+                    binding.tvBookStatus.setVisibility(View.GONE);
+                    binding.tvChargeStatus.setText(R.string.sm_evss01_33);
+                }
+            } else {
+                // 기타 상태 - 점검중으로 표시.
+                binding.tvBookStatus.setVisibility(View.GONE);
+                binding.tvChargeStatus.setText(R.string.sm_evss01_32);
             }
         }
 
         @Override
-        public void onBindView(DummyData item, int pos) {
+        public void onBindView(ChargeEptInfoVO item, int pos) {
 
         }
 
         @Override
-        public void onBindView(DummyData item, int pos, SparseBooleanArray selectedItems) {
+        public void onBindView(ChargeEptInfoVO item, int pos, SparseBooleanArray selectedItems) {
 
         }
-    }
-
-    public static class DummyData extends BaseData {
-        private String name;
-        private String distance;
-        private ChargePlaceStatus status;
-        private String statusDesc;
-
-        public DummyData(String name, String distance, ChargePlaceStatus status, String statusDesc) {
-            this.name = name;
-            this.distance = distance;
-            this.status = status;
-            this.statusDesc = statusDesc;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getDistance() {
-            return distance;
-        }
-
-        public ChargePlaceStatus getStatus() {
-            return status;
-        }
-
-        public String getStatusDesc() {
-            return statusDesc;
-        }
-    }
+    } // end of class ChargePlaceViewHolder
 } // end of class ChargePlaceListAdapter

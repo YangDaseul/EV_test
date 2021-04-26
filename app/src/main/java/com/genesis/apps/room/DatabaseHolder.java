@@ -72,6 +72,7 @@ public class DatabaseHolder {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE VehicleVO ADD COLUMN evCd TEXT");
+            database.execSQL("ALTER TABLE VehicleVO ADD COLUMN spCd TEXT");
         }
     };
 

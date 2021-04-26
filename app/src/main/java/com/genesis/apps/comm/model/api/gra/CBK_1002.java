@@ -81,8 +81,14 @@ public class CBK_1002 extends BaseData {
         @SerializedName("delYn")
         private String delYn;
         @Expose
+        @SerializedName("chgCretSumAmt")
+        private String chgCretSumAmt;
+        @Expose
         @SerializedName("refulSumAmt")
         private String refulSumAmt;
+        @Expose
+        @SerializedName("chgSumAmt")
+        private String chgSumAmt;
         @Expose
         @SerializedName("rparSumAmt")
         private String rparSumAmt;
@@ -100,9 +106,11 @@ public class CBK_1002 extends BaseData {
             this.totCnt="0";
             this.delYn="0";
             this.refulSumAmt="0";
+            this.chgSumAmt="0";
             this.rparSumAmt="0";
             this.carWshSumAmt="0";
             this.etcSumAmt="0";
+            this.chgCretSumAmt="0";
             this.expnList=new ArrayList<>();
         }
     }

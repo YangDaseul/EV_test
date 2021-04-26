@@ -84,6 +84,7 @@ public class VariableType {
 
     public static final String VEHICLE_CODE_GN="GN"; //내연기관
     public static final String VEHICLE_CODE_EV="EV"; //전기차
+    public static final String VEHICLE_CODE_SP="SP"; //스포츠패키지 차량
 
 
     //주 이용차량 유무
@@ -102,39 +103,80 @@ public class VariableType {
     public static final String MAIN_HOME_INSIGHT_SYS = "SYS"; //고정된 메시지 유형?
 
 
-    public static final String INSIGHT_EXPN_DIV_CODE_1000 = "주유"; //주유
-    public static final String INSIGHT_EXPN_DIV_CODE_2000 = "정비"; //정비
-    public static final String INSIGHT_EXPN_DIV_CODE_3000 = "세차"; //세차
-    public static final String INSIGHT_EXPN_DIV_CODE_4000 = "주차"; //주차
-    public static final String INSIGHT_EXPN_DIV_CODE_5000 = "통행"; //통행
-    public static final String INSIGHT_EXPN_DIV_CODE_6000 = "보험"; //보험
-    public static final String INSIGHT_EXPN_DIV_CODE_7000 = "세금"; //세금
-    public static final String INSIGHT_EXPN_DIV_CODE_8000 = "용품"; //용품
-    public static final String INSIGHT_EXPN_DIV_CODE_9000 = "기타"; //기타
+
+    public static final String INSIGHT_EXPN_DIV_CODE_1000 = "1000"; //주유
+    public static final String INSIGHT_EXPN_DIV_CODE_1100 = "1100"; //충전
+    public static final String INSIGHT_EXPN_DIV_CODE_2000 = "2000"; //정비
+    public static final String INSIGHT_EXPN_DIV_CODE_3000 = "3000"; //세차
+    public static final String INSIGHT_EXPN_DIV_CODE_4000 = "4000"; //주차
+    public static final String INSIGHT_EXPN_DIV_CODE_5000 = "5000"; //통행
+    public static final String INSIGHT_EXPN_DIV_CODE_6000 = "6000"; //보험
+    public static final String INSIGHT_EXPN_DIV_CODE_7000 = "7000"; //세금
+    public static final String INSIGHT_EXPN_DIV_CODE_8000 = "8000"; //용품
+    public static final String INSIGHT_EXPN_DIV_CODE_9000 = "9000"; //기타
+
+    public static final String INSIGHT_EXPN_DIV_NM_1000 = "주유"; //주유
+    public static final String INSIGHT_EXPN_DIV_NM_1100 = "충전"; //충전
+    public static final String INSIGHT_EXPN_DIV_NM_2000 = "정비"; //정비
+    public static final String INSIGHT_EXPN_DIV_NM_3000 = "세차"; //세차
+    public static final String INSIGHT_EXPN_DIV_NM_4000 = "주차"; //주차
+    public static final String INSIGHT_EXPN_DIV_NM_5000 = "통행"; //통행
+    public static final String INSIGHT_EXPN_DIV_NM_6000 = "보험"; //보험
+    public static final String INSIGHT_EXPN_DIV_NM_7000 = "세금"; //세금
+    public static final String INSIGHT_EXPN_DIV_NM_8000 = "용품"; //용품
+    public static final String INSIGHT_EXPN_DIV_NM_9000 = "기타"; //기타
 
     public static String getExpnDivCd(String result) {
         switch (result) {
-            case INSIGHT_EXPN_DIV_CODE_1000:
-                return "1000";
-            case INSIGHT_EXPN_DIV_CODE_2000:
-                return "2000";
-            case INSIGHT_EXPN_DIV_CODE_3000:
-                return "3000";
-            case INSIGHT_EXPN_DIV_CODE_4000:
-                return "4000";
-            case INSIGHT_EXPN_DIV_CODE_5000:
-                return "5000";
-            case INSIGHT_EXPN_DIV_CODE_6000:
-                return "6000";
-            case INSIGHT_EXPN_DIV_CODE_7000:
-                return "7000";
-            case INSIGHT_EXPN_DIV_CODE_8000:
-                return "8000";
-            case INSIGHT_EXPN_DIV_CODE_9000:
+            case INSIGHT_EXPN_DIV_NM_1000:
+                return INSIGHT_EXPN_DIV_CODE_1000;
+            case INSIGHT_EXPN_DIV_NM_1100:
+                return INSIGHT_EXPN_DIV_CODE_1100;
+            case INSIGHT_EXPN_DIV_NM_2000:
+                return INSIGHT_EXPN_DIV_CODE_2000;
+            case INSIGHT_EXPN_DIV_NM_3000:
+                return INSIGHT_EXPN_DIV_CODE_3000;
+            case INSIGHT_EXPN_DIV_NM_4000:
+                return INSIGHT_EXPN_DIV_CODE_4000;
+            case INSIGHT_EXPN_DIV_NM_5000:
+                return INSIGHT_EXPN_DIV_CODE_5000;
+            case INSIGHT_EXPN_DIV_NM_6000:
+                return INSIGHT_EXPN_DIV_CODE_6000;
+            case INSIGHT_EXPN_DIV_NM_7000:
+                return INSIGHT_EXPN_DIV_CODE_7000;
+            case INSIGHT_EXPN_DIV_NM_8000:
+                return INSIGHT_EXPN_DIV_CODE_8000;
+            case INSIGHT_EXPN_DIV_NM_9000:
             default:
-                return "9000";
+                return INSIGHT_EXPN_DIV_CODE_9000;
         }
     }
+    public static String getExpnDivNM(String divCd) {
+        switch (divCd) {
+            case INSIGHT_EXPN_DIV_CODE_1000:
+                return INSIGHT_EXPN_DIV_NM_1000;
+            case INSIGHT_EXPN_DIV_CODE_1100:
+                return INSIGHT_EXPN_DIV_NM_1100;
+            case INSIGHT_EXPN_DIV_CODE_2000:
+                return INSIGHT_EXPN_DIV_NM_2000;
+            case INSIGHT_EXPN_DIV_CODE_3000:
+                return INSIGHT_EXPN_DIV_NM_3000;
+            case INSIGHT_EXPN_DIV_CODE_4000:
+                return INSIGHT_EXPN_DIV_NM_4000;
+            case INSIGHT_EXPN_DIV_CODE_5000:
+                return INSIGHT_EXPN_DIV_NM_5000;
+            case INSIGHT_EXPN_DIV_CODE_6000:
+                return INSIGHT_EXPN_DIV_NM_6000;
+            case INSIGHT_EXPN_DIV_CODE_7000:
+                return INSIGHT_EXPN_DIV_NM_7000;
+            case INSIGHT_EXPN_DIV_CODE_8000:
+                return INSIGHT_EXPN_DIV_NM_8000;
+            case INSIGHT_EXPN_DIV_CODE_9000:
+            default:
+                return INSIGHT_EXPN_DIV_NM_9000;
+        }
+    }
+    
 
 
     //버틀러신청코드유형
@@ -237,6 +279,13 @@ public class VariableType {
     public static final String SERVICE_SOS_STATUS_CODE_S = "S"; //출동
     public static final String SERVICE_SOS_STATUS_CODE_E = "E"; //완료
     public static final String SERVICE_SOS_STATUS_CODE_C = "C"; //취소
+
+    public static final String SERVICE_CHARGE_BTR_CODE_RESERVATION = "1000"; //예약완료
+    public static final String SERVICE_CHARGE_BTR_CODE_PICKUP = "2000"; //픽업중
+    public static final String SERVICE_CHARGE_BTR_CODE_SERVICE = "3000"; //서비스 중
+    public static final String SERVICE_CHARGE_BTR_CODE_DELIVERY = "4000"; //딜리버리 중
+    public static final String SERVICE_CHARGE_BTR_CODE_FINISH = "5000"; //이용완료
+    public static final String SERVICE_CHARGE_BTR_CODE_CANCEL = "6000"; //예약취소
 
 
     /**
@@ -355,6 +404,42 @@ public class VariableType {
     public static final String SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_FOB = "KT_FOB";     // 실물 키 전달, 대면 서비스
     public static final String SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_DKC = "KT_DKC";     // 디지털 키 전달, 비대면 서비스
     public static final String SERVICE_CHARGE_BTR_KEY_TRANSFER_TYPE_BLL = "KT_BLL";     // 블루링크, 제네시스 픽업앤충전 서비스에서는 사용 안함.
+
+    public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_NORMAL="100";
+    public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_FAST="010";
+    public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_FAST="001";
+
+    public static String getCsupport(String csupport){
+        switch (csupport){
+            case SERVICE_CHARGE_RESERVE_CSUPPORT_FAST:
+                return "급속";
+            case SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_FAST:
+                return "초급속";
+            case SERVICE_CHARGE_RESERVE_CSUPPORT_NORMAL:
+            default:
+                return "완속";
+        }
+    }
+
+
+    //TODO 2021-04-22 PARK STC-1005 코드 정의가 나오지 않아서 임의로 정의 진행
+    public static final String SERVICE_CHARGE_RESERVE_RESERVSTUSCD_RESERVE_COMPLETE="1000";
+    public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_USE_COMPLETE="2000";
+    public static final String SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_RESERVE_CANCEL="3000";
+
+    public static String getReservStusCd(String reservStusCd){
+        switch (reservStusCd){
+            case SERVICE_CHARGE_RESERVE_CSUPPORT_USE_COMPLETE:
+                return "이용 완료";
+            case SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_RESERVE_CANCEL:
+                return "예약 취소";
+            case SERVICE_CHARGE_RESERVE_RESERVSTUSCD_RESERVE_COMPLETE:
+                return "예약 완료";
+            default:
+                return "";
+
+        }
+    }
 
     public static final String SERVICE_CHARGE_BTR_LOT_TYPE_STRT = "STRT";   // 위치 구분 코드, 픽업앤충전은 STRT 고정
 

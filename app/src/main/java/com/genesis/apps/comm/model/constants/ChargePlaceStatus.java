@@ -9,27 +9,41 @@ package com.genesis.apps.comm.model.constants;
  */
 public enum ChargePlaceStatus {
     /**
-     * 예약 가능.
+     * 상태 불문명.
      */
-    ABLE_BOOK("예약가능"),
-
+    UNKNOWN("상태 불문명"),
     /**
-     * 예약 마감.
+     * 운영중.
      */
-    FINISH_BOOK("예약마감"),
-
+    OPEN("운영중"),
     /**
-     * 점검중
+     * 운영중지.
      */
-    CHECKING("");
+    CLOSE("운영중지"),
+    /**
+     * 점검중.
+     */
+    READY("준비중"),
+    /**
+     * 운영중지.
+     */
+    INACTIVE("운영중지"),
+    /**
+     * 점검중.
+     */
+    CHECKING("점검중"),
+    /**
+     * 상태 미확인.
+     */
+    UNINDENTIFIED("상태미확인");
 
-    private String name;
+    private String title;
 
-    ChargePlaceStatus(String name) {
-        this.name = name;
+    ChargePlaceStatus(String title) {
+        this.title = title;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 } // end of enum ChargePlaceStatus

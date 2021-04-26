@@ -21,6 +21,7 @@ public class BottomCheckListDialog extends BaseBottomDialog<DialogBottomCheckLis
     private BottomCheckListAdapter adapter = null;
     private ArrayList<String> selectItems;
     private String title;
+    private String bottomBtnTitle;
     public BottomCheckListDialog(@NonNull Context context, int theme) {
         super(context, theme);
     }
@@ -31,6 +32,9 @@ public class BottomCheckListDialog extends BaseBottomDialog<DialogBottomCheckLis
         setContentView(R.layout.dialog_bottom_check_list);
         setAllowOutTouch(true);
         ui.lTitle.setValue(title);
+        if(bottomBtnTitle != null) {
+            ui.tvNextBtn.setText(bottomBtnTitle);
+        }
         if(datas!=null) {
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
             ui.rv.setLayoutManager(layoutManager);
@@ -83,6 +87,10 @@ public class BottomCheckListDialog extends BaseBottomDialog<DialogBottomCheckLis
 
     public void setSelectItems(ArrayList<String> selectItems) {
         this.selectItems = selectItems;
+    }
+
+    public void setBottomBtnTitle(String bottomBtnTitle) {
+        this.bottomBtnTitle = bottomBtnTitle;
     }
 
     public void setTitle(String title) {

@@ -16,6 +16,7 @@ import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.BtrVO;
 import com.genesis.apps.comm.model.vo.RepairReserveVO;
 import com.genesis.apps.comm.model.vo.RepairTypeVO;
+import com.genesis.apps.comm.model.vo.ReserveInfo;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -86,6 +87,8 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
             binding.tvTab.setText(tabList[i]);
             me.tlServiceTabs.getTabAt(i).setCustomView(view);
         }
+        //탭이 갱신되는 경우 무조건 첫번째로 초기화
+        if(me.vpServiceContentsViewPager.getCurrentItem()>0) me.vpServiceContentsViewPager.setCurrentItem(0);
     }
 
     private void refreshTab(){
@@ -176,6 +179,15 @@ public class FragmentService extends SubFragment<FragmentServiceBinding> {
                         , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
             }
 
+        } else if (resultCode == ResultCodes.REQ_CODE_CHARGE_RESERVATION_FINISH.getCode()&&data!=null) {
+            //충전소 예약 완료 시 페이지 이동
+            //TODO 2021-04-23 PARK 충전소 예약 완료 시 해당 로직을 정상적으로 수행하는지 점검 필요 (TO.김기만C)
+            ReserveInfo reserveInfo = (ReserveInfo) data.getSerializableExtra(KeyNames.KEY_NAME_CHARGE_RESERVE_INFO);
+            if (reserveInfo != null) {
+                ((SubActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ChargeResultActivity.class).putExtra(KeyNames.KEY_NAME_CHARGE_RESERVE_INFO, reserveInfo)
+                        , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                        , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+            }
         } else if (resultCode == ResultCodes.REQ_CODE_SERVICE_RESERVE_REMOTE.getCode()&&data!=null) {
             //원격진단 서비스 예약 완료 시 페이지 이동
             ((SubActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), ServiceRemoteListActivity.class)

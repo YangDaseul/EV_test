@@ -361,6 +361,28 @@ public class MiddleDialog {
     }
 
     /**
+     * @biref 충전소 예약 취소 팝업
+     * @param activity
+     * @param ok
+     * @param cancel
+     */
+    public static void dialogChargeReserveCancel(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        R.string.sm_evsb02_p01_1,
+                        R.string.sm_evsb02_p01_2,
+                        R.string.dialog_common_1,
+                        R.string.dialog_common_2
+                ).show()
+        );
+    }
+
+    /**
      * @biref 원격진단 예약 취소 팝업
      *
      *
@@ -782,52 +804,7 @@ public class MiddleDialog {
                     binding.lExpn.tvExpnAmt.setText(StringUtil.getDigitGroupingString(item.getExpnAmt()) + "원");
                     binding.lExpn.btnDelete.lWhole.setVisibility(View.GONE);
                     binding.lExpn.btnModify.setVisibility(View.GONE);
-
-                    int iconId = R.drawable.ic_service_potentiometer; //기타 이미지 변경 필요
-                    int expnDivNmId = R.string.tm_exps01_21;
-
-                    switch (item.getExpnDivNm()) {
-                        case VariableType.INSIGHT_EXPN_DIV_CODE_1000:
-                            expnDivNmId = R.string.tm_exps01_13;
-                            iconId = R.drawable.ic_service_refueling;
-                            break;
-                        case VariableType.INSIGHT_EXPN_DIV_CODE_2000:
-                            expnDivNmId = R.string.tm_exps01_14;
-                            iconId = R.drawable.ic_service_repair;
-                            break;
-                        case VariableType.INSIGHT_EXPN_DIV_CODE_3000:
-                            expnDivNmId = R.string.tm_exps01_15;
-                            iconId = R.drawable.ic_service_wash;
-                            break;
-                        case VariableType.INSIGHT_EXPN_DIV_CODE_4000:
-                            expnDivNmId = R.string.tm_exps01_16;
-                            iconId = R.drawable.ic_service_hometohome; //주차 아이콘으로 변경 필요
-                            break;
-                        case VariableType.INSIGHT_EXPN_DIV_CODE_5000:
-                            expnDivNmId = R.string.tm_exps01_17;
-                            iconId = R.drawable.ic_service_hometohome; //통행 아이콘으로 변경 필요
-                            break;
-                        case VariableType.INSIGHT_EXPN_DIV_CODE_6000:
-                            expnDivNmId = R.string.tm_exps01_18;
-                            iconId = R.drawable.ic_service_hometohome; //보험 아이콘으로 변경 필요
-                            break;
-                        case VariableType.INSIGHT_EXPN_DIV_CODE_7000:
-                            expnDivNmId = R.string.tm_exps01_19;
-                            iconId = R.drawable.ic_service_hometohome; //세금 아이콘으로 변경 필요
-                            break;
-                        case VariableType.INSIGHT_EXPN_DIV_CODE_8000:
-                            expnDivNmId = R.string.tm_exps01_20;
-                            iconId = R.drawable.ic_service_hometohome; //용품 아이콘으로 변경 필요
-                            break;
-                        case VariableType.INSIGHT_EXPN_DIV_CODE_9000:
-                        default:
-                            expnDivNmId = R.string.tm_exps01_21;
-                            iconId = R.drawable.ic_service_potentiometer;
-                            break;
-
-
-                    }
-                    binding.lExpn.tvExpnDivNm.setText(expnDivNmId);
+                    binding.lExpn.tvExpnDivNm.setText(VariableType.getExpnDivNM(StringUtil.isValidString(item.getExpnDivCd())));
 
                     binding.btnCancel.setOnClickListener(v -> {
                         dialog.dismiss();

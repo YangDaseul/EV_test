@@ -24,6 +24,7 @@
     <string name="gm01_bottom_10">변경 신청 중</string>
     <string name="gm01_bottom_11">차량의 보증 기간에 따른\n수리 안내입니다.</string>
     <string name="gm01_bottom_12">주행 데이터 연동하기</string>
+    <string name="gm01_ev_1">%s 남음\n(100&#36; 충전기준)</string>
 
 
     <string name="gm02_1">차량 정보 설정</string>

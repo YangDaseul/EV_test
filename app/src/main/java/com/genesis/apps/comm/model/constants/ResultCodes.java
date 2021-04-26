@@ -32,6 +32,8 @@ public enum ResultCodes {
     REQ_CODE_CONTENTS_RELOAD(30,"컨텐츠 Reload Action"),
     REQ_CODE_SERVICE_WASH_RESERVATION_FINISH(31,"소낙스 예약 완료"),
 
+    REQ_CODE_CHARGE_RESERVATION_FINISH(32,"충전소 예약 완료"),
+    
     REQ_CODE_SERVICE_CHARGE_BTR_RESERVATION_FINISH(50,"픽업앤충전 예약 완료"),
 
     REQ_CODE_PAYMENT_SUCC(1001,"결제 성공"),
