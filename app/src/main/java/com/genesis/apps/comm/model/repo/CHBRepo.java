@@ -17,6 +17,7 @@ import com.genesis.apps.comm.model.api.gra.CHB_1017;
 import com.genesis.apps.comm.model.api.gra.CHB_1019;
 import com.genesis.apps.comm.model.api.gra.CHB_1020;
 import com.genesis.apps.comm.model.api.gra.CHB_1021;
+import com.genesis.apps.comm.model.api.gra.CHB_1022;
 import com.genesis.apps.comm.model.api.gra.CHB_1023;
 import com.genesis.apps.comm.model.api.gra.CHB_1024;
 import com.genesis.apps.comm.model.api.gra.CHB_1026;
@@ -48,8 +49,8 @@ public class CHBRepo {
 
     public final MutableLiveData<NetUIResponse<CHB_1019.Response>> RES_CHB_1019 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<CHB_1020.Response>> RES_CHB_1020 = new MutableLiveData<>();
-
     public final MutableLiveData<NetUIResponse<CHB_1021.Response>> RES_CHB_1021 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<CHB_1022.Response>> RES_CHB_1022 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<CHB_1023.Response>> RES_CHB_1023 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<CHB_1024.Response>> RES_CHB_1024 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<CHB_1026.Response>> RES_CHB_1026 = new MutableLiveData<>();
@@ -383,6 +384,29 @@ public class CHBRepo {
         }, APIInfo.GRA_CHB_1021, reqData);
 
         return RES_CHB_1021;
+    }
+
+    public MutableLiveData<NetUIResponse<CHB_1022.Response>> REQ_CHB_1022(final CHB_1022.Request reqData) {
+        RES_CHB_1022.setValue(NetUIResponse.loading(null));
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_CHB_1022.setValue(NetUIResponse.success(new Gson().fromJson(object, CHB_1022.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+//                RES_CHB_1022.setValue(NetUIResponse.error(e.getMseeage(), null));
+                RES_CHB_1022.setValue(NetUIResponse.success(TestCode.CHB_1022));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_CHB_1022.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_CHB_1022, reqData);
+
+        return RES_CHB_1022;
     }
 
     public MutableLiveData<NetUIResponse<CHB_1023.Response>> REQ_CHB_1023(final CHB_1023.Request reqData) {

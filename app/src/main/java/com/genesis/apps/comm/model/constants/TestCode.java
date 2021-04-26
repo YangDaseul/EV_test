@@ -5,6 +5,7 @@ import com.genesis.apps.comm.model.api.gra.CHB_1008;
 import com.genesis.apps.comm.model.api.gra.CHB_1009;
 import com.genesis.apps.comm.model.api.gra.CHB_1010;
 import com.genesis.apps.comm.model.api.gra.CHB_1021;
+import com.genesis.apps.comm.model.api.gra.CHB_1022;
 import com.genesis.apps.comm.model.api.gra.CHB_1023;
 import com.genesis.apps.comm.model.api.gra.CHB_1024;
 import com.genesis.apps.comm.model.api.gra.CHB_1026;
@@ -4258,8 +4259,8 @@ public class TestCode {
             "  \"rtCd\": \"0000\",\n" +
             "  \"rtMsg\": \"Success\",\n" +
             "  \"orderId\": \"string\",\n" +
-            "  \"status\": \"1000\",\n" +
-            "  \"statusNm\": \"예약완료\",\n" +
+            "  \"status\": \"2000\",\n" +
+            "  \"statusNm\": \"픽업 중\",\n" +
             "  \"requestDt\": \"20210407042507\",\n" +
             "  \"bookingDt\": \"20210415151600\",\n" +
             "  \"cancelableYN\": \"Y\",\n" +
@@ -4335,6 +4336,16 @@ public class TestCode {
             "    \"vendorCSHours\": \"평일 09:00-19:00 (공휴일 휴무)\"\n" +
             "  }\n" +
             "}", CHB_1021.Response.class);
+
+    public static CHB_1022.Response CHB_1022 = new Gson().fromJson("{\n" +
+            "    \"rtCd\": \"0000\",\n" +
+            "    \"rtMsg\": \"Success\",\n" +
+            "    \"workerName\": \"김제니\",\n" +
+            "    \"workerHpNo\": \"01012341234\",\n" +
+            "    \"latitude\": 37.4813022,\n" +
+            "    \"longitude\": 126.8821687,\n" +
+            "    \"address\": \"서울특별시 금천구 가산디지털1로\"\n" +
+            "}", CHB_1022.Response.class);
 
     public static CHB_1023.Response CHB_1023 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
