@@ -280,6 +280,13 @@ public class VariableType {
     public static final String SERVICE_SOS_STATUS_CODE_E = "E"; //완료
     public static final String SERVICE_SOS_STATUS_CODE_C = "C"; //취소
 
+    public static final String SERVICE_CHARGE_BTR_CODE_RESERVATION = "1000"; //예약완료
+    public static final String SERVICE_CHARGE_BTR_CODE_PICKUP = "2000"; //픽업중
+    public static final String SERVICE_CHARGE_BTR_CODE_SERVICE = "3000"; //서비스 중
+    public static final String SERVICE_CHARGE_BTR_CODE_DELIVERY = "4000"; //딜리버리 중
+    public static final String SERVICE_CHARGE_BTR_CODE_FINISH = "5000"; //이용완료
+    public static final String SERVICE_CHARGE_BTR_CODE_CANCEL = "6000"; //예약취소
+
 
     /**
      * 원격 진단 안내 여부 결과 코드.

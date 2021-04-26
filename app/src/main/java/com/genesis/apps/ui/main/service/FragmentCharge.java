@@ -195,9 +195,24 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
                                     break;
                             }
                         }
-                        //todo 픽업앤충전
                         if (result.data.getChbStus() != null) {
-
+                            switch (StringUtil.isValidString(result.data.getChbStus().getStatus())) {
+                                case VariableType.SERVICE_CHARGE_BTR_CODE_RESERVATION://예약완료
+                                case VariableType.SERVICE_CHARGE_BTR_CODE_PICKUP://픽업 중
+                                case VariableType.SERVICE_CHARGE_BTR_CODE_SERVICE://서비스 중
+                                case VariableType.SERVICE_CHARGE_BTR_CODE_DELIVERY://딜리버리 중
+                                    me.lServiceChargeBtrService.tvMovingNow.setVisibility(View.VISIBLE);
+                                    me.lServiceChargeBtrService.tvMovingNow.setText(StringUtil.isValidString(result.data.getChbStus().getStatusNm()));
+                                    me.lServiceChargeBtrService.tvServiceMaintenanceBtnBlack.setText(R.string.sm01_maintenance_42);
+                                    break;
+                                case VariableType.SERVICE_CHARGE_BTR_CODE_FINISH:
+                                case VariableType.SERVICE_CHARGE_BTR_CODE_CANCEL:
+                                default:
+                                    me.lServiceChargeService.tvMovingNow.setVisibility(View.GONE);
+                                    me.lServiceChargeService.tvMovingNow.setText("");
+                                    me.lServiceChargeService.tvServiceMaintenanceBtnBlack.setText(R.string.sm_cg_sm02_10);
+                                    break;
+                            }
                         }
                         break;
                     }
