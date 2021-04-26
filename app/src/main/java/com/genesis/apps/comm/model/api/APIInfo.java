@@ -169,14 +169,16 @@ public enum APIInfo {
 
     GRA_CMS_1001("MyG+ 커머스연동", "CMS-1001", HttpRequest.METHOD_POST, "/graapi/cms/sso.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
-    GRA_SOS_3001("긴급충전출동 접수현황 체크", "SOS-3001", HttpRequest.METHOD_POST, "/graapi/sos/1.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_SOS_3002("긴급충전출동 신청", "SOS-3002", HttpRequest.METHOD_POST, "/graapi/sos/2.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_SOS_3003("추가 비용 안내", "SOS-3003", HttpRequest.METHOD_POST, "/graapi/sos/3.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_SOS_3004("신청 취소", "SOS-3004", HttpRequest.METHOD_POST, "/graapi/sos/4.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_SOS_3005("신청 상태 확인(상세)", "SOS-3005", HttpRequest.METHOD_POST, "/graapi/sos/5.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_SOS_3006("긴급충전출동 현황(위치)", "SOS-3006", HttpRequest.METHOD_POST, "/graapi/sos/6.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_SOS_3001("긴급충전출동 접수현황 체크", "SOS-3001", HttpRequest.METHOD_POST, "/graapi/sos/receStatusEv.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_SOS_3002("긴급충전출동 신청", "SOS-3002", HttpRequest.METHOD_POST, "/graapi/sos/receRegEv.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_SOS_3003("추가 비용 안내", "SOS-3003", HttpRequest.METHOD_POST, "/graapi/sos/receGuideEv.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_SOS_3004("신청 취소", "SOS-3004", HttpRequest.METHOD_POST, "/graapi/sos/receCancelEv.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_SOS_3005("신청 상태 확인(상세)", "SOS-3005", HttpRequest.METHOD_POST, "/graapi/sos/receDtStatusEv.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_SOS_3006("긴급충전출동 현황(위치)", "SOS-3006", HttpRequest.METHOD_POST, "/graapi/sos/receLocationEv.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_SOS_3007("신청이력조회", "SOS-3007", HttpRequest.METHOD_POST, "/graapi/sos/7.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
-    GRA_SOS_3008("EV충전 잔여 횟수 조회", "SOS-3008", HttpRequest.METHOD_POST, "/graapi/sos/8.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_SOS_3008("EV충전 잔여 횟수 조회", "SOS-3008", HttpRequest.METHOD_POST, "/graapi/sos/receRemCntEv.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_SOS_3011("긴급충전출동 약관목록", "SOS-3011", HttpRequest.METHOD_POST, "/graapi/sos/receTermsEv.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+    GRA_SOS_3013("긴급충전출동 약관동의", "SOS-3013", HttpRequest.METHOD_POST, "/graapi/sos/receAgreeEv.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     // 충전소 검색 - E-PIT
     GRA_EPT_1001("service + E-PIT 충전소 목록 조회", "GRA-EPT-1001", HttpRequest.METHOD_POST, "/graapi/chgListGet.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
@@ -190,6 +192,8 @@ public enum APIInfo {
     GRA_STC_1004("service + S-트래픽 충전기 예약하기", "GRA-STC-1004", HttpRequest.METHOD_POST, "/graapi/stc/reservReg.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_STC_1005("service + S-트래픽 충전기 예약신청내역", "GRA-STC-1005", HttpRequest.METHOD_POST, "/graapi/stc/reservHist.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_STC_1006("service + S-트래픽 충전기 예약취소", "GRA-STC-1006", HttpRequest.METHOD_POST, "/graapi/stc/reservCancel.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+
+    GRA_STC_2001("S-트래픽 크레딧내역조회", "STC-2001", HttpRequest.METHOD_POST, "/graapi/stc/creditList.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
     // 픽업앤충전 서비스/간편결제
     GRA_CHB_1001("service + 픽업앤충전 서비스 상태", "CHB-1001", HttpRequest.METHOD_POST, "/graapi/chb/", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),

@@ -3,21 +3,11 @@ package com.genesis.apps.ui.main.service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.transition.ChangeBounds;
-import androidx.transition.Transition;
-import androidx.transition.TransitionManager;
 
 import com.airbnb.paris.Paris;
 import com.genesis.apps.R;
@@ -28,6 +18,7 @@ import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.AddressVO;
+import com.genesis.apps.comm.model.vo.SosStatusVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.net.ga.LoginInfoDTO;
 import com.genesis.apps.comm.util.SnackBarUtil;
@@ -39,9 +30,7 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.view.listener.OnRemoveClickListener;
-import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Arrays;
 import java.util.List;
@@ -49,6 +38,12 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.transition.ChangeBounds;
+import androidx.transition.Transition;
+import androidx.transition.TransitionManager;
 import dagger.hilt.android.AndroidEntryPoint;
 
 /**
@@ -68,6 +63,7 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
     private ConstraintSet[] constraintSets = new ConstraintSet[layouts.length];
     private View[] views;
     private View[] edits;
+    private SosStatusVO sosStatusVO;
 
     private String areaClsCd;
     private AddressVO addressVO;
@@ -98,8 +94,7 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
     }
 
     private void initData() {
-        //TODO 잔여 횟수를 받아오는 전문 혹은 INTENT DATA 로직은 추가 필요 (현재 확인된 전문이 없음)
-        ui.tvChargeCnt.setText(String.format(Locale.getDefault(),getString(R.string.sm_cggo_01_4), "0"));
+        ui.tvChargeCnt.setText(String.format(Locale.getDefault(),getString(R.string.sm_cggo_01_4), sosStatusVO!=null ? sosStatusVO.getDataCount() : "0"));
     }
 
     private void initEditView() {
@@ -221,6 +216,15 @@ public class ServiceChargeApplyActivity extends SubActivity<ActivityServiceCharg
 
     @Override
     public void getDataFromIntent() {
+        try{
+            sosStatusVO = (SosStatusVO) getIntent().getSerializableExtra(KeyNames.KEY_NAME_SOS_STATUS_VO);
+        }catch (Exception e){
+
+        } finally {
+            if (sosStatusVO == null) {
+                exitPage("찾아가는 충전 서비스의 정보를 불러오지 못했습니다.\n잠시 후 다시 시도해 주세요.", ResultCodes.RES_CODE_NETWORK.getCode());
+            }
+        }
 
     }
 

@@ -2,6 +2,7 @@ package com.genesis.apps.ui.common.dialog.bottom;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ public class BottomDialogAskAgreeTerms extends BaseBottomDialog<DialogBottomTerm
     private TermsAdapter adapter;
     private List<TermVO> termList;
     private OnSingleClickListener onSingleClickListener;
+    private String title;
 
     public BottomDialogAskAgreeTerms(@NonNull Context context, int theme, OnSingleClickListener listener) {
         super(context, theme);
@@ -57,6 +59,14 @@ public class BottomDialogAskAgreeTerms extends BaseBottomDialog<DialogBottomTerm
                 dismiss();
             }
         });
+        if(TextUtils.isEmpty(title)){
+            title = getContext().getString(R.string.terms_title);
+        }
+        ui.lDiaBottomSonaxBranchTitle.setValue(title);
+    }
+
+    public void setTitle(String title){
+        this.title = title;
     }
 
     private void setAdapter() {

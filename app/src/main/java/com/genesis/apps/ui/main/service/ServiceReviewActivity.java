@@ -13,6 +13,8 @@ import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.gra.CHB_1019;
+import com.genesis.apps.comm.model.api.gra.CHB_1020;
 import com.genesis.apps.comm.model.api.gra.DDS_1005;
 import com.genesis.apps.comm.model.api.gra.EVL_1001;
 import com.genesis.apps.comm.model.api.gra.WSH_1007;
@@ -22,6 +24,7 @@ import com.genesis.apps.comm.model.constants.ResultCodes;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
+import com.genesis.apps.comm.viewmodel.CHBViewModel;
 import com.genesis.apps.comm.viewmodel.DDSViewModel;
 import com.genesis.apps.comm.viewmodel.WSHViewModel;
 import com.genesis.apps.databinding.ActivityServiceReviewBinding;
@@ -36,8 +39,6 @@ import static com.genesis.apps.comm.model.api.BaseResponse.RETURN_CODE_SUCC;
 
 public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBinding> {
     private static final String TAG = ServiceReviewActivity.class.getSimpleName();
-    private static final int REVIEW_WASH = 1;
-    private static final int REVIEW_DRIVE = 2;
 
     //서버 측 제한 2048바이트라서 한글 utf-8기준으로 넘치지 않도록
     private static final int REVIEW_MAX_LENGTH = 680;
@@ -45,39 +46,34 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
     private View[] ratingViews;
     private WSHViewModel wshViewModel;
     private DDSViewModel ddsViewModel;
-    private int reviewType;
+    private CHBViewModel chbViewModel;
     private int mRate = 0;
-    private String rsvtSeqNo;
-    private String transId;
+
+    private String PI; //평가아이디
+    private String ID; //메뉴아이디
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_review);
         ui.setActivity(this);
-
         ratingViews = new View[] {ui.llRate1, ui.llRate2, ui.llRate3, ui.llRate4, ui.llRate5};
-
         getDataFromIntent();
-        setViewModel();
-        setObserver();
-        reqEval();
+        initView();
+    }
 
-//        setTitleMsg();
+    private void initView() {
+        if(TextUtils.isEmpty(PI)||TextUtils.isEmpty(ID)) {
+            exitPage("", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
+        } else {
+            setViewModel();
+            setObserver();
+            reqEval();
+        }
     }
 
     private void reqEval() {
-        final String evlScnUri = "genesisapp://menu?id=%s&PI=%s";
-        switch (reviewType) {
-            case REVIEW_WASH:
-                //세차
-                wshViewModel.reqEVL1001(new EVL_1001.Request(APPIAInfo.SM_REVIEW01_P01.getId(), String.format(Locale.getDefault(), evlScnUri,APPIAInfo.SM_REVIEW01_P01.getId(), rsvtSeqNo)));
-                break;
-            case REVIEW_DRIVE:
-                //대리운전
-                ddsViewModel.reqEVL1001(new EVL_1001.Request(APPIAInfo.SM_REVIEW01_P03.getId(), String.format(Locale.getDefault(), evlScnUri,APPIAInfo.SM_REVIEW01_P03.getId(), transId)));
-                break;
-        }
+        wshViewModel.reqEVL1001(new EVL_1001.Request(ID, String.format(Locale.getDefault(), "genesisapp://menu?id=%s&PI=%s", ID, PI)));
     }
 
     @Override
@@ -148,48 +144,31 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
     @Override
     public void getDataFromIntent() {
         Intent intent = getIntent();
+        try{
+            PI = intent.getStringExtra(KeyNames.KEY_NAME_REVIEW_PI);
+            ID = intent.getStringExtra(KeyNames.KEY_NAME_REVIEW_ID);
+        }catch (Exception e){
 
-        //세차
-        try {
-            rsvtSeqNo = intent.getStringExtra(KeyNames.KEY_NAME_REVIEW_RSVT_SEQ_NO);
-            if (!TextUtils.isEmpty(rsvtSeqNo)) {
-                reviewType = REVIEW_WASH;
-                return;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
-        //대리운전
-        try {
-            transId = intent.getStringExtra(KeyNames.KEY_NAME_REVIEW_TRANS_ID);
-//            vin = intent.getStringExtra(KeyNames.KEY_NAME_REVIEW_VIN);
-            if (!TextUtils.isEmpty(transId)) {
-                reviewType = REVIEW_DRIVE;
-                return;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        exitPage("", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
     }
 
     @Override
     public void setViewModel() {
         ui.setLifecycleOwner(this);
 
-        switch (reviewType) {
-            case REVIEW_WASH:
+        switch (APPIAInfo.findCode(ID)) {
+            case SM_REVIEW01_P01:
                 //세차
                 wshViewModel = new ViewModelProvider(this).get(WSHViewModel.class);
                 break;
-
-            case REVIEW_DRIVE:
+            case SM_REVIEW01_P03:
                 //대리운전
                 ddsViewModel = new ViewModelProvider(this).get(DDSViewModel.class);
                 break;
-
+            case SM_REVIEW01_P04:
+                //픽업앤충전
+                chbViewModel = new ViewModelProvider(this).get(CHBViewModel.class);
+                break;
             default:
                 exitPage("서비스 세부사항을 확인할 수 없습니다.", ResultCodes.REQ_CODE_EMPTY_INTENT.getCode());
                 break;
@@ -198,9 +177,8 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
 
     @Override
     public void setObserver() {
-        Log.d(TAG, "setObserver: type:" + reviewType);
-        switch (reviewType) {
-            case REVIEW_WASH:
+        switch (APPIAInfo.findCode(ID)) {
+            case SM_REVIEW01_P01:
                 wshViewModel.getRES_EVL_1001().observe(this, result -> {
                     switch (result.status){
                         case LOADING:
@@ -277,9 +255,8 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
                             break;
 
                         case SUCCESS:
-                            if (result.data != null && result.data.getRtCd() != null) {
+                            if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)) {
                                 showProgressDialog(false);
-
                                 finishReview();
                                 break;
                             }
@@ -300,7 +277,7 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
                 });
                 break;
 
-            case REVIEW_DRIVE:
+            case SM_REVIEW01_P03:
                 //대리운전 리뷰 옵저버
                 ddsViewModel.getRES_EVL_1001().observe(this, result -> {
                     switch (result.status){
@@ -362,6 +339,97 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
                 });
                 break;
 
+            case SM_REVIEW01_P04:
+                chbViewModel.getRES_EVL_1001().observe(this, result -> {
+                    switch (result.status){
+                        case LOADING:
+                            showProgressDialog(true);
+                            break;
+                        case SUCCESS:
+                            showProgressDialog(false);
+                            if(result.data!=null){
+                                if(StringUtil.isValidString(result.data.getEvlFinYn()).equalsIgnoreCase(VariableType.COMMON_MEANS_NO)){
+                                    setTitleMsg();
+                                }else{
+                                    rejectReview();
+                                }
+                            }
+                            break;
+                        default:
+                            showProgressDialog(false);
+                            String serverMsg = "";
+                            try {
+                                serverMsg = result.data.getRtMsg();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            } finally {
+                                SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                            }
+                            break;
+                    }
+                });
+
+
+                chbViewModel.getRES_CHB_1019().observe(this, result -> {
+                    switch (result.status) {
+                        case LOADING:
+                            showProgressDialog(true);
+                            break;
+
+                        case SUCCESS:
+                            if (result.data != null) {
+                                showProgressDialog(false);
+                                if("0000".equals(StringUtil.isValidString(result.data.getRtCd()))) {
+                                    if(!TextUtils.isEmpty(result.data.getRvwStmt())){
+                                        ui.tvServiceReviewTitleMsg.setText(result.data.getRvwStmt());
+                                    }
+                                    break;
+                                } else if("9030".equals(result.data.getRtCd())) {
+                                    rejectReview();
+                                    break;
+                                }
+                            }
+                        default:
+                            showProgressDialog(false);
+                            String serverMsg = "";
+                            try {
+                                serverMsg = result.data.getRtMsg();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            } finally {
+                                SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                            }
+                            break;
+                    }
+                });
+
+                chbViewModel.getRES_CHB_1020().observe(this, result -> {
+                    switch (result.status) {
+                        case LOADING:
+                            showProgressDialog(true);
+                            break;
+                        case SUCCESS:
+                            if (result.data != null && StringUtil.isValidString(result.data.getRtCd()).equalsIgnoreCase(RETURN_CODE_SUCC)) {
+                                showProgressDialog(false);
+                                finishReview();
+                                break;
+                            }
+                        default:
+                            showProgressDialog(false);
+                            String serverMsg = "";
+                            try {
+                                serverMsg = result.data.getRtMsg();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            } finally {
+                                SnackBarUtil.show(this, (TextUtils.isEmpty(serverMsg)) ? getString(R.string.r_flaw06_p02_snackbar_1) : serverMsg);
+                            }
+                            break;
+                    }
+                });
+
+
+                break;
             default:
                 //do nothing
                 break;
@@ -371,23 +439,20 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
 
 
     private void setTitleMsg() {
-        if (reviewType == REVIEW_DRIVE) {
-            //대리운전 리뷰 메시지는 항상 고정(xml에 박은 값 그냥 사용)
-            return;
+        switch (APPIAInfo.findCode(ID)) {
+            case SM_REVIEW01_P01:
+                wshViewModel.reqWSH1007(new WSH_1007.Request(ID, PI));
+                break;
+            case SM_REVIEW01_P04:
+                chbViewModel.reqCHB1019(new CHB_1019.Request(ID, "CHRGBTR", PI));
+                break;
         }
-
-        wshViewModel.reqWSH1007(new WSH_1007.Request(
-                APPIAInfo.SM_REVIEW01.getId(),
-                rsvtSeqNo
-        ));
     }
 
     //확인버튼 처리
     private void onClickOkBtn() {
-        Log.d(TAG, "onClickOkBtn: " + reviewType);
         if(mRate == 0) {
             SnackBarUtil.show(this, getString(R.string.rate_error_1));
-
             return;
         }
 
@@ -400,40 +465,25 @@ public class ServiceReviewActivity extends SubActivity<ActivityServiceReviewBind
             reviewInput = reviewInput.substring(0, REVIEW_MAX_LENGTH);
         }
 
-        switch (reviewType) {
-            case REVIEW_WASH:
+        switch (APPIAInfo.findCode(ID)) {
+            case SM_REVIEW01_P01:
                 //세차 리뷰 전송
-                reqCarWashReview(starRating, reviewInput);
+                wshViewModel.reqWSH1008(new WSH_1008.Request(ID, PI, starRating, reviewInput));
                 break;
-
-            case REVIEW_DRIVE:
+            case SM_REVIEW01_P03:
                 //대리운전 리뷰 전송
-                reqServiceDriveReview(starRating, reviewInput);
+                ddsViewModel.reqDDS1005(new DDS_1005.Request(ID, PI, starRating, reviewInput));
                 break;
-
+            case SM_REVIEW01_P04:
+                //픽업앤충전 리뷰 전송
+                chbViewModel.reqCHB1020(new CHB_1020.Request(ID, PI, starRating, reviewInput));
+                break;
             default:
                 //do nothing
                 break;
         }
     }
 
-    //세차 리뷰 전송
-    private void reqCarWashReview(String starRating, String reviewInput) {
-        wshViewModel.reqWSH1008(
-                new WSH_1008.Request(APPIAInfo.SM_REVIEW01.getId(),
-                        rsvtSeqNo,
-                        starRating,
-                        reviewInput));
-    }
-
-    //대리운전 리뷰 전송
-    private void reqServiceDriveReview(String starRating, String reviewInput) {
-        ddsViewModel.reqDDS1005(
-                new DDS_1005.Request(APPIAInfo.SM_REVIEW01.getId(),
-                        transId,
-                        starRating,
-                        reviewInput));
-    }
 
     //작성한 리뷰 전달 성공
     private void finishReview() {

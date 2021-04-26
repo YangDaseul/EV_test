@@ -138,7 +138,7 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
             ui.etAccmMilg.setText("");
         }
         //지출 항목
-        ui.tvExpnDivCd.setText(baseData.getExpnDivNm());
+        ui.tvExpnDivCd.setText(VariableType.getExpnDivNM(baseData.getExpnDivCd()));
         //지출액
         ui.etExpnAmt.setText(StringUtil.isValidString(baseData.getExpnAmt()).replaceAll(",",""));
         //지출처
@@ -220,7 +220,7 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
 
     private void selectDivCd() {
         clearKeypad();
-        final List<String> divList = Arrays.asList(getResources().getStringArray(R.array.insight_item));
+        final List<String> divList = Arrays.asList(getResources().getStringArray(selectVehicle.isEV() ? R.array.insight_item_ev : R.array.insight_item));
         final BottomListDialog bottomListDialog = new BottomListDialog(this, R.style.BottomSheetDialogTheme);
         bottomListDialog.setOnDismissListener(dialogInterface -> {
             String result = bottomListDialog.getSelectItem();
@@ -362,7 +362,7 @@ public class InsightExpnModifyActivity extends SubActivity<ActivityInsightExpnMo
         try {
             selectVehicle = (VehicleVO)getIntent().getSerializableExtra(KeyNames.KEY_NAME_VEHICLE);
             baseData = (ExpnVO)getIntent().getSerializableExtra(KeyNames.KEY_NAME_INSIGHT_EXPN);
-            expnDivCd = VariableType.getExpnDivCd(baseData.getExpnDivNm());
+            expnDivCd = baseData.getExpnDivCd();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

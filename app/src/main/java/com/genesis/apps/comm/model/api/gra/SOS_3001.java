@@ -4,6 +4,8 @@ import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.BaseRequest;
 import com.genesis.apps.comm.model.api.BaseResponse;
+import com.genesis.apps.comm.model.vo.ChbStatusVO;
+import com.genesis.apps.comm.model.vo.SosStatusVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -13,7 +15,7 @@ import lombok.EqualsAndHashCode;
 /**
  * @author hjpark
  * @file GRA_SOS_3001
- * @Brief 긴급충전출동 신청 진행 중인 건 존재시 해당 접수번호 조회
+ * @Brief 긴급충전출동, 충전버틀러 신청 진행 중인 건 존재시 진행상태 정보
  */
 public class SOS_3001 extends BaseData {
     /**
@@ -23,32 +25,30 @@ public class SOS_3001 extends BaseData {
     public @Data
     static
     class Request extends BaseRequest {
-        public Request(String menuId){
+
+        @Expose
+        @SerializedName("vin")
+        private String vin;
+
+        public Request(String menuId, String vin){
+            this.vin = vin;
             setData(APIInfo.GRA_SOS_3001.getIfCd(), menuId);
         }
     }
 
     /**
      * @brief SOS_3001 응답 항목
-     * @see #subspYn 신청여부
-     * 긴급출동 신청 진행 중 여부 (Y: 진행중  N:진행중 없음)
-     * @see #tmpAcptNo 갸접수번호
-     * 진행 중인 경우 가접수번호 필수
-     * @see #pgrsStusCd 진행상태코드
-     * 가접수번호가 있을 경우 필수.
-     * 진행상태 - (R:신청, -> W:접수,-> S:출동,-> E:완료, C:취소)
+     * @see #sosStus 긴급충전출동 상태정보
+     * @see #chbStus 픽업앤충전 상태정보
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
     class Response extends BaseResponse {
         @Expose
-        @SerializedName("subspYn")
-        private String subspYn;
+        @SerializedName("sosStus")
+        private SosStatusVO sosStus;
         @Expose
-        @SerializedName("tmpAcptNo")
-        private String tmpAcptNo;
-        @Expose
-        @SerializedName("pgrsStusCd")
-        private String pgrsStusCd;
+        @SerializedName("chbStus")
+        private ChbStatusVO chbStus;
     }
 }

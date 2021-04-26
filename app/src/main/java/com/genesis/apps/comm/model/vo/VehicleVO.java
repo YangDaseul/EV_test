@@ -54,6 +54,11 @@ import lombok.EqualsAndHashCode;
  * 1:단독소유, 2:주계약자, 3:공동계약, 4:실운행자, 5:렌트리스
  * @see #evCd 전기차 코드 구분
  * GN: 내연기관차, EV: 전기차
+ * @see #spCd 스포츠패키지구분코드
+ * 판매차량상품번호(SALE_CAR_CTY_NO)의 7번째 자리
+ *   - GV70의 경우  GV70의 경우 M, K, N, L, Q, R, S, T
+ *   - 스포츠패키지 차량 : SP
+ *   - 스포츠패지기 미차량 : NO
  */
 @Entity(indices = {@Index(value = {"vin","ctrctNo"}, unique = true)})
 @EqualsAndHashCode(callSuper = false)
@@ -155,14 +160,16 @@ class VehicleVO extends BaseData {
     @SerializedName("evCd")
     private String evCd;
 
+    //스포츠패키지구분
+    @Expose
+    @SerializedName("spCd")
+    private String spCd;
+
     public boolean isEV(){
-//        if(Math.floor(Math.random() * 10) < 5){
-//            return !StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV);
-//        }else{
-//            return StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV);
-//        }
-//TODO 서버에서 EV차량에 대한 코드가 추가되면 아래 주석으로 변경 필요
-          return !StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV);
-//        return StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV);
+        return !StringUtil.isValidString(evCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_EV);
+    }
+
+    public boolean isSP(){
+        return StringUtil.isValidString(spCd).equalsIgnoreCase(VariableType.VEHICLE_CODE_SP);
     }
 }

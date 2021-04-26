@@ -59,6 +59,18 @@
         <item>기타</item>
     </string-array>
 
+    <string-array name="insight_item_ev">
+        <item>충전</item>
+        <item>정비</item>
+        <item>세차</item>
+        <item>주차</item>
+        <item>통행</item>
+        <item>보험</item>
+        <item>세금</item>
+        <item>용품</item>
+        <item>기타</item>
+    </string-array>
+
 
     <string-array name="service_sos_area_cls">
         <item>일반 도로</item>

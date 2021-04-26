@@ -35,6 +35,7 @@ public interface KeyNames {
     String KEY_NAME_SOS_TMP_NO="tmpAcptNo";
     String KEY_NAME_SNACKBAR="snackbar";
     String KEY_NAME_SOS_DRIVER_VO="sosdrivervo";
+    String KEY_NAME_SOS_STATUS_VO="SosStatusVO";
     String KEY_NAME_PAGE_TYPE="pageType";
     String KEY_NAME_MAINTENANCE_AVL_RSR_YN="AvlRsrYn";
     String KEY_NAME_MAINTENANCE_REPAIR_TYPE="repairTypeVO";
@@ -62,9 +63,14 @@ public interface KeyNames {
 
     String KEY_NAME_SERVICE_RESERVE_INFO="repairReserveVO";
     String KEY_NAME_SERVICE_VOC_INFO_VO="VocInfoVO";
+    String KEY_NAME_CHARGE_RESERVE_INFO="ReserveInfo";
 
-    String KEY_NAME_REVIEW_RSVT_SEQ_NO = "rsvtSeqNo";
-    String KEY_NAME_REVIEW_TRANS_ID = "transId";
+
+    String KEY_NAME_REVIEW_PI="PI";
+    String KEY_NAME_REVIEW_ID="MENUID";
+
+//    String KEY_NAME_REVIEW_RSVT_SEQ_NO = "rsvtSeqNo";
+//    String KEY_NAME_REVIEW_TRANS_ID = "transId";
     String KEY_NAME_REVIEW_VIN = "vin";
 
     String KEY_ANME_CCSP_TYPE="ccspType";
