@@ -435,7 +435,7 @@ public class VariableType {
             case SERVICE_CHARGE_RESERVE_CSUPPORT_TOO_RESERVE_CANCEL:
                 return "예약 취소";
             case SERVICE_CHARGE_RESERVE_RESERVSTUSCD_RESERVE_COMPLETE:
-                return "예약 완료";
+                //예약 완료인경우 뱃지 표기 안함
             default:
                 return "";
 
