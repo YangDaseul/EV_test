@@ -8,6 +8,7 @@ import com.genesis.apps.comm.model.api.gra.CHB_1021;
 import com.genesis.apps.comm.model.api.gra.CHB_1022;
 import com.genesis.apps.comm.model.api.gra.CHB_1023;
 import com.genesis.apps.comm.model.api.gra.CHB_1024;
+import com.genesis.apps.comm.model.api.gra.CHB_1025;
 import com.genesis.apps.comm.model.api.gra.CHB_1026;
 import com.google.gson.Gson;
 
@@ -4455,6 +4456,11 @@ public class TestCode {
             "  \"rtCd\": \"0000\",\n" +
             "  \"rtMsg\": \"Success\"\n" +
             "}", CHB_1024.Response.class);
+
+    public static CHB_1025.Response CHB_1025 = new Gson().fromJson("{\n" +
+            "  \"rtCd\": \"0000\",\n" +
+            "  \"rtMsg\": \"Success\"\n" +
+            "}", CHB_1025.Response.class);
 
     public static CHB_1026.Response CHB_1026 = new Gson().fromJson("{\n" +
             "  \"rtCd\": \"0000\",\n" +
